@@ -6,12 +6,12 @@
 #include "gettimeofday.h"
 
 #include <LogIt.h>
-#define LOG_CAN_INTERFACE_IMPL 1
+//#define LOG_CAN_INTERFACE_IMPL 1
 using namespace std;
 using namespace CCC;
 
 //! The macro below is applicable only to this translation unit
-#define MLOG(LEVEL,THIS) LOG(Log::LEVEL, LOG_CAN_INTERFACE_IMPL) << THIS->m_canName << " "
+#define MLOG(LEVEL,THIS) LOG(Log::LEVEL) << THIS->m_canName << " "
 
 bool  initLibarary =  false;
 extern "C" __declspec(dllexport) CCanAccess *getCanbusAccess()
@@ -24,7 +24,7 @@ extern "C" __declspec(dllexport) CCanAccess *getCanbusAccess()
 PKCanScan::PKCanScan()
 {
 	//Initialize logit and a specific component for this DLL
-	Log::initializeLogging(Log::INF, { ComponentAttributes(LOG_CAN_INTERFACE_IMPL, "LOG_CAN_INTERFACE_IMPL", Log::INF) });
+	//Log::initializeLogging(Log::INF, { ComponentAttributes(LOG_CAN_INTERFACE_IMPL, "LOG_CAN_INTERFACE_IMPL", Log::INF) });
 	m_statistics.beginNewRun();
 }
 

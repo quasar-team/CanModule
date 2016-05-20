@@ -1,10 +1,10 @@
 #include "gettimeofday.h"
 #include <windows.h>
 
-typedef struct timeval {
+/*typedef struct timeval {
   long tv_sec;
   long tv_usec;
-} timeval;
+} timeval;*/
 
 
 int gettimeofday(struct timeval *tv, struct timezone *tz)
