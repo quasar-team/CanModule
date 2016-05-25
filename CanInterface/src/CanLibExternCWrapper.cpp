@@ -68,7 +68,7 @@ extern "C" bool sendRemoteRequest(char* canBusName, short cobID)
 	if (it == openCanAccessMap.end())
 	{
 		LOG(Log::ERR) << "Error: this port is not opened";
-
+		return false;
 	}
 	else
 	{
@@ -92,6 +92,7 @@ extern "C" bool sendMessage(char* canBusName, short cobID, unsigned char len, un
 	if (it == openCanAccessMap.end())
 	{
 		LOG(Log::ERR) << "Error: this port is not opened";
+		return false;
 	}
 	else
 	{
