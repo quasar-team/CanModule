@@ -18,7 +18,7 @@ void checkIfWrapperIsInitialised()
 	if(!isWrapperInitialised)
 	{
 		LOG(Log::ERR) << "Error: The functionality of the Wrapper is being accesed without having loaded a library. Maybe you forgot to call the function 'initializeWrapper'?. Program will now exit.";
-		throw std::runtime_error("Error: The functionality of the Wrapper is being accesed without having loaded a library.");
+		//throw std::runtime_error("Error: The functionality of the Wrapper is being accesed without having loaded a library.");
 	}
 }
 
@@ -92,7 +92,7 @@ extern "C" bool sendMessage(char* canBusName, short cobID, unsigned char len, un
 	if (it == openCanAccessMap.end())
 	{
 		LOG(Log::ERR) << "Error: this port is not opened";
-		return false;
+		return false;	
 	}
 	else
 	{

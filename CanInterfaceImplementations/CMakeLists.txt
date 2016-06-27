@@ -5,7 +5,7 @@ IF (WIN32)
 	add_subdirectory(pkcan)
 	add_subdirectory(anagate)
 ELSE()	
-	add_subdirectory(sockcan)
+	#add_subdirectory(sockcan)
 	add_subdirectory(anagate)
 ENDIF()
 

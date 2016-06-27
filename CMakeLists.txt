@@ -16,7 +16,6 @@ add_subdirectory(CanInterfaceImplementations) #just to build the shared lib (req
 #add_subdirectory(CanLibLoader)
 #add_subdirectory(CanInterface)
 
-
 add_library (CommonCANComponent OBJECT
 		CanLibLoader/src/CanLibLoader.cpp
 		CanLibLoader/include/CanLibLoader.h

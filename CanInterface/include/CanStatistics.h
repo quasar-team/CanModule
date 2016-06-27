@@ -12,6 +12,9 @@
 #ifdef _WIN32
 #include <atomic>
 #include <time.h>
+#ifndef timeval
+#include "Winsock2.h"
+#endif
 #else
 #include <stdatomic.h>
 #include <sys/time.h>

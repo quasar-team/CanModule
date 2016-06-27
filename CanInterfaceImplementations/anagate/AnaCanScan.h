@@ -8,15 +8,26 @@
 #ifndef CCANANASCAN_H_
 #define CCANANASCAN_H_
 
-#include "tchar.h"
-#include "Winsock2.h"
-#include "windows.h"
 #include <string>
 #include "CanStatistics.h"
 #include "CCanAccess.h"
-#include <AnaGateDllCAN.h>
-#include <AnaGateDll.h>
 
+#ifdef _WIN32
+
+#include "AnaGateDllCAN.h"
+#include "AnaGateDll.h"
+#include "tchar.h"
+#include "Winsock2.h"
+#include "windows.h"
+
+#else
+
+#include "AnaGateDLL.h"
+#include "AnaGateDllCan.h"
+
+typedef unsigned long DWORD;
+
+#endif
 /*
  * This is an implementation of the abstract class CCanAccess. It serves as a can bus access layer that will communicate with Systec crates (Windows only)
  */

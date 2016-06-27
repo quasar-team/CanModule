@@ -1,17 +1,32 @@
 #include "AnaCanScan.h"
 
 //////////////////////////////////////////////////////////////////////
-// strcan.cpp: implementation of the AnaCanScan class.
+// AnaCanScan.cpp: implementation of the AnaCanScan class.
 //////////////////////////////////////////////////////////////////////
 
 #include <time.h>
 #include <string.h>
-#include "gettimeofday.h"
+
 #include <map>
 #include <LogIt.h>
 #include <sstream>
 #include <iostream>
+
 //#define LOG_CAN_INTERFACE_IMPL 1
+
+#ifdef _WIN32
+
+#include "gettimeofday.h"
+
+#define DLLEXPORTFLAG __declspec(dllexport)
+
+#else
+
+#include <sys/time.h>
+
+#define DLLEXPORTFLAG  
+
+#endif
 
 //! The macro below is applicable only to this translation unit
 #define MLOG(LEVEL,THIS) LOG(Log::LEVEL) << THIS->m_canName << " "
@@ -22,7 +37,7 @@ bool AnaCanScan::s_isCanHandleInUseArray[256];
 AnaInt32 AnaCanScan::s_canHandleArray[256];
 std::map<AnaInt32, AnaCanScan*> g_AnaCanScanPointerMap;
 
-extern "C" __declspec(dllexport) CCanAccess *getCanbusAccess()
+extern "C" DLLEXPORTFLAG CCanAccess *getCanbusAccess()
 {
 	CCanAccess *canAccess;
 	canAccess = new AnaCanScan;
@@ -60,7 +75,7 @@ void WINAPI InternalCallback(AnaUInt32 nIdentifier, const char * pcBuffer, AnaIn
 	canMsgCopy.c_ff = nFlags;
 	for (int i = 0; i < nBufferLen; i++)
 		canMsgCopy.c_data[i] = pcBuffer[i];
-	gettimeofday(&(canMsgCopy.c_time));
+	gettimeofday(&(canMsgCopy.c_time), 0);
 	g_AnaCanScanPointerMap[hHandle]->callbackOnRecieve(canMsgCopy);
 	g_AnaCanScanPointerMap[hHandle]->statisticsOnRecieve( nBufferLen );
 }
@@ -90,7 +105,7 @@ m_baudRate(0)
 			canMsgCopy.c_ff = readCanMessage.m_bFF;
 			for (int i = 0; i < 8; i++)
 				canMsgCopy.c_data[i] = readCanMessage.m_bData[i];
-			gettimeofday(&(canMsgCopy.c_time));
+			gettimeofday(&(canMsgCopy.c_time), 0);
 			canScanInstancePointer->canMessageCame(canMsgCopy);
 			canScanInstancePointer->m_statistics.onReceive( readCanMessage.m_bDLC );
 		}
@@ -165,7 +180,11 @@ int AnaCanScan::configureCanboard(const char *name,const char *parameters)
 	m_canHandleNumber = atoi(stringVector[1].c_str());
 	m_canIPAddress = stringVector[2].c_str();
 	MLOG(DBG, this) << "m_canHandleNumber:[" << m_canHandleNumber << "], stringVector[" << stringVector[0] << "," << stringVector[1] << "," << stringVector[2] << "]";
+#ifdef _WIN32
 	numberOfDetectedParameters = sscanf_s(parameters, "%d %d %d %d %d %d", &paramBaudRate, &paramOperationMode, &paramTermination, &paramHighSpeed, &paramTimeStamp);
+#else
+	numberOfDetectedParameters = sscanf(parameters, "%d %d %d %d %d %d", &paramBaudRate, &paramOperationMode, &paramTermination, &paramHighSpeed, &paramTimeStamp);
+#endif
 
 	/* Set baud rate to 125 Kbits/second.  */
 	if (numberOfDetectedParameters >= 1)
