@@ -5,7 +5,7 @@
  *      Author: pnikiel
  */
 
-#include <CCCUtils.h>
+#include <CanModuleUtils.h>
 #include "CanStatistics.h"
 #ifdef _WIN32
 #include "gettimeofday.h"
@@ -36,7 +36,7 @@ void CanStatistics::computeDerived (unsigned int baudRate)
 {
 	timeval tnow;
 	gettimeofday( &tnow, 0 );
-	double period = CCCsubtractTimeval( m_internals.m_observationStart, tnow );
+	double period = CanModulesubtractTimeval( m_internals.m_observationStart, tnow );
 	m_internals.m_transmittedPerSec = m_transmitted / period;
 	m_internals.m_receivedPerSec = m_received / period;
 

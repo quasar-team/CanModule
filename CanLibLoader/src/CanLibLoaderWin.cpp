@@ -4,7 +4,7 @@
 #include <sstream>
 #include "LogIt.h"
 
-using namespace CCC;
+using namespace CanModule;
 
 typedef __declspec(dllimport) CCanAccess *f_CCanAccess();
 

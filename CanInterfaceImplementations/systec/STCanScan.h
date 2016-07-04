@@ -19,7 +19,7 @@
 /*
  * This is an implementation of the abstract class CCanAccess. It serves as a can bus access layer that will communicate with Systec crates (Windows only)
  */
-class STCanScan: public CCC::CCanAccess
+class STCanScan: public CanModule::CCanAccess
 {
 public:
 	//Constructor of the class. Will initiate the statistics.

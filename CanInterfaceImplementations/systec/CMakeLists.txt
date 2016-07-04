@@ -13,7 +13,7 @@ link_directories(
 add_library (SystecCanImplementation SHARED
 STCanScan.cpp
 ../../CanInterface/src/CanStatistics.cpp
-../../CanInterface/src/CCCUtils.cpp
+../../CanInterface/src/CanModuleUtils.cpp
 ../../CanInterface/src/gettimeofday.cpp
 $<TARGET_OBJECTS:LogIt>
 )

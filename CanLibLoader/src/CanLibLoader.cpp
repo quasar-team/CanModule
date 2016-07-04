@@ -9,7 +9,7 @@
 #endif
 
 using namespace std;
-using namespace CCC;
+using namespace CanModule;
 
 CanLibLoader::CanLibLoader(const std::string& libName)
 : m_canAccessInstance(0)

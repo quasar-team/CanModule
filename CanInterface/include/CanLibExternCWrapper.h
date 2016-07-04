@@ -5,7 +5,7 @@
 extern "C" {
 #endif
 /*
- * Method that initialises the Wrapper by loading the dynamic library (Which should contain the implementation of the CCC) given by the name passed as an attribute.
+ * Method that initialises the Wrapper by loading the dynamic library (Which should contain the implementation of the CanModule) given by the name passed as an attribute.
  * This method should be called before any of the other methods (Since they will use this library). Otherwise an exception will be thrown.
  */
 void initializeWrapper(char* dynamicLibraryName);

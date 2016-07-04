@@ -8,7 +8,7 @@
 #include <LogIt.h>
 //#define LOG_CAN_INTERFACE_IMPL 1
 using namespace std;
-using namespace CCC;
+using namespace CanModule;
 
 //! The macro below is applicable only to this translation unit
 #define MLOG(LEVEL,THIS) LOG(Log::LEVEL) << THIS->m_canName << " "

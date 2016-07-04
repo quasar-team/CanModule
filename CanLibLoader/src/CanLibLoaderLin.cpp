@@ -7,7 +7,7 @@
 #include "dlfcn.h"
 typedef void* (*f_CCanAccess)();
 
-using namespace CCC;
+using namespace CanModule;
 
 CanLibLoaderLin::CanLibLoaderLin(const std::string& libName)
 : CanLibLoader(libName), p_dynamicLibrary(0)

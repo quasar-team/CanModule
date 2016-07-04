@@ -30,7 +30,7 @@
 
 //! The macro below is applicable only to this translation unit
 #define MLOG(LEVEL,THIS) LOG(Log::LEVEL) << THIS->m_canName << " "
-using namespace CCC;
+using namespace CanModule;
 using namespace std;
 
 bool AnaCanScan::s_isCanHandleInUseArray[256];

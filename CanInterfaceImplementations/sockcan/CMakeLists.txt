@@ -11,7 +11,7 @@ SET( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/CommonCanComponent/Can
 add_library (SocketCanImplementation SHARED
 SockCanScan.cpp
 ../../CanInterface/src/CanStatistics.cpp
-../../CanInterface/src/CCCUtils.cpp
+../../CanInterface/src/CanModuleUtils.cpp
 $<TARGET_OBJECTS:LogIt>
 )
 

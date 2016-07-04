@@ -20,8 +20,8 @@
  *  along with Quasar.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef CCCUTILS_H_
-#define CCCUTILS_H_
+#ifndef CanModuleUTILS_H_
+#define CanModuleUTILS_H_
 
 #ifdef _WIN32
 #include <Winsock2.h>
@@ -33,7 +33,7 @@
 #include <string>
 //#include <uadatetime.h>
 
-class CCCUtils
+class CanModuleUtils
 {
 public:
 template<typename T>
@@ -70,10 +70,10 @@ static unsigned int fromHexString (const std::string &s)
 
 };
 
-double CCCsubtractTimeval (const timeval &t1, const timeval &t2);
+double CanModulesubtractTimeval (const timeval &t1, const timeval &t2);
 
 //UaString bytesToUaString( const unsigned char* data, unsigned int len );
 
-std::string CCCerrnoToString( );
+std::string CanModuleerrnoToString( );
 
 #endif /* UTILS_H_ */

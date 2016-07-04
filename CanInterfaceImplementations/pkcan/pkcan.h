@@ -20,7 +20,7 @@
 /*
  * This is an implementation of the abstract class CCanAccess. It serves as a can bus access layer that will communicate with Peak USB-CAN devices (Windows only)
  */
-class PKCanScan: public CCC::CCanAccess
+class PKCanScan: public CanModule::CCanAccess
 {
 public:
 	//Constructor of the class. Will initiate the statistics.

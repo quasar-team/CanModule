@@ -31,11 +31,11 @@
 #include <libsocketcan.h>
 #endif
 
-#include <CCCUtils.h>
+#include <CanModuleUtils.h>
 
 #include <LogIt.h>
 using namespace std;
-using namespace CCC;
+using namespace CanModule;
 
 //! The macro below is applicable only to this translation unit
 #define MLOG(LEVEL,THIS) LOG(Log::LEVEL) << THIS->m_channelName << " "
@@ -62,13 +62,13 @@ CSockCanScan::CSockCanScan() :
 static std::string canFrameToString(const can_frame &f)
 {
 	std::string result;
-	result =  "[id=0x"+CCCUtils::toHexString(f.can_id, 3, '0')+" ";
+	result =  "[id=0x"+CanModuleUtils::toHexString(f.can_id, 3, '0')+" ";
 	if (f.can_id & CAN_RTR_FLAG)
 		result += "RTR ";
-	result+="dlc=" + CCCUtils::toString(int(f.can_dlc)) + " data=[";
+	result+="dlc=" + CanModuleUtils::toString(int(f.can_dlc)) + " data=[";
 
 	for (int i=0; i<f.can_dlc; i++)
-		result+= CCCUtils::toHexString((unsigned int)f.data[i], 2, '0')+" ";
+		result+= CanModuleUtils::toHexString((unsigned int)f.data[i], 2, '0')+" ";
 	result += "]]";
 
 	return result;
@@ -96,7 +96,7 @@ void* CSockCanScan::CanScanControlThread(void *p_voidSockCanScan)
 
 		if (selectResult<0)
 		{
-			MLOG(ERR,p_sockCanScan) << "select() failed: " << CCCerrnoToString();
+			MLOG(ERR,p_sockCanScan) << "select() failed: " << CanModuleerrnoToString();
 			usleep (1000000);
 			continue;
 
@@ -132,10 +132,10 @@ void* CSockCanScan::CanScanControlThread(void *p_voidSockCanScan)
 			if (numberOfReadBytes < 0)
 			{
 				const int seconds = 10;
-				MLOG(ERR,p_sockCanScan) << "read() error: " << CCCerrnoToString();
+				MLOG(ERR,p_sockCanScan) << "read() error: " << CanModuleerrnoToString();
 				timeval now;
 				gettimeofday( &now, 0 );
-				p_sockCanScan->canMessageError( numberOfReadBytes, ("read() error: "+CCCerrnoToString()).c_str(), now );
+				p_sockCanScan->canMessageError( numberOfReadBytes, ("read() error: "+CanModuleerrnoToString()).c_str(), now );
 				p_sockCanScan->m_errorCode = -1;
 				do
 				{
@@ -258,20 +258,20 @@ int CSockCanScan::openCanPort()
     		int returnCode = can_do_stop(m_channelName.c_str());
 			if (returnCode < 0)
 			{
-				MLOG(ERR,this) << "Error while can_do_stop(): " << CCCerrnoToString();
+				MLOG(ERR,this) << "Error while can_do_stop(): " << CanModuleerrnoToString();
 				return -1;
 			}
 			returnCode = can_set_bitrate(m_channelName.c_str(),bitRate);
 			if (returnCode < 0)
 			{
-				MLOG(ERR,this) << "Error while can_set_bitrate(): " << CCCerrnoToString();
+				MLOG(ERR,this) << "Error while can_set_bitrate(): " << CanModuleerrnoToString();
 				return -1;
 			}
 			m_baudRate = bitRate;
 			returnCode = can_do_start(m_channelName.c_str());
 			if (returnCode < 0)
 			{
-				MLOG(ERR,this) << "Error while can_do_start(): " << CCCerrnoToString();
+				MLOG(ERR,this) << "Error while can_do_start(): " << CanModuleerrnoToString();
 				return -1;
 			}
     	}
@@ -285,7 +285,7 @@ int CSockCanScan::openCanPort()
   m_sock = socket(PF_CAN, SOCK_RAW, CAN_RAW);
   if (m_sock < 0)
   {
-	MLOG(ERR,this) << "Error while opening socket: " << CCCerrnoToString();
+	MLOG(ERR,this) << "Error while opening socket: " << CanModuleerrnoToString();
     return -1;
   }
   struct ifreq ifr;
@@ -299,14 +299,14 @@ int CSockCanScan::openCanPort()
 
   if (ioctl(m_sock, SIOCGIFINDEX, &ifr) < 0)
   {
-	MLOG(ERR,this) << "ioctl SIOCGIFINDEX failed. " << CCCerrnoToString();
+	MLOG(ERR,this) << "ioctl SIOCGIFINDEX failed. " << CanModuleerrnoToString();
     return -1;
   }
 
   can_err_mask_t err_mask = 0x1ff;
   if( setsockopt(m_sock, SOL_CAN_RAW, CAN_RAW_ERR_FILTER, &err_mask, sizeof err_mask) < 0 )
   {
-	  MLOG(ERR,this) << "setsockopt() failed: " << CCCerrnoToString();
+	  MLOG(ERR,this) << "setsockopt() failed: " << CanModuleerrnoToString();
 	  return -1;
   }
 
@@ -316,7 +316,7 @@ int CSockCanScan::openCanPort()
 
   if (::bind(m_sock, (struct sockaddr *)&socketAdress, sizeof(socketAdress)) < 0)
   {
-	MLOG(ERR,this) << "While bind(): " << CCCerrnoToString();
+	MLOG(ERR,this) << "While bind(): " << CanModuleerrnoToString();
     return -1;
   }
 
@@ -365,7 +365,7 @@ bool CSockCanScan::sendMessage(short cobID, unsigned char len, unsigned char *me
 
     if (numberOfWrittenBytes < 0) /* ERROR */
     {
-    	MLOG(ERR,this) << "While write() :" << CCCerrnoToString();
+    	MLOG(ERR,this) << "While write() :" << CanModuleerrnoToString();
         if (errno == ENOBUFS) 
 	    {	
         	std::cerr << "ENOBUFS; waiting a jiffy ..." << std::endl;
@@ -481,7 +481,7 @@ std::string CSockCanScan::errorFrameToString(const can_frame &canFrame)
 		}
 		if (canFrame.can_id & CAN_ERR_PROT)
 		{
-			result += "Protocol_violation=( type=" + CCCUtils::toHexString(canFrame.data[2]) ;
+			result += "Protocol_violation=( type=" + CanModuleUtils::toHexString(canFrame.data[2]) ;
 			if (canFrame.data[2] & CAN_ERR_PROT_ACTIVE )
 			{
 				result += " Error_active(recovered) ";
@@ -491,7 +491,7 @@ std::string CSockCanScan::errorFrameToString(const can_frame &canFrame)
 		}
 		if (canFrame.can_id & CAN_ERR_TRX)
 		{
-			result += "Transceiver status=( " + CCCUtils::toHexString(canFrame.data[4]) + ") ";
+			result += "Transceiver status=( " + CanModuleUtils::toHexString(canFrame.data[4]) + ") ";
 			// TODO we could print in more details what sort of TRX status that is
 		}
 		if (canFrame.can_id & CAN_ERR_ACK)

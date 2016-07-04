@@ -14,7 +14,7 @@ link_directories(
 add_library (PeakCanImplementation SHARED
 pkcan.cpp
 ../../CanInterface/src/CanStatistics.cpp
-../../CanInterface/src/CCCUtils.cpp
+../../CanInterface/src/CanModuleUtils.cpp
 ../../CanInterface/src/gettimeofday.cpp
 $<TARGET_OBJECTS:LogIt>
 )	

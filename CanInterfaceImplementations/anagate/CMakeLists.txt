@@ -27,7 +27,7 @@ ${ANAGATE_LINK_DIR}
 add_library (AnagateCanImplementation SHARED
 AnaCanScan.cpp
 ../../CanInterface/src/CanStatistics.cpp
-../../CanInterface/src/CCCUtils.cpp
+../../CanInterface/src/CanModuleUtils.cpp
 ${ANAGATE_GETTIMEOFDAY}
 $<TARGET_OBJECTS:LogIt>
 )

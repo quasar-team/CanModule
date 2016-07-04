@@ -13,7 +13,7 @@
 
 //! The macro below is applicable only to this translation unit
 #define MLOG(LEVEL,THIS) LOG(Log::LEVEL) << THIS->m_canName << " "
-using namespace CCC;
+using namespace CanModule;
 
 bool STCanScan::s_isCanHandleInUseArray[256];
 tUcanHandle STCanScan::s_canHandleArray[256];

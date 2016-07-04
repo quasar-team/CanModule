@@ -3,7 +3,7 @@
 #include "CCanAccess.h"
 #include <map>
 #include "LogIt.h"
-using namespace CCC;
+using namespace CanModule;
 CanLibLoader* canLibInstance;
 std::map<char*, CCanAccess *> openCanAccessMap;
 //If the wrapper is not initialised the rest of functions will throw an exception, as they can't work without previously loading a lib
