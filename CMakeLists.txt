@@ -16,7 +16,7 @@ add_subdirectory(CanInterfaceImplementations) #just to build the shared lib (req
 #add_subdirectory(CanLibLoader)
 #add_subdirectory(CanInterface)
 
-add_library (CommonCANComponent OBJECT
+add_library (CanModule OBJECT
 		CanLibLoader/src/CanLibLoader.cpp
 		CanLibLoader/include/CanLibLoader.h
 		${CAN_LIBRARY_LOADER_PLATFORM_IMPL}
@@ -33,4 +33,4 @@ add_library (CommonCANComponent OBJECT
 		${CAN_LIBRARY_GETTIMEOFDAY_HEADER}
 		)
 
-#set_target_properties(CommonCANComponent PROPERTIES LINKER_LANGUAGE Cxx)
+#set_target_properties(CanModule PROPERTIES LINKER_LANGUAGE Cxx)

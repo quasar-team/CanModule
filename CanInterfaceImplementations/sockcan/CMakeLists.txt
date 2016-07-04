@@ -1,13 +1,13 @@
 cmake_minimum_required(VERSION 2.8)
 
 include_directories (
-${PROJECT_SOURCE_DIR}/CommonCanComponent/CanInterface/include
-${PROJECT_SOURCE_DIR}/CommonCanComponent/CanInterfaceImplementations/sockcan
+${PROJECT_SOURCE_DIR}/CanModule/CanInterface/include
+${PROJECT_SOURCE_DIR}/CanModule/CanInterfaceImplementations/sockcan
 )
 link_directories(
 /usr/local/lib
 )
-SET( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/CommonCanComponent/CanInterfaceImplementations/output/)
+SET( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/CanModule/CanInterfaceImplementations/output/)
 add_library (SocketCanImplementation SHARED
 SockCanScan.cpp
 ../../CanInterface/src/CanStatistics.cpp
