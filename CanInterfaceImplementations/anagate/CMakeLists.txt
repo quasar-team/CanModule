@@ -31,6 +31,7 @@ AnaCanScan.cpp
 ${ANAGATE_GETTIMEOFDAY}
 $<TARGET_OBJECTS:LogIt>
 )
+#set_target_properties(AnagateCanImplementation PROPERTIES LINKER_LANGUAGE Cxx)
 target_link_libraries ( AnagateCanImplementation 
 	${BOOST_LIBS}
 

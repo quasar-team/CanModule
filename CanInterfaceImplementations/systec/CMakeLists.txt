@@ -17,7 +17,7 @@ STCanScan.cpp
 ../../CanInterface/src/gettimeofday.cpp
 $<TARGET_OBJECTS:LogIt>
 )
-
+#set_target_properties(SystecCanImplementation PROPERTIES LINKER_LANGUAGE Cxx)
 target_link_libraries ( SystecCanImplementation 
 	${BOOST_LIBS}
 
