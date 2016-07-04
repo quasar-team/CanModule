@@ -1,5 +1,5 @@
 #include "gettimeofday.h"
-#include <windows.h>
+#include <winsock2.h>
 
 /*typedef struct timeval {
   long tv_sec;
