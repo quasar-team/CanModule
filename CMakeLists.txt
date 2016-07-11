@@ -23,12 +23,14 @@ add_library (CanModule OBJECT
 		${CAN_LIBRARY_LOADER_PLATFORM_IMPL_HEADER}
 		CanInterface/src/CanLibExternCWrapper.cpp
 		CanInterface/src/CanStatistics.cpp    
-		CanInterface/src/CanModuleUtils.cpp		
+		CanInterface/src/CanModuleUtils.cpp
+		CanInterface/src/MessageSharedQueue.cpp
 		CanInterface/include/CanLibExternCWrapper.h
 		CanInterface/include/CanStatistics.h 
 		CanInterface/include/CanModuleUtils.h
 		CanInterface/include/CanMessage.h
 		CanInterface/include/CCanAccess.h
+		CanInterface/include/MessageSharedQueue.h
 		${CAN_LIBRARY_GETTIMEOFDAY}
 		${CAN_LIBRARY_GETTIMEOFDAY_HEADER}
 		)

@@ -33,6 +33,30 @@ void closeCanBus(char* canBusName);
 bool sendRemoteRequest(char* canBusName, short cobID);
 
 /*
+ */
+bool readMessage(char* canBusName, struct CanMsgStruct*);
+
+/*
+ */
+bool readSpecificMessage(char* canBusName, short cobID ,struct CanMsgStruct*);
+
+/*
+*/
+bool readSpecificMessageSkip(char* canBusName, short cobID, struct CanMsgStruct*);
+
+/*
+ */
+bool readMessageTimeout(char* canBusName, int timeout ,struct CanMsgStruct*);
+
+/*
+ */
+bool messageSync(char* canBusName, int timeout);
+
+/*
+*/
+bool messageSyncSpecific(char* canBusName, short cobID, int timeout);
+
+/*
  * Method that sends a message trough the can bus channel. If the method createBUS was not called before this, sendMessage will fail, as there is no
  * can bus channel to send a message trough.
  * @param canBusName: Name of the can bus channel form where the message will be sent. The specific mapping will change depending on the interface used. For example, accessing channel 0 for the
@@ -44,6 +68,9 @@ bool sendRemoteRequest(char* canBusName, short cobID);
  */
 bool sendMessage(char* canBusName, short cobID, unsigned char len, unsigned char *message, bool rtr = false);
 
+/*
+ */
+bool sendMessageTimeout(char* canBusName, short cobID, unsigned char len, unsigned char *message, int timeout, bool rtr = false);
 /*
  * This method will connect a handler to a can bus module (identified by canBusName) which will be called once a can message arrives to this can bus module.
  * The module needs to be initialize before calling this method
