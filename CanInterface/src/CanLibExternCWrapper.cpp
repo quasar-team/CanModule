@@ -5,11 +5,13 @@
 #include "LogIt.h"
 #include "MessageSharedQueue.h"
 #include "boost/thread.hpp"
+#include <string>
 
 using namespace CanModule;
+using namespace std;
 
 CanLibLoader* canLibInstance;
-std::map<char*, CCanAccess *> openCanAccessMap;
+std::map<string, CCanAccess *> openCanAccessMap;
 
 //If the wrapper is not initialised the rest of functions will throw an exception, as they can't work without previously loading a lib
 bool isWrapperInitialised = false;
@@ -29,11 +31,11 @@ struct MessageQueueAccess
 	void operator()(const CanMsgStruct/*&*/ message) const
 	{
 		m_messageQueue->put(message);
-		LOG(Log::DBG) << "New message inserted into queue: m_canBusName[" << m_canBusName << "]; c_id [" << message.c_id << "]";
+		LOG(Log::DBG) << "New message inserted into queue: m_canBusName[" << m_canBusName << "]; c_id [" << message.c_id << "]; msg [" << message.c_data << "]";
 	}
 };
 
-std::map<char*, MessageQueueAccess *> queueAccessMap;
+std::map<string, MessageQueueAccess *> queueAccessMap;
 
 extern "C" void initializeWrapper(char* dynamicLibraryName)
 {
@@ -52,18 +54,18 @@ void checkIfWrapperIsInitialised()
 extern "C" void openCanBus(char* canBusName, char* parameters)
 {
 	checkIfWrapperIsInitialised();
-	std::map<char*, CCanAccess *>::iterator it;
-	it = openCanAccessMap.find(canBusName);
+	std::map<string, CCanAccess *>::iterator it;
+	it = openCanAccessMap.find(string(canBusName));
 	if (it == openCanAccessMap.end())
 	{
 		CCanAccess* canBusAccessInstance = canLibInstance->openCanBus(canBusName, parameters);
-		openCanAccessMap.insert(std::map<char*, CCanAccess*>::value_type(canBusName, canBusAccessInstance));
+		openCanAccessMap.insert(std::map<string, CCanAccess*>::value_type(string(canBusName), canBusAccessInstance));
 		MessageQueueAccess* queueAccess = new MessageQueueAccess();
 		queueAccess->initialize(canBusName);
 
-		queueAccessMap.insert(std::map<char*, MessageQueueAccess*>::value_type(canBusName, queueAccess));
+		queueAccessMap.insert(std::map<string, MessageQueueAccess*>::value_type(string(canBusName), queueAccess));
+		LOG(Log::DBG) << "Opening port [" << canBusName << "]";
 		canBusAccessInstance->canMessageCame.connect(*queueAccess);
-
 	}
 	else
 	{
@@ -75,12 +77,12 @@ extern "C" void openCanBus(char* canBusName, char* parameters)
 extern "C" void closeCanBus(char* canBusName)
 {
 	checkIfWrapperIsInitialised();
-	std::map<char*, CCanAccess *>::iterator it;
-	it = openCanAccessMap.find(canBusName);
+	std::map<string, CCanAccess *>::iterator it;
+	it = openCanAccessMap.find(string(canBusName));
 	bool success = false;
 	if (it == openCanAccessMap.end())
 	{
-		LOG(Log::ERR) << "Error: this port is not opened";
+		LOG(Log::ERR) << "Error: port [" << canBusName << "] is not opened";
 	}
 	else
 	{
@@ -89,8 +91,8 @@ extern "C" void closeCanBus(char* canBusName)
 	}
 	if(success)
 	{
-		openCanAccessMap.erase(canBusName);
-		queueAccessMap.erase(canBusName);
+		openCanAccessMap.erase(string(canBusName));
+		queueAccessMap.erase(string(canBusName));
 	}
 }
 
@@ -103,8 +105,8 @@ extern "C" void closeCanBus(char* canBusName)
 extern "C" bool sendRemoteRequest(char* canBusName, short cobID)
 {
 	checkIfWrapperIsInitialised();
-	std::map<char*, CCanAccess *>::iterator it;
-	it = openCanAccessMap.find(canBusName);
+	std::map<string, CCanAccess *>::iterator it;
+	it = openCanAccessMap.find(string(canBusName));
 	if (it == openCanAccessMap.end())
 	{
 		LOG(Log::ERR) << "Error: this port is not opened";
@@ -127,8 +129,8 @@ extern "C" bool sendRemoteRequest(char* canBusName, short cobID)
 extern "C" bool sendMessage(char* canBusName, short cobID, unsigned char len, unsigned char *message, bool rtr)
 {
 	checkIfWrapperIsInitialised();
-	std::map<char*, CCanAccess *>::iterator it;
-	it = openCanAccessMap.find(canBusName);
+	std::map<string, CCanAccess *>::iterator it;
+	it = openCanAccessMap.find(string(canBusName));
 	if (it == openCanAccessMap.end())
 	{
 		LOG(Log::ERR) << "Error: this port is not opened";
@@ -143,8 +145,8 @@ extern "C" bool sendMessage(char* canBusName, short cobID, unsigned char len, un
 extern "C"  bool sendMessageTimeout(char* canBusName, short cobID, unsigned char len, unsigned char *message, int timeout, bool rtr)
 {
 	checkIfWrapperIsInitialised();
-	std::map<char*, CCanAccess *>::iterator it;
-	it = openCanAccessMap.find(canBusName);
+	std::map<string, CCanAccess *>::iterator it;
+	it = openCanAccessMap.find(string(canBusName));
 	if (it == openCanAccessMap.end())
 	{
 		LOG(Log::ERR) << "Error: this port is not opened";
@@ -167,8 +169,8 @@ extern "C"  bool sendMessageTimeout(char* canBusName, short cobID, unsigned char
 extern "C" void connectMessageCameToHandler(char* canBusName, void (*handler) (const struct CanMsgStruct))
 {	
 	checkIfWrapperIsInitialised();
-	std::map<char*, CCanAccess *>::iterator it;
-	it = openCanAccessMap.find(canBusName);
+	std::map<string, CCanAccess *>::iterator it;
+	it = openCanAccessMap.find(string(canBusName));
 	if (it == openCanAccessMap.end())
 	{
 		LOG(Log::ERR) << "Error: this port is not opened";
@@ -177,7 +179,7 @@ extern "C" void connectMessageCameToHandler(char* canBusName, void (*handler) (c
 	{
 		(it->second)->canMessageCame.disconnect_all_slots();
 		(it->second)->canMessageCame.connect(handler);		
-		queueAccessMap.erase(canBusName);
+		queueAccessMap.erase(string(canBusName));
 	}
 }
 /*
@@ -190,8 +192,8 @@ extern "C" void connectMessageCameToHandler(char* canBusName, void (*handler) (c
 extern "C" void connectMessageErrorToHandler(char* canBusName, void(*handler) (const int, const char *, timeval /*&*/))
 {
 	checkIfWrapperIsInitialised();
-	std::map<char*, CCanAccess *>::iterator it;
-	it = openCanAccessMap.find(canBusName);
+	std::map<string, CCanAccess *>::iterator it;
+	it = openCanAccessMap.find(string(canBusName));
 	if (it == openCanAccessMap.end())
 	{
 		LOG(Log::ERR) << "Error: this port is not opened";
@@ -204,8 +206,8 @@ extern "C" void connectMessageErrorToHandler(char* canBusName, void(*handler) (c
 
 MessageQueueAccess* extractMessageQueue(char* canBusName)
 {
-	std::map<char*, MessageQueueAccess *>::iterator it;
-	it = queueAccessMap.find(canBusName);
+	std::map<string, MessageQueueAccess *>::iterator it;
+	it = queueAccessMap.find(string(canBusName));
 	if (it == queueAccessMap.end())
 	{
 		LOG(Log::ERR) << "Error: requested non existent queue";
@@ -232,6 +234,7 @@ extern "C" bool readMessage(char* canBusName, struct CanMsgStruct* msg)
 	msg->c_rtr = messageFromQueue.c_rtr;
 	msg->c_time = messageFromQueue.c_time;
 	memcpy(msg->c_data, messageFromQueue.c_data, 8);
+	LOG(Log::DBG) << "New message taken from the queue: m_canBusName[" << canBusName << "]; c_id [" << msg->c_id << "]; msg [" << msg->c_data << "]";
 	return true;
 }
 
@@ -268,6 +271,7 @@ extern "C" bool readSpecificMessage(char* canBusName, short cobID, struct CanMsg
 	msg->c_rtr = messageFromQueue.c_rtr;
 	msg->c_time = messageFromQueue.c_time;
 	memcpy(msg->c_data, messageFromQueue.c_data, 8);
+	LOG(Log::DBG) << "New message taken from the queue: m_canBusName[" << canBusName << "]; c_id [" << msg->c_id << "]; msg [" << msg->c_data << "]";
 	return true;
 }
 
@@ -300,6 +304,7 @@ extern "C" bool readSpecificMessageSkip(char* canBusName, short cobID, struct Ca
 	msg->c_rtr = messageFromQueue.c_rtr;
 	msg->c_time = messageFromQueue.c_time;
 	memcpy(msg->c_data, messageFromQueue.c_data, 8);
+	LOG(Log::DBG) << "New message taken from the queue: m_canBusName[" << canBusName << "]; c_id [" << msg->c_id << "]; msg [" << msg->c_data << "]";
 	return true;
 }
 
@@ -319,6 +324,7 @@ extern "C" bool readMessageTimeout(char* canBusName, int timeout, struct CanMsgS
 	msg->c_rtr = messageFromQueue.c_rtr;
 	msg->c_time = messageFromQueue.c_time;
 	memcpy(msg->c_data, messageFromQueue.c_data, 8);
+	LOG(Log::DBG) << "New message taken from the queue: m_canBusName[" << canBusName << "]; c_id [" << msg->c_id << "]; msg [" << msg->c_data << "]";
 	return true;
 }
 
