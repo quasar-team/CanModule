@@ -13,6 +13,9 @@ ELSE()
 ENDIF()
 
 add_subdirectory(CanInterfaceImplementations) #just to build the shared lib (reqd at runtime - loaded dynamically)
+add_subdirectory(GoogleTest)
+add_subdirectory(CanModuleTest)
+
 #add_subdirectory(CanLibLoader)
 #add_subdirectory(CanInterface)
 

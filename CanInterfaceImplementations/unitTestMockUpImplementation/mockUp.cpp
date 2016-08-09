@@ -1,7 +1,7 @@
-#include "AnaCanScan.h"
+#include "mockUp.h"
 
 //////////////////////////////////////////////////////////////////////
-// AnaCanScan.cpp: implementation of the AnaCanScan class.
+// mockUp.cpp: implementation of the mockUp class.
 //////////////////////////////////////////////////////////////////////
 
 #include <time.h>
@@ -32,22 +32,42 @@
 using namespace CanModule;
 using namespace std;
 
-bool AnaCanScan::s_isCanHandleInUseArray[256];
-AnaInt32 AnaCanScan::s_canHandleArray[256];
-std::map<AnaInt32, AnaCanScan*> g_AnaCanScanPointerMap;
-
+bool mockUp::s_isCanHandleInUseArray[256];
+int mockUp::s_canHandleArray[256];
+std::map<int, mockUp*> g_mockUpPointerMap;
+int g_counter = 0;
 extern "C" DLLEXPORTFLAG CCanAccess *getCanbusAccess()
 {
 	CCanAccess *canAccess;
-	canAccess = new AnaCanScan;
+	canAccess = new mockUp;
 	return canAccess;
 }
 
-AnaInt32 g_timeout = 6000;				// connect_wait time
+int g_timeout = 6000;				// connect_wait time
+
+/*void UnixTimeToFileTime(time_t time, LPFILETIME fileTime)
+{
+    // Note that LONGLONG is a 64-bit value
+    LONGLONG longLong;
+	longLong = Int32x32To64(time, 10000000) + 116444736000000000;
+	fileTime->dwLowDateTime = (DWORD)longLong;
+	fileTime->dwHighDateTime = longLong >> 32;
+}*/
 
 //call back to catch incoming CAN messages
-void WINAPI InternalCallback(AnaUInt32 nIdentifier, const char * pcBuffer, AnaInt32 nBufferLen, AnaInt32 nFlags, AnaInt32 hHandle, AnaInt32 nSeconds, AnaInt32 nMicroseconds)
+void WINAPI InternalCallback(int nIdentifier, const char * pcBuffer, int nBufferLen, int nFlags, int hHandle, int nSeconds, int nMicroseconds)
 {
+
+    //calculate the number of lost frames
+	/*g_received = *((int*) &pcBuffer[0]); //to take the start of the buffer
+	if (g_sequence != g_received) {
+		g_lostFrames += (g_received - g_sequence);
+		g_sequence = g_received+1;
+
+	}
+	else
+		++g_sequence;*/
+	//LOG(Log::DBG) << g_mockUpPointerMap[hHandle]->getBusName();
 	CanMessage canMsgCopy;
 	canMsgCopy.c_id = nIdentifier;
 	canMsgCopy.c_dlc = nBufferLen;
@@ -55,38 +75,35 @@ void WINAPI InternalCallback(AnaUInt32 nIdentifier, const char * pcBuffer, AnaIn
 	for (int i = 0; i < nBufferLen; i++)
 		canMsgCopy.c_data[i] = pcBuffer[i];
 	gettimeofday(&(canMsgCopy.c_time), 0);
-	g_AnaCanScanPointerMap[hHandle]->callbackOnRecieve(canMsgCopy);
-	g_AnaCanScanPointerMap[hHandle]->statisticsOnRecieve( nBufferLen );
+	g_mockUpPointerMap[hHandle]->callbackOnRecieve(canMsgCopy);
+	g_mockUpPointerMap[hHandle]->statisticsOnRecieve( nBufferLen );
 }
 
-AnaCanScan::AnaCanScan():
+mockUp::mockUp():
 m_canHandleNumber(0),
 m_baudRate(0)
 {
 	m_statistics.beginNewRun();
 }
 
-AnaCanScan::~AnaCanScan()
+mockUp::~mockUp()
 {
 	MLOG(DBG,this) << "Closing down ST Can Scan component";
-	//Shut down can scan thread
-     // deinitialize CAN interface
-    //::UcanDeinitCanEx (m_UcanHandle,(BYTE)m_channelNumber);
     MLOG(DBG,this) << "ST Can Scan component closed successfully";
 }
 
 
-void AnaCanScan::statisticsOnRecieve(int bytes)
+void mockUp::statisticsOnRecieve(int bytes)
 {
 	m_statistics.onReceive( bytes );
 }
 
-void AnaCanScan::callbackOnRecieve(CanMessage& msg)
+void mockUp::callbackOnRecieve(CanMessage& msg)
 {
 	canMessageCame(msg);
 }
 
-bool AnaCanScan::createBUS(const char *name,const char *parameters)
+bool mockUp::createBUS(const char *name,const char *parameters)
 {	
 	int returnCode = configureCanboard(name, parameters);
 	if (returnCode < 0)
@@ -98,7 +115,7 @@ bool AnaCanScan::createBUS(const char *name,const char *parameters)
 	return true;
 }
 
-int AnaCanScan::configureCanboard(const char *name,const char *parameters)
+int mockUp::configureCanboard(const char *name,const char *parameters)
 {
 	//The different parameters
 	unsigned int paramBaudRate = 0;
@@ -120,103 +137,46 @@ int AnaCanScan::configureCanboard(const char *name,const char *parameters)
 	m_canHandleNumber = atoi(stringVector[1].c_str());
 	m_canIPAddress = stringVector[2].c_str();
 	MLOG(DBG, this) << "m_canHandleNumber:[" << m_canHandleNumber << "], stringVector[" << stringVector[0] << "," << stringVector[1] << "," << stringVector[2] << "]";
-
-	if (parameters != "Unspecified")
-	{
 #ifdef _WIN32
-		numberOfDetectedParameters = sscanf_s(parameters, "%d %d %d %d %d %d", &paramBaudRate, &paramOperationMode, &paramTermination, &paramHighSpeed, &paramTimeStamp);
+	numberOfDetectedParameters = sscanf_s(parameters, "%d %d %d %d %d %d", &paramBaudRate, &paramOperationMode, &paramTermination, &paramHighSpeed, &paramTimeStamp);
 #else
-		numberOfDetectedParameters = sscanf(parameters, "%d %d %d %d %d %d", &paramBaudRate, &paramOperationMode, &paramTermination, &paramHighSpeed, &paramTimeStamp);
+	numberOfDetectedParameters = sscanf(parameters, "%d %d %d %d %d %d", &paramBaudRate, &paramOperationMode, &paramTermination, &paramHighSpeed, &paramTimeStamp);
 #endif
 
-		/* Set baud rate to 125 Kbits/second.  */
-		if (numberOfDetectedParameters >= 1)
-		{
-			m_baudRate = paramBaudRate;
-		}
-		else
-		{
-			MLOG(ERR, this) << "Error while parsing parameters: this syntax is incorrect: [" << parameters << "]";
-			return -1;
-		}
-		m_baudRate = baudRate;
-	}
-	else
+	/* Set baud rate to 125 Kbits/second.  */
+	if (numberOfDetectedParameters >= 1)
 	{
-		MLOG(DBG, this) << "Unspecified parameters, default values will be used.";
+		m_baudRate = paramBaudRate;
 	}
-	return openCanPort(paramOperationMode, paramTermination, paramHighSpeed, paramTimeStamp);
+	m_baudRate = baudRate;
+
+	return 0;//openCanPort(paramOperationMode, paramTermination, paramHighSpeed, paramTimeStamp);
 }
 
-int AnaCanScan::openCanPort(unsigned int operationMode, unsigned int bTermination, unsigned int bHighspeed, unsigned int bTimestamp)
-{
-	AnaInt32 anaCallReturn;
-	//The Handle of the can Module
-	AnaInt32 canModuleHandle;
-
-	// check if USB-CANmodul already is initialized
-	if (isCanHandleInUse(m_canHandleNumber))
-	{
-		//if it is, we get the handle
-		canModuleHandle = getCanHandle(m_canHandleNumber);
-	}
-	else
-	{
-		//Otherwise we create it.
-		MLOG(DBG, this) << "Will call CANOpenDevice with parameters m_canHandleNumber:[" << m_canHandleNumber << "], m_canIPAddress:[" << m_canIPAddress << "]";
-		anaCallReturn = CANOpenDevice(&canModuleHandle, FALSE, TRUE, m_canHandleNumber, m_canIPAddress,g_timeout);
-		if (anaCallReturn != 0)
-		{
-			// fill out initialisation struct
-			MLOG(ERR,this) << "Error in CANOpenDevice, return code = [" << anaCallReturn << "]";
-			return -1;
-		}
-
-	}
-
-	setCanHandleInUse(m_canHandleNumber,true);
-	// initialize CAN interface
-	anaCallReturn = CANSetGlobals(canModuleHandle, m_baudRate, operationMode, bTermination,bHighspeed, bTimestamp);
-	if (anaCallReturn != 0)
-	{
-		MLOG(ERR,this) << "Error in CANSetGlobals, return code = [" << anaCallReturn << "]";
-		return -1;
-	}
-
-	// set handler for managing incoming messages
-	anaCallReturn = CANSetCallbackEx(canModuleHandle, InternalCallback);
-	if (anaCallReturn != 0)
-	{
-		MLOG(ERR,this) << "Error in CANSetCallbackEx, return code = [" << anaCallReturn << "]";
-		return -1;
-	}
-
-	setCanHandle(m_canHandleNumber, canModuleHandle);
-	g_AnaCanScanPointerMap[canModuleHandle] = this;
-	//We associate in the global map the handle with the instance of the AnaCanScan object, so it can later be identified by the callback InternalCallback
+int mockUp::openCanPort(unsigned int operationMode, unsigned int bTermination, unsigned int bHighspeed, unsigned int bTimestamp)
+{	
+	int canModuleHandle = g_counter++;
+	g_mockUpPointerMap[canModuleHandle] = this;
+	//We associate in the global map the handle with the instance of the mockUp object, so it can later be identified by the callback InternalCallback
 	m_UcanHandle = canModuleHandle;
 	return 0;
 }
 
-bool AnaCanScan::sendErrorCode(AnaInt32 status)
+bool mockUp::sendErrorCode(int status)
 {
-	char errorMessage[120];
-	timeval ftTimeStamp; 
-	if (status != 0) {
-		gettimeofday(&ftTimeStamp,0);
-		if (!errorCodeToString(status, errorMessage))
-			canMessageError(status, errorMessage, ftTimeStamp);
-	}
 	return true;
 }
 
-bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr)
+bool mockUp::sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr)
 {
 	MLOG(DBG,this) << "Sending message: [" << message << "], cobID: [" << cobID << "], Message Length: [" << static_cast<int>(len) << "]";
-	AnaInt32 anaCallReturn;
+	//tCanMsgStruct canMsgToBeSent;
+	int anaCallReturn;
 	unsigned char *unprocessedMessageBuffer = message;
 	unsigned char *messageToBeSent[8];
-	AnaInt32 flags = 0x0;
+	//canMsgToBeSent.m_dwID = cobID;
+	//canMsgToBeSent.m_bDLC = len;
+	int flags = 0x0;
 	if (rtr)
 	{
 		flags = 2; // • Bit 1: If set, the telegram is marked as remote frame.
@@ -238,7 +198,8 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 		memcpy(messageToBeSent, unprocessedMessageBuffer, messageLengthToBeProcessed);
 		MLOG(TRC,this) << "Module Number: [" << m_canHandleNumber << "], cobID: [" << cobID << "], Message Length: [" << messageLengthToBeProcessed << "]";
 		MLOG(DBG, this) << "Sending message (ANAGATE API CALL): [" << messageToBeSent << "], cobID: [" << cobID << "], Message Length: [" << messageLengthToBeProcessed << "], Flags [" << flags << "], canHandle [" << m_UcanHandle << "]";
-		anaCallReturn = CANWrite(m_UcanHandle, cobID, reinterpret_cast<char*>(messageToBeSent), messageLengthToBeProcessed, flags);
+		//anaCallReturn = CANWrite(m_UcanHandle, cobID, reinterpret_cast<char*>(messageToBeSent), messageLengthToBeProcessed, flags);
+		anaCallReturn = 0;
 		if (anaCallReturn != 0)
 		{
 			MLOG(ERR,this) << "Error: There was a problem when sending a message.";
@@ -254,12 +215,14 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 	return sendErrorCode(anaCallReturn);
 }
 
-bool AnaCanScan::sendRemoteRequest(short cobID)
+bool mockUp::sendRemoteRequest(short cobID)
 {
-	AnaInt32 anaCallReturn;
-	AnaInt32 flags = 2;// Bit 1: If set, the telegram is marked as remote frame.
+	int anaCallReturn;
+	int flags = 2;// Bit 1: If set, the telegram is marked as remote frame.
 
-	anaCallReturn = CANWrite(m_UcanHandle,cobID,NULL, 0, flags);
+	//Status = UcanWriteCanMsgEx(m_UcanHandle, m_channelNumber, &canMsg, NULL);
+	//anaCallReturn = CANWrite(m_UcanHandle,cobID,NULL, 0, flags);
+	anaCallReturn = 0;
 	if (anaCallReturn != 0)
 	{
 		MLOG(ERR,this) << "Error: There was a problem when sending a message.";
@@ -267,7 +230,7 @@ bool AnaCanScan::sendRemoteRequest(short cobID)
 	return sendErrorCode(anaCallReturn);
 }
 
-bool AnaCanScan::errorCodeToString(long error, char message[])//TODO: Fix this method, this doesn't do anything!!
+bool mockUp::errorCodeToString(long error, char message[])//TODO: Fix this method, this doesn't do anything!!
 {
   char tmp[300];
 // canGetErrorText((canStatus)error, tmp, sizeof(tmp));
@@ -277,16 +240,15 @@ bool AnaCanScan::errorCodeToString(long error, char message[])//TODO: Fix this m
   return true;
 }
 
-void AnaCanScan::getStatistics( CanStatistics & result )
+void mockUp::getStatistics( CanStatistics & result )
 {
 	m_statistics.computeDerived (m_baudRate);
 	result = m_statistics;  // copy whole structure
 	m_statistics.beginNewRun();
 }
 
-bool AnaCanScan::initialiseLogging(LogItInstance* remoteInstance)
+bool mockUp::initialiseLogging(LogItInstance* remoteInstance)
 {
-	LOG(Log::INF) << "DLL: logging initialised";
 	bool ret = Log::initializeDllLogging(remoteInstance);
 	LOG(Log::INF) << "DLL: logging initialised";
 	return ret;

@@ -62,7 +62,6 @@ extern "C" void openCanBus(char* canBusName, char* parameters)
 		openCanAccessMap.insert(std::map<string, CCanAccess*>::value_type(string(canBusName), canBusAccessInstance));
 		MessageQueueAccess* queueAccess = new MessageQueueAccess();
 		queueAccess->initialize(canBusName);
-
 		queueAccessMap.insert(std::map<string, MessageQueueAccess*>::value_type(string(canBusName), queueAccess));
 		LOG(Log::DBG) << "Opening port [" << canBusName << "]";
 		canBusAccessInstance->canMessageCame.connect(*queueAccess);
