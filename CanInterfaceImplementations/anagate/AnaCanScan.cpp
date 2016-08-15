@@ -121,7 +121,7 @@ int AnaCanScan::configureCanboard(const char *name,const char *parameters)
 	m_canIPAddress = stringVector[2].c_str();
 	MLOG(DBG, this) << "m_canHandleNumber:[" << m_canHandleNumber << "], stringVector[" << stringVector[0] << "," << stringVector[1] << "," << stringVector[2] << "]";
 
-	if (parameters != "Unspecified")
+	if (strcmp(parameters, "Unspecified") != 0)
 	{
 #ifdef _WIN32
 		numberOfDetectedParameters = sscanf_s(parameters, "%d %d %d %d %d %d", &paramBaudRate, &paramOperationMode, &paramTermination, &paramHighSpeed, &paramTimeStamp);
@@ -143,8 +143,10 @@ int AnaCanScan::configureCanboard(const char *name,const char *parameters)
 	}
 	else
 	{
+		m_baudRate = baudRate;
 		MLOG(DBG, this) << "Unspecified parameters, default values will be used.";
 	}
+
 	return openCanPort(paramOperationMode, paramTermination, paramHighSpeed, paramTimeStamp);
 }
 

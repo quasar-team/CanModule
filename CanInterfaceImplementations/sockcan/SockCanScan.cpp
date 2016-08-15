@@ -231,7 +231,6 @@ int CSockCanScan::configureCanboard(const char *name,const char *parameters)
   }
   else
   {
-	//int delta = tempName - name; Commented this line out since delta is not used anywhere
     tempName++;
   }
   m_channelName = tempName;
@@ -244,7 +243,7 @@ int CSockCanScan::openCanPort()
   /* Determine if it was requested through params to configure the port (baudrate given) or just to open it ("Unspecified")*/
   if (m_parameters.length() > 0)
   {
-	if (m_parameters != "Unspecified")
+	if (strcmp(m_parameters.c_str(), "Unspecified") != 0)
 	{
 		unsigned int bitRate;
     	int numPar = sscanf( m_parameters.c_str(), "%d ", &bitRate );
@@ -277,7 +276,8 @@ int CSockCanScan::openCanPort()
     	}
 	}
 	else
-	{
+	{	
+		MLOG(DBG, this) << "Unspecified parameters, default values will be used.";	
 		m_dontReconfigure = true;
 	}
   }

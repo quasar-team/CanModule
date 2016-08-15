@@ -9,7 +9,6 @@
 #include "gettimeofday.h"
 
 #include <LogIt.h>
-//#define LOG_CAN_INTERFACE_IMPL 1
 
 //! The macro below is applicable only to this translation unit
 #define MLOG(LEVEL,THIS) LOG(Log::LEVEL) << THIS->m_canName << " "
@@ -24,15 +23,6 @@ extern "C" __declspec(dllexport) CCanAccess *getCanbusAccess()
 	canAccess = new STCanScan;
 	return canAccess;
 }
-
-/*void UnixTimeToFileTime(time_t time, LPFILETIME fileTime)
-{
-    // Note that LONGLONG is a 64-bit value
-    LONGLONG longLong;
-	longLong = Int32x32To64(time, 10000000) + 116444736000000000;
-	fileTime->dwLowDateTime = (DWORD)longLong;
-	fileTime->dwHighDateTime = longLong >> 32;
-}*/
 
 STCanScan::STCanScan():
 m_CanScanThreadShutdownFlag(true),
@@ -130,25 +120,40 @@ int STCanScan::configureCanboard(const char *name,const char *parameters)
 	m_canHandleNumber = atoi(na+1);
 
 	m_moduleNumber = m_canHandleNumber/2;
-	m_channelNumber = m_canHandleNumber%2;
+	m_channelNumber = m_canHandleNumber%2;	
 	MLOG(TRC,this) << "m_canHandleNumber:[" << m_canHandleNumber << "], m_moduleNumber:[" << m_moduleNumber << "], m_channelNumber:[" << m_channelNumber << "]"<< ", na[" << na << "," << na+1 << "]";
-	numberOfDetectedParameters = sscanf_s(parameters, "%d %d %d %d %d %d", &paramBaudRate, &paramTseg1, &paramTseg2, &paramSjw, &paramNoSamp, &paramSyncMode);
 
-	/* Set baud rate to 125 Kbits/second.  */
-	if (numberOfDetectedParameters >= 1)
+	if (strcmp(parameters, "Unspecified") != 0)
+
 	{
-		switch (paramBaudRate)
+		numberOfDetectedParameters = sscanf_s(parameters, "%d %d %d %d %d %d", &paramBaudRate, &paramTseg1, &paramTseg2, &paramSjw, &paramNoSamp, &paramSyncMode);
+
+		/* Set baud rate to 125 Kbits/second.  */
+		if (numberOfDetectedParameters >= 1)
 		{
-		case 50000: baudRate = USBCAN_BAUD_50kBit; break;
-		case 100000: baudRate = USBCAN_BAUD_100kBit; break;
-		case 125000: baudRate = USBCAN_BAUD_125kBit; break;
-		case 250000: baudRate = USBCAN_BAUD_250kBit; break;
-		case 500000: baudRate = USBCAN_BAUD_500kBit; break;
-		case 1000000: baudRate = USBCAN_BAUD_1MBit; break;
-		default: baudRate = paramBaudRate;
+			switch (paramBaudRate)
+			{
+			case 50000: baudRate = USBCAN_BAUD_50kBit; break;
+			case 100000: baudRate = USBCAN_BAUD_100kBit; break;
+			case 125000: baudRate = USBCAN_BAUD_125kBit; break;
+			case 250000: baudRate = USBCAN_BAUD_250kBit; break;
+			case 500000: baudRate = USBCAN_BAUD_500kBit; break;
+			case 1000000: baudRate = USBCAN_BAUD_1MBit; break;
+			default: baudRate = paramBaudRate;
+			}
 		}
+		else
+		{
+			MLOG(ERR, this) << "Error while parsing parameters: this syntax is incorrect: [" << parameters << "]";
+			return -1;
+		}
+		m_baudRate = baudRate;
 	}
-	m_baudRate = baudRate;
+	else
+	{
+		m_baudRate = baudRate;
+		MLOG(DBG, this) << "Unspecified parameters, default values will be used.";
+	}
 
 	//We create an fill initializationParameters, to pass it to openCanPort
 	tUcanInitCanParam   initializationParameters;

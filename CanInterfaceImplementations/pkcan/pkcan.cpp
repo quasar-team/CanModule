@@ -6,7 +6,6 @@
 #include "gettimeofday.h"
 
 #include <LogIt.h>
-//#define LOG_CAN_INTERFACE_IMPL 1
 using namespace std;
 using namespace CanModule;
 
@@ -23,8 +22,6 @@ extern "C" __declspec(dllexport) CCanAccess *getCanbusAccess()
 
 PKCanScan::PKCanScan()
 {
-	//Initialize logit and a specific component for this DLL
-	//Log::initializeLogging(Log::INF, { ComponentAttributes(LOG_CAN_INTERFACE_IMPL, "LOG_CAN_INTERFACE_IMPL", Log::INF) });
 	m_statistics.beginNewRun();
 }
 
@@ -115,42 +112,54 @@ bool PKCanScan::configureCanboard(const char *name,const char *parameters)
 	long parametersBaudRate;
 	int	numPar;
 	//Process the parameters
-	numPar = sscanf_s(parameters,"%d %d %d %d %d %d",&parametersBaudRate,&parametersTseg1,&parametersTseg2,&parametersSjw,&parametersNoSamp,&parametersSyncmode);
-	//Get the can object handler
-	m_canObjHandler = getHandle(name);
-	//Process the baudRate if needed
-	if (numPar == 1)
+	if (strcmp(parameters, "Unspecified") != 0)
 	{
-		switch(parametersBaudRate)
+		numPar = sscanf_s(parameters, "%d %d %d %d %d %d", &parametersBaudRate, &parametersTseg1, &parametersTseg2, &parametersSjw, &parametersNoSamp, &parametersSyncmode);
+		//Get the can object handler
+		m_canObjHandler = getHandle(name);
+		//Process the baudRate if needed
+		if (numPar == 1)
 		{
-		case 50000:
-			m_baudRate = PCAN_BAUD_50K;
-			break;
-		case 100000:
-			m_baudRate = PCAN_BAUD_100K;
-			break;
-		case 125000:
-			m_baudRate = PCAN_BAUD_125K;
-			break;
-		case 250000:
-			m_baudRate = PCAN_BAUD_250K;
-			break;
-		case 500000:
-			m_baudRate = PCAN_BAUD_500K;
-			break;
-		case 1000000:
-			m_baudRate = PCAN_BAUD_1M;
-			break;
-		default:
-			m_baudRate = parametersBaudRate;
+			switch (parametersBaudRate)
+			{
+			case 50000:
+				m_baudRate = PCAN_BAUD_50K;
+				break;
+			case 100000:
+				m_baudRate = PCAN_BAUD_100K;
+				break;
+			case 125000:
+				m_baudRate = PCAN_BAUD_125K;
+				break;
+			case 250000:
+				m_baudRate = PCAN_BAUD_250K;
+				break;
+			case 500000:
+				m_baudRate = PCAN_BAUD_500K;
+				break;
+			case 1000000:
+				m_baudRate = PCAN_BAUD_1M;
+				break;
+			default:
+				m_baudRate = parametersBaudRate;
+			}
+		}
+		else
+		{
+			if (numPar != 0)
+			{
+				m_baudRate = parametersBaudRate;
+			}
+			else
+			{
+				MLOG(ERR, this) << "Error while parsing parameters: this syntax is incorrect: [" << parameters << "]";
+				return -1;
+			}
 		}
 	}
 	else
 	{
-		if (numPar != 0)
-		{
-			m_baudRate = parametersBaudRate;
-		}
+		MLOG(DBG, this) << "Unspecified parameters, default values will be used.";
 	}
 	//Initialize the canboard
 	TPCANStatus tpcanStatus = CAN_Initialize(m_canObjHandler, m_baudRate,256,3);
