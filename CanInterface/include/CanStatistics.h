@@ -16,8 +16,13 @@
 #include "Winsock2.h"
 #endif
 #else
-#include <stdatomic.h>
-#include <sys/time.h>
+#	define GCC_VERSION (__GNUC__ * 10000 + __GNUC_MINOR__ * 100 + __GNUC_PATCHLEVEL__)
+#	if GCC_VERSION > 40800
+#		include <atomic>
+#	else // GCC_VERSION
+#		include <stdatomic.h>
+#	endif // GCC_VERSION
+#	include <sys/time.h>
 #endif
 
 class CanStatistics
