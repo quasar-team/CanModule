@@ -10,11 +10,11 @@
 
 
 #ifdef _WIN32
-#include <atomic>
-#include <time.h>
-#ifndef timeval
-#include "Winsock2.h"
-#endif
+#	include <atomic>
+#	include <time.h>
+#	ifndef timeval
+#		include "Winsock2.h"
+#	endif
 #else
 #	define GCC_VERSION (__GNUC__ * 10000 + __GNUC_MINOR__ * 100 + __GNUC_PATCHLEVEL__)
 #	if GCC_VERSION > 40800
