@@ -52,7 +52,7 @@ CCanAccess* CanLibLoader::openCanBus(string name,string parameters)
 		createCanAccess();
 
 		//The Logit instance of the executable is handled to the DLL at this point, so the instance is shared.
-		tcca->initialiseLogging(LogItInstance::getInstance());
+		//tcca->initialiseLogging(LogItInstance::getInstance());
 
 		const char * pa = parameters.c_str();
 		bool c = tcca->createBUS(name.c_str(), pa);

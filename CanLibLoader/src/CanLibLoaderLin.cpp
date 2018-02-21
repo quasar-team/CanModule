@@ -1,8 +1,9 @@
 #include "CanLibLoaderLin.h"
-#include "LogIt.h"
 #include <string>
 #include <stdexcept>
 #include <sstream>
+#include <boost/filesystem.hpp>
+#include <LogIt.h>
 
 #include "dlfcn.h"
 typedef void* (*f_CCanAccess)();
@@ -22,7 +23,7 @@ CanLibLoaderLin::~CanLibLoaderLin() {
 void CanLibLoaderLin::dynamicallyLoadLib(const std::string& libName)
 {
 	LOG(Log::DBG) << "Proceeding to load library " << libName;
-	//The dll is loaded trough dlopen (Linux API)
+	//The library is loaded through dlopen (Linux API)
 	std::ostringstream ss;
 	ss << "lib" << libName << ".so";
 	p_dynamicLibrary = dlopen(ss.str().c_str(), RTLD_NOW);
@@ -31,8 +32,10 @@ void CanLibLoaderLin::dynamicallyLoadLib(const std::string& libName)
 	{
 		char *err = dlerror();
 		if (err) {
-			LOG(Log::ERR) << "Error: could not load the dynamic library, error: [" << err << "]";
-			throw std::runtime_error("Error: could not load the dynamic library");//TODO: add library name to message			
+			std::ostringstream msg;
+			msg << "Error: could not load dynamic library ["<<ss.str()<<"], current working directory ["<<boost::filesystem::current_path()<<"] error: "<<err;
+			LOG(Log::ERR) << msg.str();
+			throw std::runtime_error(msg.str());
 		}
 	}	
 }

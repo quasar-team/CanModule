@@ -111,7 +111,7 @@ bool mockUp::createBUS(const char *name,const char *parameters)
 		return false;
 	}
 
-	MLOG(DBG,this) << "Bus [" << name << "] created with parameters [" << parameters << "]";
+	//MLOG(DBG,this) << "Bus [" << name << "] created with parameters [" << parameters << "]";
 	return true;
 }
 
@@ -136,7 +136,7 @@ int mockUp::configureCanboard(const char *name,const char *parameters)
 
 	m_canHandleNumber = atoi(stringVector[1].c_str());
 	m_canIPAddress = stringVector[2].c_str();
-	MLOG(DBG, this) << "m_canHandleNumber:[" << m_canHandleNumber << "], stringVector[" << stringVector[0] << "," << stringVector[1] << "," << stringVector[2] << "]";
+	//MLOG(DBG, this) << "m_canHandleNumber:[" << m_canHandleNumber << "], stringVector[" << stringVector[0] << "," << stringVector[1] << "," << stringVector[2] << "]";
 #ifdef _WIN32
 	numberOfDetectedParameters = sscanf_s(parameters, "%d %d %d %d %d %d", &paramBaudRate, &paramOperationMode, &paramTermination, &paramHighSpeed, &paramTimeStamp);
 #else
@@ -179,7 +179,7 @@ bool mockUp::sendMessage(short cobID, unsigned char len, unsigned char *message,
 	int flags = 0x0;
 	if (rtr)
 	{
-		flags = 2; // • Bit 1: If set, the telegram is marked as remote frame.
+		flags = 2; // ï¿½ Bit 1: If set, the telegram is marked as remote frame.
 	}
 	int unprocessedMessageLength, messageLengthToBeProcessed;
 	unprocessedMessageLength = len;
