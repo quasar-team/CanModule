@@ -9,6 +9,9 @@ ELSE()
 	SET( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/CanModule/CanInterfaceImplementations/output/)
 ENDIF()
 
+message(STATUS "file [${CMAKE_CURRENT_LIST_FILE}]: STANDALONE_BUILD [${STANDALONE_BUILD}] STANDALONE_BUILD_SHARED [${STANDALONE_BUILD_SHARED}]")
+message(STATUS "file [${CMAKE_CURRENT_LIST_FILE}]: Using boost libraries: BOOST_LIBS [${BOOST_LIBS}]")  
+message(STATUS "file [${CMAKE_CURRENT_LIST_FILE}]: Using LogIt library: LOGIT_LIB [${LOGIT_LIB}]")
 
 include_directories (	
 ${PROJECT_SOURCE_DIR}/CanModule/CanInterface/include
@@ -19,9 +22,6 @@ mockUp.cpp
 ../../CanInterface/src/CanStatistics.cpp
 ../../CanInterface/src/CanModuleUtils.cpp
 ${MOCKUP_GETTIMEOFDAY}
-$<TARGET_OBJECTS:LogIt>
 )
-#set_target_properties(AnagateCanImplementation PROPERTIES LINKER_LANGUAGE Cxx)
-target_link_libraries ( MockUpCanImplementation 
-	${BOOST_LIBS}
-)
+
+target_link_libraries ( MockUpCanImplementation	${BOOST_LIBS})

@@ -1,5 +1,9 @@
 cmake_minimum_required(VERSION 2.8)
 
+# C++11 as standard
+set (CMAKE_CXX_STANDARD 11) # works for CMake v3.1+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11") #for older CMake versions
+
 function ( locateBoostLibsUsingToolchainFile )
   if(DEFINED CMAKE_TOOLCHAIN_FILE)
     message("CMAKE_TOOLCHAIN_FILE is defined -- including [[${CMAKE_TOOLCHAIN_FILE}]]")
@@ -7,15 +11,25 @@ function ( locateBoostLibsUsingToolchainFile )
   endif()
   if( NOT DEFINED BOOST_LIBS)
     message(FATAL_ERROR "Required variable BOOST_LIBS has not been defined. You must define a toolchain file describing (as a minimum) how boost headers/libs are resolved in the target build environment")
-  endif()   
+  endif()
+  message(STATUS "function [locateBoostLibsUsingToolchainFile] located BOOST_LIBS [${BOOST_LIBS}]")
 endfunction()
 
 function ( locateLogItSharedLib )
 	set(LOGIT_EXT_LIB_DIR "UNINIALIZED" CACHE PATH "Path to the directory containing the LogIt shared/static library binary file. Use absolute path, or relative to [${PROJECT_SOURCE_DIR}/]")
-	message(STATUS "Using LogIt build option [${LOGIT_BUILD_OPTION}]")
+	set(LOGIT_EXT_INC_DIR "UNINIALIZED" CACHE PATH "Path to the directory containing the LogIt include files. Use absolute path, or relative to [${PROJECT_SOURCE_DIR}/]")
+	message(STATUS "looking for LogIt... lib dir (-DLOGIT_EXT_LIB_DIR) [${LOGIT_EXT_LIB_DIR}] include dir (-DLOGIT_EXT_INC_DIR) [${LOGIT_EXT_INC_DIR}]")
+	
 	SET(CMAKE_FIND_LIBRARY_SUFFIXES ".so" ".lib") # windows looks for lib file to link to target dll: lib contains dll exports, symbols etc (see LogIt.h SHARED_LIB_EXPORT_DEFN)
 	find_library( LOGITLIB NAMES LogIt PATHS ${LOGIT_EXT_LIB_DIR} NO_DEFAULT_PATH )
-    message(STATUS "LogIt added as external library dependency LOGITLIB [${LOGITLIB}]")
+        
+    if(NOT EXISTS ${LOGIT_EXT_INC_DIR})
+        message(FATAL "No LogIt include directory found at [${LOGIT_EXT_INC_DIR}]. Please check the value of your -DLOGIT_EXT_INC_DIR build option" ) 
+    endif()
+    include_directories(${LOGIT_EXT_INC_DIR})
+
+    set( LOGIT_LIB ${LOGITLIB} CACHE FILEPATH "location of the LogIt library the build will use")
+    message(STATUS "Shared LogIt found, lib [${LOGIT_LIB}] headers [${LOGIT_EXT_INC_DIR}]")
 endfunction()
 
 option(STANDALONE_BUILD "Build it as a stand-alone library instead of for Quasar" OFF )
@@ -53,9 +67,9 @@ SET( SRCS
 		${CAN_LIBRARY_GETTIMEOFDAY_HEADER}		
 )
 
-add_subdirectory(CanInterfaceImplementations) #just to build the shared lib (reqd at runtime - loaded dynamically)
-add_subdirectory(GoogleTest)
-add_subdirectory(CanModuleTest)
+include_directories( include )
+include_directories( CanLibLoader/include )
+include_directories( CanInterface/include )
 
 #add_subdirectory(CanLibLoader)
 #add_subdirectory(CanInterface)
@@ -67,8 +81,12 @@ else()
 	message(STATUS "Using boost libraries: BOOST_LIBS [${BOOST_LIBS}]")  
 
 	locateLogItSharedLib()
-	message(STATUS "Using LogIt library: LOGITLIB [${LOGITLIB}]")
+	message(STATUS "Using LogIt library: LOGIT_LIB [${LOGIT_LIB}]")
+
+    add_subdirectory(CanInterfaceImplementations) #just to build the shared lib (reqd at runtime - loaded dynamically)
+    add_subdirectory(GoogleTest)
+    add_subdirectory(CanModuleTest)
 	
 	add_library( CanModule SHARED ${SRCS} )	
-	target_link_libraries( CanModule ${BOOST_LIBS} ${LOGITLIB} )
+	target_link_libraries( CanModule ${BOOST_LIBS} ${LOGIT_LIB} )
 endif()
