@@ -19,4 +19,4 @@ mockUp.cpp
 ${MOCKUP_GETTIMEOFDAY}
 )
 
-target_link_libraries ( MockUpCanImplementation	${BOOST_LIBS})
+target_link_libraries ( MockUpCanImplementation	${BOOST_LIBS} ${LOGIT_LIB})

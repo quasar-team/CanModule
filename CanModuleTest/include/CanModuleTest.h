@@ -18,6 +18,8 @@ public:
 
 	CanModuleTest();
 	virtual ~CanModuleTest();
+
+	virtual void SetUp();
 };
 
 #endif /* CANMODULETEST_H_ */

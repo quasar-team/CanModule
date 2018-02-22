@@ -16,14 +16,18 @@ using namespace CanModule;
 using std::string;
 
 CanModuleTest::CanModuleTest()
-{
-	Log::initializeLogging(Log::TRC);
-}
+{}
 
 CanModuleTest::~CanModuleTest()
 {}
 
-TEST(CanModuleTest, loadWrongLib)
+void CanModuleTest::SetUp()
+{
+	Log::initializeLogging(Log::TRC);
+	LOG(Log::INF) << __FUNCTION__ << " logging initialized";
+}
+
+TEST_F(CanModuleTest, loadWrongLib)
 {
 	try 
 	{
@@ -33,7 +37,7 @@ TEST(CanModuleTest, loadWrongLib)
 	catch (...){/*OK, expected*/}
 }
 
-TEST(CanModuleTest, loadCorrectLib)
+TEST_F(CanModuleTest, loadCorrectLib)
 {
 	try 
 	{
@@ -45,7 +49,7 @@ TEST(CanModuleTest, loadCorrectLib)
 	}
 }
 
-TEST(CanModuleTest, openCanBus)
+TEST_F(CanModuleTest, openCanBus)
 {
 	CanLibLoader* libLoaderInstance = CanLibLoader::createInstance("MockUpCanImplementation");
 
@@ -55,7 +59,7 @@ TEST(CanModuleTest, openCanBus)
 	EXPECT_FALSE(canBusAccessInstance == 0);
 }
 
-TEST(CanModuleTest, sendMessage)
+TEST_F(CanModuleTest, sendMessage)
 {
 	CanLibLoader* libLoaderInstance = CanLibLoader::createInstance("MockUpCanImplementation");
 	

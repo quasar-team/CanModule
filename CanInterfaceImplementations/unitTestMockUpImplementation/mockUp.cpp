@@ -117,6 +117,8 @@ bool mockUp::createBUS(const char *name,const char *parameters)
 
 int mockUp::configureCanboard(const char *name,const char *parameters)
 {
+	LOG(Log::INF) << __FUNCTION__ << " name ["<<name<<"] parameters ["<<parameters<<"]";
+
 	//The different parameters
 	unsigned int paramBaudRate = 0;
 	unsigned int paramOperationMode = 0;

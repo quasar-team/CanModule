@@ -4,6 +4,10 @@ cmake_minimum_required(VERSION 2.8)
 set (CMAKE_CXX_STANDARD 11) # works for CMake v3.1+
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11") #for older CMake versions
 
+message(STATUS "--WARNING-WARNING-WARNING-- generating DEBUG builds no matter what the command line says")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g")
+message(STATUS "--WARNING-WARNING-WARNING-- generating DEBUG builds no matter what the command line says")
+
 function ( locateBoostLibsUsingToolchainFile )
   if(DEFINED CMAKE_TOOLCHAIN_FILE)
     message("CMAKE_TOOLCHAIN_FILE is defined -- including [[${CMAKE_TOOLCHAIN_FILE}]]")
