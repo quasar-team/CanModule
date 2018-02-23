@@ -65,4 +65,8 @@ TEST_F(CanModuleTest, sendMessage)
 	EXPECT_TRUE(canBusAccessInstance->sendMessage(1, 8, (unsigned char*)("12345678"), false));
 	EXPECT_TRUE(canBusAccessInstance->sendMessage(2, 8, (unsigned char*)("22345678"), false));
 	EXPECT_TRUE(canBusAccessInstance->sendMessage(3, 8, (unsigned char*)("32345678"), false));
+
+	CanStatistics stats;
+	canBusAccessInstance->getStatistics(stats);
+	EXPECT_EQ(3, stats.totalTransmitted()) << "test transmits 3 packages";
 }
