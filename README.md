@@ -3,6 +3,7 @@ CanModule is a cross-platform library for controlling any kind of CAN device. Al
 
 ## Currently Available Implementations
 | **Linux** | **Windows** |
+|:------------- |:-------------|:-----|
 | Systec (via [socketCAN](https://www.kernel.org/doc/Documentation/networking/can.txt)) | Systec (via the Systec windows API) |
 | Peak (via [socketCAN](https://www.kernel.org/doc/Documentation/networking/can.txt)) | Systec (via the Peak windows API) |
 | Anagate (via the Anagate linux API) | Anagate (via the Anagate windows API) |
