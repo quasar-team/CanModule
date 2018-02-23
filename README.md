@@ -23,4 +23,15 @@ Before you try it, you're going to have to build it. There are a few pre-requisi
    ⋅⋅⋅A little note on LogIt too: you can build LogIt directy into your CanModule library (i.e. as source code), or you can have CanModule link to LogIt as an external shared library.
    
 ### Building on Linux
-ytyty
+**NOTE TO SELF** move this example down a bit - start with something a little less brutal.
+_example: build CanModule as a shared library using a custom boost version (e.g. built locally from source). Use LogIt as an external shared library (i.e. LogIt was built in some independent build). Note the 2 **LOGIT_EXT_DIR** build parameters defining the location of the directories containing the LogIt shared library and the LogIt header files#_
+```
+# (comment) - set environment variables to point to the custom boost headers/libs directories (required by the toolchain file)
+export BOOST_PATH_HEADERS=/local/bfarnham/workspace/boost_mapped_namespace_builder/work/MAPPED_NAMESPACE_INSTALL/64bit/include/
+export BOOST_PATH_LIBS=/local/bfarnham/workspace/boost_mapped_namespace_builder/work/MAPPED_NAMESPACE_INSTALL/64bit/lib/
+
+cmake -DCMAKE_BUILD_TYPE=DEBUG -DSTANDALONE_BUILD=ON -DLOGIT_EXT_LIB_DIR=/local/bfarnham/workspace/quasar_stuff/LogIt/ -DLOGIT_EXT_INC_DIR=/local/bfarnham/workspace/quasar_stuff/LogIt/include -DCMAKE_TOOLCHAIN_FILE=boost_custom_cc7.cmake
+make clean && make
+```
+
+### Building on Windows
