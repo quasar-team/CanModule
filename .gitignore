@@ -8,3 +8,4 @@ GoogleTest/gtest/
 .project
 .settings/
 CanModuleTest/CanModuleTest
+*.log
