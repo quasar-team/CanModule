@@ -1,2 +1,9 @@
 # CanModule
-Can Module, previously known as Common CAN Component is a library developed in a collaborative effort between ATLAS and BE-ICS-CIC, and it is intended to be used as an optional reusable component inside the QUASAR framework (Although it can also live outside of QUASAR). The purpose of the library is to be able to control any kind of CAN device in a highly flexible, multi platform way (note: plug-in libraries may be required for new device types) both from Windows and Linux. At time of writing, Systec, Peak and Anagate are supported on windows, whereas on Linux, anagate native driver is supported, and any device types with a socketCAN driver should work. Further hardware support will be added in the future on an as needs basis.
+CanModule is a cross-platform library for controlling any kind of CAN device. All CAN devices are represented by a simple abstract interface (class CanModule::CCanAccess) - user code uses this interface (*only* this interface) to send messages, receive messages, etc. i.e. to interact with the CAN device as per the needs of the application. Of course, abstract interfaces require concrete implementations - these implementations are a kind of functional mapping; driving underlying CAN hardware through some lower level API in a way that satisifies the behaviour 'described' in the CCanAccess interface. Implementations for certain CAN devices are already available (see table below). Implementations for other CAN devices can be added - please submit a pull request with your implementation for review.
+
+## Currently Available Implementations
+| **Linux** | **Windows** |
+| Systec (via [socketCAN](https://www.kernel.org/doc/Documentation/networking/can.txt)) | Systec (via the Systec windows API) |
+| Peak (via [socketCAN](https://www.kernel.org/doc/Documentation/networking/can.txt)) | Systec (via the Peak windows API) |
+| Anagate (via the Anagate linux API) | Anagate (via the Anagate windows API) |
+| *Mock* implementation (simulates CAN hardware, for testing) | *Mock* implementation (simulates CAN hardware, for testing) |
