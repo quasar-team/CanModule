@@ -16,16 +16,12 @@ using namespace CanModule;
 using std::string;
 
 CanModuleTest::CanModuleTest()
-{}
+{
+	Log::initializeLogging(Log::TRC);
+}
 
 CanModuleTest::~CanModuleTest()
 {}
-
-void CanModuleTest::SetUp()
-{
-	Log::initializeLogging(Log::TRC);
-	LOG(Log::INF) << __FUNCTION__ << " logging initialized";
-}
 
 TEST_F(CanModuleTest, loadWrongLib)
 {

@@ -13,7 +13,8 @@ ${PROJECT_SOURCE_DIR}/CanModule/CanInterface/include
 ${PROJECT_SOURCE_DIR}/CanModule/CanInterfaceImplementations/unitTestMockUpImplementation
 )
 add_library (MockUpCanImplementation SHARED
-mockUp.cpp
+MockCanAccess.cpp
+MockCanAccess.h
 ../../CanInterface/src/CanStatistics.cpp
 ../../CanInterface/src/CanModuleUtils.cpp
 ${MOCKUP_GETTIMEOFDAY}

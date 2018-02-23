@@ -42,19 +42,19 @@ namespace CanModule
 		virtual bool createBUS(const char *name, const char *parameters) = 0 ;
 
 		/*
-		 * Method that sends a remote request trough the can bus channel. If the method createBUS was not called before this, sendMessage will fail, as there is no
-		 * can bus channel to send the request trough. Similar to sendMessage, but it sends an special message reserved for requests.
+		 * Method that sends a remote request through the can bus channel. If the method createBUS was not called before this, sendMessage will fail, as there is no
+		 * can bus channel to send the request through. Similar to sendMessage, but it sends an special message reserved for requests.
 		 * @param cobID: Identifier that will be used for the request.
 		 * @return: Was the initialisation process successful?
 		 */
 		virtual bool sendRemoteRequest(short cobID) = 0;
 
 		/*
-		 * Method that sends a message trough the can bus channel. If the method createBUS was not called before this, sendMessage will fail, as there is no
-		 * can bus channel to send a message trough.
+		 * Method that sends a message through the can bus channel. If the method createBUS was not called before this, sendMessage will fail, as there is no
+		 * can bus channel to send a message through.
 		 * @param cobID: Identifier that will be used for the message.
 		 * @param len: Length of the message. If the message is bigger than 8 characters, it will be split into separate 8 characters messages.
-		 * @param message: Message to be sent trough the can bus.
+		 * @param message: Message to be sent through the can bus.
 		 * @param rtr: activate the Remote Transmission Request flag. Having this flag in a message with data/len is not part of the CAN standard,
 		 * but since some hardware uses it anyway, the option to use it is provided.
 		 * @return: Was the initialisation process successful?
