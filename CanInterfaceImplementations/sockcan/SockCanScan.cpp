@@ -11,7 +11,6 @@
 #include <errno.h>
 #include <fstream>
 #include <iostream>
-#include <strstream>
 
 #include <time.h>
 #include <string.h>
