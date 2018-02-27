@@ -16,6 +16,7 @@ message(STATUS "file [${CMAKE_CURRENT_LIST_FILE}]: Using LogIt library: LOGIT_LI
 file(GLOB CAN_MODULE_TEST_SRCS src/*.cpp)
 include_directories(
 	include
+	../CanInterfaceImplementations/unitTestMockUpImplementation
 	../GoogleTest/gtest/src/gtest/include
 )
 

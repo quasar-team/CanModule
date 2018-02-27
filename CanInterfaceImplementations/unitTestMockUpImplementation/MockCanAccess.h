@@ -23,6 +23,9 @@
 typedef unsigned long DWORD;
 
 #endif
+
+#define CAN_ECHO_MSG (unsigned char*)("0000EC40")
+
 /*
  * This is an implementation of the abstract class CCanAccess. It serves as a can bus access layer that will communicate with Systec crates (Windows only)
  */
@@ -44,6 +47,8 @@ public:
     virtual bool sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr = false);
 	virtual void getStatistics( CanStatistics & result );
 	virtual bool initialiseLogging(LogItInstance* remoteInstance);
+
+	static std::string getCanMessageDataAsString(const unsigned char* data, const unsigned char& len = 8);
 
 private:
 	//Instance of Can Statistics
