@@ -9,3 +9,10 @@ GoogleTest/gtest/
 .settings/
 CanModuleTest/CanModuleTest
 *.log
+GoogleTest/.vs/
+GoogleTest/*.vcxproj
+GoogleTest/*.sln
+GoogleTest/*.filters
+GoogleTest/*.user
+GoogleTest/x64/
+GoogleTest/Win32/
