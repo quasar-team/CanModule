@@ -3,6 +3,12 @@ find_package(Threads REQUIRED)
 # activate cmake external project module
 include(ExternalProject)
 
+function ( build_googletest )
+  message(STATUS "generating platform specific build for googletest library for [${CMAKE_GENERATOR}]")
+  execute_process( COMMAND "${CMAKE_COMMAND}" -G "${CMAKE_GENERATOR}")
+  message(STATUS "executing platform specific build for googletest library")
+  execute_process( COMMAND "${CMAKE_COMMAND}")
+endfunction()
 
 set(GTEST_ZIP_URL "https://github.com/google/googletest/archive/release-1.8.0.zip")
 if(MSVC)
@@ -18,6 +24,7 @@ ExternalProject_Add(
 	INSTALL_COMMAND "" #disabled
 	CMAKE_ARGS -Dgtest_force_shared_crt=ON
 )
+build_googletest()
 
 # libgtest - as a target depenedency for other modules in this build
 add_library(libgtest IMPORTED STATIC GLOBAL)
