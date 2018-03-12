@@ -16,3 +16,5 @@ GoogleTest/*.filters
 GoogleTest/*.user
 GoogleTest/x64/
 GoogleTest/Win32/
+LogIt/
+GoogleTest/googletest/

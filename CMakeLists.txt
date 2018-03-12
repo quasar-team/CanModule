@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 2.8)
+project(CanModule)
 
 # C++11 as standard
 set (CMAKE_CXX_STANDARD 11) # works for CMake v3.1+
@@ -36,10 +37,29 @@ function ( locateLogItSharedLib )
     message(STATUS "Shared LogIt found, lib [${LOGIT_LIB}] headers [${LOGIT_EXT_INC_DIR}]")
 endfunction()
 
+function ( clone_LogIt )
+  SET (LOGIT_VERSION "master")
+  message(STATUS "cloning LogIt from github. *NOTE* cloning version [${LOGIT_VERSION}]")
+  execute_process(COMMAND git clone -b ${LOGIT_VERSION} https://github.com/quasar-team/LogIt.git WORKING_DIRECTORY ${PROJECT_BINARY_DIR}  )
+  include_directories( ${CMAKE_SOURCE_DIR}/LogIt/include )
+  set( LOGIT_HAS_UATRACE FALSE )
+  message(STATUS "LogIt cloned from LogIt repo")
+endfunction()
+
 option(STANDALONE_BUILD "Build it as a stand-alone library instead of for Quasar" OFF )
 option(STANDALONE_BUILD_SHARED "When building in stand-alone, build shared library rather than static library" OFF)
 message(STATUS "STANDALONE_BUILD [${STANDALONE_BUILD}] STANDALONE_BUILD_SHARED [${STANDALONE_BUILD_SHARED}]")
 
+#
+# How does the stand-alone open62541-compat build want to use LogIt? Possible options:
+# - Source
+# - External shared
+# - External static.
+#
+set(LOGIT_BUILD_OPTION "LOGIT_AS_INT_SRC" CACHE STRING "LogIt is a mandatory dependency of CanModule. Inclusion options LOGIT_AS_INT_SRC, LOGIT_AS_EXT_SHARED, LOGIT_AS_EXT_STATIC")
+set_property(CACHE LOGIT_BUILD_OPTION PROPERTY STRINGS LOGIT_AS_INT_SRC LOGIT_AS_EXT_SHARED LOGIT_AS_EXT_STATIC)
+message(STATUS "LogIt build option LOGIT_BUILD_OPTION [${LOGIT_BUILD_OPTION}]")
+  
 IF (WIN32)
 	SET( CAN_LIBRARY_LOADER_PLATFORM_IMPL CanLibLoader/src/CanLibLoaderWin.cpp)
 	SET( CAN_LIBRARY_LOADER_PLATFORM_IMPL_HEADER CanLibLoader/include/CanLibLoaderWin.h)
@@ -83,14 +103,23 @@ if(NOT STANDALONE_BUILD)
 else()
 	locateBoostLibsUsingToolchainFile()
 	message(STATUS "Using boost libraries: BOOST_LIBS [${BOOST_LIBS}]")  
-
-	locateLogItSharedLib()
-	message(STATUS "Using LogIt library: LOGIT_LIB [${LOGIT_LIB}]")
-
+    
+    if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
+  	    clone_LogIt()
+        add_subdirectory( ${PROJECT_SOURCE_DIR}/LogIt )
+        message(STATUS "LogIt added as compiled object code from sub-directory LogIt")
+        add_library( CanModule SHARED ${SRCS} $<TARGET_OBJECTS:LogIt> )
+    else()
+	    locateLogItSharedLib()
+	    message(STATUS "Using LogIt library: LOGIT_LIB [${LOGIT_LIB}]")
+	    add_library( CanModule SHARED ${SRCS} )
+	    target_link_libraries( CanModule ${LOGIT_LIB} )
+    endif()
+    target_link_libraries( CanModule ${BOOST_LIBS} )
+    
     add_subdirectory(CanInterfaceImplementations) #just to build the shared lib (reqd at runtime - loaded dynamically)
     add_subdirectory(GoogleTest)
+    include_directories( GoogleTest/googletest/googletest/include )
     add_subdirectory(CanModuleTest)
-	
-	add_library( CanModule SHARED ${SRCS} )	
-	target_link_libraries( CanModule ${BOOST_LIBS} ${LOGIT_LIB} )
+    	
 endif()
