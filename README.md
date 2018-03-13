@@ -23,7 +23,22 @@ Before you try it, you're going to have to build it. There are a few pre-requisi
    ⋅⋅⋅A little note on LogIt too: you can build LogIt directy into your CanModule library (i.e. as source code), or you can have CanModule link to LogIt as an external shared library.
    
 ### Building on Linux
-**NOTE TO SELF** move this example down a bit - start with something a little less brutal.
+
+_example: build CanModule as a shared library using the system boost installation. Note in this case [LogIt](github.com/quasar-team/LogIt) is built directly in to the CanModule library - i.e. LogIt is not linked as an external library)._
+```
+cmake -G "Unix Makefiles" -DSTANDALONE_BUILD=ON -DCMAKE_TOOLCHAIN_FILE=boost_standard_install_cc7.cmake
+```
+Note: this also builds the unit tests (in CanModuleTest, built with googletest) to verify that the essential mechanisms in the CanModule work as expected. More on these tests later, for now we just verify that they run and pass
+```
+# from directory CanModule 
+
+# 1 amend the LD_LIBRARY_PATH so that the CanModuleTest can load the MockUpCanImplementation.so
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$(pwd)/CanInterfaceImplementations/unitTestMockUpImplementation/
+
+#2 run the CanModuleTest
+CanModuleTest/CanModuleTest
+```
+
 _example: build CanModule as a shared library using a custom boost version (e.g. built locally from source). Use LogIt as an external shared library (i.e. LogIt was built in some independent build). Note the 2 **LOGIT_EXT_DIR** build parameters defining the location of the directories containing the LogIt shared library and the LogIt header files#_
 ```
 # (comment) - set environment variables to point to the custom boost headers/libs directories (required by the toolchain file)
