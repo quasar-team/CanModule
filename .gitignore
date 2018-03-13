@@ -18,3 +18,10 @@ GoogleTest/x64/
 GoogleTest/Win32/
 LogIt/
 GoogleTest/googletest/
+*.vcxproj
+*.vs
+*.sln
+*.filters
+*.dir
+Release
+x64
