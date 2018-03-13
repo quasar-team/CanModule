@@ -26,7 +26,7 @@ Before you try it, you're going to have to build it. There are a few pre-requisi
 
 _example: build CanModule as a shared library using the system boost installation. Note in this case [LogIt](github.com/quasar-team/LogIt) is built directly in to the CanModule library - i.e. LogIt is not linked as an external library)._
 ```
-cmake -G "Unix Makefiles" -DSTANDALONE_BUILD=ON -DCMAKE_TOOLCHAIN_FILE=boost_standard_install_cc7.cmake
+cmake -DSTANDALONE_BUILD=ON -DCMAKE_TOOLCHAIN_FILE=boost_standard_install_cc7.cmake
 ```
 Note: this also builds the unit tests (in CanModuleTest, built with googletest) to verify that the essential mechanisms in the CanModule work as expected. More on these tests later, for now we just verify that they run and pass
 ```
@@ -39,13 +39,14 @@ LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$(pwd)/CanInterfaceImplementations/unitTestMock
 CanModuleTest/CanModuleTest
 ```
 
-_example: build CanModule as a shared library using a custom boost version (e.g. built locally from source). Use LogIt as an external shared library (i.e. LogIt was built in some independent build). Note the 2 **LOGIT_EXT_DIR** build parameters defining the location of the directories containing the LogIt shared library and the LogIt header files#_
+_example: build CanModule as a shared library using a custom boost version (e.g. built locally from source). Use LogIt as an external shared library (i.e. LogIt was built in some independent build). Note the 3 **LOGIT_<etc>** build parameters defining the location of the directories containing the LogIt shared library and the LogIt header files#_
 ```
 # (comment) - set environment variables to point to the custom boost headers/libs directories (required by the toolchain file)
 export BOOST_PATH_HEADERS=/local/bfarnham/workspace/boost_mapped_namespace_builder/work/MAPPED_NAMESPACE_INSTALL/64bit/include/
 export BOOST_PATH_LIBS=/local/bfarnham/workspace/boost_mapped_namespace_builder/work/MAPPED_NAMESPACE_INSTALL/64bit/lib/
 
-cmake -DCMAKE_BUILD_TYPE=DEBUG -DSTANDALONE_BUILD=ON -DLOGIT_EXT_LIB_DIR=/local/bfarnham/workspace/quasar_stuff/LogIt/ -DLOGIT_EXT_INC_DIR=/local/bfarnham/workspace/quasar_stuff/LogIt/include -DCMAKE_TOOLCHAIN_FILE=boost_custom_cc7.cmake
+cmake -DSTANDALONE_BUILD=ON -DCMAKE_TOOLCHAIN_FILE=boost_custom_cc7.cmake -DLOGIT_BUILD_OPTION=LOGIT_AS_EXT_SHARED -DLOGIT_EXT_LIB_DIR=/local/bfarnham/workspace/quasar_stuff/LogIt/ -DLOGIT_EXT_INC_DIR=/local/bfarnham/workspace/quasar_stuff/LogIt/include
+
 make clean && make
 ```
 
