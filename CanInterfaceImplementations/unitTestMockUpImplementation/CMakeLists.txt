@@ -27,7 +27,7 @@ if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
 	add_library( MockUpCanImplementation SHARED ${MOCK_SOURCES} $<TARGET_OBJECTS:LogIt>)
 else()
 	add_library( MockUpCanImplementation SHARED ${MOCK_SOURCES} )
-	target_link_libraries( CanMoMockUpCanImplementationdule ${LOGIT_LIB} )
+	target_link_libraries( MockUpCanImplementation ${LOGIT_LIB} )
 endif()
 target_link_libraries ( MockUpCanImplementation	${BOOST_LIBS} )
 
