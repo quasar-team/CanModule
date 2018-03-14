@@ -73,3 +73,28 @@ Path=%Path%;%cd%\CanInterfaceImplementations\unitTestMockUpImplementation\Releas
 # and run the test executable
 CanModuleTest\Release\CanModuleTest.exe
 ```
+
+_example: build CanModule as a shared library using some external build (or possibly install) of LogIt, i.e. in this case [LogIt](github.com/quasar-team/LogIt) is not built into the CanModule binary; rather it is linked in as an external shared library. Note the -DLOGIT_* options describing where to find the LogIt binary and includes. Again, commands below were executed on windows from a git bash terminal (mingw)_
+
+```
+#(comment) note that the toolchain file used to locate the boost includes/libs requires 2 environment variables to be set
+export BOOST_PATH_HEADERS=/c/3rdPartySoftware/boost_mapped_namespace_builder/work/MAPPED_NAMESPACE_INSTALL/include/
+export BOOST_PATH_LIBS=/c/3rdPartySoftware/boost_mapped_namespace_builder/work/MAPPED_NAMESPACE_INSTALL/lib/
+
+cmake -DSTANDALONE_BUILD=ON -DCMAKE_TOOLCHAIN_FILE=boost_custom_win_VS2017.cmake -DLOGIT_BUILD_OPTION=LOGIT_AS_EXT_SHARED -DLOGIT_EXT_LIB_DIR=/c/workspace/OPC-UA/LogIt/Release/ -DLOGIT_EXT_INC_DIR=/c/workspace/OPC-UA/LogIt/include/ -G "Visual Studio 15 2017 Win64"
+
+#(comment) this generates the CanModule.sln file (plus sub-projects). Open the sln file in visual studo (the line above generates for  visual studio community 2017) and build as normal.
+```
+
+And, of course, bonus points for running the tests... the execution is the same whether LogIt is built internally into CanModule or is linked in from some external source. **Almost**. You just have to add the location of the external LogIt binary to the windows path so that the external LogIt.dll is found at runtime.
+
+_example: execute the unit tests in CanModuleTests on windows where LogIt.dll is linked into CanModule from some external location_
+```
+# running from CanModule (i.e. top level dir of a clone of ths repo)
+# set the path to locate the CanModule.dll and the MockUpCanImplementation.dll upon which the tests are based.
+# And! Note the final extension to Path locating the LogIt.dll directory
+Path=%Path%;%cd%\CanInterfaceImplementations\unitTestMockUpImplementation\Release;%cd%\Release;C:\workspace\OPC-UA\LogIt\Release
+
+# and run the test executable
+CanModuleTest\Release\CanModuleTest.exe
+```
