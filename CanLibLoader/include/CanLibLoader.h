@@ -2,6 +2,7 @@
 #include <string>
 #include <map>
 #include "CCanAccess.h"
+#include "ExportDefinition.h"
 
 class CanLibLoader
 {
@@ -11,9 +12,9 @@ class CanLibLoader
  public:	
 	//Will cleanup the loaded dynamic library
 	virtual ~CanLibLoader();
-	static CanLibLoader* createInstance(const std::string& libName);
+	SHARED_LIB_EXPORT_DEFN static CanLibLoader* createInstance(const std::string& libName);
 
-	CanModule::CCanAccess * openCanBus(std::string name, std::string parameters);
+	SHARED_LIB_EXPORT_DEFN CanModule::CCanAccess * openCanBus(std::string name, std::string parameters);
 	void closeCanBus(CanModule::CCanAccess *cca);
  protected:
 	//Load a dynamic library.

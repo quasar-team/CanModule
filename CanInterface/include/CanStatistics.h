@@ -24,6 +24,7 @@
 #	endif // GCC_VERSION
 #	include <sys/time.h>
 #endif
+#include "ExportDefinition.h"
 
 class CanStatistics
 {
@@ -31,7 +32,7 @@ class CanStatistics
 
 public:
 
-	CanStatistics();
+	SHARED_LIB_EXPORT_DEFN CanStatistics();
 
 	void beginNewRun();
 	void computeDerived (unsigned int baudRate);
