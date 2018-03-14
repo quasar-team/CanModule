@@ -95,9 +95,6 @@ include_directories( include )
 include_directories( CanLibLoader/include )
 include_directories( CanInterface/include )
 
-#add_subdirectory(CanLibLoader)
-#add_subdirectory(CanInterface)
-
 if(NOT STANDALONE_BUILD)
 	add_library ( CanModule OBJECT ${SRCS} )
 else()
@@ -118,8 +115,6 @@ else()
     target_link_libraries( CanModule ${BOOST_LIBS} )
     
     add_subdirectory(CanInterfaceImplementations) #just to build the shared lib (reqd at runtime - loaded dynamically)
-    add_subdirectory(GoogleTest)
-    include_directories( GoogleTest/googletest/googletest/include )
     add_subdirectory(CanModuleTest)
     	
 endif()

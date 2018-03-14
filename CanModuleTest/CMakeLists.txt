@@ -2,22 +2,25 @@ cmake_minimum_required(VERSION 2.8)
 project(CanModuleTest)
 find_package(Threads REQUIRED)
 
-add_library(custgtest STATIC IMPORTED)
+function ( clone_googletest GOOGLETEST_VERSION)
+  message(STATUS "cloning googletest from github. *NOTE* cloning [${GOOGLETEST_VERSION}]")
+  execute_process(COMMAND git clone -b ${GOOGLETEST_VERSION} https://github.com/google/googletest.git WORKING_DIRECTORY ${PROJECT_BINARY_DIR})
+  message(STATUS "googletest cloned")    
+endfunction()
+
 set(CMAKE_POSITION_INDEPENDENT_CODE TRUE)
 
-#SET(CMAKE_FIND_LIBRARY_SUFFIXES ".a" ".lib")
-#find_library(
-#  GTEST_LIB NAMES gtest libgtest 
-#  PATHS ${PROJECT_SOURCE_DIR}/GoogleTest/gtest/src/gtest-build/ NO_DEFAULT_PATH
-#)
-#message(STATUS "GTEST_LIB [${GTEST_LIB}]")
-
 file(GLOB CAN_MODULE_TEST_SRCS src/*.cpp)
-include_directories(
-	include
-	../CanInterfaceImplementations/unitTestMockUpImplementation
-	../GoogleTest/gtest/src/gtest/include
+include_directories( 
+	include 
+	../CanInterfaceImplementations/unitTestMockUpImplementation/
 )
+
+clone_googletest("master")
+set( BUILD_GTEST ON CACHE BOOL "We do want to build gtest")
+set( BUILD_GMOCK OFF CACHE BOOL "we do not want to build gmock")
+set( gtest_force_shared_crt ON CACHE BOOL "use shared CRT" FORCE)
+add_subdirectory(googletest)
 
 add_executable( CanModuleTest ${CAN_MODULE_TEST_SRCS} )
 
@@ -30,8 +33,8 @@ target_link_libraries (CanModuleTest
 	CanModule
 	${CMAKE_THREAD_LIBS_INIT}
 	${LOGIT_LIB}
-	${GTESTLIB}
+	gtest
 	-ldl
 )
 
-add_dependencies (CanModuleTest CanModule GoogleTest)
+add_dependencies (CanModuleTest CanModule gtest)

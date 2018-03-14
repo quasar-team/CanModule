@@ -26,3 +26,6 @@ GoogleTest/googletest/
 Release
 x64
 Debug/
+gmock*.pc
+gtest*.pc
+**/googletest
