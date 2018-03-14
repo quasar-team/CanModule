@@ -33,7 +33,7 @@ Note: this also builds the unit tests (in CanModuleTest, built with googletest) 
 # from directory CanModule 
 
 # 1 amend the LD_LIBRARY_PATH so that the CanModuleTest can load the MockUpCanImplementation.so
-LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$(pwd)/CanInterfaceImplementations/unitTestMockUpImplementation/
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$(pwd)/CanModule/CanInterfaceImplementations/output
 
 #2 run the CanModuleTest
 CanModuleTest/CanModuleTest

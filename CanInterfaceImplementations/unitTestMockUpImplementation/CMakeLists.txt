@@ -8,6 +8,8 @@ message(STATUS "file [${CMAKE_CURRENT_LIST_FILE}]: STANDALONE_BUILD [${STANDALON
 message(STATUS "file [${CMAKE_CURRENT_LIST_FILE}]: Using boost libraries: BOOST_LIBS [${BOOST_LIBS}]")  
 message(STATUS "file [${CMAKE_CURRENT_LIST_FILE}]: Using LogIt library: LOGIT_LIB [${LOGIT_LIB}]")
 
+SET( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/CanModule/CanInterfaceImplementations/output/)
+
 include_directories (	
 ${PROJECT_SOURCE_DIR}/CanModule/CanInterface/include
 ${PROJECT_SOURCE_DIR}/CanModule/CanInterfaceImplementations/unitTestMockUpImplementation
@@ -27,5 +29,6 @@ else()
 	add_library( MockUpCanImplementation SHARED ${MOCK_SOURCES} )
 	target_link_libraries( CanMoMockUpCanImplementationdule ${LOGIT_LIB} )
 endif()
-
 target_link_libraries ( MockUpCanImplementation	${BOOST_LIBS} )
+
+set_property(TARGET MockUpCanImplementation PROPERTY POSITION_INDEPENDENT_CODE TRUE)
