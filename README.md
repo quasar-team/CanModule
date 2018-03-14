@@ -51,3 +51,21 @@ make clean && make
 ```
 
 ### Building on Windows
+
+_example: build CanModule as a shared library using a custom boost version (built locally from source with visual studio). In this case  [LogIt](github.com/quasar-team/LogIt) is built directly in to the CanModule library - i.e. LogIt is not linked as an external library)._
+
+```
+cmake -DSTANDALONE_BUILD=ON -DCMAKE_TOOLCHAIN_FILE=boost_custom_win_VS2017.cmake -G "Visual Studio 15 2017 Win64"
+#(comment) this generates the CanModule.sln file (plus sub-projects). Open the sln file in visual studo (the line above generates for  visual studio community 2017) and build as normal.
+```
+As ever, bonus points will be awarded to developers that (a) take the time to run the existing unit tests and (b) developer further tests. CanModuleTests is home to the unit tests, and builds to CanModuleTests/Release(or Debug)/CanModuleTests.exe - run this executable to run the tests. Note you have to set the path variable to locate some dlls, see below
+
+_example: execute the unit tests in CanModuleTests on windows_
+```
+# running from CanModule (i.e. top level dir of a clone of ths repo)
+# set the path to locate the CanModule.dll and the MockUpCanImplementation.dll upon which the tests are based
+Path=%Path%;%cd%\CanInterfaceImplementations\unitTestMockUpImplementation\Release;%cd%\Release
+
+# and run the test executable
+CanModuleTest\Release\CanModuleTest.exe
+```
