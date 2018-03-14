@@ -12,12 +12,20 @@ include_directories (
 ${PROJECT_SOURCE_DIR}/CanModule/CanInterface/include
 ${PROJECT_SOURCE_DIR}/CanModule/CanInterfaceImplementations/unitTestMockUpImplementation
 )
-add_library (MockUpCanImplementation SHARED
-MockCanAccess.cpp
-MockCanAccess.h
-../../CanInterface/src/CanStatistics.cpp
-../../CanInterface/src/CanModuleUtils.cpp
-${MOCKUP_GETTIMEOFDAY}
+
+set(MOCK_SOURCES
+	MockCanAccess.cpp
+	MockCanAccess.h
+	../../CanInterface/src/CanStatistics.cpp
+	../../CanInterface/src/CanModuleUtils.cpp
+	${MOCKUP_GETTIMEOFDAY}
 )
 
-target_link_libraries ( MockUpCanImplementation	${BOOST_LIBS} ${LOGIT_LIB})
+if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
+	add_library( MockUpCanImplementation SHARED ${MOCK_SOURCES} $<TARGET_OBJECTS:LogIt>)
+else()
+	add_library( MockUpCanImplementation SHARED ${MOCK_SOURCES} )
+	target_link_libraries( CanMoMockUpCanImplementationdule ${LOGIT_LIB} )
+endif()
+
+target_link_libraries ( MockUpCanImplementation	${BOOST_LIBS} )

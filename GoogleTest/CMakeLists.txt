@@ -10,7 +10,7 @@ endfunction()
 
 function ( build_googletest )
   message(STATUS "generating platform specific build for googletest library for [${CMAKE_GENERATOR}]")
-  execute_process( COMMAND "${CMAKE_COMMAND}" -DBUILD_GTEST=ON -DBUILD_GMOCK=OFF -G "${CMAKE_GENERATOR}" WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/googletest)
+  execute_process( COMMAND "${CMAKE_COMMAND}"  -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DBUILD_GTEST=ON -DBUILD_GMOCK=OFF -G "${CMAKE_GENERATOR}" WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/googletest)
   message(STATUS "executing platform specific build for googletest library")
   execute_process( COMMAND "${CMAKE_COMMAND}" --build . WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/googletest)
 endfunction()
