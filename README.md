@@ -52,9 +52,13 @@ make clean && make
 
 ### Building on Windows
 
-_example: build CanModule as a shared library using a custom boost version (built locally from source with visual studio). In this case  [LogIt](github.com/quasar-team/LogIt) is built directly in to the CanModule library - i.e. LogIt is not linked as an external library)._
+_example: build CanModule as a shared library using a custom boost version (built locally from source with visual studio). In this case  [LogIt](github.com/quasar-team/LogIt) is built directly in to the CanModule library - i.e. LogIt is not linked as an external library). The sample commands below were executed on windows from a git bash terminal (mingw)_
 
 ```
+#(comment) note that the toolchain file used to locate the boost includes/libs requires 2 environment variables to be set
+export BOOST_PATH_HEADERS=/c/3rdPartySoftware/boost_mapped_namespace_builder/work/MAPPED_NAMESPACE_INSTALL/include/
+export BOOST_PATH_LIBS=/c/3rdPartySoftware/boost_mapped_namespace_builder/work/MAPPED_NAMESPACE_INSTALL/lib/
+
 cmake -DSTANDALONE_BUILD=ON -DCMAKE_TOOLCHAIN_FILE=boost_custom_win_VS2017.cmake -G "Visual Studio 15 2017 Win64"
 #(comment) this generates the CanModule.sln file (plus sub-projects). Open the sln file in visual studo (the line above generates for  visual studio community 2017) and build as normal.
 ```
