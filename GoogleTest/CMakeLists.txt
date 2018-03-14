@@ -22,6 +22,7 @@ if(MSVC)
 endif()
 
 clone_googletest(${GOOGLETEST_VERSION})
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 build_googletest()
 
 SET(CMAKE_FIND_LIBRARY_SUFFIXES ".a" ".lib")

@@ -25,3 +25,4 @@ GoogleTest/googletest/
 *.dir
 Release
 x64
+Debug/
