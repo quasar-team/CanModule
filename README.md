@@ -45,7 +45,7 @@ _example: build CanModule as a shared library using a custom boost version (e.g.
 export BOOST_PATH_HEADERS=/local/bfarnham/workspace/boost_mapped_namespace_builder/work/MAPPED_NAMESPACE_INSTALL/64bit/include/
 export BOOST_PATH_LIBS=/local/bfarnham/workspace/boost_mapped_namespace_builder/work/MAPPED_NAMESPACE_INSTALL/64bit/lib/
 
-cmake -DSTANDALONE_BUILD=ON -DCMAKE_TOOLCHAIN_FILE=boost_custom_cc7.cmake -DLOGIT_BUILD_OPTION=LOGIT_AS_EXT_SHARED -DLOGIT_EXT_LIB_DIR=/local/bfarnham/workspace/quasar_stuff/LogIt/ -DLOGIT_EXT_INC_DIR=/local/bfarnham/workspace/quasar_stuff/LogIt/include
+cmake -DSTANDALONE_BUILD=ON -DCMAKE_TOOLCHAIN_FILE=boost_custom_cc7.cmake -DLOGIT_BUILD_OPTION=LOGIT_AS_EXT_SHARED -DLOGIT_EXT_LIB_DIR=/local/bfarnham/workspace/quasar_stuff/LogIt/ -DLOGIT_INCLUDE_DIR=/local/bfarnham/workspace/quasar_stuff/LogIt/include
 
 make clean && make
 ```
@@ -81,7 +81,7 @@ _example: build CanModule as a shared library using some external build (or poss
 export BOOST_PATH_HEADERS=/c/3rdPartySoftware/boost_mapped_namespace_builder/work/MAPPED_NAMESPACE_INSTALL/include/
 export BOOST_PATH_LIBS=/c/3rdPartySoftware/boost_mapped_namespace_builder/work/MAPPED_NAMESPACE_INSTALL/lib/
 
-cmake -DSTANDALONE_BUILD=ON -DCMAKE_TOOLCHAIN_FILE=boost_custom_win_VS2017.cmake -DLOGIT_BUILD_OPTION=LOGIT_AS_EXT_SHARED -DLOGIT_EXT_LIB_DIR=/c/workspace/OPC-UA/LogIt/Release/ -DLOGIT_EXT_INC_DIR=/c/workspace/OPC-UA/LogIt/include/ -G "Visual Studio 15 2017 Win64"
+cmake -DSTANDALONE_BUILD=ON -DCMAKE_TOOLCHAIN_FILE=boost_custom_win_VS2017.cmake -DLOGIT_BUILD_OPTION=LOGIT_AS_EXT_SHARED -DLOGIT_EXT_LIB_DIR=/c/workspace/OPC-UA/LogIt/Release/ -DLOGIT_INCLUDE_DIR=/c/workspace/OPC-UA/LogIt/include/ -G "Visual Studio 15 2017 Win64"
 
 #(comment) this generates the CanModule.sln file (plus sub-projects). Open the sln file in visual studo (the line above generates for  visual studio community 2017) and build as normal.
 ```

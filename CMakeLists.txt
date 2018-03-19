@@ -22,19 +22,19 @@ endfunction()
 
 function ( locateLogItSharedLib )
 	set(LOGIT_EXT_LIB_DIR "UNINIALIZED" CACHE PATH "Path to the directory containing the LogIt shared/static library binary file. Use absolute path, or relative to [${PROJECT_SOURCE_DIR}/]")
-	set(LOGIT_EXT_INC_DIR "UNINIALIZED" CACHE PATH "Path to the directory containing the LogIt include files. Use absolute path, or relative to [${PROJECT_SOURCE_DIR}/]")
-	message(STATUS "looking for LogIt... lib dir (-DLOGIT_EXT_LIB_DIR) [${LOGIT_EXT_LIB_DIR}] include dir (-DLOGIT_EXT_INC_DIR) [${LOGIT_EXT_INC_DIR}]")
+	set(LOGIT_INCLUDE_DIR "UNINIALIZED" CACHE PATH "Path to the directory containing the LogIt include files. Use absolute path, or relative to [${PROJECT_SOURCE_DIR}/]")
+	message(STATUS "looking for LogIt... lib dir (-DLOGIT_EXT_LIB_DIR) [${LOGIT_EXT_LIB_DIR}] include dir (-DLOGIT_INCLUDE_DIR) [${LOGIT_INCLUDE_DIR}]")
 	
 	SET(CMAKE_FIND_LIBRARY_SUFFIXES ".so" ".lib") # windows looks for lib file to link to target dll: lib contains dll exports, symbols etc (see LogIt.h SHARED_LIB_EXPORT_DEFN)
 	find_library( LOGITLIB NAMES LogIt PATHS ${LOGIT_EXT_LIB_DIR} NO_DEFAULT_PATH )
         
-    if(NOT EXISTS ${LOGIT_EXT_INC_DIR})
-        message(FATAL "No LogIt include directory found at [${LOGIT_EXT_INC_DIR}]. Please check the value of your -DLOGIT_EXT_INC_DIR build option" ) 
+    if(NOT EXISTS ${LOGIT_INCLUDE_DIR})
+        message(FATAL "No LogIt include directory found at [${LOGIT_INCLUDE_DIR}]. Please check the value of your -DLOGIT_INCLUDE_DIR build option" ) 
     endif()
-    include_directories(${LOGIT_EXT_INC_DIR})
+    include_directories(${LOGIT_INCLUDE_DIR})
 
     set( LOGIT_LIB ${LOGITLIB} CACHE FILEPATH "location of the LogIt library the build will use")
-    message(STATUS "Shared LogIt found, lib [${LOGIT_LIB}] headers [${LOGIT_EXT_INC_DIR}]")
+    message(STATUS "Shared LogIt found, lib [${LOGIT_LIB}] headers [${LOGIT_INCLUDE_DIR}]")
 endfunction()
 
 function ( clone_LogIt )
