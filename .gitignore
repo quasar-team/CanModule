@@ -29,3 +29,4 @@ Debug/
 gmock*.pc
 gtest*.pc
 **/googletest
+build/
