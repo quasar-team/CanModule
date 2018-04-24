@@ -47,8 +47,7 @@ function ( clone_LogIt )
 endfunction()
 
 option(STANDALONE_BUILD "Build it as a stand-alone library instead of for Quasar" OFF )
-option(STANDALONE_BUILD_SHARED "When building in stand-alone, build shared library rather than static library" OFF)
-message(STATUS "STANDALONE_BUILD [${STANDALONE_BUILD}] STANDALONE_BUILD_SHARED [${STANDALONE_BUILD_SHARED}]")
+message(STATUS "STANDALONE_BUILD [${STANDALONE_BUILD}]")
 
 #
 # How does the stand-alone open62541-compat build want to use LogIt? Possible options:
