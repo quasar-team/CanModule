@@ -1,228 +1,122 @@
-/*
- * CanModuleTest.cpp
+/* © Copyright Ben Farnham, CERN, 2018.  All rights not expressly granted are reserved.
+ * nodemanagerbase.cpp
  *
- *  Created on: Oct 8, 2015
- *      Author: dabalo
+ *  Created on: reated on: Apr 11, 2018
+ *      Author: Ben Farnham <ben.farnham@cern.ch>
+ *
+ *  This file is part of Quasar.
+ *
+ *  Quasar is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Lesser General Public Licence as published by
+ *  the Free Software Foundation, either version 3 of the Licence.
+ *
+ *  Quasar is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Lesser General Public Licence for more details.
+ *
+ *  You should have received a copy of the GNU Lesser General Public License
+ *  along with Quasar.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 #include "CanModuleTest.h"
 #include <stdint.h>
-//#include <list>
+#include <boost/bind.hpp>
 #include <LogIt.h>
-#include "CanLibExternCWrapper.h"
+#include <LogLevels.h>
 #include "CanLibLoader.h"
 #include "CCanAccess.h"
-/*	#include <boost/thread.hpp>
-#include <boost/foreach.hpp>*/
-
-#ifdef _WIN32
-
-#define INITIALIZELOGITIFNEEDED  
-
-#else
-
-#define INITIALIZELOGITIFNEEDED Log::initializeLogging(Log::INF);
-
-#endif
-
+#include "MockCanAccess.h"
 
 using namespace CanModule;
+using std::string;
 
-TEST(CanModuleTest, loadWrongLib)
+CanModuleTest::CanModuleTest()
 {
-	INITIALIZELOGITIFNEEDED
-	bool catched = false;
+	Log::initializeLogging(Log::TRC);
+}
+
+CanModuleTest::~CanModuleTest()
+{}
+
+CanModuleTest::MsgRcvdFunctor::MsgRcvdFunctor()
+{}
+
+CanModuleTest::MsgRcvdFunctor::~MsgRcvdFunctor()
+{}
+
+void CanModuleTest::MsgRcvdFunctor::operator()(const CanMessage& msg)
+{
+	const string dataAsString(std::string(msg.c_data, msg.c_data + (msg.c_dlc*sizeof(unsigned char))));
+	LOG(Log::INF) << __FUNCTION__ << " ID ["<<msg.c_id<<"] len ["<<(unsigned int)msg.c_dlc<<"] message [0x"<<dataAsString<<"] rtr ["<<msg.c_rtr<<"]";
+	boost::shared_ptr<CanMessage> msgClone(new CanMessage());
+
+	msgClone->c_id = msg.c_id;
+	msgClone->c_ff = msg.c_ff;
+	msgClone->c_dlc = msg.c_dlc;
+	memcpy(msgClone->c_data, msg.c_data, 8);
+	msgClone->c_time.tv_sec = msg.c_time.tv_sec;
+	msgClone->c_time.tv_usec = msg.c_time.tv_usec;
+	msgClone->c_rtr = msg.c_rtr;
+	m_msgsRecvd.push_back(msgClone);
+}
+
+TEST_F(CanModuleTest, loadWrongLib)
+{
 	try 
 	{
-		CanLibLoader::createInstance("MockUpCanImplementationFake");
+		CanLibLoader::createInstance("LibDoesNotExist");
+		FAIL() << "expected exception to be thrown, lib does not exist";
 	}
-	catch (...)
-	{
-		catched = true;
-	}
-	EXPECT_TRUE(catched);
+	catch (...){/*OK, expected*/}
 }
 
-TEST (CanModuleTest, loadWrongLibWrapper)
+TEST_F(CanModuleTest, loadCorrectLib)
 {
-	INITIALIZELOGITIFNEEDED
-	bool catched = false;
-	try
-	{
-		initializeWrapper("MockUpCanImplementationFake");
-	}
-	catch (...)
-	{
-		catched = true;
-	}
-	EXPECT_TRUE(catched);
-}
-
-
-TEST(CanModuleTest, loadCorrectLib)
-{
-	INITIALIZELOGITIFNEEDED
-	bool catched = false;
 	try 
 	{
 		CanLibLoader::createInstance("MockUpCanImplementation");
 	}
 	catch (int e)
 	{
-		catched = true;
+		FAIL() << "unexpected exception thrown, lib should exist (did you remember to set *LD_LIBRARY_PATH* to locate the mock can implementation library? )";
 	}
-	EXPECT_FALSE(catched);
 }
 
-TEST(CanModuleTest, loadCorrectLibWrapper)
+TEST_F(CanModuleTest, openCanBus)
 {
-	INITIALIZELOGITIFNEEDED
-	bool catched = false;
-	try
-	{
-		initializeWrapper("MockUpCanImplementation");
-	}
-	catch (int e)
-	{
-		catched = true;
-	}
-	EXPECT_FALSE(catched);
-}
+	CanLibLoader* libLoaderInstance = CanLibLoader::createInstance("MockUpCanImplementation");
 
-TEST(CanModuleTest, openPort)
-{
-	INITIALIZELOGITIFNEEDED
-	bool catched = false;
-	CanLibLoader* libLoaderInstance;
-	try
-	{
-		libLoaderInstance = CanLibLoader::createInstance("MockUpCanImplementation");
-	}
-	catch (int e)
-	{
-		catched = true;
-	}
-	EXPECT_FALSE(catched);
-	char* parameters = "Unspecified";
-	char* name = "FakeName";
+	string parameters = "Unspecified";
+	const char* name = "FakeName";
 	CCanAccess* canBusAccessInstance = libLoaderInstance->openCanBus(name, parameters);
 	EXPECT_FALSE(canBusAccessInstance == 0);
 }
 
-TEST(CanModuleTest, openPortWrapper)
+TEST_F(CanModuleTest, sendMessage)
 {
-	INITIALIZELOGITIFNEEDED
-	bool catched = false;
-	CanLibLoader* libLoaderInstance;
-	try
-	{
-		libLoaderInstance = CanLibLoader::createInstance("MockUpCanImplementation");
-	}
-	catch (int e)
-	{
-		catched = true;
-	}
-	EXPECT_FALSE(catched);
-	char* parameters = "Unspecified";
-	char* name = "FakeName1";
-	openCanBus(name, parameters);
-}
-
-TEST(CanModuleTest, sendMessage)
-{
-	INITIALIZELOGITIFNEEDED
-	bool catched = false;
-	CanLibLoader* libLoaderInstance;
-	try
-	{
-		libLoaderInstance = CanLibLoader::createInstance("MockUpCanImplementation");
-	}
-	catch (int e)
-	{
-		catched = true;
-	}
-	EXPECT_FALSE(catched);
+	CanLibLoader* libLoaderInstance = CanLibLoader::createInstance("MockUpCanImplementation");
 	
-	char* parameters = "Unspecified";
-	char* name = "FakeName9";
+	const char*  parameters = "Unspecified";
+	const char*  name = "FakeName9";
 	CCanAccess* canBusAccessInstance = libLoaderInstance->openCanBus(name, parameters);
-	EXPECT_FALSE(canBusAccessInstance == 0);	
 	EXPECT_TRUE(canBusAccessInstance->sendMessage(1, 8, (unsigned char*)("12345678"), false));
 	EXPECT_TRUE(canBusAccessInstance->sendMessage(2, 8, (unsigned char*)("22345678"), false));
 	EXPECT_TRUE(canBusAccessInstance->sendMessage(3, 8, (unsigned char*)("32345678"), false));
-	
+
+	CanStatistics stats;
+	canBusAccessInstance->getStatistics(stats);
+	EXPECT_EQ(3, stats.totalTransmitted()) << "test transmits 3 packages";
 }
 
-TEST(CanModuleTest, sendMessageWrapper)
+TEST_F(CanModuleTest, sendRecvEchoMessage)
 {
-	INITIALIZELOGITIFNEEDED
-	bool catched = false;
-	CanLibLoader* libLoaderInstance;
-	try
-	{
-		libLoaderInstance = CanLibLoader::createInstance("MockUpCanImplementation");
-	}
-	catch (int e)
-	{
-		catched = true;
-	}
-	EXPECT_FALSE(catched);
-	
-	char* parameters = "Unspecified";
-	char* name = "FakeName2";
-	openCanBus(name, parameters);
-	EXPECT_TRUE(sendMessage(name, 1, 8, (unsigned char*)("12345678"), false));
-	EXPECT_TRUE(sendMessage(name, 2, 8, (unsigned char*)("22345678"), false));
-	EXPECT_TRUE(sendMessage(name, 3, 8, (unsigned char*)("32345678"), false));
+	CanLibLoader* libLoaderInstance = CanLibLoader::createInstance("MockUpCanImplementation");
+	CCanAccess* canBusAccessInstance = libLoaderInstance->openCanBus("", "");
+
+	CanModuleTest::MsgRcvdFunctor handler;
+	canBusAccessInstance->canMessageCame.connect(boost::ref(handler));
+
+	canBusAccessInstance->sendMessage(1, 8, CAN_ECHO_MSG, false); // send special echo test message
+	EXPECT_EQ(1, handler.m_msgsRecvd.size());
+	EXPECT_EQ(0, memcmp(CAN_ECHO_MSG, handler.m_msgsRecvd[0]->c_data, 8)) << "expected msg [0x"<<std::hex<<CAN_ECHO_MSG<<std::dec<<"] received [0x"<<std::hex<<handler.m_msgsRecvd[0]->c_data<<std::dec<<"]";
 }
-
-TEST(CanModuleTest, readMessageWrapper)
-{
-	INITIALIZELOGITIFNEEDED
-	bool catched = false;
-	CanLibLoader* libLoaderInstance;
-	try
-	{
-		libLoaderInstance = CanLibLoader::createInstance("MockUpCanImplementation");
-	}
-	catch (int e)
-	{
-		catched = true;
-	}
-	EXPECT_FALSE(catched);
-	
-	char* parameters = "Unspecified";
-	char* name = "FakeName3";
-	openCanBus(name, parameters);
-	CanMsgStruct* msg = new CanMsgStruct();
-	EXPECT_FALSE(readMessage(name, msg));//We expect false because the queue is empty
-}
-
-TEST(CanModuleTest, closePortWrapper)
-{
-	INITIALIZELOGITIFNEEDED
-	bool catched = false;
-	CanLibLoader* libLoaderInstance;
-	try
-	{
-		libLoaderInstance = CanLibLoader::createInstance("MockUpCanImplementation");
-	}
-	catch (int e)
-	{
-		catched = true;
-	}
-	EXPECT_FALSE(catched);
-
-	char* parameters = "Unspecified";
-	char* name = "FakeName4";
-	openCanBus(name, parameters);
-	closeCanBus(name);
-}
-
-CanModuleTest::CanModuleTest()
-{
-	Log::initializeLogging(Log::INF);
-}
-
-CanModuleTest::~CanModuleTest()
-{}

@@ -9,6 +9,9 @@
 #define CANMODULETEST_H_
 
 #include "gtest/gtest.h"
+#include <vector>
+#include <boost/shared_ptr.hpp>
+#include "CanMessage.h"
 
 class CanModuleTest;
 
@@ -18,6 +21,16 @@ public:
 
 	CanModuleTest();
 	virtual ~CanModuleTest();
+
+	class MsgRcvdFunctor
+	{
+	public:
+		MsgRcvdFunctor();
+		virtual ~MsgRcvdFunctor();
+
+		void operator()(const CanMessage& msg);
+		std::vector< boost::shared_ptr<CanMessage> > m_msgsRecvd;
+	};
 };
 
 #endif /* CANMODULETEST_H_ */

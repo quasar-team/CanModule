@@ -2,26 +2,33 @@ cmake_minimum_required(VERSION 2.8)
 
 IF(WIN32)
 	SET(MOCKUP_GETTIMEOFDAY ../../CanInterface/src/gettimeofday.cpp)
-	SET( CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${PROJECT_SOURCE_DIR}/CanModule/CanInterfaceImplementations/output/)
-	SET( CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${PROJECT_SOURCE_DIR}/CanModule/CanInterfaceImplementations/output/)
-ELSE()
-	SET(MOCKUP_GETTIMEOFDAY )
-	SET( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/CanModule/CanInterfaceImplementations/output/)
 ENDIF()
 
+message(STATUS "file [${CMAKE_CURRENT_LIST_FILE}]: STANDALONE_BUILD [${STANDALONE_BUILD}]")
+message(STATUS "file [${CMAKE_CURRENT_LIST_FILE}]: Using boost libraries: BOOST_LIBS [${BOOST_LIBS}]")  
+message(STATUS "file [${CMAKE_CURRENT_LIST_FILE}]: Using LogIt library: LOGIT_LIB [${LOGIT_LIB}]")
+
+SET( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/CanModule/CanInterfaceImplementations/output/)
 
 include_directories (	
 ${PROJECT_SOURCE_DIR}/CanModule/CanInterface/include
 ${PROJECT_SOURCE_DIR}/CanModule/CanInterfaceImplementations/unitTestMockUpImplementation
 )
-add_library (MockUpCanImplementation SHARED
-mockUp.cpp
-../../CanInterface/src/CanStatistics.cpp
-../../CanInterface/src/CanModuleUtils.cpp
-${MOCKUP_GETTIMEOFDAY}
-$<TARGET_OBJECTS:LogIt>
+
+set(MOCK_SOURCES
+	MockCanAccess.cpp
+	MockCanAccess.h
+	../../CanInterface/src/CanStatistics.cpp
+	../../CanInterface/src/CanModuleUtils.cpp
+	${MOCKUP_GETTIMEOFDAY}
 )
-#set_target_properties(AnagateCanImplementation PROPERTIES LINKER_LANGUAGE Cxx)
-target_link_libraries ( MockUpCanImplementation 
-	${BOOST_LIBS}
-)
+
+if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
+	add_library( MockUpCanImplementation SHARED ${MOCK_SOURCES} $<TARGET_OBJECTS:LogIt>)
+else()
+	add_library( MockUpCanImplementation SHARED ${MOCK_SOURCES} )
+	target_link_libraries( MockUpCanImplementation ${LOGIT_LIB} )
+endif()
+target_link_libraries ( MockUpCanImplementation	${BOOST_LIBS} )
+
+set_property(TARGET MockUpCanImplementation PROPERTY POSITION_INDEPENDENT_CODE TRUE)
