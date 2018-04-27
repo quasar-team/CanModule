@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 2.8)
+project(pkcan)
 
 add_definitions("/EHsc")
 #SET( CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${PROJECT_SOURCE_DIR}/CanModule/CanInterfaceImplementations/output/)

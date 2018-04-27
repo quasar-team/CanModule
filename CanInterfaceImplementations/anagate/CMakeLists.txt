@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 2.8)
+project(ancan)
 
 IF(WIN32)
 	SET(ANAGATE_INCLUDE_DIR "C:/AnagateCAN/win32/vc8/include")
