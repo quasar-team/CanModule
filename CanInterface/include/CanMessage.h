@@ -7,6 +7,7 @@
 
 #ifndef CANMESSAGE_H_
 #define CANMESSAGE_H_
+
 #ifdef _WIN32
 #include <Winsock2.h>
 #else
@@ -43,8 +44,8 @@ public:
 				c_data[i] = 0;
 
 		}
-#endif//Be careful when using this strut from C
-} CanMessage;
+#endif //Be careful when using this strut from C
 
+} CanMessage;
 
 #endif /* CANMESSAGE_H_ */

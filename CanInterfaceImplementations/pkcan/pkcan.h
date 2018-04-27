@@ -17,6 +17,8 @@
 #include "CCanAccess.h"
 #include "CanStatistics.h"
 
+using namespace CanModule;
+
 /*
  * This is an implementation of the abstract class CCanAccess. It serves as a can bus access layer that will communicate with Peak USB-CAN devices (Windows only)
  */
@@ -39,9 +41,9 @@ public:
 	 * @param parameters: Different parameters used for the initialisation. For using the default parameters just set this to "Unspecified"
 	 * @return: Was the initialisation process successful?
 	 */
-	virtual bool createBUS(const char * name,const char * parameters);
+	virtual bool createBus(const string name,const string parameters);
 	/*
-	 * Method that sends a message trough the can bus channel. If the method createBUS was not called before this, sendMessage will fail, as there is no
+	 * Method that sends a message trough the can bus channel. If the method createBus was not called before this, sendMessage will fail, as there is no
 	 * can bus channel to send a message trough.
 	 * @param cobID: Identifier that will be used for the message.
 	 * @param len: Length of the message. If the message is bigger than 8 characters, it will be split into separate 8 characters messages.
@@ -51,7 +53,7 @@ public:
 	 */
     virtual bool sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr = false);
     /*
-	 * Method that sends a remote request trough the can bus channel. If the method createBUS was not called before this, sendMessage will fail, as there is no
+	 * Method that sends a remote request trough the can bus channel. If the method createBus was not called before this, sendMessage will fail, as there is no
 	 * can bus channel to send the request trough. Similar to sendMessage, but it sends an special message reserved for requests.
 	 * @param cobID: Identifier that will be used for the request.
 	 * @return: Was the initialisation process successful?
@@ -60,7 +62,6 @@ public:
 	//Returns the instance of the CanStatistics object
 	virtual void getStatistics( CanStatistics & result );
 
-	virtual bool initialiseLogging(LogItInstance* remoteInstance);
 	/*
 	 * Converts Error code into a text message.
 	 */
@@ -68,7 +69,7 @@ public:
 
 private:
 	TPCANHandle getHandle(const char *name);
-	std::string getCanName() { return m_canName; }
+
 	bool sendErrorCode(long);
 	// The main control thread function for the CAN update scan manager.
 	static DWORD WINAPI CanScanControlThread(LPVOID pCanScan);
@@ -80,14 +81,12 @@ private:
 	//Current baud rate
 	unsigned int m_baudRate;
 
-	//Name of the can channel
-	std::string m_canName;
 	//Instance of the can handle
    	TPCANHandle	m_canObjHandler;
-	bool configureCanboard(const char *name,const char *parameters);
+	bool configureCanboard(const string name,const string parameters);
 
 	HANDLE      m_hCanScanThread;
-	HANDLE		m_ReadEvent;
+//	HANDLE		m_ReadEvent;
 
     // Thread ID for the CAN update scan manager thread.
     DWORD           m_idCanScanThread;

@@ -16,11 +16,14 @@
 #include "CanStatistics.h"
 #include <sys/socket.h>
 #include <linux/can.h>
+#include "libsocketcan.h"
 
 /*
  * This is an implementation of the abstract class CCanAccess. It serves as a can bus access layer that will communicate with socket can (Linux only)
  */
-class CSockCanScan : public CanModule::CCanAccess
+using namespace CanModule;
+
+class CSockCanScan : public CCanAccess
 {
  public:
 	//Constructor of the class. Will initiate the statistics.
@@ -59,18 +62,17 @@ class CSockCanScan : public CanModule::CCanAccess
 	 * @param parameters: Different parameters used for the initialisation. For using the default parameters just set this to "Unspecified"
 	 * @return: Was the initialisation process successful?
 	 */
-    virtual bool createBUS(const char *name ,const  char *parameters );
+    virtual bool createBus(const string name ,string parameters );
     
     //Returns socket handler
     int getHandler() { return m_sock; }
     //Returns channel name
-    std::string &getChannel() { return m_channelName; }
+ //   std::string &getChannel() { return m_channelName; }
     //Returns can bus parameters
-    std::string &getParameters() { return m_parameters; }
+//    std::string &getParameters() { return m_parameters; }
     //Returns the instance of the CanStatistics object
     virtual void getStatistics( CanStatistics & result );
 
-    virtual bool initialiseLogging(LogItInstance* remoteInstance);
  private:
     //Flag for shutting down the CanScan thread
     volatile bool m_CanScanThreadShutdownFlag;
@@ -88,14 +90,14 @@ class CSockCanScan : public CanModule::CCanAccess
 	//Report an error when opening a can port
 	void updateInitialError () ;
 	//Transforms an error frame into an error message (string format)
-	static std::string errorFrameToString (const can_frame &f);
+	static std::string errorFrameToString (const struct can_frame &f);
 
     void sendErrorMessage(const char  *);
-    void sendErrorMessage(const struct can_frame *);
+ //   void sendErrorMessage(const struct can_frame *);
 
     void clearErrorMessage();
 
-    int configureCanboard(const char *name,const char *parameters);
+    int configureCanBoard(const string name,const string parameters);
 
     /** Obtains a SocketCAN socket and opens it.
      *  The name of the port and parameters should have been specified by preceding call to configureCanboard()
@@ -109,15 +111,6 @@ class CSockCanScan : public CanModule::CCanAccess
 
     //Channel name
     std::string m_channelName;
-
-    //Parameters of the can bus
-    std::string m_parameters;
-
-    //! Current baud rate
-    unsigned int m_baudRate;
-
-    //! It means that the application should only use the port, but not reconfigure (e.g. change bitrate, turn port on/off, etc)
-    bool m_dontReconfigure;
 
     //! As up-to-date as possible state of the interface.
     int m_errorCode;

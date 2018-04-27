@@ -3,17 +3,14 @@
 #include "pkcan.h"
 #include <time.h>
 #include <string.h>
-#include "gettimeofday.h"
+//#include "gettimeofday.h"
+#include "CanModuleUtils.h"
 
 #include <LogIt.h>
 using namespace std;
-using namespace CanModule;
-
-//! The macro below is applicable only to this translation unit
-#define MLOG(LEVEL,THIS) LOG(Log::LEVEL) << THIS->m_canName << " "
 
 bool  initLibarary =  false;
-extern "C" __declspec(dllexport) CCanAccess *getCanbusAccess()
+extern "C" __declspec(dllexport) CCanAccess *getCanBusAccess()
 {
 	CCanAccess *cc;
 	cc = new PKCanScan;
@@ -23,12 +20,13 @@ extern "C" __declspec(dllexport) CCanAccess *getCanbusAccess()
 PKCanScan::PKCanScan()
 {
 	m_statistics.beginNewRun();
+	m_busStatus = 0;
 }
 
 PKCanScan::~PKCanScan()
 {
 	m_CanScanThreadShutdownFlag = false;
-	CloseHandle(m_ReadEvent);
+//	CloseHandle(m_ReadEvent);
 	CAN_Uninitialize(m_canObjHandler);
 }
 
@@ -59,7 +57,7 @@ DWORD WINAPI PKCanScan::CanScanControlThread(LPVOID pCanScan)
 			mmsec = mmsec + 1000 * tpcanTimestamp.millis;
 
 			canMessage.c_time.tv_usec = mmsec % 1000000UL;
-			canMessage.c_time.tv_sec = mmsec / 1000000UL;
+			canMessage.c_time.tv_sec = long(mmsec / 1000000UL);
 			pkCanScanPointer->canMessageCame(canMessage);
 			pkCanScanPointer->m_statistics.onReceive( canMessage.c_dlc );
 		}
@@ -81,8 +79,9 @@ DWORD WINAPI PKCanScan::CanScanControlThread(LPVOID pCanScan)
 	return 0;
 }
 
-bool PKCanScan::createBUS(const char *name ,const char *parameters )
+bool PKCanScan::createBus(const string name ,const string parameters )
 {
+	m_sBusName = name;
 	//We configure the canboard
 	if (!configureCanboard(name,parameters))
 	{//If we can't initialise the canboard, the thread is not started at all
@@ -99,28 +98,31 @@ bool PKCanScan::createBUS(const char *name ,const char *parameters )
 	return true;
 }
 
-bool PKCanScan::configureCanboard(const char *name,const char *parameters)
+bool PKCanScan::configureCanboard(const string name,const string parameters)
 {
-	m_canName = name;
+	m_sBusName = name;
 	m_baudRate = PCAN_BAUD_125K;
 
-	unsigned int parametersTseg1 = 0;
-	unsigned int parametersTseg2 = 0;
-	unsigned int parametersSjw = 0;
-	unsigned int parametersNoSamp = 0;
-	unsigned int parametersSyncmode = 0;
-	long parametersBaudRate;
-	int	numPar;
+	//unsigned int parametersTseg1 = 0;
+	//unsigned int parametersTseg2 = 0;
+	//unsigned int parametersSjw = 0;
+	//unsigned int parametersNoSamp = 0;
+	//unsigned int parametersSyncmode = 0;
+	//long parametersBaudRate;
+	//int	numPar;
 	//Process the parameters
-	if (strcmp(parameters, "Unspecified") != 0)
+	vector<string> vectorString;
+	vectorString = parcerNameAndPar(name, parameters);
+	//const char *canpars = parameters.c_str();
+	if (strcmp(parameters.c_str(), "Unspecified") != 0)
 	{
-		numPar = sscanf_s(parameters, "%d %d %d %d %d %d", &parametersBaudRate, &parametersTseg1, &parametersTseg2, &parametersSjw, &parametersNoSamp, &parametersSyncmode);
+		//numPar = sscanf_s(canpars, "%d %d %d %d %d %d", &parametersBaudRate, &parametersTseg1, &parametersTseg2, &parametersSjw, &parametersNoSamp, &parametersSyncmode);
 		//Get the can object handler
-		m_canObjHandler = getHandle(name);
+		m_canObjHandler = getHandle(vectorString[1].c_str());
 		//Process the baudRate if needed
-		if (numPar == 1)
+		if (m_CanParameters.m_iNumberOfDetectedParameters == 1)
 		{
-			switch (parametersBaudRate)
+			switch (m_CanParameters.m_lBaudRate)
 			{
 			case 50000:
 				m_baudRate = PCAN_BAUD_50K;
@@ -141,19 +143,19 @@ bool PKCanScan::configureCanboard(const char *name,const char *parameters)
 				m_baudRate = PCAN_BAUD_1M;
 				break;
 			default:
-				m_baudRate = parametersBaudRate;
+				m_baudRate = m_CanParameters.m_lBaudRate;
 			}
 		}
 		else
 		{
-			if (numPar != 0)
+			if (m_CanParameters.m_iNumberOfDetectedParameters != 0)
 			{
-				m_baudRate = parametersBaudRate;
+				m_baudRate = m_CanParameters.m_lBaudRate;
 			}
 			else
 			{
 				MLOG(ERR, this) << "Error while parsing parameters: this syntax is incorrect: [" << parameters << "]";
-				return -1;
+				return false;
 			}
 		}
 	}
@@ -171,8 +173,8 @@ bool PKCanScan::sendErrorCode(long status)
 {
 	if (status != m_busStatus)
 	{
-		timeval ftTimeStamp;
-		gettimeofday(&ftTimeStamp,0);
+		timeval ftTimeStamp = convertTimepointToTimeval(currentTimeTimeval());
+//		gettimeofday(&ftTimeStamp,0);
 		char *errorMessage;
 		getErrorMessage(status, &errorMessage);
 		canMessageError(status, errorMessage, ftTimeStamp );
@@ -310,9 +312,3 @@ void PKCanScan::getStatistics( CanStatistics & result )
 	m_statistics.beginNewRun();
 }
 
-bool PKCanScan::initialiseLogging(LogItInstance* remoteInstance)
-{
-	bool ret = Log::initializeDllLogging(remoteInstance);
-	LOG(Log::INF) << "DLL: logging initialised";
-	return ret;
-}

@@ -26,23 +26,18 @@
 #include <linux/can/raw.h>
 #include <linux/can/error.h>
 
-#ifndef peak_can
-#include <libsocketcan.h>
-#endif
-
 #include <CanModuleUtils.h>
 
 #include <LogIt.h>
 using namespace std;
-using namespace CanModule;
 
 //! The macro below is applicable only to this translation unit
-#define MLOG(LEVEL,THIS) LOG(Log::LEVEL) << THIS->m_channelName << " "
+//#define MLOG(LEVEL,THIS) LOG(Log::LEVEL) << THIS->m_channelName << " "
 
 //This function creates an instance of this class and returns it. It will be loaded trough the dll to access the rest of the code.
-extern "C" CCanAccess *getCanbusAccess()
+extern "C" CCanAccess *getCanBusAccess()
 {
-  LOG(Log::TRC) << "in getCanbusAccess ";
+  LOG(Log::TRC) << "in getCanBusAccess ";
   CCanAccess *cc;
   cc = new CSockCanScan();
   return cc;
@@ -50,15 +45,15 @@ extern "C" CCanAccess *getCanbusAccess()
 
 CSockCanScan::CSockCanScan() :
 				m_sock(0),
-				m_baudRate(0),
-				m_dontReconfigure (false),
+//				m_baudRate(0),
+//				m_dontReconfigure (false),
 				m_errorCode(-1),
 				m_CanScanThreadShutdownFlag(false)
 {
 	m_statistics.beginNewRun();
 }
 
-static std::string canFrameToString(const can_frame &f)
+static std::string canFrameToString(const struct can_frame &f)
 {
 	std::string result;
 	result =  "[id=0x"+CanModuleUtils::toHexString(f.can_id, 3, '0')+" ";
@@ -93,7 +88,7 @@ void* CSockCanScan::CanScanControlThread(void *p_voidSockCanScan)
 		timeout.tv_usec = 0;
 		int selectResult = select( sock+1, &set, 0, &set, &timeout );
 
-		if (selectResult<0)
+		if (selectResult < 0)
 		{
 			MLOG(ERR,p_sockCanScan) << "select() failed: " << CanModuleerrnoToString();
 			usleep (1000000);
@@ -126,8 +121,8 @@ void* CSockCanScan::CanScanControlThread(void *p_voidSockCanScan)
 
 		if (selectResult > 0)
 		{
-			int numberOfReadBytes = read(sock, &socketMessage, sizeof(struct can_frame));
-			MLOG(DBG,p_sockCanScan) << "read(): " << canFrameToString(socketMessage);
+			int numberOfReadBytes = read(sock, &socketMessage, sizeof(can_frame));
+//			MLOG(DBG,p_sockCanScan) << "read(): " << canFrameToString(socketMessage);
 			if (numberOfReadBytes < 0)
 			{
 				const int seconds = 10;
@@ -172,15 +167,16 @@ void* CSockCanScan::CanScanControlThread(void *p_voidSockCanScan)
 				LOG(Log::INF) << p_sockCanScan->m_channelName.c_str() << " incomplete frame received, numberOfReadBytes=[" << numberOfReadBytes << "]";
 				continue;
 			}
+	
 			if (socketMessage.can_id & CAN_ERR_FLAG)
 			{
 
 				/* With this mechanism we only set the portError */
 				p_sockCanScan->m_errorCode = socketMessage.can_id & ~CAN_ERR_FLAG;
 				std::string description = errorFrameToString( socketMessage );
-				MLOG(ERR,p_sockCanScan) << "SocketCAN error frame: [" << description << "], original: [" << canFrameToString(socketMessage) << "]" ;
 				timeval c_time;
-				int ioctlReturn1 = ioctl(p_sockCanScan->m_sock, SIOCGSTAMP, &c_time);//TODO: Return code is not even checked
+				int ioctlReturn1 = ioctl(sock, SIOCGSTAMP, &c_time); //TODO: Return code is not even checked
+				MLOG(ERR, p_sockCanScan) << "SocketCAN error frame: [" << description << "], original: [" << canFrameToString(socketMessage) << "]";
 				p_sockCanScan->canMessageError( p_sockCanScan->m_errorCode, description.c_str(), c_time );
 
 				continue;
@@ -188,9 +184,10 @@ void* CSockCanScan::CanScanControlThread(void *p_voidSockCanScan)
 
 			CanMessage canMessage;
 			canMessage.c_rtr = socketMessage.can_id & CAN_RTR_FLAG;
+                 if (canMessage.c_rtr) continue;
 			// this actually should exclude more bits
 			canMessage.c_id = socketMessage.can_id & ~CAN_RTR_FLAG;
-			int ioctlReturn2 = ioctl(sock,SIOCGSTAMP,&canMessage.c_time);//TODO: Return code is not even checked
+			int ioctlReturn2 = ioctl(sock,SIOCGSTAMP,&canMessage.c_time); //TODO: Return code is not even checked
 			canMessage.c_dlc = socketMessage.can_dlc;
 			memcpy(&canMessage.c_data[0],&socketMessage.data[0],8);
 			p_sockCanScan->canMessageCame(canMessage);
@@ -198,12 +195,12 @@ void* CSockCanScan::CanScanControlThread(void *p_voidSockCanScan)
 		}
 	}
 
-	MLOG(INF,p_sockCanScan) << "Main loop of SockCanScan terminated." ;
+//	MLOG(INF,p_sockCanScan) << "Main loop of SockCanScan terminated." ;
 	
 	// loop finished, close open socket
 	// These is a redundent code
 	if (sock) {
-		MLOG(DBG,p_sockCanScan) <<  "Closing socket for " << p_sockCanScan->m_channelName.c_str() << std::endl;
+//		MLOG(DBG,p_sockCanScan) <<  "Closing socket for " << p_sockCanScan->m_channelName.c_str() << std::endl;
 		if (close(sock) < 0) {
 			perror("Socket close error!");
 		}
@@ -221,146 +218,117 @@ CSockCanScan::~CSockCanScan()
 	stopBus();
 }
 
-int CSockCanScan::configureCanboard(const char *name,const char *parameters)
+int CSockCanScan::configureCanBoard(const string name,const string parameters)
 {
-  const char *tempName = strchr(name,':');	// channel name
-  if (tempName == NULL)
-  {
-	  tempName = name;
-  }
-  else
-  {
-    tempName++;
-  }
-  m_channelName = tempName;
-  m_parameters = parameters;
-  return openCanPort();
+    vector<string> parset;
+    parset = parcerNameAndPar(name,parameters);
+    m_channelName = parset[1];
+    return openCanPort();
 }
 
 int CSockCanScan::openCanPort()
 {
   /* Determine if it was requested through params to configure the port (baudrate given) or just to open it ("Unspecified")*/
-  if (m_parameters.length() > 0)
-  {
-	if (strcmp(m_parameters.c_str(), "Unspecified") != 0)
+   
+	if (!m_CanParameters.m_dontReconfigure)
 	{
-		unsigned int bitRate;
-    	int numPar = sscanf( m_parameters.c_str(), "%d ", &bitRate );
-    	if (numPar < 1)
-    	{
-    		MLOG(ERR,this) << "Error while parsing parameters: this syntax is incorrect: [" << m_parameters << "]";
-    		return -1;
-    	}
-    	else
-    	{//If there is parameters, we use the bitrate specified by them.
     		int returnCode = can_do_stop(m_channelName.c_str());
-			if (returnCode < 0)
-			{
-				MLOG(ERR,this) << "Error while can_do_stop(): " << CanModuleerrnoToString();
-				return -1;
-			}
-			returnCode = can_set_bitrate(m_channelName.c_str(),bitRate);
-			if (returnCode < 0)
-			{
-				MLOG(ERR,this) << "Error while can_set_bitrate(): " << CanModuleerrnoToString();
-				return -1;
-			}
-			m_baudRate = bitRate;
-			returnCode = can_do_start(m_channelName.c_str());
-			if (returnCode < 0)
-			{
-				MLOG(ERR,this) << "Error while can_do_start(): " << CanModuleerrnoToString();
-				return -1;
-			}
-    	}
-	}
-	else
-	{	
-		MLOG(DBG, this) << "Unspecified parameters, default values will be used.";	
-		m_dontReconfigure = true;
-	}
-  }
+		if (returnCode < 0)
+		{
+			MLOG(ERR,this) << "Error while can_do_stop(): " << CanModuleerrnoToString();
+			return -1;
+		}
+		returnCode = can_set_bitrate(m_channelName.c_str(),m_CanParameters.m_lBaudRate);
+		if (returnCode < 0)
+		{
+			MLOG(ERR,this) << "Error while can_set_bitrate(): " << CanModuleerrnoToString();
+			return -1;
+		}
+		returnCode = can_do_start(m_channelName.c_str());
+		if (returnCode < 0)
+		{
+			MLOG(ERR,this) << "Error while can_do_start(): " << CanModuleerrnoToString();
+			return -1;
+		}
+    }
 
-  m_sock = socket(PF_CAN, SOCK_RAW, CAN_RAW);
-  if (m_sock < 0)
-  {
-	MLOG(ERR,this) << "Error while opening socket: " << CanModuleerrnoToString();
-    return -1;
-  }
-  struct ifreq ifr;
-  memset(&ifr.ifr_name, 0, sizeof(ifr.ifr_name));
-  if (m_channelName.length() > sizeof ifr.ifr_name-1)
-  {
+    m_sock = socket(PF_CAN, SOCK_RAW, CAN_RAW);
+    if (m_sock < 0)
+    {
+        MLOG(ERR,this) << "Error while opening socket: " << CanModuleerrnoToString();
+        return -1;
+    }
+    struct ifreq ifr;
+    memset(&ifr.ifr_name, 0, sizeof(ifr.ifr_name));
+    if (m_channelName.length() > sizeof ifr.ifr_name-1)
+    {
 	  MLOG(ERR,this) << "Given name of the port exceeds operating-system imposed limit";
 	  return -1;
-  }
-  strncpy(ifr.ifr_name, m_channelName.c_str(), sizeof(ifr.ifr_name)-1);
+    }
+    strncpy(ifr.ifr_name, m_channelName.c_str(), sizeof(ifr.ifr_name)-1);
 
-  if (ioctl(m_sock, SIOCGIFINDEX, &ifr) < 0)
-  {
+    if (ioctl(m_sock, SIOCGIFINDEX, &ifr) < 0)
+    {
 	MLOG(ERR,this) << "ioctl SIOCGIFINDEX failed. " << CanModuleerrnoToString();
-    return -1;
-  }
+        return -1;
+    }
 
-  can_err_mask_t err_mask = 0x1ff;
-  if( setsockopt(m_sock, SOL_CAN_RAW, CAN_RAW_ERR_FILTER, &err_mask, sizeof err_mask) < 0 )
-  {
+    can_err_mask_t err_mask = 0x1ff;
+    if( setsockopt(m_sock, SOL_CAN_RAW, CAN_RAW_ERR_FILTER, &err_mask, sizeof err_mask) < 0 )
+    {
 	  MLOG(ERR,this) << "setsockopt() failed: " << CanModuleerrnoToString();
 	  return -1;
-  }
+    }
 
-  struct sockaddr_can socketAdress;
-  socketAdress.can_family = AF_CAN;
-  socketAdress.can_ifindex = ifr.ifr_ifindex;
+    struct sockaddr_can socketAdress;
+    socketAdress.can_family = AF_CAN;
+    socketAdress.can_ifindex = ifr.ifr_ifindex;
 
-  if (::bind(m_sock, (struct sockaddr *)&socketAdress, sizeof(socketAdress)) < 0)
-  {
+    if (::bind(m_sock, (struct sockaddr *)&socketAdress, sizeof(socketAdress)) < 0)
+    {
 	MLOG(ERR,this) << "While bind(): " << CanModuleerrnoToString();
-    return -1;
-  }
+        return -1;
+    }
 
   // Fetch initial state of the port
-  if (int ret=can_get_state( m_channelName.c_str(), &m_errorCode ))
-  {
+    if (int ret=can_get_state( m_channelName.c_str(), &m_errorCode ))
+    {
 	  m_errorCode = ret;
 	  MLOG(ERR,this) << "can_get_state() failed with error code " << ret << ", it was not possible to obtain initial port state";
-  }
+    }
 
-  updateInitialError();
+    updateInitialError();
 
-  return m_sock;
+    return m_sock;
 }
 
 bool CSockCanScan::sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr)
 {
-  int unprocessedMessageLength, messageLengthToBeProcessed;
-  unprocessedMessageLength = len;
-  unsigned char *unprocessedMessageBuffer = message;
+  int messageLengthToBeProcessed;
+  
   struct can_frame canFrame;
   if (rtr)
   {
 	  canFrame.can_id |= CAN_RTR_FLAG;
   }
 
-  do
+  if (len > 8)
   {
-    if (unprocessedMessageLength > 8)
-    {
     	messageLengthToBeProcessed = 8;
-    	unprocessedMessageLength = unprocessedMessageLength - 8;
-    }
-    else
+     MLOG(DBG,this) << "The Length is more then 8 bytes: " << std::dec << len;
+  }
+  else
 	{
-    	messageLengthToBeProcessed = unprocessedMessageLength;
-	}
+    	messageLengthToBeProcessed = len;
+  }
     canFrame.can_dlc = messageLengthToBeProcessed;
-    memcpy(canFrame.data, unprocessedMessageBuffer, messageLengthToBeProcessed);
+    memcpy(canFrame.data, message, messageLengthToBeProcessed);
     canFrame.can_id = cobID;
-	canFrame.can_dlc = len;
+    canFrame.can_dlc = messageLengthToBeProcessed;
 
     ssize_t numberOfWrittenBytes = write(m_sock, &canFrame, sizeof(struct can_frame));
 
-    MLOG(DBG,this) << "write(): " << canFrameToString(canFrame) << " result=" << numberOfWrittenBytes;
+    MLOG(INF,this) << "write(): " << canFrameToString(canFrame) << " result=" << numberOfWrittenBytes;
 
     if (numberOfWrittenBytes < 0) /* ERROR */
     {
@@ -369,7 +337,6 @@ bool CSockCanScan::sendMessage(short cobID, unsigned char len, unsigned char *me
 	    {	
         	std::cerr << "ENOBUFS; waiting a jiffy ..." << std::endl;
 	    	usleep(100000);
-            continue;
          }
     }
 
@@ -382,9 +349,6 @@ bool CSockCanScan::sendMessage(short cobID, unsigned char len, unsigned char *me
     	std::cerr << "Error: Incorrect number of bytes writen when sending a message." << std::endl;
     	return false;
     }
-    unprocessedMessageBuffer = unprocessedMessageBuffer + messageLengthToBeProcessed;
-  }
-  while (unprocessedMessageLength > 8);
 
   return true; 
 }
@@ -400,7 +364,7 @@ bool CSockCanScan::sendRemoteRequest(short cobID)
 	{
 		if (numberOfWrittenBytes < 0)
 		{
-		   std::cerr << "Error while calling write() on socket" << std::endl;
+		   std::cerr << "Error while calling write() on socket " << CanModuleerrnoToString().c_str() << std::endl;
 		   if (errno == ENOBUFS)
 		   {
 				std::cout << "ENOBUFS; waiting a jiffy ..." << std::endl;
@@ -423,12 +387,13 @@ bool CSockCanScan::sendRemoteRequest(short cobID)
 	return true;
 }
 
-bool CSockCanScan::createBUS(const char *name ,const char *parameters)
+bool CSockCanScan::createBus(const string name ,const string parameters)
 {
 	m_CanScanThreadShutdownFlag = true;
   
 	LOG(Log::INF) << "Creating bus [" << name << "] with parameters [" << parameters << "]";
-	m_sock = configureCanboard(name,parameters);
+
+	m_sock = configureCanBoard(name,parameters);
 	if (m_sock < 0)
 	{
 		return false;
@@ -443,7 +408,7 @@ bool CSockCanScan::createBUS(const char *name ,const char *parameters)
 /*
  * Provides textual representation of SocketCAN error.
  */
-std::string CSockCanScan::errorFrameToString(const can_frame &canFrame)
+std::string CSockCanScan::errorFrameToString(const struct can_frame &canFrame)
 {
 	std::string result;
 	// Code below is taken from SysTec documentation
@@ -537,13 +502,13 @@ bool CSockCanScan::stopBus ()
 	// notify the thread that it should finish.
 	m_CanScanThreadShutdownFlag = false;
 	pthread_join( m_hCanScanThread, 0 );
-	MLOG(INF,this) << "stopBus() finished";
+//	MLOG(INF,this) << "stopBus() finished";
 	return true;
 }
 
 void CSockCanScan::getStatistics( CanStatistics & result )
 {
-	m_statistics.computeDerived (m_baudRate);
+	m_statistics.computeDerived (m_CanParameters.m_lBaudRate);
 	result = m_statistics;  // copy whole structure
 	m_statistics.beginNewRun();
 }
@@ -563,11 +528,5 @@ void CSockCanScan::updateInitialError ()
 
 }
 
-bool CSockCanScan::initialiseLogging(LogItInstance* remoteInstance)
-{
-	bool ret = Log::initializeDllLogging(remoteInstance);
-	LOG(Log::INF) << "DLL: logging initialised";
-	return ret;
-}
 
 

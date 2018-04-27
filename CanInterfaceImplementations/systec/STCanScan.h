@@ -6,7 +6,7 @@
  */
 
 #ifndef CCANSTSCAN_H_
-#define CCANSTVCAN_H_
+#define CCANSTSCAN_H_
 
 #include "tchar.h"
 #include "Winsock2.h"
@@ -15,6 +15,8 @@
 #include "CanStatistics.h"
 #include "usbcan32.h"
 #include "CCanAccess.h"
+
+using namespace CanModule;
 
 /*
  * This is an implementation of the abstract class CCanAccess. It serves as a can bus access layer that will communicate with Systec crates (Windows only)
@@ -39,7 +41,7 @@ public:
 	 * @param parameters: Different parameters used for the initialisation. For using the default parameters just set this to "Unspecified"
 	 * @return: Was the initialisation process successful?
 	 */
-	virtual bool createBUS(const char * name ,const char *parameters);
+	virtual bool createBus(const string name ,const string parameters);
 
 	/*
 	 * Method that sends a message trough the can bus channel. If the method createBUS was not called before this, sendMessage will fail, as there is no
@@ -61,7 +63,7 @@ public:
 	virtual bool sendRemoteRequest(short cobID);
 	//Returns the instance of the CanStatistics object
 	virtual void getStatistics( CanStatistics & result );
-	virtual bool initialiseLogging(LogItInstance* remoteInstance);
+
 private:
 	//The number of the can module associated with this instance.
 	int m_moduleNumber;
@@ -76,13 +78,10 @@ private:
 	//Current baud rate
 	unsigned int m_baudRate;
 
-	std::string getCanName() { return m_canName; }
 	bool sendErrorCode(long);
 
 	DWORD	m_busStatus;
 	bool m_CanScanThreadShutdownFlag;
-	//Name of the can channel
-	std::string m_canName;
     // Handle for the CAN update scan manager thread.
     HANDLE	m_hCanScanThread;
     // Thread ID for the CAN update scan manager thread.
@@ -90,7 +89,7 @@ private:
     // The main control thread function for the CAN update scan manager.
 	static DWORD WINAPI CanScanControlThread(LPVOID pCanScan);
 
-	int configureCanboard(const char *name,const char *parameters);
+	int configureCanBoard(const string name,const string parameters);
 	/** Obtains a Systec canport and opens it.
 	*  The name of the port and parameters should have been specified by preceding call to configureCanboard()
 	*
