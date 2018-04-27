@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 2.8)
+project(MockUpCanImplementationcan)
 
 IF(WIN32)
 	SET(MOCKUP_GETTIMEOFDAY ../../CanInterface/src/gettimeofday.cpp)
@@ -24,11 +25,11 @@ set(MOCK_SOURCES
 )
 
 if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
-	add_library( MockUpCanImplementation SHARED ${MOCK_SOURCES} $<TARGET_OBJECTS:LogIt>)
+	add_library( MockUpCanImplementationcan SHARED ${MOCK_SOURCES} $<TARGET_OBJECTS:LogIt>)
 else()
-	add_library( MockUpCanImplementation SHARED ${MOCK_SOURCES} )
-	target_link_libraries( MockUpCanImplementation ${LOGIT_LIB} )
+	add_library( MockUpCanImplementationcan SHARED ${MOCK_SOURCES} )
+	target_link_libraries( MockUpCanImplementationcan ${LOGIT_LIB} )
 endif()
-target_link_libraries ( MockUpCanImplementation	${BOOST_LIBS} )
+target_link_libraries ( MockUpCanImplementationcan	${BOOST_LIBS} )
 
-set_property(TARGET MockUpCanImplementation PROPERTY POSITION_INDEPENDENT_CODE TRUE)
+set_property(TARGET MockUpCanImplementationcan PROPERTY POSITION_INDEPENDENT_CODE TRUE)

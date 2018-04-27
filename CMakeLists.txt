@@ -46,7 +46,7 @@ function ( clone_LogIt )
   message(STATUS "LogIt cloned from LogIt repo")
 endfunction()
 
-option(STANDALONE_BUILD "Build it as a stand-alone library instead of for Quasar" OFF )
+option(STANDALONE_BUILD "Build ${PROJECT_NAME} as a stand-alone library (rather than a quasar optional module)" OFF )
 message(STATUS "STANDALONE_BUILD [${STANDALONE_BUILD}]")
 
 #
@@ -75,11 +75,11 @@ SET( SRCS
 		${CAN_LIBRARY_LOADER_PLATFORM_IMPL}
 		${CAN_LIBRARY_LOADER_PLATFORM_IMPL_HEADER}		
 		CanInterface/src/CanStatistics.cpp    
-		CanInterface/src/CanModuleUtils.cpp
-		CanInterface/src/CanBusAccess.cpp
-		CanInterface/src/CanBusAccess.h
 		CanInterface/include/CanStatistics.h 
+		CanInterface/src/CanModuleUtils.cpp
 		CanInterface/include/CanModuleUtils.h
+		CanInterface/src/CanBusAccess.cpp
+		CanInterface/include/CanBusAccess.h
 		CanInterface/include/CanMessage.h
 		CanInterface/include/CCanAccess.h
 		${CAN_LIBRARY_GETTIMEOFDAY}
@@ -89,8 +89,6 @@ SET( SRCS
 include_directories( include )
 include_directories( CanLibLoader/include )
 include_directories( CanInterface/include )
-
-add_subdirectory(CanInterfaceImplementations) #build implementation shared libs (reqd at runtime - loaded dynamically)
 
 if(NOT STANDALONE_BUILD)
 	add_library ( CanModule OBJECT ${SRCS} )
@@ -116,3 +114,5 @@ else()
     add_subdirectory(CanModuleTest)
     	
 endif()
+
+add_subdirectory(CanInterfaceImplementations) #build implementation shared libs (reqd at runtime - loaded dynamically)

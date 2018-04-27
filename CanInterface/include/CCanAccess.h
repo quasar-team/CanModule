@@ -87,14 +87,6 @@ namespace CanModule
 		virtual bool createBus(const string name, const string parameters) = 0;
 
 		/*
-		 * Method that sends a remote request through the can bus channel. If the method createBUS was not called before this, sendMessage will fail, as there is no
-		 * can bus channel to send the request through. Similar to sendMessage, but it sends an special message reserved for requests.
-		 * @param cobID: Identifier that will be used for the request.
-		 * @return: Was the initialisation process successful?
-		 */
-		virtual bool sendRemoteRequest(short cobID) = 0;
-
-		/*
 		 * Method that sends a message through the can bus channel. If the method createBUS was not called before this, sendMessage will fail, as there is no
 		 * can bus channel to send a message through.
 		 * @param cobID: Identifier that will be used for the message.

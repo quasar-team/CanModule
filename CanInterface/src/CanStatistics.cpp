@@ -26,7 +26,7 @@ namespace CanModule
 
 	void CanStatistics::beginNewRun()
 	{
-//		gettimeofday(&m_internals.m_observationStart, 0);
+
 		m_internals.m_observationStart = std::chrono::system_clock::now();
 		m_transmitted = 0;
 		m_received = 0;
@@ -36,14 +36,13 @@ namespace CanModule
 
 	void CanStatistics::computeDerived(unsigned int baudRate)
 	{
-//		timeval tnow;
 		system_clock::time_point tnom = system_clock::now(); 
-//		gettimeofday(&tnow, 0);
-//		double period = CanModulesubtractTimeval(m_internals.m_observationStart, tnow);
+
 		auto nDiff = tnom - m_internals.m_observationStart;
 		auto period = duration_cast<seconds>(nDiff).count();
-		m_internals.m_transmittedPerSec = float(m_transmitted / period);
-		m_internals.m_receivedPerSec = float(m_received / period);
+
+		m_internals.m_transmittedPerSec = (period != 0 ? float(m_transmitted / period) : 0);
+		m_internals.m_receivedPerSec = (period != 0 ? float(m_received / period) : 0);
 
 		if (baudRate > 0)
 		{ // baud rate is known
@@ -53,10 +52,6 @@ namespace CanModule
 		}
 		else
 			m_internals.m_busLoad = 0;
-
-
-
-
 	}
 
 	void CanStatistics::onTransmit(unsigned int dataLength)
