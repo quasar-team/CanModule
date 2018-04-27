@@ -27,8 +27,6 @@ ${ANAGATE_LINK_DIR}
 add_library (ancan SHARED
 AnaCanScan.cpp
 AnaCanScan.h
-#../../CanInterface/src/CanStatistics.cpp
-#../../CanInterface/src/CanModuleUtils.cpp
 $<TARGET_OBJECTS:LogIt>
 $<TARGET_OBJECTS:CanModule>
 )

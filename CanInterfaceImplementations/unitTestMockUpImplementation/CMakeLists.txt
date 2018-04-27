@@ -19,8 +19,6 @@ ${PROJECT_SOURCE_DIR}/CanModule/CanInterfaceImplementations/unitTestMockUpImplem
 set(MOCK_SOURCES
 	MockCanAccess.cpp
 	MockCanAccess.h
-	../../CanInterface/src/CanStatistics.cpp
-	../../CanInterface/src/CanModuleUtils.cpp
 	${MOCKUP_GETTIMEOFDAY}
 )
 
