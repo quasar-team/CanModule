@@ -27,4 +27,4 @@ link_directories( "C:/Program Files (x86)/SYSTEC-electronic/USB-CANmodul Utility
 target_link_libraries ( stcan ${BOOST_LIBS} USBCAN32 )
 
 set_property(TARGET stcan PROPERTY POSITION_INDEPENDENT_CODE TRUE)
-set_property(TARGET sockcan PROPERTY LINKER_LANGUAGE CXX)
+set_property(TARGET stcan PROPERTY LINKER_LANGUAGE CXX)
