@@ -132,8 +132,11 @@ FATALERROR: CAN implementation library resource [PEAKCAN_LIB_FILE=] was not foun
                 -DPEAKCAN_LIB_FILE="C:/3rdPartySoftware/PeakCAN/pcan-basic/PCAN-Basic API/x64/VC_LIB/PCANBasic.lib"
 ```
 Don't panic: The build does not know how/where the gateway specific includes and binaries are installed on your machine - you have to tell cmake. Simply follow the instructions in the cmake error output - add 
+
 -DPEAKCAN_INC_DIR="your/include/path"
+
 -DPEAKCAN_LIB_FILE="your/library/path"
+
 to whatever cmake command line you ran to give you the error above.
 
 _example: running cmake to build the PEAK CAN implementation: note the paths to the specific installation for PEAK includes/libraries_
