@@ -12,6 +12,8 @@ set(STCAN_SOURCES
 	STCanScan.cpp
 	${CMAKE_SOURCE_DIR}/CanInterface/src/CanStatistics.cpp
 	${CMAKE_SOURCE_DIR}/CanInterface/include/CanStatistics.h	
+	${CMAKE_SOURCE_DIR}/CanInterface/src/CanModuleUtils.cpp
+	${CMAKE_SOURCE_DIR}/CanInterface/include/CanModuleUtils.h	
 )
 
 include_directories ( "C:/Program Files (x86)/SYSTEC-electronic/USB-CANmodul Utility Disk/Examples/Include" )
@@ -23,8 +25,7 @@ else()
 	target_link_libraries( stcan ${LOGIT_LIB} )
 endif()
 
-link_directories( "C:/Program Files (x86)/SYSTEC-electronic/USB-CANmodul Utility Disk/Examples/Lib/" )
-target_link_libraries ( stcan ${BOOST_LIBS} USBCAN32 )
+target_link_libraries ( stcan ${BOOST_LIBS} "C:/Program Files (x86)/SYSTEC-electronic/USB-CANmodul Utility Disk/Examples/Lib/USBCAN64.lib" )
 
 set_property(TARGET stcan PROPERTY POSITION_INDEPENDENT_CODE TRUE)
 set_property(TARGET stcan PROPERTY LINKER_LANGUAGE CXX)
