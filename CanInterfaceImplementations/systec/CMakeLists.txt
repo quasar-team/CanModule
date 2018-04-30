@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8)
 project(stcan)
 
 if(NOT WIN32)
-	MESSAGE( FATAL_ERROR "No systec build available for this platform [${CMAKE_SYSTEM_NAME}]. For linux use the socketCAN implementation with the SYSTEC driver" )
+	MESSAGE( FATAL_ERROR "No systec build currently available for this platform [${CMAKE_SYSTEM_NAME}]. For linux use the socketCAN implementation with the SYSTEC driver" )
 endif()
 
 SET( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/CanInterfaceImplementations/output/)
