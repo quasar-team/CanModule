@@ -20,7 +20,6 @@
 #include "CanStatistics.h"
 #include <LogIt.h>
 
-using namespace std;
 /*
  * CCanAccess is an abstract class that defines the interface for controlling a canbus. Different implementations for different hardware and platforms should
  * inherit this class and implement the pure virtual methods.
