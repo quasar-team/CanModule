@@ -1,18 +1,15 @@
 cmake_minimum_required(VERSION 2.8)
 project(sockcan)
 
-include_directories (
-	${PROJECT_SOURCE_DIR}/CanModule/CanInterface/include
-	${PROJECT_SOURCE_DIR}/CanModule/CanInterfaceImplementations/sockcan
-)
-
 link_directories( /usr/local/lib )
 
-SET( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/CanModule/CanInterfaceImplementations/output/)
+SET( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/CanInterfaceImplementations/output/)
 
 set(SOCKCAN_SOURCES
 	SockCanScan.cpp
 	SockCanScan.h
+	${CMAKE_SOURCE_DIR}/CanInterface/src/CanStatistics.cpp
+	${CMAKE_SOURCE_DIR}/CanInterface/include/CanStatistics.h	
 )
 
 if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
@@ -24,6 +21,5 @@ endif()
 
 target_link_libraries ( sockcan ${BOOST_LIBS} libsocketcan.a )
 
-add_definitions(-std=gnu++0x)
 set_property(TARGET sockcan PROPERTY POSITION_INDEPENDENT_CODE TRUE)
-
+set_property(TARGET sockcan PROPERTY LINKER_LANGUAGE CXX)
