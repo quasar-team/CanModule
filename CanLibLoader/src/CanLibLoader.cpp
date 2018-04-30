@@ -42,7 +42,7 @@ namespace CanModule
 		LOG(Log::DBG) << "Creating CCanAccess: " << name;
 		CCanAccess *tcca = createCanAccess();
 		//The Logit instance of the executable is handled to the DLL at this point, so the instance is shared.
-		//tcca->initialiseLogging(LogItInstance::getInstance());
+		tcca->initialiseLogging(LogItInstance::getInstance());
 
 		bool c = tcca->createBus(name, parameters);
 		if (c) {
