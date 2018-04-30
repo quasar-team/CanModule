@@ -9,17 +9,19 @@ message(STATUS "file [${CMAKE_CURRENT_LIST_FILE}]: STANDALONE_BUILD [${STANDALON
 message(STATUS "file [${CMAKE_CURRENT_LIST_FILE}]: Using boost libraries: BOOST_LIBS [${BOOST_LIBS}]")  
 message(STATUS "file [${CMAKE_CURRENT_LIST_FILE}]: Using LogIt library: LOGIT_LIB [${LOGIT_LIB}]")
 
-SET( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/CanModule/CanInterfaceImplementations/output/)
+SET( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/CanInterfaceImplementations/output/)
 
 include_directories (	
-${PROJECT_SOURCE_DIR}/CanModule/CanInterface/include
-${PROJECT_SOURCE_DIR}/CanModule/CanInterfaceImplementations/unitTestMockUpImplementation
+${CMAKE_SOURCE_DIR}/CanInterface/include
+${CMAKE_SOURCE_DIR}/CanInterfaceImplementations/unitTestMockUpImplementation
 )
 
 set(MOCK_SOURCES
 	MockCanAccess.cpp
 	MockCanAccess.h
-	${MOCKUP_GETTIMEOFDAY}
+	#${MOCKUP_GETTIMEOFDAY}
+	${CMAKE_SOURCE_DIR}/CanInterface/src/CanStatistics.cpp
+	${CMAKE_SOURCE_DIR}/CanInterface/include/CanStatistics.h
 )
 
 if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
@@ -31,3 +33,4 @@ endif()
 target_link_libraries ( MockUpCanImplementationcan	${BOOST_LIBS} )
 
 set_property(TARGET MockUpCanImplementationcan PROPERTY POSITION_INDEPENDENT_CODE TRUE)
+set_property(TARGET MockUpCanImplementationcan PROPERTY LINKER_LANGUAGE CXX)
