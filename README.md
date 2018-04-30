@@ -102,6 +102,7 @@ CanModuleTest\Release\CanModuleTest.exe
 ### Building the specific CAN gateway interface libraries
 The point of this module is to interface with CAN gateway modules, so, to use the module you'll need to build at least one of the implementations. As noted above, the CanModule comes with many implementations out-of-the-box but note ready here means *ready for you to build*. We don't know which platform you're on, which hardware you have etc. You have to tell CanModule which implementations you want to build. How?
 The choice as to which specific implementations are part of the build is controlled in the file
+
 _file: CanInterfaceImplementations\CMakeLists.txt_
 ```
 IF (WIN32)	
@@ -118,6 +119,7 @@ ENDIF()
 So, the settings above, only socketCAN and the unit test implementation would be built on linux, and on windows the build would include the PEAK, Systec, Anagate and unit test implementation. Comment and uncomment the lines to suit your target platform/gateway.
 
 One more hint: Say you require pkcan (PEAK CAN) gateway support for windows. You uncomment the appropriate line as described above then run cmake to generate your visual studio project. You may (almost certainly will actually) encounter a cmake *FATAL_ERROR* in the cmake output like the following
+
 _example: cmake error when adding a new CAN gateway interface to the build_
 ```
 FATALERROR: CAN implementation library resource [PEAKCAN_INC_DIR=] was not found.
@@ -130,8 +132,11 @@ FATALERROR: CAN implementation library resource [PEAKCAN_LIB_FILE=] was not foun
                 -DPEAKCAN_LIB_FILE="C:/3rdPartySoftware/PeakCAN/pcan-basic/PCAN-Basic API/x64/VC_LIB/PCANBasic.lib"
 ```
 Don't panic: The build does not know how/where the gateway specific includes and binaries are installed on your machine - you have to tell cmake. Simply follow the instructions in the cmake error output - add 
+
 -DPEAKCAN_INC_DIR="your/include/path"
+
 -DPEAKCAN_LIB_FILE="your/library/path"
+
 to whatever cmake command line you ran to give you the error above.
 
 _example: running cmake to build the PEAK CAN implementation: note the paths to the specific installation for PEAK includes/libraries_
