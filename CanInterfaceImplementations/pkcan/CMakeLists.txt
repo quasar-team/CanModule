@@ -1,11 +1,15 @@
 cmake_minimum_required(VERSION 2.8)
 project(pkcan)
 
-if(NOT WIN32)
-	MESSAGE( FATAL_ERROR "No peakCAN build currently available for this platform [${CMAKE_SYSTEM_NAME}]. For linux use the socketCAN implementation with the PEAK driver" )
-endif()
-
 SET( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/CanInterfaceImplementations/output/)
+
+if(WIN32)
+	SET(PEAKCAN_INC_HINT "C:/3rdPartySoftware/PeakCAN/pcan-basic/PCAN-Basic API/Include")
+	SET(PEAKCAN_LIB_HINT "C:/3rdPartySoftware/PeakCAN/pcan-basic/PCAN-Basic API/x64/VC_LIB/PCANBasic.lib")
+else()
+	SET(PEAKCAN_INC_HINT "/some/path/to/include/directory/")
+	SET(PEAKCAN_LIB_HINT "/some/path/to/lib/binary")
+endif()
 
 set(PEAKCAN_SOURCES
 	pkcan.cpp
@@ -16,7 +20,8 @@ set(PEAKCAN_SOURCES
 	${CMAKE_SOURCE_DIR}/CanInterface/include/CanModuleUtils.h	
 )
 
-include_directories ( "C:/3rdPartySoftware/PeakCAN/pcan-basic/PCAN-Basic API/Include" )
+checkCANImplResourceExists(PEAKCAN_INC_DIR ${PEAKCAN_INC_HINT})
+include_directories ( ${PEAKCAN_INC_DIR} )
 
 if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
 	add_library( pkcan SHARED ${PEAKCAN_SOURCES} $<TARGET_OBJECTS:LogIt>)
@@ -25,7 +30,8 @@ else()
 	target_link_libraries( pkcan ${LOGIT_LIB} )
 endif()
 
-target_link_libraries ( pkcan ${BOOST_LIBS} "C:/3rdPartySoftware/PeakCAN/pcan-basic/PCAN-Basic API/x64/VC_LIB/PCANBasic.lib" )
+checkCANImplResourceExists(PEAKCAN_LIB_FILE ${PEAKCAN_LIB_HINT})
+target_link_libraries ( pkcan ${BOOST_LIBS} ${PEAKCAN_LIB_FILE} )
 
 set_property(TARGET pkcan PROPERTY POSITION_INDEPENDENT_CODE TRUE)
 set_property(TARGET pkcan PROPERTY LINKER_LANGUAGE CXX)

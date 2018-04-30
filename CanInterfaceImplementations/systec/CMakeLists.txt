@@ -1,11 +1,15 @@
 cmake_minimum_required(VERSION 2.8)
 project(stcan)
 
-if(NOT WIN32)
-	MESSAGE( FATAL_ERROR "No systec build currently available for this platform [${CMAKE_SYSTEM_NAME}]. For linux use the socketCAN implementation with the SYSTEC driver" )
-endif()
-
 SET( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/CanInterfaceImplementations/output/)
+
+if(WIN32)
+	SET(SYSTEC_INC_HINT "C:/Program Files (x86)/SYSTEC-electronic/USB-CANmodul Utility Disk/Examples/Include")
+	SET(SYSTEC_LIB_HINT "C:/Program Files (x86)/SYSTEC-electronic/USB-CANmodul Utility Disk/Examples/Lib/USBCAN64.lib")
+else()
+	SET(SYSTEC_INC_HINT "/some/path/to/include/directory/")
+	SET(SYSTEC_LIB_HINT "/some/path/to/lib/binary")
+endif()
 
 set(STCAN_SOURCES
 	STCanScan.cpp
@@ -16,7 +20,8 @@ set(STCAN_SOURCES
 	${CMAKE_SOURCE_DIR}/CanInterface/include/CanModuleUtils.h	
 )
 
-include_directories ( "C:/Program Files (x86)/SYSTEC-electronic/USB-CANmodul Utility Disk/Examples/Include" )
+checkCANImplResourceExists(SYSTEC_INC_DIR ${SYSTEC_INC_HINT})
+include_directories ( ${SYSTEC_INC_DIR} )
 
 if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
 	add_library( stcan SHARED ${STCAN_SOURCES} $<TARGET_OBJECTS:LogIt>)
@@ -25,7 +30,8 @@ else()
 	target_link_libraries( stcan ${LOGIT_LIB} )
 endif()
 
-target_link_libraries ( stcan ${BOOST_LIBS} "C:/Program Files (x86)/SYSTEC-electronic/USB-CANmodul Utility Disk/Examples/Lib/USBCAN64.lib" )
+checkCANImplResourceExists(SYSTEC_LIB_FILE ${SYSTEC_LIB_HINT})
+target_link_libraries ( stcan ${BOOST_LIBS} ${SYSTEC_LIB_FILE})
 
 set_property(TARGET stcan PROPERTY POSITION_INDEPENDENT_CODE TRUE)
 set_property(TARGET stcan PROPERTY LINKER_LANGUAGE CXX)
