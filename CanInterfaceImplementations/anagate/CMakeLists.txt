@@ -14,10 +14,10 @@ endif()
 set(ANAGATE_SOURCES
 	AnaCanScan.cpp
 	AnaCanScan.h
-	${CMAKE_SOURCE_DIR}/CanInterface/src/CanStatistics.cpp
-	${CMAKE_SOURCE_DIR}/CanInterface/include/CanStatistics.h
-	${CMAKE_SOURCE_DIR}/CanInterface/src/CanModuleUtils.cpp
-	${CMAKE_SOURCE_DIR}/CanInterface/include/CanModuleUtils.h
+	../../CanInterface/src/CanStatistics.cpp
+	../../CanInterface/include/CanStatistics.h	
+	../../CanInterface/src/CanModuleUtils.cpp
+	../../CanInterface/include/CanModuleUtils.h	
 )
 
 checkCANImplResourceExists(ANAGATE_INC_DIR ${ANAGATE_INC_HINT})

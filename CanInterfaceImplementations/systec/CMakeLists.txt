@@ -14,10 +14,10 @@ endif()
 set(STCAN_SOURCES
 	STCanScan.cpp
 	STCanScan.cpp
-	${CMAKE_SOURCE_DIR}/CanInterface/src/CanStatistics.cpp
-	${CMAKE_SOURCE_DIR}/CanInterface/include/CanStatistics.h	
-	${CMAKE_SOURCE_DIR}/CanInterface/src/CanModuleUtils.cpp
-	${CMAKE_SOURCE_DIR}/CanInterface/include/CanModuleUtils.h	
+	../../CanInterface/src/CanStatistics.cpp
+	../../CanInterface/include/CanStatistics.h	
+	../../CanInterface/src/CanModuleUtils.cpp
+	../../CanInterface/include/CanModuleUtils.h	
 )
 
 checkCANImplResourceExists(SYSTEC_INC_DIR ${SYSTEC_INC_HINT})

@@ -14,10 +14,10 @@ endif()
 set(PEAKCAN_SOURCES
 	pkcan.cpp
 	pkcan.h
-	${CMAKE_SOURCE_DIR}/CanInterface/src/CanStatistics.cpp
-	${CMAKE_SOURCE_DIR}/CanInterface/include/CanStatistics.h	
-	${CMAKE_SOURCE_DIR}/CanInterface/src/CanModuleUtils.cpp
-	${CMAKE_SOURCE_DIR}/CanInterface/include/CanModuleUtils.h	
+	../../CanInterface/src/CanStatistics.cpp
+	../../CanInterface/include/CanStatistics.h	
+	../../CanInterface/src/CanModuleUtils.cpp
+	../../CanInterface/include/CanModuleUtils.h	
 )
 
 checkCANImplResourceExists(PEAKCAN_INC_DIR ${PEAKCAN_INC_HINT})

@@ -8,8 +8,8 @@ SET( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/CanInterfaceImplementati
 set(SOCKCAN_SOURCES
 	SockCanScan.cpp
 	SockCanScan.h
-	${CMAKE_SOURCE_DIR}/CanInterface/src/CanStatistics.cpp
-	${CMAKE_SOURCE_DIR}/CanInterface/include/CanStatistics.h	
+	../../CanInterface/src/CanStatistics.cpp
+	../../CanInterface/include/CanStatistics.h	
 )
 
 if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
