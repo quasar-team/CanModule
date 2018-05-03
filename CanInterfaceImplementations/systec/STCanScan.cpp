@@ -6,7 +6,6 @@
 
 #include <time.h>
 #include <string.h>
-//#include "gettimeofday.h"
 #include "CanModuleUtils.h"
 
 #include <LogIt.h>
@@ -55,7 +54,6 @@ DWORD WINAPI STCanScan::CanScanControlThread(LPVOID pCanScan)
 
 			canMsgCopy.c_time = convertTimepointToTimeval(currentTimeTimeval());
 
-//			gettimeofday(&(canMsgCopy.c_time));
 			canScanInstancePointer->canMessageCame(canMsgCopy);
 			canScanInstancePointer->m_statistics.onReceive( readCanMessage.m_bDLC );
 		}
@@ -213,7 +211,6 @@ bool STCanScan::sendErrorCode(long status)
 		
 		ftTimeStamp = convertTimepointToTimeval(currentTimeTimeval());
 
-//		gettimeofday(&ftTimeStamp,0);
 		if (!errorCodeToString(status, errorMessage))
 			canMessageError(status, errorMessage, ftTimeStamp);
 		m_busStatus = status;

@@ -14,10 +14,8 @@
 #include <iostream>
 
 #ifdef _WIN32
-  #include "gettimeofday.h"
   #define DLLEXPORTFLAG __declspec(dllexport)
 #else
-  #include <sys/time.h>
   #define DLLEXPORTFLAG
 #endif
 

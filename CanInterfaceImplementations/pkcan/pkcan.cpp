@@ -3,7 +3,6 @@
 #include "pkcan.h"
 #include <time.h>
 #include <string.h>
-//#include "gettimeofday.h"
 #include "CanModuleUtils.h"
 
 #include <LogIt.h>
@@ -174,7 +173,6 @@ bool PKCanScan::sendErrorCode(long status)
 	if (status != m_busStatus)
 	{
 		timeval ftTimeStamp = convertTimepointToTimeval(currentTimeTimeval());
-//		gettimeofday(&ftTimeStamp,0);
 		char *errorMessage;
 		getErrorMessage(status, &errorMessage);
 		canMessageError(status, errorMessage, ftTimeStamp );
