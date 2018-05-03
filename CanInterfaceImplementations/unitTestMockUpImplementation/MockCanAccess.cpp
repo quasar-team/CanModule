@@ -14,14 +14,14 @@
 #include <iostream>
 
 #ifdef _WIN32
-  #include "gettimeofday.h"
   #define DLLEXPORTFLAG __declspec(dllexport)
 #else
-  #include <sys/time.h>
   #define DLLEXPORTFLAG
 #endif
 
-extern "C" DLLEXPORTFLAG CanModule::CCanAccess *getCanbusAccess()
+using namespace CanModule;
+
+extern "C" DLLEXPORTFLAG CanModule::CCanAccess *getCanBusAccess()
 {
 	static MockCanAccess g_sMockCanAccess;
 	return &g_sMockCanAccess;
@@ -38,7 +38,7 @@ MockCanAccess::~MockCanAccess()
 	LOG(Log::DBG) << "Destroying MockCanAccess object";
 }
 
-bool MockCanAccess::createBUS(const char *name,const char *parameters)
+bool MockCanAccess::createBus(const string name, const string parameters)
 {	
 	LOG(Log::INF) << __FUNCTION__ << " called with name [" << name << "] parameters [" << parameters << "]";
 	return true;

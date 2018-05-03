@@ -30,3 +30,8 @@ gmock*.pc
 gtest*.pc
 **/googletest
 build/
+**/*.orig
+**/*.BACKUP.*
+**/*.BASE.*
+**/*.LOCAL.*
+**/*.REMOTE.*

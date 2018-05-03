@@ -46,7 +46,7 @@ function ( clone_LogIt )
   message(STATUS "LogIt cloned from LogIt repo")
 endfunction()
 
-option(STANDALONE_BUILD "Build it as a stand-alone library instead of for Quasar" OFF )
+option(STANDALONE_BUILD "Build ${PROJECT_NAME} as a stand-alone library (rather than a quasar optional module)" OFF )
 message(STATUS "STANDALONE_BUILD [${STANDALONE_BUILD}]")
 
 #
@@ -62,8 +62,6 @@ message(STATUS "LogIt build option LOGIT_BUILD_OPTION [${LOGIT_BUILD_OPTION}]")
 IF (WIN32)
 	SET( CAN_LIBRARY_LOADER_PLATFORM_IMPL CanLibLoader/src/CanLibLoaderWin.cpp)
 	SET( CAN_LIBRARY_LOADER_PLATFORM_IMPL_HEADER CanLibLoader/include/CanLibLoaderWin.h)
-	SET( CAN_LIBRARY_GETTIMEOFDAY CanInterface/src/gettimeofday.cpp)
-	SET( CAN_LIBRARY_GETTIMEOFDAY_HEADER CanInterface/include/gettimeofday.h)
 ELSE()
 	SET( CAN_LIBRARY_LOADER_PLATFORM_IMPL CanLibLoader/src/CanLibLoaderLin.cpp)
 	SET( CAN_LIBRARY_LOADER_PLATFORM_IMPL_HEADER CanLibLoader/include/CanLibLoaderLin.h)
@@ -76,16 +74,14 @@ SET( SRCS
 		CanLibLoader/include/CanLibLoader.h
 		${CAN_LIBRARY_LOADER_PLATFORM_IMPL}
 		${CAN_LIBRARY_LOADER_PLATFORM_IMPL_HEADER}		
-		CanInterface/src/CanLibExternCWrapper.cpp
 		CanInterface/src/CanStatistics.cpp    
-		CanInterface/src/CanModuleUtils.cpp
-		CanInterface/src/MessageSharedQueue.cpp
-		CanInterface/include/CanLibExternCWrapper.h
 		CanInterface/include/CanStatistics.h 
+		CanInterface/src/CanModuleUtils.cpp
 		CanInterface/include/CanModuleUtils.h
+		CanInterface/src/CanBusAccess.cpp
+		CanInterface/include/CanBusAccess.h
 		CanInterface/include/CanMessage.h
 		CanInterface/include/CCanAccess.h
-		CanInterface/include/MessageSharedQueue.h
 		${CAN_LIBRARY_GETTIMEOFDAY}
 		${CAN_LIBRARY_GETTIMEOFDAY_HEADER}		
 )
@@ -115,7 +111,8 @@ else()
     endif()
     target_link_libraries( CanModule ${BOOST_LIBS} )
     
-    add_subdirectory(CanInterfaceImplementations) #just to build the shared lib (reqd at runtime - loaded dynamically)
     add_subdirectory(CanModuleTest)
     	
 endif()
+
+add_subdirectory(CanInterfaceImplementations) #build implementation shared libs (reqd at runtime - loaded dynamically)

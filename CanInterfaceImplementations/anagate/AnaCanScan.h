@@ -11,6 +11,7 @@
 #include <string>
 #include "CanStatistics.h"
 #include "CCanAccess.h"
+#include "CanMessage.h"
 
 #ifdef _WIN32
 
@@ -26,11 +27,12 @@
 #include "AnaGateDllCan.h"
 
 typedef unsigned long DWORD;
-
 #endif
 /*
  * This is an implementation of the abstract class CCanAccess. It serves as a can bus access layer that will communicate with Systec crates (Windows only)
  */
+using namespace CanModule;
+
 class AnaCanScan: public CanModule::CCanAccess
 {
 public:
@@ -51,10 +53,10 @@ public:
 	 * @param parameters: Different parameters used for the initialisation. For using the default parameters just set this to "Unspecified"
 	 * @return: Was the initialisation process successful?
 	 */
-	virtual bool createBUS(const char * name ,const char *parameters);
+	virtual bool createBus(const string name ,const string parameters);
 
 	/*
-	 * Method that sends a message trough the can bus channel. If the method createBUS was not called before this, sendMessage will fail, as there is no
+	 * Method that sends a message trough the can bus channel. If the method createBus was not called before this, sendMessage will fail, as there is no
 	 * can bus channel to send a message trough.
 	 * @param cobID: Identifier that will be used for the message.
 	 * @param len: Length of the message. If the message is bigger than 8 characters, it will be split into separate 8 characters messages.
@@ -65,15 +67,16 @@ public:
     virtual bool sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr = false);
 
     /*
-	 * Method that sends a remote request trough the can bus channel. If the method createBUS was not called before this, sendMessage will fail, as there is no
+	 * Method that sends a remote request trough the can bus channel. If the method createBus was not called before this, sendMessage will fail, as there is no
 	 * can bus channel to send the request trough. Similar to sendMessage, but it sends an special message reserved for requests.
 	 * @param cobID: Identifier that will be used for the request.
 	 * @return: Was the initialisation process successful?
 	 */
+	virtual bool sendMessage(CanMessage *);
+
 	virtual bool sendRemoteRequest(short cobID);
 	//Returns the instance of the CanStatistics object
 	virtual void getStatistics( CanStatistics & result );
-	virtual bool initialiseLogging(LogItInstance* remoteInstance);
 
 	void statisticsOnRecieve(int);
 	void callbackOnRecieve(CanMessage&);
@@ -90,25 +93,20 @@ private:
 	//Current baud rate
 	unsigned int m_baudRate;
 
-	std::string getCanName() { return m_canName; }
 	bool sendErrorCode(AnaInt32);
 
-	//bool m_CanScanThreadShutdownFlag;
-	//Name of the can channel
-	std::string m_canName;
-    // Handle for the CAN update scan manager thread.
-    //HANDLE	m_hCanScanThread;
     // Thread ID for the CAN update scan manager thread.
     DWORD   m_idCanScanThread;
 
 
-	int configureCanboard(const char *name,const char *parameters);
+	int configureCanBoard(const string name,const string parameters);
 	/** Obtains a Systec canport and opens it.
 	*  The name of the port and parameters should have been specified by preceding call to configureCanboard()
 	*
 	*  @returns less than zero in case of error, otherwise success
 	*/
-	int openCanPort(unsigned int operationMode, unsigned int bTermination, unsigned int bHighspeed, unsigned int bTimestamp);
+	int openCanPort();
+//	int openCanPort(unsigned int operationMode, unsigned int bTermination, unsigned int bHighspeed, unsigned int bTimestamp);
 	/*
 	 * Provides textual representation of an error code.
 	 */

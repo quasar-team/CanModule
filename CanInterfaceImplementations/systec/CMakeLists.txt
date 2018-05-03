@@ -1,25 +1,37 @@
 cmake_minimum_required(VERSION 2.8)
+project(stcan)
 
-SET( CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${PROJECT_SOURCE_DIR}/CanModule/CanInterfaceImplementations/output/)
-SET( CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${PROJECT_SOURCE_DIR}/CanModule/CanInterfaceImplementations/output/)
-include_directories (	
-${PROJECT_SOURCE_DIR}/CanModule/CanInterface/include
-${PROJECT_SOURCE_DIR}/CanModule/CanInterfaceImplementations/systec
-"C:/Program Files (x86)/SYSTEC-electronic/USB-CANmodul Utility Disk/Examples/Include"
-)
-link_directories(
-"C:/Program Files (x86)/SYSTEC-electronic/USB-CANmodul Utility Disk/Examples/Lib/"
-)
-add_library (SystecCanImplementation SHARED
-STCanScan.cpp
-../../CanInterface/src/CanStatistics.cpp
-../../CanInterface/src/CanModuleUtils.cpp
-../../CanInterface/src/gettimeofday.cpp
-$<TARGET_OBJECTS:LogIt>
-)
-#set_target_properties(SystecCanImplementation PROPERTIES LINKER_LANGUAGE Cxx)
-target_link_libraries ( SystecCanImplementation 
-	${BOOST_LIBS}
+SET( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/CanInterfaceImplementations/output/)
 
-	USBCAN64
+if(WIN32)
+	SET(SYSTEC_INC_HINT "C:/Program Files (x86)/SYSTEC-electronic/USB-CANmodul Utility Disk/Examples/Include")
+	SET(SYSTEC_LIB_HINT "C:/Program Files (x86)/SYSTEC-electronic/USB-CANmodul Utility Disk/Examples/Lib/USBCAN64.lib")
+else()
+	SET(SYSTEC_INC_HINT "/some/path/to/include/directory/")
+	SET(SYSTEC_LIB_HINT "/some/path/to/lib/binary")
+endif()
+
+set(STCAN_SOURCES
+	STCanScan.cpp
+	STCanScan.cpp
+	../../CanInterface/src/CanStatistics.cpp
+	../../CanInterface/include/CanStatistics.h	
+	../../CanInterface/src/CanModuleUtils.cpp
+	../../CanInterface/include/CanModuleUtils.h	
 )
+
+checkCANImplResourceExists(SYSTEC_INC_DIR ${SYSTEC_INC_HINT})
+include_directories ( ${SYSTEC_INC_DIR} )
+
+if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
+	add_library( stcan SHARED ${STCAN_SOURCES} $<TARGET_OBJECTS:LogIt>)
+else()
+	add_library( stcan SHARED ${STCAN_SOURCES} )
+	target_link_libraries( stcan ${LOGIT_LIB} )
+endif()
+
+checkCANImplResourceExists(SYSTEC_LIB_FILE ${SYSTEC_LIB_HINT})
+target_link_libraries ( stcan ${BOOST_LIBS} ${SYSTEC_LIB_FILE})
+
+set_property(TARGET stcan PROPERTY POSITION_INDEPENDENT_CODE TRUE)
+set_property(TARGET stcan PROPERTY LINKER_LANGUAGE CXX)

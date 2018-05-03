@@ -31,49 +31,53 @@
 #include <sstream>
 #include <stdexcept>
 #include <string>
-//#include <uadatetime.h>
+#include <chrono>
 
-class CanModuleUtils
+namespace CanModule
 {
-public:
-template<typename T>
-static std::string toString (const T t)
-{
-        std::ostringstream oss;
-        oss << t;
-        return oss.str ();
+	class CanModuleUtils
+	{
+	public:
+		template<typename T>
+		static std::string toString(const T t)
+		{
+			std::ostringstream oss;
+			oss << t;
+			return oss.str();
+		}
+
+		template<typename T>
+		static std::string toHexString(const T t, unsigned int width = 0, char zeropad = ' ')
+		{
+			std::ostringstream oss;
+			oss << std::hex;
+			if (width > 0)
+			{
+				oss.width(width);
+				oss.fill(zeropad);
+			}
+			oss << (unsigned long)t << std::dec;
+			return oss.str();
+		}
+
+		static unsigned int fromHexString(const std::string &s)
+		{
+			unsigned int x;
+			std::istringstream iss(s);
+			iss >> std::hex >> x;
+			if (iss.bad())
+				throw std::runtime_error("Given string '" + s + "' not convertible from hex to uint");
+			return x;
+		}
+
+	};
+
+	timeval convertTimepointToTimeval(const std::chrono::system_clock::time_point &t1);
+	std::chrono::system_clock::time_point convertTimevalToTimepoint(const timeval &t1);
+	double CanModulesubtractTimeval(const std::chrono::system_clock::time_point &t1, const std::chrono::system_clock::time_point &t2);
+	std::chrono::system_clock::time_point currentTimeTimeval();
+	//UaString bytesToUaString( const unsigned char* data, unsigned int len );
+
+	std::string CanModuleerrnoToString();
 }
-
-template<typename T>
-static std::string toHexString (const T t, unsigned int width=0, char zeropad=' ')
-{
-        std::ostringstream oss;
-        oss << std::hex;
-        if (width > 0)
-        {
-        	oss.width(width);
-        	oss.fill(zeropad);
-        }
-        oss << (unsigned long)t << std::dec;
-        return oss.str ();
-}
-
-static unsigned int fromHexString (const std::string &s)
-{
-	unsigned int x;
-	std::istringstream iss (s);
-	iss >> std::hex >> x;
-	if (iss.bad())
-		throw std::runtime_error ("Given string '"+s+"' not convertible from hex to uint");
-	return x;
-}
-
-};
-
-double CanModulesubtractTimeval (const timeval &t1, const timeval &t2);
-
-//UaString bytesToUaString( const unsigned char* data, unsigned int len );
-
-std::string CanModuleerrnoToString( );
-
 #endif /* UTILS_H_ */

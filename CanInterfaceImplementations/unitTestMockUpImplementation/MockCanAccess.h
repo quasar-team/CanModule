@@ -42,17 +42,17 @@ public:
 	/*
 	 * Required overrides of abstract base class CCanAccess
 	 */
-	virtual bool createBUS(const char * name ,const char *parameters);
+	virtual bool createBus(const string name, const string parameters);
 	virtual bool sendRemoteRequest(short cobID);
     virtual bool sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr = false);
-	virtual void getStatistics( CanStatistics & result );
+	virtual void getStatistics( CanModule::CanStatistics & result );
 	virtual bool initialiseLogging(LogItInstance* remoteInstance);
 
 	static std::string getCanMessageDataAsString(const unsigned char* data, const unsigned char& len = 8);
 
 private:
 	//Instance of Can Statistics
-	CanStatistics m_statistics;
+	CanModule::CanStatistics m_statistics;
 
 	//Current baud rate
 	unsigned int m_baudRate;

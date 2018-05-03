@@ -1,26 +1,37 @@
 cmake_minimum_required(VERSION 2.8)
+project(pkcan)
 
-add_definitions("/EHsc")
-SET( CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${PROJECT_SOURCE_DIR}/CanModule/CanInterfaceImplementations/output/)
-SET( CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${PROJECT_SOURCE_DIR}/CanModule/CanInterfaceImplementations/output/)
-include_directories (	
-${PROJECT_SOURCE_DIR}/CanModule/CanInterface/include
-${PROJECT_SOURCE_DIR}/CanModule/CanInterfaceImplementations/pkcan
-"C:/Works/PCAN-Basic API/Include"
-)
-link_directories(
-"C:/Works/PCAN-Basic API/x64/VC_LIB"
-)
-add_library (PeakCanImplementation SHARED
-pkcan.cpp
-../../CanInterface/src/CanStatistics.cpp
-../../CanInterface/src/CanModuleUtils.cpp
-../../CanInterface/src/gettimeofday.cpp
-$<TARGET_OBJECTS:LogIt>
-)	
-#set_target_properties(PeakCanImplementation PROPERTIES LINKER_LANGUAGE Cxx)
-target_link_libraries ( PeakCanImplementation 
-	${BOOST_LIBS}
+SET( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/CanInterfaceImplementations/output/)
 
-	PCANBasic
+if(WIN32)
+	SET(PEAKCAN_INC_HINT "C:/3rdPartySoftware/PeakCAN/pcan-basic/PCAN-Basic API/Include")
+	SET(PEAKCAN_LIB_HINT "C:/3rdPartySoftware/PeakCAN/pcan-basic/PCAN-Basic API/x64/VC_LIB/PCANBasic.lib")
+else()
+	SET(PEAKCAN_INC_HINT "/some/path/to/include/directory/")
+	SET(PEAKCAN_LIB_HINT "/some/path/to/lib/binary")
+endif()
+
+set(PEAKCAN_SOURCES
+	pkcan.cpp
+	pkcan.h
+	../../CanInterface/src/CanStatistics.cpp
+	../../CanInterface/include/CanStatistics.h	
+	../../CanInterface/src/CanModuleUtils.cpp
+	../../CanInterface/include/CanModuleUtils.h	
 )
+
+checkCANImplResourceExists(PEAKCAN_INC_DIR ${PEAKCAN_INC_HINT})
+include_directories ( ${PEAKCAN_INC_DIR} )
+
+if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
+	add_library( pkcan SHARED ${PEAKCAN_SOURCES} $<TARGET_OBJECTS:LogIt>)
+else()
+	add_library( pkcan SHARED ${PEAKCAN_SOURCES} )
+	target_link_libraries( pkcan ${LOGIT_LIB} )
+endif()
+
+checkCANImplResourceExists(PEAKCAN_LIB_FILE ${PEAKCAN_LIB_HINT})
+target_link_libraries ( pkcan ${BOOST_LIBS} ${PEAKCAN_LIB_FILE} )
+
+set_property(TARGET pkcan PROPERTY POSITION_INDEPENDENT_CODE TRUE)
+set_property(TARGET pkcan PROPERTY LINKER_LANGUAGE CXX)

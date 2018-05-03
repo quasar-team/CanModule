@@ -19,17 +19,61 @@
 #include "CanMessage.h"
 #include "CanStatistics.h"
 #include <LogIt.h>
+
 /*
  * CCanAccess is an abstract class that defines the interface for controlling a canbus. Different implementations for different hardware and platforms should
  * inherit this class and implement the pure virtual methods.
  */
 namespace CanModule
 {
+	#define MLOG(LEVEL,THIS) LOG(Log::LEVEL) << THIS->getBusName() << " "
+
+	struct CanParameters {
+		long m_lBaudRate;
+		unsigned int m_iOperationMode;
+		unsigned int m_iTermination;
+		unsigned int m_iHighSpeed;
+		unsigned int m_iTimeStamp;
+		unsigned int m_iSyncMode;
+		int	m_iNumberOfDetectedParameters;
+           bool m_dontReconfigure;
+		CanParameters() : m_lBaudRate(0), m_iOperationMode(0), m_iTermination(0), 
+			m_iHighSpeed(0), m_iTimeStamp(0), m_iSyncMode(0), m_iNumberOfDetectedParameters(), m_dontReconfigure(false) {}
+
+		void scanParameters(string parameters)
+		{
+			const char * canpars = parameters.c_str();
+
+			if (strcmp(canpars, "Unspecified") != 0)
+			{
+#ifdef _WIN32
+				m_iNumberOfDetectedParameters = sscanf_s(canpars, "%d %d %d %d %d %d", &m_lBaudRate, &m_iOperationMode, &m_iTermination, &m_iHighSpeed, &m_iTimeStamp, &m_iSyncMode);
+#else
+				m_iNumberOfDetectedParameters = sscanf(canpars, "%d %d %d %d %d %d", &m_lBaudRate, &m_iOperationMode, &m_iTermination, &m_iHighSpeed, &m_iTimeStamp, &m_iSyncMode);
+#endif
+			}
+                 else
+                 {
+            		m_dontReconfigure = true;
+                 }
+
+		}
+	};
+
 	class CCanAccess
 	{
 	public:
 		//Empty constructor
 		CCanAccess() {};
+
+		/*
+		 * Method that sends a remote request trough the can bus channel. If the method createBus was not called before this, sendMessage will fail, as there is no
+		 * can bus channel to send the request trough. Similar to sendMessage, but it sends an special message reserved for requests.
+		 * @param cobID: Identifier that will be used for the request.
+		 * @return: Was the initialisation process successful?
+		 */
+		virtual bool sendRemoteRequest(short cobID) = 0;
+
 
 		/*
 		 * Method that initialises a can bus channel. The following methods called upon the same object will be using this initialised channel.
@@ -39,15 +83,7 @@ namespace CanModule
 		 * @param parameters: Different parameters used for the initialisation. For using the default parameters just set this to "Unspecified"
 		 * @return: Was the initialisation process successful?
 		 */
-		virtual bool createBUS(const char *name, const char *parameters) = 0 ;
-
-		/*
-		 * Method that sends a remote request through the can bus channel. If the method createBUS was not called before this, sendMessage will fail, as there is no
-		 * can bus channel to send the request through. Similar to sendMessage, but it sends an special message reserved for requests.
-		 * @param cobID: Identifier that will be used for the request.
-		 * @return: Was the initialisation process successful?
-		 */
-		virtual bool sendRemoteRequest(short cobID) = 0;
+		virtual bool createBus(const string name, const string parameters) = 0;
 
 		/*
 		 * Method that sends a message through the can bus channel. If the method createBUS was not called before this, sendMessage will fail, as there is no
@@ -61,10 +97,16 @@ namespace CanModule
 		 */
 		virtual bool sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr = false) = 0;
 
+		virtual bool sendMessage(CanMessage *canm)
+		{
+			return sendMessage(short(canm->c_id), canm->c_dlc, canm->c_data, canm->c_rtr);
+		}
+
+
 		//Returns bus name
 		std::string& getBusName() { return m_sBusName; }
 		//Changes bus name
-		void setBusName(std::string &name) {  m_sBusName = name;  }
+
 		//Empty destructor
 		virtual ~CCanAccess() {};
 
@@ -83,13 +125,39 @@ namespace CanModule
 		 * Example: myCCanAccessPointer->canMessageError.connect(&myErrorRecievedHandler);
 		 */
 		boost::signals2::signal<void (const int,const char *,timeval &) > canMessageError;
+
 		//Returns the CanStatistics object.
 		virtual void getStatistics( CanStatistics & result ) = 0;
 
-		virtual bool initialiseLogging(LogItInstance* remoteInstance) = 0;
+		inline bool initialiseLogging(LogItInstance* remoteInstance)
+		{
+			bool ret = Log::initializeDllLogging(remoteInstance);
+			LOG(Log::INF) << "DLL: logging initialised";
+			return ret;
+		}
 
-	private:
-		std::string m_sBusName;
+		/* @ Parcer the input parameters  
+		* @param name Thei parameters has a format <name componenet>:name chanel:options for add addres parameters>
+		* @param parameters is a string with possable 6 word discribing can options
+		* @return: the result is saved in internal variable m_sBusName and m_CanParameterts
+		*/
+		inline vector<string> parcerNameAndPar(string name, string parameters)
+		{
+			m_sBusName = name;
+			vector<string> stringVector;
+			istringstream nameSS(name);
+			string temporalString;
+			while (getline(nameSS, temporalString, ':')) {
+				stringVector.push_back(temporalString);
+			}
+			m_CanParameters.scanParameters(parameters);
+
+			return stringVector;
+		}
+
+	protected:
+		string m_sBusName;
+		CanParameters m_CanParameters;
 	};
 };
 #endif /* CCANACCESS_H_ */

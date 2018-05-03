@@ -11,10 +11,9 @@
 #include <LogIt.h>
 #include <sstream>
 #include <iostream>
+#include "CanModuleUtils.h"
 
 #ifdef _WIN32
-
-#include "gettimeofday.h"
 
 #define DLLEXPORTFLAG __declspec(dllexport)
 
@@ -28,15 +27,16 @@
 #endif
 
 //! The macro below is applicable only to this translation unit
-#define MLOG(LEVEL,THIS) LOG(Log::LEVEL) << THIS->m_canName << " "
+
 using namespace CanModule;
 using namespace std;
+//using namespace std::chrono;
 
 bool AnaCanScan::s_isCanHandleInUseArray[256];
 AnaInt32 AnaCanScan::s_canHandleArray[256];
 std::map<AnaInt32, AnaCanScan*> g_AnaCanScanPointerMap;
 
-extern "C" DLLEXPORTFLAG CCanAccess *getCanbusAccess()
+extern "C" DLLEXPORTFLAG CCanAccess *getCanBusAccess()
 {
 	CCanAccess *canAccess;
 	canAccess = new AnaCanScan;
@@ -49,12 +49,17 @@ AnaInt32 g_timeout = 6000;				// connect_wait time
 void WINAPI InternalCallback(AnaUInt32 nIdentifier, const char * pcBuffer, AnaInt32 nBufferLen, AnaInt32 nFlags, AnaInt32 hHandle, AnaInt32 nSeconds, AnaInt32 nMicroseconds)
 {
 	CanMessage canMsgCopy;
+	if (nFlags == 2) return;
 	canMsgCopy.c_id = nIdentifier;
 	canMsgCopy.c_dlc = nBufferLen;
 	canMsgCopy.c_ff = nFlags;
 	for (int i = 0; i < nBufferLen; i++)
 		canMsgCopy.c_data[i] = pcBuffer[i];
-	gettimeofday(&(canMsgCopy.c_time), 0);
+	
+//	canMsgCopy.c_time.tv_sec = nSeconds;
+//	canMsgCopy.c_time.tv_usec = nMicroseconds;
+    canMsgCopy.c_time = convertTimepointToTimeval(currentTimeTimeval());
+
 	g_AnaCanScanPointerMap[hHandle]->callbackOnRecieve(canMsgCopy);
 	g_AnaCanScanPointerMap[hHandle]->statisticsOnRecieve( nBufferLen );
 }
@@ -68,11 +73,11 @@ m_baudRate(0)
 
 AnaCanScan::~AnaCanScan()
 {
-	MLOG(DBG,this) << "Closing down ST Can Scan component";
+	MLOG(DBG,this) << "Closing down Anagate Can Scan component";
 	//Shut down can scan thread
-     // deinitialize CAN interface
-    //::UcanDeinitCanEx (m_UcanHandle,(BYTE)m_channelNumber);
-    MLOG(DBG,this) << "ST Can Scan component closed successfully";
+	CANSetCallback(m_UcanHandle, 0);
+	CANCloseDevice(m_UcanHandle);
+    MLOG(DBG,this) << "Anagate Can Scan component closed successfully";
 }
 
 
@@ -86,9 +91,10 @@ void AnaCanScan::callbackOnRecieve(CanMessage& msg)
 	canMessageCame(msg);
 }
 
-bool AnaCanScan::createBUS(const char *name,const char *parameters)
+bool AnaCanScan::createBus(const string name,const string parameters)
 {	
-	int returnCode = configureCanboard(name, parameters);
+	m_sBusName = name;
+	int returnCode = configureCanBoard(name, parameters);
 	if (returnCode < 0)
 	{
 		return false;
@@ -98,41 +104,24 @@ bool AnaCanScan::createBUS(const char *name,const char *parameters)
 	return true;
 }
 
-int AnaCanScan::configureCanboard(const char *name,const char *parameters)
+int AnaCanScan::configureCanBoard(const string name,const string parameters)
 {
-	//The different parameters
-	unsigned int paramBaudRate = 0;
-	unsigned int paramOperationMode = 0;
-	unsigned int paramTermination = 0;
-	unsigned int paramHighSpeed = 0;
-	unsigned int paramTimeStamp = 0;
 	//Default BaudRate
 	long baudRate = 125000;
-	int	numberOfDetectedParameters;
 
 	vector<string> stringVector;
-	istringstream nameSS(name);
-	string temporalString;
-	while (getline(nameSS, temporalString, ':')) {
-		stringVector.push_back(temporalString);
-	}
-
+	stringVector = parcerNameAndPar(name, parameters);
 	m_canHandleNumber = atoi(stringVector[1].c_str());
 	m_canIPAddress = stringVector[2].c_str();
-	MLOG(DBG, this) << "m_canHandleNumber:[" << m_canHandleNumber << "], stringVector[" << stringVector[0] << "," << stringVector[1] << "," << stringVector[2] << "]";
 
-	if (strcmp(parameters, "Unspecified") != 0)
-	{
-#ifdef _WIN32
-		numberOfDetectedParameters = sscanf_s(parameters, "%d %d %d %d %d %d", &paramBaudRate, &paramOperationMode, &paramTermination, &paramHighSpeed, &paramTimeStamp);
-#else
-		numberOfDetectedParameters = sscanf(parameters, "%d %d %d %d %d %d", &paramBaudRate, &paramOperationMode, &paramTermination, &paramHighSpeed, &paramTimeStamp);
-#endif
+	MLOG(INF, this) << "m_canHandleNumber:[" << m_canHandleNumber << "], stringVector[" << stringVector[0] << "," << stringVector[1] << "," << stringVector[2] << "]";
+
+	if (strcmp(parameters.c_str(), "Unspecified") != 0) {
 
 		/* Set baud rate to 125 Kbits/second.  */
-		if (numberOfDetectedParameters >= 1)
+		if (m_CanParameters.m_iNumberOfDetectedParameters >= 1)
 		{
-			m_baudRate = paramBaudRate;
+			m_baudRate = m_CanParameters.m_lBaudRate;
 		}
 		else
 		{
@@ -147,10 +136,12 @@ int AnaCanScan::configureCanboard(const char *name,const char *parameters)
 		MLOG(DBG, this) << "Unspecified parameters, default values will be used.";
 	}
 
-	return openCanPort(paramOperationMode, paramTermination, paramHighSpeed, paramTimeStamp);
+	//	return openCanPort(paramOperationMode, paramTermination, paramHighSpeed, paramTimeStamp);
+	return openCanPort();
+
 }
 
-int AnaCanScan::openCanPort(unsigned int operationMode, unsigned int bTermination, unsigned int bHighspeed, unsigned int bTimestamp)
+int AnaCanScan::openCanPort()
 {
 	AnaInt32 anaCallReturn;
 	//The Handle of the can Module
@@ -178,7 +169,8 @@ int AnaCanScan::openCanPort(unsigned int operationMode, unsigned int bTerminatio
 
 	setCanHandleInUse(m_canHandleNumber,true);
 	// initialize CAN interface
-	anaCallReturn = CANSetGlobals(canModuleHandle, m_baudRate, operationMode, bTermination,bHighspeed, bTimestamp);
+	anaCallReturn = CANSetGlobals(canModuleHandle, m_CanParameters.m_lBaudRate, m_CanParameters.m_iOperationMode,
+		m_CanParameters.m_iTermination, m_CanParameters.m_iHighSpeed, m_CanParameters.m_iTimeStamp);
 	if (anaCallReturn != 0)
 	{
 		MLOG(ERR,this) << "Error in CANSetGlobals, return code = [" << anaCallReturn << "]";
@@ -205,55 +197,59 @@ bool AnaCanScan::sendErrorCode(AnaInt32 status)
 	char errorMessage[120];
 	timeval ftTimeStamp; 
 	if (status != 0) {
-		gettimeofday(&ftTimeStamp,0);
+		auto now = std::chrono::system_clock::now();
+		auto nMicrosecs =
+			duration_cast<std::chrono::microseconds>(
+				now.time_since_epoch()
+				);
+		ftTimeStamp.tv_sec = nMicrosecs.count() / 1000000L;
+		ftTimeStamp.tv_usec = (nMicrosecs.count() % 1000000L) ;
+
 		if (!errorCodeToString(status, errorMessage))
 			canMessageError(status, errorMessage, ftTimeStamp);
 	}
 	return true;
 }
-
 bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr)
 {
-	MLOG(DBG,this) << "Sending message: [" << message << "], cobID: [" << cobID << "], Message Length: [" << static_cast<int>(len) << "]";
+	//	MLOG(DBG,this) << "Sending message: [" << message << "], cobID: [" << cobID << "], Message Length: [" << static_cast<int>(len) << "]";
 	AnaInt32 anaCallReturn;
-	unsigned char *unprocessedMessageBuffer = message;
 	unsigned char *messageToBeSent[8];
 	AnaInt32 flags = 0x0;
 	if (rtr)
 	{
 		flags = 2; // • Bit 1: If set, the telegram is marked as remote frame.
 	}
-	int unprocessedMessageLength, messageLengthToBeProcessed;
-	unprocessedMessageLength = len;
-	do
+	int  messageLengthToBeProcessed;
+
+	if (len > 8)//If there is more than 8 characters to process, we process 8 of them in this iteration of the loop
 	{
-		if (unprocessedMessageLength > 8)//If there is more than 8 characters to process, we process 8 of them in this iteration of the loop
-		{
-			messageLengthToBeProcessed = 8;
-			unprocessedMessageLength = unprocessedMessageLength - 8;
-		}
-		else //Otherwise if there is less than 8 characters to process, we process all of them in this iteration of the loop
-		{
-			messageLengthToBeProcessed = unprocessedMessageLength;
-		}
-		MLOG(TRC, this) << "Going to memcopy " << messageToBeSent << ";" << unprocessedMessageBuffer << ";" << messageLengthToBeProcessed;
-		memcpy(messageToBeSent, unprocessedMessageBuffer, messageLengthToBeProcessed);
-		MLOG(TRC,this) << "Module Number: [" << m_canHandleNumber << "], cobID: [" << cobID << "], Message Length: [" << messageLengthToBeProcessed << "]";
-		MLOG(DBG, this) << "Sending message (ANAGATE API CALL): [" << messageToBeSent << "], cobID: [" << cobID << "], Message Length: [" << messageLengthToBeProcessed << "], Flags [" << flags << "], canHandle [" << m_UcanHandle << "]";
-		anaCallReturn = CANWrite(m_UcanHandle, cobID, reinterpret_cast<char*>(messageToBeSent), messageLengthToBeProcessed, flags);
-		if (anaCallReturn != 0)
-		{
-			MLOG(ERR,this) << "Error: There was a problem when sending a message.";
-			break;
-		}
-		else
-		{
-			m_statistics.onTransmit( messageLengthToBeProcessed );
-		}
-		unprocessedMessageBuffer = unprocessedMessageBuffer + messageLengthToBeProcessed;
+		messageLengthToBeProcessed = 8;
+		MLOG(DBG, this) << "The length is more than 8 bytes" << len;
 	}
-	while (unprocessedMessageLength > 8);
+	else //Otherwise if there is less than 8 characters to process, we process all of them in this iteration of the loop
+	{
+		messageLengthToBeProcessed = len;
+	}
+	MLOG(TRC, this) << "Going to memcopy " << messageToBeSent << ";" << message << ";" << messageLengthToBeProcessed;
+	memcpy(messageToBeSent, message, messageLengthToBeProcessed);
+	MLOG(TRC, this) << "Module Number: [" << m_canHandleNumber << "], cobID: [" << cobID << "], Message Length: [" << messageLengthToBeProcessed << "]";
+	MLOG(DBG, this) << "Sending message (ANAGATE API CALL): [" << messageToBeSent << "], cobID: [" << cobID << "], Message Length: [" << messageLengthToBeProcessed << "], Flags [" << flags << "], canHandle [" << m_UcanHandle << "]";
+	anaCallReturn = CANWrite(m_UcanHandle, cobID, reinterpret_cast<char*>(messageToBeSent), messageLengthToBeProcessed, flags);
+	if (anaCallReturn != 0)
+	{
+		MLOG(ERR, this) << "Error: There was a problem when sending a message.";
+	}
+	else
+	{
+		m_statistics.onTransmit(messageLengthToBeProcessed);
+	}
 	return sendErrorCode(anaCallReturn);
+}
+
+bool AnaCanScan::sendMessage(CanMessage *canm)
+{
+	return sendMessage(short(canm->c_id), canm->c_dlc, canm->c_data, canm->c_rtr);
 }
 
 bool AnaCanScan::sendRemoteRequest(short cobID)
@@ -271,11 +267,11 @@ bool AnaCanScan::sendRemoteRequest(short cobID)
 
 bool AnaCanScan::errorCodeToString(long error, char message[])//TODO: Fix this method, this doesn't do anything!!
 {
-  char tmp[300];
+  char tmp[300] = "Error";
 // canGetErrorText((canStatus)error, tmp, sizeof(tmp));
 // *message = new char[strlen(tmp)+1];	
-    message[0] = 0;
-// strcpy(*message,tmp);
+//    message[0] = 0;
+  strcpy(message,tmp);
   return true;
 }
 
@@ -284,12 +280,4 @@ void AnaCanScan::getStatistics( CanStatistics & result )
 	m_statistics.computeDerived (m_baudRate);
 	result = m_statistics;  // copy whole structure
 	m_statistics.beginNewRun();
-}
-
-bool AnaCanScan::initialiseLogging(LogItInstance* remoteInstance)
-{
-	LOG(Log::INF) << "DLL: logging initialised";
-	bool ret = Log::initializeDllLogging(remoteInstance);
-	LOG(Log::INF) << "DLL: logging initialised";
-	return ret;
 }

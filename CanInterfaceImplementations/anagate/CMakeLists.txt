@@ -1,39 +1,36 @@
 cmake_minimum_required(VERSION 2.8)
+project(ancan)
 
-IF(WIN32)
-	SET(ANAGATE_INCLUDE_DIR "C:/AnagateCAN/win64/vc8/include")
-	SET(ANAGATE_LINK_DIR "C:/AnagateCAN/win64/vc8/Release")
-	SET(ANAGATE_LIBRARY_NAME AnagateCanDll64)
-	SET(ANAGATE_GETTIMEOFDAY ../../CanInterface/src/gettimeofday.cpp)
-	SET( CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/CanModule/CanInterfaceImplementations/output/)
-	SET( CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/CanModule/CanInterfaceImplementations/output/)
-ELSE()
-	SET(ANAGATE_INCLUDE_DIR /opt/CAN/anagate-api-2.11/linux64/gcc4_6/include)
-	SET(ANAGATE_LINK_DIR /opt/CAN/anagate-api-2.11/linux64/gcc4_6 /opt/CAN/libAnaGate-1.0.9/linux64/gcc4_6 /opt/CAN/libAnaGateExt-1.0.3/linux64/gcc4_6)
-	SET(ANAGATE_LIBRARY_NAME CANDLLRelease64 APIRelease64 AnaGateRelease AnaGateExtRelease)
-	SET(ANAGATE_GETTIMEOFDAY )
-	SET( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/CanModule/CanInterfaceImplementations/output/)
-ENDIF()
+SET( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/CanInterfaceImplementations/output/)
 
+if(WIN32)
+	SET(ANAGATE_INC_HINT "C:/3rdPartySoftware/AnaGateCAN/win64/vc8/include")
+	SET(ANAGATE_LIB_HINT "C:/3rdPartySoftware/AnaGateCAN/win64/vc8/Release/AnaGateCanDll64.lib")
+else()
+	SET(ANAGATE_INC_HINT "/3rdPartySoftware/Anagate/anagate-api-2.13/linux64/gcc4_6/include/")
+	SET(ANAGATE_LIB_HINT "/3rdPartySoftware/Anagate/anagate-api-2.13/linux64/gcc4_6/libAPIRelease64.so")
+endif()
 
-include_directories (	
-${PROJECT_SOURCE_DIR}/CanModule/CanInterface/include
-${PROJECT_SOURCE_DIR}/CanModule/CanInterfaceImplementations/anagate
-${ANAGATE_INCLUDE_DIR}
+set(ANAGATE_SOURCES
+	AnaCanScan.cpp
+	AnaCanScan.h
+	../../CanInterface/src/CanStatistics.cpp
+	../../CanInterface/include/CanStatistics.h	
+	../../CanInterface/src/CanModuleUtils.cpp
+	../../CanInterface/include/CanModuleUtils.h	
 )
-link_directories(
-${ANAGATE_LINK_DIR}
-)
-add_library (AnagateCanImplementation SHARED
-AnaCanScan.cpp
-../../CanInterface/src/CanStatistics.cpp
-../../CanInterface/src/CanModuleUtils.cpp
-${ANAGATE_GETTIMEOFDAY}
-$<TARGET_OBJECTS:LogIt>
-)
-#set_target_properties(AnagateCanImplementation PROPERTIES LINKER_LANGUAGE Cxx)
-target_link_libraries ( AnagateCanImplementation 
-	${BOOST_LIBS}
 
-	${ANAGATE_LIBRARY_NAME}
-)
+checkCANImplResourceExists(ANAGATE_INC_DIR ${ANAGATE_INC_HINT})
+include_directories ( ${ANAGATE_INC_DIR} )
+
+if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
+	add_library( ancan SHARED ${ANAGATE_SOURCES} $<TARGET_OBJECTS:LogIt>)
+else()
+	add_library( ancan SHARED ${ANAGATE_SOURCES} )
+	target_link_libraries( ancan ${LOGIT_LIB} )
+endif()
+
+checkCANImplResourceExists(ANAGATE_LIB_FILE ${ANAGATE_LIB_HINT})
+target_link_libraries ( ancan ${BOOST_LIBS}	${ANAGATE_LIB_FILE} )
+set_property(TARGET ancan PROPERTY POSITION_INDEPENDENT_CODE TRUE)
+set_property(TARGET ancan PROPERTY LINKER_LANGUAGE CXX)

@@ -6,9 +6,12 @@
 #include <LogIt.h>
 
 #include "dlfcn.h"
-typedef void* (*f_CCanAccess)();
+//typedef void* (*f_CCanAccess)();
 
-using namespace CanModule;
+namespace CanModule
+{
+
+typedef CCanAccess* f_canAccess();
 
 CanLibLoaderLin::CanLibLoaderLin(const std::string& libName)
 : CanLibLoader(libName), p_dynamicLibrary(0)
@@ -25,7 +28,7 @@ void CanLibLoaderLin::dynamicallyLoadLib(const std::string& libName)
 	LOG(Log::DBG) << "Proceeding to load library " << libName;
 	//The library is loaded through dlopen (Linux API)
 	std::ostringstream ss;
-	ss << "lib" << libName << ".so";
+	ss << "lib" << libName << "can.so";
 	p_dynamicLibrary = dlopen(ss.str().c_str(), RTLD_NOW);
 	//We check for errors while loading the library
 	if (p_dynamicLibrary == 0)
@@ -40,11 +43,11 @@ void CanLibLoaderLin::dynamicallyLoadLib(const std::string& libName)
 	}	
 }
 
-void CanLibLoaderLin::createCanAccess()
+CCanAccess*  CanLibLoaderLin::createCanAccess()
 {
 	//Once the library is loaded, the resolve the function getHalAccess, which will give us an instance of the wanted object
-	f_CCanAccess canAccess;
-	*(void**) &canAccess = dlsym(p_dynamicLibrary,"getCanbusAccess");
+	f_canAccess *canAccess;
+	canAccess = (f_canAccess*)dlsym(p_dynamicLibrary,"getCanBusAccess");
 	//We check for errors again. If there is an error the library is released from memory.
 	char *err = dlerror();
 	if (err) {
@@ -58,5 +61,7 @@ void CanLibLoaderLin::createCanAccess()
 		throw std::runtime_error("Error: could not locate the function");//TODO: add library name to message	
 	}
 	//We call the function getHalAccess we got from the library. This will give us a pointer to an object, which we store.
-	m_canAccessInstance = (CCanAccess*)(canAccess());
+//	m_canAccessInstance = (CCanAccess*)(canAccess());
+      return canAccess();
+}
 }
