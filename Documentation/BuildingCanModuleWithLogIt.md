@@ -33,7 +33,7 @@ After the build steps outlined below you should have
 2. CanModule shared library + include directory + implementation shared libraries
 
 
-##WINDOWS (using the git-bash mingw64 terminal)
+## Windows (using the git-bash mingw64 terminal)
 ```
 # where is boost ?
 #   this windows build uses 'boost_custom_win_VS2017.cmake' (see below) to locate boost
@@ -89,7 +89,7 @@ cmake -DCMAKE_BUILD_TYPE=Release \
       -G "Visual Studio 15 2017 Win64" ..
 ```
 
-##LINUX (CC7)
+## Linux (CC7)
 ```
 # where is boost ?
 #   if you build with a custom boost version then cmake should use file 'boost_custom_cc7.cmake' (see below) 
