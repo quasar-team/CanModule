@@ -1,5 +1,4 @@
 # Building CanModule and LogIt
-
 CanModule can be built as a stand-alone (shared) library for windows and linux. CanModule depends on LogIt
 to provide the familiar LogIt interface ```(LOG << "message ["<<some_var<<"]")``` and back-end implementations
 that deliver logged messages to the appropriate endpoint (console, rotating file buffer, etc).
@@ -27,16 +26,17 @@ directory and directs cmake to generate makefiles and output build artefacts in 
 a fairly common cmake approach, here we use this approach to cleanly seperate debug and release builds 
 (only release shown here).
 
-
+## Build output
 After the build steps outlined below you should have
 1. LogIt shared library + include directory
 2. CanModule shared library + include directory + implementation shared libraries
 
+These artefacts should be sufficient to go on to build subsequent end-user applications.
 
 ## Windows (using the git-bash mingw64 terminal)
 ```
 # where is boost ?
-#   this windows build uses 'boost_custom_win_VS2017.cmake' (see below) to locate boost
+#   this example build uses 'boost_custom_win_VS2017.cmake' (see below) to locate boost
 #      'boost_custom_win_VS2017.cmake' NEEDS these environment variables.
 #
 #   Note: boost builds on windows result in many permutations regarding exactly what the resulting
