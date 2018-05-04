@@ -99,6 +99,10 @@ Path=%Path%;%cd%\CanInterfaceImplementations\unitTestMockUpImplementation\Releas
 CanModuleTest\Release\CanModuleTest.exe
 ```
 
+### Building CanModule and LogIt
+Described fully in [this document](Documentation/BuildingCanModuleWithLogIt.md).
+
+
 ### Building the specific CAN gateway interface libraries
 The point of this module is to interface with CAN gateway modules, so, to use the module you'll need to build at least one of the implementations. As noted above, the CanModule comes with many implementations out-of-the-box but note ready here means *ready for you to build*. We don't know which platform you're on, which hardware you have etc. You have to tell CanModule which implementations you want to build. How?
 The choice as to which specific implementations are part of the build is controlled in the file
