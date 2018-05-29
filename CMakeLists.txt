@@ -18,7 +18,8 @@
 #  GNU Lesser General Public Licence for more details <http://www.gnu.org/licenses/>.
 #  
 # Authors: Viatcheslav Filimonov, Piotr Nikiel, Ben Farnham, Michael Ludwig ("the quasar team from Atlas and BE-ICS")
-#cmake_minimum_required(VERSION 2.8)
+#
+cmake_minimum_required(VERSION 2.8)
 project(CanModule)
 
 # C++11 as standard
