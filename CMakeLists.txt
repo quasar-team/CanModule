@@ -27,7 +27,11 @@ set (CMAKE_CXX_STANDARD 11) # works for CMake v3.1+
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11") #for older CMake versions
 
 message(STATUS "--WARNING-WARNING-WARNING-- generating DEBUG builds no matter what the command line says")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g")
+IF (WIN32)
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /DEBUG")
+ELSE()
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g")
+ENDIF()
 message(STATUS "--WARNING-WARNING-WARNING-- generating DEBUG builds no matter what the command line says")
 
 function ( locateBoostLibsUsingToolchainFile )
