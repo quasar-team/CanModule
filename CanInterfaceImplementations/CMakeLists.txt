@@ -34,7 +34,7 @@ function ( checkCANImplResourceExists IMPL_LIB_RESOURCE HINT)
 endfunction()
 
 IF (WIN32)	
-	#add_subdirectory(systec)
+	add_subdirectory(systec)
 	#add_subdirectory(pkcan)
 	#add_subdirectory(anagate)
 	add_subdirectory(unitTestMockUpImplementation)
