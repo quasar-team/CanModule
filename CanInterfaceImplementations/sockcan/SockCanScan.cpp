@@ -348,7 +348,7 @@ bool CSockCanScan::sendMessage(short cobID, unsigned char len, unsigned char *me
     if (numberOfWrittenBytes < (int)sizeof(struct can_frame))
     {
     	std::cerr << "Error: Incorrect number of bytes [" << numberOfWrittenBytes << "] written when sending a message." << std::endl;
-    	MLOG(ERR,this) << << "Error: Incorrect number of bytes [" << numberOfWrittenBytes << "] written when sending a message.";
+    	MLOG(ERR,this) << "Error: Incorrect number of bytes [" << numberOfWrittenBytes << "] written when sending a message.";
    	return false;
     }
 
