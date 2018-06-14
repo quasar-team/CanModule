@@ -330,14 +330,13 @@ bool CSockCanScan::sendMessage(short cobID, unsigned char len, unsigned char *me
 
     MLOG(TRC,this) << "write(): " << canFrameToString(canFrame) << " bytes written=" << numberOfWrittenBytes;
 
-
-
     if (numberOfWrittenBytes < 0) /* ERROR */
     {
     	MLOG(ERR,this) << "While write() :" << CanModuleerrnoToString();
         if (errno == ENOBUFS) 
 	    {	
-        	std::cerr << "ENOBUFS; waiting a jiffy ..." << std::endl;
+        	std::cerr << "ENOBUFS; waiting a jiffy [100ms]..." << std::endl;
+        	MLOG(ERR,this) << "ENOBUFS; waiting a jiffy [100ms]...";
 	    	usleep(100000);
          }
     }
@@ -348,8 +347,9 @@ bool CSockCanScan::sendMessage(short cobID, unsigned char len, unsigned char *me
     }
     if (numberOfWrittenBytes < (int)sizeof(struct can_frame))
     {
-    	std::cerr << "Error: Incorrect number of bytes writen when sending a message." << std::endl;
-    	return false;
+    	std::cerr << "Error: Incorrect number of bytes [" << numberOfWrittenBytes << "] written when sending a message." << std::endl;
+    	MLOG(ERR,this) << << "Error: Incorrect number of bytes [" << numberOfWrittenBytes << "] written when sending a message.";
+   	return false;
     }
 
   return true; 
