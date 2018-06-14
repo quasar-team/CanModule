@@ -328,7 +328,7 @@ bool CSockCanScan::sendMessage(short cobID, unsigned char len, unsigned char *me
 
     ssize_t numberOfWrittenBytes = write(m_sock, &canFrame, sizeof(struct can_frame));
 
-    MLOG(DBG,this) << "write(): " << canFrameToString(canFrame) << " bytes written=" << numberOfWrittenBytes; xxx
+    MLOG(DBG,this) << "write(): " << canFrameToString(canFrame) << " bytes written=" << numberOfWrittenBytes;
 
     if (numberOfWrittenBytes < 0) /* ERROR */
     {
