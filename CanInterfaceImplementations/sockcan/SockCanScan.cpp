@@ -330,6 +330,8 @@ bool CSockCanScan::sendMessage(short cobID, unsigned char len, unsigned char *me
 
     MLOG(TRC,this) << "write(): " << canFrameToString(canFrame) << " bytes written=" << numberOfWrittenBytes;
 
+
+
     if (numberOfWrittenBytes < 0) /* ERROR */
     {
     	MLOG(ERR,this) << "While write() :" << CanModuleerrnoToString();
