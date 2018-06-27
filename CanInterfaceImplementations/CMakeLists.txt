@@ -36,7 +36,7 @@ endfunction()
 IF (WIN32)	
 	add_subdirectory(systec)
 	#add_subdirectory(pkcan)
-	#add_subdirectory(anagate)
+	add_subdirectory(anagate)
 	add_subdirectory(unitTestMockUpImplementation)
 ELSE()	
 	#sockcan does not work in centos7, as the library is not available, and anagate wont compile on sl6 because of the compiler version, please take this into account.

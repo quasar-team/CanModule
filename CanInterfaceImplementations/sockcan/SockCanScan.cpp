@@ -122,7 +122,7 @@ void* CSockCanScan::CanScanControlThread(void *p_voidSockCanScan)
 		if (selectResult > 0)
 		{
 			int numberOfReadBytes = read(sock, &socketMessage, sizeof(can_frame));
-//			MLOG(DBG,p_sockCanScan) << "read(): " << canFrameToString(socketMessage);
+			MLOG(DBG,p_sockCanScan) << "read(): " << canFrameToString(socketMessage);
 			if (numberOfReadBytes < 0)
 			{
 				const int seconds = 10;
