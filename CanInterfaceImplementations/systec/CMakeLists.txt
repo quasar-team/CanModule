@@ -41,7 +41,7 @@ set(STCAN_SOURCES
 	../../CanInterface/include/CanModuleUtils.h	
 )
 
-# checkCANImplResourceExists(SYSTEC_INC_DIR ${SYSTEC_INC_HINT})
+checkCANImplResourceExists(SYSTEC_INC_DIR ${SYSTEC_INC_HINT})
 include_directories ( ${SYSTEC_INC_DIR} )
 
 if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
