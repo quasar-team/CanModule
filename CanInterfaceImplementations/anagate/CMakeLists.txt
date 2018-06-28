@@ -47,7 +47,8 @@ set(ANAGATE_SOURCES
 
 checkCANImplResourceExists(ANAGATE_INC_DIR ${ANAGATE_INC_HINT})
 include_directories ( ${ANAGATE_INC_DIR} )
-
+message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: set include dir ANAGATE_INC_DIR= ${ANAGATE_INC_DIR}]")
+	
 if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
 	add_library( ancan SHARED ${ANAGATE_SOURCES} $<TARGET_OBJECTS:LogIt>)
 else()
