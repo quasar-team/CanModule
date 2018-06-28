@@ -15,7 +15,8 @@
 
 #ifdef _WIN32
 
-#include "AnaGateDllCAN.h"
+// #include "AnaGateDllCAN.h"
+#include "AnaGateDllCan.h"
 #include "AnaGateDll.h"
 #include "tchar.h"
 #include "Winsock2.h"
