@@ -1,0 +1,68 @@
+# version format
+version: 1.0.{build}
+image: Visual Studio 2017
+clone_folder: C:\workspace\OPC-UA\CanModule
+build:
+  verbosity: normal
+notifications:
+- provider: Email
+  to:
+  - quasar-developers@cern.ch
+  subject: quasar windows build status changed
+  on_build_success: false
+  on_build_failure: false
+  on_build_status_changed: true
+
+environment:
+  WINDOWS_DEPENDENCIES_DIR: C:\workspace\OPC-UA\quasar-windows-dependencies
+  BOOST_PATH_HEADERS: $(WINDOWS_DEPENDENCIES_DIR)\boost\lib\native\include
+  BOOST_PATH_LIBS: $(WINDOWS_DEPENDENCIES_DIR)
+  #
+  # Set environment variables in powershell using command
+  #   [System.Environment]::SetEnvironmentVariable("VAR", "C:/target/path", "Machine")')
+  #
+
+install:
+  # delete and recreate clean directory for windows dependencies.
+  - ps : |
+         Write-Output "Cleaning and recreating windows dependencies dir: ${env:WINDOWS_DEPENDENCIES_DIR}"
+         if(Test-Path "${env:WINDOWS_DEPENDENCIES_DIR}")
+         {
+           Remove-Item "${env:WINDOWS_DEPENDENCIES_DIR}" -Force -Recurse;
+         }
+         New-Item -ItemType Directory -Force -Path "${env:WINDOWS_DEPENDENCIES_DIR}"
+
+  # chocolatey: package manager for installing applications
+  - ps : Write-Output "Installing chocolatey packages..."
+  - ps : choco install nuget.commandline --yes --limit-output
+  - ps : Write-Output "Installed chocolatey packages"
+
+  # nuget: package manager for installing libs
+  - ps : Write-Output "Installing nuget packages to ${env:WINDOWS_DEPENDENCIES_DIR}"
+  - ps : nuget install boost-vc141 -NonInteractive -ExcludeVersion -OutputDirectory "${env:WINDOWS_DEPENDENCIES_DIR}"
+  - ps : Write-Output "Installed nuget packages to ${env:WINDOWS_DEPENDENCIES_DIR}"
+
+build_script:
+  - cmd : mkdir build-release && cd build-release
+  - cmd : cmake .. -DCMAKE_BUILD_TYPE=RELEASE -DSTANDALONE_BUILD=ON -DLOGIT_BUILD_OPTION=LOGIT_AS_INT_SRC -DCMAKE_TOOLCHAIN_FILE=../boost_appveyor.cmake -G "Visual Studio 15 2017 Win64"
+  - cmd : cmake --build . --target ALL_BUILD --config Release
+  - cmd : cd ..
+
+after_build:
+  - ps : Write-Output "Build completed!"
+  - ps : |
+         if(Test-Path "build-release\Release\CanModule.dll")
+         {
+          Write-Output "Succesfully Built CanModule" ;
+         }
+         else
+         {
+          Write-Output "ERROR! The script will terminate. There was a problem building CanModule";
+          Exit 1;
+         }
+
+artifacts:
+  - path : build-release\Release\CanModule.dll
+# uncomment to block VM deletion for investigating broken builds.
+#on_finish:
+#  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
