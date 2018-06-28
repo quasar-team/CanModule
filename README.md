@@ -1,3 +1,5 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/7evxi9qnqc2iay1i/branch/appveyor-ci-build?svg=true)](https://ci.appveyor.com/project/ben-farnham/canmodule/branch/appveyor-ci-build)
+
 # CanModule
 CanModule is a cross-platform library for controlling any kind of CAN device. All CAN devices are represented by a simple abstract interface (class CanModule::CCanAccess) - user code uses this interface (*only* this interface) to send messages, receive messages, etc. i.e. to interact with the CAN device as per the needs of the application. Of course, abstract interfaces require concrete implementations - these implementations are a kind of functional mapping; driving underlying CAN hardware through some lower level API in a way that satisifies the behaviour 'described' in the CCanAccess interface. CanModule comes out-of-the-box with implementations for certain CAN devices (see table below). Implementations for other CAN devices can be added - please submit a pull request with your implementation for review.
 
@@ -16,12 +18,12 @@ How does it work? CanModule
 Before you try it, you're going to have to build it. There are a few pre-requisite requirements...
 1. CanModule relies on [cmake](cmake.org) for handling cross-platform builds: install cmake.
 2. CanModule uses C++ [boost](boost.org), it simplifies our cross-platform coding overhead. Install boost.
-   
+
    ⋅⋅⋅A little note on boost here: you can use the system installation of boost or some custom boost build if that's what you need. More on this later.
 3. CanModule uses LogIt. [LogIt](github.com/quasar-team/LogIt) is the quasar team's standard logging library.
 
    ⋅⋅⋅A little note on LogIt too: you can build LogIt directy into your CanModule library (i.e. as source code), or you can have CanModule link to LogIt as an external shared library.
-   
+
 ### Building on Linux
 
 _example: build CanModule as a shared library using the system boost installation. Note in this case [LogIt](github.com/quasar-team/LogIt) is built directly in to the CanModule library - i.e. LogIt is not linked as an external library)._
@@ -30,7 +32,7 @@ cmake -DSTANDALONE_BUILD=ON -DCMAKE_TOOLCHAIN_FILE=boost_standard_install_cc7.cm
 ```
 Note: this also builds the unit tests (in CanModuleTest, built with googletest) to verify that the essential mechanisms in the CanModule work as expected. More on these tests later, for now we just verify that they run and pass
 ```
-# from directory CanModule 
+# from directory CanModule
 
 # 1 amend the LD_LIBRARY_PATH so that the CanModuleTest can load the MockUpCanImplementation.so
 LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$(pwd)/CanModule/CanInterfaceImplementations/output
@@ -109,12 +111,12 @@ The choice as to which specific implementations are part of the build is control
 
 _file: CanInterfaceImplementations\CMakeLists.txt_
 ```
-IF (WIN32)	
+IF (WIN32)
 	add_subdirectory(systec)
 	add_subdirectory(pkcan)
 	add_subdirectory(anagate)
 	add_subdirectory(unitTestMockUpImplementation)
-ELSE()	
+ELSE()
 	add_subdirectory(sockcan)
 	add_subdirectory(unitTestMockUpImplementation)
 	#add_subdirectory(anagate)
@@ -135,7 +137,7 @@ FATALERROR: CAN implementation library resource [PEAKCAN_LIB_FILE=] was not foun
                 Please specify the location of an existing file/directory via the cmake invocation (as per the following example):
                 -DPEAKCAN_LIB_FILE="C:/3rdPartySoftware/PeakCAN/pcan-basic/PCAN-Basic API/x64/VC_LIB/PCANBasic.lib"
 ```
-Don't panic: The build does not know how/where the gateway specific includes and binaries are installed on your machine - you have to tell cmake. Simply follow the instructions in the cmake error output - add 
+Don't panic: The build does not know how/where the gateway specific includes and binaries are installed on your machine - you have to tell cmake. Simply follow the instructions in the cmake error output - add
 
 -DPEAKCAN_INC_DIR="your/include/path"
 
