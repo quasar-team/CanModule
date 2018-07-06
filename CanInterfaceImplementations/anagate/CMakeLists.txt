@@ -59,3 +59,5 @@ checkCANImplResourceExists(ANAGATE_LIB_FILE ${ANAGATE_LIB_HINT})
 target_link_libraries ( ancan ${BOOST_LIBS}	${ANAGATE_LIB_FILE} )
 set_property(TARGET ancan PROPERTY POSITION_INDEPENDENT_CODE TRUE)
 set_property(TARGET ancan PROPERTY LINKER_LANGUAGE CXX)
+
+
