@@ -21,10 +21,10 @@ namespace CanModule
 	}
 	void CanLibLoaderWin::dynamicallyLoadLib(const std::string& libName)
 	{
-		LOG(Log::DBG) << "Proceeding to load library " << libName;
 		std::ostringstream ss;
 		ss << libName << "can.dll";
 		//The dll is loaded trough LoadLibrary (Windows API)
+		LOG(Log::DBG) << "Proceeding to load library " << ss;
 		m_pDynamicLibrary = ::LoadLibrary(ss.str().c_str());
 		//We check for errors while loading the library
 		if (!m_pDynamicLibrary) {

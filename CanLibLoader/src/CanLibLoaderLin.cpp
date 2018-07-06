@@ -25,10 +25,10 @@ CanLibLoaderLin::~CanLibLoaderLin() {
 
 void CanLibLoaderLin::dynamicallyLoadLib(const std::string& libName)
 {
-	LOG(Log::DBG) << "Proceeding to load library " << libName;
 	//The library is loaded through dlopen (Linux API)
 	std::ostringstream ss;
 	ss << "lib" << libName << "can.so";
+	LOG(Log::DBG) << "Proceeding to load library " << ss;
 	p_dynamicLibrary = dlopen(ss.str().c_str(), RTLD_NOW);
 	//We check for errors while loading the library
 	if (p_dynamicLibrary == 0)
