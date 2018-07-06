@@ -27,10 +27,12 @@ SET( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/CanInterfaceImplementati
 if(WIN32)
 	SET(SYSTEC_INC_HINT "C:/Program Files (x86)/SYSTEC-electronic/USB-CANmodul Utility Disk/Examples/Include")
 	SET(SYSTEC_LIB_HINT "C:/Program Files (x86)/SYSTEC-electronic/USB-CANmodul Utility Disk/Examples/Lib/USBCAN64.lib")
+	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: windows SYSTEC_LIB_HINT= ${SYSTEC_LIB_HINT}]")
 else()
 	SET(SYSTEC_INC_HINT "/some/path/to/include/directory/")
 	SET(SYSTEC_LIB_HINT "/some/path/to/lib/binary")
-endif()
+	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: linux SYSTEC_LIB_HINT= ${SYSTEC_LIB_HINT}]")
+eendif()
 
 set(STCAN_SOURCES
 	STCanScan.cpp
