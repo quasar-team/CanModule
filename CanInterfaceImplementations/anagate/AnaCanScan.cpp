@@ -93,6 +93,7 @@ void AnaCanScan::callbackOnRecieve(CanMessage& msg)
 
 bool AnaCanScan::createBus(const string name,const string parameters)
 {	
+	std::cout << __FILE__ << " " << __FILE__ << " AnaCanScan::createBus name= " << name << " parameters= " << parameters << std::endl;
 	m_sBusName = name;
 	int returnCode = configureCanBoard(name, parameters);
 	if (returnCode < 0)
@@ -218,7 +219,7 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 	AnaInt32 flags = 0x0;
 	if (rtr)
 	{
-		flags = 2; // • Bit 1: If set, the telegram is marked as remote frame.
+		flags = 2; // ï¿½ Bit 1: If set, the telegram is marked as remote frame.
 	}
 	int  messageLengthToBeProcessed;
 
