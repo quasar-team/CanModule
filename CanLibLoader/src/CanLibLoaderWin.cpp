@@ -68,7 +68,8 @@ namespace CanModule
 		} else {
 			LOG(Log::ERR) << "could not load the dynamic library: [" << ss.str() << "]";
 			// ErrorExit(TEXT("could not load the lib "));
-			throw std::runtime_error("Error: could not load the dynamic library");//TODO: add library name to message
+			string msg = "Error: could not load the dynamic library" + ss;
+			throw std::runtime_error( msg.c_str() );
 		}
 	}
 	CanModule::CCanAccess* CanLibLoaderWin::createCanAccess()
