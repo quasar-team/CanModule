@@ -9,6 +9,7 @@ namespace CanModule
 
 	typedef __declspec(dllimport) CCanAccess *f_CCanAccess();
 
+	// this seems to return error code 0 even if lib pointer is NULL
 	void CanLibLoaderWin::ErrorExit(LPTSTR lpszFunction)
 	{
 	    // Retrieve the system error message for the last-error code
@@ -62,11 +63,11 @@ namespace CanModule
 		LOG(Log::DBG) << "Proceeding to load library " << ss.str();
 		m_pDynamicLibrary = ::LoadLibrary(ss.str().c_str());
 		//We check for errors while loading the library
-		if (!m_pDynamicLibrary) {
-
-			LOG(Log::ERR) << "Error: could not load the dynamic library: [" << ss.str() << "]";
-			ErrorExit(TEXT("could not load the lib "));
-
+		if ( m_pDynamicLibrary != NULL )  {
+			LOG(Log::DBG) << "loaded the dynamic library: [" << ss.str() << "]";
+		} else {
+			LOG(Log::ERR) << "could not load the dynamic library: [" << ss.str() << "]";
+			// ErrorExit(TEXT("could not load the lib "));
 			throw std::runtime_error("Error: could not load the dynamic library");//TODO: add library name to message
 		}
 	}
