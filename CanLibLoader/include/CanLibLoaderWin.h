@@ -1,6 +1,8 @@
 #pragma once
 #define _WINSOCKAPI_
 #include <windows.h>
+#include <strsafe.h>
+
 #include "CanLibLoader.h"
 
 namespace CanModule

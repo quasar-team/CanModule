@@ -9,6 +9,41 @@ namespace CanModule
 
 	typedef __declspec(dllimport) CCanAccess *f_CCanAccess();
 
+	void CanLibLoaderWin::ErrorExit(LPTSTR lpszFunction)
+	{
+	    // Retrieve the system error message for the last-error code
+
+	    LPVOID lpMsgBuf;
+	    LPVOID lpDisplayBuf;
+	    DWORD dw = GetLastError();
+
+	    FormatMessage(
+	        FORMAT_MESSAGE_ALLOCATE_BUFFER |
+	        FORMAT_MESSAGE_FROM_SYSTEM |
+	        FORMAT_MESSAGE_IGNORE_INSERTS,
+	        NULL,
+	        dw,
+	        MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
+	        (LPTSTR) &amp;lpMsgBuf,
+	        0, NULL );
+
+	    // Display the error message and exit the process
+
+	    lpDisplayBuf = (LPVOID)LocalAlloc(LMEM_ZEROINIT,
+	        (lstrlen((LPCTSTR)lpMsgBuf) + lstrlen((LPCTSTR)lpszFunction) + 40) * sizeof(TCHAR));
+	    StringCchPrintf((LPTSTR)lpDisplayBuf,
+	        LocalSize(lpDisplayBuf) / sizeof(TCHAR),
+	        TEXT("%s failed with error %d: %s"),
+	        lpszFunction, dw, lpMsgBuf);
+	    MessageBox(NULL, (LPCTSTR)lpDisplayBuf, TEXT("Error"), MB_OK);
+
+	    LocalFree(lpMsgBuf);
+	    LocalFree(lpDisplayBuf);
+	    ExitProcess(dw);
+	}
+
+
+
 	CanLibLoaderWin::CanLibLoaderWin(const std::string& libName)
 		: CanLibLoader(libName), m_pDynamicLibrary(0)
 	{
@@ -28,7 +63,10 @@ namespace CanModule
 		m_pDynamicLibrary = ::LoadLibrary(ss.str().c_str());
 		//We check for errors while loading the library
 		if (!m_pDynamicLibrary) {
+
 			LOG(Log::ERR) << "Error: could not load the dynamic library: [" << ss.str() << "]";
+			ErrorExit(TEXT("could not load the lib "));
+
 			throw std::runtime_error("Error: could not load the dynamic library");//TODO: add library name to message
 		}
 	}
