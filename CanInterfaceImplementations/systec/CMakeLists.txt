@@ -32,7 +32,7 @@ else()
 	SET(SYSTEC_INC_HINT "/some/path/to/include/directory/")
 	SET(SYSTEC_LIB_HINT "/some/path/to/lib/binary")
 	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: linux SYSTEC_LIB_HINT= ${SYSTEC_LIB_HINT}]")
-eendif()
+endif()
 
 set(STCAN_SOURCES
 	STCanScan.cpp
