@@ -39,7 +39,7 @@ namespace CanModule
 
 	    LocalFree(lpMsgBuf);
 	    LocalFree(lpDisplayBuf);
-	    ExitProcess(dw);
+	    //ExitProcess(dw);
 	}
 
 

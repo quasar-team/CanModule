@@ -10,6 +10,8 @@ namespace CanModule
 	class CanLibLoaderWin : public CanLibLoader
 	{
 	public:
+		// system error reporter
+		void ErrorExit(LPTSTR lpszFunction);
 		//Empty constructor
 		CanLibLoaderWin(const std::string& libName);
 		//Will cleanup the loaded dynamic library
