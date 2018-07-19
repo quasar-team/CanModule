@@ -111,15 +111,17 @@ bool AnaCanScan::createBus(const string name,const string parameters)
 
 int AnaCanScan::configureCanBoard(const string name,const string parameters)
 {
+	MLOG(DBG, this) << " AnaCanScan::configureCanBoard name= " << name << " parameters= " << parameters;
+
 	//Default BaudRate
 	long baudRate = 125000;
 
 	vector<string> stringVector;
 	stringVector = parcerNameAndPar(name, parameters);
 
+	// we should decode 3 elements from this:0="an" for anagate library, 1=handle number, 2=ip number
+	MLOG(DBG, this) << " AnaCanScan::configureCanBoard stringVector size= " <<stringVector.size();
 	for ( unsigned i = 0; i < stringVector.size(); i++ ){
-		std::cout << __FILE__ << " " << __FILE__ << " AnaCanScan::configureCanBoard stringVector[" << i << "]= "
-				<< stringVector[ i ] << std::endl;
 		MLOG(DBG, this) << " AnaCanScan::configureCanBoard stringVector[" << i << "]= "	<< stringVector[ i ];
 	}
 
@@ -127,7 +129,8 @@ int AnaCanScan::configureCanBoard(const string name,const string parameters)
 	m_canHandleNumber = atoi(stringVector[1].c_str());
 	m_canIPAddress = stringVector[2].c_str();
 
-	MLOG(INF, this) << "m_canHandleNumber:[" << m_canHandleNumber << "], stringVector[" << stringVector[0] << "," << stringVector[1] << "," << stringVector[2] << "]";
+	MLOG(INF, this) << "m_canHandleNumber:[" << m_canHandleNumber << "], stringVector[" << stringVector[0] << ","
+			<< stringVector[1] << "," << stringVector[2] << "]";
 
 	if (strcmp(parameters.c_str(), "Unspecified") != 0) {
 
