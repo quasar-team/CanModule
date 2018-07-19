@@ -120,6 +120,8 @@ int AnaCanScan::configureCanBoard(const string name,const string parameters)
 	stringVector = parcerNameAndPar(name, parameters);
 
 	// we should decode 3 elements from this:0="an" for anagate library, 1=handle number, 2=ip number
+	// separated by ":", i.e.:
+	// an:0:128.141.159.194
 	MLOG(DBG, this) << " AnaCanScan::configureCanBoard stringVector size= " <<stringVector.size();
 	for ( unsigned i = 0; i < stringVector.size(); i++ ){
 		MLOG(DBG, this) << " AnaCanScan::configureCanBoard stringVector[" << i << "]= "	<< stringVector[ i ];
