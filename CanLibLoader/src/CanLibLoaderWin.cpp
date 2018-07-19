@@ -68,7 +68,7 @@ namespace CanModule
 		} else {
 			LOG(Log::ERR) << "could not load the dynamic library: [" << ss.str() << "]";
 			// ErrorExit(TEXT("could not load the lib "));
-			string msg = "Error: could not load the dynamic library" + ss;
+			string msg = string("Error: could not load the dynamic library") + ss;
 			throw std::runtime_error( msg.c_str() );
 		}
 	}
