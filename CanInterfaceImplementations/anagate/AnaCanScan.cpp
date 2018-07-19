@@ -97,7 +97,7 @@ void AnaCanScan::callbackOnRecieve(CanMessage& msg)
 
 bool AnaCanScan::createBus(const string name,const string parameters)
 {	
-	std::cout << __FILE__ << " " << __FILE__ << " AnaCanScan::createBus name= " << name << " parameters= " << parameters << std::endl;
+	MLOG(DBG, this)<< " AnaCanScan::createBus name= " << name << " parameters= " << parameters;
 	m_sBusName = name;
 	int returnCode = configureCanBoard(name, parameters);
 	if (returnCode < 0)
