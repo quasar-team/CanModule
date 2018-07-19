@@ -45,7 +45,9 @@ extern "C" DLLEXPORTFLAG CCanAccess *getCanBusAccess()
 
 AnaInt32 g_timeout = 6000;				// connect_wait time
 
-//call back to catch incoming CAN messages
+/**
+ * call back to catch incoming CAN messages for reading
+ */
 void WINAPI InternalCallback(AnaUInt32 nIdentifier, const char * pcBuffer, AnaInt32 nBufferLen, AnaInt32 nFlags, AnaInt32 hHandle, AnaInt32 nSeconds, AnaInt32 nMicroseconds)
 {
 	CanMessage canMsgCopy;
@@ -66,7 +68,9 @@ void WINAPI InternalCallback(AnaUInt32 nIdentifier, const char * pcBuffer, AnaIn
 
 AnaCanScan::AnaCanScan():
 m_canHandleNumber(0),
-m_baudRate(0)
+m_baudRate(0),
+m_idCanScanThread(0),
+m_canIPAddress("192.168.1.2")
 {
 	m_statistics.beginNewRun();
 }
@@ -112,6 +116,14 @@ int AnaCanScan::configureCanBoard(const string name,const string parameters)
 
 	vector<string> stringVector;
 	stringVector = parcerNameAndPar(name, parameters);
+
+	for ( unsigned i = 0; i < stringVector.size(); i++ ){
+		std::cout << __FILE__ << " " << __FILE__ << " AnaCanScan::configureCanBoard stringVector[" << i << "]= "
+				<< stringVector[ i ] << std::endl;
+		MLOG(DBG, this) << " AnaCanScan::configureCanBoard stringVector[" << i << "]= "	<< stringVector[ i ];
+	}
+
+
 	m_canHandleNumber = atoi(stringVector[1].c_str());
 	m_canIPAddress = stringVector[2].c_str();
 
@@ -213,7 +225,7 @@ bool AnaCanScan::sendErrorCode(AnaInt32 status)
 }
 bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr)
 {
-	//	MLOG(DBG,this) << "Sending message: [" << message << "], cobID: [" << cobID << "], Message Length: [" << static_cast<int>(len) << "]";
+	MLOG(DBG,this) << "Sending message: [" << message << "], cobID: [" << cobID << "], Message Length: [" << static_cast<int>(len) << "]";
 	AnaInt32 anaCallReturn;
 	unsigned char *messageToBeSent[8];
 	AnaInt32 flags = 0x0;

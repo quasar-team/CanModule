@@ -29,8 +29,10 @@
 
 typedef unsigned long DWORD;
 #endif
-/*
- * This is an implementation of the abstract class CCanAccess. It serves as a can bus access layer that will communicate with Systec crates (Windows only)
+
+/**
+ * This is an implementation of the abstract class CCanAccess. It serves as a can bus
+ * access layer that will communicate with AnaGate bridges over TCP/IP (Windows only)
  */
 using namespace CanModule;
 
