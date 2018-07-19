@@ -3,6 +3,7 @@
  *
  *  Created on: Apr 4, 2011
  *      Author: vfilimon
+ *      maintaining touches: mludwig
  */
 
 #ifndef CCANACCESS_H_
