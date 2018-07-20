@@ -4,6 +4,7 @@ find_package(Threads REQUIRED)
 
 function ( clone_googletest GOOGLETEST_VERSION)
   message(STATUS "cloning googletest from github. *NOTE* cloning [${GOOGLETEST_VERSION}]")
+   
   execute_process(COMMAND git clone -b ${GOOGLETEST_VERSION} https://github.com/google/googletest.git WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
   message(STATUS "googletest cloned to [${PROJECT_SOURCE_DIR}/googletest]")    
 endfunction()
