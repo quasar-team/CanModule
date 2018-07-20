@@ -84,7 +84,7 @@ STCanScan::~STCanScan()
     MLOG(DBG,this) << "ST Can Scan component closed successfully";
 }
 
-bool STCanScan::createBus(const string name,const string parameters)
+bool STCanScan::createBusyy(const string name,const string parameters)
 {	
 	m_sBusName = name;
 
