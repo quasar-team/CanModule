@@ -56,7 +56,7 @@ public:
 	 * @param parameters: Different parameters used for the initialisation. For using the default parameters just set this to "Unspecified"
 	 * @return: Was the initialisation process successful?
 	 */
-	virtual bool createBusxx(const string name ,const string parameters);
+	virtual bool createBus(const string name ,const string parameters);
 
 	/*
 	 * Method that sends a message trough the can bus channel. If the method createBus was not called before this, sendMessage will fail, as there is no

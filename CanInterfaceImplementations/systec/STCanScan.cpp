@@ -84,8 +84,10 @@ STCanScan::~STCanScan()
     MLOG(DBG,this) << "ST Can Scan component closed successfully";
 }
 
-bool STCanScan::createBusyy(const string name,const string parameters)
+bool STCanScan::createBus(const string name,const string parameters)
 {	
+	LOG( Log::DBG ) << "STCanScan::createBus name= " << name << " parameters= " << parameters;
+	MLOG(DBG, this) << "STCanScan::createBus name= " << name << " parameters= " << parameters;
 	m_sBusName = name;
 
 	int returnCode = configureCanBoard(name, parameters);
