@@ -82,6 +82,7 @@ namespace CanModule
 			throw std::runtime_error("Error: could not locate the function");
 		}
 		//We call the function getHalAccess we got from the library. This will give us a pointer to an object, wich we store.
+		LOG(Log::TRC) << "createCanAccess getCanBusAccess: got an object ptr from library, OK";
 		return (CCanAccess*)(canAccess());
 	}
 }
