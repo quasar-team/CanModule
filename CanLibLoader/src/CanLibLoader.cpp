@@ -43,14 +43,15 @@ namespace CanModule
 		CCanAccess *tcca = createCanAccess();
 		//The Logit instance of the executable is handled to the DLL at this point, so the instance is shared.
 		tcca->initialiseLogging(LogItInstance::getInstance());
+		LOG(Log::DBG) << "CanLibLoader::openCanBus: Logging initialized OK";
 
 		bool c = tcca->createBus(name, parameters);
 		if (c) {
-			LOG(Log::DBG) << "CanLibLoader::openCanBus: Adding CCanAccess to the map: " << name;
+			LOG(Log::DBG) << "CanLibLoader::openCanBus: createBus Adding CCanAccess to the map: " << name;
 			return tcca;
 		} else 	{
-			LOG(Log::ERR) << "CanLibLoader::openCanBus: Problem opening canBus: " << name;
-			throw std::runtime_error("CanLibLoader::openCanBus: Problem when opening canBus" );
+			LOG(Log::ERR) << "CanLibLoader::openCanBus: createBus Problem opening canBus: " << name;
+			throw std::runtime_error("CanLibLoader::openCanBus: createBus Problem when opening canBus" );
 		}
 		return 0;
 	}
