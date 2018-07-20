@@ -72,6 +72,7 @@ namespace CanModule
 			throw std::runtime_error( msg.c_str() );
 		}
 	}
+
 	CanModule::CCanAccess* CanLibLoaderWin::createCanAccess()
 	{
 		//Once the library is loaded, the resolve the function getHalAccess, which will give us an instance of the wanted object
