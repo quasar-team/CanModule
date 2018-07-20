@@ -45,7 +45,9 @@ namespace CanModule
 		tcca->initialiseLogging(LogItInstance::getInstance());
 		LOG(Log::DBG) << "CanLibLoader::openCanBus: Logging initialized OK";
 
+		LOG(Log::DBG) << "CanLibLoader::openCanBus: calling createBus...";
 		bool c = tcca->createBus(name, parameters);
+		LOG(Log::DBG) << "CanLibLoader::openCanBus: createBus returns " << c;
 		if (c) {
 			LOG(Log::DBG) << "CanLibLoader::openCanBus: createBus Adding CCanAccess to the map: " << name;
 			return tcca;
