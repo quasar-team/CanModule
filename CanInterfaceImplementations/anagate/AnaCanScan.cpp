@@ -95,7 +95,7 @@ void AnaCanScan::callbackOnRecieve(CanMessage& msg)
 	canMessageCame(msg);
 }
 
-bool AnaCanScan::createBus(const string name,const string parameters)
+bool AnaCanScan::createBusxx(const string name,const string parameters)
 {	
 	LOG( Log::DBG ) << " AnaCanScan::createBus name= " << name << " parameters= " << parameters;
 	MLOG(DBG, this)<< " AnaCanScan::createBus name= " << name << " parameters= " << parameters;
