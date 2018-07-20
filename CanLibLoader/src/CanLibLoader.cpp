@@ -41,20 +41,20 @@ namespace CanModule
 	{
 		LOG(Log::DBG) << "CanLibLoader::openCanBus: Creating CCanAccess: name= " << name << " parameters= " << parameters;
 		CCanAccess *tcca = createCanAccess();
-		//The Logit instance of the executable is handled to the DLL at this point, so the instance is shared.
-		tcca->initialiseLogging(LogItInstance::getInstance());
-		LOG(Log::DBG) << "CanLibLoader::openCanBus: Logging initialized OK";
-
 
 		if ( !tcca ){
 			LOG(Log::ERR) << "CanLibLoader::openCanBus: failed to create CCanAccess (from loaded lib), exiting...";
 			exit(-1);
 		} else {
 			LOG(Log::DBG) << "CanLibLoader::openCanBus: created CCanAccess (from loaded lib) OK";
-
 		}
 
-		LOG(Log::DBG) << "CanLibLoader::openCanBus: calling createBus...";
+		//The Logit instance of the executable is handled to the DLL at this point, so the instance is shared.
+		tcca->initialiseLogging(LogItInstance::getInstance());
+		LOG(Log::DBG) << "CanLibLoader::openCanBus: Logging initialized OK";
+
+
+		LOG(Log::DBG) << "CanLibLoader::openCanBus: calling createBus. name= " << name << " parameters= " << parameters;
 		bool c = tcca->createBus(name, parameters);
 		LOG(Log::DBG) << "CanLibLoader::openCanBus: createBus returns " << c;
 		if (c) {
