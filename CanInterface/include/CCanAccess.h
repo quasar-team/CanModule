@@ -144,7 +144,7 @@ namespace CanModule
 		*/
 		inline vector<string> parcerNameAndPar(string name, string parameters)
 		{
-			MLOG(DBG, this) << "CCanAccess::parcerNameAndPar name= " << name << " parameters= " << parameters;
+			LOG(Log::TRC) << "CCanAccess::parcerNameAndPar name= " << name << " parameters= " << parameters;
 
 			m_sBusName = name;
 			vector<string> stringVector;
