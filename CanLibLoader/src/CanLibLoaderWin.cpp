@@ -75,14 +75,14 @@ namespace CanModule
 	CanModule::CCanAccess* CanLibLoaderWin::createCanAccess()
 	{
 		//Once the library is loaded, the resolve the function getHalAccess, which will give us an instance of the wanted object
-		LOG(Log::TRC) << "Accesing method get getCanBusAccess";
+		LOG(Log::TRC) << "CanLibLoaderWin::createCanAccess: Accessing method get getCanBusAccess";
 		f_CCanAccess *canAccess = (f_CCanAccess *)GetProcAddress(m_pDynamicLibrary, "getCanBusAccess");
 		//We check for errors again. If there is an error the library is released from memory.
 		if (!canAccess) {
-			throw std::runtime_error("Error: could not locate the function");
+			throw std::runtime_error("CanLibLoaderWin::createCanAccess: Error: could not locate the function");
 		}
 		//We call the function getHalAccess we got from the library. This will give us a pointer to an object, wich we store.
-		LOG(Log::TRC) << "createCanAccess getCanBusAccess: got an object ptr from library, OK";
+		LOG(Log::TRC) << "CanLibLoaderWin::createCanAccess: getCanBusAccess: got an object ptr from library, OK";
 		return (CCanAccess*)(canAccess());
 	}
 }
