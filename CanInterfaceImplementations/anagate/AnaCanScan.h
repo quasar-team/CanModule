@@ -15,7 +15,7 @@
 
 #ifdef _WIN32
 
-xx
+"windows"
 
 // #include "AnaGateDllCAN.h"
 #include "AnaGateDllCan.h"
