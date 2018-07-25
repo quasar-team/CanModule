@@ -54,6 +54,10 @@ namespace CanModule
 		LOG(Log::DBG) << "CanLibLoader::openCanBus: Logging initialized OK";
 
 
+		// debugging... why does the anagate call cratebus fail ?
+		parameters=name;
+
+
 		LOG(Log::DBG) << "CanLibLoader::openCanBus: calling createBus. name= " << name << " parameters= " << parameters;
 		bool c = tcca->createBus(name, parameters);
 		LOG(Log::DBG) << "CanLibLoader::openCanBus: createBus returns " << c;
