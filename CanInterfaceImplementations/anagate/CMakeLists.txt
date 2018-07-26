@@ -37,6 +37,11 @@ if(WIN32)
 	
 	#SET(ANAGATE_LIB_HINT "C:/3rdPartySoftware/AnaGateCAN/win64/vc8/Release/AnaGateCan64.dll")
 	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: windows ANAGATE_INC_HINT= ${ANAGATE_INC_HINT}]")
+	
+	
+	set( MY_ANAGATE_LIB_FILE "C:/3rdPartySoftware/AnaGateCAN/win64/vc8/Release/AnaGateCanDll64.lib" )
+	set( MY_ANAGATE_INC_DIR "C:/3rdPartySoftware/AnaGateCAN/win64/vc8/include" )
+	
 else()
 	SET(ANAGATE_INC_HINT "/3rdPartySoftware/Anagate/anagate-api-2.13/linux64/gcc4_6/include/")
 	SET(ANAGATE_LIB_HINT "/3rdPartySoftware/Anagate/anagate-api-2.13/linux64/gcc4_6/libAPIRelease64.so")
@@ -52,8 +57,8 @@ set(ANAGATE_SOURCES
 	../../CanInterface/include/CanModuleUtils.h	
 )
 
-checkCANImplResourceExists(ANAGATE_INC_DIR ${ANAGATE_INC_HINT})
-include_directories ( ${ANAGATE_INC_DIR} )
+# checkCANImplResourceExists(ANAGATE_INC_DIR ${ANAGATE_INC_HINT})
+include_directories ( ${MY_ANAGATE_INC_DIR} )
 	
 if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
 	add_library( ancan SHARED ${ANAGATE_SOURCES} $<TARGET_OBJECTS:LogIt>)
@@ -63,7 +68,10 @@ else()
 endif()
 
 checkCANImplResourceExists(ANAGATE_LIB_FILE ${ANAGATE_LIB_HINT})
-target_link_libraries ( ancan ${BOOST_LIBS}	${ANAGATE_LIB_FILE} )
+
+#target_link_libraries ( ancan ${BOOST_LIBS}	${ANAGATE_LIB_FILE} )
+target_link_libraries ( ancan ${BOOST_LIBS}	${MY_ANAGATE_LIB_FILE} )
+
 set_property(TARGET ancan PROPERTY POSITION_INDEPENDENT_CODE TRUE)
 set_property(TARGET ancan PROPERTY LINKER_LANGUAGE CXX)
 
