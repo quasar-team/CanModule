@@ -30,14 +30,13 @@ if(WIN32)
 	#SET(ANAGATE_LIB_HINT "C:/3rdPartySoftware/AnaGateCAN/win64/vc8/Release/AnaGateCanDll64.lib")
 	
 	# 32 bit version
-	SET(ANAGATE_INC_HINT "C:/3rdPartySoftware/AnaGateCAN/win32/vc8/include")
+	#SET(ANAGATE_INC_HINT "C:/3rdPartySoftware/AnaGateCAN/win32/vc8/include")
 	#SET(ANAGATE_LIB_HINT "C:/3rdPartySoftware/AnaGateCAN/win32/vc8/Release/AnaGateCanDll.lib")
-	SET(ANAGATE_LIB_HINT "C:/3rdPartySoftware/AnaGateCAN/win32/vc8/Release/AnaGateCan.dll")
+	#SET(ANAGATE_LIB_HINT "C:/3rdPartySoftware/AnaGateCAN/win32/vc8/Release/AnaGateCan.dll")
 	#SET(ANAGATE_LIB_HINT "C:/3rdPartySoftware/AnaGateCAN/win32/vc8/Release/AnaGateCanVB6.dll")
 	
 	#SET(ANAGATE_LIB_HINT "C:/3rdPartySoftware/AnaGateCAN/win64/vc8/Release/AnaGateCan64.dll")
 	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: windows ANAGATE_INC_HINT= ${ANAGATE_INC_HINT}]")
-	
 	
 	set( MY_ANAGATE_LIB_FILE "C:/3rdPartySoftware/AnaGateCAN/win64/vc8/Release/AnaGateCanDll64.lib" )
 	set( MY_ANAGATE_INC_DIR "C:/3rdPartySoftware/AnaGateCAN/win64/vc8/include" )
@@ -67,8 +66,7 @@ else()
 	target_link_libraries( ancan ${LOGIT_LIB} )
 endif()
 
-checkCANImplResourceExists(ANAGATE_LIB_FILE ${ANAGATE_LIB_HINT})
-
+# checkCANImplResourceExists(ANAGATE_LIB_FILE ${ANAGATE_LIB_HINT})
 #target_link_libraries ( ancan ${BOOST_LIBS}	${ANAGATE_LIB_FILE} )
 target_link_libraries ( ancan ${BOOST_LIBS}	${MY_ANAGATE_LIB_FILE} )
 
