@@ -25,8 +25,16 @@ project(ancan)
 SET( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/CanInterfaceImplementations/output/)
 
 if(WIN32)  
-	SET(ANAGATE_INC_HINT "C:/3rdPartySoftware/AnaGateCAN/win64/vc8/include")
-	SET(ANAGATE_LIB_HINT "C:/3rdPartySoftware/AnaGateCAN/win64/vc8/Release/AnaGateCanDll64.lib")
+	# 64 bit version
+	#SET(ANAGATE_INC_HINT "C:/3rdPartySoftware/AnaGateCAN/win64/vc8/include")
+	#SET(ANAGATE_LIB_HINT "C:/3rdPartySoftware/AnaGateCAN/win64/vc8/Release/AnaGateCanDll64.lib")
+	
+	# 32 bit version
+	SET(ANAGATE_INC_HINT "C:/3rdPartySoftware/AnaGateCAN/win32/vc8/include")
+	#SET(ANAGATE_LIB_HINT "C:/3rdPartySoftware/AnaGateCAN/win32/vc8/Release/AnaGateCanDll.lib")
+	SET(ANAGATE_LIB_HINT "C:/3rdPartySoftware/AnaGateCAN/win32/vc8/Release/AnaGateCan.dll")
+	#SET(ANAGATE_LIB_HINT "C:/3rdPartySoftware/AnaGateCAN/win32/vc8/Release/AnaGateCanVB6.dll")
+	
 	#SET(ANAGATE_LIB_HINT "C:/3rdPartySoftware/AnaGateCAN/win64/vc8/Release/AnaGateCan64.dll")
 	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: windows ANAGATE_INC_HINT= ${ANAGATE_INC_HINT}]")
 else()
