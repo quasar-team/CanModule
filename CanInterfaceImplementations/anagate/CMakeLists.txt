@@ -54,6 +54,12 @@ set(ANAGATE_SOURCES
 	../../CanInterface/include/CanStatistics.h	
 	../../CanInterface/src/CanModuleUtils.cpp
 	../../CanInterface/include/CanModuleUtils.h	
+	#
+	../../CanInterface/include/CanBusAccess.h
+	../../CanInterface/src/CanBusAccess.cpp
+	../../CanInterface/include/CanMessage.h
+	../../CanInterface/include/CCanAccess.h
+	
 )
 
 # checkCANImplResourceExists(ANAGATE_INC_DIR ${ANAGATE_INC_HINT})
