@@ -19,7 +19,7 @@ else()
 	target_link_libraries( sockcan ${LOGIT_LIB} )
 endif()
 
-target_link_libraries ( sockcan ${BOOST_LIBS} libsocketcan.a )
+target_link_libraries ( sockcan ${BOOST_LIBS} libsocketcan.so )
 
 set_property(TARGET sockcan PROPERTY POSITION_INDEPENDENT_CODE TRUE)
 set_property(TARGET sockcan PROPERTY LINKER_LANGUAGE CXX)
