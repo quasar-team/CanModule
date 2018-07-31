@@ -62,9 +62,9 @@ set(ANAGATE_SOURCES
 	
 )
 
-checkCANImplResourceExists(ANAGATE_INC_DIR ${ANAGATE_INC_HINT})
+#checkCANImplResourceExists(ANAGATE_INC_DIR ${ANAGATE_INC_HINT})
 include_directories ( ${MY_ANAGATE_INC_DIR} )
-include_directories ( ${ANAGATE_INC_DIR} )
+#include_directories ( ${ANAGATE_INC_DIR} )
 	
 if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
 	add_library( ancan SHARED ${ANAGATE_SOURCES} $<TARGET_OBJECTS:LogIt>)
@@ -74,8 +74,8 @@ else()
 endif()
 
 checkCANImplResourceExists(ANAGATE_LIB_FILE ${ANAGATE_LIB_HINT})
-target_link_libraries ( ancan ${BOOST_LIBS}	${ANAGATE_LIB_FILE} )
-#target_link_libraries ( ancan ${BOOST_LIBS}	${MY_ANAGATE_LIB_FILE} )
+#target_link_libraries ( ancan ${BOOST_LIBS}	${ANAGATE_LIB_FILE} )
+target_link_libraries ( ancan ${BOOST_LIBS}	${MY_ANAGATE_LIB_FILE} )
 
 set_property(TARGET ancan PROPERTY POSITION_INDEPENDENT_CODE TRUE)
 set_property(TARGET ancan PROPERTY LINKER_LANGUAGE CXX)
