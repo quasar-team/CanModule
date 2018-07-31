@@ -38,8 +38,8 @@ if(WIN32)
 	#SET(ANAGATE_LIB_HINT "C:/3rdPartySoftware/AnaGateCAN/win64/vc8/Release/AnaGateCan64.dll")
 	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: windows ANAGATE_INC_HINT= ${ANAGATE_INC_HINT}]")
 	
-	set( MY_ANAGATE_LIB_FILE "C:/3rdPartySoftware/AnaGateCAN/win64/vc8/Release/AnaGateCanDll64.lib" )
-	set( MY_ANAGATE_INC_DIR "C:/3rdPartySoftware/AnaGateCAN/win64/vc8/include" )
+	#set( MY_ANAGATE_LIB_FILE "C:/3rdPartySoftware/AnaGateCAN/win64/vc8/Release/AnaGateCanDll64.lib" )
+	#set( MY_ANAGATE_INC_DIR "C:/3rdPartySoftware/AnaGateCAN/win64/vc8/include" )
 	
 else()
 	SET(ANAGATE_INC_HINT "/3rdPartySoftware/Anagate/anagate-api-2.13/linux64/gcc4_6/include/")
