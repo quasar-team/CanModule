@@ -1,4 +1,7 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/7evxi9qnqc2iay1i/branch/master?svg=true)](https://ci.appveyor.com/project/ben-farnham/canmodule/branch/master)
+
+linux (by travis-ci.org) [![Build Status](https://travis-ci.org/quasar-team/CanModule.svg?branch=master)](https://travis-ci.org/quasar-team/CanModule)
+
+windows (by appveyor) [![Build status](https://ci.appveyor.com/api/projects/status/7evxi9qnqc2iay1i/branch/master?svg=true)](https://ci.appveyor.com/project/ben-farnham/canmodule/branch/master)
 
 # CanModule
 CanModule is a cross-platform library for controlling any kind of CAN device. All CAN devices are represented by a simple abstract interface (class CanModule::CCanAccess) - user code uses this interface (*only* this interface) to send messages, receive messages, etc. i.e. to interact with the CAN device as per the needs of the application. Of course, abstract interfaces require concrete implementations - these implementations are a kind of functional mapping; driving underlying CAN hardware through some lower level API in a way that satisifies the behaviour 'described' in the CCanAccess interface. CanModule comes out-of-the-box with implementations for certain CAN devices (see table below). Implementations for other CAN devices can be added - please submit a pull request with your implementation for review.

@@ -1,0 +1,25 @@
+sudo: required
+
+language: cpp
+
+services:
+ - docker
+
+before_install:
+ - docker pull bfarnham/quasar:quasar-open62541
+ 
+script:
+ - docker run  --interactive --tty bfarnham/quasar:quasar-open62541 /bin/sh -c "
+     echo '********************************************************************' ;
+     echo branch ${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH} ;
+     echo '********************************************************************' ;
+     git clone -b ${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH} https://github.com/quasar-team/CanModule.git ;
+     mkdir CanModule/build-release && cd CanModule/build-release ;
+     apt-get install --quiet --assume-yes libsocketcan ;
+     apt-get install --quiet --assume-yes libsocketcan-dev ;
+     export BOOST_PATH_HEADERS=/usr/include/ ;
+     export BOOST_PATH_LIBS=/usr/lib/x86_64-linux-gnu/ ;
+     cmake .. -DCMAKE_BUILD_TYPE=RELEASE -DSTANDALONE_BUILD=ON -DCMAKE_TOOLCHAIN_FILE=../boost_travis.cmake ;
+     make clean && make ;
+     exit ;
+     "
