@@ -36,7 +36,7 @@ if(WIN32)
 	#SET(ANAGATE_LIB_HINT "C:/3rdPartySoftware/AnaGateCAN/win32/vc8/Release/AnaGateCanVB6.dll")
 	
 	#SET(ANAGATE_LIB_HINT "C:/3rdPartySoftware/AnaGateCAN/win64/vc8/Release/AnaGateCan64.dll")
-	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: windows ANAGATE_INC_HINT= ${ANAGATE_INC_HINT}]")
+	#message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: windows ANAGATE_INC_HINT= ${ANAGATE_INC_HINT}]")
 	
 	#set( MY_ANAGATE_LIB_FILE "C:/3rdPartySoftware/AnaGateCAN/win64/vc8/Release/AnaGateCanDll64.lib" )
 	#set( MY_ANAGATE_INC_DIR "C:/3rdPartySoftware/AnaGateCAN/win64/vc8/include" )
@@ -63,7 +63,8 @@ set(ANAGATE_SOURCES
 )
 
 checkCANImplResourceExists(ANAGATE_INC_DIR ${ANAGATE_INC_HINT})
-include_directories ( ${MY_ANAGATE_INC_DIR} )
+#include_directories ( ${MY_ANAGATE_INC_DIR} )
+include_directories ( ${ANAGATE_INC_DIR} )
 	
 if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
 	add_library( ancan SHARED ${ANAGATE_SOURCES} $<TARGET_OBJECTS:LogIt>)
