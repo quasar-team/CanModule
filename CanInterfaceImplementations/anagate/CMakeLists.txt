@@ -26,8 +26,8 @@ SET( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/CanInterfaceImplementati
 
 if(WIN32)  
 	# 64 bit version
-	#SET(ANAGATE_INC_HINT "C:/3rdPartySoftware/AnaGateCAN/win64/vc8/include")
-	#SET(ANAGATE_LIB_HINT "C:/3rdPartySoftware/AnaGateCAN/win64/vc8/Release/AnaGateCanDll64.lib")
+	SET(ANAGATE_INC_HINT "C:/3rdPartySoftware/AnaGateCAN/win64/vc8/include")
+	SET(ANAGATE_LIB_HINT "C:/3rdPartySoftware/AnaGateCAN/win64/vc8/Release/AnaGateCanDll64.lib")
 	
 	# 32 bit version
 	#SET(ANAGATE_INC_HINT "C:/3rdPartySoftware/AnaGateCAN/win32/vc8/include")
@@ -62,7 +62,7 @@ set(ANAGATE_SOURCES
 	
 )
 
-# checkCANImplResourceExists(ANAGATE_INC_DIR ${ANAGATE_INC_HINT})
+checkCANImplResourceExists(ANAGATE_INC_DIR ${ANAGATE_INC_HINT})
 include_directories ( ${MY_ANAGATE_INC_DIR} )
 	
 if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
@@ -72,9 +72,9 @@ else()
 	target_link_libraries( ancan ${LOGIT_LIB} )
 endif()
 
-# checkCANImplResourceExists(ANAGATE_LIB_FILE ${ANAGATE_LIB_HINT})
-#target_link_libraries ( ancan ${BOOST_LIBS}	${ANAGATE_LIB_FILE} )
-target_link_libraries ( ancan ${BOOST_LIBS}	${MY_ANAGATE_LIB_FILE} )
+checkCANImplResourceExists(ANAGATE_LIB_FILE ${ANAGATE_LIB_HINT})
+target_link_libraries ( ancan ${BOOST_LIBS}	${ANAGATE_LIB_FILE} )
+#target_link_libraries ( ancan ${BOOST_LIBS}	${MY_ANAGATE_LIB_FILE} )
 
 set_property(TARGET ancan PROPERTY POSITION_INDEPENDENT_CODE TRUE)
 set_property(TARGET ancan PROPERTY LINKER_LANGUAGE CXX)
