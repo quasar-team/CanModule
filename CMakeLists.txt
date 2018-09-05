@@ -140,4 +140,9 @@ else()
     	
 endif()
 
+SET ( YYBOOST_PATH_LIBS "M:/3rdPartySoftware/boost/1.59.0/64bit/lib" )
+#SET ( BOOST_HEADERS "M:/3rdPartySoftware/boost/1.59.0/include" )
+#include_directories ( ${BOOST_HEADERS} )
+link_directories( ${YYBOOST_PATH_LIBS} )
+
 add_subdirectory(CanInterfaceImplementations) #build implementation shared libs (reqd at runtime - loaded dynamically)
