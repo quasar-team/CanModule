@@ -56,10 +56,10 @@ endif()
 checkCANImplResourceExists(SYSTEC_LIB_FILE ${SYSTEC_LIB_HINT})
 target_link_libraries ( stcan ${BOOST_LIBS} ${SYSTEC_LIB_FILE})
 
-#SET ( BOOST_PATH_LIBS "M:/3rdPartySoftware/boost/1.59.0/64bit/lib" )
+SET ( XXBOOST_PATH_LIBS "M:/3rdPartySoftware/boost/1.59.0/64bit/lib" )
 #SET ( BOOST_HEADERS "M:/3rdPartySoftware/boost/1.59.0/include" )
 #include_directories ( ${BOOST_HEADERS} )
-link_directories( ${BOOST_PATH_LIBS} )
+link_directories( ${XXBOOST_PATH_LIBS} )
 
 
 set_property(TARGET stcan PROPERTY POSITION_INDEPENDENT_CODE TRUE)
