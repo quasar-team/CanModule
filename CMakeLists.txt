@@ -107,6 +107,8 @@ include_directories( CanInterface/include )
 
 SET ( YYBOOST_PATH_LIBS "M:/3rdPartySoftware/boost/1.59.0/64bit/lib" )
 link_directories( ${YYBOOST_PATH_LIBS} )
+message( STATUS "YYBOOST_PATH_LIBS [${YYBOOST_PATH_LIBS}]" )
+
 #SET ( BOOST_HEADERS "M:/3rdPartySoftware/boost/1.59.0/include" )
 #include_directories ( ${BOOST_HEADERS} )
 
