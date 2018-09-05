@@ -115,12 +115,17 @@ include_directories( include )
 include_directories( CanLibLoader/include )
 include_directories( CanInterface/include )
 
+SET ( YYBOOST_PATH_LIBS "M:/3rdPartySoftware/boost/1.59.0/64bit/lib" )
+link_directories( ${YYBOOST_PATH_LIBS} )
+#SET ( BOOST_HEADERS "M:/3rdPartySoftware/boost/1.59.0/include" )
+#include_directories ( ${BOOST_HEADERS} )
+
 if(NOT STANDALONE_BUILD)
 	add_library ( CanModule OBJECT ${SRCS} )
 	set( SERVER_LINK_LIBRARIES ${SERVER_LINK_LIBRARIES} ${CMAKE_DL_LIBS} PARENT_SCOPE )
 	message( STATUS "SERVER_LINK_LIBRARIES [${SERVER_LINK_LIBRARIES}]" )
 else()
-	locateBoostLibsUsingToolchainFile()
+	#locateBoostLibsUsingToolchainFile()
 	message(STATUS "Using boost libraries: BOOST_LIBS [${BOOST_LIBS}]")  
     
     if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
@@ -140,9 +145,5 @@ else()
     	
 endif()
 
-SET ( YYBOOST_PATH_LIBS "M:/3rdPartySoftware/boost/1.59.0/64bit/lib" )
-#SET ( BOOST_HEADERS "M:/3rdPartySoftware/boost/1.59.0/include" )
-#include_directories ( ${BOOST_HEADERS} )
-link_directories( ${YYBOOST_PATH_LIBS} )
 
 add_subdirectory(CanInterfaceImplementations) #build implementation shared libs (reqd at runtime - loaded dynamically)
