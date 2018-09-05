@@ -34,16 +34,6 @@ ELSE()
 ENDIF()
 message(STATUS "--WARNING-WARNING-WARNING-- generating DEBUG builds no matter what the command line says")
 
-function ( locateBoostLibsUsingToolchainFile )
-  if(DEFINED CMAKE_TOOLCHAIN_FILE)
-    message("CMAKE_TOOLCHAIN_FILE is defined -- including [[${CMAKE_TOOLCHAIN_FILE}]]")
-    include(${CMAKE_TOOLCHAIN_FILE})    
-  endif()
-  if( NOT DEFINED BOOST_LIBS)
-    message(FATAL_ERROR "Required variable BOOST_LIBS has not been defined. You must define a toolchain file describing (as a minimum) how boost headers/libs are resolved in the target build environment")
-  endif()
-  message(STATUS "function [locateBoostLibsUsingToolchainFile] located BOOST_LIBS [${BOOST_LIBS}]")
-endfunction()
 
 function ( locateLogItSharedLib )
 	set(LOGIT_EXT_LIB_DIR "UNINIALIZED" CACHE PATH "Path to the directory containing the LogIt shared/static library binary file. Use absolute path, or relative to [${PROJECT_SOURCE_DIR}/]")
@@ -144,6 +134,10 @@ else()
     # add_subdirectory(CanModuleTest)
     	
 endif()
+
+ message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] [BOOST_PATH_LIBS:${BOOST_PATH_LIBS}]" )
+ message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] [BOOST_HEADERS:${BOOST_HEADERS}]" )
+ message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] [BOOST_LIBS:${BOOST_LIBS}]" )
 
 
 add_subdirectory(CanInterfaceImplementations) #build implementation shared libs (reqd at runtime - loaded dynamically)

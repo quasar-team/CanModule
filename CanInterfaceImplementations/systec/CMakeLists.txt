@@ -43,7 +43,7 @@ set(STCAN_SOURCES
 	../../CanInterface/include/CanModuleUtils.h	
 )
 
-checkCANImplResourceExists(SYSTEC_INC_DIR ${SYSTEC_INC_HINT})
+#checkCANImplResourceExists(SYSTEC_INC_DIR ${SYSTEC_INC_HINT})
 include_directories ( ${SYSTEC_INC_DIR} )
 
 if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
@@ -53,14 +53,15 @@ else()
 	target_link_libraries( stcan ${LOGIT_LIB} )
 endif()
 
-checkCANImplResourceExists(SYSTEC_LIB_FILE ${SYSTEC_LIB_HINT})
+#checkCANImplResourceExists(SYSTEC_LIB_FILE ${SYSTEC_LIB_HINT})
 target_link_libraries ( stcan ${BOOST_LIBS} ${SYSTEC_LIB_FILE})
 
-#SET ( XXBOOST_PATH_LIBS "M:/3rdPartySoftware/boost/1.59.0/64bit/lib" )
-#SET ( BOOST_HEADERS "M:/3rdPartySoftware/boost/1.59.0/include" )
-#include_directories ( ${BOOST_HEADERS} )
-#link_directories( ${XXBOOST_PATH_LIBS} )
-#
 
 set_property(TARGET stcan PROPERTY POSITION_INDEPENDENT_CODE TRUE)
 set_property(TARGET stcan PROPERTY LINKER_LANGUAGE CXX)
+
+ message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] [BOOST_PATH_LIBS:${BOOST_PATH_LIBS}]" )
+ message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] [BOOST_HEADERS:${BOOST_HEADERS}]" )
+ message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] [BOOST_LIBS:${BOOST_LIBS}]" )
+
+
