@@ -1,3 +1,22 @@
+# © Copyright CERN, Geneva, Switzerland, 2016.  All rights not expressly granted are reserved.
+#
+#   Created on: Wed Aug 30 10:15:57 CEST 2017
+# 
+#       Authors: Benjamin Farnham, Piotr Nikiel, Viacheslav Filimonov, Michael Ludwig <michael.ludwig@cern.ch>
+# 
+#  This file is part of the CAN Common Tools project and is the property of CERN, Geneva, Switzerland,
+#  and is not free software, since it builds on top of vendor
+#  specific communication interfaces and architectures, which are generally non-free and
+#  are subject to licensing and/or registration. Please refer to the relevant
+#  collaboration agreements between CERN ICS and the vendors for further details.
+# 
+#  The non-vendor specific parts of the software can be made available on request
+#  under the GNU Lesser General Public Licence,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Lesser General Public Licence for more details <http://www.gnu.org/licenses/>.
+#  
+#
 cmake_minimum_required(VERSION 2.8)
 project(CanModule)
 
@@ -6,7 +25,11 @@ set (CMAKE_CXX_STANDARD 11) # works for CMake v3.1+
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11") #for older CMake versions
 
 message(STATUS "--WARNING-WARNING-WARNING-- generating DEBUG builds no matter what the command line says")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g")
+IF (WIN32)
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /DEBUG")
+ELSE()
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g")
+ENDIF()
 message(STATUS "--WARNING-WARNING-WARNING-- generating DEBUG builds no matter what the command line says")
 
 function ( locateBoostLibsUsingToolchainFile )
@@ -90,6 +113,7 @@ include_directories( include )
 include_directories( CanLibLoader/include )
 include_directories( CanInterface/include )
 
+
 if(NOT STANDALONE_BUILD)
 	add_library ( CanModule OBJECT ${SRCS} )
 	set( SERVER_LINK_LIBRARIES ${SERVER_LINK_LIBRARIES} ${CMAKE_DL_LIBS} PARENT_SCOPE )
@@ -115,4 +139,15 @@ else()
     	
 endif()
 
-add_subdirectory(CanInterfaceImplementations) #build implementation shared libs (reqd at runtime - loaded dynamically)
+# build implementation shared libs (reqd at runtime - loaded dynamically)
+# we have a mock up build without any vendor libs as well for CI where we don't want to distribute vendor libs
+# preferably inject this from the toolchain. If you have nothing declared, vendors will be OFF
+# set ( CANMODULE_BUILD_VENDORS "ON" )
+message(STATUS " building vendor libs is ${CANMODULE_BUILD_VENDORS}")
+if ( NOT CANMODULE_BUILD_VENDORS )
+	set ( CANMODULE_BUILD_VENDORS "OFF" )
+	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] you have not specified if you want to build the vendor code or not ( CANMODULE_BUILD_VENDORS ). Set to OFF, only MockUp")
+endif() 
+
+add_subdirectory(CanInterfaceImplementations) 
+
