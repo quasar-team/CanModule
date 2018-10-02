@@ -47,9 +47,9 @@ namespace CanModule
 			if (strcmp(canpars, "Unspecified") != 0)
 			{
 #ifdef _WIN32
-				m_iNumberOfDetectedParameters = sscanf_s(canpars, "%d %d %d %d %d %d", &m_lBaudRate, &m_iOperationMode, &m_iTermination, &m_iHighSpeed, &m_iTimeStamp, &m_iSyncMode);
+				m_iNumberOfDetectedParameters = sscanf_s(canpars, "%ld %d %d %d %d %d", &m_lBaudRate, &m_iOperationMode, &m_iTermination, &m_iHighSpeed, &m_iTimeStamp, &m_iSyncMode);
 #else
-				m_iNumberOfDetectedParameters = sscanf(canpars, "%d %d %d %d %d %d", &m_lBaudRate, &m_iOperationMode, &m_iTermination, &m_iHighSpeed, &m_iTimeStamp, &m_iSyncMode);
+				m_iNumberOfDetectedParameters = sscanf(canpars, "%ld %d %d %d %d %d", &m_lBaudRate, &m_iOperationMode, &m_iTermination, &m_iHighSpeed, &m_iTimeStamp, &m_iSyncMode);
 #endif
 			}
                  else
