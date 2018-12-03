@@ -1,9 +1,33 @@
-
+/** © Copyright CERN, 2015. All rights not expressly granted are reserved.
+ *
+ * CanBusAccess.cpp
+ *
+ *  Created on: Apr 4, 2011
+ *      Author: vfilimon
+ *      maintaining touches: mludwig, quasar team
+ *
+ *  This file is part of Quasar.
+ *
+ *  Quasar is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Lesser General Public Licence as published by
+ *  the Free Software Foundation, either version 3 of the Licence.
+ *
+ *  Quasar is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Lesser General Public Licence for more details.
+ *
+ *  You should have received a copy of the GNU Lesser General Public License
+ *  along with Quasar.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 #include "CanBusAccess.h"
 
 namespace CanModule
 {
-	void CanBusAccess::closeCanBus(CCanAccess *cInter)
+/* static */ boost::function< void ( const CanMsgStruct ) > CCanAccess::fw_slot0 = 0;
+
+void CanBusAccess::closeCanBus(CCanAccess *cInter)
 	{
 		CanLibLoader *dlcan;
 		map<string, CanLibLoader *>::iterator itcomponent;

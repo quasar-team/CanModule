@@ -1,3 +1,25 @@
+/** © Copyright CERN, 2015. All rights not expressly granted are reserved.
+ *
+ * CanLibLoaderLin.cpp
+ *
+ *  Created on: Feb 22, 2012
+ *      Author: vfilimon
+ *      mludwig at cern dot ch
+ *
+ *  This file is part of Quasar.
+ *
+ *  Quasar is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Lesser General Public Licence as published by
+ *  the Free Software Foundation, either version 3 of the Licence.
+ *
+ *  Quasar is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Lesser General Public Licence for more details.
+ *
+ *  You should have received a copy of the GNU Lesser General Public License
+ *  along with Quasar.  If not, see <http://www.gnu.org/licenses/>.
+ */
 #include "CanLibLoaderLin.h"
 #include <string>
 #include <stdexcept>
@@ -25,10 +47,10 @@ CanLibLoaderLin::~CanLibLoaderLin() {
 
 void CanLibLoaderLin::dynamicallyLoadLib(const std::string& libName)
 {
-	LOG(Log::DBG) << "Proceeding to load library " << libName;
 	//The library is loaded through dlopen (Linux API)
 	std::ostringstream ss;
 	ss << "lib" << libName << "can.so";
+	LOG(Log::DBG) << "Proceeding to load library " << ss.str();
 	p_dynamicLibrary = dlopen(ss.str().c_str(), RTLD_NOW);
 	//We check for errors while loading the library
 	if (p_dynamicLibrary == 0)

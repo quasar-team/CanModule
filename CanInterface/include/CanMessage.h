@@ -1,4 +1,4 @@
-/*
+/**
  * CanMessage.h
  *
  *  Created on: Nov 24, 2014
@@ -14,7 +14,7 @@
 #include <sys/time.h>
 #endif
 
-/*
+/**
  * Struct that defines a Can Message, used by CCanAccess
  */
 typedef struct CanMsgStruct
@@ -39,10 +39,9 @@ public:
 		c_dlc(0),
 		c_rtr(false)
 		{
-			// TODO memset
+			/// todo memset, and message length > 8 for extended CAN
 			for (int i=0; i<8; i++)
 				c_data[i] = 0;
-
 		}
 #endif //Be careful when using this strut from C
 

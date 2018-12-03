@@ -22,10 +22,12 @@
 cmake_minimum_required(VERSION 2.8)
 project(CanInterfaceImplementations)
 
-# we have a mock up build without any vendor libs as well, for CI where we don't want to distribute vendors
-message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] building vendors [CANMODULE_BUILD_VENDORS:${CANMODULE_BUILD_VENDORS}")
 
-IF (WIN32)	
+# build implementation shared libs (reqd at runtime - loaded dynamically)
+# we have a mock up build without any vendor libs as well, for CI where we don't want to distribute vendor libs
+message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] building vendor libs ( CANMODULE_BUILD_VENDORS ) is ${CANMODULE_BUILD_VENDORS}")
+
+IF (WIN32)
 	IF(	CANMODULE_BUILD_VENDORS )
 		add_subdirectory(systec)
 		#add_subdirectory(pkcan)
@@ -34,18 +36,20 @@ IF (WIN32)
 ELSE()	
 	IF(	CANMODULE_BUILD_VENDORS )
 		add_subdirectory(sockcan)
-		#add_subdirectory(anagate)
+		add_subdirectory(anagate)
 	ENDIF()
 	
 ENDIF()
+
 add_subdirectory(unitTestMockUpImplementation)
 
-message(STATUS "file [${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: [STANDALONE_BUILD:${STANDALONE_BUILD}]")
-message(STATUS "file [${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: [BOOST_PATH_LIBS:${BOOST_PATH_LIBS}]" )
-message(STATUS "file [${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: [BOOST_HEADERS:${BOOST_HEADERS}]" )
-message(STATUS "file [${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Using boost libraries: [BOOST_LIBS:${BOOST_LIBS}]")  
-message(STATUS "file [${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Using LogIt library: [LOGIT_LIB:${LOGIT_LIB}]")
-message(STATUS "file [${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Using [INCLUDE_DIRECTORIES:${INCLUDE_DIRECTORIES}]")
+message(STATUS "file [${CMAKE_CURRENT_LIST_FILE}]: STANDALONE_BUILD [${STANDALONE_BUILD}]")
+message(STATUS "file [${CMAKE_CURRENT_LIST_FILE}]: Using boost libraries: BOOST_LIBS [${BOOST_LIBS}]")  
+message(STATUS "file [${CMAKE_CURRENT_LIST_FILE}]: Using LogIt library: LOGIT_LIB [${LOGIT_LIB}]")
+message(STATUS "file [${CMAKE_CURRENT_LIST_FILE}]: Using INCLUDE_DIRECTORIES: [${INCLUDE_DIRECTORIES}]")
 
+message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] [BOOST_PATH_LIBS:${BOOST_PATH_LIBS}]" )
+message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] [BOOST_HEADERS:${BOOST_HEADERS}]" )
+message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] [BOOST_LIBS:${BOOST_LIBS}]" )
 
 

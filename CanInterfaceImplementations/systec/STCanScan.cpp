@@ -1,8 +1,28 @@
-#include "STCanScan.h"
+/** © Copyright CERN, 2015. All rights not expressly granted are reserved.
+ *
+ * STCanScap.cpp
+ *
+ *  Created on: Jul 21, 2011
+ *  Based on work by vfilimon
+ *  Rework and logging done by Piotr Nikiel <piotr@nikiel.info>
+ *      mludwig at cern dot ch
+ *
+ *  This file is part of Quasar.
+ *
+ *  Quasar is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Lesser General Public Licence as published by
+ *  the Free Software Foundation, either version 3 of the Licence.
+ *
+ *  Quasar is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Lesser General Public Licence for more details.
+ *
+ *  You should have received a copy of the GNU Lesser General Public License
+ *  along with Quasar.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
-//////////////////////////////////////////////////////////////////////
-// strcan.cpp: implementation of the STCanScan class.
-//////////////////////////////////////////////////////////////////////
+#include "STCanScan.h"
 
 #include <time.h>
 #include <string.h>
@@ -86,21 +106,20 @@ STCanScan::~STCanScan()
 
 bool STCanScan::createBus(const string name,const string parameters)
 {	
+	MLOG(DBG, this) << __FUNCTION__ << " name= " << name << " parameters= " << parameters << ", configuring CAN board";
 	m_sBusName = name;
-
 	int returnCode = configureCanBoard(name, parameters);
-	if (returnCode < 0)
-	{
+	if (returnCode < 0) {
 		return false;
 	}
 
-	//After the canboard is configured and started, we start the scan control thread
+	// After the canboard is configured and started, we start the scan control thread
 	m_hCanScanThread = CreateThread(NULL, 0, CanScanControlThread, this, 0, &m_idCanScanThread);
 	if (NULL == m_hCanScanThread) {
 		MLOG(ERR,this) << "Error when creating the canScanControl thread.";
 		return false;
 	}
-	MLOG(DBG,this) << "Bus [" << name << "] created with parameters [" << parameters << "]";
+	MLOG(DBG,this) << __FUNCTION__ <<  " Bus [" << name << "] created with parameters [" << parameters << "]";
 	return true;
 }
 
@@ -116,14 +135,11 @@ int STCanScan::configureCanBoard(const string name,const string parameters)
 	m_moduleNumber = m_canHandleNumber/2;
 	m_channelNumber = m_canHandleNumber%2;	
 
-	MLOG(TRC, this) << "m_canHandleNumber:[" << m_canHandleNumber << "], m_moduleNumber:[" << m_moduleNumber << "], m_channelNumber:[" << m_channelNumber << "]";
+	MLOG(TRC, this) << __FUNCTION__ << " m_canHandleNumber:[" << m_canHandleNumber << "], m_moduleNumber:[" << m_moduleNumber << "], m_channelNumber:[" << m_channelNumber << "]";
 
-	if (strcmp(parameters.c_str(), "Unspecified") != 0)
-
-	{
+	if (strcmp(parameters.c_str(), "Unspecified") != 0) {
 		/* Set baud rate to 125 Kbits/second.  */
-		if (m_CanParameters.m_iNumberOfDetectedParameters >= 1)
-		{
+		if (m_CanParameters.m_iNumberOfDetectedParameters >= 1) {
 			switch (m_CanParameters.m_lBaudRate)
 			{
 			case 50000: baudRate = USBCAN_BAUD_50kBit; break;
@@ -134,21 +150,17 @@ int STCanScan::configureCanBoard(const string name,const string parameters)
 			case 1000000: baudRate = USBCAN_BAUD_1MBit; break;
 			default: baudRate = m_CanParameters.m_lBaudRate;
 			}
-		}
-		else
-		{
-			MLOG(ERR, this) << "Error while parsing parameters: this syntax is incorrect: [" << parameters << "]";
+		} else {
+			MLOG(ERR, this) << __FUNCTION__ << " parsing parameters: this syntax is incorrect: [" << parameters << "]";
 			return -1;
 		}
 		m_baudRate = baudRate;
-	}
-	else
-	{
+	} else 	{
 		m_baudRate = baudRate;
 		MLOG(DBG, this) << "Unspecified parameters, default values will be used.";
 	}
 
-	//We create an fill initializationParameters, to pass it to openCanPort
+	// We create and fill initializationParameters, to pass it to openCanPort
 	tUcanInitCanParam   initializationParameters;
 	initializationParameters.m_dwSize = sizeof(initializationParameters);           // size of this struct
 	initializationParameters.m_bMode = kUcanModeNormal;              // normal operation mode

@@ -1,11 +1,25 @@
-/*
+/** © Copyright CERN, 2015. All rights not expressly granted are reserved.
+ *
  * SockCanScan.cpp
  *
  *  Created on: Jul 21, 2011
- *
  *  Based on work by vfilimon
  *  Rework and logging done by Piotr Nikiel <piotr@nikiel.info>
+ *      mludwig at cern dot ch
  *
+ *  This file is part of Quasar.
+ *
+ *  Quasar is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Lesser General Public Licence as published by
+ *  the Free Software Foundation, either version 3 of the Licence.
+ *
+ *  Quasar is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Lesser General Public Licence for more details.
+ *
+ *  You should have received a copy of the GNU Lesser General Public License
+ *  along with Quasar.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "SockCanScan.h"
 #include <errno.h>
@@ -122,7 +136,7 @@ void* CSockCanScan::CanScanControlThread(void *p_voidSockCanScan)
 		if (selectResult > 0)
 		{
 			int numberOfReadBytes = read(sock, &socketMessage, sizeof(can_frame));
-//			MLOG(DBG,p_sockCanScan) << "read(): " << canFrameToString(socketMessage);
+			MLOG(DBG,p_sockCanScan) << "read(): " << canFrameToString(socketMessage);
 			if (numberOfReadBytes < 0)
 			{
 				const int seconds = 10;
@@ -328,14 +342,15 @@ bool CSockCanScan::sendMessage(short cobID, unsigned char len, unsigned char *me
 
     ssize_t numberOfWrittenBytes = write(m_sock, &canFrame, sizeof(struct can_frame));
 
-    MLOG(INF,this) << "write(): " << canFrameToString(canFrame) << " result=" << numberOfWrittenBytes;
+    MLOG(TRC,this) << "write(): " << canFrameToString(canFrame) << " bytes written=" << numberOfWrittenBytes;
 
     if (numberOfWrittenBytes < 0) /* ERROR */
     {
     	MLOG(ERR,this) << "While write() :" << CanModuleerrnoToString();
         if (errno == ENOBUFS) 
 	    {	
-        	std::cerr << "ENOBUFS; waiting a jiffy ..." << std::endl;
+        	std::cerr << "ENOBUFS; waiting a jiffy [100ms]..." << std::endl;
+        	MLOG(ERR,this) << "ENOBUFS; waiting a jiffy [100ms]...";
 	    	usleep(100000);
          }
     }
@@ -346,8 +361,9 @@ bool CSockCanScan::sendMessage(short cobID, unsigned char len, unsigned char *me
     }
     if (numberOfWrittenBytes < (int)sizeof(struct can_frame))
     {
-    	std::cerr << "Error: Incorrect number of bytes writen when sending a message." << std::endl;
-    	return false;
+    	std::cerr << "Error: Incorrect number of bytes [" << numberOfWrittenBytes << "] written when sending a message." << std::endl;
+    	MLOG(ERR,this) << "Error: Incorrect number of bytes [" << numberOfWrittenBytes << "] written when sending a message.";
+   	return false;
     }
 
   return true; 

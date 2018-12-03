@@ -115,7 +115,7 @@ if(NOT STANDALONE_BUILD)
 	set( SERVER_LINK_LIBRARIES ${SERVER_LINK_LIBRARIES} ${CMAKE_DL_LIBS} PARENT_SCOPE )
 	message( STATUS "SERVER_LINK_LIBRARIES [${SERVER_LINK_LIBRARIES}]" )
 else()
-	locateBoostLibsUsingToolchainFile()
+	#locateBoostLibsUsingToolchainFile()
 	message(STATUS "Using boost libraries: BOOST_LIBS [${BOOST_LIBS}]")  
     
     if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
@@ -135,14 +135,20 @@ else()
     	
 endif()
 
+ message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] [BOOST_PATH_LIBS:${BOOST_PATH_LIBS}]" )
+ message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] [BOOST_HEADERS:${BOOST_HEADERS}]" )
+ message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] [BOOST_LIBS:${BOOST_LIBS}]" )
+
+
 # build implementation shared libs (reqd at runtime - loaded dynamically)
-# we have a mock up build without any vendor libs as well for CI where we don't want to distribute vendor libs
-# preferably inject this from the toolchain. If you have nothing declared, vendors will be OFF
+# we have a mock up build without any vendor libs as well, for CI where we don't want to distribute vendor libs
+# preferably inject this from the toolchain
+# if you have nothing declared, vendors will be OFF
 # set ( CANMODULE_BUILD_VENDORS "ON" )
-message(STATUS " building vendor libs is ${CANMODULE_BUILD_VENDORS}")
+message(STATUS " building vendor libs is ${BUILD_VENDORS}")
 if ( NOT CANMODULE_BUILD_VENDORS )
 	set ( CANMODULE_BUILD_VENDORS "OFF" )
-	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] you have not specified if you want to build the vendor code or not ( CANMODULE_BUILD_VENDORS ). Set to OFF, only MockUp")
+	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] you have not specified if you want to build the vendor code or not ( CANMODULE_BUILD_VENDORS ). Set to OFF")
 endif() 
 
 add_subdirectory(CanInterfaceImplementations) 
