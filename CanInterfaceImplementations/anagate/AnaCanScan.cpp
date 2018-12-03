@@ -90,7 +90,6 @@ extern "C" DLLEXPORTFLAG CCanAccess *getCanBusAccess()
 	return canAccess;
 }
 
-AnaInt32 g_timeout = 6000;				// connect_wait time
 
 /**
  * call back to catch incoming CAN messages for reading
@@ -113,21 +112,6 @@ void WINAPI InternalCallback(AnaUInt32 nIdentifier, const char * pcBuffer, AnaIn
 	g_AnaCanScanPointerMap[hHandle]->statisticsOnRecieve( nBufferLen );
 }
 
-AnaCanScan::AnaCanScan():
-m_canHandleNumber(0),
-m_baudRate(0)
-{
-	m_statistics.beginNewRun();
-}
-
-AnaCanScan::~AnaCanScan()
-{
-	MLOG(DBG,this) << "Closing down Anagate Can Scan component";
-	//Shut down can scan thread
-	CANSetCallback(m_UcanHandle, 0);
-	CANCloseDevice(m_UcanHandle);
-    MLOG(DBG,this) << "Anagate Can Scan component closed successfully";
-}
 
 
 void AnaCanScan::statisticsOnRecieve(int bytes)
