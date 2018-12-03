@@ -136,28 +136,6 @@ public:
 	boost::signals2::signal<void (const CanMessage &) > canMessageCame;
 
 
-
-	/** call an external user-code function to treat the can message. Use boost function
-	 * wrappers for this. All these are static for now, but with some code acrobatics this method
-	 * can be made an object method.
-	 */
-	static void connectFwSlot0( boost::function<void(const CanMsgStruct)> userFunction ){
-		LOG(Log::TRC) << " connecting slot0 to user handler" << endl;
-		fw_slot0 = userFunction;
-	}
-	static void slot0(const CanMsgStruct msg){
-		LOG(Log::TRC) << " slot0 invoked, calling user handler" << endl;
-		fw_slot0( msg );
-	}
-
-
-	boost::signals2::connection connectReceptionSlot0( void )
-	{
-		LOG(Log::TRC) << " connecting internal slot0 to boost signal of this connection";
-		boost::signals2::connection cc = canMessageCame.connect( &slot0 );
-		return( cc );
-	}
-
 	/*
 	 * Signal that will be called when a can Error arrives into the initialised can bus.
 	 * In order to process this message manually, a handler needs to be connected to the signal.
