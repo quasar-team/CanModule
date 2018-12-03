@@ -24,7 +24,7 @@ message(STATUS "--WARNING-WARNING-WARNING-- generating DEBUG builds no matter wh
 IF (WIN32)
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /DEBUG")
 ELSE()
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g")
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -fPIC")
 ENDIF()
 message(STATUS "--WARNING-WARNING-WARNING-- generating DEBUG builds no matter what the command line says")
 
