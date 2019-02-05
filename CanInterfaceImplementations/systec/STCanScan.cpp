@@ -1,8 +1,28 @@
-#include "STCanScan.h"
+/** © Copyright CERN, 2015. All rights not expressly granted are reserved.
+ *
+ * STCanScap.cpp
+ *
+ *  Created on: Jul 21, 2011
+ *  Based on work by vfilimon
+ *  Rework and logging done by Piotr Nikiel <piotr@nikiel.info>
+ *      mludwig at cern dot ch
+ *
+ *  This file is part of Quasar.
+ *
+ *  Quasar is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Lesser General Public Licence as published by
+ *  the Free Software Foundation, either version 3 of the Licence.
+ *
+ *  Quasar is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Lesser General Public Licence for more details.
+ *
+ *  You should have received a copy of the GNU Lesser General Public License
+ *  along with Quasar.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
-//////////////////////////////////////////////////////////////////////
-// strcan.cpp: implementation of the STCanScan class.
-//////////////////////////////////////////////////////////////////////
+#include "STCanScan.h"
 
 #include <time.h>
 #include <string.h>
@@ -14,20 +34,33 @@
 bool STCanScan::s_isCanHandleInUseArray[256];
 tUcanHandle STCanScan::s_canHandleArray[256];
 
-extern "C" __declspec(dllexport) CCanAccess *getCanBusAccess()
+#ifdef _WIN32
+
+#define DLLEXPORTFLAG __declspec(dllexport)
+
+#else
+
+#include <sys/time.h>
+
+#define DLLEXPORTFLAG
+#define WINAPI
+
+#endif
+
+extern "C" DLLEXPORTFLAG CCanAccess *getCanBusAccess()
 {
-	CCanAccess *canAccess;
-	canAccess = new STCanScan;
+	CCanAccess *canAccess = new STCanScan;
 	return canAccess;
 }
 
 STCanScan::STCanScan():
-m_CanScanThreadShutdownFlag(true),
-m_moduleNumber(0),
-m_channelNumber(0),
-m_canHandleNumber(0),
-m_busStatus(USBCAN_SUCCESSFUL),
-m_baudRate(0)
+				m_CanScanThreadShutdownFlag(true),
+				m_moduleNumber(0),
+				m_channelNumber(0),
+				m_canHandleNumber(0),
+				m_busStatus(USBCAN_SUCCESSFUL),
+				m_baudRate(0),
+				m_idCanScanThread(0)
 {
 	m_statistics.beginNewRun();
 }
@@ -36,8 +69,8 @@ DWORD WINAPI STCanScan::CanScanControlThread(LPVOID pCanScan)
 {
 	BYTE status;
 	tCanMsgStruct readCanMessage;
-    STCanScan *canScanInstancePointer = reinterpret_cast<STCanScan *>(pCanScan);
-    MLOG(DBG,canScanInstancePointer) << "CanScanControlThread Started. m_CanScanThreadShutdownFlag = [" << canScanInstancePointer->m_CanScanThreadShutdownFlag <<"]";
+	STCanScan *canScanInstancePointer = reinterpret_cast<STCanScan *>(pCanScan);
+	MLOG(DBG,canScanInstancePointer) << "CanScanControlThread Started. m_CanScanThreadShutdownFlag = [" << canScanInstancePointer->m_CanScanThreadShutdownFlag <<"]";
 	while (canScanInstancePointer->m_CanScanThreadShutdownFlag)
 	{
 		status = UcanReadCanMsgEx(canScanInstancePointer->m_UcanHandle, (BYTE *)&canScanInstancePointer->m_channelNumber, &readCanMessage, 0);
@@ -63,15 +96,15 @@ DWORD WINAPI STCanScan::CanScanControlThread(LPVOID pCanScan)
 			if (status == USBCAN_WARN_NODATA)
 			{
 				Sleep(100);
-            }
+			}
 			else
 			{
 				canScanInstancePointer->sendErrorCode(status);
 			}
 		}
 	}
-    ExitThread(0);
-    return 0;
+	ExitThread(0);
+	return 0;
 }
 
 STCanScan::~STCanScan()
@@ -79,28 +112,27 @@ STCanScan::~STCanScan()
 	m_CanScanThreadShutdownFlag = false;
 	//Shut down can scan thread
 	DWORD result = WaitForSingleObject(m_hCanScanThread, INFINITE);
-     // deinitialize CAN interface
-    ::UcanDeinitCanEx (m_UcanHandle,(BYTE)m_channelNumber);
-    MLOG(DBG,this) << "ST Can Scan component closed successfully";
+	// deinitialize CAN interface
+	::UcanDeinitCanEx (m_UcanHandle,(BYTE)m_channelNumber);
+	MLOG(DBG,this) << "ST Can Scan component closed successfully";
 }
 
 bool STCanScan::createBus(const string name,const string parameters)
 {	
+	MLOG(DBG, this) << __FUNCTION__ << " name= " << name << " parameters= " << parameters << ", configuring CAN board";
 	m_sBusName = name;
-
 	int returnCode = configureCanBoard(name, parameters);
-	if (returnCode < 0)
-	{
+	if (returnCode < 0) {
 		return false;
 	}
 
-	//After the canboard is configured and started, we start the scan control thread
+	// After the canboard is configured and started, we start the scan control thread
 	m_hCanScanThread = CreateThread(NULL, 0, CanScanControlThread, this, 0, &m_idCanScanThread);
 	if (NULL == m_hCanScanThread) {
 		MLOG(ERR,this) << "Error when creating the canScanControl thread.";
 		return false;
 	}
-	MLOG(DBG,this) << "Bus [" << name << "] created with parameters [" << parameters << "]";
+	MLOG(DBG,this) << __FUNCTION__ <<  " Bus [" << name << "] created with parameters [" << parameters << "]";
 	return true;
 }
 
@@ -109,21 +141,18 @@ int STCanScan::configureCanBoard(const string name,const string parameters)
 	long baudRate = USBCAN_BAUD_125kBit;
 
 	vector<string> stringVector;
-	stringVector = parcerNameAndPar(name, parameters);
+	stringVector = parseNameAndParameters(name, parameters);
 
 	const char *na = stringVector[1].c_str();
 	m_canHandleNumber = atoi(na);
 	m_moduleNumber = m_canHandleNumber/2;
 	m_channelNumber = m_canHandleNumber%2;	
 
-	MLOG(TRC, this) << "m_canHandleNumber:[" << m_canHandleNumber << "], m_moduleNumber:[" << m_moduleNumber << "], m_channelNumber:[" << m_channelNumber << "]";
+	MLOG(TRC, this) << __FUNCTION__ << " m_canHandleNumber:[" << m_canHandleNumber << "], m_moduleNumber:[" << m_moduleNumber << "], m_channelNumber:[" << m_channelNumber << "]";
 
-	if (strcmp(parameters.c_str(), "Unspecified") != 0)
-
-	{
+	if (strcmp(parameters.c_str(), "Unspecified") != 0) {
 		/* Set baud rate to 125 Kbits/second.  */
-		if (m_CanParameters.m_iNumberOfDetectedParameters >= 1)
-		{
+		if (m_CanParameters.m_iNumberOfDetectedParameters >= 1) {
 			switch (m_CanParameters.m_lBaudRate)
 			{
 			case 50000: baudRate = USBCAN_BAUD_50kBit; break;
@@ -134,21 +163,17 @@ int STCanScan::configureCanBoard(const string name,const string parameters)
 			case 1000000: baudRate = USBCAN_BAUD_1MBit; break;
 			default: baudRate = m_CanParameters.m_lBaudRate;
 			}
-		}
-		else
-		{
-			MLOG(ERR, this) << "Error while parsing parameters: this syntax is incorrect: [" << parameters << "]";
+		} else {
+			MLOG(ERR, this) << __FUNCTION__ << " parsing parameters: this syntax is incorrect: [" << parameters << "]";
 			return -1;
 		}
 		m_baudRate = baudRate;
-	}
-	else
-	{
+	} else 	{
 		m_baudRate = baudRate;
 		MLOG(DBG, this) << "Unspecified parameters, default values will be used.";
 	}
 
-	//We create an fill initializationParameters, to pass it to openCanPort
+	// We create and fill initializationParameters, to pass it to openCanPort
 	tUcanInitCanParam   initializationParameters;
 	initializationParameters.m_dwSize = sizeof(initializationParameters);           // size of this struct
 	initializationParameters.m_bMode = kUcanModeNormal;              // normal operation mode
@@ -208,7 +233,7 @@ bool STCanScan::sendErrorCode(long status)
 	char errorMessage[120];
 	timeval ftTimeStamp; 
 	if (status != m_busStatus) {
-		
+
 		ftTimeStamp = convertTimepointToTimeval(currentTimeTimeval());
 
 		if (!errorCodeToString(status, errorMessage))
@@ -242,7 +267,7 @@ bool STCanScan::sendMessage(short cobID, unsigned char len, unsigned char *messa
 	}
 	canMsgToBeSent.m_bDLC = messageLengthToBeProcessed;
 	memcpy(canMsgToBeSent.m_bData, message, messageLengthToBeProcessed);
-//	MLOG(TRC,this) << "Channel Number: [" << m_channelNumber << "], cobID: [" << canMsgToBeSent.m_dwID << "], Message Length: [" << static_cast<int>(canMsgToBeSent.m_bDLC) << "]";
+	//	MLOG(TRC,this) << "Channel Number: [" << m_channelNumber << "], cobID: [" << canMsgToBeSent.m_dwID << "], Message Length: [" << static_cast<int>(canMsgToBeSent.m_bDLC) << "]";
 	Status = UcanWriteCanMsgEx(m_UcanHandle, m_channelNumber, &canMsgToBeSent, NULL);
 	if (Status != USBCAN_SUCCESSFUL)
 	{
@@ -270,11 +295,11 @@ bool STCanScan::sendRemoteRequest(short cobID)
 bool STCanScan::errorCodeToString(long error, char message[])//TODO: Fix this method, this doesn't do anything!!
 {
 	char tmp[300] = "Error";
-// canGetErrorText((canStatus)error, tmp, sizeof(tmp));
-//	message = new char[strlen(tmp)+1];	
-    message[0] = 0;
+	// canGetErrorText((canStatus)error, tmp, sizeof(tmp));
+	//	message = new char[strlen(tmp)+1];
+	message[0] = 0;
 	strcpy(message,tmp);
-  return true;
+	return true;
 }
 
 void STCanScan::getStatistics( CanStatistics & result )
