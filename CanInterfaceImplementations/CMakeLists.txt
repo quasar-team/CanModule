@@ -34,7 +34,7 @@ IF (WIN32)
 ELSE()	
 	IF(	CANMODULE_BUILD_VENDORS )
 		add_subdirectory(sockcan)
-		#add_subdirectory(anagate)
+		add_subdirectory(anagate)
 	ENDIF()
 	
 ENDIF()
