@@ -25,15 +25,19 @@ project(ancan)
 SET( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/CanInterfaceImplementations/output/)
 
 # check if toolchain injection was correct for anagate
+# anagate libs are not installed using a default installer/location. In fact these libs are 
+# convenience libs to wrap the tcp specific telegrams needed for anagate into a nice API. 
+# and this needs no driver install etc. Spec for anagate libs 
+# is at http://www.anagate.de/download/Manual-AnaGate-TCPIP-V1.2.6-EN.pdf 
 if( NOT DEFINED ANAGATE_PATH_LIBS ) 
 	message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Required variable ANAGATE_LIB_FILE has not been defined, take default." )
 	message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Required variable ANAGATE_INC_DIR has not been defined, take default." )
 	message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Required variable ANAGATE_PATH_LIBS has not been defined, take default." )
 	if(WIN32)  
 		if( 64BIT )  
-			SET( ANAGATE_INC_DIR "/3rdPartySoftware/AnaGateCAN/win64/vc8/include")
-			SET( ANAGATE_PATH_LIBS "/3rdPartySoftware/AnaGateCAN/win64/vc8/Release")
-			SET( ANAGATE_LIB_FILE "/3rdPartySoftware/AnaGateCAN/win64/vc8/Release/AnaGateCanDll64.lib")
+			SET( ANAGATE_INC_DIR "C:/3rdPartySoftware/AnaGateCAN/win64/vc8/include")
+			SET( ANAGATE_PATH_LIBS "C:/3rdPartySoftware/AnaGateCAN/win64/vc8/Release")
+			SET( ANAGATE_LIB_FILE "C:/3rdPartySoftware/AnaGateCAN/win64/vc8/Release/AnaGateCanDll64.lib")
 		else()
 			SET( ANAGATE_INC_DIR "/3rdPartySoftware/AnaGateCAN/win32/vc8/include")
 			SET( ANAGATE_PATH_LIBS "/3rdPartySoftware/AnaGateCAN/win32/vc8/Release")
