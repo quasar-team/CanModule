@@ -37,6 +37,9 @@
 #include "CanStatistics.h"
 #include <LogIt.h>
 
+
+#define VERSION "CanModule version 0.9.9"
+
 /*
  * CCanAccess is an abstract class that defines the interface for controlling a canbus. Different implementations for different hardware and platforms should
  * inherit this class and implement the pure virtual methods.
@@ -44,6 +47,8 @@
 namespace CanModule
 {
 #define MLOG(LEVEL,THIS) LOG(Log::LEVEL) << __FUNCTION__ << " bus= " << THIS->getBusName() << " "
+
+static std::string version(){ return( VERSION ); }
 
 struct CanParameters {
 	long m_lBaudRate;
