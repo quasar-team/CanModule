@@ -35,10 +35,7 @@ ELSE()
 	IF(	CANMODULE_BUILD_VENDORS )
 		add_subdirectory(sockcan)
 		add_subdirectory(anagate)
-<<<<<<< HEAD
 		#add_subdirectory(pkcan)
-=======
->>>>>>> bca5094fdaf1b865b7911454f08f845109a09e8f
 	ENDIF()
 	
 ENDIF()
