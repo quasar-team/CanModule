@@ -44,16 +44,16 @@ if( NOT DEFINED SYSTEC_LIB_PATH )
 	else()
 	    # use socketcan for linux, get sources 
 	    # from i.e. ssh://git@gitlab.cern.ch:7999/mludwig/CAN_libsocketcan.git and build it
-		SET(SYSTEC_INC_DIR "/opt/CAN_libsocketcan/include")
-		SET(SYSTEC_LIB_PATH "/opt/CAN_libsocketcan/src/.libs")
+		SET(SYSTEC_HEADERS "/opt/CAN_libsocketcan/include")
+		SET(SYSTEC_PATH_LIBS "/opt/CAN_libsocketcan/src/.libs")
 		SET(SYSTEC_LIB_FILE "libsocketcan.so")
 		message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: default path might not work, please get socketcan and correct it." )
 		message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: linux SYSTEC_LIB_PATH= ${SYSTEC_LIB_PATH}]")
 	endif()
 endif()
 
-link_directories( ${SYSTEC_LIB_PATH} )
-include_directories ( ${SYSTEC_INC_DIR} )
+link_directories( ${SYSTEC_PATH_LIBS} )
+include_directories ( ${SYSTEC_HEADERS} )
 
 set(STCAN_SOURCES
 	STCanScan.cpp
@@ -64,8 +64,6 @@ set(STCAN_SOURCES
 	../../CanInterface/include/CanModuleUtils.h	
 )
 
-#checkCANImplResourceExists(SYSTEC_INC_DIR ${SYSTEC_INC_HINT})
-
 if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
 	add_library( stcan SHARED ${STCAN_SOURCES} $<TARGET_OBJECTS:LogIt>)
 else()
@@ -73,11 +71,7 @@ else()
 	target_link_libraries( stcan ${LOGIT_LIB} )
 endif()
 
-#checkCANImplResourceExists(SYSTEC_LIB_FILE ${SYSTEC_LIB_HINT})
-#target_link_libraries ( stcan ${BOOST_LIBS} ${SYSTEC_LIB_FILE})
 target_link_libraries ( stcan ${BOOST_LIBS} ${SYSTEC_LIB_FILE})
-
-
 set_property(TARGET stcan PROPERTY POSITION_INDEPENDENT_CODE TRUE)
 set_property(TARGET stcan PROPERTY LINKER_LANGUAGE CXX)
 
