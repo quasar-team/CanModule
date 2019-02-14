@@ -307,7 +307,6 @@ bool AnaCanScan::sendErrorCode(AnaInt32 status)
 
 /**
  * send a CAN message frame (8 byte)
- * \todo alwways returns true
  */
 bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr)
 {
