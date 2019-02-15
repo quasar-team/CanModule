@@ -142,31 +142,44 @@ private:
     AnaInt32 m_timeout; 		// connect_wait time
 
     bool sendErrorCode(AnaInt32);
-
+    string ipAdress(){ return(m_canIPAddress );}
+    int canPortNumber(){ return(m_canPortNumber);}
+    int canHandle(){ return(m_UcanHandle);}
 	int configureCanBoard(const string name,const string parameters);
+	int connectReceptionHandler();
+	static void objectMapSize();
 
 	/**
-	 * Obtains a Systec canport and opens it.
+	 * Obtains a Anagate canport and opens it.
 	 *  The name of the port and parameters should have been specified by preceding call to configureCanboard()
 	 *  @returns less than zero in case of error, otherwise success
 	 */
 	int openCanPort();
 
 	/**
-	 * we try to reconnect on the same handle with the same parameters
-	 * OK = 0
-	 * no success = 1
+	 * we try to reconnect after a power loss, but we should do this for all ports
 	 */
 	int reconnect();
+	static int reconnectAllPorts( string ip );
+	static void cleanupMapOfUnusedObjectHandlers();
 
 	/**
 	 * Provides textual representation of an error code.
 	 */
 	bool errorCodeToString(long error, char message[]);
-	static void setCanHandleInUse(int n,bool t) { s_isCanHandleInUseArray[n] = t; }
-	static bool isCanHandleInUse(int n) { return s_isCanHandleInUseArray[n]; }
-	static void setCanHandle(int n,AnaInt32 tU) { s_canHandleArray[n] = tU; }
-	static AnaInt32 getCanHandle(int n) { return s_canHandleArray[n]; }
+
+	/**
+	 * we have one object for each CAN port, each object has an unique handle. Several objects thus share
+	 * the same ip. CAN ports and object handles are therefore equivalent, except that the handle value is
+	 * assigned by the OS at CANopen.
+	 */
+	static void setCanHandleInUse(int handle, bool flag) { s_isCanHandleInUseArray[ handle ] = flag; }
+	static bool isCanHandleInUse(int handle) { return s_isCanHandleInUseArray[ handle ]; }
+	static void setCanHandleOfPort(int port, AnaInt32 handle) { s_canHandleArray[ port ] = handle; }
+	static AnaInt32 getCanHandleFromPort(int n) { return s_canHandleArray[n]; }
+#if 0
+	static void cleanupMapOfUnusedObjectHandlers();
+#endif
 
 	static AnaInt32 s_canHandleArray[256];
 	static bool s_isCanHandleInUseArray[256];
