@@ -144,7 +144,7 @@ private:
     bool sendErrorCode(AnaInt32);
     string ipAdress(){ return(m_canIPAddress );}
     int canPortNumber(){ return(m_canPortNumber);}
-    int canHandle(){ return(m_UcanHandle);}
+    int handle(){ return(m_UcanHandle);}
 	int configureCanBoard(const string name,const string parameters);
 	int connectReceptionHandler();
 	static void objectMapSize();
@@ -161,7 +161,6 @@ private:
 	 */
 	int reconnect();
 	static int reconnectAllPorts( string ip );
-	static void cleanupMapOfUnusedObjectHandlers();
 
 	/**
 	 * Provides textual representation of an error code.

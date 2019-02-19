@@ -98,8 +98,8 @@ public:
 	static boost::function< void ( const CanMsgStruct ) > fw_slot14;
 	static boost::function< void ( const CanMsgStruct ) > fw_slot15;
 
-	//Empty constructor
-	CCanAccess() {};
+	//Empty constructor, just get rid of a useless warning
+	CCanAccess() { CanModule::version(); };
 
 	/*
 	 * Method that sends a remote request trough the can bus channel. If the method createBus was not called before this, sendMessage will fail, as there is no
