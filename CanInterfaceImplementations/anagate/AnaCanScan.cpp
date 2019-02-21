@@ -395,6 +395,7 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 					<< " found ip= " << ip
 					<< " for CAN port= " << it->second->canPortNumber()
 					<< " reconnecting...";
+			// todo: we should not add up the return calls of all ports, that is confusing
 			ret += it->second->reconnect();
 			nbCANportsOnModule++;
 		}
