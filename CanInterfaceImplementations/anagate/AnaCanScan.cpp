@@ -404,8 +404,8 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 
 	if ( ret ) {
 		LOG(Log::INF) << __FUNCTION__ << " " __FILE__ << " " << __LINE__ << " Problem reconnecting CAN ports for ip= " << ip
-				<< " ret= " << ret << ". Just abandoning and trying again in 5 secs.";
-		int us = 5000000;
+				<< " ret= " << ret << ". Just abandoning and trying again in 10 secs.";
+		int us = 10000000;
 		boost::this_thread::sleep(boost::posix_time::microseconds( us ));
 		return(-1);
 	}
