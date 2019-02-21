@@ -404,7 +404,9 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 
 	if ( ret ) {
 		LOG(Log::INF) << __FUNCTION__ << " " __FILE__ << " " << __LINE__ << " Problem reconnecting CAN ports for ip= " << ip
-				<< " ret= " << ret << ". Just abandoning and trying again.";
+				<< " ret= " << ret << ". Just abandoning and trying again in 5 secs.";
+		int us = 5000000;
+		boost::this_thread::sleep(boost::posix_time::microseconds( us ));
 		return(-1);
 	}
 
@@ -505,9 +507,13 @@ int AnaCanScan::reconnect(){
 		MLOG(INF,this) << "device is in state connecting, don't try to reconnect for now.";
 		break;
 	}
+
+	case 3: {
+		MLOG(INF,this) << "device is connecting, don't try to reconnect, just skip.";
+		break;
+	}
 	default:
 	case 1:
-	case 3:
 	case 4:
 	case 5:{
 		if ( !m_canCloseDevice ) {
@@ -548,7 +554,7 @@ int AnaCanScan::reconnect(){
 	}
 	}
 	boost::this_thread::sleep(boost::posix_time::microseconds( us ));
-	return( 0 );
+	return( 0 ); // OK
 }
 
 /**
