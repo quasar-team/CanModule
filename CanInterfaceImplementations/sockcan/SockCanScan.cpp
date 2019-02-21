@@ -400,10 +400,6 @@ bool CSockCanScan::sendMessage(short cobID, unsigned char len, unsigned char *me
 	int messageLengthToBeProcessed;
 
 	struct can_frame canFrame = CSockCanScan::emptyCanFrame();
-	if (rtr)
-	{
-		canFrame.can_id |= CAN_RTR_FLAG;
-	}
 
 	if (len > 8)
 	{
@@ -417,7 +413,10 @@ bool CSockCanScan::sendMessage(short cobID, unsigned char len, unsigned char *me
 	canFrame.can_dlc = messageLengthToBeProcessed;
 	memcpy(canFrame.data, message, messageLengthToBeProcessed);
 	canFrame.can_id = cobID;
-	canFrame.can_dlc = messageLengthToBeProcessed;
+	if (rtr)
+	{
+		canFrame.can_id |= CAN_RTR_FLAG;
+	}
 
 	ssize_t numberOfWrittenBytes = write(m_sock, &canFrame, sizeof(struct can_frame));
 
