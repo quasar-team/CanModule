@@ -1,8 +1,26 @@
-/*
- * InterfaceStatistics.cpp
+/** © Copyright CERN, 2015. All rights not expressly granted are reserved.
+ *
+ * CanModuleUtils.cpp
+ *
+ * CanStatistics.cpp
  *
  *  Created on: Mar 17, 2015
  *      Author: pnikiel
+ *
+ *  This file is part of Quasar.
+ *
+ *  Quasar is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Lesser General Public Licence as published by
+ *  the Free Software Foundation, either version 3 of the Licence.
+ *
+ *  Quasar is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Lesser General Public Licence for more details.
+ *
+ *  You should have received a copy of the GNU Lesser General Public License
+ *  along with Quasar.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 
 #include <CanModuleUtils.h>
@@ -20,13 +38,10 @@ namespace CanModule
 		m_received(0),
 		m_transmittedOctets(0),
 		m_receivedOctets(0)
-	{
-
-	}
+	{}
 
 	void CanStatistics::beginNewRun()
 	{
-
 		m_internals.m_observationStart = std::chrono::system_clock::now();
 		m_transmitted = 0;
 		m_received = 0;
@@ -49,9 +64,9 @@ namespace CanModule
 			unsigned int octets = m_transmittedOctets.load() + m_receivedOctets.load();
 			float maxOctetsInSecond = float(baudRate / 8.0);
 			m_internals.m_busLoad = float(octets / maxOctetsInSecond);
-		}
-		else
+		} else {
 			m_internals.m_busLoad = 0;
+		}
 	}
 
 	void CanStatistics::onTransmit(unsigned int dataLength)
@@ -59,8 +74,8 @@ namespace CanModule
 		m_totalTransmitted++;
 		m_transmitted++;
 		m_transmittedOctets += 2 + 1 + dataLength + 2; /* ID, DLC, USER DATA, CRC */
-
 	}
+
 	void CanStatistics::onReceive(unsigned int dataLength)
 	{
 		m_totalReceived++;
@@ -70,7 +85,6 @@ namespace CanModule
 
 	void CanStatistics::operator=(const CanStatistics & other)
 	{
-
 		this->m_received = other.m_received.load();
 		this->m_totalReceived = other.m_totalReceived.load();
 		this->m_transmitted = other.m_transmitted.load();

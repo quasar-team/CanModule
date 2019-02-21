@@ -1,11 +1,26 @@
-/*
+/** © Copyright CERN, 2015. All rights not expressly granted are reserved.
+ *
  * SockCanScan.h
  *
  *  Created on: Jul 21, 2011
- *      Author: vfilimon
- *      Rework by pnikiel
+ *  Based on work by vfilimon
+ *  Rework and logging done by Piotr Nikiel <piotr@nikiel.info>
+ *      mludwig at cern dot ch
+ *
+ *  This file is part of Quasar.
+ *
+ *  Quasar is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Lesser General Public Licence as published by
+ *  the Free Software Foundation, either version 3 of the Licence.
+ *
+ *  Quasar is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Lesser General Public Licence for more details.
+ *
+ *  You should have received a copy of the GNU Lesser General Public License
+ *  along with Quasar.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 #ifndef SOCKCANSCAN_H_
 #define SOCKCANSCAN_H_
 
@@ -72,8 +87,20 @@ class CSockCanScan : public CCanAccess
 //    std::string &getParameters() { return m_parameters; }
     //Returns the instance of the CanStatistics object
     virtual void getStatistics( CanStatistics & result );
+    static can_frame emptyCanFrame( void ){
+    	can_frame f;
+    	f.can_dlc = 0;
+    	f.can_id = 0;
+    	for ( int i = 0; i < 8; i++){
+    		f.data[ i ] = 0;
+    	}
+    	return(f);
+    }
+    static std::map<string, string> m_busMap;
 
  private:
+
+
     //Flag for shutting down the CanScan thread
     volatile bool m_CanScanThreadShutdownFlag;
     //Socket handler

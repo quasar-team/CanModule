@@ -1,6 +1,6 @@
-/* © Copyright CERN, 2015. All rights not expressly granted are reserved. */
-/*
- * Utils.h
+/** © Copyright CERN, 2015. All rights not expressly granted are reserved.
+ *
+ * CanModuleUtils.h
  *
  *  Created on: Oct 22, 2014
  *      Author: Piotr Nikiel <piotr@nikiel.info>
