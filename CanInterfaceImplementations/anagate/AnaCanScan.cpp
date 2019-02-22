@@ -485,30 +485,19 @@ int AnaCanScan::reconnect(){
 
 	int state = CANDeviceConnectState( m_UcanHandle );
 	MLOG(TRC, this) << "CANDeviceConnectState: device connect state= 0x" << hex << state << dec;
-	/**
-	•
-	1 = DISCONNECTED
-	: The connection to the AnaGate is disconnected.
-	•
-	2 = CONNECTING
-	: The connection is connecting.
-	•
-	3 = CONNECTED
-	: The connection is established.
-	•
-	4 = DISCONNECTING
-	: The connection is disonnecting.
-	•
-	5 = NOT_INITIALIZED
-	: The network protocol is not successfully initialized.
-	*/
+	switch ( state ){
+	case 1: MLOG(TRC, this) << "1 = DISCONNECTED : The connection to the AnaGate is disconnected.";  break;
+	case 2: MLOG(TRC, this) << "2 = CONNECTING : The connection is connecting.";  break;
+	case 3: MLOG(TRC, this) << "3 = CONNECTED : The connection is established.";  break;
+	case 4: MLOG(TRC, this) << "4 = DISCONNECTING : The connection is disconnecting.";  break;
+	case 5: MLOG(TRC, this) << "5 = NOT_INITIALIZED : The network protocol is not successfully initialized.";  break;
+	}
 
 	switch ( state ){
 	case 2: {
 		MLOG(INF,this) << "device is in state connecting, don't try to reconnect for now.";
 		break;
 	}
-
 	case 3: {
 		MLOG(INF,this) << "device is connecting, don't try to reconnect, just skip.";
 		break;
