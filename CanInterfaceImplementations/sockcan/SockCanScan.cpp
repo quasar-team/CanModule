@@ -198,7 +198,6 @@ void* CSockCanScan::CanScanControlThread(void *p_voidSockCanScan)
 							MLOG(ERR,p_sockCanScan) << "Waiting 10000ms failed (nanosleep)";
 						}
 					}
-//					usleep ( 10000000 ); // sleep(seconds);
 					if ( sock > 0 )	{
 						// try closing the socket
 						MLOG(INF,p_sockCanScan) << "Closing socket.";
@@ -307,7 +306,9 @@ int CSockCanScan::configureCanBoard(const string name,const string parameters)
 {
 	vector<string> parset;
 	parset = parseNameAndParameters( name, parameters );
-	m_channelName = parset[1];
+	std::ostringstream channelName;
+	channelName << "can" << parset[1]; // we need "can" prefixed for socketcan, but the user should not care
+	m_channelName = channelName.str();
 	return openCanPort();
 }
 
