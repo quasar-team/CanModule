@@ -320,10 +320,10 @@ public:
 		string temporalString;
 		while (getline(nameSS, temporalString, ':')) {
 			stringVector.push_back(temporalString);
-			LOG(Log::TRC) << "CCanAccess::parcerNameAndPar: stringVector new element= " << temporalString;
+			LOG(Log::TRC) << __FUNCTION__ << " stringVector new element= " << temporalString;
 		}
 		m_CanParameters.scanParameters(parameters);
-		LOG(Log::TRC) << "CCanAccess::parcerNameAndPar: stringVector size= " << stringVector.size();
+		LOG(Log::TRC) << __FUNCTION__ << " stringVector size= " << stringVector.size();
 
 		return stringVector;
 	}
