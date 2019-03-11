@@ -395,7 +395,8 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 					<< " found ip= " << ip
 					<< " for CAN port= " << it->second->canPortNumber()
 					<< " reconnecting...";
-			// todo: we should not add up the return calls of all ports, that is confusing
+
+			// cumulating the return codes is not such a good idea. please improve
 			ret += it->second->reconnect();
 			nbCANportsOnModule++;
 		}
@@ -485,19 +486,30 @@ int AnaCanScan::reconnect(){
 
 	int state = CANDeviceConnectState( m_UcanHandle );
 	MLOG(TRC, this) << "CANDeviceConnectState: device connect state= 0x" << hex << state << dec;
-	switch ( state ){
-	case 1: MLOG(TRC, this) << "1 = DISCONNECTED : The connection to the AnaGate is disconnected.";  break;
-	case 2: MLOG(TRC, this) << "2 = CONNECTING : The connection is connecting.";  break;
-	case 3: MLOG(TRC, this) << "3 = CONNECTED : The connection is established.";  break;
-	case 4: MLOG(TRC, this) << "4 = DISCONNECTING : The connection is disconnecting.";  break;
-	case 5: MLOG(TRC, this) << "5 = NOT_INITIALIZED : The network protocol is not successfully initialized.";  break;
-	}
+	/**
+	•
+	1 = DISCONNECTED
+	: The connection to the AnaGate is disconnected.
+	•
+	2 = CONNECTING
+	: The connection is connecting.
+	•
+	3 = CONNECTED
+	: The connection is established.
+	•
+	4 = DISCONNECTING
+	: The connection is disonnecting.
+	•
+	5 = NOT_INITIALIZED
+	: The network protocol is not successfully initialized.
+	*/
 
 	switch ( state ){
 	case 2: {
 		MLOG(INF,this) << "device is in state connecting, don't try to reconnect for now.";
 		break;
 	}
+
 	case 3: {
 		MLOG(INF,this) << "device is connecting, don't try to reconnect, just skip.";
 		break;
@@ -511,9 +523,9 @@ int AnaCanScan::reconnect(){
 			MLOG(WRN, this) << "closed device m_UcanHandle= " << m_UcanHandle
 					<< " anaCallReturn= 0x" << hex << anaCallReturn << dec;
 			if ( anaCallReturn != 0 ) {
-				MLOG(ERR, this) << "could not close device m_UcanHandle= " << m_UcanHandle
+				MLOG(WRN, this) << "could not close device m_UcanHandle= " << m_UcanHandle
 						<< " anaCallReturn= 0x" << hex << anaCallReturn << dec;
-				return(-3);
+				// return(-3);
 			}
 			m_canCloseDevice = true;
 			MLOG(TRC, this) << "device is closed. stale handle= " << m_UcanHandle;
