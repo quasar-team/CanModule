@@ -395,6 +395,8 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 					<< " found ip= " << ip
 					<< " for CAN port= " << it->second->canPortNumber()
 					<< " reconnecting...";
+
+			// cumulating the return codes is not such a good idea. please improve
 			ret += it->second->reconnect();
 			nbCANportsOnModule++;
 		}
@@ -521,9 +523,9 @@ int AnaCanScan::reconnect(){
 			MLOG(WRN, this) << "closed device m_UcanHandle= " << m_UcanHandle
 					<< " anaCallReturn= 0x" << hex << anaCallReturn << dec;
 			if ( anaCallReturn != 0 ) {
-				MLOG(ERR, this) << "could not close device m_UcanHandle= " << m_UcanHandle
+				MLOG(WRN, this) << "could not close device m_UcanHandle= " << m_UcanHandle
 						<< " anaCallReturn= 0x" << hex << anaCallReturn << dec;
-				return(-3);
+				// return(-3);
 			}
 			m_canCloseDevice = true;
 			MLOG(TRC, this) << "device is closed. stale handle= " << m_UcanHandle;

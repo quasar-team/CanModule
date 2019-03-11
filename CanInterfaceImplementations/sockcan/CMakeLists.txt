@@ -23,10 +23,12 @@ cmake_minimum_required(VERSION 2.8)
 project(sockcan)
 
 if( NOT DEFINED SOCKETCAN_PATH_LIBS )
-	message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Required variable SOCKETCAN_PATH_LIBS has not been defined. assuming /usr/local/lib " )
 	SET ( SOCKETCAN_PATH_LIBS "/usr/local/lib" )
 	SET ( SOCKETCAN_HEADERS "/usr/local/include" )
 	SET ( SOCKETCAN_LIBS -lsocketcan )
+	message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Required variable SOCKETCAN_PATH_LIBS has not been defined. assuming ${SOCKETCAN_PATH_LIBS} " )
+	message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Required variable SOCKETCAN_HEADERS has not been defined. assuming ${SOCKETCAN_HEADERS} " )
+	message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Required variable SOCKETCAN_LIBS has not been defined. assuming ${SOCKETCAN_LIBS} " )
 endif() 
 link_directories( ${SOCKETCAN_PATH_LIBS} )
 
