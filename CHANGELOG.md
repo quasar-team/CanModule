@@ -13,7 +13,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 ### Changed
 ### Fixed
 
-## [1.0.0] - 7 feb 2019 - production release
+## [1.0.0] - 7.feb.2019 - production release
 ### Added
 - anagate and systec support for cc7 and windows
 ### Changed
