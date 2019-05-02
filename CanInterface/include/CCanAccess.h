@@ -38,7 +38,7 @@
 #include <LogIt.h>
 
 
-#define VERSION "CanModule version 0.9.9"
+#define VERSION "CanModule version 1.0.3"
 
 /*
  * CCanAccess is an abstract class that defines the interface for controlling a canbus. Different implementations for different hardware and platforms should
@@ -46,7 +46,10 @@
  */
 namespace CanModule
 {
-#define MLOG(LEVEL,THIS) LOG(Log::LEVEL) << __FUNCTION__ << " bus= " << THIS->getBusName() << " "
+
+const std::string LogItComponentName = "CanModule";
+
+#define MLOG(LEVEL,THIS) LOG(Log::LEVEL) << __FUNCTION__ << " " << CanModule::LogItComponentName << " bus= " << THIS->getBusName() << " "
 
 static std::string version(){ return( VERSION ); }
 
@@ -80,6 +83,7 @@ struct CanParameters {
 
 class CCanAccess
 {
+
 public:
 	static boost::function< void ( const CanMsgStruct ) > fw_slot0;
 	static boost::function< void ( const CanMsgStruct ) > fw_slot1;
@@ -99,7 +103,16 @@ public:
 	static boost::function< void ( const CanMsgStruct ) > fw_slot15;
 
 	//Empty constructor, just get rid of a useless warning
-	CCanAccess() { CanModule::version(); };
+	CCanAccess():
+		_connectionIndex(0)
+	{
+		CanModule::version();
+		LogItInstance *logIt = LogItInstance::getInstance();
+		logIt->getComponentHandle( CanModule::LogItComponentName, lh );
+		LOG(Log::TRC, lh ) << " logging on handler= " << lh << " for component " << CanModule::LogItComponentName;
+	};
+
+
 
 	/*
 	 * Method that sends a remote request trough the can bus channel. If the method createBus was not called before this, sendMessage will fail, as there is no
@@ -159,7 +172,7 @@ public:
 	 * wrappers for this. All these are static.
 	 */
 	static void connectFwSlotX( int connectionIndex, boost::function<void(const CanMsgStruct)> userFunction ){
-		LOG(Log::TRC) << " connecting user handler to slot" <<  connectionIndex << endl;
+		// LOG(Log::TRC) << " connecting user handler to slot" <<  connectionIndex << endl;
 		switch ( connectionIndex ){
 		case 0: { fw_slot0 = userFunction; break; }
 		case 1: { fw_slot1 = userFunction; break; }
@@ -177,86 +190,88 @@ public:
 		case 13: { fw_slot13 = userFunction; break; }
 		case 14: { fw_slot14 = userFunction; break; }
 		case 15: { fw_slot15 = userFunction; break; }
-		default: { LOG(Log::ERR) << "can not connect user handler to slot" <<  connectionIndex; }
+		default: {
+			LOG(Log::ERR) << __FUNCTION__ << " " << CanModule::LogItComponentName << " can not connect user handler to slot" <<  connectionIndex;
+		}
 		}
 	}
 	static void slot0( const CanMsgStruct msg){
-		LOG(Log::TRC) << " slot0 invoked, calling user handler";
+		// LOG(Log::TRC) << " slot0 invoked, calling user handler";
 		fw_slot0( msg );
 	}
 	static void slot1( const CanMsgStruct msg){
-		LOG(Log::TRC) << " slot1 invoked, calling user handler";
+		// LOG(Log::TRC) << " slot1 invoked, calling user handler";
 		fw_slot1( msg );
 	}
 	static void slot2( const CanMsgStruct msg){
-		LOG(Log::TRC) << " slot2 invoked, calling user handler";
+		// LOG(Log::TRC) << " slot2 invoked, calling user handler";
 		fw_slot2( msg );
 	}
 	static void slot3( const CanMsgStruct msg){
-		LOG(Log::TRC) << " slot3 invoked, calling user handler";
+		// LOG(Log::TRC) << " slot3 invoked, calling user handler";
 		fw_slot4( msg );
 	}
 	static void slot4( const CanMsgStruct msg){
-		LOG(Log::TRC) << " slot4 invoked, calling user handler";
+		// LOG(Log::TRC) << " slot4 invoked, calling user handler";
 		fw_slot4( msg );
 	}
 	static void slot5( const CanMsgStruct msg){
-		LOG(Log::TRC) << " slot5 invoked, calling user handler";
+		// LOG(Log::TRC) << " slot5 invoked, calling user handler";
 		fw_slot5( msg );
 	}
 	static void slot6( const CanMsgStruct msg){
-		LOG(Log::TRC) << " slot6 invoked, calling user handler";
+		// LOG(Log::TRC) << " slot6 invoked, calling user handler";
 		fw_slot6( msg );
 	}
 	static void slot7( const CanMsgStruct msg){
-		LOG(Log::TRC) << " slot7 invoked, calling user handler";
+		// LOG(Log::TRC) << " slot7 invoked, calling user handler";
 		fw_slot7( msg );
 	}
 	static void slot8( const CanMsgStruct msg){
-		LOG(Log::TRC) << " slot8 invoked, calling user handler";
+		// LOG(Log::TRC) << " slot8 invoked, calling user handler";
 		fw_slot8( msg );
 	}
 	static void slot9( const CanMsgStruct msg){
-		LOG(Log::TRC) << " slot9 invoked, calling user handler";
+		// LOG(Log::TRC) << " slot9 invoked, calling user handler";
 		fw_slot9( msg );
 	}
 	static void slot10( const CanMsgStruct msg){
-		LOG(Log::TRC) << " slot10 invoked, calling user handler";
+		// LOG(Log::TRC) << " slot10 invoked, calling user handler";
 		fw_slot10( msg );
 	}
 	static void slot11( const CanMsgStruct msg){
-		LOG(Log::TRC) << " slot11 invoked, calling user handler";
+		// LOG(Log::TRC) << " slot11 invoked, calling user handler";
 		fw_slot11( msg );
 	}
 	static void slot12( const CanMsgStruct msg){
-		LOG(Log::TRC) << " slot12 invoked, calling user handler";
+		// LOG(Log::TRC) << " slot12 invoked, calling user handler";
 		fw_slot12( msg );
 	}
 	static void slot13( const CanMsgStruct msg){
-		LOG(Log::TRC) << " slot13 invoked, calling user handler";
+		// LOG(Log::TRC) << " slot13 invoked, calling user handler";
 		fw_slot13( msg );
 	}
 	static void slot14( const CanMsgStruct msg){
-		LOG(Log::TRC) << " slot14 invoked, calling user handler";
+		// LOG(Log::TRC) << " slot14 invoked, calling user handler";
 		fw_slot14( msg );
 	}
 	static void slot15( const CanMsgStruct msg){
-		LOG(Log::TRC) << " slot15 invoked, calling user handler";
+		// LOG(Log::TRC) << " slot15 invoked, calling user handler";
 		fw_slot15( msg );
 	}
 
 	void testSignalSlot( void ){
-		LOG(Log::TRC) << " sending a test signal to slot" << endl;
+		LOG(Log::TRC, lh) << " sending a test signal to slot" << endl;
 		CanMessage cm;
 		canMessageCame( cm );
-		LOG(Log::TRC) << " a test signal to this object's slot was sent" << endl;
+		LOG(Log::TRC, lh) << " a test signal to this object's slot was sent" << endl;
 	}
 
 	void connectReceptionSlotX( int connectionIndex )
 	{
-		LOG(Log::TRC) << " connecting internal slot to boost signal of this connection " << connectionIndex;
+		LOG(Log::TRC, lh) << " connecting internal slot to boost signal of this connection " << connectionIndex;
 		if ( _cconnection.connected() ){
-			LOG(Log::WRN) << "internal slot is already connected, disconnecting";
+			LOG(Log::WRN, lh) << "internal slot is already connected, disconnecting";
 			_cconnection.disconnect();
 		}
 		switch( connectionIndex ){
@@ -284,7 +299,7 @@ public:
 	}
 	void disconnectReceptionSlotX( void )
 	{
-		LOG(Log::TRC) << __FUNCTION__ << " disconnecting internal slot " << _connectionIndex;
+		LOG(Log::TRC, lh) << __FUNCTION__ << " disconnecting internal slot " << _connectionIndex;
 		canMessageCame.disconnect( _cconnection );
 	}
 
@@ -302,7 +317,6 @@ public:
 	inline bool initialiseLogging(LogItInstance* remoteInstance)
 	{
 		bool ret = Log::initializeDllLogging(remoteInstance);
-		LOG(Log::TRC) << __FUNCTION__ << " DLL (dynamic loading logger or so, nothing to do with windows): logging initialised";
 		return ret;
 	}
 
@@ -312,7 +326,7 @@ public:
 	 * @return: the result is saved in internal variable m_sBusName and m_CanParameters
 	 */
 	inline vector<string> parseNameAndParameters(string name, string parameters){
-		LOG(Log::TRC) << __FUNCTION__ << " name= " << name << " parameters= " << parameters;
+		LOG(Log::TRC, lh) << __FUNCTION__ << " name= " << name << " parameters= " << parameters;
 
 		m_sBusName = name;
 		vector<string> stringVector;
@@ -320,11 +334,10 @@ public:
 		string temporalString;
 		while (getline(nameSS, temporalString, ':')) {
 			stringVector.push_back(temporalString);
-			LOG(Log::TRC) << "CCanAccess::parcerNameAndPar: stringVector new element= " << temporalString;
+			LOG(Log::TRC, lh) << __FUNCTION__ << " stringVector new element= " << temporalString;
 		}
 		m_CanParameters.scanParameters(parameters);
-		LOG(Log::TRC) << "CCanAccess::parcerNameAndPar: stringVector size= " << stringVector.size();
-
+		LOG(Log::TRC, lh) << __FUNCTION__ << " stringVector size= " << stringVector.size();
 		return stringVector;
 	}
 
@@ -335,6 +348,8 @@ protected:
 private:
 	boost::signals2::connection _cconnection;
 	int _connectionIndex;
+	Log::LogComponentHandle lh;
+
 };
 };
 #endif /* CCANACCESS_H_ */

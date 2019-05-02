@@ -33,7 +33,12 @@
 using namespace std;
 namespace CanModule
 {
-	CanLibLoader::CanLibLoader(const std::string& libName)	{}
+
+	CanLibLoader::CanLibLoader(const std::string& libName)	{
+		LogItInstance *logIt = LogItInstance::getInstance();
+		logIt->getComponentHandle( CanModule::LogItComponentName, lh );
+		LOG(Log::TRC, lh ) << "logItComponentHandle= " << lh;
+	}
 
 	CanLibLoader::~CanLibLoader() {}
 
@@ -48,28 +53,28 @@ namespace CanModule
 	}
 
 	void CanLibLoader::closeCanBus(CCanAccess *cInter) {
-		LOG(Log::DBG) << "Canbus name to be deleted: " << cInter->getBusName();
+		LOG(Log::DBG, lh ) << __FUNCTION__<< " Canbus name to be deleted: " << cInter->getBusName();
 		//	m_openCanAccessMap.erase(cInter->getBusName().c_str());
 		delete cInter;
 	}
 
 	CCanAccess* CanLibLoader::openCanBus(string name, string parameters) {
-		LOG(Log::DBG) << __FUNCTION__ << " Creating CCanAccess: name= " << name << " parameters= " << parameters;
+		LOG(Log::DBG, lh ) << __FUNCTION__ << " Creating CCanAccess: name= " << name << " parameters= " << parameters;
 		CCanAccess *tcca = createCanAccess();
 
 		if ( !tcca ){
-			LOG(Log::ERR) << __FUNCTION__ << " failed to create CCanAccess name= " << name << " parameters= " << parameters;
+			LOG(Log::ERR, lh ) << __FUNCTION__ << " failed to create CCanAccess name= " << name << " parameters= " << parameters;
 			exit(-1);
 		} else {
-			LOG(Log::DBG) << __FUNCTION__ << " created CCanAccess name= " << name << " parameters= " << parameters;
+			LOG(Log::DBG, lh ) << __FUNCTION__ << " created CCanAccess name= " << name << " parameters= " << parameters;
 		}
 
 		//The Logit instance of the executable is handled to the DLL at this point, so the instance is shared.
-		tcca->initialiseLogging(LogItInstance::getInstance());
-		LOG(Log::DBG) << __FUNCTION__ << " Logging initialized OK";
+		tcca->initialiseLogging( LogItInstance::getInstance() );
+		LOG(Log::DBG, lh ) << __FUNCTION__ << " Logging initialized OK";
 
 
-		LOG(Log::DBG) << __FUNCTION__ << " calling createBus. name= " << name << " parameters= " << parameters;
+		LOG(Log::DBG, lh ) << __FUNCTION__ << " calling createBus. name= " << name << " parameters= " << parameters;
 		 /** @param name: Name of the can bus channel. The specific mapping will change depending on the interface used. For example, accessing channel 0 for the
 		 * 				systec interface would be using name "st:9", while in socket can the same channel would be "sock:can0".
 		 * 				anagate interface would be "an:0:192.168.1.2" for port A and ip address
@@ -78,10 +83,10 @@ namespace CanModule
 		 */
 		bool c = tcca->createBus(name, parameters);
 		if (c) {
-			LOG(Log::DBG) << __FUNCTION__ << " OK: createBus Adding CCanAccess to the map for: " << name;
+			LOG(Log::DBG, lh ) << __FUNCTION__ << " OK: createBus Adding CCanAccess to the map for: " << name;
 			return tcca;
 		} else 	{
-			LOG(Log::ERR) << __FUNCTION__ << " createBus Problem opening canBus for: " << name;
+			LOG(Log::ERR, lh ) << __FUNCTION__ << " createBus Problem opening canBus for: " << name;
 			throw std::runtime_error("CanLibLoader::openCanBus: createBus Problem when opening canBus. stop." );
 		}
 		return 0;

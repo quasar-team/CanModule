@@ -29,7 +29,7 @@
 
 namespace CanModule 
 {
-	class CanLibLoader
+class CanLibLoader
 	{
 	protected:
 		//Empty constructor
@@ -47,5 +47,7 @@ namespace CanModule
 		//Uses the loaded library to create a HAL object and store it in p_halInstance
 		virtual CCanAccess* createCanAccess() = 0;
 	private:
+		Log::LogComponentHandle lh;
+
 	};
 }
