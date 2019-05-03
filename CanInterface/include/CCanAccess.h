@@ -48,6 +48,9 @@ namespace CanModule
 {
 
 const std::string LogItComponentName = "CanModule";
+const std::string LogItComponentNameAnagate = LogItComponentName + "Anagate";
+const std::string LogItComponentNamePeak = LogItComponentName + "Peak";
+const std::string LogItComponentNameSystec = LogItComponentName + "Systec";
 
 #define MLOG(LEVEL,THIS) LOG(Log::LEVEL) << __FUNCTION__ << " " << CanModule::LogItComponentName << " bus= " << THIS->getBusName() << " "
 
