@@ -55,10 +55,10 @@ using namespace std;
 
 /* static */ bool AnaCanScan::s_isCanHandleInUseArray[256];
 /* static */ AnaInt32 AnaCanScan::s_canHandleArray[256];
-/* static */ bool AnaCanScan::logItRegistered = false;
-/* static */ Log::LogComponentHandle AnaCanScan::logItHandleAnagate;
+/* static */ bool AnaCanScan::s_logItRegisteredAnagate = false;
+/* static */ Log::LogComponentHandle AnaCanScan::s_logItHandleAnagate;
 
-#define MLOGANA(LEVEL,THIS) LOG(Log::LEVEL, AnaCanScan::logItHandleAnagate) << __FUNCTION__ << " " << " bus= " << THIS->getBusName() << " "
+#define MLOGANA(LEVEL,THIS) LOG(Log::LEVEL, AnaCanScan::s_logItHandleAnagate) << __FUNCTION__ << " " << " bus= " << THIS->getBusName() << " "
 
 /** global map of connection-object-pointers: the map-key is the handle. Since handles are allocated by the OS
  * the keys are getting changed as well, so that we do not keep the stale keys(=handles) in the map at all.
@@ -78,23 +78,22 @@ AnaCanScan::AnaCanScan():
 		m_UcanHandle(0),
 		m_timeout ( 6000 )
 {
-	if ( !AnaCanScan::logItRegistered ){ // one instance for all anagates
+	if ( !AnaCanScan::s_logItRegisteredAnagate ){ // one instance for all anagates
 		Log::registerLoggingComponent( CanModule::LogItComponentNameAnagate, Log::TRC );
-		AnaCanScan::logItRegistered = true;
+		AnaCanScan::s_logItRegisteredAnagate = true;
 		LogItInstance *logIt = LogItInstance::getInstance();
-		logIt->getComponentHandle( CanModule::LogItComponentNameAnagate, AnaCanScan::logItHandleAnagate );
-		LOG(Log::TRC, AnaCanScan::logItHandleAnagate ) << "lAnaCanScan::logItHandleAnagate= " << AnaCanScan::logItHandleAnagate;
+		logIt->getComponentHandle( CanModule::LogItComponentNameAnagate, AnaCanScan::s_logItHandleAnagate );
 	}
 	m_statistics.beginNewRun();
 }
 
 AnaCanScan::~AnaCanScan()
 {
-	LOG(Log::TRC, AnaCanScan::logItHandleAnagate ) << "Closing down Anagate Can Scan component";
+	LOG(Log::TRC, AnaCanScan::s_logItHandleAnagate ) << "Closing down Anagate Can Scan component";
 	//Shut down can scan thread
 	CANSetCallback(m_UcanHandle, 0);
 	CANCloseDevice(m_UcanHandle);
-	LOG(Log::TRC, AnaCanScan::logItHandleAnagate ) << "Anagate Can Scan component closed successfully";
+	LOG(Log::TRC, AnaCanScan::s_logItHandleAnagate ) << "Anagate Can Scan component closed successfully";
 }
 
 
@@ -371,9 +370,9 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 
 /* static */ void AnaCanScan::objectMapSize(){
 	uint32_t size = g_AnaCanScanPointerMap.size();
-	LOG(Log::TRC, AnaCanScan::logItHandleAnagate  ) << __FUNCTION__ << " RECEIVE obj. map size= " << size << " : ";
+	LOG(Log::TRC, AnaCanScan::s_logItHandleAnagate  ) << __FUNCTION__ << " RECEIVE obj. map size= " << size << " : ";
 	for (std::map<AnaInt32, AnaCanScan*>::iterator it=g_AnaCanScanPointerMap.begin(); it!=g_AnaCanScanPointerMap.end(); it++){
-		LOG(Log::TRC, AnaCanScan::logItHandleAnagate ) << __FUNCTION__ << " obj. map "
+		LOG(Log::TRC, AnaCanScan::s_logItHandleAnagate ) << __FUNCTION__ << " obj. map "
 				<< " key= " << it->first
 				<< " ip= " << it->second->ipAdress()
 				<< " CAN port= " << it->second->canPortNumber()
@@ -403,7 +402,7 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 	for (std::map<AnaInt32, AnaCanScan*>::iterator it=g_AnaCanScanPointerMap.begin(); it!=g_AnaCanScanPointerMap.end(); it++){
 		if ( ip == it->second->ipAdress() ){
 			//LOG(Log::TRC, AnaCanScan::m_lh ) << __FUNCTION__
-			LOG(Log::TRC, AnaCanScan::logItHandleAnagate ) << __FUNCTION__
+			LOG(Log::TRC, AnaCanScan::s_logItHandleAnagate ) << __FUNCTION__
 					<< " key= " << it->first
 					<< " found ip= " << ip
 					<< " for CAN port= " << it->second->canPortNumber()
@@ -414,7 +413,7 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 			ret = it->second->reconnect();
 			if ( ret ){
 				// LOG(Log::WRN, AnaCanScan::m_lh ) << __FUNCTION__
-				LOG(Log::WRN, AnaCanScan::logItHandleAnagate) << __FUNCTION__
+				LOG(Log::WRN, AnaCanScan::s_logItHandleAnagate) << __FUNCTION__
 						<< " key= " << it->first
 						<< " found ip= " << ip
 						<< " for CAN port= " << it->second->canPortNumber()
@@ -424,10 +423,10 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 			nbCANportsOnModule++;
 		}
 	}
-	LOG(Log::TRC, AnaCanScan::logItHandleAnagate) << " CAN bridge at ip= " << ip << " has  nbCANportsOnModule= " << nbCANportsOnModule;
+	LOG(Log::TRC, AnaCanScan::s_logItHandleAnagate) << " CAN bridge at ip= " << ip << " has  nbCANportsOnModule= " << nbCANportsOnModule;
 
 	if ( reconnectFailed ) {
-		LOG(Log::WRN, AnaCanScan::logItHandleAnagate ) << " Problem reconnecting CAN ports for ip= " << ip
+		LOG(Log::WRN, AnaCanScan::s_logItHandleAnagate ) << " Problem reconnecting CAN ports for ip= " << ip
 				<< " last ret= " << ret << ". Just abandoning and trying again in 10 secs, module might not be ready yet.";
 		int us = 10000000;
 		boost::this_thread::sleep(boost::posix_time::microseconds( us ));
@@ -442,17 +441,17 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 		if ( ip == it->second->ipAdress() ){
 			anaRet = it->second->connectReceptionHandler();
 			if ( anaRet != 0 ){
-				LOG(Log::ERR, AnaCanScan::logItHandleAnagate) << __FUNCTION__ << " " __FILE__ << " " << __LINE__
+				LOG(Log::ERR, AnaCanScan::s_logItHandleAnagate) << __FUNCTION__ << " " __FILE__ << " " << __LINE__
 						<< " failed to reconnect reception handler for ip= " << ip
 						<< " anaRet= " << anaRet;
 			} else {
-				LOG(Log::TRC, AnaCanScan::logItHandleAnagate ) << __FUNCTION__ << " " __FILE__ << " " << __LINE__
+				LOG(Log::TRC, AnaCanScan::s_logItHandleAnagate ) << __FUNCTION__ << " " __FILE__ << " " << __LINE__
 						<< " debug reconnect reception handler for ip= " << ip
 						<< " handle= " << it->second->handle()
 						<< " looking good= " << anaRet;
 			}
 
-			LOG(Log::TRC, AnaCanScan::logItHandleAnagate) << __FUNCTION__ << " " __FILE__ << " " << __LINE__
+			LOG(Log::TRC, AnaCanScan::s_logItHandleAnagate) << __FUNCTION__ << " " __FILE__ << " " << __LINE__
 					<< " erasing stale handler " << it->first << " from obj. map";
 			g_AnaCanScanPointerMap.erase( it->first );
 		}
