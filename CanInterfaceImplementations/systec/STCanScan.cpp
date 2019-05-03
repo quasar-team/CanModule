@@ -33,6 +33,9 @@
 //! The macro below is applicable only to this translation unit
 bool STCanScan::s_isCanHandleInUseArray[256];
 tUcanHandle STCanScan::s_canHandleArray[256];
+/* static */ bool STCanScan::s_logItRegisteredSt = false;
+/* static */ Log::LogComponentHandle STCanScan::s_logItHandleSt;
+#define MLOGST(LEVEL,THIS) LOG(Log::LEVEL, STCanScan::s_logItHandleSt) << __FUNCTION__ << " " << " bus= " << THIS->getBusName() << " "
 
 #ifdef _WIN32
 
@@ -62,6 +65,12 @@ STCanScan::STCanScan():
 				m_baudRate(0),
 				m_idCanScanThread(0)
 {
+	if ( !STCanScan::s_logItRegisteredSt ){ // one instance for all sockets
+		Log::registerLoggingComponent( CanModule::LogItComponentNameSystec, Log::TRC );
+		STCanScan::s_logItRegisteredSt = true;
+		LogItInstance *logIt = LogItInstance::getInstance();
+		logIt->getComponentHandle( CanModule::LogItComponentNameSystec, STCanScan::s_logItHandleSt );
+	}
 	m_statistics.beginNewRun();
 }
 
@@ -71,6 +80,7 @@ DWORD WINAPI STCanScan::CanScanControlThread(LPVOID pCanScan)
 	tCanMsgStruct readCanMessage;
 	STCanScan *canScanInstancePointer = reinterpret_cast<STCanScan *>(pCanScan);
 	MLOG(DBG,canScanInstancePointer) << "CanScanControlThread Started. m_CanScanThreadShutdownFlag = [" << canScanInstancePointer->m_CanScanThreadShutdownFlag <<"]";
+	MLOGST(DBG,canScanInstancePointer) << "CanScanControlThread Started. m_CanScanThreadShutdownFlag = [" << canScanInstancePointer->m_CanScanThreadShutdownFlag <<"]";
 	while (canScanInstancePointer->m_CanScanThreadShutdownFlag)
 	{
 		status = UcanReadCanMsgEx(canScanInstancePointer->m_UcanHandle, (BYTE *)&canScanInstancePointer->m_channelNumber, &readCanMessage, 0);

@@ -93,6 +93,9 @@ private:
 	//Current baud rate
 	unsigned int m_baudRate;
 
+	static Log::LogComponentHandle s_logItHandleSt;
+	static bool s_logItRegisteredSt;
+
 	bool sendErrorCode(long);
 
 	DWORD	m_busStatus;
