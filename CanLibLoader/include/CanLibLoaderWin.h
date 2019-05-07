@@ -46,6 +46,6 @@ namespace CanModule
 		virtual  CCanAccess* createCanAccess();
 	private:
 		//Pointer to the dynamic library stored on the memory
-		HMODULE m_pDynamicLibrary;
+		HMODULE m_pDynamicLibrary; 
 	};
 }

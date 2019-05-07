@@ -69,6 +69,7 @@ namespace CanModule
 	CanLibLoaderWin::CanLibLoaderWin(const std::string& libName)
 		: CanLibLoader(libName), m_pDynamicLibrary(0)
 	{
+		LOG(Log::TRC, lh) << "inherited logItComponentHandle= " << lh;
 		dynamicallyLoadLib(libName);
 	}
 
@@ -92,18 +93,18 @@ namespace CanModule
 		//LOG(Log::DBG) << "Proceeding to load library " << ss.str();
 		//m_pDynamicLibrary = ::LoadLibrary(ss.str().c_str());
 
-		LOG(Log::DBG) << "Proceeding to ExA load library " << ss.str();
+		LOG(Log::DBG, lh) << "Proceeding to ExA load library " << ss.str();
 		m_pDynamicLibrary = ::LoadLibraryExA(ss.str().c_str(), NULL, 0x00000010 /* LOAD_IGNORE_CODE_AUTHZ_LEVEL */);
 
 		//We check for errors while loading the library
 		if ( m_pDynamicLibrary != NULL )  {
-			LOG(Log::DBG) << " loaded the dynamic library: [" << ss.str() << "]";
+			LOG(Log::DBG, lh) << " loaded the dynamic library: [" << ss.str() << "]";
 		} else {
 			string msg = string(__FUNCTION__) + string("Error: could not load the dynamic library ") + ss.str();
-			LOG(Log::ERR) << msg;
+			LOG(Log::ERR, lh) << msg;
 			if ( ss.str() == "ancan.dll"){
-				LOG(Log::ERR) << " WARNING: anagate vendor libs do not install on your system, they are just copied. Make sure the hidden dependend libs (i.e. AnaGateCan64.dll) are in your lib search path!";
-				LOG(Log::ERR) << " WARNING: easiest solution: copy them into the same directory as the CANX-tester binary";
+				LOG(Log::ERR, lh) << " WARNING: anagate vendor libs do not install on your system, they are just copied. Make sure the hidden dependend libs (i.e. AnaGateCan64.dll) are in your lib search path!";
+				LOG(Log::ERR, lh) << " WARNING: easiest solution: copy them into the same directory as the CANX-tester binary";
 			}
 			ErrorExit(TEXT( "Error: could not load the dynamic library " ));
 			throw std::runtime_error( msg.c_str() );
@@ -118,14 +119,14 @@ namespace CanModule
 	 */
 	CanModule::CCanAccess* CanLibLoaderWin::createCanAccess()
 	{
-		LOG(Log::TRC) << __FUNCTION__ << ": Accessing method get getCanBusAccess";
+		LOG(Log::TRC, lh) << __FUNCTION__ << ": Accessing method get getCanBusAccess";
 		f_CCanAccess *canAccess = (f_CCanAccess *)GetProcAddress(m_pDynamicLibrary, "getCanBusAccess");
 		// We check for errors again. If there is an error the library is released from memory.
 		if (!canAccess) {
 			throw std::runtime_error( string(__FUNCTION__) + string(": Error: could not locate the function"));
 		}
 		// We call the function getHalAccess we got from the library. This will give us a pointer to an object, wich we store.
-		LOG(Log::TRC) << __FUNCTION__ << ": getCanBusAccess: got an object ptr from library, OK";
+		LOG(Log::TRC, lh) << __FUNCTION__ << ": getCanBusAccess: got an object ptr from library, OK";
 		return (CCanAccess*)(canAccess());
 	}
 }

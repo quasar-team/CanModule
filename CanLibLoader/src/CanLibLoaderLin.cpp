@@ -38,6 +38,7 @@ typedef CCanAccess* f_canAccess();
 CanLibLoaderLin::CanLibLoaderLin(const std::string& libName)
 : CanLibLoader(libName), p_dynamicLibrary(0)
 {
+	LOG(Log::TRC, lh) << "inherited logItComponentHandle= " << lh;
 	dynamicallyLoadLib(libName);
 	createCanAccess();
 }
@@ -50,7 +51,7 @@ void CanLibLoaderLin::dynamicallyLoadLib(const std::string& libName)
 	//The library is loaded through dlopen (Linux API)
 	std::ostringstream ss;
 	ss << "lib" << libName << "can.so";
-	LOG(Log::DBG) << "Proceeding to load library " << ss.str();
+	LOG(Log::DBG, lh) << "Proceeding to load library " << ss.str();
 	p_dynamicLibrary = dlopen(ss.str().c_str(), RTLD_NOW);
 	//We check for errors while loading the library
 	if (p_dynamicLibrary == 0)
@@ -59,7 +60,7 @@ void CanLibLoaderLin::dynamicallyLoadLib(const std::string& libName)
 		if (err) {
 			std::ostringstream msg;
 			msg << "Error: could not load dynamic library ["<<ss.str()<<"], current working directory ["<<boost::filesystem::current_path()<<"] error: "<<err;
-			LOG(Log::ERR) << msg.str();
+			LOG(Log::ERR, lh) << msg.str();
 			throw std::runtime_error(msg.str());
 		}
 	}	
@@ -78,13 +79,13 @@ CCanAccess*  CanLibLoaderLin::createCanAccess()
 	// We check for errors again. If there is an error the library is released from memory.
 	char *err = dlerror();
 	if (err) {
-		LOG(Log::ERR) << "Error: could not locate the function, error: [" << err << "]";
+		LOG(Log::ERR, lh) << "Error: could not locate the function, error: [" << err << "]";
 		throw std::runtime_error("Error: could not locate the function");//TODO: add library name to message
 	}
 	if (!canAccess)
 	{
 		dlclose(p_dynamicLibrary);
-		LOG(Log::ERR) << "Error: could not locate the function, error: [" << err << "]";
+		LOG(Log::ERR, lh) << "Error: could not locate the function, error: [" << err << "]";
 		throw std::runtime_error("Error: could not locate the function");//TODO: add library name to message	
 	}
 	// We call the function getHalAccess we got from the library. This will give us a pointer to an object, which we store.
