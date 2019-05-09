@@ -140,11 +140,9 @@ private:
 	AnaInt32 m_UcanHandle; //Instance of the can handle
 	CanStatistics m_statistics; //Instance of Can Statistics
     AnaInt32 m_timeout; 		// connect_wait time
-
-//#ifdef _WIN32
 	static Log::LogComponentHandle s_logItHandleAnagate;
 	static bool s_logItRegisteredAnagate;
-//#endif
+
 
     bool sendErrorCode(AnaInt32);
     string ipAdress(){ return(m_canIPAddress );}

@@ -55,10 +55,9 @@ using namespace std;
 
 /* static */ bool AnaCanScan::s_isCanHandleInUseArray[256];
 /* static */ AnaInt32 AnaCanScan::s_canHandleArray[256];
-//#ifdef _WIN32
 /* static */ bool AnaCanScan::s_logItRegisteredAnagate = false;
 /* static */ Log::LogComponentHandle AnaCanScan::s_logItHandleAnagate;
-//#endif
+
 
 #define MLOGANA(LEVEL,THIS) LOG(Log::LEVEL, AnaCanScan::s_logItHandleAnagate) << __FUNCTION__ << " " << " bus= " << THIS->getBusName() << " "
 
@@ -80,12 +79,6 @@ AnaCanScan::AnaCanScan():
 		m_UcanHandle(0),
 		m_timeout ( 6000 )
 {
-	if ( !AnaCanScan::s_logItRegisteredAnagate ){ // one instance for all anagates
-		Log::registerLoggingComponent( CanModule::LogItComponentNameAnagate, Log::TRC );
-		AnaCanScan::s_logItRegisteredAnagate = true;
-		LogItInstance *logIt = LogItInstance::getInstance();
-		logIt->getComponentHandle( CanModule::LogItComponentNameAnagate, AnaCanScan::s_logItHandleAnagate );
-	}
 	m_statistics.beginNewRun();
 }
 
