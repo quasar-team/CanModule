@@ -116,9 +116,9 @@ public:
 	static boost::function< void ( const CanMsgStruct ) > fw_slot15;
 
 
-#ifdef _WIN32
+//#ifdef _WIN32
 	LogItInstance* myRemoteInstance;
-#endif
+//#endif
 
 	//Empty constructor, just get rid of a useless warning
 	CCanAccess():
