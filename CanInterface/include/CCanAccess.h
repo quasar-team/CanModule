@@ -115,12 +115,11 @@ public:
 	static boost::function< void ( const CanMsgStruct ) > fw_slot14;
 	static boost::function< void ( const CanMsgStruct ) > fw_slot15;
 
-	LogItInstance* myRemoteInstance;
 
 	//Empty constructor, just get rid of a useless warning
 	CCanAccess():
 		_connectionIndex(0),
-		myRemoteInstance(NULL)
+		_myRemoteInstance(NULL)
 	{
 		CanModule::version();
 	};
@@ -330,7 +329,7 @@ public:
 	inline bool initialiseLogging(LogItInstance* remoteInstance)
 	{
 		bool ret = Log::initializeDllLogging(remoteInstance);
-		myRemoteInstance = remoteInstance;
+		_myRemoteInstance = remoteInstance;
 		return ret;
 	}
 
@@ -340,7 +339,7 @@ public:
 	 */
 	LogItInstance* getLogItInstance()
 	{
-		return( myRemoteInstance );
+		return( _myRemoteInstance );
 	}
 
 	/* @ Parse the input parameters
@@ -372,6 +371,7 @@ private:
 	boost::signals2::connection _cconnection;
 	int _connectionIndex;
 	Log::LogComponentHandle _lh;
+	LogItInstance* _myRemoteInstance;
 
 };
 };
