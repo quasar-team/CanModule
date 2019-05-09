@@ -55,8 +55,10 @@ using namespace std;
 
 /* static */ bool AnaCanScan::s_isCanHandleInUseArray[256];
 /* static */ AnaInt32 AnaCanScan::s_canHandleArray[256];
+#ifdef _WIN32
 /* static */ bool AnaCanScan::s_logItRegisteredAnagate = false;
 /* static */ Log::LogComponentHandle AnaCanScan::s_logItHandleAnagate;
+#endif
 
 #define MLOGANA(LEVEL,THIS) LOG(Log::LEVEL, AnaCanScan::s_logItHandleAnagate) << __FUNCTION__ << " " << " bus= " << THIS->getBusName() << " "
 
@@ -164,6 +166,21 @@ bool AnaCanScan::createBus(const string name,const string parameters)
 {	
 	m_busName = name;
 	m_busParameters = parameters;
+
+#ifdef _WIN32
+	// calling base class to get the instance from there
+	Log::LogComponentHandle myHandle;
+	LogItInstance* logItInstance = CCanAccess::getLogItInstance(); // actually calling instance method, not class
+	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " ptr= 0x" << logItInstance << std::endl;
+
+	// register anagate component for logging
+	bool ret = LogItInstance::setInstance(logItInstance);
+	logItInstance->registerLoggingComponent( CanModule::LogItComponentNameAnagate, Log::TRC );
+
+	ret = logItInstance->getComponentHandle(CanModule::LogItComponentNameAnagate, myHandle);
+	LOG(Log::TRC, myHandle) << __FUNCTION__ << " " __FILE__ << " " << __LINE__;
+	AnaCanScan::s_logItHandleAnagate = myHandle;
+#endif
 
 	MLOGANA(DBG, this) << " parameters= " << parameters;
 	m_sBusName = name;

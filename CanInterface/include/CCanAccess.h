@@ -115,14 +115,16 @@ public:
 	static boost::function< void ( const CanMsgStruct ) > fw_slot14;
 	static boost::function< void ( const CanMsgStruct ) > fw_slot15;
 
+
+#ifdef _WIN32
+	LogItInstance* myRemoteInstance;
+#endif
+
 	//Empty constructor, just get rid of a useless warning
 	CCanAccess():
 		_connectionIndex(0)
 	{
 		CanModule::version();
-		LogItInstance *logIt = LogItInstance::getInstance();
-		logIt->getComponentHandle( CanModule::LogItComponentName, lh );
-		LOG(Log::TRC, lh ) << " logging on handler= " << lh << " for component " << CanModule::LogItComponentName;
 	};
 
 
@@ -330,8 +332,22 @@ public:
 	inline bool initialiseLogging(LogItInstance* remoteInstance)
 	{
 		bool ret = Log::initializeDllLogging(remoteInstance);
+#ifdef _WIN32
+		myRemoteInstance = remoteInstance;
+#endif
 		return ret;
 	}
+
+#ifdef _WIN32
+	/**
+	 * the LogIt instance is NOT shared by inheritance in windows, the instance has to be passed explicitly
+	 * from the parent
+	 */
+	LogItInstance* getLogItInstance()
+	{
+		return( myRemoteInstance );
+	}
+#endif
 
 	/* @ Parse the input parameters
 	 * @param name The parameters have a format <name component>:name chanel:options for add address parameters>
