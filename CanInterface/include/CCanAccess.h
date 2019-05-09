@@ -115,14 +115,12 @@ public:
 	static boost::function< void ( const CanMsgStruct ) > fw_slot14;
 	static boost::function< void ( const CanMsgStruct ) > fw_slot15;
 
-
-//#ifdef _WIN32
 	LogItInstance* myRemoteInstance;
-//#endif
 
 	//Empty constructor, just get rid of a useless warning
 	CCanAccess():
-		_connectionIndex(0)
+		_connectionIndex(0),
+		myRemoteInstance(NULL)
 	{
 		CanModule::version();
 	};
@@ -276,17 +274,17 @@ public:
 	}
 
 	void testSignalSlot( void ){
-		LOG(Log::TRC, lh) << " sending a test signal to slot" << endl;
+		LOG(Log::TRC, _lh) << " sending a test signal to slot" << endl;
 		CanMessage cm;
 		canMessageCame( cm );
-		LOG(Log::TRC, lh) << " a test signal to this object's slot was sent" << endl;
+		LOG(Log::TRC, _lh) << " a test signal to this object's slot was sent" << endl;
 	}
 
 	void connectReceptionSlotX( int connectionIndex )
 	{
-		LOG(Log::TRC, lh) << " connecting internal slot to boost signal of this connection " << connectionIndex;
+		LOG(Log::TRC, _lh) << " connecting internal slot to boost signal of this connection " << connectionIndex;
 		if ( _cconnection.connected() ){
-			LOG(Log::WRN, lh) << "internal slot is already connected, disconnecting";
+			LOG(Log::WRN, _lh) << "internal slot is already connected, disconnecting";
 			_cconnection.disconnect();
 		}
 		switch( connectionIndex ){
@@ -314,7 +312,7 @@ public:
 	}
 	void disconnectReceptionSlotX( void )
 	{
-		LOG(Log::TRC, lh) << __FUNCTION__ << " disconnecting internal slot " << _connectionIndex;
+		LOG(Log::TRC, _lh) << __FUNCTION__ << " disconnecting internal slot " << _connectionIndex;
 		canMessageCame.disconnect( _cconnection );
 	}
 
@@ -332,13 +330,10 @@ public:
 	inline bool initialiseLogging(LogItInstance* remoteInstance)
 	{
 		bool ret = Log::initializeDllLogging(remoteInstance);
-//#ifdef _WIN32
 		myRemoteInstance = remoteInstance;
-//#endif
 		return ret;
 	}
 
-//#ifdef _WIN32
 	/**
 	 * the LogIt instance is NOT shared by inheritance in windows, the instance has to be passed explicitly
 	 * from the parent
@@ -347,7 +342,6 @@ public:
 	{
 		return( myRemoteInstance );
 	}
-//#endif
 
 	/* @ Parse the input parameters
 	 * @param name The parameters have a format <name component>:name chanel:options for add address parameters>
@@ -355,7 +349,7 @@ public:
 	 * @return: the result is saved in internal variable m_sBusName and m_CanParameters
 	 */
 	inline vector<string> parseNameAndParameters(string name, string parameters){
-		LOG(Log::TRC, lh) << __FUNCTION__ << " name= " << name << " parameters= " << parameters;
+		LOG(Log::TRC, _lh) << __FUNCTION__ << " name= " << name << " parameters= " << parameters;
 
 		m_sBusName = name;
 		vector<string> stringVector;
@@ -363,10 +357,10 @@ public:
 		string temporalString;
 		while (getline(nameSS, temporalString, ':')) {
 			stringVector.push_back(temporalString);
-			LOG(Log::TRC, lh) << __FUNCTION__ << " stringVector new element= " << temporalString;
+			LOG(Log::TRC, _lh) << __FUNCTION__ << " stringVector new element= " << temporalString;
 		}
 		m_CanParameters.scanParameters(parameters);
-		LOG(Log::TRC, lh) << __FUNCTION__ << " stringVector size= " << stringVector.size();
+		LOG(Log::TRC, _lh) << __FUNCTION__ << " stringVector size= " << stringVector.size();
 		return stringVector;
 	}
 
@@ -377,7 +371,7 @@ protected:
 private:
 	boost::signals2::connection _cconnection;
 	int _connectionIndex;
-	Log::LogComponentHandle lh;
+	Log::LogComponentHandle _lh;
 
 };
 };
