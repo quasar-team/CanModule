@@ -55,10 +55,10 @@ using namespace std;
 
 /* static */ bool AnaCanScan::s_isCanHandleInUseArray[256];
 /* static */ AnaInt32 AnaCanScan::s_canHandleArray[256];
-#ifdef _WIN32
+//#ifdef _WIN32
 /* static */ bool AnaCanScan::s_logItRegisteredAnagate = false;
 /* static */ Log::LogComponentHandle AnaCanScan::s_logItHandleAnagate;
-#endif
+//#endif
 
 #define MLOGANA(LEVEL,THIS) LOG(Log::LEVEL, AnaCanScan::s_logItHandleAnagate) << __FUNCTION__ << " " << " bus= " << THIS->getBusName() << " "
 
