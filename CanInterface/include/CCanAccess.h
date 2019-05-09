@@ -332,13 +332,13 @@ public:
 	inline bool initialiseLogging(LogItInstance* remoteInstance)
 	{
 		bool ret = Log::initializeDllLogging(remoteInstance);
-#ifdef _WIN32
+//#ifdef _WIN32
 		myRemoteInstance = remoteInstance;
-#endif
+//#endif
 		return ret;
 	}
 
-#ifdef _WIN32
+//#ifdef _WIN32
 	/**
 	 * the LogIt instance is NOT shared by inheritance in windows, the instance has to be passed explicitly
 	 * from the parent
@@ -347,7 +347,7 @@ public:
 	{
 		return( myRemoteInstance );
 	}
-#endif
+//#endif
 
 	/* @ Parse the input parameters
 	 * @param name The parameters have a format <name component>:name chanel:options for add address parameters>
