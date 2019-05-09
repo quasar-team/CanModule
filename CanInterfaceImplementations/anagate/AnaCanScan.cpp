@@ -160,7 +160,7 @@ bool AnaCanScan::createBus(const string name,const string parameters)
 	m_busName = name;
 	m_busParameters = parameters;
 
-#ifdef _WIN32
+//#ifdef _WIN32
 	// calling base class to get the instance from there
 	Log::LogComponentHandle myHandle;
 	LogItInstance* logItInstance = CCanAccess::getLogItInstance(); // actually calling instance method, not class
@@ -173,7 +173,7 @@ bool AnaCanScan::createBus(const string name,const string parameters)
 	ret = logItInstance->getComponentHandle(CanModule::LogItComponentNameAnagate, myHandle);
 	LOG(Log::TRC, myHandle) << __FUNCTION__ << " " __FILE__ << " " << __LINE__;
 	AnaCanScan::s_logItHandleAnagate = myHandle;
-#endif
+//#endif
 
 	MLOGANA(DBG, this) << " parameters= " << parameters;
 	m_sBusName = name;
