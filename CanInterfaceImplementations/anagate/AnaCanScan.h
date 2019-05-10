@@ -150,6 +150,7 @@ private:
     int handle(){ return(m_UcanHandle);}
 	int configureCanBoard(const string name,const string parameters);
 	int connectReceptionHandler();
+
 	static void objectMapSize();
 
 	/**

@@ -160,20 +160,24 @@ bool AnaCanScan::createBus(const string name,const string parameters)
 	m_busName = name;
 	m_busParameters = parameters;
 
-//#ifdef _WIN32
 	// calling base class to get the instance from there
 	Log::LogComponentHandle myHandle;
 	LogItInstance* logItInstance = CCanAccess::getLogItInstance(); // actually calling instance method, not class
-	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " ptr= 0x" << logItInstance << std::endl;
+	// std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " ptr= 0x" << logItInstance << std::endl;
 
 	// register anagate component for logging
-	bool ret = LogItInstance::setInstance(logItInstance);
+	if ( !LogItInstance::setInstance(logItInstance))
+		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
+		<< " could not set LogIt instance" << std::endl;
+
 	logItInstance->registerLoggingComponent( CanModule::LogItComponentNameAnagate, Log::TRC );
 
-	ret = logItInstance->getComponentHandle(CanModule::LogItComponentNameAnagate, myHandle);
-	LOG(Log::TRC, myHandle) << __FUNCTION__ << " " __FILE__ << " " << __LINE__;
+	if (!logItInstance->getComponentHandle(CanModule::LogItComponentNameAnagate, myHandle))
+		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
+		<< " could not get LogIt component handle for " << LogItComponentNameAnagate << std::endl;
+
+	//LOG(Log::TRC, myHandle) << __FUNCTION__ << " " __FILE__ << " " << __LINE__;
 	AnaCanScan::s_logItHandleAnagate = myHandle;
-//#endif
 
 	MLOGANA(DBG, this) << " parameters= " << parameters;
 	m_sBusName = name;
@@ -234,9 +238,6 @@ int AnaCanScan::configureCanBoard(const string name,const string parameters)
 		m_baudRate = baudRate_default;
 		MLOGANA(INF, this) << "Unspecified parameters, default values will be used.";
 	}
-	/*anaCallReturn = CANSetGlobals(canModuleHandle, m_CanParameters.m_lBaudRate, m_CanParameters.m_iOperationMode,
-			m_CanParameters.m_iTermination, m_CanParameters.m_iHighSpeed, m_CanParameters.m_iTimeStamp);
-	 */
 	return openCanPort();
 }
 
