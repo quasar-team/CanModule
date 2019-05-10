@@ -47,7 +47,6 @@ using namespace std;
 
 /* static */ std::map<string, string> CSockCanScan::m_busMap = {{"dummy_name", "dummy_parameters"}};
 
-/* static */ bool CSockCanScan::st_logItRegisteredSock = false;
 /* static */ Log::LogComponentHandle CSockCanScan::st_logItHandleSock;
 
 #define MLOGSOCK(LEVEL,THIS) LOG(Log::LEVEL, CSockCanScan::st_logItHandleSock) << __FUNCTION__ << " " << " bus= " << THIS->getBusName() << " "
@@ -523,7 +522,7 @@ bool CSockCanScan::createBus(const string name, const string parameters)
 		<< " could not get LogIt component handle for " << LogItComponentNameSock << std::endl;
 
 	//LOG(Log::TRC, myHandle) << __FUNCTION__ << " " __FILE__ << " " << __LINE__;
-	CSockCanScan::s_logItHandleSock = myHandle;
+	CSockCanScan::st_logItHandleSock = myHandle;
 
 	m_CanScanThreadShutdownFlag = true;
 	MLOGSOCK(TRC,this) << " Creating bus with parameters [" << parameters << "]";
