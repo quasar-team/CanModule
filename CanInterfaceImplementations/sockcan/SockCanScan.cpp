@@ -58,7 +58,6 @@ using namespace std;
 //This function creates an instance of this class and returns it. It will be loaded trough the dll to access the rest of the code.
 extern "C" CCanAccess *getCanBusAccess()
 {
-	LOG(Log::TRC) << __FUNCTION__ << " " __FILE__ << " " << __LINE__;
 	CCanAccess *cc = new CSockCanScan();
 	return cc;
 }
