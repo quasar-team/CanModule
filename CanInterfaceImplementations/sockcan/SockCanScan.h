@@ -114,7 +114,7 @@ private:
 	int m_idCanScanThread;
 
 	static Log::LogComponentHandle st_logItHandleSock;
-	static bool st_logItRegisteredSock;
+	//static bool st_logItRegisteredSock;
 
 	//Closeup method that will be called from the destructor.
 	bool stopBus ();
