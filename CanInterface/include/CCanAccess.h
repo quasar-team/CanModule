@@ -370,7 +370,7 @@ protected:
 private:
 	boost::signals2::connection s_cconnection;
 	int s_connectionIndex;
-	Log::LogComponentHandle _lh; // s_lh ?!? @ windows
+	Log::LogComponentHandle _lh; // s_lh ?!? @ windows w.t.f.
 	LogItInstance* s_logItRemoteInstance;
 
 };
