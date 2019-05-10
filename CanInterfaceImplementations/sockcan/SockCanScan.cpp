@@ -119,7 +119,7 @@ void* CSockCanScan::CanScanControlThread(void *p_voidSockCanScan)
 		}
 	}
 
-	MLOG(TRC,p_sockCanScan) << "Main loop of SockCanScan starting";
+	MLOGSOCK(TRC,p_sockCanScan) << "Main loop of SockCanScan starting";
 	while ( p_sockCanScan->m_CanScanThreadShutdownFlag ) {
 		fd_set set;
 		FD_ZERO( &set );
