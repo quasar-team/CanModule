@@ -113,8 +113,8 @@ private:
 	//Thread ID for the CAN update scan manager thread.
 	int m_idCanScanThread;
 
-	static Log::LogComponentHandle s_logItHandleSock;
-	static bool s_logItRegisteredSock;
+	static Log::LogComponentHandle st_logItHandleSock;
+	static bool st_logItRegisteredSock;
 
 	//Closeup method that will be called from the destructor.
 	bool stopBus ();

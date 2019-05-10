@@ -47,8 +47,8 @@ using namespace std;
 
 /* static */ std::map<string, string> CSockCanScan::m_busMap = {{"dummy_name", "dummy_parameters"}};
 
-/* static */ bool CSockCanScan::s_logItRegisteredSock = false;
-/* static */ Log::LogComponentHandle CSockCanScan::s_logItHandleSock;
+/* static */ bool CSockCanScan::st_logItRegisteredSock = false;
+/* static */ Log::LogComponentHandle CSockCanScan::st_logItHandleSock;
 
 #define MLOGSOCK(LEVEL,THIS) LOG(Log::LEVEL, CSockCanScan::s_logItHandleSock) << __FUNCTION__ << " " << " bus= " << THIS->getBusName() << " "
 
@@ -71,12 +71,6 @@ CSockCanScan::CSockCanScan() :
 			m_idCanScanThread(0),
 			m_errorCode(-1)
 {
-	if ( !CSockCanScan::s_logItRegisteredSock ){ // one instance for all sockets
-		Log::registerLoggingComponent( CanModule::LogItComponentNameSock, Log::TRC );
-		CSockCanScan::s_logItRegisteredSock = true;
-		LogItInstance *logIt = LogItInstance::getInstance();
-		logIt->getComponentHandle( CanModule::LogItComponentNameSock, CSockCanScan::s_logItHandleSock );
-	}
 	m_statistics.beginNewRun();
 }
 
@@ -510,6 +504,30 @@ bool CSockCanScan::createBus(const string name, const string parameters)
 		// return(	true ); // thread exists already
 	}
 #endif
+
+
+	// calling base class to get the instance from there
+	Log::LogComponentHandle myHandle;
+	LogItInstance* logItInstance = CCanAccess::getLogItInstance(); // actually calling instance method, not class
+	// std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " ptr= 0x" << logItInstance << std::endl;
+
+	// register socket component for logging
+	if ( !LogItInstance::setInstance(logItInstance))
+		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
+		<< " could not set LogIt instance" << std::endl;
+
+	logItInstance->registerLoggingComponent( CanModule::LogItComponentNameSock, Log::TRC );
+
+	if (!logItInstance->getComponentHandle(CanModule::LogItComponentNameSock, myHandle))
+		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
+		<< " could not get LogIt component handle for " << LogItComponentNameSock << std::endl;
+
+	//LOG(Log::TRC, myHandle) << __FUNCTION__ << " " __FILE__ << " " << __LINE__;
+	CSockCanScan::s_logItHandleSock = myHandle;
+
+
+
+
 	m_CanScanThreadShutdownFlag = true;
 	MLOGSOCK(TRC,this) << " Creating bus with parameters [" << parameters << "]";
 	m_sock = configureCanBoard(name,parameters);
