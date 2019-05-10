@@ -43,6 +43,9 @@ class CanLibLoader
 	SHARED_LIB_EXPORT_DEFN CanModule::CCanAccess * openCanBus(std::string name, std::string parameters);
 	SHARED_LIB_EXPORT_DEFN	void closeCanBus(CanModule::CCanAccess *cca);
 
+	// LogIt handle
+	Log::LogComponentHandle lh;
+
 
 	protected:
 	//Load a dynamic library.
@@ -51,8 +54,6 @@ class CanLibLoader
 	virtual CCanAccess* createCanAccess() = 0;
 
 	private:
-	// LogIt handle
-	Log::LogComponentHandle lh;
 
 	};
 }
