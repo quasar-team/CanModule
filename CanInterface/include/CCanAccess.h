@@ -118,8 +118,8 @@ public:
 
 	//Empty constructor, just get rid of a useless warning
 	CCanAccess():
-		_connectionIndex(0),
-		_myRemoteInstance(NULL)
+		s_connectionIndex(0),
+		s_logItRemoteInstance(NULL)
 	{
 		CanModule::version();
 	};
@@ -273,46 +273,46 @@ public:
 	}
 
 	void testSignalSlot( void ){
-		LOG(Log::TRC, _lh) << " sending a test signal to slot" << endl;
+		LOG(Log::TRC, s_lh) << " sending a test signal to slot" << endl;
 		CanMessage cm;
 		canMessageCame( cm );
-		LOG(Log::TRC, _lh) << " a test signal to this object's slot was sent" << endl;
+		LOG(Log::TRC, s_lh) << " a test signal to this object's slot was sent" << endl;
 	}
 
 	void connectReceptionSlotX( int connectionIndex )
 	{
-		LOG(Log::TRC, _lh) << " connecting internal slot to boost signal of this connection " << connectionIndex;
-		if ( _cconnection.connected() ){
-			LOG(Log::WRN, _lh) << "internal slot is already connected, disconnecting";
-			_cconnection.disconnect();
+		LOG(Log::TRC, s_lh) << " connecting internal slot to boost signal of this connection " << connectionIndex;
+		if ( s_cconnection.connected() ){
+			LOG(Log::WRN, s_lh) << "internal slot is already connected, disconnecting";
+			s_cconnection.disconnect();
 		}
 		switch( connectionIndex ){
-		case 0:{ _cconnection = canMessageCame.connect( &slot0 ); break; }
-		case 1:{ _cconnection = canMessageCame.connect( &slot1 ); break; }
-		case 2:{ _cconnection = canMessageCame.connect( &slot2 ); break; }
-		case 3:{ _cconnection = canMessageCame.connect( &slot3 ); break; }
-		case 4:{ _cconnection = canMessageCame.connect( &slot4 ); break; }
-		case 5:{ _cconnection = canMessageCame.connect( &slot5 ); break; }
-		case 6:{ _cconnection = canMessageCame.connect( &slot6 ); break; }
-		case 7:{ _cconnection = canMessageCame.connect( &slot7 ); break; }
-		case 8:{ _cconnection = canMessageCame.connect( &slot8 ); break; }
-		case 9:{ _cconnection = canMessageCame.connect( &slot9 ); break; }
-		case 10:{ _cconnection = canMessageCame.connect( &slot10 ); break; }
-		case 11:{ _cconnection = canMessageCame.connect( &slot11 ); break; }
-		case 12:{ _cconnection = canMessageCame.connect( &slot12 ); break; }
-		case 13:{ _cconnection = canMessageCame.connect( &slot13 ); break; }
-		case 14:{ _cconnection = canMessageCame.connect( &slot14 ); break; }
-		case 15:{ _cconnection = canMessageCame.connect( &slot15 ); break; }
+		case 0:{ s_cconnection = canMessageCame.connect( &slot0 ); break; }
+		case 1:{ s_cconnection = canMessageCame.connect( &slot1 ); break; }
+		case 2:{ s_cconnection = canMessageCame.connect( &slot2 ); break; }
+		case 3:{ s_cconnection = canMessageCame.connect( &slot3 ); break; }
+		case 4:{ s_cconnection = canMessageCame.connect( &slot4 ); break; }
+		case 5:{ s_cconnection = canMessageCame.connect( &slot5 ); break; }
+		case 6:{ s_cconnection = canMessageCame.connect( &slot6 ); break; }
+		case 7:{ s_cconnection = canMessageCame.connect( &slot7 ); break; }
+		case 8:{ s_cconnection = canMessageCame.connect( &slot8 ); break; }
+		case 9:{ s_cconnection = canMessageCame.connect( &slot9 ); break; }
+		case 10:{ s_cconnection = canMessageCame.connect( &slot10 ); break; }
+		case 11:{ s_cconnection = canMessageCame.connect( &slot11 ); break; }
+		case 12:{ s_cconnection = canMessageCame.connect( &slot12 ); break; }
+		case 13:{ s_cconnection = canMessageCame.connect( &slot13 ); break; }
+		case 14:{ s_cconnection = canMessageCame.connect( &slot14 ); break; }
+		case 15:{ s_cconnection = canMessageCame.connect( &slot15 ); break; }
 		default: {
 			LOG(Log::ERR) << "can not connect to internal slot " << connectionIndex << " (available slots 0..15)"; }
 		}
-		_connectionIndex = connectionIndex;
-		LOG(Log::INF) << "OK connected internal slot" << _connectionIndex << " to boost signal of this object";
+		s_connectionIndex = connectionIndex;
+		LOG(Log::INF) << "OK connected internal slot" << s_connectionIndex << " to boost signal of this object";
 	}
 	void disconnectReceptionSlotX( void )
 	{
-		LOG(Log::TRC, _lh) << __FUNCTION__ << " disconnecting internal slot " << _connectionIndex;
-		canMessageCame.disconnect( _cconnection );
+		LOG(Log::TRC, s_lh) << __FUNCTION__ << " disconnecting internal slot " << s_connectionIndex;
+		canMessageCame.disconnect( s_cconnection );
 	}
 
 	/*
@@ -329,7 +329,7 @@ public:
 	inline bool initialiseLogging(LogItInstance* remoteInstance)
 	{
 		bool ret = Log::initializeDllLogging(remoteInstance);
-		_myRemoteInstance = remoteInstance;
+		s_logItRemoteInstance = remoteInstance;
 		return ret;
 	}
 
@@ -339,7 +339,7 @@ public:
 	 */
 	LogItInstance* getLogItInstance()
 	{
-		return( _myRemoteInstance );
+		return( s_logItRemoteInstance );
 	}
 
 	/* @ Parse the input parameters
@@ -348,7 +348,7 @@ public:
 	 * @return: the result is saved in internal variable m_sBusName and m_CanParameters
 	 */
 	inline vector<string> parseNameAndParameters(string name, string parameters){
-		LOG(Log::TRC, _lh) << __FUNCTION__ << " name= " << name << " parameters= " << parameters;
+		LOG(Log::TRC, s_lh) << __FUNCTION__ << " name= " << name << " parameters= " << parameters;
 
 		m_sBusName = name;
 		vector<string> stringVector;
@@ -356,10 +356,10 @@ public:
 		string temporalString;
 		while (getline(nameSS, temporalString, ':')) {
 			stringVector.push_back(temporalString);
-			LOG(Log::TRC, _lh) << __FUNCTION__ << " stringVector new element= " << temporalString;
+			LOG(Log::TRC, s_lh) << __FUNCTION__ << " stringVector new element= " << temporalString;
 		}
 		m_CanParameters.scanParameters(parameters);
-		LOG(Log::TRC, _lh) << __FUNCTION__ << " stringVector size= " << stringVector.size();
+		LOG(Log::TRC, s_lh) << __FUNCTION__ << " stringVector size= " << stringVector.size();
 		return stringVector;
 	}
 
@@ -368,10 +368,10 @@ protected:
 	CanParameters m_CanParameters;
 
 private:
-	boost::signals2::connection _cconnection;
-	int _connectionIndex;
-	Log::LogComponentHandle _lh;
-	LogItInstance* _myRemoteInstance;
+	boost::signals2::connection s_cconnection;
+	int s_connectionIndex;
+	Log::LogComponentHandle s_lh;
+	LogItInstance* s_logItRemoteInstance;
 
 };
 };
