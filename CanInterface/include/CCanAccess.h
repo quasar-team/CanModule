@@ -273,17 +273,17 @@ public:
 	}
 
 	void testSignalSlot( void ){
-		LOG(Log::TRC, s_lh) << " sending a test signal to slot" << endl;
+		LOG(Log::TRC, _lh) << " sending a test signal to slot" << endl;
 		CanMessage cm;
 		canMessageCame( cm );
-		LOG(Log::TRC, s_lh) << " a test signal to this object's slot was sent" << endl;
+		LOG(Log::TRC, _lh) << " a test signal to this object's slot was sent" << endl;
 	}
 
 	void connectReceptionSlotX( int connectionIndex )
 	{
-		LOG(Log::TRC, s_lh) << " connecting internal slot to boost signal of this connection " << connectionIndex;
+		LOG(Log::TRC, _lh) << " connecting internal slot to boost signal of this connection " << connectionIndex;
 		if ( s_cconnection.connected() ){
-			LOG(Log::WRN, s_lh) << "internal slot is already connected, disconnecting";
+			LOG(Log::WRN, _lh) << "internal slot is already connected, disconnecting";
 			s_cconnection.disconnect();
 		}
 		switch( connectionIndex ){
@@ -304,14 +304,14 @@ public:
 		case 14:{ s_cconnection = canMessageCame.connect( &slot14 ); break; }
 		case 15:{ s_cconnection = canMessageCame.connect( &slot15 ); break; }
 		default: {
-			LOG(Log::ERR) << "can not connect to internal slot " << connectionIndex << " (available slots 0..15)"; }
+			LOG(Log::ERR, _lh) << "can not connect to internal slot " << connectionIndex << " (available slots 0..15)"; }
 		}
 		s_connectionIndex = connectionIndex;
-		LOG(Log::INF) << "OK connected internal slot" << s_connectionIndex << " to boost signal of this object";
+		LOG(Log::INF, _lh) << "OK connected internal slot" << s_connectionIndex << " to boost signal of this object";
 	}
 	void disconnectReceptionSlotX( void )
 	{
-		LOG(Log::TRC, s_lh) << __FUNCTION__ << " disconnecting internal slot " << s_connectionIndex;
+		LOG(Log::TRC, _lh) << __FUNCTION__ << " disconnecting internal slot " << s_connectionIndex;
 		canMessageCame.disconnect( s_cconnection );
 	}
 
@@ -348,7 +348,7 @@ public:
 	 * @return: the result is saved in internal variable m_sBusName and m_CanParameters
 	 */
 	inline vector<string> parseNameAndParameters(string name, string parameters){
-		LOG(Log::TRC, s_lh) << __FUNCTION__ << " name= " << name << " parameters= " << parameters;
+		LOG(Log::TRC, _lh) << __FUNCTION__ << " name= " << name << " parameters= " << parameters;
 
 		m_sBusName = name;
 		vector<string> stringVector;
@@ -356,10 +356,10 @@ public:
 		string temporalString;
 		while (getline(nameSS, temporalString, ':')) {
 			stringVector.push_back(temporalString);
-			LOG(Log::TRC, s_lh) << __FUNCTION__ << " stringVector new element= " << temporalString;
+			LOG(Log::TRC, _lh) << __FUNCTION__ << " stringVector new element= " << temporalString;
 		}
 		m_CanParameters.scanParameters(parameters);
-		LOG(Log::TRC, s_lh) << __FUNCTION__ << " stringVector size= " << stringVector.size();
+		LOG(Log::TRC, _lh) << __FUNCTION__ << " stringVector size= " << stringVector.size();
 		return stringVector;
 	}
 
@@ -370,7 +370,7 @@ protected:
 private:
 	boost::signals2::connection s_cconnection;
 	int s_connectionIndex;
-	Log::LogComponentHandle s_lh;
+	Log::LogComponentHandle _lh; // s_lh ?!? @ windows
 	LogItInstance* s_logItRemoteInstance;
 
 };
