@@ -142,7 +142,7 @@ void* CSockCanScan::CanScanControlThread(void *p_voidSockCanScan)
 				tim.tv_sec = 1;
 				tim.tv_nsec = 0;
 				if(nanosleep(&tim , &tim2) < 0 ) {
-					MLOG(ERR,p_sockCanScan) << "Waiting 1s failed (nanosleep)";
+					MLOGSOCK(ERR,p_sockCanScan) << "Waiting 1s failed (nanosleep)";
 				}
 			}
 			continue;
@@ -524,9 +524,6 @@ bool CSockCanScan::createBus(const string name, const string parameters)
 
 	//LOG(Log::TRC, myHandle) << __FUNCTION__ << " " __FILE__ << " " << __LINE__;
 	CSockCanScan::s_logItHandleSock = myHandle;
-
-
-
 
 	m_CanScanThreadShutdownFlag = true;
 	MLOGSOCK(TRC,this) << " Creating bus with parameters [" << parameters << "]";
