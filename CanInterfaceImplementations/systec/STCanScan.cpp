@@ -33,8 +33,10 @@
 //! The macro below is applicable only to this translation unit
 bool STCanScan::s_isCanHandleInUseArray[256];
 tUcanHandle STCanScan::s_canHandleArray[256];
+
 /* static */ bool STCanScan::s_logItRegisteredSt = false;
-/* static */ Log::LogComponentHandle STCanScan::s_logItHandleSt;
+/* static */ Log::LogComponentHandle STCanScan::s_logItHandleSt = 0;
+
 #define MLOGST(LEVEL,THIS) LOG(Log::LEVEL, STCanScan::s_logItHandleSt) << __FUNCTION__ << " " << " bus= " << THIS->getBusName() << " "
 
 #ifdef _WIN32
@@ -65,12 +67,6 @@ STCanScan::STCanScan():
 				m_baudRate(0),
 				m_idCanScanThread(0)
 {
-	if ( !STCanScan::s_logItRegisteredSt ){ // one instance for all sockets
-		Log::registerLoggingComponent( CanModule::LogItComponentNameSystec, Log::TRC );
-		STCanScan::s_logItRegisteredSt = true;
-		LogItInstance *logIt = LogItInstance::getInstance();
-		logIt->getComponentHandle( CanModule::LogItComponentNameSystec, STCanScan::s_logItHandleSt );
-	}
 	m_statistics.beginNewRun();
 }
 
@@ -129,6 +125,21 @@ STCanScan::~STCanScan()
 
 bool STCanScan::createBus(const string name,const string parameters)
 {	
+	// calling base class to get the instance from there
+	Log::LogComponentHandle myHandle;
+	LogItInstance* logItInstance = CCanAccess::getLogItInstance(); // actually calling instance method, not class
+	// std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " ptr= 0x" << logItInstance << std::endl;
+
+	// register systec@W component for logging
+	if ( !LogItInstance::setInstance(logItInstance))
+		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
+		<< " could not set LogIt instance" << std::endl;
+
+	logItInstance->registerLoggingComponent( CanModule::LogItComponentNameSystec, Log::TRC );
+	if (!logItInstance->getComponentHandle(CanModule::LogItComponentNameSystec, myHandle))
+		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
+		<< " could not get LogIt component handle for " << LogItComponentNameSystec << std::endl;
+
 	MLOG(DBG, this) << __FUNCTION__ << " name= " << name << " parameters= " << parameters << ", configuring CAN board";
 	m_sBusName = name;
 	int returnCode = configureCanBoard(name, parameters);
