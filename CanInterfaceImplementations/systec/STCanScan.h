@@ -79,6 +79,9 @@ public:
 	//Returns the instance of the CanStatistics object
 	virtual void getStatistics( CanStatistics & result );
 
+	static Log::LogComponentHandle s_logItHandleSt;
+	static bool s_logItRegisteredSt;
+
 private:
 	//The number of the can module associated with this instance.
 	int m_moduleNumber;
@@ -92,6 +95,7 @@ private:
 	CanStatistics m_statistics;
 	//Current baud rate
 	unsigned int m_baudRate;
+
 
 	bool sendErrorCode(long);
 

@@ -38,9 +38,11 @@
  */
 using namespace CanModule;
 
+
+
 class CSockCanScan : public CCanAccess
 {
- public:
+public:
 	//Constructor of the class. Will initiate the statistics.
 	CSockCanScan();
 	//Disables copy constructor
@@ -48,9 +50,9 @@ class CSockCanScan : public CCanAccess
 	//Disables asignation
 	CSockCanScan& operator=( CSockCanScan const & other) = delete;
 	//Destructor of the class
-    virtual ~CSockCanScan();
-    
-    /*
+	virtual ~CSockCanScan();
+
+	/*
 	 * Method that sends a message trough the can bus channel. If the method createBUS was not called before this, sendMessage will fail, as there is no
 	 * can bus channel to send a message trough.
 	 * @param cobID: Identifier that will be used for the message.
@@ -59,17 +61,17 @@ class CSockCanScan : public CCanAccess
 	 * @param rtr: is the message a remote transmission request?
 	 * @return: Was the initialisation process successful?
 	 */
-    virtual bool sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr = false);
+	virtual bool sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr = false);
 
-    /*
+	/*
 	 * Method that sends a remote request trough the can bus channel. If the method createBUS was not called before this, sendMessage will fail, as there is no
 	 * can bus channel to send the request trough. Similar to sendMessage, but it sends an special message reserved for requests.
 	 * @param cobID: Identifier that will be used for the request.
 	 * @return: Was the initialisation process successful?
 	 */
-    virtual bool sendRemoteRequest(short cobID);
+	virtual bool sendRemoteRequest(short cobID);
 
-    /*
+	/*
 	 * Method that initialises a can bus channel. The following methods called upon the same object will be using this initialised channel.
 	 *
 	 * @param name: Name of the can bus channel. The specific mapping will change depending on the interface used. For example, accessing channel 0 for the
@@ -77,70 +79,72 @@ class CSockCanScan : public CCanAccess
 	 * @param parameters: Different parameters used for the initialisation. For using the default parameters just set this to "Unspecified"
 	 * @return: Was the initialisation process successful?
 	 */
-    virtual bool createBus(const string name ,string parameters );
-    
-    //Returns socket handler
-    int getHandler() { return m_sock; }
-    //Returns channel name
- //   std::string &getChannel() { return m_channelName; }
-    //Returns can bus parameters
-//    std::string &getParameters() { return m_parameters; }
-    //Returns the instance of the CanStatistics object
-    virtual void getStatistics( CanStatistics & result );
-    static can_frame emptyCanFrame( void ){
-    	can_frame f;
-    	f.can_dlc = 0;
-    	f.can_id = 0;
-    	for ( int i = 0; i < 8; i++){
-    		f.data[ i ] = 0;
-    	}
-    	return(f);
-    }
-    static std::map<string, string> m_busMap;
+	virtual bool createBus(const string name ,string parameters );
 
- private:
+	//Returns socket handler
+	int getHandler() { return m_sock; }
+	//Returns channel name
+	//   std::string &getChannel() { return m_channelName; }
+	//Returns can bus parameters
+	//    std::string &getParameters() { return m_parameters; }
+	//Returns the instance of the CanStatistics object
+	virtual void getStatistics( CanStatistics & result );
+	static can_frame emptyCanFrame( void ){
+		can_frame f;
+		f.can_dlc = 0;
+		f.can_id = 0;
+		for ( int i = 0; i < 8; i++){
+			f.data[ i ] = 0;
+		}
+		return(f);
+	}
+	static std::map<string, string> m_busMap;
 
+private:
 
-    //Flag for shutting down the CanScan thread
-    volatile bool m_CanScanThreadShutdownFlag;
-    //Socket handler
-    int m_sock;
-    //Instance of Can Statistics
-    CanStatistics m_statistics;
-    //Handle for the CAN update scan manager thread.
-    pthread_t m_hCanScanThread;
-    //Thread ID for the CAN update scan manager thread.
-    int m_idCanScanThread;
+	//Flag for shutting down the CanScan thread
+	volatile bool m_CanScanThreadShutdownFlag;
+	//Socket handler
+	int m_sock;
+	//Instance of Can Statistics
+	CanStatistics m_statistics;
+	//Handle for the CAN update scan manager thread.
+	pthread_t m_hCanScanThread;
+	//Thread ID for the CAN update scan manager thread.
+	int m_idCanScanThread;
 
-    //Closeup method that will be called from the destructor.
+	static Log::LogComponentHandle st_logItHandleSock;
+	//static bool st_logItRegisteredSock;
+
+	//Closeup method that will be called from the destructor.
 	bool stopBus ();
 	//Report an error when opening a can port
 	void updateInitialError () ;
 	//Transforms an error frame into an error message (string format)
 	static std::string errorFrameToString (const struct can_frame &f);
 
-    void sendErrorMessage(const char  *);
- //   void sendErrorMessage(const struct can_frame *);
+	void sendErrorMessage(const char  *);
+	//   void sendErrorMessage(const struct can_frame *);
 
-    void clearErrorMessage();
+	void clearErrorMessage();
 
-    int configureCanBoard(const string name,const string parameters);
+	int configureCanBoard(const string name,const string parameters);
 
-    /** Obtains a SocketCAN socket and opens it.
-     *  The name of the port and parameters should have been specified by preceding call to configureCanboard()
-     *
-     *  @returns less than zero in case of error, otherwise success
-     */
-    int openCanPort();
+	/** Obtains a SocketCAN socket and opens it.
+	 *  The name of the port and parameters should have been specified by preceding call to configureCanboard()
+	 *
+	 *  @returns less than zero in case of error, otherwise success
+	 */
+	int openCanPort();
 
-    //The main control thread function for the CAN update scan manager.
-    static void* CanScanControlThread(void *);
+	//The main control thread function for the CAN update scan manager.
+	static void* CanScanControlThread(void *);
 
-    //Channel name
-    std::string m_channelName;
+	//Channel name
+	std::string m_channelName;
 
-    //! As up-to-date as possible state of the interface.
-    int m_errorCode;
+	//! As up-to-date as possible state of the interface.
+	int m_errorCode;
 };
 
 

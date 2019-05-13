@@ -132,14 +132,17 @@ private:
 
 	int m_canPortNumber; //The number of can port (CANA, CANB, ...) associated with this instance.
 	string  m_canIPAddress;
-	AnaInt32 m_UcanHandle; //Instance of the can handle
-	CanStatistics m_statistics; //Instance of Can Statistics
 	unsigned int m_baudRate; 	//Current baud rate for statistics
     DWORD   m_idCanScanThread; // Thread ID for the CAN update scan manager thread.
 	bool m_canCloseDevice;
 	string m_busName;
 	string m_busParameters;
+	AnaInt32 m_UcanHandle; //Instance of the can handle
+	CanStatistics m_statistics; //Instance of Can Statistics
     AnaInt32 m_timeout; 		// connect_wait time
+	static Log::LogComponentHandle s_logItHandleAnagate;
+	static bool s_logItRegisteredAnagate;
+
 
     bool sendErrorCode(AnaInt32);
     string ipAdress(){ return(m_canIPAddress );}
@@ -147,6 +150,7 @@ private:
     int handle(){ return(m_UcanHandle);}
 	int configureCanBoard(const string name,const string parameters);
 	int connectReceptionHandler();
+
 	static void objectMapSize();
 
 	/**
@@ -182,6 +186,7 @@ private:
 
 	static AnaInt32 s_canHandleArray[256];
 	static bool s_isCanHandleInUseArray[256];
+
 
 };
 

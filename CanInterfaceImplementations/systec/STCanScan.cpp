@@ -34,6 +34,11 @@
 bool STCanScan::s_isCanHandleInUseArray[256];
 tUcanHandle STCanScan::s_canHandleArray[256];
 
+/* static */ bool STCanScan::s_logItRegisteredSt = false;
+/* static */ Log::LogComponentHandle STCanScan::s_logItHandleSt = 0;
+
+#define MLOGST(LEVEL,THIS) LOG(Log::LEVEL, STCanScan::s_logItHandleSt) << __FUNCTION__ << " " << " bus= " << THIS->getBusName() << " "
+
 #ifdef _WIN32
 
 #define DLLEXPORTFLAG __declspec(dllexport)
@@ -70,7 +75,7 @@ DWORD WINAPI STCanScan::CanScanControlThread(LPVOID pCanScan)
 	BYTE status;
 	tCanMsgStruct readCanMessage;
 	STCanScan *canScanInstancePointer = reinterpret_cast<STCanScan *>(pCanScan);
-	MLOG(DBG,canScanInstancePointer) << "CanScanControlThread Started. m_CanScanThreadShutdownFlag = [" << canScanInstancePointer->m_CanScanThreadShutdownFlag <<"]";
+	MLOGST(DBG,canScanInstancePointer) << "CanScanControlThread Started. m_CanScanThreadShutdownFlag = [" << canScanInstancePointer->m_CanScanThreadShutdownFlag <<"]";
 	while (canScanInstancePointer->m_CanScanThreadShutdownFlag)
 	{
 		status = UcanReadCanMsgEx(canScanInstancePointer->m_UcanHandle, (BYTE *)&canScanInstancePointer->m_channelNumber, &readCanMessage, 0);
@@ -92,7 +97,6 @@ DWORD WINAPI STCanScan::CanScanControlThread(LPVOID pCanScan)
 		}
 		else
 		{
-
 			if (status == USBCAN_WARN_NODATA)
 			{
 				Sleep(100);
@@ -114,12 +118,29 @@ STCanScan::~STCanScan()
 	DWORD result = WaitForSingleObject(m_hCanScanThread, INFINITE);
 	// deinitialize CAN interface
 	::UcanDeinitCanEx (m_UcanHandle,(BYTE)m_channelNumber);
-	MLOG(DBG,this) << "ST Can Scan component closed successfully";
+	MLOGST(DBG,this) << "ST Can Scan component closed successfully";
 }
 
 bool STCanScan::createBus(const string name,const string parameters)
 {	
-	MLOG(DBG, this) << __FUNCTION__ << " name= " << name << " parameters= " << parameters << ", configuring CAN board";
+	// calling base class to get the instance from there
+	Log::LogComponentHandle myHandle;
+	LogItInstance* logItInstance = CCanAccess::getLogItInstance(); // actually calling instance method, not class
+	//std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " ptr= 0x" << logItInstance << std::endl;
+
+	// register systec@W component for logging
+	if ( !LogItInstance::setInstance(logItInstance))
+		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
+		<< " could not set LogIt instance" << std::endl;
+
+	logItInstance->registerLoggingComponent( CanModule::LogItComponentNameSystec, Log::TRC );
+	if (!logItInstance->getComponentHandle(CanModule::LogItComponentNameSystec, myHandle))
+		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
+		<< " could not get LogIt component handle for " << LogItComponentNameSystec << std::endl;
+
+	STCanScan::s_logItHandleSt = myHandle;
+
+	MLOGST(DBG, this) << " name= " << name << " parameters= " << parameters << ", configuring CAN board";
 	m_sBusName = name;
 	int returnCode = configureCanBoard(name, parameters);
 	if (returnCode < 0) {
@@ -129,10 +150,10 @@ bool STCanScan::createBus(const string name,const string parameters)
 	// After the canboard is configured and started, we start the scan control thread
 	m_hCanScanThread = CreateThread(NULL, 0, CanScanControlThread, this, 0, &m_idCanScanThread);
 	if (NULL == m_hCanScanThread) {
-		MLOG(ERR,this) << "Error when creating the canScanControl thread.";
+		MLOGST(ERR,this) << "creating the canScanControl thread.";
 		return false;
 	}
-	MLOG(DBG,this) << __FUNCTION__ <<  " Bus [" << name << "] created with parameters [" << parameters << "]";
+	MLOGST(DBG,this) <<  " Bus [" << name << "] created with parameters [" << parameters << "]";
 	return true;
 }
 
@@ -148,7 +169,7 @@ int STCanScan::configureCanBoard(const string name,const string parameters)
 	m_moduleNumber = m_canHandleNumber/2;
 	m_channelNumber = m_canHandleNumber%2;	
 
-	MLOG(TRC, this) << __FUNCTION__ << " m_canHandleNumber:[" << m_canHandleNumber << "], m_moduleNumber:[" << m_moduleNumber << "], m_channelNumber:[" << m_channelNumber << "]";
+	MLOGST(TRC, this) << " m_canHandleNumber:[" << m_canHandleNumber << "], m_moduleNumber:[" << m_moduleNumber << "], m_channelNumber:[" << m_channelNumber << "]";
 
 	if (strcmp(parameters.c_str(), "Unspecified") != 0) {
 		/* Set baud rate to 125 Kbits/second.  */
@@ -164,13 +185,13 @@ int STCanScan::configureCanBoard(const string name,const string parameters)
 			default: baudRate = m_CanParameters.m_lBaudRate;
 			}
 		} else {
-			MLOG(ERR, this) << __FUNCTION__ << " parsing parameters: this syntax is incorrect: [" << parameters << "]";
+			MLOGST(ERR, this) << "parsing parameters: this syntax is incorrect: [" << parameters << "]";
 			return -1;
 		}
 		m_baudRate = baudRate;
 	} else 	{
 		m_baudRate = baudRate;
-		MLOG(DBG, this) << "Unspecified parameters, default values will be used.";
+		MLOGST(DBG, this) << "Unspecified parameters, default values will be used.";
 	}
 
 	// We create and fill initializationParameters, to pass it to openCanPort
@@ -208,7 +229,7 @@ int STCanScan::openCanPort(tUcanInitCanParam initializationParameters)
 		if (systecCallReturn != USBCAN_SUCCESSFUL)
 		{
 			// fill out initialisation struct
-			MLOG(ERR,this) << "Error in UcanInitHardwareEx, return code = [" << systecCallReturn << "]";
+			MLOGST(ERR,this) << "UcanInitHardwareEx, return code = [" << systecCallReturn << "]";
 			::UcanDeinitHardware(canModuleHandle);
 			return -1;
 		}
@@ -219,7 +240,7 @@ int STCanScan::openCanPort(tUcanInitCanParam initializationParameters)
 	systecCallReturn = ::UcanInitCanEx2(canModuleHandle, m_channelNumber, &initializationParameters);
 	if (systecCallReturn != USBCAN_SUCCESSFUL)
 	{
-		MLOG(ERR,this) << "Error in UcanInitCanEx2, return code = [" << systecCallReturn << "]";
+		MLOGST(ERR,this) << "UcanInitCanEx2, return code = [" << systecCallReturn << "]";
 		::UcanDeinitCanEx(canModuleHandle, m_channelNumber);
 		return -1;
 	}
@@ -259,11 +280,14 @@ bool STCanScan::sendMessage(short cobID, unsigned char len, unsigned char *messa
 	if (len > 8)//If there is more than 8 characters to process, we process 8 of them in this iteration of the loop
 	{
 		messageLengthToBeProcessed = 8;
+		MLOGST(DBG, this) << "The length is more then 8 bytes, adjust to 8, ignore >8. len= " << len;
 	}
 	else  //Otherwise if there is less than 8 characters to process, we process all of them in this iteration of the loop
 	{
 		messageLengthToBeProcessed = len;
-		MLOG(DBG, this) << "The length more then 8 bytes. " << len;
+		if (len < 8) {
+			MLOGST(DBG, this) << "The length is less then 8 bytes, process only. len= " << len;
+		}
 	}
 	canMsgToBeSent.m_bDLC = messageLengthToBeProcessed;
 	memcpy(canMsgToBeSent.m_bData, message, messageLengthToBeProcessed);
@@ -271,7 +295,7 @@ bool STCanScan::sendMessage(short cobID, unsigned char len, unsigned char *messa
 	Status = UcanWriteCanMsgEx(m_UcanHandle, m_channelNumber, &canMsgToBeSent, NULL);
 	if (Status != USBCAN_SUCCESSFUL)
 	{
-		MLOG(ERR,this) << "Error: There was a problem when sending a message.";
+		MLOGST(ERR,this) << "There was a problem when sending a message.";
 	}
 	else
 	{
