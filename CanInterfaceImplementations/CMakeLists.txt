@@ -26,11 +26,11 @@ project(CanInterfaceImplementations)
 message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] building vendors [CANMODULE_BUILD_VENDORS:${CANMODULE_BUILD_VENDORS}]")
 
 # you have to switch ON the vendors on by one, because you might not want to install drivers/libs
-# for unused modules on your system
-
+# for unused modules on your system. In this case just comment out what you don't need
 SET(CANMODULE_BUILD_SYSTEC "ON")
 SET(CANMODULE_BUILD_ANAGATE "ON")
 SET(CANMODULE_BUILD_PEAK "ON")
+# ---
 
 message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] vendor systec  [CANMODULE_BUILD_SYSTEC:${CANMODULE_BUILD_SYSTEC}]")
 message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] vendor anagate [CANMODULE_BUILD_ANAGATE:${CANMODULE_BUILD_ANAGATE}]")

@@ -111,7 +111,7 @@ bool PKCanScan::configureCanboard(const string name,const string parameters)
 	//int	numPar;
 	//Process the parameters
 	vector<string> vectorString;
-	vectorString = parcerNameAndPar(name, parameters);
+	vectorString = parseNameAndParameters(name, parameters);
 	//const char *canpars = parameters.c_str();
 	if (strcmp(parameters.c_str(), "Unspecified") != 0)
 	{
