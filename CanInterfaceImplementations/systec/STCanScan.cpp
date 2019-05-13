@@ -67,6 +67,7 @@ STCanScan::STCanScan():
 				m_baudRate(0),
 				m_idCanScanThread(0)
 {
+	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << std::endl;
 	m_statistics.beginNewRun();
 }
 
