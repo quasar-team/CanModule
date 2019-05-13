@@ -75,7 +75,6 @@ DWORD WINAPI STCanScan::CanScanControlThread(LPVOID pCanScan)
 	BYTE status;
 	tCanMsgStruct readCanMessage;
 	STCanScan *canScanInstancePointer = reinterpret_cast<STCanScan *>(pCanScan);
-	MLOG(DBG,canScanInstancePointer) << "CanScanControlThread Started. m_CanScanThreadShutdownFlag = [" << canScanInstancePointer->m_CanScanThreadShutdownFlag <<"]";
 	MLOGST(DBG,canScanInstancePointer) << "CanScanControlThread Started. m_CanScanThreadShutdownFlag = [" << canScanInstancePointer->m_CanScanThreadShutdownFlag <<"]";
 	while (canScanInstancePointer->m_CanScanThreadShutdownFlag)
 	{
@@ -127,7 +126,7 @@ bool STCanScan::createBus(const string name,const string parameters)
 	// calling base class to get the instance from there
 	Log::LogComponentHandle myHandle;
 	LogItInstance* logItInstance = CCanAccess::getLogItInstance(); // actually calling instance method, not class
-	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " ptr= 0x" << logItInstance << std::endl;
+	//std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " ptr= 0x" << logItInstance << std::endl;
 
 	// register systec@W component for logging
 	if ( !LogItInstance::setInstance(logItInstance))
