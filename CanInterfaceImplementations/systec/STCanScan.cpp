@@ -67,7 +67,6 @@ STCanScan::STCanScan():
 				m_baudRate(0),
 				m_idCanScanThread(0)
 {
-	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << std::endl;
 	m_statistics.beginNewRun();
 }
 
@@ -139,6 +138,8 @@ bool STCanScan::createBus(const string name,const string parameters)
 	if (!logItInstance->getComponentHandle(CanModule::LogItComponentNameSystec, myHandle))
 		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
 		<< " could not get LogIt component handle for " << LogItComponentNameSystec << std::endl;
+
+	STCanScan::s_logItHandleSt = myHandle;
 
 	MLOGST(DBG, this) << " name= " << name << " parameters= " << parameters << ", configuring CAN board";
 	m_sBusName = name;
@@ -280,11 +281,14 @@ bool STCanScan::sendMessage(short cobID, unsigned char len, unsigned char *messa
 	if (len > 8)//If there is more than 8 characters to process, we process 8 of them in this iteration of the loop
 	{
 		messageLengthToBeProcessed = 8;
+		MLOGST(DBG, this) << "The length is more then 8 bytes, adjust to 8, ignore >8. " << len;
 	}
 	else  //Otherwise if there is less than 8 characters to process, we process all of them in this iteration of the loop
 	{
 		messageLengthToBeProcessed = len;
-		MLOGST(DBG, this) << "The length more then 8 bytes. " << len;
+		if (len < 8) {
+			MLOGST(DBG, this) << "The length is less then 8 bytes, process only " << len << " message length bytes;
+		}
 	}
 	canMsgToBeSent.m_bDLC = messageLengthToBeProcessed;
 	memcpy(canMsgToBeSent.m_bData, message, messageLengthToBeProcessed);
