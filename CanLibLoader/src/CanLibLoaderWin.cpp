@@ -127,6 +127,9 @@ namespace CanModule
 		}
 		// We call the function getHalAccess we got from the library. This will give us a pointer to an object, wich we store.
 		LOG(Log::TRC, lh) << __FUNCTION__ << ": getCanBusAccess: got an object ptr from library, OK";
+
+		std::cout << __FILE__ << " " << __LINE__ << " " << __LINE__ << " CanModule::CCanAccess* = 0x" << CanAccess() << std::endl;
+
 		return (CCanAccess*)(canAccess());
 	}
 }
