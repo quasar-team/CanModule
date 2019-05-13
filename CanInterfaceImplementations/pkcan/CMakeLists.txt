@@ -50,7 +50,7 @@ else()
 	target_link_libraries( pkcan ${LOGIT_LIB} )
 endif()
 
-checkCANImplResourceExists(PEAKCAN_LIB_FILE ${PEAKCAN_LIB_HINT})
+#checkCANImplResourceExists(PEAKCAN_LIB_FILE ${PEAKCAN_LIB_HINT})
 target_link_libraries ( pkcan ${BOOST_LIBS} ${PEAKCAN_LIB_FILE} )
 
 set_property(TARGET pkcan PROPERTY POSITION_INDEPENDENT_CODE TRUE)
