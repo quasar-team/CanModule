@@ -281,13 +281,13 @@ bool STCanScan::sendMessage(short cobID, unsigned char len, unsigned char *messa
 	if (len > 8)//If there is more than 8 characters to process, we process 8 of them in this iteration of the loop
 	{
 		messageLengthToBeProcessed = 8;
-		MLOGST(DBG, this) << "The length is more then 8 bytes, adjust to 8, ignore >8. " << len;
+		MLOGST(DBG, this) << "The length is more then 8 bytes, adjust to 8, ignore >8. len= " << len;
 	}
 	else  //Otherwise if there is less than 8 characters to process, we process all of them in this iteration of the loop
 	{
 		messageLengthToBeProcessed = len;
 		if (len < 8) {
-			MLOGST(DBG, this) << "The length is less then 8 bytes, process only " << len << " message length bytes;
+			MLOGST(DBG, this) << "The length is less then 8 bytes, process only. len= " << len;
 		}
 	}
 	canMsgToBeSent.m_bDLC = messageLengthToBeProcessed;
