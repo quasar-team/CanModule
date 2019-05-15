@@ -78,7 +78,12 @@ private:
 	int m_canPortNumber; //The number of can port (CANA, CANB, ...) associated with this instance.
 	string  m_canIPAddress;
 	unsigned int m_baudRate; 	//Current baud rate for statistics
-    DWORD   m_idCanScanThread; // Thread ID for the CAN update scan manager thread.
+	bool m_syncMode;
+	bool m_timeStamp;
+	bool m_highSpeed;
+	bool m_termination;
+	int m_operationMode;
+	DWORD   m_idCanScanThread; // Thread ID for the CAN update scan manager thread.
 	bool m_canCloseDevice;
 	string m_busName;
 	string m_busParameters;

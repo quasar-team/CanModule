@@ -140,11 +140,12 @@ void AnaCanScan::callbackOnRecieve(CanMessage& msg)
 /**
  * Method that initialises a CAN bus channel for anagate. All following methods called on the same object will be using this initialized channel.
  *
- * @param name = 3 parameters separated by ":" line "n0:n1:n2"
+ * @param name = 3 parameters separated by ":" like "n0:n1:n2"
  * 		n0 = "an" for anagate
  * 		n1 = port number on the module, 0=A, 1=B, etc etc
  * 		n2 = ip number
- * 		ex.: "an:1:137.138.12.99" speaks to port B (=1) on anagate module at the ip
+ * 		ex.: "an:can1:137.138.12.99" speaks to port B (=1) on anagate module at the ip
+ * 		ex.: "an:1:137.138.12.99" works as well
  *
  *
  * @param parameters up to 6 parameters separated by whitespaces : "p0 p1 p2 p3 p4 p5" in THAT order, positive integers
@@ -221,16 +222,40 @@ int AnaCanScan::configureCanBoard(const string name,const string parameters)
 		m_canPortNumber = atoi(stringVector[1].c_str());
 		m_canIPAddress = (char *) stringVector[2].c_str();
 	}
+	MLOGANA(TRC, this) << "decoded canPortNumber= " << m_canPortNumber << " ip= " << m_canIPAddress;
 
 	// handle up to 6 parameter, assume defaults if needed
 	long baudRate_default = 125000;
+	m_baudRate = baudRate_default;
 
 	if (strcmp(parameters.c_str(), "Unspecified") != 0) {
+		// falling through switch
+		switch( m_CanParameters.m_iNumberOfDetectedParameters ){
+		case 6: { m_syncMode = m_CanParameters.m_iSyncMode; }
+		case 5: { m_timeStamp = m_CanParameters.m_iTimeStamp; }
+		case 4: { m_highSpeed = m_CanParameters.m_iHighSpeed; }
+		case 3: { m_termination = m_CanParameters.m_iTermination; }
+		case 2: { m_operationMode = m_CanParameters.m_iOperationMode; }
+		case 1: { m_baudRate = m_CanParameters.m_lBaudRate; break; }
+		default:{
+			MLOGANA(WRN, this) << "parsing parameters: this syntax is incorrect: [" << parameters << "]";
+			MLOGANA(WRN, this) << "you need up to 6 numbers separated by whitespaces, i.e. \"125000 0 0 0 0 0\" \"p0 p1 p2 p3 p4 p5\"";
+			MLOGANA(WRN, this) << "  p0 = baud rate, 125000 or whatever the module supports";
+			MLOGANA(WRN, this) << "  p1 = operation mode";
+			MLOGANA(WRN, this) << "  p2 = termination";
+			MLOGANA(WRN, this) << "  p3 = high speed";
+			MLOGANA(WRN, this) << "  p4 = time stamp";
+			MLOGANA(WRN, this) << "  p5 = sync mode";
+			MLOGANA(WRN, this) << "default values will be used and we continue nevertheless.";
+			break;
+		}
+		}
+#if 0
 		if ( m_CanParameters.m_iNumberOfDetectedParameters >= 1 )	{
 			m_baudRate = m_CanParameters.m_lBaudRate;
 		} else {
 			MLOGANA(ERR, this) << "Error while parsing parameters: this syntax is incorrect: [" << parameters << "]";
-			MLOGANA(ERR, this) << "you need 6 numbers separated by whitespaces, i.e. \"125000 0 0 0 0 0\" \"p0 p1 p2 p3 p4 p5\"";
+			MLOGANA(ERR, this) << "you need up to 6 numbers separated by whitespaces, i.e. \"125000 0 0 0 0 0\" \"p0 p1 p2 p3 p4 p5\"";
 			MLOGANA(ERR, this) << "  p0 = baud rate, 125000 or whatever the module supports";
 			MLOGANA(ERR, this) << "  p1 = operation mode";
 			MLOGANA(ERR, this) << "  p2 = termination";
@@ -239,9 +264,8 @@ int AnaCanScan::configureCanBoard(const string name,const string parameters)
 			MLOGANA(ERR, this) << "  p5 = sync mode";
 			return -1;
 		}
-		// m_baudRate = baudRate_default; // set default nevertheless
+#endif
 	} else	{
-		m_baudRate = baudRate_default;
 		MLOGANA(INF, this) << "Unspecified parameters, default values will be used.";
 	}
 	return openCanPort();
