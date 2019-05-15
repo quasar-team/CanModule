@@ -2,9 +2,8 @@
 `SysTec`_
 =========
 
-All modules from vendor `SysTec`_ are handled by class STCanScan which manages the modules through their underlying vendor specific API and provides 
-the standard generic CanModule API. 
-
+All modules from vendor `SysTec`_ are handled by class STCanScan (windows) or CSockCanScan (linux) which 
+manage the modules through their underlying vendor specific API and provide the standard generic CanModule API. 
 
 * **windows:** The connection to a specific port for I/O is created by calling
 
@@ -28,7 +27,7 @@ for each connection.
 Systec Parameters
 -----------------
 
-**string::name**
+**string::port**
 
 * "st:<port>"
 where <port> is the number of the CAN port on the module, 0...N, separated by ":" 

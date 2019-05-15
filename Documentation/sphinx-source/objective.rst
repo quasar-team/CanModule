@@ -16,7 +16,7 @@ Supported OS
 
 These operating systems are supported for all vendors
 
-* CERN CentOs7 cc7 
+* CERN CC7 
 * Windows 2016 Server and Windows 10
 
 other OS versions might be available on special request, or easily be ported to. 
@@ -35,7 +35,7 @@ Integration into projects
 
 In order to use CanModule in your  project/server/code there are two ways 
 
-* source-clone from `CanModuleGitlab`_ and integrated into a cmake build chain.
+* by source-clone from `CanModuleGitlab`_ and integrated into a cmake build chain.
 * binaries to copy for other build chains are available CERN-wide from `NexusCan`_ .  
 
 

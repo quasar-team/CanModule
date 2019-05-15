@@ -6,13 +6,12 @@ CanModule reference documentation
 .. toctree::
    :maxdepth: 3
 
+   downloading
    objective
    standardApi
    vendors/systec
    vendors/anagate
-   vendors/anagate/an_parameters
    vendors/peak
-   vendors/peak/pk_parameters
    building
    running
    support
