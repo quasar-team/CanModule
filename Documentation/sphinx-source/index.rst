@@ -14,8 +14,9 @@ CanModule reference documentation
    vendors/peak
    vendors/peak/pk_parameters
    building
+   running
    support
-   example
+   examples
 
 
 alphabetical index
