@@ -229,30 +229,10 @@ int AnaCanScan::configureCanBoard(const string name,const string parameters)
 	m_baudRate = baudRate_default;
 
 	if (strcmp(parameters.c_str(), "Unspecified") != 0) {
-		// falling through switch
-		switch( m_CanParameters.m_iNumberOfDetectedParameters ){
-		case 6: { m_syncMode = m_CanParameters.m_iSyncMode; }
-		case 5: { m_timeStamp = m_CanParameters.m_iTimeStamp; }
-		case 4: { m_highSpeed = m_CanParameters.m_iHighSpeed; }
-		case 3: { m_termination = m_CanParameters.m_iTermination; }
-		case 2: { m_operationMode = m_CanParameters.m_iOperationMode; }
-		case 1: { m_baudRate = m_CanParameters.m_lBaudRate; break; }
-		default:{
-			MLOGANA(WRN, this) << "parsing parameters: this syntax is incorrect: [" << parameters << "]";
-			MLOGANA(WRN, this) << "you need up to 6 numbers separated by whitespaces, i.e. \"125000 0 0 0 0 0\" \"p0 p1 p2 p3 p4 p5\"";
-			MLOGANA(WRN, this) << "  p0 = baud rate, 125000 or whatever the module supports";
-			MLOGANA(WRN, this) << "  p1 = operation mode";
-			MLOGANA(WRN, this) << "  p2 = termination";
-			MLOGANA(WRN, this) << "  p3 = high speed";
-			MLOGANA(WRN, this) << "  p4 = time stamp";
-			MLOGANA(WRN, this) << "  p5 = sync mode";
-			MLOGANA(WRN, this) << "default values will be used and we continue nevertheless.";
-			break;
-		}
-		}
-#if 0
 		if ( m_CanParameters.m_iNumberOfDetectedParameters >= 1 )	{
 			m_baudRate = m_CanParameters.m_lBaudRate;
+			// any other parameters are already set, either to 0 by init,
+			// or by decoding. They are always used.
 		} else {
 			MLOGANA(ERR, this) << "Error while parsing parameters: this syntax is incorrect: [" << parameters << "]";
 			MLOGANA(ERR, this) << "you need up to 6 numbers separated by whitespaces, i.e. \"125000 0 0 0 0 0\" \"p0 p1 p2 p3 p4 p5\"";
@@ -264,7 +244,6 @@ int AnaCanScan::configureCanBoard(const string name,const string parameters)
 			MLOGANA(ERR, this) << "  p5 = sync mode";
 			return -1;
 		}
-#endif
 	} else	{
 		MLOGANA(INF, this) << "Unspecified parameters, default values will be used.";
 	}
