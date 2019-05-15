@@ -31,7 +31,7 @@ CAN bridges from vendors are compatible with CanModule and are tested
 * `Peak`_ 
 
 Integration into projects
-------------------------
+-------------------------
 
 In order to use CanModule in your  project/server/code there are two ways 
 

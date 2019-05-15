@@ -3,15 +3,32 @@
 ===========
 
 All modules from vendor `AnaGate`_ are handled by class AnaCanScan which manages the modules through their underlying vendor specific API and provides 
-the standard generic CanModule API. 
+the standard generic CanModule API. Since these modules communicate to the host computer only via ethernet, at the fundamental level only classical 
+tcp/ip ethernet is needed. Nevertheless the specific contents of the IP frames are wrapped up in an Anagate API for convenience, which is linked
+into the user code as a library. There are therefore no implementation differences between Linux and Windows.    
 
-The connection to a specific port for I/O is created by calling
+The connection 
+--------------
 
+To connect to a specific port for I/O, and send CAN messages, the following methods are used.
 
 .. doxygenclass:: AnaCanScan 
 	:project: CanModule
 	:members: createBus, sendMessage
 
+		
+example
+-------
 
+.. code-block:: c++
+
+ libloader = CanModule::CanLibLoader::createInstance( "an" );
+ cca = libloader->openCanBus( "an:can0", "250000 0 1" ); // termination, ISEG controllers, p3, p4, p5 defaults
+ CanMessage cm; // empty
+ cca->sendMessage( &cm );
  
-	
+ 
+ 
+ 
+
+

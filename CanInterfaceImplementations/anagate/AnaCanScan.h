@@ -67,50 +67,13 @@ public:
 	//Destructor of the class
 	virtual ~AnaCanScan();
 
-	/**
-	 * Method that initialises a can bus channel. The following methods called upon the same object will be using this initialised channel.
-	 *
-	 * @param name: Name of the can bus channel. The specific mapping will change depending on the interface used. For example, accessing channel 0 for the
-	 * 				16 port systec interface usb1 would be using name "st:9", while in socket can the same channel would be "sock:can0".
-	 * 				for anagate, this is a ":" separated string with three elements, example: "an:0:128.141.159.194"
-	 * 				with:
-	 * 				 "an" = anagate library
-	 * 				 0 = the physical module port (if multiport), 0=A, 1=B etc etc
-	 * 				 a.b.c.d = the IP number (here, out lab module)
-	 *
-	 *
-	 * @param parameters: Different parameters used for the initialisation. For using the default parameters just set this to "Unspecified"
-	 *
-	 *              for anagate we have a string of 6 parameters separated by whitespace, i.e. "125000 0 0 0 0 0"
-	 *
-	 *  				m_iNumberOfDetectedParameters = sscanf(canpars, "%ld %u %u %u %u %u", &m_lBaudRate, &m_iOperationMode, &m_iTermination, &m_iHighSpeed, &m_iTimeStamp, &m_iSyncMode);
-	 *
-	 *              value0 = baud rate, default 125000
-	 *              value1 = operationMode, default 0
-	 *              value2 = termination, default 0
-	 *              value3 = high speed, default 0
-	 *              value4 = time stamp, default 0
-	 *              value5 = sync mode, default 0
-	 *              (see anagate manual for explanation what this actually all means)
-	* i.e. "250000 0 1 0 0 1"
-	 * @return: Was the initialisation process successful?
-	 */
+
 	virtual bool createBus(const string name ,const string parameters);
 
 	/**
 	 * we throttle the message sending, by introducing a usleep between successive sends
 	 */
 	void setMessageDelay( int usleep );
-
-	/**
-	 * Method that sends a message trough the can bus channel. If the method createBus was not called before this, sendMessage will fail, as there is no
-	 * can bus channel to send a message trough.
-	 * @param cobID: Identifier that will be used for the message.
-	 * @param len: Length of the message. If the message is bigger than 8 characters, it will be split into separate 8 characters messages.
-	 * @param message: Message to be sent trough the can bus.
-	 * @param rtr: is the message a remote transmission request?
-	 * @return: Was the sending process successful?
-	 */
     virtual bool sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr = false);
 	virtual bool sendMessage(CanMessage *);
 

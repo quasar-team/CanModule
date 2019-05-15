@@ -37,9 +37,11 @@ Only a few common methods are needed:
 	
 	
 * Only two strings, "port" and "parameters"
+
 have to defined to communicate with a CAN port for a module from a vendor.
 
 * a connection handler method
+
 must be registered to treat received messages (boost slot connected to boost signal):
 
 .. code-block:: c++

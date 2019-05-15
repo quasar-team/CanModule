@@ -22,6 +22,8 @@ alphabetical index
 ------------------
 
 * :ref:`genindex`
+
 .. * :ref:`search`
 .. * :ref:`modindex`
+
 
