@@ -248,6 +248,11 @@ int AnaCanScan::configureCanBoard(const string name,const string parameters)
 }
 
 /**
+ *
+ * Obtains a Anagate canport and opens it.
+ *  The name of the port and parameters should have been specified by preceding call to configureCanboard()
+ *  @returns less than zero in case of error, otherwise success
+ *
  * communicate with the hardware using the CanOpen interface:
  * open anagate port, attach reply handler.
  * No message queuing. CANSetMaxSizePerQueue not called==default==0
@@ -512,7 +517,7 @@ AnaInt32 AnaCanScan::connectReceptionHandler(){
 
 
 /**
- * we try to reconnect one port
+ * we try to reconnect one port after a power loss, and we should do this for all ports
  * returns:
  * 0 = OK
  * -1 = could not CANOpenDevice device
@@ -633,6 +638,13 @@ bool AnaCanScan::sendMessage(CanMessage *canm)
 	return sendMessage(short(canm->c_id), canm->c_dlc, canm->c_data, canm->c_rtr);
 }
 
+/**
+ * Method that sends a remote request trough the can bus channel.
+ * If the method createBus was not called before this, sendMessage will fail, as there is no
+ * can bus channel to send the request trough. Similar to sendMessage, but it sends an special message reserved for requests.
+ * @param cobID: Identifier that will be used for the request.
+ * @return Was the initialisation process successful?
+ */
 bool AnaCanScan::sendRemoteRequest(short cobID)
 {
 	AnaInt32 anaCallReturn;
@@ -646,6 +658,7 @@ bool AnaCanScan::sendRemoteRequest(short cobID)
 }
 
 /**
+ * Provides textual representation of an error code.
  * error return from module
  * \todo: Fix AnaCanScan::errorCodeToString method, this doesn't do anything!!
  */

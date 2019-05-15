@@ -58,41 +58,23 @@ class AnaCanScan: public CanModule::CCanAccess
 {
 
 public:
-	//Constructor of the class. Will initiate the statistics.
-	AnaCanScan();
-	//Disables copy constructor
-	AnaCanScan(AnaCanScan const & other) = delete;
-	//Disables asignation
-	AnaCanScan& operator=(AnaCanScan const & other) = delete;
-	//Destructor of the class
+	AnaCanScan();//Constructor of the class. Will initiate the statistics.
+	AnaCanScan(AnaCanScan const & other) = delete;  //Disables copy constructor
+	AnaCanScan& operator=(AnaCanScan const & other) = delete; // Disables assignment
 	virtual ~AnaCanScan();
 
-
 	virtual bool createBus(const string name ,const string parameters);
-
-	/**
-	 * we throttle the message sending, by introducing a usleep between successive sends
-	 */
-	void setMessageDelay( int usleep );
     virtual bool sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr = false);
 	virtual bool sendMessage(CanMessage *);
-
-    /**
-	 * Method that sends a remote request trough the can bus channel. If the method createBus was not called before this, sendMessage will fail, as there is no
-	 * can bus channel to send the request trough. Similar to sendMessage, but it sends an special message reserved for requests.
-	 * @param cobID: Identifier that will be used for the request.
-	 * @return: Was the initialisation process successful?
-	 */
 	virtual bool sendRemoteRequest(short cobID);
-
 	virtual void getStatistics( CanStatistics & result );
+
 	void statisticsOnRecieve(int);
 	void callbackOnRecieve(CanMessage&);
 	void startAlive( int aliveTime_sec );
 	void setConnectWaitTime( int timeout_ms );
 
 private:
-
 	int m_canPortNumber; //The number of can port (CANA, CANB, ...) associated with this instance.
 	string  m_canIPAddress;
 	unsigned int m_baudRate; 	//Current baud rate for statistics
@@ -105,34 +87,11 @@ private:
     AnaInt32 m_timeout; 		// connect_wait time
 	static Log::LogComponentHandle s_logItHandleAnagate;
 	static bool s_logItRegisteredAnagate;
-
-
-    bool sendErrorCode(AnaInt32);
-    string ipAdress(){ return(m_canIPAddress );}
-    int canPortNumber(){ return(m_canPortNumber);}
-    int handle(){ return(m_UcanHandle);}
-	int configureCanBoard(const string name,const string parameters);
-	int connectReceptionHandler();
+	static AnaInt32 s_canHandleArray[256];
+	static bool s_isCanHandleInUseArray[256];
 
 	static void objectMapSize();
-
-	/**
-	 * Obtains a Anagate canport and opens it.
-	 *  The name of the port and parameters should have been specified by preceding call to configureCanboard()
-	 *  @returns less than zero in case of error, otherwise success
-	 */
-	int openCanPort();
-
-	/**
-	 * we try to reconnect after a power loss, but we should do this for all ports
-	 */
-	int reconnect();
 	static int reconnectAllPorts( string ip );
-
-	/**
-	 * Provides textual representation of an error code.
-	 */
-	bool errorCodeToString(long error, char message[]);
 
 	/**
 	 * we have one object for each CAN port, each object has an unique handle. Several objects thus share
@@ -143,14 +102,16 @@ private:
 	static bool isCanHandleInUse(int handle) { return s_isCanHandleInUseArray[ handle ]; }
 	static void setCanHandleOfPort(int port, AnaInt32 handle) { s_canHandleArray[ port ] = handle; }
 	static AnaInt32 getCanHandleFromPort(int n) { return s_canHandleArray[n]; }
-#if 0
-	static void cleanupMapOfUnusedObjectHandlers();
-#endif
 
-	static AnaInt32 s_canHandleArray[256];
-	static bool s_isCanHandleInUseArray[256];
-
-
+	bool sendErrorCode(AnaInt32);
+	string ipAdress(){ return(m_canIPAddress );}
+	int canPortNumber(){ return(m_canPortNumber);}
+	int handle(){ return(m_UcanHandle);}
+	int configureCanBoard(const string name,const string parameters);
+	int connectReceptionHandler();
+	int openCanPort();
+	int reconnect();
+	bool errorCodeToString(long error, char message[]);
 };
 
 #endif //CCANANASCAN_H_
