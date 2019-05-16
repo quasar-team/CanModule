@@ -59,7 +59,7 @@ public:
 	 */
 	bool getErrorMessage(long error, char **message);
 
-	static Log::LogComponentHandle s_logItHandleSt;
+	static Log::LogComponentHandle s_logItHandlePk;
 	static bool s_logItRegisteredPk;
 
 private:
