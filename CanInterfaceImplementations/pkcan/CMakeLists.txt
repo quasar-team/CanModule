@@ -3,16 +3,6 @@ project(pkcan)
 
 SET( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/CanInterfaceImplementations/output/)
 
-if(0)
-if(WIN32)
-	SET(PEAKCAN_INC_HINT "C:/3rdPartySoftware/PeakCAN/pcan-basic/PCAN-Basic API/Include")
-	SET(PEAKCAN_LIB_HINT "C:/3rdPartySoftware/PeakCAN/pcan-basic/PCAN-Basic API/x64/VC_LIB/PCANBasic.lib")
-else()
-	SET(PEAKCAN_INC_HINT "/some/path/to/include/directory/")
-	SET(PEAKCAN_LIB_HINT "/some/path/to/lib/binary")
-endif()
-endif()
-
 # check if toolchain injection was correct for peak
 if( NOT DEFINED PEAK_PATH_LIBS ) 
 	message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Required variable PEAK_LIB_FILE has not been defined, take default." )
@@ -40,7 +30,6 @@ set(PEAKCAN_SOURCES
 	../../CanInterface/include/CanModuleUtils.h	
 )
 
-# checkCANImplResourceExists(PEAKCAN_INC_DIR ${PEAKCAN_INC_HINT})
 include_directories ( ${PEAKCAN_INC_DIR} )
 
 if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
@@ -50,8 +39,7 @@ else()
 	target_link_libraries( pkcan ${LOGIT_LIB} )
 endif()
 
-#checkCANImplResourceExists(PEAKCAN_LIB_FILE ${PEAKCAN_LIB_HINT})
-target_link_libraries ( pkcan ${BOOST_LIBS} ${PEAKCAN_LIB_FILE} )
+target_link_libraries ( pkcan ${BOOST_LIBS} ${PEAK_LIB_FILE} )
 
 set_property(TARGET pkcan PROPERTY POSITION_INDEPENDENT_CODE TRUE)
 set_property(TARGET pkcan PROPERTY LINKER_LANGUAGE CXX)

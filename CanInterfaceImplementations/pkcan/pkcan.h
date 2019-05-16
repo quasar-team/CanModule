@@ -1,8 +1,8 @@
-/*
- *pkcan.h
+/**
+ * pkcan.h
  *
  *  Created on: JUL 2, 2012
- *      Author: vfilimon
+ *      Author: vfilimon, mludwig
  */
 
 #ifndef CCANPKSCAN_H_
