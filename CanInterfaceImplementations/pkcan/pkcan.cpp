@@ -10,7 +10,7 @@
 /* static */ bool PKCanScan::s_logItRegisteredPk = false;
 /* static */ Log::LogComponentHandle PKCanScan::s_logItHandlePk = 0;
 
-#define MLOGPK(LEVEL,THIS) LOG(Log::LEVEL, PKCanScan::s_logItHandleSt) << __FUNCTION__ << " " << " bus= " << THIS->getBusName() << " "
+#define MLOGPK(LEVEL,THIS) LOG(Log::LEVEL, PKCanScan::s_logItHandlePk) << __FUNCTION__ << " " << " bus= " << THIS->getBusName() << " "
 
 using namespace std;
 
