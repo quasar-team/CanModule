@@ -48,25 +48,8 @@ public:
 	//Destructor of the class
 	virtual ~STCanScan();
 
-	/*
-	 * Method that initialises a can bus channel. The following methods called upon the same object will be using this initialised channel.
-	 *
-	 * @param name: Name of the can bus channel. The specific mapping will change depending on the interface used. For example, accessing channel 0 for the
-	 * 				systec interface would be using name "st:9", while in socket can the same channel would be "sock:can0".
-	 * @param parameters: Different parameters used for the initialisation. For using the default parameters just set this to "Unspecified"
-	 * @return: Was the initialisation process successful?
-	 */
 	virtual bool createBus(const string name ,const string parameters);
 
-	/*
-	 * Method that sends a message trough the can bus channel. If the method createBUS was not called before this, sendMessage will fail, as there is no
-	 * can bus channel to send a message trough.
-	 * @param cobID: Identifier that will be used for the message.
-	 * @param len: Length of the message. If the message is bigger than 8 characters, it will be split into separate 8 characters messages.
-	 * @param message: Message to be sent trough the can bus.
-	 * @param rtr: is the message a remote transmission request?
-	 * @return: Was the sending process successful?
-	 */
     virtual bool sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr = false);
 
     /*
@@ -109,11 +92,6 @@ private:
 	static DWORD WINAPI CanScanControlThread(LPVOID pCanScan);
 
 	int configureCanBoard(const string name,const string parameters);
-	/** Obtains a Systec canport and opens it.
-	*  The name of the port and parameters should have been specified by preceding call to configureCanboard()
-	*
-	*  @returns less than zero in case of error, otherwise success
-	*/
 	int openCanPort(tUcanInitCanParam initializationParameters);
 	/*
 	 * Provides textual representation of an error code.

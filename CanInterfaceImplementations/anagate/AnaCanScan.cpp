@@ -140,7 +140,7 @@ void AnaCanScan::callbackOnRecieve(CanMessage& msg)
 /**
  * Method that initialises a CAN bus channel for anagate. All following methods called on the same object will be using this initialized channel.
  *
- * @param name = 3 parameters separated by ":" like "n0:n1:n2"
+ * @param name 3 parameters separated by ":" like "n0:n1:n2"
  * 		n0 = "an" for anagate
  * 		n1 = port number on the module, 0=A, 1=B, etc etc
  * 		n2 = ip number

@@ -6,6 +6,7 @@ All modules from vendor `AnaGate`_ are handled by class AnaCanScan which manages
 the standard generic CanModule API. Since these modules communicate to the host computer only via ethernet, at the fundamental level only classical 
 tcp/ip ethernet is needed. Nevertheless the specific contents of the IP frames are wrapped up in an Anagate API for convenience, which is linked
 into the user code as a library. There are therefore no implementation differences between Linux and Windows.    
+Here the underlying vendor specific classes and the specific parameters are documented. 
 
 The connection 
 --------------
@@ -17,8 +18,10 @@ To connect to a specific port for I/O, and send CAN messages, the following meth
 	:members: createBus, sendMessage
 
 		
-example
--------
+standard CanModule API example
+------------------------------
+
+This is how the CanModule standard API is used for anagate. The code is identical for linux and windows.
 
 .. code-block:: c++
 

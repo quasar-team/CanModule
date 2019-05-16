@@ -33,14 +33,6 @@ public:
 	PKCanScan& operator=(PKCanScan const & other) = delete;
 	//Destructor of the class
 	virtual ~PKCanScan();
-	/*
-	 * Method that initialises a can bus channel. The following methods called upon the same object will be using this initialised channel.
-	 *
-	 * @param name: Name of the can bus channel. The specific mapping will change depending on the interface used. For example, accessing channel 0 for the
-	 * 				systec interface would be using name "st:9", while in socket can the same channel would be "sock:can0".
-	 * @param parameters: Different parameters used for the initialisation. For using the default parameters just set this to "Unspecified"
-	 * @return: Was the initialisation process successful?
-	 */
 	virtual bool createBus(const string name,const string parameters);
 	/*
 	 * Method that sends a message trough the can bus channel. If the method createBus was not called before this, sendMessage will fail, as there is no
