@@ -206,7 +206,14 @@ bool PKCanScan::configureCanboard(const string name,const string parameters)
 	{
 		MLOG(DBG, this) << "Unspecified parameters, default values will be used.";
 	}
+
+	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << std::endl;
+
 	//Initialize the canboard
+
+	// for FD modules, it is actually
+//	TPCANStatus tpcanStatus = CAN_Initialize(m_canObjHandler, m_baudRate, 256, 3);
+
 	TPCANStatus tpcanStatus = CAN_Initialize(m_canObjHandler, m_baudRate,256,3);
 	return tpcanStatus == PCAN_ERROR_OK;
 }
