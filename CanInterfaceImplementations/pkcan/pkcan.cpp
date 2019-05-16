@@ -6,6 +6,12 @@
 #include "CanModuleUtils.h"
 
 #include <LogIt.h>
+
+/* static */ bool PKCanScan::s_logItRegisteredSt = false;
+/* static */ Log::LogComponentHandle PKCanScan::s_logItHandlePk = 0;
+
+#define MLOGPK(LEVEL,THIS) LOG(Log::LEVEL, PKCanScan::s_logItHandleSt) << __FUNCTION__ << " " << " bus= " << THIS->getBusName() << " "
+
 using namespace std;
 
 bool  initLibarary =  false;
@@ -98,6 +104,24 @@ DWORD WINAPI PKCanScan::CanScanControlThread(LPVOID pCanScan)
  */
 bool PKCanScan::createBus(const string name ,const string parameters )
 {
+	// calling base class to get the instance from there
+	Log::LogComponentHandle myHandle;
+	LogItInstance* logItInstance = CCanAccess::getLogItInstance(); // actually calling instance method, not class
+	//std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " ptr= 0x" << logItInstance << std::endl;
+
+	// register peak@W component for logging
+	if (!LogItInstance::setInstance(logItInstance))
+		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
+		<< " could not set LogIt instance" << std::endl;
+
+	logItInstance->registerLoggingComponent(CanModule::LogItComponentNamePeak, Log::TRC);
+	if (!logItInstance->getComponentHandle(CanModule::LogItComponentNamePeak, myHandle))
+		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
+		<< " could not get LogIt component handle for " << LogItComponentNamePeak << std::endl;
+
+	PKCanScan::s_logItHandlePk = myHandle;
+	MLOGST(DBG, this) << " name= " << name << " parameters= " << parameters << ", configuring CAN board";
+
 	m_sBusName = name;
 	//We configure the canboard
 	if (!configureCanboard(name,parameters))
@@ -117,6 +141,8 @@ bool PKCanScan::createBus(const string name ,const string parameters )
 
 bool PKCanScan::configureCanboard(const string name,const string parameters)
 {
+	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << sdt::endl;
+
 	m_sBusName = name;
 	m_baudRate = PCAN_BAUD_125K;
 
