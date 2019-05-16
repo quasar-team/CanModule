@@ -39,7 +39,7 @@ DWORD WINAPI PKCanScan::CanScanControlThread(LPVOID pCanScan)
 {
 	PKCanScan *pkCanScanPointer = reinterpret_cast<PKCanScan *>(pCanScan);
 	TPCANHandle tpcanHandler = pkCanScanPointer->m_canObjHandler;
-	MLOG(DBG,pkCanScanPointer) << "CanScanControlThread Started. m_CanScanThreadShutdownFlag = [" << pkCanScanPointer->m_CanScanThreadShutdownFlag <<"]";
+	MLOGPK(DBG,pkCanScanPointer) << "CanScanControlThread Started. m_CanScanThreadShutdownFlag = [" << pkCanScanPointer->m_CanScanThreadShutdownFlag <<"]";
 	while ( pkCanScanPointer->m_CanScanThreadShutdownFlag ) {
 		TPCANMsg tpcanMessage;
 		TPCANTimestamp tpcanTimestamp;
@@ -120,7 +120,7 @@ bool PKCanScan::createBus(const string name ,const string parameters )
 		<< " could not get LogIt component handle for " << LogItComponentNamePeak << std::endl;
 
 	PKCanScan::s_logItHandlePk = myHandle;
-	MLOGST(DBG, this) << " name= " << name << " parameters= " << parameters << ", configuring CAN board";
+	MLOGPK(DBG, this) << " name= " << name << " parameters= " << parameters << ", configuring CAN board";
 
 	m_sBusName = name;
 	//We configure the canboard
