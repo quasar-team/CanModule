@@ -141,11 +141,12 @@ bool PKCanScan::createBus(const string name ,const string parameters )
 
 bool PKCanScan::configureCanboard(const string name,const string parameters)
 {
-	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << std::endl;
+	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " name= " << name << " parameters= " << parameters << std::endl;
 
 	m_sBusName = name;
 	m_baudRate = PCAN_BAUD_125K;
 
+	// for FD modules
 	//unsigned int parametersTseg1 = 0;
 	//unsigned int parametersTseg2 = 0;
 	//unsigned int parametersSjw = 0;
@@ -226,7 +227,7 @@ bool PKCanScan::configureCanboard(const string name,const string parameters)
 	/**
 	* fixed datarate modules (classical CAN), plug and play
 	*/
-	//	TPCANStatus tpcanStatus = CAN_Initialize(m_canObjHandler, m_baudRate );
+	TPCANStatus tpcanStatus = CAN_Initialize(m_canObjHandler, m_baudRate );
 
 	/** fixed data rate, non plug-and-play
 	* static TPCANStatus Initialize(
@@ -236,7 +237,7 @@ bool PKCanScan::configureCanboard(const string name,const string parameters)
 	* UInt32 IOPort,
 	* UInt16 Interrupt);
 	*/
-	TPCANStatus tpcanStatus = CAN_Initialize(m_canObjHandler, m_baudRate,256,3); // one param missing ? 
+	// TPCANStatus tpcanStatus = CAN_Initialize(m_canObjHandler, m_baudRate,256,3); // one param missing ? 
 	return tpcanStatus == PCAN_ERROR_OK;
 }
 
