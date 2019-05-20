@@ -219,23 +219,24 @@ bool PKCanScan::configureCanboard(const string name,const string parameters)
 	* TPCANBitrateFD br = "f_clock_mhz=20, nom_brp=5, nom_tseg1=2, nom_tseg2=1, nom_sjw=1";
 	* PCAN_BR_CLOCK_MHZ=20, PCAN_BR_NOM_BRP=5, PCAN_BR_DATA_TSEG1=2, PCAN_BR_DATA_TSEG2=1, PCAN_BR_NOM_SJW=1;
 	*/
-	TPCANBitrateFD br = "f_clock_mhz=20, nom_brp=5, nom_tseg1=2, nom_tseg2=1, nom_sjw=1";
-	TPCANStatus tpcanStatus = CAN_InitializeFD(m_canObjHandler, br );
+	//TPCANBitrateFD br = "f_clock_mhz=20, nom_brp=5, nom_tseg1=2, nom_tseg2=1, nom_sjw=1";
+	//TPCANStatus tpcanStatus = CAN_InitializeFD(m_canObjHandler, br );
 
 
-/** non plug-and-play
-[DllImport("PCANBasic.dll", EntryPoint = "CAN_Initialize")]
-static TPCANStatus Initialize(
-	[MarshalAs(UnmanagedType::U1)]
-TPCANHandle Channel,
-[MarshalAs(UnmanagedType::U2)]
-TPCANBaudrate Btr0Btr1,
-[MarshalAs(UnmanagedType::U1)]
-TPCANType HwType,
-UInt32 IOPort,
-UInt16 Interrupt);
-*/
-//	TPCANStatus tpcanStatus = CAN_Initialize(m_canObjHandler, m_baudRate,256,3);
+	/**
+	* fixed datarate modules (classical CAN), plug and play
+	*/
+	//	TPCANStatus tpcanStatus = CAN_Initialize(m_canObjHandler, m_baudRate );
+
+	/** fixed data rate, non plug-and-play
+	* static TPCANStatus Initialize(
+	* TPCANHandle Channel,
+	* TPCANBaudrate Btr0Btr1,
+	* TPCANType HwType,
+	* UInt32 IOPort,
+	* UInt16 Interrupt);
+	*/
+	TPCANStatus tpcanStatus = CAN_Initialize(m_canObjHandler, m_baudRate,256,3); // one param missing ? 
 	return tpcanStatus == PCAN_ERROR_OK;
 }
 
