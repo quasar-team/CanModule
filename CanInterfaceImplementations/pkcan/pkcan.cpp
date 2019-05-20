@@ -6,6 +6,12 @@
 #include "CanModuleUtils.h"
 
 #include <LogIt.h>
+
+/* static */ bool PKCanScan::s_logItRegisteredPk = false;
+/* static */ Log::LogComponentHandle PKCanScan::s_logItHandlePk = 0;
+
+#define MLOGPK(LEVEL,THIS) LOG(Log::LEVEL, PKCanScan::s_logItHandlePk) << __FUNCTION__ << " " << " bus= " << THIS->getBusName() << " "
+
 using namespace std;
 
 bool  initLibarary =  false;
@@ -33,7 +39,7 @@ DWORD WINAPI PKCanScan::CanScanControlThread(LPVOID pCanScan)
 {
 	PKCanScan *pkCanScanPointer = reinterpret_cast<PKCanScan *>(pCanScan);
 	TPCANHandle tpcanHandler = pkCanScanPointer->m_canObjHandler;
-	MLOG(DBG,pkCanScanPointer) << "CanScanControlThread Started. m_CanScanThreadShutdownFlag = [" << pkCanScanPointer->m_CanScanThreadShutdownFlag <<"]";
+	MLOGPK(DBG,pkCanScanPointer) << "CanScanControlThread Started. m_CanScanThreadShutdownFlag = [" << pkCanScanPointer->m_CanScanThreadShutdownFlag <<"]";
 	while ( pkCanScanPointer->m_CanScanThreadShutdownFlag ) {
 		TPCANMsg tpcanMessage;
 		TPCANTimestamp tpcanTimestamp;
@@ -98,6 +104,24 @@ DWORD WINAPI PKCanScan::CanScanControlThread(LPVOID pCanScan)
  */
 bool PKCanScan::createBus(const string name ,const string parameters )
 {
+	// calling base class to get the instance from there
+	Log::LogComponentHandle myHandle;
+	LogItInstance* logItInstance = CCanAccess::getLogItInstance(); // actually calling instance method, not class
+	//std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " ptr= 0x" << logItInstance << std::endl;
+
+	// register peak@W component for logging
+	if (!LogItInstance::setInstance(logItInstance))
+		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
+		<< " could not set LogIt instance" << std::endl;
+
+	logItInstance->registerLoggingComponent(CanModule::LogItComponentNamePeak, Log::TRC);
+	if (!logItInstance->getComponentHandle(CanModule::LogItComponentNamePeak, myHandle))
+		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
+		<< " could not get LogIt component handle for " << LogItComponentNamePeak << std::endl;
+
+	PKCanScan::s_logItHandlePk = myHandle;
+	MLOGPK(DBG, this) << " name= " << name << " parameters= " << parameters << ", configuring CAN board";
+
 	m_sBusName = name;
 	//We configure the canboard
 	if (!configureCanboard(name,parameters))
@@ -117,9 +141,12 @@ bool PKCanScan::createBus(const string name ,const string parameters )
 
 bool PKCanScan::configureCanboard(const string name,const string parameters)
 {
+	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " name= " << name << " parameters= " << parameters << std::endl;
+
 	m_sBusName = name;
 	m_baudRate = PCAN_BAUD_125K;
 
+	// for FD modules
 	//unsigned int parametersTseg1 = 0;
 	//unsigned int parametersTseg2 = 0;
 	//unsigned int parametersSjw = 0;
@@ -180,8 +207,37 @@ bool PKCanScan::configureCanboard(const string name,const string parameters)
 	{
 		MLOG(DBG, this) << "Unspecified parameters, default values will be used.";
 	}
+
+	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << std::endl;
+
 	//Initialize the canboard
-	TPCANStatus tpcanStatus = CAN_Initialize(m_canObjHandler, m_baudRate,256,3);
+
+	/** FD (flexible datarate) modules.
+	 * we need to contruct (a compplicated) bitrate string in this caes, according to PEAK PCAN-Basic Documentation API manual p.82
+	 * two data rates, for nominal and data, can be defined.
+	 * all these parameters have to be passed
+	*TPCANStatus tpcanStatus = CAN_InitializeFD(m_canObjHandler, m_baudRate);
+	* TPCANBitrateFD br = "f_clock_mhz=20, nom_brp=5, nom_tseg1=2, nom_tseg2=1, nom_sjw=1";
+	* PCAN_BR_CLOCK_MHZ=20, PCAN_BR_NOM_BRP=5, PCAN_BR_DATA_TSEG1=2, PCAN_BR_DATA_TSEG2=1, PCAN_BR_NOM_SJW=1;
+	*/
+	//TPCANBitrateFD br = "f_clock_mhz=20, nom_brp=5, nom_tseg1=2, nom_tseg2=1, nom_sjw=1";
+	//TPCANStatus tpcanStatus = CAN_InitializeFD(m_canObjHandler, br );
+
+
+	/**
+	* fixed datarate modules (classical CAN), plug and play
+	*/
+	TPCANStatus tpcanStatus = CAN_Initialize(m_canObjHandler, m_baudRate );
+
+	/** fixed data rate, non plug-and-play
+	* static TPCANStatus Initialize(
+	* TPCANHandle Channel,
+	* TPCANBaudrate Btr0Btr1,
+	* TPCANType HwType,
+	* UInt32 IOPort,
+	* UInt16 Interrupt);
+	*/
+	// TPCANStatus tpcanStatus = CAN_Initialize(m_canObjHandler, m_baudRate,256,3); // one param missing ? 
 	return tpcanStatus == PCAN_ERROR_OK;
 }
 

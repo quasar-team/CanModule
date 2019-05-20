@@ -1,8 +1,8 @@
-/*
- *pkcan.h
+/**
+ * pkcan.h
  *
  *  Created on: JUL 2, 2012
- *      Author: vfilimon
+ *      Author: vfilimon, mludwig
  */
 
 #ifndef CCANPKSCAN_H_
@@ -59,6 +59,9 @@ public:
 	 */
 	bool getErrorMessage(long error, char **message);
 
+	static Log::LogComponentHandle s_logItHandlePk;
+	static bool s_logItRegisteredPk;
+
 private:
 	TPCANHandle getHandle(const char *name);
 
@@ -82,7 +85,6 @@ private:
 
     // Thread ID for the CAN update scan manager thread.
     DWORD           m_idCanScanThread;
-
 };
 
 #endif
