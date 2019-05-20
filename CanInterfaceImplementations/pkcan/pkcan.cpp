@@ -212,9 +212,9 @@ bool PKCanScan::configureCanboard(const string name,const string parameters)
 	//Initialize the canboard
 
 	// for FD modules, it is actually
-//	TPCANStatus tpcanStatus = CAN_Initialize(m_canObjHandler, m_baudRate, 256, 3);
+TPCANStatus tpcanStatus = CAN_InitializeFD(m_canObjHandler, m_baudRate, 256, 3);
 
-	TPCANStatus tpcanStatus = CAN_Initialize(m_canObjHandler, m_baudRate,256,3);
+//	TPCANStatus tpcanStatus = CAN_Initialize(m_canObjHandler, m_baudRate,256,3);
 	return tpcanStatus == PCAN_ERROR_OK;
 }
 
