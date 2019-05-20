@@ -212,8 +212,21 @@ bool PKCanScan::configureCanboard(const string name,const string parameters)
 	//Initialize the canboard
 
 	// for FD modules, it is actually
-TPCANStatus tpcanStatus = CAN_InitializeFD(m_canObjHandler, m_baudRate, 256, 3);
+TPCANStatus tpcanStatus = CAN_InitializeFD(m_canObjHandler, m_baudRate);
 
+
+/** non plug-and-play
+[DllImport("PCANBasic.dll", EntryPoint = "CAN_Initialize")]
+static TPCANStatus Initialize(
+	[MarshalAs(UnmanagedType::U1)]
+TPCANHandle Channel,
+[MarshalAs(UnmanagedType::U2)]
+TPCANBaudrate Btr0Btr1,
+[MarshalAs(UnmanagedType::U1)]
+TPCANType HwType,
+UInt32 IOPort,
+UInt16 Interrupt);
+*/
 //	TPCANStatus tpcanStatus = CAN_Initialize(m_canObjHandler, m_baudRate,256,3);
 	return tpcanStatus == PCAN_ERROR_OK;
 }
