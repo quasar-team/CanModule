@@ -211,8 +211,9 @@ bool PKCanScan::configureCanboard(const string name,const string parameters)
 
 	//Initialize the canboard
 
-	// for FD modules, it is actually
-TPCANStatus tpcanStatus = CAN_InitializeFD(m_canObjHandler, m_baudRate);
+	// FD (flexible datarate) modules, it is actually
+//TPCANStatus tpcanStatus = CAN_InitializeFD(m_canObjHandler, m_baudRate);
+TPCANStatus tpcanStatus = CAN_InitializeFD(m_canObjHandler, TPCANBitrateFD );
 
 
 /** non plug-and-play
