@@ -237,6 +237,8 @@
     <member refid="classMockCanAccess_1aa7b4edb24afec475727619a3f2e1f444" kind="function"><name>getCanMessageDataAsString</name></member>
   </compound>
   <compound refid="classPKCanScan" kind="class"><name>PKCanScan</name>
+    <member refid="classPKCanScan_1ad3d2cb2aba9654055c73ae2751cbf1de" kind="variable"><name>s_logItHandlePk</name></member>
+    <member refid="classPKCanScan_1ae1ff02a4576fe6d7276843e3821408c8" kind="variable"><name>s_logItRegisteredPk</name></member>
     <member refid="classPKCanScan_1a03eec54c44937d843f48b2b1a086b37b" kind="variable"><name>m_statistics</name></member>
     <member refid="classPKCanScan_1a1c361b38cbc6016192fbcd9a6d81236c" kind="variable"><name>m_busStatus</name></member>
     <member refid="classPKCanScan_1afc2d4388c9cc8b562f315a55e7ad8bab" kind="variable"><name>m_CanScanThreadShutdownFlag</name></member>
@@ -349,6 +351,7 @@
     <member refid="AnaCanScan_8h_1ad342ac907eb044443153a22f964bf0af" kind="typedef"><name>DWORD</name></member>
   </compound>
   <compound refid="pkcan_8cpp" kind="file"><name>pkcan.cpp</name>
+    <member refid="pkcan_8cpp_1a73247195a8f4adaf8cc04e0ac302e045" kind="define"><name>MLOGPK</name></member>
     <member refid="pkcan_8cpp_1a0ec23bcfb114109a7d87fb033501f29b" kind="variable"><name>initLibarary</name></member>
     <member refid="pkcan_8cpp_1a720081fb383c8d118471780c998a8b2e" kind="function"><name>__declspec</name></member>
   </compound>

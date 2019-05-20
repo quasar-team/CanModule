@@ -18,7 +18,7 @@
         <inbodydescription>
         </inbodydescription>
         <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.h" line="65" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.h" bodystart="65" bodyend="-1"/>
-        <referencedby refid="classSTCanScan_1aa99f9f23bdfd367a51efc40e228a6f88" compoundref="STCanScan_8cpp" startline="142" endline="176">createBus</referencedby>
+        <referencedby refid="classSTCanScan_1aa99f9f23bdfd367a51efc40e228a6f88" compoundref="STCanScan_8cpp" startline="139" endline="173">createBus</referencedby>
       </memberdef>
       <memberdef kind="variable" id="classSTCanScan_1a112e1468e19d033d97e731110ba195dc" prot="public" static="yes" mutable="no">
         <type>bool</type>
@@ -48,8 +48,8 @@
         <inbodydescription>
         </inbodydescription>
         <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.h" line="70" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.h" bodystart="70" bodyend="-1"/>
-        <referencedby refid="classSTCanScan_1a8e147c77933e11e9983f4d4e22830b21" compoundref="STCanScan_8cpp" startline="178" endline="229">configureCanBoard</referencedby>
-        <referencedby refid="classSTCanScan_1a5f74df7e9615929365b33c08e709e918" compoundref="STCanScan_8cpp" startline="237" endline="274">openCanPort</referencedby>
+        <referencedby refid="classSTCanScan_1a8e147c77933e11e9983f4d4e22830b21" compoundref="STCanScan_8cpp" startline="175" endline="226">configureCanBoard</referencedby>
+        <referencedby refid="classSTCanScan_1a5f74df7e9615929365b33c08e709e918" compoundref="STCanScan_8cpp" startline="234" endline="271">openCanPort</referencedby>
       </memberdef>
       <memberdef kind="variable" id="classSTCanScan_1ac5e311e695c1a3c810f82b0c21ee3618" prot="private" static="no" mutable="no">
         <type>int</type>
@@ -63,12 +63,12 @@
         <inbodydescription>
         </inbodydescription>
         <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.h" line="72" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.h" bodystart="72" bodyend="-1"/>
-        <referencedby refid="classSTCanScan_1aab42375da764eb0d50dee318cd790646" compoundref="STCanScan_8cpp" startline="73" endline="112">CanScanControlThread</referencedby>
-        <referencedby refid="classSTCanScan_1a8e147c77933e11e9983f4d4e22830b21" compoundref="STCanScan_8cpp" startline="178" endline="229">configureCanBoard</referencedby>
-        <referencedby refid="classSTCanScan_1a5f74df7e9615929365b33c08e709e918" compoundref="STCanScan_8cpp" startline="237" endline="274">openCanPort</referencedby>
-        <referencedby refid="classSTCanScan_1a45f0ec011022bf58a23e8370bac7f829" compoundref="STCanScan_8cpp" startline="302" endline="340">sendMessage</referencedby>
-        <referencedby refid="classSTCanScan_1a2c1de002fa7ace90ef95af00f824c8e4" compoundref="STCanScan_8cpp" startline="342" endline="352">sendRemoteRequest</referencedby>
-        <referencedby refid="classSTCanScan_1a2f3398dc992ebd90002c179305c55d54" compoundref="STCanScan_8cpp" startline="114" endline="122">~STCanScan</referencedby>
+        <referencedby refid="classSTCanScan_1aab42375da764eb0d50dee318cd790646" compoundref="STCanScan_8cpp" startline="77" endline="109">CanScanControlThread</referencedby>
+        <referencedby refid="classSTCanScan_1a8e147c77933e11e9983f4d4e22830b21" compoundref="STCanScan_8cpp" startline="175" endline="226">configureCanBoard</referencedby>
+        <referencedby refid="classSTCanScan_1a5f74df7e9615929365b33c08e709e918" compoundref="STCanScan_8cpp" startline="234" endline="271">openCanPort</referencedby>
+        <referencedby refid="classSTCanScan_1a45f0ec011022bf58a23e8370bac7f829" compoundref="STCanScan_8cpp" startline="299" endline="337">sendMessage</referencedby>
+        <referencedby refid="classSTCanScan_1a2c1de002fa7ace90ef95af00f824c8e4" compoundref="STCanScan_8cpp" startline="339" endline="349">sendRemoteRequest</referencedby>
+        <referencedby refid="classSTCanScan_1a2f3398dc992ebd90002c179305c55d54" compoundref="STCanScan_8cpp" startline="111" endline="119">~STCanScan</referencedby>
       </memberdef>
       <memberdef kind="variable" id="classSTCanScan_1a8d6dd7c1cbf4a97607909086da6361e1" prot="private" static="no" mutable="no">
         <type>int</type>
@@ -82,7 +82,7 @@
         <inbodydescription>
         </inbodydescription>
         <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.h" line="74" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.h" bodystart="74" bodyend="-1"/>
-        <referencedby refid="classSTCanScan_1a8e147c77933e11e9983f4d4e22830b21" compoundref="STCanScan_8cpp" startline="178" endline="229">configureCanBoard</referencedby>
+        <referencedby refid="classSTCanScan_1a8e147c77933e11e9983f4d4e22830b21" compoundref="STCanScan_8cpp" startline="175" endline="226">configureCanBoard</referencedby>
       </memberdef>
       <memberdef kind="variable" id="classSTCanScan_1add94dcac99b3ba3a17cb3708fd0cd20d" prot="private" static="no" mutable="no">
         <type>tUcanHandle</type>
@@ -96,11 +96,11 @@
         <inbodydescription>
         </inbodydescription>
         <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.h" line="76" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.h" bodystart="76" bodyend="-1"/>
-        <referencedby refid="classSTCanScan_1aab42375da764eb0d50dee318cd790646" compoundref="STCanScan_8cpp" startline="73" endline="112">CanScanControlThread</referencedby>
-        <referencedby refid="classSTCanScan_1a5f74df7e9615929365b33c08e709e918" compoundref="STCanScan_8cpp" startline="237" endline="274">openCanPort</referencedby>
-        <referencedby refid="classSTCanScan_1a45f0ec011022bf58a23e8370bac7f829" compoundref="STCanScan_8cpp" startline="302" endline="340">sendMessage</referencedby>
-        <referencedby refid="classSTCanScan_1a2c1de002fa7ace90ef95af00f824c8e4" compoundref="STCanScan_8cpp" startline="342" endline="352">sendRemoteRequest</referencedby>
-        <referencedby refid="classSTCanScan_1a2f3398dc992ebd90002c179305c55d54" compoundref="STCanScan_8cpp" startline="114" endline="122">~STCanScan</referencedby>
+        <referencedby refid="classSTCanScan_1aab42375da764eb0d50dee318cd790646" compoundref="STCanScan_8cpp" startline="77" endline="109">CanScanControlThread</referencedby>
+        <referencedby refid="classSTCanScan_1a5f74df7e9615929365b33c08e709e918" compoundref="STCanScan_8cpp" startline="234" endline="271">openCanPort</referencedby>
+        <referencedby refid="classSTCanScan_1a45f0ec011022bf58a23e8370bac7f829" compoundref="STCanScan_8cpp" startline="299" endline="337">sendMessage</referencedby>
+        <referencedby refid="classSTCanScan_1a2c1de002fa7ace90ef95af00f824c8e4" compoundref="STCanScan_8cpp" startline="339" endline="349">sendRemoteRequest</referencedby>
+        <referencedby refid="classSTCanScan_1a2f3398dc992ebd90002c179305c55d54" compoundref="STCanScan_8cpp" startline="111" endline="119">~STCanScan</referencedby>
       </memberdef>
       <memberdef kind="variable" id="classSTCanScan_1a93abd76cf68726a0bfa4b9d3982ec9aa" prot="private" static="no" mutable="no">
         <type><ref refid="classCanModule_1_1CanStatistics" kindref="compound">CanStatistics</ref></type>
@@ -114,9 +114,9 @@
         <inbodydescription>
         </inbodydescription>
         <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.h" line="78" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.h" bodystart="78" bodyend="-1"/>
-        <referencedby refid="classSTCanScan_1aab42375da764eb0d50dee318cd790646" compoundref="STCanScan_8cpp" startline="73" endline="112">CanScanControlThread</referencedby>
-        <referencedby refid="classSTCanScan_1a4810249805b660c4e914247acbdf45d2" compoundref="STCanScan_8cpp" startline="364" endline="369">getStatistics</referencedby>
-        <referencedby refid="classSTCanScan_1a45f0ec011022bf58a23e8370bac7f829" compoundref="STCanScan_8cpp" startline="302" endline="340">sendMessage</referencedby>
+        <referencedby refid="classSTCanScan_1aab42375da764eb0d50dee318cd790646" compoundref="STCanScan_8cpp" startline="77" endline="109">CanScanControlThread</referencedby>
+        <referencedby refid="classSTCanScan_1a4810249805b660c4e914247acbdf45d2" compoundref="STCanScan_8cpp" startline="361" endline="366">getStatistics</referencedby>
+        <referencedby refid="classSTCanScan_1a45f0ec011022bf58a23e8370bac7f829" compoundref="STCanScan_8cpp" startline="299" endline="337">sendMessage</referencedby>
         <referencedby refid="classSTCanScan_1a75fcb8ff51d82d362edb1dd31125fb10" compoundref="STCanScan_8cpp" startline="61" endline="71">STCanScan</referencedby>
       </memberdef>
       <memberdef kind="variable" id="classSTCanScan_1add0582f666b4f0a5883311a284a0e9c4" prot="private" static="no" mutable="no">
@@ -131,8 +131,8 @@
         <inbodydescription>
         </inbodydescription>
         <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.h" line="80" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.h" bodystart="80" bodyend="-1"/>
-        <referencedby refid="classSTCanScan_1a8e147c77933e11e9983f4d4e22830b21" compoundref="STCanScan_8cpp" startline="178" endline="229">configureCanBoard</referencedby>
-        <referencedby refid="classSTCanScan_1a4810249805b660c4e914247acbdf45d2" compoundref="STCanScan_8cpp" startline="364" endline="369">getStatistics</referencedby>
+        <referencedby refid="classSTCanScan_1a8e147c77933e11e9983f4d4e22830b21" compoundref="STCanScan_8cpp" startline="175" endline="226">configureCanBoard</referencedby>
+        <referencedby refid="classSTCanScan_1a4810249805b660c4e914247acbdf45d2" compoundref="STCanScan_8cpp" startline="361" endline="366">getStatistics</referencedby>
       </memberdef>
       <memberdef kind="variable" id="classSTCanScan_1aa1c2f27f78da63fc7d1f542f818b9624" prot="private" static="no" mutable="no">
         <type><ref refid="AnaCanScan_8h_1ad342ac907eb044443153a22f964bf0af" kindref="member">DWORD</ref></type>
@@ -146,7 +146,7 @@
         <inbodydescription>
         </inbodydescription>
         <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.h" line="85" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.h" bodystart="85" bodyend="-1"/>
-        <referencedby refid="classSTCanScan_1a43454c0bc20eb764cbb4ef3dd5e52cc9" compoundref="STCanScan_8cpp" startline="276" endline="289">sendErrorCode</referencedby>
+        <referencedby refid="classSTCanScan_1a43454c0bc20eb764cbb4ef3dd5e52cc9" compoundref="STCanScan_8cpp" startline="273" endline="286">sendErrorCode</referencedby>
       </memberdef>
       <memberdef kind="variable" id="classSTCanScan_1abd418113d56ef882bb12cd7473d031e1" prot="private" static="no" mutable="no">
         <type>bool</type>
@@ -160,8 +160,8 @@
         <inbodydescription>
         </inbodydescription>
         <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.h" line="86" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.h" bodystart="86" bodyend="-1"/>
-        <referencedby refid="classSTCanScan_1aab42375da764eb0d50dee318cd790646" compoundref="STCanScan_8cpp" startline="73" endline="112">CanScanControlThread</referencedby>
-        <referencedby refid="classSTCanScan_1a2f3398dc992ebd90002c179305c55d54" compoundref="STCanScan_8cpp" startline="114" endline="122">~STCanScan</referencedby>
+        <referencedby refid="classSTCanScan_1aab42375da764eb0d50dee318cd790646" compoundref="STCanScan_8cpp" startline="77" endline="109">CanScanControlThread</referencedby>
+        <referencedby refid="classSTCanScan_1a2f3398dc992ebd90002c179305c55d54" compoundref="STCanScan_8cpp" startline="111" endline="119">~STCanScan</referencedby>
       </memberdef>
       <memberdef kind="variable" id="classSTCanScan_1a2a57272e12f97f245e6f204347782bc0" prot="private" static="no" mutable="no">
         <type>HANDLE</type>
@@ -175,8 +175,8 @@
         <inbodydescription>
         </inbodydescription>
         <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.h" line="88" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.h" bodystart="88" bodyend="-1"/>
-        <referencedby refid="classSTCanScan_1aa99f9f23bdfd367a51efc40e228a6f88" compoundref="STCanScan_8cpp" startline="142" endline="176">createBus</referencedby>
-        <referencedby refid="classSTCanScan_1a2f3398dc992ebd90002c179305c55d54" compoundref="STCanScan_8cpp" startline="114" endline="122">~STCanScan</referencedby>
+        <referencedby refid="classSTCanScan_1aa99f9f23bdfd367a51efc40e228a6f88" compoundref="STCanScan_8cpp" startline="139" endline="173">createBus</referencedby>
+        <referencedby refid="classSTCanScan_1a2f3398dc992ebd90002c179305c55d54" compoundref="STCanScan_8cpp" startline="111" endline="119">~STCanScan</referencedby>
       </memberdef>
       <memberdef kind="variable" id="classSTCanScan_1a8ae65fcef31d4bb84aa5bb8978973f86" prot="private" static="no" mutable="no">
         <type><ref refid="AnaCanScan_8h_1ad342ac907eb044443153a22f964bf0af" kindref="member">DWORD</ref></type>
@@ -190,7 +190,7 @@
         <inbodydescription>
         </inbodydescription>
         <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.h" line="90" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.h" bodystart="90" bodyend="-1"/>
-        <referencedby refid="classSTCanScan_1aa99f9f23bdfd367a51efc40e228a6f88" compoundref="STCanScan_8cpp" startline="142" endline="176">createBus</referencedby>
+        <referencedby refid="classSTCanScan_1aa99f9f23bdfd367a51efc40e228a6f88" compoundref="STCanScan_8cpp" startline="139" endline="173">createBus</referencedby>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-static-attrib">
@@ -282,7 +282,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.h" line="49" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="114" bodyend="122"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.h" line="49" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="111" bodyend="119"/>
         <references refid="classSTCanScan_1abd418113d56ef882bb12cd7473d031e1" compoundref="STCanScan_8h" startline="86">m_CanScanThreadShutdownFlag</references>
         <references refid="classSTCanScan_1ac5e311e695c1a3c810f82b0c21ee3618" compoundref="STCanScan_8h" startline="72">m_channelNumber</references>
         <references refid="classSTCanScan_1a2a57272e12f97f245e6f204347782bc0" compoundref="STCanScan_8h" startline="88">m_hCanScanThread</references>
@@ -329,9 +329,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.h" line="51" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="142" bodyend="176"/>
-        <references refid="classSTCanScan_1aab42375da764eb0d50dee318cd790646" compoundref="STCanScan_8cpp" startline="73" endline="112">CanScanControlThread</references>
-        <references refid="classSTCanScan_1a8e147c77933e11e9983f4d4e22830b21" compoundref="STCanScan_8cpp" startline="178" endline="229">configureCanBoard</references>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.h" line="51" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="139" bodyend="173"/>
+        <references refid="classSTCanScan_1aab42375da764eb0d50dee318cd790646" compoundref="STCanScan_8cpp" startline="77" endline="109">CanScanControlThread</references>
+        <references refid="classSTCanScan_1a8e147c77933e11e9983f4d4e22830b21" compoundref="STCanScan_8cpp" startline="175" endline="226">configureCanBoard</references>
         <references refid="namespaceCanModule_1ae25b0c7453a892a139549914f17d298a" compoundref="CCanAccess_8h" startline="62">CanModule::LogItComponentNameSystec</references>
         <references refid="classSTCanScan_1a2a57272e12f97f245e6f204347782bc0" compoundref="STCanScan_8h" startline="88">m_hCanScanThread</references>
         <references refid="classSTCanScan_1a8ae65fcef31d4bb84aa5bb8978973f86" compoundref="STCanScan_8h" startline="90">m_idCanScanThread</references>
@@ -398,13 +398,13 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.h" line="53" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="302" bodyend="340"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.h" line="53" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="299" bodyend="337"/>
         <references refid="classSTCanScan_1ac5e311e695c1a3c810f82b0c21ee3618" compoundref="STCanScan_8h" startline="72">m_channelNumber</references>
         <references refid="classSTCanScan_1a93abd76cf68726a0bfa4b9d3982ec9aa" compoundref="STCanScan_8h" startline="78">m_statistics</references>
         <references refid="classSTCanScan_1add94dcac99b3ba3a17cb3708fd0cd20d" compoundref="STCanScan_8h" startline="76">m_UcanHandle</references>
         <references refid="STCanScan_8cpp_1a08d6d35b7f83e326a37caa39473e6ebe" compoundref="STCanScan_8cpp" startline="40">MLOGST</references>
         <references refid="classCanModule_1_1CanStatistics_1a0265b75e9e2e16737950b6b5c5662f35" compoundref="CanStatistics_8cpp" startline="72" endline="77">CanModule::CanStatistics::onTransmit</references>
-        <references refid="classSTCanScan_1a43454c0bc20eb764cbb4ef3dd5e52cc9" compoundref="STCanScan_8cpp" startline="276" endline="289">sendErrorCode</references>
+        <references refid="classSTCanScan_1a43454c0bc20eb764cbb4ef3dd5e52cc9" compoundref="STCanScan_8cpp" startline="273" endline="286">sendErrorCode</references>
       </memberdef>
       <memberdef kind="function" id="classSTCanScan_1a2c1de002fa7ace90ef95af00f824c8e4" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>bool</type>
@@ -422,10 +422,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.h" line="61" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="342" bodyend="352"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.h" line="61" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="339" bodyend="349"/>
         <references refid="classSTCanScan_1ac5e311e695c1a3c810f82b0c21ee3618" compoundref="STCanScan_8h" startline="72">m_channelNumber</references>
         <references refid="classSTCanScan_1add94dcac99b3ba3a17cb3708fd0cd20d" compoundref="STCanScan_8h" startline="76">m_UcanHandle</references>
-        <references refid="classSTCanScan_1a43454c0bc20eb764cbb4ef3dd5e52cc9" compoundref="STCanScan_8cpp" startline="276" endline="289">sendErrorCode</references>
+        <references refid="classSTCanScan_1a43454c0bc20eb764cbb4ef3dd5e52cc9" compoundref="STCanScan_8cpp" startline="273" endline="286">sendErrorCode</references>
       </memberdef>
       <memberdef kind="function" id="classSTCanScan_1a4810249805b660c4e914247acbdf45d2" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
@@ -443,7 +443,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.h" line="63" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="364" bodyend="369"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.h" line="63" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="361" bodyend="366"/>
         <references refid="classCanModule_1_1CanStatistics_1a85e6c87ce5285884a0272088178bb8f6" compoundref="CanStatistics_8cpp" startline="43" endline="50">CanModule::CanStatistics::beginNewRun</references>
         <references refid="classCanModule_1_1CanStatistics_1a8ec66bd11141579779f143362b70640e" compoundref="CanStatistics_8cpp" startline="52" endline="70">CanModule::CanStatistics::computeDerived</references>
         <references refid="classSTCanScan_1add0582f666b4f0a5883311a284a0e9c4" compoundref="STCanScan_8h" startline="80">m_baudRate</references>
@@ -466,15 +466,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.h" line="83" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="276" bodyend="289"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.h" line="83" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="273" bodyend="286"/>
         <references refid="classCanModule_1_1CCanAccess_1a33fbd693f04b4f4e21cee20856c44866" compoundref="CCanAccess_8h" startline="324">CanModule::CCanAccess::canMessageError</references>
         <references refid="namespaceCanModule_1a3ec3082d7d11a9c1641023cb3f53cbe5" compoundref="CanModuleUtils_8cpp" startline="44" endline="51">CanModule::convertTimepointToTimeval</references>
         <references refid="namespaceCanModule_1a6d0711aac0a75de5d2bf6142997a814d" compoundref="CanModuleUtils_8cpp" startline="60" endline="74">CanModule::currentTimeTimeval</references>
-        <references refid="classSTCanScan_1a9a4da7b1dd74e81e8066894a1a8c051e" compoundref="STCanScan_8cpp" startline="354" endline="362">errorCodeToString</references>
+        <references refid="classSTCanScan_1a9a4da7b1dd74e81e8066894a1a8c051e" compoundref="STCanScan_8cpp" startline="351" endline="359">errorCodeToString</references>
         <references refid="classSTCanScan_1aa1c2f27f78da63fc7d1f542f818b9624" compoundref="STCanScan_8h" startline="85">m_busStatus</references>
-        <referencedby refid="classSTCanScan_1aab42375da764eb0d50dee318cd790646" compoundref="STCanScan_8cpp" startline="73" endline="112">CanScanControlThread</referencedby>
-        <referencedby refid="classSTCanScan_1a45f0ec011022bf58a23e8370bac7f829" compoundref="STCanScan_8cpp" startline="302" endline="340">sendMessage</referencedby>
-        <referencedby refid="classSTCanScan_1a2c1de002fa7ace90ef95af00f824c8e4" compoundref="STCanScan_8cpp" startline="342" endline="352">sendRemoteRequest</referencedby>
+        <referencedby refid="classSTCanScan_1aab42375da764eb0d50dee318cd790646" compoundref="STCanScan_8cpp" startline="77" endline="109">CanScanControlThread</referencedby>
+        <referencedby refid="classSTCanScan_1a45f0ec011022bf58a23e8370bac7f829" compoundref="STCanScan_8cpp" startline="299" endline="337">sendMessage</referencedby>
+        <referencedby refid="classSTCanScan_1a2c1de002fa7ace90ef95af00f824c8e4" compoundref="STCanScan_8cpp" startline="339" endline="349">sendRemoteRequest</referencedby>
       </memberdef>
       <memberdef kind="function" id="classSTCanScan_1a8e147c77933e11e9983f4d4e22830b21" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -495,7 +495,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.h" line="94" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="178" bodyend="229"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.h" line="94" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="175" bodyend="226"/>
         <references refid="classSTCanScan_1add0582f666b4f0a5883311a284a0e9c4" compoundref="STCanScan_8h" startline="80">m_baudRate</references>
         <references refid="classSTCanScan_1a8d6dd7c1cbf4a97607909086da6361e1" compoundref="STCanScan_8h" startline="74">m_canHandleNumber</references>
         <references refid="classCanModule_1_1CCanAccess_1a484a4f9dc352fe31b4baff0365095705" compoundref="CCanAccess_8h" startline="368">CanModule::CCanAccess::m_CanParameters</references>
@@ -504,9 +504,9 @@
         <references refid="structCanModule_1_1CanParameters_1a53ce17e16c2a818ffbc05904d9e56e11" compoundref="CCanAccess_8h" startline="70">CanModule::CanParameters::m_lBaudRate</references>
         <references refid="classSTCanScan_1a38531e0fcde0f184eb968a01fb5984c9" compoundref="STCanScan_8h" startline="70">m_moduleNumber</references>
         <references refid="STCanScan_8cpp_1a08d6d35b7f83e326a37caa39473e6ebe" compoundref="STCanScan_8cpp" startline="40">MLOGST</references>
-        <references refid="classSTCanScan_1a5f74df7e9615929365b33c08e709e918" compoundref="STCanScan_8cpp" startline="237" endline="274">openCanPort</references>
+        <references refid="classSTCanScan_1a5f74df7e9615929365b33c08e709e918" compoundref="STCanScan_8cpp" startline="234" endline="271">openCanPort</references>
         <references refid="classCanModule_1_1CCanAccess_1af26c9d102638fb96e5e1305f807d148f" compoundref="CCanAccess_8h" startline="350" endline="364">CanModule::CCanAccess::parseNameAndParameters</references>
-        <referencedby refid="classSTCanScan_1aa99f9f23bdfd367a51efc40e228a6f88" compoundref="STCanScan_8cpp" startline="142" endline="176">createBus</referencedby>
+        <referencedby refid="classSTCanScan_1aa99f9f23bdfd367a51efc40e228a6f88" compoundref="STCanScan_8cpp" startline="139" endline="173">createBus</referencedby>
       </memberdef>
       <memberdef kind="function" id="classSTCanScan_1a5f74df7e9615929365b33c08e709e918" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -524,7 +524,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.h" line="95" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="237" bodyend="274"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.h" line="95" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="234" bodyend="271"/>
         <references refid="classSTCanScan_1a29b4c3c8f29e45f808fbb7528e4593aa" compoundref="STCanScan_8h" startline="103" endline="103">getCanHandle</references>
         <references refid="classSTCanScan_1a2f2a9aaa3ce2c653a4e1152eb8497493" compoundref="STCanScan_8h" startline="101" endline="101">isCanHandleInUse</references>
         <references refid="classSTCanScan_1ac5e311e695c1a3c810f82b0c21ee3618" compoundref="STCanScan_8h" startline="72">m_channelNumber</references>
@@ -533,7 +533,7 @@
         <references refid="STCanScan_8cpp_1a08d6d35b7f83e326a37caa39473e6ebe" compoundref="STCanScan_8cpp" startline="40">MLOGST</references>
         <references refid="classSTCanScan_1a50f89ce5fc0b2961937dc8a4b86081f8" compoundref="STCanScan_8h" startline="102" endline="102">setCanHandle</references>
         <references refid="classSTCanScan_1ae29a23d161c115f173cbdb3a807c895e" compoundref="STCanScan_8h" startline="100" endline="100">setCanHandleInUse</references>
-        <referencedby refid="classSTCanScan_1a8e147c77933e11e9983f4d4e22830b21" compoundref="STCanScan_8cpp" startline="178" endline="229">configureCanBoard</referencedby>
+        <referencedby refid="classSTCanScan_1a8e147c77933e11e9983f4d4e22830b21" compoundref="STCanScan_8cpp" startline="175" endline="226">configureCanBoard</referencedby>
       </memberdef>
       <memberdef kind="function" id="classSTCanScan_1a9a4da7b1dd74e81e8066894a1a8c051e" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -555,8 +555,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.h" line="99" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="354" bodyend="362"/>
-        <referencedby refid="classSTCanScan_1a43454c0bc20eb764cbb4ef3dd5e52cc9" compoundref="STCanScan_8cpp" startline="276" endline="289">sendErrorCode</referencedby>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.h" line="99" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="351" bodyend="359"/>
+        <referencedby refid="classSTCanScan_1a43454c0bc20eb764cbb4ef3dd5e52cc9" compoundref="STCanScan_8cpp" startline="273" endline="286">sendErrorCode</referencedby>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-static-func">
@@ -572,10 +572,10 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-        </detaileddescription>
+<para>thread to supervise port activity </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.h" line="92" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="73" bodyend="112"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.h" line="92" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="77" bodyend="109"/>
         <references refid="structCanMsgStruct_1a2e47a33e7bba46b05a8fff29433f047b" compoundref="CanMessage_8h" startline="29">CanMsgStruct::c_data</references>
         <references refid="structCanMsgStruct_1a3e5add8ae9cdadfcf3f2255d375ec9b3" compoundref="CanMessage_8h" startline="27">CanMsgStruct::c_dlc</references>
         <references refid="structCanMsgStruct_1acf3abc93beb936e5f9431ef6ec4568f3" compoundref="CanMessage_8h" startline="25">CanMsgStruct::c_ff</references>
@@ -590,8 +590,8 @@
         <references refid="classSTCanScan_1add94dcac99b3ba3a17cb3708fd0cd20d" compoundref="STCanScan_8h" startline="76">m_UcanHandle</references>
         <references refid="STCanScan_8cpp_1a08d6d35b7f83e326a37caa39473e6ebe" compoundref="STCanScan_8cpp" startline="40">MLOGST</references>
         <references refid="classCanModule_1_1CanStatistics_1a82b38a2383bc0ad6b1d306e86b9ef5c6" compoundref="CanStatistics_8cpp" startline="79" endline="84">CanModule::CanStatistics::onReceive</references>
-        <references refid="classSTCanScan_1a43454c0bc20eb764cbb4ef3dd5e52cc9" compoundref="STCanScan_8cpp" startline="276" endline="289">sendErrorCode</references>
-        <referencedby refid="classSTCanScan_1aa99f9f23bdfd367a51efc40e228a6f88" compoundref="STCanScan_8cpp" startline="142" endline="176">createBus</referencedby>
+        <references refid="classSTCanScan_1a43454c0bc20eb764cbb4ef3dd5e52cc9" compoundref="STCanScan_8cpp" startline="273" endline="286">sendErrorCode</references>
+        <referencedby refid="classSTCanScan_1aa99f9f23bdfd367a51efc40e228a6f88" compoundref="STCanScan_8cpp" startline="139" endline="173">createBus</referencedby>
       </memberdef>
       <memberdef kind="function" id="classSTCanScan_1ae29a23d161c115f173cbdb3a807c895e" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -613,7 +613,7 @@
         <inbodydescription>
         </inbodydescription>
         <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.h" line="100" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.h" bodystart="100" bodyend="100"/>
-        <referencedby refid="classSTCanScan_1a5f74df7e9615929365b33c08e709e918" compoundref="STCanScan_8cpp" startline="237" endline="274">openCanPort</referencedby>
+        <referencedby refid="classSTCanScan_1a5f74df7e9615929365b33c08e709e918" compoundref="STCanScan_8cpp" startline="234" endline="271">openCanPort</referencedby>
       </memberdef>
       <memberdef kind="function" id="classSTCanScan_1a2f2a9aaa3ce2c653a4e1152eb8497493" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>bool</type>
@@ -631,7 +631,7 @@
         <inbodydescription>
         </inbodydescription>
         <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.h" line="101" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.h" bodystart="101" bodyend="101"/>
-        <referencedby refid="classSTCanScan_1a5f74df7e9615929365b33c08e709e918" compoundref="STCanScan_8cpp" startline="237" endline="274">openCanPort</referencedby>
+        <referencedby refid="classSTCanScan_1a5f74df7e9615929365b33c08e709e918" compoundref="STCanScan_8cpp" startline="234" endline="271">openCanPort</referencedby>
       </memberdef>
       <memberdef kind="function" id="classSTCanScan_1a50f89ce5fc0b2961937dc8a4b86081f8" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -653,7 +653,7 @@
         <inbodydescription>
         </inbodydescription>
         <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.h" line="102" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.h" bodystart="102" bodyend="102"/>
-        <referencedby refid="classSTCanScan_1a5f74df7e9615929365b33c08e709e918" compoundref="STCanScan_8cpp" startline="237" endline="274">openCanPort</referencedby>
+        <referencedby refid="classSTCanScan_1a5f74df7e9615929365b33c08e709e918" compoundref="STCanScan_8cpp" startline="234" endline="271">openCanPort</referencedby>
       </memberdef>
       <memberdef kind="function" id="classSTCanScan_1a29b4c3c8f29e45f808fbb7528e4593aa" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>tUcanHandle</type>
@@ -671,7 +671,7 @@
         <inbodydescription>
         </inbodydescription>
         <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.h" line="103" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.h" bodystart="103" bodyend="103"/>
-        <referencedby refid="classSTCanScan_1a5f74df7e9615929365b33c08e709e918" compoundref="STCanScan_8cpp" startline="237" endline="274">openCanPort</referencedby>
+        <referencedby refid="classSTCanScan_1a5f74df7e9615929365b33c08e709e918" compoundref="STCanScan_8cpp" startline="234" endline="271">openCanPort</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>

@@ -16,7 +16,8 @@
         <inbodydescription>
         </inbodydescription>
         <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" line="70" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" bodystart="70" bodyend="-1"/>
-        <referencedby refid="classSTCanScan_1a8e147c77933e11e9983f4d4e22830b21" compoundref="STCanScan_8cpp" startline="178" endline="229">STCanScan::configureCanBoard</referencedby>
+        <referencedby refid="classPKCanScan_1a6fe021ecfdde5af1e7a74668b9819bfb" compoundref="pkcan_8cpp" startline="171" endline="272">PKCanScan::configureCanboard</referencedby>
+        <referencedby refid="classSTCanScan_1a8e147c77933e11e9983f4d4e22830b21" compoundref="STCanScan_8cpp" startline="175" endline="226">STCanScan::configureCanBoard</referencedby>
         <referencedby refid="classAnaCanScan_1ad917f9cda15bbf9dd9abe6417be5a5eb" compoundref="AnaCanScan_8cpp" startline="203" endline="251">AnaCanScan::configureCanBoard</referencedby>
         <referencedby refid="classCSockCanScan_1a38110f02c2d12fa9b620ba5ff438a960" compoundref="SockCanScan_8cpp" startline="680" endline="685">CSockCanScan::getStatistics</referencedby>
         <referencedby refid="classAnaCanScan_1ad94121f1933d50cafa52d625ee435f6c" compoundref="AnaCanScan_8cpp" startline="263" endline="323">AnaCanScan::openCanPort</referencedby>
@@ -109,7 +110,8 @@
         <inbodydescription>
         </inbodydescription>
         <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" line="76" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" bodystart="76" bodyend="-1"/>
-        <referencedby refid="classSTCanScan_1a8e147c77933e11e9983f4d4e22830b21" compoundref="STCanScan_8cpp" startline="178" endline="229">STCanScan::configureCanBoard</referencedby>
+        <referencedby refid="classPKCanScan_1a6fe021ecfdde5af1e7a74668b9819bfb" compoundref="pkcan_8cpp" startline="171" endline="272">PKCanScan::configureCanboard</referencedby>
+        <referencedby refid="classSTCanScan_1a8e147c77933e11e9983f4d4e22830b21" compoundref="STCanScan_8cpp" startline="175" endline="226">STCanScan::configureCanBoard</referencedby>
         <referencedby refid="classAnaCanScan_1ad917f9cda15bbf9dd9abe6417be5a5eb" compoundref="AnaCanScan_8cpp" startline="203" endline="251">AnaCanScan::configureCanBoard</referencedby>
         <referencedby refid="structCanModule_1_1CanParameters_1ae3c938ac282acae4e49487cbb8a61133" compoundref="CCanAccess_8h" startline="81" endline="94">scanParameters</referencedby>
       </memberdef>

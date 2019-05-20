@@ -9,6 +9,7 @@ CanModule reference documentation
    downloading
    objective
    standardApi
+   cwrapper
    vendors/systec
    vendors/anagate
    vendors/peak

@@ -7,7 +7,6 @@ both manage the modules through their underlying vendor specific API according t
 Both classes provide the standard generic CanModule API. 
 Here the underlying vendor specific classes and the specific parameters are documented. 
 
-
 The connection 
 --------------
 
@@ -22,15 +21,22 @@ the connection to a specific port for I/O is created by calling
 	:project: CanModule
 	:members: createBus, sendMessage
 	
-and communication takes place through peak's open-source PCAN-Basic windows library.
+and communication takes place through peak's open-source PCAN-Basic windows library. Only "plug-and-play"
+modules with USB interface and fixed datarate are supported by CanModule for now. PEAK's flexible datarate (FD)
+modules can be added later on (they need some different API-calls and more complex parameters), and also
+other interfaces like PCI are possible for windows.The implementation is based on the PCAN-Basic driver.
 
 linux
 ^^^^^
 
-The open-source socketcan interface is used on top of peak's open source netdev driver. 
+The open-source socketcan interface is used on top of peak's open source netdev driver. Both Peak's
+fixed and flexible datarate are working, although the fixed modules are recommended for bus compatibility.
+Only modules with USB interface are supported. 
 The peak driver source is freely available and it can be configured to build several
-types of drivers, where we use peak's netdev driver only. A PCAN-Basic driver is also 
-available but the netdev driver is more performant and modern. 
+types of drivers, where we use peak's netdev driver only. See `PeakDriver`_ for details on this.
+A PCAN-Basic driver is also available but the netdev driver is more performant and modern. The 
+PCAN-Basic driver is used nevertheless for windows, and it offers better compatibility for all module
+families. 
 
 .. doxygenclass:: CSockCanScan 
 	:project: CanModule
@@ -57,5 +63,6 @@ This is how the CanModule standard API is used for peak for windows.
  cca->sendMessage( &cm );
 
 
+.. _PeakDriver: https://readthedocs.web.cern.ch/display/CANDev/CAN+development?src=sidebar
 
 

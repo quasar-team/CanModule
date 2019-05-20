@@ -46,10 +46,10 @@ extern "C" __declspec(dllexport) CCanAccess *getCanBusAccess()
 }
 
 PKCanScan::PKCanScan():
-		m_busStatus(0),
-		m_baudRate(0),
-		m_idCanScanThread(0),
-		m_CanScanThreadShutdownFlag(true)
+				m_busStatus(0),
+				m_baudRate(0),
+				m_idCanScanThread(0),
+				m_CanScanThreadShutdownFlag(true)
 {
 	m_statistics.beginNewRun();
 }
@@ -112,15 +112,15 @@ DWORD WINAPI PKCanScan::CanScanControlThread(LPVOID pCanScan)
 /**
  * Method that initialises a CAN bus channel for peak@windows (using PEAK Basic)
  * All following methods called on the same object will be using this initialized channel.
+ * Only USB interfaces for PEAK modules, and only NON FD modules are supported for now.
  *
  * @param name = 2 parameters separated by ":" like "n0:n1"
  * 		* n0 = "pk" for peak@windows
- * 		* n1 = CAN port number on the module, can be prefixed with "can"
- * 		* ex.: "pk:can1" speaks to port 1 on peak module at the ip
+ * 		* n1 = CAN port number on the module, can be prefixed with "can": 0..N
+ * 		* ex.: "pk:can1" speaks to port 1 (the second port) on peak module at the ip
  * 		* ex.: "pk:1" works as well
  *
- *
- * @param parameters one parameter: "p0", positive integers
+ * @param parameters one parameter: "p0", positive integer
  * 				* "Unspecified" (or empty): using defaults = "125000" // params missing
  * 				* p0: bitrate: 50000, 100000, 125000, 250000, 500000, 1000000 bit/s
  *				  i.e. "250000"
@@ -132,15 +132,14 @@ bool PKCanScan::createBus(const string name ,const string parameters )
 	// calling base class to get the instance from there
 	Log::LogComponentHandle myHandle;
 	LogItInstance* logItInstance = CCanAccess::getLogItInstance(); // actually calling instance method, not class
-	//std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " ptr= 0x" << logItInstance << std::endl;
 
 	// register peak@W component for logging
 	if (!LogItInstance::setInstance(logItInstance))
 		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
 		<< " could not set LogIt instance" << std::endl;
 
-	logItInstance->registerLoggingComponent(CanModule::LogItComponentNamePeak, Log::TRC);
-	if (!logItInstance->getComponentHandle(CanModule::LogItComponentNamePeak, myHandle))
+	logItInstance->registerLoggingComponent( CanModule::LogItComponentNamePeak, Log::TRC);
+	if (!logItInstance->getComponentHandle( CanModule::LogItComponentNamePeak, myHandle))
 		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
 		<< " could not get LogIt component handle for " << LogItComponentNamePeak << std::endl;
 
@@ -149,21 +148,26 @@ bool PKCanScan::createBus(const string name ,const string parameters )
 
 	m_sBusName = name;
 	//We configure the canboard
-	if (!configureCanboard(name,parameters))
-	{//If we can't initialise the canboard, the thread is not started at all
+	if ( !configureCanboard(name,parameters) ) {
+		//If we can't initialise the canboard, the thread is not started at all
+		MLOGPK( ERR, this ) << " name= " << name << " parameters= " << parameters << ", failed to configure CAN board";
 		return false;
 	}
 	// Otherwise, we initialise the Scan thread
 	CAN_FilterMessages(m_canObjHandler,0,0x7FF,PCAN_MESSAGE_STANDARD);
 	m_hCanScanThread = CreateThread(NULL, 0, CanScanControlThread, this, 0, &m_idCanScanThread);
-	if (NULL == m_hCanScanThread)
-	{
+	if ( NULL == m_hCanScanThread ) {
 		DebugBreak();
 		return false;
 	}
 	return true;
 }
 
+
+/**
+ * method to configure peak modules, one channel at a time. We restrict this to USB interfaces and fixed datarate (not FD) modules
+ * If needed this can relatively easily be extended to other interfaces and FD mods as well.
+ */
 bool PKCanScan::configureCanboard(const string name,const string parameters)
 {
 	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " name= " << name << " parameters= " << parameters << std::endl;
@@ -180,7 +184,6 @@ bool PKCanScan::configureCanboard(const string name,const string parameters)
 	//long parametersBaudRate;
 	//int	numPar;
 	//Process the parameters
-
 	vector<string> vectorString;
 	vectorString = parseNameAndParameters(name, parameters);
 	MLOGPK(DBG, this) << " calling getHandle vectorString[1]= " << vectorString[1] << std::endl;
@@ -227,22 +230,15 @@ bool PKCanScan::configureCanboard(const string name,const string parameters)
 			default:
 				m_baudRate = m_CanParameters.m_lBaudRate;
 			}
-		}
-		else
-		{
-			if (m_CanParameters.m_iNumberOfDetectedParameters != 0)
-			{
+		} else {
+			if  (m_CanParameters.m_iNumberOfDetectedParameters != 0) {
 				m_baudRate = m_CanParameters.m_lBaudRate;
-			}
-			else
-			{
+			} else {
 				MLOGPK(ERR, this) << "Error while parsing parameters: this syntax is incorrect: [" << parameters << "]";
 				return false;
 			}
 		}
-	}
-	else
-	{
+	} else {
 		MLOGPK(DBG, this) << "Unspecified parameters, default values will be used.";
 	}
 

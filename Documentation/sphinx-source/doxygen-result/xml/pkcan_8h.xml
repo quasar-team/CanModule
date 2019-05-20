@@ -115,14 +115,8 @@
     <detaileddescription>
     </detaileddescription>
     <programlisting>
-<codeline lineno="1"><highlight class="comment">/*</highlight></codeline>
-<codeline lineno="2"><highlight class="comment"><sp/>*pkcan.h</highlight></codeline>
-<codeline lineno="3"><highlight class="comment"><sp/>*</highlight></codeline>
-<codeline lineno="4"><highlight class="comment"><sp/>*<sp/><sp/>Created<sp/>on:<sp/>JUL<sp/>2,<sp/>2012</highlight></codeline>
-<codeline lineno="5"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>Author:<sp/>vfilimon</highlight></codeline>
-<codeline lineno="6"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="7"><highlight class="normal"></highlight></codeline>
-<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>CCANPKSCAN_H_</highlight></codeline>
+<codeline lineno="1"></codeline>
+<codeline lineno="8"><highlight class="preprocessor">#ifndef<sp/>CCANPKSCAN_H_</highlight></codeline>
 <codeline lineno="9"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CCANPKSCAN_H_</highlight></codeline>
 <codeline lineno="10"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="11"><highlight class="normal"></highlight></codeline>
@@ -176,33 +170,35 @@
 <codeline lineno="59"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>getErrorMessage(</highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/>error,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>**message);</highlight></codeline>
 <codeline lineno="61"><highlight class="normal"></highlight></codeline>
-<codeline lineno="62"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/>TPCANHandle<sp/>getHandle(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*name);</highlight></codeline>
+<codeline lineno="62" refid="classPKCanScan_1ad3d2cb2aba9654055c73ae2751cbf1de" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>Log::LogComponentHandle<sp/><ref refid="classPKCanScan_1ad3d2cb2aba9654055c73ae2751cbf1de" kindref="member">s_logItHandlePk</ref>;</highlight></codeline>
+<codeline lineno="63" refid="classPKCanScan_1ae1ff02a4576fe6d7276843e3821408c8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classPKCanScan_1ae1ff02a4576fe6d7276843e3821408c8" kindref="member">s_logItRegisteredPk</ref>;</highlight></codeline>
 <codeline lineno="64"><highlight class="normal"></highlight></codeline>
-<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>sendErrorCode(</highlight><highlight class="keywordtype">long</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>The<sp/>main<sp/>control<sp/>thread<sp/>function<sp/>for<sp/>the<sp/>CAN<sp/>update<sp/>scan<sp/>manager.</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="AnaCanScan_8h_1ad342ac907eb044443153a22f964bf0af" kindref="member">DWORD</ref><sp/><ref refid="AnaCanScan_8cpp_1a9aa60e1ead64be77ad551e745cbfd4d3" kindref="member">WINAPI</ref><sp/>CanScanControlThread(LPVOID<sp/>pCanScan);</highlight></codeline>
-<codeline lineno="68"><highlight class="normal"></highlight></codeline>
-<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//Instance<sp/>of<sp/>Can<sp/>Statistics</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="70" refid="classPKCanScan_1a03eec54c44937d843f48b2b1a086b37b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCanModule_1_1CanStatistics" kindref="compound">CanStatistics</ref><sp/><ref refid="classPKCanScan_1a03eec54c44937d843f48b2b1a086b37b" kindref="member">m_statistics</ref>;</highlight></codeline>
-<codeline lineno="71" refid="classPKCanScan_1a1c361b38cbc6016192fbcd9a6d81236c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>TPCANStatus<sp/><ref refid="classPKCanScan_1a1c361b38cbc6016192fbcd9a6d81236c" kindref="member">m_busStatus</ref>;</highlight></codeline>
-<codeline lineno="72" refid="classPKCanScan_1afc2d4388c9cc8b562f315a55e7ad8bab" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classPKCanScan_1afc2d4388c9cc8b562f315a55e7ad8bab" kindref="member">m_CanScanThreadShutdownFlag</ref>;</highlight></codeline>
-<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//Current<sp/>baud<sp/>rate</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="74" refid="classPKCanScan_1a84e9c4874e065b79d5600c0a5f9f7877" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classPKCanScan_1a84e9c4874e065b79d5600c0a5f9f7877" kindref="member">m_baudRate</ref>;</highlight></codeline>
-<codeline lineno="75"><highlight class="normal"></highlight></codeline>
-<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//Instance<sp/>of<sp/>the<sp/>can<sp/>handle</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="77" refid="classPKCanScan_1a8f07d0272238592477299480f48ae193" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>TPCANHandle<sp/><ref refid="classPKCanScan_1a8f07d0272238592477299480f48ae193" kindref="member">m_canObjHandler</ref>;</highlight></codeline>
-<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>configureCanboard(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/>name,</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/>parameters);</highlight></codeline>
-<codeline lineno="79"><highlight class="normal"></highlight></codeline>
-<codeline lineno="80" refid="classPKCanScan_1a169a32c5961996acbd55aa5c12118de0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>HANDLE<sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classPKCanScan_1a169a32c5961996acbd55aa5c12118de0" kindref="member">m_hCanScanThread</ref>;</highlight></codeline>
-<codeline lineno="81"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/>HANDLE<sp/><sp/><sp/><sp/><sp/><sp/>m_ReadEvent;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/>TPCANHandle<sp/>getHandle(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*name);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>sendErrorCode(</highlight><highlight class="keywordtype">long</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>The<sp/>main<sp/>control<sp/>thread<sp/>function<sp/>for<sp/>the<sp/>CAN<sp/>update<sp/>scan<sp/>manager.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="AnaCanScan_8h_1ad342ac907eb044443153a22f964bf0af" kindref="member">DWORD</ref><sp/><ref refid="AnaCanScan_8cpp_1a9aa60e1ead64be77ad551e745cbfd4d3" kindref="member">WINAPI</ref><sp/>CanScanControlThread(LPVOID<sp/>pCanScan);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//Instance<sp/>of<sp/>Can<sp/>Statistics</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73" refid="classPKCanScan_1a03eec54c44937d843f48b2b1a086b37b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCanModule_1_1CanStatistics" kindref="compound">CanStatistics</ref><sp/><ref refid="classPKCanScan_1a03eec54c44937d843f48b2b1a086b37b" kindref="member">m_statistics</ref>;</highlight></codeline>
+<codeline lineno="74" refid="classPKCanScan_1a1c361b38cbc6016192fbcd9a6d81236c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>TPCANStatus<sp/><ref refid="classPKCanScan_1a1c361b38cbc6016192fbcd9a6d81236c" kindref="member">m_busStatus</ref>;</highlight></codeline>
+<codeline lineno="75" refid="classPKCanScan_1afc2d4388c9cc8b562f315a55e7ad8bab" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classPKCanScan_1afc2d4388c9cc8b562f315a55e7ad8bab" kindref="member">m_CanScanThreadShutdownFlag</ref>;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//Current<sp/>baud<sp/>rate</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77" refid="classPKCanScan_1a84e9c4874e065b79d5600c0a5f9f7877" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classPKCanScan_1a84e9c4874e065b79d5600c0a5f9f7877" kindref="member">m_baudRate</ref>;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//Instance<sp/>of<sp/>the<sp/>can<sp/>handle</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80" refid="classPKCanScan_1a8f07d0272238592477299480f48ae193" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>TPCANHandle<sp/><ref refid="classPKCanScan_1a8f07d0272238592477299480f48ae193" kindref="member">m_canObjHandler</ref>;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>configureCanboard(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/>name,</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/>parameters);</highlight></codeline>
 <codeline lineno="82"><highlight class="normal"></highlight></codeline>
-<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Thread<sp/>ID<sp/>for<sp/>the<sp/>CAN<sp/>update<sp/>scan<sp/>manager<sp/>thread.</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="84" refid="classPKCanScan_1a5ba2a765e250376fde32db88272339d6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="AnaCanScan_8h_1ad342ac907eb044443153a22f964bf0af" kindref="member">DWORD</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classPKCanScan_1a5ba2a765e250376fde32db88272339d6" kindref="member">m_idCanScanThread</ref>;</highlight></codeline>
+<codeline lineno="83" refid="classPKCanScan_1a169a32c5961996acbd55aa5c12118de0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>HANDLE<sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classPKCanScan_1a169a32c5961996acbd55aa5c12118de0" kindref="member">m_hCanScanThread</ref>;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/>HANDLE<sp/><sp/><sp/><sp/><sp/><sp/>m_ReadEvent;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="85"><highlight class="normal"></highlight></codeline>
-<codeline lineno="86"><highlight class="normal">};</highlight></codeline>
-<codeline lineno="87"><highlight class="normal"></highlight></codeline>
-<codeline lineno="88"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Thread<sp/>ID<sp/>for<sp/>the<sp/>CAN<sp/>update<sp/>scan<sp/>manager<sp/>thread.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87" refid="classPKCanScan_1a5ba2a765e250376fde32db88272339d6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="AnaCanScan_8h_1ad342ac907eb044443153a22f964bf0af" kindref="member">DWORD</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classPKCanScan_1a5ba2a765e250376fde32db88272339d6" kindref="member">m_idCanScanThread</ref>;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
     </programlisting>
     <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/pkcan/pkcan.h"/>
   </compounddef>

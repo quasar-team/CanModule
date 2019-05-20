@@ -60,7 +60,7 @@ Here the underlying vendor specific classes and the specific parameters are docu
 <dl class="function">
 <dt id="_CPPv4N9PKCanScan9createBusEK6stringK6string">
 <span id="_CPPv3N9PKCanScan9createBusEK6stringK6string"></span><span id="_CPPv2N9PKCanScan9createBusEK6stringK6string"></span><span id="PKCanScan::createBus__stringC.stringC"></span><span class="target" id="classPKCanScan_1ae91999b9316ca127eecbabd9f27c3137"></span>bool <code class="descname">createBus</code><span class="sig-paren">(</span><em class="property">const</em> string <em>name</em>, <em class="property">const</em> string <em>parameters</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N9PKCanScan9createBusEK6stringK6string" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Method that initialises a CAN bus channel for peak (using PEAK Basic) All following methods called on the same object will be using this initialized channel.</p>
+<dd><p>Method that initialises a CAN bus channel for peak (using PEAK Basic) All following methods called on the same object will be using this initialized channel. Only USB interfaces for PEAK modules, and only NON FD modules are supported for now.</p>
 <p><dl class="docutils">
 <dt><strong>Return</strong></dt>
 <dd>was the initialisation process successful? </dd>
@@ -68,12 +68,12 @@ Here the underlying vendor specific classes and the specific parameters are docu
 <dd><ul class="breatheparameterlist first last simple">
 <li><code class="docutils literal notranslate"><span class="pre">name</span></code>: = 2 parameters separated by “:” like “n0:n1”<ul>
 <li>n0 = “pk” for peak</li>
-<li>n1 = CAN port number on the module, can be prefixed with “can”</li>
-<li>ex.: “pk:can1” speaks to port 1 on peak module at the ip</li>
+<li>n1 = CAN port number on the module, can be prefixed with “can”: 0..N</li>
+<li>ex.: “pk:can1” speaks to port 1 (the second port) on peak module at the ip</li>
 <li>ex.: “pk:1” works as well</li>
 </ul>
 </li>
-<li><code class="docutils literal notranslate"><span class="pre">parameters</span></code>: one parameter: “p0”, positive integers<ul>
+<li><code class="docutils literal notranslate"><span class="pre">parameters</span></code>: one parameter: “p0”, positive integer<ul>
 <li>”Unspecified” (or empty): using defaults = “125000” // params missing</li>
 <li>p0: bitrate: 50000, 100000, 125000, 250000, 500000, 1000000 bit/s i.e. “250000”</li>
 </ul>
@@ -84,17 +84,30 @@ Here the underlying vendor specific classes and the specific parameters are docu
 </p>
 </dd></dl>
 
+<dl class="function">
+<dt id="_CPPv4N9PKCanScan11sendMessageEshPhb">
+<span id="_CPPv3N9PKCanScan11sendMessageEshPhb"></span><span id="_CPPv2N9PKCanScan11sendMessageEshPhb"></span><span id="PKCanScan::sendMessage__short.unsigned-c.unsigned-cP.b"></span><span class="target" id="classPKCanScan_1a48a2e9ba00dae1b1fe01f7b095430503"></span>bool <code class="descname">sendMessage</code><span class="sig-paren">(</span>short <em>cobID</em>, unsigned char <em>len</em>, unsigned char *<em>message</em>, bool <em>rtr</em> = false<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N9PKCanScan11sendMessageEshPhb" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>method to send a CAN message to the peak module. we use the standard API “PCAN-Basic” for this for windows and we talk only over USB to fixed bitrate modules. The flexible bitrate (FD) modules can be implemented later as well: for this we need more parameters to pass and a switch between CAN_Write and CAN_WriteFD. </p>
+</dd></dl>
+
 </div>
 </dd></dl>
 
-<p>and communication takes place through peak’s open-source PCAN-Basic windows library.</p>
+<p>and communication takes place through peak’s open-source PCAN-Basic windows library. Only “plug-and-play”
+modules with USB interface and fixed datarate are supported by CanModule for now. PEAK’s flexible datarate (FD)
+modules can be added later on (they need some different API-calls and more complex parameters), and also
+other interfaces like PCI are possible for windows.The implementation is based on the PCAN-Basic driver.</p>
 </div>
 <div class="section" id="linux">
 <h3>linux<a class="headerlink" href="#linux" title="Permalink to this headline">¶</a></h3>
-<p>The open-source socketcan interface is used on top of peak’s open source netdev driver.
+<p>The open-source socketcan interface is used on top of peak’s open source netdev driver. Both Peak’s
+fixed and flexible datarate are working, although the fixed modules are recommended for bus compatibility.
+Only modules with USB interface are supported.
 The peak driver source is freely available and it can be configured to build several
-types of drivers, where we use peak’s netdev driver only. A PCAN-Basic driver is also
-available but the netdev driver is more performant and modern.</p>
+types of drivers, where we use peak’s netdev driver only. See <a class="reference external" href="https://readthedocs.web.cern.ch/display/CANDev/CAN+development?src=sidebar">PeakDriver</a> for details on this.
+A PCAN-Basic driver is also available but the netdev driver is more performant and modern. The
+PCAN-Basic driver is used nevertheless for windows, and it offers better compatibility for all module
+families.</p>
 <dl class="class">
 <dt id="_CPPv412CSockCanScan">
 <span id="_CPPv312CSockCanScan"></span><span id="_CPPv212CSockCanScan"></span><span id="CSockCanScan"></span><span class="target" id="classCSockCanScan"></span><em class="property">class </em><code class="descname">CSockCanScan</code> : <em class="property">public</em> CanModule::<a class="reference internal" href="../standardApi.html#_CPPv4N9CanModule10CCanAccessE" title="CanModule::CCanAccess">CCanAccess</a><a class="headerlink" href="#_CPPv412CSockCanScan" title="Permalink to this definition">¶</a><br /></dt>
@@ -184,6 +197,7 @@ available but the netdev driver is more performant and modern.</p>
 <li class="toctree-l1"><a class="reference internal" href="../downloading.html">Downloading</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../objective.html">Objective</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../standardApi.html">Standard API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cwrapper.html">C-Wrapper</a></li>
 <li class="toctree-l1"><a class="reference internal" href="systec.html">SysTec</a></li>
 <li class="toctree-l1"><a class="reference internal" href="anagate.html">AnaGate</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Peak</a><ul>
@@ -241,7 +255,7 @@ available but the netdev driver is more performant and modern.</p>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2019, CERN, BE-ICS (Michael Ludwig).
-      Last updated on 16-May-2019 15:34:15.
+      Last updated on 20-May-2019 17:27:58.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
     </div>
   </body>

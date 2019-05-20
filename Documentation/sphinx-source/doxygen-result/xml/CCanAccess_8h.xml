@@ -237,9 +237,7 @@
         <inbodydescription>
         </inbodydescription>
         <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" line="65" column="9" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" bodystart="65" bodyend="-1"/>
-        <referencedby refid="classPKCanScan_1a45bd5feda5ccb009775c45bfabe41614" compoundref="pkcan_8cpp" startline="32" endline="79">PKCanScan::CanScanControlThread</referencedby>
         <referencedby refid="classCSockCanScan_1a9ac2e2d3f63449865e22c69a60faf53d" compoundref="SockCanScan_8cpp" startline="96" endline="298">CSockCanScan::CanScanControlThread</referencedby>
-        <referencedby refid="classPKCanScan_1a6fe021ecfdde5af1e7a74668b9819bfb" compoundref="pkcan_8cpp" startline="118" endline="186">PKCanScan::configureCanboard</referencedby>
         <referencedby refid="classCSockCanScan_1a203a51239f8efc013d4b9df36f271317" compoundref="SockCanScan_8cpp" startline="317" endline="389">CSockCanScan::openCanPort</referencedby>
       </memberdef>
       </sectiondef>

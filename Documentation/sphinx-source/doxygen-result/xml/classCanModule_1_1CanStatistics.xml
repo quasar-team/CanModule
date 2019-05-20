@@ -155,11 +155,12 @@
         <referencedby refid="classAnaCanScan_1af6c27ae08034c5da64a54de29e2e875e" compoundref="AnaCanScan_8cpp" startline="71" endline="83">AnaCanScan::AnaCanScan</referencedby>
         <referencedby refid="classCSockCanScan_1abfb8f5e3726f9675a63f48648afae178" compoundref="SockCanScan_8cpp" startline="65" endline="73">CSockCanScan::CSockCanScan</referencedby>
         <referencedby refid="classMockCanAccess_1a73d7565174206d2c58f81040a6438541" compoundref="MockCanAccess_8cpp" startline="70" endline="75">MockCanAccess::getStatistics</referencedby>
-        <referencedby refid="classPKCanScan_1a2ef38527fb5009c43487fccbbe4694ba" compoundref="pkcan_8cpp" startline="324" endline="329">PKCanScan::getStatistics</referencedby>
-        <referencedby refid="classSTCanScan_1a4810249805b660c4e914247acbdf45d2" compoundref="STCanScan_8cpp" startline="364" endline="369">STCanScan::getStatistics</referencedby>
+        <referencedby refid="classPKCanScan_1a2ef38527fb5009c43487fccbbe4694ba" compoundref="pkcan_8cpp" startline="411" endline="416">PKCanScan::getStatistics</referencedby>
+        <referencedby refid="classSTCanScan_1a4810249805b660c4e914247acbdf45d2" compoundref="STCanScan_8cpp" startline="361" endline="366">STCanScan::getStatistics</referencedby>
         <referencedby refid="classCSockCanScan_1a38110f02c2d12fa9b620ba5ff438a960" compoundref="SockCanScan_8cpp" startline="680" endline="685">CSockCanScan::getStatistics</referencedby>
         <referencedby refid="classAnaCanScan_1ad4576bc409a954c888a6fd7f06ca697f" compoundref="AnaCanScan_8cpp" startline="678" endline="683">AnaCanScan::getStatistics</referencedby>
         <referencedby refid="classMockCanAccess_1a5a5c76c0d3ba4276e98f56f81f8116a3" compoundref="MockCanAccess_8cpp" startline="30" endline="34">MockCanAccess::MockCanAccess</referencedby>
+        <referencedby refid="classPKCanScan_1adfc8b4e20f4548295a99af69bf1888d5" compoundref="pkcan_8cpp" startline="48" endline="55">PKCanScan::PKCanScan</referencedby>
         <referencedby refid="classSTCanScan_1a75fcb8ff51d82d362edb1dd31125fb10" compoundref="STCanScan_8cpp" startline="61" endline="71">STCanScan::STCanScan</referencedby>
       </memberdef>
       <memberdef kind="function" id="classCanModule_1_1CanStatistics_1a8ec66bd11141579779f143362b70640e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -188,7 +189,8 @@
         <references refid="classCanModule_1_1CanStatistics_1a7369a4ae5832050532e99e77831e155c" compoundref="CanStatistics_8h" startline="86">m_transmittedOctets</references>
         <references refid="classCanModule_1_1CanStatistics_1_1Internals_1a344b6c86e9644f8cee1946f08d0d0d2a" compoundref="CanStatistics_8h" startline="93">CanModule::CanStatistics::Internals::m_transmittedPerSec</references>
         <referencedby refid="classMockCanAccess_1a73d7565174206d2c58f81040a6438541" compoundref="MockCanAccess_8cpp" startline="70" endline="75">MockCanAccess::getStatistics</referencedby>
-        <referencedby refid="classSTCanScan_1a4810249805b660c4e914247acbdf45d2" compoundref="STCanScan_8cpp" startline="364" endline="369">STCanScan::getStatistics</referencedby>
+        <referencedby refid="classPKCanScan_1a2ef38527fb5009c43487fccbbe4694ba" compoundref="pkcan_8cpp" startline="411" endline="416">PKCanScan::getStatistics</referencedby>
+        <referencedby refid="classSTCanScan_1a4810249805b660c4e914247acbdf45d2" compoundref="STCanScan_8cpp" startline="361" endline="366">STCanScan::getStatistics</referencedby>
         <referencedby refid="classCSockCanScan_1a38110f02c2d12fa9b620ba5ff438a960" compoundref="SockCanScan_8cpp" startline="680" endline="685">CSockCanScan::getStatistics</referencedby>
         <referencedby refid="classAnaCanScan_1ad4576bc409a954c888a6fd7f06ca697f" compoundref="AnaCanScan_8cpp" startline="678" endline="683">AnaCanScan::getStatistics</referencedby>
       </memberdef>
@@ -211,8 +213,9 @@
         <references refid="classCanModule_1_1CanStatistics_1aced131fd672bf71b5672117527973253" compoundref="CanStatistics_8h" startline="78">m_totalTransmitted</references>
         <references refid="classCanModule_1_1CanStatistics_1a4b94f562f6ce5e9057fdae5c24391963" compoundref="CanStatistics_8h" startline="81">m_transmitted</references>
         <references refid="classCanModule_1_1CanStatistics_1a7369a4ae5832050532e99e77831e155c" compoundref="CanStatistics_8h" startline="86">m_transmittedOctets</references>
+        <referencedby refid="classPKCanScan_1a48a2e9ba00dae1b1fe01f7b095430503" compoundref="pkcan_8cpp" startline="298" endline="330">PKCanScan::sendMessage</referencedby>
         <referencedby refid="classMockCanAccess_1a95856b7b3ac143d7c5bd7bd807c06fd5" compoundref="MockCanAccess_8cpp" startline="54" endline="68">MockCanAccess::sendMessage</referencedby>
-        <referencedby refid="classSTCanScan_1a45f0ec011022bf58a23e8370bac7f829" compoundref="STCanScan_8cpp" startline="302" endline="340">STCanScan::sendMessage</referencedby>
+        <referencedby refid="classSTCanScan_1a45f0ec011022bf58a23e8370bac7f829" compoundref="STCanScan_8cpp" startline="299" endline="337">STCanScan::sendMessage</referencedby>
         <referencedby refid="classCSockCanScan_1a485ec8621a98cdacad8e27433e09d919" compoundref="SockCanScan_8cpp" startline="403" endline="456">CSockCanScan::sendMessage</referencedby>
         <referencedby refid="classAnaCanScan_1ad45666454318c891d7acd9fe16ae4c49" compoundref="AnaCanScan_8cpp" startline="354" endline="401">AnaCanScan::sendMessage</referencedby>
         <referencedby refid="classMockCanAccess_1a584734691bc9d4d49c5ccb795ab5d526" compoundref="MockCanAccess_8cpp" startline="47" endline="52">MockCanAccess::sendRemoteRequest</referencedby>
@@ -236,8 +239,8 @@
         <references refid="classCanModule_1_1CanStatistics_1a3cf24ff7fd90d286139fb75a00e146da" compoundref="CanStatistics_8h" startline="83">m_received</references>
         <references refid="classCanModule_1_1CanStatistics_1ace6767d68ba9dca0c0e7f129f33e365c" compoundref="CanStatistics_8h" startline="87">m_receivedOctets</references>
         <references refid="classCanModule_1_1CanStatistics_1af5d82367032c4a509d99cdc72b6a7e45" compoundref="CanStatistics_8h" startline="79">m_totalReceived</references>
-        <referencedby refid="classPKCanScan_1a45bd5feda5ccb009775c45bfabe41614" compoundref="pkcan_8cpp" startline="32" endline="79">PKCanScan::CanScanControlThread</referencedby>
-        <referencedby refid="classSTCanScan_1aab42375da764eb0d50dee318cd790646" compoundref="STCanScan_8cpp" startline="73" endline="112">STCanScan::CanScanControlThread</referencedby>
+        <referencedby refid="classPKCanScan_1a45bd5feda5ccb009775c45bfabe41614" compoundref="pkcan_8cpp" startline="68" endline="110">PKCanScan::CanScanControlThread</referencedby>
+        <referencedby refid="classSTCanScan_1aab42375da764eb0d50dee318cd790646" compoundref="STCanScan_8cpp" startline="77" endline="109">STCanScan::CanScanControlThread</referencedby>
         <referencedby refid="classAnaCanScan_1a7ba68ea800d7a6837b6bc808d473323d" compoundref="AnaCanScan_8cpp" startline="127" endline="130">AnaCanScan::statisticsOnRecieve</referencedby>
       </memberdef>
       <memberdef kind="function" id="classCanModule_1_1CanStatistics_1a62ee3d5dd02a649066747cb2e2339b9d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
