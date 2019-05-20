@@ -70,17 +70,19 @@ STCanScan::STCanScan():
 	m_statistics.beginNewRun();
 }
 
+
+/**
+ * thread to supervise port activity
+ */
 DWORD WINAPI STCanScan::CanScanControlThread(LPVOID pCanScan)
 {
 	BYTE status;
 	tCanMsgStruct readCanMessage;
 	STCanScan *canScanInstancePointer = reinterpret_cast<STCanScan *>(pCanScan);
 	MLOGST(DBG,canScanInstancePointer) << "CanScanControlThread Started. m_CanScanThreadShutdownFlag = [" << canScanInstancePointer->m_CanScanThreadShutdownFlag <<"]";
-	while (canScanInstancePointer->m_CanScanThreadShutdownFlag)
-	{
+	while (canScanInstancePointer->m_CanScanThreadShutdownFlag) {
 		status = UcanReadCanMsgEx(canScanInstancePointer->m_UcanHandle, (BYTE *)&canScanInstancePointer->m_channelNumber, &readCanMessage, 0);
-		if (status == USBCAN_SUCCESSFUL)
-		{
+		if (status == USBCAN_SUCCESSFUL) {
 			if (readCanMessage.m_bFF == USBCAN_MSG_FF_RTR)
 				continue;
 			CanMessage canMsgCopy;
@@ -94,15 +96,10 @@ DWORD WINAPI STCanScan::CanScanControlThread(LPVOID pCanScan)
 
 			canScanInstancePointer->canMessageCame(canMsgCopy);
 			canScanInstancePointer->m_statistics.onReceive( readCanMessage.m_bDLC );
-		}
-		else
-		{
-			if (status == USBCAN_WARN_NODATA)
-			{
+		} else {
+			if (status == USBCAN_WARN_NODATA) {
 				Sleep(100);
-			}
-			else
-			{
+			} else {
 				canScanInstancePointer->sendErrorCode(status);
 			}
 		}
