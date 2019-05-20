@@ -1,0 +1,1178 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="classCanModule_1_1CCanAccess" kind="class" prot="public" abstract="yes">
+    <compoundname>CanModule::CCanAccess</compoundname>
+    <derivedcompoundref refid="classAnaCanScan" prot="public" virt="non-virtual">AnaCanScan</derivedcompoundref>
+    <derivedcompoundref refid="classCSockCanScan" prot="public" virt="non-virtual">CSockCanScan</derivedcompoundref>
+    <derivedcompoundref refid="classMockCanAccess" prot="public" virt="non-virtual">MockCanAccess</derivedcompoundref>
+    <derivedcompoundref refid="classPKCanScan" prot="public" virt="non-virtual">PKCanScan</derivedcompoundref>
+    <derivedcompoundref refid="classSTCanScan" prot="public" virt="non-virtual">STCanScan</derivedcompoundref>
+    <includes refid="CCanAccess_8h" local="no">CCanAccess.h</includes>
+      <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="classCanModule_1_1CCanAccess_1a20323e55767d3a60c78a88db5d785829" prot="public" static="yes" mutable="no">
+        <type>boost::function&lt; void(const <ref refid="structCanMsgStruct" kindref="compound">CanMsgStruct</ref>) &gt;</type>
+        <definition>boost::function&lt; void(const CanMsgStruct) &gt; CanModule::CCanAccess::fw_slot0</definition>
+        <argsstring></argsstring>
+        <name>fw_slot0</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>these static function pointers are needed to register a user handler for the CanModule-C-Wrapper. And no - it is not possible to have a map of pointers, otherwise the threads/mutexes will not work. Why do we have 16 and not 8, since the systec16 has only 8 CAN ports per USB, and no other module has more ? Simple answer: the ISEG HAL can handle up to 16 receiver threads (hardcoded), so let&apos;s play is safe. It is a bit unclear what ISEG does with 8..15, but at least <ref refid="namespaceCanModule" kindref="compound">CanModule</ref> supports this. Most probably the slots 8..15 are unused, though. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" line="101" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" bodystart="101" bodyend="-1"/>
+        <referencedby refid="classCanModule_1_1CCanAccess_1a08d387c6261bee525c0bb05eb66b4164" compoundref="CCanAccess_8h" startline="186" endline="209">connectFwSlotX</referencedby>
+        <referencedby refid="classCanModule_1_1CCanAccess_1af12f56ce8f69ef8fb77beae30ec0ac2e" compoundref="CCanAccess_8h" startline="210" endline="213">slot0</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classCanModule_1_1CCanAccess_1ab9194c7d019e7da16f98a177b4e6e145" prot="public" static="yes" mutable="no">
+        <type>boost::function&lt; void(const <ref refid="structCanMsgStruct" kindref="compound">CanMsgStruct</ref>) &gt;</type>
+        <definition>boost::function&lt; void(const CanMsgStruct) &gt; CanModule::CCanAccess::fw_slot1</definition>
+        <argsstring></argsstring>
+        <name>fw_slot1</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" line="102" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" bodystart="102" bodyend="-1"/>
+        <referencedby refid="classCanModule_1_1CCanAccess_1a08d387c6261bee525c0bb05eb66b4164" compoundref="CCanAccess_8h" startline="186" endline="209">connectFwSlotX</referencedby>
+        <referencedby refid="classCanModule_1_1CCanAccess_1a334f6f48e22483862d56091703dce595" compoundref="CCanAccess_8h" startline="214" endline="217">slot1</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classCanModule_1_1CCanAccess_1a7b299903bfe41cee29cc497ba43554fd" prot="public" static="yes" mutable="no">
+        <type>boost::function&lt; void(const <ref refid="structCanMsgStruct" kindref="compound">CanMsgStruct</ref>) &gt;</type>
+        <definition>boost::function&lt; void(const CanMsgStruct) &gt; CanModule::CCanAccess::fw_slot2</definition>
+        <argsstring></argsstring>
+        <name>fw_slot2</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" line="103" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" bodystart="103" bodyend="-1"/>
+        <referencedby refid="classCanModule_1_1CCanAccess_1a08d387c6261bee525c0bb05eb66b4164" compoundref="CCanAccess_8h" startline="186" endline="209">connectFwSlotX</referencedby>
+        <referencedby refid="classCanModule_1_1CCanAccess_1a15a904b7593396d931e9f57b70da929d" compoundref="CCanAccess_8h" startline="218" endline="221">slot2</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classCanModule_1_1CCanAccess_1ad3cbc73468e8edf35f917ed4aa65df16" prot="public" static="yes" mutable="no">
+        <type>boost::function&lt; void(const <ref refid="structCanMsgStruct" kindref="compound">CanMsgStruct</ref>) &gt;</type>
+        <definition>boost::function&lt; void(const CanMsgStruct) &gt; CanModule::CCanAccess::fw_slot3</definition>
+        <argsstring></argsstring>
+        <name>fw_slot3</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" line="104" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" bodystart="104" bodyend="-1"/>
+        <referencedby refid="classCanModule_1_1CCanAccess_1a08d387c6261bee525c0bb05eb66b4164" compoundref="CCanAccess_8h" startline="186" endline="209">connectFwSlotX</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classCanModule_1_1CCanAccess_1abe5e84df9f43bd309c635d3201b6dba7" prot="public" static="yes" mutable="no">
+        <type>boost::function&lt; void(const <ref refid="structCanMsgStruct" kindref="compound">CanMsgStruct</ref>) &gt;</type>
+        <definition>boost::function&lt; void(const CanMsgStruct) &gt; CanModule::CCanAccess::fw_slot4</definition>
+        <argsstring></argsstring>
+        <name>fw_slot4</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" line="105" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" bodystart="105" bodyend="-1"/>
+        <referencedby refid="classCanModule_1_1CCanAccess_1a08d387c6261bee525c0bb05eb66b4164" compoundref="CCanAccess_8h" startline="186" endline="209">connectFwSlotX</referencedby>
+        <referencedby refid="classCanModule_1_1CCanAccess_1a0c9527a03b09356decf18241acd1a532" compoundref="CCanAccess_8h" startline="222" endline="225">slot3</referencedby>
+        <referencedby refid="classCanModule_1_1CCanAccess_1af95d2dff96d924a5c2589db82a8a6abd" compoundref="CCanAccess_8h" startline="226" endline="229">slot4</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classCanModule_1_1CCanAccess_1a62c0c4ac34c437097f74f685fb0266a5" prot="public" static="yes" mutable="no">
+        <type>boost::function&lt; void(const <ref refid="structCanMsgStruct" kindref="compound">CanMsgStruct</ref>) &gt;</type>
+        <definition>boost::function&lt; void(const CanMsgStruct) &gt; CanModule::CCanAccess::fw_slot5</definition>
+        <argsstring></argsstring>
+        <name>fw_slot5</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" line="106" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" bodystart="106" bodyend="-1"/>
+        <referencedby refid="classCanModule_1_1CCanAccess_1a08d387c6261bee525c0bb05eb66b4164" compoundref="CCanAccess_8h" startline="186" endline="209">connectFwSlotX</referencedby>
+        <referencedby refid="classCanModule_1_1CCanAccess_1aca7bcb8e9e5043a6636ce767d345716a" compoundref="CCanAccess_8h" startline="230" endline="233">slot5</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classCanModule_1_1CCanAccess_1a4f457bfc8b8b494130293d563dac72e7" prot="public" static="yes" mutable="no">
+        <type>boost::function&lt; void(const <ref refid="structCanMsgStruct" kindref="compound">CanMsgStruct</ref>) &gt;</type>
+        <definition>boost::function&lt; void(const CanMsgStruct) &gt; CanModule::CCanAccess::fw_slot6</definition>
+        <argsstring></argsstring>
+        <name>fw_slot6</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" line="107" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" bodystart="107" bodyend="-1"/>
+        <referencedby refid="classCanModule_1_1CCanAccess_1a08d387c6261bee525c0bb05eb66b4164" compoundref="CCanAccess_8h" startline="186" endline="209">connectFwSlotX</referencedby>
+        <referencedby refid="classCanModule_1_1CCanAccess_1a335e4ebb979de2ad399380886b3742b7" compoundref="CCanAccess_8h" startline="234" endline="237">slot6</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classCanModule_1_1CCanAccess_1a12da52fdad176cf1fa482983bdb5cfd5" prot="public" static="yes" mutable="no">
+        <type>boost::function&lt; void(const <ref refid="structCanMsgStruct" kindref="compound">CanMsgStruct</ref>) &gt;</type>
+        <definition>boost::function&lt; void(const CanMsgStruct) &gt; CanModule::CCanAccess::fw_slot7</definition>
+        <argsstring></argsstring>
+        <name>fw_slot7</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" line="108" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" bodystart="108" bodyend="-1"/>
+        <referencedby refid="classCanModule_1_1CCanAccess_1a08d387c6261bee525c0bb05eb66b4164" compoundref="CCanAccess_8h" startline="186" endline="209">connectFwSlotX</referencedby>
+        <referencedby refid="classCanModule_1_1CCanAccess_1a8278d35739b5f92e24331accb4b8383e" compoundref="CCanAccess_8h" startline="238" endline="241">slot7</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classCanModule_1_1CCanAccess_1a7626751af619f301c0bde5657329b4dd" prot="public" static="yes" mutable="no">
+        <type>boost::function&lt; void(const <ref refid="structCanMsgStruct" kindref="compound">CanMsgStruct</ref>) &gt;</type>
+        <definition>boost::function&lt; void(const CanMsgStruct) &gt; CanModule::CCanAccess::fw_slot8</definition>
+        <argsstring></argsstring>
+        <name>fw_slot8</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" line="109" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" bodystart="109" bodyend="-1"/>
+        <referencedby refid="classCanModule_1_1CCanAccess_1a08d387c6261bee525c0bb05eb66b4164" compoundref="CCanAccess_8h" startline="186" endline="209">connectFwSlotX</referencedby>
+        <referencedby refid="classCanModule_1_1CCanAccess_1a2e5052c0d4b0bf48d0ea709583349118" compoundref="CCanAccess_8h" startline="242" endline="245">slot8</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classCanModule_1_1CCanAccess_1a5e7196879da60e80eb209ee807cbcd11" prot="public" static="yes" mutable="no">
+        <type>boost::function&lt; void(const <ref refid="structCanMsgStruct" kindref="compound">CanMsgStruct</ref>) &gt;</type>
+        <definition>boost::function&lt; void(const CanMsgStruct) &gt; CanModule::CCanAccess::fw_slot9</definition>
+        <argsstring></argsstring>
+        <name>fw_slot9</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" line="110" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" bodystart="110" bodyend="-1"/>
+        <referencedby refid="classCanModule_1_1CCanAccess_1a08d387c6261bee525c0bb05eb66b4164" compoundref="CCanAccess_8h" startline="186" endline="209">connectFwSlotX</referencedby>
+        <referencedby refid="classCanModule_1_1CCanAccess_1a9eb127d5fa0c228f785d65a1ef25b97a" compoundref="CCanAccess_8h" startline="246" endline="249">slot9</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classCanModule_1_1CCanAccess_1a4130b6b2dac7673a2e2253c8b957294c" prot="public" static="yes" mutable="no">
+        <type>boost::function&lt; void(const <ref refid="structCanMsgStruct" kindref="compound">CanMsgStruct</ref>) &gt;</type>
+        <definition>boost::function&lt; void(const CanMsgStruct) &gt; CanModule::CCanAccess::fw_slot10</definition>
+        <argsstring></argsstring>
+        <name>fw_slot10</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" line="111" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" bodystart="111" bodyend="-1"/>
+        <referencedby refid="classCanModule_1_1CCanAccess_1a08d387c6261bee525c0bb05eb66b4164" compoundref="CCanAccess_8h" startline="186" endline="209">connectFwSlotX</referencedby>
+        <referencedby refid="classCanModule_1_1CCanAccess_1ab10944ddde9a45400eab905a58ef0534" compoundref="CCanAccess_8h" startline="250" endline="253">slot10</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classCanModule_1_1CCanAccess_1a4e8381b84bbbfbcfe6feb9eba7e17fd9" prot="public" static="yes" mutable="no">
+        <type>boost::function&lt; void(const <ref refid="structCanMsgStruct" kindref="compound">CanMsgStruct</ref>) &gt;</type>
+        <definition>boost::function&lt; void(const CanMsgStruct) &gt; CanModule::CCanAccess::fw_slot11</definition>
+        <argsstring></argsstring>
+        <name>fw_slot11</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" line="112" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" bodystart="112" bodyend="-1"/>
+        <referencedby refid="classCanModule_1_1CCanAccess_1a08d387c6261bee525c0bb05eb66b4164" compoundref="CCanAccess_8h" startline="186" endline="209">connectFwSlotX</referencedby>
+        <referencedby refid="classCanModule_1_1CCanAccess_1a4825360b2a2787160be01b2aa9419ce1" compoundref="CCanAccess_8h" startline="254" endline="257">slot11</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classCanModule_1_1CCanAccess_1aad6416d679ea5cb9582b145ac7a61a31" prot="public" static="yes" mutable="no">
+        <type>boost::function&lt; void(const <ref refid="structCanMsgStruct" kindref="compound">CanMsgStruct</ref>) &gt;</type>
+        <definition>boost::function&lt; void(const CanMsgStruct) &gt; CanModule::CCanAccess::fw_slot12</definition>
+        <argsstring></argsstring>
+        <name>fw_slot12</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" line="113" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" bodystart="113" bodyend="-1"/>
+        <referencedby refid="classCanModule_1_1CCanAccess_1a08d387c6261bee525c0bb05eb66b4164" compoundref="CCanAccess_8h" startline="186" endline="209">connectFwSlotX</referencedby>
+        <referencedby refid="classCanModule_1_1CCanAccess_1a6d0a5e7306e46c5e5e5b9a3fc45e8330" compoundref="CCanAccess_8h" startline="258" endline="261">slot12</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classCanModule_1_1CCanAccess_1a625e00cbeb49526bb5b37b7e4032149b" prot="public" static="yes" mutable="no">
+        <type>boost::function&lt; void(const <ref refid="structCanMsgStruct" kindref="compound">CanMsgStruct</ref>) &gt;</type>
+        <definition>boost::function&lt; void(const CanMsgStruct) &gt; CanModule::CCanAccess::fw_slot13</definition>
+        <argsstring></argsstring>
+        <name>fw_slot13</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" line="114" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" bodystart="114" bodyend="-1"/>
+        <referencedby refid="classCanModule_1_1CCanAccess_1a08d387c6261bee525c0bb05eb66b4164" compoundref="CCanAccess_8h" startline="186" endline="209">connectFwSlotX</referencedby>
+        <referencedby refid="classCanModule_1_1CCanAccess_1a216e763e1cc1ce26dae65dfab939ad11" compoundref="CCanAccess_8h" startline="262" endline="265">slot13</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classCanModule_1_1CCanAccess_1a66ce4a26bdd58b6bfa016c86034137bb" prot="public" static="yes" mutable="no">
+        <type>boost::function&lt; void(const <ref refid="structCanMsgStruct" kindref="compound">CanMsgStruct</ref>) &gt;</type>
+        <definition>boost::function&lt; void(const CanMsgStruct) &gt; CanModule::CCanAccess::fw_slot14</definition>
+        <argsstring></argsstring>
+        <name>fw_slot14</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" line="115" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" bodystart="115" bodyend="-1"/>
+        <referencedby refid="classCanModule_1_1CCanAccess_1a08d387c6261bee525c0bb05eb66b4164" compoundref="CCanAccess_8h" startline="186" endline="209">connectFwSlotX</referencedby>
+        <referencedby refid="classCanModule_1_1CCanAccess_1a68b36fdd0ad1f64bd7a1f0207386be4b" compoundref="CCanAccess_8h" startline="266" endline="269">slot14</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classCanModule_1_1CCanAccess_1a14a98fa7153c222282ae567a685611cd" prot="public" static="yes" mutable="no">
+        <type>boost::function&lt; void(const <ref refid="structCanMsgStruct" kindref="compound">CanMsgStruct</ref>) &gt;</type>
+        <definition>boost::function&lt; void(const CanMsgStruct) &gt; CanModule::CCanAccess::fw_slot15</definition>
+        <argsstring></argsstring>
+        <name>fw_slot15</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" line="116" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" bodystart="116" bodyend="-1"/>
+        <referencedby refid="classCanModule_1_1CCanAccess_1a08d387c6261bee525c0bb05eb66b4164" compoundref="CCanAccess_8h" startline="186" endline="209">connectFwSlotX</referencedby>
+        <referencedby refid="classCanModule_1_1CCanAccess_1af44e482ce74f03d22c8a339fe6f01aa7" compoundref="CCanAccess_8h" startline="270" endline="273">slot15</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classCanModule_1_1CCanAccess_1aa8e0e974863874b0e7bbcdb57084c241" prot="public" static="no" mutable="no">
+        <type>boost::signals2::signal&lt; void(const <ref refid="CanMessage_8h_1a03d03a5783fcae48487adf7c1ef990f3" kindref="member">CanMessage</ref> &amp;) &gt;</type>
+        <definition>boost::signals2::signal&lt;void (const CanMessage &amp;) &gt; CanModule::CCanAccess::canMessageCame</definition>
+        <argsstring></argsstring>
+        <name>canMessageCame</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" line="179" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" bodystart="179" bodyend="-1"/>
+        <referencedby refid="classAnaCanScan_1af9a44b6ac914643225e2e61ca7a52f4c" compoundref="AnaCanScan_8cpp" startline="135" endline="138">AnaCanScan::callbackOnRecieve</referencedby>
+        <referencedby refid="classPKCanScan_1a45bd5feda5ccb009775c45bfabe41614" compoundref="pkcan_8cpp" startline="32" endline="79">PKCanScan::CanScanControlThread</referencedby>
+        <referencedby refid="classSTCanScan_1aab42375da764eb0d50dee318cd790646" compoundref="STCanScan_8cpp" startline="73" endline="112">STCanScan::CanScanControlThread</referencedby>
+        <referencedby refid="classCanModule_1_1CCanAccess_1a247e65001e8f59b47fdc2961dd67d74d" compoundref="CCanAccess_8h" startline="282" endline="311">connectReceptionSlotX</referencedby>
+        <referencedby refid="classCanModule_1_1CCanAccess_1a8212fb246945f2c32a164e83be42bc73" compoundref="CCanAccess_8h" startline="312" endline="316">disconnectReceptionSlotX</referencedby>
+        <referencedby refid="classMockCanAccess_1a95856b7b3ac143d7c5bd7bd807c06fd5" compoundref="MockCanAccess_8cpp" startline="54" endline="68">MockCanAccess::sendMessage</referencedby>
+        <referencedby refid="classCanModule_1_1CCanAccess_1a86c0125599b177ed3017e842940565fd" compoundref="CCanAccess_8h" startline="275" endline="280">testSignalSlot</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classCanModule_1_1CCanAccess_1a33fbd693f04b4f4e21cee20856c44866" prot="public" static="no" mutable="no">
+        <type>boost::signals2::signal&lt; void(const int, const char *, timeval &amp;) &gt;</type>
+        <definition>boost::signals2::signal&lt;void (const int,const char *,timeval &amp;) &gt; CanModule::CCanAccess::canMessageError</definition>
+        <argsstring></argsstring>
+        <name>canMessageError</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" line="324" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" bodystart="324" bodyend="-1"/>
+        <referencedby refid="classCSockCanScan_1a4b5f7591bfd27b8770bfb9ac9e406f66" compoundref="SockCanScan_8cpp" startline="653" endline="660">CSockCanScan::clearErrorMessage</referencedby>
+        <referencedby refid="classSTCanScan_1a43454c0bc20eb764cbb4ef3dd5e52cc9" compoundref="STCanScan_8cpp" startline="276" endline="289">STCanScan::sendErrorCode</referencedby>
+        <referencedby refid="classAnaCanScan_1aaa001b34e6ee0a27295239f951b7b879" compoundref="AnaCanScan_8cpp" startline="325" endline="342">AnaCanScan::sendErrorCode</referencedby>
+        <referencedby refid="classCSockCanScan_1a512733f202345e5940460f84539c979a" compoundref="SockCanScan_8cpp" startline="662" endline="668">CSockCanScan::sendErrorMessage</referencedby>
+        <referencedby refid="classCSockCanScan_1a623057580187ecb241adf143c64d711c" compoundref="SockCanScan_8cpp" startline="687" endline="699">CSockCanScan::updateInitialError</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classCanModule_1_1CCanAccess_1a0eff18d10b7ee5d6f86b03898f38f7ca" prot="protected" static="no" mutable="no">
+        <type>string</type>
+        <definition>string CanModule::CCanAccess::m_sBusName</definition>
+        <argsstring></argsstring>
+        <name>m_sBusName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" line="367" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" bodystart="367" bodyend="-1"/>
+        <referencedby refid="classSTCanScan_1aa99f9f23bdfd367a51efc40e228a6f88" compoundref="STCanScan_8cpp" startline="142" endline="176">STCanScan::createBus</referencedby>
+        <referencedby refid="classAnaCanScan_1a54a66154c956b4605ff18f93f552db60" compoundref="AnaCanScan_8cpp" startline="165" endline="197">AnaCanScan::createBus</referencedby>
+        <referencedby refid="classCanModule_1_1CCanAccess_1ac3f5126ae36d642217425e21696d19ca" compoundref="CCanAccess_8h" startline="169" endline="169">getBusName</referencedby>
+        <referencedby refid="classCanModule_1_1CCanAccess_1af26c9d102638fb96e5e1305f807d148f" compoundref="CCanAccess_8h" startline="350" endline="364">parseNameAndParameters</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classCanModule_1_1CCanAccess_1a484a4f9dc352fe31b4baff0365095705" prot="protected" static="no" mutable="no">
+        <type><ref refid="structCanModule_1_1CanParameters" kindref="compound">CanParameters</ref></type>
+        <definition>CanParameters CanModule::CCanAccess::m_CanParameters</definition>
+        <argsstring></argsstring>
+        <name>m_CanParameters</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" line="368" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" bodystart="368" bodyend="-1"/>
+        <referencedby refid="classSTCanScan_1a8e147c77933e11e9983f4d4e22830b21" compoundref="STCanScan_8cpp" startline="178" endline="229">STCanScan::configureCanBoard</referencedby>
+        <referencedby refid="classAnaCanScan_1ad917f9cda15bbf9dd9abe6417be5a5eb" compoundref="AnaCanScan_8cpp" startline="203" endline="251">AnaCanScan::configureCanBoard</referencedby>
+        <referencedby refid="classCSockCanScan_1a38110f02c2d12fa9b620ba5ff438a960" compoundref="SockCanScan_8cpp" startline="680" endline="685">CSockCanScan::getStatistics</referencedby>
+        <referencedby refid="classAnaCanScan_1ad94121f1933d50cafa52d625ee435f6c" compoundref="AnaCanScan_8cpp" startline="263" endline="323">AnaCanScan::openCanPort</referencedby>
+        <referencedby refid="classCSockCanScan_1a203a51239f8efc013d4b9df36f271317" compoundref="SockCanScan_8cpp" startline="317" endline="389">CSockCanScan::openCanPort</referencedby>
+        <referencedby refid="classCanModule_1_1CCanAccess_1af26c9d102638fb96e5e1305f807d148f" compoundref="CCanAccess_8h" startline="350" endline="364">parseNameAndParameters</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classCanModule_1_1CCanAccess_1aa624bfe085a65b9fba440f3a8d721525" prot="private" static="no" mutable="no">
+        <type>boost::signals2::connection</type>
+        <definition>boost::signals2::connection CanModule::CCanAccess::s_cconnection</definition>
+        <argsstring></argsstring>
+        <name>s_cconnection</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" line="371" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" bodystart="371" bodyend="-1"/>
+        <referencedby refid="classCanModule_1_1CCanAccess_1a247e65001e8f59b47fdc2961dd67d74d" compoundref="CCanAccess_8h" startline="282" endline="311">connectReceptionSlotX</referencedby>
+        <referencedby refid="classCanModule_1_1CCanAccess_1a8212fb246945f2c32a164e83be42bc73" compoundref="CCanAccess_8h" startline="312" endline="316">disconnectReceptionSlotX</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classCanModule_1_1CCanAccess_1a6e42f036ab5b70474477a8e4715908aa" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int CanModule::CCanAccess::s_connectionIndex</definition>
+        <argsstring></argsstring>
+        <name>s_connectionIndex</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" line="372" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" bodystart="372" bodyend="-1"/>
+        <referencedby refid="classCanModule_1_1CCanAccess_1a247e65001e8f59b47fdc2961dd67d74d" compoundref="CCanAccess_8h" startline="282" endline="311">connectReceptionSlotX</referencedby>
+        <referencedby refid="classCanModule_1_1CCanAccess_1a8212fb246945f2c32a164e83be42bc73" compoundref="CCanAccess_8h" startline="312" endline="316">disconnectReceptionSlotX</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classCanModule_1_1CCanAccess_1a3730f588f597fa5b692d286680a8df00" prot="private" static="no" mutable="no">
+        <type>Log::LogComponentHandle</type>
+        <definition>Log::LogComponentHandle CanModule::CCanAccess::_lh</definition>
+        <argsstring></argsstring>
+        <name>_lh</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" line="373" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" bodystart="373" bodyend="-1"/>
+        <referencedby refid="classCanModule_1_1CCanAccess_1a247e65001e8f59b47fdc2961dd67d74d" compoundref="CCanAccess_8h" startline="282" endline="311">connectReceptionSlotX</referencedby>
+        <referencedby refid="classCanModule_1_1CCanAccess_1a8212fb246945f2c32a164e83be42bc73" compoundref="CCanAccess_8h" startline="312" endline="316">disconnectReceptionSlotX</referencedby>
+        <referencedby refid="classCanModule_1_1CCanAccess_1af26c9d102638fb96e5e1305f807d148f" compoundref="CCanAccess_8h" startline="350" endline="364">parseNameAndParameters</referencedby>
+        <referencedby refid="classCanModule_1_1CCanAccess_1a86c0125599b177ed3017e842940565fd" compoundref="CCanAccess_8h" startline="275" endline="280">testSignalSlot</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classCanModule_1_1CCanAccess_1a2dd4a63017d6b5b1f4ce482c30711683" prot="private" static="no" mutable="no">
+        <type>LogItInstance *</type>
+        <definition>LogItInstance* CanModule::CCanAccess::s_logItRemoteInstance</definition>
+        <argsstring></argsstring>
+        <name>s_logItRemoteInstance</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" line="374" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" bodystart="374" bodyend="-1"/>
+        <referencedby refid="classCanModule_1_1CCanAccess_1a8210a8161f1987973584b6dda5dc6d7d" compoundref="CCanAccess_8h" startline="340" endline="343">getLogItInstance</referencedby>
+        <referencedby refid="classCanModule_1_1CCanAccess_1ab5a430fc27073d92c69659bda261b74d" compoundref="CCanAccess_8h" startline="329" endline="334">initialiseLogging</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classCanModule_1_1CCanAccess_1a7c9b87d205b0ec265c972a3303cecda2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>CanModule::CCanAccess::CCanAccess</definition>
+        <argsstring>()</argsstring>
+        <name>CCanAccess</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" line="120" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" bodystart="120" bodyend="125"/>
+        <references refid="namespaceCanModule_1aca09a34a617d28f8b35699e7933d2599" compoundref="CCanAccess_8h" startline="67" endline="67">CanModule::version</references>
+      </memberdef>
+      <memberdef kind="function" id="classCanModule_1_1CCanAccess_1acfefbc9be2696b1388cf6df2bba00aa1" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>bool</type>
+        <definition>virtual bool CanModule::CCanAccess::sendRemoteRequest</definition>
+        <argsstring>(short cobID)=0</argsstring>
+        <name>sendRemoteRequest</name>
+        <reimplementedby refid="classMockCanAccess_1a584734691bc9d4d49c5ccb795ab5d526">sendRemoteRequest</reimplementedby>
+        <reimplementedby refid="classCSockCanScan_1a4999204ff7166ee992a89b30a118af06">sendRemoteRequest</reimplementedby>
+        <reimplementedby refid="classPKCanScan_1af7e22b4a484de11ccaea060ad0adb47d">sendRemoteRequest</reimplementedby>
+        <reimplementedby refid="classSTCanScan_1a2c1de002fa7ace90ef95af00f824c8e4">sendRemoteRequest</reimplementedby>
+        <reimplementedby refid="classAnaCanScan_1a345abb2f9712275425f4af8eb98cbd38">sendRemoteRequest</reimplementedby>
+        <param>
+          <type>short</type>
+          <declname>cobID</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" line="135" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classCanModule_1_1CCanAccess_1a78590d342bc4f3433544d45371ca05ce" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>bool</type>
+        <definition>virtual bool CanModule::CCanAccess::createBus</definition>
+        <argsstring>(const string name, const string parameters)=0</argsstring>
+        <name>createBus</name>
+        <reimplementedby refid="classPKCanScan_1ae91999b9316ca127eecbabd9f27c3137">createBus</reimplementedby>
+        <reimplementedby refid="classMockCanAccess_1a7c897fbfa2f718fc3030bb69d12721be">createBus</reimplementedby>
+        <reimplementedby refid="classSTCanScan_1aa99f9f23bdfd367a51efc40e228a6f88">createBus</reimplementedby>
+        <reimplementedby refid="classCSockCanScan_1ac5c669f96d2d6cf7387f8a646bd65b3f">createBus</reimplementedby>
+        <reimplementedby refid="classAnaCanScan_1a54a66154c956b4605ff18f93f552db60">createBus</reimplementedby>
+        <param>
+          <type>const string</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>const string</type>
+          <declname>parameters</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" line="148" column="1"/>
+        <referencedby refid="classCanModule_1_1CanLibLoader_1aaac995d89efdcf2b673cbd3e678be55b" compoundref="CanLibLoader_8cpp" startline="61" endline="92">CanModule::CanLibLoader::openCanBus</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classCanModule_1_1CCanAccess_1aee42ab7fb9e50c02a1812202f7863d8c" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>bool</type>
+        <definition>virtual bool CanModule::CCanAccess::sendMessage</definition>
+        <argsstring>(short cobID, unsigned char len, unsigned char *message, bool rtr=false)=0</argsstring>
+        <name>sendMessage</name>
+        <reimplementedby refid="classPKCanScan_1a48a2e9ba00dae1b1fe01f7b095430503">sendMessage</reimplementedby>
+        <reimplementedby refid="classMockCanAccess_1a95856b7b3ac143d7c5bd7bd807c06fd5">sendMessage</reimplementedby>
+        <reimplementedby refid="classSTCanScan_1a45f0ec011022bf58a23e8370bac7f829">sendMessage</reimplementedby>
+        <reimplementedby refid="classCSockCanScan_1a485ec8621a98cdacad8e27433e09d919">sendMessage</reimplementedby>
+        <reimplementedby refid="classAnaCanScan_1ad45666454318c891d7acd9fe16ae4c49">sendMessage</reimplementedby>
+        <param>
+          <type>short</type>
+          <declname>cobID</declname>
+        </param>
+        <param>
+          <type>unsigned char</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>unsigned char *</type>
+          <declname>message</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>rtr</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" line="160" column="1"/>
+        <referencedby refid="classCanModule_1_1CCanAccess_1ad0360c49d00ec0ee92cfdd73c2e43935" compoundref="CCanAccess_8h" startline="162" endline="165">sendMessage</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classCanModule_1_1CCanAccess_1ad0360c49d00ec0ee92cfdd73c2e43935" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool CanModule::CCanAccess::sendMessage</definition>
+        <argsstring>(CanMessage *canm)</argsstring>
+        <name>sendMessage</name>
+        <reimplementedby refid="classAnaCanScan_1a75c1a41d3e8ed31b39e2813596358472">sendMessage</reimplementedby>
+        <param>
+          <type><ref refid="CanMessage_8h_1a03d03a5783fcae48487adf7c1ef990f3" kindref="member">CanMessage</ref> *</type>
+          <declname>canm</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" line="162" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" bodystart="162" bodyend="165"/>
+        <references refid="structCanMsgStruct_1a2e47a33e7bba46b05a8fff29433f047b" compoundref="CanMessage_8h" startline="29">CanMsgStruct::c_data</references>
+        <references refid="structCanMsgStruct_1a3e5add8ae9cdadfcf3f2255d375ec9b3" compoundref="CanMessage_8h" startline="27">CanMsgStruct::c_dlc</references>
+        <references refid="structCanMsgStruct_1a619515aef041e64b78e7e8c33989ddd0" compoundref="CanMessage_8h" startline="23">CanMsgStruct::c_id</references>
+        <references refid="structCanMsgStruct_1ad4a78c27262604bacb5720d8633f71c6" compoundref="CanMessage_8h" startline="33">CanMsgStruct::c_rtr</references>
+        <references refid="classCanModule_1_1CCanAccess_1aee42ab7fb9e50c02a1812202f7863d8c">sendMessage</references>
+      </memberdef>
+      <memberdef kind="function" id="classCanModule_1_1CCanAccess_1ac3f5126ae36d642217425e21696d19ca" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::string &amp;</type>
+        <definition>std::string&amp; CanModule::CCanAccess::getBusName</definition>
+        <argsstring>()</argsstring>
+        <name>getBusName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" line="169" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" bodystart="169" bodyend="169"/>
+        <references refid="classCanModule_1_1CCanAccess_1a0eff18d10b7ee5d6f86b03898f38f7ca" compoundref="CCanAccess_8h" startline="367">m_sBusName</references>
+        <referencedby refid="classCanModule_1_1CanLibLoader_1acd7d3af103bb72d5bd18737333d682f4" compoundref="CanLibLoader_8cpp" startline="55" endline="59">CanModule::CanLibLoader::closeCanBus</referencedby>
+        <referencedby refid="classCanModule_1_1CanBusAccess_1a30200d7e59055a516aceeba6c2bb534e" compoundref="CanBusAccess_8cpp" startline="55" endline="65">CanModule::CanBusAccess::closeCanBus</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classCanModule_1_1CCanAccess_1ac96f1cce6beda4309cdfb6651d3ce547" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual CanModule::CCanAccess::~CCanAccess</definition>
+        <argsstring>()</argsstring>
+        <name>~CCanAccess</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" line="181" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" bodystart="181" bodyend="181"/>
+      </memberdef>
+      <memberdef kind="function" id="classCanModule_1_1CCanAccess_1a86c0125599b177ed3017e842940565fd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void CanModule::CCanAccess::testSignalSlot</definition>
+        <argsstring>(void)</argsstring>
+        <name>testSignalSlot</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" line="275" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" bodystart="275" bodyend="280"/>
+        <references refid="classCanModule_1_1CCanAccess_1a3730f588f597fa5b692d286680a8df00" compoundref="CCanAccess_8h" startline="373">_lh</references>
+        <references refid="classCanModule_1_1CCanAccess_1aa8e0e974863874b0e7bbcdb57084c241" compoundref="CCanAccess_8h" startline="179">canMessageCame</references>
+      </memberdef>
+      <memberdef kind="function" id="classCanModule_1_1CCanAccess_1a247e65001e8f59b47fdc2961dd67d74d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void CanModule::CCanAccess::connectReceptionSlotX</definition>
+        <argsstring>(int connectionIndex)</argsstring>
+        <name>connectReceptionSlotX</name>
+        <param>
+          <type>int</type>
+          <declname>connectionIndex</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" line="282" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" bodystart="282" bodyend="311"/>
+        <references refid="classCanModule_1_1CCanAccess_1a3730f588f597fa5b692d286680a8df00" compoundref="CCanAccess_8h" startline="373">_lh</references>
+        <references refid="classCanModule_1_1CCanAccess_1aa8e0e974863874b0e7bbcdb57084c241" compoundref="CCanAccess_8h" startline="179">canMessageCame</references>
+        <references refid="classCanModule_1_1CCanAccess_1aa624bfe085a65b9fba440f3a8d721525" compoundref="CCanAccess_8h" startline="371">s_cconnection</references>
+        <references refid="classCanModule_1_1CCanAccess_1a6e42f036ab5b70474477a8e4715908aa" compoundref="CCanAccess_8h" startline="372">s_connectionIndex</references>
+        <references refid="classCanModule_1_1CCanAccess_1af12f56ce8f69ef8fb77beae30ec0ac2e" compoundref="CCanAccess_8h" startline="210" endline="213">slot0</references>
+        <references refid="classCanModule_1_1CCanAccess_1a334f6f48e22483862d56091703dce595" compoundref="CCanAccess_8h" startline="214" endline="217">slot1</references>
+        <references refid="classCanModule_1_1CCanAccess_1ab10944ddde9a45400eab905a58ef0534" compoundref="CCanAccess_8h" startline="250" endline="253">slot10</references>
+        <references refid="classCanModule_1_1CCanAccess_1a4825360b2a2787160be01b2aa9419ce1" compoundref="CCanAccess_8h" startline="254" endline="257">slot11</references>
+        <references refid="classCanModule_1_1CCanAccess_1a6d0a5e7306e46c5e5e5b9a3fc45e8330" compoundref="CCanAccess_8h" startline="258" endline="261">slot12</references>
+        <references refid="classCanModule_1_1CCanAccess_1a216e763e1cc1ce26dae65dfab939ad11" compoundref="CCanAccess_8h" startline="262" endline="265">slot13</references>
+        <references refid="classCanModule_1_1CCanAccess_1a68b36fdd0ad1f64bd7a1f0207386be4b" compoundref="CCanAccess_8h" startline="266" endline="269">slot14</references>
+        <references refid="classCanModule_1_1CCanAccess_1af44e482ce74f03d22c8a339fe6f01aa7" compoundref="CCanAccess_8h" startline="270" endline="273">slot15</references>
+        <references refid="classCanModule_1_1CCanAccess_1a15a904b7593396d931e9f57b70da929d" compoundref="CCanAccess_8h" startline="218" endline="221">slot2</references>
+        <references refid="classCanModule_1_1CCanAccess_1a0c9527a03b09356decf18241acd1a532" compoundref="CCanAccess_8h" startline="222" endline="225">slot3</references>
+        <references refid="classCanModule_1_1CCanAccess_1af95d2dff96d924a5c2589db82a8a6abd" compoundref="CCanAccess_8h" startline="226" endline="229">slot4</references>
+        <references refid="classCanModule_1_1CCanAccess_1aca7bcb8e9e5043a6636ce767d345716a" compoundref="CCanAccess_8h" startline="230" endline="233">slot5</references>
+        <references refid="classCanModule_1_1CCanAccess_1a335e4ebb979de2ad399380886b3742b7" compoundref="CCanAccess_8h" startline="234" endline="237">slot6</references>
+        <references refid="classCanModule_1_1CCanAccess_1a8278d35739b5f92e24331accb4b8383e" compoundref="CCanAccess_8h" startline="238" endline="241">slot7</references>
+        <references refid="classCanModule_1_1CCanAccess_1a2e5052c0d4b0bf48d0ea709583349118" compoundref="CCanAccess_8h" startline="242" endline="245">slot8</references>
+        <references refid="classCanModule_1_1CCanAccess_1a9eb127d5fa0c228f785d65a1ef25b97a" compoundref="CCanAccess_8h" startline="246" endline="249">slot9</references>
+      </memberdef>
+      <memberdef kind="function" id="classCanModule_1_1CCanAccess_1a8212fb246945f2c32a164e83be42bc73" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void CanModule::CCanAccess::disconnectReceptionSlotX</definition>
+        <argsstring>(void)</argsstring>
+        <name>disconnectReceptionSlotX</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" line="312" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" bodystart="312" bodyend="316"/>
+        <references refid="classCanModule_1_1CCanAccess_1a3730f588f597fa5b692d286680a8df00" compoundref="CCanAccess_8h" startline="373">_lh</references>
+        <references refid="classCanModule_1_1CCanAccess_1aa8e0e974863874b0e7bbcdb57084c241" compoundref="CCanAccess_8h" startline="179">canMessageCame</references>
+        <references refid="classCanModule_1_1CCanAccess_1aa624bfe085a65b9fba440f3a8d721525" compoundref="CCanAccess_8h" startline="371">s_cconnection</references>
+        <references refid="classCanModule_1_1CCanAccess_1a6e42f036ab5b70474477a8e4715908aa" compoundref="CCanAccess_8h" startline="372">s_connectionIndex</references>
+      </memberdef>
+      <memberdef kind="function" id="classCanModule_1_1CCanAccess_1ad3182c83b4c5d7e6aef982c36e731507" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void CanModule::CCanAccess::getStatistics</definition>
+        <argsstring>(CanStatistics &amp;result)=0</argsstring>
+        <name>getStatistics</name>
+        <reimplementedby refid="classMockCanAccess_1a73d7565174206d2c58f81040a6438541">getStatistics</reimplementedby>
+        <reimplementedby refid="classPKCanScan_1a2ef38527fb5009c43487fccbbe4694ba">getStatistics</reimplementedby>
+        <reimplementedby refid="classSTCanScan_1a4810249805b660c4e914247acbdf45d2">getStatistics</reimplementedby>
+        <reimplementedby refid="classCSockCanScan_1a38110f02c2d12fa9b620ba5ff438a960">getStatistics</reimplementedby>
+        <reimplementedby refid="classAnaCanScan_1ad4576bc409a954c888a6fd7f06ca697f">getStatistics</reimplementedby>
+        <param>
+          <type><ref refid="classCanModule_1_1CanStatistics" kindref="compound">CanStatistics</ref> &amp;</type>
+          <declname>result</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" line="327" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classCanModule_1_1CCanAccess_1ab5a430fc27073d92c69659bda261b74d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CanModule::CCanAccess::initialiseLogging</definition>
+        <argsstring>(LogItInstance *remoteInstance)</argsstring>
+        <name>initialiseLogging</name>
+        <param>
+          <type>LogItInstance *</type>
+          <declname>remoteInstance</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" line="329" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" bodystart="329" bodyend="334"/>
+        <references refid="classCanModule_1_1CCanAccess_1a2dd4a63017d6b5b1f4ce482c30711683" compoundref="CCanAccess_8h" startline="374">s_logItRemoteInstance</references>
+        <referencedby refid="classCanModule_1_1CanLibLoader_1aaac995d89efdcf2b673cbd3e678be55b" compoundref="CanLibLoader_8cpp" startline="61" endline="92">CanModule::CanLibLoader::openCanBus</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classCanModule_1_1CCanAccess_1a8210a8161f1987973584b6dda5dc6d7d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>LogItInstance *</type>
+        <definition>LogItInstance* CanModule::CCanAccess::getLogItInstance</definition>
+        <argsstring>()</argsstring>
+        <name>getLogItInstance</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>the LogIt instance is NOT shared by inheritance in windows, the instance has to be passed explicitly from the parent </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" line="340" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" bodystart="340" bodyend="343"/>
+        <references refid="classCanModule_1_1CCanAccess_1a2dd4a63017d6b5b1f4ce482c30711683" compoundref="CCanAccess_8h" startline="374">s_logItRemoteInstance</references>
+      </memberdef>
+      <memberdef kind="function" id="classCanModule_1_1CCanAccess_1af26c9d102638fb96e5e1305f807d148f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>vector&lt; string &gt;</type>
+        <definition>vector&lt;string&gt; CanModule::CCanAccess::parseNameAndParameters</definition>
+        <argsstring>(string name, string parameters)</argsstring>
+        <name>parseNameAndParameters</name>
+        <param>
+          <type>string</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>parameters</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" line="350" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" bodystart="350" bodyend="364"/>
+        <references refid="classCanModule_1_1CCanAccess_1a3730f588f597fa5b692d286680a8df00" compoundref="CCanAccess_8h" startline="373">_lh</references>
+        <references refid="classCanModule_1_1CCanAccess_1a484a4f9dc352fe31b4baff0365095705" compoundref="CCanAccess_8h" startline="368">m_CanParameters</references>
+        <references refid="classCanModule_1_1CCanAccess_1a0eff18d10b7ee5d6f86b03898f38f7ca" compoundref="CCanAccess_8h" startline="367">m_sBusName</references>
+        <references refid="structCanModule_1_1CanParameters_1ae3c938ac282acae4e49487cbb8a61133" compoundref="CCanAccess_8h" startline="81" endline="94">CanModule::CanParameters::scanParameters</references>
+        <referencedby refid="classSTCanScan_1a8e147c77933e11e9983f4d4e22830b21" compoundref="STCanScan_8cpp" startline="178" endline="229">STCanScan::configureCanBoard</referencedby>
+        <referencedby refid="classCSockCanScan_1a8bb8fcdb24b2b917258d027e6a468bae" compoundref="SockCanScan_8cpp" startline="305" endline="311">CSockCanScan::configureCanBoard</referencedby>
+        <referencedby refid="classAnaCanScan_1ad917f9cda15bbf9dd9abe6417be5a5eb" compoundref="AnaCanScan_8cpp" startline="203" endline="251">AnaCanScan::configureCanBoard</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classCanModule_1_1CCanAccess_1a08d387c6261bee525c0bb05eb66b4164" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void CanModule::CCanAccess::connectFwSlotX</definition>
+        <argsstring>(int connectionIndex, boost::function&lt; void(const CanMsgStruct)&gt; userFunction)</argsstring>
+        <name>connectFwSlotX</name>
+        <param>
+          <type>int</type>
+          <declname>connectionIndex</declname>
+        </param>
+        <param>
+          <type>boost::function&lt; void(const <ref refid="structCanMsgStruct" kindref="compound">CanMsgStruct</ref>)&gt;</type>
+          <declname>userFunction</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>call an external user-code function to treat the can message. Use boost function wrappers for this. All these are static. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" line="186" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" bodystart="186" bodyend="209"/>
+        <references refid="classCanModule_1_1CCanAccess_1a20323e55767d3a60c78a88db5d785829" compoundref="CCanAccess_8h" startline="101">fw_slot0</references>
+        <references refid="classCanModule_1_1CCanAccess_1ab9194c7d019e7da16f98a177b4e6e145" compoundref="CCanAccess_8h" startline="102">fw_slot1</references>
+        <references refid="classCanModule_1_1CCanAccess_1a4130b6b2dac7673a2e2253c8b957294c" compoundref="CCanAccess_8h" startline="111">fw_slot10</references>
+        <references refid="classCanModule_1_1CCanAccess_1a4e8381b84bbbfbcfe6feb9eba7e17fd9" compoundref="CCanAccess_8h" startline="112">fw_slot11</references>
+        <references refid="classCanModule_1_1CCanAccess_1aad6416d679ea5cb9582b145ac7a61a31" compoundref="CCanAccess_8h" startline="113">fw_slot12</references>
+        <references refid="classCanModule_1_1CCanAccess_1a625e00cbeb49526bb5b37b7e4032149b" compoundref="CCanAccess_8h" startline="114">fw_slot13</references>
+        <references refid="classCanModule_1_1CCanAccess_1a66ce4a26bdd58b6bfa016c86034137bb" compoundref="CCanAccess_8h" startline="115">fw_slot14</references>
+        <references refid="classCanModule_1_1CCanAccess_1a14a98fa7153c222282ae567a685611cd" compoundref="CCanAccess_8h" startline="116">fw_slot15</references>
+        <references refid="classCanModule_1_1CCanAccess_1a7b299903bfe41cee29cc497ba43554fd" compoundref="CCanAccess_8h" startline="103">fw_slot2</references>
+        <references refid="classCanModule_1_1CCanAccess_1ad3cbc73468e8edf35f917ed4aa65df16" compoundref="CCanAccess_8h" startline="104">fw_slot3</references>
+        <references refid="classCanModule_1_1CCanAccess_1abe5e84df9f43bd309c635d3201b6dba7" compoundref="CCanAccess_8h" startline="105">fw_slot4</references>
+        <references refid="classCanModule_1_1CCanAccess_1a62c0c4ac34c437097f74f685fb0266a5" compoundref="CCanAccess_8h" startline="106">fw_slot5</references>
+        <references refid="classCanModule_1_1CCanAccess_1a4f457bfc8b8b494130293d563dac72e7" compoundref="CCanAccess_8h" startline="107">fw_slot6</references>
+        <references refid="classCanModule_1_1CCanAccess_1a12da52fdad176cf1fa482983bdb5cfd5" compoundref="CCanAccess_8h" startline="108">fw_slot7</references>
+        <references refid="classCanModule_1_1CCanAccess_1a7626751af619f301c0bde5657329b4dd" compoundref="CCanAccess_8h" startline="109">fw_slot8</references>
+        <references refid="classCanModule_1_1CCanAccess_1a5e7196879da60e80eb209ee807cbcd11" compoundref="CCanAccess_8h" startline="110">fw_slot9</references>
+        <references refid="namespaceCanModule_1a78730a18f59663871883885f3914a2aa" compoundref="CCanAccess_8h" startline="50">CanModule::LogItComponentName</references>
+      </memberdef>
+      <memberdef kind="function" id="classCanModule_1_1CCanAccess_1af12f56ce8f69ef8fb77beae30ec0ac2e" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void CanModule::CCanAccess::slot0</definition>
+        <argsstring>(const CanMsgStruct msg)</argsstring>
+        <name>slot0</name>
+        <param>
+          <type>const <ref refid="structCanMsgStruct" kindref="compound">CanMsgStruct</ref></type>
+          <declname>msg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" line="210" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" bodystart="210" bodyend="213"/>
+        <references refid="classCanModule_1_1CCanAccess_1a20323e55767d3a60c78a88db5d785829" compoundref="CCanAccess_8h" startline="101">fw_slot0</references>
+        <referencedby refid="classCanModule_1_1CCanAccess_1a247e65001e8f59b47fdc2961dd67d74d" compoundref="CCanAccess_8h" startline="282" endline="311">connectReceptionSlotX</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classCanModule_1_1CCanAccess_1a334f6f48e22483862d56091703dce595" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void CanModule::CCanAccess::slot1</definition>
+        <argsstring>(const CanMsgStruct msg)</argsstring>
+        <name>slot1</name>
+        <param>
+          <type>const <ref refid="structCanMsgStruct" kindref="compound">CanMsgStruct</ref></type>
+          <declname>msg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" line="214" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" bodystart="214" bodyend="217"/>
+        <references refid="classCanModule_1_1CCanAccess_1ab9194c7d019e7da16f98a177b4e6e145" compoundref="CCanAccess_8h" startline="102">fw_slot1</references>
+        <referencedby refid="classCanModule_1_1CCanAccess_1a247e65001e8f59b47fdc2961dd67d74d" compoundref="CCanAccess_8h" startline="282" endline="311">connectReceptionSlotX</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classCanModule_1_1CCanAccess_1a15a904b7593396d931e9f57b70da929d" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void CanModule::CCanAccess::slot2</definition>
+        <argsstring>(const CanMsgStruct msg)</argsstring>
+        <name>slot2</name>
+        <param>
+          <type>const <ref refid="structCanMsgStruct" kindref="compound">CanMsgStruct</ref></type>
+          <declname>msg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" line="218" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" bodystart="218" bodyend="221"/>
+        <references refid="classCanModule_1_1CCanAccess_1a7b299903bfe41cee29cc497ba43554fd" compoundref="CCanAccess_8h" startline="103">fw_slot2</references>
+        <referencedby refid="classCanModule_1_1CCanAccess_1a247e65001e8f59b47fdc2961dd67d74d" compoundref="CCanAccess_8h" startline="282" endline="311">connectReceptionSlotX</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classCanModule_1_1CCanAccess_1a0c9527a03b09356decf18241acd1a532" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void CanModule::CCanAccess::slot3</definition>
+        <argsstring>(const CanMsgStruct msg)</argsstring>
+        <name>slot3</name>
+        <param>
+          <type>const <ref refid="structCanMsgStruct" kindref="compound">CanMsgStruct</ref></type>
+          <declname>msg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" line="222" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" bodystart="222" bodyend="225"/>
+        <references refid="classCanModule_1_1CCanAccess_1abe5e84df9f43bd309c635d3201b6dba7" compoundref="CCanAccess_8h" startline="105">fw_slot4</references>
+        <referencedby refid="classCanModule_1_1CCanAccess_1a247e65001e8f59b47fdc2961dd67d74d" compoundref="CCanAccess_8h" startline="282" endline="311">connectReceptionSlotX</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classCanModule_1_1CCanAccess_1af95d2dff96d924a5c2589db82a8a6abd" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void CanModule::CCanAccess::slot4</definition>
+        <argsstring>(const CanMsgStruct msg)</argsstring>
+        <name>slot4</name>
+        <param>
+          <type>const <ref refid="structCanMsgStruct" kindref="compound">CanMsgStruct</ref></type>
+          <declname>msg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" line="226" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" bodystart="226" bodyend="229"/>
+        <references refid="classCanModule_1_1CCanAccess_1abe5e84df9f43bd309c635d3201b6dba7" compoundref="CCanAccess_8h" startline="105">fw_slot4</references>
+        <referencedby refid="classCanModule_1_1CCanAccess_1a247e65001e8f59b47fdc2961dd67d74d" compoundref="CCanAccess_8h" startline="282" endline="311">connectReceptionSlotX</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classCanModule_1_1CCanAccess_1aca7bcb8e9e5043a6636ce767d345716a" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void CanModule::CCanAccess::slot5</definition>
+        <argsstring>(const CanMsgStruct msg)</argsstring>
+        <name>slot5</name>
+        <param>
+          <type>const <ref refid="structCanMsgStruct" kindref="compound">CanMsgStruct</ref></type>
+          <declname>msg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" line="230" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" bodystart="230" bodyend="233"/>
+        <references refid="classCanModule_1_1CCanAccess_1a62c0c4ac34c437097f74f685fb0266a5" compoundref="CCanAccess_8h" startline="106">fw_slot5</references>
+        <referencedby refid="classCanModule_1_1CCanAccess_1a247e65001e8f59b47fdc2961dd67d74d" compoundref="CCanAccess_8h" startline="282" endline="311">connectReceptionSlotX</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classCanModule_1_1CCanAccess_1a335e4ebb979de2ad399380886b3742b7" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void CanModule::CCanAccess::slot6</definition>
+        <argsstring>(const CanMsgStruct msg)</argsstring>
+        <name>slot6</name>
+        <param>
+          <type>const <ref refid="structCanMsgStruct" kindref="compound">CanMsgStruct</ref></type>
+          <declname>msg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" line="234" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" bodystart="234" bodyend="237"/>
+        <references refid="classCanModule_1_1CCanAccess_1a4f457bfc8b8b494130293d563dac72e7" compoundref="CCanAccess_8h" startline="107">fw_slot6</references>
+        <referencedby refid="classCanModule_1_1CCanAccess_1a247e65001e8f59b47fdc2961dd67d74d" compoundref="CCanAccess_8h" startline="282" endline="311">connectReceptionSlotX</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classCanModule_1_1CCanAccess_1a8278d35739b5f92e24331accb4b8383e" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void CanModule::CCanAccess::slot7</definition>
+        <argsstring>(const CanMsgStruct msg)</argsstring>
+        <name>slot7</name>
+        <param>
+          <type>const <ref refid="structCanMsgStruct" kindref="compound">CanMsgStruct</ref></type>
+          <declname>msg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" line="238" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" bodystart="238" bodyend="241"/>
+        <references refid="classCanModule_1_1CCanAccess_1a12da52fdad176cf1fa482983bdb5cfd5" compoundref="CCanAccess_8h" startline="108">fw_slot7</references>
+        <referencedby refid="classCanModule_1_1CCanAccess_1a247e65001e8f59b47fdc2961dd67d74d" compoundref="CCanAccess_8h" startline="282" endline="311">connectReceptionSlotX</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classCanModule_1_1CCanAccess_1a2e5052c0d4b0bf48d0ea709583349118" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void CanModule::CCanAccess::slot8</definition>
+        <argsstring>(const CanMsgStruct msg)</argsstring>
+        <name>slot8</name>
+        <param>
+          <type>const <ref refid="structCanMsgStruct" kindref="compound">CanMsgStruct</ref></type>
+          <declname>msg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" line="242" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" bodystart="242" bodyend="245"/>
+        <references refid="classCanModule_1_1CCanAccess_1a7626751af619f301c0bde5657329b4dd" compoundref="CCanAccess_8h" startline="109">fw_slot8</references>
+        <referencedby refid="classCanModule_1_1CCanAccess_1a247e65001e8f59b47fdc2961dd67d74d" compoundref="CCanAccess_8h" startline="282" endline="311">connectReceptionSlotX</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classCanModule_1_1CCanAccess_1a9eb127d5fa0c228f785d65a1ef25b97a" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void CanModule::CCanAccess::slot9</definition>
+        <argsstring>(const CanMsgStruct msg)</argsstring>
+        <name>slot9</name>
+        <param>
+          <type>const <ref refid="structCanMsgStruct" kindref="compound">CanMsgStruct</ref></type>
+          <declname>msg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" line="246" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" bodystart="246" bodyend="249"/>
+        <references refid="classCanModule_1_1CCanAccess_1a5e7196879da60e80eb209ee807cbcd11" compoundref="CCanAccess_8h" startline="110">fw_slot9</references>
+        <referencedby refid="classCanModule_1_1CCanAccess_1a247e65001e8f59b47fdc2961dd67d74d" compoundref="CCanAccess_8h" startline="282" endline="311">connectReceptionSlotX</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classCanModule_1_1CCanAccess_1ab10944ddde9a45400eab905a58ef0534" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void CanModule::CCanAccess::slot10</definition>
+        <argsstring>(const CanMsgStruct msg)</argsstring>
+        <name>slot10</name>
+        <param>
+          <type>const <ref refid="structCanMsgStruct" kindref="compound">CanMsgStruct</ref></type>
+          <declname>msg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" line="250" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" bodystart="250" bodyend="253"/>
+        <references refid="classCanModule_1_1CCanAccess_1a4130b6b2dac7673a2e2253c8b957294c" compoundref="CCanAccess_8h" startline="111">fw_slot10</references>
+        <referencedby refid="classCanModule_1_1CCanAccess_1a247e65001e8f59b47fdc2961dd67d74d" compoundref="CCanAccess_8h" startline="282" endline="311">connectReceptionSlotX</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classCanModule_1_1CCanAccess_1a4825360b2a2787160be01b2aa9419ce1" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void CanModule::CCanAccess::slot11</definition>
+        <argsstring>(const CanMsgStruct msg)</argsstring>
+        <name>slot11</name>
+        <param>
+          <type>const <ref refid="structCanMsgStruct" kindref="compound">CanMsgStruct</ref></type>
+          <declname>msg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" line="254" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" bodystart="254" bodyend="257"/>
+        <references refid="classCanModule_1_1CCanAccess_1a4e8381b84bbbfbcfe6feb9eba7e17fd9" compoundref="CCanAccess_8h" startline="112">fw_slot11</references>
+        <referencedby refid="classCanModule_1_1CCanAccess_1a247e65001e8f59b47fdc2961dd67d74d" compoundref="CCanAccess_8h" startline="282" endline="311">connectReceptionSlotX</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classCanModule_1_1CCanAccess_1a6d0a5e7306e46c5e5e5b9a3fc45e8330" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void CanModule::CCanAccess::slot12</definition>
+        <argsstring>(const CanMsgStruct msg)</argsstring>
+        <name>slot12</name>
+        <param>
+          <type>const <ref refid="structCanMsgStruct" kindref="compound">CanMsgStruct</ref></type>
+          <declname>msg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" line="258" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" bodystart="258" bodyend="261"/>
+        <references refid="classCanModule_1_1CCanAccess_1aad6416d679ea5cb9582b145ac7a61a31" compoundref="CCanAccess_8h" startline="113">fw_slot12</references>
+        <referencedby refid="classCanModule_1_1CCanAccess_1a247e65001e8f59b47fdc2961dd67d74d" compoundref="CCanAccess_8h" startline="282" endline="311">connectReceptionSlotX</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classCanModule_1_1CCanAccess_1a216e763e1cc1ce26dae65dfab939ad11" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void CanModule::CCanAccess::slot13</definition>
+        <argsstring>(const CanMsgStruct msg)</argsstring>
+        <name>slot13</name>
+        <param>
+          <type>const <ref refid="structCanMsgStruct" kindref="compound">CanMsgStruct</ref></type>
+          <declname>msg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" line="262" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" bodystart="262" bodyend="265"/>
+        <references refid="classCanModule_1_1CCanAccess_1a625e00cbeb49526bb5b37b7e4032149b" compoundref="CCanAccess_8h" startline="114">fw_slot13</references>
+        <referencedby refid="classCanModule_1_1CCanAccess_1a247e65001e8f59b47fdc2961dd67d74d" compoundref="CCanAccess_8h" startline="282" endline="311">connectReceptionSlotX</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classCanModule_1_1CCanAccess_1a68b36fdd0ad1f64bd7a1f0207386be4b" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void CanModule::CCanAccess::slot14</definition>
+        <argsstring>(const CanMsgStruct msg)</argsstring>
+        <name>slot14</name>
+        <param>
+          <type>const <ref refid="structCanMsgStruct" kindref="compound">CanMsgStruct</ref></type>
+          <declname>msg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" line="266" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" bodystart="266" bodyend="269"/>
+        <references refid="classCanModule_1_1CCanAccess_1a66ce4a26bdd58b6bfa016c86034137bb" compoundref="CCanAccess_8h" startline="115">fw_slot14</references>
+        <referencedby refid="classCanModule_1_1CCanAccess_1a247e65001e8f59b47fdc2961dd67d74d" compoundref="CCanAccess_8h" startline="282" endline="311">connectReceptionSlotX</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classCanModule_1_1CCanAccess_1af44e482ce74f03d22c8a339fe6f01aa7" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void CanModule::CCanAccess::slot15</definition>
+        <argsstring>(const CanMsgStruct msg)</argsstring>
+        <name>slot15</name>
+        <param>
+          <type>const <ref refid="structCanMsgStruct" kindref="compound">CanMsgStruct</ref></type>
+          <declname>msg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" line="270" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" bodystart="270" bodyend="273"/>
+        <references refid="classCanModule_1_1CCanAccess_1a14a98fa7153c222282ae567a685611cd" compoundref="CCanAccess_8h" startline="116">fw_slot15</references>
+        <referencedby refid="classCanModule_1_1CCanAccess_1a247e65001e8f59b47fdc2961dd67d74d" compoundref="CCanAccess_8h" startline="282" endline="311">connectReceptionSlotX</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="39">
+        <label>CSockCanScan</label>
+        <link refid="classCSockCanScan"/>
+        <childnode refid="37" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="40">
+        <label>MockCanAccess</label>
+        <link refid="classMockCanAccess"/>
+        <childnode refid="37" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="37">
+        <label>CanModule::CCanAccess</label>
+        <link refid="classCanModule_1_1CCanAccess"/>
+      </node>
+      <node id="41">
+        <label>PKCanScan</label>
+        <link refid="classPKCanScan"/>
+        <childnode refid="37" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="38">
+        <label>AnaCanScan</label>
+        <link refid="classAnaCanScan"/>
+        <childnode refid="37" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="42">
+        <label>STCanScan</label>
+        <link refid="classSTCanScan"/>
+        <childnode refid="37" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="44">
+        <label>CanModule::CanParameters</label>
+        <link refid="structCanModule_1_1CanParameters"/>
+      </node>
+      <node id="43">
+        <label>CanModule::CCanAccess</label>
+        <link refid="classCanModule_1_1CCanAccess"/>
+        <childnode refid="44" relation="usage">
+          <edgelabel>m_CanParameters</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" line="98" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CCanAccess.h" bodystart="97" bodyend="376"/>
+    <listofallmembers>
+      <member refid="classCanModule_1_1CCanAccess_1a3730f588f597fa5b692d286680a8df00" prot="private" virt="non-virtual"><scope>CanModule::CCanAccess</scope><name>_lh</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1aa8e0e974863874b0e7bbcdb57084c241" prot="public" virt="non-virtual"><scope>CanModule::CCanAccess</scope><name>canMessageCame</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a33fbd693f04b4f4e21cee20856c44866" prot="public" virt="non-virtual"><scope>CanModule::CCanAccess</scope><name>canMessageError</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a7c9b87d205b0ec265c972a3303cecda2" prot="public" virt="non-virtual"><scope>CanModule::CCanAccess</scope><name>CCanAccess</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a08d387c6261bee525c0bb05eb66b4164" prot="public" virt="non-virtual"><scope>CanModule::CCanAccess</scope><name>connectFwSlotX</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a247e65001e8f59b47fdc2961dd67d74d" prot="public" virt="non-virtual"><scope>CanModule::CCanAccess</scope><name>connectReceptionSlotX</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a78590d342bc4f3433544d45371ca05ce" prot="public" virt="pure-virtual"><scope>CanModule::CCanAccess</scope><name>createBus</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a8212fb246945f2c32a164e83be42bc73" prot="public" virt="non-virtual"><scope>CanModule::CCanAccess</scope><name>disconnectReceptionSlotX</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a20323e55767d3a60c78a88db5d785829" prot="public" virt="non-virtual"><scope>CanModule::CCanAccess</scope><name>fw_slot0</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1ab9194c7d019e7da16f98a177b4e6e145" prot="public" virt="non-virtual"><scope>CanModule::CCanAccess</scope><name>fw_slot1</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a4130b6b2dac7673a2e2253c8b957294c" prot="public" virt="non-virtual"><scope>CanModule::CCanAccess</scope><name>fw_slot10</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a4e8381b84bbbfbcfe6feb9eba7e17fd9" prot="public" virt="non-virtual"><scope>CanModule::CCanAccess</scope><name>fw_slot11</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1aad6416d679ea5cb9582b145ac7a61a31" prot="public" virt="non-virtual"><scope>CanModule::CCanAccess</scope><name>fw_slot12</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a625e00cbeb49526bb5b37b7e4032149b" prot="public" virt="non-virtual"><scope>CanModule::CCanAccess</scope><name>fw_slot13</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a66ce4a26bdd58b6bfa016c86034137bb" prot="public" virt="non-virtual"><scope>CanModule::CCanAccess</scope><name>fw_slot14</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a14a98fa7153c222282ae567a685611cd" prot="public" virt="non-virtual"><scope>CanModule::CCanAccess</scope><name>fw_slot15</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a7b299903bfe41cee29cc497ba43554fd" prot="public" virt="non-virtual"><scope>CanModule::CCanAccess</scope><name>fw_slot2</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1ad3cbc73468e8edf35f917ed4aa65df16" prot="public" virt="non-virtual"><scope>CanModule::CCanAccess</scope><name>fw_slot3</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1abe5e84df9f43bd309c635d3201b6dba7" prot="public" virt="non-virtual"><scope>CanModule::CCanAccess</scope><name>fw_slot4</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a62c0c4ac34c437097f74f685fb0266a5" prot="public" virt="non-virtual"><scope>CanModule::CCanAccess</scope><name>fw_slot5</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a4f457bfc8b8b494130293d563dac72e7" prot="public" virt="non-virtual"><scope>CanModule::CCanAccess</scope><name>fw_slot6</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a12da52fdad176cf1fa482983bdb5cfd5" prot="public" virt="non-virtual"><scope>CanModule::CCanAccess</scope><name>fw_slot7</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a7626751af619f301c0bde5657329b4dd" prot="public" virt="non-virtual"><scope>CanModule::CCanAccess</scope><name>fw_slot8</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a5e7196879da60e80eb209ee807cbcd11" prot="public" virt="non-virtual"><scope>CanModule::CCanAccess</scope><name>fw_slot9</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1ac3f5126ae36d642217425e21696d19ca" prot="public" virt="non-virtual"><scope>CanModule::CCanAccess</scope><name>getBusName</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a8210a8161f1987973584b6dda5dc6d7d" prot="public" virt="non-virtual"><scope>CanModule::CCanAccess</scope><name>getLogItInstance</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1ad3182c83b4c5d7e6aef982c36e731507" prot="public" virt="pure-virtual"><scope>CanModule::CCanAccess</scope><name>getStatistics</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1ab5a430fc27073d92c69659bda261b74d" prot="public" virt="non-virtual"><scope>CanModule::CCanAccess</scope><name>initialiseLogging</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a484a4f9dc352fe31b4baff0365095705" prot="protected" virt="non-virtual"><scope>CanModule::CCanAccess</scope><name>m_CanParameters</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a0eff18d10b7ee5d6f86b03898f38f7ca" prot="protected" virt="non-virtual"><scope>CanModule::CCanAccess</scope><name>m_sBusName</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1af26c9d102638fb96e5e1305f807d148f" prot="public" virt="non-virtual"><scope>CanModule::CCanAccess</scope><name>parseNameAndParameters</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1aa624bfe085a65b9fba440f3a8d721525" prot="private" virt="non-virtual"><scope>CanModule::CCanAccess</scope><name>s_cconnection</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a6e42f036ab5b70474477a8e4715908aa" prot="private" virt="non-virtual"><scope>CanModule::CCanAccess</scope><name>s_connectionIndex</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a2dd4a63017d6b5b1f4ce482c30711683" prot="private" virt="non-virtual"><scope>CanModule::CCanAccess</scope><name>s_logItRemoteInstance</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1aee42ab7fb9e50c02a1812202f7863d8c" prot="public" virt="pure-virtual"><scope>CanModule::CCanAccess</scope><name>sendMessage</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1ad0360c49d00ec0ee92cfdd73c2e43935" prot="public" virt="virtual"><scope>CanModule::CCanAccess</scope><name>sendMessage</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1acfefbc9be2696b1388cf6df2bba00aa1" prot="public" virt="pure-virtual"><scope>CanModule::CCanAccess</scope><name>sendRemoteRequest</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1af12f56ce8f69ef8fb77beae30ec0ac2e" prot="public" virt="non-virtual"><scope>CanModule::CCanAccess</scope><name>slot0</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a334f6f48e22483862d56091703dce595" prot="public" virt="non-virtual"><scope>CanModule::CCanAccess</scope><name>slot1</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1ab10944ddde9a45400eab905a58ef0534" prot="public" virt="non-virtual"><scope>CanModule::CCanAccess</scope><name>slot10</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a4825360b2a2787160be01b2aa9419ce1" prot="public" virt="non-virtual"><scope>CanModule::CCanAccess</scope><name>slot11</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a6d0a5e7306e46c5e5e5b9a3fc45e8330" prot="public" virt="non-virtual"><scope>CanModule::CCanAccess</scope><name>slot12</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a216e763e1cc1ce26dae65dfab939ad11" prot="public" virt="non-virtual"><scope>CanModule::CCanAccess</scope><name>slot13</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a68b36fdd0ad1f64bd7a1f0207386be4b" prot="public" virt="non-virtual"><scope>CanModule::CCanAccess</scope><name>slot14</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1af44e482ce74f03d22c8a339fe6f01aa7" prot="public" virt="non-virtual"><scope>CanModule::CCanAccess</scope><name>slot15</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a15a904b7593396d931e9f57b70da929d" prot="public" virt="non-virtual"><scope>CanModule::CCanAccess</scope><name>slot2</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a0c9527a03b09356decf18241acd1a532" prot="public" virt="non-virtual"><scope>CanModule::CCanAccess</scope><name>slot3</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1af95d2dff96d924a5c2589db82a8a6abd" prot="public" virt="non-virtual"><scope>CanModule::CCanAccess</scope><name>slot4</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1aca7bcb8e9e5043a6636ce767d345716a" prot="public" virt="non-virtual"><scope>CanModule::CCanAccess</scope><name>slot5</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a335e4ebb979de2ad399380886b3742b7" prot="public" virt="non-virtual"><scope>CanModule::CCanAccess</scope><name>slot6</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a8278d35739b5f92e24331accb4b8383e" prot="public" virt="non-virtual"><scope>CanModule::CCanAccess</scope><name>slot7</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a2e5052c0d4b0bf48d0ea709583349118" prot="public" virt="non-virtual"><scope>CanModule::CCanAccess</scope><name>slot8</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a9eb127d5fa0c228f785d65a1ef25b97a" prot="public" virt="non-virtual"><scope>CanModule::CCanAccess</scope><name>slot9</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a86c0125599b177ed3017e842940565fd" prot="public" virt="non-virtual"><scope>CanModule::CCanAccess</scope><name>testSignalSlot</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1ac96f1cce6beda4309cdfb6651d3ce547" prot="public" virt="virtual"><scope>CanModule::CCanAccess</scope><name>~CCanAccess</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

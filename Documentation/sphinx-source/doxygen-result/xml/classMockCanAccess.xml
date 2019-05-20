@@ -1,0 +1,360 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="classMockCanAccess" kind="class" prot="public">
+    <compoundname>MockCanAccess</compoundname>
+    <basecompoundref refid="classCanModule_1_1CCanAccess" prot="public" virt="non-virtual">CanModule::CCanAccess</basecompoundref>
+    <includes refid="MockCanAccess_8h" local="no">MockCanAccess.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classMockCanAccess_1ae581d0d291f4717be3887ff63ebca063" prot="private" static="no" mutable="no">
+        <type><ref refid="classCanModule_1_1CanStatistics" kindref="compound">CanModule::CanStatistics</ref></type>
+        <definition>CanModule::CanStatistics MockCanAccess::m_statistics</definition>
+        <argsstring></argsstring>
+        <name>m_statistics</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.h" line="55" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.h" bodystart="55" bodyend="-1"/>
+        <referencedby refid="classMockCanAccess_1a73d7565174206d2c58f81040a6438541" compoundref="MockCanAccess_8cpp" startline="70" endline="75">getStatistics</referencedby>
+        <referencedby refid="classMockCanAccess_1a5a5c76c0d3ba4276e98f56f81f8116a3" compoundref="MockCanAccess_8cpp" startline="30" endline="34">MockCanAccess</referencedby>
+        <referencedby refid="classMockCanAccess_1a95856b7b3ac143d7c5bd7bd807c06fd5" compoundref="MockCanAccess_8cpp" startline="54" endline="68">sendMessage</referencedby>
+        <referencedby refid="classMockCanAccess_1a584734691bc9d4d49c5ccb795ab5d526" compoundref="MockCanAccess_8cpp" startline="47" endline="52">sendRemoteRequest</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classMockCanAccess_1aa8c1a3282b1ec8a2295faaac6c067824" prot="private" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int MockCanAccess::m_baudRate</definition>
+        <argsstring></argsstring>
+        <name>m_baudRate</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.h" line="58" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.h" bodystart="58" bodyend="-1"/>
+        <referencedby refid="classMockCanAccess_1a73d7565174206d2c58f81040a6438541" compoundref="MockCanAccess_8cpp" startline="70" endline="75">getStatistics</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMockCanAccess_1a5a5c76c0d3ba4276e98f56f81f8116a3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MockCanAccess::MockCanAccess</definition>
+        <argsstring>()</argsstring>
+        <name>MockCanAccess</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.h" line="35" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.cpp" bodystart="30" bodyend="34"/>
+        <references refid="classCanModule_1_1CanStatistics_1a85e6c87ce5285884a0272088178bb8f6" compoundref="CanStatistics_8cpp" startline="43" endline="50">CanModule::CanStatistics::beginNewRun</references>
+        <references refid="classMockCanAccess_1ae581d0d291f4717be3887ff63ebca063" compoundref="MockCanAccess_8h" startline="55">m_statistics</references>
+      </memberdef>
+      <memberdef kind="function" id="classMockCanAccess_1a87261ff4a42e3b4d0f02939e7adc39d3" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>MockCanAccess::~MockCanAccess</definition>
+        <argsstring>()</argsstring>
+        <name>~MockCanAccess</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.h" line="36" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.cpp" bodystart="36" bodyend="39"/>
+      </memberdef>
+      <memberdef kind="function" id="classMockCanAccess_1abd2f1e23104ec8dd5dde7bebce78efc8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MockCanAccess::MockCanAccess</definition>
+        <argsstring>(MockCanAccess const &amp;other)=delete</argsstring>
+        <name>MockCanAccess</name>
+        <param>
+          <type><ref refid="classMockCanAccess" kindref="compound">MockCanAccess</ref> const &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.h" line="39" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classMockCanAccess_1a20469d64d4d207c793140d46f61ad874" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classMockCanAccess" kindref="compound">MockCanAccess</ref> &amp;</type>
+        <definition>MockCanAccess&amp; MockCanAccess::operator=</definition>
+        <argsstring>(MockCanAccess const &amp;other)=delete</argsstring>
+        <name>operator=</name>
+        <param>
+          <type><ref refid="classMockCanAccess" kindref="compound">MockCanAccess</ref> const &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.h" line="40" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classMockCanAccess_1a7c897fbfa2f718fc3030bb69d12721be" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool MockCanAccess::createBus</definition>
+        <argsstring>(const string name, const string parameters)</argsstring>
+        <name>createBus</name>
+        <reimplements refid="classCanModule_1_1CCanAccess_1a78590d342bc4f3433544d45371ca05ce">createBus</reimplements>
+        <param>
+          <type>const string</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>const string</type>
+          <declname>parameters</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.h" line="45" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.cpp" bodystart="41" bodyend="45"/>
+      </memberdef>
+      <memberdef kind="function" id="classMockCanAccess_1a584734691bc9d4d49c5ccb795ab5d526" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool MockCanAccess::sendRemoteRequest</definition>
+        <argsstring>(short cobID)</argsstring>
+        <name>sendRemoteRequest</name>
+        <reimplements refid="classCanModule_1_1CCanAccess_1acfefbc9be2696b1388cf6df2bba00aa1">sendRemoteRequest</reimplements>
+        <param>
+          <type>short</type>
+          <declname>cobID</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.h" line="46" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.cpp" bodystart="47" bodyend="52"/>
+        <references refid="classMockCanAccess_1ae581d0d291f4717be3887ff63ebca063" compoundref="MockCanAccess_8h" startline="55">m_statistics</references>
+        <references refid="classCanModule_1_1CanStatistics_1a0265b75e9e2e16737950b6b5c5662f35" compoundref="CanStatistics_8cpp" startline="72" endline="77">CanModule::CanStatistics::onTransmit</references>
+      </memberdef>
+      <memberdef kind="function" id="classMockCanAccess_1a95856b7b3ac143d7c5bd7bd807c06fd5" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool MockCanAccess::sendMessage</definition>
+        <argsstring>(short cobID, unsigned char len, unsigned char *message, bool rtr=false)</argsstring>
+        <name>sendMessage</name>
+        <reimplements refid="classCanModule_1_1CCanAccess_1aee42ab7fb9e50c02a1812202f7863d8c">sendMessage</reimplements>
+        <param>
+          <type>short</type>
+          <declname>cobID</declname>
+        </param>
+        <param>
+          <type>unsigned char</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>unsigned char *</type>
+          <declname>message</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>rtr</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.h" line="47" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.cpp" bodystart="54" bodyend="68"/>
+        <references refid="structCanMsgStruct_1a2e47a33e7bba46b05a8fff29433f047b" compoundref="CanMessage_8h" startline="29">CanMsgStruct::c_data</references>
+        <references refid="structCanMsgStruct_1a3e5add8ae9cdadfcf3f2255d375ec9b3" compoundref="CanMessage_8h" startline="27">CanMsgStruct::c_dlc</references>
+        <references refid="structCanMsgStruct_1a619515aef041e64b78e7e8c33989ddd0" compoundref="CanMessage_8h" startline="23">CanMsgStruct::c_id</references>
+        <references refid="MockCanAccess_8h_1af8ac2352c89d82a9696dc9dc29ba8b77" compoundref="MockCanAccess_8h" startline="27">CAN_ECHO_MSG</references>
+        <references refid="classCanModule_1_1CCanAccess_1aa8e0e974863874b0e7bbcdb57084c241" compoundref="CCanAccess_8h" startline="179">CanModule::CCanAccess::canMessageCame</references>
+        <references refid="classMockCanAccess_1aa7b4edb24afec475727619a3f2e1f444" compoundref="MockCanAccess_8cpp" startline="77" endline="80">getCanMessageDataAsString</references>
+        <references refid="classMockCanAccess_1ae581d0d291f4717be3887ff63ebca063" compoundref="MockCanAccess_8h" startline="55">m_statistics</references>
+        <references refid="classCanModule_1_1CanStatistics_1a0265b75e9e2e16737950b6b5c5662f35" compoundref="CanStatistics_8cpp" startline="72" endline="77">CanModule::CanStatistics::onTransmit</references>
+      </memberdef>
+      <memberdef kind="function" id="classMockCanAccess_1a73d7565174206d2c58f81040a6438541" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void MockCanAccess::getStatistics</definition>
+        <argsstring>(CanModule::CanStatistics &amp;result)</argsstring>
+        <name>getStatistics</name>
+        <reimplements refid="classCanModule_1_1CCanAccess_1ad3182c83b4c5d7e6aef982c36e731507">getStatistics</reimplements>
+        <param>
+          <type><ref refid="classCanModule_1_1CanStatistics" kindref="compound">CanModule::CanStatistics</ref> &amp;</type>
+          <declname>result</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.h" line="48" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.cpp" bodystart="70" bodyend="75"/>
+        <references refid="classCanModule_1_1CanStatistics_1a85e6c87ce5285884a0272088178bb8f6" compoundref="CanStatistics_8cpp" startline="43" endline="50">CanModule::CanStatistics::beginNewRun</references>
+        <references refid="classCanModule_1_1CanStatistics_1a8ec66bd11141579779f143362b70640e" compoundref="CanStatistics_8cpp" startline="52" endline="70">CanModule::CanStatistics::computeDerived</references>
+        <references refid="classMockCanAccess_1aa8c1a3282b1ec8a2295faaac6c067824" compoundref="MockCanAccess_8h" startline="58">m_baudRate</references>
+        <references refid="classMockCanAccess_1ae581d0d291f4717be3887ff63ebca063" compoundref="MockCanAccess_8h" startline="55">m_statistics</references>
+      </memberdef>
+      <memberdef kind="function" id="classMockCanAccess_1a33b2dab953237d0e302eaa82d08a923b" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool MockCanAccess::initialiseLogging</definition>
+        <argsstring>(LogItInstance *remoteInstance)</argsstring>
+        <name>initialiseLogging</name>
+        <param>
+          <type>LogItInstance *</type>
+          <declname>remoteInstance</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.h" line="49" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.cpp" bodystart="82" bodyend="85"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classMockCanAccess_1aa7b4edb24afec475727619a3f2e1f444" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string MockCanAccess::getCanMessageDataAsString</definition>
+        <argsstring>(const unsigned char *data, const unsigned char &amp;len=8)</argsstring>
+        <name>getCanMessageDataAsString</name>
+        <param>
+          <type>const unsigned char *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>const unsigned char &amp;</type>
+          <declname>len</declname>
+          <defval>8</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.h" line="51" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.cpp" bodystart="77" bodyend="80"/>
+        <referencedby refid="classMockCanAccess_1a95856b7b3ac143d7c5bd7bd807c06fd5" compoundref="MockCanAccess_8cpp" startline="54" endline="68">sendMessage</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="54">
+        <label>MockCanAccess</label>
+        <link refid="classMockCanAccess"/>
+        <childnode refid="55" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="55">
+        <label>CanModule::CCanAccess</label>
+        <link refid="classCanModule_1_1CCanAccess"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="58">
+        <label>CanModule::CanParameters</label>
+        <link refid="structCanModule_1_1CanParameters"/>
+      </node>
+      <node id="59">
+        <label>CanModule::CanStatistics</label>
+        <link refid="classCanModule_1_1CanStatistics"/>
+        <childnode refid="60" relation="usage">
+          <edgelabel>m_internals</edgelabel>
+        </childnode>
+      </node>
+      <node id="56">
+        <label>MockCanAccess</label>
+        <link refid="classMockCanAccess"/>
+        <childnode refid="57" relation="public-inheritance">
+        </childnode>
+        <childnode refid="59" relation="usage">
+          <edgelabel>m_statistics</edgelabel>
+        </childnode>
+      </node>
+      <node id="60">
+        <label>CanModule::CanStatistics::Internals</label>
+        <link refid="classCanModule_1_1CanStatistics_1_1Internals"/>
+      </node>
+      <node id="57">
+        <label>CanModule::CCanAccess</label>
+        <link refid="classCanModule_1_1CCanAccess"/>
+        <childnode refid="58" relation="usage">
+          <edgelabel>m_CanParameters</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.h" line="33" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.h" bodystart="32" bodyend="59"/>
+    <listofallmembers>
+      <member refid="classCanModule_1_1CCanAccess_1aa8e0e974863874b0e7bbcdb57084c241" prot="public" virt="non-virtual"><scope>MockCanAccess</scope><name>canMessageCame</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a33fbd693f04b4f4e21cee20856c44866" prot="public" virt="non-virtual"><scope>MockCanAccess</scope><name>canMessageError</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a7c9b87d205b0ec265c972a3303cecda2" prot="public" virt="non-virtual"><scope>MockCanAccess</scope><name>CCanAccess</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a08d387c6261bee525c0bb05eb66b4164" prot="public" virt="non-virtual"><scope>MockCanAccess</scope><name>connectFwSlotX</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a247e65001e8f59b47fdc2961dd67d74d" prot="public" virt="non-virtual"><scope>MockCanAccess</scope><name>connectReceptionSlotX</name></member>
+      <member refid="classMockCanAccess_1a7c897fbfa2f718fc3030bb69d12721be" prot="public" virt="virtual"><scope>MockCanAccess</scope><name>createBus</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a8212fb246945f2c32a164e83be42bc73" prot="public" virt="non-virtual"><scope>MockCanAccess</scope><name>disconnectReceptionSlotX</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a20323e55767d3a60c78a88db5d785829" prot="public" virt="non-virtual"><scope>MockCanAccess</scope><name>fw_slot0</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1ab9194c7d019e7da16f98a177b4e6e145" prot="public" virt="non-virtual"><scope>MockCanAccess</scope><name>fw_slot1</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a4130b6b2dac7673a2e2253c8b957294c" prot="public" virt="non-virtual"><scope>MockCanAccess</scope><name>fw_slot10</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a4e8381b84bbbfbcfe6feb9eba7e17fd9" prot="public" virt="non-virtual"><scope>MockCanAccess</scope><name>fw_slot11</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1aad6416d679ea5cb9582b145ac7a61a31" prot="public" virt="non-virtual"><scope>MockCanAccess</scope><name>fw_slot12</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a625e00cbeb49526bb5b37b7e4032149b" prot="public" virt="non-virtual"><scope>MockCanAccess</scope><name>fw_slot13</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a66ce4a26bdd58b6bfa016c86034137bb" prot="public" virt="non-virtual"><scope>MockCanAccess</scope><name>fw_slot14</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a14a98fa7153c222282ae567a685611cd" prot="public" virt="non-virtual"><scope>MockCanAccess</scope><name>fw_slot15</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a7b299903bfe41cee29cc497ba43554fd" prot="public" virt="non-virtual"><scope>MockCanAccess</scope><name>fw_slot2</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1ad3cbc73468e8edf35f917ed4aa65df16" prot="public" virt="non-virtual"><scope>MockCanAccess</scope><name>fw_slot3</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1abe5e84df9f43bd309c635d3201b6dba7" prot="public" virt="non-virtual"><scope>MockCanAccess</scope><name>fw_slot4</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a62c0c4ac34c437097f74f685fb0266a5" prot="public" virt="non-virtual"><scope>MockCanAccess</scope><name>fw_slot5</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a4f457bfc8b8b494130293d563dac72e7" prot="public" virt="non-virtual"><scope>MockCanAccess</scope><name>fw_slot6</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a12da52fdad176cf1fa482983bdb5cfd5" prot="public" virt="non-virtual"><scope>MockCanAccess</scope><name>fw_slot7</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a7626751af619f301c0bde5657329b4dd" prot="public" virt="non-virtual"><scope>MockCanAccess</scope><name>fw_slot8</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a5e7196879da60e80eb209ee807cbcd11" prot="public" virt="non-virtual"><scope>MockCanAccess</scope><name>fw_slot9</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1ac3f5126ae36d642217425e21696d19ca" prot="public" virt="non-virtual"><scope>MockCanAccess</scope><name>getBusName</name></member>
+      <member refid="classMockCanAccess_1aa7b4edb24afec475727619a3f2e1f444" prot="public" virt="non-virtual"><scope>MockCanAccess</scope><name>getCanMessageDataAsString</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a8210a8161f1987973584b6dda5dc6d7d" prot="public" virt="non-virtual"><scope>MockCanAccess</scope><name>getLogItInstance</name></member>
+      <member refid="classMockCanAccess_1a73d7565174206d2c58f81040a6438541" prot="public" virt="virtual"><scope>MockCanAccess</scope><name>getStatistics</name></member>
+      <member refid="classMockCanAccess_1a33b2dab953237d0e302eaa82d08a923b" prot="public" virt="virtual"><scope>MockCanAccess</scope><name>initialiseLogging</name></member>
+      <member refid="classMockCanAccess_1aa8c1a3282b1ec8a2295faaac6c067824" prot="private" virt="non-virtual"><scope>MockCanAccess</scope><name>m_baudRate</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a484a4f9dc352fe31b4baff0365095705" prot="protected" virt="non-virtual"><scope>MockCanAccess</scope><name>m_CanParameters</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a0eff18d10b7ee5d6f86b03898f38f7ca" prot="protected" virt="non-virtual"><scope>MockCanAccess</scope><name>m_sBusName</name></member>
+      <member refid="classMockCanAccess_1ae581d0d291f4717be3887ff63ebca063" prot="private" virt="non-virtual"><scope>MockCanAccess</scope><name>m_statistics</name></member>
+      <member refid="classMockCanAccess_1a5a5c76c0d3ba4276e98f56f81f8116a3" prot="public" virt="non-virtual"><scope>MockCanAccess</scope><name>MockCanAccess</name></member>
+      <member refid="classMockCanAccess_1abd2f1e23104ec8dd5dde7bebce78efc8" prot="public" virt="non-virtual"><scope>MockCanAccess</scope><name>MockCanAccess</name></member>
+      <member refid="classMockCanAccess_1a20469d64d4d207c793140d46f61ad874" prot="public" virt="non-virtual"><scope>MockCanAccess</scope><name>operator=</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1af26c9d102638fb96e5e1305f807d148f" prot="public" virt="non-virtual"><scope>MockCanAccess</scope><name>parseNameAndParameters</name></member>
+      <member refid="classMockCanAccess_1a95856b7b3ac143d7c5bd7bd807c06fd5" prot="public" virt="virtual"><scope>MockCanAccess</scope><name>sendMessage</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1ad0360c49d00ec0ee92cfdd73c2e43935" prot="public" virt="virtual" ambiguityscope="CanModule::CCanAccess::"><scope>MockCanAccess</scope><name>sendMessage</name></member>
+      <member refid="classMockCanAccess_1a584734691bc9d4d49c5ccb795ab5d526" prot="public" virt="virtual"><scope>MockCanAccess</scope><name>sendRemoteRequest</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1af12f56ce8f69ef8fb77beae30ec0ac2e" prot="public" virt="non-virtual"><scope>MockCanAccess</scope><name>slot0</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a334f6f48e22483862d56091703dce595" prot="public" virt="non-virtual"><scope>MockCanAccess</scope><name>slot1</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1ab10944ddde9a45400eab905a58ef0534" prot="public" virt="non-virtual"><scope>MockCanAccess</scope><name>slot10</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a4825360b2a2787160be01b2aa9419ce1" prot="public" virt="non-virtual"><scope>MockCanAccess</scope><name>slot11</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a6d0a5e7306e46c5e5e5b9a3fc45e8330" prot="public" virt="non-virtual"><scope>MockCanAccess</scope><name>slot12</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a216e763e1cc1ce26dae65dfab939ad11" prot="public" virt="non-virtual"><scope>MockCanAccess</scope><name>slot13</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a68b36fdd0ad1f64bd7a1f0207386be4b" prot="public" virt="non-virtual"><scope>MockCanAccess</scope><name>slot14</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1af44e482ce74f03d22c8a339fe6f01aa7" prot="public" virt="non-virtual"><scope>MockCanAccess</scope><name>slot15</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a15a904b7593396d931e9f57b70da929d" prot="public" virt="non-virtual"><scope>MockCanAccess</scope><name>slot2</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a0c9527a03b09356decf18241acd1a532" prot="public" virt="non-virtual"><scope>MockCanAccess</scope><name>slot3</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1af95d2dff96d924a5c2589db82a8a6abd" prot="public" virt="non-virtual"><scope>MockCanAccess</scope><name>slot4</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1aca7bcb8e9e5043a6636ce767d345716a" prot="public" virt="non-virtual"><scope>MockCanAccess</scope><name>slot5</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a335e4ebb979de2ad399380886b3742b7" prot="public" virt="non-virtual"><scope>MockCanAccess</scope><name>slot6</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a8278d35739b5f92e24331accb4b8383e" prot="public" virt="non-virtual"><scope>MockCanAccess</scope><name>slot7</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a2e5052c0d4b0bf48d0ea709583349118" prot="public" virt="non-virtual"><scope>MockCanAccess</scope><name>slot8</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a9eb127d5fa0c228f785d65a1ef25b97a" prot="public" virt="non-virtual"><scope>MockCanAccess</scope><name>slot9</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a86c0125599b177ed3017e842940565fd" prot="public" virt="non-virtual"><scope>MockCanAccess</scope><name>testSignalSlot</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1ac96f1cce6beda4309cdfb6651d3ce547" prot="public" virt="virtual"><scope>MockCanAccess</scope><name>~CCanAccess</name></member>
+      <member refid="classMockCanAccess_1a87261ff4a42e3b4d0f02939e7adc39d3" prot="public" virt="virtual"><scope>MockCanAccess</scope><name>~MockCanAccess</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,510 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="classPKCanScan" kind="class" prot="public">
+    <compoundname>PKCanScan</compoundname>
+    <basecompoundref refid="classCanModule_1_1CCanAccess" prot="public" virt="non-virtual">CanModule::CCanAccess</basecompoundref>
+    <includes refid="pkcan_8h" local="no">pkcan.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classPKCanScan_1a03eec54c44937d843f48b2b1a086b37b" prot="private" static="no" mutable="no">
+        <type><ref refid="classCanModule_1_1CanStatistics" kindref="compound">CanStatistics</ref></type>
+        <definition>CanStatistics PKCanScan::m_statistics</definition>
+        <argsstring></argsstring>
+        <name>m_statistics</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/pkcan/pkcan.h" line="70" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/pkcan/pkcan.h" bodystart="70" bodyend="-1"/>
+        <referencedby refid="classPKCanScan_1a45bd5feda5ccb009775c45bfabe41614" compoundref="pkcan_8cpp" startline="32" endline="79">CanScanControlThread</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classPKCanScan_1a1c361b38cbc6016192fbcd9a6d81236c" prot="private" static="no" mutable="no">
+        <type>TPCANStatus</type>
+        <definition>TPCANStatus PKCanScan::m_busStatus</definition>
+        <argsstring></argsstring>
+        <name>m_busStatus</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/pkcan/pkcan.h" line="71" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/pkcan/pkcan.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classPKCanScan_1afc2d4388c9cc8b562f315a55e7ad8bab" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool PKCanScan::m_CanScanThreadShutdownFlag</definition>
+        <argsstring></argsstring>
+        <name>m_CanScanThreadShutdownFlag</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/pkcan/pkcan.h" line="72" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/pkcan/pkcan.h" bodystart="72" bodyend="-1"/>
+        <referencedby refid="classPKCanScan_1a45bd5feda5ccb009775c45bfabe41614" compoundref="pkcan_8cpp" startline="32" endline="79">CanScanControlThread</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classPKCanScan_1a84e9c4874e065b79d5600c0a5f9f7877" prot="private" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int PKCanScan::m_baudRate</definition>
+        <argsstring></argsstring>
+        <name>m_baudRate</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/pkcan/pkcan.h" line="74" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/pkcan/pkcan.h" bodystart="74" bodyend="-1"/>
+        <referencedby refid="classPKCanScan_1a45bd5feda5ccb009775c45bfabe41614" compoundref="pkcan_8cpp" startline="32" endline="79">CanScanControlThread</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classPKCanScan_1a8f07d0272238592477299480f48ae193" prot="private" static="no" mutable="no">
+        <type>TPCANHandle</type>
+        <definition>TPCANHandle PKCanScan::m_canObjHandler</definition>
+        <argsstring></argsstring>
+        <name>m_canObjHandler</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/pkcan/pkcan.h" line="77" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/pkcan/pkcan.h" bodystart="77" bodyend="-1"/>
+        <referencedby refid="classPKCanScan_1a45bd5feda5ccb009775c45bfabe41614" compoundref="pkcan_8cpp" startline="32" endline="79">CanScanControlThread</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classPKCanScan_1a169a32c5961996acbd55aa5c12118de0" prot="private" static="no" mutable="no">
+        <type>HANDLE</type>
+        <definition>HANDLE PKCanScan::m_hCanScanThread</definition>
+        <argsstring></argsstring>
+        <name>m_hCanScanThread</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/pkcan/pkcan.h" line="80" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/pkcan/pkcan.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classPKCanScan_1a5ba2a765e250376fde32db88272339d6" prot="private" static="no" mutable="no">
+        <type><ref refid="AnaCanScan_8h_1ad342ac907eb044443153a22f964bf0af" kindref="member">DWORD</ref></type>
+        <definition>DWORD PKCanScan::m_idCanScanThread</definition>
+        <argsstring></argsstring>
+        <name>m_idCanScanThread</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/pkcan/pkcan.h" line="84" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/pkcan/pkcan.h" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classPKCanScan_1adfc8b4e20f4548295a99af69bf1888d5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>PKCanScan::PKCanScan</definition>
+        <argsstring>()</argsstring>
+        <name>PKCanScan</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/pkcan/pkcan.h" line="29" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/pkcan/pkcan.cpp" bodystart="19" bodyend="23"/>
+      </memberdef>
+      <memberdef kind="function" id="classPKCanScan_1aa323b8cf8e476c7dfec2719756f25962" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>PKCanScan::PKCanScan</definition>
+        <argsstring>(PKCanScan const &amp;other)=delete</argsstring>
+        <name>PKCanScan</name>
+        <param>
+          <type><ref refid="classPKCanScan" kindref="compound">PKCanScan</ref> const &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/pkcan/pkcan.h" line="31" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classPKCanScan_1a7a5e5fe4cb8b99c64c3908f3143a8f1c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classPKCanScan" kindref="compound">PKCanScan</ref> &amp;</type>
+        <definition>PKCanScan&amp; PKCanScan::operator=</definition>
+        <argsstring>(PKCanScan const &amp;other)=delete</argsstring>
+        <name>operator=</name>
+        <param>
+          <type><ref refid="classPKCanScan" kindref="compound">PKCanScan</ref> const &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/pkcan/pkcan.h" line="33" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classPKCanScan_1a924778bdca171eb7f3f597dfe9f99fb4" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>PKCanScan::~PKCanScan</definition>
+        <argsstring>()</argsstring>
+        <name>~PKCanScan</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/pkcan/pkcan.h" line="35" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/pkcan/pkcan.cpp" bodystart="25" bodyend="30"/>
+      </memberdef>
+      <memberdef kind="function" id="classPKCanScan_1ae91999b9316ca127eecbabd9f27c3137" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool PKCanScan::createBus</definition>
+        <argsstring>(const string name, const string parameters)</argsstring>
+        <name>createBus</name>
+        <reimplements refid="classCanModule_1_1CCanAccess_1a78590d342bc4f3433544d45371ca05ce">createBus</reimplements>
+        <param>
+          <type>const string</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>const string</type>
+          <declname>parameters</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Method that initialises a CAN bus channel for peak (using PEAK Basic) All following methods called on the same object will be using this initialized channel.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>= 2 parameters separated by &quot;:&quot; like &quot;n0:n1&quot;<itemizedlist>
+<listitem><para>n0 = &quot;pk&quot; for peak</para></listitem><listitem><para>n1 = CAN port number on the module, can be prefixed with &quot;can&quot;</para></listitem><listitem><para>ex.: &quot;pk:can1&quot; speaks to port 1 on peak module at the ip</para></listitem><listitem><para>ex.: &quot;pk:1&quot; works as well</para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>parameters</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>one parameter: &quot;p0&quot;, positive integers<itemizedlist>
+<listitem><para>&quot;Unspecified&quot; (or empty): using defaults = &quot;125000&quot; // params missing</para></listitem><listitem><para>p0: bitrate: 50000, 100000, 125000, 250000, 500000, 1000000 bit/s i.e. &quot;250000&quot;</para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>was the initialisation process successful? </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/pkcan/pkcan.h" line="36" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/pkcan/pkcan.cpp" bodystart="99" bodyend="116"/>
+      </memberdef>
+      <memberdef kind="function" id="classPKCanScan_1a48a2e9ba00dae1b1fe01f7b095430503" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool PKCanScan::sendMessage</definition>
+        <argsstring>(short cobID, unsigned char len, unsigned char *message, bool rtr=false)</argsstring>
+        <name>sendMessage</name>
+        <reimplements refid="classCanModule_1_1CCanAccess_1aee42ab7fb9e50c02a1812202f7863d8c">sendMessage</reimplements>
+        <param>
+          <type>short</type>
+          <declname>cobID</declname>
+        </param>
+        <param>
+          <type>unsigned char</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>unsigned char *</type>
+          <declname>message</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>rtr</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/pkcan/pkcan.h" line="46" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/pkcan/pkcan.cpp" bodystart="207" bodyend="245"/>
+      </memberdef>
+      <memberdef kind="function" id="classPKCanScan_1af7e22b4a484de11ccaea060ad0adb47d" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool PKCanScan::sendRemoteRequest</definition>
+        <argsstring>(short cobID)</argsstring>
+        <name>sendRemoteRequest</name>
+        <reimplements refid="classCanModule_1_1CCanAccess_1acfefbc9be2696b1388cf6df2bba00aa1">sendRemoteRequest</reimplements>
+        <param>
+          <type>short</type>
+          <declname>cobID</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/pkcan/pkcan.h" line="53" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/pkcan/pkcan.cpp" bodystart="247" bodyend="254"/>
+      </memberdef>
+      <memberdef kind="function" id="classPKCanScan_1a2ef38527fb5009c43487fccbbe4694ba" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void PKCanScan::getStatistics</definition>
+        <argsstring>(CanStatistics &amp;result)</argsstring>
+        <name>getStatistics</name>
+        <reimplements refid="classCanModule_1_1CCanAccess_1ad3182c83b4c5d7e6aef982c36e731507">getStatistics</reimplements>
+        <param>
+          <type><ref refid="classCanModule_1_1CanStatistics" kindref="compound">CanStatistics</ref> &amp;</type>
+          <declname>result</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/pkcan/pkcan.h" line="55" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/pkcan/pkcan.cpp" bodystart="324" bodyend="329"/>
+        <references refid="classCanModule_1_1CanStatistics_1a85e6c87ce5285884a0272088178bb8f6" compoundref="CanStatistics_8cpp" startline="43" endline="50">CanModule::CanStatistics::beginNewRun</references>
+      </memberdef>
+      <memberdef kind="function" id="classPKCanScan_1a077b19a57357437f6c2e6ce00030a698" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool PKCanScan::getErrorMessage</definition>
+        <argsstring>(long error, char **message)</argsstring>
+        <name>getErrorMessage</name>
+        <param>
+          <type>long</type>
+          <declname>error</declname>
+        </param>
+        <param>
+          <type>char **</type>
+          <declname>message</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/pkcan/pkcan.h" line="60" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/pkcan/pkcan.cpp" bodystart="256" bodyend="263"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classPKCanScan_1a53471be1a2b2b34afc091e90bfcd29fb" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>TPCANHandle</type>
+        <definition>TPCANHandle PKCanScan::getHandle</definition>
+        <argsstring>(const char *name)</argsstring>
+        <name>getHandle</name>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/pkcan/pkcan.h" line="63" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/pkcan/pkcan.cpp" bodystart="265" bodyend="322"/>
+      </memberdef>
+      <memberdef kind="function" id="classPKCanScan_1a35ccc4082d56a736abb34d0c289c5a96" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool PKCanScan::sendErrorCode</definition>
+        <argsstring>(long)</argsstring>
+        <name>sendErrorCode</name>
+        <param>
+          <type>long</type>
+          <defname>status</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/pkcan/pkcan.h" line="65" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/pkcan/pkcan.cpp" bodystart="189" bodyend="205"/>
+        <references refid="namespaceCanModule_1a3ec3082d7d11a9c1641023cb3f53cbe5" compoundref="CanModuleUtils_8cpp" startline="44" endline="51">CanModule::convertTimepointToTimeval</references>
+        <references refid="namespaceCanModule_1a6d0711aac0a75de5d2bf6142997a814d" compoundref="CanModuleUtils_8cpp" startline="60" endline="74">CanModule::currentTimeTimeval</references>
+        <referencedby refid="classPKCanScan_1a45bd5feda5ccb009775c45bfabe41614" compoundref="pkcan_8cpp" startline="32" endline="79">CanScanControlThread</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classPKCanScan_1a6fe021ecfdde5af1e7a74668b9819bfb" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool PKCanScan::configureCanboard</definition>
+        <argsstring>(const string name, const string parameters)</argsstring>
+        <name>configureCanboard</name>
+        <param>
+          <type>const string</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>const string</type>
+          <declname>parameters</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/pkcan/pkcan.h" line="78" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/pkcan/pkcan.cpp" bodystart="118" bodyend="186"/>
+        <references refid="CCanAccess_8h_1ad506d1f216984abc94d5a65f33053626" compoundref="CCanAccess_8h" startline="65">MLOG</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-static-func">
+      <memberdef kind="function" id="classPKCanScan_1a45bd5feda5ccb009775c45bfabe41614" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="AnaCanScan_8h_1ad342ac907eb044443153a22f964bf0af" kindref="member">DWORD</ref> <ref refid="STCanScan_8cpp_1a9aa60e1ead64be77ad551e745cbfd4d3" kindref="member">WINAPI</ref></type>
+        <definition>DWORD WINAPI PKCanScan::CanScanControlThread</definition>
+        <argsstring>(LPVOID pCanScan)</argsstring>
+        <name>CanScanControlThread</name>
+        <param>
+          <type>LPVOID</type>
+          <declname>pCanScan</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/pkcan/pkcan.h" line="67" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/pkcan/pkcan.cpp" bodystart="32" bodyend="79"/>
+        <references refid="structCanMsgStruct_1a2e47a33e7bba46b05a8fff29433f047b" compoundref="CanMessage_8h" startline="29">CanMsgStruct::c_data</references>
+        <references refid="structCanMsgStruct_1a3e5add8ae9cdadfcf3f2255d375ec9b3" compoundref="CanMessage_8h" startline="27">CanMsgStruct::c_dlc</references>
+        <references refid="structCanMsgStruct_1acf3abc93beb936e5f9431ef6ec4568f3" compoundref="CanMessage_8h" startline="25">CanMsgStruct::c_ff</references>
+        <references refid="structCanMsgStruct_1a619515aef041e64b78e7e8c33989ddd0" compoundref="CanMessage_8h" startline="23">CanMsgStruct::c_id</references>
+        <references refid="structCanMsgStruct_1a06b9b3e9423f35edfb96df7b04828bba" compoundref="CanMessage_8h" startline="31">CanMsgStruct::c_time</references>
+        <references refid="classCanModule_1_1CCanAccess_1aa8e0e974863874b0e7bbcdb57084c241" compoundref="CCanAccess_8h" startline="179">CanModule::CCanAccess::canMessageCame</references>
+        <references refid="classPKCanScan_1a84e9c4874e065b79d5600c0a5f9f7877" compoundref="pkcan_8h" startline="74">m_baudRate</references>
+        <references refid="classPKCanScan_1a8f07d0272238592477299480f48ae193" compoundref="pkcan_8h" startline="77">m_canObjHandler</references>
+        <references refid="classPKCanScan_1afc2d4388c9cc8b562f315a55e7ad8bab" compoundref="pkcan_8h" startline="72">m_CanScanThreadShutdownFlag</references>
+        <references refid="classPKCanScan_1a03eec54c44937d843f48b2b1a086b37b" compoundref="pkcan_8h" startline="70">m_statistics</references>
+        <references refid="CCanAccess_8h_1ad506d1f216984abc94d5a65f33053626" compoundref="CCanAccess_8h" startline="65">MLOG</references>
+        <references refid="classCanModule_1_1CanStatistics_1a82b38a2383bc0ad6b1d306e86b9ef5c6" compoundref="CanStatistics_8cpp" startline="79" endline="84">CanModule::CanStatistics::onReceive</references>
+        <references refid="classPKCanScan_1a35ccc4082d56a736abb34d0c289c5a96" compoundref="pkcan_8cpp" startline="189" endline="205">sendErrorCode</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="62">
+        <label>CanModule::CCanAccess</label>
+        <link refid="classCanModule_1_1CCanAccess"/>
+      </node>
+      <node id="61">
+        <label>PKCanScan</label>
+        <link refid="classPKCanScan"/>
+        <childnode refid="62" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="65">
+        <label>CanModule::CanParameters</label>
+        <link refid="structCanModule_1_1CanParameters"/>
+      </node>
+      <node id="66">
+        <label>CanModule::CanStatistics</label>
+        <link refid="classCanModule_1_1CanStatistics"/>
+        <childnode refid="67" relation="usage">
+          <edgelabel>m_internals</edgelabel>
+        </childnode>
+      </node>
+      <node id="67">
+        <label>CanModule::CanStatistics::Internals</label>
+        <link refid="classCanModule_1_1CanStatistics_1_1Internals"/>
+      </node>
+      <node id="64">
+        <label>CanModule::CCanAccess</label>
+        <link refid="classCanModule_1_1CCanAccess"/>
+        <childnode refid="65" relation="usage">
+          <edgelabel>m_CanParameters</edgelabel>
+        </childnode>
+      </node>
+      <node id="63">
+        <label>PKCanScan</label>
+        <link refid="classPKCanScan"/>
+        <childnode refid="64" relation="public-inheritance">
+        </childnode>
+        <childnode refid="66" relation="usage">
+          <edgelabel>m_statistics</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/pkcan/pkcan.h" line="26" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/pkcan/pkcan.h" bodystart="25" bodyend="86"/>
+    <listofallmembers>
+      <member refid="classCanModule_1_1CCanAccess_1aa8e0e974863874b0e7bbcdb57084c241" prot="public" virt="non-virtual"><scope>PKCanScan</scope><name>canMessageCame</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a33fbd693f04b4f4e21cee20856c44866" prot="public" virt="non-virtual"><scope>PKCanScan</scope><name>canMessageError</name></member>
+      <member refid="classPKCanScan_1a45bd5feda5ccb009775c45bfabe41614" prot="private" virt="non-virtual"><scope>PKCanScan</scope><name>CanScanControlThread</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a7c9b87d205b0ec265c972a3303cecda2" prot="public" virt="non-virtual"><scope>PKCanScan</scope><name>CCanAccess</name></member>
+      <member refid="classPKCanScan_1a6fe021ecfdde5af1e7a74668b9819bfb" prot="private" virt="non-virtual"><scope>PKCanScan</scope><name>configureCanboard</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a08d387c6261bee525c0bb05eb66b4164" prot="public" virt="non-virtual"><scope>PKCanScan</scope><name>connectFwSlotX</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a247e65001e8f59b47fdc2961dd67d74d" prot="public" virt="non-virtual"><scope>PKCanScan</scope><name>connectReceptionSlotX</name></member>
+      <member refid="classPKCanScan_1ae91999b9316ca127eecbabd9f27c3137" prot="public" virt="virtual"><scope>PKCanScan</scope><name>createBus</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a8212fb246945f2c32a164e83be42bc73" prot="public" virt="non-virtual"><scope>PKCanScan</scope><name>disconnectReceptionSlotX</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a20323e55767d3a60c78a88db5d785829" prot="public" virt="non-virtual"><scope>PKCanScan</scope><name>fw_slot0</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1ab9194c7d019e7da16f98a177b4e6e145" prot="public" virt="non-virtual"><scope>PKCanScan</scope><name>fw_slot1</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a4130b6b2dac7673a2e2253c8b957294c" prot="public" virt="non-virtual"><scope>PKCanScan</scope><name>fw_slot10</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a4e8381b84bbbfbcfe6feb9eba7e17fd9" prot="public" virt="non-virtual"><scope>PKCanScan</scope><name>fw_slot11</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1aad6416d679ea5cb9582b145ac7a61a31" prot="public" virt="non-virtual"><scope>PKCanScan</scope><name>fw_slot12</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a625e00cbeb49526bb5b37b7e4032149b" prot="public" virt="non-virtual"><scope>PKCanScan</scope><name>fw_slot13</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a66ce4a26bdd58b6bfa016c86034137bb" prot="public" virt="non-virtual"><scope>PKCanScan</scope><name>fw_slot14</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a14a98fa7153c222282ae567a685611cd" prot="public" virt="non-virtual"><scope>PKCanScan</scope><name>fw_slot15</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a7b299903bfe41cee29cc497ba43554fd" prot="public" virt="non-virtual"><scope>PKCanScan</scope><name>fw_slot2</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1ad3cbc73468e8edf35f917ed4aa65df16" prot="public" virt="non-virtual"><scope>PKCanScan</scope><name>fw_slot3</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1abe5e84df9f43bd309c635d3201b6dba7" prot="public" virt="non-virtual"><scope>PKCanScan</scope><name>fw_slot4</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a62c0c4ac34c437097f74f685fb0266a5" prot="public" virt="non-virtual"><scope>PKCanScan</scope><name>fw_slot5</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a4f457bfc8b8b494130293d563dac72e7" prot="public" virt="non-virtual"><scope>PKCanScan</scope><name>fw_slot6</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a12da52fdad176cf1fa482983bdb5cfd5" prot="public" virt="non-virtual"><scope>PKCanScan</scope><name>fw_slot7</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a7626751af619f301c0bde5657329b4dd" prot="public" virt="non-virtual"><scope>PKCanScan</scope><name>fw_slot8</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a5e7196879da60e80eb209ee807cbcd11" prot="public" virt="non-virtual"><scope>PKCanScan</scope><name>fw_slot9</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1ac3f5126ae36d642217425e21696d19ca" prot="public" virt="non-virtual"><scope>PKCanScan</scope><name>getBusName</name></member>
+      <member refid="classPKCanScan_1a077b19a57357437f6c2e6ce00030a698" prot="public" virt="non-virtual"><scope>PKCanScan</scope><name>getErrorMessage</name></member>
+      <member refid="classPKCanScan_1a53471be1a2b2b34afc091e90bfcd29fb" prot="private" virt="non-virtual"><scope>PKCanScan</scope><name>getHandle</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a8210a8161f1987973584b6dda5dc6d7d" prot="public" virt="non-virtual"><scope>PKCanScan</scope><name>getLogItInstance</name></member>
+      <member refid="classPKCanScan_1a2ef38527fb5009c43487fccbbe4694ba" prot="public" virt="virtual"><scope>PKCanScan</scope><name>getStatistics</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1ab5a430fc27073d92c69659bda261b74d" prot="public" virt="non-virtual"><scope>PKCanScan</scope><name>initialiseLogging</name></member>
+      <member refid="classPKCanScan_1a84e9c4874e065b79d5600c0a5f9f7877" prot="private" virt="non-virtual"><scope>PKCanScan</scope><name>m_baudRate</name></member>
+      <member refid="classPKCanScan_1a1c361b38cbc6016192fbcd9a6d81236c" prot="private" virt="non-virtual"><scope>PKCanScan</scope><name>m_busStatus</name></member>
+      <member refid="classPKCanScan_1a8f07d0272238592477299480f48ae193" prot="private" virt="non-virtual"><scope>PKCanScan</scope><name>m_canObjHandler</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a484a4f9dc352fe31b4baff0365095705" prot="protected" virt="non-virtual"><scope>PKCanScan</scope><name>m_CanParameters</name></member>
+      <member refid="classPKCanScan_1afc2d4388c9cc8b562f315a55e7ad8bab" prot="private" virt="non-virtual"><scope>PKCanScan</scope><name>m_CanScanThreadShutdownFlag</name></member>
+      <member refid="classPKCanScan_1a169a32c5961996acbd55aa5c12118de0" prot="private" virt="non-virtual"><scope>PKCanScan</scope><name>m_hCanScanThread</name></member>
+      <member refid="classPKCanScan_1a5ba2a765e250376fde32db88272339d6" prot="private" virt="non-virtual"><scope>PKCanScan</scope><name>m_idCanScanThread</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a0eff18d10b7ee5d6f86b03898f38f7ca" prot="protected" virt="non-virtual"><scope>PKCanScan</scope><name>m_sBusName</name></member>
+      <member refid="classPKCanScan_1a03eec54c44937d843f48b2b1a086b37b" prot="private" virt="non-virtual"><scope>PKCanScan</scope><name>m_statistics</name></member>
+      <member refid="classPKCanScan_1a7a5e5fe4cb8b99c64c3908f3143a8f1c" prot="public" virt="non-virtual"><scope>PKCanScan</scope><name>operator=</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1af26c9d102638fb96e5e1305f807d148f" prot="public" virt="non-virtual"><scope>PKCanScan</scope><name>parseNameAndParameters</name></member>
+      <member refid="classPKCanScan_1adfc8b4e20f4548295a99af69bf1888d5" prot="public" virt="non-virtual"><scope>PKCanScan</scope><name>PKCanScan</name></member>
+      <member refid="classPKCanScan_1aa323b8cf8e476c7dfec2719756f25962" prot="public" virt="non-virtual"><scope>PKCanScan</scope><name>PKCanScan</name></member>
+      <member refid="classPKCanScan_1a35ccc4082d56a736abb34d0c289c5a96" prot="private" virt="non-virtual"><scope>PKCanScan</scope><name>sendErrorCode</name></member>
+      <member refid="classPKCanScan_1a48a2e9ba00dae1b1fe01f7b095430503" prot="public" virt="virtual"><scope>PKCanScan</scope><name>sendMessage</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1ad0360c49d00ec0ee92cfdd73c2e43935" prot="public" virt="virtual" ambiguityscope="CanModule::CCanAccess::"><scope>PKCanScan</scope><name>sendMessage</name></member>
+      <member refid="classPKCanScan_1af7e22b4a484de11ccaea060ad0adb47d" prot="public" virt="virtual"><scope>PKCanScan</scope><name>sendRemoteRequest</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1af12f56ce8f69ef8fb77beae30ec0ac2e" prot="public" virt="non-virtual"><scope>PKCanScan</scope><name>slot0</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a334f6f48e22483862d56091703dce595" prot="public" virt="non-virtual"><scope>PKCanScan</scope><name>slot1</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1ab10944ddde9a45400eab905a58ef0534" prot="public" virt="non-virtual"><scope>PKCanScan</scope><name>slot10</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a4825360b2a2787160be01b2aa9419ce1" prot="public" virt="non-virtual"><scope>PKCanScan</scope><name>slot11</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a6d0a5e7306e46c5e5e5b9a3fc45e8330" prot="public" virt="non-virtual"><scope>PKCanScan</scope><name>slot12</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a216e763e1cc1ce26dae65dfab939ad11" prot="public" virt="non-virtual"><scope>PKCanScan</scope><name>slot13</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a68b36fdd0ad1f64bd7a1f0207386be4b" prot="public" virt="non-virtual"><scope>PKCanScan</scope><name>slot14</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1af44e482ce74f03d22c8a339fe6f01aa7" prot="public" virt="non-virtual"><scope>PKCanScan</scope><name>slot15</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a15a904b7593396d931e9f57b70da929d" prot="public" virt="non-virtual"><scope>PKCanScan</scope><name>slot2</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a0c9527a03b09356decf18241acd1a532" prot="public" virt="non-virtual"><scope>PKCanScan</scope><name>slot3</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1af95d2dff96d924a5c2589db82a8a6abd" prot="public" virt="non-virtual"><scope>PKCanScan</scope><name>slot4</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1aca7bcb8e9e5043a6636ce767d345716a" prot="public" virt="non-virtual"><scope>PKCanScan</scope><name>slot5</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a335e4ebb979de2ad399380886b3742b7" prot="public" virt="non-virtual"><scope>PKCanScan</scope><name>slot6</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a8278d35739b5f92e24331accb4b8383e" prot="public" virt="non-virtual"><scope>PKCanScan</scope><name>slot7</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a2e5052c0d4b0bf48d0ea709583349118" prot="public" virt="non-virtual"><scope>PKCanScan</scope><name>slot8</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a9eb127d5fa0c228f785d65a1ef25b97a" prot="public" virt="non-virtual"><scope>PKCanScan</scope><name>slot9</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a86c0125599b177ed3017e842940565fd" prot="public" virt="non-virtual"><scope>PKCanScan</scope><name>testSignalSlot</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1ac96f1cce6beda4309cdfb6651d3ce547" prot="public" virt="virtual"><scope>PKCanScan</scope><name>~CCanAccess</name></member>
+      <member refid="classPKCanScan_1a924778bdca171eb7f3f597dfe9f99fb4" prot="public" virt="virtual"><scope>PKCanScan</scope><name>~PKCanScan</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>
