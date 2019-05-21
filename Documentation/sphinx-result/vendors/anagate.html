@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>AnaGate &#8212; CanModule 1.1.0pre documentation</title>
+    <title>AnaGate &#8212; CanModule 1.1.1 documentation</title>
     <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -31,7 +31,7 @@
         <li class="right" >
           <a href="systec.html" title="SysTec"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">CanModule 1.1.0pre documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">CanModule 1.1.1 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -43,10 +43,13 @@
   <div class="section" id="anagate">
 <h1><a class="reference internal" href="#anagate">AnaGate</a><a class="headerlink" href="#anagate" title="Permalink to this headline">¶</a></h1>
 <p>All modules from vendor <a class="reference internal" href="#anagate">AnaGate</a> are handled by class AnaCanScan which manages the modules through their underlying vendor specific API and provides
-the standard generic CanModule API. Since these modules communicate to the host computer only via ethernet, at the fundamental level only classical
+the standard generic CanModule API.</p>
+<p>We support Anagate CAN-ethernet gateways: uno, duo, quattro, and the X2, X4 and X8.</p>
+<p>Since these modules communicate to the host computer only via ethernet, at the fundamental level only classical
 tcp/ip ethernet is needed. Nevertheless the specific contents of the IP frames are wrapped up in an Anagate API for convenience, which is linked
 into the user code as a library. There are therefore no implementation differences between Linux and Windows.
 Here the underlying vendor specific classes and the specific parameters are documented.</p>
+<p>The downside of Anagate CAN-ethernet modules is of course that the latency of the network has to be added to the bridge latency.</p>
 <div class="section" id="the-connection">
 <h2>The connection<a class="headerlink" href="#the-connection" title="Permalink to this headline">¶</a></h2>
 <p>To connect to a specific port for I/O, and send CAN messages, the following methods are used.</p>
@@ -134,10 +137,10 @@ Here the underlying vendor specific classes and the specific parameters are docu
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="peak.html">Peak</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../logging.html">Logging</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../building.html">Building</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../running.html">Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../running.html">Running</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../support.html">Support</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../examples.html">Example</a></li>
 </ul>
 
   <div role="note" aria-label="source link">
@@ -175,12 +178,12 @@ Here the underlying vendor specific classes and the specific parameters are docu
         <li class="right" >
           <a href="systec.html" title="SysTec"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">CanModule 1.1.0pre documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">CanModule 1.1.1 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2019, CERN, BE-ICS (Michael Ludwig).
-      Last updated on 20-May-2019 17:27:58.
+      Last updated on 21-May-2019 16:27:30.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
     </div>
   </body>

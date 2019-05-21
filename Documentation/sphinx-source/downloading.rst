@@ -4,7 +4,7 @@ Downloading
  
 The sources
 -----------
-of CanModule can be cloned from github, and are integrated in a cmake build chain:
+CanModule can be cloned from github, and are integrated in a cmake build chain:
 
 the latest stable release (preferred):
 git clone **-b latestStable** https://github.com/quasar-team/CanModule.git

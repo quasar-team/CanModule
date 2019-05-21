@@ -215,7 +215,7 @@
       <sectiondef kind="define">
       <memberdef kind="define" id="CCanAccess_8h_1a1c6d5de492ac61ad29aec7aa9a436bbf" prot="public" static="no">
         <name>VERSION</name>
-        <initializer>&quot;CanModule version 1.0.3&quot;</initializer>
+        <initializer>&quot;CanModule version 1.1.1&quot;</initializer>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -263,7 +263,7 @@
 <codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;LogIt.h&gt;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="39"><highlight class="normal"></highlight></codeline>
 <codeline lineno="40"><highlight class="normal"></highlight></codeline>
-<codeline lineno="41" refid="CCanAccess_8h_1a1c6d5de492ac61ad29aec7aa9a436bbf" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>VERSION<sp/>&quot;CanModule<sp/>version<sp/>1.0.3&quot;</highlight></codeline>
+<codeline lineno="41" refid="CCanAccess_8h_1a1c6d5de492ac61ad29aec7aa9a436bbf" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>VERSION<sp/>&quot;CanModule<sp/>version<sp/>1.1.1&quot;</highlight></codeline>
 <codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
 <codeline lineno="44"><highlight class="comment"><sp/>*<sp/>CCanAccess<sp/>is<sp/>an<sp/>abstract<sp/>class<sp/>that<sp/>defines<sp/>the<sp/>interface<sp/>for<sp/>controlling<sp/>a<sp/>canbus.<sp/>Different<sp/>implementations<sp/>for<sp/>different<sp/>hardware<sp/>and<sp/>platforms<sp/>should</highlight></codeline>

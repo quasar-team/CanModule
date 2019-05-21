@@ -2,11 +2,15 @@
 Support
 =======
 
+Support for CanModule is given CERN wide.
+
 **Problems, Issues and Requests** should be created as CERN `Jira`_ Tickets:
 
 * Project= OPC UA in JCOP (OPCUA)
 * Components= CanModule
 * Assignee= Michael Ludwig
+
+Please provide traces of your situation and information about your project context. We will sort it out together.
 
 More **personal** ways to get help or report problems:
 

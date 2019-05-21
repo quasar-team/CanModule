@@ -46,7 +46,7 @@ must be registered to treat received messages (boost slot connected to boost sig
 
 .. code-block:: c++
 
-	connection.h
+	connection.h :
 	class CONNECTION {
 	   (...)
 	   public: 
@@ -56,7 +56,7 @@ must be registered to treat received messages (boost slot connected to boost sig
 
 .. code-block:: c++
 
-	connection.cpp
+	connection.cpp :
 	/* static */ void CONNECTION::onMessageRcvd(const CanMsgStruct/*&*/ message){
 	   MYCLASS *myObject = MYCLASS::getMyObject( ... );
 	   myObject->processReceivedMessage( message );

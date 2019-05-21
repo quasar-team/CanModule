@@ -7,6 +7,8 @@ both manage the modules through their underlying vendor specific API according t
 Both classes provide the standard generic CanModule API. 
 Here the underlying vendor specific classes and the specific parameters are documented. 
 
+The modules from the families PCAN USB and USB Pro are supported. 
+
 The connection 
 --------------
 

@@ -13,10 +13,11 @@ CanModule reference documentation
    vendors/systec
    vendors/anagate
    vendors/peak
+   logging
    building
    running
    support
-   examples
+
 
 
 alphabetical index

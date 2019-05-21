@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Example &#8212; CanModule 1.1.0pre documentation</title>
+    <title>Running &#8212; CanModule 1.1.1 documentation</title>
     <link rel="stylesheet" href="_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -31,7 +31,7 @@
         <li class="right" >
           <a href="building.html" title="Building"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">CanModule 1.1.0pre documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">CanModule 1.1.1 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -40,9 +40,42 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="example">
-<h1>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h1>
-<p>CANX is a full example for CanModule usage, and more.</p>
+  <div class="section" id="running">
+<h1>Running<a class="headerlink" href="#running" title="Permalink to this headline">¶</a></h1>
+<p>The proper kernel modules, drivers and libraries for the vendors used through CanModule
+have to be present during runtime. Please also refer to <a class="reference external" href="https://edms.cern.ch/file/2089743/1/CanModuleStatus2019_v4.pptx">Status</a> for an overview over
+runtime conditions (april 2019).</p>
+<div class="section" id="general-dependencies">
+<h2>general dependencies<a class="headerlink" href="#general-dependencies" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>CanModule.dll/.so</li>
+<li>LogIt (cloned from github during cmake)</li>
+<li>boost 1.64.0</li>
+<li>xerces 3.2 (xerces-c_3_2D.dll)</li>
+</ul>
+</div>
+<div class="section" id="anagate">
+<h2>Anagate<a class="headerlink" href="#anagate" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>libancan.dll/.so  (standard API)</li>
+<li>linux: libAPIRelease64.so, libCANDLLRelease64.so, libAnaGateExtRelease.so, libAnaGateRelease.so</li>
+<li>windows: ANAGATECAN64.dll</li>
+</ul>
+</div>
+<div class="section" id="systec">
+<h2>Systec<a class="headerlink" href="#systec" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>linux: libsockcan.so (standard API), driver kernel module systec_can.ko and dependent modules</li>
+<li>windows: libstcan.dll (standard API), USBCAN64.dll</li>
+</ul>
+</div>
+<div class="section" id="peak">
+<h2>Peak<a class="headerlink" href="#peak" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>linux: libsockcan.so (standard API), driver kernel module pcan.ko and dependent modules</li>
+<li>windows: libpkcan.dll (standard API), PKCANBASIC.dll</li>
+</ul>
+</div>
 </div>
 
 
@@ -56,13 +89,20 @@
 <li class="toctree-l1"><a class="reference internal" href="downloading.html">Downloading</a></li>
 <li class="toctree-l1"><a class="reference internal" href="objective.html">Objective</a></li>
 <li class="toctree-l1"><a class="reference internal" href="standardApi.html">Standard API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cwrapper.html">C-Wrapper</a></li>
 <li class="toctree-l1"><a class="reference internal" href="vendors/systec.html">SysTec</a></li>
 <li class="toctree-l1"><a class="reference internal" href="vendors/anagate.html">AnaGate</a></li>
 <li class="toctree-l1"><a class="reference internal" href="vendors/peak.html">Peak</a></li>
+<li class="toctree-l1"><a class="reference internal" href="logging.html">Logging</a></li>
 <li class="toctree-l1"><a class="reference internal" href="building.html">Building</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Example</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Running</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#general-dependencies">general dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#anagate">Anagate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#systec">Systec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#peak">Peak</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="support.html">Support</a></li>
-<li class="toctree-l1"><a class="reference internal" href="examples.html">Example</a></li>
 </ul>
 
   <div role="note" aria-label="source link">
@@ -100,12 +140,12 @@
         <li class="right" >
           <a href="building.html" title="Building"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">CanModule 1.1.0pre documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">CanModule 1.1.1 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2019, CERN, BE-ICS (Michael Ludwig).
-      Last updated on 20-May-2019 16:27:46.
+      Last updated on 21-May-2019 16:27:30.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
     </div>
   </body>

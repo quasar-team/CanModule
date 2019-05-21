@@ -30,6 +30,10 @@ CAN bridges from vendors are compatible with CanModule and are tested
 * `SysTec`_ 
 * `Peak`_ 
 
+These vendors produce many types of CAN bridges, **CanModule supports presently the USB (Peak, Systec) 
+and ethernet (Anagate) bridges**. Flexible datarate bridges (PEAK FD) and other interface types 
+(PEAK .m2 or also PCI) might be added if needed.
+
 Integration into projects
 -------------------------
 

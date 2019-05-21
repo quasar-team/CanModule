@@ -6,6 +6,7 @@ All modules from vendor `SysTec`_ are handled by class STCanScan (windows) or CS
 manage the modules through their underlying vendor specific API and provide the standard generic CanModule API.
 Here the underlying vendor specific classes and the specific parameters are documented. 
 
+SysTec modules USB-CAN bridges are supported: sysWORXX 1,2,8,16
 
 The connection 
 --------------
