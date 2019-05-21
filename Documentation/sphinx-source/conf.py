@@ -205,7 +205,7 @@ latex_elements = {
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'test0.tex', u'test0 Documentation',
+  ('index', 'CanModule.tex', u'CanModule Developer Documentation',
    u'Michael Ludwig', 'manual'),
 ]
 
