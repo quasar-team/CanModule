@@ -1,0 +1,296 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="CanStatistics_8h" kind="file">
+    <compoundname>CanStatistics.h</compoundname>
+    <includes local="no">stdatomic.h</includes>
+    <includes local="no">sys/time.h</includes>
+    <includes refid="ExportDefinition_8h" local="yes">ExportDefinition.h</includes>
+    <includes local="no">chrono</includes>
+    <includedby refid="CCanAccess_8h" local="yes">CanInterface/include/CCanAccess.h</includedby>
+    <includedby refid="CanStatistics_8cpp" local="yes">CanInterface/src/CanStatistics.cpp</includedby>
+    <includedby refid="AnaCanScan_8h" local="yes">CanInterfaceImplementations/anagate/AnaCanScan.h</includedby>
+    <includedby refid="pkcan_8h" local="yes">CanInterfaceImplementations/pkcan/pkcan.h</includedby>
+    <includedby refid="SockCanScan_8h" local="yes">CanInterfaceImplementations/sockcan/SockCanScan.h</includedby>
+    <includedby refid="STCanScan_8h" local="yes">CanInterfaceImplementations/systec/STCanScan.h</includedby>
+    <includedby refid="MockCanAccess_8h" local="yes">CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.h</includedby>
+    <incdepgraph>
+      <node id="56">
+        <label>stdatomic.h</label>
+      </node>
+      <node id="55">
+        <label>CanInterface/include/CanStatistics.h</label>
+        <link refid="CanStatistics.h"/>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+      </node>
+      <node id="57">
+        <label>sys/time.h</label>
+      </node>
+      <node id="59">
+        <label>chrono</label>
+      </node>
+      <node id="58">
+        <label>ExportDefinition.h</label>
+        <link refid="ExportDefinition_8h"/>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="73">
+        <label>CanInterfaceImplementations/systec/STCanScan.cpp</label>
+        <link refid="STCanScan_8cpp"/>
+      </node>
+      <node id="69">
+        <label>CanInterfaceImplementations/pkcan/pkcan.cpp</label>
+        <link refid="pkcan_8cpp"/>
+      </node>
+      <node id="80">
+        <label>CanLibLoader/include/CanLibLoaderWin.h</label>
+        <link refid="CanLibLoaderWin_8h"/>
+        <childnode refid="81" relation="include">
+        </childnode>
+      </node>
+      <node id="60">
+        <label>CanInterface/include/CanStatistics.h</label>
+        <link refid="CanStatistics.h"/>
+        <childnode refid="61" relation="include">
+        </childnode>
+        <childnode refid="82" relation="include">
+        </childnode>
+        <childnode refid="66" relation="include">
+        </childnode>
+        <childnode refid="68" relation="include">
+        </childnode>
+        <childnode refid="70" relation="include">
+        </childnode>
+        <childnode refid="72" relation="include">
+        </childnode>
+        <childnode refid="74" relation="include">
+        </childnode>
+      </node>
+      <node id="68">
+        <label>CanInterfaceImplementations/pkcan/pkcan.h</label>
+        <link refid="pkcan_8h"/>
+        <childnode refid="69" relation="include">
+        </childnode>
+      </node>
+      <node id="77">
+        <label>CanLibLoader/include/CanLibLoaderLin.h</label>
+        <link refid="CanLibLoaderLin_8h"/>
+        <childnode refid="78" relation="include">
+        </childnode>
+        <childnode refid="79" relation="include">
+        </childnode>
+      </node>
+      <node id="78">
+        <label>CanLibLoader/src/CanLibLoader.cpp</label>
+        <link refid="CanLibLoader_8cpp"/>
+      </node>
+      <node id="70">
+        <label>CanInterfaceImplementations/sockcan/SockCanScan.h</label>
+        <link refid="SockCanScan_8h"/>
+        <childnode refid="71" relation="include">
+        </childnode>
+      </node>
+      <node id="67">
+        <label>CanInterfaceImplementations/anagate/AnaCanScan.cpp</label>
+        <link refid="AnaCanScan_8cpp"/>
+      </node>
+      <node id="81">
+        <label>CanLibLoader/src/CanLibLoaderWin.cpp</label>
+        <link refid="CanLibLoaderWin_8cpp"/>
+      </node>
+      <node id="79">
+        <label>CanLibLoader/src/CanLibLoaderLin.cpp</label>
+        <link refid="CanLibLoaderLin_8cpp"/>
+      </node>
+      <node id="76">
+        <label>CanLibLoader/include/CanLibLoader.h</label>
+        <link refid="CanLibLoader_8h"/>
+        <childnode refid="62" relation="include">
+        </childnode>
+        <childnode refid="77" relation="include">
+        </childnode>
+        <childnode refid="80" relation="include">
+        </childnode>
+        <childnode refid="78" relation="include">
+        </childnode>
+      </node>
+      <node id="61">
+        <label>CanInterface/include/CCanAccess.h</label>
+        <link refid="CCanAccess_8h"/>
+        <childnode refid="62" relation="include">
+        </childnode>
+        <childnode refid="66" relation="include">
+        </childnode>
+        <childnode refid="68" relation="include">
+        </childnode>
+        <childnode refid="70" relation="include">
+        </childnode>
+        <childnode refid="72" relation="include">
+        </childnode>
+        <childnode refid="74" relation="include">
+        </childnode>
+        <childnode refid="76" relation="include">
+        </childnode>
+      </node>
+      <node id="82">
+        <label>CanInterface/src/CanStatistics.cpp</label>
+        <link refid="CanStatistics_8cpp"/>
+      </node>
+      <node id="71">
+        <label>CanInterfaceImplementations/sockcan/SockCanScan.cpp</label>
+        <link refid="SockCanScan_8cpp"/>
+      </node>
+      <node id="75">
+        <label>CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.cpp</label>
+        <link refid="MockCanAccess_8cpp"/>
+      </node>
+      <node id="63">
+        <label>CanInterface/src/CanBusAccess.cpp</label>
+        <link refid="CanBusAccess_8cpp"/>
+      </node>
+      <node id="64">
+        <label>CWrapper/include/canmodule_wrapper.h</label>
+        <link refid="canmodule__wrapper_8h"/>
+        <childnode refid="65" relation="include">
+        </childnode>
+      </node>
+      <node id="74">
+        <label>CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.h</label>
+        <link refid="MockCanAccess_8h"/>
+        <childnode refid="75" relation="include">
+        </childnode>
+      </node>
+      <node id="62">
+        <label>CanInterface/include/CanBusAccess.h</label>
+        <link refid="CanBusAccess_8h"/>
+        <childnode refid="63" relation="include">
+        </childnode>
+        <childnode refid="64" relation="include">
+        </childnode>
+      </node>
+      <node id="72">
+        <label>CanInterfaceImplementations/systec/STCanScan.h</label>
+        <link refid="STCanScan_8h"/>
+        <childnode refid="73" relation="include">
+        </childnode>
+      </node>
+      <node id="66">
+        <label>CanInterfaceImplementations/anagate/AnaCanScan.h</label>
+        <link refid="AnaCanScan_8h"/>
+        <childnode refid="67" relation="include">
+        </childnode>
+      </node>
+      <node id="65">
+        <label>CWrapper/src/canmodule_wrapper.cpp</label>
+        <link refid="canmodule__wrapper_8cpp"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classCanModule_1_1CanStatistics" prot="public">CanModule::CanStatistics</innerclass>
+    <innerclass refid="classCanModule_1_1CanStatistics_1_1Internals" prot="private">CanModule::CanStatistics::Internals</innerclass>
+    <innernamespace refid="namespaceCanModule">CanModule</innernamespace>
+    <innernamespace refid="namespacestd_1_1chrono">std::chrono</innernamespace>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="CanStatistics_8h_1adbba0f726fc66d7100916c683b7568ae" prot="public" static="no">
+        <name>GCC_VERSION</name>
+        <initializer>(__GNUC__ * 10000 + __GNUC_MINOR__ * 100 + __GNUC_PATCHLEVEL__)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>© Copyright CERN, 2015. All rights not expressly granted are reserved.</para><para><ref refid="CanStatistics_8h" kindref="compound">CanStatistics.h</ref></para><para>Created on: Mar 17, 2015 Author: Piotr Nikiel <ulink url="mailto:piotr@nikiel.info">piotr@nikiel.info</ulink>, quasar team</para><para>This file is part of Quasar.</para><para>Quasar is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public Licence as published by the Free Software Foundation, either version 3 of the Licence.</para><para>Quasar is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public Licence for more details.</para><para>You should have received a copy of the GNU Lesser General Public License along with Quasar. If not, see <ulink url="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</ulink>. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CanStatistics.h" line="35" column="11" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CanStatistics.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"></codeline>
+<codeline lineno="24"><highlight class="preprocessor">#ifndef<sp/>CANINTERFACE_SOCKCAN_CANSTATISTICS_H_</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CANINTERFACE_SOCKCAN_CANSTATISTICS_H_</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>_WIN32</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#<sp/><sp/><sp/>include<sp/>&lt;atomic&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#<sp/><sp/><sp/>include<sp/>&lt;time.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#<sp/><sp/><sp/>ifndef<sp/>timeval</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#<sp/><sp/><sp/><sp/><sp/><sp/><sp/>include<sp/>&quot;Winsock2.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#<sp/><sp/><sp/>endif</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="35" refid="CanStatistics_8h_1adbba0f726fc66d7100916c683b7568ae" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#<sp/><sp/><sp/>define<sp/>GCC_VERSION<sp/>(__GNUC__<sp/>*<sp/>10000<sp/>+<sp/>__GNUC_MINOR__<sp/>*<sp/>100<sp/>+<sp/>__GNUC_PATCHLEVEL__)</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#<sp/><sp/><sp/>if<sp/>GCC_VERSION<sp/>&gt;<sp/>40800</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#<sp/><sp/><sp/><sp/><sp/><sp/><sp/>include<sp/>&lt;atomic&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#<sp/><sp/><sp/>else<sp/>//<sp/>GCC_VERSION</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#<sp/><sp/><sp/><sp/><sp/><sp/><sp/>include<sp/>&lt;stdatomic.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#<sp/><sp/><sp/>endif<sp/>//<sp/>GCC_VERSION</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#<sp/><sp/><sp/>include<sp/>&lt;sys/time.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="ExportDefinition_8h" kindref="compound">ExportDefinition.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;chrono&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="keyword">using<sp/>namespace<sp/></highlight><highlight class="normal">std;</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="keyword">using<sp/>namespace<sp/></highlight><highlight class="normal">std::chrono;</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">CanModule</highlight></codeline>
+<codeline lineno="50"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="51" refid="classCanModule_1_1CanStatistics" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classCanModule_1_1CanStatistics" kindref="compound">CanStatistics</ref></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="ExportDefinition_8h_1a7478c359eb321f7939044e70abfb4cca" kindref="member">SHARED_LIB_EXPORT_DEFN</ref><sp/><ref refid="classCanModule_1_1CanStatistics" kindref="compound">CanStatistics</ref>();</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>beginNewRun();</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>computeDerived(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>baudRate);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>onTransmit(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>dataLength);</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>onReceive(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>dataLength);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67" refid="classCanModule_1_1CanStatistics_1a62ee3d5dd02a649066747cb2e2339b9d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classCanModule_1_1CanStatistics_1a62ee3d5dd02a649066747cb2e2339b9d" kindref="member">totalTransmitted</ref>()<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>m_totalTransmitted.load();<sp/>}</highlight></codeline>
+<codeline lineno="68" refid="classCanModule_1_1CanStatistics_1a5a06575683a46d25b4a1cc7d6859938b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classCanModule_1_1CanStatistics_1a5a06575683a46d25b4a1cc7d6859938b" kindref="member">totalReceived</ref>()<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>m_totalReceived.load();<sp/>}</highlight></codeline>
+<codeline lineno="69" refid="classCanModule_1_1CanStatistics_1ad8a95eeeea9fe50c9fe5465b3bde95d9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="classCanModule_1_1CanStatistics_1ad8a95eeeea9fe50c9fe5465b3bde95d9" kindref="member">txRate</ref>()<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>m_internals.m_transmittedPerSec;<sp/>}</highlight></codeline>
+<codeline lineno="70" refid="classCanModule_1_1CanStatistics_1a732233caca87cf1532c9f2869d442d68" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="classCanModule_1_1CanStatistics_1a732233caca87cf1532c9f2869d442d68" kindref="member">rxRate</ref>()<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>m_internals.m_receivedPerSec;<sp/>}</highlight></codeline>
+<codeline lineno="71" refid="classCanModule_1_1CanStatistics_1a761bffce2db7f24a9dcbc439a95c1e65" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="classCanModule_1_1CanStatistics_1a761bffce2db7f24a9dcbc439a95c1e65" kindref="member">busLoad</ref>()<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>m_internals.m_busLoad;<sp/>}</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>operator=(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>CanStatistics<sp/>&amp;<sp/>other);<sp/><sp/></highlight><highlight class="comment">//<sp/>not<sp/>default,<sp/>because<sp/>of<sp/>atomic<sp/>data</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Fields<sp/>below<sp/>may<sp/>be<sp/>accessed<sp/>by<sp/>many<sp/>threads<sp/>at<sp/>once<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78" refid="classCanModule_1_1CanStatistics_1aced131fd672bf71b5672117527973253" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::atomic_uint_least32_t<sp/><ref refid="classCanModule_1_1CanStatistics_1aced131fd672bf71b5672117527973253" kindref="member">m_totalTransmitted</ref>;</highlight></codeline>
+<codeline lineno="79" refid="classCanModule_1_1CanStatistics_1af5d82367032c4a509d99cdc72b6a7e45" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::atomic_uint_least32_t<sp/><ref refid="classCanModule_1_1CanStatistics_1af5d82367032c4a509d99cdc72b6a7e45" kindref="member">m_totalReceived</ref>;</highlight></codeline>
+<codeline lineno="81" refid="classCanModule_1_1CanStatistics_1a4b94f562f6ce5e9057fdae5c24391963" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::atomic_uint_least32_t<sp/><ref refid="classCanModule_1_1CanStatistics_1a4b94f562f6ce5e9057fdae5c24391963" kindref="member">m_transmitted</ref>;</highlight></codeline>
+<codeline lineno="83" refid="classCanModule_1_1CanStatistics_1a3cf24ff7fd90d286139fb75a00e146da" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::atomic_uint_least32_t<sp/><ref refid="classCanModule_1_1CanStatistics_1a3cf24ff7fd90d286139fb75a00e146da" kindref="member">m_received</ref>;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86" refid="classCanModule_1_1CanStatistics_1a7369a4ae5832050532e99e77831e155c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::atomic_uint_least32_t<sp/><ref refid="classCanModule_1_1CanStatistics_1a7369a4ae5832050532e99e77831e155c" kindref="member">m_transmittedOctets</ref>;</highlight></codeline>
+<codeline lineno="87" refid="classCanModule_1_1CanStatistics_1ace6767d68ba9dca0c0e7f129f33e365c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::atomic_uint_least32_t<sp/><ref refid="classCanModule_1_1CanStatistics_1ace6767d68ba9dca0c0e7f129f33e365c" kindref="member">m_receivedOctets</ref>;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90" refid="classCanModule_1_1CanStatistics_1_1Internals" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classCanModule_1_1CanStatistics_1_1Internals" kindref="compound">Internals</ref></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="93" refid="classCanModule_1_1CanStatistics_1_1Internals_1a344b6c86e9644f8cee1946f08d0d0d2a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="classCanModule_1_1CanStatistics_1_1Internals_1a344b6c86e9644f8cee1946f08d0d0d2a" kindref="member">m_transmittedPerSec</ref>;</highlight></codeline>
+<codeline lineno="94" refid="classCanModule_1_1CanStatistics_1_1Internals_1ad6a0884d188d724c4d43ae06ed4ecc1a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="classCanModule_1_1CanStatistics_1_1Internals_1ad6a0884d188d724c4d43ae06ed4ecc1a" kindref="member">m_receivedPerSec</ref>;</highlight></codeline>
+<codeline lineno="96" refid="classCanModule_1_1CanStatistics_1_1Internals_1acee7cde0976a6c9957ec00446e7a3589" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="classCanModule_1_1CanStatistics_1_1Internals_1acee7cde0976a6c9957ec00446e7a3589" kindref="member">m_busLoad</ref>;</highlight></codeline>
+<codeline lineno="97" refid="classCanModule_1_1CanStatistics_1_1Internals_1a2aa4f058776d0ccc832479225bc23428" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>system_clock::time_point<sp/><ref refid="classCanModule_1_1CanStatistics_1_1Internals_1a2aa4f058776d0ccc832479225bc23428" kindref="member">m_observationStart</ref>;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="99" refid="classCanModule_1_1CanStatistics_1a83faba43ea2a404e400b681b246f134c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCanModule_1_1CanStatistics_1_1Internals" kindref="compound">Internals</ref><sp/><ref refid="classCanModule_1_1CanStatistics_1a83faba43ea2a404e400b681b246f134c" kindref="member">m_internals</ref>;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>CANINTERFACE_SOCKCAN_CANSTATISTICS_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/CanStatistics.h"/>
+  </compounddef>
+</doxygen>

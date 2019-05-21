@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_2318f5a9e170e6035b5a01b9be7fc1a9" kind="dir">
+    <compoundname>CanInterfaceImplementations/sockcan</compoundname>
+    <innerfile refid="SockCanScan_8cpp">SockCanScan.cpp</innerfile>
+    <innerfile refid="SockCanScan_8h">SockCanScan.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/sockcan/"/>
+  </compounddef>
+</doxygen>

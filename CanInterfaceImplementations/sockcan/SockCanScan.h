@@ -43,52 +43,29 @@ using namespace CanModule;
 class CSockCanScan : public CCanAccess
 {
 public:
-	//Constructor of the class. Will initiate the statistics.
-	CSockCanScan();
-	//Disables copy constructor
-	CSockCanScan(CSockCanScan const & other) = delete;
-	//Disables asignation
-	CSockCanScan& operator=( CSockCanScan const & other) = delete;
-	//Destructor of the class
+
+	CSockCanScan(); //Constructor of the class. Will initiate the statistics.
+	CSockCanScan(CSockCanScan const & other) = delete; 	//Disables copy constructor
+	CSockCanScan& operator=( CSockCanScan const & other) = delete; //Disables assignment
 	virtual ~CSockCanScan();
 
-	/*
-	 * Method that sends a message trough the can bus channel. If the method createBUS was not called before this, sendMessage will fail, as there is no
-	 * can bus channel to send a message trough.
-	 * @param cobID: Identifier that will be used for the message.
-	 * @param len: Length of the message. If the message is bigger than 8 characters, it will be split into separate 8 characters messages.
-	 * @param message: Message to be sent trough the can bus.
-	 * @param rtr: is the message a remote transmission request?
-	 * @return: Was the initialisation process successful?
-	 */
+	virtual bool sendRemoteRequest(short cobID);
+	virtual bool createBus(const string name ,string parameters );
 	virtual bool sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr = false);
 
-	/*
-	 * Method that sends a remote request trough the can bus channel. If the method createBUS was not called before this, sendMessage will fail, as there is no
-	 * can bus channel to send the request trough. Similar to sendMessage, but it sends an special message reserved for requests.
-	 * @param cobID: Identifier that will be used for the request.
-	 * @return: Was the initialisation process successful?
+	/**
+	 * Returns socket handler
 	 */
-	virtual bool sendRemoteRequest(short cobID);
-
-	/*
-	 * Method that initialises a can bus channel. The following methods called upon the same object will be using this initialised channel.
-	 *
-	 * @param name: Name of the can bus channel. The specific mapping will change depending on the interface used. For example, accessing channel 0 for the
-	 * 				systec interface would be using name "st:9", while in socket can the same channel would be "sock:can0".
-	 * @param parameters: Different parameters used for the initialisation. For using the default parameters just set this to "Unspecified"
-	 * @return: Was the initialisation process successful?
-	 */
-	virtual bool createBus(const string name ,string parameters );
-
-	//Returns socket handler
 	int getHandler() { return m_sock; }
-	//Returns channel name
-	//   std::string &getChannel() { return m_channelName; }
-	//Returns can bus parameters
-	//    std::string &getParameters() { return m_parameters; }
-	//Returns the instance of the CanStatistics object
+
+	/**
+	 * Returns the instance of the CanStatistics object
+	 */
 	virtual void getStatistics( CanStatistics & result );
+
+	/**
+	 * produce and empty can frame
+	 */
 	static can_frame emptyCanFrame( void ){
 		can_frame f;
 		f.can_dlc = 0;
@@ -114,7 +91,6 @@ private:
 	int m_idCanScanThread;
 
 	static Log::LogComponentHandle st_logItHandleSock;
-	//static bool st_logItRegisteredSock;
 
 	//Closeup method that will be called from the destructor.
 	bool stopBus ();

@@ -389,7 +389,17 @@ int CSockCanScan::openCanPort()
 }
 
 
-
+/**
+ * Method that sends a message trough the can bus channel. If the method createBUS was not
+ * called before this, sendMessage will fail, as there is no
+ * can bus channel to send a message through.
+ *
+ * @param cobID Identifier that will be used for the message.
+ * @param len Length of the message. If the message is bigger than 8 characters, it will be split into separate 8 characters messages.
+ * @param message Message to be sent trough the can bus.
+ * @param rtr is the message a remote transmission request?
+ * @return Was the initialisation process successful?
+ */
 bool CSockCanScan::sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr)
 {
 	int messageLengthToBeProcessed;
@@ -445,6 +455,12 @@ bool CSockCanScan::sendMessage(short cobID, unsigned char len, unsigned char *me
 	return true;
 }
 
+/**
+ * Method that sends a remote request trough the can bus channel. If the method createBUS was not called before this, sendMessage will fail, as there is no
+ * can bus channel to send the request trough. Similar to sendMessage, but it sends an special message reserved for requests.
+ * @param cobID: Identifier that will be used for the request.
+ * @return: Was the initialisation process successful?
+ */
 bool CSockCanScan::sendRemoteRequest(short cobID)
 {
 	struct can_frame canFrame;
@@ -488,6 +504,23 @@ bool CSockCanScan::sendRemoteRequest(short cobID)
 	return true;
 }
 
+/**
+ * Method that initializes a can bus channel. The following methods called upon the same
+ * object will be using this initialized channel.
+ *
+ * @param name = 2 parameters separated by ":", like "n0:n1"
+ * 		* n0 = "sock" for sockets@linux, used by systec and peak
+ * 		* n1 = CAN port number on the module, can be prefixed with "can"
+ * 		* ex.: "sock:can1" speaks to port 1 on systec or peak module
+ * 		* ex.: "sock:1" works as well
+ *
+ * @param parameters one parameter: "p0", positive integer
+ * 				* "Unspecified" (or empty): using defaults = "125000" // params missing
+ * 				* p0: bitrate: 50000, 100000, 125000, 250000, 500000, 1000000 bit/s, other values might be allowed by the module
+ *				*  i.e. "250000"
+ *
+ * @return Was the initialization process successful?
+ */
 bool CSockCanScan::createBus(const string name, const string parameters)
 {
 #if 0

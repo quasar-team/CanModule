@@ -1,0 +1,537 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="pkcan_8cpp" kind="file">
+    <compoundname>pkcan.cpp</compoundname>
+    <includes refid="pkcan_8h" local="yes">pkcan.h</includes>
+    <includes local="no">time.h</includes>
+    <includes local="no">string.h</includes>
+    <includes refid="CanModuleUtils_8h" local="yes">CanModuleUtils.h</includes>
+    <includes local="no">LogIt.h</includes>
+    <incdepgraph>
+      <node id="231">
+        <label>stdatomic.h</label>
+      </node>
+      <node id="234">
+        <label>LogIt.h</label>
+      </node>
+      <node id="223">
+        <label>windows.h</label>
+      </node>
+      <node id="219">
+        <label>CanInterfaceImplementations/pkcan/pkcan.cpp</label>
+        <link refid="pkcan.cpp"/>
+        <childnode refid="220" relation="include">
+        </childnode>
+        <childnode refid="235" relation="include">
+        </childnode>
+        <childnode refid="236" relation="include">
+        </childnode>
+        <childnode refid="237" relation="include">
+        </childnode>
+        <childnode refid="234" relation="include">
+        </childnode>
+      </node>
+      <node id="228">
+        <label>boost/signals2.hpp</label>
+      </node>
+      <node id="230">
+        <label>CanStatistics.h</label>
+        <link refid="CanStatistics_8h"/>
+        <childnode refid="231" relation="include">
+        </childnode>
+        <childnode refid="226" relation="include">
+        </childnode>
+        <childnode refid="232" relation="include">
+        </childnode>
+        <childnode refid="233" relation="include">
+        </childnode>
+      </node>
+      <node id="220">
+        <label>pkcan.h</label>
+        <link refid="pkcan_8h"/>
+        <childnode refid="221" relation="include">
+        </childnode>
+        <childnode refid="222" relation="include">
+        </childnode>
+        <childnode refid="223" relation="include">
+        </childnode>
+        <childnode refid="224" relation="include">
+        </childnode>
+        <childnode refid="225" relation="include">
+        </childnode>
+        <childnode refid="230" relation="include">
+        </childnode>
+      </node>
+      <node id="239">
+        <label>stdexcept</label>
+      </node>
+      <node id="221">
+        <label>string</label>
+      </node>
+      <node id="224">
+        <label>PCANBasic.h</label>
+      </node>
+      <node id="225">
+        <label>CCanAccess.h</label>
+        <link refid="CCanAccess_8h"/>
+        <childnode refid="226" relation="include">
+        </childnode>
+        <childnode refid="227" relation="include">
+        </childnode>
+        <childnode refid="228" relation="include">
+        </childnode>
+        <childnode refid="221" relation="include">
+        </childnode>
+        <childnode refid="229" relation="include">
+        </childnode>
+        <childnode refid="230" relation="include">
+        </childnode>
+        <childnode refid="234" relation="include">
+        </childnode>
+      </node>
+      <node id="229">
+        <label>CanMessage.h</label>
+        <link refid="CanMessage_8h"/>
+        <childnode refid="226" relation="include">
+        </childnode>
+      </node>
+      <node id="222">
+        <label>Winsock2.h</label>
+      </node>
+      <node id="236">
+        <label>string.h</label>
+      </node>
+      <node id="238">
+        <label>sstream</label>
+      </node>
+      <node id="237">
+        <label>CanModuleUtils.h</label>
+        <link refid="CanModuleUtils_8h"/>
+        <childnode refid="226" relation="include">
+        </childnode>
+        <childnode refid="238" relation="include">
+        </childnode>
+        <childnode refid="239" relation="include">
+        </childnode>
+        <childnode refid="221" relation="include">
+        </childnode>
+        <childnode refid="233" relation="include">
+        </childnode>
+      </node>
+      <node id="235">
+        <label>time.h</label>
+      </node>
+      <node id="226">
+        <label>sys/time.h</label>
+      </node>
+      <node id="227">
+        <label>boost/bind.hpp</label>
+      </node>
+      <node id="233">
+        <label>chrono</label>
+      </node>
+      <node id="232">
+        <label>ExportDefinition.h</label>
+        <link refid="ExportDefinition_8h"/>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="pkcan_8cpp_1a73247195a8f4adaf8cc04e0ac302e045" prot="public" static="no">
+        <name>MLOGPK</name>
+        <param><defname>LEVEL</defname></param>
+        <param><defname>THIS</defname></param>
+        <initializer>LOG(Log::LEVEL, <ref refid="classPKCanScan_1ad3d2cb2aba9654055c73ae2751cbf1de" kindref="member">PKCanScan::s_logItHandlePk</ref>) &lt;&lt; __FUNCTION__ &lt;&lt; &quot; &quot; &lt;&lt; &quot; bus= &quot; &lt;&lt; THIS-&gt;getBusName() &lt;&lt; &quot; &quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/pkcan/pkcan.cpp" line="36" column="9" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/pkcan/pkcan.cpp" bodystart="36" bodyend="-1"/>
+        <referencedby refid="classPKCanScan_1a45bd5feda5ccb009775c45bfabe41614" compoundref="pkcan_8cpp" startline="68" endline="110">PKCanScan::CanScanControlThread</referencedby>
+        <referencedby refid="classPKCanScan_1a6fe021ecfdde5af1e7a74668b9819bfb" compoundref="pkcan_8cpp" startline="171" endline="272">PKCanScan::configureCanboard</referencedby>
+        <referencedby refid="classPKCanScan_1ae91999b9316ca127eecbabd9f27c3137" compoundref="pkcan_8cpp" startline="130" endline="164">PKCanScan::createBus</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="pkcan_8cpp_1a0ec23bcfb114109a7d87fb033501f29b" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool initLibarary</definition>
+        <argsstring></argsstring>
+        <name>initLibarary</name>
+        <initializer>=  false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/pkcan/pkcan.cpp" line="40" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/pkcan/pkcan.cpp" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="pkcan_8cpp_1a720081fb383c8d118471780c998a8b2e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>__declspec</definition>
+        <argsstring>(dllexport) CCanAccess *getCanBusAccess()</argsstring>
+        <name>__declspec</name>
+        <param>
+          <type>dllexport</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/pkcan/pkcan.cpp" line="41" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/pkcan/pkcan.cpp" bodystart="41" bodyend="46"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"></codeline>
+<codeline lineno="26"><highlight class="preprocessor">#include<sp/>&quot;<ref refid="pkcan_8h" kindref="compound">pkcan.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;time.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="CanModuleUtils_8h" kindref="compound">CanModuleUtils.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;LogIt.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>static<sp/>*/</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classPKCanScan_1ae1ff02a4576fe6d7276843e3821408c8" kindref="member">PKCanScan::s_logItRegisteredPk</ref><sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>static<sp/>*/</highlight><highlight class="normal"><sp/>Log::LogComponentHandle<sp/><ref refid="classPKCanScan_1ad3d2cb2aba9654055c73ae2751cbf1de" kindref="member">PKCanScan::s_logItHandlePk</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36" refid="pkcan_8cpp_1a73247195a8f4adaf8cc04e0ac302e045" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MLOGPK(LEVEL,THIS)<sp/>LOG(Log::LEVEL,<sp/>PKCanScan::s_logItHandlePk)<sp/>&lt;&lt;<sp/>__FUNCTION__<sp/>&lt;&lt;<sp/>&quot;<sp/>&quot;<sp/>&lt;&lt;<sp/>&quot;<sp/>bus=<sp/>&quot;<sp/>&lt;&lt;<sp/>THIS-&gt;getBusName()<sp/>&lt;&lt;<sp/>&quot;<sp/>&quot;</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="keyword">using<sp/>namespace<sp/></highlight><highlight class="normal">std;</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40" refid="pkcan_8cpp_1a0ec23bcfb114109a7d87fb033501f29b" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><sp/><ref refid="pkcan_8cpp_1a0ec23bcfb114109a7d87fb033501f29b" kindref="member">initLibarary</ref><sp/>=<sp/><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="41" refid="pkcan_8cpp_1a720081fb383c8d118471780c998a8b2e" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/><ref refid="pkcan_8cpp_1a720081fb383c8d118471780c998a8b2e" kindref="member">__declspec</ref>(dllexport)<sp/><ref refid="classCanModule_1_1CCanAccess" kindref="compound">CCanAccess</ref><sp/>*<ref refid="AnaCanScan_8cpp_1ae930092b65c48c86b99b5da2178b4692" kindref="member">getCanBusAccess</ref>()</highlight></codeline>
+<codeline lineno="42"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCanModule_1_1CCanAccess" kindref="compound">CCanAccess</ref><sp/>*cc;</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/>cc<sp/>=<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/><ref refid="classPKCanScan" kindref="compound">PKCanScan</ref>;</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>cc;</highlight></codeline>
+<codeline lineno="46"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48" refid="classPKCanScan_1adfc8b4e20f4548295a99af69bf1888d5" refkind="member"><highlight class="normal"><ref refid="classPKCanScan_1adfc8b4e20f4548295a99af69bf1888d5" kindref="member">PKCanScan::PKCanScan</ref>():</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>m_busStatus(0),</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>m_baudRate(0),</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>m_idCanScanThread(0),</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>m_CanScanThreadShutdownFlag(true)</highlight></codeline>
+<codeline lineno="53"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classPKCanScan_1a03eec54c44937d843f48b2b1a086b37b" kindref="member">m_statistics</ref>.<ref refid="classCanModule_1_1CanStatistics_1a85e6c87ce5285884a0272088178bb8f6" kindref="member">beginNewRun</ref>();</highlight></codeline>
+<codeline lineno="55"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57" refid="classPKCanScan_1a924778bdca171eb7f3f597dfe9f99fb4" refkind="member"><highlight class="normal"><ref refid="classPKCanScan_1a924778bdca171eb7f3f597dfe9f99fb4" kindref="member">PKCanScan::~PKCanScan</ref>()</highlight></codeline>
+<codeline lineno="58"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classPKCanScan_1afc2d4388c9cc8b562f315a55e7ad8bab" kindref="member">m_CanScanThreadShutdownFlag</ref><sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/>CloseHandle(m_ReadEvent);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/>CAN_Uninitialize(<ref refid="classPKCanScan_1a8f07d0272238592477299480f48ae193" kindref="member">m_canObjHandler</ref>);</highlight></codeline>
+<codeline lineno="62"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68" refid="classPKCanScan_1a45bd5feda5ccb009775c45bfabe41614" refkind="member"><highlight class="normal"><ref refid="AnaCanScan_8h_1ad342ac907eb044443153a22f964bf0af" kindref="member">DWORD</ref><sp/><ref refid="AnaCanScan_8cpp_1a9aa60e1ead64be77ad551e745cbfd4d3" kindref="member">WINAPI</ref><sp/><ref refid="classPKCanScan_1a45bd5feda5ccb009775c45bfabe41614" kindref="member">PKCanScan::CanScanControlThread</ref>(LPVOID<sp/>pCanScan)</highlight></codeline>
+<codeline lineno="69"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classPKCanScan" kindref="compound">PKCanScan</ref><sp/>*pkCanScanPointer<sp/>=<sp/></highlight><highlight class="keyword">reinterpret_cast&lt;</highlight><highlight class="normal"><ref refid="classPKCanScan" kindref="compound">PKCanScan</ref><sp/>*</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(pCanScan);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/>TPCANHandle<sp/>tpcanHandler<sp/>=<sp/>pkCanScanPointer-&gt;<ref refid="classPKCanScan_1a8f07d0272238592477299480f48ae193" kindref="member">m_canObjHandler</ref>;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="pkcan_8cpp_1a73247195a8f4adaf8cc04e0ac302e045" kindref="member">MLOGPK</ref>(DBG,pkCanScanPointer)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;CanScanControlThread<sp/>Started.<sp/>m_CanScanThreadShutdownFlag<sp/>=<sp/>[&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>pkCanScanPointer-&gt;<ref refid="classPKCanScan_1afc2d4388c9cc8b562f315a55e7ad8bab" kindref="member">m_CanScanThreadShutdownFlag</ref><sp/>&lt;&lt;</highlight><highlight class="stringliteral">&quot;]&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(<sp/>pkCanScanPointer-&gt;<ref refid="classPKCanScan_1afc2d4388c9cc8b562f315a55e7ad8bab" kindref="member">m_CanScanThreadShutdownFlag</ref><sp/>)<sp/>{</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TPCANMsg<sp/>tpcanMessage;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TPCANTimestamp<sp/>tpcanTimestamp;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TPCANStatus<sp/>tpcanStatus<sp/>=<sp/>CAN_Read(tpcanHandler,&amp;tpcanMessage,&amp;tpcanTimestamp);</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(tpcanStatus<sp/>==<sp/>PCAN_ERROR_OK)<sp/>{</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structCanMsgStruct" kindref="compound">CanMsgStruct</ref><sp/>canMessage;</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal">(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i=0;<sp/>i<sp/>&lt;<sp/>8;<sp/>i++)</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>canMessage.<ref refid="structCanMsgStruct_1a2e47a33e7bba46b05a8fff29433f047b" kindref="member">c_data</ref>[i]<sp/>=<sp/>tpcanMessage.DATA[i];</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>canMessage.<ref refid="structCanMsgStruct_1a3e5add8ae9cdadfcf3f2255d375ec9b3" kindref="member">c_dlc</ref><sp/>=<sp/>tpcanMessage.LEN;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>canMessage.<ref refid="structCanMsgStruct_1a619515aef041e64b78e7e8c33989ddd0" kindref="member">c_id</ref><sp/>=<sp/>tpcanMessage.ID;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>canMessage.<ref refid="structCanMsgStruct_1acf3abc93beb936e5f9431ef6ec4568f3" kindref="member">c_ff</ref><sp/>=<sp/>tpcanMessage.MSGTYPE;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/>mmsec<sp/>=<sp/>0xFFFFFFFFUL;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>mmsec<sp/>=<sp/>mmsec<sp/>*<sp/><sp/>1000;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>mmsec<sp/>=<sp/>mmsec<sp/>*<sp/>tpcanTimestamp.millis_overflow;</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>mmsec<sp/>=<sp/>mmsec<sp/>+<sp/>tpcanTimestamp.micros;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>mmsec<sp/>=<sp/>mmsec<sp/>+<sp/>1000<sp/>*<sp/>tpcanTimestamp.millis;</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>canMessage.<ref refid="structCanMsgStruct_1a06b9b3e9423f35edfb96df7b04828bba" kindref="member">c_time</ref>.tv_usec<sp/>=<sp/>mmsec<sp/>%<sp/>1000000UL;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>canMessage.<ref refid="structCanMsgStruct_1a06b9b3e9423f35edfb96df7b04828bba" kindref="member">c_time</ref>.tv_sec<sp/>=<sp/>long(mmsec<sp/>/<sp/>1000000UL);</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pkCanScanPointer-&gt;<ref refid="classCanModule_1_1CCanAccess_1aa8e0e974863874b0e7bbcdb57084c241" kindref="member">canMessageCame</ref>(canMessage);</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pkCanScanPointer-&gt;<ref refid="classPKCanScan_1a03eec54c44937d843f48b2b1a086b37b" kindref="member">m_statistics</ref>.<ref refid="classCanModule_1_1CanStatistics_1a82b38a2383bc0ad6b1d306e86b9ef5c6" kindref="member">onReceive</ref>(<sp/>canMessage.<ref refid="structCanMsgStruct_1a3e5add8ae9cdadfcf3f2255d375ec9b3" kindref="member">c_dlc</ref><sp/>);</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(tpcanStatus<sp/>&amp;<sp/>PCAN_ERROR_QRCVEMPTY)<sp/>{</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">continue</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pkCanScanPointer-&gt;<ref refid="classPKCanScan_1a35ccc4082d56a736abb34d0c289c5a96" kindref="member">sendErrorCode</ref>(tpcanStatus);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(tpcanStatus<sp/>|<sp/>PCAN_ERROR_ANYBUSERR)<sp/>{</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CAN_Initialize(tpcanHandler,pkCanScanPointer-&gt;<ref refid="classPKCanScan_1a84e9c4874e065b79d5600c0a5f9f7877" kindref="member">m_baudRate</ref>);</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Sleep(100);</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/>ExitThread(0);</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight></codeline>
+<codeline lineno="130" refid="classPKCanScan_1ae91999b9316ca127eecbabd9f27c3137" refkind="member"><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classPKCanScan_1ae91999b9316ca127eecbabd9f27c3137" kindref="member">PKCanScan::createBus</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/>name<sp/>,</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/>parameters<sp/>)</highlight></codeline>
+<codeline lineno="131"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>calling<sp/>base<sp/>class<sp/>to<sp/>get<sp/>the<sp/>instance<sp/>from<sp/>there</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/>Log::LogComponentHandle<sp/>myHandle;</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/>LogItInstance*<sp/>logItInstance<sp/>=<sp/>CCanAccess::getLogItInstance();<sp/></highlight><highlight class="comment">//<sp/>actually<sp/>calling<sp/>instance<sp/>method,<sp/>not<sp/>class</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>register<sp/>peak@W<sp/>component<sp/>for<sp/>logging</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!LogItInstance::setInstance(logItInstance))</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/>__FILE__<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>__LINE__<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>__FUNCTION__</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>could<sp/>not<sp/>set<sp/>LogIt<sp/>instance&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/>logItInstance-&gt;registerLoggingComponent(<sp/><ref refid="namespaceCanModule_1a558e2e51ea82e642b8656a3fc2a53e5c" kindref="member">CanModule::LogItComponentNamePeak</ref>,<sp/>Log::TRC);</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!logItInstance-&gt;getComponentHandle(<sp/><ref refid="namespaceCanModule_1a558e2e51ea82e642b8656a3fc2a53e5c" kindref="member">CanModule::LogItComponentNamePeak</ref>,<sp/>myHandle))</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/>__FILE__<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>__LINE__<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>__FUNCTION__</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>could<sp/>not<sp/>get<sp/>LogIt<sp/>component<sp/>handle<sp/>for<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/><ref refid="namespaceCanModule_1a558e2e51ea82e642b8656a3fc2a53e5c" kindref="member">LogItComponentNamePeak</ref><sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classPKCanScan_1ad3d2cb2aba9654055c73ae2751cbf1de" kindref="member">PKCanScan::s_logItHandlePk</ref><sp/>=<sp/>myHandle;</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="pkcan_8cpp_1a73247195a8f4adaf8cc04e0ac302e045" kindref="member">MLOGPK</ref>(DBG,<sp/></highlight><highlight class="keyword">this</highlight><highlight class="normal">)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>name=<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>name<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>parameters=<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>parameters<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;,<sp/>configuring<sp/>CAN<sp/>board&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCanModule_1_1CCanAccess_1a0eff18d10b7ee5d6f86b03898f38f7ca" kindref="member">m_sBusName</ref><sp/>=<sp/>name;</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//We<sp/>configure<sp/>the<sp/>canboard</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<sp/>!<ref refid="classPKCanScan_1a6fe021ecfdde5af1e7a74668b9819bfb" kindref="member">configureCanboard</ref>(name,parameters)<sp/>)<sp/>{</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//If<sp/>we<sp/>can&apos;t<sp/>initialise<sp/>the<sp/>canboard,<sp/>the<sp/>thread<sp/>is<sp/>not<sp/>started<sp/>at<sp/>all</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="pkcan_8cpp_1a73247195a8f4adaf8cc04e0ac302e045" kindref="member">MLOGPK</ref>(<sp/>ERR,<sp/></highlight><highlight class="keyword">this</highlight><highlight class="normal"><sp/>)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>name=<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>name<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>parameters=<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>parameters<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;,<sp/>failed<sp/>to<sp/>configure<sp/>CAN<sp/>board&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Otherwise,<sp/>we<sp/>initialise<sp/>the<sp/>Scan<sp/>thread</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/>CAN_FilterMessages(<ref refid="classPKCanScan_1a8f07d0272238592477299480f48ae193" kindref="member">m_canObjHandler</ref>,0,0x7FF,PCAN_MESSAGE_STANDARD);</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classPKCanScan_1a169a32c5961996acbd55aa5c12118de0" kindref="member">m_hCanScanThread</ref><sp/>=<sp/>CreateThread(NULL,<sp/>0,<sp/><ref refid="classPKCanScan_1a45bd5feda5ccb009775c45bfabe41614" kindref="member">CanScanControlThread</ref>,<sp/></highlight><highlight class="keyword">this</highlight><highlight class="normal">,<sp/>0,<sp/>&amp;<ref refid="classPKCanScan_1a5ba2a765e250376fde32db88272339d6" kindref="member">m_idCanScanThread</ref>);</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<sp/>NULL<sp/>==<sp/><ref refid="classPKCanScan_1a169a32c5961996acbd55aa5c12118de0" kindref="member">m_hCanScanThread</ref><sp/>)<sp/>{</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DebugBreak();</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="164"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight></codeline>
+<codeline lineno="171" refid="classPKCanScan_1a6fe021ecfdde5af1e7a74668b9819bfb" refkind="member"><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classPKCanScan_1a6fe021ecfdde5af1e7a74668b9819bfb" kindref="member">PKCanScan::configureCanboard</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/>name,</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/>parameters)</highlight></codeline>
+<codeline lineno="172"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/>__FILE__<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>__LINE__<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>__FUNCTION__<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>name=<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>name<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>parameters=<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>parameters<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCanModule_1_1CCanAccess_1a0eff18d10b7ee5d6f86b03898f38f7ca" kindref="member">m_sBusName</ref><sp/>=<sp/>name;</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classPKCanScan_1a84e9c4874e065b79d5600c0a5f9f7877" kindref="member">m_baudRate</ref><sp/>=<sp/>PCAN_BAUD_125K;</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>for<sp/>FD<sp/>modules</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//unsigned<sp/>int<sp/>parametersTseg1<sp/>=<sp/>0;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//unsigned<sp/>int<sp/>parametersTseg2<sp/>=<sp/>0;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//unsigned<sp/>int<sp/>parametersSjw<sp/>=<sp/>0;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//unsigned<sp/>int<sp/>parametersNoSamp<sp/>=<sp/>0;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//unsigned<sp/>int<sp/>parametersSyncmode<sp/>=<sp/>0;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//long<sp/>parametersBaudRate;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//int<sp/><sp/><sp/>numPar;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//Process<sp/>the<sp/>parameters</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/>vector&lt;string&gt;<sp/>vectorString;</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/>vectorString<sp/>=<sp/><ref refid="classCanModule_1_1CCanAccess_1af26c9d102638fb96e5e1305f807d148f" kindref="member">parseNameAndParameters</ref>(name,<sp/>parameters);</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="pkcan_8cpp_1a73247195a8f4adaf8cc04e0ac302e045" kindref="member">MLOGPK</ref>(DBG,<sp/></highlight><highlight class="keyword">this</highlight><highlight class="normal">)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>calling<sp/>getHandle<sp/>vectorString[1]=<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>vectorString[1]<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>peak<sp/>guys<sp/>start<sp/>counting<sp/>from<sp/>1,<sp/>we<sp/>start<sp/>counting<sp/>from<sp/>0.<sp/>ugh.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ich<sp/>=<sp/>atoi(vectorString[1].c_str());</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/>stringstream<sp/>channel;</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/>channel<sp/>&lt;&lt;<sp/>ich<sp/>+<sp/>1;</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">interface<sp/></highlight><highlight class="normal">=<sp/>&quot;USB&quot;;</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/>humanReadableCode<sp/>=<sp/></highlight><highlight class="keyword">interface<sp/></highlight><highlight class="normal">+<sp/>channel.str();</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classPKCanScan_1a8f07d0272238592477299480f48ae193" kindref="member">m_canObjHandler</ref><sp/>=<sp/><ref refid="classPKCanScan_1a53471be1a2b2b34afc091e90bfcd29fb" kindref="member">getHandle</ref>(<sp/>humanReadableCode.c_str()<sp/>);</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="pkcan_8cpp_1a73247195a8f4adaf8cc04e0ac302e045" kindref="member">MLOGPK</ref>(<sp/>DBG,<sp/></highlight><highlight class="keyword">this</highlight><highlight class="normal"><sp/>)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;PEAK<sp/>handle<sp/>for<sp/>vectorString[1]=<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>vectorString[1]<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>is<sp/>code=<sp/>0x&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;hex<sp/>&lt;&lt;<sp/><sp/>m_canObjHandler<sp/>&lt;&lt;<sp/>dec<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"></highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(strcmp(parameters.c_str(),<sp/></highlight><highlight class="stringliteral">&quot;Unspecified&quot;</highlight><highlight class="normal">)<sp/>!=<sp/>0)</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//numPar<sp/>=<sp/>sscanf_s(canpars,<sp/>&quot;%d<sp/>%d<sp/>%d<sp/>%d<sp/>%d<sp/>%d&quot;,<sp/>&amp;parametersBaudRate,<sp/>&amp;parametersTseg1,<sp/>&amp;parametersTseg2,<sp/>&amp;parametersSjw,<sp/>&amp;parametersNoSamp,<sp/>&amp;parametersSyncmode);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//Get<sp/>the<sp/>can<sp/>object<sp/>handler</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>m_canObjHandler<sp/>=<sp/><ref refid="classPKCanScan_1a53471be1a2b2b34afc091e90bfcd29fb" kindref="member">getHandle</ref>(vectorString[1].c_str());</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//Process<sp/>the<sp/>baudRate<sp/>if<sp/>needed</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classCanModule_1_1CCanAccess_1a484a4f9dc352fe31b4baff0365095705" kindref="member">m_CanParameters</ref>.<ref refid="structCanModule_1_1CanParameters_1ac4e03899b26e33a3867ee1f0bce674b5" kindref="member">m_iNumberOfDetectedParameters</ref><sp/>==<sp/>1)</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(<ref refid="classCanModule_1_1CCanAccess_1a484a4f9dc352fe31b4baff0365095705" kindref="member">m_CanParameters</ref>.<ref refid="structCanModule_1_1CanParameters_1a53ce17e16c2a818ffbc05904d9e56e11" kindref="member">m_lBaudRate</ref>)</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>50000:</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classPKCanScan_1a84e9c4874e065b79d5600c0a5f9f7877" kindref="member">m_baudRate</ref><sp/>=<sp/>PCAN_BAUD_50K;</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>100000:</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classPKCanScan_1a84e9c4874e065b79d5600c0a5f9f7877" kindref="member">m_baudRate</ref><sp/>=<sp/>PCAN_BAUD_100K;</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>125000:</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classPKCanScan_1a84e9c4874e065b79d5600c0a5f9f7877" kindref="member">m_baudRate</ref><sp/>=<sp/>PCAN_BAUD_125K;</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>250000:</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classPKCanScan_1a84e9c4874e065b79d5600c0a5f9f7877" kindref="member">m_baudRate</ref><sp/>=<sp/>PCAN_BAUD_250K;</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>500000:</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classPKCanScan_1a84e9c4874e065b79d5600c0a5f9f7877" kindref="member">m_baudRate</ref><sp/>=<sp/>PCAN_BAUD_500K;</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>1000000:</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classPKCanScan_1a84e9c4874e065b79d5600c0a5f9f7877" kindref="member">m_baudRate</ref><sp/>=<sp/>PCAN_BAUD_1M;</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classPKCanScan_1a84e9c4874e065b79d5600c0a5f9f7877" kindref="member">m_baudRate</ref><sp/>=<sp/><ref refid="classCanModule_1_1CCanAccess_1a484a4f9dc352fe31b4baff0365095705" kindref="member">m_CanParameters</ref>.<ref refid="structCanModule_1_1CanParameters_1a53ce17e16c2a818ffbc05904d9e56e11" kindref="member">m_lBaudRate</ref>;</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/><sp/>(<ref refid="classCanModule_1_1CCanAccess_1a484a4f9dc352fe31b4baff0365095705" kindref="member">m_CanParameters</ref>.<ref refid="structCanModule_1_1CanParameters_1ac4e03899b26e33a3867ee1f0bce674b5" kindref="member">m_iNumberOfDetectedParameters</ref><sp/>!=<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classPKCanScan_1a84e9c4874e065b79d5600c0a5f9f7877" kindref="member">m_baudRate</ref><sp/>=<sp/><ref refid="classCanModule_1_1CCanAccess_1a484a4f9dc352fe31b4baff0365095705" kindref="member">m_CanParameters</ref>.<ref refid="structCanModule_1_1CanParameters_1a53ce17e16c2a818ffbc05904d9e56e11" kindref="member">m_lBaudRate</ref>;</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="pkcan_8cpp_1a73247195a8f4adaf8cc04e0ac302e045" kindref="member">MLOGPK</ref>(ERR,<sp/></highlight><highlight class="keyword">this</highlight><highlight class="normal">)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Error<sp/>while<sp/>parsing<sp/>parameters:<sp/>this<sp/>syntax<sp/>is<sp/>incorrect:<sp/>[&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>parameters<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;]&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="pkcan_8cpp_1a73247195a8f4adaf8cc04e0ac302e045" kindref="member">MLOGPK</ref>(DBG,<sp/></highlight><highlight class="keyword">this</highlight><highlight class="normal">)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Unspecified<sp/>parameters,<sp/>default<sp/>values<sp/>will<sp/>be<sp/>used.&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"></highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//TPCANBitrateFD<sp/>br<sp/>=<sp/>&quot;f_clock_mhz=20,<sp/>nom_brp=5,<sp/>nom_tseg1=2,<sp/>nom_tseg2=1,<sp/>nom_sjw=1&quot;;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//TPCANStatus<sp/>tpcanStatus<sp/>=<sp/>CAN_InitializeFD(m_canObjHandler,<sp/>br<sp/>);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="255"><highlight class="normal"></highlight></codeline>
+<codeline lineno="256"><highlight class="normal"></highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/>TPCANStatus<sp/>tpcanStatus<sp/>=<sp/>CAN_Initialize(m_canObjHandler,<sp/><ref refid="classPKCanScan_1a84e9c4874e065b79d5600c0a5f9f7877" kindref="member">m_baudRate</ref><sp/>);</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"></highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>TPCANStatus<sp/>tpcanStatus<sp/>=<sp/>CAN_Initialize(m_canObjHandler,<sp/>m_baudRate,256,3);<sp/>//<sp/>one<sp/>param<sp/>missing<sp/>?<sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>tpcanStatus<sp/>==<sp/>PCAN_ERROR_OK;</highlight></codeline>
+<codeline lineno="272"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"></highlight></codeline>
+<codeline lineno="274"><highlight class="normal"></highlight></codeline>
+<codeline lineno="275" refid="classPKCanScan_1a35ccc4082d56a736abb34d0c289c5a96" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classPKCanScan_1a35ccc4082d56a736abb34d0c289c5a96" kindref="member">PKCanScan::sendErrorCode</ref>(</highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/>status)</highlight></codeline>
+<codeline lineno="276"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(status<sp/>!=<sp/><ref refid="classPKCanScan_1a1c361b38cbc6016192fbcd9a6d81236c" kindref="member">m_busStatus</ref>)</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>timeval<sp/>ftTimeStamp<sp/>=<sp/><ref refid="namespaceCanModule_1a3ec3082d7d11a9c1641023cb3f53cbe5" kindref="member">convertTimepointToTimeval</ref>(<ref refid="namespaceCanModule_1a6d0711aac0a75de5d2bf6142997a814d" kindref="member">currentTimeTimeval</ref>());</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*errorMessage;</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classPKCanScan_1a077b19a57357437f6c2e6ce00030a698" kindref="member">getErrorMessage</ref>(status,<sp/>&amp;errorMessage);</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCanModule_1_1CCanAccess_1a33fbd693f04b4f4e21cee20856c44866" kindref="member">canMessageError</ref>(status,<sp/>errorMessage,<sp/>ftTimeStamp<sp/>);</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classPKCanScan_1a1c361b38cbc6016192fbcd9a6d81236c" kindref="member">m_busStatus</ref><sp/>=<sp/>(TPCANStatus)status;</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(status<sp/>!=<sp/>PCAN_ERROR_OK)</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>status<sp/>=<sp/>CAN_Reset(<ref refid="classPKCanScan_1a8f07d0272238592477299480f48ae193" kindref="member">m_canObjHandler</ref>);</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="291"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"></highlight></codeline>
+<codeline lineno="298" refid="classPKCanScan_1a48a2e9ba00dae1b1fe01f7b095430503" refkind="member"><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classPKCanScan_1a48a2e9ba00dae1b1fe01f7b095430503" kindref="member">PKCanScan::sendMessage</ref>(</highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/>cobID,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*message,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>rtr)</highlight></codeline>
+<codeline lineno="299"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/>TPCANStatus<sp/>tpcanStatus;</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/>TPCANMsg<sp/>tpcanMessage;</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/>tpcanMessage.ID<sp/>=<sp/>cobID;</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/>tpcanMessage.MSGTYPE<sp/>=<sp/>PCAN_MESSAGE_STANDARD;</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(rtr)<sp/>{</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tpcanMessage.MSGTYPE<sp/>=<sp/>PCAN_MESSAGE_RTR;</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>lengthOfUnsentData,<sp/>lengthToBeSent;</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/>lengthOfUnsentData<sp/>=<sp/>len;</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">do</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//In<sp/>every<sp/>iteration<sp/>of<sp/>this<sp/>loop<sp/>a<sp/>piece<sp/>of<sp/>message<sp/>is<sp/>sent<sp/>of<sp/>maximun<sp/>8<sp/>chars</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//To<sp/>keep<sp/>track<sp/>of<sp/>how<sp/>much<sp/>message<sp/>is<sp/>left<sp/>we<sp/>use<sp/>vars<sp/>lengthOfUnsentData<sp/>and<sp/>lengthToBeSent</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(lengthOfUnsentData<sp/>&gt;<sp/>8)<sp/>{</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>lengthToBeSent<sp/>=<sp/>8;</highlight></codeline>
+<codeline lineno="314"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>lengthOfUnsentData<sp/>=<sp/>lengthOfUnsentData<sp/>-<sp/>8;</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>lengthToBeSent<sp/>=<sp/>lengthOfUnsentData;</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tpcanMessage.LEN<sp/>=<sp/>lengthToBeSent;</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"></highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(tpcanMessage.DATA,message,lengthToBeSent);</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tpcanStatus<sp/>=<sp/>CAN_Write(<ref refid="classPKCanScan_1a8f07d0272238592477299480f48ae193" kindref="member">m_canObjHandler</ref>,<sp/>&amp;tpcanMessage);</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(tpcanStatus<sp/>!=<sp/>PCAN_ERROR_OK)<sp/>{</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classPKCanScan_1a35ccc4082d56a736abb34d0c289c5a96" kindref="member">sendErrorCode</ref>(tpcanStatus);</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classPKCanScan_1a03eec54c44937d843f48b2b1a086b37b" kindref="member">m_statistics</ref>.<ref refid="classCanModule_1_1CanStatistics_1a0265b75e9e2e16737950b6b5c5662f35" kindref="member">onTransmit</ref>(<sp/>tpcanMessage.LEN<sp/>);</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>message<sp/>=<sp/>message<sp/>+<sp/>lengthToBeSent;</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(lengthOfUnsentData<sp/>&gt;<sp/>8);</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classPKCanScan_1a35ccc4082d56a736abb34d0c289c5a96" kindref="member">sendErrorCode</ref>(tpcanStatus);</highlight></codeline>
+<codeline lineno="330"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"></highlight></codeline>
+<codeline lineno="332" refid="classPKCanScan_1af7e22b4a484de11ccaea060ad0adb47d" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classPKCanScan_1af7e22b4a484de11ccaea060ad0adb47d" kindref="member">PKCanScan::sendRemoteRequest</ref>(</highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/>cobID)</highlight></codeline>
+<codeline lineno="333"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/>TPCANMsg<sp/><sp/><sp/><sp/>tpcanMessage;</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/>tpcanMessage.ID<sp/>=<sp/>cobID;</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/>tpcanMessage.MSGTYPE<sp/>=<sp/>PCAN_MESSAGE_RTR;</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"><sp/><sp/><sp/><sp/>TPCANStatus<sp/>tpcanStatus<sp/>=<sp/>CAN_Write(<ref refid="classPKCanScan_1a8f07d0272238592477299480f48ae193" kindref="member">m_canObjHandler</ref>,<sp/>&amp;tpcanMessage);</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classPKCanScan_1a35ccc4082d56a736abb34d0c289c5a96" kindref="member">sendErrorCode</ref>(tpcanStatus);</highlight></codeline>
+<codeline lineno="339"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"></highlight></codeline>
+<codeline lineno="341" refid="classPKCanScan_1a077b19a57357437f6c2e6ce00030a698" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classPKCanScan_1a077b19a57357437f6c2e6ce00030a698" kindref="member">PKCanScan::getErrorMessage</ref>(</highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/>error,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>**message)</highlight></codeline>
+<codeline lineno="342"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>tmp[300];</highlight></codeline>
+<codeline lineno="344"><highlight class="normal"><sp/><sp/><sp/><sp/>CAN_GetErrorText((TPCANStatus)error,0,<sp/>tmp);</highlight></codeline>
+<codeline lineno="345"><highlight class="normal"><sp/><sp/><sp/><sp/>*message<sp/>=<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">[strlen(tmp)+1];</highlight></codeline>
+<codeline lineno="346"><highlight class="normal"><sp/><sp/><sp/><sp/>strcpy(*message,tmp);</highlight></codeline>
+<codeline lineno="347"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="348"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="349"><highlight class="normal"></highlight></codeline>
+<codeline lineno="355" refid="classPKCanScan_1a53471be1a2b2b34afc091e90bfcd29fb" refkind="member"><highlight class="normal">TPCANHandle<sp/><ref refid="classPKCanScan_1a53471be1a2b2b34afc091e90bfcd29fb" kindref="member">PKCanScan::getHandle</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*name)</highlight></codeline>
+<codeline lineno="356"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="357"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*channelNameArray[]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="358"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;ISA1&quot;</highlight><highlight class="normal">,</highlight><highlight class="stringliteral">&quot;ISA2&quot;</highlight><highlight class="normal">,</highlight><highlight class="stringliteral">&quot;ISA3&quot;</highlight><highlight class="normal">,</highlight><highlight class="stringliteral">&quot;ISA4&quot;</highlight><highlight class="normal">,</highlight><highlight class="stringliteral">&quot;ISA5&quot;</highlight><highlight class="normal">,</highlight><highlight class="stringliteral">&quot;ISA6&quot;</highlight><highlight class="normal">,</highlight><highlight class="stringliteral">&quot;ISA7&quot;</highlight><highlight class="normal">,</highlight><highlight class="stringliteral">&quot;ISA8&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="359"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;DNG1&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;PCI1&quot;</highlight><highlight class="normal">,</highlight><highlight class="stringliteral">&quot;PCI2&quot;</highlight><highlight class="normal">,</highlight><highlight class="stringliteral">&quot;PCI3&quot;</highlight><highlight class="normal">,</highlight><highlight class="stringliteral">&quot;PCI4&quot;</highlight><highlight class="normal">,</highlight><highlight class="stringliteral">&quot;PCI5&quot;</highlight><highlight class="normal">,</highlight><highlight class="stringliteral">&quot;PCI6&quot;</highlight><highlight class="normal">,</highlight><highlight class="stringliteral">&quot;PCI7&quot;</highlight><highlight class="normal">,</highlight><highlight class="stringliteral">&quot;PCI8&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="361"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;USB1&quot;</highlight><highlight class="normal">,</highlight><highlight class="stringliteral">&quot;USB2&quot;</highlight><highlight class="normal">,</highlight><highlight class="stringliteral">&quot;USB3&quot;</highlight><highlight class="normal">,</highlight><highlight class="stringliteral">&quot;USB4&quot;</highlight><highlight class="normal">,</highlight><highlight class="stringliteral">&quot;USB5&quot;</highlight><highlight class="normal">,</highlight><highlight class="stringliteral">&quot;USB6&quot;</highlight><highlight class="normal">,</highlight><highlight class="stringliteral">&quot;USB7&quot;</highlight><highlight class="normal">,</highlight><highlight class="stringliteral">&quot;USB8&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="362"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;PCC1&quot;</highlight><highlight class="normal">,</highlight><highlight class="stringliteral">&quot;PCC2&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="363"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="364"><highlight class="normal"></highlight></codeline>
+<codeline lineno="365"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TPCANHandle<sp/>handlerArray[]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x21,<sp/><sp/></highlight><highlight class="comment">//<sp/>PCAN-ISA<sp/>interface,<sp/>channel<sp/>1</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="367"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x22,<sp/><sp/></highlight><highlight class="comment">//<sp/>PCAN-ISA<sp/>interface,<sp/>channel<sp/>2</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="368"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x23,<sp/><sp/></highlight><highlight class="comment">//<sp/>PCAN-ISA<sp/>interface,<sp/>channel<sp/>3</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="369"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x24,<sp/><sp/></highlight><highlight class="comment">//<sp/>PCAN-ISA<sp/>interface,<sp/>channel<sp/>4</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="370"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x25,<sp/><sp/></highlight><highlight class="comment">//<sp/>PCAN-ISA<sp/>interface,<sp/>channel<sp/>5</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="371"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x26,<sp/><sp/></highlight><highlight class="comment">//<sp/>PCAN-ISA<sp/>interface,<sp/>channel<sp/>6</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="372"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x27,<sp/><sp/></highlight><highlight class="comment">//<sp/>PCAN-ISA<sp/>interface,<sp/>channel<sp/>7</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="373"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x28,<sp/><sp/></highlight><highlight class="comment">//<sp/>PCAN-ISA<sp/>interface,<sp/>channel<sp/>8</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="374"><highlight class="normal"></highlight></codeline>
+<codeline lineno="375"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x31,<sp/><sp/></highlight><highlight class="comment">//<sp/>PCAN-Dongle/LPT<sp/>interface,<sp/>channel<sp/>1</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="376"><highlight class="normal"></highlight></codeline>
+<codeline lineno="377"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x41,<sp/><sp/></highlight><highlight class="comment">//<sp/>PCAN-PCI<sp/>interface,<sp/>channel<sp/>1</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="378"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x42,<sp/><sp/></highlight><highlight class="comment">//<sp/>PCAN-PCI<sp/>interface,<sp/>channel<sp/>2</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="379"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x43,<sp/><sp/></highlight><highlight class="comment">//<sp/>PCAN-PCI<sp/>interface,<sp/>channel<sp/>3</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="380"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x44,<sp/><sp/></highlight><highlight class="comment">//<sp/>PCAN-PCI<sp/>interface,<sp/>channel<sp/>4</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="381"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x45,<sp/><sp/></highlight><highlight class="comment">//<sp/>PCAN-PCI<sp/>interface,<sp/>channel<sp/>5</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="382"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x46,<sp/><sp/></highlight><highlight class="comment">//<sp/>PCAN-PCI<sp/>interface,<sp/>channel<sp/>6</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="383"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x47,<sp/><sp/></highlight><highlight class="comment">//<sp/>PCAN-PCI<sp/>interface,<sp/>channel<sp/>7</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="384"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x48,<sp/><sp/></highlight><highlight class="comment">//<sp/>PCAN-PCI<sp/>interface,<sp/>channel<sp/>8</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="385"><highlight class="normal"></highlight></codeline>
+<codeline lineno="386"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x51,<sp/><sp/></highlight><highlight class="comment">//<sp/>PCAN-USB<sp/>interface,<sp/>channel<sp/>1</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="387"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x52,<sp/><sp/></highlight><highlight class="comment">//<sp/>PCAN-USB<sp/>interface,<sp/>channel<sp/>2</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="388"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x53,<sp/><sp/></highlight><highlight class="comment">//<sp/>PCAN-USB<sp/>interface,<sp/>channel<sp/>3</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="389"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x54,<sp/><sp/></highlight><highlight class="comment">//<sp/>PCAN-USB<sp/>interface,<sp/>channel<sp/>4</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="390"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x55,<sp/><sp/></highlight><highlight class="comment">//<sp/>PCAN-USB<sp/>interface,<sp/>channel<sp/>5</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="391"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x56,<sp/><sp/></highlight><highlight class="comment">//<sp/>PCAN-USB<sp/>interface,<sp/>channel<sp/>6</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="392"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x57,<sp/><sp/></highlight><highlight class="comment">//<sp/>PCAN-USB<sp/>interface,<sp/>channel<sp/>7</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="393"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x58,<sp/><sp/></highlight><highlight class="comment">//<sp/>PCAN-USB<sp/>interface,<sp/>channel<sp/>8</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="394"><highlight class="normal"></highlight></codeline>
+<codeline lineno="395"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x61,<sp/><sp/></highlight><highlight class="comment">//<sp/>PCAN-PC<sp/>Card<sp/>interface,<sp/>channel<sp/>1</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="396"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x62<sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>PCAN-PC<sp/>Card<sp/>interface,<sp/>channel<sp/>2</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="397"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="398"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>chn<sp/>=<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(channelNameArray)/</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(channelNameArray[0]);</highlight></codeline>
+<codeline lineno="399"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>tmpName[]<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;temp&quot;</highlight><highlight class="normal">;</highlight><highlight class="comment">//The<sp/>previous<sp/>method<sp/>didn&apos;t<sp/>work<sp/>because<sp/>of<sp/>excessive<sp/>string<sp/>size<sp/>in<sp/>tmpName.<sp/>Since<sp/>all<sp/>the<sp/>names<sp/>are<sp/>4<sp/>character<sp/>long<sp/>I<sp/>just<sp/>changed<sp/>the<sp/>size<sp/>to<sp/>4</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="400"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j=0;<sp/>j<sp/>&lt;<sp/>4;<sp/>j++)<sp/>{</highlight></codeline>
+<codeline lineno="401"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tmpName[j]<sp/>=<sp/>toupper(name[j]);</highlight></codeline>
+<codeline lineno="402"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="403"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>chn;<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="404"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(strcmp(channelNameArray[i],tmpName)<sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="405"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>handlerArray[i];</highlight></codeline>
+<codeline lineno="406"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="407"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="408"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="409"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="410"><highlight class="normal"></highlight></codeline>
+<codeline lineno="411" refid="classPKCanScan_1a2ef38527fb5009c43487fccbbe4694ba" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classPKCanScan_1a2ef38527fb5009c43487fccbbe4694ba" kindref="member">PKCanScan::getStatistics</ref>(<sp/><ref refid="classCanModule_1_1CanStatistics" kindref="compound">CanStatistics</ref><sp/>&amp;<sp/>result<sp/>)</highlight></codeline>
+<codeline lineno="412"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="413"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classPKCanScan_1a03eec54c44937d843f48b2b1a086b37b" kindref="member">m_statistics</ref>.<ref refid="classCanModule_1_1CanStatistics_1a8ec66bd11141579779f143362b70640e" kindref="member">computeDerived</ref><sp/>(<ref refid="classPKCanScan_1a84e9c4874e065b79d5600c0a5f9f7877" kindref="member">m_baudRate</ref>);</highlight></codeline>
+<codeline lineno="414"><highlight class="normal"><sp/><sp/><sp/><sp/>result<sp/>=<sp/><ref refid="classPKCanScan_1a03eec54c44937d843f48b2b1a086b37b" kindref="member">m_statistics</ref>;<sp/><sp/></highlight><highlight class="comment">//<sp/>copy<sp/>whole<sp/>structure</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="415"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classPKCanScan_1a03eec54c44937d843f48b2b1a086b37b" kindref="member">m_statistics</ref>.<ref refid="classCanModule_1_1CanStatistics_1a85e6c87ce5285884a0272088178bb8f6" kindref="member">beginNewRun</ref>();</highlight></codeline>
+<codeline lineno="416"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="417"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/pkcan/pkcan.cpp"/>
+  </compounddef>
+</doxygen>

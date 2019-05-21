@@ -124,7 +124,6 @@ void WINAPI InternalCallback(AnaUInt32 nIdentifier, const char * pcBuffer, AnaIn
 }
 
 
-
 void AnaCanScan::statisticsOnRecieve(int bytes)
 {
 	m_statistics.onReceive( bytes );
@@ -139,21 +138,29 @@ void AnaCanScan::callbackOnRecieve(CanMessage& msg)
 }
 
 /**
- * name = bus name = 3 parameters separated by ":" line "n0:n1:n2"
+ * Method that initialises a CAN bus channel for anagate. All following methods called on the same object will be using this initialized channel.
+ *
+ * @param name 3 parameters separated by ":" like "n0:n1:n2"
  * 		n0 = "an" for anagate
  * 		n1 = port number on the module, 0=A, 1=B, etc etc
  * 		n2 = ip number
- * 		ex.: "an:1:137.138.12.99" speaks to port B (=1) on anagate module at the ip
+ * 		ex.: "an:can1:137.138.12.99" speaks to port B (=1) on anagate module at the ip
+ * 		ex.: "an:1:137.138.12.99" works as well
  *
- * 	parameters = up to 6 parameters separated by whitespaces : "p0 p1 p2 p3 p4 p5" in THAT order, positive integers
- * 		see module documentation for the exact meaning
- * 	    p0 = baud rate, 125000 or whatever the module supports
- * 	    p1 = operation mode
- * 	    p2 = termination
- * 	    p3 = high speed
- * 	    p4 = time stamp
- * 	    p5 = sync mode
- * i.e. "250000 0 1 0 0 1"
+ *
+ * @param parameters up to 6 parameters separated by whitespaces : "p0 p1 p2 p3 p4 p5" in THAT order, positive integers
+ * 				* "Unspecified" (or empty): using defaults = "125000 0 0 0 0 0" // all params missing
+ * 				* p0: bitrate: 10000, 20000, 50000, 62000, 100000, 125000, 250000, 500000, 800000, 1000000 bit/s
+ * 				* p1: operatingMode: 0=default mode, values 1 (loop back) and 2 (listen) are not supported by CanModule
+ * 				* p2: termination: 0=not terminated (default), 1=terminated (120 Ohm for CAN bus)
+ * 				* p3: highSpeed: 0=deactivated (default), 1=activated. If activated, confirmation and filtering of CAN traffic are switched off
+ * 				* p4: TimeStamp: 0=deactivated (default), 1=activated. If activated, a timestamp is added to the CAN frame. Not all modules support this.
+ * 				* p5: syncMode: 0=default, unused but reserved for future use
+ *				  i.e. "250000 0 1 0 0 1"
+ * 				(see anagate manual for more details)
+ *
+ *
+ * @return was the initialisation process successful?
  */
 bool AnaCanScan::createBus(const string name,const string parameters)
 {	
@@ -199,7 +206,7 @@ int AnaCanScan::configureCanBoard(const string name,const string parameters)
 	vector<string> stringVector;
 	stringVector = parseNameAndParameters(name, parameters);
 
-	// we should decode 3 elements from this:0="an" for anagate library, 1=handle number, 2=ip number
+	// we should decode 3 elements from this:0="an" for anagate library, 1=can port, 2=ip number
 	// like  "an:0:128.141.159.194"
 	if ( stringVector.size() != 3 ){
 		MLOGANA(ERR, this) << " need exactly 3 elements delimited by \":\" like \"an:0:128.141.159.194\", got "
@@ -215,16 +222,20 @@ int AnaCanScan::configureCanBoard(const string name,const string parameters)
 		m_canPortNumber = atoi(stringVector[1].c_str());
 		m_canIPAddress = (char *) stringVector[2].c_str();
 	}
+	MLOGANA(TRC, this) << "decoded canPortNumber= " << m_canPortNumber << " ip= " << m_canIPAddress;
 
 	// handle up to 6 parameter, assume defaults if needed
 	long baudRate_default = 125000;
+	m_baudRate = baudRate_default;
 
 	if (strcmp(parameters.c_str(), "Unspecified") != 0) {
 		if ( m_CanParameters.m_iNumberOfDetectedParameters >= 1 )	{
 			m_baudRate = m_CanParameters.m_lBaudRate;
+			// any other parameters are already set, either to 0 by init,
+			// or by decoding. They are always used.
 		} else {
 			MLOGANA(ERR, this) << "Error while parsing parameters: this syntax is incorrect: [" << parameters << "]";
-			MLOGANA(ERR, this) << "you need 6 numbers separated by whitespaces, i.e. \"125000 0 0 0 0 0\" \"p0 p1 p2 p3 p4 p5\"";
+			MLOGANA(ERR, this) << "you need up to 6 numbers separated by whitespaces, i.e. \"125000 0 0 0 0 0\" \"p0 p1 p2 p3 p4 p5\"";
 			MLOGANA(ERR, this) << "  p0 = baud rate, 125000 or whatever the module supports";
 			MLOGANA(ERR, this) << "  p1 = operation mode";
 			MLOGANA(ERR, this) << "  p2 = termination";
@@ -233,15 +244,18 @@ int AnaCanScan::configureCanBoard(const string name,const string parameters)
 			MLOGANA(ERR, this) << "  p5 = sync mode";
 			return -1;
 		}
-		// m_baudRate = baudRate_default; // set default nevertheless
 	} else	{
-		m_baudRate = baudRate_default;
 		MLOGANA(INF, this) << "Unspecified parameters, default values will be used.";
 	}
 	return openCanPort();
 }
 
 /**
+ *
+ * Obtains a Anagate canport and opens it.
+ *  The name of the port and parameters should have been specified by preceding call to configureCanboard()
+ *  @returns less than zero in case of error, otherwise success
+ *
  * communicate with the hardware using the CanOpen interface:
  * open anagate port, attach reply handler.
  * No message queuing. CANSetMaxSizePerQueue not called==default==0
@@ -328,7 +342,14 @@ bool AnaCanScan::sendErrorCode(AnaInt32 status)
 }
 
 /**
- * send a CAN message frame (8 byte)
+ * send a CAN message frame (8 byte) for anagate
+ * Method that sends a message through the can bus channel. If the method createBus was not called before this, sendMessage will fail, as there is no
+ * can bus channel to send a message trough.
+ * @param cobID: Identifier that will be used for the message.
+ * @param len: Length of the message. If the message is bigger than 8 characters, it will be split into separate 8 characters messages.
+ * @param message: Message to be sent trough the can bus.
+ * @param rtr: is the message a remote transmission request?
+ * @return Was the sending process successful?
  */
 bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr)
 {
@@ -499,7 +520,7 @@ AnaInt32 AnaCanScan::connectReceptionHandler(){
 
 
 /**
- * we try to reconnect one port
+ * we try to reconnect one port after a power loss, and we should do this for all ports
  * returns:
  * 0 = OK
  * -1 = could not CANOpenDevice device
@@ -620,6 +641,13 @@ bool AnaCanScan::sendMessage(CanMessage *canm)
 	return sendMessage(short(canm->c_id), canm->c_dlc, canm->c_data, canm->c_rtr);
 }
 
+/**
+ * Method that sends a remote request trough the can bus channel.
+ * If the method createBus was not called before this, sendMessage will fail, as there is no
+ * can bus channel to send the request trough. Similar to sendMessage, but it sends an special message reserved for requests.
+ * @param cobID: Identifier that will be used for the request.
+ * @return Was the initialisation process successful?
+ */
 bool AnaCanScan::sendRemoteRequest(short cobID)
 {
 	AnaInt32 anaCallReturn;
@@ -633,6 +661,7 @@ bool AnaCanScan::sendRemoteRequest(short cobID)
 }
 
 /**
+ * Provides textual representation of an error code.
  * error return from module
  * \todo: Fix AnaCanScan::errorCodeToString method, this doesn't do anything!!
  */

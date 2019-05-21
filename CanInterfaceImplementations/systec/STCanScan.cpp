@@ -70,17 +70,19 @@ STCanScan::STCanScan():
 	m_statistics.beginNewRun();
 }
 
+
+/**
+ * thread to supervise port activity
+ */
 DWORD WINAPI STCanScan::CanScanControlThread(LPVOID pCanScan)
 {
 	BYTE status;
 	tCanMsgStruct readCanMessage;
 	STCanScan *canScanInstancePointer = reinterpret_cast<STCanScan *>(pCanScan);
 	MLOGST(DBG,canScanInstancePointer) << "CanScanControlThread Started. m_CanScanThreadShutdownFlag = [" << canScanInstancePointer->m_CanScanThreadShutdownFlag <<"]";
-	while (canScanInstancePointer->m_CanScanThreadShutdownFlag)
-	{
+	while (canScanInstancePointer->m_CanScanThreadShutdownFlag) {
 		status = UcanReadCanMsgEx(canScanInstancePointer->m_UcanHandle, (BYTE *)&canScanInstancePointer->m_channelNumber, &readCanMessage, 0);
-		if (status == USBCAN_SUCCESSFUL)
-		{
+		if (status == USBCAN_SUCCESSFUL) {
 			if (readCanMessage.m_bFF == USBCAN_MSG_FF_RTR)
 				continue;
 			CanMessage canMsgCopy;
@@ -94,15 +96,10 @@ DWORD WINAPI STCanScan::CanScanControlThread(LPVOID pCanScan)
 
 			canScanInstancePointer->canMessageCame(canMsgCopy);
 			canScanInstancePointer->m_statistics.onReceive( readCanMessage.m_bDLC );
-		}
-		else
-		{
-			if (status == USBCAN_WARN_NODATA)
-			{
+		} else {
+			if (status == USBCAN_WARN_NODATA) {
 				Sleep(100);
-			}
-			else
-			{
+			} else {
 				canScanInstancePointer->sendErrorCode(status);
 			}
 		}
@@ -121,6 +118,24 @@ STCanScan::~STCanScan()
 	MLOGST(DBG,this) << "ST Can Scan component closed successfully";
 }
 
+/**
+ * Method that initialises a CAN bus channel for systec@windows.
+ * All following methods called on the same object will be using this initialized channel.
+ *
+ * @param name = 2 parameters separated by ":" like "n0:n1"
+ * 		* n0 = "st" for systec@windows
+ * 		* n1 = CAN port number on the module, can be prefixed with "can"
+ * 		* ex.: "st:can1" speaks to port 1 on systec module at the ip
+ * 		* ex.: "st:1" works as well
+ *
+ *
+ * @param parameters one parameter: "p0", positive integers
+ * 				* "Unspecified" (or empty): using defaults = "125000" // params missing
+ * 				* p0: bitrate: 50000, 100000, 125000, 250000, 500000, 1000000 bit/s
+ *				  i.e. "250000"
+ *
+ * @return was the initialisation process successful?
+ */
 bool STCanScan::createBus(const string name,const string parameters)
 {	
 	// calling base class to get the instance from there
@@ -210,6 +225,12 @@ int STCanScan::configureCanBoard(const string name,const string parameters)
 	return openCanPort(initializationParameters);
 }
 
+/**
+ * Obtains a Systec canport and opens it.
+ *  The name of the port and parameters should have been specified by preceding call to configureCanboard()
+ *
+ *  @returns less than zero in case of error, otherwise success
+ */
 int STCanScan::openCanPort(tUcanInitCanParam initializationParameters)
 {
 	BYTE systecCallReturn = USBCAN_SUCCESSFUL;
@@ -264,6 +285,17 @@ bool STCanScan::sendErrorCode(long status)
 	return true;
 }
 
+/**
+ * Method that sends a message trough the can bus channel. If the method createBUS
+ * was not called before this, sendMessage will fail, as there is no
+ * can bus channel to send a message through.
+ *
+ * @param cobID Identifier that will be used for the message.
+ * @param len Length of the message. If the message is bigger than 8 characters, it will be split into separate 8 characters messages.
+ * @param message Message to be sent trough the can bus.
+ * @param rtr is the message a remote transmission request?
+ * @return Was the sending process successful?
+ */
 bool STCanScan::sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr)
 {
 	tCanMsgStruct canMsgToBeSent;

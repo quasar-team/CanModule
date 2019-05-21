@@ -1,0 +1,242 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="MockCanAccess_8cpp" kind="file">
+    <compoundname>MockCanAccess.cpp</compoundname>
+    <includes refid="MockCanAccess_8h" local="yes">MockCanAccess.h</includes>
+    <includes local="no">time.h</includes>
+    <includes local="no">cstring</includes>
+    <includes local="no">string.h</includes>
+    <includes local="no">map</includes>
+    <includes local="no">LogIt.h</includes>
+    <includes local="no">sstream</includes>
+    <includes local="no">iostream</includes>
+    <incdepgraph>
+      <node id="356">
+        <label>stdatomic.h</label>
+      </node>
+      <node id="364">
+        <label>LogIt.h</label>
+      </node>
+      <node id="362">
+        <label>boost/signals2.hpp</label>
+      </node>
+      <node id="355">
+        <label>CanStatistics.h</label>
+        <link refid="CanStatistics_8h"/>
+        <childnode refid="356" relation="include">
+        </childnode>
+        <childnode refid="357" relation="include">
+        </childnode>
+        <childnode refid="358" relation="include">
+        </childnode>
+        <childnode refid="359" relation="include">
+        </childnode>
+      </node>
+      <node id="354">
+        <label>string</label>
+      </node>
+      <node id="368">
+        <label>map</label>
+      </node>
+      <node id="360">
+        <label>CCanAccess.h</label>
+        <link refid="CCanAccess_8h"/>
+        <childnode refid="357" relation="include">
+        </childnode>
+        <childnode refid="361" relation="include">
+        </childnode>
+        <childnode refid="362" relation="include">
+        </childnode>
+        <childnode refid="354" relation="include">
+        </childnode>
+        <childnode refid="363" relation="include">
+        </childnode>
+        <childnode refid="355" relation="include">
+        </childnode>
+        <childnode refid="364" relation="include">
+        </childnode>
+      </node>
+      <node id="363">
+        <label>CanMessage.h</label>
+        <link refid="CanMessage_8h"/>
+        <childnode refid="357" relation="include">
+        </childnode>
+      </node>
+      <node id="367">
+        <label>string.h</label>
+      </node>
+      <node id="369">
+        <label>sstream</label>
+      </node>
+      <node id="352">
+        <label>CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.cpp</label>
+        <link refid="MockCanAccess.cpp"/>
+        <childnode refid="353" relation="include">
+        </childnode>
+        <childnode refid="365" relation="include">
+        </childnode>
+        <childnode refid="366" relation="include">
+        </childnode>
+        <childnode refid="367" relation="include">
+        </childnode>
+        <childnode refid="368" relation="include">
+        </childnode>
+        <childnode refid="364" relation="include">
+        </childnode>
+        <childnode refid="369" relation="include">
+        </childnode>
+        <childnode refid="370" relation="include">
+        </childnode>
+      </node>
+      <node id="365">
+        <label>time.h</label>
+      </node>
+      <node id="357">
+        <label>sys/time.h</label>
+      </node>
+      <node id="370">
+        <label>iostream</label>
+      </node>
+      <node id="353">
+        <label>MockCanAccess.h</label>
+        <link refid="MockCanAccess_8h"/>
+        <childnode refid="354" relation="include">
+        </childnode>
+        <childnode refid="355" relation="include">
+        </childnode>
+        <childnode refid="360" relation="include">
+        </childnode>
+      </node>
+      <node id="361">
+        <label>boost/bind.hpp</label>
+      </node>
+      <node id="359">
+        <label>chrono</label>
+      </node>
+      <node id="358">
+        <label>ExportDefinition.h</label>
+        <link refid="ExportDefinition_8h"/>
+      </node>
+      <node id="366">
+        <label>cstring</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="MockCanAccess_8cpp_1a07e042970e18b919d409eb09524d625c" prot="public" static="no">
+        <name>DLLEXPORTFLAG</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.cpp" line="19" column="12" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.cpp" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="MockCanAccess_8cpp_1af5a524932d22bba66db40b8d5d33409d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="MockCanAccess_8cpp_1a07e042970e18b919d409eb09524d625c" kindref="member">DLLEXPORTFLAG</ref> <ref refid="classCanModule_1_1CCanAccess" kindref="compound">CanModule::CCanAccess</ref> *</type>
+        <definition>DLLEXPORTFLAG CanModule::CCanAccess* getCanBusAccess</definition>
+        <argsstring>()</argsstring>
+        <name>getCanBusAccess</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.cpp" line="24" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.cpp" bodystart="24" bodyend="28"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&quot;<ref refid="MockCanAccess_8h" kindref="compound">MockCanAccess.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="comment">//<sp/>MockCanAccess.cpp:<sp/>implementation<sp/>of<sp/>the<sp/>MockCanAccess<sp/>class.</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;time.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;cstring&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;map&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;LogIt.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;sstream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;iostream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>_WIN32</highlight></codeline>
+<codeline lineno="17"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/>#define<sp/>DLLEXPORTFLAG<sp/>__declspec(dllexport)</highlight></codeline>
+<codeline lineno="18"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="19" refid="MockCanAccess_8cpp_1a07e042970e18b919d409eb09524d625c" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/>#define<sp/>DLLEXPORTFLAG</highlight></codeline>
+<codeline lineno="20"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="21"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="keyword">using<sp/>namespace<sp/></highlight><highlight class="normal">CanModule;</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24" refid="MockCanAccess_8cpp_1af5a524932d22bba66db40b8d5d33409d" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/><ref refid="MockCanAccess_8cpp_1a07e042970e18b919d409eb09524d625c" kindref="member">DLLEXPORTFLAG</ref><sp/><ref refid="classCanModule_1_1CCanAccess" kindref="compound">CanModule::CCanAccess</ref><sp/>*<ref refid="AnaCanScan_8cpp_1ae930092b65c48c86b99b5da2178b4692" kindref="member">getCanBusAccess</ref>()</highlight></codeline>
+<codeline lineno="25"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="classMockCanAccess" kindref="compound">MockCanAccess</ref><sp/>g_sMockCanAccess;</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>&amp;g_sMockCanAccess;</highlight></codeline>
+<codeline lineno="28"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30" refid="classMockCanAccess_1a5a5c76c0d3ba4276e98f56f81f8116a3" refkind="member"><highlight class="normal"><ref refid="classMockCanAccess_1a5a5c76c0d3ba4276e98f56f81f8116a3" kindref="member">MockCanAccess::MockCanAccess</ref>()</highlight></codeline>
+<codeline lineno="31"><highlight class="normal">:CanModule::<ref refid="classCanModule_1_1CCanAccess" kindref="compound">CCanAccess</ref>(),m_baudRate(0)</highlight></codeline>
+<codeline lineno="32"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classMockCanAccess_1ae581d0d291f4717be3887ff63ebca063" kindref="member">m_statistics</ref>.<ref refid="classCanModule_1_1CanStatistics_1a85e6c87ce5285884a0272088178bb8f6" kindref="member">beginNewRun</ref>();</highlight></codeline>
+<codeline lineno="34"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36" refid="classMockCanAccess_1a87261ff4a42e3b4d0f02939e7adc39d3" refkind="member"><highlight class="normal"><ref refid="classMockCanAccess_1a87261ff4a42e3b4d0f02939e7adc39d3" kindref="member">MockCanAccess::~MockCanAccess</ref>()</highlight></codeline>
+<codeline lineno="37"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/>LOG(Log::DBG)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Destroying<sp/>MockCanAccess<sp/>object&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="39"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41" refid="classMockCanAccess_1a7c897fbfa2f718fc3030bb69d12721be" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classMockCanAccess_1a7c897fbfa2f718fc3030bb69d12721be" kindref="member">MockCanAccess::createBus</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/>name,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/>parameters)</highlight></codeline>
+<codeline lineno="42"><highlight class="normal">{<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/>LOG(Log::INF)<sp/>&lt;&lt;<sp/>__FUNCTION__<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>called<sp/>with<sp/>name<sp/>[&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>name<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;]<sp/>parameters<sp/>[&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>parameters<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;]&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="45"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47" refid="classMockCanAccess_1a584734691bc9d4d49c5ccb795ab5d526" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classMockCanAccess_1a584734691bc9d4d49c5ccb795ab5d526" kindref="member">MockCanAccess::sendRemoteRequest</ref>(</highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/>cobID)</highlight></codeline>
+<codeline lineno="48"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/>LOG(Log::DBG)<sp/>&lt;&lt;<sp/>__FUNCTION__<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>Sending<sp/>cobID:<sp/>[&quot;</highlight><highlight class="normal">&lt;&lt;cobID<sp/>&lt;&lt;</highlight><highlight class="stringliteral">&quot;]&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classMockCanAccess_1ae581d0d291f4717be3887ff63ebca063" kindref="member">m_statistics</ref>.<ref refid="classCanModule_1_1CanStatistics_1a0265b75e9e2e16737950b6b5c5662f35" kindref="member">onTransmit</ref>(</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(cobID));</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54" refid="classMockCanAccess_1a95856b7b3ac143d7c5bd7bd807c06fd5" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classMockCanAccess_1a95856b7b3ac143d7c5bd7bd807c06fd5" kindref="member">MockCanAccess::sendMessage</ref>(</highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/>cobID,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*message,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>rtr)</highlight></codeline>
+<codeline lineno="55"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/>LOG(Log::DBG)<sp/>&lt;&lt;<sp/>__FUNCTION__<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>cobID<sp/>[&quot;</highlight><highlight class="normal">&lt;&lt;cobID&lt;&lt;</highlight><highlight class="stringliteral">&quot;]<sp/>len<sp/>[&quot;</highlight><highlight class="normal">&lt;&lt;(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>int)len&lt;&lt;</highlight><highlight class="stringliteral">&quot;]<sp/>message<sp/>[0x&quot;</highlight><highlight class="normal">&lt;&lt;<ref refid="classMockCanAccess_1aa7b4edb24afec475727619a3f2e1f444" kindref="member">getCanMessageDataAsString</ref>(message,<sp/>len)&lt;&lt;</highlight><highlight class="stringliteral">&quot;]<sp/>rtr<sp/>[&quot;</highlight><highlight class="normal">&lt;&lt;rtr&lt;&lt;</highlight><highlight class="stringliteral">&quot;]&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classMockCanAccess_1ae581d0d291f4717be3887ff63ebca063" kindref="member">m_statistics</ref>.<ref refid="classCanModule_1_1CanStatistics_1a0265b75e9e2e16737950b6b5c5662f35" kindref="member">onTransmit</ref>(len);</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(0<sp/>==<sp/>memcmp(message,<sp/><ref refid="MockCanAccess_8h_1af8ac2352c89d82a9696dc9dc29ba8b77" kindref="member">CAN_ECHO_MSG</ref>,<sp/>len))</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structCanMsgStruct" kindref="compound">CanMessage</ref><sp/>response;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>response.<ref refid="structCanMsgStruct_1a619515aef041e64b78e7e8c33989ddd0" kindref="member">c_id</ref><sp/>=<sp/>cobID;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>response.<ref refid="structCanMsgStruct_1a3e5add8ae9cdadfcf3f2255d375ec9b3" kindref="member">c_dlc</ref><sp/>=<sp/>len;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(response.<ref refid="structCanMsgStruct_1a2e47a33e7bba46b05a8fff29433f047b" kindref="member">c_data</ref>,<sp/>message,<sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)len);</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCanModule_1_1CCanAccess_1aa8e0e974863874b0e7bbcdb57084c241" kindref="member">canMessageCame</ref>(response);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70" refid="classMockCanAccess_1a73d7565174206d2c58f81040a6438541" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classMockCanAccess_1a73d7565174206d2c58f81040a6438541" kindref="member">MockCanAccess::getStatistics</ref>(<sp/><ref refid="classCanModule_1_1CanStatistics" kindref="compound">CanStatistics</ref><sp/>&amp;<sp/>result<sp/>)</highlight></codeline>
+<codeline lineno="71"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classMockCanAccess_1ae581d0d291f4717be3887ff63ebca063" kindref="member">m_statistics</ref>.<ref refid="classCanModule_1_1CanStatistics_1a8ec66bd11141579779f143362b70640e" kindref="member">computeDerived</ref><sp/>(<ref refid="classMockCanAccess_1aa8c1a3282b1ec8a2295faaac6c067824" kindref="member">m_baudRate</ref>);</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/>result<sp/>=<sp/><ref refid="classMockCanAccess_1ae581d0d291f4717be3887ff63ebca063" kindref="member">m_statistics</ref>;<sp/><sp/></highlight><highlight class="comment">//<sp/>copy<sp/>whole<sp/>structure</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classMockCanAccess_1ae581d0d291f4717be3887ff63ebca063" kindref="member">m_statistics</ref>.<ref refid="classCanModule_1_1CanStatistics_1a85e6c87ce5285884a0272088178bb8f6" kindref="member">beginNewRun</ref>();</highlight></codeline>
+<codeline lineno="75"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77" refid="classMockCanAccess_1aa7b4edb24afec475727619a3f2e1f444" refkind="member"><highlight class="normal">std::string<sp/><ref refid="classMockCanAccess_1aa7b4edb24afec475727619a3f2e1f444" kindref="member">MockCanAccess::getCanMessageDataAsString</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>data,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">&amp;<sp/>len</highlight><highlight class="comment">/*8*/</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="78"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>std::string(data,<sp/>data<sp/>+<sp/>(len*</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">)));</highlight></codeline>
+<codeline lineno="80"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82" refid="classMockCanAccess_1a33b2dab953237d0e302eaa82d08a923b" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classMockCanAccess_1a33b2dab953237d0e302eaa82d08a923b" kindref="member">MockCanAccess::initialiseLogging</ref>(LogItInstance*<sp/>remoteInstance)</highlight></codeline>
+<codeline lineno="83"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.cpp"/>
+  </compounddef>
+</doxygen>

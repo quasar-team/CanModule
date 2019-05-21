@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_b1d8d0bccaf1fd0d5d264aace2447521" kind="dir">
+    <compoundname>CanLibLoader/src</compoundname>
+    <innerfile refid="CanLibLoader_8cpp">CanLibLoader.cpp</innerfile>
+    <innerfile refid="CanLibLoaderLin_8cpp">CanLibLoaderLin.cpp</innerfile>
+    <innerfile refid="CanLibLoaderWin_8cpp">CanLibLoaderWin.cpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanLibLoader/src/"/>
+  </compounddef>
+</doxygen>

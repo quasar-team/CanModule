@@ -6,7 +6,10 @@ windows (by appveyor) [![Build status](https://ci.appveyor.com/api/projects/stat
 Development documentation (usage, support) (https://readthedocs.web.cern.ch/display/CANDev/CAN+development)
 
 # Status
-master v1.0.0: works for anagate and systec bridges, includes a CWrapper. tested in the lab. 
+master v1.1.1: works for anagate, systec and peak bridges, includes a CWrapper. tested in the lab. 
+
+# where is the doc
+Documentation/sphinx-result/index.html
 
 
 # CanModule
