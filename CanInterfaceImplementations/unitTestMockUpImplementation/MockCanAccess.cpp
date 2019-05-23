@@ -53,7 +53,7 @@ bool MockCanAccess::sendRemoteRequest(short cobID)
 
 bool MockCanAccess::sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr)
 {
-	LOG(Log::DBG) << __FUNCTION__ << " cobID ["<<cobID<<"] len ["<<(unsigned int)len<<"] message [0x"<<getCanMessageDataAsString(message, len)<<"] rtr ["<<rtr<<"]";
+	LOG(Log::DBG) << __FUNCTION__ << " Sending message: [" << ( message == 0  ? "" : (const char *) message) << "], cobID: [" << cobID << "], Message Length: [" << static_cast<int>(len) << "]";
 	m_statistics.onTransmit(len);
 
 	if(0 == memcmp(message, CAN_ECHO_MSG, len))

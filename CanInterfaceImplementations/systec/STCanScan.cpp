@@ -298,6 +298,8 @@ bool STCanScan::sendErrorCode(long status)
  */
 bool STCanScan::sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr)
 {
+	MLOGST(DBG,this) << "Sending message: [" << ( message == 0  ? "" : (const char *) message) << "], cobID: [" << cobID << "], Message Length: [" << static_cast<int>(len) << "]";
+
 	tCanMsgStruct canMsgToBeSent;
 	BYTE Status;
 

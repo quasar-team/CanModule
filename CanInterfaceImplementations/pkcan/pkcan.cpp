@@ -297,6 +297,8 @@ bool PKCanScan::sendErrorCode(long status)
  */
 bool PKCanScan::sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr)
 {
+	MLOGPK(DBG,this) << "Sending message: [" << ( message == 0  ? "" : (const char *) message) << "], cobID: [" << cobID << "], Message Length: [" << static_cast<int>(len) << "]";
+
 	TPCANStatus tpcanStatus;
 	TPCANMsg tpcanMessage;
 	tpcanMessage.ID = cobID;
