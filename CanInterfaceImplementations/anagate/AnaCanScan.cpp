@@ -229,8 +229,14 @@ int AnaCanScan::configureCanBoard(const string name,const string parameters)
 	m_baudRate = baudRate_default;
 
 	if (strcmp(parameters.c_str(), "Unspecified") != 0) {
+
+		MLOGANA(TRC, this) << "m_CanParameters.m_iNumberOfDetectedParameters" << m_CanParameters.m_iNumberOfDetectedParameters;
+
 		if ( m_CanParameters.m_iNumberOfDetectedParameters >= 1 )	{
 			m_baudRate = m_CanParameters.m_lBaudRate;
+
+			MLOGANA(TRC, this) << "m_baudRate= " << m_baudRate;
+
 			// any other parameters are already set, either to 0 by init,
 			// or by decoding. They are always used.
 		} else {
@@ -283,6 +289,15 @@ int AnaCanScan::openCanPort()
 	setCanHandleInUse(m_canPortNumber,true);
 
 	// initialize CAN interface
+
+	MLOGANA(TRC,this) << "calling CANSetGlobals with m_lBaudRate= "
+			<< m_CanParameters.m_lBaudRate
+			<< " m_iOperationMode= " << m_CanParameters.m_iOperationMode
+			<< " m_iTermination= " << m_CanParameters.m_iTermination
+			<< " m_iHighSpeed= " << m_CanParameters.m_iHighSpeed
+			<< " m_iTimeStamp= " << m_CanParameters.m_iTimeStamp;
+
+
 	anaCallReturn = CANSetGlobals(canModuleHandle, m_CanParameters.m_lBaudRate, m_CanParameters.m_iOperationMode,
 			m_CanParameters.m_iTermination, m_CanParameters.m_iHighSpeed, m_CanParameters.m_iTimeStamp);
 	switch ( anaCallReturn ){
@@ -353,7 +368,7 @@ bool AnaCanScan::sendErrorCode(AnaInt32 status)
  */
 bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr)
 {
-	MLOGANA(DBG,this) << "Sending message: [" << message << "], cobID: [" << cobID << "], Message Length: [" << static_cast<int>(len) << "]";
+	MLOGANA(DBG,this) << "Sending message: [" << ( message == 0  ? "" : (const char *) message) << "], cobID: [" << cobID << "], Message Length: [" << static_cast<int>(len) << "]";
 	AnaInt32 anaCallReturn;
 	unsigned char *messageToBeSent[8];
 	AnaInt32 flags = 0x0;
