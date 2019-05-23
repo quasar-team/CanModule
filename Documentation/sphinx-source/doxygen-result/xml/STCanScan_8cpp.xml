@@ -9,52 +9,6 @@
     <includes local="no">LogIt.h</includes>
     <includes local="no">sys/time.h</includes>
     <incdepgraph>
-      <node id="311">
-        <label>CanInterfaceImplementations/systec/STCanScan.cpp</label>
-        <link refid="STCanScan.cpp"/>
-        <childnode refid="312" relation="include">
-        </childnode>
-        <childnode refid="328" relation="include">
-        </childnode>
-        <childnode refid="329" relation="include">
-        </childnode>
-        <childnode refid="330" relation="include">
-        </childnode>
-        <childnode refid="327" relation="include">
-        </childnode>
-        <childnode refid="319" relation="include">
-        </childnode>
-      </node>
-      <node id="318">
-        <label>stdatomic.h</label>
-      </node>
-      <node id="327">
-        <label>LogIt.h</label>
-      </node>
-      <node id="315">
-        <label>windows.h</label>
-      </node>
-      <node id="325">
-        <label>boost/signals2.hpp</label>
-      </node>
-      <node id="317">
-        <label>CanStatistics.h</label>
-        <link refid="CanStatistics_8h"/>
-        <childnode refid="318" relation="include">
-        </childnode>
-        <childnode refid="319" relation="include">
-        </childnode>
-        <childnode refid="320" relation="include">
-        </childnode>
-        <childnode refid="321" relation="include">
-        </childnode>
-      </node>
-      <node id="332">
-        <label>stdexcept</label>
-      </node>
-      <node id="316">
-        <label>string</label>
-      </node>
       <node id="323">
         <label>CCanAccess.h</label>
         <link refid="CCanAccess_8h"/>
@@ -73,20 +27,35 @@
         <childnode refid="327" relation="include">
         </childnode>
       </node>
-      <node id="326">
-        <label>CanMessage.h</label>
-        <link refid="CanMessage_8h"/>
+      <node id="318">
+        <label>stdatomic.h</label>
+      </node>
+      <node id="327">
+        <label>LogIt.h</label>
+      </node>
+      <node id="315">
+        <label>windows.h</label>
+      </node>
+      <node id="317">
+        <label>CanStatistics.h</label>
+        <link refid="CanStatistics_8h"/>
+        <childnode refid="318" relation="include">
+        </childnode>
         <childnode refid="319" relation="include">
         </childnode>
+        <childnode refid="320" relation="include">
+        </childnode>
+        <childnode refid="321" relation="include">
+        </childnode>
       </node>
-      <node id="314">
-        <label>Winsock2.h</label>
+      <node id="325">
+        <label>boost/signals2.hpp</label>
       </node>
-      <node id="329">
-        <label>string.h</label>
+      <node id="332">
+        <label>stdexcept</label>
       </node>
-      <node id="331">
-        <label>sstream</label>
+      <node id="316">
+        <label>string</label>
       </node>
       <node id="330">
         <label>CanModuleUtils.h</label>
@@ -102,6 +71,25 @@
         <childnode refid="321" relation="include">
         </childnode>
       </node>
+      <node id="326">
+        <label>CanMessage.h</label>
+        <link refid="CanMessage_8h"/>
+        <childnode refid="319" relation="include">
+        </childnode>
+      </node>
+      <node id="314">
+        <label>Winsock2.h</label>
+      </node>
+      <node id="329">
+        <label>string.h</label>
+      </node>
+      <node id="331">
+        <label>sstream</label>
+      </node>
+      <node id="320">
+        <label>ExportDefinition.h</label>
+        <link refid="ExportDefinition_8h"/>
+      </node>
       <node id="328">
         <label>time.h</label>
       </node>
@@ -116,6 +104,25 @@
       </node>
       <node id="321">
         <label>chrono</label>
+      </node>
+      <node id="311">
+        <label>CanInterfaceImplementations/systec/STCanScan.cpp</label>
+        <link refid="STCanScan.cpp"/>
+        <childnode refid="312" relation="include">
+        </childnode>
+        <childnode refid="328" relation="include">
+        </childnode>
+        <childnode refid="329" relation="include">
+        </childnode>
+        <childnode refid="330" relation="include">
+        </childnode>
+        <childnode refid="327" relation="include">
+        </childnode>
+        <childnode refid="319" relation="include">
+        </childnode>
+      </node>
+      <node id="322">
+        <label>usbcan32.h</label>
       </node>
       <node id="312">
         <label>STCanScan.h</label>
@@ -135,13 +142,6 @@
         <childnode refid="323" relation="include">
         </childnode>
       </node>
-      <node id="320">
-        <label>ExportDefinition.h</label>
-        <link refid="ExportDefinition_8h"/>
-      </node>
-      <node id="322">
-        <label>usbcan32.h</label>
-      </node>
     </incdepgraph>
       <sectiondef kind="define">
       <memberdef kind="define" id="STCanScan_8cpp_1a08d6d35b7f83e326a37caa39473e6ebe" prot="public" static="no">
@@ -155,12 +155,12 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.cpp" line="40" column="9" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="40" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp" line="40" column="9" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="40" bodyend="-1"/>
         <referencedby refid="classSTCanScan_1aab42375da764eb0d50dee318cd790646" compoundref="STCanScan_8cpp" startline="77" endline="109">STCanScan::CanScanControlThread</referencedby>
         <referencedby refid="classSTCanScan_1a8e147c77933e11e9983f4d4e22830b21" compoundref="STCanScan_8cpp" startline="175" endline="226">STCanScan::configureCanBoard</referencedby>
         <referencedby refid="classSTCanScan_1aa99f9f23bdfd367a51efc40e228a6f88" compoundref="STCanScan_8cpp" startline="139" endline="173">STCanScan::createBus</referencedby>
         <referencedby refid="classSTCanScan_1a5f74df7e9615929365b33c08e709e918" compoundref="STCanScan_8cpp" startline="234" endline="271">STCanScan::openCanPort</referencedby>
-        <referencedby refid="classSTCanScan_1a45f0ec011022bf58a23e8370bac7f829" compoundref="STCanScan_8cpp" startline="299" endline="337">STCanScan::sendMessage</referencedby>
+        <referencedby refid="classSTCanScan_1a45f0ec011022bf58a23e8370bac7f829" compoundref="STCanScan_8cpp" startline="299" endline="339">STCanScan::sendMessage</referencedby>
         <referencedby refid="classSTCanScan_1a2f3398dc992ebd90002c179305c55d54" compoundref="STCanScan_8cpp" startline="111" endline="119">STCanScan::~STCanScan</referencedby>
       </memberdef>
       <memberdef kind="define" id="STCanScan_8cpp_1a07e042970e18b919d409eb09524d625c" prot="public" static="no">
@@ -171,7 +171,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.cpp" line="50" column="9" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="50" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp" line="50" column="9" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="50" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="STCanScan_8cpp_1a9aa60e1ead64be77ad551e745cbfd4d3" prot="public" static="no">
         <name>WINAPI</name>
@@ -181,7 +181,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.cpp" line="51" column="9" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="51" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp" line="51" column="9" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="51" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -196,7 +196,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.cpp" line="55" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="55" bodyend="59"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp" line="55" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="55" bodyend="59"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -442,74 +442,76 @@
 <codeline lineno="287"><highlight class="normal"></highlight></codeline>
 <codeline lineno="299" refid="classSTCanScan_1a45f0ec011022bf58a23e8370bac7f829" refkind="member"><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classSTCanScan_1a45f0ec011022bf58a23e8370bac7f829" kindref="member">STCanScan::sendMessage</ref>(</highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/>cobID,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*message,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>rtr)</highlight></codeline>
 <codeline lineno="300"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/>tCanMsgStruct<sp/>canMsgToBeSent;</highlight></codeline>
-<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/>BYTE<sp/>Status;</highlight></codeline>
-<codeline lineno="303"><highlight class="normal"></highlight></codeline>
-<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/>canMsgToBeSent.m_dwID<sp/>=<sp/>cobID;</highlight></codeline>
-<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/>canMsgToBeSent.m_bDLC<sp/>=<sp/>len;</highlight></codeline>
-<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/>canMsgToBeSent.m_bFF<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(rtr)</highlight></codeline>
-<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>canMsgToBeSent.m_bFF<sp/>=<sp/>USBCAN_MSG_FF_RTR;</highlight></codeline>
-<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/>messageLengthToBeProcessed;</highlight></codeline>
-<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(len<sp/>&gt;<sp/>8)</highlight><highlight class="comment">//If<sp/>there<sp/>is<sp/>more<sp/>than<sp/>8<sp/>characters<sp/>to<sp/>process,<sp/>we<sp/>process<sp/>8<sp/>of<sp/>them<sp/>in<sp/>this<sp/>iteration<sp/>of<sp/>the<sp/>loop</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="314"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>messageLengthToBeProcessed<sp/>=<sp/>8;</highlight></codeline>
-<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="STCanScan_8cpp_1a08d6d35b7f83e326a37caa39473e6ebe" kindref="member">MLOGST</ref>(DBG,<sp/></highlight><highlight class="keyword">this</highlight><highlight class="normal">)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;The<sp/>length<sp/>is<sp/>more<sp/>then<sp/>8<sp/>bytes,<sp/>adjust<sp/>to<sp/>8,<sp/>ignore<sp/>&gt;8.<sp/>len=<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>len;</highlight></codeline>
-<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//Otherwise<sp/>if<sp/>there<sp/>is<sp/>less<sp/>than<sp/>8<sp/>characters<sp/>to<sp/>process,<sp/>we<sp/>process<sp/>all<sp/>of<sp/>them<sp/>in<sp/>this<sp/>iteration<sp/>of<sp/>the<sp/>loop</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>messageLengthToBeProcessed<sp/>=<sp/>len;</highlight></codeline>
-<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(len<sp/>&lt;<sp/>8)<sp/>{</highlight></codeline>
-<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="STCanScan_8cpp_1a08d6d35b7f83e326a37caa39473e6ebe" kindref="member">MLOGST</ref>(DBG,<sp/></highlight><highlight class="keyword">this</highlight><highlight class="normal">)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;The<sp/>length<sp/>is<sp/>less<sp/>then<sp/>8<sp/>bytes,<sp/>process<sp/>only.<sp/>len=<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>len;</highlight></codeline>
-<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/>canMsgToBeSent.m_bDLC<sp/>=<sp/>messageLengthToBeProcessed;</highlight></codeline>
-<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/>memcpy(canMsgToBeSent.m_bData,<sp/>message,<sp/>messageLengthToBeProcessed);</highlight></codeline>
-<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/>MLOG(TRC,this)<sp/>&lt;&lt;<sp/>&quot;Channel<sp/>Number:<sp/>[&quot;<sp/>&lt;&lt;<sp/>m_channelNumber<sp/>&lt;&lt;<sp/>&quot;],<sp/>cobID:<sp/>[&quot;<sp/>&lt;&lt;<sp/>canMsgToBeSent.m_dwID<sp/>&lt;&lt;<sp/>&quot;],<sp/>Message<sp/>Length:<sp/>[&quot;<sp/>&lt;&lt;<sp/>static_cast&lt;int&gt;(canMsgToBeSent.m_bDLC)<sp/>&lt;&lt;<sp/>&quot;]&quot;;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>UcanWriteCanMsgEx(<ref refid="classSTCanScan_1add94dcac99b3ba3a17cb3708fd0cd20d" kindref="member">m_UcanHandle</ref>,<sp/><ref refid="classSTCanScan_1ac5e311e695c1a3c810f82b0c21ee3618" kindref="member">m_channelNumber</ref>,<sp/>&amp;canMsgToBeSent,<sp/>NULL);</highlight></codeline>
-<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>USBCAN_SUCCESSFUL)</highlight></codeline>
-<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="STCanScan_8cpp_1a08d6d35b7f83e326a37caa39473e6ebe" kindref="member">MLOGST</ref>(ERR,</highlight><highlight class="keyword">this</highlight><highlight class="normal">)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;There<sp/>was<sp/>a<sp/>problem<sp/>when<sp/>sending<sp/>a<sp/>message.&quot;</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classSTCanScan_1a93abd76cf68726a0bfa4b9d3982ec9aa" kindref="member">m_statistics</ref>.<ref refid="classCanModule_1_1CanStatistics_1a0265b75e9e2e16737950b6b5c5662f35" kindref="member">onTransmit</ref>(<sp/>canMsgToBeSent.m_bDLC<sp/>);</highlight></codeline>
-<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classSTCanScan_1a43454c0bc20eb764cbb4ef3dd5e52cc9" kindref="member">sendErrorCode</ref>(Status);</highlight></codeline>
-<codeline lineno="337"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="338"><highlight class="normal"></highlight></codeline>
-<codeline lineno="339" refid="classSTCanScan_1a2c1de002fa7ace90ef95af00f824c8e4" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classSTCanScan_1a2c1de002fa7ace90ef95af00f824c8e4" kindref="member">STCanScan::sendRemoteRequest</ref>(</highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/>cobID)</highlight></codeline>
-<codeline lineno="340"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="341"><highlight class="normal"><sp/><sp/><sp/><sp/>tCanMsgStruct<sp/>canMsg;</highlight></codeline>
-<codeline lineno="342"><highlight class="normal"><sp/><sp/><sp/><sp/>BYTE<sp/>Status;</highlight></codeline>
-<codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/><sp/>canMsg.m_dwID<sp/>=<sp/>cobID;</highlight></codeline>
-<codeline lineno="344"><highlight class="normal"><sp/><sp/><sp/><sp/>canMsg.m_bDLC<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="345"><highlight class="normal"><sp/><sp/><sp/><sp/>canMsg.m_bFF<sp/>=<sp/>USBCAN_MSG_FF_RTR;<sp/><sp/><sp/></highlight><highlight class="comment">//Needed<sp/>for<sp/>send<sp/>message<sp/>rtr</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="346"><highlight class="normal"></highlight></codeline>
-<codeline lineno="347"><highlight class="normal"><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>UcanWriteCanMsgEx(<ref refid="classSTCanScan_1add94dcac99b3ba3a17cb3708fd0cd20d" kindref="member">m_UcanHandle</ref>,<sp/><ref refid="classSTCanScan_1ac5e311e695c1a3c810f82b0c21ee3618" kindref="member">m_channelNumber</ref>,<sp/>&amp;canMsg,<sp/>NULL);</highlight></codeline>
-<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classSTCanScan_1a43454c0bc20eb764cbb4ef3dd5e52cc9" kindref="member">sendErrorCode</ref>(Status);</highlight></codeline>
-<codeline lineno="349"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="350"><highlight class="normal"></highlight></codeline>
-<codeline lineno="351" refid="classSTCanScan_1a9a4da7b1dd74e81e8066894a1a8c051e" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classSTCanScan_1a9a4da7b1dd74e81e8066894a1a8c051e" kindref="member">STCanScan::errorCodeToString</ref>(</highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/>error,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>message[])</highlight><highlight class="comment">//TODO:<sp/>Fix<sp/>this<sp/>method,<sp/>this<sp/>doesn&apos;t<sp/>do<sp/>anything!!</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="352"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>tmp[300]<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Error&quot;</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>canGetErrorText((canStatus)error,<sp/>tmp,<sp/>sizeof(tmp));</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="355"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/>message<sp/>=<sp/>new<sp/>char[strlen(tmp)+1];</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="356"><highlight class="normal"><sp/><sp/><sp/><sp/>message[0]<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="357"><highlight class="normal"><sp/><sp/><sp/><sp/>strcpy(message,tmp);</highlight></codeline>
-<codeline lineno="358"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="359"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="360"><highlight class="normal"></highlight></codeline>
-<codeline lineno="361" refid="classSTCanScan_1a4810249805b660c4e914247acbdf45d2" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classSTCanScan_1a4810249805b660c4e914247acbdf45d2" kindref="member">STCanScan::getStatistics</ref>(<sp/><ref refid="classCanModule_1_1CanStatistics" kindref="compound">CanStatistics</ref><sp/>&amp;<sp/>result<sp/>)</highlight></codeline>
-<codeline lineno="362"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="363"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classSTCanScan_1a93abd76cf68726a0bfa4b9d3982ec9aa" kindref="member">m_statistics</ref>.<ref refid="classCanModule_1_1CanStatistics_1a8ec66bd11141579779f143362b70640e" kindref="member">computeDerived</ref><sp/>(<ref refid="classSTCanScan_1add0582f666b4f0a5883311a284a0e9c4" kindref="member">m_baudRate</ref>);</highlight></codeline>
-<codeline lineno="364"><highlight class="normal"><sp/><sp/><sp/><sp/>result<sp/>=<sp/><ref refid="classSTCanScan_1a93abd76cf68726a0bfa4b9d3982ec9aa" kindref="member">m_statistics</ref>;<sp/><sp/></highlight><highlight class="comment">//<sp/>copy<sp/>whole<sp/>structure</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="365"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classSTCanScan_1a93abd76cf68726a0bfa4b9d3982ec9aa" kindref="member">m_statistics</ref>.<ref refid="classCanModule_1_1CanStatistics_1a85e6c87ce5285884a0272088178bb8f6" kindref="member">beginNewRun</ref>();</highlight></codeline>
-<codeline lineno="366"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="367"><highlight class="normal"></highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="STCanScan_8cpp_1a08d6d35b7f83e326a37caa39473e6ebe" kindref="member">MLOGST</ref>(DBG,</highlight><highlight class="keyword">this</highlight><highlight class="normal">)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Sending<sp/>message:<sp/>[&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>(<sp/>message<sp/>==<sp/>0<sp/><sp/>?<sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal"><sp/>:<sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*)<sp/>message)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;],<sp/>cobID:<sp/>[&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>cobID<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;],<sp/>Message<sp/>Length:<sp/>[&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(len)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;]&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"></highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/>tCanMsgStruct<sp/>canMsgToBeSent;</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/>BYTE<sp/>Status;</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"></highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/>canMsgToBeSent.m_dwID<sp/>=<sp/>cobID;</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/>canMsgToBeSent.m_bDLC<sp/>=<sp/>len;</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/>canMsgToBeSent.m_bFF<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(rtr)</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>canMsgToBeSent.m_bFF<sp/>=<sp/>USBCAN_MSG_FF_RTR;</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/>messageLengthToBeProcessed;</highlight></codeline>
+<codeline lineno="314"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(len<sp/>&gt;<sp/>8)</highlight><highlight class="comment">//If<sp/>there<sp/>is<sp/>more<sp/>than<sp/>8<sp/>characters<sp/>to<sp/>process,<sp/>we<sp/>process<sp/>8<sp/>of<sp/>them<sp/>in<sp/>this<sp/>iteration<sp/>of<sp/>the<sp/>loop</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>messageLengthToBeProcessed<sp/>=<sp/>8;</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="STCanScan_8cpp_1a08d6d35b7f83e326a37caa39473e6ebe" kindref="member">MLOGST</ref>(DBG,<sp/></highlight><highlight class="keyword">this</highlight><highlight class="normal">)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;The<sp/>length<sp/>is<sp/>more<sp/>then<sp/>8<sp/>bytes,<sp/>adjust<sp/>to<sp/>8,<sp/>ignore<sp/>&gt;8.<sp/>len=<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>len;</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//Otherwise<sp/>if<sp/>there<sp/>is<sp/>less<sp/>than<sp/>8<sp/>characters<sp/>to<sp/>process,<sp/>we<sp/>process<sp/>all<sp/>of<sp/>them<sp/>in<sp/>this<sp/>iteration<sp/>of<sp/>the<sp/>loop</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>messageLengthToBeProcessed<sp/>=<sp/>len;</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(len<sp/>&lt;<sp/>8)<sp/>{</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="STCanScan_8cpp_1a08d6d35b7f83e326a37caa39473e6ebe" kindref="member">MLOGST</ref>(DBG,<sp/></highlight><highlight class="keyword">this</highlight><highlight class="normal">)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;The<sp/>length<sp/>is<sp/>less<sp/>then<sp/>8<sp/>bytes,<sp/>process<sp/>only.<sp/>len=<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>len;</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/>canMsgToBeSent.m_bDLC<sp/>=<sp/>messageLengthToBeProcessed;</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/>memcpy(canMsgToBeSent.m_bData,<sp/>message,<sp/>messageLengthToBeProcessed);</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/>MLOG(TRC,this)<sp/>&lt;&lt;<sp/>&quot;Channel<sp/>Number:<sp/>[&quot;<sp/>&lt;&lt;<sp/>m_channelNumber<sp/>&lt;&lt;<sp/>&quot;],<sp/>cobID:<sp/>[&quot;<sp/>&lt;&lt;<sp/>canMsgToBeSent.m_dwID<sp/>&lt;&lt;<sp/>&quot;],<sp/>Message<sp/>Length:<sp/>[&quot;<sp/>&lt;&lt;<sp/>static_cast&lt;int&gt;(canMsgToBeSent.m_bDLC)<sp/>&lt;&lt;<sp/>&quot;]&quot;;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>UcanWriteCanMsgEx(<ref refid="classSTCanScan_1add94dcac99b3ba3a17cb3708fd0cd20d" kindref="member">m_UcanHandle</ref>,<sp/><ref refid="classSTCanScan_1ac5e311e695c1a3c810f82b0c21ee3618" kindref="member">m_channelNumber</ref>,<sp/>&amp;canMsgToBeSent,<sp/>NULL);</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>USBCAN_SUCCESSFUL)</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="STCanScan_8cpp_1a08d6d35b7f83e326a37caa39473e6ebe" kindref="member">MLOGST</ref>(ERR,</highlight><highlight class="keyword">this</highlight><highlight class="normal">)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;There<sp/>was<sp/>a<sp/>problem<sp/>when<sp/>sending<sp/>a<sp/>message.&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classSTCanScan_1a93abd76cf68726a0bfa4b9d3982ec9aa" kindref="member">m_statistics</ref>.<ref refid="classCanModule_1_1CanStatistics_1a0265b75e9e2e16737950b6b5c5662f35" kindref="member">onTransmit</ref>(<sp/>canMsgToBeSent.m_bDLC<sp/>);</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classSTCanScan_1a43454c0bc20eb764cbb4ef3dd5e52cc9" kindref="member">sendErrorCode</ref>(Status);</highlight></codeline>
+<codeline lineno="339"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"></highlight></codeline>
+<codeline lineno="341" refid="classSTCanScan_1a2c1de002fa7ace90ef95af00f824c8e4" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classSTCanScan_1a2c1de002fa7ace90ef95af00f824c8e4" kindref="member">STCanScan::sendRemoteRequest</ref>(</highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/>cobID)</highlight></codeline>
+<codeline lineno="342"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/><sp/>tCanMsgStruct<sp/>canMsg;</highlight></codeline>
+<codeline lineno="344"><highlight class="normal"><sp/><sp/><sp/><sp/>BYTE<sp/>Status;</highlight></codeline>
+<codeline lineno="345"><highlight class="normal"><sp/><sp/><sp/><sp/>canMsg.m_dwID<sp/>=<sp/>cobID;</highlight></codeline>
+<codeline lineno="346"><highlight class="normal"><sp/><sp/><sp/><sp/>canMsg.m_bDLC<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="347"><highlight class="normal"><sp/><sp/><sp/><sp/>canMsg.m_bFF<sp/>=<sp/>USBCAN_MSG_FF_RTR;<sp/><sp/><sp/></highlight><highlight class="comment">//Needed<sp/>for<sp/>send<sp/>message<sp/>rtr</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="348"><highlight class="normal"></highlight></codeline>
+<codeline lineno="349"><highlight class="normal"><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>UcanWriteCanMsgEx(<ref refid="classSTCanScan_1add94dcac99b3ba3a17cb3708fd0cd20d" kindref="member">m_UcanHandle</ref>,<sp/><ref refid="classSTCanScan_1ac5e311e695c1a3c810f82b0c21ee3618" kindref="member">m_channelNumber</ref>,<sp/>&amp;canMsg,<sp/>NULL);</highlight></codeline>
+<codeline lineno="350"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classSTCanScan_1a43454c0bc20eb764cbb4ef3dd5e52cc9" kindref="member">sendErrorCode</ref>(Status);</highlight></codeline>
+<codeline lineno="351"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="352"><highlight class="normal"></highlight></codeline>
+<codeline lineno="353" refid="classSTCanScan_1a9a4da7b1dd74e81e8066894a1a8c051e" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classSTCanScan_1a9a4da7b1dd74e81e8066894a1a8c051e" kindref="member">STCanScan::errorCodeToString</ref>(</highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/>error,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>message[])</highlight><highlight class="comment">//TODO:<sp/>Fix<sp/>this<sp/>method,<sp/>this<sp/>doesn&apos;t<sp/>do<sp/>anything!!</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="354"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="355"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>tmp[300]<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Error&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="356"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>canGetErrorText((canStatus)error,<sp/>tmp,<sp/>sizeof(tmp));</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="357"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/>message<sp/>=<sp/>new<sp/>char[strlen(tmp)+1];</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="358"><highlight class="normal"><sp/><sp/><sp/><sp/>message[0]<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="359"><highlight class="normal"><sp/><sp/><sp/><sp/>strcpy(message,tmp);</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="361"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="362"><highlight class="normal"></highlight></codeline>
+<codeline lineno="363" refid="classSTCanScan_1a4810249805b660c4e914247acbdf45d2" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classSTCanScan_1a4810249805b660c4e914247acbdf45d2" kindref="member">STCanScan::getStatistics</ref>(<sp/><ref refid="classCanModule_1_1CanStatistics" kindref="compound">CanStatistics</ref><sp/>&amp;<sp/>result<sp/>)</highlight></codeline>
+<codeline lineno="364"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="365"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classSTCanScan_1a93abd76cf68726a0bfa4b9d3982ec9aa" kindref="member">m_statistics</ref>.<ref refid="classCanModule_1_1CanStatistics_1a8ec66bd11141579779f143362b70640e" kindref="member">computeDerived</ref><sp/>(<ref refid="classSTCanScan_1add0582f666b4f0a5883311a284a0e9c4" kindref="member">m_baudRate</ref>);</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/>result<sp/>=<sp/><ref refid="classSTCanScan_1a93abd76cf68726a0bfa4b9d3982ec9aa" kindref="member">m_statistics</ref>;<sp/><sp/></highlight><highlight class="comment">//<sp/>copy<sp/>whole<sp/>structure</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="367"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classSTCanScan_1a93abd76cf68726a0bfa4b9d3982ec9aa" kindref="member">m_statistics</ref>.<ref refid="classCanModule_1_1CanStatistics_1a85e6c87ce5285884a0272088178bb8f6" kindref="member">beginNewRun</ref>();</highlight></codeline>
+<codeline lineno="368"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="369"><highlight class="normal"></highlight></codeline>
     </programlisting>
-    <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/STCanScan.cpp"/>
+    <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp"/>
   </compounddef>
 </doxygen>

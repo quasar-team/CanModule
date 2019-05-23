@@ -9,15 +9,19 @@ Development documentation (usage, support) (https://readthedocs.web.cern.ch/disp
 master v1.1.1: works for anagate, systec and peak bridges, includes a CWrapper. tested in the lab. 
 
 # where is the doc
+developers documentation is in subdirectory:
 Documentation/sphinx-result/index.html
 
 
 # CanModule
-CanModule is a cross-platform library for controlling any kind of CAN device. All CAN devices are represented by a simple abstract interface (class CanModule::CCanAccess) - user code uses this interface (*only* this interface) to send messages, receive messages, etc. i.e. to interact with the CAN device as per the needs of the application. Of course, abstract interfaces require concrete implementations - these implementations are a kind of functional mapping; driving underlying CAN hardware through some lower level API in a way that satisifies the behaviour 'described' in the CCanAccess interface. CanModule comes out-of-the-box with implementations for certain CAN devices (see table below). Implementations for other CAN devices can be added - please submit a pull request with your implementation for review.
-
-How does it work? CanModule
-
-## information below is currently being updated
+CanModule is a cross-platform library for controlling any kind of CAN device. All CAN devices are represented 
+by a simple abstract interface (class CanModule::CCanAccess) - user code uses this interface (*only* this interface) 
+to send messages, receive messages, etc. i.e. to interact with the CAN device as per the needs of the 
+application. Of course, abstract interfaces require concrete implementations - these implementations 
+are a kind of functional mapping; driving underlying CAN hardware through some lower level API in a 
+way that satisifies the behaviour 'described' in the CCanAccess interface. CanModule comes out-of-the-box 
+with implementations for certain CAN devices (see table below). Implementations for other CAN devices can 
+be added - please submit a pull request with your implementation for review.
 
 ## Currently Available Implementations
 | Linux  | Windows |
@@ -51,7 +55,7 @@ Note: this also builds the unit tests (in CanModuleTest, built with googletest) 
 # 1 amend the LD_LIBRARY_PATH so that the CanModuleTest can load the MockUpCanImplementation.so
 LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$(pwd)/CanModule/CanInterfaceImplementations/output
 
-#2 run the CanModuleTest
+# 2 run the CanModuleTest
 CanModuleTest/CanModuleTest
 ```
 

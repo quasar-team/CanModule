@@ -6,48 +6,6 @@
     <includes local="no">map</includes>
     <includes refid="canmodule__wrapper_8h" local="yes">../include/canmodule_wrapper.h</includes>
     <incdepgraph>
-      <node id="534">
-        <label>stdatomic.h</label>
-      </node>
-      <node id="537">
-        <label>LogIt.h</label>
-      </node>
-      <node id="525">
-        <label>boost/signals2.hpp</label>
-      </node>
-      <node id="533">
-        <label>CanStatistics.h</label>
-        <link refid="CanStatistics_8h"/>
-        <childnode refid="534" relation="include">
-        </childnode>
-        <childnode refid="531" relation="include">
-        </childnode>
-        <childnode refid="535" relation="include">
-        </childnode>
-        <childnode refid="536" relation="include">
-        </childnode>
-      </node>
-      <node id="529">
-        <label>string</label>
-      </node>
-      <node id="522">
-        <label>map</label>
-      </node>
-      <node id="524">
-        <label>boost/thread.hpp</label>
-      </node>
-      <node id="528">
-        <label>CanLibLoader.h</label>
-        <link refid="CanLibLoader_8h"/>
-        <childnode refid="529" relation="include">
-        </childnode>
-        <childnode refid="522" relation="include">
-        </childnode>
-        <childnode refid="530" relation="include">
-        </childnode>
-        <childnode refid="535" relation="include">
-        </childnode>
-      </node>
       <node id="530">
         <label>CCanAccess.h</label>
         <link refid="CCanAccess_8h"/>
@@ -66,10 +24,74 @@
         <childnode refid="537" relation="include">
         </childnode>
       </node>
+      <node id="534">
+        <label>stdatomic.h</label>
+      </node>
+      <node id="537">
+        <label>LogIt.h</label>
+      </node>
+      <node id="528">
+        <label>CanLibLoader.h</label>
+        <link refid="CanLibLoader_8h"/>
+        <childnode refid="529" relation="include">
+        </childnode>
+        <childnode refid="522" relation="include">
+        </childnode>
+        <childnode refid="530" relation="include">
+        </childnode>
+        <childnode refid="535" relation="include">
+        </childnode>
+      </node>
+      <node id="533">
+        <label>CanStatistics.h</label>
+        <link refid="CanStatistics_8h"/>
+        <childnode refid="534" relation="include">
+        </childnode>
+        <childnode refid="531" relation="include">
+        </childnode>
+        <childnode refid="535" relation="include">
+        </childnode>
+        <childnode refid="536" relation="include">
+        </childnode>
+      </node>
+      <node id="525">
+        <label>boost/signals2.hpp</label>
+      </node>
+      <node id="529">
+        <label>string</label>
+      </node>
+      <node id="522">
+        <label>map</label>
+      </node>
+      <node id="524">
+        <label>boost/thread.hpp</label>
+      </node>
+      <node id="520">
+        <label>CWrapper/src/canmodule_wrapper.cpp</label>
+        <link refid="canmodule_wrapper.cpp"/>
+        <childnode refid="521" relation="include">
+        </childnode>
+        <childnode refid="522" relation="include">
+        </childnode>
+        <childnode refid="523" relation="include">
+        </childnode>
+      </node>
       <node id="532">
         <label>CanMessage.h</label>
         <link refid="CanMessage_8h"/>
         <childnode refid="531" relation="include">
+        </childnode>
+      </node>
+      <node id="527">
+        <label>CanBusAccess.h</label>
+        <link refid="CanBusAccess_8h"/>
+        <childnode refid="528" relation="include">
+        </childnode>
+        <childnode refid="530" relation="include">
+        </childnode>
+        <childnode refid="522" relation="include">
+        </childnode>
+        <childnode refid="529" relation="include">
         </childnode>
       </node>
       <node id="521">
@@ -78,8 +100,9 @@
       <node id="538">
         <label>/usr/include/linux/can.h</label>
       </node>
-      <node id="531">
-        <label>sys/time.h</label>
+      <node id="535">
+        <label>ExportDefinition.h</label>
+        <link refid="ExportDefinition_8h"/>
       </node>
       <node id="523">
         <label>../include/canmodule_wrapper.h</label>
@@ -97,37 +120,14 @@
         <childnode refid="538" relation="include">
         </childnode>
       </node>
-      <node id="527">
-        <label>CanBusAccess.h</label>
-        <link refid="CanBusAccess_8h"/>
-        <childnode refid="528" relation="include">
-        </childnode>
-        <childnode refid="530" relation="include">
-        </childnode>
-        <childnode refid="522" relation="include">
-        </childnode>
-        <childnode refid="529" relation="include">
-        </childnode>
+      <node id="531">
+        <label>sys/time.h</label>
       </node>
       <node id="526">
         <label>boost/bind.hpp</label>
       </node>
       <node id="536">
         <label>chrono</label>
-      </node>
-      <node id="535">
-        <label>ExportDefinition.h</label>
-        <link refid="ExportDefinition_8h"/>
-      </node>
-      <node id="520">
-        <label>CWrapper/src/canmodule_wrapper.cpp</label>
-        <link refid="canmodule_wrapper.cpp"/>
-        <childnode refid="521" relation="include">
-        </childnode>
-        <childnode refid="522" relation="include">
-        </childnode>
-        <childnode refid="523" relation="include">
-        </childnode>
       </node>
     </incdepgraph>
       <sectiondef kind="define">
@@ -140,7 +140,7 @@
 <para>© Copyright CERN, 2018. All rights not expressly granted are reserved.</para><para>canmodule_wrapper cpp: C-API wrapper for C++ <ref refid="namespaceCanModule" kindref="compound">CanModule</ref>. Solves the invocation problem how to call an object(-method, C++) from a non-OO code (in C). As a side effect <ref refid="namespaceCanModule" kindref="compound">CanModule</ref> becomes a C-interface.</para><para>objects are allocated on the heap. Destructors can therefore be called as well.</para><para><ref refid="namespaceCanModule" kindref="compound">CanModule</ref> is preferably distributed as source (gitlab/github, mind the copyright quand meme), but this more or less imposes the cmake build chain. For iseg&apos;s qmake it is cleaner to use the <ref refid="namespaceCanModule" kindref="compound">CanModule</ref> as *.so/dll with header. This is a binary distribution of <ref refid="namespaceCanModule" kindref="compound">CanModule</ref> which is &quot;copied for friends&quot; ;-). These all go into cernCanModuleInterface/libs. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" line="22" column="9" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" bodystart="22" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" line="22" column="9" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="22" bodyend="-1"/>
         <referencedby refid="canmodule__wrapper_8cpp_1a2788c927e316fa9024211c35f4b524c7" compoundref="canmodule__wrapper_8cpp" startline="98" endline="109">_canmodule_slowDown</referencedby>
         <referencedby refid="canmodule__wrapper_8cpp_1a5722e15efde92795076c1f4de794c6ac" compoundref="canmodule__wrapper_8cpp" startline="111" endline="117">canmodule_setDelay_us</referencedby>
         <referencedby refid="canmodule__wrapper_8cpp_1a1cb4853346cc0c0a083b1f729c1a2043" compoundref="canmodule__wrapper_8cpp" startline="254" endline="262">canmodule_testSignalSlot</referencedby>
@@ -154,7 +154,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" line="23" column="9" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" bodystart="23" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" line="23" column="9" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="23" bodyend="-1"/>
         <referencedby refid="canmodule__wrapper_8cpp_1a2788c927e316fa9024211c35f4b524c7" compoundref="canmodule__wrapper_8cpp" startline="98" endline="109">_canmodule_slowDown</referencedby>
         <referencedby refid="canmodule__wrapper_8cpp_1ac2fb08a3b85d67b3bde3374493428657" compoundref="canmodule__wrapper_8cpp" startline="546" endline="558">canmodule_delete</referencedby>
         <referencedby refid="canmodule__wrapper_8cpp_1a055607542cbb43c08b74c3a148e5bcc4" compoundref="canmodule__wrapper_8cpp" startline="280" endline="407">canmodule_init</referencedby>
@@ -176,7 +176,7 @@
 <para>mutex and cond variables must be static == global in C Therefore the max number of connections is hardcoded to 16. ugly. sorry. come up with something better, please, which works as well ;-) </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" line="31" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" bodystart="31" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" line="31" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="31" bodyend="-1"/>
         <referencedby refid="canmodule__wrapper_8cpp_1abd663bf12a12e3d635ee299abaa1015b" compoundref="canmodule__wrapper_8cpp" startline="505" endline="544">canmodule_waitForNewCanMessage</referencedby>
         <referencedby refid="canmodule__wrapper_8cpp_1a6d635e7497e25d5788dcbf03125b0909" compoundref="canmodule__wrapper_8cpp" startline="134" endline="146">myUserHandler0</referencedby>
       </memberdef>
@@ -191,7 +191,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" line="31" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" bodystart="31" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" line="31" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="31" bodyend="-1"/>
         <referencedby refid="canmodule__wrapper_8cpp_1abd663bf12a12e3d635ee299abaa1015b" compoundref="canmodule__wrapper_8cpp" startline="505" endline="544">canmodule_waitForNewCanMessage</referencedby>
         <referencedby refid="canmodule__wrapper_8cpp_1a6d635e7497e25d5788dcbf03125b0909" compoundref="canmodule__wrapper_8cpp" startline="134" endline="146">myUserHandler0</referencedby>
       </memberdef>
@@ -206,7 +206,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" line="32" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" bodystart="32" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" line="32" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="32" bodyend="-1"/>
         <referencedby refid="canmodule__wrapper_8cpp_1abd663bf12a12e3d635ee299abaa1015b" compoundref="canmodule__wrapper_8cpp" startline="505" endline="544">canmodule_waitForNewCanMessage</referencedby>
         <referencedby refid="canmodule__wrapper_8cpp_1ad360ca6338143d5c11a4531660b24ac0" compoundref="canmodule__wrapper_8cpp" startline="147" endline="153">myUserHandler1</referencedby>
       </memberdef>
@@ -221,7 +221,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" line="32" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" bodystart="32" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" line="32" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="32" bodyend="-1"/>
         <referencedby refid="canmodule__wrapper_8cpp_1abd663bf12a12e3d635ee299abaa1015b" compoundref="canmodule__wrapper_8cpp" startline="505" endline="544">canmodule_waitForNewCanMessage</referencedby>
         <referencedby refid="canmodule__wrapper_8cpp_1ad360ca6338143d5c11a4531660b24ac0" compoundref="canmodule__wrapper_8cpp" startline="147" endline="153">myUserHandler1</referencedby>
       </memberdef>
@@ -236,7 +236,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" line="33" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" bodystart="33" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" line="33" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="33" bodyend="-1"/>
         <referencedby refid="canmodule__wrapper_8cpp_1abd663bf12a12e3d635ee299abaa1015b" compoundref="canmodule__wrapper_8cpp" startline="505" endline="544">canmodule_waitForNewCanMessage</referencedby>
         <referencedby refid="canmodule__wrapper_8cpp_1a8d9a98bb375b5e23917e4167228db82d" compoundref="canmodule__wrapper_8cpp" startline="154" endline="160">myUserHandler2</referencedby>
       </memberdef>
@@ -251,7 +251,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" line="33" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" bodystart="33" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" line="33" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="33" bodyend="-1"/>
         <referencedby refid="canmodule__wrapper_8cpp_1abd663bf12a12e3d635ee299abaa1015b" compoundref="canmodule__wrapper_8cpp" startline="505" endline="544">canmodule_waitForNewCanMessage</referencedby>
         <referencedby refid="canmodule__wrapper_8cpp_1a8d9a98bb375b5e23917e4167228db82d" compoundref="canmodule__wrapper_8cpp" startline="154" endline="160">myUserHandler2</referencedby>
       </memberdef>
@@ -266,7 +266,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" line="34" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" bodystart="34" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" line="34" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="34" bodyend="-1"/>
         <referencedby refid="canmodule__wrapper_8cpp_1abd663bf12a12e3d635ee299abaa1015b" compoundref="canmodule__wrapper_8cpp" startline="505" endline="544">canmodule_waitForNewCanMessage</referencedby>
         <referencedby refid="canmodule__wrapper_8cpp_1a8a412ea2b9be94758e3fbf8f99f63989" compoundref="canmodule__wrapper_8cpp" startline="161" endline="167">myUserHandler3</referencedby>
       </memberdef>
@@ -281,7 +281,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" line="34" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" bodystart="34" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" line="34" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="34" bodyend="-1"/>
         <referencedby refid="canmodule__wrapper_8cpp_1abd663bf12a12e3d635ee299abaa1015b" compoundref="canmodule__wrapper_8cpp" startline="505" endline="544">canmodule_waitForNewCanMessage</referencedby>
         <referencedby refid="canmodule__wrapper_8cpp_1a8a412ea2b9be94758e3fbf8f99f63989" compoundref="canmodule__wrapper_8cpp" startline="161" endline="167">myUserHandler3</referencedby>
       </memberdef>
@@ -296,7 +296,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" line="35" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" bodystart="35" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" line="35" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="35" bodyend="-1"/>
         <referencedby refid="canmodule__wrapper_8cpp_1abd663bf12a12e3d635ee299abaa1015b" compoundref="canmodule__wrapper_8cpp" startline="505" endline="544">canmodule_waitForNewCanMessage</referencedby>
         <referencedby refid="canmodule__wrapper_8cpp_1ae36fe0d1976785621770b4e3a3a2f022" compoundref="canmodule__wrapper_8cpp" startline="168" endline="174">myUserHandler4</referencedby>
       </memberdef>
@@ -311,7 +311,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" line="35" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" bodystart="35" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" line="35" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="35" bodyend="-1"/>
         <referencedby refid="canmodule__wrapper_8cpp_1abd663bf12a12e3d635ee299abaa1015b" compoundref="canmodule__wrapper_8cpp" startline="505" endline="544">canmodule_waitForNewCanMessage</referencedby>
         <referencedby refid="canmodule__wrapper_8cpp_1ae36fe0d1976785621770b4e3a3a2f022" compoundref="canmodule__wrapper_8cpp" startline="168" endline="174">myUserHandler4</referencedby>
       </memberdef>
@@ -326,7 +326,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" line="36" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" bodystart="36" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" line="36" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="36" bodyend="-1"/>
         <referencedby refid="canmodule__wrapper_8cpp_1abd663bf12a12e3d635ee299abaa1015b" compoundref="canmodule__wrapper_8cpp" startline="505" endline="544">canmodule_waitForNewCanMessage</referencedby>
         <referencedby refid="canmodule__wrapper_8cpp_1a672814a85db13a759e0e5c7896359734" compoundref="canmodule__wrapper_8cpp" startline="175" endline="181">myUserHandler5</referencedby>
       </memberdef>
@@ -341,7 +341,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" line="36" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" bodystart="36" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" line="36" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="36" bodyend="-1"/>
         <referencedby refid="canmodule__wrapper_8cpp_1abd663bf12a12e3d635ee299abaa1015b" compoundref="canmodule__wrapper_8cpp" startline="505" endline="544">canmodule_waitForNewCanMessage</referencedby>
         <referencedby refid="canmodule__wrapper_8cpp_1a672814a85db13a759e0e5c7896359734" compoundref="canmodule__wrapper_8cpp" startline="175" endline="181">myUserHandler5</referencedby>
       </memberdef>
@@ -356,7 +356,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" line="37" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" bodystart="37" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" line="37" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="37" bodyend="-1"/>
         <referencedby refid="canmodule__wrapper_8cpp_1abd663bf12a12e3d635ee299abaa1015b" compoundref="canmodule__wrapper_8cpp" startline="505" endline="544">canmodule_waitForNewCanMessage</referencedby>
         <referencedby refid="canmodule__wrapper_8cpp_1af882506f0473ebcf59193b06ed1bfd20" compoundref="canmodule__wrapper_8cpp" startline="182" endline="188">myUserHandler6</referencedby>
       </memberdef>
@@ -371,7 +371,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" line="37" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" bodystart="37" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" line="37" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="37" bodyend="-1"/>
         <referencedby refid="canmodule__wrapper_8cpp_1abd663bf12a12e3d635ee299abaa1015b" compoundref="canmodule__wrapper_8cpp" startline="505" endline="544">canmodule_waitForNewCanMessage</referencedby>
         <referencedby refid="canmodule__wrapper_8cpp_1af882506f0473ebcf59193b06ed1bfd20" compoundref="canmodule__wrapper_8cpp" startline="182" endline="188">myUserHandler6</referencedby>
       </memberdef>
@@ -386,7 +386,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" line="38" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" bodystart="38" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" line="38" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="38" bodyend="-1"/>
         <referencedby refid="canmodule__wrapper_8cpp_1abd663bf12a12e3d635ee299abaa1015b" compoundref="canmodule__wrapper_8cpp" startline="505" endline="544">canmodule_waitForNewCanMessage</referencedby>
         <referencedby refid="canmodule__wrapper_8cpp_1a7d0f2c128bc7f98b1f2fc4ab692acdd9" compoundref="canmodule__wrapper_8cpp" startline="189" endline="195">myUserHandler7</referencedby>
       </memberdef>
@@ -401,7 +401,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" line="38" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" bodystart="38" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" line="38" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="38" bodyend="-1"/>
         <referencedby refid="canmodule__wrapper_8cpp_1abd663bf12a12e3d635ee299abaa1015b" compoundref="canmodule__wrapper_8cpp" startline="505" endline="544">canmodule_waitForNewCanMessage</referencedby>
         <referencedby refid="canmodule__wrapper_8cpp_1a7d0f2c128bc7f98b1f2fc4ab692acdd9" compoundref="canmodule__wrapper_8cpp" startline="189" endline="195">myUserHandler7</referencedby>
       </memberdef>
@@ -416,7 +416,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" line="39" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" bodystart="39" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" line="39" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="39" bodyend="-1"/>
         <referencedby refid="canmodule__wrapper_8cpp_1abd663bf12a12e3d635ee299abaa1015b" compoundref="canmodule__wrapper_8cpp" startline="505" endline="544">canmodule_waitForNewCanMessage</referencedby>
         <referencedby refid="canmodule__wrapper_8cpp_1af8ae68234a4417c6a75bc972f7587fa7" compoundref="canmodule__wrapper_8cpp" startline="196" endline="202">myUserHandler8</referencedby>
       </memberdef>
@@ -431,7 +431,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" line="39" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" bodystart="39" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" line="39" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="39" bodyend="-1"/>
         <referencedby refid="canmodule__wrapper_8cpp_1abd663bf12a12e3d635ee299abaa1015b" compoundref="canmodule__wrapper_8cpp" startline="505" endline="544">canmodule_waitForNewCanMessage</referencedby>
         <referencedby refid="canmodule__wrapper_8cpp_1af8ae68234a4417c6a75bc972f7587fa7" compoundref="canmodule__wrapper_8cpp" startline="196" endline="202">myUserHandler8</referencedby>
       </memberdef>
@@ -446,7 +446,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" line="40" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" bodystart="40" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" line="40" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="40" bodyend="-1"/>
         <referencedby refid="canmodule__wrapper_8cpp_1abd663bf12a12e3d635ee299abaa1015b" compoundref="canmodule__wrapper_8cpp" startline="505" endline="544">canmodule_waitForNewCanMessage</referencedby>
         <referencedby refid="canmodule__wrapper_8cpp_1a7caf49e5654ea59a928c5c1e124ca623" compoundref="canmodule__wrapper_8cpp" startline="203" endline="209">myUserHandler9</referencedby>
       </memberdef>
@@ -461,7 +461,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" line="40" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" bodystart="40" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" line="40" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="40" bodyend="-1"/>
         <referencedby refid="canmodule__wrapper_8cpp_1abd663bf12a12e3d635ee299abaa1015b" compoundref="canmodule__wrapper_8cpp" startline="505" endline="544">canmodule_waitForNewCanMessage</referencedby>
         <referencedby refid="canmodule__wrapper_8cpp_1a7caf49e5654ea59a928c5c1e124ca623" compoundref="canmodule__wrapper_8cpp" startline="203" endline="209">myUserHandler9</referencedby>
       </memberdef>
@@ -476,7 +476,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" line="41" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" bodystart="41" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" line="41" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="41" bodyend="-1"/>
         <referencedby refid="canmodule__wrapper_8cpp_1abd663bf12a12e3d635ee299abaa1015b" compoundref="canmodule__wrapper_8cpp" startline="505" endline="544">canmodule_waitForNewCanMessage</referencedby>
         <referencedby refid="canmodule__wrapper_8cpp_1aa2e9edaf7bf96dbf37d3ecde32e88ada" compoundref="canmodule__wrapper_8cpp" startline="210" endline="216">myUserHandler10</referencedby>
       </memberdef>
@@ -491,7 +491,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" line="41" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" bodystart="41" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" line="41" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="41" bodyend="-1"/>
         <referencedby refid="canmodule__wrapper_8cpp_1abd663bf12a12e3d635ee299abaa1015b" compoundref="canmodule__wrapper_8cpp" startline="505" endline="544">canmodule_waitForNewCanMessage</referencedby>
         <referencedby refid="canmodule__wrapper_8cpp_1aa2e9edaf7bf96dbf37d3ecde32e88ada" compoundref="canmodule__wrapper_8cpp" startline="210" endline="216">myUserHandler10</referencedby>
       </memberdef>
@@ -506,7 +506,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" line="42" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" bodystart="42" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" line="42" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="42" bodyend="-1"/>
         <referencedby refid="canmodule__wrapper_8cpp_1abd663bf12a12e3d635ee299abaa1015b" compoundref="canmodule__wrapper_8cpp" startline="505" endline="544">canmodule_waitForNewCanMessage</referencedby>
         <referencedby refid="canmodule__wrapper_8cpp_1a203eae36ea11ab8beee391759e383116" compoundref="canmodule__wrapper_8cpp" startline="217" endline="223">myUserHandler11</referencedby>
       </memberdef>
@@ -521,7 +521,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" line="42" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" bodystart="42" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" line="42" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="42" bodyend="-1"/>
         <referencedby refid="canmodule__wrapper_8cpp_1abd663bf12a12e3d635ee299abaa1015b" compoundref="canmodule__wrapper_8cpp" startline="505" endline="544">canmodule_waitForNewCanMessage</referencedby>
         <referencedby refid="canmodule__wrapper_8cpp_1a203eae36ea11ab8beee391759e383116" compoundref="canmodule__wrapper_8cpp" startline="217" endline="223">myUserHandler11</referencedby>
       </memberdef>
@@ -536,7 +536,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" line="43" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" bodystart="43" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" line="43" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="43" bodyend="-1"/>
         <referencedby refid="canmodule__wrapper_8cpp_1abd663bf12a12e3d635ee299abaa1015b" compoundref="canmodule__wrapper_8cpp" startline="505" endline="544">canmodule_waitForNewCanMessage</referencedby>
         <referencedby refid="canmodule__wrapper_8cpp_1a86412e7ec2af43e4ddde98af880e5463" compoundref="canmodule__wrapper_8cpp" startline="224" endline="230">myUserHandler12</referencedby>
       </memberdef>
@@ -551,7 +551,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" line="43" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" bodystart="43" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" line="43" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="43" bodyend="-1"/>
         <referencedby refid="canmodule__wrapper_8cpp_1abd663bf12a12e3d635ee299abaa1015b" compoundref="canmodule__wrapper_8cpp" startline="505" endline="544">canmodule_waitForNewCanMessage</referencedby>
         <referencedby refid="canmodule__wrapper_8cpp_1a86412e7ec2af43e4ddde98af880e5463" compoundref="canmodule__wrapper_8cpp" startline="224" endline="230">myUserHandler12</referencedby>
       </memberdef>
@@ -566,7 +566,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" line="44" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" bodystart="44" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" line="44" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="44" bodyend="-1"/>
         <referencedby refid="canmodule__wrapper_8cpp_1abd663bf12a12e3d635ee299abaa1015b" compoundref="canmodule__wrapper_8cpp" startline="505" endline="544">canmodule_waitForNewCanMessage</referencedby>
         <referencedby refid="canmodule__wrapper_8cpp_1accfea38d4ef6cf1adb7f29a87a381c45" compoundref="canmodule__wrapper_8cpp" startline="231" endline="237">myUserHandler13</referencedby>
       </memberdef>
@@ -581,7 +581,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" line="44" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" bodystart="44" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" line="44" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="44" bodyend="-1"/>
         <referencedby refid="canmodule__wrapper_8cpp_1abd663bf12a12e3d635ee299abaa1015b" compoundref="canmodule__wrapper_8cpp" startline="505" endline="544">canmodule_waitForNewCanMessage</referencedby>
         <referencedby refid="canmodule__wrapper_8cpp_1accfea38d4ef6cf1adb7f29a87a381c45" compoundref="canmodule__wrapper_8cpp" startline="231" endline="237">myUserHandler13</referencedby>
       </memberdef>
@@ -596,7 +596,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" line="45" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" bodystart="45" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" line="45" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="45" bodyend="-1"/>
         <referencedby refid="canmodule__wrapper_8cpp_1abd663bf12a12e3d635ee299abaa1015b" compoundref="canmodule__wrapper_8cpp" startline="505" endline="544">canmodule_waitForNewCanMessage</referencedby>
         <referencedby refid="canmodule__wrapper_8cpp_1aea2a5f96b3137e0c77439dcda11b4139" compoundref="canmodule__wrapper_8cpp" startline="238" endline="244">myUserHandler14</referencedby>
       </memberdef>
@@ -611,7 +611,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" line="45" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" bodystart="45" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" line="45" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="45" bodyend="-1"/>
         <referencedby refid="canmodule__wrapper_8cpp_1abd663bf12a12e3d635ee299abaa1015b" compoundref="canmodule__wrapper_8cpp" startline="505" endline="544">canmodule_waitForNewCanMessage</referencedby>
         <referencedby refid="canmodule__wrapper_8cpp_1aea2a5f96b3137e0c77439dcda11b4139" compoundref="canmodule__wrapper_8cpp" startline="238" endline="244">myUserHandler14</referencedby>
       </memberdef>
@@ -626,7 +626,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" line="46" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" bodystart="46" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" line="46" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="46" bodyend="-1"/>
         <referencedby refid="canmodule__wrapper_8cpp_1abd663bf12a12e3d635ee299abaa1015b" compoundref="canmodule__wrapper_8cpp" startline="505" endline="544">canmodule_waitForNewCanMessage</referencedby>
         <referencedby refid="canmodule__wrapper_8cpp_1a7fddde7971ed0ad3524ec2135f1dea04" compoundref="canmodule__wrapper_8cpp" startline="245" endline="251">myUserHandler15</referencedby>
       </memberdef>
@@ -641,7 +641,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" line="46" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" bodystart="46" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" line="46" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="46" bodyend="-1"/>
         <referencedby refid="canmodule__wrapper_8cpp_1abd663bf12a12e3d635ee299abaa1015b" compoundref="canmodule__wrapper_8cpp" startline="505" endline="544">canmodule_waitForNewCanMessage</referencedby>
         <referencedby refid="canmodule__wrapper_8cpp_1a7fddde7971ed0ad3524ec2135f1dea04" compoundref="canmodule__wrapper_8cpp" startline="245" endline="251">myUserHandler15</referencedby>
       </memberdef>
@@ -656,7 +656,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" line="47" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" bodystart="47" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" line="47" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="47" bodyend="-1"/>
         <referencedby refid="canmodule__wrapper_8cpp_1a2788c927e316fa9024211c35f4b524c7" compoundref="canmodule__wrapper_8cpp" startline="98" endline="109">_canmodule_slowDown</referencedby>
         <referencedby refid="canmodule__wrapper_8cpp_1ac2fb08a3b85d67b3bde3374493428657" compoundref="canmodule__wrapper_8cpp" startline="546" endline="558">canmodule_delete</referencedby>
         <referencedby refid="canmodule__wrapper_8cpp_1a055607542cbb43c08b74c3a148e5bcc4" compoundref="canmodule__wrapper_8cpp" startline="280" endline="407">canmodule_init</referencedby>
@@ -693,7 +693,7 @@
 <para>SYSTEC: basically the baud rate can be set, default is 250000.</para><para>Under linux you can&apos;t set this on the bridge alone. The speed has to be set on the usb level for the usb-can subsystem, for each can port, and both should correspond. Already you should have see the subsystems: systemctl -a | grep can sys-subsystem-net-devices-can0.device loaded active plugged Mutiport_CAN-to-USB sys-subsystem-net-devices-can1.device loaded active plugged Mutiport_CAN-to-USB sys-subsystem-net-devices-can2.device loaded active plugged Mutiport_CAN-to-USB sys-subsystem-net-devices-can3.device loaded active plugged Mutiport_CAN-to-USB sys-subsystem-net-devices-can4.device loaded active plugged Mutiport_CAN-to-USB sys-subsystem-net-devices-can5.device loaded active plugged Mutiport_CAN-to-USB sys-subsystem-net-devices-can6.device loaded active plugged Mutiport_CAN-to-USB sys-subsystem-net-devices-can7.device</para><para>Then, to set the port speed for i.e. can0: sudo ip link set can0 type can bitrate 250000 ANAGATE: name = bus name = 3 parameters separated by &quot;:&quot; line &quot;n0:n1:n2&quot; n0 = &quot;an&quot; for anagate n1 = port number on the module, 0=A, 1=B, etc etc n2 = ip number ex.: &quot;an:1:137.138.12.99&quot; speaks to port B (=1) on anagate module at the ip</para><para>parameters = up to 6 parameters separated by whitespaces : &quot;p0 p1 p2 p3 p4 p5&quot; in THAT order, positive integers see module documentation for the exact meaning <ulink url="http://www.anagate.de/download/Manual-AnaGateCAN-duo-en.pdf">http://www.anagate.de/download/Manual-AnaGateCAN-duo-en.pdf</ulink> p0 = baud rate, 125000 or whatever the module supports p1 = operation mode p2 = termination p3 = high speed p4 = time stamp p5 = sync mode</para><para>advanced settings: reception timer interval=500us is good. default=3000us, that does not work at first attempt. must reopen the connection once this is changed. Anyway, the firmware reboots and that made it work. Now also works with 3000us. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" line="96" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" bodystart="96" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" line="96" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="96" bodyend="-1"/>
         <referencedby refid="canmodule__wrapper_8cpp_1a055607542cbb43c08b74c3a148e5bcc4" compoundref="canmodule__wrapper_8cpp" startline="280" endline="407">canmodule_init</referencedby>
       </memberdef>
       </sectiondef>
@@ -713,7 +713,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" line="98" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" bodystart="98" bodyend="109"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" line="98" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="98" bodyend="109"/>
         <references refid="canmodule__wrapper_8cpp_1a07e3b62fb780778da4ae23f01cc453ab" compoundref="canmodule__wrapper_8cpp" startline="47">_connection_v</references>
         <references refid="canmodule__wrapper_8cpp_1aab71aed77e37ee6cc2d675dec800c07a" compoundref="canmodule__wrapper_8cpp" startline="23">CONNECTION_INDEX_MAX</references>
         <references refid="canmodule__wrapper_8cpp_1a2eb006bb00711238d0c51ef70240c03c" compoundref="canmodule__wrapper_8cpp" startline="22">CONNECTION_INDEX_MIN</references>
@@ -754,7 +754,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" line="111" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" bodystart="111" bodyend="117"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" line="111" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="111" bodyend="117"/>
         <references refid="canmodule__wrapper_8cpp_1a07e3b62fb780778da4ae23f01cc453ab" compoundref="canmodule__wrapper_8cpp" startline="47">_connection_v</references>
         <references refid="canmodule__wrapper_8cpp_1aab71aed77e37ee6cc2d675dec800c07a" compoundref="canmodule__wrapper_8cpp" startline="23">CONNECTION_INDEX_MAX</references>
         <references refid="canmodule__wrapper_8cpp_1a2eb006bb00711238d0c51ef70240c03c" compoundref="canmodule__wrapper_8cpp" startline="22">CONNECTION_INDEX_MIN</references>
@@ -774,7 +774,7 @@
 <para>The user-handlerX gets invoked each time there is a new can message on connectionX, according to HW sync. We put this message into a buffer, protect it from the wait, and notify the wait that the new msg can be picked up. Using boost for sync.</para><para>this handler must be connected to the <ref refid="namespaceCanModule" kindref="compound">CanModule</ref> access point by this wrapper in the canmodule_init call, and this is hardcoded. We can have only static mutexes and cond_vars, therefore we have to decide BEFORE compile-time how many reception threads we want. While in principle we can have a big number easily, let&apos;s limit the number of connections ( PC port or ip-number &amp;&amp; CAN port ) we can have PER TASK to 16. This corresponds to 16 CAN buses, using i.e. one systec16 module or 8 anagate-duos.</para><para>The user can conveniently pick up the new message from the waitForNewMessage call which blocks until new reception. Just a separate thread or whatever sequence is needed for the blocking reception call, the user can implement whatever scheme she likes. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" line="134" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" bodystart="134" bodyend="146"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" line="134" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="134" bodyend="146"/>
         <references refid="canmodule__wrapper_8cpp_1a2788c927e316fa9024211c35f4b524c7" compoundref="canmodule__wrapper_8cpp" startline="98" endline="109">_canmodule_slowDown</references>
         <references refid="canmodule__wrapper_8cpp_1a07e3b62fb780778da4ae23f01cc453ab" compoundref="canmodule__wrapper_8cpp" startline="47">_connection_v</references>
         <references refid="structCanMsgStruct_1a2e47a33e7bba46b05a8fff29433f047b" compoundref="CanMessage_8h" startline="29">CanMsgStruct::c_data</references>
@@ -798,7 +798,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" line="147" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" bodystart="147" bodyend="153"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" line="147" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="147" bodyend="153"/>
         <references refid="canmodule__wrapper_8cpp_1a2788c927e316fa9024211c35f4b524c7" compoundref="canmodule__wrapper_8cpp" startline="98" endline="109">_canmodule_slowDown</references>
         <references refid="canmodule__wrapper_8cpp_1a07e3b62fb780778da4ae23f01cc453ab" compoundref="canmodule__wrapper_8cpp" startline="47">_connection_v</references>
         <references refid="canmodule__wrapper_8cpp_1ab7cd61f650c5036e31b54e5ef3156abd" compoundref="canmodule__wrapper_8cpp" startline="32">reception_cond1</references>
@@ -820,7 +820,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" line="154" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" bodystart="154" bodyend="160"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" line="154" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="154" bodyend="160"/>
         <references refid="canmodule__wrapper_8cpp_1a2788c927e316fa9024211c35f4b524c7" compoundref="canmodule__wrapper_8cpp" startline="98" endline="109">_canmodule_slowDown</references>
         <references refid="canmodule__wrapper_8cpp_1a07e3b62fb780778da4ae23f01cc453ab" compoundref="canmodule__wrapper_8cpp" startline="47">_connection_v</references>
         <references refid="canmodule__wrapper_8cpp_1a4271ddd144d9c22a586d92d9fe123476" compoundref="canmodule__wrapper_8cpp" startline="33">reception_cond2</references>
@@ -842,7 +842,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" line="161" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" bodystart="161" bodyend="167"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" line="161" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="161" bodyend="167"/>
         <references refid="canmodule__wrapper_8cpp_1a2788c927e316fa9024211c35f4b524c7" compoundref="canmodule__wrapper_8cpp" startline="98" endline="109">_canmodule_slowDown</references>
         <references refid="canmodule__wrapper_8cpp_1a07e3b62fb780778da4ae23f01cc453ab" compoundref="canmodule__wrapper_8cpp" startline="47">_connection_v</references>
         <references refid="canmodule__wrapper_8cpp_1a0b29e5e0a2531e2632699298222647c5" compoundref="canmodule__wrapper_8cpp" startline="34">reception_cond3</references>
@@ -864,7 +864,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" line="168" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" bodystart="168" bodyend="174"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" line="168" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="168" bodyend="174"/>
         <references refid="canmodule__wrapper_8cpp_1a2788c927e316fa9024211c35f4b524c7" compoundref="canmodule__wrapper_8cpp" startline="98" endline="109">_canmodule_slowDown</references>
         <references refid="canmodule__wrapper_8cpp_1a07e3b62fb780778da4ae23f01cc453ab" compoundref="canmodule__wrapper_8cpp" startline="47">_connection_v</references>
         <references refid="canmodule__wrapper_8cpp_1a6c0f68c41481427d54e128111b984ed8" compoundref="canmodule__wrapper_8cpp" startline="35">reception_cond4</references>
@@ -886,7 +886,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" line="175" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" bodystart="175" bodyend="181"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" line="175" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="175" bodyend="181"/>
         <references refid="canmodule__wrapper_8cpp_1a2788c927e316fa9024211c35f4b524c7" compoundref="canmodule__wrapper_8cpp" startline="98" endline="109">_canmodule_slowDown</references>
         <references refid="canmodule__wrapper_8cpp_1a07e3b62fb780778da4ae23f01cc453ab" compoundref="canmodule__wrapper_8cpp" startline="47">_connection_v</references>
         <references refid="canmodule__wrapper_8cpp_1ab7c2f335ca2b48237a33f3e33618b5d1" compoundref="canmodule__wrapper_8cpp" startline="36">reception_cond5</references>
@@ -908,7 +908,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" line="182" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" bodystart="182" bodyend="188"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" line="182" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="182" bodyend="188"/>
         <references refid="canmodule__wrapper_8cpp_1a2788c927e316fa9024211c35f4b524c7" compoundref="canmodule__wrapper_8cpp" startline="98" endline="109">_canmodule_slowDown</references>
         <references refid="canmodule__wrapper_8cpp_1a07e3b62fb780778da4ae23f01cc453ab" compoundref="canmodule__wrapper_8cpp" startline="47">_connection_v</references>
         <references refid="canmodule__wrapper_8cpp_1aaa125323603823b2a59b278cb8c10ad0" compoundref="canmodule__wrapper_8cpp" startline="37">reception_cond6</references>
@@ -930,7 +930,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" line="189" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" bodystart="189" bodyend="195"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" line="189" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="189" bodyend="195"/>
         <references refid="canmodule__wrapper_8cpp_1a2788c927e316fa9024211c35f4b524c7" compoundref="canmodule__wrapper_8cpp" startline="98" endline="109">_canmodule_slowDown</references>
         <references refid="canmodule__wrapper_8cpp_1a07e3b62fb780778da4ae23f01cc453ab" compoundref="canmodule__wrapper_8cpp" startline="47">_connection_v</references>
         <references refid="canmodule__wrapper_8cpp_1a3f56c87445b7b4712f13d7cb34a72b15" compoundref="canmodule__wrapper_8cpp" startline="38">reception_cond7</references>
@@ -952,7 +952,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" line="196" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" bodystart="196" bodyend="202"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" line="196" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="196" bodyend="202"/>
         <references refid="canmodule__wrapper_8cpp_1a2788c927e316fa9024211c35f4b524c7" compoundref="canmodule__wrapper_8cpp" startline="98" endline="109">_canmodule_slowDown</references>
         <references refid="canmodule__wrapper_8cpp_1a07e3b62fb780778da4ae23f01cc453ab" compoundref="canmodule__wrapper_8cpp" startline="47">_connection_v</references>
         <references refid="canmodule__wrapper_8cpp_1adf9fbd8b9f7b3b53eea2f0f9a5760c90" compoundref="canmodule__wrapper_8cpp" startline="39">reception_cond8</references>
@@ -974,7 +974,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" line="203" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" bodystart="203" bodyend="209"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" line="203" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="203" bodyend="209"/>
         <references refid="canmodule__wrapper_8cpp_1a2788c927e316fa9024211c35f4b524c7" compoundref="canmodule__wrapper_8cpp" startline="98" endline="109">_canmodule_slowDown</references>
         <references refid="canmodule__wrapper_8cpp_1a07e3b62fb780778da4ae23f01cc453ab" compoundref="canmodule__wrapper_8cpp" startline="47">_connection_v</references>
         <references refid="canmodule__wrapper_8cpp_1ae2d7f292f7488d01c92f15985be09572" compoundref="canmodule__wrapper_8cpp" startline="40">reception_cond9</references>
@@ -996,7 +996,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" line="210" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" bodystart="210" bodyend="216"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" line="210" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="210" bodyend="216"/>
         <references refid="canmodule__wrapper_8cpp_1a2788c927e316fa9024211c35f4b524c7" compoundref="canmodule__wrapper_8cpp" startline="98" endline="109">_canmodule_slowDown</references>
         <references refid="canmodule__wrapper_8cpp_1a07e3b62fb780778da4ae23f01cc453ab" compoundref="canmodule__wrapper_8cpp" startline="47">_connection_v</references>
         <references refid="canmodule__wrapper_8cpp_1a3e0bbc9181caa85f868d2fd2eb88d827" compoundref="canmodule__wrapper_8cpp" startline="41">reception_cond10</references>
@@ -1018,7 +1018,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" line="217" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" bodystart="217" bodyend="223"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" line="217" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="217" bodyend="223"/>
         <references refid="canmodule__wrapper_8cpp_1a2788c927e316fa9024211c35f4b524c7" compoundref="canmodule__wrapper_8cpp" startline="98" endline="109">_canmodule_slowDown</references>
         <references refid="canmodule__wrapper_8cpp_1a07e3b62fb780778da4ae23f01cc453ab" compoundref="canmodule__wrapper_8cpp" startline="47">_connection_v</references>
         <references refid="canmodule__wrapper_8cpp_1a89c38d3167e6c2bfb3c890d7e6dfd612" compoundref="canmodule__wrapper_8cpp" startline="42">reception_cond11</references>
@@ -1040,7 +1040,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" line="224" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" bodystart="224" bodyend="230"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" line="224" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="224" bodyend="230"/>
         <references refid="canmodule__wrapper_8cpp_1a2788c927e316fa9024211c35f4b524c7" compoundref="canmodule__wrapper_8cpp" startline="98" endline="109">_canmodule_slowDown</references>
         <references refid="canmodule__wrapper_8cpp_1a07e3b62fb780778da4ae23f01cc453ab" compoundref="canmodule__wrapper_8cpp" startline="47">_connection_v</references>
         <references refid="canmodule__wrapper_8cpp_1ae638c38ded1576fd744fb61f110d4fc9" compoundref="canmodule__wrapper_8cpp" startline="43">reception_cond12</references>
@@ -1062,7 +1062,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" line="231" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" bodystart="231" bodyend="237"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" line="231" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="231" bodyend="237"/>
         <references refid="canmodule__wrapper_8cpp_1a2788c927e316fa9024211c35f4b524c7" compoundref="canmodule__wrapper_8cpp" startline="98" endline="109">_canmodule_slowDown</references>
         <references refid="canmodule__wrapper_8cpp_1a07e3b62fb780778da4ae23f01cc453ab" compoundref="canmodule__wrapper_8cpp" startline="47">_connection_v</references>
         <references refid="canmodule__wrapper_8cpp_1a851c07a40ba2aaa7365a8ce339bd2634" compoundref="canmodule__wrapper_8cpp" startline="44">reception_cond13</references>
@@ -1084,7 +1084,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" line="238" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" bodystart="238" bodyend="244"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" line="238" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="238" bodyend="244"/>
         <references refid="canmodule__wrapper_8cpp_1a2788c927e316fa9024211c35f4b524c7" compoundref="canmodule__wrapper_8cpp" startline="98" endline="109">_canmodule_slowDown</references>
         <references refid="canmodule__wrapper_8cpp_1a07e3b62fb780778da4ae23f01cc453ab" compoundref="canmodule__wrapper_8cpp" startline="47">_connection_v</references>
         <references refid="canmodule__wrapper_8cpp_1af91ff7e198193bbbe93b31b3128021b8" compoundref="canmodule__wrapper_8cpp" startline="45">reception_cond14</references>
@@ -1106,7 +1106,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" line="245" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" bodystart="245" bodyend="251"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" line="245" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="245" bodyend="251"/>
         <references refid="canmodule__wrapper_8cpp_1a2788c927e316fa9024211c35f4b524c7" compoundref="canmodule__wrapper_8cpp" startline="98" endline="109">_canmodule_slowDown</references>
         <references refid="canmodule__wrapper_8cpp_1a07e3b62fb780778da4ae23f01cc453ab" compoundref="canmodule__wrapper_8cpp" startline="47">_connection_v</references>
         <references refid="canmodule__wrapper_8cpp_1a444ac615d1e82962547e4f5efb0a2aa2" compoundref="canmodule__wrapper_8cpp" startline="46">reception_cond15</references>
@@ -1128,7 +1128,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" line="254" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" bodystart="254" bodyend="262"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" line="254" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="254" bodyend="262"/>
         <references refid="canmodule__wrapper_8cpp_1a07e3b62fb780778da4ae23f01cc453ab" compoundref="canmodule__wrapper_8cpp" startline="47">_connection_v</references>
         <references refid="canmodule__wrapper_8cpp_1aab71aed77e37ee6cc2d675dec800c07a" compoundref="canmodule__wrapper_8cpp" startline="23">CONNECTION_INDEX_MAX</references>
         <references refid="canmodule__wrapper_8cpp_1a2eb006bb00711238d0c51ef70240c03c" compoundref="canmodule__wrapper_8cpp" startline="22">CONNECTION_INDEX_MIN</references>
@@ -1156,7 +1156,7 @@
 <para>connect one can access point=one CAN port for sending or receiving We need some parameters to set this up: canmoduleParameters [0]=vendor, &quot;an&quot;, &quot;st&quot; [1]=can port number then, according to vendor: st: [2]=usb port number [3]=systec parameters, i.e baudrate = &quot;250000&quot;</para><para>an: [2]=ip number [3]=anagate parameters = up to 6 integers separated by whitespaces, i.e. for bitrate=250kbit/s, opmode=normal, terminated=true, no high speed, no time stamp, sync mode=true &quot;250000 0 1 0 0 1&quot;; </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" line="280" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" bodystart="280" bodyend="407"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" line="280" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="280" bodyend="407"/>
         <references refid="canmodule__wrapper_8cpp_1a07e3b62fb780778da4ae23f01cc453ab" compoundref="canmodule__wrapper_8cpp" startline="47">_connection_v</references>
         <references refid="canmodule__wrapper_8cpp_1ae0253b00a2913d2b61a81c983bfbd822" compoundref="canmodule__wrapper_8cpp" startline="96">canmodule_delay_default</references>
         <references refid="canmodule__wrapper_8cpp_1aab71aed77e37ee6cc2d675dec800c07a" compoundref="canmodule__wrapper_8cpp" startline="23">CONNECTION_INDEX_MAX</references>
@@ -1199,7 +1199,7 @@
 <para>no error checking, we might throw exceptions instead. OK=false </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" line="413" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" bodystart="413" bodyend="430"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" line="413" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="413" bodyend="430"/>
         <references refid="canmodule__wrapper_8cpp_1a2788c927e316fa9024211c35f4b524c7" compoundref="canmodule__wrapper_8cpp" startline="98" endline="109">_canmodule_slowDown</references>
         <references refid="canmodule__wrapper_8cpp_1a07e3b62fb780778da4ae23f01cc453ab" compoundref="canmodule__wrapper_8cpp" startline="47">_connection_v</references>
         <references refid="structCanMsgStruct_1a2e47a33e7bba46b05a8fff29433f047b" compoundref="CanMessage_8h" startline="29">CanMsgStruct::c_data</references>
@@ -1221,7 +1221,7 @@
 <para>reformat a linux can frame to a CanMessage (<ref refid="namespaceCanModule" kindref="compound">CanModule</ref> format with extra tits and tats). Kind of stupid, but for cleanliness let&apos;s have it.</para><para>struct can_frame - basic CAN frame structure : CAN ID of the frame and CAN_*_FLAG flags, see canid_t definition : frame payload length in byte (0 .. 8) aka data length code N.B. the DLC field from ISO 11898-1 Chapter 8.4.2.3 has a 1:1 mapping of the &apos;data length code&apos; to the real payload length : CAN frame payload (up to 8 byte)</para><para>struct can_frame { canid_t can_id; 32 bit CAN_ID + EFF/RTR/ERR flags <bold>u8 can_dlc; frame payload length in byte (0 .. CAN_MAX_DLEN) __u8 data[CAN_MAX_DLEN] __attribute</bold>((aligned(8))); } ;</para><para>Struct that defines a Can Message, used by CCanAccess</para><para>typedef struct <ref refid="structCanMsgStruct" kindref="compound">CanMsgStruct</ref> { //Identifier of the message long c_id; //Flags activated in the message unsigned char c_ff; //Length of the message unsigned char c_dlc; //Body of the message unsigned char c_data[8]; //Timestamp of the message struct timeval c_time; //Is the message a remote Transmission request? Must be true for remote request frames and false for data frames bool c_rtr; #ifdef __cplusplus public: <ref refid="structCanMsgStruct" kindref="compound">CanMsgStruct()</ref> : c_id(0), c_ff(0), c_dlc(0), c_rtr(false) { /// todo memset, and message length &gt; 8 for extended CAN for (int i=0; i&lt;8; i++) c_data[i] = 0; } #endif //Be careful when using this struct from C</para><para>} CanMessage; </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" line="482" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" bodystart="482" bodyend="490"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" line="482" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="482" bodyend="490"/>
         <references refid="structCanMsgStruct_1a2e47a33e7bba46b05a8fff29433f047b" compoundref="CanMessage_8h" startline="29">CanMsgStruct::c_data</references>
         <references refid="structCanMsgStruct_1a3e5add8ae9cdadfcf3f2255d375ec9b3" compoundref="CanMessage_8h" startline="27">CanMsgStruct::c_dlc</references>
         <references refid="structCanMsgStruct_1a619515aef041e64b78e7e8c33989ddd0" compoundref="CanMessage_8h" startline="23">CanMsgStruct::c_id</references>
@@ -1241,7 +1241,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" line="491" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" bodystart="491" bodyend="498"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" line="491" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="491" bodyend="498"/>
         <references refid="structCanMsgStruct_1a2e47a33e7bba46b05a8fff29433f047b" compoundref="CanMessage_8h" startline="29">CanMsgStruct::c_data</references>
         <references refid="structCanMsgStruct_1a3e5add8ae9cdadfcf3f2255d375ec9b3" compoundref="CanMessage_8h" startline="27">CanMsgStruct::c_dlc</references>
         <references refid="structCanMsgStruct_1a619515aef041e64b78e7e8c33989ddd0" compoundref="CanMessage_8h" startline="23">CanMsgStruct::c_id</references>
@@ -1261,7 +1261,7 @@
 <para>message reception. Wait until the buffer is refreshed, then copy the buffer and return it. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" line="505" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" bodystart="505" bodyend="544"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" line="505" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="505" bodyend="544"/>
         <references refid="canmodule__wrapper_8cpp_1a07e3b62fb780778da4ae23f01cc453ab" compoundref="canmodule__wrapper_8cpp" startline="47">_connection_v</references>
         <references refid="canmodule__wrapper_8cpp_1aab71aed77e37ee6cc2d675dec800c07a" compoundref="canmodule__wrapper_8cpp" startline="23">CONNECTION_INDEX_MAX</references>
         <references refid="canmodule__wrapper_8cpp_1a6f918d3da1aa14fc5c0a02d501fd46f2" compoundref="canmodule__wrapper_8cpp" startline="31">reception_cond0</references>
@@ -1312,7 +1312,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" line="546" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp" bodystart="546" bodyend="558"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" line="546" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="546" bodyend="558"/>
         <references refid="canmodule__wrapper_8cpp_1a07e3b62fb780778da4ae23f01cc453ab" compoundref="canmodule__wrapper_8cpp" startline="47">_connection_v</references>
         <references refid="canmodule__wrapper_8cpp_1aab71aed77e37ee6cc2d675dec800c07a" compoundref="canmodule__wrapper_8cpp" startline="23">CONNECTION_INDEX_MAX</references>
       </memberdef>
@@ -1730,6 +1730,6 @@
 <codeline lineno="560"><highlight class="normal"></highlight></codeline>
 <codeline lineno="561"><highlight class="normal"></highlight></codeline>
     </programlisting>
-    <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CWrapper/src/canmodule_wrapper.cpp"/>
+    <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp"/>
   </compounddef>
 </doxygen>

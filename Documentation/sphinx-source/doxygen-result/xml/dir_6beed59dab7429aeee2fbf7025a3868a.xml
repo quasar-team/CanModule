@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
-  <compounddef id="dir_edd3cf56fe1be6b28bfc30db82d2f824" kind="dir">
+  <compounddef id="dir_6beed59dab7429aeee2fbf7025a3868a" kind="dir">
     <compoundname>CanLibLoader/include</compoundname>
     <innerfile refid="CanLibLoader_8h">CanLibLoader.h</innerfile>
     <innerfile refid="CanLibLoaderLin_8h">CanLibLoaderLin.h</innerfile>
@@ -9,6 +9,6 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanLibLoader/include/"/>
+    <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanLibLoader/include/"/>
   </compounddef>
 </doxygen>

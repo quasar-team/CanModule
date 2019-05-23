@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
-  <compounddef id="dir_a5e8ed0a5b19df45b919f05353628450" kind="dir">
+  <compounddef id="dir_7e5c0f8910013ab15536692e30e7813a" kind="dir">
     <compoundname>CanInterface/include</compoundname>
     <innerfile refid="CanBusAccess_8h">CanBusAccess.h</innerfile>
     <innerfile refid="CanMessage_8h">CanMessage.h</innerfile>
@@ -12,6 +12,6 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterface/include/"/>
+    <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/"/>
   </compounddef>
 </doxygen>

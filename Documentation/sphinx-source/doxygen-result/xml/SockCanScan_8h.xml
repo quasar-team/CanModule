@@ -12,29 +12,23 @@
     <includes local="yes">libsocketcan.h</includes>
     <includedby refid="SockCanScan_8cpp" local="yes">CanInterfaceImplementations/sockcan/SockCanScan.cpp</includedby>
     <incdepgraph>
-      <node id="302">
-        <label>stdatomic.h</label>
-      </node>
-      <node id="305">
-        <label>LogIt.h</label>
-      </node>
-      <node id="299">
-        <label>boost/signals2.hpp</label>
-      </node>
-      <node id="301">
-        <label>CanStatistics.h</label>
-        <link refid="CanStatistics_8h"/>
-        <childnode refid="302" relation="include">
-        </childnode>
+      <node id="296">
+        <label>CCanAccess.h</label>
+        <link refid="CCanAccess_8h"/>
         <childnode refid="297" relation="include">
         </childnode>
-        <childnode refid="303" relation="include">
+        <childnode refid="298" relation="include">
         </childnode>
-        <childnode refid="304" relation="include">
+        <childnode refid="299" relation="include">
         </childnode>
-      </node>
-      <node id="295">
-        <label>string</label>
+        <childnode refid="295" relation="include">
+        </childnode>
+        <childnode refid="300" relation="include">
+        </childnode>
+        <childnode refid="301" relation="include">
+        </childnode>
+        <childnode refid="305" relation="include">
+        </childnode>
       </node>
       <node id="292">
         <label>CanInterfaceImplementations/sockcan/SockCanScan.h</label>
@@ -56,26 +50,32 @@
         <childnode refid="308" relation="include">
         </childnode>
       </node>
-      <node id="307">
-        <label>linux/can.h</label>
+      <node id="302">
+        <label>stdatomic.h</label>
       </node>
-      <node id="296">
-        <label>CCanAccess.h</label>
-        <link refid="CCanAccess_8h"/>
+      <node id="305">
+        <label>LogIt.h</label>
+      </node>
+      <node id="301">
+        <label>CanStatistics.h</label>
+        <link refid="CanStatistics_8h"/>
+        <childnode refid="302" relation="include">
+        </childnode>
         <childnode refid="297" relation="include">
         </childnode>
-        <childnode refid="298" relation="include">
+        <childnode refid="303" relation="include">
         </childnode>
-        <childnode refid="299" relation="include">
+        <childnode refid="304" relation="include">
         </childnode>
-        <childnode refid="295" relation="include">
-        </childnode>
-        <childnode refid="300" relation="include">
-        </childnode>
-        <childnode refid="301" relation="include">
-        </childnode>
-        <childnode refid="305" relation="include">
-        </childnode>
+      </node>
+      <node id="299">
+        <label>boost/signals2.hpp</label>
+      </node>
+      <node id="295">
+        <label>string</label>
+      </node>
+      <node id="307">
+        <label>linux/can.h</label>
       </node>
       <node id="300">
         <label>CanMessage.h</label>
@@ -92,6 +92,10 @@
       <node id="294">
         <label>unistd.h</label>
       </node>
+      <node id="303">
+        <label>ExportDefinition.h</label>
+        <link refid="ExportDefinition_8h"/>
+      </node>
       <node id="297">
         <label>sys/time.h</label>
       </node>
@@ -103,10 +107,6 @@
       </node>
       <node id="306">
         <label>sys/socket.h</label>
-      </node>
-      <node id="303">
-        <label>ExportDefinition.h</label>
-        <link refid="ExportDefinition_8h"/>
       </node>
     </incdepgraph>
     <invincdepgraph>
@@ -218,6 +218,6 @@
 <codeline lineno="126"><highlight class="normal"></highlight></codeline>
 <codeline lineno="127"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>SOCKCANSCAN_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/sockcan/SockCanScan.h"/>
+    <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h"/>
   </compounddef>
 </doxygen>

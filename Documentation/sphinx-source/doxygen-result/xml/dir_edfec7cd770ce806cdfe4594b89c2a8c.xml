@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
-  <compounddef id="dir_bed5fdb08aa0c3a2b7de74dd4b0321ab" kind="dir">
+  <compounddef id="dir_edfec7cd770ce806cdfe4594b89c2a8c" kind="dir">
     <compoundname>CanInterfaceImplementations/systec</compoundname>
     <innerfile refid="STCanScan_8cpp">STCanScan.cpp</innerfile>
     <innerfile refid="STCanScan_8h">STCanScan.h</innerfile>
@@ -8,6 +8,6 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/home/mludwig/projects/CanModule/CanModule-sphinx2/CanInterfaceImplementations/systec/"/>
+    <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/systec/"/>
   </compounddef>
 </doxygen>
