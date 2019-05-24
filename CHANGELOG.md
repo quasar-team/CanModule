@@ -4,6 +4,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ## todo
 - create a decent pdf from the sphinx doc, via latex tools.
+- protection against several createBus calls for systec/linux
 
 ## [1.1.2] 23.may.2019
 ### Added
