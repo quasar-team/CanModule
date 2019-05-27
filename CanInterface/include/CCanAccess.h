@@ -350,6 +350,11 @@ public:
 	inline vector<string> parseNameAndParameters(string name, string parameters){
 		LOG(Log::TRC, _lh) << __FUNCTION__ << " name= " << name << " parameters= " << parameters;
 
+		// strip off any leading "can" from the port number,a according to OPCUA-1362
+		std::size_t found1 = name.find("can");
+		std::size_t found2 = name.find("CAN");
+		if (( found1 != std::string::npos ) || ( found2 != std::string::npos )) name = name.erase(0, 3);
+
 		m_sBusName = name;
 		vector<string> stringVector;
 		istringstream nameSS(name);
