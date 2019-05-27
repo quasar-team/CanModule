@@ -30,6 +30,7 @@
 #else
 #include <sys/time.h>
 #endif
+#include <locale>         // std::locale, std::toupper
 #include "boost/bind.hpp"
 #include "boost/signals2.hpp"
 #include <string>
@@ -351,9 +352,13 @@ public:
 		LOG(Log::TRC, _lh) << __FUNCTION__ << " name= " << name << " parameters= " << parameters;
 
 		// strip off any leading "can" from the port number,a according to OPCUA-1362
+		string nu = std::toupper( name );
+
 		std::size_t found1 = name.find("can");
+		if ( found1 != std::string::npos ) name.erase( found1, 3);
+
 		std::size_t found2 = name.find("CAN");
-		if (( found1 != std::string::npos ) || ( found2 != std::string::npos )) name.erase(0, 3);
+		if ( found2 != std::string::npos ) name.erase( found2, 3);
 
 		m_sBusName = name;
 		vector<string> stringVector;
