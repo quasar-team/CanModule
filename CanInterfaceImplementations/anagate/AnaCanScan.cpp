@@ -489,6 +489,7 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 
 			int us = 10000000;
 			boost::this_thread::sleep(boost::posix_time::microseconds( us ));
+			anagateReconnectMutex.unlock();
 
 			return(1);
 		}
