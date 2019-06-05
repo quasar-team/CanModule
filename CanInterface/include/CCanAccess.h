@@ -350,12 +350,26 @@ public:
 	inline vector<string> parseNameAndParameters(string name, string parameters){
 		LOG(Log::TRC, _lh) << __FUNCTION__ << " name= " << name << " parameters= " << parameters;
 
+		bool isSocketCanLinux = false;
+		std::size_t s = name.find("sock");
+		if ( s != std::string::npos ){
+			isSocketCanLinux = true;
+		}
+
 		// strip off any leading chars from port number: ":canwhatever7:" becomes just ":7:"
 		std::size_t found0 = name.find_first_of (":", 0);
 		std::size_t found1 = name.find_first_of ( "0123456789", found0 );
 		if ( found1 != std::string::npos ) name.erase( found0 + 1, found1 - found0 - 1 );
 
-		m_sBusName = name;
+		// for socketcan, have to prefix "can" to port number
+		if ( isSocketCanLinux ){
+			found0 = name.find_first_of (":", 0);
+			m_sBusName = name.insert( found0 + 1, "can");
+		} else {
+			m_sBusName = name;
+		}
+
+		LOG(Log::TRC, _lh) << __FUNCTION__ << " m_sBusName= " << m_sBusName;
 		vector<string> stringVector;
 		istringstream nameSS(name);
 		string temporalString;
