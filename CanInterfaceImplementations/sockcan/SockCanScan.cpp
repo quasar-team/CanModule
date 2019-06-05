@@ -560,7 +560,6 @@ bool CSockCanScan::createBus(const string name, const string parameters)
 	CSockCanScan::st_logItHandleSock = myHandle;
 
 	m_CanScanThreadShutdownFlag = true;
-	MLOGSOCK(TRC,this) << " Creating bus with parameters [" << parameters << "]";
 	m_sock = configureCanBoard(name,parameters);
 	if (m_sock < 0) {
 		MLOGSOCK(ERR,this) << "Could not create bus [" << name << "] with parameters [" << parameters << "]";
