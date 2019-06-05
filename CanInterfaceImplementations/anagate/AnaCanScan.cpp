@@ -186,8 +186,8 @@ bool AnaCanScan::createBus(const string name,const string parameters)
 	//LOG(Log::TRC, myHandle) << __FUNCTION__ << " " __FILE__ << " " << __LINE__;
 	AnaCanScan::s_logItHandleAnagate = myHandle;
 
-	MLOGANA(DBG, this) << " parameters= " << parameters;
 	m_sBusName = name;
+	MLOGANA(DBG, this) << " parameters= " << parameters;
 	int returnCode = configureCanBoard(name, parameters);
 	if ( returnCode < 0 ) {
 		return false;
