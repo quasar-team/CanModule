@@ -16,6 +16,7 @@ CanModule reference documentation
    logging
    building
    running
+   connection
    support
 
 
