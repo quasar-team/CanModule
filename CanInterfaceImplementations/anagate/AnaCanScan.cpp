@@ -217,8 +217,8 @@ bool AnaCanScan::createBus(const string name,const string parameters)
 	//LOG(Log::TRC, myHandle) << __FUNCTION__ << " " __FILE__ << " " << __LINE__;
 	AnaCanScan::s_logItHandleAnagate = myHandle;
 
-	MLOGANA(DBG, this) << " parameters= " << parameters;
 	m_sBusName = name;
+	MLOGANA(DBG, this) << " parameters= " << parameters;
 	int returnCode = configureCanBoard(name, parameters);
 	if ( returnCode < 0 ) {
 		return false;
@@ -233,7 +233,7 @@ bool AnaCanScan::createBus(const string name,const string parameters)
  */
 int AnaCanScan::configureCanBoard(const string name,const string parameters)
 {
-	MLOGANA(DBG, this) << " parameters= " << parameters;
+	MLOGANA(DBG, this) << "(user supplied) parameters= " << parameters;
 	vector<string> stringVector;
 	stringVector = parseNameAndParameters(name, parameters);
 
@@ -248,12 +248,12 @@ int AnaCanScan::configureCanBoard(const string name,const string parameters)
 		return(-1);
 	} else {
 		for ( unsigned i = 0; i < stringVector.size(); i++ ){
-			MLOGANA(TRC, this) << " OK stringVector[" << i << "]= " << stringVector[ i ];
+			MLOGANA(TRC, this) << "(cleaned up) stringVector[" << i << "]= " << stringVector[ i ];
 		}
 		m_canPortNumber = atoi(stringVector[1].c_str());
 		m_canIPAddress = (char *) stringVector[2].c_str();
 	}
-	MLOGANA(TRC, this) << "decoded canPortNumber= " << m_canPortNumber << " ip= " << m_canIPAddress;
+	MLOGANA(TRC, this) << "(cleaned up) canPortNumber= " << m_canPortNumber << " ip= " << m_canIPAddress;
 
 	// handle up to 6 parameter, assume defaults if needed
 	long baudRate_default = 125000;

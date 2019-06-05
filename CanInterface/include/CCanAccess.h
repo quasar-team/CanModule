@@ -370,8 +370,6 @@ public:
 		}
 
 		LOG(Log::TRC, _lh) << __FUNCTION__ << " m_sBusName= " << m_sBusName;
-		std::cout << __FILE__ << " " << __LINE__ << " " << " " << __FUNCTION__
-				<< " m_sBusName= " << m_sBusName << std::endl;
 
 		vector<string> stringVector;
 		istringstream nameSS(name);
