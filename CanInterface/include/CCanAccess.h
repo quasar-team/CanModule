@@ -370,6 +370,7 @@ public:
 		}
 
 		LOG(Log::TRC, _lh) << __FUNCTION__ << " m_sBusName= " << m_sBusName;
+
 		vector<string> stringVector;
 		istringstream nameSS(name);
 		string temporalString;

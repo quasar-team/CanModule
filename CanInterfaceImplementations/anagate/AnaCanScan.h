@@ -54,6 +54,7 @@ typedef unsigned long DWORD;
  */
 using namespace CanModule;
 
+
 class AnaCanScan: public CanModule::CCanAccess
 {
 
@@ -102,6 +103,11 @@ private:
 	static bool isCanHandleInUse(int handle) { return s_isCanHandleInUseArray[ handle ]; }
 	static void setCanHandleOfPort(int port, AnaInt32 handle) { s_canHandleArray[ port ] = handle; }
 	static AnaInt32 getCanHandleFromPort(int n) { return s_canHandleArray[n]; }
+
+
+	static std::map<string, bool> reconnectInProgress_map; // could use 1-dim vector but map is faster
+	static void setIpReconnectInProgress( string ip, bool flag );
+	static bool isIpReconnectInProgress( string ip );
 
 	bool sendErrorCode(AnaInt32);
 	string ipAdress(){ return(m_canIPAddress );}
