@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 - create a decent pdf from the sphinx doc, via latex tools.
 - protection against several createBus calls for systec/linux
 
+## [1.1.5] 18.june.2019
+### Fixed
+- in 1.1.4, the anagate actually did not fully recover from a disconnect, the reception handler 
+  was missing. Inserted a CANSetGlobals call to get the mod up again. The duo comes up
+  relatively fast (20secs), and the X4/X8 take a bit longer to recuperate (60secs), but all
+  reception handlers are fine after a power loss.
+  
+  
+### 1.1.3, 1.1.4 are intermediate, some bugs, don't use  
+
 ## [1.1.2] 23.may.2019
 ### Added
 - PEAK works for USB / USB Pro briges for linux and windows, but NOT for PEAK-USB FD
