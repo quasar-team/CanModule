@@ -556,7 +556,7 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 						<< " anaRet= " << anaRet;
 			} else {
 				LOG(Log::TRC, AnaCanScan::s_logItHandleAnagate ) << __FUNCTION__ << " " __FILE__ << " " << __LINE__
-						<< " debug reconnect reception handler for ip= " << ip
+						<< " reconnect reception handler for ip= " << ip
 						<< " handle= " << it->second->handle()
 						<< " looking good= " << anaRet;
 			}
@@ -582,10 +582,8 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
  */
 AnaInt32 AnaCanScan::connectReceptionHandler(){
 	AnaInt32 anaCallReturn;
-	MLOGANA(WRN,this) << "debug CANSetGlobals= " << m_UcanHandle
-			<< " ip= " << m_canIPAddress
-			<< " this= 0x" << hex << (this) << dec;
 
+	// this is needed otherwise the bridge hangs in a bad state
 	anaCallReturn = CANSetGlobals(m_UcanHandle, m_CanParameters.m_lBaudRate, m_CanParameters.m_iOperationMode,
 			m_CanParameters.m_iTermination, m_CanParameters.m_iHighSpeed, m_CanParameters.m_iTimeStamp);
 	switch ( anaCallReturn ){
@@ -612,9 +610,9 @@ AnaInt32 AnaCanScan::connectReceptionHandler(){
 			<< " ip= " << m_canIPAddress;
 	anaCallReturn = CANSetCallbackEx(m_UcanHandle, InternalCallback);
 	if (anaCallReturn != 0) {
-		MLOGANA(ERR,this) << "Error debug in CANSetCallbackEx, return code = [" << anaCallReturn << "]"
+		MLOGANA(ERR,this) << "failed CANSetCallbackEx, return code = [" << anaCallReturn << "]"
 				<< " canModuleHandle= " << m_UcanHandle
-				<< " in a reconnect! Can't fix this. Restart program and buy better hardware please.";
+				<< " in a reconnect! Can't fix this, maybe hardware/firmware problem.";
 		// that is very schlecht, need a good idea (~check keepalive and sending fake messages)
 		// to detect and possibly recuperate from that. Does this case happen actually?
 	}
