@@ -547,6 +547,11 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 	std::map<AnaInt32, AnaCanScan*> lmap = g_AnaCanScanPointerMap; // use a local copy of the map, in order
 	// not to change the map we are iterating on
 
+	//before
+	LOG(Log::TRC, AnaCanScan::s_logItHandleAnagate) << __FUNCTION__ << " " __FILE__ << " " << __LINE__
+							<< " debug map before for ip= " << ip;
+	AnaCanScan::objectMapSize();
+
 	for (std::map<AnaInt32, AnaCanScan*>::iterator it=lmap.begin(); it!=lmap.end(); it++){
 		if ( ip == it->second->ipAdress() ){
 			anaRet = it->second->connectReceptionHandler();
@@ -570,6 +575,11 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 					<< " is done and OK.";
 		}
 	}
+	//after
+	LOG(Log::TRC, AnaCanScan::s_logItHandleAnagate) << __FUNCTION__ << " " __FILE__ << " " << __LINE__
+							<< " debug map after for ip= " << ip;
+	AnaCanScan::objectMapSize();
+
 	int us = 1000000;
 	boost::this_thread::sleep(boost::posix_time::microseconds( us ));
 	return( anaRet );
