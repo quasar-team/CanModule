@@ -582,6 +582,32 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
  */
 AnaInt32 AnaCanScan::connectReceptionHandler(){
 	AnaInt32 anaCallReturn;
+	MLOGANA(WRN,this) << "debug CANSetGlobals= " << m_UcanHandle
+			<< " ip= " << m_canIPAddress
+			<< " this= 0x" << hex << (this) << dec;
+
+	anaCallReturn = CANSetGlobals(m_UcanHandle, m_CanParameters.m_lBaudRate, m_CanParameters.m_iOperationMode,
+			m_CanParameters.m_iTermination, m_CanParameters.m_iHighSpeed, m_CanParameters.m_iTimeStamp);
+	switch ( anaCallReturn ){
+	case 0:{ break; }
+	case 0x30000: {
+		MLOGANA(ERR,this) << "Connection to TCP/IP partner can't be established or is disconnected. Lost TCP/IP: 0x" << hex << anaCallReturn << dec;
+		return -1;
+	}
+	case 0x40000: {
+		MLOGANA(ERR,this) << "No  answer  was  received  from	TCP/IP partner within the defined timeout. Lost TCP/IP: 0x" << hex << anaCallReturn << dec;
+		return -1;
+	}
+	case 0x900000: {
+		MLOGANA(ERR,this) << "Invalid device handle. Lost TCP/IP: 0x" << hex << anaCallReturn << dec;
+		return -1;
+	}
+	default : {
+		MLOGANA(ERR,this) << "Other Error in CANSetGlobals: 0x" << hex << anaCallReturn << dec;
+		return -1;
+	}
+	}
+
 	MLOGANA(WRN,this) << "connecting RECEIVE canModuleHandle= " << m_UcanHandle
 			<< " ip= " << m_canIPAddress;
 	anaCallReturn = CANSetCallbackEx(m_UcanHandle, InternalCallback);
