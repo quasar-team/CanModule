@@ -564,6 +564,8 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 			if ( anaRet != 0 ){
 				LOG(Log::ERR, AnaCanScan::s_logItHandleAnagate) << __FUNCTION__ << " " __FILE__ << " " << __LINE__
 						<< " failed to reconnect reception handler for ip= " << ip
+						<< " handle= " << it->second->handle()
+						<< " port= " << it->second->canPortNumber()
 						<< " anaRet= " << anaRet;
 			} else {
 				LOG(Log::TRC, AnaCanScan::s_logItHandleAnagate ) << __FUNCTION__ << " " __FILE__ << " " << __LINE__
