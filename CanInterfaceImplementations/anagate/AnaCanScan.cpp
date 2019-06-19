@@ -557,7 +557,7 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 	for (std::map<AnaInt32, AnaCanScan*>::iterator it=lmap.begin(); it!=lmap.end(); it++){
 		if ( ip == it->second->ipAdress() ){
 
-#if WIN32
+#if _WIN32
 			// don't reconnect handler for windows
 #else
 			anaRet = it->second->connectReceptionHandler();
