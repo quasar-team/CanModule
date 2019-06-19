@@ -365,6 +365,9 @@ int AnaCanScan::openCanPort()
 	// We associate in the global map the handle with the instance of the AnaCanScan object,
 	// so it can later be identified by the callback InternalCallback in a speedy way
 	m_UcanHandle = canModuleHandle;
+
+	MLOGANA(TRC,this) << "handles: ";
+	AnaCanScan::objectMapSize();
 	return 0;
 }
 
