@@ -457,7 +457,7 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 				<< " CAN port= " << it->second->canPortNumber()
 				<< " handle= " << it->second->handle()
 				<< " (used?= " << it->second->isCanHandleInUse(it->second->handle()) << ")"
-				<< " ptr= 0x" << hex << (unsigned long) this << dec;
+				<< " ptr= 0x" << hex << (unsigned long) (it->second) << dec;
 
 	}
 }
