@@ -558,6 +558,10 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 
 	for (std::map<AnaInt32, AnaCanScan*>::iterator it=lmap.begin(); it!=lmap.end(); it++){
 		if ( ip == it->second->ipAdress() ){
+
+#if WIN32
+			// don't reconnect handler for windows
+#else
 			anaRet = it->second->connectReceptionHandler();
 			if ( anaRet != 0 ){
 				LOG(Log::ERR, AnaCanScan::s_logItHandleAnagate) << __FUNCTION__ << " " __FILE__ << " " << __LINE__
@@ -569,10 +573,6 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 						<< " handle= " << it->second->handle()
 						<< " looking good= " << anaRet;
 			}
-
-#if WIN32
-			// handlers don't change for windows, keep them in the map
-#else
 			LOG(Log::TRC, AnaCanScan::s_logItHandleAnagate) << __FUNCTION__ << " " __FILE__ << " " << __LINE__
 					<< " erasing stale handler " << it->first << " from obj. map";
 			g_AnaCanScanPointerMap.erase( it->first );
