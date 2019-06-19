@@ -11,7 +11,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 - in 1.1.4, the anagate actually did not fully recover from a disconnect, the reception handler 
   was missing. Inserted a CANSetGlobals call to get the mod up again. The duo comes up
   relatively fast (20secs), and the X4/X8 take a bit longer to recuperate (60secs), but all
-  reception handlers are fine after a power loss.
+  reception handlers are fine after a power loss FOR CC7. For windows: not working...
   
   
 ### 1.1.3, 1.1.4 are intermediate, some bugs, don't use  
