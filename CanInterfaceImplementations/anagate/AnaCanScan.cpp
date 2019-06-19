@@ -549,17 +549,12 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 	std::map<AnaInt32, AnaCanScan*> lmap = g_AnaCanScanPointerMap; // use a local copy of the map, in order
 	// not to change the map we are iterating on
 
-	//before
 	LOG(Log::TRC, AnaCanScan::s_logItHandleAnagate) << __FUNCTION__ << " " __FILE__ << " " << __LINE__
-			<< " debug map before for ip= " << ip;
+			<< " receive handler map map before reconnect for ip= " << ip;
 	AnaCanScan::objectMapSize();
 
 	for (std::map<AnaInt32, AnaCanScan*>::iterator it=lmap.begin(); it!=lmap.end(); it++){
 		if ( ip == it->second->ipAdress() ){
-
-//#if _WIN32
-			// don't reconnect handler for windows
-//#else
 			anaRet = it->second->connectReceptionHandler();
 			if ( anaRet != 0 ){
 				LOG(Log::ERR, AnaCanScan::s_logItHandleAnagate) << __FUNCTION__ << " " __FILE__ << " " << __LINE__
@@ -574,8 +569,6 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 						<< " looking good= " << anaRet;
 			}
 
-//#endif
-//#if _WIN32
 			/**
 			 * delete the map elements where the key is different from the handle, since we reassigned handles
 			 * in the living objects like:
@@ -587,23 +580,16 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 						<< " for object handle= " << it->second->handle() << " from obj. map";
 				g_AnaCanScanPointerMap.erase( it->first );
 			}
-//#else
-//			LOG(Log::TRC, AnaCanScan::s_logItHandleAnagate) << __FUNCTION__ << " " __FILE__ << " " << __LINE__
-//					<< " erasing stale handler " << it->first
-//					<< " for object handle= " << it->second->handle() << " from obj. map";
-//			g_AnaCanScanPointerMap.erase( it->first );
-//#endif
-
 			AnaCanScan::setIpReconnectInProgress( ip, false ); // all done, may fail another time
 			LOG(Log::TRC, AnaCanScan::s_logItHandleAnagate ) << "reconnecting all ports for ip= " << ip
 					<< " is done and OK.";
 		}
 	}
-	//after
 	LOG(Log::TRC, AnaCanScan::s_logItHandleAnagate) << __FUNCTION__ << " " __FILE__ << " " << __LINE__
-			<< " debug map after for ip= " << ip;
+			<< " receive handler map after reconnect for ip= " << ip;
 	AnaCanScan::objectMapSize();
 
+	// be easy on the switch, can maybe suppress this later
 	int us = 100000;
 	boost::this_thread::sleep(boost::posix_time::microseconds( us ));
 	return( anaRet );
