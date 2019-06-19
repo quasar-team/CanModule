@@ -576,9 +576,18 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 
 //#endif
 #if _WIN32
+			/**
+			 * delete the map elements where the key is different from the handle, since we reassigned handles
+			 * in the living objects like:
+			 * 	g_AnaCanScanPointerMap[ m_UcanHandle ] = this;
+			 */
+			if ( it->first != it->second->handle()){
+				g_AnaCanScanPointerMap.erase( it->first );
+			}
 #else
 			LOG(Log::TRC, AnaCanScan::s_logItHandleAnagate) << __FUNCTION__ << " " __FILE__ << " " << __LINE__
-					<< " erasing stale handler " << it->first << " from obj. map";
+					<< " erasing stale handler " << it->first
+					<< " for object handle= " << it->second->handle() << " from obj. map";
 			g_AnaCanScanPointerMap.erase( it->first );
 #endif
 
