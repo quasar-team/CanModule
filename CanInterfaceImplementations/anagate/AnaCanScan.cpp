@@ -573,10 +573,14 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 						<< " handle= " << it->second->handle()
 						<< " looking good= " << anaRet;
 			}
+
+//#endif
+#if _WIN32
+#else
 			LOG(Log::TRC, AnaCanScan::s_logItHandleAnagate) << __FUNCTION__ << " " __FILE__ << " " << __LINE__
 					<< " erasing stale handler " << it->first << " from obj. map";
 			g_AnaCanScanPointerMap.erase( it->first );
-//#endif
+#endif
 
 			AnaCanScan::setIpReconnectInProgress( ip, false ); // all done, may fail another time
 			LOG(Log::TRC, AnaCanScan::s_logItHandleAnagate ) << "reconnecting all ports for ip= " << ip
