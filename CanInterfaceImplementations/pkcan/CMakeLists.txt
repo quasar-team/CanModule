@@ -1,4 +1,4 @@
-# © Copyright CERN, Geneva, Switzerland, 2016.  All rights not expressly granted are reserved.
+# ï¿½ Copyright CERN, Geneva, Switzerland, 2016.  All rights not expressly granted are reserved.
 #
 #   Created on: Wed Aug 30 10:15:57 CEST 2017
 # 
@@ -25,23 +25,33 @@ project(pkcan)
 SET( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/CanInterfaceImplementations/output/)
 
 # check if toolchain injection was correct for peak
-if( NOT DEFINED PEAK_PATH_LIBS ) 
-	message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Required variable PEAK_LIB_FILE has not been defined, take default." )
-	message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Required variable PEAK_INC_DIR has not been defined, take default." )
-	message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Required variable PEAK_PATH_LIBS has not been defined, take default." )
-	if(WIN32)  
-			SET( PEAK_INC_DIR "C:/3rdPartySoftware/PeakCAN/pcan-basic/PCAN-Basic API/Include")
-			SET( PEAK_PATH_LIBS "C:/3rdPartySoftware/PeakCAN/pcan-basic/PCAN-Basic API/x64/VC_LIB")
-			SET( PEAK_LIB_FILE "PCANBasic.lib")
-	else()
-		message(ERROR "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: this directory is only needed for PEAK/windows, it must be skipped for Linux]")
-	endif() 
-ENDIF()
+# for windows we should use the default peak installer and location
+# for linux we need libsocketcan
+if( (NOT DEFINED PEAK_LIB_PATH) OR (NOT DEFINED PEAK_HEADERS) OR (NOT DEFINED PEAK_LIB_FILE)  )
+	message(WARNING "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Required variable PEAK_HEADERS has not been defined." )
+	message(WARNING "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Required variable PEAK_LIB_PATH has not been defined." )
+	message(WARNING "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Required variable PEAK_LIB_FILE has not been defined." )
+	message(WARNING "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: assuming default locations and libs for peak and windows" )
+	if(WIN32)
+		SET(PEAK_HEADERS "C:/3rdPartySoftware/PeakCAN/pcan-basic/PCAN-Basic API/Include")
+		SET(PEAK_LIB_PATH "C:/3rdPartySoftware/PeakCAN/pcan-basic/PCAN-Basic API/x64/VC_LIB")
+		SET(PEAK_LIB_FILE "PCANBasic.lib")
+		# for 32 bit 
+		# SET(PEAK_LIB_PATH "C:/3rdPartySoftware/PeakCAN/pcan-basic/PCAN-Basic API/x32/VC_LIB")
 
-message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: PEAK_INC_DIR= ${PEAK_INC_DIR}]")
-message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: PEAK_PATH_LIBS= ${PEAK_PATH_LIBS}]")
-message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: PEAK_LIB_FILE= ${PEAK_LIB_FILE}]")
- 
+		message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: windows PEAK_LIB_PATH= ${PEAK_LIB_PATH}]")
+ 		message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: windows PEAK_HEADERS=  ${PEAK_HEADERS}]")
+ 		message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: windows PEAK_LIB_FILE= ${PEAK_LIB_FILE}]")
+	else()
+	    # since we use socketcan for linux for systec, we are in the wrong directory
+		message( FATAL_ERROR "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: linux uses socketcan (directory sockcan) for peak, you are building the wrong directory." )
+	endif()
+else()
+  message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: toolchain PEAK_LIB_PATH= ${PEAK_LIB_PATH}" )
+  message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: toolchain PEAK_HEADERS=  ${PEAK_HEADERS}" )
+  message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: toolchain PEAK_LIB_FILE= ${PEAK_LIB_FILE}" )
+endif() 
+
 set(PEAKCAN_SOURCES
 	pkcan.cpp
 	pkcan.h

@@ -27,7 +27,6 @@ SET( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/CanInterfaceImplementati
 # check if toolchain injection was correct for systec
 # for windows we should use the default systec installer and location
 # for linux we need libsocketcan
-
 if( (NOT DEFINED SYSTEC_LIB_PATH) OR (NOT DEFINED SYSTEC_HEADERS) OR (NOT DEFINED SYSTEC_LIB_FILE)  )
 	message(WARNING "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Required variable SYSTEC_HEADERS has not been defined." )
 	message(WARNING "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Required variable SYSTEC_LIB_PATH has not been defined." )
