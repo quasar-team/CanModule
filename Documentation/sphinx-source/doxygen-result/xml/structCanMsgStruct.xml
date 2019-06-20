@@ -21,11 +21,11 @@
         <referencedby refid="canmodule__wrapper_8cpp_1a3f5b9ce8e79c0746a9c78b5d333e6f59" compoundref="canmodule__wrapper_8cpp" startline="413" endline="430">canmodule_send</referencedby>
         <referencedby refid="classPKCanScan_1a45bd5feda5ccb009775c45bfabe41614" compoundref="pkcan_8cpp" startline="68" endline="110">PKCanScan::CanScanControlThread</referencedby>
         <referencedby refid="classSTCanScan_1aab42375da764eb0d50dee318cd790646" compoundref="STCanScan_8cpp" startline="77" endline="109">STCanScan::CanScanControlThread</referencedby>
-        <referencedby refid="classCSockCanScan_1a9ac2e2d3f63449865e22c69a60faf53d" compoundref="SockCanScan_8cpp" startline="96" endline="298">CSockCanScan::CanScanControlThread</referencedby>
-        <referencedby refid="AnaCanScan_8cpp_1ad5698349874e3653b879b5de27311594" compoundref="AnaCanScan_8cpp" startline="108" endline="124">InternalCallback</referencedby>
+        <referencedby refid="classCSockCanScan_1a9ac2e2d3f63449865e22c69a60faf53d" compoundref="SockCanScan_8cpp" startline="96" endline="304">CSockCanScan::CanScanControlThread</referencedby>
+        <referencedby refid="AnaCanScan_8cpp_1ad5698349874e3653b879b5de27311594" compoundref="AnaCanScan_8cpp" startline="135" endline="156">InternalCallback</referencedby>
         <referencedby refid="canmodule__wrapper_8cpp_1a6d635e7497e25d5788dcbf03125b0909" compoundref="canmodule__wrapper_8cpp" startline="134" endline="146">myUserHandler0</referencedby>
         <referencedby refid="classMockCanAccess_1a95856b7b3ac143d7c5bd7bd807c06fd5" compoundref="MockCanAccess_8cpp" startline="54" endline="68">MockCanAccess::sendMessage</referencedby>
-        <referencedby refid="classAnaCanScan_1a75c1a41d3e8ed31b39e2813596358472" compoundref="AnaCanScan_8cpp" startline="654" endline="657">AnaCanScan::sendMessage</referencedby>
+        <referencedby refid="classAnaCanScan_1a75c1a41d3e8ed31b39e2813596358472" compoundref="AnaCanScan_8cpp" startline="769" endline="772">AnaCanScan::sendMessage</referencedby>
         <referencedby refid="classCanModule_1_1CCanAccess_1ad0360c49d00ec0ee92cfdd73c2e43935" compoundref="CCanAccess_8h" startline="162" endline="165">CanModule::CCanAccess::sendMessage</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structCanMsgStruct_1acf3abc93beb936e5f9431ef6ec4568f3" prot="public" static="no" mutable="no">
@@ -42,7 +42,7 @@
         <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanMessage.h" line="25" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanMessage.h" bodystart="25" bodyend="-1"/>
         <referencedby refid="classPKCanScan_1a45bd5feda5ccb009775c45bfabe41614" compoundref="pkcan_8cpp" startline="68" endline="110">PKCanScan::CanScanControlThread</referencedby>
         <referencedby refid="classSTCanScan_1aab42375da764eb0d50dee318cd790646" compoundref="STCanScan_8cpp" startline="77" endline="109">STCanScan::CanScanControlThread</referencedby>
-        <referencedby refid="AnaCanScan_8cpp_1ad5698349874e3653b879b5de27311594" compoundref="AnaCanScan_8cpp" startline="108" endline="124">InternalCallback</referencedby>
+        <referencedby refid="AnaCanScan_8cpp_1ad5698349874e3653b879b5de27311594" compoundref="AnaCanScan_8cpp" startline="135" endline="156">InternalCallback</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structCanMsgStruct_1a3e5add8ae9cdadfcf3f2255d375ec9b3" prot="public" static="no" mutable="no">
         <type>unsigned char</type>
@@ -60,10 +60,10 @@
         <referencedby refid="canmodule__wrapper_8cpp_1a23b4a20be56e8585c6a1f78b943455f3" compoundref="canmodule__wrapper_8cpp" startline="491" endline="498">canmodule_reformat2LinuxFrame</referencedby>
         <referencedby refid="classPKCanScan_1a45bd5feda5ccb009775c45bfabe41614" compoundref="pkcan_8cpp" startline="68" endline="110">PKCanScan::CanScanControlThread</referencedby>
         <referencedby refid="classSTCanScan_1aab42375da764eb0d50dee318cd790646" compoundref="STCanScan_8cpp" startline="77" endline="109">STCanScan::CanScanControlThread</referencedby>
-        <referencedby refid="classCSockCanScan_1a9ac2e2d3f63449865e22c69a60faf53d" compoundref="SockCanScan_8cpp" startline="96" endline="298">CSockCanScan::CanScanControlThread</referencedby>
-        <referencedby refid="AnaCanScan_8cpp_1ad5698349874e3653b879b5de27311594" compoundref="AnaCanScan_8cpp" startline="108" endline="124">InternalCallback</referencedby>
+        <referencedby refid="classCSockCanScan_1a9ac2e2d3f63449865e22c69a60faf53d" compoundref="SockCanScan_8cpp" startline="96" endline="304">CSockCanScan::CanScanControlThread</referencedby>
+        <referencedby refid="AnaCanScan_8cpp_1ad5698349874e3653b879b5de27311594" compoundref="AnaCanScan_8cpp" startline="135" endline="156">InternalCallback</referencedby>
         <referencedby refid="classMockCanAccess_1a95856b7b3ac143d7c5bd7bd807c06fd5" compoundref="MockCanAccess_8cpp" startline="54" endline="68">MockCanAccess::sendMessage</referencedby>
-        <referencedby refid="classAnaCanScan_1a75c1a41d3e8ed31b39e2813596358472" compoundref="AnaCanScan_8cpp" startline="654" endline="657">AnaCanScan::sendMessage</referencedby>
+        <referencedby refid="classAnaCanScan_1a75c1a41d3e8ed31b39e2813596358472" compoundref="AnaCanScan_8cpp" startline="769" endline="772">AnaCanScan::sendMessage</referencedby>
         <referencedby refid="classCanModule_1_1CCanAccess_1ad0360c49d00ec0ee92cfdd73c2e43935" compoundref="CCanAccess_8h" startline="162" endline="165">CanModule::CCanAccess::sendMessage</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structCanMsgStruct_1a2e47a33e7bba46b05a8fff29433f047b" prot="public" static="no" mutable="no">
@@ -83,11 +83,11 @@
         <referencedby refid="canmodule__wrapper_8cpp_1a3f5b9ce8e79c0746a9c78b5d333e6f59" compoundref="canmodule__wrapper_8cpp" startline="413" endline="430">canmodule_send</referencedby>
         <referencedby refid="classPKCanScan_1a45bd5feda5ccb009775c45bfabe41614" compoundref="pkcan_8cpp" startline="68" endline="110">PKCanScan::CanScanControlThread</referencedby>
         <referencedby refid="classSTCanScan_1aab42375da764eb0d50dee318cd790646" compoundref="STCanScan_8cpp" startline="77" endline="109">STCanScan::CanScanControlThread</referencedby>
-        <referencedby refid="classCSockCanScan_1a9ac2e2d3f63449865e22c69a60faf53d" compoundref="SockCanScan_8cpp" startline="96" endline="298">CSockCanScan::CanScanControlThread</referencedby>
-        <referencedby refid="AnaCanScan_8cpp_1ad5698349874e3653b879b5de27311594" compoundref="AnaCanScan_8cpp" startline="108" endline="124">InternalCallback</referencedby>
+        <referencedby refid="classCSockCanScan_1a9ac2e2d3f63449865e22c69a60faf53d" compoundref="SockCanScan_8cpp" startline="96" endline="304">CSockCanScan::CanScanControlThread</referencedby>
+        <referencedby refid="AnaCanScan_8cpp_1ad5698349874e3653b879b5de27311594" compoundref="AnaCanScan_8cpp" startline="135" endline="156">InternalCallback</referencedby>
         <referencedby refid="canmodule__wrapper_8cpp_1a6d635e7497e25d5788dcbf03125b0909" compoundref="canmodule__wrapper_8cpp" startline="134" endline="146">myUserHandler0</referencedby>
         <referencedby refid="classMockCanAccess_1a95856b7b3ac143d7c5bd7bd807c06fd5" compoundref="MockCanAccess_8cpp" startline="54" endline="68">MockCanAccess::sendMessage</referencedby>
-        <referencedby refid="classAnaCanScan_1a75c1a41d3e8ed31b39e2813596358472" compoundref="AnaCanScan_8cpp" startline="654" endline="657">AnaCanScan::sendMessage</referencedby>
+        <referencedby refid="classAnaCanScan_1a75c1a41d3e8ed31b39e2813596358472" compoundref="AnaCanScan_8cpp" startline="769" endline="772">AnaCanScan::sendMessage</referencedby>
         <referencedby refid="classCanModule_1_1CCanAccess_1ad0360c49d00ec0ee92cfdd73c2e43935" compoundref="CCanAccess_8h" startline="162" endline="165">CanModule::CCanAccess::sendMessage</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structCanMsgStruct_1a06b9b3e9423f35edfb96df7b04828bba" prot="public" static="no" mutable="no">
@@ -104,8 +104,8 @@
         <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanMessage.h" line="29" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanMessage.h" bodystart="31" bodyend="-1"/>
         <referencedby refid="classPKCanScan_1a45bd5feda5ccb009775c45bfabe41614" compoundref="pkcan_8cpp" startline="68" endline="110">PKCanScan::CanScanControlThread</referencedby>
         <referencedby refid="classSTCanScan_1aab42375da764eb0d50dee318cd790646" compoundref="STCanScan_8cpp" startline="77" endline="109">STCanScan::CanScanControlThread</referencedby>
-        <referencedby refid="classCSockCanScan_1a9ac2e2d3f63449865e22c69a60faf53d" compoundref="SockCanScan_8cpp" startline="96" endline="298">CSockCanScan::CanScanControlThread</referencedby>
-        <referencedby refid="AnaCanScan_8cpp_1ad5698349874e3653b879b5de27311594" compoundref="AnaCanScan_8cpp" startline="108" endline="124">InternalCallback</referencedby>
+        <referencedby refid="classCSockCanScan_1a9ac2e2d3f63449865e22c69a60faf53d" compoundref="SockCanScan_8cpp" startline="96" endline="304">CSockCanScan::CanScanControlThread</referencedby>
+        <referencedby refid="AnaCanScan_8cpp_1ad5698349874e3653b879b5de27311594" compoundref="AnaCanScan_8cpp" startline="135" endline="156">InternalCallback</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structCanMsgStruct_1ad4a78c27262604bacb5720d8633f71c6" prot="public" static="no" mutable="no">
         <type>bool</type>
@@ -119,8 +119,8 @@
         <inbodydescription>
         </inbodydescription>
         <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanMessage.h" line="33" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanMessage.h" bodystart="33" bodyend="-1"/>
-        <referencedby refid="classCSockCanScan_1a9ac2e2d3f63449865e22c69a60faf53d" compoundref="SockCanScan_8cpp" startline="96" endline="298">CSockCanScan::CanScanControlThread</referencedby>
-        <referencedby refid="classAnaCanScan_1a75c1a41d3e8ed31b39e2813596358472" compoundref="AnaCanScan_8cpp" startline="654" endline="657">AnaCanScan::sendMessage</referencedby>
+        <referencedby refid="classCSockCanScan_1a9ac2e2d3f63449865e22c69a60faf53d" compoundref="SockCanScan_8cpp" startline="96" endline="304">CSockCanScan::CanScanControlThread</referencedby>
+        <referencedby refid="classAnaCanScan_1a75c1a41d3e8ed31b39e2813596358472" compoundref="AnaCanScan_8cpp" startline="769" endline="772">AnaCanScan::sendMessage</referencedby>
         <referencedby refid="classCanModule_1_1CCanAccess_1ad0360c49d00ec0ee92cfdd73c2e43935" compoundref="CCanAccess_8h" startline="162" endline="165">CanModule::CCanAccess::sendMessage</referencedby>
       </memberdef>
       </sectiondef>

@@ -60,8 +60,8 @@
 
 
 \title{CanModule Developer Documentation}
-\date{May 23, 2019}
-\release{1.1.1}
+\date{June 20, 2019}
+\release{1.1.4}
 \author{Michael Ludwig}
 \newcommand{\sphinxlogo}{\vbox{}}
 \renewcommand{\releasename}{Release}
@@ -117,6 +117,26 @@ and windows 2008r2 (server) LEGACY
 \end{itemize}
 
 are available at \sphinxhref{https://repository.cern.ch/nexus/content/repositories/cern-can/}{NexusCan} from inside CERN.
+
+
+\chapter{Quickstart}
+\label{\detokenize{quickstart:quickstart}}\label{\detokenize{quickstart::doc}}
+This is how to quick start CANX (if you know already what this is):
+\begin{itemize}
+\item {} 
+download CANX and needed libs from \sphinxhref{https://repository.cern.ch/nexus/content/repositories/cern-can/}{nexus\_can} for your target platform
+
+\item {} 
+create a configuration file for CANX “to “play”. Download some examples from \sphinxhref{https://ics-fd-cpp-master.web.cern.ch/view/CAN/job/CANX-multi.cc7/lastSuccessfulBuild/artifact/}{jenkins\_can}
+(Expand All-\textgreater{}View-\textgreater{}Config-\textgreater{}*.xml)
+
+\item {} 
+run it (on your target platform): CANX-tester -T -cfg ./myconfig.xml
+enjoy the output
+
+\end{itemize}
+\begin{quote}
+\end{quote}
 
 
 \chapter{Objective}
@@ -1049,6 +1069,53 @@ linux: libsockcan.so (standard API), driver kernel module pcan.ko and dependent 
 windows: libpkcan.dll (standard API), PKCANBASIC.dll
 
 \end{itemize}
+
+
+\chapter{Connection}
+\label{\detokenize{connection:connection}}\label{\detokenize{connection::doc}}
+CanModule tries to recuperate lost connections automatically, but presently there is no method
+to interrogate CanModule on the status of it’s connected modules. This might be added later, though.
+
+
+\section{anagate}
+\label{\detokenize{connection:anagate}}
+The anagate modules are easily and uniquely identified by their IP address, also several modules
+per CanModule instance are straightforward. An anagate bridge can be disconnected in 3 ways:
+\begin{itemize}
+\item {} 
+power loss - power back
+
+\item {} 
+network interruption
+
+\item {} 
+firmware reset by software through the API
+
+\end{itemize}
+
+the firmware reset is NOT implemented in the CanModule, but a module can be remotely accessed and
+firmware reset using the vendor API, through code like:
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{n}{AnaInt32} \PYG{n}{timeout} \PYG{o}{=} \PYG{l+m+mi}{10000}\PYG{p}{;} \PYG{c+c1}{// 10secs}
+\PYG{n}{AnaInt32} \PYG{n}{anaRet} \PYG{o}{=} \PYG{n}{CANRestart}\PYG{p}{(} \PYG{l+s}{\PYGZdq{}}\PYG{l+s}{192.168.1.10}\PYG{l+s}{\PYGZdq{}}\PYG{p}{,} \PYG{n}{timeout} \PYG{p}{)}\PYG{p}{;}
+\end{sphinxVerbatim}
+
+In all 3 cases CanModule detects a failure to send a message on a port, and tries to reconnect
+all ports of that module. Sending messages are buffered for \textasciitilde{}20secs, and the reconnection
+takes at least \textasciitilde{}20sec, so it takes \textasciitilde{}1 minute to reestablish communication. All received CAN frames
+are lost, and not all sent frames are guaranteed, therefore some care has to be taken when the
+connection is reestablished concerning the statuses of CAN slaves. CanModule reports reconnections
+as warnings, but there is no systematic CanModule-API yet to handle reconnections
+systematically (is it needed?).
+
+The anagate duo reconnects somewhat faster than the X4/X8 modules, because of firmware differences.
+The whole reconnection can take up to 60 secs until all buffers are cleared, so please be patient.
+
+
+\section{peak and systec}
+\label{\detokenize{connection:peak-and-systec}}
+The reconnection behavior is still under investigation and testing.
 
 
 \chapter{Support}

@@ -259,7 +259,7 @@
         <references refid="classPKCanScan_1a8f07d0272238592477299480f48ae193" compoundref="pkcan_8h" startline="80">m_canObjHandler</references>
         <references refid="classPKCanScan_1a169a32c5961996acbd55aa5c12118de0" compoundref="pkcan_8h" startline="83">m_hCanScanThread</references>
         <references refid="classPKCanScan_1a5ba2a765e250376fde32db88272339d6" compoundref="pkcan_8h" startline="87">m_idCanScanThread</references>
-        <references refid="classCanModule_1_1CCanAccess_1a0eff18d10b7ee5d6f86b03898f38f7ca" compoundref="CCanAccess_8h" startline="367">CanModule::CCanAccess::m_sBusName</references>
+        <references refid="classCanModule_1_1CCanAccess_1a0eff18d10b7ee5d6f86b03898f38f7ca" compoundref="CCanAccess_8h" startline="387">CanModule::CCanAccess::m_sBusName</references>
         <references refid="pkcan_8cpp_1a73247195a8f4adaf8cc04e0ac302e045" compoundref="pkcan_8cpp" startline="36">MLOGPK</references>
         <references refid="classPKCanScan_1ad3d2cb2aba9654055c73ae2751cbf1de" compoundref="pkcan_8h" startline="62">s_logItHandlePk</references>
       </memberdef>
@@ -432,12 +432,12 @@
         <references refid="classPKCanScan_1a53471be1a2b2b34afc091e90bfcd29fb" compoundref="pkcan_8cpp" startline="357" endline="411">getHandle</references>
         <references refid="classPKCanScan_1a84e9c4874e065b79d5600c0a5f9f7877" compoundref="pkcan_8h" startline="77">m_baudRate</references>
         <references refid="classPKCanScan_1a8f07d0272238592477299480f48ae193" compoundref="pkcan_8h" startline="80">m_canObjHandler</references>
-        <references refid="classCanModule_1_1CCanAccess_1a484a4f9dc352fe31b4baff0365095705" compoundref="CCanAccess_8h" startline="368">CanModule::CCanAccess::m_CanParameters</references>
+        <references refid="classCanModule_1_1CCanAccess_1a484a4f9dc352fe31b4baff0365095705" compoundref="CCanAccess_8h" startline="388">CanModule::CCanAccess::m_CanParameters</references>
         <references refid="structCanModule_1_1CanParameters_1ac4e03899b26e33a3867ee1f0bce674b5" compoundref="CCanAccess_8h" startline="76">CanModule::CanParameters::m_iNumberOfDetectedParameters</references>
         <references refid="structCanModule_1_1CanParameters_1a53ce17e16c2a818ffbc05904d9e56e11" compoundref="CCanAccess_8h" startline="70">CanModule::CanParameters::m_lBaudRate</references>
-        <references refid="classCanModule_1_1CCanAccess_1a0eff18d10b7ee5d6f86b03898f38f7ca" compoundref="CCanAccess_8h" startline="367">CanModule::CCanAccess::m_sBusName</references>
+        <references refid="classCanModule_1_1CCanAccess_1a0eff18d10b7ee5d6f86b03898f38f7ca" compoundref="CCanAccess_8h" startline="387">CanModule::CCanAccess::m_sBusName</references>
         <references refid="pkcan_8cpp_1a73247195a8f4adaf8cc04e0ac302e045" compoundref="pkcan_8cpp" startline="36">MLOGPK</references>
-        <references refid="classCanModule_1_1CCanAccess_1af26c9d102638fb96e5e1305f807d148f" compoundref="CCanAccess_8h" startline="350" endline="364">CanModule::CCanAccess::parseNameAndParameters</references>
+        <references refid="classCanModule_1_1CCanAccess_1af26c9d102638fb96e5e1305f807d148f" compoundref="CCanAccess_8h" startline="350" endline="384">CanModule::CCanAccess::parseNameAndParameters</references>
         <referencedby refid="classPKCanScan_1ae91999b9316ca127eecbabd9f27c3137" compoundref="pkcan_8cpp" startline="130" endline="164">createBus</referencedby>
       </memberdef>
       </sectiondef>

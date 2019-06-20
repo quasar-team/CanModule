@@ -30,7 +30,8 @@ are lost, and not all sent frames are guaranteed, therefore some care has to be 
 connection is reestablished concerning the statuses of CAN slaves. CanModule reports reconnections
 as warnings, but there is no systematic CanModule-API yet to handle reconnections 
 systematically (is it needed?). 
-	The anagate duo reconnects somewhat faster than the X4/X8 modules, because of firmware differences.
+
+The anagate duo reconnects somewhat faster than the X4/X8 modules, because of firmware differences.
 The whole reconnection can take up to 60 secs until all buffers are cleared, so please be patient.     
 
 peak and systec

@@ -7,6 +7,7 @@ CanModule reference documentation
    :maxdepth: 3
 
    downloading
+   quickstart
    objective
    standardApi
    cwrapper

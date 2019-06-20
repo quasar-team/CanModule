@@ -15,6 +15,7 @@
     <member refid="classAnaCanScan_1a1fdd323773204ab7cab0badaba2d4120" kind="variable"><name>s_logItRegisteredAnagate</name></member>
     <member refid="classAnaCanScan_1aecbde195deb737a879029b2e56f634a8" kind="variable"><name>s_canHandleArray</name></member>
     <member refid="classAnaCanScan_1ae6bbb022098dd31116eeb9b329b2f5a7" kind="variable"><name>s_isCanHandleInUseArray</name></member>
+    <member refid="classAnaCanScan_1a7b3c7b62cd2bbdbf90a48d1eac115eaf" kind="variable"><name>reconnectInProgress_map</name></member>
     <member refid="classAnaCanScan_1af6c27ae08034c5da64a54de29e2e875e" kind="function"><name>AnaCanScan</name></member>
     <member refid="classAnaCanScan_1af05ec5dfd6ac56764c6db8e721648b75" kind="function"><name>AnaCanScan</name></member>
     <member refid="classAnaCanScan_1acf15b51af8c83b38115f83b343eaf2d6" kind="function"><name>operator=</name></member>
@@ -34,6 +35,8 @@
     <member refid="classAnaCanScan_1a922e39b73da106c6dcbe2f474af6c8e5" kind="function"><name>isCanHandleInUse</name></member>
     <member refid="classAnaCanScan_1a054a3e84d845ff82d1b9af1b8f855e29" kind="function"><name>setCanHandleOfPort</name></member>
     <member refid="classAnaCanScan_1af7a24d07fe3cb8bbf7db9a416f8efd65" kind="function"><name>getCanHandleFromPort</name></member>
+    <member refid="classAnaCanScan_1a04a0124990e52b55b8c1046709ccb2d9" kind="function"><name>setIpReconnectInProgress</name></member>
+    <member refid="classAnaCanScan_1afeaf22bfd209035e9ad9ac3111c6ba65" kind="function"><name>isIpReconnectInProgress</name></member>
     <member refid="classAnaCanScan_1aaa001b34e6ee0a27295239f951b7b879" kind="function"><name>sendErrorCode</name></member>
     <member refid="classAnaCanScan_1a23bc4d0b7c2fbb29cc6ec513d060d56e" kind="function"><name>ipAdress</name></member>
     <member refid="classAnaCanScan_1aa7198f11bf94e97b26855fecdbcc85ed" kind="function"><name>canPortNumber</name></member>
@@ -343,6 +346,7 @@
     <member refid="AnaCanScan_8cpp_1a07e042970e18b919d409eb09524d625c" kind="define"><name>DLLEXPORTFLAG</name></member>
     <member refid="AnaCanScan_8cpp_1a9aa60e1ead64be77ad551e745cbfd4d3" kind="define"><name>WINAPI</name></member>
     <member refid="AnaCanScan_8cpp_1ac34d62b5ffd4e8e1c3ece118f3f58485" kind="define"><name>MLOGANA</name></member>
+    <member refid="AnaCanScan_8cpp_1a123d03be0edb10af2357fadbbcc7d1e0" kind="variable"><name>anagateReconnectMutex</name></member>
     <member refid="AnaCanScan_8cpp_1a353343698532fde42f4eeba0de3e97cb" kind="variable"><name>g_AnaCanScanPointerMap</name></member>
     <member refid="AnaCanScan_8cpp_1ae930092b65c48c86b99b5da2178b4692" kind="function"><name>getCanBusAccess</name></member>
     <member refid="AnaCanScan_8cpp_1ad5698349874e3653b879b5de27311594" kind="function"><name>InternalCallback</name></member>

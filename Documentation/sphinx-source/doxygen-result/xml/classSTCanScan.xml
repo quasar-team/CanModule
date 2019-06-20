@@ -335,7 +335,7 @@
         <references refid="namespaceCanModule_1ae25b0c7453a892a139549914f17d298a" compoundref="CCanAccess_8h" startline="62">CanModule::LogItComponentNameSystec</references>
         <references refid="classSTCanScan_1a2a57272e12f97f245e6f204347782bc0" compoundref="STCanScan_8h" startline="88">m_hCanScanThread</references>
         <references refid="classSTCanScan_1a8ae65fcef31d4bb84aa5bb8978973f86" compoundref="STCanScan_8h" startline="90">m_idCanScanThread</references>
-        <references refid="classCanModule_1_1CCanAccess_1a0eff18d10b7ee5d6f86b03898f38f7ca" compoundref="CCanAccess_8h" startline="367">CanModule::CCanAccess::m_sBusName</references>
+        <references refid="classCanModule_1_1CCanAccess_1a0eff18d10b7ee5d6f86b03898f38f7ca" compoundref="CCanAccess_8h" startline="387">CanModule::CCanAccess::m_sBusName</references>
         <references refid="STCanScan_8cpp_1a08d6d35b7f83e326a37caa39473e6ebe" compoundref="STCanScan_8cpp" startline="40">MLOGST</references>
         <references refid="classSTCanScan_1add82f4cebf11f011c98bc73986a7f647" compoundref="STCanScan_8h" startline="65">s_logItHandleSt</references>
       </memberdef>
@@ -498,14 +498,14 @@
         <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="94" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="175" bodyend="226"/>
         <references refid="classSTCanScan_1add0582f666b4f0a5883311a284a0e9c4" compoundref="STCanScan_8h" startline="80">m_baudRate</references>
         <references refid="classSTCanScan_1a8d6dd7c1cbf4a97607909086da6361e1" compoundref="STCanScan_8h" startline="74">m_canHandleNumber</references>
-        <references refid="classCanModule_1_1CCanAccess_1a484a4f9dc352fe31b4baff0365095705" compoundref="CCanAccess_8h" startline="368">CanModule::CCanAccess::m_CanParameters</references>
+        <references refid="classCanModule_1_1CCanAccess_1a484a4f9dc352fe31b4baff0365095705" compoundref="CCanAccess_8h" startline="388">CanModule::CCanAccess::m_CanParameters</references>
         <references refid="classSTCanScan_1ac5e311e695c1a3c810f82b0c21ee3618" compoundref="STCanScan_8h" startline="72">m_channelNumber</references>
         <references refid="structCanModule_1_1CanParameters_1ac4e03899b26e33a3867ee1f0bce674b5" compoundref="CCanAccess_8h" startline="76">CanModule::CanParameters::m_iNumberOfDetectedParameters</references>
         <references refid="structCanModule_1_1CanParameters_1a53ce17e16c2a818ffbc05904d9e56e11" compoundref="CCanAccess_8h" startline="70">CanModule::CanParameters::m_lBaudRate</references>
         <references refid="classSTCanScan_1a38531e0fcde0f184eb968a01fb5984c9" compoundref="STCanScan_8h" startline="70">m_moduleNumber</references>
         <references refid="STCanScan_8cpp_1a08d6d35b7f83e326a37caa39473e6ebe" compoundref="STCanScan_8cpp" startline="40">MLOGST</references>
         <references refid="classSTCanScan_1a5f74df7e9615929365b33c08e709e918" compoundref="STCanScan_8cpp" startline="234" endline="271">openCanPort</references>
-        <references refid="classCanModule_1_1CCanAccess_1af26c9d102638fb96e5e1305f807d148f" compoundref="CCanAccess_8h" startline="350" endline="364">CanModule::CCanAccess::parseNameAndParameters</references>
+        <references refid="classCanModule_1_1CCanAccess_1af26c9d102638fb96e5e1305f807d148f" compoundref="CCanAccess_8h" startline="350" endline="384">CanModule::CCanAccess::parseNameAndParameters</references>
         <referencedby refid="classSTCanScan_1aa99f9f23bdfd367a51efc40e228a6f88" compoundref="STCanScan_8cpp" startline="139" endline="173">createBus</referencedby>
       </memberdef>
       <memberdef kind="function" id="classSTCanScan_1a5f74df7e9615929365b33c08e709e918" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
