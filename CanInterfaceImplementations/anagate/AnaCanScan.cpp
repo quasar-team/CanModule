@@ -63,22 +63,23 @@ boost::mutex anagateReconnectMutex;
 #define MLOGANA(LEVEL,THIS) LOG(Log::LEVEL, AnaCanScan::s_logItHandleAnagate) << __FUNCTION__ << " " << " bus= " << THIS->getBusName() << " "
 
 /** global map of connection-object-pointers: the map-key is the handle. Since handles are allocated by the OS
- * the keys are getting changed as well, so that we do not keep the stale keys(=handles) in the map at all.
- * This makes the InternalCallback code straightforward and speedy, because we can get to the object by just
+ * the keys are getting changed as well when we reconnect, so that we do not keep the stale keys(=handles) in
+ * the map at all.
+ * The map the InternalCallback code straightforward and speedy, because we can get to the object by just
  * looking up the map using the key(=the handle).
  */
 std::map<AnaInt32, AnaCanScan*> g_AnaCanScanPointerMap;
 
 AnaCanScan::AnaCanScan():
-		m_canPortNumber(0),
-		m_canIPAddress( (char *) string("192.168.1.2").c_str()),
-		m_baudRate(0),
-		m_idCanScanThread(0),
-		m_canCloseDevice(false),
-		m_busName(""),
-		m_busParameters(""),
-		m_UcanHandle(0),
-		m_timeout ( 6000 )
+				m_canPortNumber(0),
+				m_canIPAddress( (char *) string("192.168.1.2").c_str()),
+				m_baudRate(0),
+				m_idCanScanThread(0),
+				m_canCloseDevice(false),
+				m_busName(""),
+				m_busParameters(""),
+				m_UcanHandle(0),
+				m_timeout ( 6000 )
 {
 	m_statistics.beginNewRun();
 }
@@ -365,6 +366,9 @@ int AnaCanScan::openCanPort()
 	// We associate in the global map the handle with the instance of the AnaCanScan object,
 	// so it can later be identified by the callback InternalCallback in a speedy way
 	m_UcanHandle = canModuleHandle;
+
+	MLOGANA(TRC,this) << "handles: ";
+	AnaCanScan::objectMapSize();
 	return 0;
 }
 
@@ -456,7 +460,8 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 				<< " ip= " << it->second->ipAdress()
 				<< " CAN port= " << it->second->canPortNumber()
 				<< " handle= " << it->second->handle()
-				<< " (used?= " << it->second->isCanHandleInUse(it->second->handle()) << ")";
+				<< " (used?= " << it->second->isCanHandleInUse(it->second->handle()) << ")"
+				<< " ptr= 0x" << hex << (unsigned long) (it->second) << dec;
 
 	}
 }
@@ -514,11 +519,8 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 					<< " for CAN port= " << it->second->canPortNumber()
 					<< " reconnecting...";
 
-			// cumulating the return codes is not such a good idea. it works but makes it difficult to
-			// interpret the error. please improve
 			ret = it->second->reconnect();
 			if ( ret ){
-				// LOG(Log::WRN, AnaCanScan::m_lh ) << __FUNCTION__
 				LOG(Log::WRN, AnaCanScan::s_logItHandleAnagate) << __FUNCTION__
 						<< " key= " << it->first
 						<< " found ip= " << ip
@@ -547,30 +549,48 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 	std::map<AnaInt32, AnaCanScan*> lmap = g_AnaCanScanPointerMap; // use a local copy of the map, in order
 	// not to change the map we are iterating on
 
+	LOG(Log::TRC, AnaCanScan::s_logItHandleAnagate) << __FUNCTION__ << " " __FILE__ << " " << __LINE__
+			<< " receive handler map map before reconnect for ip= " << ip;
+	AnaCanScan::objectMapSize();
+
 	for (std::map<AnaInt32, AnaCanScan*>::iterator it=lmap.begin(); it!=lmap.end(); it++){
 		if ( ip == it->second->ipAdress() ){
 			anaRet = it->second->connectReceptionHandler();
 			if ( anaRet != 0 ){
 				LOG(Log::ERR, AnaCanScan::s_logItHandleAnagate) << __FUNCTION__ << " " __FILE__ << " " << __LINE__
 						<< " failed to reconnect reception handler for ip= " << ip
+						<< " handle= " << it->second->handle()
+						<< " port= " << it->second->canPortNumber()
 						<< " anaRet= " << anaRet;
 			} else {
 				LOG(Log::TRC, AnaCanScan::s_logItHandleAnagate ) << __FUNCTION__ << " " __FILE__ << " " << __LINE__
-						<< " debug reconnect reception handler for ip= " << ip
+						<< " reconnect reception handler for ip= " << ip
 						<< " handle= " << it->second->handle()
 						<< " looking good= " << anaRet;
 			}
 
-			LOG(Log::TRC, AnaCanScan::s_logItHandleAnagate) << __FUNCTION__ << " " __FILE__ << " " << __LINE__
-					<< " erasing stale handler " << it->first << " from obj. map";
-			g_AnaCanScanPointerMap.erase( it->first );
-
+			/**
+			 * delete the map elements where the key is different from the handle, since we reassigned handles
+			 * in the living objects like:
+			 * 	g_AnaCanScanPointerMap[ m_UcanHandle ] = this;
+			 */
+			if ( it->first != it->second->handle()){
+				LOG(Log::TRC, AnaCanScan::s_logItHandleAnagate) << __FUNCTION__ << " " __FILE__ << " " << __LINE__
+						<< " erasing stale handler " << it->first
+						<< " for object handle= " << it->second->handle() << " from obj. map";
+				g_AnaCanScanPointerMap.erase( it->first );
+			}
 			AnaCanScan::setIpReconnectInProgress( ip, false ); // all done, may fail another time
 			LOG(Log::TRC, AnaCanScan::s_logItHandleAnagate ) << "reconnecting all ports for ip= " << ip
 					<< " is done and OK.";
 		}
 	}
-	int us = 1000000;
+	LOG(Log::TRC, AnaCanScan::s_logItHandleAnagate) << __FUNCTION__ << " " __FILE__ << " " << __LINE__
+			<< " receive handler map after reconnect for ip= " << ip;
+	AnaCanScan::objectMapSize();
+
+	// be easy on the switch, can maybe suppress this later
+	int us = 100000;
 	boost::this_thread::sleep(boost::posix_time::microseconds( us ));
 	return( anaRet );
 }
@@ -582,18 +602,46 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
  */
 AnaInt32 AnaCanScan::connectReceptionHandler(){
 	AnaInt32 anaCallReturn;
+
+	// this is needed otherwise the bridge hangs in a bad state
+	anaCallReturn = CANSetGlobals(m_UcanHandle, m_CanParameters.m_lBaudRate, m_CanParameters.m_iOperationMode,
+			m_CanParameters.m_iTermination, m_CanParameters.m_iHighSpeed, m_CanParameters.m_iTimeStamp);
+	switch ( anaCallReturn ){
+	case 0:{ break; }
+	case 0x30000: {
+		MLOGANA(ERR,this) << "Connection to TCP/IP partner can't be established or is disconnected. Lost TCP/IP: 0x" << hex << anaCallReturn << dec;
+		return -1;
+	}
+	case 0x40000: {
+		MLOGANA(ERR,this) << "No  answer  was  received  from	TCP/IP partner within the defined timeout. Lost TCP/IP: 0x" << hex << anaCallReturn << dec;
+		return -1;
+	}
+	case 0x900000: {
+		MLOGANA(ERR,this) << "Invalid device handle. Lost TCP/IP: 0x" << hex << anaCallReturn << dec;
+		return -1;
+	}
+	default : {
+		MLOGANA(ERR,this) << "Other Error in CANSetGlobals: 0x" << hex << anaCallReturn << dec;
+		return -1;
+	}
+	}
+
 	MLOGANA(WRN,this) << "connecting RECEIVE canModuleHandle= " << m_UcanHandle
 			<< " ip= " << m_canIPAddress;
 	anaCallReturn = CANSetCallbackEx(m_UcanHandle, InternalCallback);
 	if (anaCallReturn != 0) {
-		MLOGANA(ERR,this) << "Error debug in CANSetCallbackEx, return code = [" << anaCallReturn << "]"
+		MLOGANA(ERR,this) << "failed CANSetCallbackEx, return code = [" << anaCallReturn << "]"
 				<< " canModuleHandle= " << m_UcanHandle
-				<< " in a reconnect! Can't fix this. Restart program and buy better hardware please.";
+				<< " in a reconnect! Can't fix this, maybe hardware/firmware problem.";
 		// that is very schlecht, need a good idea (~check keepalive and sending fake messages)
 		// to detect and possibly recuperate from that. Does this case happen actually?
 	}
+	MLOGANA(DBG,this) << "adding RECEIVE handler, handle= " << m_UcanHandle
+			<< " CAN port= " << m_canPortNumber
+			<< " ip= " << m_canIPAddress << " to obj.map.";
 	g_AnaCanScanPointerMap[ m_UcanHandle ] = this;
 	setCanHandleInUse( m_UcanHandle, true );
+
 	MLOGANA(INF,this) << "RECEIVE handler looks good, handle= " << m_UcanHandle
 			<< " CAN port= " << m_canPortNumber
 			<< " ip= " << m_canIPAddress << " Congratulations.";
@@ -637,7 +685,7 @@ int AnaCanScan::reconnect(){
 	•
 	5 = NOT_INITIALIZED
 	: The network protocol is not successfully initialized.
-	*/
+	 */
 
 	switch ( state ){
 	case 2: {
