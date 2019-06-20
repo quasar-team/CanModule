@@ -27,30 +27,30 @@ SET( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/CanInterfaceImplementati
 # check if toolchain injection was correct for systec
 # for windows we should use the default systec installer and location
 # for linux we need libsocketcan
-if( NOT DEFINED SYSTEC_LIB_PATH ) 
-	message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Required variable SYSTEC_LIB_FILE has not been defined, take default." )
-	message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Required variable SYSTEC_INC_DIR has not been defined, take default." )
-	message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Required variable SYSTEC_LIB_PATH has not been defined, take default." )
+if( (NOT DEFINED SYSTEC_LIB_PATH) OR (NOT DEFINED SYSTEC_HEADERS) OR (NOT DEFINED SYSTEC_LIB_FILE)  )
+	message(WARNING "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Required variable SYSTEC_HEADERS has not been defined." )
+	message(WARNING "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Required variable SYSTEC_LIB_PATH has not been defined." )
+	message(WARNING "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Required variable SYSTEC_LIB_FILE has not been defined." )
+	message(WARNING "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: assuming default locations and libs for systec and windows" )
 	if(WIN32)
-		# using the default installer/location provided by systec for windows
 		SET(SYSTEC_INC_DIR "C:/Program Files (x86)/SYSTEC-electronic/USB-CANmodul Utility Disk/Examples/Include")
 		SET(SYSTEC_LIB_PATH "C:/Program Files (x86)/SYSTEC-electronic/USB-CANmodul Utility Disk/Examples/Lib")
-		if( 64BIT )  
-			SET(SYSTEC_LIB_FILE "USBCAN64.lib")
-		else()
-			SET(SYSTEC_LIB_FILE "USBCAN32.lib")
-		endif()
+		SET(SYSTEC_LIB_FILE "USBCAN64.lib")
+		# for 32 bit 
+		# SET(SYSTEC_LIB_FILE "USBCAN32.lib")
 		message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: windows SYSTEC_LIB_PATH= ${SYSTEC_LIB_PATH}]")
+ 		message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: windows SYSTEC_HEADERS=  ${SYSTEC_HEADERS}]")
+ 		message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: windows SYSTEC_LIB_FILE= ${SYSTEC_LIB_FILE}]")
 	else()
-	    # use socketcan for linux, get sources 
-	    # from i.e. ssh://git@gitlab.cern.ch:7999/mludwig/CAN_libsocketcan.git and build it
-		SET(SYSTEC_HEADERS "/opt/CAN_libsocketcan/include")
-		SET(SYSTEC_PATH_LIBS "/opt/CAN_libsocketcan/src/.libs")
-		SET(SYSTEC_LIB_FILE "libsocketcan.so")
-		message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: default path might not work, please get socketcan and correct it." )
-		message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: linux SYSTEC_LIB_PATH= ${SYSTEC_LIB_PATH}]")
+	    # since we use socketcan for linux for systec, we are in the wrong directory
+		message( FATAL_ERROR "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: linux uses socketcan (directory sockcan) for systec, you are building the wrong directory." )
 	endif()
-endif()
+else()
+  message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: toolchain SYSTEC_LIB_PATH= ${SYSTEC_LIB_PATH}" )
+  message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: toolchain SYSTEC_HEADERS=  ${SYSTEC_HEADERS}" )
+  message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: toolchain SYSTEC_LIB_FILE = ${SYSTEC_LIB_FILE}" )
+endif() 
+
 
 link_directories( ${SYSTEC_PATH_LIBS} )
 include_directories ( ${SYSTEC_HEADERS} )
@@ -71,13 +71,13 @@ else()
 	target_link_libraries( stcan ${LOGIT_LIB} )
 endif()
 
+message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] systec [BOOST_PATH_LIBS:${BOOST_PATH_LIBS}]" )
+message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] systec [BOOST_HEADERS:${BOOST_HEADERS}]" )
+message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] systec [BOOST_LIBS:${BOOST_LIBS}]" )
+link_directories( ${BOOST_PATH_LIBS} )
+
 target_link_libraries ( stcan ${BOOST_LIBS} ${SYSTEC_LIB_FILE})
 set_property(TARGET stcan PROPERTY POSITION_INDEPENDENT_CODE TRUE)
 set_property(TARGET stcan PROPERTY LINKER_LANGUAGE CXX)
 
-message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] systec [BOOST_PATH_LIBS:${BOOST_PATH_LIBS}]" )
-message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] systec [BOOST_HEADERS:${BOOST_HEADERS}]" )
-message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] systec [BOOST_LIBS:${BOOST_LIBS}]" )
-
-link_directories( ${BOOST_PATH_LIBS} )
 
