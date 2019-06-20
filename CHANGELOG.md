@@ -14,7 +14,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
   reception handlers are fine after a power loss FOR CC7. For windows, the reply
   handlers are NOT reconnected, and the obj. map stays as before. The windows API 
   behaves differently, but that is also working now.
-  
+  reconnection tests: anagate duo , X4/X8, on w2016s, w10e, cc7, w2008r2 - all ok
+     
   
 ### 1.1.3, 1.1.4 are intermediate, some bugs, don't use  
 
