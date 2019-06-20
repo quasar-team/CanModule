@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 - create a decent pdf from the sphinx doc, via latex tools.
 - protection against several createBus calls for systec/linux
 
+### in progress
+- 64BIT/32BIT switch, assume defaults 64BIT but allow toolchain override with 32BIT explicitly
+  for all vendors/windows
+
 ## [1.1.5] 18.june.2019
 ### Fixed
 - in 1.1.4, the anagate actually did not fully recover from a disconnect, the reception handler 
