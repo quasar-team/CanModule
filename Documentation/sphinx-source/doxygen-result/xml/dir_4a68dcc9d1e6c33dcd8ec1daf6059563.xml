@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
-  <compounddef id="dir_ddebdab0e315b48e1eafed3a15282afb" kind="dir">
+  <compounddef id="dir_4a68dcc9d1e6c33dcd8ec1daf6059563" kind="dir">
     <compoundname>CanInterfaceImplementations/pkcan</compoundname>
     <innerfile refid="pkcan_8cpp">pkcan.cpp</innerfile>
     <innerfile refid="pkcan_8h">pkcan.h</innerfile>
@@ -8,6 +8,6 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/pkcan/"/>
+    <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/pkcan/"/>
   </compounddef>
 </doxygen>

@@ -22,7 +22,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanLibLoader/src/CanLibLoaderLin.cpp" line="36" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanLibLoader/src/CanLibLoaderLin.cpp" bodystart="36" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanLibLoader/src/CanLibLoaderLin.cpp" line="36" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanLibLoader/src/CanLibLoaderLin.cpp" bodystart="36" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="var">
@@ -38,7 +38,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="50" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" bodystart="50" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterface/include/CCanAccess.h" line="50" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterface/include/CCanAccess.h" bodystart="50" bodyend="-1"/>
         <referencedby refid="classCanModule_1_1CanLibLoader_1aa303c1dd64affa5c27f707e0306786a0" compoundref="CanLibLoader_8cpp" startline="37" endline="41">CanModule::CanLibLoader::CanLibLoader</referencedby>
         <referencedby refid="classCanModule_1_1CCanAccess_1a08d387c6261bee525c0bb05eb66b4164" compoundref="CCanAccess_8h" startline="186" endline="209">CanModule::CCanAccess::connectFwSlotX</referencedby>
       </memberdef>
@@ -54,7 +54,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="51" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" bodystart="51" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterface/include/CCanAccess.h" line="51" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterface/include/CCanAccess.h" bodystart="51" bodyend="-1"/>
         <referencedby refid="classAnaCanScan_1a54a66154c956b4605ff18f93f552db60" compoundref="AnaCanScan_8cpp" startline="197" endline="229">AnaCanScan::createBus</referencedby>
       </memberdef>
       <memberdef kind="variable" id="namespaceCanModule_1a043500ed91c75aae8d8841430ef4f9aa" prot="public" static="no" mutable="no">
@@ -69,7 +69,7 @@
 <para>linux only, we can&apos;t distinguish between peak and systec on the socket level, but if the user wants to use Peak or Systec she may </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="60" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" bodystart="60" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterface/include/CCanAccess.h" line="60" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterface/include/CCanAccess.h" bodystart="60" bodyend="-1"/>
         <referencedby refid="classCSockCanScan_1ac5c669f96d2d6cf7387f8a646bd65b3f" compoundref="SockCanScan_8cpp" startline="532" endline="576">CSockCanScan::createBus</referencedby>
       </memberdef>
       <memberdef kind="variable" id="namespaceCanModule_1a558e2e51ea82e642b8656a3fc2a53e5c" prot="public" static="no" mutable="no">
@@ -84,7 +84,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="61" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" bodystart="61" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterface/include/CCanAccess.h" line="61" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterface/include/CCanAccess.h" bodystart="61" bodyend="-1"/>
         <referencedby refid="classPKCanScan_1ae91999b9316ca127eecbabd9f27c3137" compoundref="pkcan_8cpp" startline="130" endline="164">PKCanScan::createBus</referencedby>
       </memberdef>
       <memberdef kind="variable" id="namespaceCanModule_1ae25b0c7453a892a139549914f17d298a" prot="public" static="no" mutable="no">
@@ -99,7 +99,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="62" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" bodystart="62" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterface/include/CCanAccess.h" line="62" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterface/include/CCanAccess.h" bodystart="62" bodyend="-1"/>
         <referencedby refid="classSTCanScan_1aa99f9f23bdfd367a51efc40e228a6f88" compoundref="STCanScan_8cpp" startline="139" endline="173">STCanScan::createBus</referencedby>
       </memberdef>
       </sectiondef>
@@ -119,7 +119,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanModuleUtils.h" line="75" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/src/CanModuleUtils.cpp" bodystart="44" bodyend="51"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterface/include/CanModuleUtils.h" line="75" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterface/src/CanModuleUtils.cpp" bodystart="44" bodyend="51"/>
         <referencedby refid="classSTCanScan_1aab42375da764eb0d50dee318cd790646" compoundref="STCanScan_8cpp" startline="77" endline="109">STCanScan::CanScanControlThread</referencedby>
         <referencedby refid="AnaCanScan_8cpp_1ad5698349874e3653b879b5de27311594" compoundref="AnaCanScan_8cpp" startline="135" endline="156">InternalCallback</referencedby>
         <referencedby refid="classPKCanScan_1a35ccc4082d56a736abb34d0c289c5a96" compoundref="pkcan_8cpp" startline="275" endline="291">PKCanScan::sendErrorCode</referencedby>
@@ -140,7 +140,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanModuleUtils.h" line="76" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/src/CanModuleUtils.cpp" bodystart="53" bodyend="58"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterface/include/CanModuleUtils.h" line="76" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterface/src/CanModuleUtils.cpp" bodystart="53" bodyend="58"/>
       </memberdef>
       <memberdef kind="function" id="namespaceCanModule_1a6c0c413c22df9260df29bf5706d7940c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>double</type>
@@ -161,7 +161,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanModuleUtils.h" line="77" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/src/CanModuleUtils.cpp" bodystart="76" bodyend="80"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterface/include/CanModuleUtils.h" line="77" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterface/src/CanModuleUtils.cpp" bodystart="76" bodyend="80"/>
       </memberdef>
       <memberdef kind="function" id="namespaceCanModule_1a6d0711aac0a75de5d2bf6142997a814d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::chrono::system_clock::time_point</type>
@@ -174,7 +174,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanModuleUtils.h" line="78" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/src/CanModuleUtils.cpp" bodystart="60" bodyend="74"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterface/include/CanModuleUtils.h" line="78" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterface/src/CanModuleUtils.cpp" bodystart="60" bodyend="74"/>
         <referencedby refid="classSTCanScan_1aab42375da764eb0d50dee318cd790646" compoundref="STCanScan_8cpp" startline="77" endline="109">STCanScan::CanScanControlThread</referencedby>
         <referencedby refid="AnaCanScan_8cpp_1ad5698349874e3653b879b5de27311594" compoundref="AnaCanScan_8cpp" startline="135" endline="156">InternalCallback</referencedby>
         <referencedby refid="classPKCanScan_1a35ccc4082d56a736abb34d0c289c5a96" compoundref="pkcan_8cpp" startline="275" endline="291">PKCanScan::sendErrorCode</referencedby>
@@ -191,7 +191,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanModuleUtils.h" line="81" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/src/CanModuleUtils.cpp" bodystart="32" bodyend="42"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterface/include/CanModuleUtils.h" line="81" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterface/src/CanModuleUtils.cpp" bodystart="32" bodyend="42"/>
         <referencedby refid="classCSockCanScan_1a9ac2e2d3f63449865e22c69a60faf53d" compoundref="SockCanScan_8cpp" startline="96" endline="304">CSockCanScan::CanScanControlThread</referencedby>
         <referencedby refid="classCSockCanScan_1a203a51239f8efc013d4b9df36f271317" compoundref="SockCanScan_8cpp" startline="323" endline="395">CSockCanScan::openCanPort</referencedby>
         <referencedby refid="classCSockCanScan_1a485ec8621a98cdacad8e27433e09d919" compoundref="SockCanScan_8cpp" startline="409" endline="464">CSockCanScan::sendMessage</referencedby>
@@ -208,7 +208,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="67" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" bodystart="67" bodyend="67"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterface/include/CCanAccess.h" line="67" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterface/include/CCanAccess.h" bodystart="67" bodyend="67"/>
         <references refid="CCanAccess_8h_1a1c6d5de492ac61ad29aec7aa9a436bbf" compoundref="CCanAccess_8h" startline="41">VERSION</references>
         <referencedby refid="classCanModule_1_1CCanAccess_1a7c9b87d205b0ec265c972a3303cecda2" compoundref="CCanAccess_8h" startline="120" endline="125">CanModule::CCanAccess::CCanAccess</referencedby>
       </memberdef>
@@ -226,13 +226,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanLibLoader/src/CanLibLoaderWin.cpp" line="32" column="1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanLibLoader/src/CanLibLoaderWin.cpp" line="32" column="1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
 <para>© Copyright CERN, 2015. All rights not expressly granted are reserved.</para><para><ref refid="CanModuleUtils_8h" kindref="compound">CanModuleUtils.h</ref></para><para>Created on: Oct 22, 2014 Author: Piotr Nikiel <ulink url="mailto:piotr@nikiel.info">piotr@nikiel.info</ulink></para><para>This file is part of Quasar.</para><para>Quasar is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public Licence as published by the Free Software Foundation, either version 3 of the Licence.</para><para>Quasar is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public Licence for more details.</para><para>You should have received a copy of the GNU Lesser General Public License along with Quasar. If not, see <ulink url="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</ulink>.</para><para>© Copyright CERN, 2015. All rights not expressly granted are reserved.</para><para><ref refid="CanBusAccess_8cpp" kindref="compound">CanBusAccess.cpp</ref></para><para>Created on: Apr 4, 2011 Author: vfilimon maintaining touches: mludwig, quasar team</para><para>This file is part of Quasar.</para><para>Quasar is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public Licence as published by the Free Software Foundation, either version 3 of the Licence.</para><para>Quasar is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public Licence for more details.</para><para>You should have received a copy of the GNU Lesser General Public License along with Quasar. If not, see <ulink url="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</ulink>.</para><para>© Copyright CERN, 2015. All rights not expressly granted are reserved.</para><para><ref refid="CanModuleUtils_8cpp" kindref="compound">CanModuleUtils.cpp</ref></para><para>Created on: Nov 24, 2014 Author: pnikiel * <ref refid="CanBusAccess_8cpp" kindref="compound">CanBusAccess.cpp</ref></para><para>This file is part of Quasar.</para><para>Quasar is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public Licence as published by the Free Software Foundation, either version 3 of the Licence.</para><para>Quasar is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public Licence for more details.</para><para>You should have received a copy of the GNU Lesser General Public License along with Quasar. If not, see <ulink url="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</ulink>.</para><para>© Copyright CERN, 2015. All rights not expressly granted are reserved.</para><para><ref refid="CanModuleUtils_8cpp" kindref="compound">CanModuleUtils.cpp</ref></para><para><ref refid="CanStatistics_8cpp" kindref="compound">CanStatistics.cpp</ref></para><para>Created on: Mar 17, 2015 Author: pnikiel</para><para>This file is part of Quasar.</para><para>Quasar is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public Licence as published by the Free Software Foundation, either version 3 of the Licence.</para><para>Quasar is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public Licence for more details.</para><para>You should have received a copy of the GNU Lesser General Public License along with Quasar. If not, see <ulink url="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</ulink>.</para><para>© Copyright CERN, 2015. All rights not expressly granted are reserved.</para><para><ref refid="CanLibLoader_8h" kindref="compound">CanLibLoader.h</ref></para><para>Created on: Feb 22, 2012 Author: vfilimon mludwig at cern dot ch</para><para>This file is part of Quasar.</para><para>Quasar is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public Licence as published by the Free Software Foundation, either version 3 of the Licence.</para><para>Quasar is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public Licence for more details.</para><para>You should have received a copy of the GNU Lesser General Public License along with Quasar. If not, see <ulink url="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</ulink>.</para><para>© Copyright CERN, 2015. All rights not expressly granted are reserved.</para><para><ref refid="CanLibLoaderLin_8h" kindref="compound">CanLibLoaderLin.h</ref></para><para>Created on: Feb 22, 2012 Author: vfilimon mludwig at cern dot ch</para><para>This file is part of Quasar.</para><para>Quasar is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public Licence as published by the Free Software Foundation, either version 3 of the Licence.</para><para>Quasar is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public Licence for more details.</para><para>You should have received a copy of the GNU Lesser General Public License along with Quasar. If not, see <ulink url="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</ulink>.</para><para>© Copyright CERN, 2015. All rights not expressly granted are reserved.</para><para><ref refid="CanLibLoaderLin_8cpp" kindref="compound">CanLibLoaderLin.cpp</ref></para><para>Created on: Feb 22, 2012 Author: vfilimon mludwig at cern dot ch</para><para>This file is part of Quasar.</para><para>Quasar is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public Licence as published by the Free Software Foundation, either version 3 of the Licence.</para><para>Quasar is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public Licence for more details.</para><para>You should have received a copy of the GNU Lesser General Public License along with Quasar. If not, see <ulink url="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</ulink>.</para><para>© Copyright CERN, 2015. All rights not expressly granted are reserved.</para><para><ref refid="CanLibLoaderWin_8cpp" kindref="compound">CanLibLoaderWin.cpp</ref></para><para>Created on: Feb 22, 2012 Author: vfilimon mludwig at cern dot ch</para><para>This file is part of Quasar.</para><para>Quasar is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public Licence as published by the Free Software Foundation, either version 3 of the Licence.</para><para>Quasar is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public Licence for more details.</para><para>You should have received a copy of the GNU Lesser General Public License along with Quasar. If not, see <ulink url="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</ulink>. </para>    </detaileddescription>
-    <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanBusAccess.h" line="36" column="1"/>
+    <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterface/include/CanBusAccess.h" line="36" column="1"/>
   </compounddef>
 </doxygen>

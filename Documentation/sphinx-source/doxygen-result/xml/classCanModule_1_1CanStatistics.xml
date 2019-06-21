@@ -16,7 +16,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanStatistics.h" line="78" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanStatistics.h" bodystart="78" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterface/include/CanStatistics.h" line="78" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterface/include/CanStatistics.h" bodystart="78" bodyend="-1"/>
         <referencedby refid="classCanModule_1_1CanStatistics_1a0265b75e9e2e16737950b6b5c5662f35" compoundref="CanStatistics_8cpp" startline="72" endline="77">onTransmit</referencedby>
         <referencedby refid="classCanModule_1_1CanStatistics_1ab6755445a7f30386b532514bcf4f2cd3" compoundref="CanStatistics_8cpp" startline="86" endline="95">operator=</referencedby>
       </memberdef>
@@ -31,7 +31,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanStatistics.h" line="79" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanStatistics.h" bodystart="79" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterface/include/CanStatistics.h" line="79" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterface/include/CanStatistics.h" bodystart="79" bodyend="-1"/>
         <referencedby refid="classCanModule_1_1CanStatistics_1a82b38a2383bc0ad6b1d306e86b9ef5c6" compoundref="CanStatistics_8cpp" startline="79" endline="84">onReceive</referencedby>
         <referencedby refid="classCanModule_1_1CanStatistics_1ab6755445a7f30386b532514bcf4f2cd3" compoundref="CanStatistics_8cpp" startline="86" endline="95">operator=</referencedby>
       </memberdef>
@@ -46,7 +46,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanStatistics.h" line="81" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanStatistics.h" bodystart="81" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterface/include/CanStatistics.h" line="81" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterface/include/CanStatistics.h" bodystart="81" bodyend="-1"/>
         <referencedby refid="classCanModule_1_1CanStatistics_1a85e6c87ce5285884a0272088178bb8f6" compoundref="CanStatistics_8cpp" startline="43" endline="50">beginNewRun</referencedby>
         <referencedby refid="classCanModule_1_1CanStatistics_1a8ec66bd11141579779f143362b70640e" compoundref="CanStatistics_8cpp" startline="52" endline="70">computeDerived</referencedby>
         <referencedby refid="classCanModule_1_1CanStatistics_1a0265b75e9e2e16737950b6b5c5662f35" compoundref="CanStatistics_8cpp" startline="72" endline="77">onTransmit</referencedby>
@@ -63,7 +63,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanStatistics.h" line="83" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanStatistics.h" bodystart="83" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterface/include/CanStatistics.h" line="83" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterface/include/CanStatistics.h" bodystart="83" bodyend="-1"/>
         <referencedby refid="classCanModule_1_1CanStatistics_1a85e6c87ce5285884a0272088178bb8f6" compoundref="CanStatistics_8cpp" startline="43" endline="50">beginNewRun</referencedby>
         <referencedby refid="classCanModule_1_1CanStatistics_1a8ec66bd11141579779f143362b70640e" compoundref="CanStatistics_8cpp" startline="52" endline="70">computeDerived</referencedby>
         <referencedby refid="classCanModule_1_1CanStatistics_1a82b38a2383bc0ad6b1d306e86b9ef5c6" compoundref="CanStatistics_8cpp" startline="79" endline="84">onReceive</referencedby>
@@ -80,7 +80,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanStatistics.h" line="86" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanStatistics.h" bodystart="86" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterface/include/CanStatistics.h" line="86" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterface/include/CanStatistics.h" bodystart="86" bodyend="-1"/>
         <referencedby refid="classCanModule_1_1CanStatistics_1a85e6c87ce5285884a0272088178bb8f6" compoundref="CanStatistics_8cpp" startline="43" endline="50">beginNewRun</referencedby>
         <referencedby refid="classCanModule_1_1CanStatistics_1a8ec66bd11141579779f143362b70640e" compoundref="CanStatistics_8cpp" startline="52" endline="70">computeDerived</referencedby>
         <referencedby refid="classCanModule_1_1CanStatistics_1a0265b75e9e2e16737950b6b5c5662f35" compoundref="CanStatistics_8cpp" startline="72" endline="77">onTransmit</referencedby>
@@ -97,7 +97,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanStatistics.h" line="87" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanStatistics.h" bodystart="87" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterface/include/CanStatistics.h" line="87" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterface/include/CanStatistics.h" bodystart="87" bodyend="-1"/>
         <referencedby refid="classCanModule_1_1CanStatistics_1a85e6c87ce5285884a0272088178bb8f6" compoundref="CanStatistics_8cpp" startline="43" endline="50">beginNewRun</referencedby>
         <referencedby refid="classCanModule_1_1CanStatistics_1a8ec66bd11141579779f143362b70640e" compoundref="CanStatistics_8cpp" startline="52" endline="70">computeDerived</referencedby>
         <referencedby refid="classCanModule_1_1CanStatistics_1a82b38a2383bc0ad6b1d306e86b9ef5c6" compoundref="CanStatistics_8cpp" startline="79" endline="84">onReceive</referencedby>
@@ -114,7 +114,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanStatistics.h" line="99" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanStatistics.h" bodystart="99" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterface/include/CanStatistics.h" line="99" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterface/include/CanStatistics.h" bodystart="99" bodyend="-1"/>
         <referencedby refid="classCanModule_1_1CanStatistics_1a85e6c87ce5285884a0272088178bb8f6" compoundref="CanStatistics_8cpp" startline="43" endline="50">beginNewRun</referencedby>
         <referencedby refid="classCanModule_1_1CanStatistics_1a8ec66bd11141579779f143362b70640e" compoundref="CanStatistics_8cpp" startline="52" endline="70">computeDerived</referencedby>
         <referencedby refid="classCanModule_1_1CanStatistics_1ab6755445a7f30386b532514bcf4f2cd3" compoundref="CanStatistics_8cpp" startline="86" endline="95">operator=</referencedby>
@@ -132,7 +132,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanStatistics.h" line="56" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/src/CanStatistics.cpp" bodystart="34" bodyend="41"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterface/include/CanStatistics.h" line="56" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterface/src/CanStatistics.cpp" bodystart="34" bodyend="41"/>
       </memberdef>
       <memberdef kind="function" id="classCanModule_1_1CanStatistics_1a85e6c87ce5285884a0272088178bb8f6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -145,7 +145,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanStatistics.h" line="58" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/src/CanStatistics.cpp" bodystart="43" bodyend="50"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterface/include/CanStatistics.h" line="58" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterface/src/CanStatistics.cpp" bodystart="43" bodyend="50"/>
         <references refid="classCanModule_1_1CanStatistics_1a83faba43ea2a404e400b681b246f134c" compoundref="CanStatistics_8h" startline="99">m_internals</references>
         <references refid="classCanModule_1_1CanStatistics_1_1Internals_1a2aa4f058776d0ccc832479225bc23428" compoundref="CanStatistics_8h" startline="97">CanModule::CanStatistics::Internals::m_observationStart</references>
         <references refid="classCanModule_1_1CanStatistics_1a3cf24ff7fd90d286139fb75a00e146da" compoundref="CanStatistics_8h" startline="83">m_received</references>
@@ -178,7 +178,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanStatistics.h" line="59" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/src/CanStatistics.cpp" bodystart="52" bodyend="70"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterface/include/CanStatistics.h" line="59" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterface/src/CanStatistics.cpp" bodystart="52" bodyend="70"/>
         <references refid="classCanModule_1_1CanStatistics_1_1Internals_1acee7cde0976a6c9957ec00446e7a3589" compoundref="CanStatistics_8h" startline="96">CanModule::CanStatistics::Internals::m_busLoad</references>
         <references refid="classCanModule_1_1CanStatistics_1a83faba43ea2a404e400b681b246f134c" compoundref="CanStatistics_8h" startline="99">m_internals</references>
         <references refid="classCanModule_1_1CanStatistics_1_1Internals_1a2aa4f058776d0ccc832479225bc23428" compoundref="CanStatistics_8h" startline="97">CanModule::CanStatistics::Internals::m_observationStart</references>
@@ -209,7 +209,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanStatistics.h" line="62" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/src/CanStatistics.cpp" bodystart="72" bodyend="77"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterface/include/CanStatistics.h" line="62" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterface/src/CanStatistics.cpp" bodystart="72" bodyend="77"/>
         <references refid="classCanModule_1_1CanStatistics_1aced131fd672bf71b5672117527973253" compoundref="CanStatistics_8h" startline="78">m_totalTransmitted</references>
         <references refid="classCanModule_1_1CanStatistics_1a4b94f562f6ce5e9057fdae5c24391963" compoundref="CanStatistics_8h" startline="81">m_transmitted</references>
         <references refid="classCanModule_1_1CanStatistics_1a7369a4ae5832050532e99e77831e155c" compoundref="CanStatistics_8h" startline="86">m_transmittedOctets</references>
@@ -235,7 +235,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanStatistics.h" line="65" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/src/CanStatistics.cpp" bodystart="79" bodyend="84"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterface/include/CanStatistics.h" line="65" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterface/src/CanStatistics.cpp" bodystart="79" bodyend="84"/>
         <references refid="classCanModule_1_1CanStatistics_1a3cf24ff7fd90d286139fb75a00e146da" compoundref="CanStatistics_8h" startline="83">m_received</references>
         <references refid="classCanModule_1_1CanStatistics_1ace6767d68ba9dca0c0e7f129f33e365c" compoundref="CanStatistics_8h" startline="87">m_receivedOctets</references>
         <references refid="classCanModule_1_1CanStatistics_1af5d82367032c4a509d99cdc72b6a7e45" compoundref="CanStatistics_8h" startline="79">m_totalReceived</references>
@@ -254,7 +254,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanStatistics.h" line="67" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanStatistics.h" bodystart="67" bodyend="67"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterface/include/CanStatistics.h" line="67" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterface/include/CanStatistics.h" bodystart="67" bodyend="67"/>
       </memberdef>
       <memberdef kind="function" id="classCanModule_1_1CanStatistics_1a5a06575683a46d25b4a1cc7d6859938b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>unsigned int</type>
@@ -267,7 +267,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanStatistics.h" line="68" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanStatistics.h" bodystart="68" bodyend="68"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterface/include/CanStatistics.h" line="68" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterface/include/CanStatistics.h" bodystart="68" bodyend="68"/>
       </memberdef>
       <memberdef kind="function" id="classCanModule_1_1CanStatistics_1ad8a95eeeea9fe50c9fe5465b3bde95d9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>float</type>
@@ -280,7 +280,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanStatistics.h" line="69" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanStatistics.h" bodystart="69" bodyend="69"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterface/include/CanStatistics.h" line="69" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterface/include/CanStatistics.h" bodystart="69" bodyend="69"/>
       </memberdef>
       <memberdef kind="function" id="classCanModule_1_1CanStatistics_1a732233caca87cf1532c9f2869d442d68" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>float</type>
@@ -293,7 +293,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanStatistics.h" line="70" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanStatistics.h" bodystart="70" bodyend="70"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterface/include/CanStatistics.h" line="70" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterface/include/CanStatistics.h" bodystart="70" bodyend="70"/>
       </memberdef>
       <memberdef kind="function" id="classCanModule_1_1CanStatistics_1a761bffce2db7f24a9dcbc439a95c1e65" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>float</type>
@@ -306,7 +306,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanStatistics.h" line="71" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanStatistics.h" bodystart="71" bodyend="71"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterface/include/CanStatistics.h" line="71" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterface/include/CanStatistics.h" bodystart="71" bodyend="71"/>
       </memberdef>
       <memberdef kind="function" id="classCanModule_1_1CanStatistics_1ab6755445a7f30386b532514bcf4f2cd3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -323,7 +323,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanStatistics.h" line="73" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/src/CanStatistics.cpp" bodystart="86" bodyend="95"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterface/include/CanStatistics.h" line="73" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterface/src/CanStatistics.cpp" bodystart="86" bodyend="95"/>
         <references refid="classCanModule_1_1CanStatistics_1a83faba43ea2a404e400b681b246f134c" compoundref="CanStatistics_8h" startline="99">m_internals</references>
         <references refid="classCanModule_1_1CanStatistics_1a3cf24ff7fd90d286139fb75a00e146da" compoundref="CanStatistics_8h" startline="83">m_received</references>
         <references refid="classCanModule_1_1CanStatistics_1ace6767d68ba9dca0c0e7f129f33e365c" compoundref="CanStatistics_8h" startline="87">m_receivedOctets</references>
@@ -350,7 +350,7 @@
         <link refid="classCanModule_1_1CanStatistics_1_1Internals"/>
       </node>
     </collaborationgraph>
-    <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanStatistics.h" line="52" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanStatistics.h" bodystart="51" bodyend="101"/>
+    <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterface/include/CanStatistics.h" line="52" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterface/include/CanStatistics.h" bodystart="51" bodyend="101"/>
     <listofallmembers>
       <member refid="classCanModule_1_1CanStatistics_1a85e6c87ce5285884a0272088178bb8f6" prot="public" virt="non-virtual"><scope>CanModule::CanStatistics</scope><name>beginNewRun</name></member>
       <member refid="classCanModule_1_1CanStatistics_1a761bffce2db7f24a9dcbc439a95c1e65" prot="public" virt="non-virtual"><scope>CanModule::CanStatistics</scope><name>busLoad</name></member>

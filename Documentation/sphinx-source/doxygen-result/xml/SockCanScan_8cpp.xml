@@ -24,44 +24,6 @@
       <node id="282">
         <label>sys/stat.h</label>
       </node>
-      <node id="263">
-        <label>CCanAccess.h</label>
-        <link refid="CCanAccess_8h"/>
-        <childnode refid="264" relation="include">
-        </childnode>
-        <childnode refid="265" relation="include">
-        </childnode>
-        <childnode refid="266" relation="include">
-        </childnode>
-        <childnode refid="262" relation="include">
-        </childnode>
-        <childnode refid="267" relation="include">
-        </childnode>
-        <childnode refid="268" relation="include">
-        </childnode>
-        <childnode refid="272" relation="include">
-        </childnode>
-      </node>
-      <node id="259">
-        <label>SockCanScan.h</label>
-        <link refid="SockCanScan_8h"/>
-        <childnode refid="260" relation="include">
-        </childnode>
-        <childnode refid="261" relation="include">
-        </childnode>
-        <childnode refid="262" relation="include">
-        </childnode>
-        <childnode refid="263" relation="include">
-        </childnode>
-        <childnode refid="268" relation="include">
-        </childnode>
-        <childnode refid="273" relation="include">
-        </childnode>
-        <childnode refid="274" relation="include">
-        </childnode>
-        <childnode refid="275" relation="include">
-        </childnode>
-      </node>
       <node id="269">
         <label>stdatomic.h</label>
       </node>
@@ -74,20 +36,26 @@
       <node id="285">
         <label>net/if.h</label>
       </node>
-      <node id="268">
-        <label>CanStatistics.h</label>
-        <link refid="CanStatistics_8h"/>
-        <childnode refid="269" relation="include">
-        </childnode>
-        <childnode refid="264" relation="include">
-        </childnode>
-        <childnode refid="270" relation="include">
-        </childnode>
-        <childnode refid="271" relation="include">
-        </childnode>
+      <node id="270">
+        <label>ExportDefinition.h</label>
+        <link refid="ExportDefinition_8h"/>
       </node>
       <node id="266">
         <label>boost/signals2.hpp</label>
+      </node>
+      <node id="288">
+        <label>CanModuleUtils.h</label>
+        <link refid="CanModuleUtils_8h"/>
+        <childnode refid="264" relation="include">
+        </childnode>
+        <childnode refid="289" relation="include">
+        </childnode>
+        <childnode refid="290" relation="include">
+        </childnode>
+        <childnode refid="262" relation="include">
+        </childnode>
+        <childnode refid="271" relation="include">
+        </childnode>
       </node>
       <node id="276">
         <label>errno.h</label>
@@ -110,53 +78,11 @@
       <node id="277">
         <label>fstream</label>
       </node>
-      <node id="288">
-        <label>CanModuleUtils.h</label>
-        <link refid="CanModuleUtils_8h"/>
-        <childnode refid="264" relation="include">
-        </childnode>
-        <childnode refid="289" relation="include">
-        </childnode>
-        <childnode refid="290" relation="include">
-        </childnode>
-        <childnode refid="262" relation="include">
-        </childnode>
-        <childnode refid="271" relation="include">
-        </childnode>
-      </node>
-      <node id="267">
-        <label>CanMessage.h</label>
-        <link refid="CanMessage_8h"/>
-        <childnode refid="264" relation="include">
-        </childnode>
-      </node>
       <node id="260">
         <label>pthread.h</label>
       </node>
       <node id="281">
         <label>sys/types.h</label>
-      </node>
-      <node id="280">
-        <label>string.h</label>
-      </node>
-      <node id="275">
-        <label>libsocketcan.h</label>
-      </node>
-      <node id="261">
-        <label>unistd.h</label>
-      </node>
-      <node id="284">
-        <label>sys/uio.h</label>
-      </node>
-      <node id="289">
-        <label>sstream</label>
-      </node>
-      <node id="270">
-        <label>ExportDefinition.h</label>
-        <link refid="ExportDefinition_8h"/>
-      </node>
-      <node id="279">
-        <label>time.h</label>
       </node>
       <node id="258">
         <label>CanInterfaceImplementations/sockcan/SockCanScan.cpp</label>
@@ -198,11 +124,61 @@
         <childnode refid="272" relation="include">
         </childnode>
       </node>
+      <node id="280">
+        <label>string.h</label>
+      </node>
+      <node id="259">
+        <label>SockCanScan.h</label>
+        <link refid="SockCanScan_8h"/>
+        <childnode refid="260" relation="include">
+        </childnode>
+        <childnode refid="261" relation="include">
+        </childnode>
+        <childnode refid="262" relation="include">
+        </childnode>
+        <childnode refid="263" relation="include">
+        </childnode>
+        <childnode refid="268" relation="include">
+        </childnode>
+        <childnode refid="273" relation="include">
+        </childnode>
+        <childnode refid="274" relation="include">
+        </childnode>
+        <childnode refid="275" relation="include">
+        </childnode>
+      </node>
+      <node id="275">
+        <label>libsocketcan.h</label>
+      </node>
+      <node id="261">
+        <label>unistd.h</label>
+      </node>
+      <node id="284">
+        <label>sys/uio.h</label>
+      </node>
+      <node id="289">
+        <label>sstream</label>
+      </node>
+      <node id="279">
+        <label>time.h</label>
+      </node>
       <node id="264">
         <label>sys/time.h</label>
       </node>
       <node id="278">
         <label>iostream</label>
+      </node>
+      <node id="268">
+        <label>CanStatistics.h</label>
+        <link refid="CanStatistics_8h"/>
+        <childnode refid="269" relation="include">
+        </childnode>
+        <childnode refid="264" relation="include">
+        </childnode>
+        <childnode refid="270" relation="include">
+        </childnode>
+        <childnode refid="271" relation="include">
+        </childnode>
       </node>
       <node id="265">
         <label>boost/bind.hpp</label>
@@ -212,6 +188,30 @@
       </node>
       <node id="273">
         <label>sys/socket.h</label>
+      </node>
+      <node id="267">
+        <label>CanMessage.h</label>
+        <link refid="CanMessage_8h"/>
+        <childnode refid="264" relation="include">
+        </childnode>
+      </node>
+      <node id="263">
+        <label>CCanAccess.h</label>
+        <link refid="CCanAccess_8h"/>
+        <childnode refid="264" relation="include">
+        </childnode>
+        <childnode refid="265" relation="include">
+        </childnode>
+        <childnode refid="266" relation="include">
+        </childnode>
+        <childnode refid="262" relation="include">
+        </childnode>
+        <childnode refid="267" relation="include">
+        </childnode>
+        <childnode refid="268" relation="include">
+        </childnode>
+        <childnode refid="272" relation="include">
+        </childnode>
       </node>
     </incdepgraph>
       <sectiondef kind="define">
@@ -226,7 +226,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.cpp" line="52" column="9" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.cpp" bodystart="52" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.cpp" line="52" column="9" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.cpp" bodystart="52" bodyend="-1"/>
         <referencedby refid="classCSockCanScan_1a9ac2e2d3f63449865e22c69a60faf53d" compoundref="SockCanScan_8cpp" startline="96" endline="304">CSockCanScan::CanScanControlThread</referencedby>
         <referencedby refid="classCSockCanScan_1a4b5f7591bfd27b8770bfb9ac9e406f66" compoundref="SockCanScan_8cpp" startline="655" endline="662">CSockCanScan::clearErrorMessage</referencedby>
         <referencedby refid="classCSockCanScan_1ac5c669f96d2d6cf7387f8a646bd65b3f" compoundref="SockCanScan_8cpp" startline="532" endline="576">CSockCanScan::createBus</referencedby>
@@ -249,7 +249,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.cpp" line="59" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.cpp" bodystart="59" bodyend="63"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.cpp" line="59" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.cpp" bodystart="59" bodyend="63"/>
       </memberdef>
       <memberdef kind="function" id="SockCanScan_8cpp_1a244d0d65d27d30b6118c5f30d2d72579" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::string</type>
@@ -266,7 +266,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.cpp" line="75" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.cpp" bodystart="75" bodyend="88"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.cpp" line="75" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.cpp" bodystart="75" bodyend="88"/>
         <referencedby refid="classCSockCanScan_1a9ac2e2d3f63449865e22c69a60faf53d" compoundref="SockCanScan_8cpp" startline="96" endline="304">CSockCanScan::CanScanControlThread</referencedby>
         <referencedby refid="classCSockCanScan_1a485ec8621a98cdacad8e27433e09d919" compoundref="SockCanScan_8cpp" startline="409" endline="464">CSockCanScan::sendMessage</referencedby>
       </memberdef>
@@ -879,6 +879,6 @@
 <codeline lineno="703"><highlight class="normal"></highlight></codeline>
 <codeline lineno="704"><highlight class="normal"></highlight></codeline>
     </programlisting>
-    <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.cpp"/>
+    <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.cpp"/>
   </compounddef>
 </doxygen>

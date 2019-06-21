@@ -17,7 +17,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" line="78" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" bodystart="78" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" line="78" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" bodystart="78" bodyend="-1"/>
         <referencedby refid="classCSockCanScan_1ac5c669f96d2d6cf7387f8a646bd65b3f" compoundref="SockCanScan_8cpp" startline="532" endline="576">createBus</referencedby>
       </memberdef>
       </sectiondef>
@@ -33,7 +33,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" line="83" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" bodystart="83" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" line="83" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" bodystart="83" bodyend="-1"/>
         <referencedby refid="classCSockCanScan_1ac5c669f96d2d6cf7387f8a646bd65b3f" compoundref="SockCanScan_8cpp" startline="532" endline="576">createBus</referencedby>
         <referencedby refid="classCSockCanScan_1a114206337d501fc78a55d2e3d1f4a22b" compoundref="SockCanScan_8cpp" startline="672" endline="680">stopBus</referencedby>
       </memberdef>
@@ -48,7 +48,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" line="85" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" bodystart="85" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" line="85" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" bodystart="85" bodyend="-1"/>
         <referencedby refid="classCSockCanScan_1a4b5f7591bfd27b8770bfb9ac9e406f66" compoundref="SockCanScan_8cpp" startline="655" endline="662">clearErrorMessage</referencedby>
         <referencedby refid="classCSockCanScan_1ac5c669f96d2d6cf7387f8a646bd65b3f" compoundref="SockCanScan_8cpp" startline="532" endline="576">createBus</referencedby>
         <referencedby refid="classCSockCanScan_1a203a51239f8efc013d4b9df36f271317" compoundref="SockCanScan_8cpp" startline="323" endline="395">openCanPort</referencedby>
@@ -67,7 +67,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" line="87" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" bodystart="87" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" line="87" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" bodystart="87" bodyend="-1"/>
         <referencedby refid="classCSockCanScan_1abfb8f5e3726f9675a63f48648afae178" compoundref="SockCanScan_8cpp" startline="65" endline="73">CSockCanScan</referencedby>
         <referencedby refid="classCSockCanScan_1a38110f02c2d12fa9b620ba5ff438a960" compoundref="SockCanScan_8cpp" startline="682" endline="687">getStatistics</referencedby>
         <referencedby refid="classCSockCanScan_1a485ec8621a98cdacad8e27433e09d919" compoundref="SockCanScan_8cpp" startline="409" endline="464">sendMessage</referencedby>
@@ -83,7 +83,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" line="89" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" bodystart="89" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" line="89" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" bodystart="89" bodyend="-1"/>
         <referencedby refid="classCSockCanScan_1ac5c669f96d2d6cf7387f8a646bd65b3f" compoundref="SockCanScan_8cpp" startline="532" endline="576">createBus</referencedby>
         <referencedby refid="classCSockCanScan_1a114206337d501fc78a55d2e3d1f4a22b" compoundref="SockCanScan_8cpp" startline="672" endline="680">stopBus</referencedby>
       </memberdef>
@@ -98,7 +98,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" line="91" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" bodystart="91" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" line="91" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" bodystart="91" bodyend="-1"/>
         <referencedby refid="classCSockCanScan_1ac5c669f96d2d6cf7387f8a646bd65b3f" compoundref="SockCanScan_8cpp" startline="532" endline="576">createBus</referencedby>
       </memberdef>
       <memberdef kind="variable" id="classCSockCanScan_1a1810bdcb6beda833752d4ddb83efde7f" prot="private" static="no" mutable="no">
@@ -112,7 +112,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" line="120" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" bodystart="120" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" line="120" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" bodystart="120" bodyend="-1"/>
         <referencedby refid="classCSockCanScan_1a8bb8fcdb24b2b917258d027e6a468bae" compoundref="SockCanScan_8cpp" startline="311" endline="317">configureCanBoard</referencedby>
         <referencedby refid="classCSockCanScan_1a203a51239f8efc013d4b9df36f271317" compoundref="SockCanScan_8cpp" startline="323" endline="395">openCanPort</referencedby>
       </memberdef>
@@ -127,7 +127,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" line="123" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" bodystart="123" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" line="123" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" bodystart="123" bodyend="-1"/>
         <referencedby refid="classCSockCanScan_1a203a51239f8efc013d4b9df36f271317" compoundref="SockCanScan_8cpp" startline="323" endline="395">openCanPort</referencedby>
         <referencedby refid="classCSockCanScan_1a623057580187ecb241adf143c64d711c" compoundref="SockCanScan_8cpp" startline="689" endline="701">updateInitialError</referencedby>
       </memberdef>
@@ -144,7 +144,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" line="93" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" bodystart="93" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" line="93" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" bodystart="93" bodyend="-1"/>
         <referencedby refid="classCSockCanScan_1ac5c669f96d2d6cf7387f8a646bd65b3f" compoundref="SockCanScan_8cpp" startline="532" endline="576">createBus</referencedby>
       </memberdef>
       </sectiondef>
@@ -160,7 +160,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" line="47" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.cpp" bodystart="65" bodyend="73"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" line="47" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.cpp" bodystart="65" bodyend="73"/>
         <references refid="classCanModule_1_1CanStatistics_1a85e6c87ce5285884a0272088178bb8f6" compoundref="CanStatistics_8cpp" startline="43" endline="50">CanModule::CanStatistics::beginNewRun</references>
         <references refid="classCSockCanScan_1afe0c7cc23de0ac2d758a07bec4c2e2c8" compoundref="SockCanScan_8h" startline="87">m_statistics</references>
       </memberdef>
@@ -179,7 +179,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" line="48" column="1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" line="48" column="1"/>
       </memberdef>
       <memberdef kind="function" id="classCSockCanScan_1afb0a16ec4e702d79d5fe5dfcabfefbdb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classCSockCanScan" kindref="compound">CSockCanScan</ref> &amp;</type>
@@ -196,7 +196,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" line="49" column="1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" line="49" column="1"/>
       </memberdef>
       <memberdef kind="function" id="classCSockCanScan_1a243f91e993fcc96ddd5308c1425a130c" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type></type>
@@ -209,7 +209,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" line="50" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.cpp" bodystart="306" bodyend="309"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" line="50" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.cpp" bodystart="306" bodyend="309"/>
         <references refid="classCSockCanScan_1a114206337d501fc78a55d2e3d1f4a22b" compoundref="SockCanScan_8cpp" startline="672" endline="680">stopBus</references>
       </memberdef>
       <memberdef kind="function" id="classCSockCanScan_1a4999204ff7166ee992a89b30a118af06" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
@@ -238,7 +238,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" line="52" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.cpp" bodystart="472" bodyend="513"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" line="52" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.cpp" bodystart="472" bodyend="513"/>
         <references refid="namespaceCanModule_1a6cae4be8d395b496f5f602a5f9714ae1" compoundref="CanModuleUtils_8cpp" startline="32" endline="42">CanModule::CanModuleerrnoToString</references>
         <references refid="classCSockCanScan_1a0020e3c0b07bf14fd3ef9c7d58660869" compoundref="SockCanScan_8h" startline="85">m_sock</references>
         <references refid="SockCanScan_8cpp_1a9dfd6d593fee1bb51ed35186b0bbb328" compoundref="SockCanScan_8cpp" startline="52">MLOGSOCK</references>
@@ -285,7 +285,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" line="53" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.cpp" bodystart="532" bodyend="576"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" line="53" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.cpp" bodystart="532" bodyend="576"/>
         <references refid="classCSockCanScan_1a9ac2e2d3f63449865e22c69a60faf53d" compoundref="SockCanScan_8cpp" startline="96" endline="304">CanScanControlThread</references>
         <references refid="classCSockCanScan_1a8bb8fcdb24b2b917258d027e6a468bae" compoundref="SockCanScan_8cpp" startline="311" endline="317">configureCanBoard</references>
         <references refid="namespaceCanModule_1a043500ed91c75aae8d8841430ef4f9aa" compoundref="CCanAccess_8h" startline="60">CanModule::LogItComponentNameSock</references>
@@ -356,7 +356,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" line="54" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.cpp" bodystart="409" bodyend="464"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" line="54" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.cpp" bodystart="409" bodyend="464"/>
         <references refid="SockCanScan_8cpp_1a244d0d65d27d30b6118c5f30d2d72579" compoundref="SockCanScan_8cpp" startline="75" endline="88">canFrameToString</references>
         <references refid="namespaceCanModule_1a6cae4be8d395b496f5f602a5f9714ae1" compoundref="CanModuleUtils_8cpp" startline="32" endline="42">CanModule::CanModuleerrnoToString</references>
         <references refid="classCSockCanScan_1ace6f7aa52fe582af6de098895fc91b83" compoundref="SockCanScan_8h" startline="69" endline="77">emptyCanFrame</references>
@@ -376,7 +376,7 @@
 <para>Returns socket handler </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" line="59" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" bodystart="59" bodyend="59"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" line="59" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" bodystart="59" bodyend="59"/>
       </memberdef>
       <memberdef kind="function" id="classCSockCanScan_1a38110f02c2d12fa9b620ba5ff438a960" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
@@ -394,7 +394,7 @@
 <para>Returns the instance of the CanStatistics object </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" line="64" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.cpp" bodystart="682" bodyend="687"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" line="64" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.cpp" bodystart="682" bodyend="687"/>
         <references refid="classCanModule_1_1CanStatistics_1a85e6c87ce5285884a0272088178bb8f6" compoundref="CanStatistics_8cpp" startline="43" endline="50">CanModule::CanStatistics::beginNewRun</references>
         <references refid="classCanModule_1_1CanStatistics_1a8ec66bd11141579779f143362b70640e" compoundref="CanStatistics_8cpp" startline="52" endline="70">CanModule::CanStatistics::computeDerived</references>
         <references refid="classCanModule_1_1CCanAccess_1a484a4f9dc352fe31b4baff0365095705" compoundref="CCanAccess_8h" startline="388">CanModule::CCanAccess::m_CanParameters</references>
@@ -417,7 +417,7 @@
 <para>produce and empty can frame </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" line="69" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" bodystart="69" bodyend="77"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" line="69" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" bodystart="69" bodyend="77"/>
         <referencedby refid="classCSockCanScan_1a485ec8621a98cdacad8e27433e09d919" compoundref="SockCanScan_8cpp" startline="409" endline="464">sendMessage</referencedby>
       </memberdef>
       </sectiondef>
@@ -433,7 +433,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" line="96" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.cpp" bodystart="672" bodyend="680"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" line="96" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.cpp" bodystart="672" bodyend="680"/>
         <references refid="classCSockCanScan_1ac108fc40318b58fa8fedb07e038d29ab" compoundref="SockCanScan_8h" startline="83">m_CanScanThreadShutdownFlag</references>
         <references refid="classCSockCanScan_1ac8e3a91f049a53fb88f6400b5caaf817" compoundref="SockCanScan_8h" startline="89">m_hCanScanThread</references>
         <references refid="SockCanScan_8cpp_1a9dfd6d593fee1bb51ed35186b0bbb328" compoundref="SockCanScan_8cpp" startline="52">MLOGSOCK</references>
@@ -450,7 +450,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" line="98" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.cpp" bodystart="689" bodyend="701"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" line="98" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.cpp" bodystart="689" bodyend="701"/>
         <references refid="classCanModule_1_1CCanAccess_1a33fbd693f04b4f4e21cee20856c44866" compoundref="CCanAccess_8h" startline="324">CanModule::CCanAccess::canMessageError</references>
         <references refid="classCSockCanScan_1a4b5f7591bfd27b8770bfb9ac9e406f66" compoundref="SockCanScan_8cpp" startline="655" endline="662">clearErrorMessage</references>
         <references refid="classCSockCanScan_1a01a0096926dc8236ae11077deb5e02a2" compoundref="SockCanScan_8h" startline="123">m_errorCode</references>
@@ -471,7 +471,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" line="102" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.cpp" bodystart="664" bodyend="670"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" line="102" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.cpp" bodystart="664" bodyend="670"/>
         <references refid="classCanModule_1_1CCanAccess_1a33fbd693f04b4f4e21cee20856c44866" compoundref="CCanAccess_8h" startline="324">CanModule::CCanAccess::canMessageError</references>
         <references refid="classCSockCanScan_1a0020e3c0b07bf14fd3ef9c7d58660869" compoundref="SockCanScan_8h" startline="85">m_sock</references>
         <references refid="SockCanScan_8cpp_1a9dfd6d593fee1bb51ed35186b0bbb328" compoundref="SockCanScan_8cpp" startline="52">MLOGSOCK</references>
@@ -487,7 +487,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" line="105" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.cpp" bodystart="655" bodyend="662"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" line="105" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.cpp" bodystart="655" bodyend="662"/>
         <references refid="classCanModule_1_1CCanAccess_1a33fbd693f04b4f4e21cee20856c44866" compoundref="CCanAccess_8h" startline="324">CanModule::CCanAccess::canMessageError</references>
         <references refid="classCSockCanScan_1a0020e3c0b07bf14fd3ef9c7d58660869" compoundref="SockCanScan_8h" startline="85">m_sock</references>
         <references refid="SockCanScan_8cpp_1a9dfd6d593fee1bb51ed35186b0bbb328" compoundref="SockCanScan_8cpp" startline="52">MLOGSOCK</references>
@@ -512,7 +512,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" line="107" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.cpp" bodystart="311" bodyend="317"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" line="107" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.cpp" bodystart="311" bodyend="317"/>
         <references refid="classCSockCanScan_1a1810bdcb6beda833752d4ddb83efde7f" compoundref="SockCanScan_8h" startline="120">m_channelName</references>
         <references refid="classCSockCanScan_1a203a51239f8efc013d4b9df36f271317" compoundref="SockCanScan_8cpp" startline="323" endline="395">openCanPort</references>
         <references refid="classCanModule_1_1CCanAccess_1af26c9d102638fb96e5e1305f807d148f" compoundref="CCanAccess_8h" startline="350" endline="384">CanModule::CCanAccess::parseNameAndParameters</references>
@@ -530,7 +530,7 @@
 stop, set bitrate, start a CAN port, open a socket for it, set the socket to CAN, bind it and check any errors </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" line="114" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.cpp" bodystart="323" bodyend="395"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" line="114" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.cpp" bodystart="323" bodyend="395"/>
         <references refid="namespaceCanModule_1a6cae4be8d395b496f5f602a5f9714ae1" compoundref="CanModuleUtils_8cpp" startline="32" endline="42">CanModule::CanModuleerrnoToString</references>
         <references refid="classCanModule_1_1CCanAccess_1a484a4f9dc352fe31b4baff0365095705" compoundref="CCanAccess_8h" startline="388">CanModule::CCanAccess::m_CanParameters</references>
         <references refid="classCSockCanScan_1a1810bdcb6beda833752d4ddb83efde7f" compoundref="SockCanScan_8h" startline="120">m_channelName</references>
@@ -560,7 +560,7 @@ stop, set bitrate, start a CAN port, open a socket for it, set the socket to CAN
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" line="100" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.cpp" bodystart="581" bodyend="653"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" line="100" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.cpp" bodystart="581" bodyend="653"/>
         <referencedby refid="classCSockCanScan_1a9ac2e2d3f63449865e22c69a60faf53d" compoundref="SockCanScan_8cpp" startline="96" endline="304">CanScanControlThread</referencedby>
       </memberdef>
       <memberdef kind="function" id="classCSockCanScan_1a9ac2e2d3f63449865e22c69a60faf53d" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -578,7 +578,7 @@ stop, set bitrate, start a CAN port, open a socket for it, set the socket to CAN
 <para>reading from socket, and supervising thread for monitoring the sockets/CAN buses. It takes an object reference (cast) and listens with a select call on that socket/object. The select runs with 1Hz, and if there is nothing to receive it should timeout. </para>        </detaileddescription>
         <inbodydescription>
 <para>the select failed. that is very bad, system problem, but let&apos;s continue nevertheless. There is not much we can do</para><para>select returned, either on the timeout or with something on that socket/object. Assumption: at this moment sock holds meaningful value. Now select result &gt;=0 so it was either nothing received (timeout) or something received</para><para>The preceding call took either &apos;timeout&apos; time, or there is frame received <ndash/> perfect time to attempt to clean error frame.</para><para>select reports that it has got something, so no timeout in this case</para><para>try to re-open the socket. only reopen the socket if we still need it. If we need to shutdown the thread, leave it closed and terminate main loop.</para><para>if we have an open socket again, and we can read numberOfReadBytes &gt;=0 we should be fine again and continue the thread execution normally</para><para>we have a CAN message, error free, lets digest it</para><para>reformat and buffer the message from the socket. this actually should exclude more bits</para><para>the select got nothing to read, this was just a timeout.</para>        </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" line="117" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.cpp" bodystart="96" bodyend="304"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" line="117" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.cpp" bodystart="96" bodyend="304"/>
         <references refid="structCanMsgStruct_1a2e47a33e7bba46b05a8fff29433f047b" compoundref="CanMessage_8h" startline="29">CanMsgStruct::c_data</references>
         <references refid="structCanMsgStruct_1a3e5add8ae9cdadfcf3f2255d375ec9b3" compoundref="CanMessage_8h" startline="27">CanMsgStruct::c_dlc</references>
         <references refid="structCanMsgStruct_1a619515aef041e64b78e7e8c33989ddd0" compoundref="CanMessage_8h" startline="23">CanMsgStruct::c_id</references>
@@ -641,7 +641,7 @@ stop, set bitrate, start a CAN port, open a socket for it, set the socket to CAN
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" line="44" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" bodystart="43" bodyend="124"/>
+    <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" line="44" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/sockcan/SockCanScan.h" bodystart="43" bodyend="124"/>
     <listofallmembers>
       <member refid="classCanModule_1_1CCanAccess_1aa8e0e974863874b0e7bbcdb57084c241" prot="public" virt="non-virtual"><scope>CSockCanScan</scope><name>canMessageCame</name></member>
       <member refid="classCanModule_1_1CCanAccess_1a33fbd693f04b4f4e21cee20856c44866" prot="public" virt="non-virtual"><scope>CSockCanScan</scope><name>canMessageError</name></member>

@@ -7,33 +7,65 @@
     <includedby refid="AnaCanScan_8h" local="yes">CanInterfaceImplementations/anagate/AnaCanScan.h</includedby>
     <includedby refid="canmodule__wrapper_8h" local="no">CWrapper/include/canmodule_wrapper.h</includedby>
     <incdepgraph>
+      <node id="19">
+        <label>sys/time.h</label>
+      </node>
       <node id="18">
         <label>CanInterface/include/CanMessage.h</label>
         <link refid="CanMessage.h"/>
         <childnode refid="19" relation="include">
         </childnode>
       </node>
-      <node id="19">
-        <label>sys/time.h</label>
-      </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="21">
-        <label>CanInterface/include/CCanAccess.h</label>
-        <link refid="CCanAccess_8h"/>
-        <childnode refid="22" relation="include">
+      <node id="34">
+        <label>CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.h</label>
+        <link refid="MockCanAccess_8h"/>
+        <childnode refid="35" relation="include">
         </childnode>
-        <childnode refid="26" relation="include">
+      </node>
+      <node id="24">
+        <label>CWrapper/include/canmodule_wrapper.h</label>
+        <link refid="canmodule__wrapper_8h"/>
+        <childnode refid="25" relation="include">
         </childnode>
-        <childnode refid="28" relation="include">
+      </node>
+      <node id="35">
+        <label>CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.cpp</label>
+        <link refid="MockCanAccess_8cpp"/>
+      </node>
+      <node id="22">
+        <label>CanInterface/include/CanBusAccess.h</label>
+        <link refid="CanBusAccess_8h"/>
+        <childnode refid="23" relation="include">
         </childnode>
-        <childnode refid="30" relation="include">
+        <childnode refid="24" relation="include">
         </childnode>
-        <childnode refid="32" relation="include">
-        </childnode>
-        <childnode refid="34" relation="include">
-        </childnode>
-        <childnode refid="36" relation="include">
+      </node>
+      <node id="41">
+        <label>CanLibLoader/src/CanLibLoaderWin.cpp</label>
+        <link refid="CanLibLoaderWin_8cpp"/>
+      </node>
+      <node id="23">
+        <label>CanInterface/src/CanBusAccess.cpp</label>
+        <link refid="CanBusAccess_8cpp"/>
+      </node>
+      <node id="25">
+        <label>CWrapper/src/canmodule_wrapper.cpp</label>
+        <link refid="canmodule__wrapper_8cpp"/>
+      </node>
+      <node id="27">
+        <label>CanInterfaceImplementations/anagate/AnaCanScan.cpp</label>
+        <link refid="AnaCanScan_8cpp"/>
+      </node>
+      <node id="31">
+        <label>CanInterfaceImplementations/sockcan/SockCanScan.cpp</label>
+        <link refid="SockCanScan_8cpp"/>
+      </node>
+      <node id="26">
+        <label>CanInterfaceImplementations/anagate/AnaCanScan.h</label>
+        <link refid="AnaCanScan_8h"/>
+        <childnode refid="27" relation="include">
         </childnode>
       </node>
       <node id="30">
@@ -41,6 +73,14 @@
         <link refid="SockCanScan_8h"/>
         <childnode refid="31" relation="include">
         </childnode>
+      </node>
+      <node id="38">
+        <label>CanLibLoader/src/CanLibLoader.cpp</label>
+        <link refid="CanLibLoader_8cpp"/>
+      </node>
+      <node id="33">
+        <label>CanInterfaceImplementations/systec/STCanScan.cpp</label>
+        <link refid="STCanScan_8cpp"/>
       </node>
       <node id="28">
         <label>CanInterfaceImplementations/pkcan/pkcan.h</label>
@@ -60,34 +100,24 @@
         <childnode refid="38" relation="include">
         </childnode>
       </node>
-      <node id="35">
-        <label>CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.cpp</label>
-        <link refid="MockCanAccess_8cpp"/>
-      </node>
-      <node id="38">
-        <label>CanLibLoader/src/CanLibLoader.cpp</label>
-        <link refid="CanLibLoader_8cpp"/>
-      </node>
       <node id="40">
         <label>CanLibLoader/include/CanLibLoaderWin.h</label>
         <link refid="CanLibLoaderWin_8h"/>
         <childnode refid="41" relation="include">
         </childnode>
       </node>
-      <node id="25">
-        <label>CWrapper/src/canmodule_wrapper.cpp</label>
-        <link refid="canmodule__wrapper_8cpp"/>
-      </node>
       <node id="29">
         <label>CanInterfaceImplementations/pkcan/pkcan.cpp</label>
         <link refid="pkcan_8cpp"/>
       </node>
-      <node id="37">
-        <label>CanLibLoader/include/CanLibLoaderLin.h</label>
-        <link refid="CanLibLoaderLin_8h"/>
-        <childnode refid="38" relation="include">
-        </childnode>
-        <childnode refid="39" relation="include">
+      <node id="39">
+        <label>CanLibLoader/src/CanLibLoaderLin.cpp</label>
+        <link refid="CanLibLoaderLin_8cpp"/>
+      </node>
+      <node id="32">
+        <label>CanInterfaceImplementations/systec/STCanScan.h</label>
+        <link refid="STCanScan_8h"/>
+        <childnode refid="33" relation="include">
         </childnode>
       </node>
       <node id="20">
@@ -100,60 +130,30 @@
         <childnode refid="24" relation="include">
         </childnode>
       </node>
-      <node id="27">
-        <label>CanInterfaceImplementations/anagate/AnaCanScan.cpp</label>
-        <link refid="AnaCanScan_8cpp"/>
-      </node>
-      <node id="22">
-        <label>CanInterface/include/CanBusAccess.h</label>
-        <link refid="CanBusAccess_8h"/>
-        <childnode refid="23" relation="include">
+      <node id="37">
+        <label>CanLibLoader/include/CanLibLoaderLin.h</label>
+        <link refid="CanLibLoaderLin_8h"/>
+        <childnode refid="38" relation="include">
         </childnode>
-        <childnode refid="24" relation="include">
+        <childnode refid="39" relation="include">
         </childnode>
       </node>
-      <node id="23">
-        <label>CanInterface/src/CanBusAccess.cpp</label>
-        <link refid="CanBusAccess_8cpp"/>
-      </node>
-      <node id="41">
-        <label>CanLibLoader/src/CanLibLoaderWin.cpp</label>
-        <link refid="CanLibLoaderWin_8cpp"/>
-      </node>
-      <node id="31">
-        <label>CanInterfaceImplementations/sockcan/SockCanScan.cpp</label>
-        <link refid="SockCanScan_8cpp"/>
-      </node>
-      <node id="24">
-        <label>CWrapper/include/canmodule_wrapper.h</label>
-        <link refid="canmodule__wrapper_8h"/>
-        <childnode refid="25" relation="include">
+      <node id="21">
+        <label>CanInterface/include/CCanAccess.h</label>
+        <link refid="CCanAccess_8h"/>
+        <childnode refid="22" relation="include">
         </childnode>
-      </node>
-      <node id="39">
-        <label>CanLibLoader/src/CanLibLoaderLin.cpp</label>
-        <link refid="CanLibLoaderLin_8cpp"/>
-      </node>
-      <node id="33">
-        <label>CanInterfaceImplementations/systec/STCanScan.cpp</label>
-        <link refid="STCanScan_8cpp"/>
-      </node>
-      <node id="34">
-        <label>CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.h</label>
-        <link refid="MockCanAccess_8h"/>
-        <childnode refid="35" relation="include">
+        <childnode refid="26" relation="include">
         </childnode>
-      </node>
-      <node id="26">
-        <label>CanInterfaceImplementations/anagate/AnaCanScan.h</label>
-        <link refid="AnaCanScan_8h"/>
-        <childnode refid="27" relation="include">
+        <childnode refid="28" relation="include">
         </childnode>
-      </node>
-      <node id="32">
-        <label>CanInterfaceImplementations/systec/STCanScan.h</label>
-        <link refid="STCanScan_8h"/>
-        <childnode refid="33" relation="include">
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
         </childnode>
       </node>
     </invincdepgraph>
@@ -170,7 +170,7 @@
 <para><ref refid="CanMessage_8h" kindref="compound">CanMessage.h</ref></para><para>Created on: Nov 24, 2014 Author: pnikiel Struct that defines a Can Message, used by CCanAccess </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanMessage.h" line="48" column="1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterface/include/CanMessage.h" line="48" column="1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -219,6 +219,6 @@
 <codeline lineno="49"><highlight class="normal"></highlight></codeline>
 <codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>CANMESSAGE_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanMessage.h"/>
+    <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterface/include/CanMessage.h"/>
   </compounddef>
 </doxygen>

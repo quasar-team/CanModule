@@ -1,13 +1,13 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
-  <compounddef id="dir_e9b056a3d81276f0c209a1427440be15" kind="dir">
+  <compounddef id="dir_d4835d373a67f610e461e2c4657f5a3e" kind="dir">
     <compoundname>CWrapper</compoundname>
-    <innerdir refid="dir_9a9a801d7fa498750ae850a215f07845">CWrapper/include</innerdir>
-    <innerdir refid="dir_c95e054aea2410e3969c201af41e4dee">CWrapper/src</innerdir>
+    <innerdir refid="dir_3ee8f60a2716977b66e67ed549e44af6">CWrapper/include</innerdir>
+    <innerdir refid="dir_fccec0ef1aabc0f4155b6fa4ee36f89e">CWrapper/src</innerdir>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/"/>
+    <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CWrapper/"/>
   </compounddef>
 </doxygen>

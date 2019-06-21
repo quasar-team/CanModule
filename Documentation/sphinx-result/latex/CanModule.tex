@@ -60,7 +60,7 @@
 
 
 \title{CanModule Developer Documentation}
-\date{June 20, 2019}
+\date{June 21, 2019}
 \release{1.1.4}
 \author{Michael Ludwig}
 \newcommand{\sphinxlogo}{\vbox{}}
@@ -1010,6 +1010,137 @@ on a running server instance.}
 
 \chapter{Building}
 \label{\detokenize{building:building}}\label{\detokenize{building::doc}}
+We use \sphinxhref{https://cmake.org/}{cmake} 2.8 or higher for multi-OS building.
+The dependencies are:
+\begin{itemize}
+\item {} 
+xerces-c
+
+\item {} 
+boost (1.64.0 preferred, but any version \textgreater{}=1.59.0 should work)
+
+\item {} 
+socketcan libs (CC7) (not to be confused with the CanModule sockcan.so lib!)
+
+\item {} 
+dependencies for CanModule: LogIt (sources gto github pulled in by cmake)
+
+\item {} 
+vendor libs (to be installed on your build/target machine)
+
+\item {} \begin{description}
+\item[{you will have to switch off vendor builds if you want ONLY mockup, using the toolchain}] \leavevmode\begin{itemize}
+\item {} 
+SET( CANMODULE\_BUILD\_VENDORS “OFF”)
+
+\item {} 
+default is “ON”
+
+\end{itemize}
+
+\end{description}
+
+\item {} \begin{description}
+\item[{you can switch off selected vendor which you do not need using the toolchain}] \leavevmode\begin{itemize}
+\item {} 
+SET(CANMODULE\_BUILD\_SYSTEC “OFF”)
+
+\item {} 
+SET(CANMODULE\_BUILD\_ANAGATE “OFF”)
+
+\item {} 
+SET(CANMODULE\_BUILD\_PEAK “OFF”)
+
+\end{itemize}
+
+\end{description}
+
+\end{itemize}
+
+\sphinxstylestrong{These dependencies should conveniently be injected into cmake using a toolchain file:}
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+CMakeLists.txt:
+\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}
+(...other stuff)
+\PYGZsh{}
+\PYGZsh{} Load build toolchain file and internal checks before we start building
+\PYGZsh{}
+if( DEFINED CMAKE\PYGZus{}TOOLCHAIN\PYGZus{}FILE )
+        message( STATUS \PYGZdq{}[\PYGZdl{}\PYGZob{}CMAKE\PYGZus{}CURRENT\PYGZus{}LIST\PYGZus{}FILE\PYGZcb{}:\PYGZdl{}\PYGZob{}CMAKE\PYGZus{}CURRENT\PYGZus{}LIST\PYGZus{}LINE\PYGZcb{}]: CMAKE\PYGZus{}TOOLCHAIN\PYGZus{}FILE is defined \PYGZhy{}\PYGZhy{} including [\PYGZdl{}\PYGZob{}CMAKE\PYGZus{}TOOLCHAIN\PYGZus{}FILE\PYGZcb{}]\PYGZdq{})
+        include( \PYGZdl{}\PYGZob{}CMAKE\PYGZus{}TOOLCHAIN\PYGZus{}FILE\PYGZcb{} )
+endif()
+(...other stuff)
+\end{sphinxVerbatim}
+
+\sphinxstylestrong{The toolchain file would look like this (i.e. windows):}
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+toolchain.cmake:
+\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}
+\PYGZsh{} toolchain for CANX\PYGZhy{}tester for CI jenkins, w10e
+\PYGZsh{} mludwig at cern dot ch
+\PYGZsh{} cmake \PYGZhy{}DCMAKE\PYGZus{}TOOLCHAIN\PYGZus{}FILE=jenkins\PYGZus{}CanModule\PYGZus{}w10e.cmake .
+\PYGZsh{}
+\PYGZsh{} boost
+\PYGZsh{}
+\PYGZsh{} bin download from sl
+SET ( BOOST\PYGZus{}PATH\PYGZus{}LIBS \PYGZdq{}M:/3rdPartySoftware/boost\PYGZus{}1\PYGZus{}59\PYGZus{}0\PYGZhy{}msvc\PYGZhy{}14/lib64\PYGZdq{} )
+SET ( BOOST\PYGZus{}HEADERS \PYGZdq{}M:/3rdPartySoftware/boost\PYGZus{}1\PYGZus{}59\PYGZus{}0\PYGZhy{}msvc\PYGZhy{}14\PYGZdq{} )
+SET ( BOOST\PYGZus{}LIBS \PYGZhy{}lboost\PYGZus{}log \PYGZhy{}lboost\PYGZus{}log\PYGZus{}setup \PYGZhy{}lboost\PYGZus{}filesystem \PYGZhy{}lboost\PYGZus{}system \PYGZhy{}lboost\PYGZus{}chrono \PYGZhy{}lboost\PYGZus{}date\PYGZus{}time \PYGZhy{}lboost\PYGZus{}thread  )
+message( STATUS \PYGZdq{}[\PYGZdl{}\PYGZob{}CMAKE\PYGZus{}CURRENT\PYGZus{}LIST\PYGZus{}FILE\PYGZcb{}:\PYGZdl{}\PYGZob{}CMAKE\PYGZus{}CURRENT\PYGZus{}LIST\PYGZus{}LINE\PYGZcb{}] toolchain defines [BOOST\PYGZus{}PATH\PYGZus{}LIBS:\PYGZdl{}\PYGZob{}BOOST\PYGZus{}PATH\PYGZus{}LIBS\PYGZcb{}]\PYGZdq{} )
+message( STATUS \PYGZdq{}[\PYGZdl{}\PYGZob{}CMAKE\PYGZus{}CURRENT\PYGZus{}LIST\PYGZus{}FILE\PYGZcb{}:\PYGZdl{}\PYGZob{}CMAKE\PYGZus{}CURRENT\PYGZus{}LIST\PYGZus{}LINE\PYGZcb{}] toolchain defines [BOOST\PYGZus{}HEADERS:\PYGZdl{}\PYGZob{}BOOST\PYGZus{}HEADERS\PYGZcb{}]\PYGZdq{} )
+message( STATUS \PYGZdq{}[\PYGZdl{}\PYGZob{}CMAKE\PYGZus{}CURRENT\PYGZus{}LIST\PYGZus{}FILE\PYGZcb{}:\PYGZdl{}\PYGZob{}CMAKE\PYGZus{}CURRENT\PYGZus{}LIST\PYGZus{}LINE\PYGZcb{}] toolchain defines [BOOST\PYGZus{}LIBS:\PYGZdl{}\PYGZob{}BOOST\PYGZus{}LIBS\PYGZcb{}]\PYGZdq{} )
+\PYGZsh{}
+\PYGZsh{} LogIt, used by CANX directly as well
+\PYGZsh{}
+SET ( LOGIT\PYGZus{}HEADERS   \PYGZdq{}\PYGZdl{}ENV\PYGZob{}JENKINSWS\PYGZcb{}/CanModule/LogIt/include\PYGZdq{} )
+SET ( LOGIT\PYGZus{}PATH\PYGZus{}LIBS \PYGZdq{}\PYGZdl{}ENV\PYGZob{}JENKINSWS\PYGZcb{}/CanModule/LogIt/lib\PYGZdq{} )
+SET ( LOGIT\PYGZus{}LIBS \PYGZdq{}\PYGZhy{}lLogIt\PYGZdq{} )
+\PYGZsh{}
+\PYGZsh{} xerces\PYGZhy{}c
+\PYGZsh{}
+SET ( XERCES\PYGZus{}PATH\PYGZus{}LIBS \PYGZdq{}M:/3rdPartySoftware/xerces\PYGZhy{}c\PYGZhy{}3.2.0\PYGZus{}64bit/src/Debug\PYGZdq{} )
+SET ( XERCES\PYGZus{}HEADERS \PYGZdq{}M:/3rdPartySoftware/xerces\PYGZhy{}c\PYGZhy{}3.2.0\PYGZus{}64bit/src\PYGZdq{} )
+SET ( XERCES\PYGZus{}LIBS \PYGZdq{}xerces\PYGZhy{}c\PYGZus{}3D.lib\PYGZdq{} )
+\PYGZsh{}
+\PYGZsh{} CanModule build behaviour:
+\PYGZsh{} CANMODULE\PYGZus{}BUILD\PYGZus{}VENDORS OFF or not specified: only build mockup, do not build any vendor libs (default phony)
+\PYGZsh{} CANMODULE\PYGZus{}BUILD\PYGZus{}VENDORS ON, nothing else: build mockup and all vendor libs (default all on)
+\PYGZsh{} CANMODULE\PYGZus{}BUILD\PYGZus{}VENDORS ON, CANMODULE\PYGZus{}BUILD\PYGZus{}SYSTEC OFF: build mockup and all vendor libs except systec (drop systec)
+\PYGZsh{} CANMODULE\PYGZus{}BUILD\PYGZus{}VENDORS ON, CANMODULE\PYGZus{}BUILD\PYGZus{}ANAGATE OFF: build mockup and all vendor libs except anagate (drop anagate)
+\PYGZsh{} CANMODULE\PYGZus{}BUILD\PYGZus{}VENDORS ON, CANMODULE\PYGZus{}BUILD\PYGZus{}PEAK OFF: build mockup and all vendor libs except peak (drop peak)
+SET(CANMODULE\PYGZus{}BUILD\PYGZus{}VENDORS \PYGZdq{}ON\PYGZdq{} )
+\PYGZsh{} disable a vendor
+\PYGZsh{}SET(CANMODULE\PYGZus{}BUILD\PYGZus{}SYSTEC \PYGZdq{}OFF\PYGZdq{})
+\PYGZsh{}SET(CANMODULE\PYGZus{}BUILD\PYGZus{}ANAGATE \PYGZdq{}OFF\PYGZdq{})
+\PYGZsh{}SET(CANMODULE\PYGZus{}BUILD\PYGZus{}PEAK \PYGZdq{}OFF\PYGZdq{})
+\PYGZsh{}
+\PYGZsh{} systec
+\PYGZsh{} version 6.02 for windows 10 7may2018
+SET( SYSTEC\PYGZus{}LIB\PYGZus{}FILE \PYGZdq{}M:/3rdPartySoftware/SYSTEC\PYGZhy{}electronic/USB\PYGZhy{}CANmodul Utility Disk/Examples/Lib/USBCAN64.lib\PYGZdq{})
+SET( SYSTEC\PYGZus{}HEADERS \PYGZdq{}M:/3rdPartySoftware/SYSTEC\PYGZhy{}electronic/USB\PYGZhy{}CANmodul Utility Disk/Examples/Include\PYGZdq{})
+SET( SYSTEC\PYGZus{}LIB\PYGZus{}PATH \PYGZdq{}M:/3rdPartySoftware/SYSTEC\PYGZhy{}electronic/USB\PYGZhy{}CANmodul Utility Disk/Examples/lib\PYGZdq{} )
+\PYGZsh{}
+\PYGZsh{} anagate
+\PYGZsh{} version vc8 as it seems
+SET( ANAGATE\PYGZus{}LIB\PYGZus{}FILE \PYGZdq{}AnaGateCanDll64.lib\PYGZdq{})
+SET( ANAGATE\PYGZus{}HEADERS \PYGZdq{}M:/3rdPartySoftware/AnaGateCAN/win64/vc8/include\PYGZdq{} )
+SET( ANAGATE\PYGZus{}LIB\PYGZus{}PATH \PYGZdq{}M:/3rdPartySoftware/AnaGateCAN/win64/vc8/Release\PYGZdq{} )
+\PYGZsh{}
+\PYGZsh{} peak
+\PYGZsh{} version PCAN Basic 4.3.2
+SET( PEAK\PYGZus{}LIB\PYGZus{}FILE \PYGZdq{}PCANBasic.lib\PYGZdq{})
+SET( PEAK\PYGZus{}HEADERS \PYGZdq{}M:/3rdPartySoftware/PCAN\PYGZhy{}Basic API/Include\PYGZdq{} )
+SET( PEAK\PYGZus{}LIB\PYGZus{}PATH \PYGZdq{}M:/3rdPartySoftware/PCAN\PYGZhy{}Basic API/x64/VC\PYGZus{}LIB\PYGZdq{} )
+\end{sphinxVerbatim}
+
+\sphinxstylestrong{The toolchain gets then injected by running cmake:}
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+cmake \PYGZhy{}DCMAKE\PYGZus{}TOOLCHAIN\PYGZus{}FILE=toolchain.cmake
+\end{sphinxVerbatim}
+
 
 \chapter{Running}
 \label{\detokenize{running:running}}\label{\detokenize{running::doc}}

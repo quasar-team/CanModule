@@ -42,6 +42,112 @@
             
   <div class="section" id="building">
 <h1>Building<a class="headerlink" href="#building" title="Permalink to this headline">¶</a></h1>
+<p>We use <a class="reference external" href="https://cmake.org/">cmake</a> 2.8 or higher for multi-OS building.
+The dependencies are:</p>
+<ul class="simple">
+<li>xerces-c</li>
+<li>boost (1.64.0 preferred, but any version &gt;=1.59.0 should work)</li>
+<li>socketcan libs (CC7) (not to be confused with the CanModule sockcan.so lib!)</li>
+<li>dependencies for CanModule: LogIt (sources gto github pulled in by cmake)</li>
+<li>vendor libs (to be installed on your build/target machine)</li>
+<li><dl class="first docutils">
+<dt>you will have to switch off vendor builds if you want ONLY mockup, using the toolchain</dt>
+<dd><ul class="first last">
+<li>SET( CANMODULE_BUILD_VENDORS “OFF”)</li>
+<li>default is “ON”</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>you can switch off selected vendor which you do not need using the toolchain</dt>
+<dd><ul class="first last">
+<li>SET(CANMODULE_BUILD_SYSTEC “OFF”)</li>
+<li>SET(CANMODULE_BUILD_ANAGATE “OFF”)</li>
+<li>SET(CANMODULE_BUILD_PEAK “OFF”)</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<p><strong>These dependencies should conveniently be injected into cmake using a toolchain file:</strong></p>
+<div class="highlight-basemake notranslate"><div class="highlight"><pre><span></span>CMakeLists.txt:
+---------------
+(...other stuff)
+#
+# Load build toolchain file and internal checks before we start building
+#
+if( DEFINED CMAKE_TOOLCHAIN_FILE )
+        message( STATUS &quot;[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CMAKE_TOOLCHAIN_FILE is defined -- including [${CMAKE_TOOLCHAIN_FILE}]&quot;)
+        include( ${CMAKE_TOOLCHAIN_FILE} )
+endif()
+(...other stuff)
+</pre></div>
+</div>
+<p><strong>The toolchain file would look like this (i.e. windows):</strong></p>
+<div class="highlight-basemake notranslate"><div class="highlight"><pre><span></span>toolchain.cmake:
+----------------
+# toolchain for CANX-tester for CI jenkins, w10e
+# mludwig at cern dot ch
+# cmake -DCMAKE_TOOLCHAIN_FILE=jenkins_CanModule_w10e.cmake .
+#
+# boost
+#
+# bin download from sl
+SET ( BOOST_PATH_LIBS &quot;M:/3rdPartySoftware/boost_1_59_0-msvc-14/lib64&quot; )
+SET ( BOOST_HEADERS &quot;M:/3rdPartySoftware/boost_1_59_0-msvc-14&quot; )
+SET ( BOOST_LIBS -lboost_log -lboost_log_setup -lboost_filesystem -lboost_system -lboost_chrono -lboost_date_time -lboost_thread  )
+message( STATUS &quot;[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] toolchain defines [BOOST_PATH_LIBS:${BOOST_PATH_LIBS}]&quot; )
+message( STATUS &quot;[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] toolchain defines [BOOST_HEADERS:${BOOST_HEADERS}]&quot; )
+message( STATUS &quot;[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] toolchain defines [BOOST_LIBS:${BOOST_LIBS}]&quot; )
+#
+# LogIt, used by CANX directly as well
+#
+SET ( LOGIT_HEADERS   &quot;$ENV{JENKINSWS}/CanModule/LogIt/include&quot; )
+SET ( LOGIT_PATH_LIBS &quot;$ENV{JENKINSWS}/CanModule/LogIt/lib&quot; )
+SET ( LOGIT_LIBS &quot;-lLogIt&quot; )
+#
+# xerces-c
+#
+SET ( XERCES_PATH_LIBS &quot;M:/3rdPartySoftware/xerces-c-3.2.0_64bit/src/Debug&quot; )
+SET ( XERCES_HEADERS &quot;M:/3rdPartySoftware/xerces-c-3.2.0_64bit/src&quot; )
+SET ( XERCES_LIBS &quot;xerces-c_3D.lib&quot; )
+#
+# CanModule build behaviour:
+# CANMODULE_BUILD_VENDORS OFF or not specified: only build mockup, do not build any vendor libs (default phony)
+# CANMODULE_BUILD_VENDORS ON, nothing else: build mockup and all vendor libs (default all on)
+# CANMODULE_BUILD_VENDORS ON, CANMODULE_BUILD_SYSTEC OFF: build mockup and all vendor libs except systec (drop systec)
+# CANMODULE_BUILD_VENDORS ON, CANMODULE_BUILD_ANAGATE OFF: build mockup and all vendor libs except anagate (drop anagate)
+# CANMODULE_BUILD_VENDORS ON, CANMODULE_BUILD_PEAK OFF: build mockup and all vendor libs except peak (drop peak)
+SET(CANMODULE_BUILD_VENDORS &quot;ON&quot; )
+# disable a vendor
+#SET(CANMODULE_BUILD_SYSTEC &quot;OFF&quot;)
+#SET(CANMODULE_BUILD_ANAGATE &quot;OFF&quot;)
+#SET(CANMODULE_BUILD_PEAK &quot;OFF&quot;)
+#
+# systec
+# version 6.02 for windows 10 7may2018
+SET( SYSTEC_LIB_FILE &quot;M:/3rdPartySoftware/SYSTEC-electronic/USB-CANmodul Utility Disk/Examples/Lib/USBCAN64.lib&quot;)
+SET( SYSTEC_HEADERS &quot;M:/3rdPartySoftware/SYSTEC-electronic/USB-CANmodul Utility Disk/Examples/Include&quot;)
+SET( SYSTEC_LIB_PATH &quot;M:/3rdPartySoftware/SYSTEC-electronic/USB-CANmodul Utility Disk/Examples/lib&quot; )
+#
+# anagate
+# version vc8 as it seems
+SET( ANAGATE_LIB_FILE &quot;AnaGateCanDll64.lib&quot;)
+SET( ANAGATE_HEADERS &quot;M:/3rdPartySoftware/AnaGateCAN/win64/vc8/include&quot; )
+SET( ANAGATE_LIB_PATH &quot;M:/3rdPartySoftware/AnaGateCAN/win64/vc8/Release&quot; )
+#
+# peak
+# version PCAN Basic 4.3.2
+SET( PEAK_LIB_FILE &quot;PCANBasic.lib&quot;)
+SET( PEAK_HEADERS &quot;M:/3rdPartySoftware/PCAN-Basic API/Include&quot; )
+SET( PEAK_LIB_PATH &quot;M:/3rdPartySoftware/PCAN-Basic API/x64/VC_LIB&quot; )
+</pre></div>
+</div>
+<p><strong>The toolchain gets then injected by running cmake:</strong></p>
+<div class="highlight-basemake notranslate"><div class="highlight"><pre><span></span>cmake -DCMAKE_TOOLCHAIN_FILE=toolchain.cmake
+</pre></div>
+</div>
 </div>
 
 
@@ -53,6 +159,7 @@
 <h3><a href="index.html">Table of Contents</a></h3>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="downloading.html">Downloading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="objective.html">Objective</a></li>
 <li class="toctree-l1"><a class="reference internal" href="standardApi.html">Standard API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cwrapper.html">C-Wrapper</a></li>
@@ -106,7 +213,7 @@
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2019, CERN, BE-ICS (Michael Ludwig).
-      Last updated on 20-Jun-2019 14:47:25.
+      Last updated on 21-Jun-2019 14:17:25.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
     </div>
   </body>

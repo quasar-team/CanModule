@@ -25,16 +25,26 @@ project(CanInterfaceImplementations)
 # we have a mock up build without any vendor libs as well, for CI where we don't want to distribute vendors
 message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] building vendors [CANMODULE_BUILD_VENDORS:${CANMODULE_BUILD_VENDORS}]")
 
-# you have to switch ON the vendors on by one, because you might not want to install drivers/libs
-# for unused modules on your system. In this case just comment out what you don't need
-SET(CANMODULE_BUILD_SYSTEC "ON")
-SET(CANMODULE_BUILD_ANAGATE "ON")
-SET(CANMODULE_BUILD_PEAK "ON")
-# ---
+# build behaviour:
+# CANMODULE_BUILD_VENDORS OFF or not specified: only build mockup, do not build any vendor libs (default phony)
+# CANMODULE_BUILD_VENDORS ON, nothing else: build mockup and all vendor libs (default all on)
+# CANMODULE_BUILD_VENDORS ON, CANMODULE_BUILD_SYSTEC OFF: build mockup and all vendor libs except systec (drop systec)
+# CANMODULE_BUILD_VENDORS ON, CANMODULE_BUILD_ANAGATE OFF: build mockup and all vendor libs except anagate (drop anagate)
+# CANMODULE_BUILD_VENDORS ON, CANMODULE_BUILD_PEAK OFF: build mockup and all vendor libs except peak (drop peak)
+IF(	NOT DEFINED CANMODULE_BUILD_SYSTEC )
+	SET(CANMODULE_BUILD_SYSTEC "ON")
+ENDIF()
+IF(	NOT DEFINED CANMODULE_BUILD_ANAGATE )
+	SET(CANMODULE_BUILD_ANAGATE "ON")
+ENDIF()
+IF(	NOT DEFINED CANMODULE_BUILD_PEAK )
+	SET(CANMODULE_BUILD_PEAK "ON")
+ENDIF()
 
-message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] vendor systec  [CANMODULE_BUILD_SYSTEC:${CANMODULE_BUILD_SYSTEC}]")
-message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] vendor anagate [CANMODULE_BUILD_ANAGATE:${CANMODULE_BUILD_ANAGATE}]")
-message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] vendor peak    [CANMODULE_BUILD_PEAK:${CANMODULE_BUILD_PEAK}]")
+message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] build any vendors [CANMODULE_BUILD_VENDORS:${CANMODULE_BUILD_VENDORS}]")
+message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] build systec  [CANMODULE_BUILD_SYSTEC:${CANMODULE_BUILD_SYSTEC}]")
+message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] build anagate [CANMODULE_BUILD_ANAGATE:${CANMODULE_BUILD_ANAGATE}]")
+message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] build peak    [CANMODULE_BUILD_PEAK:${CANMODULE_BUILD_PEAK}]")
 IF (WIN32)	
 	IF(	CANMODULE_BUILD_VENDORS )
 		IF(	CANMODULE_BUILD_SYSTEC )

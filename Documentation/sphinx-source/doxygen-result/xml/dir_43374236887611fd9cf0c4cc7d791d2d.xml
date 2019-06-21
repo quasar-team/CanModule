@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_43374236887611fd9cf0c4cc7d791d2d" kind="dir">
+    <compoundname>CanInterfaceImplementations</compoundname>
+    <innerdir refid="dir_be12f11329aba77331d0c5e6b5216606">CanInterfaceImplementations/anagate</innerdir>
+    <innerdir refid="dir_4a68dcc9d1e6c33dcd8ec1daf6059563">CanInterfaceImplementations/pkcan</innerdir>
+    <innerdir refid="dir_cf880608b03c3899fe0b10dbd5e12e96">CanInterfaceImplementations/sockcan</innerdir>
+    <innerdir refid="dir_5db19234ce0c29f2c09caa08ea140a00">CanInterfaceImplementations/systec</innerdir>
+    <innerdir refid="dir_641bf6c4acf83f20ee8c8de6146442b3">CanInterfaceImplementations/unitTestMockUpImplementation</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/"/>
+  </compounddef>
+</doxygen>
