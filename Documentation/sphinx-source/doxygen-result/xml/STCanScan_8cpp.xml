@@ -9,24 +9,6 @@
     <includes local="no">LogIt.h</includes>
     <includes local="no">sys/time.h</includes>
     <incdepgraph>
-      <node id="323">
-        <label>CCanAccess.h</label>
-        <link refid="CCanAccess_8h"/>
-        <childnode refid="319" relation="include">
-        </childnode>
-        <childnode refid="324" relation="include">
-        </childnode>
-        <childnode refid="325" relation="include">
-        </childnode>
-        <childnode refid="316" relation="include">
-        </childnode>
-        <childnode refid="326" relation="include">
-        </childnode>
-        <childnode refid="317" relation="include">
-        </childnode>
-        <childnode refid="327" relation="include">
-        </childnode>
-      </node>
       <node id="318">
         <label>stdatomic.h</label>
       </node>
@@ -36,26 +18,12 @@
       <node id="315">
         <label>windows.h</label>
       </node>
-      <node id="317">
-        <label>CanStatistics.h</label>
-        <link refid="CanStatistics_8h"/>
-        <childnode refid="318" relation="include">
-        </childnode>
-        <childnode refid="319" relation="include">
-        </childnode>
-        <childnode refid="320" relation="include">
-        </childnode>
-        <childnode refid="321" relation="include">
-        </childnode>
+      <node id="320">
+        <label>ExportDefinition.h</label>
+        <link refid="ExportDefinition_8h"/>
       </node>
       <node id="325">
         <label>boost/signals2.hpp</label>
-      </node>
-      <node id="332">
-        <label>stdexcept</label>
-      </node>
-      <node id="316">
-        <label>string</label>
       </node>
       <node id="330">
         <label>CanModuleUtils.h</label>
@@ -71,39 +39,17 @@
         <childnode refid="321" relation="include">
         </childnode>
       </node>
-      <node id="326">
-        <label>CanMessage.h</label>
-        <link refid="CanMessage_8h"/>
-        <childnode refid="319" relation="include">
-        </childnode>
+      <node id="332">
+        <label>stdexcept</label>
+      </node>
+      <node id="316">
+        <label>string</label>
       </node>
       <node id="314">
         <label>Winsock2.h</label>
       </node>
       <node id="329">
         <label>string.h</label>
-      </node>
-      <node id="331">
-        <label>sstream</label>
-      </node>
-      <node id="320">
-        <label>ExportDefinition.h</label>
-        <link refid="ExportDefinition_8h"/>
-      </node>
-      <node id="328">
-        <label>time.h</label>
-      </node>
-      <node id="319">
-        <label>sys/time.h</label>
-      </node>
-      <node id="313">
-        <label>tchar.h</label>
-      </node>
-      <node id="324">
-        <label>boost/bind.hpp</label>
-      </node>
-      <node id="321">
-        <label>chrono</label>
       </node>
       <node id="311">
         <label>CanInterfaceImplementations/systec/STCanScan.cpp</label>
@@ -121,8 +67,35 @@
         <childnode refid="319" relation="include">
         </childnode>
       </node>
-      <node id="322">
-        <label>usbcan32.h</label>
+      <node id="331">
+        <label>sstream</label>
+      </node>
+      <node id="328">
+        <label>time.h</label>
+      </node>
+      <node id="319">
+        <label>sys/time.h</label>
+      </node>
+      <node id="317">
+        <label>CanStatistics.h</label>
+        <link refid="CanStatistics_8h"/>
+        <childnode refid="318" relation="include">
+        </childnode>
+        <childnode refid="319" relation="include">
+        </childnode>
+        <childnode refid="320" relation="include">
+        </childnode>
+        <childnode refid="321" relation="include">
+        </childnode>
+      </node>
+      <node id="313">
+        <label>tchar.h</label>
+      </node>
+      <node id="324">
+        <label>boost/bind.hpp</label>
+      </node>
+      <node id="321">
+        <label>chrono</label>
       </node>
       <node id="312">
         <label>STCanScan.h</label>
@@ -142,6 +115,33 @@
         <childnode refid="323" relation="include">
         </childnode>
       </node>
+      <node id="326">
+        <label>CanMessage.h</label>
+        <link refid="CanMessage_8h"/>
+        <childnode refid="319" relation="include">
+        </childnode>
+      </node>
+      <node id="322">
+        <label>usbcan32.h</label>
+      </node>
+      <node id="323">
+        <label>CCanAccess.h</label>
+        <link refid="CCanAccess_8h"/>
+        <childnode refid="319" relation="include">
+        </childnode>
+        <childnode refid="324" relation="include">
+        </childnode>
+        <childnode refid="325" relation="include">
+        </childnode>
+        <childnode refid="316" relation="include">
+        </childnode>
+        <childnode refid="326" relation="include">
+        </childnode>
+        <childnode refid="317" relation="include">
+        </childnode>
+        <childnode refid="327" relation="include">
+        </childnode>
+      </node>
     </incdepgraph>
       <sectiondef kind="define">
       <memberdef kind="define" id="STCanScan_8cpp_1a08d6d35b7f83e326a37caa39473e6ebe" prot="public" static="no">
@@ -155,7 +155,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp" line="40" column="9" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="40" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp" line="40" column="9" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="40" bodyend="-1"/>
         <referencedby refid="classSTCanScan_1aab42375da764eb0d50dee318cd790646" compoundref="STCanScan_8cpp" startline="77" endline="109">STCanScan::CanScanControlThread</referencedby>
         <referencedby refid="classSTCanScan_1a8e147c77933e11e9983f4d4e22830b21" compoundref="STCanScan_8cpp" startline="175" endline="226">STCanScan::configureCanBoard</referencedby>
         <referencedby refid="classSTCanScan_1aa99f9f23bdfd367a51efc40e228a6f88" compoundref="STCanScan_8cpp" startline="139" endline="173">STCanScan::createBus</referencedby>
@@ -171,7 +171,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp" line="50" column="9" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="50" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp" line="50" column="9" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="50" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="STCanScan_8cpp_1a9aa60e1ead64be77ad551e745cbfd4d3" prot="public" static="no">
         <name>WINAPI</name>
@@ -181,7 +181,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp" line="51" column="9" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="51" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp" line="51" column="9" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="51" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -196,7 +196,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp" line="55" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="55" bodyend="59"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp" line="55" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="55" bodyend="59"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -512,6 +512,6 @@
 <codeline lineno="368"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="369"><highlight class="normal"></highlight></codeline>
     </programlisting>
-    <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp"/>
+    <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp"/>
   </compounddef>
 </doxygen>
