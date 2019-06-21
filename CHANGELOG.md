@@ -10,6 +10,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 - 64BIT/32BIT switch, assume defaults 64BIT but allow toolchain override with 32BIT explicitly
   for all vendors/windows
 
+## [1.1.7] 21.june.2019
+### Changed
+- switch off unneeded vendors optionally
+- updated doc
+
+## [1.1.6] 20.june.2019
+### Fixed
+- build chain cleanup
+
 ## [1.1.5] 18.june.2019
 ### Fixed
 - in 1.1.4, the anagate actually did not fully recover from a disconnect, the reception handler 
