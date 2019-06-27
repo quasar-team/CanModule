@@ -142,14 +142,12 @@ void WINAPI InternalCallback(AnaUInt32 nIdentifier, const char * pcBuffer, AnaIn
 	for (int i = 0; i < nBufferLen; i++)
 		canMsgCopy.c_data[i] = pcBuffer[i];
 
-	//	canMsgCopy.c_time.tv_sec = nSeconds;
-	//	canMsgCopy.c_time.tv_usec = nMicroseconds;
 	canMsgCopy.c_time = convertTimepointToTimeval(currentTimeTimeval());
 
-	cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
-			<< " anagate message reception hHandle= " << hHandle
-			<< " nIdentifier= " << nIdentifier
-			<< endl;
+	//cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
+	//		<< " anagate message reception hHandle= " << hHandle
+	//		<< " nIdentifier= " << nIdentifier
+	//		<< endl;
 
 	g_AnaCanScanPointerMap[hHandle]->callbackOnRecieve(canMsgCopy);
 	g_AnaCanScanPointerMap[hHandle]->statisticsOnRecieve( nBufferLen );
