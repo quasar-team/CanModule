@@ -207,11 +207,11 @@ bool AnaCanScan::createBus(const string name,const string parameters)
 		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
 		<< " could not set LogIt instance" << std::endl;
 
-	logItInstance->registerLoggingComponent( CanModule::LogItComponentNameAnagate, Log::TRC );
+	logItInstance->registerLoggingComponent( CanModule::LogItComponentName, Log::TRC );
 
-	if (!logItInstance->getComponentHandle(CanModule::LogItComponentNameAnagate, myHandle))
+	if (!logItInstance->getComponentHandle(CanModule::LogItComponentName, myHandle))
 		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
-		<< " could not get LogIt component handle for " << LogItComponentNameAnagate << std::endl;
+		<< " could not get LogIt component handle for " << LogItComponentName << std::endl;
 
 	//LOG(Log::TRC, myHandle) << __FUNCTION__ << " " __FILE__ << " " << __LINE__;
 	AnaCanScan::s_logItHandleAnagate = myHandle;

@@ -551,11 +551,10 @@ bool CSockCanScan::createBus(const string name, const string parameters)
 		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
 		<< " could not set LogIt instance" << std::endl;
 
-	logItInstance->registerLoggingComponent( CanModule::LogItComponentNameSock, Log::TRC );
-
-	if (!logItInstance->getComponentHandle(CanModule::LogItComponentNameSock, myHandle))
+	logItInstance->registerLoggingComponent( CanModule::LogItComponentName, Log::TRC );
+	if (!logItInstance->getComponentHandle(CanModule::LogItComponentName, myHandle))
 		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
-		<< " could not get LogIt component handle for " << LogItComponentNameSock << std::endl;
+		<< " could not get LogIt component handle for " << LogItComponentName << std::endl;
 
 	CSockCanScan::st_logItHandleSock = myHandle;
 

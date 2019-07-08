@@ -148,10 +148,10 @@ bool STCanScan::createBus(const string name,const string parameters)
 		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
 		<< " could not set LogIt instance" << std::endl;
 
-	logItInstance->registerLoggingComponent( CanModule::LogItComponentNameSystec, Log::TRC );
-	if (!logItInstance->getComponentHandle(CanModule::LogItComponentNameSystec, myHandle))
+	logItInstance->registerLoggingComponent( CanModule::LogItComponentName, Log::TRC );
+	if (!logItInstance->getComponentHandle(CanModule::LogItComponentName, myHandle))
 		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
-		<< " could not get LogIt component handle for " << LogItComponentNameSystec << std::endl;
+		<< " could not get LogIt component handle for " << LogItComponentName << std::endl;
 
 	STCanScan::s_logItHandleSt = myHandle;
 

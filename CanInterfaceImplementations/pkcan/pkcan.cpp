@@ -138,10 +138,10 @@ bool PKCanScan::createBus(const string name ,const string parameters )
 		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
 		<< " could not set LogIt instance" << std::endl;
 
-	logItInstance->registerLoggingComponent( CanModule::LogItComponentNamePeak, Log::TRC);
-	if (!logItInstance->getComponentHandle( CanModule::LogItComponentNamePeak, myHandle))
+	logItInstance->registerLoggingComponent( CanModule::LogItComponentName, Log::TRC);
+	if (!logItInstance->getComponentHandle( CanModule::LogItComponentName, myHandle))
 		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
-		<< " could not get LogIt component handle for " << LogItComponentNamePeak << std::endl;
+		<< " could not get LogIt component handle for " << LogItComponentName << std::endl;
 
 	PKCanScan::s_logItHandlePk = myHandle;
 	MLOGPK(DBG, this) << " name= " << name << " parameters= " << parameters << ", configuring CAN board";
