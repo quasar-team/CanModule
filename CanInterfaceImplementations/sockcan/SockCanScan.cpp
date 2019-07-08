@@ -49,7 +49,7 @@ using namespace std;
 
 /* static */ Log::LogComponentHandle CSockCanScan::st_logItHandleSock;
 
-#define MLOGSOCK(LEVEL,THIS) LOG(Log::LEVEL, CSockCanScan::st_logItHandleSock) << __FUNCTION__ << " " << " bus= " << THIS->getBusName() << " "
+#define MLOGSOCK(LEVEL,THIS) LOG(Log::LEVEL, CSockCanScan::st_logItHandleSock) << __FUNCTION__ << " sock bus= " << THIS->getBusName() << " "
 
 
 //! The macro below is applicable only to this translation unit

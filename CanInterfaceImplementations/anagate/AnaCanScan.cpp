@@ -60,7 +60,7 @@ boost::mutex anagateReconnectMutex;
 /* static */ Log::LogComponentHandle AnaCanScan::s_logItHandleAnagate = 0;
 /* static */ std::map<string,bool> AnaCanScan::reconnectInProgress_map;
 
-#define MLOGANA(LEVEL,THIS) LOG(Log::LEVEL, AnaCanScan::s_logItHandleAnagate) << __FUNCTION__ << " " << " bus= " << THIS->getBusName() << " "
+#define MLOGANA(LEVEL,THIS) LOG(Log::LEVEL, AnaCanScan::s_logItHandleAnagate) << __FUNCTION__ << " " << " anagate bus= " << THIS->getBusName() << " "
 
 /** global map of connection-object-pointers: the map-key is the handle. Since handles are allocated by the OS
  * the keys are getting changed as well when we reconnect, so that we do not keep the stale keys(=handles) in
