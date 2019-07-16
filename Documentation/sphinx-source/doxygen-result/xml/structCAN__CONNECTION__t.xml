@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CWrapper/include/canmodule_wrapper.h" line="75" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CWrapper/include/canmodule_wrapper.h" bodystart="75" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CWrapper/include/canmodule_wrapper.h" line="75" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CWrapper/include/canmodule_wrapper.h" bodystart="75" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structCAN__CONNECTION__t_1a49c44af0963145bf5c2d8d3b6116882a" prot="public" static="no" mutable="no">
         <type><ref refid="classCanModule_1_1CanLibLoader" kindref="compound">CanModule::CanLibLoader</ref> *</type>
@@ -28,7 +28,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CWrapper/include/canmodule_wrapper.h" line="76" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CWrapper/include/canmodule_wrapper.h" bodystart="76" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CWrapper/include/canmodule_wrapper.h" line="76" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CWrapper/include/canmodule_wrapper.h" bodystart="76" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structCAN__CONNECTION__t_1a4307ead99fac10c9415801692a0e0bab" prot="public" static="no" mutable="no">
         <type>bool</type>
@@ -41,7 +41,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CWrapper/include/canmodule_wrapper.h" line="77" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CWrapper/include/canmodule_wrapper.h" bodystart="77" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CWrapper/include/canmodule_wrapper.h" line="77" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CWrapper/include/canmodule_wrapper.h" bodystart="77" bodyend="-1"/>
         <referencedby refid="canmodule__wrapper_8cpp_1a055607542cbb43c08b74c3a148e5bcc4" compoundref="canmodule__wrapper_8cpp" startline="280" endline="407">canmodule_init</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structCAN__CONNECTION__t_1aac1832cba6d62a026031ed088dfa5da1" prot="public" static="no" mutable="no">
@@ -55,7 +55,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CWrapper/include/canmodule_wrapper.h" line="78" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CWrapper/include/canmodule_wrapper.h" bodystart="78" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CWrapper/include/canmodule_wrapper.h" line="78" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CWrapper/include/canmodule_wrapper.h" bodystart="78" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structCAN__CONNECTION__t_1a31ab20f3606f5cb10289ea30d35839a4" prot="public" static="no" mutable="no">
         <type><ref refid="structRECEPTION__t" kindref="compound">RECEPTION_t</ref></type>
@@ -68,7 +68,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CWrapper/include/canmodule_wrapper.h" line="79" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CWrapper/include/canmodule_wrapper.h" bodystart="79" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CWrapper/include/canmodule_wrapper.h" line="79" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CWrapper/include/canmodule_wrapper.h" bodystart="79" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structCAN__CONNECTION__t_1a28c64bd7c6af88c3bf92f318cc9c89a1" prot="public" static="no" mutable="no">
         <type>unsigned int</type>
@@ -81,7 +81,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CWrapper/include/canmodule_wrapper.h" line="80" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CWrapper/include/canmodule_wrapper.h" bodystart="80" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CWrapper/include/canmodule_wrapper.h" line="80" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CWrapper/include/canmodule_wrapper.h" bodystart="80" bodyend="-1"/>
         <referencedby refid="canmodule__wrapper_8cpp_1a055607542cbb43c08b74c3a148e5bcc4" compoundref="canmodule__wrapper_8cpp" startline="280" endline="407">canmodule_init</referencedby>
       </memberdef>
       </sectiondef>
@@ -130,7 +130,7 @@
         <link refid="classCanModule_1_1CanLibLoader"/>
       </node>
     </collaborationgraph>
-    <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CWrapper/include/canmodule_wrapper.h" line="74" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CWrapper/include/canmodule_wrapper.h" bodystart="74" bodyend="81"/>
+    <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CWrapper/include/canmodule_wrapper.h" line="74" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CWrapper/include/canmodule_wrapper.h" bodystart="74" bodyend="81"/>
     <listofallmembers>
       <member refid="structCAN__CONNECTION__t_1aac1832cba6d62a026031ed088dfa5da1" prot="public" virt="non-virtual"><scope>CAN_CONNECTION_t</scope><name>cca</name></member>
       <member refid="structCAN__CONNECTION__t_1a28c64bd7c6af88c3bf92f318cc9c89a1" prot="public" virt="non-virtual"><scope>CAN_CONNECTION_t</scope><name>delay</name></member>

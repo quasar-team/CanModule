@@ -27,6 +27,48 @@
       <node id="364">
         <label>LogIt.h</label>
       </node>
+      <node id="355">
+        <label>CanStatistics.h</label>
+        <link refid="CanStatistics_8h"/>
+        <childnode refid="356" relation="include">
+        </childnode>
+        <childnode refid="357" relation="include">
+        </childnode>
+        <childnode refid="358" relation="include">
+        </childnode>
+        <childnode refid="359" relation="include">
+        </childnode>
+      </node>
+      <node id="362">
+        <label>boost/signals2.hpp</label>
+      </node>
+      <node id="354">
+        <label>string</label>
+      </node>
+      <node id="368">
+        <label>map</label>
+      </node>
+      <node id="360">
+        <label>CCanAccess.h</label>
+        <link refid="CCanAccess_8h"/>
+        <childnode refid="357" relation="include">
+        </childnode>
+        <childnode refid="361" relation="include">
+        </childnode>
+        <childnode refid="362" relation="include">
+        </childnode>
+        <childnode refid="354" relation="include">
+        </childnode>
+        <childnode refid="363" relation="include">
+        </childnode>
+        <childnode refid="355" relation="include">
+        </childnode>
+        <childnode refid="364" relation="include">
+        </childnode>
+      </node>
+      <node id="367">
+        <label>string.h</label>
+      </node>
       <node id="352">
         <label>CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.cpp</label>
         <link refid="MockCanAccess.cpp"/>
@@ -47,21 +89,11 @@
         <childnode refid="370" relation="include">
         </childnode>
       </node>
-      <node id="358">
-        <label>ExportDefinition.h</label>
-        <link refid="ExportDefinition_8h"/>
-      </node>
-      <node id="362">
-        <label>boost/signals2.hpp</label>
-      </node>
-      <node id="354">
-        <label>string</label>
-      </node>
-      <node id="368">
-        <label>map</label>
-      </node>
-      <node id="367">
-        <label>string.h</label>
+      <node id="363">
+        <label>CanMessage.h</label>
+        <link refid="CanMessage_8h"/>
+        <childnode refid="357" relation="include">
+        </childnode>
       </node>
       <node id="369">
         <label>sstream</label>
@@ -75,50 +107,18 @@
       <node id="370">
         <label>iostream</label>
       </node>
-      <node id="355">
-        <label>CanStatistics.h</label>
-        <link refid="CanStatistics_8h"/>
-        <childnode refid="356" relation="include">
-        </childnode>
-        <childnode refid="357" relation="include">
-        </childnode>
-        <childnode refid="358" relation="include">
-        </childnode>
-        <childnode refid="359" relation="include">
-        </childnode>
-      </node>
       <node id="361">
         <label>boost/bind.hpp</label>
       </node>
       <node id="359">
         <label>chrono</label>
       </node>
-      <node id="363">
-        <label>CanMessage.h</label>
-        <link refid="CanMessage_8h"/>
-        <childnode refid="357" relation="include">
-        </childnode>
+      <node id="358">
+        <label>ExportDefinition.h</label>
+        <link refid="ExportDefinition_8h"/>
       </node>
       <node id="366">
         <label>cstring</label>
-      </node>
-      <node id="360">
-        <label>CCanAccess.h</label>
-        <link refid="CCanAccess_8h"/>
-        <childnode refid="357" relation="include">
-        </childnode>
-        <childnode refid="361" relation="include">
-        </childnode>
-        <childnode refid="362" relation="include">
-        </childnode>
-        <childnode refid="354" relation="include">
-        </childnode>
-        <childnode refid="363" relation="include">
-        </childnode>
-        <childnode refid="355" relation="include">
-        </childnode>
-        <childnode refid="364" relation="include">
-        </childnode>
       </node>
     </incdepgraph>
       <sectiondef kind="define">
@@ -130,7 +130,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.cpp" line="19" column="12" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.cpp" bodystart="19" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.cpp" line="19" column="12" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.cpp" bodystart="19" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -145,7 +145,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.cpp" line="24" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.cpp" bodystart="24" bodyend="28"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.cpp" line="24" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.cpp" bodystart="24" bodyend="28"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -237,6 +237,6 @@
 <codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="85"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.cpp"/>
+    <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.cpp"/>
   </compounddef>
 </doxygen>

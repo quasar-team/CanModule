@@ -17,67 +17,6 @@
       <node id="223">
         <label>windows.h</label>
       </node>
-      <node id="232">
-        <label>ExportDefinition.h</label>
-        <link refid="ExportDefinition_8h"/>
-      </node>
-      <node id="228">
-        <label>boost/signals2.hpp</label>
-      </node>
-      <node id="237">
-        <label>CanModuleUtils.h</label>
-        <link refid="CanModuleUtils_8h"/>
-        <childnode refid="226" relation="include">
-        </childnode>
-        <childnode refid="238" relation="include">
-        </childnode>
-        <childnode refid="239" relation="include">
-        </childnode>
-        <childnode refid="221" relation="include">
-        </childnode>
-        <childnode refid="233" relation="include">
-        </childnode>
-      </node>
-      <node id="239">
-        <label>stdexcept</label>
-      </node>
-      <node id="221">
-        <label>string</label>
-      </node>
-      <node id="224">
-        <label>PCANBasic.h</label>
-      </node>
-      <node id="222">
-        <label>Winsock2.h</label>
-      </node>
-      <node id="236">
-        <label>string.h</label>
-      </node>
-      <node id="238">
-        <label>sstream</label>
-      </node>
-      <node id="235">
-        <label>time.h</label>
-      </node>
-      <node id="220">
-        <label>pkcan.h</label>
-        <link refid="pkcan_8h"/>
-        <childnode refid="221" relation="include">
-        </childnode>
-        <childnode refid="222" relation="include">
-        </childnode>
-        <childnode refid="223" relation="include">
-        </childnode>
-        <childnode refid="224" relation="include">
-        </childnode>
-        <childnode refid="225" relation="include">
-        </childnode>
-        <childnode refid="230" relation="include">
-        </childnode>
-      </node>
-      <node id="226">
-        <label>sys/time.h</label>
-      </node>
       <node id="230">
         <label>CanStatistics.h</label>
         <link refid="CanStatistics_8h"/>
@@ -90,31 +29,17 @@
         <childnode refid="233" relation="include">
         </childnode>
       </node>
-      <node id="219">
-        <label>CanInterfaceImplementations/pkcan/pkcan.cpp</label>
-        <link refid="pkcan.cpp"/>
-        <childnode refid="220" relation="include">
-        </childnode>
-        <childnode refid="235" relation="include">
-        </childnode>
-        <childnode refid="236" relation="include">
-        </childnode>
-        <childnode refid="237" relation="include">
-        </childnode>
-        <childnode refid="234" relation="include">
-        </childnode>
+      <node id="228">
+        <label>boost/signals2.hpp</label>
       </node>
-      <node id="227">
-        <label>boost/bind.hpp</label>
+      <node id="239">
+        <label>stdexcept</label>
       </node>
-      <node id="233">
-        <label>chrono</label>
+      <node id="221">
+        <label>string</label>
       </node>
-      <node id="229">
-        <label>CanMessage.h</label>
-        <link refid="CanMessage_8h"/>
-        <childnode refid="226" relation="include">
-        </childnode>
+      <node id="224">
+        <label>PCANBasic.h</label>
       </node>
       <node id="225">
         <label>CCanAccess.h</label>
@@ -134,20 +59,95 @@
         <childnode refid="234" relation="include">
         </childnode>
       </node>
+      <node id="222">
+        <label>Winsock2.h</label>
+      </node>
+      <node id="236">
+        <label>string.h</label>
+      </node>
+      <node id="229">
+        <label>CanMessage.h</label>
+        <link refid="CanMessage_8h"/>
+        <childnode refid="226" relation="include">
+        </childnode>
+      </node>
+      <node id="238">
+        <label>sstream</label>
+      </node>
+      <node id="219">
+        <label>CanInterfaceImplementations/pkcan/pkcan.cpp</label>
+        <link refid="pkcan.cpp"/>
+        <childnode refid="220" relation="include">
+        </childnode>
+        <childnode refid="235" relation="include">
+        </childnode>
+        <childnode refid="236" relation="include">
+        </childnode>
+        <childnode refid="237" relation="include">
+        </childnode>
+        <childnode refid="234" relation="include">
+        </childnode>
+      </node>
+      <node id="235">
+        <label>time.h</label>
+      </node>
+      <node id="226">
+        <label>sys/time.h</label>
+      </node>
+      <node id="237">
+        <label>CanModuleUtils.h</label>
+        <link refid="CanModuleUtils_8h"/>
+        <childnode refid="226" relation="include">
+        </childnode>
+        <childnode refid="238" relation="include">
+        </childnode>
+        <childnode refid="239" relation="include">
+        </childnode>
+        <childnode refid="221" relation="include">
+        </childnode>
+        <childnode refid="233" relation="include">
+        </childnode>
+      </node>
+      <node id="227">
+        <label>boost/bind.hpp</label>
+      </node>
+      <node id="233">
+        <label>chrono</label>
+      </node>
+      <node id="232">
+        <label>ExportDefinition.h</label>
+        <link refid="ExportDefinition_8h"/>
+      </node>
+      <node id="220">
+        <label>pkcan.h</label>
+        <link refid="pkcan_8h"/>
+        <childnode refid="221" relation="include">
+        </childnode>
+        <childnode refid="222" relation="include">
+        </childnode>
+        <childnode refid="223" relation="include">
+        </childnode>
+        <childnode refid="224" relation="include">
+        </childnode>
+        <childnode refid="225" relation="include">
+        </childnode>
+        <childnode refid="230" relation="include">
+        </childnode>
+      </node>
     </incdepgraph>
       <sectiondef kind="define">
       <memberdef kind="define" id="pkcan_8cpp_1a73247195a8f4adaf8cc04e0ac302e045" prot="public" static="no">
         <name>MLOGPK</name>
         <param><defname>LEVEL</defname></param>
         <param><defname>THIS</defname></param>
-        <initializer>LOG(Log::LEVEL, <ref refid="classPKCanScan_1ad3d2cb2aba9654055c73ae2751cbf1de" kindref="member">PKCanScan::s_logItHandlePk</ref>) &lt;&lt; __FUNCTION__ &lt;&lt; &quot; &quot; &lt;&lt; &quot; bus= &quot; &lt;&lt; THIS-&gt;getBusName() &lt;&lt; &quot; &quot;</initializer>
+        <initializer>LOG(Log::LEVEL, <ref refid="classPKCanScan_1ad3d2cb2aba9654055c73ae2751cbf1de" kindref="member">PKCanScan::s_logItHandlePk</ref>) &lt;&lt; __FUNCTION__ &lt;&lt; &quot; &quot; &lt;&lt; &quot; peak bus= &quot; &lt;&lt; THIS-&gt;getBusName() &lt;&lt; &quot; &quot;</initializer>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/pkcan/pkcan.cpp" line="36" column="9" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/pkcan/pkcan.cpp" bodystart="36" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/pkcan/pkcan.cpp" line="36" column="9" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/pkcan/pkcan.cpp" bodystart="36" bodyend="-1"/>
         <referencedby refid="classPKCanScan_1a45bd5feda5ccb009775c45bfabe41614" compoundref="pkcan_8cpp" startline="68" endline="110">PKCanScan::CanScanControlThread</referencedby>
         <referencedby refid="classPKCanScan_1a6fe021ecfdde5af1e7a74668b9819bfb" compoundref="pkcan_8cpp" startline="171" endline="272">PKCanScan::configureCanboard</referencedby>
         <referencedby refid="classPKCanScan_1ae91999b9316ca127eecbabd9f27c3137" compoundref="pkcan_8cpp" startline="130" endline="164">PKCanScan::createBus</referencedby>
@@ -167,7 +167,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/pkcan/pkcan.cpp" line="40" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/pkcan/pkcan.cpp" bodystart="40" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/pkcan/pkcan.cpp" line="40" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/pkcan/pkcan.cpp" bodystart="40" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -185,7 +185,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/pkcan/pkcan.cpp" line="41" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/pkcan/pkcan.cpp" bodystart="41" bodyend="46"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/pkcan/pkcan.cpp" line="41" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/pkcan/pkcan.cpp" bodystart="41" bodyend="46"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -204,7 +204,7 @@
 <codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>static<sp/>*/</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classPKCanScan_1ae1ff02a4576fe6d7276843e3821408c8" kindref="member">PKCanScan::s_logItRegisteredPk</ref><sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>static<sp/>*/</highlight><highlight class="normal"><sp/>Log::LogComponentHandle<sp/><ref refid="classPKCanScan_1ad3d2cb2aba9654055c73ae2751cbf1de" kindref="member">PKCanScan::s_logItHandlePk</ref><sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="35"><highlight class="normal"></highlight></codeline>
-<codeline lineno="36" refid="pkcan_8cpp_1a73247195a8f4adaf8cc04e0ac302e045" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MLOGPK(LEVEL,THIS)<sp/>LOG(Log::LEVEL,<sp/>PKCanScan::s_logItHandlePk)<sp/>&lt;&lt;<sp/>__FUNCTION__<sp/>&lt;&lt;<sp/>&quot;<sp/>&quot;<sp/>&lt;&lt;<sp/>&quot;<sp/>bus=<sp/>&quot;<sp/>&lt;&lt;<sp/>THIS-&gt;getBusName()<sp/>&lt;&lt;<sp/>&quot;<sp/>&quot;</highlight></codeline>
+<codeline lineno="36" refid="pkcan_8cpp_1a73247195a8f4adaf8cc04e0ac302e045" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MLOGPK(LEVEL,THIS)<sp/>LOG(Log::LEVEL,<sp/>PKCanScan::s_logItHandlePk)<sp/>&lt;&lt;<sp/>__FUNCTION__<sp/>&lt;&lt;<sp/>&quot;<sp/>&quot;<sp/>&lt;&lt;<sp/>&quot;<sp/>peak<sp/>bus=<sp/>&quot;<sp/>&lt;&lt;<sp/>THIS-&gt;getBusName()<sp/>&lt;&lt;<sp/>&quot;<sp/>&quot;</highlight></codeline>
 <codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="38"><highlight class="normal"></highlight><highlight class="keyword">using<sp/>namespace<sp/></highlight><highlight class="normal">std;</highlight></codeline>
 <codeline lineno="39"><highlight class="normal"></highlight></codeline>
@@ -288,10 +288,10 @@
 <codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/>__FILE__<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>__LINE__<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>__FUNCTION__</highlight></codeline>
 <codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>could<sp/>not<sp/>set<sp/>LogIt<sp/>instance&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
 <codeline lineno="140"><highlight class="normal"></highlight></codeline>
-<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/>logItInstance-&gt;registerLoggingComponent(<sp/><ref refid="namespaceCanModule_1a558e2e51ea82e642b8656a3fc2a53e5c" kindref="member">CanModule::LogItComponentNamePeak</ref>,<sp/>Log::TRC);</highlight></codeline>
-<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!logItInstance-&gt;getComponentHandle(<sp/><ref refid="namespaceCanModule_1a558e2e51ea82e642b8656a3fc2a53e5c" kindref="member">CanModule::LogItComponentNamePeak</ref>,<sp/>myHandle))</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/>logItInstance-&gt;registerLoggingComponent(<sp/><ref refid="namespaceCanModule_1a78730a18f59663871883885f3914a2aa" kindref="member">CanModule::LogItComponentName</ref>,<sp/>Log::TRC);</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!logItInstance-&gt;getComponentHandle(<sp/><ref refid="namespaceCanModule_1a78730a18f59663871883885f3914a2aa" kindref="member">CanModule::LogItComponentName</ref>,<sp/>myHandle))</highlight></codeline>
 <codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/>__FILE__<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>__LINE__<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>__FUNCTION__</highlight></codeline>
-<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>could<sp/>not<sp/>get<sp/>LogIt<sp/>component<sp/>handle<sp/>for<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/><ref refid="namespaceCanModule_1a558e2e51ea82e642b8656a3fc2a53e5c" kindref="member">LogItComponentNamePeak</ref><sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>could<sp/>not<sp/>get<sp/>LogIt<sp/>component<sp/>handle<sp/>for<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/><ref refid="namespaceCanModule_1a78730a18f59663871883885f3914a2aa" kindref="member">LogItComponentName</ref><sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
 <codeline lineno="145"><highlight class="normal"></highlight></codeline>
 <codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classPKCanScan_1ad3d2cb2aba9654055c73ae2751cbf1de" kindref="member">PKCanScan::s_logItHandlePk</ref><sp/>=<sp/>myHandle;</highlight></codeline>
 <codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="pkcan_8cpp_1a73247195a8f4adaf8cc04e0ac302e045" kindref="member">MLOGPK</ref>(DBG,<sp/></highlight><highlight class="keyword">this</highlight><highlight class="normal">)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>name=<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>name<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>parameters=<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>parameters<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;,<sp/>configuring<sp/>CAN<sp/>board&quot;</highlight><highlight class="normal">;</highlight></codeline>
@@ -535,6 +535,6 @@
 <codeline lineno="418"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="419"><highlight class="normal"></highlight></codeline>
     </programlisting>
-    <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/pkcan/pkcan.cpp"/>
+    <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/pkcan/pkcan.cpp"/>
   </compounddef>
 </doxygen>

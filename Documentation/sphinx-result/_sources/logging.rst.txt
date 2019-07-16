@@ -2,16 +2,16 @@
 Logging
 =======
 
-CanModule uses `LogIt`_ for reporting information during runtime. LogIt uses the four components
+CanModule uses `LogIt`_ for reporting information during runtime. LogIt uses one component "CanModule"
 
 * CanModule: general messages concerning CanModule itself
-* CanModuleAnagate: messages related to AnaGate modules
-* CanModuleSystec: messages related to SysTec modules
-* CanModulePeak: messages related to Peak modules
+* CanModule Anagate: messages related to AnaGate modules contain a string "anagate"
+* CanModule Systec: messages related to SysTec modules contain a string "systec"
+* CanModule Peak: messages related to Peak modules contain a string "peak"
 
-for managing logging levels per vendor. The logging level of each component, if the component is used, can be set individually 
-at any time once initialized. For windows the component names are as listed above, for linux the component CanModuleSock is used 
-for Systec and Peak modules, but also both CanModuleSystec and CanModulePeak are mapped to CanModuleSock for convenience. 
+for managing logging levels. The logging level of each component, if the component is used, can be set individually 
+at any time once initialized. Vendor specific messages can be filtered out by using the specific strings.
+For windows the strings are as listed above, for linux the string "sock" is used for Systec and Peak modules. 
 
 You can of course add your own components for specific logging, like MYCOMP in the code below.
 
@@ -44,7 +44,7 @@ You can of course add your own components for specific logging, like MYCOMP in t
 	// hourray, we should see this message because we are at INF
 
 	/**
-	 * LogIt component CanModule for generic Canmodule
+	 * LogIt component CanModule
 	 */
 	Log::registerLoggingComponent( CanModule::LogItComponentName, loglevel );
 	logIt->getComponentHandle(CanModule::LogItComponentName, canModuleHandle );
@@ -77,31 +77,10 @@ on a running server instance.**
 	 * manipulate LogIt levels per component for testing, during runtime. Set loglevel to TRC (max verbosity)
 	 */
 	loglevel = LOG::TRC;
-	Log::LogComponentHandle anagateHandle;
-	logIt->getComponentHandle(CanModule::LogItComponentNameAnagate, anagateHandle );
-	Log::setComponentLogLevel( anagateHandle, loglevel );
-	LOG(Log::INF, anagateHandle) << " logging for component " << CanModule::LogItComponentNameAnagate;
-
-	#ifdef _WIN32
-	
-	Log::LogComponentHandle stHandle;
-	logIt->getComponentHandle(CanModule::LogItComponentNameSystec, stHandle );
-	Log::setComponentLogLevel( stHandle, loglevel );
-	LOG(Log::INF, stHandle) << " logging for component " << CanModule::LogItComponentNameSystec;
-
-	Log::LogComponentHandle pkHandle;
-	logIt->getComponentHandle(CanModule::LogItComponentNamePeak, pkHandle );
-	Log::setComponentLogLevel( pkHandle, loglevel );
-	LOG(Log::INF, pkHandle) << " logging for component " << CanModule::LogItComponentNamePeak;
-	
-	#else
-	// for linux we can also just use LogItComponentNameSystec and LogItComponentNamePeak 
-	Log::LogComponentHandle sockHandle;
-	logIt->getComponentHandle(CanModule::LogItComponentNameSock, sockHandle );
-	Log::setComponentLogLevel( sockHandle, loglevel );
-	LOG(Log::INF, sockHandle) << " logging for component " << CanModule::LogItComponentNameSock;
-	
-	#endif
+	Log::LogComponentHandle handle;
+	logIt->getComponentHandle(CanModule::LogItComponentName, handle );
+	Log::setComponentLogLevel( handle, loglevel );
+	LOG(Log::INF, handle) << " logging for component " << CanModule::LogItComponentName;
 
  
 .. _LogIt: https://github.com/quasar-team/LogIt

@@ -303,10 +303,6 @@
   <compound refid="namespaceCanModule" kind="namespace"><name>CanModule</name>
     <member refid="namespaceCanModule_1aca5babab77e506364d8fb87f20767c3f" kind="typedef"><name>f_canAccess</name></member>
     <member refid="namespaceCanModule_1a78730a18f59663871883885f3914a2aa" kind="variable"><name>LogItComponentName</name></member>
-    <member refid="namespaceCanModule_1ab674248fa647ccc8056dd796421aa16b" kind="variable"><name>LogItComponentNameAnagate</name></member>
-    <member refid="namespaceCanModule_1a043500ed91c75aae8d8841430ef4f9aa" kind="variable"><name>LogItComponentNameSock</name></member>
-    <member refid="namespaceCanModule_1a558e2e51ea82e642b8656a3fc2a53e5c" kind="variable"><name>LogItComponentNamePeak</name></member>
-    <member refid="namespaceCanModule_1ae25b0c7453a892a139549914f17d298a" kind="variable"><name>LogItComponentNameSystec</name></member>
     <member refid="namespaceCanModule_1a3ec3082d7d11a9c1641023cb3f53cbe5" kind="function"><name>convertTimepointToTimeval</name></member>
     <member refid="namespaceCanModule_1ac10ba397acc9fd9a69de54836bc6ca4a" kind="function"><name>convertTimevalToTimepoint</name></member>
     <member refid="namespaceCanModule_1a6c0c413c22df9260df29bf5706d7940c" kind="function"><name>CanModulesubtractTimeval</name></member>
@@ -478,34 +474,34 @@
   </compound>
   <compound refid="todo" kind="page"><name>todo</name>
   </compound>
-  <compound refid="dir_be12f11329aba77331d0c5e6b5216606" kind="dir"><name>CanInterfaceImplementations/anagate</name>
+  <compound refid="dir_fd353d8bdc1345b81591cb468b514e73" kind="dir"><name>CanInterfaceImplementations/anagate</name>
   </compound>
-  <compound refid="dir_230d5d8a9294c28eb40e4f8e50f3ddd9" kind="dir"><name>CanInterface</name>
+  <compound refid="dir_d9e6de84a6a731600f78130310eadded" kind="dir"><name>CanInterface</name>
   </compound>
-  <compound refid="dir_43374236887611fd9cf0c4cc7d791d2d" kind="dir"><name>CanInterfaceImplementations</name>
+  <compound refid="dir_78bed401316fa855280e37627a869e10" kind="dir"><name>CanInterfaceImplementations</name>
   </compound>
-  <compound refid="dir_22fec0b71ff6306647bd90a2f2d56c79" kind="dir"><name>CanLibLoader</name>
+  <compound refid="dir_56a0fa6d3bdcc8fff285e37f12de54a2" kind="dir"><name>CanLibLoader</name>
   </compound>
-  <compound refid="dir_d4835d373a67f610e461e2c4657f5a3e" kind="dir"><name>CWrapper</name>
+  <compound refid="dir_f5f21cf36d49263437453d0f4e4c1cac" kind="dir"><name>CWrapper</name>
   </compound>
-  <compound refid="dir_3ee8f60a2716977b66e67ed549e44af6" kind="dir"><name>CWrapper/include</name>
+  <compound refid="dir_561b72811467233649f50f950bbe3eef" kind="dir"><name>CWrapper/include</name>
   </compound>
-  <compound refid="dir_178f29dc0c3c4b0da0630565f34bb9b1" kind="dir"><name>CanLibLoader/include</name>
+  <compound refid="dir_3404757b3ef532e8411da14561d14ea1" kind="dir"><name>CanLibLoader/include</name>
   </compound>
-  <compound refid="dir_1957e02008f44b8fca77d63bbe9933e0" kind="dir"><name>CanInterface/include</name>
+  <compound refid="dir_45a47512ec95f183b89388654424e1b5" kind="dir"><name>CanInterface/include</name>
   </compound>
-  <compound refid="dir_4a68dcc9d1e6c33dcd8ec1daf6059563" kind="dir"><name>CanInterfaceImplementations/pkcan</name>
+  <compound refid="dir_33ca806deeab66f0b57520fcad0df56a" kind="dir"><name>CanInterfaceImplementations/pkcan</name>
   </compound>
-  <compound refid="dir_cf880608b03c3899fe0b10dbd5e12e96" kind="dir"><name>CanInterfaceImplementations/sockcan</name>
+  <compound refid="dir_bc7a21bf609ba933430eb47fb1748f42" kind="dir"><name>CanInterfaceImplementations/sockcan</name>
   </compound>
-  <compound refid="dir_fccec0ef1aabc0f4155b6fa4ee36f89e" kind="dir"><name>CWrapper/src</name>
+  <compound refid="dir_59dc3c2483a96f85fdc78f6979da9c02" kind="dir"><name>CWrapper/src</name>
   </compound>
-  <compound refid="dir_3b4204deebaae3dea46668b8f1b60353" kind="dir"><name>CanLibLoader/src</name>
+  <compound refid="dir_bfe3089d4b3e0c3c5f9f27a824d77f73" kind="dir"><name>CanLibLoader/src</name>
   </compound>
-  <compound refid="dir_5582d47f7a9107ce159ecf82de3f04bc" kind="dir"><name>CanInterface/src</name>
+  <compound refid="dir_f2a7eefcd860e998ce462da3fec62e1e" kind="dir"><name>CanInterface/src</name>
   </compound>
-  <compound refid="dir_5db19234ce0c29f2c09caa08ea140a00" kind="dir"><name>CanInterfaceImplementations/systec</name>
+  <compound refid="dir_27bc7ed0ecf98c41a174443115b25add" kind="dir"><name>CanInterfaceImplementations/systec</name>
   </compound>
-  <compound refid="dir_641bf6c4acf83f20ee8c8de6146442b3" kind="dir"><name>CanInterfaceImplementations/unitTestMockUpImplementation</name>
+  <compound refid="dir_aec18c9e39fef8db507aa4d80f220717" kind="dir"><name>CanInterfaceImplementations/unitTestMockUpImplementation</name>
   </compound>
 </doxygenindex>

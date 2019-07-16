@@ -17,7 +17,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="65" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.h" bodystart="65" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="65" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.h" bodystart="65" bodyend="-1"/>
         <referencedby refid="classSTCanScan_1aa99f9f23bdfd367a51efc40e228a6f88" compoundref="STCanScan_8cpp" startline="139" endline="173">createBus</referencedby>
       </memberdef>
       <memberdef kind="variable" id="classSTCanScan_1a112e1468e19d033d97e731110ba195dc" prot="public" static="yes" mutable="no">
@@ -32,7 +32,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="66" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.h" bodystart="66" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="66" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.h" bodystart="66" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-attrib">
@@ -47,7 +47,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="70" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.h" bodystart="70" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="70" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.h" bodystart="70" bodyend="-1"/>
         <referencedby refid="classSTCanScan_1a8e147c77933e11e9983f4d4e22830b21" compoundref="STCanScan_8cpp" startline="175" endline="226">configureCanBoard</referencedby>
         <referencedby refid="classSTCanScan_1a5f74df7e9615929365b33c08e709e918" compoundref="STCanScan_8cpp" startline="234" endline="271">openCanPort</referencedby>
       </memberdef>
@@ -62,7 +62,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="72" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.h" bodystart="72" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="72" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.h" bodystart="72" bodyend="-1"/>
         <referencedby refid="classSTCanScan_1aab42375da764eb0d50dee318cd790646" compoundref="STCanScan_8cpp" startline="77" endline="109">CanScanControlThread</referencedby>
         <referencedby refid="classSTCanScan_1a8e147c77933e11e9983f4d4e22830b21" compoundref="STCanScan_8cpp" startline="175" endline="226">configureCanBoard</referencedby>
         <referencedby refid="classSTCanScan_1a5f74df7e9615929365b33c08e709e918" compoundref="STCanScan_8cpp" startline="234" endline="271">openCanPort</referencedby>
@@ -81,7 +81,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="74" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.h" bodystart="74" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="74" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.h" bodystart="74" bodyend="-1"/>
         <referencedby refid="classSTCanScan_1a8e147c77933e11e9983f4d4e22830b21" compoundref="STCanScan_8cpp" startline="175" endline="226">configureCanBoard</referencedby>
       </memberdef>
       <memberdef kind="variable" id="classSTCanScan_1add94dcac99b3ba3a17cb3708fd0cd20d" prot="private" static="no" mutable="no">
@@ -95,7 +95,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="76" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.h" bodystart="76" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="76" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.h" bodystart="76" bodyend="-1"/>
         <referencedby refid="classSTCanScan_1aab42375da764eb0d50dee318cd790646" compoundref="STCanScan_8cpp" startline="77" endline="109">CanScanControlThread</referencedby>
         <referencedby refid="classSTCanScan_1a5f74df7e9615929365b33c08e709e918" compoundref="STCanScan_8cpp" startline="234" endline="271">openCanPort</referencedby>
         <referencedby refid="classSTCanScan_1a45f0ec011022bf58a23e8370bac7f829" compoundref="STCanScan_8cpp" startline="299" endline="339">sendMessage</referencedby>
@@ -113,7 +113,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="78" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.h" bodystart="78" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="78" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.h" bodystart="78" bodyend="-1"/>
         <referencedby refid="classSTCanScan_1aab42375da764eb0d50dee318cd790646" compoundref="STCanScan_8cpp" startline="77" endline="109">CanScanControlThread</referencedby>
         <referencedby refid="classSTCanScan_1a4810249805b660c4e914247acbdf45d2" compoundref="STCanScan_8cpp" startline="363" endline="368">getStatistics</referencedby>
         <referencedby refid="classSTCanScan_1a45f0ec011022bf58a23e8370bac7f829" compoundref="STCanScan_8cpp" startline="299" endline="339">sendMessage</referencedby>
@@ -130,7 +130,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="80" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.h" bodystart="80" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="80" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.h" bodystart="80" bodyend="-1"/>
         <referencedby refid="classSTCanScan_1a8e147c77933e11e9983f4d4e22830b21" compoundref="STCanScan_8cpp" startline="175" endline="226">configureCanBoard</referencedby>
         <referencedby refid="classSTCanScan_1a4810249805b660c4e914247acbdf45d2" compoundref="STCanScan_8cpp" startline="363" endline="368">getStatistics</referencedby>
       </memberdef>
@@ -145,7 +145,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="85" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.h" bodystart="85" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="85" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.h" bodystart="85" bodyend="-1"/>
         <referencedby refid="classSTCanScan_1a43454c0bc20eb764cbb4ef3dd5e52cc9" compoundref="STCanScan_8cpp" startline="273" endline="286">sendErrorCode</referencedby>
       </memberdef>
       <memberdef kind="variable" id="classSTCanScan_1abd418113d56ef882bb12cd7473d031e1" prot="private" static="no" mutable="no">
@@ -159,7 +159,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="86" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.h" bodystart="86" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="86" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.h" bodystart="86" bodyend="-1"/>
         <referencedby refid="classSTCanScan_1aab42375da764eb0d50dee318cd790646" compoundref="STCanScan_8cpp" startline="77" endline="109">CanScanControlThread</referencedby>
         <referencedby refid="classSTCanScan_1a2f3398dc992ebd90002c179305c55d54" compoundref="STCanScan_8cpp" startline="111" endline="119">~STCanScan</referencedby>
       </memberdef>
@@ -174,7 +174,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="88" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.h" bodystart="88" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="88" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.h" bodystart="88" bodyend="-1"/>
         <referencedby refid="classSTCanScan_1aa99f9f23bdfd367a51efc40e228a6f88" compoundref="STCanScan_8cpp" startline="139" endline="173">createBus</referencedby>
         <referencedby refid="classSTCanScan_1a2f3398dc992ebd90002c179305c55d54" compoundref="STCanScan_8cpp" startline="111" endline="119">~STCanScan</referencedby>
       </memberdef>
@@ -189,7 +189,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="90" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.h" bodystart="90" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="90" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.h" bodystart="90" bodyend="-1"/>
         <referencedby refid="classSTCanScan_1aa99f9f23bdfd367a51efc40e228a6f88" compoundref="STCanScan_8cpp" startline="139" endline="173">createBus</referencedby>
       </memberdef>
       </sectiondef>
@@ -205,7 +205,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="105" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.h" bodystart="105" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="105" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.h" bodystart="105" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classSTCanScan_1a310439aeb8688c29fb3fe8faa4a9e198" prot="private" static="yes" mutable="no">
         <type>bool</type>
@@ -218,7 +218,7 @@
 <para>© Copyright CERN, 2015. All rights not expressly granted are reserved.</para><para>STCanScap.cpp</para><para>Created on: Jul 21, 2011 Based on work by vfilimon Rework and logging done by Piotr Nikiel <ulink url="mailto:piotr@nikiel.info">piotr@nikiel.info</ulink> mludwig at cern dot ch</para><para>This file is part of Quasar.</para><para>Quasar is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public Licence as published by the Free Software Foundation, either version 3 of the Licence.</para><para>Quasar is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public Licence for more details.</para><para>You should have received a copy of the GNU Lesser General Public License along with Quasar. If not, see <ulink url="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</ulink>. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="106" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.h" bodystart="106" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="106" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.h" bodystart="106" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -233,7 +233,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="43" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="61" bodyend="71"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="43" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="61" bodyend="71"/>
         <references refid="classCanModule_1_1CanStatistics_1a85e6c87ce5285884a0272088178bb8f6" compoundref="CanStatistics_8cpp" startline="43" endline="50">CanModule::CanStatistics::beginNewRun</references>
         <references refid="classSTCanScan_1a93abd76cf68726a0bfa4b9d3982ec9aa" compoundref="STCanScan_8h" startline="78">m_statistics</references>
       </memberdef>
@@ -252,7 +252,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="45" column="1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="45" column="1"/>
       </memberdef>
       <memberdef kind="function" id="classSTCanScan_1a7c2d148e988e8b7e9df6b4ab0ed2dda1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classSTCanScan" kindref="compound">STCanScan</ref> &amp;</type>
@@ -269,7 +269,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="47" column="1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="47" column="1"/>
       </memberdef>
       <memberdef kind="function" id="classSTCanScan_1a2f3398dc992ebd90002c179305c55d54" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type></type>
@@ -282,7 +282,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="49" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="111" bodyend="119"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="49" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="111" bodyend="119"/>
         <references refid="classSTCanScan_1abd418113d56ef882bb12cd7473d031e1" compoundref="STCanScan_8h" startline="86">m_CanScanThreadShutdownFlag</references>
         <references refid="classSTCanScan_1ac5e311e695c1a3c810f82b0c21ee3618" compoundref="STCanScan_8h" startline="72">m_channelNumber</references>
         <references refid="classSTCanScan_1a2a57272e12f97f245e6f204347782bc0" compoundref="STCanScan_8h" startline="88">m_hCanScanThread</references>
@@ -329,13 +329,13 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="51" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="139" bodyend="173"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="51" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="139" bodyend="173"/>
         <references refid="classSTCanScan_1aab42375da764eb0d50dee318cd790646" compoundref="STCanScan_8cpp" startline="77" endline="109">CanScanControlThread</references>
         <references refid="classSTCanScan_1a8e147c77933e11e9983f4d4e22830b21" compoundref="STCanScan_8cpp" startline="175" endline="226">configureCanBoard</references>
-        <references refid="namespaceCanModule_1ae25b0c7453a892a139549914f17d298a" compoundref="CCanAccess_8h" startline="62">CanModule::LogItComponentNameSystec</references>
+        <references refid="namespaceCanModule_1a78730a18f59663871883885f3914a2aa" compoundref="CCanAccess_8h" startline="50">CanModule::LogItComponentName</references>
         <references refid="classSTCanScan_1a2a57272e12f97f245e6f204347782bc0" compoundref="STCanScan_8h" startline="88">m_hCanScanThread</references>
         <references refid="classSTCanScan_1a8ae65fcef31d4bb84aa5bb8978973f86" compoundref="STCanScan_8h" startline="90">m_idCanScanThread</references>
-        <references refid="classCanModule_1_1CCanAccess_1a0eff18d10b7ee5d6f86b03898f38f7ca" compoundref="CCanAccess_8h" startline="387">CanModule::CCanAccess::m_sBusName</references>
+        <references refid="classCanModule_1_1CCanAccess_1a0eff18d10b7ee5d6f86b03898f38f7ca" compoundref="CCanAccess_8h" startline="373">CanModule::CCanAccess::m_sBusName</references>
         <references refid="STCanScan_8cpp_1a08d6d35b7f83e326a37caa39473e6ebe" compoundref="STCanScan_8cpp" startline="40">MLOGST</references>
         <references refid="classSTCanScan_1add82f4cebf11f011c98bc73986a7f647" compoundref="STCanScan_8h" startline="65">s_logItHandleSt</references>
       </memberdef>
@@ -398,7 +398,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="53" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="299" bodyend="339"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="53" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="299" bodyend="339"/>
         <references refid="classSTCanScan_1ac5e311e695c1a3c810f82b0c21ee3618" compoundref="STCanScan_8h" startline="72">m_channelNumber</references>
         <references refid="classSTCanScan_1a93abd76cf68726a0bfa4b9d3982ec9aa" compoundref="STCanScan_8h" startline="78">m_statistics</references>
         <references refid="classSTCanScan_1add94dcac99b3ba3a17cb3708fd0cd20d" compoundref="STCanScan_8h" startline="76">m_UcanHandle</references>
@@ -422,7 +422,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="61" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="341" bodyend="351"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="61" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="341" bodyend="351"/>
         <references refid="classSTCanScan_1ac5e311e695c1a3c810f82b0c21ee3618" compoundref="STCanScan_8h" startline="72">m_channelNumber</references>
         <references refid="classSTCanScan_1add94dcac99b3ba3a17cb3708fd0cd20d" compoundref="STCanScan_8h" startline="76">m_UcanHandle</references>
         <references refid="classSTCanScan_1a43454c0bc20eb764cbb4ef3dd5e52cc9" compoundref="STCanScan_8cpp" startline="273" endline="286">sendErrorCode</references>
@@ -443,7 +443,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="63" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="363" bodyend="368"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="63" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="363" bodyend="368"/>
         <references refid="classCanModule_1_1CanStatistics_1a85e6c87ce5285884a0272088178bb8f6" compoundref="CanStatistics_8cpp" startline="43" endline="50">CanModule::CanStatistics::beginNewRun</references>
         <references refid="classCanModule_1_1CanStatistics_1a8ec66bd11141579779f143362b70640e" compoundref="CanStatistics_8cpp" startline="52" endline="70">CanModule::CanStatistics::computeDerived</references>
         <references refid="classSTCanScan_1add0582f666b4f0a5883311a284a0e9c4" compoundref="STCanScan_8h" startline="80">m_baudRate</references>
@@ -466,8 +466,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="83" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="273" bodyend="286"/>
-        <references refid="classCanModule_1_1CCanAccess_1a33fbd693f04b4f4e21cee20856c44866" compoundref="CCanAccess_8h" startline="324">CanModule::CCanAccess::canMessageError</references>
+        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="83" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="273" bodyend="286"/>
+        <references refid="classCanModule_1_1CCanAccess_1a33fbd693f04b4f4e21cee20856c44866" compoundref="CCanAccess_8h" startline="310">CanModule::CCanAccess::canMessageError</references>
         <references refid="namespaceCanModule_1a3ec3082d7d11a9c1641023cb3f53cbe5" compoundref="CanModuleUtils_8cpp" startline="44" endline="51">CanModule::convertTimepointToTimeval</references>
         <references refid="namespaceCanModule_1a6d0711aac0a75de5d2bf6142997a814d" compoundref="CanModuleUtils_8cpp" startline="60" endline="74">CanModule::currentTimeTimeval</references>
         <references refid="classSTCanScan_1a9a4da7b1dd74e81e8066894a1a8c051e" compoundref="STCanScan_8cpp" startline="353" endline="361">errorCodeToString</references>
@@ -495,17 +495,17 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="94" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="175" bodyend="226"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="94" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="175" bodyend="226"/>
         <references refid="classSTCanScan_1add0582f666b4f0a5883311a284a0e9c4" compoundref="STCanScan_8h" startline="80">m_baudRate</references>
         <references refid="classSTCanScan_1a8d6dd7c1cbf4a97607909086da6361e1" compoundref="STCanScan_8h" startline="74">m_canHandleNumber</references>
-        <references refid="classCanModule_1_1CCanAccess_1a484a4f9dc352fe31b4baff0365095705" compoundref="CCanAccess_8h" startline="388">CanModule::CCanAccess::m_CanParameters</references>
+        <references refid="classCanModule_1_1CCanAccess_1a484a4f9dc352fe31b4baff0365095705" compoundref="CCanAccess_8h" startline="374">CanModule::CCanAccess::m_CanParameters</references>
         <references refid="classSTCanScan_1ac5e311e695c1a3c810f82b0c21ee3618" compoundref="STCanScan_8h" startline="72">m_channelNumber</references>
-        <references refid="structCanModule_1_1CanParameters_1ac4e03899b26e33a3867ee1f0bce674b5" compoundref="CCanAccess_8h" startline="76">CanModule::CanParameters::m_iNumberOfDetectedParameters</references>
-        <references refid="structCanModule_1_1CanParameters_1a53ce17e16c2a818ffbc05904d9e56e11" compoundref="CCanAccess_8h" startline="70">CanModule::CanParameters::m_lBaudRate</references>
+        <references refid="structCanModule_1_1CanParameters_1ac4e03899b26e33a3867ee1f0bce674b5" compoundref="CCanAccess_8h" startline="62">CanModule::CanParameters::m_iNumberOfDetectedParameters</references>
+        <references refid="structCanModule_1_1CanParameters_1a53ce17e16c2a818ffbc05904d9e56e11" compoundref="CCanAccess_8h" startline="56">CanModule::CanParameters::m_lBaudRate</references>
         <references refid="classSTCanScan_1a38531e0fcde0f184eb968a01fb5984c9" compoundref="STCanScan_8h" startline="70">m_moduleNumber</references>
         <references refid="STCanScan_8cpp_1a08d6d35b7f83e326a37caa39473e6ebe" compoundref="STCanScan_8cpp" startline="40">MLOGST</references>
         <references refid="classSTCanScan_1a5f74df7e9615929365b33c08e709e918" compoundref="STCanScan_8cpp" startline="234" endline="271">openCanPort</references>
-        <references refid="classCanModule_1_1CCanAccess_1af26c9d102638fb96e5e1305f807d148f" compoundref="CCanAccess_8h" startline="350" endline="384">CanModule::CCanAccess::parseNameAndParameters</references>
+        <references refid="classCanModule_1_1CCanAccess_1af26c9d102638fb96e5e1305f807d148f" compoundref="CCanAccess_8h" startline="336" endline="370">CanModule::CCanAccess::parseNameAndParameters</references>
         <referencedby refid="classSTCanScan_1aa99f9f23bdfd367a51efc40e228a6f88" compoundref="STCanScan_8cpp" startline="139" endline="173">createBus</referencedby>
       </memberdef>
       <memberdef kind="function" id="classSTCanScan_1a5f74df7e9615929365b33c08e709e918" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -524,7 +524,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="95" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="234" bodyend="271"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="95" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="234" bodyend="271"/>
         <references refid="classSTCanScan_1a29b4c3c8f29e45f808fbb7528e4593aa" compoundref="STCanScan_8h" startline="103" endline="103">getCanHandle</references>
         <references refid="classSTCanScan_1a2f2a9aaa3ce2c653a4e1152eb8497493" compoundref="STCanScan_8h" startline="101" endline="101">isCanHandleInUse</references>
         <references refid="classSTCanScan_1ac5e311e695c1a3c810f82b0c21ee3618" compoundref="STCanScan_8h" startline="72">m_channelNumber</references>
@@ -555,7 +555,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="99" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="353" bodyend="361"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="99" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="353" bodyend="361"/>
         <referencedby refid="classSTCanScan_1a43454c0bc20eb764cbb4ef3dd5e52cc9" compoundref="STCanScan_8cpp" startline="273" endline="286">sendErrorCode</referencedby>
       </memberdef>
       </sectiondef>
@@ -575,13 +575,13 @@
 <para>thread to supervise port activity </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="92" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="77" bodyend="109"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="92" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="77" bodyend="109"/>
         <references refid="structCanMsgStruct_1a2e47a33e7bba46b05a8fff29433f047b" compoundref="CanMessage_8h" startline="29">CanMsgStruct::c_data</references>
         <references refid="structCanMsgStruct_1a3e5add8ae9cdadfcf3f2255d375ec9b3" compoundref="CanMessage_8h" startline="27">CanMsgStruct::c_dlc</references>
         <references refid="structCanMsgStruct_1acf3abc93beb936e5f9431ef6ec4568f3" compoundref="CanMessage_8h" startline="25">CanMsgStruct::c_ff</references>
         <references refid="structCanMsgStruct_1a619515aef041e64b78e7e8c33989ddd0" compoundref="CanMessage_8h" startline="23">CanMsgStruct::c_id</references>
         <references refid="structCanMsgStruct_1a06b9b3e9423f35edfb96df7b04828bba" compoundref="CanMessage_8h" startline="31">CanMsgStruct::c_time</references>
-        <references refid="classCanModule_1_1CCanAccess_1aa8e0e974863874b0e7bbcdb57084c241" compoundref="CCanAccess_8h" startline="179">CanModule::CCanAccess::canMessageCame</references>
+        <references refid="classCanModule_1_1CCanAccess_1aa8e0e974863874b0e7bbcdb57084c241" compoundref="CCanAccess_8h" startline="165">CanModule::CCanAccess::canMessageCame</references>
         <references refid="namespaceCanModule_1a3ec3082d7d11a9c1641023cb3f53cbe5" compoundref="CanModuleUtils_8cpp" startline="44" endline="51">CanModule::convertTimepointToTimeval</references>
         <references refid="namespaceCanModule_1a6d0711aac0a75de5d2bf6142997a814d" compoundref="CanModuleUtils_8cpp" startline="60" endline="74">CanModule::currentTimeTimeval</references>
         <references refid="classSTCanScan_1abd418113d56ef882bb12cd7473d031e1" compoundref="STCanScan_8h" startline="86">m_CanScanThreadShutdownFlag</references>
@@ -612,7 +612,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="100" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.h" bodystart="100" bodyend="100"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="100" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.h" bodystart="100" bodyend="100"/>
         <referencedby refid="classSTCanScan_1a5f74df7e9615929365b33c08e709e918" compoundref="STCanScan_8cpp" startline="234" endline="271">openCanPort</referencedby>
       </memberdef>
       <memberdef kind="function" id="classSTCanScan_1a2f2a9aaa3ce2c653a4e1152eb8497493" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
@@ -630,7 +630,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="101" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.h" bodystart="101" bodyend="101"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="101" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.h" bodystart="101" bodyend="101"/>
         <referencedby refid="classSTCanScan_1a5f74df7e9615929365b33c08e709e918" compoundref="STCanScan_8cpp" startline="234" endline="271">openCanPort</referencedby>
       </memberdef>
       <memberdef kind="function" id="classSTCanScan_1a50f89ce5fc0b2961937dc8a4b86081f8" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
@@ -652,7 +652,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="102" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.h" bodystart="102" bodyend="102"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="102" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.h" bodystart="102" bodyend="102"/>
         <referencedby refid="classSTCanScan_1a5f74df7e9615929365b33c08e709e918" compoundref="STCanScan_8cpp" startline="234" endline="271">openCanPort</referencedby>
       </memberdef>
       <memberdef kind="function" id="classSTCanScan_1a29b4c3c8f29e45f808fbb7528e4593aa" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
@@ -670,7 +670,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="103" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.h" bodystart="103" bodyend="103"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="103" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.h" bodystart="103" bodyend="103"/>
         <referencedby refid="classSTCanScan_1a5f74df7e9615929365b33c08e709e918" compoundref="STCanScan_8cpp" startline="234" endline="271">openCanPort</referencedby>
       </memberdef>
       </sectiondef>
@@ -723,7 +723,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="40" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.h" bodystart="39" bodyend="109"/>
+    <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.h" line="40" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.h" bodystart="39" bodyend="109"/>
     <listofallmembers>
       <member refid="classCanModule_1_1CCanAccess_1aa8e0e974863874b0e7bbcdb57084c241" prot="public" virt="non-virtual"><scope>STCanScan</scope><name>canMessageCame</name></member>
       <member refid="classCanModule_1_1CCanAccess_1a33fbd693f04b4f4e21cee20856c44866" prot="public" virt="non-virtual"><scope>STCanScan</scope><name>canMessageError</name></member>

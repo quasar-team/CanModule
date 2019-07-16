@@ -19,20 +19,6 @@
         <childnode refid="162" relation="include">
         </childnode>
       </node>
-      <node id="157">
-        <label>CanModuleUtils.h</label>
-        <link refid="CanModuleUtils_8h"/>
-        <childnode refid="158" relation="include">
-        </childnode>
-        <childnode refid="159" relation="include">
-        </childnode>
-        <childnode refid="160" relation="include">
-        </childnode>
-        <childnode refid="161" relation="include">
-        </childnode>
-        <childnode refid="162" relation="include">
-        </childnode>
-      </node>
       <node id="163">
         <label>errno.h</label>
       </node>
@@ -50,6 +36,20 @@
       </node>
       <node id="158">
         <label>sys/time.h</label>
+      </node>
+      <node id="157">
+        <label>CanModuleUtils.h</label>
+        <link refid="CanModuleUtils_8h"/>
+        <childnode refid="158" relation="include">
+        </childnode>
+        <childnode refid="159" relation="include">
+        </childnode>
+        <childnode refid="160" relation="include">
+        </childnode>
+        <childnode refid="161" relation="include">
+        </childnode>
+        <childnode refid="162" relation="include">
+        </childnode>
       </node>
       <node id="162">
         <label>chrono</label>
@@ -128,6 +128,6 @@
 <codeline lineno="88"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
 <codeline lineno="89"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterface/src/CanModuleUtils.cpp"/>
+    <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/src/CanModuleUtils.cpp"/>
   </compounddef>
 </doxygen>
