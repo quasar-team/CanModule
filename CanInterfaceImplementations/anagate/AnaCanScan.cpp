@@ -60,7 +60,7 @@ boost::mutex anagateReconnectMutex;
 /* static */ Log::LogComponentHandle AnaCanScan::s_logItHandleAnagate = 0;
 /* static */ std::map<string,bool> AnaCanScan::reconnectInProgress_map;
 
-#define MLOGANA(LEVEL,THIS) LOG(Log::LEVEL, AnaCanScan::s_logItHandleAnagate) << __FUNCTION__ << " " << " bus= " << THIS->getBusName() << " "
+#define MLOGANA(LEVEL,THIS) LOG(Log::LEVEL, AnaCanScan::s_logItHandleAnagate) << __FUNCTION__ << " " << " anagate bus= " << THIS->getBusName() << " "
 
 /** global map of connection-object-pointers: the map-key is the handle. Since handles are allocated by the OS
  * the keys are getting changed as well when we reconnect, so that we do not keep the stale keys(=handles) in
@@ -207,11 +207,11 @@ bool AnaCanScan::createBus(const string name,const string parameters)
 		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
 		<< " could not set LogIt instance" << std::endl;
 
-	logItInstance->registerLoggingComponent( CanModule::LogItComponentNameAnagate, Log::TRC );
+	logItInstance->registerLoggingComponent( CanModule::LogItComponentName, Log::TRC );
 
-	if (!logItInstance->getComponentHandle(CanModule::LogItComponentNameAnagate, myHandle))
+	if (!logItInstance->getComponentHandle(CanModule::LogItComponentName, myHandle))
 		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
-		<< " could not get LogIt component handle for " << LogItComponentNameAnagate << std::endl;
+		<< " could not get LogIt component handle for " << LogItComponentName << std::endl;
 
 	//LOG(Log::TRC, myHandle) << __FUNCTION__ << " " __FILE__ << " " << __LINE__;
 	AnaCanScan::s_logItHandleAnagate = myHandle;

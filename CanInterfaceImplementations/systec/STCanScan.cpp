@@ -37,7 +37,7 @@ tUcanHandle STCanScan::s_canHandleArray[256];
 /* static */ bool STCanScan::s_logItRegisteredSt = false;
 /* static */ Log::LogComponentHandle STCanScan::s_logItHandleSt = 0;
 
-#define MLOGST(LEVEL,THIS) LOG(Log::LEVEL, STCanScan::s_logItHandleSt) << __FUNCTION__ << " " << " bus= " << THIS->getBusName() << " "
+#define MLOGST(LEVEL,THIS) LOG(Log::LEVEL, STCanScan::s_logItHandleSt) << __FUNCTION__ << " " << " systec bus= " << THIS->getBusName() << " "
 
 #ifdef _WIN32
 
@@ -148,10 +148,10 @@ bool STCanScan::createBus(const string name,const string parameters)
 		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
 		<< " could not set LogIt instance" << std::endl;
 
-	logItInstance->registerLoggingComponent( CanModule::LogItComponentNameSystec, Log::TRC );
-	if (!logItInstance->getComponentHandle(CanModule::LogItComponentNameSystec, myHandle))
+	logItInstance->registerLoggingComponent( CanModule::LogItComponentName, Log::TRC );
+	if (!logItInstance->getComponentHandle(CanModule::LogItComponentName, myHandle))
 		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
-		<< " could not get LogIt component handle for " << LogItComponentNameSystec << std::endl;
+		<< " could not get LogIt component handle for " << LogItComponentName << std::endl;
 
 	STCanScan::s_logItHandleSt = myHandle;
 

@@ -15,35 +15,65 @@
       <node id="327">
         <label>LogIt.h</label>
       </node>
-      <node id="315">
-        <label>windows.h</label>
-      </node>
-      <node id="320">
-        <label>ExportDefinition.h</label>
-        <link refid="ExportDefinition_8h"/>
-      </node>
-      <node id="325">
-        <label>boost/signals2.hpp</label>
-      </node>
-      <node id="330">
-        <label>CanModuleUtils.h</label>
-        <link refid="CanModuleUtils_8h"/>
-        <childnode refid="319" relation="include">
+      <node id="312">
+        <label>STCanScan.h</label>
+        <link refid="STCanScan_8h"/>
+        <childnode refid="313" relation="include">
         </childnode>
-        <childnode refid="331" relation="include">
+        <childnode refid="314" relation="include">
         </childnode>
-        <childnode refid="332" relation="include">
+        <childnode refid="315" relation="include">
         </childnode>
         <childnode refid="316" relation="include">
         </childnode>
+        <childnode refid="317" relation="include">
+        </childnode>
+        <childnode refid="322" relation="include">
+        </childnode>
+        <childnode refid="323" relation="include">
+        </childnode>
+      </node>
+      <node id="315">
+        <label>windows.h</label>
+      </node>
+      <node id="317">
+        <label>CanStatistics.h</label>
+        <link refid="CanStatistics_8h"/>
+        <childnode refid="318" relation="include">
+        </childnode>
+        <childnode refid="319" relation="include">
+        </childnode>
+        <childnode refid="320" relation="include">
+        </childnode>
         <childnode refid="321" relation="include">
         </childnode>
+      </node>
+      <node id="325">
+        <label>boost/signals2.hpp</label>
       </node>
       <node id="332">
         <label>stdexcept</label>
       </node>
       <node id="316">
         <label>string</label>
+      </node>
+      <node id="323">
+        <label>CCanAccess.h</label>
+        <link refid="CCanAccess_8h"/>
+        <childnode refid="319" relation="include">
+        </childnode>
+        <childnode refid="324" relation="include">
+        </childnode>
+        <childnode refid="325" relation="include">
+        </childnode>
+        <childnode refid="316" relation="include">
+        </childnode>
+        <childnode refid="326" relation="include">
+        </childnode>
+        <childnode refid="317" relation="include">
+        </childnode>
+        <childnode refid="327" relation="include">
+        </childnode>
       </node>
       <node id="314">
         <label>Winsock2.h</label>
@@ -67,6 +97,12 @@
         <childnode refid="319" relation="include">
         </childnode>
       </node>
+      <node id="326">
+        <label>CanMessage.h</label>
+        <link refid="CanMessage_8h"/>
+        <childnode refid="319" relation="include">
+        </childnode>
+      </node>
       <node id="331">
         <label>sstream</label>
       </node>
@@ -76,14 +112,16 @@
       <node id="319">
         <label>sys/time.h</label>
       </node>
-      <node id="317">
-        <label>CanStatistics.h</label>
-        <link refid="CanStatistics_8h"/>
-        <childnode refid="318" relation="include">
-        </childnode>
+      <node id="330">
+        <label>CanModuleUtils.h</label>
+        <link refid="CanModuleUtils_8h"/>
         <childnode refid="319" relation="include">
         </childnode>
-        <childnode refid="320" relation="include">
+        <childnode refid="331" relation="include">
+        </childnode>
+        <childnode refid="332" relation="include">
+        </childnode>
+        <childnode refid="316" relation="include">
         </childnode>
         <childnode refid="321" relation="include">
         </childnode>
@@ -97,50 +135,12 @@
       <node id="321">
         <label>chrono</label>
       </node>
-      <node id="312">
-        <label>STCanScan.h</label>
-        <link refid="STCanScan_8h"/>
-        <childnode refid="313" relation="include">
-        </childnode>
-        <childnode refid="314" relation="include">
-        </childnode>
-        <childnode refid="315" relation="include">
-        </childnode>
-        <childnode refid="316" relation="include">
-        </childnode>
-        <childnode refid="317" relation="include">
-        </childnode>
-        <childnode refid="322" relation="include">
-        </childnode>
-        <childnode refid="323" relation="include">
-        </childnode>
-      </node>
-      <node id="326">
-        <label>CanMessage.h</label>
-        <link refid="CanMessage_8h"/>
-        <childnode refid="319" relation="include">
-        </childnode>
+      <node id="320">
+        <label>ExportDefinition.h</label>
+        <link refid="ExportDefinition_8h"/>
       </node>
       <node id="322">
         <label>usbcan32.h</label>
-      </node>
-      <node id="323">
-        <label>CCanAccess.h</label>
-        <link refid="CCanAccess_8h"/>
-        <childnode refid="319" relation="include">
-        </childnode>
-        <childnode refid="324" relation="include">
-        </childnode>
-        <childnode refid="325" relation="include">
-        </childnode>
-        <childnode refid="316" relation="include">
-        </childnode>
-        <childnode refid="326" relation="include">
-        </childnode>
-        <childnode refid="317" relation="include">
-        </childnode>
-        <childnode refid="327" relation="include">
-        </childnode>
       </node>
     </incdepgraph>
       <sectiondef kind="define">
@@ -148,14 +148,14 @@
         <name>MLOGST</name>
         <param><defname>LEVEL</defname></param>
         <param><defname>THIS</defname></param>
-        <initializer>LOG(Log::LEVEL, <ref refid="classSTCanScan_1add82f4cebf11f011c98bc73986a7f647" kindref="member">STCanScan::s_logItHandleSt</ref>) &lt;&lt; __FUNCTION__ &lt;&lt; &quot; &quot; &lt;&lt; &quot; bus= &quot; &lt;&lt; THIS-&gt;getBusName() &lt;&lt; &quot; &quot;</initializer>
+        <initializer>LOG(Log::LEVEL, <ref refid="classSTCanScan_1add82f4cebf11f011c98bc73986a7f647" kindref="member">STCanScan::s_logItHandleSt</ref>) &lt;&lt; __FUNCTION__ &lt;&lt; &quot; &quot; &lt;&lt; &quot; systec bus= &quot; &lt;&lt; THIS-&gt;getBusName() &lt;&lt; &quot; &quot;</initializer>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp" line="40" column="9" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="40" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp" line="40" column="9" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="40" bodyend="-1"/>
         <referencedby refid="classSTCanScan_1aab42375da764eb0d50dee318cd790646" compoundref="STCanScan_8cpp" startline="77" endline="109">STCanScan::CanScanControlThread</referencedby>
         <referencedby refid="classSTCanScan_1a8e147c77933e11e9983f4d4e22830b21" compoundref="STCanScan_8cpp" startline="175" endline="226">STCanScan::configureCanBoard</referencedby>
         <referencedby refid="classSTCanScan_1aa99f9f23bdfd367a51efc40e228a6f88" compoundref="STCanScan_8cpp" startline="139" endline="173">STCanScan::createBus</referencedby>
@@ -171,7 +171,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp" line="50" column="9" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="50" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp" line="50" column="9" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="50" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="STCanScan_8cpp_1a9aa60e1ead64be77ad551e745cbfd4d3" prot="public" static="no">
         <name>WINAPI</name>
@@ -181,7 +181,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp" line="51" column="9" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="51" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp" line="51" column="9" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="51" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -196,7 +196,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp" line="55" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="55" bodyend="59"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp" line="55" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp" bodystart="55" bodyend="59"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -219,7 +219,7 @@
 <codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>static<sp/>*/</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classSTCanScan_1a112e1468e19d033d97e731110ba195dc" kindref="member">STCanScan::s_logItRegisteredSt</ref><sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>static<sp/>*/</highlight><highlight class="normal"><sp/>Log::LogComponentHandle<sp/><ref refid="classSTCanScan_1add82f4cebf11f011c98bc73986a7f647" kindref="member">STCanScan::s_logItHandleSt</ref><sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="39"><highlight class="normal"></highlight></codeline>
-<codeline lineno="40" refid="STCanScan_8cpp_1a08d6d35b7f83e326a37caa39473e6ebe" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MLOGST(LEVEL,THIS)<sp/>LOG(Log::LEVEL,<sp/>STCanScan::s_logItHandleSt)<sp/>&lt;&lt;<sp/>__FUNCTION__<sp/>&lt;&lt;<sp/>&quot;<sp/>&quot;<sp/>&lt;&lt;<sp/>&quot;<sp/>bus=<sp/>&quot;<sp/>&lt;&lt;<sp/>THIS-&gt;getBusName()<sp/>&lt;&lt;<sp/>&quot;<sp/>&quot;</highlight></codeline>
+<codeline lineno="40" refid="STCanScan_8cpp_1a08d6d35b7f83e326a37caa39473e6ebe" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MLOGST(LEVEL,THIS)<sp/>LOG(Log::LEVEL,<sp/>STCanScan::s_logItHandleSt)<sp/>&lt;&lt;<sp/>__FUNCTION__<sp/>&lt;&lt;<sp/>&quot;<sp/>&quot;<sp/>&lt;&lt;<sp/>&quot;<sp/>systec<sp/>bus=<sp/>&quot;<sp/>&lt;&lt;<sp/>THIS-&gt;getBusName()<sp/>&lt;&lt;<sp/>&quot;<sp/>&quot;</highlight></codeline>
 <codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>_WIN32</highlight></codeline>
 <codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
@@ -309,10 +309,10 @@
 <codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/>__FILE__<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>__LINE__<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>__FUNCTION__</highlight></codeline>
 <codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>could<sp/>not<sp/>set<sp/>LogIt<sp/>instance&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
 <codeline lineno="150"><highlight class="normal"></highlight></codeline>
-<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/>logItInstance-&gt;registerLoggingComponent(<sp/><ref refid="namespaceCanModule_1ae25b0c7453a892a139549914f17d298a" kindref="member">CanModule::LogItComponentNameSystec</ref>,<sp/>Log::TRC<sp/>);</highlight></codeline>
-<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!logItInstance-&gt;getComponentHandle(<ref refid="namespaceCanModule_1ae25b0c7453a892a139549914f17d298a" kindref="member">CanModule::LogItComponentNameSystec</ref>,<sp/>myHandle))</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/>logItInstance-&gt;registerLoggingComponent(<sp/><ref refid="namespaceCanModule_1a78730a18f59663871883885f3914a2aa" kindref="member">CanModule::LogItComponentName</ref>,<sp/>Log::TRC<sp/>);</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!logItInstance-&gt;getComponentHandle(<ref refid="namespaceCanModule_1a78730a18f59663871883885f3914a2aa" kindref="member">CanModule::LogItComponentName</ref>,<sp/>myHandle))</highlight></codeline>
 <codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/>__FILE__<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>__LINE__<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>__FUNCTION__</highlight></codeline>
-<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>could<sp/>not<sp/>get<sp/>LogIt<sp/>component<sp/>handle<sp/>for<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/><ref refid="namespaceCanModule_1ae25b0c7453a892a139549914f17d298a" kindref="member">LogItComponentNameSystec</ref><sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>could<sp/>not<sp/>get<sp/>LogIt<sp/>component<sp/>handle<sp/>for<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/><ref refid="namespaceCanModule_1a78730a18f59663871883885f3914a2aa" kindref="member">LogItComponentName</ref><sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
 <codeline lineno="155"><highlight class="normal"></highlight></codeline>
 <codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classSTCanScan_1add82f4cebf11f011c98bc73986a7f647" kindref="member">STCanScan::s_logItHandleSt</ref><sp/>=<sp/>myHandle;</highlight></codeline>
 <codeline lineno="157"><highlight class="normal"></highlight></codeline>
@@ -512,6 +512,6 @@
 <codeline lineno="368"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="369"><highlight class="normal"></highlight></codeline>
     </programlisting>
-    <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp"/>
+    <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.cpp"/>
   </compounddef>
 </doxygen>

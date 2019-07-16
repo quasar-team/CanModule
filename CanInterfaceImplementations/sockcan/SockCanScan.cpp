@@ -49,7 +49,7 @@ using namespace std;
 
 /* static */ Log::LogComponentHandle CSockCanScan::st_logItHandleSock;
 
-#define MLOGSOCK(LEVEL,THIS) LOG(Log::LEVEL, CSockCanScan::st_logItHandleSock) << __FUNCTION__ << " " << " bus= " << THIS->getBusName() << " "
+#define MLOGSOCK(LEVEL,THIS) LOG(Log::LEVEL, CSockCanScan::st_logItHandleSock) << __FUNCTION__ << " sock bus= " << THIS->getBusName() << " "
 
 
 //! The macro below is applicable only to this translation unit
@@ -551,11 +551,10 @@ bool CSockCanScan::createBus(const string name, const string parameters)
 		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
 		<< " could not set LogIt instance" << std::endl;
 
-	logItInstance->registerLoggingComponent( CanModule::LogItComponentNameSock, Log::TRC );
-
-	if (!logItInstance->getComponentHandle(CanModule::LogItComponentNameSock, myHandle))
+	logItInstance->registerLoggingComponent( CanModule::LogItComponentName, Log::TRC );
+	if (!logItInstance->getComponentHandle(CanModule::LogItComponentName, myHandle))
 		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
-		<< " could not get LogIt component handle for " << LogItComponentNameSock << std::endl;
+		<< " could not get LogIt component handle for " << LogItComponentName << std::endl;
 
 	CSockCanScan::st_logItHandleSock = myHandle;
 

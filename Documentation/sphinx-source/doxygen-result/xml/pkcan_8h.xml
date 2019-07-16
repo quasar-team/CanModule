@@ -19,41 +19,6 @@
       <node id="244">
         <label>windows.h</label>
       </node>
-      <node id="253">
-        <label>ExportDefinition.h</label>
-        <link refid="ExportDefinition_8h"/>
-      </node>
-      <node id="249">
-        <label>boost/signals2.hpp</label>
-      </node>
-      <node id="242">
-        <label>string</label>
-      </node>
-      <node id="245">
-        <label>PCANBasic.h</label>
-      </node>
-      <node id="243">
-        <label>Winsock2.h</label>
-      </node>
-      <node id="241">
-        <label>CanInterfaceImplementations/pkcan/pkcan.h</label>
-        <link refid="pkcan.h"/>
-        <childnode refid="242" relation="include">
-        </childnode>
-        <childnode refid="243" relation="include">
-        </childnode>
-        <childnode refid="244" relation="include">
-        </childnode>
-        <childnode refid="245" relation="include">
-        </childnode>
-        <childnode refid="246" relation="include">
-        </childnode>
-        <childnode refid="251" relation="include">
-        </childnode>
-      </node>
-      <node id="247">
-        <label>sys/time.h</label>
-      </node>
       <node id="251">
         <label>CanStatistics.h</label>
         <link refid="CanStatistics_8h"/>
@@ -66,17 +31,14 @@
         <childnode refid="254" relation="include">
         </childnode>
       </node>
-      <node id="248">
-        <label>boost/bind.hpp</label>
+      <node id="249">
+        <label>boost/signals2.hpp</label>
       </node>
-      <node id="254">
-        <label>chrono</label>
+      <node id="242">
+        <label>string</label>
       </node>
-      <node id="250">
-        <label>CanMessage.h</label>
-        <link refid="CanMessage_8h"/>
-        <childnode refid="247" relation="include">
-        </childnode>
+      <node id="245">
+        <label>PCANBasic.h</label>
       </node>
       <node id="246">
         <label>CCanAccess.h</label>
@@ -96,17 +58,55 @@
         <childnode refid="255" relation="include">
         </childnode>
       </node>
+      <node id="243">
+        <label>Winsock2.h</label>
+      </node>
+      <node id="250">
+        <label>CanMessage.h</label>
+        <link refid="CanMessage_8h"/>
+        <childnode refid="247" relation="include">
+        </childnode>
+      </node>
+      <node id="247">
+        <label>sys/time.h</label>
+      </node>
+      <node id="248">
+        <label>boost/bind.hpp</label>
+      </node>
+      <node id="254">
+        <label>chrono</label>
+      </node>
+      <node id="253">
+        <label>ExportDefinition.h</label>
+        <link refid="ExportDefinition_8h"/>
+      </node>
+      <node id="241">
+        <label>CanInterfaceImplementations/pkcan/pkcan.h</label>
+        <link refid="pkcan.h"/>
+        <childnode refid="242" relation="include">
+        </childnode>
+        <childnode refid="243" relation="include">
+        </childnode>
+        <childnode refid="244" relation="include">
+        </childnode>
+        <childnode refid="245" relation="include">
+        </childnode>
+        <childnode refid="246" relation="include">
+        </childnode>
+        <childnode refid="251" relation="include">
+        </childnode>
+      </node>
     </incdepgraph>
     <invincdepgraph>
+      <node id="257">
+        <label>CanInterfaceImplementations/pkcan/pkcan.cpp</label>
+        <link refid="pkcan_8cpp"/>
+      </node>
       <node id="256">
         <label>CanInterfaceImplementations/pkcan/pkcan.h</label>
         <link refid="pkcan.h"/>
         <childnode refid="257" relation="include">
         </childnode>
-      </node>
-      <node id="257">
-        <label>CanInterfaceImplementations/pkcan/pkcan.cpp</label>
-        <link refid="pkcan_8cpp"/>
       </node>
     </invincdepgraph>
     <innerclass refid="classPKCanScan" prot="public">PKCanScan</innerclass>
@@ -200,6 +200,6 @@
 <codeline lineno="89"><highlight class="normal"></highlight></codeline>
 <codeline lineno="90"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
     </programlisting>
-    <location file="/home/mludwig/projects/CanModule/CanModule-OPCUA-1421/CanModule/CanInterfaceImplementations/pkcan/pkcan.h"/>
+    <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/pkcan/pkcan.h"/>
   </compounddef>
 </doxygen>

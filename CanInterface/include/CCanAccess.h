@@ -38,7 +38,7 @@
 #include <LogIt.h>
 
 
-#define VERSION "CanModule version 1.1.6"
+#define VERSION "CanModule version 1.1.8"
 
 /*
  * CCanAccess is an abstract class that defines the interface for controlling a canbus. Different implementations for different hardware and platforms should
@@ -48,20 +48,6 @@ namespace CanModule
 {
 
 const std::string LogItComponentName = "CanModule";
-const std::string LogItComponentNameAnagate = LogItComponentName + "Anagate";
-#ifdef _WIN32
-const std::string LogItComponentNamePeak = LogItComponentName + "Peak";
-const std::string LogItComponentNameSystec = LogItComponentName + "Systec";
-#else
-/**
- * linux only, we can't distinguish between peak and systec on the socket level,
- * but if the user wants to use Peak or Systec she may
- */
-const std::string LogItComponentNameSock = LogItComponentName + "Sock";
-const std::string LogItComponentNamePeak = LogItComponentNameSock;
-const std::string LogItComponentNameSystec = LogItComponentNameSock;
-#endif
-
 #define MLOG(LEVEL,THIS) LOG(Log::LEVEL) << __FUNCTION__ << " " << CanModule::LogItComponentName << " bus= " << THIS->getBusName() << " "
 
 static std::string version(){ return( VERSION ); }

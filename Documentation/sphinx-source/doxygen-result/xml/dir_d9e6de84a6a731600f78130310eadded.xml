@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_d9e6de84a6a731600f78130310eadded" kind="dir">
+    <compoundname>CanInterface</compoundname>
+    <innerdir refid="dir_45a47512ec95f183b89388654424e1b5">CanInterface/include</innerdir>
+    <innerdir refid="dir_f2a7eefcd860e998ce462da3fec62e1e">CanInterface/src</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/"/>
+  </compounddef>
+</doxygen>

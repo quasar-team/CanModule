@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Logging &#8212; CanModule 1.1.4 documentation</title>
+    <title>Logging &#8212; CanModule 1.1.8 documentation</title>
     <link rel="stylesheet" href="_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -31,7 +31,7 @@
         <li class="right" >
           <a href="vendors/peak.html" title="Peak"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">CanModule 1.1.4 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">CanModule 1.1.8 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -42,16 +42,16 @@
             
   <div class="section" id="logging">
 <h1>Logging<a class="headerlink" href="#logging" title="Permalink to this headline">¶</a></h1>
-<p>CanModule uses <a class="reference external" href="https://github.com/quasar-team/LogIt">LogIt</a> for reporting information during runtime. LogIt uses the four components</p>
+<p>CanModule uses <a class="reference external" href="https://github.com/quasar-team/LogIt">LogIt</a> for reporting information during runtime. LogIt uses one component “CanModule”</p>
 <ul class="simple">
 <li>CanModule: general messages concerning CanModule itself</li>
-<li>CanModuleAnagate: messages related to AnaGate modules</li>
-<li>CanModuleSystec: messages related to SysTec modules</li>
-<li>CanModulePeak: messages related to Peak modules</li>
+<li>CanModule Anagate: messages related to AnaGate modules contain a string “anagate”</li>
+<li>CanModule Systec: messages related to SysTec modules contain a string “systec”</li>
+<li>CanModule Peak: messages related to Peak modules contain a string “peak”</li>
 </ul>
-<p>for managing logging levels per vendor. The logging level of each component, if the component is used, can be set individually
-at any time once initialized. For windows the component names are as listed above, for linux the component CanModuleSock is used
-for Systec and Peak modules, but also both CanModuleSystec and CanModulePeak are mapped to CanModuleSock for convenience.</p>
+<p>for managing logging levels. The logging level of each component, if the component is used, can be set individually
+at any time once initialized. Vendor specific messages can be filtered out by using the specific strings.
+For windows the strings are as listed above, for linux the string “sock” is used for Systec and Peak modules.</p>
 <p>You can of course add your own components for specific logging, like MYCOMP in the code below.</p>
 <p><strong>The calling program (“main”) uses CanModule and LogIt like this</strong></p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;CanBusAccess.h&gt;</span><span class="cp"></span>
@@ -79,7 +79,7 @@ for Systec and Peak modules, but also both CanModuleSystec and CanModulePeak are
 <span class="c1">// hourray, we should see this message because we are at INF</span>
 
 <span class="cm">/**</span>
-<span class="cm"> * LogIt component CanModule for generic Canmodule</span>
+<span class="cm"> * LogIt component CanModule</span>
 <span class="cm"> */</span>
 <span class="n">Log</span><span class="o">::</span><span class="n">registerLoggingComponent</span><span class="p">(</span> <span class="n">CanModule</span><span class="o">::</span><span class="n">LogItComponentName</span><span class="p">,</span> <span class="n">loglevel</span> <span class="p">);</span>
 <span class="n">logIt</span><span class="o">-&gt;</span><span class="n">getComponentHandle</span><span class="p">(</span><span class="n">CanModule</span><span class="o">::</span><span class="n">LogItComponentName</span><span class="p">,</span> <span class="n">canModuleHandle</span> <span class="p">);</span>
@@ -105,31 +105,10 @@ on a running server instance.</strong></p>
 <span class="cm"> * manipulate LogIt levels per component for testing, during runtime. Set loglevel to TRC (max verbosity)</span>
 <span class="cm"> */</span>
 <span class="n">loglevel</span> <span class="o">=</span> <span class="n">LOG</span><span class="o">::</span><span class="n">TRC</span><span class="p">;</span>
-<span class="n">Log</span><span class="o">::</span><span class="n">LogComponentHandle</span> <span class="n">anagateHandle</span><span class="p">;</span>
-<span class="n">logIt</span><span class="o">-&gt;</span><span class="n">getComponentHandle</span><span class="p">(</span><span class="n">CanModule</span><span class="o">::</span><span class="n">LogItComponentNameAnagate</span><span class="p">,</span> <span class="n">anagateHandle</span> <span class="p">);</span>
-<span class="n">Log</span><span class="o">::</span><span class="n">setComponentLogLevel</span><span class="p">(</span> <span class="n">anagateHandle</span><span class="p">,</span> <span class="n">loglevel</span> <span class="p">);</span>
-<span class="n">LOG</span><span class="p">(</span><span class="n">Log</span><span class="o">::</span><span class="n">INF</span><span class="p">,</span> <span class="n">anagateHandle</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; logging for component &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">CanModule</span><span class="o">::</span><span class="n">LogItComponentNameAnagate</span><span class="p">;</span>
-
-<span class="cp">#ifdef _WIN32</span>
-
-<span class="n">Log</span><span class="o">::</span><span class="n">LogComponentHandle</span> <span class="n">stHandle</span><span class="p">;</span>
-<span class="n">logIt</span><span class="o">-&gt;</span><span class="n">getComponentHandle</span><span class="p">(</span><span class="n">CanModule</span><span class="o">::</span><span class="n">LogItComponentNameSystec</span><span class="p">,</span> <span class="n">stHandle</span> <span class="p">);</span>
-<span class="n">Log</span><span class="o">::</span><span class="n">setComponentLogLevel</span><span class="p">(</span> <span class="n">stHandle</span><span class="p">,</span> <span class="n">loglevel</span> <span class="p">);</span>
-<span class="n">LOG</span><span class="p">(</span><span class="n">Log</span><span class="o">::</span><span class="n">INF</span><span class="p">,</span> <span class="n">stHandle</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; logging for component &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">CanModule</span><span class="o">::</span><span class="n">LogItComponentNameSystec</span><span class="p">;</span>
-
-<span class="n">Log</span><span class="o">::</span><span class="n">LogComponentHandle</span> <span class="n">pkHandle</span><span class="p">;</span>
-<span class="n">logIt</span><span class="o">-&gt;</span><span class="n">getComponentHandle</span><span class="p">(</span><span class="n">CanModule</span><span class="o">::</span><span class="n">LogItComponentNamePeak</span><span class="p">,</span> <span class="n">pkHandle</span> <span class="p">);</span>
-<span class="n">Log</span><span class="o">::</span><span class="n">setComponentLogLevel</span><span class="p">(</span> <span class="n">pkHandle</span><span class="p">,</span> <span class="n">loglevel</span> <span class="p">);</span>
-<span class="n">LOG</span><span class="p">(</span><span class="n">Log</span><span class="o">::</span><span class="n">INF</span><span class="p">,</span> <span class="n">pkHandle</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; logging for component &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">CanModule</span><span class="o">::</span><span class="n">LogItComponentNamePeak</span><span class="p">;</span>
-
-<span class="cp">#else</span>
-<span class="c1">// for linux we can also just use LogItComponentNameSystec and LogItComponentNamePeak</span>
-<span class="n">Log</span><span class="o">::</span><span class="n">LogComponentHandle</span> <span class="n">sockHandle</span><span class="p">;</span>
-<span class="n">logIt</span><span class="o">-&gt;</span><span class="n">getComponentHandle</span><span class="p">(</span><span class="n">CanModule</span><span class="o">::</span><span class="n">LogItComponentNameSock</span><span class="p">,</span> <span class="n">sockHandle</span> <span class="p">);</span>
-<span class="n">Log</span><span class="o">::</span><span class="n">setComponentLogLevel</span><span class="p">(</span> <span class="n">sockHandle</span><span class="p">,</span> <span class="n">loglevel</span> <span class="p">);</span>
-<span class="n">LOG</span><span class="p">(</span><span class="n">Log</span><span class="o">::</span><span class="n">INF</span><span class="p">,</span> <span class="n">sockHandle</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; logging for component &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">CanModule</span><span class="o">::</span><span class="n">LogItComponentNameSock</span><span class="p">;</span>
-
-<span class="cp">#endif</span>
+<span class="n">Log</span><span class="o">::</span><span class="n">LogComponentHandle</span> <span class="n">handle</span><span class="p">;</span>
+<span class="n">logIt</span><span class="o">-&gt;</span><span class="n">getComponentHandle</span><span class="p">(</span><span class="n">CanModule</span><span class="o">::</span><span class="n">LogItComponentName</span><span class="p">,</span> <span class="n">handle</span> <span class="p">);</span>
+<span class="n">Log</span><span class="o">::</span><span class="n">setComponentLogLevel</span><span class="p">(</span> <span class="n">handle</span><span class="p">,</span> <span class="n">loglevel</span> <span class="p">);</span>
+<span class="n">LOG</span><span class="p">(</span><span class="n">Log</span><span class="o">::</span><span class="n">INF</span><span class="p">,</span> <span class="n">handle</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; logging for component &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">CanModule</span><span class="o">::</span><span class="n">LogItComponentName</span><span class="p">;</span>
 </pre></div>
 </div>
 </div>
@@ -192,12 +171,12 @@ on a running server instance.</strong></p>
         <li class="right" >
           <a href="vendors/peak.html" title="Peak"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">CanModule 1.1.4 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">CanModule 1.1.8 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2019, CERN, BE-ICS (Michael Ludwig).
-      Last updated on 21-Jun-2019 14:01:15.
+      Last updated on 16-Jul-2019 12:51:40.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
     </div>
   </body>

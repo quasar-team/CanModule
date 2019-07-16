@@ -60,8 +60,8 @@
 
 
 \title{CanModule Developer Documentation}
-\date{June 21, 2019}
-\release{1.1.4}
+\date{July 16, 2019}
+\release{1.1.8}
 \author{Michael Ludwig}
 \newcommand{\sphinxlogo}{\vbox{}}
 \renewcommand{\releasename}{Release}
@@ -900,25 +900,25 @@ This is how the CanModule standard API is used for peak for windows.
 
 \chapter{Logging}
 \label{\detokenize{logging:logging}}\label{\detokenize{logging::doc}}
-CanModule uses \sphinxhref{https://github.com/quasar-team/LogIt}{LogIt} for reporting information during runtime. LogIt uses the four components
+CanModule uses \sphinxhref{https://github.com/quasar-team/LogIt}{LogIt} for reporting information during runtime. LogIt uses one component “CanModule”
 \begin{itemize}
 \item {} 
 CanModule: general messages concerning CanModule itself
 
 \item {} 
-CanModuleAnagate: messages related to AnaGate modules
+CanModule Anagate: messages related to AnaGate modules contain a string “anagate”
 
 \item {} 
-CanModuleSystec: messages related to SysTec modules
+CanModule Systec: messages related to SysTec modules contain a string “systec”
 
 \item {} 
-CanModulePeak: messages related to Peak modules
+CanModule Peak: messages related to Peak modules contain a string “peak”
 
 \end{itemize}
 
-for managing logging levels per vendor. The logging level of each component, if the component is used, can be set individually
-at any time once initialized. For windows the component names are as listed above, for linux the component CanModuleSock is used
-for Systec and Peak modules, but also both CanModuleSystec and CanModulePeak are mapped to CanModuleSock for convenience.
+for managing logging levels. The logging level of each component, if the component is used, can be set individually
+at any time once initialized. Vendor specific messages can be filtered out by using the specific strings.
+For windows the strings are as listed above, for linux the string “sock” is used for Systec and Peak modules.
 
 You can of course add your own components for specific logging, like MYCOMP in the code below.
 
@@ -950,7 +950,7 @@ You can of course add your own components for specific logging, like MYCOMP in t
 \PYG{c+c1}{// hourray, we should see this message because we are at INF}
 
 \PYG{c+cm}{/**}
-\PYG{c+cm}{ * LogIt component CanModule for generic Canmodule}
+\PYG{c+cm}{ * LogIt component CanModule}
 \PYG{c+cm}{ */}
 \PYG{n}{Log}\PYG{o}{:}\PYG{o}{:}\PYG{n}{registerLoggingComponent}\PYG{p}{(} \PYG{n}{CanModule}\PYG{o}{:}\PYG{o}{:}\PYG{n}{LogItComponentName}\PYG{p}{,} \PYG{n}{loglevel} \PYG{p}{)}\PYG{p}{;}
 \PYG{n}{logIt}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZgt{}}\PYG{n}{getComponentHandle}\PYG{p}{(}\PYG{n}{CanModule}\PYG{o}{:}\PYG{o}{:}\PYG{n}{LogItComponentName}\PYG{p}{,} \PYG{n}{canModuleHandle} \PYG{p}{)}\PYG{p}{;}
@@ -980,31 +980,10 @@ on a running server instance.}
 \PYG{c+cm}{ * manipulate LogIt levels per component for testing, during runtime. Set loglevel to TRC (max verbosity)}
 \PYG{c+cm}{ */}
 \PYG{n}{loglevel} \PYG{o}{=} \PYG{n}{LOG}\PYG{o}{:}\PYG{o}{:}\PYG{n}{TRC}\PYG{p}{;}
-\PYG{n}{Log}\PYG{o}{:}\PYG{o}{:}\PYG{n}{LogComponentHandle} \PYG{n}{anagateHandle}\PYG{p}{;}
-\PYG{n}{logIt}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZgt{}}\PYG{n}{getComponentHandle}\PYG{p}{(}\PYG{n}{CanModule}\PYG{o}{:}\PYG{o}{:}\PYG{n}{LogItComponentNameAnagate}\PYG{p}{,} \PYG{n}{anagateHandle} \PYG{p}{)}\PYG{p}{;}
-\PYG{n}{Log}\PYG{o}{:}\PYG{o}{:}\PYG{n}{setComponentLogLevel}\PYG{p}{(} \PYG{n}{anagateHandle}\PYG{p}{,} \PYG{n}{loglevel} \PYG{p}{)}\PYG{p}{;}
-\PYG{n}{LOG}\PYG{p}{(}\PYG{n}{Log}\PYG{o}{:}\PYG{o}{:}\PYG{n}{INF}\PYG{p}{,} \PYG{n}{anagateHandle}\PYG{p}{)} \PYG{o}{\PYGZlt{}}\PYG{o}{\PYGZlt{}} \PYG{l+s}{\PYGZdq{}}\PYG{l+s}{ logging for component }\PYG{l+s}{\PYGZdq{}} \PYG{o}{\PYGZlt{}}\PYG{o}{\PYGZlt{}} \PYG{n}{CanModule}\PYG{o}{:}\PYG{o}{:}\PYG{n}{LogItComponentNameAnagate}\PYG{p}{;}
-
-\PYG{c+cp}{\PYGZsh{}}\PYG{c+cp}{ifdef \PYGZus{}WIN32}
-
-\PYG{n}{Log}\PYG{o}{:}\PYG{o}{:}\PYG{n}{LogComponentHandle} \PYG{n}{stHandle}\PYG{p}{;}
-\PYG{n}{logIt}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZgt{}}\PYG{n}{getComponentHandle}\PYG{p}{(}\PYG{n}{CanModule}\PYG{o}{:}\PYG{o}{:}\PYG{n}{LogItComponentNameSystec}\PYG{p}{,} \PYG{n}{stHandle} \PYG{p}{)}\PYG{p}{;}
-\PYG{n}{Log}\PYG{o}{:}\PYG{o}{:}\PYG{n}{setComponentLogLevel}\PYG{p}{(} \PYG{n}{stHandle}\PYG{p}{,} \PYG{n}{loglevel} \PYG{p}{)}\PYG{p}{;}
-\PYG{n}{LOG}\PYG{p}{(}\PYG{n}{Log}\PYG{o}{:}\PYG{o}{:}\PYG{n}{INF}\PYG{p}{,} \PYG{n}{stHandle}\PYG{p}{)} \PYG{o}{\PYGZlt{}}\PYG{o}{\PYGZlt{}} \PYG{l+s}{\PYGZdq{}}\PYG{l+s}{ logging for component }\PYG{l+s}{\PYGZdq{}} \PYG{o}{\PYGZlt{}}\PYG{o}{\PYGZlt{}} \PYG{n}{CanModule}\PYG{o}{:}\PYG{o}{:}\PYG{n}{LogItComponentNameSystec}\PYG{p}{;}
-
-\PYG{n}{Log}\PYG{o}{:}\PYG{o}{:}\PYG{n}{LogComponentHandle} \PYG{n}{pkHandle}\PYG{p}{;}
-\PYG{n}{logIt}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZgt{}}\PYG{n}{getComponentHandle}\PYG{p}{(}\PYG{n}{CanModule}\PYG{o}{:}\PYG{o}{:}\PYG{n}{LogItComponentNamePeak}\PYG{p}{,} \PYG{n}{pkHandle} \PYG{p}{)}\PYG{p}{;}
-\PYG{n}{Log}\PYG{o}{:}\PYG{o}{:}\PYG{n}{setComponentLogLevel}\PYG{p}{(} \PYG{n}{pkHandle}\PYG{p}{,} \PYG{n}{loglevel} \PYG{p}{)}\PYG{p}{;}
-\PYG{n}{LOG}\PYG{p}{(}\PYG{n}{Log}\PYG{o}{:}\PYG{o}{:}\PYG{n}{INF}\PYG{p}{,} \PYG{n}{pkHandle}\PYG{p}{)} \PYG{o}{\PYGZlt{}}\PYG{o}{\PYGZlt{}} \PYG{l+s}{\PYGZdq{}}\PYG{l+s}{ logging for component }\PYG{l+s}{\PYGZdq{}} \PYG{o}{\PYGZlt{}}\PYG{o}{\PYGZlt{}} \PYG{n}{CanModule}\PYG{o}{:}\PYG{o}{:}\PYG{n}{LogItComponentNamePeak}\PYG{p}{;}
-
-\PYG{c+cp}{\PYGZsh{}}\PYG{c+cp}{else}
-\PYG{c+c1}{// for linux we can also just use LogItComponentNameSystec and LogItComponentNamePeak}
-\PYG{n}{Log}\PYG{o}{:}\PYG{o}{:}\PYG{n}{LogComponentHandle} \PYG{n}{sockHandle}\PYG{p}{;}
-\PYG{n}{logIt}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZgt{}}\PYG{n}{getComponentHandle}\PYG{p}{(}\PYG{n}{CanModule}\PYG{o}{:}\PYG{o}{:}\PYG{n}{LogItComponentNameSock}\PYG{p}{,} \PYG{n}{sockHandle} \PYG{p}{)}\PYG{p}{;}
-\PYG{n}{Log}\PYG{o}{:}\PYG{o}{:}\PYG{n}{setComponentLogLevel}\PYG{p}{(} \PYG{n}{sockHandle}\PYG{p}{,} \PYG{n}{loglevel} \PYG{p}{)}\PYG{p}{;}
-\PYG{n}{LOG}\PYG{p}{(}\PYG{n}{Log}\PYG{o}{:}\PYG{o}{:}\PYG{n}{INF}\PYG{p}{,} \PYG{n}{sockHandle}\PYG{p}{)} \PYG{o}{\PYGZlt{}}\PYG{o}{\PYGZlt{}} \PYG{l+s}{\PYGZdq{}}\PYG{l+s}{ logging for component }\PYG{l+s}{\PYGZdq{}} \PYG{o}{\PYGZlt{}}\PYG{o}{\PYGZlt{}} \PYG{n}{CanModule}\PYG{o}{:}\PYG{o}{:}\PYG{n}{LogItComponentNameSock}\PYG{p}{;}
-
-\PYG{c+cp}{\PYGZsh{}}\PYG{c+cp}{endif}
+\PYG{n}{Log}\PYG{o}{:}\PYG{o}{:}\PYG{n}{LogComponentHandle} \PYG{n}{handle}\PYG{p}{;}
+\PYG{n}{logIt}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZgt{}}\PYG{n}{getComponentHandle}\PYG{p}{(}\PYG{n}{CanModule}\PYG{o}{:}\PYG{o}{:}\PYG{n}{LogItComponentName}\PYG{p}{,} \PYG{n}{handle} \PYG{p}{)}\PYG{p}{;}
+\PYG{n}{Log}\PYG{o}{:}\PYG{o}{:}\PYG{n}{setComponentLogLevel}\PYG{p}{(} \PYG{n}{handle}\PYG{p}{,} \PYG{n}{loglevel} \PYG{p}{)}\PYG{p}{;}
+\PYG{n}{LOG}\PYG{p}{(}\PYG{n}{Log}\PYG{o}{:}\PYG{o}{:}\PYG{n}{INF}\PYG{p}{,} \PYG{n}{handle}\PYG{p}{)} \PYG{o}{\PYGZlt{}}\PYG{o}{\PYGZlt{}} \PYG{l+s}{\PYGZdq{}}\PYG{l+s}{ logging for component }\PYG{l+s}{\PYGZdq{}} \PYG{o}{\PYGZlt{}}\PYG{o}{\PYGZlt{}} \PYG{n}{CanModule}\PYG{o}{:}\PYG{o}{:}\PYG{n}{LogItComponentName}\PYG{p}{;}
 \end{sphinxVerbatim}
 
 
