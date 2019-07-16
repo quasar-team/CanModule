@@ -37,7 +37,7 @@ namespace CanModule
 	CanLibLoader::CanLibLoader(const std::string& libName)	{
 		LogItInstance *logIt = LogItInstance::getInstance();
 		logIt->getComponentHandle( CanModule::LogItComponentName, lh );
-		LOG(Log::TRC, lh ) << "logItComponentHandle= " << lh;
+		//LOG(Log::TRC, lh ) << "logItComponentHandle= " << lh;
 	}
 
 	CanLibLoader::~CanLibLoader() {}
@@ -71,7 +71,7 @@ namespace CanModule
 
 		//The Logit instance of the executable is handled to the DLL at this point, so the instance is shared.
 		tcca->initialiseLogging( LogItInstance::getInstance() );
-		LOG(Log::DBG, lh ) << __FUNCTION__ << " Logging initialized OK";
+		//LOG(Log::DBG, lh ) << __FUNCTION__ << " Logging initialized OK";
 
 		LOG(Log::DBG, lh ) << __FUNCTION__ << " calling createBus. name= " << name << " parameters= " << parameters;
 		/** @param name: Name of the can bus channel. The specific mapping will change depending on the interface used. For example, accessing channel 0 for the
