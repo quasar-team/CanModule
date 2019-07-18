@@ -23,6 +23,7 @@ cmake_minimum_required(VERSION 2.8)
 project(ancan)
 
 SET( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/CanInterfaceImplementations/output/)
+SET( CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_LIBRARY_OUTPUT_DIRECTORY} )  # static libs
 
 # check if toolchain injection was correct for anagate
 # anagate libs are not installed using a default installer/location. In fact these libs are 
