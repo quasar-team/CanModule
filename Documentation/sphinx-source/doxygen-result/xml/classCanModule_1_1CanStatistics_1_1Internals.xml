@@ -14,7 +14,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CanStatistics.h" line="93" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CanStatistics.h" bodystart="93" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanStatistics.h" line="93" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanStatistics.h" bodystart="93" bodyend="-1"/>
         <referencedby refid="classCanModule_1_1CanStatistics_1a8ec66bd11141579779f143362b70640e" compoundref="CanStatistics_8cpp" startline="52" endline="70">CanModule::CanStatistics::computeDerived</referencedby>
       </memberdef>
       <memberdef kind="variable" id="classCanModule_1_1CanStatistics_1_1Internals_1ad6a0884d188d724c4d43ae06ed4ecc1a" prot="public" static="no" mutable="no">
@@ -28,7 +28,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CanStatistics.h" line="94" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CanStatistics.h" bodystart="94" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanStatistics.h" line="94" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanStatistics.h" bodystart="94" bodyend="-1"/>
         <referencedby refid="classCanModule_1_1CanStatistics_1a8ec66bd11141579779f143362b70640e" compoundref="CanStatistics_8cpp" startline="52" endline="70">CanModule::CanStatistics::computeDerived</referencedby>
       </memberdef>
       <memberdef kind="variable" id="classCanModule_1_1CanStatistics_1_1Internals_1acee7cde0976a6c9957ec00446e7a3589" prot="public" static="no" mutable="no">
@@ -42,7 +42,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CanStatistics.h" line="96" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CanStatistics.h" bodystart="96" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanStatistics.h" line="96" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanStatistics.h" bodystart="96" bodyend="-1"/>
         <referencedby refid="classCanModule_1_1CanStatistics_1a8ec66bd11141579779f143362b70640e" compoundref="CanStatistics_8cpp" startline="52" endline="70">CanModule::CanStatistics::computeDerived</referencedby>
       </memberdef>
       <memberdef kind="variable" id="classCanModule_1_1CanStatistics_1_1Internals_1a2aa4f058776d0ccc832479225bc23428" prot="public" static="no" mutable="no">
@@ -56,7 +56,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CanStatistics.h" line="97" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CanStatistics.h" bodystart="97" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanStatistics.h" line="97" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanStatistics.h" bodystart="97" bodyend="-1"/>
         <referencedby refid="classCanModule_1_1CanStatistics_1a85e6c87ce5285884a0272088178bb8f6" compoundref="CanStatistics_8cpp" startline="43" endline="50">CanModule::CanStatistics::beginNewRun</referencedby>
         <referencedby refid="classCanModule_1_1CanStatistics_1a8ec66bd11141579779f143362b70640e" compoundref="CanStatistics_8cpp" startline="52" endline="70">CanModule::CanStatistics::computeDerived</referencedby>
       </memberdef>
@@ -65,7 +65,7 @@
 <para>Following is encapsulated as a class, to provide sane copying in assignment operator. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CanStatistics.h" line="91" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CanStatistics.h" bodystart="90" bodyend="98"/>
+    <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanStatistics.h" line="91" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanStatistics.h" bodystart="90" bodyend="98"/>
     <listofallmembers>
       <member refid="classCanModule_1_1CanStatistics_1_1Internals_1acee7cde0976a6c9957ec00446e7a3589" prot="public" virt="non-virtual"><scope>CanModule::CanStatistics::Internals</scope><name>m_busLoad</name></member>
       <member refid="classCanModule_1_1CanStatistics_1_1Internals_1a2aa4f058776d0ccc832479225bc23428" prot="public" virt="non-virtual"><scope>CanModule::CanStatistics::Internals</scope><name>m_observationStart</name></member>

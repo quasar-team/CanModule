@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_de3a7739c80a3f6dc8ad1d8503e69d63" kind="dir">
+    <compoundname>CanLibLoader</compoundname>
+    <innerdir refid="dir_6beed59dab7429aeee2fbf7025a3868a">CanLibLoader/include</innerdir>
+    <innerdir refid="dir_fac28a117a69377e8d1b1e8dab04d188">CanLibLoader/src</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanLibLoader/"/>
+  </compounddef>
+</doxygen>

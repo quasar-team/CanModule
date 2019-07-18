@@ -8,56 +8,6 @@
     <includes local="no">sstream</includes>
     <includes local="yes">LogIt.h</includes>
     <incdepgraph>
-      <node id="494">
-        <label>stdatomic.h</label>
-      </node>
-      <node id="497">
-        <label>LogIt.h</label>
-      </node>
-      <node id="483">
-        <label>windows.h</label>
-      </node>
-      <node id="493">
-        <label>CanStatistics.h</label>
-        <link refid="CanStatistics_8h"/>
-        <childnode refid="494" relation="include">
-        </childnode>
-        <childnode refid="489" relation="include">
-        </childnode>
-        <childnode refid="495" relation="include">
-        </childnode>
-        <childnode refid="496" relation="include">
-        </childnode>
-      </node>
-      <node id="491">
-        <label>boost/signals2.hpp</label>
-      </node>
-      <node id="481">
-        <label>CanLibLoader/src/CanLibLoaderWin.cpp</label>
-        <link refid="CanLibLoaderWin.cpp"/>
-        <childnode refid="482" relation="include">
-        </childnode>
-        <childnode refid="486" relation="include">
-        </childnode>
-        <childnode refid="498" relation="include">
-        </childnode>
-        <childnode refid="499" relation="include">
-        </childnode>
-        <childnode refid="497" relation="include">
-        </childnode>
-      </node>
-      <node id="484">
-        <label>strsafe.h</label>
-      </node>
-      <node id="498">
-        <label>stdexcept</label>
-      </node>
-      <node id="486">
-        <label>string</label>
-      </node>
-      <node id="487">
-        <label>map</label>
-      </node>
       <node id="488">
         <label>CCanAccess.h</label>
         <link refid="CCanAccess_8h"/>
@@ -76,33 +26,14 @@
         <childnode refid="497" relation="include">
         </childnode>
       </node>
-      <node id="482">
-        <label>CanLibLoaderWin.h</label>
-        <link refid="CanLibLoaderWin_8h"/>
-        <childnode refid="483" relation="include">
-        </childnode>
-        <childnode refid="484" relation="include">
-        </childnode>
-        <childnode refid="485" relation="include">
-        </childnode>
+      <node id="494">
+        <label>stdatomic.h</label>
       </node>
-      <node id="492">
-        <label>CanMessage.h</label>
-        <link refid="CanMessage_8h"/>
-        <childnode refid="489" relation="include">
-        </childnode>
+      <node id="497">
+        <label>LogIt.h</label>
       </node>
-      <node id="499">
-        <label>sstream</label>
-      </node>
-      <node id="489">
-        <label>sys/time.h</label>
-      </node>
-      <node id="490">
-        <label>boost/bind.hpp</label>
-      </node>
-      <node id="496">
-        <label>chrono</label>
+      <node id="483">
+        <label>windows.h</label>
       </node>
       <node id="485">
         <label>CanLibLoader.h</label>
@@ -116,9 +47,78 @@
         <childnode refid="495" relation="include">
         </childnode>
       </node>
+      <node id="493">
+        <label>CanStatistics.h</label>
+        <link refid="CanStatistics_8h"/>
+        <childnode refid="494" relation="include">
+        </childnode>
+        <childnode refid="489" relation="include">
+        </childnode>
+        <childnode refid="495" relation="include">
+        </childnode>
+        <childnode refid="496" relation="include">
+        </childnode>
+      </node>
+      <node id="491">
+        <label>boost/signals2.hpp</label>
+      </node>
+      <node id="484">
+        <label>strsafe.h</label>
+      </node>
+      <node id="482">
+        <label>CanLibLoaderWin.h</label>
+        <link refid="CanLibLoaderWin_8h"/>
+        <childnode refid="483" relation="include">
+        </childnode>
+        <childnode refid="484" relation="include">
+        </childnode>
+        <childnode refid="485" relation="include">
+        </childnode>
+      </node>
+      <node id="498">
+        <label>stdexcept</label>
+      </node>
+      <node id="486">
+        <label>string</label>
+      </node>
+      <node id="487">
+        <label>map</label>
+      </node>
+      <node id="492">
+        <label>CanMessage.h</label>
+        <link refid="CanMessage_8h"/>
+        <childnode refid="489" relation="include">
+        </childnode>
+      </node>
+      <node id="499">
+        <label>sstream</label>
+      </node>
+      <node id="481">
+        <label>CanLibLoader/src/CanLibLoaderWin.cpp</label>
+        <link refid="CanLibLoaderWin.cpp"/>
+        <childnode refid="482" relation="include">
+        </childnode>
+        <childnode refid="486" relation="include">
+        </childnode>
+        <childnode refid="498" relation="include">
+        </childnode>
+        <childnode refid="499" relation="include">
+        </childnode>
+        <childnode refid="497" relation="include">
+        </childnode>
+      </node>
       <node id="495">
         <label>ExportDefinition.h</label>
         <link refid="ExportDefinition_8h"/>
+      </node>
+      <node id="489">
+        <label>sys/time.h</label>
+      </node>
+      <node id="490">
+        <label>boost/bind.hpp</label>
+      </node>
+      <node id="496">
+        <label>chrono</label>
       </node>
     </incdepgraph>
     <innernamespace refid="namespaceCanModule">CanModule</innernamespace>
@@ -226,6 +226,6 @@
 <codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="138"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanLibLoader/src/CanLibLoaderWin.cpp"/>
+    <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanLibLoader/src/CanLibLoaderWin.cpp"/>
   </compounddef>
 </doxygen>

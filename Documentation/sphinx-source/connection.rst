@@ -34,7 +34,22 @@ systematically (is it needed?).
 The anagate duo reconnects somewhat faster than the X4/X8 modules, because of firmware differences.
 The whole reconnection can take up to 60 secs until all buffers are cleared, so please be patient.     
 
-peak and systec
----------------
+peak
+----
+The module is receiving power through the USB port, if this connection is lost we need to reconnect.
+Reconnection works for both normal (fixed) and flexible datarate (FD) modules under linux, as 
+socketcan is used. For windows only
+normal datarate (fixed) are supported, and the reconnection also works for them.
 
-The reconnection behavior is still under investigation and testing.
+Reconnection takes less than 30sec.
+
+systec
+------
+A power loss or a connection loss will trigger a reconnection. For linux, where socketcan is used,
+this works like for peak. 
+
+For windows the reconnection is NOT WORKING, and it is not clear if it can actually
+be achieved within CanModule. It seems that a library reload is needed to make the module work again.
+This feature is therefore DROPPED for now, since also no strong user request for "systec reconnection
+under windows" is presently stated. I tried, using the systec API@windows, but did not manage.
+

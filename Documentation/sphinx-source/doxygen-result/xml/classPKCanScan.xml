@@ -17,7 +17,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" line="62" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" bodystart="62" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" line="62" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" bodystart="62" bodyend="-1"/>
         <referencedby refid="classPKCanScan_1ae91999b9316ca127eecbabd9f27c3137" compoundref="pkcan_8cpp" startline="130" endline="164">createBus</referencedby>
       </memberdef>
       <memberdef kind="variable" id="classPKCanScan_1ae1ff02a4576fe6d7276843e3821408c8" prot="public" static="yes" mutable="no">
@@ -32,7 +32,7 @@
 <para>© Copyright CERN, 2015. All rights not expressly granted are reserved.</para><para><ref refid="AnaCanScan_8cpp" kindref="compound">AnaCanScan.cpp</ref></para><para>Created on: Mar 17, 2015 Author: pnikiel, vfilimon, quasar team mludwig at cern dot ch</para><para>This file is part of Quasar.</para><para>Quasar is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public Licence as published by the Free Software Foundation, either version 3 of the Licence.</para><para>Quasar is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public Licence for more details.</para><para>You should have received a copy of the GNU Lesser General Public License along with Quasar. If not, see <ulink url="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</ulink>.</para><para>PEAK bridge integration for windows </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" line="63" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" bodystart="63" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" line="63" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" bodystart="63" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-attrib">
@@ -47,7 +47,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" line="73" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" bodystart="73" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" line="73" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" bodystart="73" bodyend="-1"/>
         <referencedby refid="classPKCanScan_1a45bd5feda5ccb009775c45bfabe41614" compoundref="pkcan_8cpp" startline="68" endline="110">CanScanControlThread</referencedby>
         <referencedby refid="classPKCanScan_1a2ef38527fb5009c43487fccbbe4694ba" compoundref="pkcan_8cpp" startline="413" endline="418">getStatistics</referencedby>
         <referencedby refid="classPKCanScan_1adfc8b4e20f4548295a99af69bf1888d5" compoundref="pkcan_8cpp" startline="48" endline="55">PKCanScan</referencedby>
@@ -64,7 +64,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" line="74" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" bodystart="74" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" line="74" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" bodystart="74" bodyend="-1"/>
         <referencedby refid="classPKCanScan_1a35ccc4082d56a736abb34d0c289c5a96" compoundref="pkcan_8cpp" startline="275" endline="291">sendErrorCode</referencedby>
       </memberdef>
       <memberdef kind="variable" id="classPKCanScan_1afc2d4388c9cc8b562f315a55e7ad8bab" prot="private" static="no" mutable="no">
@@ -78,7 +78,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" line="75" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" bodystart="75" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" line="75" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" bodystart="75" bodyend="-1"/>
         <referencedby refid="classPKCanScan_1a45bd5feda5ccb009775c45bfabe41614" compoundref="pkcan_8cpp" startline="68" endline="110">CanScanControlThread</referencedby>
         <referencedby refid="classPKCanScan_1a924778bdca171eb7f3f597dfe9f99fb4" compoundref="pkcan_8cpp" startline="57" endline="62">~PKCanScan</referencedby>
       </memberdef>
@@ -93,7 +93,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" line="77" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" bodystart="77" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" line="77" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" bodystart="77" bodyend="-1"/>
         <referencedby refid="classPKCanScan_1a45bd5feda5ccb009775c45bfabe41614" compoundref="pkcan_8cpp" startline="68" endline="110">CanScanControlThread</referencedby>
         <referencedby refid="classPKCanScan_1a6fe021ecfdde5af1e7a74668b9819bfb" compoundref="pkcan_8cpp" startline="171" endline="272">configureCanboard</referencedby>
         <referencedby refid="classPKCanScan_1a2ef38527fb5009c43487fccbbe4694ba" compoundref="pkcan_8cpp" startline="413" endline="418">getStatistics</referencedby>
@@ -109,7 +109,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" line="80" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" bodystart="80" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" line="80" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" bodystart="80" bodyend="-1"/>
         <referencedby refid="classPKCanScan_1a45bd5feda5ccb009775c45bfabe41614" compoundref="pkcan_8cpp" startline="68" endline="110">CanScanControlThread</referencedby>
         <referencedby refid="classPKCanScan_1a6fe021ecfdde5af1e7a74668b9819bfb" compoundref="pkcan_8cpp" startline="171" endline="272">configureCanboard</referencedby>
         <referencedby refid="classPKCanScan_1ae91999b9316ca127eecbabd9f27c3137" compoundref="pkcan_8cpp" startline="130" endline="164">createBus</referencedby>
@@ -129,7 +129,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" line="83" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" bodystart="83" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" line="83" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" bodystart="83" bodyend="-1"/>
         <referencedby refid="classPKCanScan_1ae91999b9316ca127eecbabd9f27c3137" compoundref="pkcan_8cpp" startline="130" endline="164">createBus</referencedby>
       </memberdef>
       <memberdef kind="variable" id="classPKCanScan_1a5ba2a765e250376fde32db88272339d6" prot="private" static="no" mutable="no">
@@ -143,7 +143,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" line="87" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" bodystart="87" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" line="87" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" bodystart="87" bodyend="-1"/>
         <referencedby refid="classPKCanScan_1ae91999b9316ca127eecbabd9f27c3137" compoundref="pkcan_8cpp" startline="130" endline="164">createBus</referencedby>
       </memberdef>
       </sectiondef>
@@ -159,7 +159,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" line="29" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/pkcan/pkcan.cpp" bodystart="48" bodyend="55"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" line="29" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/pkcan/pkcan.cpp" bodystart="48" bodyend="55"/>
         <references refid="classCanModule_1_1CanStatistics_1a85e6c87ce5285884a0272088178bb8f6" compoundref="CanStatistics_8cpp" startline="43" endline="50">CanModule::CanStatistics::beginNewRun</references>
         <references refid="classPKCanScan_1a03eec54c44937d843f48b2b1a086b37b" compoundref="pkcan_8h" startline="73">m_statistics</references>
       </memberdef>
@@ -178,7 +178,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" line="31" column="1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" line="31" column="1"/>
       </memberdef>
       <memberdef kind="function" id="classPKCanScan_1a7a5e5fe4cb8b99c64c3908f3143a8f1c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classPKCanScan" kindref="compound">PKCanScan</ref> &amp;</type>
@@ -195,7 +195,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" line="33" column="1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" line="33" column="1"/>
       </memberdef>
       <memberdef kind="function" id="classPKCanScan_1a924778bdca171eb7f3f597dfe9f99fb4" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type></type>
@@ -208,7 +208,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" line="35" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/pkcan/pkcan.cpp" bodystart="57" bodyend="62"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" line="35" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/pkcan/pkcan.cpp" bodystart="57" bodyend="62"/>
         <references refid="classPKCanScan_1a8f07d0272238592477299480f48ae193" compoundref="pkcan_8h" startline="80">m_canObjHandler</references>
         <references refid="classPKCanScan_1afc2d4388c9cc8b562f315a55e7ad8bab" compoundref="pkcan_8h" startline="75">m_CanScanThreadShutdownFlag</references>
       </memberdef>
@@ -252,7 +252,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" line="36" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/pkcan/pkcan.cpp" bodystart="130" bodyend="164"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" line="36" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/pkcan/pkcan.cpp" bodystart="130" bodyend="164"/>
         <references refid="classPKCanScan_1a45bd5feda5ccb009775c45bfabe41614" compoundref="pkcan_8cpp" startline="68" endline="110">CanScanControlThread</references>
         <references refid="classPKCanScan_1a6fe021ecfdde5af1e7a74668b9819bfb" compoundref="pkcan_8cpp" startline="171" endline="272">configureCanboard</references>
         <references refid="namespaceCanModule_1a78730a18f59663871883885f3914a2aa" compoundref="CCanAccess_8h" startline="50">CanModule::LogItComponentName</references>
@@ -292,7 +292,7 @@
 <para>method to send a CAN message to the peak module. we use the standard API &quot;PCAN-Basic&quot; for this for windows and we talk only over USB to fixed bitrate modules. The flexible bitrate (FD) modules can be implemented later as well: for this we need more parameters to pass and a switch between CAN_Write and CAN_WriteFD. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" line="46" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/pkcan/pkcan.cpp" bodystart="298" bodyend="332"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" line="46" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/pkcan/pkcan.cpp" bodystart="298" bodyend="332"/>
         <references refid="classPKCanScan_1a8f07d0272238592477299480f48ae193" compoundref="pkcan_8h" startline="80">m_canObjHandler</references>
         <references refid="classPKCanScan_1a03eec54c44937d843f48b2b1a086b37b" compoundref="pkcan_8h" startline="73">m_statistics</references>
         <references refid="pkcan_8cpp_1a73247195a8f4adaf8cc04e0ac302e045" compoundref="pkcan_8cpp" startline="36">MLOGPK</references>
@@ -315,7 +315,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" line="53" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/pkcan/pkcan.cpp" bodystart="334" bodyend="341"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" line="53" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/pkcan/pkcan.cpp" bodystart="334" bodyend="341"/>
         <references refid="classPKCanScan_1a8f07d0272238592477299480f48ae193" compoundref="pkcan_8h" startline="80">m_canObjHandler</references>
         <references refid="classPKCanScan_1a35ccc4082d56a736abb34d0c289c5a96" compoundref="pkcan_8cpp" startline="275" endline="291">sendErrorCode</references>
       </memberdef>
@@ -335,7 +335,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" line="55" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/pkcan/pkcan.cpp" bodystart="413" bodyend="418"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" line="55" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/pkcan/pkcan.cpp" bodystart="413" bodyend="418"/>
         <references refid="classCanModule_1_1CanStatistics_1a85e6c87ce5285884a0272088178bb8f6" compoundref="CanStatistics_8cpp" startline="43" endline="50">CanModule::CanStatistics::beginNewRun</references>
         <references refid="classCanModule_1_1CanStatistics_1a8ec66bd11141579779f143362b70640e" compoundref="CanStatistics_8cpp" startline="52" endline="70">CanModule::CanStatistics::computeDerived</references>
         <references refid="classPKCanScan_1a84e9c4874e065b79d5600c0a5f9f7877" compoundref="pkcan_8h" startline="77">m_baudRate</references>
@@ -360,7 +360,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" line="60" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/pkcan/pkcan.cpp" bodystart="343" bodyend="350"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" line="60" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/pkcan/pkcan.cpp" bodystart="343" bodyend="350"/>
         <referencedby refid="classPKCanScan_1a35ccc4082d56a736abb34d0c289c5a96" compoundref="pkcan_8cpp" startline="275" endline="291">sendErrorCode</referencedby>
       </memberdef>
       </sectiondef>
@@ -380,7 +380,7 @@
 <para>This method returns a TPCANHandle (which is in fact a specific vendor defined hex value) as a function of a human readable string. The human readable string basically codes the intefrace type (USB, ISA, PCI...) and the CAN port (1..8) so that i.e. USB3-&gt;0x53 which means USB interface 3rd channel </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" line="66" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/pkcan/pkcan.cpp" bodystart="357" bodyend="411"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" line="66" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/pkcan/pkcan.cpp" bodystart="357" bodyend="411"/>
         <referencedby refid="classPKCanScan_1a6fe021ecfdde5af1e7a74668b9819bfb" compoundref="pkcan_8cpp" startline="171" endline="272">configureCanboard</referencedby>
       </memberdef>
       <memberdef kind="function" id="classPKCanScan_1a35ccc4082d56a736abb34d0c289c5a96" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -398,7 +398,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" line="68" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/pkcan/pkcan.cpp" bodystart="275" bodyend="291"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" line="68" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/pkcan/pkcan.cpp" bodystart="275" bodyend="291"/>
         <references refid="classCanModule_1_1CCanAccess_1a33fbd693f04b4f4e21cee20856c44866" compoundref="CCanAccess_8h" startline="310">CanModule::CCanAccess::canMessageError</references>
         <references refid="namespaceCanModule_1a3ec3082d7d11a9c1641023cb3f53cbe5" compoundref="CanModuleUtils_8cpp" startline="44" endline="51">CanModule::convertTimepointToTimeval</references>
         <references refid="namespaceCanModule_1a6d0711aac0a75de5d2bf6142997a814d" compoundref="CanModuleUtils_8cpp" startline="60" endline="74">CanModule::currentTimeTimeval</references>
@@ -428,7 +428,7 @@
 <para>method to configure peak modules, one channel at a time. We restrict this to USB interfaces and fixed datarate (not FD) modules If needed this can relatively easily be extended to other interfaces and FD mods as well. </para>        </detaileddescription>
         <inbodydescription>
 <para>FD (flexible datarate) modules. we need to contruct (a compplicated) bitrate string in this case, according to PEAK PCAN-Basic Documentation API manual p.82 two data rates, for nominal and data, can be defined. all these parameters have to be passed TPCANStatus tpcanStatus = CAN_InitializeFD(m_canObjHandler, m_baudRate); TPCANBitrateFD br = &quot;f_clock_mhz=20, nom_brp=5, nom_tseg1=2, nom_tseg2=1, nom_sjw=1&quot;; PCAN_BR_CLOCK_MHZ=20, PCAN_BR_NOM_BRP=5, PCAN_BR_DATA_TSEG1=2, PCAN_BR_DATA_TSEG2=1, PCAN_BR_NOM_SJW=1;</para><para>fixed datarate modules (classical CAN), plug and play</para><para>fixed data rate, non plug-and-play static TPCANStatus Initialize( TPCANHandle Channel, TPCANBaudrate Btr0Btr1, TPCANType HwType, UInt32 IOPort, UInt16 Interrupt);</para>        </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" line="81" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/pkcan/pkcan.cpp" bodystart="171" bodyend="272"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" line="81" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/pkcan/pkcan.cpp" bodystart="171" bodyend="272"/>
         <references refid="classPKCanScan_1a53471be1a2b2b34afc091e90bfcd29fb" compoundref="pkcan_8cpp" startline="357" endline="411">getHandle</references>
         <references refid="classPKCanScan_1a84e9c4874e065b79d5600c0a5f9f7877" compoundref="pkcan_8h" startline="77">m_baudRate</references>
         <references refid="classPKCanScan_1a8f07d0272238592477299480f48ae193" compoundref="pkcan_8h" startline="80">m_canObjHandler</references>
@@ -457,7 +457,7 @@
 <para>thread to supervise port activity </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" line="70" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/pkcan/pkcan.cpp" bodystart="68" bodyend="110"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" line="70" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/pkcan/pkcan.cpp" bodystart="68" bodyend="110"/>
         <references refid="structCanMsgStruct_1a2e47a33e7bba46b05a8fff29433f047b" compoundref="CanMessage_8h" startline="29">CanMsgStruct::c_data</references>
         <references refid="structCanMsgStruct_1a3e5add8ae9cdadfcf3f2255d375ec9b3" compoundref="CanMessage_8h" startline="27">CanMsgStruct::c_dlc</references>
         <references refid="structCanMsgStruct_1acf3abc93beb936e5f9431ef6ec4568f3" compoundref="CanMessage_8h" startline="25">CanMsgStruct::c_ff</references>
@@ -523,7 +523,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" line="26" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" bodystart="25" bodyend="88"/>
+    <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" line="26" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterfaceImplementations/pkcan/pkcan.h" bodystart="25" bodyend="88"/>
     <listofallmembers>
       <member refid="classCanModule_1_1CCanAccess_1aa8e0e974863874b0e7bbcdb57084c241" prot="public" virt="non-virtual"><scope>PKCanScan</scope><name>canMessageCame</name></member>
       <member refid="classCanModule_1_1CCanAccess_1a33fbd693f04b4f4e21cee20856c44866" prot="public" virt="non-virtual"><scope>PKCanScan</scope><name>canMessageError</name></member>

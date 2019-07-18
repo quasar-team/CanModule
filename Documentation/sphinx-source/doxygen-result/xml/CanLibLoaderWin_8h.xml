@@ -7,6 +7,24 @@
     <includes refid="CanLibLoader_8h" local="yes">CanLibLoader.h</includes>
     <includedby refid="CanLibLoaderWin_8cpp" local="yes">CanLibLoader/src/CanLibLoaderWin.cpp</includedby>
     <incdepgraph>
+      <node id="432">
+        <label>CCanAccess.h</label>
+        <link refid="CCanAccess_8h"/>
+        <childnode refid="433" relation="include">
+        </childnode>
+        <childnode refid="434" relation="include">
+        </childnode>
+        <childnode refid="435" relation="include">
+        </childnode>
+        <childnode refid="430" relation="include">
+        </childnode>
+        <childnode refid="436" relation="include">
+        </childnode>
+        <childnode refid="437" relation="include">
+        </childnode>
+        <childnode refid="441" relation="include">
+        </childnode>
+      </node>
       <node id="438">
         <label>stdatomic.h</label>
       </node>
@@ -15,6 +33,18 @@
       </node>
       <node id="427">
         <label>windows.h</label>
+      </node>
+      <node id="429">
+        <label>CanLibLoader.h</label>
+        <link refid="CanLibLoader_8h"/>
+        <childnode refid="430" relation="include">
+        </childnode>
+        <childnode refid="431" relation="include">
+        </childnode>
+        <childnode refid="432" relation="include">
+        </childnode>
+        <childnode refid="439" relation="include">
+        </childnode>
       </node>
       <node id="437">
         <label>CanStatistics.h</label>
@@ -34,30 +64,6 @@
       <node id="428">
         <label>strsafe.h</label>
       </node>
-      <node id="430">
-        <label>string</label>
-      </node>
-      <node id="431">
-        <label>map</label>
-      </node>
-      <node id="432">
-        <label>CCanAccess.h</label>
-        <link refid="CCanAccess_8h"/>
-        <childnode refid="433" relation="include">
-        </childnode>
-        <childnode refid="434" relation="include">
-        </childnode>
-        <childnode refid="435" relation="include">
-        </childnode>
-        <childnode refid="430" relation="include">
-        </childnode>
-        <childnode refid="436" relation="include">
-        </childnode>
-        <childnode refid="437" relation="include">
-        </childnode>
-        <childnode refid="441" relation="include">
-        </childnode>
-      </node>
       <node id="426">
         <label>CanLibLoader/include/CanLibLoaderWin.h</label>
         <link refid="CanLibLoaderWin.h"/>
@@ -68,11 +74,21 @@
         <childnode refid="429" relation="include">
         </childnode>
       </node>
+      <node id="430">
+        <label>string</label>
+      </node>
+      <node id="431">
+        <label>map</label>
+      </node>
       <node id="436">
         <label>CanMessage.h</label>
         <link refid="CanMessage_8h"/>
         <childnode refid="433" relation="include">
         </childnode>
+      </node>
+      <node id="439">
+        <label>ExportDefinition.h</label>
+        <link refid="ExportDefinition_8h"/>
       </node>
       <node id="433">
         <label>sys/time.h</label>
@@ -83,33 +99,17 @@
       <node id="440">
         <label>chrono</label>
       </node>
-      <node id="429">
-        <label>CanLibLoader.h</label>
-        <link refid="CanLibLoader_8h"/>
-        <childnode refid="430" relation="include">
-        </childnode>
-        <childnode refid="431" relation="include">
-        </childnode>
-        <childnode refid="432" relation="include">
-        </childnode>
-        <childnode refid="439" relation="include">
-        </childnode>
-      </node>
-      <node id="439">
-        <label>ExportDefinition.h</label>
-        <link refid="ExportDefinition_8h"/>
-      </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="443">
-        <label>CanLibLoader/src/CanLibLoaderWin.cpp</label>
-        <link refid="CanLibLoaderWin_8cpp"/>
-      </node>
       <node id="442">
         <label>CanLibLoader/include/CanLibLoaderWin.h</label>
         <link refid="CanLibLoaderWin.h"/>
         <childnode refid="443" relation="include">
         </childnode>
+      </node>
+      <node id="443">
+        <label>CanLibLoader/src/CanLibLoaderWin.cpp</label>
+        <link refid="CanLibLoaderWin_8cpp"/>
       </node>
     </invincdepgraph>
     <innerclass refid="classCanModule_1_1CanLibLoaderWin" prot="public">CanModule::CanLibLoaderWin</innerclass>
@@ -123,7 +123,7 @@
 <para>© Copyright CERN, 2015. All rights not expressly granted are reserved.</para><para><ref refid="CanLibLoaderWin_8h" kindref="compound">CanLibLoaderWin.h</ref></para><para>Created on: Feb 22, 2012 Author: vfilimon mludwig at cern dot ch</para><para>This file is part of Quasar.</para><para>Quasar is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public Licence as published by the Free Software Foundation, either version 3 of the Licence.</para><para>Quasar is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public Licence for more details.</para><para>You should have received a copy of the GNU Lesser General Public License along with Quasar. If not, see <ulink url="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</ulink>. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanLibLoader/include/CanLibLoaderWin.h" line="25" column="10" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanLibLoader/include/CanLibLoaderWin.h" bodystart="25" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanLibLoader/include/CanLibLoaderWin.h" line="25" column="10" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanLibLoader/include/CanLibLoaderWin.h" bodystart="25" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -161,6 +161,6 @@
 <codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
 <codeline lineno="51"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanLibLoader/include/CanLibLoaderWin.h"/>
+    <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanLibLoader/include/CanLibLoaderWin.h"/>
   </compounddef>
 </doxygen>

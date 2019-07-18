@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CanBusAccess.h" line="51" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CanBusAccess.h" bodystart="51" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanBusAccess.h" line="51" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanBusAccess.h" bodystart="51" bodyend="-1"/>
         <referencedby refid="classCanModule_1_1CanBusAccess_1a30200d7e59055a516aceeba6c2bb534e" compoundref="CanBusAccess_8cpp" startline="55" endline="65">closeCanBus</referencedby>
         <referencedby refid="classCanModule_1_1CanBusAccess_1a487bdb65dc69be65d67721b63e38324b" compoundref="CanBusAccess_8cpp" startline="67" endline="92">openCanBus</referencedby>
       </memberdef>
@@ -30,7 +30,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CanBusAccess.h" line="52" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CanBusAccess.h" bodystart="52" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanBusAccess.h" line="52" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanBusAccess.h" bodystart="52" bodyend="-1"/>
         <referencedby refid="classCanModule_1_1CanBusAccess_1a487bdb65dc69be65d67721b63e38324b" compoundref="CanBusAccess_8cpp" startline="67" endline="92">openCanBus</referencedby>
       </memberdef>
       </sectiondef>
@@ -46,7 +46,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CanBusAccess.h" line="45" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CanBusAccess.h" bodystart="45" bodyend="45"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanBusAccess.h" line="45" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanBusAccess.h" bodystart="45" bodyend="45"/>
       </memberdef>
       <memberdef kind="function" id="classCanModule_1_1CanBusAccess_1a487bdb65dc69be65d67721b63e38324b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classCanModule_1_1CCanAccess" kindref="compound">CCanAccess</ref> *</type>
@@ -67,7 +67,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CanBusAccess.h" line="46" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/src/CanBusAccess.cpp" bodystart="67" bodyend="92"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanBusAccess.h" line="46" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/src/CanBusAccess.cpp" bodystart="67" bodyend="92"/>
         <references refid="classCanModule_1_1CanLibLoader_1ab22f43105bfc9cab3c0749b83c867352" compoundref="CanLibLoader_8cpp" startline="45" endline="53">CanModule::CanLibLoader::createInstance</references>
         <references refid="classCanModule_1_1CanBusAccess_1a826dbb3e3cfd06c7373fab6024759305" compoundref="CanBusAccess_8h" startline="51">m_Component</references>
         <references refid="classCanModule_1_1CanBusAccess_1aedb4f18a70e982020badd4de92a42f06" compoundref="CanBusAccess_8h" startline="52">m_ScanManagers</references>
@@ -88,7 +88,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CanBusAccess.h" line="47" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/src/CanBusAccess.cpp" bodystart="55" bodyend="65"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanBusAccess.h" line="47" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/src/CanBusAccess.cpp" bodystart="55" bodyend="65"/>
         <references refid="classCanModule_1_1CanLibLoader_1acd7d3af103bb72d5bd18737333d682f4" compoundref="CanLibLoader_8cpp" startline="55" endline="59">CanModule::CanLibLoader::closeCanBus</references>
         <references refid="classCanModule_1_1CCanAccess_1ac3f5126ae36d642217425e21696d19ca" compoundref="CCanAccess_8h" startline="155" endline="155">CanModule::CCanAccess::getBusName</references>
         <references refid="classCanModule_1_1CanBusAccess_1a826dbb3e3cfd06c7373fab6024759305" compoundref="CanBusAccess_8h" startline="51">m_Component</references>
@@ -110,14 +110,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CanBusAccess.h" line="50" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CanBusAccess.h" bodystart="50" bodyend="50"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanBusAccess.h" line="50" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanBusAccess.h" bodystart="50" bodyend="50"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
 <para><ref refid="classCanModule_1_1CanBusAccess" kindref="compound">CanBusAccess</ref> class ensure a connection to can hardware. it can create the connection to different hardware at same time the syntax of the name is &quot;name of component:name of the channel&quot; </para>    </detaileddescription>
-    <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CanBusAccess.h" line="42" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CanBusAccess.h" bodystart="42" bodyend="53"/>
+    <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanBusAccess.h" line="42" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CanBusAccess.h" bodystart="42" bodyend="53"/>
     <listofallmembers>
       <member refid="classCanModule_1_1CanBusAccess_1ae5a45c09970e0b078d5f057c424476db" prot="public" virt="non-virtual"><scope>CanModule::CanBusAccess</scope><name>CanBusAccess</name></member>
       <member refid="classCanModule_1_1CanBusAccess_1a30200d7e59055a516aceeba6c2bb534e" prot="public" virt="non-virtual"><scope>CanModule::CanBusAccess</scope><name>closeCanBus</name></member>

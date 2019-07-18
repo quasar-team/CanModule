@@ -16,7 +16,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanLibLoader/include/CanLibLoaderLin.h" line="42" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanLibLoader/include/CanLibLoaderLin.h" bodystart="42" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanLibLoader/include/CanLibLoaderLin.h" line="42" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanLibLoader/include/CanLibLoaderLin.h" bodystart="42" bodyend="-1"/>
         <referencedby refid="classCanModule_1_1CanLibLoaderLin_1a7d222a82ab3f005ebed4927b299fce64" compoundref="CanLibLoaderLin_8cpp" startline="75" endline="93">createCanAccess</referencedby>
         <referencedby refid="classCanModule_1_1CanLibLoaderLin_1aaef852fe6e43d093f58529fab0b2e841" compoundref="CanLibLoaderLin_8cpp" startline="49" endline="67">dynamicallyLoadLib</referencedby>
         <referencedby refid="classCanModule_1_1CanLibLoaderLin_1a91636138f96d42a3a835c2a38bae3ec6" compoundref="CanLibLoaderLin_8cpp" startline="45" endline="47">~CanLibLoaderLin</referencedby>
@@ -38,7 +38,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanLibLoader/include/CanLibLoaderLin.h" line="32" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanLibLoader/src/CanLibLoaderLin.cpp" bodystart="38" bodyend="44"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanLibLoader/include/CanLibLoaderLin.h" line="32" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanLibLoader/src/CanLibLoaderLin.cpp" bodystart="38" bodyend="44"/>
         <references refid="classCanModule_1_1CanLibLoaderLin_1a7d222a82ab3f005ebed4927b299fce64" compoundref="CanLibLoaderLin_8cpp" startline="75" endline="93">createCanAccess</references>
         <references refid="classCanModule_1_1CanLibLoaderLin_1aaef852fe6e43d093f58529fab0b2e841" compoundref="CanLibLoaderLin_8cpp" startline="49" endline="67">dynamicallyLoadLib</references>
         <references refid="classCanModule_1_1CanLibLoader_1af891a85f28376052c3f4b22d97eb3ac2" compoundref="CanLibLoader_8h" startline="47">CanModule::CanLibLoader::lh</references>
@@ -54,7 +54,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanLibLoader/include/CanLibLoaderLin.h" line="34" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanLibLoader/src/CanLibLoaderLin.cpp" bodystart="45" bodyend="47"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanLibLoader/include/CanLibLoaderLin.h" line="34" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanLibLoader/src/CanLibLoaderLin.cpp" bodystart="45" bodyend="47"/>
         <references refid="classCanModule_1_1CanLibLoaderLin_1a590b2db4fcfa870e005c04b28de4fad6" compoundref="CanLibLoaderLin_8h" startline="42">p_dynamicLibrary</references>
       </memberdef>
       </sectiondef>
@@ -75,7 +75,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanLibLoader/include/CanLibLoaderLin.h" line="37" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanLibLoader/src/CanLibLoaderLin.cpp" bodystart="49" bodyend="67"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanLibLoader/include/CanLibLoaderLin.h" line="37" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanLibLoader/src/CanLibLoaderLin.cpp" bodystart="49" bodyend="67"/>
         <references refid="classCanModule_1_1CanLibLoader_1af891a85f28376052c3f4b22d97eb3ac2" compoundref="CanLibLoader_8h" startline="47">CanModule::CanLibLoader::lh</references>
         <references refid="classCanModule_1_1CanLibLoaderLin_1a590b2db4fcfa870e005c04b28de4fad6" compoundref="CanLibLoaderLin_8h" startline="42">p_dynamicLibrary</references>
         <referencedby refid="classCanModule_1_1CanLibLoaderLin_1a2704a1d43e18e97223848c28dc5dc6ce" compoundref="CanLibLoaderLin_8cpp" startline="38" endline="44">CanLibLoaderLin</referencedby>
@@ -92,7 +92,7 @@
 <para>Once the library is loaded, resolve the function getHalAccess, which will give us an instance of the wanted object: &quot;access&quot; One access instance corresponds to one CAN port (and whatever is needed on the computer side: ethernet, USB, whatnot) </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanLibLoader/include/CanLibLoaderLin.h" line="39" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanLibLoader/src/CanLibLoaderLin.cpp" bodystart="75" bodyend="93"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanLibLoader/include/CanLibLoaderLin.h" line="39" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanLibLoader/src/CanLibLoaderLin.cpp" bodystart="75" bodyend="93"/>
         <references refid="classCanModule_1_1CanLibLoader_1af891a85f28376052c3f4b22d97eb3ac2" compoundref="CanLibLoader_8h" startline="47">CanModule::CanLibLoader::lh</references>
         <references refid="classCanModule_1_1CanLibLoaderLin_1a590b2db4fcfa870e005c04b28de4fad6" compoundref="CanLibLoaderLin_8h" startline="42">p_dynamicLibrary</references>
         <referencedby refid="classCanModule_1_1CanLibLoaderLin_1a2704a1d43e18e97223848c28dc5dc6ce" compoundref="CanLibLoaderLin_8cpp" startline="38" endline="44">CanLibLoaderLin</referencedby>
@@ -126,7 +126,7 @@
         <link refid="classCanModule_1_1CanLibLoader"/>
       </node>
     </collaborationgraph>
-    <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanLibLoader/include/CanLibLoaderLin.h" line="29" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanLibLoader/include/CanLibLoaderLin.h" bodystart="28" bodyend="43"/>
+    <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanLibLoader/include/CanLibLoaderLin.h" line="29" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanLibLoader/include/CanLibLoaderLin.h" bodystart="28" bodyend="43"/>
     <listofallmembers>
       <member refid="classCanModule_1_1CanLibLoader_1aa303c1dd64affa5c27f707e0306786a0" prot="protected" virt="non-virtual"><scope>CanModule::CanLibLoaderLin</scope><name>CanLibLoader</name></member>
       <member refid="classCanModule_1_1CanLibLoaderLin_1a2704a1d43e18e97223848c28dc5dc6ce" prot="public" virt="non-virtual"><scope>CanModule::CanLibLoaderLin</scope><name>CanLibLoaderLin</name></member>

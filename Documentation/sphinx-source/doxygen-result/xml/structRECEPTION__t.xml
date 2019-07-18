@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CWrapper/include/canmodule_wrapper.h" line="60" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CWrapper/include/canmodule_wrapper.h" bodystart="60" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/include/canmodule_wrapper.h" line="60" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/include/canmodule_wrapper.h" bodystart="60" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structRECEPTION__t_1a480cf19b9c79a76e8d700b490650050b" prot="public" static="no" mutable="no">
         <type><ref refid="CanMessage_8h_1a03d03a5783fcae48487adf7c1ef990f3" kindref="member">CanMessage</ref></type>
@@ -28,7 +28,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CWrapper/include/canmodule_wrapper.h" line="61" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CWrapper/include/canmodule_wrapper.h" bodystart="61" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/include/canmodule_wrapper.h" line="61" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/include/canmodule_wrapper.h" bodystart="61" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -48,7 +48,7 @@
         <link refid="structCanMsgStruct"/>
       </node>
     </collaborationgraph>
-    <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CWrapper/include/canmodule_wrapper.h" line="57" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CWrapper/include/canmodule_wrapper.h" bodystart="57" bodyend="62"/>
+    <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/include/canmodule_wrapper.h" line="57" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/include/canmodule_wrapper.h" bodystart="57" bodyend="62"/>
     <listofallmembers>
       <member refid="structRECEPTION__t_1a8d8bf1babc41081c01153ad80730b882" prot="public" virt="non-virtual"><scope>RECEPTION_t</scope><name>newArrived</name></member>
       <member refid="structRECEPTION__t_1a480cf19b9c79a76e8d700b490650050b" prot="public" virt="non-virtual"><scope>RECEPTION_t</scope><name>receivedMessageBuffer</name></member>

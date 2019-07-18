@@ -21,7 +21,7 @@
 <para>these static function pointers are needed to register a user handler for the CanModule-C-Wrapper. And no - it is not possible to have a map of pointers, otherwise the threads/mutexes will not work. Why do we have 16 and not 8, since the systec16 has only 8 CAN ports per USB, and no other module has more ? Simple answer: the ISEG HAL can handle up to 16 receiver threads (hardcoded), so let&apos;s play is safe. It is a bit unclear what ISEG does with 8..15, but at least <ref refid="namespaceCanModule" kindref="compound">CanModule</ref> supports this. Most probably the slots 8..15 are unused, though. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" line="87" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" bodystart="87" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="87" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" bodystart="87" bodyend="-1"/>
         <referencedby refid="classCanModule_1_1CCanAccess_1a08d387c6261bee525c0bb05eb66b4164" compoundref="CCanAccess_8h" startline="172" endline="195">connectFwSlotX</referencedby>
         <referencedby refid="classCanModule_1_1CCanAccess_1af12f56ce8f69ef8fb77beae30ec0ac2e" compoundref="CCanAccess_8h" startline="196" endline="199">slot0</referencedby>
       </memberdef>
@@ -37,7 +37,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" line="88" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" bodystart="88" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="88" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" bodystart="88" bodyend="-1"/>
         <referencedby refid="classCanModule_1_1CCanAccess_1a08d387c6261bee525c0bb05eb66b4164" compoundref="CCanAccess_8h" startline="172" endline="195">connectFwSlotX</referencedby>
         <referencedby refid="classCanModule_1_1CCanAccess_1a334f6f48e22483862d56091703dce595" compoundref="CCanAccess_8h" startline="200" endline="203">slot1</referencedby>
       </memberdef>
@@ -53,7 +53,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" line="89" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" bodystart="89" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="89" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" bodystart="89" bodyend="-1"/>
         <referencedby refid="classCanModule_1_1CCanAccess_1a08d387c6261bee525c0bb05eb66b4164" compoundref="CCanAccess_8h" startline="172" endline="195">connectFwSlotX</referencedby>
         <referencedby refid="classCanModule_1_1CCanAccess_1a15a904b7593396d931e9f57b70da929d" compoundref="CCanAccess_8h" startline="204" endline="207">slot2</referencedby>
       </memberdef>
@@ -69,7 +69,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" line="90" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" bodystart="90" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="90" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" bodystart="90" bodyend="-1"/>
         <referencedby refid="classCanModule_1_1CCanAccess_1a08d387c6261bee525c0bb05eb66b4164" compoundref="CCanAccess_8h" startline="172" endline="195">connectFwSlotX</referencedby>
       </memberdef>
       <memberdef kind="variable" id="classCanModule_1_1CCanAccess_1abe5e84df9f43bd309c635d3201b6dba7" prot="public" static="yes" mutable="no">
@@ -84,7 +84,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" line="91" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" bodystart="91" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="91" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" bodystart="91" bodyend="-1"/>
         <referencedby refid="classCanModule_1_1CCanAccess_1a08d387c6261bee525c0bb05eb66b4164" compoundref="CCanAccess_8h" startline="172" endline="195">connectFwSlotX</referencedby>
         <referencedby refid="classCanModule_1_1CCanAccess_1a0c9527a03b09356decf18241acd1a532" compoundref="CCanAccess_8h" startline="208" endline="211">slot3</referencedby>
         <referencedby refid="classCanModule_1_1CCanAccess_1af95d2dff96d924a5c2589db82a8a6abd" compoundref="CCanAccess_8h" startline="212" endline="215">slot4</referencedby>
@@ -101,7 +101,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" line="92" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" bodystart="92" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="92" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" bodystart="92" bodyend="-1"/>
         <referencedby refid="classCanModule_1_1CCanAccess_1a08d387c6261bee525c0bb05eb66b4164" compoundref="CCanAccess_8h" startline="172" endline="195">connectFwSlotX</referencedby>
         <referencedby refid="classCanModule_1_1CCanAccess_1aca7bcb8e9e5043a6636ce767d345716a" compoundref="CCanAccess_8h" startline="216" endline="219">slot5</referencedby>
       </memberdef>
@@ -117,7 +117,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" line="93" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" bodystart="93" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="93" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" bodystart="93" bodyend="-1"/>
         <referencedby refid="classCanModule_1_1CCanAccess_1a08d387c6261bee525c0bb05eb66b4164" compoundref="CCanAccess_8h" startline="172" endline="195">connectFwSlotX</referencedby>
         <referencedby refid="classCanModule_1_1CCanAccess_1a335e4ebb979de2ad399380886b3742b7" compoundref="CCanAccess_8h" startline="220" endline="223">slot6</referencedby>
       </memberdef>
@@ -133,7 +133,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" line="94" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" bodystart="94" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="94" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" bodystart="94" bodyend="-1"/>
         <referencedby refid="classCanModule_1_1CCanAccess_1a08d387c6261bee525c0bb05eb66b4164" compoundref="CCanAccess_8h" startline="172" endline="195">connectFwSlotX</referencedby>
         <referencedby refid="classCanModule_1_1CCanAccess_1a8278d35739b5f92e24331accb4b8383e" compoundref="CCanAccess_8h" startline="224" endline="227">slot7</referencedby>
       </memberdef>
@@ -149,7 +149,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" line="95" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" bodystart="95" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="95" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" bodystart="95" bodyend="-1"/>
         <referencedby refid="classCanModule_1_1CCanAccess_1a08d387c6261bee525c0bb05eb66b4164" compoundref="CCanAccess_8h" startline="172" endline="195">connectFwSlotX</referencedby>
         <referencedby refid="classCanModule_1_1CCanAccess_1a2e5052c0d4b0bf48d0ea709583349118" compoundref="CCanAccess_8h" startline="228" endline="231">slot8</referencedby>
       </memberdef>
@@ -165,7 +165,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" line="96" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" bodystart="96" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="96" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" bodystart="96" bodyend="-1"/>
         <referencedby refid="classCanModule_1_1CCanAccess_1a08d387c6261bee525c0bb05eb66b4164" compoundref="CCanAccess_8h" startline="172" endline="195">connectFwSlotX</referencedby>
         <referencedby refid="classCanModule_1_1CCanAccess_1a9eb127d5fa0c228f785d65a1ef25b97a" compoundref="CCanAccess_8h" startline="232" endline="235">slot9</referencedby>
       </memberdef>
@@ -181,7 +181,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" line="97" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" bodystart="97" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="97" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" bodystart="97" bodyend="-1"/>
         <referencedby refid="classCanModule_1_1CCanAccess_1a08d387c6261bee525c0bb05eb66b4164" compoundref="CCanAccess_8h" startline="172" endline="195">connectFwSlotX</referencedby>
         <referencedby refid="classCanModule_1_1CCanAccess_1ab10944ddde9a45400eab905a58ef0534" compoundref="CCanAccess_8h" startline="236" endline="239">slot10</referencedby>
       </memberdef>
@@ -197,7 +197,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" line="98" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" bodystart="98" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="98" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" bodystart="98" bodyend="-1"/>
         <referencedby refid="classCanModule_1_1CCanAccess_1a08d387c6261bee525c0bb05eb66b4164" compoundref="CCanAccess_8h" startline="172" endline="195">connectFwSlotX</referencedby>
         <referencedby refid="classCanModule_1_1CCanAccess_1a4825360b2a2787160be01b2aa9419ce1" compoundref="CCanAccess_8h" startline="240" endline="243">slot11</referencedby>
       </memberdef>
@@ -213,7 +213,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" line="99" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" bodystart="99" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="99" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" bodystart="99" bodyend="-1"/>
         <referencedby refid="classCanModule_1_1CCanAccess_1a08d387c6261bee525c0bb05eb66b4164" compoundref="CCanAccess_8h" startline="172" endline="195">connectFwSlotX</referencedby>
         <referencedby refid="classCanModule_1_1CCanAccess_1a6d0a5e7306e46c5e5e5b9a3fc45e8330" compoundref="CCanAccess_8h" startline="244" endline="247">slot12</referencedby>
       </memberdef>
@@ -229,7 +229,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" line="100" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" bodystart="100" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="100" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" bodystart="100" bodyend="-1"/>
         <referencedby refid="classCanModule_1_1CCanAccess_1a08d387c6261bee525c0bb05eb66b4164" compoundref="CCanAccess_8h" startline="172" endline="195">connectFwSlotX</referencedby>
         <referencedby refid="classCanModule_1_1CCanAccess_1a216e763e1cc1ce26dae65dfab939ad11" compoundref="CCanAccess_8h" startline="248" endline="251">slot13</referencedby>
       </memberdef>
@@ -245,7 +245,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" line="101" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" bodystart="101" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="101" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" bodystart="101" bodyend="-1"/>
         <referencedby refid="classCanModule_1_1CCanAccess_1a08d387c6261bee525c0bb05eb66b4164" compoundref="CCanAccess_8h" startline="172" endline="195">connectFwSlotX</referencedby>
         <referencedby refid="classCanModule_1_1CCanAccess_1a68b36fdd0ad1f64bd7a1f0207386be4b" compoundref="CCanAccess_8h" startline="252" endline="255">slot14</referencedby>
       </memberdef>
@@ -261,7 +261,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" line="102" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" bodystart="102" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="102" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" bodystart="102" bodyend="-1"/>
         <referencedby refid="classCanModule_1_1CCanAccess_1a08d387c6261bee525c0bb05eb66b4164" compoundref="CCanAccess_8h" startline="172" endline="195">connectFwSlotX</referencedby>
         <referencedby refid="classCanModule_1_1CCanAccess_1af44e482ce74f03d22c8a339fe6f01aa7" compoundref="CCanAccess_8h" startline="256" endline="259">slot15</referencedby>
       </memberdef>
@@ -278,7 +278,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" line="165" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" bodystart="165" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="165" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" bodystart="165" bodyend="-1"/>
         <referencedby refid="classAnaCanScan_1af9a44b6ac914643225e2e61ca7a52f4c" compoundref="AnaCanScan_8cpp" startline="165" endline="168">AnaCanScan::callbackOnRecieve</referencedby>
         <referencedby refid="classPKCanScan_1a45bd5feda5ccb009775c45bfabe41614" compoundref="pkcan_8cpp" startline="68" endline="110">PKCanScan::CanScanControlThread</referencedby>
         <referencedby refid="classSTCanScan_1aab42375da764eb0d50dee318cd790646" compoundref="STCanScan_8cpp" startline="77" endline="109">STCanScan::CanScanControlThread</referencedby>
@@ -298,7 +298,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" line="310" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" bodystart="310" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="310" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" bodystart="310" bodyend="-1"/>
         <referencedby refid="classCSockCanScan_1a4b5f7591bfd27b8770bfb9ac9e406f66" compoundref="SockCanScan_8cpp" startline="654" endline="661">CSockCanScan::clearErrorMessage</referencedby>
         <referencedby refid="classPKCanScan_1a35ccc4082d56a736abb34d0c289c5a96" compoundref="pkcan_8cpp" startline="275" endline="291">PKCanScan::sendErrorCode</referencedby>
         <referencedby refid="classSTCanScan_1a43454c0bc20eb764cbb4ef3dd5e52cc9" compoundref="STCanScan_8cpp" startline="273" endline="286">STCanScan::sendErrorCode</referencedby>
@@ -319,7 +319,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" line="373" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" bodystart="373" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="373" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" bodystart="373" bodyend="-1"/>
         <referencedby refid="classPKCanScan_1a6fe021ecfdde5af1e7a74668b9819bfb" compoundref="pkcan_8cpp" startline="171" endline="272">PKCanScan::configureCanboard</referencedby>
         <referencedby refid="classPKCanScan_1ae91999b9316ca127eecbabd9f27c3137" compoundref="pkcan_8cpp" startline="130" endline="164">PKCanScan::createBus</referencedby>
         <referencedby refid="classSTCanScan_1aa99f9f23bdfd367a51efc40e228a6f88" compoundref="STCanScan_8cpp" startline="139" endline="173">STCanScan::createBus</referencedby>
@@ -338,7 +338,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" line="374" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" bodystart="374" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="374" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" bodystart="374" bodyend="-1"/>
         <referencedby refid="classPKCanScan_1a6fe021ecfdde5af1e7a74668b9819bfb" compoundref="pkcan_8cpp" startline="171" endline="272">PKCanScan::configureCanboard</referencedby>
         <referencedby refid="classSTCanScan_1a8e147c77933e11e9983f4d4e22830b21" compoundref="STCanScan_8cpp" startline="175" endline="226">STCanScan::configureCanBoard</referencedby>
         <referencedby refid="classAnaCanScan_1ad917f9cda15bbf9dd9abe6417be5a5eb" compoundref="AnaCanScan_8cpp" startline="233" endline="287">AnaCanScan::configureCanBoard</referencedby>
@@ -361,7 +361,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" line="377" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" bodystart="377" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="377" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" bodystart="377" bodyend="-1"/>
         <referencedby refid="classCanModule_1_1CCanAccess_1a247e65001e8f59b47fdc2961dd67d74d" compoundref="CCanAccess_8h" startline="268" endline="297">connectReceptionSlotX</referencedby>
         <referencedby refid="classCanModule_1_1CCanAccess_1a8212fb246945f2c32a164e83be42bc73" compoundref="CCanAccess_8h" startline="298" endline="302">disconnectReceptionSlotX</referencedby>
       </memberdef>
@@ -376,7 +376,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" line="378" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" bodystart="378" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="378" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" bodystart="378" bodyend="-1"/>
         <referencedby refid="classCanModule_1_1CCanAccess_1a247e65001e8f59b47fdc2961dd67d74d" compoundref="CCanAccess_8h" startline="268" endline="297">connectReceptionSlotX</referencedby>
         <referencedby refid="classCanModule_1_1CCanAccess_1a8212fb246945f2c32a164e83be42bc73" compoundref="CCanAccess_8h" startline="298" endline="302">disconnectReceptionSlotX</referencedby>
       </memberdef>
@@ -391,7 +391,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" line="379" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" bodystart="379" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="379" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" bodystart="379" bodyend="-1"/>
         <referencedby refid="classCanModule_1_1CCanAccess_1a247e65001e8f59b47fdc2961dd67d74d" compoundref="CCanAccess_8h" startline="268" endline="297">connectReceptionSlotX</referencedby>
         <referencedby refid="classCanModule_1_1CCanAccess_1a8212fb246945f2c32a164e83be42bc73" compoundref="CCanAccess_8h" startline="298" endline="302">disconnectReceptionSlotX</referencedby>
         <referencedby refid="classCanModule_1_1CCanAccess_1af26c9d102638fb96e5e1305f807d148f" compoundref="CCanAccess_8h" startline="336" endline="370">parseNameAndParameters</referencedby>
@@ -408,7 +408,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" line="380" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" bodystart="380" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="380" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" bodystart="380" bodyend="-1"/>
         <referencedby refid="classCanModule_1_1CCanAccess_1a8210a8161f1987973584b6dda5dc6d7d" compoundref="CCanAccess_8h" startline="326" endline="329">getLogItInstance</referencedby>
         <referencedby refid="classCanModule_1_1CCanAccess_1ab5a430fc27073d92c69659bda261b74d" compoundref="CCanAccess_8h" startline="315" endline="320">initialiseLogging</referencedby>
       </memberdef>
@@ -425,7 +425,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" line="106" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" bodystart="106" bodyend="111"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="106" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" bodystart="106" bodyend="111"/>
         <references refid="namespaceCanModule_1aca09a34a617d28f8b35699e7933d2599" compoundref="CCanAccess_8h" startline="53" endline="53">CanModule::version</references>
       </memberdef>
       <memberdef kind="function" id="classCanModule_1_1CCanAccess_1acfefbc9be2696b1388cf6df2bba00aa1" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
@@ -448,7 +448,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" line="121" column="1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="121" column="1"/>
       </memberdef>
       <memberdef kind="function" id="classCanModule_1_1CCanAccess_1a78590d342bc4f3433544d45371ca05ce" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
         <type>bool</type>
@@ -474,7 +474,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" line="134" column="1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="134" column="1"/>
         <referencedby refid="classCanModule_1_1CanLibLoader_1aaac995d89efdcf2b673cbd3e678be55b" compoundref="CanLibLoader_8cpp" startline="61" endline="92">CanModule::CanLibLoader::openCanBus</referencedby>
       </memberdef>
       <memberdef kind="function" id="classCanModule_1_1CCanAccess_1aee42ab7fb9e50c02a1812202f7863d8c" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
@@ -510,7 +510,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" line="146" column="1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="146" column="1"/>
         <referencedby refid="classCanModule_1_1CCanAccess_1ad0360c49d00ec0ee92cfdd73c2e43935" compoundref="CCanAccess_8h" startline="148" endline="151">sendMessage</referencedby>
       </memberdef>
       <memberdef kind="function" id="classCanModule_1_1CCanAccess_1ad0360c49d00ec0ee92cfdd73c2e43935" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
@@ -529,7 +529,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" line="148" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" bodystart="148" bodyend="151"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="148" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" bodystart="148" bodyend="151"/>
         <references refid="structCanMsgStruct_1a2e47a33e7bba46b05a8fff29433f047b" compoundref="CanMessage_8h" startline="29">CanMsgStruct::c_data</references>
         <references refid="structCanMsgStruct_1a3e5add8ae9cdadfcf3f2255d375ec9b3" compoundref="CanMessage_8h" startline="27">CanMsgStruct::c_dlc</references>
         <references refid="structCanMsgStruct_1a619515aef041e64b78e7e8c33989ddd0" compoundref="CanMessage_8h" startline="23">CanMsgStruct::c_id</references>
@@ -547,7 +547,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" line="155" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" bodystart="155" bodyend="155"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="155" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" bodystart="155" bodyend="155"/>
         <references refid="classCanModule_1_1CCanAccess_1a0eff18d10b7ee5d6f86b03898f38f7ca" compoundref="CCanAccess_8h" startline="373">m_sBusName</references>
         <referencedby refid="classCanModule_1_1CanLibLoader_1acd7d3af103bb72d5bd18737333d682f4" compoundref="CanLibLoader_8cpp" startline="55" endline="59">CanModule::CanLibLoader::closeCanBus</referencedby>
         <referencedby refid="classCanModule_1_1CanBusAccess_1a30200d7e59055a516aceeba6c2bb534e" compoundref="CanBusAccess_8cpp" startline="55" endline="65">CanModule::CanBusAccess::closeCanBus</referencedby>
@@ -563,7 +563,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" line="167" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" bodystart="167" bodyend="167"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="167" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" bodystart="167" bodyend="167"/>
       </memberdef>
       <memberdef kind="function" id="classCanModule_1_1CCanAccess_1a86c0125599b177ed3017e842940565fd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -579,7 +579,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" line="261" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" bodystart="261" bodyend="266"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="261" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" bodystart="261" bodyend="266"/>
         <references refid="classCanModule_1_1CCanAccess_1a3730f588f597fa5b692d286680a8df00" compoundref="CCanAccess_8h" startline="379">_lh</references>
         <references refid="classCanModule_1_1CCanAccess_1aa8e0e974863874b0e7bbcdb57084c241" compoundref="CCanAccess_8h" startline="165">canMessageCame</references>
       </memberdef>
@@ -598,7 +598,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" line="268" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" bodystart="268" bodyend="297"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="268" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" bodystart="268" bodyend="297"/>
         <references refid="classCanModule_1_1CCanAccess_1a3730f588f597fa5b692d286680a8df00" compoundref="CCanAccess_8h" startline="379">_lh</references>
         <references refid="classCanModule_1_1CCanAccess_1aa8e0e974863874b0e7bbcdb57084c241" compoundref="CCanAccess_8h" startline="165">canMessageCame</references>
         <references refid="classCanModule_1_1CCanAccess_1aa624bfe085a65b9fba440f3a8d721525" compoundref="CCanAccess_8h" startline="377">s_cconnection</references>
@@ -634,7 +634,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" line="298" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" bodystart="298" bodyend="302"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="298" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" bodystart="298" bodyend="302"/>
         <references refid="classCanModule_1_1CCanAccess_1a3730f588f597fa5b692d286680a8df00" compoundref="CCanAccess_8h" startline="379">_lh</references>
         <references refid="classCanModule_1_1CCanAccess_1aa8e0e974863874b0e7bbcdb57084c241" compoundref="CCanAccess_8h" startline="165">canMessageCame</references>
         <references refid="classCanModule_1_1CCanAccess_1aa624bfe085a65b9fba440f3a8d721525" compoundref="CCanAccess_8h" startline="377">s_cconnection</references>
@@ -660,7 +660,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" line="313" column="1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="313" column="1"/>
       </memberdef>
       <memberdef kind="function" id="classCanModule_1_1CCanAccess_1ab5a430fc27073d92c69659bda261b74d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>bool</type>
@@ -677,7 +677,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" line="315" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" bodystart="315" bodyend="320"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="315" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" bodystart="315" bodyend="320"/>
         <references refid="classCanModule_1_1CCanAccess_1a2dd4a63017d6b5b1f4ce482c30711683" compoundref="CCanAccess_8h" startline="380">s_logItRemoteInstance</references>
         <referencedby refid="classCanModule_1_1CanLibLoader_1aaac995d89efdcf2b673cbd3e678be55b" compoundref="CanLibLoader_8cpp" startline="61" endline="92">CanModule::CanLibLoader::openCanBus</referencedby>
       </memberdef>
@@ -692,7 +692,7 @@
 <para>the LogIt instance is NOT shared by inheritance in windows, the instance has to be passed explicitly from the parent </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" line="326" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" bodystart="326" bodyend="329"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="326" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" bodystart="326" bodyend="329"/>
         <references refid="classCanModule_1_1CCanAccess_1a2dd4a63017d6b5b1f4ce482c30711683" compoundref="CCanAccess_8h" startline="380">s_logItRemoteInstance</references>
       </memberdef>
       <memberdef kind="function" id="classCanModule_1_1CCanAccess_1af26c9d102638fb96e5e1305f807d148f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
@@ -714,7 +714,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" line="336" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" bodystart="336" bodyend="370"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="336" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" bodystart="336" bodyend="370"/>
         <references refid="classCanModule_1_1CCanAccess_1a3730f588f597fa5b692d286680a8df00" compoundref="CCanAccess_8h" startline="379">_lh</references>
         <references refid="classCanModule_1_1CCanAccess_1a484a4f9dc352fe31b4baff0365095705" compoundref="CCanAccess_8h" startline="374">m_CanParameters</references>
         <references refid="classCanModule_1_1CCanAccess_1a0eff18d10b7ee5d6f86b03898f38f7ca" compoundref="CCanAccess_8h" startline="373">m_sBusName</references>
@@ -745,7 +745,7 @@
 <para>call an external user-code function to treat the can message. Use boost function wrappers for this. All these are static. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" line="172" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" bodystart="172" bodyend="195"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="172" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" bodystart="172" bodyend="195"/>
         <references refid="classCanModule_1_1CCanAccess_1a20323e55767d3a60c78a88db5d785829" compoundref="CCanAccess_8h" startline="87">fw_slot0</references>
         <references refid="classCanModule_1_1CCanAccess_1ab9194c7d019e7da16f98a177b4e6e145" compoundref="CCanAccess_8h" startline="88">fw_slot1</references>
         <references refid="classCanModule_1_1CCanAccess_1a4130b6b2dac7673a2e2253c8b957294c" compoundref="CCanAccess_8h" startline="97">fw_slot10</references>
@@ -779,7 +779,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" line="196" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" bodystart="196" bodyend="199"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="196" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" bodystart="196" bodyend="199"/>
         <references refid="classCanModule_1_1CCanAccess_1a20323e55767d3a60c78a88db5d785829" compoundref="CCanAccess_8h" startline="87">fw_slot0</references>
         <referencedby refid="classCanModule_1_1CCanAccess_1a247e65001e8f59b47fdc2961dd67d74d" compoundref="CCanAccess_8h" startline="268" endline="297">connectReceptionSlotX</referencedby>
       </memberdef>
@@ -798,7 +798,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" line="200" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" bodystart="200" bodyend="203"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="200" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" bodystart="200" bodyend="203"/>
         <references refid="classCanModule_1_1CCanAccess_1ab9194c7d019e7da16f98a177b4e6e145" compoundref="CCanAccess_8h" startline="88">fw_slot1</references>
         <referencedby refid="classCanModule_1_1CCanAccess_1a247e65001e8f59b47fdc2961dd67d74d" compoundref="CCanAccess_8h" startline="268" endline="297">connectReceptionSlotX</referencedby>
       </memberdef>
@@ -817,7 +817,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" line="204" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" bodystart="204" bodyend="207"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="204" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" bodystart="204" bodyend="207"/>
         <references refid="classCanModule_1_1CCanAccess_1a7b299903bfe41cee29cc497ba43554fd" compoundref="CCanAccess_8h" startline="89">fw_slot2</references>
         <referencedby refid="classCanModule_1_1CCanAccess_1a247e65001e8f59b47fdc2961dd67d74d" compoundref="CCanAccess_8h" startline="268" endline="297">connectReceptionSlotX</referencedby>
       </memberdef>
@@ -836,7 +836,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" line="208" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" bodystart="208" bodyend="211"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="208" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" bodystart="208" bodyend="211"/>
         <references refid="classCanModule_1_1CCanAccess_1abe5e84df9f43bd309c635d3201b6dba7" compoundref="CCanAccess_8h" startline="91">fw_slot4</references>
         <referencedby refid="classCanModule_1_1CCanAccess_1a247e65001e8f59b47fdc2961dd67d74d" compoundref="CCanAccess_8h" startline="268" endline="297">connectReceptionSlotX</referencedby>
       </memberdef>
@@ -855,7 +855,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" line="212" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" bodystart="212" bodyend="215"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="212" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" bodystart="212" bodyend="215"/>
         <references refid="classCanModule_1_1CCanAccess_1abe5e84df9f43bd309c635d3201b6dba7" compoundref="CCanAccess_8h" startline="91">fw_slot4</references>
         <referencedby refid="classCanModule_1_1CCanAccess_1a247e65001e8f59b47fdc2961dd67d74d" compoundref="CCanAccess_8h" startline="268" endline="297">connectReceptionSlotX</referencedby>
       </memberdef>
@@ -874,7 +874,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" line="216" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" bodystart="216" bodyend="219"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="216" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" bodystart="216" bodyend="219"/>
         <references refid="classCanModule_1_1CCanAccess_1a62c0c4ac34c437097f74f685fb0266a5" compoundref="CCanAccess_8h" startline="92">fw_slot5</references>
         <referencedby refid="classCanModule_1_1CCanAccess_1a247e65001e8f59b47fdc2961dd67d74d" compoundref="CCanAccess_8h" startline="268" endline="297">connectReceptionSlotX</referencedby>
       </memberdef>
@@ -893,7 +893,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" line="220" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" bodystart="220" bodyend="223"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="220" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" bodystart="220" bodyend="223"/>
         <references refid="classCanModule_1_1CCanAccess_1a4f457bfc8b8b494130293d563dac72e7" compoundref="CCanAccess_8h" startline="93">fw_slot6</references>
         <referencedby refid="classCanModule_1_1CCanAccess_1a247e65001e8f59b47fdc2961dd67d74d" compoundref="CCanAccess_8h" startline="268" endline="297">connectReceptionSlotX</referencedby>
       </memberdef>
@@ -912,7 +912,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" line="224" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" bodystart="224" bodyend="227"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="224" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" bodystart="224" bodyend="227"/>
         <references refid="classCanModule_1_1CCanAccess_1a12da52fdad176cf1fa482983bdb5cfd5" compoundref="CCanAccess_8h" startline="94">fw_slot7</references>
         <referencedby refid="classCanModule_1_1CCanAccess_1a247e65001e8f59b47fdc2961dd67d74d" compoundref="CCanAccess_8h" startline="268" endline="297">connectReceptionSlotX</referencedby>
       </memberdef>
@@ -931,7 +931,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" line="228" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" bodystart="228" bodyend="231"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="228" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" bodystart="228" bodyend="231"/>
         <references refid="classCanModule_1_1CCanAccess_1a7626751af619f301c0bde5657329b4dd" compoundref="CCanAccess_8h" startline="95">fw_slot8</references>
         <referencedby refid="classCanModule_1_1CCanAccess_1a247e65001e8f59b47fdc2961dd67d74d" compoundref="CCanAccess_8h" startline="268" endline="297">connectReceptionSlotX</referencedby>
       </memberdef>
@@ -950,7 +950,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" line="232" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" bodystart="232" bodyend="235"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="232" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" bodystart="232" bodyend="235"/>
         <references refid="classCanModule_1_1CCanAccess_1a5e7196879da60e80eb209ee807cbcd11" compoundref="CCanAccess_8h" startline="96">fw_slot9</references>
         <referencedby refid="classCanModule_1_1CCanAccess_1a247e65001e8f59b47fdc2961dd67d74d" compoundref="CCanAccess_8h" startline="268" endline="297">connectReceptionSlotX</referencedby>
       </memberdef>
@@ -969,7 +969,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" line="236" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" bodystart="236" bodyend="239"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="236" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" bodystart="236" bodyend="239"/>
         <references refid="classCanModule_1_1CCanAccess_1a4130b6b2dac7673a2e2253c8b957294c" compoundref="CCanAccess_8h" startline="97">fw_slot10</references>
         <referencedby refid="classCanModule_1_1CCanAccess_1a247e65001e8f59b47fdc2961dd67d74d" compoundref="CCanAccess_8h" startline="268" endline="297">connectReceptionSlotX</referencedby>
       </memberdef>
@@ -988,7 +988,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" line="240" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" bodystart="240" bodyend="243"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="240" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" bodystart="240" bodyend="243"/>
         <references refid="classCanModule_1_1CCanAccess_1a4e8381b84bbbfbcfe6feb9eba7e17fd9" compoundref="CCanAccess_8h" startline="98">fw_slot11</references>
         <referencedby refid="classCanModule_1_1CCanAccess_1a247e65001e8f59b47fdc2961dd67d74d" compoundref="CCanAccess_8h" startline="268" endline="297">connectReceptionSlotX</referencedby>
       </memberdef>
@@ -1007,7 +1007,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" line="244" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" bodystart="244" bodyend="247"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="244" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" bodystart="244" bodyend="247"/>
         <references refid="classCanModule_1_1CCanAccess_1aad6416d679ea5cb9582b145ac7a61a31" compoundref="CCanAccess_8h" startline="99">fw_slot12</references>
         <referencedby refid="classCanModule_1_1CCanAccess_1a247e65001e8f59b47fdc2961dd67d74d" compoundref="CCanAccess_8h" startline="268" endline="297">connectReceptionSlotX</referencedby>
       </memberdef>
@@ -1026,7 +1026,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" line="248" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" bodystart="248" bodyend="251"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="248" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" bodystart="248" bodyend="251"/>
         <references refid="classCanModule_1_1CCanAccess_1a625e00cbeb49526bb5b37b7e4032149b" compoundref="CCanAccess_8h" startline="100">fw_slot13</references>
         <referencedby refid="classCanModule_1_1CCanAccess_1a247e65001e8f59b47fdc2961dd67d74d" compoundref="CCanAccess_8h" startline="268" endline="297">connectReceptionSlotX</referencedby>
       </memberdef>
@@ -1045,7 +1045,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" line="252" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" bodystart="252" bodyend="255"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="252" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" bodystart="252" bodyend="255"/>
         <references refid="classCanModule_1_1CCanAccess_1a66ce4a26bdd58b6bfa016c86034137bb" compoundref="CCanAccess_8h" startline="101">fw_slot14</references>
         <referencedby refid="classCanModule_1_1CCanAccess_1a247e65001e8f59b47fdc2961dd67d74d" compoundref="CCanAccess_8h" startline="268" endline="297">connectReceptionSlotX</referencedby>
       </memberdef>
@@ -1064,7 +1064,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" line="256" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" bodystart="256" bodyend="259"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="256" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" bodystart="256" bodyend="259"/>
         <references refid="classCanModule_1_1CCanAccess_1a14a98fa7153c222282ae567a685611cd" compoundref="CCanAccess_8h" startline="102">fw_slot15</references>
         <referencedby refid="classCanModule_1_1CCanAccess_1a247e65001e8f59b47fdc2961dd67d74d" compoundref="CCanAccess_8h" startline="268" endline="297">connectReceptionSlotX</referencedby>
       </memberdef>
@@ -1122,7 +1122,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" line="84" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CCanAccess.h" bodystart="83" bodyend="382"/>
+    <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="84" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" bodystart="83" bodyend="382"/>
     <listofallmembers>
       <member refid="classCanModule_1_1CCanAccess_1a3730f588f597fa5b692d286680a8df00" prot="private" virt="non-virtual"><scope>CanModule::CCanAccess</scope><name>_lh</name></member>
       <member refid="classCanModule_1_1CCanAccess_1aa8e0e974863874b0e7bbcdb57084c241" prot="public" virt="non-virtual"><scope>CanModule::CCanAccess</scope><name>canMessageCame</name></member>

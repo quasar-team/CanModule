@@ -10,52 +10,6 @@
     <includes local="yes">/usr/include/linux/can.h</includes>
     <includedby refid="canmodule__wrapper_8cpp" local="yes">CWrapper/src/canmodule_wrapper.cpp</includedby>
     <incdepgraph>
-      <node id="513">
-        <label>stdatomic.h</label>
-      </node>
-      <node id="516">
-        <label>LogIt.h</label>
-      </node>
-      <node id="512">
-        <label>CanStatistics.h</label>
-        <link refid="CanStatistics_8h"/>
-        <childnode refid="513" relation="include">
-        </childnode>
-        <childnode refid="510" relation="include">
-        </childnode>
-        <childnode refid="514" relation="include">
-        </childnode>
-        <childnode refid="515" relation="include">
-        </childnode>
-      </node>
-      <node id="501">
-        <label>CWrapper/include/canmodule_wrapper.h</label>
-        <link refid="canmodule_wrapper.h"/>
-        <childnode refid="502" relation="include">
-        </childnode>
-        <childnode refid="503" relation="include">
-        </childnode>
-        <childnode refid="504" relation="include">
-        </childnode>
-        <childnode refid="505" relation="include">
-        </childnode>
-        <childnode refid="511" relation="include">
-        </childnode>
-        <childnode refid="517" relation="include">
-        </childnode>
-      </node>
-      <node id="503">
-        <label>boost/signals2.hpp</label>
-      </node>
-      <node id="507">
-        <label>string</label>
-      </node>
-      <node id="508">
-        <label>map</label>
-      </node>
-      <node id="502">
-        <label>boost/thread.hpp</label>
-      </node>
       <node id="509">
         <label>CCanAccess.h</label>
         <link refid="CCanAccess_8h"/>
@@ -74,23 +28,11 @@
         <childnode refid="516" relation="include">
         </childnode>
       </node>
-      <node id="511">
-        <label>CanMessage.h</label>
-        <link refid="CanMessage_8h"/>
-        <childnode refid="510" relation="include">
-        </childnode>
+      <node id="513">
+        <label>stdatomic.h</label>
       </node>
-      <node id="517">
-        <label>/usr/include/linux/can.h</label>
-      </node>
-      <node id="510">
-        <label>sys/time.h</label>
-      </node>
-      <node id="504">
-        <label>boost/bind.hpp</label>
-      </node>
-      <node id="515">
-        <label>chrono</label>
+      <node id="516">
+        <label>LogIt.h</label>
       </node>
       <node id="506">
         <label>CanLibLoader.h</label>
@@ -104,9 +46,35 @@
         <childnode refid="514" relation="include">
         </childnode>
       </node>
-      <node id="514">
-        <label>ExportDefinition.h</label>
-        <link refid="ExportDefinition_8h"/>
+      <node id="512">
+        <label>CanStatistics.h</label>
+        <link refid="CanStatistics_8h"/>
+        <childnode refid="513" relation="include">
+        </childnode>
+        <childnode refid="510" relation="include">
+        </childnode>
+        <childnode refid="514" relation="include">
+        </childnode>
+        <childnode refid="515" relation="include">
+        </childnode>
+      </node>
+      <node id="503">
+        <label>boost/signals2.hpp</label>
+      </node>
+      <node id="507">
+        <label>string</label>
+      </node>
+      <node id="508">
+        <label>map</label>
+      </node>
+      <node id="502">
+        <label>boost/thread.hpp</label>
+      </node>
+      <node id="511">
+        <label>CanMessage.h</label>
+        <link refid="CanMessage_8h"/>
+        <childnode refid="510" relation="include">
+        </childnode>
       </node>
       <node id="505">
         <label>CanBusAccess.h</label>
@@ -120,17 +88,49 @@
         <childnode refid="507" relation="include">
         </childnode>
       </node>
+      <node id="517">
+        <label>/usr/include/linux/can.h</label>
+      </node>
+      <node id="514">
+        <label>ExportDefinition.h</label>
+        <link refid="ExportDefinition_8h"/>
+      </node>
+      <node id="501">
+        <label>CWrapper/include/canmodule_wrapper.h</label>
+        <link refid="canmodule_wrapper.h"/>
+        <childnode refid="502" relation="include">
+        </childnode>
+        <childnode refid="503" relation="include">
+        </childnode>
+        <childnode refid="504" relation="include">
+        </childnode>
+        <childnode refid="505" relation="include">
+        </childnode>
+        <childnode refid="511" relation="include">
+        </childnode>
+        <childnode refid="517" relation="include">
+        </childnode>
+      </node>
+      <node id="510">
+        <label>sys/time.h</label>
+      </node>
+      <node id="504">
+        <label>boost/bind.hpp</label>
+      </node>
+      <node id="515">
+        <label>chrono</label>
+      </node>
     </incdepgraph>
     <invincdepgraph>
+      <node id="519">
+        <label>CWrapper/src/canmodule_wrapper.cpp</label>
+        <link refid="canmodule__wrapper_8cpp"/>
+      </node>
       <node id="518">
         <label>CWrapper/include/canmodule_wrapper.h</label>
         <link refid="canmodule_wrapper.h"/>
         <childnode refid="519" relation="include">
         </childnode>
-      </node>
-      <node id="519">
-        <label>CWrapper/src/canmodule_wrapper.cpp</label>
-        <link refid="canmodule__wrapper_8cpp"/>
       </node>
     </invincdepgraph>
     <innerclass refid="structRECEPTION__t" prot="public">RECEPTION_t</innerclass>
@@ -144,7 +144,7 @@
 <para>canmodule_wrapper h: this is C++ code compiled with extern &quot;C&quot; to give a C API to canmodule which is callable </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CWrapper/include/canmodule_wrapper.h" line="24" column="10" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CWrapper/include/canmodule_wrapper.h" bodystart="24" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/include/canmodule_wrapper.h" line="24" column="10" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/include/canmodule_wrapper.h" bodystart="24" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="enum">
@@ -177,7 +177,7 @@
 <para>access to ports of (vendor) bridges, for send and receive. Each connection is one CAN port for sending and receiving messages. Bridge modules have varying number or CAN ports and PC ports, depending on the module/vendor type. The object references CanLibLoader and CCanAccess are of course &quot;per vendor&quot; and &quot;per PC port&quot;, but in order to simplify lets keep a distinct reference for each connection. Those two objects have each several references therefore (or: several pointers point to the same object). </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CWrapper/include/canmodule_wrapper.h" line="73" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CWrapper/include/canmodule_wrapper.h" bodystart="73" bodyend="73"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/include/canmodule_wrapper.h" line="73" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/include/canmodule_wrapper.h" bodystart="73" bodyend="73"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="typedef">
@@ -192,7 +192,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CWrapper/include/canmodule_wrapper.h" line="83" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CWrapper/include/canmodule_wrapper.h" bodystart="83" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/include/canmodule_wrapper.h" line="83" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/include/canmodule_wrapper.h" bodystart="83" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -211,7 +211,7 @@
 <para>reformat a linux can frame to a CanMessage (<ref refid="namespaceCanModule" kindref="compound">CanModule</ref> format with extra tits and tats). Kind of stupid, but for cleanliness let&apos;s have it.</para><para>struct can_frame - basic CAN frame structure : CAN ID of the frame and CAN_*_FLAG flags, see canid_t definition : frame payload length in byte (0 .. 8) aka data length code N.B. the DLC field from ISO 11898-1 Chapter 8.4.2.3 has a 1:1 mapping of the &apos;data length code&apos; to the real payload length : CAN frame payload (up to 8 byte)</para><para>struct can_frame { canid_t can_id; 32 bit CAN_ID + EFF/RTR/ERR flags <bold>u8 can_dlc; frame payload length in byte (0 .. CAN_MAX_DLEN) __u8 data[CAN_MAX_DLEN] __attribute</bold>((aligned(8))); } ;</para><para>Struct that defines a Can Message, used by CCanAccess</para><para>typedef struct <ref refid="structCanMsgStruct" kindref="compound">CanMsgStruct</ref> { //Identifier of the message long c_id; //Flags activated in the message unsigned char c_ff; //Length of the message unsigned char c_dlc; //Body of the message unsigned char c_data[8]; //Timestamp of the message struct timeval c_time; //Is the message a remote Transmission request? Must be true for remote request frames and false for data frames bool c_rtr; #ifdef __cplusplus public: <ref refid="structCanMsgStruct" kindref="compound">CanMsgStruct()</ref> : c_id(0), c_ff(0), c_dlc(0), c_rtr(false) { /// todo memset, and message length &gt; 8 for extended CAN for (int i=0; i&lt;8; i++) c_data[i] = 0; } #endif //Be careful when using this struct from C</para><para>} CanMessage; </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CWrapper/include/canmodule_wrapper.h" line="84" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="482" bodyend="490"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/include/canmodule_wrapper.h" line="84" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="482" bodyend="490"/>
         <references refid="structCanMsgStruct_1a2e47a33e7bba46b05a8fff29433f047b" compoundref="CanMessage_8h" startline="29">CanMsgStruct::c_data</references>
         <references refid="structCanMsgStruct_1a3e5add8ae9cdadfcf3f2255d375ec9b3" compoundref="CanMessage_8h" startline="27">CanMsgStruct::c_dlc</references>
         <references refid="structCanMsgStruct_1a619515aef041e64b78e7e8c33989ddd0" compoundref="CanMessage_8h" startline="23">CanMsgStruct::c_id</references>
@@ -231,7 +231,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CWrapper/include/canmodule_wrapper.h" line="85" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="491" bodyend="498"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/include/canmodule_wrapper.h" line="85" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="491" bodyend="498"/>
         <references refid="structCanMsgStruct_1a2e47a33e7bba46b05a8fff29433f047b" compoundref="CanMessage_8h" startline="29">CanMsgStruct::c_data</references>
         <references refid="structCanMsgStruct_1a3e5add8ae9cdadfcf3f2255d375ec9b3" compoundref="CanMessage_8h" startline="27">CanMsgStruct::c_dlc</references>
         <references refid="structCanMsgStruct_1a619515aef041e64b78e7e8c33989ddd0" compoundref="CanMessage_8h" startline="23">CanMsgStruct::c_id</references>
@@ -259,7 +259,7 @@
 <para>connect one can access point=one CAN port for sending or receiving We need some parameters to set this up: canmoduleParameters [0]=vendor, &quot;an&quot;, &quot;st&quot; [1]=can port number then, according to vendor: st: [2]=usb port number [3]=systec parameters, i.e baudrate = &quot;250000&quot;</para><para>an: [2]=ip number [3]=anagate parameters = up to 6 integers separated by whitespaces, i.e. for bitrate=250kbit/s, opmode=normal, terminated=true, no high speed, no time stamp, sync mode=true &quot;250000 0 1 0 0 1&quot;; </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CWrapper/include/canmodule_wrapper.h" line="87" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="280" bodyend="407"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/include/canmodule_wrapper.h" line="87" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="280" bodyend="407"/>
         <references refid="canmodule__wrapper_8cpp_1a07e3b62fb780778da4ae23f01cc453ab" compoundref="canmodule__wrapper_8cpp" startline="47">_connection_v</references>
         <references refid="canmodule__wrapper_8cpp_1ae0253b00a2913d2b61a81c983bfbd822" compoundref="canmodule__wrapper_8cpp" startline="96">canmodule_delay_default</references>
         <references refid="canmodule__wrapper_8cpp_1aab71aed77e37ee6cc2d675dec800c07a" compoundref="canmodule__wrapper_8cpp" startline="23">CONNECTION_INDEX_MAX</references>
@@ -302,7 +302,7 @@
 <para>no error checking, we might throw exceptions instead. OK=false </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CWrapper/include/canmodule_wrapper.h" line="88" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="413" bodyend="430"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/include/canmodule_wrapper.h" line="88" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="413" bodyend="430"/>
         <references refid="canmodule__wrapper_8cpp_1a2788c927e316fa9024211c35f4b524c7" compoundref="canmodule__wrapper_8cpp" startline="98" endline="109">_canmodule_slowDown</references>
         <references refid="canmodule__wrapper_8cpp_1a07e3b62fb780778da4ae23f01cc453ab" compoundref="canmodule__wrapper_8cpp" startline="47">_connection_v</references>
         <references refid="structCanMsgStruct_1a2e47a33e7bba46b05a8fff29433f047b" compoundref="CanMessage_8h" startline="29">CanMsgStruct::c_data</references>
@@ -324,7 +324,7 @@
 <para>message reception. Wait until the buffer is refreshed, then copy the buffer and return it. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CWrapper/include/canmodule_wrapper.h" line="89" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="505" bodyend="544"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/include/canmodule_wrapper.h" line="89" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="505" bodyend="544"/>
         <references refid="canmodule__wrapper_8cpp_1a07e3b62fb780778da4ae23f01cc453ab" compoundref="canmodule__wrapper_8cpp" startline="47">_connection_v</references>
         <references refid="canmodule__wrapper_8cpp_1aab71aed77e37ee6cc2d675dec800c07a" compoundref="canmodule__wrapper_8cpp" startline="23">CONNECTION_INDEX_MAX</references>
         <references refid="canmodule__wrapper_8cpp_1a6f918d3da1aa14fc5c0a02d501fd46f2" compoundref="canmodule__wrapper_8cpp" startline="31">reception_cond0</references>
@@ -375,7 +375,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CWrapper/include/canmodule_wrapper.h" line="90" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="254" bodyend="262"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/include/canmodule_wrapper.h" line="90" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="254" bodyend="262"/>
         <references refid="canmodule__wrapper_8cpp_1a07e3b62fb780778da4ae23f01cc453ab" compoundref="canmodule__wrapper_8cpp" startline="47">_connection_v</references>
         <references refid="canmodule__wrapper_8cpp_1aab71aed77e37ee6cc2d675dec800c07a" compoundref="canmodule__wrapper_8cpp" startline="23">CONNECTION_INDEX_MAX</references>
         <references refid="canmodule__wrapper_8cpp_1a2eb006bb00711238d0c51ef70240c03c" compoundref="canmodule__wrapper_8cpp" startline="22">CONNECTION_INDEX_MIN</references>
@@ -395,7 +395,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CWrapper/include/canmodule_wrapper.h" line="91" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="546" bodyend="558"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/include/canmodule_wrapper.h" line="91" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="546" bodyend="558"/>
         <references refid="canmodule__wrapper_8cpp_1a07e3b62fb780778da4ae23f01cc453ab" compoundref="canmodule__wrapper_8cpp" startline="47">_connection_v</references>
         <references refid="canmodule__wrapper_8cpp_1aab71aed77e37ee6cc2d675dec800c07a" compoundref="canmodule__wrapper_8cpp" startline="23">CONNECTION_INDEX_MAX</references>
       </memberdef>
@@ -418,7 +418,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CWrapper/include/canmodule_wrapper.h" line="92" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="111" bodyend="117"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/include/canmodule_wrapper.h" line="92" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/src/canmodule_wrapper.cpp" bodystart="111" bodyend="117"/>
         <references refid="canmodule__wrapper_8cpp_1a07e3b62fb780778da4ae23f01cc453ab" compoundref="canmodule__wrapper_8cpp" startline="47">_connection_v</references>
         <references refid="canmodule__wrapper_8cpp_1aab71aed77e37ee6cc2d675dec800c07a" compoundref="canmodule__wrapper_8cpp" startline="23">CONNECTION_INDEX_MAX</references>
         <references refid="canmodule__wrapper_8cpp_1a2eb006bb00711238d0c51ef70240c03c" compoundref="canmodule__wrapper_8cpp" startline="22">CONNECTION_INDEX_MIN</references>
@@ -503,6 +503,6 @@
 <codeline lineno="97"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="98"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//<sp/>CANMODULE_WRAPPER_INCLUDEGUARD</highlight></codeline>
     </programlisting>
-    <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CWrapper/include/canmodule_wrapper.h"/>
+    <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CWrapper/include/canmodule_wrapper.h"/>
   </compounddef>
 </doxygen>
