@@ -69,15 +69,21 @@ include_directories ( ${ANAGATE_INC_DIR} )
 	
 if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
 	add_library( ancan SHARED ${ANAGATE_SOURCES} $<TARGET_OBJECTS:LogIt>)
+	add_library( ancan_static STATIC ${ANAGATE_SOURCES} $<TARGET_OBJECTS:LogIt>)
 else()
 	add_library( ancan SHARED ${ANAGATE_SOURCES} )
+	add_library( ancan_static STATIC ${ANAGATE_SOURCES} )
 	target_link_libraries( ancan ${LOGIT_LIB} )
+	target_link_libraries( ancan_static ${LOGIT_LIB} )
 endif()
 
 target_link_libraries ( ancan ${BOOST_LIBS}	${ANAGATE_LIB_FILE} )
+target_link_libraries ( ancan_static ${BOOST_LIBS}	${ANAGATE_LIB_FILE} )
 
 set_property(TARGET ancan PROPERTY POSITION_INDEPENDENT_CODE TRUE)
 set_property(TARGET ancan PROPERTY LINKER_LANGUAGE CXX)
+set_property(TARGET ancan_static PROPERTY POSITION_INDEPENDENT_CODE TRUE)
+set_property(TARGET ancan_static PROPERTY LINKER_LANGUAGE CXX)
 
 link_directories( ${BOOST_PATH_LIBS} )
 
