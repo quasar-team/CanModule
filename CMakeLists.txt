@@ -29,14 +29,14 @@ if( DEFINED DEBUG )
 	IF (WIN32)
 		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /DEBUG")
 	ELSE()
-		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g")
+		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -static")
 	ENDIF()
 else()
 	message(STATUS "generating Release builds")
 	IF (WIN32)
 		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /RELEASE")
 	ELSE()
-		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static")
 	ENDIF()
 endif()
 
@@ -56,7 +56,7 @@ function ( locateLogItSharedLib )
 	set(LOGIT_INCLUDE_DIR "UNINIALIZED" CACHE PATH "Path to the directory containing the LogIt include files. Use absolute path, or relative to [${PROJECT_SOURCE_DIR}/]")
 	message(STATUS "looking for LogIt... lib dir (-DLOGIT_EXT_LIB_DIR) [${LOGIT_EXT_LIB_DIR}] include dir (-DLOGIT_INCLUDE_DIR) [${LOGIT_INCLUDE_DIR}]")
 	
-	SET(CMAKE_FIND_LIBRARY_SUFFIXES ".so" ".lib") # windows looks for lib file to link to target dll: lib contains dll exports, symbols etc (see LogIt.h SHARED_LIB_EXPORT_DEFN)
+	SET(CMAKE_FIND_LIBRARY_SUFFIXES ".so" ".lib" ".a") # windows looks for lib file to link to target dll: lib contains dll exports, symbols etc (see LogIt.h SHARED_LIB_EXPORT_DEFN)
 	find_library( LOGITLIB NAMES LogIt PATHS ${LOGIT_EXT_LIB_DIR} NO_DEFAULT_PATH )
         
     if(NOT EXISTS ${LOGIT_INCLUDE_DIR})
@@ -146,6 +146,7 @@ else()
     target_link_libraries( ${CANMODULE_LIB_NAME} ${BOOST_LIBS} )
     
     add_subdirectory(CanModuleTest)
+    # message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] disabled CanModuleTest" )
     	
 endif()
 
