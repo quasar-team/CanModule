@@ -15,14 +15,12 @@ set(MOCK_SOURCES
 	../../CanInterface/include/CanStatistics.h	
 )
 
-SET ( MOCKUP_LIB_NAME "MockUpCanImplementationcan-static" )
+SET ( MOCKUP_LIB_NAME "MockUpCanImplementationcan" )
 
 if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
-	# add_library( MockUpCanImplementationcan SHARED ${MOCK_SOURCES} $<TARGET_OBJECTS:LogIt>)
-	add_library( ${MOCKUP_LIB_NAME} ${MOCK_SOURCES} $<TARGET_OBJECTS:LogIt>)
+	add_library( MockUpCanImplementationcan SHARED ${MOCK_SOURCES} $<TARGET_OBJECTS:LogIt>)
 else()
-	# add_library( MockUpCanImplementationcan SHARED ${MOCK_SOURCES} )
-	add_library( ${MOCKUP_LIB_NAME} STATIC ${MOCK_SOURCES} )
+	add_library( MockUpCanImplementationcan SHARED ${MOCK_SOURCES} )
 	target_link_libraries( ${MOCKUP_LIB_NAME} ${LOGIT_LIB} )
 endif()
 target_link_libraries ( ${MOCKUP_LIB_NAME}	${BOOST_LIBS} )
