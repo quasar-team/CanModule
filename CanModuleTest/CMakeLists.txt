@@ -29,8 +29,8 @@ message(STATUS "file [${CMAKE_CURRENT_LIST_FILE}]: Using BOOST_LIBS ${BOOST_LIBS
 message(STATUS "file [${CMAKE_CURRENT_LIST_FILE}]: Using LogIt library: LOGIT_LIB [${LOGIT_LIB}]")
 
 target_link_libraries (CanModuleTest
-	CanModule
 	${BOOST_LIBS}
+	CanModule
 	${CMAKE_THREAD_LIBS_INIT}
 	${LOGIT_LIB}
 	gtest
@@ -38,4 +38,3 @@ target_link_libraries (CanModuleTest
 )
 
 add_dependencies (CanModuleTest CanModule gtest)
-

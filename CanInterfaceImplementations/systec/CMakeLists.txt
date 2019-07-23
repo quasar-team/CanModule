@@ -66,13 +66,9 @@ set(STCAN_SOURCES
 
 if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
 	add_library( stcan SHARED ${STCAN_SOURCES} $<TARGET_OBJECTS:LogIt>)
-	add_library( stcan-static SHARED ${STCAN_SOURCES} $<TARGET_OBJECTS:LogIt>)
 else()
 	add_library( stcan SHARED ${STCAN_SOURCES} )
 	target_link_libraries( stcan ${LOGIT_LIB} )
-
-	add_library( stcan-static SHARED ${STCAN_SOURCES} )
-	target_link_libraries( stcan-static ${LOGIT_LIB} )
 endif()
 
 message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] systec [BOOST_PATH_LIBS:${BOOST_PATH_LIBS}]" )
@@ -81,11 +77,7 @@ message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] systec 
 link_directories( ${BOOST_PATH_LIBS} )
 
 target_link_libraries ( stcan ${BOOST_LIBS} ${SYSTEC_LIB_FILE})
-target_link_libraries ( stcan-static ${BOOST_LIBS_STATIC} ${SYSTEC_LIB_FILE})
-
 set_property(TARGET stcan PROPERTY POSITION_INDEPENDENT_CODE TRUE)
 set_property(TARGET stcan PROPERTY LINKER_LANGUAGE CXX)
-set_property(TARGET stcan-static  PROPERTY POSITION_INDEPENDENT_CODE TRUE)
-set_property(TARGET stcan-static  PROPERTY LINKER_LANGUAGE CXX)
 
 
