@@ -20,23 +20,20 @@
 cmake_minimum_required(VERSION 2.8)
 project(CanModule)
 
-SET( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/CanInterfaceImplementations/output/)
-SET( CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_LIBRARY_OUTPUT_DIRECTORY} )  # static libs
-
 SET( DEBUG "false" )
 if( DEFINED DEBUG )
 	message(STATUS "--WARNING-WARNING-WARNING-- generating DEBUG builds no matter what the command line says")
 	IF (WIN32)
 		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /DEBUG")
 	ELSE()
-		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -static")
+		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -fPIC")
 	ENDIF()
 else()
 	message(STATUS "generating Release builds")
 	IF (WIN32)
 		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /RELEASE")
 	ELSE()
-		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static")
+		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
 	ENDIF()
 endif()
 
@@ -56,7 +53,7 @@ function ( locateLogItSharedLib )
 	set(LOGIT_INCLUDE_DIR "UNINIALIZED" CACHE PATH "Path to the directory containing the LogIt include files. Use absolute path, or relative to [${PROJECT_SOURCE_DIR}/]")
 	message(STATUS "looking for LogIt... lib dir (-DLOGIT_EXT_LIB_DIR) [${LOGIT_EXT_LIB_DIR}] include dir (-DLOGIT_INCLUDE_DIR) [${LOGIT_INCLUDE_DIR}]")
 	
-	SET(CMAKE_FIND_LIBRARY_SUFFIXES ".so" ".lib" ".a") # windows looks for lib file to link to target dll: lib contains dll exports, symbols etc (see LogIt.h SHARED_LIB_EXPORT_DEFN)
+	SET(CMAKE_FIND_LIBRARY_SUFFIXES ".so" ".lib") # windows looks for lib file to link to target dll: lib contains dll exports, symbols etc (see LogIt.h SHARED_LIB_EXPORT_DEFN)
 	find_library( LOGITLIB NAMES LogIt PATHS ${LOGIT_EXT_LIB_DIR} NO_DEFAULT_PATH )
         
     if(NOT EXISTS ${LOGIT_INCLUDE_DIR})
@@ -122,8 +119,6 @@ include_directories( CanLibLoader/include )
 include_directories( CanInterface/include )
 
 
-SET ( CANMODULE_LIB_NAME "CanModule-static" )
-
 if(NOT STANDALONE_BUILD)
 	add_library ( CanModule OBJECT ${SRCS} )
 	set( SERVER_LINK_LIBRARIES ${SERVER_LINK_LIBRARIES} ${CMAKE_DL_LIBS} PARENT_SCOPE )
@@ -136,17 +131,16 @@ else()
   	    clone_LogIt()
         add_subdirectory( ${PROJECT_BINARY_DIR}/LogIt )
         message(STATUS "LogIt added as compiled object code from sub-directory LogIt")
-        add_library( ${CANMODULE_LIB_NAME} STATIC ${SRCS} $<TARGET_OBJECTS:LogIt> )
+        add_library( CanModule SHARED ${SRCS} $<TARGET_OBJECTS:LogIt> )
     else()
 	    locateLogItSharedLib()
 	    message(STATUS "Using LogIt library: LOGIT_LIB [${LOGIT_LIB}]")
-	    add_library( ${CANMODULE_LIB_NAME} STATIC ${SRCS} )
-	    target_link_libraries( ${CANMODULE_LIB_NAME}  ${LOGIT_LIB} )
+	    add_library( CanModule SHARED ${SRCS} )
+	    target_link_libraries( CanModule ${LOGIT_LIB} )
     endif()
-    target_link_libraries( ${CANMODULE_LIB_NAME} ${BOOST_LIBS} )
+    target_link_libraries( CanModule ${BOOST_LIBS} )
     
     add_subdirectory(CanModuleTest)
-    # message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] disabled CanModuleTest" )
     	
 endif()
 
@@ -155,10 +149,11 @@ endif()
  message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] [BOOST_LIBS:${BOOST_LIBS}]" )
 
 
+# build implementation shared libs (reqd at runtime - loaded dynamically)
 # we have a mock up build without any vendor libs as well, for CI where we don't want to distribute vendor libs
 # preferably inject this from the toolchain
 # if you have nothing declared, vendors will be OFF
-#set ( CANMODULE_BUILD_VENDORS "ON" )
+# set ( CANMODULE_BUILD_VENDORS "ON" )
 message(STATUS " building vendor libs is ${BUILD_VENDORS}")
 if ( NOT CANMODULE_BUILD_VENDORS )
 	set ( CANMODULE_BUILD_VENDORS "OFF" )

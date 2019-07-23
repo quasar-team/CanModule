@@ -23,7 +23,6 @@ cmake_minimum_required(VERSION 2.8)
 project(ancan)
 
 SET( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/CanInterfaceImplementations/output/)
-SET( CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_LIBRARY_OUTPUT_DIRECTORY} )  # static libs
 
 # check if toolchain injection was correct for anagate
 # anagate libs are not installed using a default installer/location. In fact these libs are 
@@ -67,19 +66,26 @@ set(ANAGATE_SOURCES
 	
 link_directories( ${ANAGATE_PATH_LIBS} )
 include_directories ( ${ANAGATE_INC_DIR} )
-
-SET ( ANAGATE_LIB_NAME "ancan-static" )
 	
 if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
-	add_library( ${ANAGATE_LIB_NAME} STATIC ${ANAGATE_SOURCES} $<TARGET_OBJECTS:LogIt>)
+	add_library( ancan SHARED ${ANAGATE_SOURCES} $<TARGET_OBJECTS:LogIt>)
+	add_library( ancan-static SHARED ${ANAGATE_SOURCES} $<TARGET_OBJECTS:LogIt>)
 else()
-	add_library( ${ANAGATE_LIB_NAME} STATIC ${ANAGATE_SOURCES} )
-	target_link_libraries( ${ANAGATE_LIB_NAME} ${LOGIT_LIB} )
+	add_library( ancan SHARED ${ANAGATE_SOURCES} )
+	target_link_libraries( ancan ${LOGIT_LIB} )
+	
+	add_library( ancan-static SHARED ${ANAGATE_SOURCES} )
+	target_link_libraries( ancan-static ${LOGIT_LIB} )
 endif()
 
-target_link_libraries ( ${ANAGATE_LIB_NAME} ${BOOST_LIBS}	${ANAGATE_LIB_FILE} )
+target_link_libraries ( ancan ${BOOST_LIBS}	${ANAGATE_LIB_FILE} )
+target_link_libraries ( ancan-static ${BOOST_LIBS_STATIC} ${ANAGATE_LIB_FILE} )
 
-set_property(TARGET ${ANAGATE_LIB_NAME} PROPERTY POSITION_INDEPENDENT_CODE TRUE)
-set_property(TARGET ${ANAGATE_LIB_NAME} PROPERTY LINKER_LANGUAGE CXX)
+set_property(TARGET ancan PROPERTY POSITION_INDEPENDENT_CODE TRUE)
+set_property(TARGET ancan PROPERTY LINKER_LANGUAGE CXX)
 
+set_property(TARGET ancan-static PROPERTY POSITION_INDEPENDENT_CODE TRUE)
+set_property(TARGET ancan-static PROPERTY LINKER_LANGUAGE CXX)
+
+link_directories( ${BOOST_PATH_LIBS} )
 
