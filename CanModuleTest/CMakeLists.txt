@@ -28,8 +28,6 @@ message(STATUS "file [${CMAKE_CURRENT_LIST_FILE}]: Using GTESTLIB [${GTESTLIB}]"
 message(STATUS "file [${CMAKE_CURRENT_LIST_FILE}]: Using BOOST_LIBS ${BOOST_LIBS}")
 message(STATUS "file [${CMAKE_CURRENT_LIST_FILE}]: Using LogIt library: LOGIT_LIB [${LOGIT_LIB}]")
 
-SET ( CANMODULE_LIB_NAME "CanModule-static" )
-
 target_link_libraries (CanModuleTest
 	${BOOST_LIBS}
 	${CANMODULE_LIB_NAME}
@@ -39,5 +37,5 @@ target_link_libraries (CanModuleTest
 	-ldl
 )
 
-add_dependencies (CanModuleTest ${CANMODULE_LIB_NAME} gtest)
+add_dependencies (CanModuleTest CanModule gtest)
 
