@@ -30,7 +30,7 @@ message(STATUS "file [${CMAKE_CURRENT_LIST_FILE}]: Using LogIt library: LOGIT_LI
 
 target_link_libraries (CanModuleTest
 	${BOOST_LIBS}
-	${CANMODULE_LIB_NAME}
+	CanModule
 	${CMAKE_THREAD_LIBS_INIT}
 	${LOGIT_LIB}
 	gtest
