@@ -6,7 +6,6 @@ message(STATUS "file [${CMAKE_CURRENT_LIST_FILE}]: Using boost libraries: BOOST_
 message(STATUS "file [${CMAKE_CURRENT_LIST_FILE}]: Using LogIt library: LOGIT_LIB [${LOGIT_LIB}]")
 
 SET( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/CanInterfaceImplementations/output/)
-SET( CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_LIBRARY_OUTPUT_DIRECTORY} )  # static libs
 
 set(MOCK_SOURCES
 	MockCanAccess.cpp
@@ -18,9 +17,9 @@ set(MOCK_SOURCES
 SET ( MOCKUP_LIB_NAME "MockUpCanImplementationcan" )
 
 if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
-	add_library( MockUpCanImplementationcan SHARED ${MOCK_SOURCES} $<TARGET_OBJECTS:LogIt>)
+	add_library( ${MOCKUP_LIB_NAME} SHARED ${MOCK_SOURCES} $<TARGET_OBJECTS:LogIt>)
 else()
-	add_library( MockUpCanImplementationcan SHARED ${MOCK_SOURCES} )
+	add_library( ${MOCKUP_LIB_NAME} SHARED ${MOCK_SOURCES} )
 	target_link_libraries( ${MOCKUP_LIB_NAME} ${LOGIT_LIB} )
 endif()
 target_link_libraries ( ${MOCKUP_LIB_NAME}	${BOOST_LIBS} )
