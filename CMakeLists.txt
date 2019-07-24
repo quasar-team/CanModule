@@ -127,8 +127,10 @@ include_directories( CanInterface/include )
 # just the names of the libs are hardcoded and I don't want to introduce some dynamical switching
 # in the user API for that. 
 IF ( $ENV{CANMODULE_AS_STATIC_AS_POSSIBLE} )
+  	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: building static CanModule lib: ${CANMODULE_LIB_NAME}" )
 	SET ( CANMODULE_LIB_NAME CanModule-static )
 ELSE()
+  	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: building shared CanModule lib: ${CANMODULE_LIB_NAME}" )
 	SET ( CANMODULE_LIB_NAME CanModule )
 ENDIF()
 
