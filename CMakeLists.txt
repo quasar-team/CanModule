@@ -140,7 +140,7 @@ else()
     endif()
     target_link_libraries( CanModule ${BOOST_LIBS} )
     
-    add_subdirectory(CanModuleTest)
+    # add_subdirectory(CanModuleTest) # we test in the lab
     	
 endif()
 
