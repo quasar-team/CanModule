@@ -20,6 +20,9 @@
 cmake_minimum_required(VERSION 2.8)
 project(CanModule)
 
+# specify -DCANMODULE_AS_STATIC_AS_POSSIBLE for cmake to switch the CanLibLoaderLin lib names accordingly
+# so that the "as-static-as-possible" shared libs are used by CanModule
+
 SET( DEBUG "false" )
 if( DEFINED DEBUG )
 	message(STATUS "--WARNING-WARNING-WARNING-- generating DEBUG builds no matter what the command line says")

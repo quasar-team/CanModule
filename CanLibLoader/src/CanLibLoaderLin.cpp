@@ -50,7 +50,12 @@ void CanLibLoaderLin::dynamicallyLoadLib(const std::string& libName)
 {
 	//The library is loaded through dlopen (Linux API)
 	std::ostringstream ss;
+#ifdef CANMODULE_AS_STATIC_AS_POSSIBLE
+		ss << "lib" << libName << "can-static.so";
+#else
 	ss << "lib" << libName << "can.so";
+#endif
+
 	LOG(Log::DBG, lh) << "Proceeding to load library " << ss.str();
 	p_dynamicLibrary = dlopen(ss.str().c_str(), RTLD_NOW);
 	//We check for errors while loading the library
