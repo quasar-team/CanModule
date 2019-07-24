@@ -50,7 +50,7 @@ else()
 	target_link_libraries( ${SOCK_LIB_NAME} ${LOGIT_LIB} -lsocketcan )
 
 	add_library( ${SOCK_LIB_NAME}-static SHARED ${SOCKCAN_SOURCES} )
-	target_link_libraries( ${SOCK_LIB_NAME}-static ${LOGIT_LIB} ${BOOST_LIBS_STATIC} ${SOCKETCAN_LIB_FILE_STATIC})
+	target_link_libraries( ${SOCK_LIB_NAME}-static ${LOGIT_LIB} ${BOOST_LIBS_STATIC} libsocketcan.a )
 endif()
 
 # target_link_libraries ( ${SOCK_LIB_NAME} ${BOOST_LIBS} libsocketcan.a )
