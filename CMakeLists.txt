@@ -121,9 +121,19 @@ include_directories( include )
 include_directories( CanLibLoader/include )
 include_directories( CanInterface/include )
 
+# switch the CanModuleLibLoader library name, and we want to produce two different CanModule 
+# libs: one which loads ancan-static.so, sockcan-static.so ("as static as possible") etc 
+# and one which loads ancan.so, sochcan.so as before, fully dynamic. The code itself is identic,
+# just the names of the libs are hardcoded and I don't want to introduce some dynamical switching
+# in the user API for that. 
+IF ( ENV{CANMODULE_AS_STATIC_AS_POSSIBLE} )
+	SET ( CANMODULE_LIB_NAME CanModule-static )
+ELSE()
+	SET ( CANMODULE_LIB_NAME CanModule )
+ENDIF()
 
 if(NOT STANDALONE_BUILD)
-	add_library ( CanModule OBJECT ${SRCS} )
+	add_library ( ${CANMODULE_LIB_NAME} OBJECT ${SRCS} )
 	set( SERVER_LINK_LIBRARIES ${SERVER_LINK_LIBRARIES} ${CMAKE_DL_LIBS} PARENT_SCOPE )
 	message( STATUS "SERVER_LINK_LIBRARIES [${SERVER_LINK_LIBRARIES}]" )
 else()
@@ -134,14 +144,14 @@ else()
   	    clone_LogIt()
         add_subdirectory( ${PROJECT_BINARY_DIR}/LogIt )
         message(STATUS "LogIt added as compiled object code from sub-directory LogIt")
-        add_library( CanModule SHARED ${SRCS} $<TARGET_OBJECTS:LogIt> )
+        add_library( ${CANMODULE_LIB_NAME} SHARED ${SRCS} $<TARGET_OBJECTS:LogIt> )
     else()
 	    locateLogItSharedLib()
 	    message(STATUS "Using LogIt library: LOGIT_LIB [${LOGIT_LIB}]")
-	    add_library( CanModule SHARED ${SRCS} )
-	    target_link_libraries( CanModule ${LOGIT_LIB} )
+	    add_library( ${CANMODULE_LIB_NAME} SHARED ${SRCS} )
+	    target_link_libraries( ${CANMODULE_LIB_NAME} ${LOGIT_LIB} )
     endif()
-    target_link_libraries( CanModule ${BOOST_LIBS} )
+    target_link_libraries( ${CANMODULE_LIB_NAME} ${BOOST_LIBS} )
     
     # add_subdirectory(CanModuleTest) # we test in the lab
     	
