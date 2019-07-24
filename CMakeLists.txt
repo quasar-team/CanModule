@@ -151,8 +151,13 @@ else()
 	    add_library( ${CANMODULE_LIB_NAME} SHARED ${SRCS} )
 	    target_link_libraries( ${CANMODULE_LIB_NAME} ${LOGIT_LIB} )
     endif()
-    target_link_libraries( ${CANMODULE_LIB_NAME} ${BOOST_LIBS} )
     
+IF ( $ENV{CANMODULE_AS_STATIC_AS_POSSIBLE} )
+   target_link_libraries( ${CANMODULE_LIB_NAME} ${BOOST_LIBS_STATIC} )
+ELSE()
+   target_link_libraries( ${CANMODULE_LIB_NAME} ${BOOST_LIBS} )
+ENDIF()
+     
     # add_subdirectory(CanModuleTest) # we test in the lab
     	
 endif()
