@@ -126,7 +126,7 @@ include_directories( CanInterface/include )
 # and one which loads ancan.so, sochcan.so as before, fully dynamic. The code itself is identic,
 # just the names of the libs are hardcoded and I don't want to introduce some dynamical switching
 # in the user API for that. 
-IF ( ENV{CANMODULE_AS_STATIC_AS_POSSIBLE} )
+IF ( $ENV{CANMODULE_AS_STATIC_AS_POSSIBLE} )
 	SET ( CANMODULE_LIB_NAME CanModule-static )
 ELSE()
 	SET ( CANMODULE_LIB_NAME CanModule )
