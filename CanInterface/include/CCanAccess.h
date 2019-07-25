@@ -293,7 +293,7 @@ public:
 			LOG(Log::ERR, _lh) << "can not connect to internal slot " << connectionIndex << " (available slots 0..15)"; }
 		}
 		s_connectionIndex = connectionIndex;
-		LOG(Log::INF, _lh) << "OK connected internal slot" << s_connectionIndex << " to boost signal of this object";
+		LOG(Log::DBG, _lh) << "OK connected internal slot" << s_connectionIndex << " to boost signal of this object";
 	}
 	void disconnectReceptionSlotX( void )
 	{
