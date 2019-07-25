@@ -51,7 +51,7 @@ void CanLibLoaderLin::dynamicallyLoadLib(const std::string& libName)
 	//The library is loaded through dlopen (Linux API)
 	std::ostringstream ss;
 
-	// check if environment var CANMODULE_AS_STATIC_AS_POSSIBLE is set.
+	// check if environment var CANMODULE_AS_STATIC_AS_POSSIBLE is set, during runtime
 	if ( getenv( "CANMODULE_AS_STATIC_AS_POSSIBLE" ) != NULL ) {
 		ss << "lib" << libName << "can-static.so";
 	} else {
