@@ -148,6 +148,27 @@ SET( PEAK_LIB_PATH &quot;M:/3rdPartySoftware/PCAN-Basic API/x64/VC_LIB&quot; )
 <div class="highlight-basemake notranslate"><div class="highlight"><pre><span></span>cmake -DCMAKE_TOOLCHAIN_FILE=toolchain.cmake
 </pre></div>
 </div>
+<div class="section" id="shared-default-and-static-linking-loading">
+<h2>shared (default) and static linking/loading<a class="headerlink" href="#shared-default-and-static-linking-loading" title="Permalink to this headline">¶</a></h2>
+<p>CanModule uses all shared libraries, and also loads shared libraries during runtime for each connection
+object and vendor. Nevertheless some shared libraries with reduced dependencies are made available
+where possible (they have suffix <a href="#id1"><span class="problematic" id="id2">*</span></a>-static.so).
+If the vendor APIs come, in some cases, in the form of relocateable static libraries/archives (-fPIC), then they
+can sometimes be integrated into the CanModule specific vendor shared lib.</p>
+<p><strong>Linux:</strong>
+if the environment variable CANMODULE_AS_STATIC_AS_POSSIBLE=1 is set during building some extra <a href="#id3"><span class="problematic" id="id4">*</span></a>-static
+libs are produced with boost and other specific dependencies integrated as possible:</p>
+<ul class="simple">
+<li>ancan-static.so</li>
+<li>sockcan-static.so</li>
+<li>CanModule-static.so</li>
+</ul>
+<p>During execution, CanModule(-static.so or .so) looks for the standard shared libs.
+If you want to use the “reduced dependencies” versions then the env var CANMODULE_AS_STATIC_AS_POSSIBLE=1
+has to be set <strong>during runtime</strong> as well.</p>
+<p><strong>Windows</strong></p>
+<p>No reduced dependencies libs are available at this point.</p>
+</div>
 </div>
 
 
@@ -167,7 +188,10 @@ SET( PEAK_LIB_PATH &quot;M:/3rdPartySoftware/PCAN-Basic API/x64/VC_LIB&quot; )
 <li class="toctree-l1"><a class="reference internal" href="vendors/anagate.html">AnaGate</a></li>
 <li class="toctree-l1"><a class="reference internal" href="vendors/peak.html">Peak</a></li>
 <li class="toctree-l1"><a class="reference internal" href="logging.html">Logging</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Building</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Building</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#shared-default-and-static-linking-loading">shared (default) and static linking/loading</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="running.html">Running</a></li>
 <li class="toctree-l1"><a class="reference internal" href="connection.html">Connection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="support.html">Support</a></li>
@@ -213,7 +237,7 @@ SET( PEAK_LIB_PATH &quot;M:/3rdPartySoftware/PCAN-Basic API/x64/VC_LIB&quot; )
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2019, CERN, BE-ICS (Michael Ludwig).
-      Last updated on 16-Jul-2019 12:51:40.
+      Last updated on 25-Jul-2019 12:04:52.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
     </div>
   </body>

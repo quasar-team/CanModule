@@ -76,6 +76,13 @@ runtime conditions (april 2019).</p>
 <li>windows: libpkcan.dll (standard API), PKCANBASIC.dll</li>
 </ul>
 </div>
+<div class="section" id="shared-reduced-dependencies-static">
+<h2>shared - reduced dependencies (<a href="#id1"><span class="problematic" id="id2">*</span></a>-static)<a class="headerlink" href="#shared-reduced-dependencies-static" title="Permalink to this headline">¶</a></h2>
+<p>During execution, CanModule (<em>-static.so or *.so) looks for the standard shared libs.
+If you want to use the “reduced dependencies” versions then the env var CANMODULE_AS_STATIC_AS_POSSIBLE=1
+has to be set **during runtime*</em> as well.</p>
+<p>See also “building”</p>
+</div>
 </div>
 
 
@@ -101,6 +108,7 @@ runtime conditions (april 2019).</p>
 <li class="toctree-l2"><a class="reference internal" href="#anagate">Anagate</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#systec">Systec</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#peak">Peak</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#shared-reduced-dependencies-static">shared - reduced dependencies (*-static)</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="connection.html">Connection</a></li>
@@ -147,7 +155,7 @@ runtime conditions (april 2019).</p>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2019, CERN, BE-ICS (Michael Ludwig).
-      Last updated on 16-Jul-2019 12:51:40.
+      Last updated on 25-Jul-2019 12:09:01.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
     </div>
   </body>

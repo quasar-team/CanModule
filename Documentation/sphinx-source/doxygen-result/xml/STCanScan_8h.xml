@@ -17,6 +17,30 @@
       <node id="349">
         <label>LogIt.h</label>
       </node>
+      <node id="337">
+        <label>windows.h</label>
+      </node>
+      <node id="347">
+        <label>boost/signals2.hpp</label>
+      </node>
+      <node id="338">
+        <label>string</label>
+      </node>
+      <node id="339">
+        <label>CanStatistics.h</label>
+        <link refid="CanStatistics_8h"/>
+        <childnode refid="340" relation="include">
+        </childnode>
+        <childnode refid="341" relation="include">
+        </childnode>
+        <childnode refid="342" relation="include">
+        </childnode>
+        <childnode refid="343" relation="include">
+        </childnode>
+      </node>
+      <node id="336">
+        <label>Winsock2.h</label>
+      </node>
       <node id="334">
         <label>CanInterfaceImplementations/systec/STCanScan.h</label>
         <link refid="STCanScan.h"/>
@@ -35,26 +59,12 @@
         <childnode refid="345" relation="include">
         </childnode>
       </node>
-      <node id="337">
-        <label>windows.h</label>
+      <node id="342">
+        <label>ExportDefinition.h</label>
+        <link refid="ExportDefinition_8h"/>
       </node>
-      <node id="339">
-        <label>CanStatistics.h</label>
-        <link refid="CanStatistics_8h"/>
-        <childnode refid="340" relation="include">
-        </childnode>
-        <childnode refid="341" relation="include">
-        </childnode>
-        <childnode refid="342" relation="include">
-        </childnode>
-        <childnode refid="343" relation="include">
-        </childnode>
-      </node>
-      <node id="347">
-        <label>boost/signals2.hpp</label>
-      </node>
-      <node id="338">
-        <label>string</label>
+      <node id="341">
+        <label>sys/time.h</label>
       </node>
       <node id="345">
         <label>CCanAccess.h</label>
@@ -74,18 +84,6 @@
         <childnode refid="349" relation="include">
         </childnode>
       </node>
-      <node id="336">
-        <label>Winsock2.h</label>
-      </node>
-      <node id="348">
-        <label>CanMessage.h</label>
-        <link refid="CanMessage_8h"/>
-        <childnode refid="341" relation="include">
-        </childnode>
-      </node>
-      <node id="341">
-        <label>sys/time.h</label>
-      </node>
       <node id="335">
         <label>tchar.h</label>
       </node>
@@ -95,24 +93,26 @@
       <node id="343">
         <label>chrono</label>
       </node>
-      <node id="342">
-        <label>ExportDefinition.h</label>
-        <link refid="ExportDefinition_8h"/>
+      <node id="348">
+        <label>CanMessage.h</label>
+        <link refid="CanMessage_8h"/>
+        <childnode refid="341" relation="include">
+        </childnode>
       </node>
       <node id="344">
         <label>usbcan32.h</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
+      <node id="351">
+        <label>CanInterfaceImplementations/systec/STCanScan.cpp</label>
+        <link refid="STCanScan_8cpp"/>
+      </node>
       <node id="350">
         <label>CanInterfaceImplementations/systec/STCanScan.h</label>
         <link refid="STCanScan.h"/>
         <childnode refid="351" relation="include">
         </childnode>
-      </node>
-      <node id="351">
-        <label>CanInterfaceImplementations/systec/STCanScan.cpp</label>
-        <link refid="STCanScan_8cpp"/>
       </node>
     </invincdepgraph>
     <innerclass refid="classSTCanScan" prot="public">STCanScan</innerclass>
@@ -212,6 +212,6 @@
 <codeline lineno="110"><highlight class="normal"></highlight></codeline>
 <codeline lineno="111"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
     </programlisting>
-    <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/systec/STCanScan.h"/>
+    <location file="/home/mludwig/projects/CanModule/CanModule-staticLinkage/CanModule/CanInterfaceImplementations/systec/STCanScan.h"/>
   </compounddef>
 </doxygen>

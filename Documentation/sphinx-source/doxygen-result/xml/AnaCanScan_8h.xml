@@ -20,6 +20,15 @@
       <node id="215">
         <label>AnaGateDLL.h</label>
       </node>
+      <node id="212">
+        <label>boost/signals2.hpp</label>
+      </node>
+      <node id="203">
+        <label>boost/thread/thread.hpp</label>
+      </node>
+      <node id="204">
+        <label>string</label>
+      </node>
       <node id="205">
         <label>CanStatistics.h</label>
         <link refid="CanStatistics_8h"/>
@@ -32,14 +41,15 @@
         <childnode refid="209" relation="include">
         </childnode>
       </node>
-      <node id="212">
-        <label>boost/signals2.hpp</label>
+      <node id="216">
+        <label>AnaGateDllCan.h</label>
       </node>
-      <node id="203">
-        <label>boost/thread/thread.hpp</label>
+      <node id="208">
+        <label>ExportDefinition.h</label>
+        <link refid="ExportDefinition_8h"/>
       </node>
-      <node id="204">
-        <label>string</label>
+      <node id="207">
+        <label>sys/time.h</label>
       </node>
       <node id="210">
         <label>CCanAccess.h</label>
@@ -59,27 +69,17 @@
         <childnode refid="214" relation="include">
         </childnode>
       </node>
-      <node id="213">
-        <label>CanMessage.h</label>
-        <link refid="CanMessage_8h"/>
-        <childnode refid="207" relation="include">
-        </childnode>
-      </node>
-      <node id="216">
-        <label>AnaGateDllCan.h</label>
-      </node>
-      <node id="207">
-        <label>sys/time.h</label>
-      </node>
       <node id="211">
         <label>boost/bind.hpp</label>
       </node>
       <node id="209">
         <label>chrono</label>
       </node>
-      <node id="208">
-        <label>ExportDefinition.h</label>
-        <link refid="ExportDefinition_8h"/>
+      <node id="213">
+        <label>CanMessage.h</label>
+        <link refid="CanMessage_8h"/>
+        <childnode refid="207" relation="include">
+        </childnode>
       </node>
       <node id="202">
         <label>CanInterfaceImplementations/anagate/AnaCanScan.h</label>
@@ -125,7 +125,7 @@
 <para>© Copyright CERN, 2015. All rights not expressly granted are reserved.</para><para><ref refid="AnaCanScan_8h" kindref="compound">AnaCanScan.h</ref></para><para>Created on: Feb 22, 2012 Author: vfilimon, quasar team mludwig at cern dot ch</para><para>This file is part of Quasar.</para><para>Quasar is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public Licence as published by the Free Software Foundation, either version 3 of the Licence.</para><para>Quasar is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public Licence for more details.</para><para>You should have received a copy of the GNU Lesser General Public License along with Quasar. If not, see <ulink url="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</ulink>. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/anagate/AnaCanScan.h" line="48" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/anagate/AnaCanScan.h" bodystart="48" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-staticLinkage/CanModule/CanInterfaceImplementations/anagate/AnaCanScan.h" line="48" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-staticLinkage/CanModule/CanInterfaceImplementations/anagate/AnaCanScan.h" bodystart="48" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -226,6 +226,6 @@
 <codeline lineno="122"><highlight class="normal"></highlight></codeline>
 <codeline lineno="123"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//CCANANASCAN_H_</highlight></codeline>
     </programlisting>
-    <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/anagate/AnaCanScan.h"/>
+    <location file="/home/mludwig/projects/CanModule/CanModule-staticLinkage/CanModule/CanInterfaceImplementations/anagate/AnaCanScan.h"/>
   </compounddef>
 </doxygen>

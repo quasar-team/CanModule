@@ -14,6 +14,41 @@
       <node id="457">
         <label>LogIt.h</label>
       </node>
+      <node id="451">
+        <label>boost/signals2.hpp</label>
+      </node>
+      <node id="444">
+        <label>CanLibLoader/src/CanLibLoader.cpp</label>
+        <link refid="CanLibLoader.cpp"/>
+        <childnode refid="445" relation="include">
+        </childnode>
+        <childnode refid="457" relation="include">
+        </childnode>
+        <childnode refid="446" relation="include">
+        </childnode>
+        <childnode refid="458" relation="include">
+        </childnode>
+        <childnode refid="459" relation="include">
+        </childnode>
+      </node>
+      <node id="445">
+        <label>CanLibLoader.h</label>
+        <link refid="CanLibLoader_8h"/>
+        <childnode refid="446" relation="include">
+        </childnode>
+        <childnode refid="447" relation="include">
+        </childnode>
+        <childnode refid="448" relation="include">
+        </childnode>
+        <childnode refid="455" relation="include">
+        </childnode>
+      </node>
+      <node id="458">
+        <label>stdexcept</label>
+      </node>
+      <node id="446">
+        <label>string</label>
+      </node>
       <node id="453">
         <label>CanStatistics.h</label>
         <link refid="CanStatistics_8h"/>
@@ -26,15 +61,6 @@
         <childnode refid="456" relation="include">
         </childnode>
       </node>
-      <node id="451">
-        <label>boost/signals2.hpp</label>
-      </node>
-      <node id="458">
-        <label>stdexcept</label>
-      </node>
-      <node id="446">
-        <label>string</label>
-      </node>
       <node id="447">
         <label>map</label>
       </node>
@@ -43,6 +69,13 @@
         <link refid="CanLibLoaderLin_8h"/>
         <childnode refid="445" relation="include">
         </childnode>
+      </node>
+      <node id="455">
+        <label>ExportDefinition.h</label>
+        <link refid="ExportDefinition_8h"/>
+      </node>
+      <node id="449">
+        <label>sys/time.h</label>
       </node>
       <node id="448">
         <label>CCanAccess.h</label>
@@ -62,50 +95,17 @@
         <childnode refid="457" relation="include">
         </childnode>
       </node>
-      <node id="444">
-        <label>CanLibLoader/src/CanLibLoader.cpp</label>
-        <link refid="CanLibLoader.cpp"/>
-        <childnode refid="445" relation="include">
-        </childnode>
-        <childnode refid="457" relation="include">
-        </childnode>
-        <childnode refid="446" relation="include">
-        </childnode>
-        <childnode refid="458" relation="include">
-        </childnode>
-        <childnode refid="459" relation="include">
-        </childnode>
-      </node>
-      <node id="452">
-        <label>CanMessage.h</label>
-        <link refid="CanMessage_8h"/>
-        <childnode refid="449" relation="include">
-        </childnode>
-      </node>
-      <node id="449">
-        <label>sys/time.h</label>
-      </node>
       <node id="450">
         <label>boost/bind.hpp</label>
       </node>
       <node id="456">
         <label>chrono</label>
       </node>
-      <node id="445">
-        <label>CanLibLoader.h</label>
-        <link refid="CanLibLoader_8h"/>
-        <childnode refid="446" relation="include">
+      <node id="452">
+        <label>CanMessage.h</label>
+        <link refid="CanMessage_8h"/>
+        <childnode refid="449" relation="include">
         </childnode>
-        <childnode refid="447" relation="include">
-        </childnode>
-        <childnode refid="448" relation="include">
-        </childnode>
-        <childnode refid="455" relation="include">
-        </childnode>
-      </node>
-      <node id="455">
-        <label>ExportDefinition.h</label>
-        <link refid="ExportDefinition_8h"/>
       </node>
     </incdepgraph>
     <innernamespace refid="namespaceCanModule">CanModule</innernamespace>
@@ -181,6 +181,6 @@
 <codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="93"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanLibLoader/src/CanLibLoader.cpp"/>
+    <location file="/home/mludwig/projects/CanModule/CanModule-staticLinkage/CanModule/CanLibLoader/src/CanLibLoader.cpp"/>
   </compounddef>
 </doxygen>

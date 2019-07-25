@@ -24,7 +24,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CanModuleUtils.h" line="42" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CanModuleUtils.h" bodystart="42" bodyend="47"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-staticLinkage/CanModule/CanInterface/include/CanModuleUtils.h" line="42" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-staticLinkage/CanModule/CanInterface/include/CanModuleUtils.h" bodystart="42" bodyend="47"/>
       </memberdef>
       <memberdef kind="function" id="classCanModule_1_1CanModuleUtils_1aa1ada216c55de3b2ccba90de18f51b4a" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
@@ -56,7 +56,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CanModuleUtils.h" line="50" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CanModuleUtils.h" bodystart="50" bodyend="61"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-staticLinkage/CanModule/CanInterface/include/CanModuleUtils.h" line="50" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-staticLinkage/CanModule/CanInterface/include/CanModuleUtils.h" bodystart="50" bodyend="61"/>
       </memberdef>
       <memberdef kind="function" id="classCanModule_1_1CanModuleUtils_1a9c8d0ca5020cf386c9c4b689e5ef365d" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>unsigned int</type>
@@ -73,14 +73,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CanModuleUtils.h" line="63" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CanModuleUtils.h" bodystart="63" bodyend="71"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-staticLinkage/CanModule/CanInterface/include/CanModuleUtils.h" line="63" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-staticLinkage/CanModule/CanInterface/include/CanModuleUtils.h" bodystart="63" bodyend="71"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CanModuleUtils.h" line="39" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/CanModuleUtils.h" bodystart="38" bodyend="73"/>
+    <location file="/home/mludwig/projects/CanModule/CanModule-staticLinkage/CanModule/CanInterface/include/CanModuleUtils.h" line="39" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-staticLinkage/CanModule/CanInterface/include/CanModuleUtils.h" bodystart="38" bodyend="73"/>
     <listofallmembers>
       <member refid="classCanModule_1_1CanModuleUtils_1a9c8d0ca5020cf386c9c4b689e5ef365d" prot="public" virt="non-virtual"><scope>CanModule::CanModuleUtils</scope><name>fromHexString</name></member>
       <member refid="classCanModule_1_1CanModuleUtils_1aa1ada216c55de3b2ccba90de18f51b4a" prot="public" virt="non-virtual"><scope>CanModule::CanModuleUtils</scope><name>toHexString</name></member>

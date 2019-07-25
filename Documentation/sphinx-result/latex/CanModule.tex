@@ -60,7 +60,7 @@
 
 
 \title{CanModule Developer Documentation}
-\date{July 16, 2019}
+\date{July 25, 2019}
 \release{1.1.8}
 \author{Michael Ludwig}
 \newcommand{\sphinxlogo}{\vbox{}}
@@ -1121,6 +1121,38 @@ cmake \PYGZhy{}DCMAKE\PYGZus{}TOOLCHAIN\PYGZus{}FILE=toolchain.cmake
 \end{sphinxVerbatim}
 
 
+\section{shared (default) and static linking/loading}
+\label{\detokenize{building:shared-default-and-static-linking-loading}}
+CanModule uses all shared libraries, and also loads shared libraries during runtime for each connection
+object and vendor. Nevertheless some shared libraries with reduced dependencies are made available
+where possible (they have suffix {\color{red}\bfseries{}*}-static.so).
+If the vendor APIs come, in some cases, in the form of relocateable static libraries/archives (-fPIC), then they
+can sometimes be integrated into the CanModule specific vendor shared lib.
+
+\sphinxstylestrong{Linux:}
+if the environment variable CANMODULE\_AS\_STATIC\_AS\_POSSIBLE=1 is set during building some extra {\color{red}\bfseries{}*}-static
+libs are produced with boost and other specific dependencies integrated as possible:
+\begin{itemize}
+\item {} 
+ancan-static.so
+
+\item {} 
+sockcan-static.so
+
+\item {} 
+CanModule-static.so
+
+\end{itemize}
+
+During execution, CanModule(-static.so or .so) looks for the standard shared libs.
+If you want to use the “reduced dependencies” versions then the env var CANMODULE\_AS\_STATIC\_AS\_POSSIBLE=1
+has to be set \sphinxstylestrong{during runtime} as well.
+
+\sphinxstylestrong{Windows}
+
+No reduced dependencies libs are available at this point.
+
+
 \chapter{Running}
 \label{\detokenize{running:running}}\label{\detokenize{running::doc}}
 The proper kernel modules, drivers and libraries for the vendors used through CanModule
@@ -1181,6 +1213,15 @@ windows: libpkcan.dll (standard API), PKCANBASIC.dll
 \end{itemize}
 
 
+\section{shared - reduced dependencies ({\color{red}\bfseries{}*}-static)}
+\label{\detokenize{running:shared-reduced-dependencies-static}}
+During execution, CanModule (\sphinxstyleemphasis{-static.so or *.so) looks for the standard shared libs.
+If you want to use the “reduced dependencies” versions then the env var CANMODULE\_AS\_STATIC\_AS\_POSSIBLE=1
+has to be set **during runtime*} as well.
+
+See also “building”
+
+
 \chapter{Connection}
 \label{\detokenize{connection:connection}}\label{\detokenize{connection::doc}}
 CanModule tries to recuperate lost connections automatically, but presently there is no method
@@ -1223,9 +1264,25 @@ The anagate duo reconnects somewhat faster than the X4/X8 modules, because of fi
 The whole reconnection can take up to 60 secs until all buffers are cleared, so please be patient.
 
 
-\section{peak and systec}
-\label{\detokenize{connection:peak-and-systec}}
-The reconnection behavior is still under investigation and testing.
+\section{peak}
+\label{\detokenize{connection:peak}}
+The module is receiving power through the USB port, if this connection is lost we need to reconnect.
+Reconnection works for both normal (fixed) and flexible datarate (FD) modules under linux, as
+socketcan is used. For windows only
+normal datarate (fixed) are supported, and the reconnection also works for them.
+
+Reconnection takes less than 30sec.
+
+
+\section{systec}
+\label{\detokenize{connection:systec}}
+A power loss or a connection loss will trigger a reconnection. For linux, where socketcan is used,
+this works like for peak.
+
+For windows the reconnection is NOT WORKING, and it is not clear if it can actually
+be achieved within CanModule. It seems that a library reload is needed to make the module work again.
+This feature is therefore DROPPED for now, since also no strong user request for “systec reconnection
+under windows” is presently stated. I tried, using the systec \sphinxhref{mailto:API@windows}{API@windows}, but did not manage.
 
 
 \chapter{Support}

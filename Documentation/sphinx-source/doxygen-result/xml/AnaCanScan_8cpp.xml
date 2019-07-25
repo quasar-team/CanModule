@@ -12,6 +12,42 @@
     <includes refid="CanModuleUtils_8h" local="yes">CanModuleUtils.h</includes>
     <includes local="no">sys/time.h</includes>
     <incdepgraph>
+      <node id="183">
+        <label>stdatomic.h</label>
+      </node>
+      <node id="191">
+        <label>LogIt.h</label>
+      </node>
+      <node id="192">
+        <label>AnaGateDLL.h</label>
+      </node>
+      <node id="189">
+        <label>boost/signals2.hpp</label>
+      </node>
+      <node id="200">
+        <label>stdexcept</label>
+      </node>
+      <node id="180">
+        <label>boost/thread/thread.hpp</label>
+      </node>
+      <node id="181">
+        <label>string</label>
+      </node>
+      <node id="182">
+        <label>CanStatistics.h</label>
+        <link refid="CanStatistics_8h"/>
+        <childnode refid="183" relation="include">
+        </childnode>
+        <childnode refid="184" relation="include">
+        </childnode>
+        <childnode refid="185" relation="include">
+        </childnode>
+        <childnode refid="186" relation="include">
+        </childnode>
+      </node>
+      <node id="196">
+        <label>map</label>
+      </node>
       <node id="178">
         <label>CanInterfaceImplementations/anagate/AnaCanScan.cpp</label>
         <link refid="AnaCanScan.cpp"/>
@@ -34,41 +70,41 @@
         <childnode refid="184" relation="include">
         </childnode>
       </node>
-      <node id="183">
-        <label>stdatomic.h</label>
+      <node id="195">
+        <label>string.h</label>
       </node>
-      <node id="191">
-        <label>LogIt.h</label>
+      <node id="197">
+        <label>sstream</label>
       </node>
-      <node id="192">
-        <label>AnaGateDLL.h</label>
+      <node id="193">
+        <label>AnaGateDllCan.h</label>
       </node>
-      <node id="182">
-        <label>CanStatistics.h</label>
-        <link refid="CanStatistics_8h"/>
-        <childnode refid="183" relation="include">
-        </childnode>
+      <node id="199">
+        <label>CanModuleUtils.h</label>
+        <link refid="CanModuleUtils_8h"/>
         <childnode refid="184" relation="include">
         </childnode>
-        <childnode refid="185" relation="include">
+        <childnode refid="197" relation="include">
+        </childnode>
+        <childnode refid="200" relation="include">
+        </childnode>
+        <childnode refid="181" relation="include">
         </childnode>
         <childnode refid="186" relation="include">
         </childnode>
       </node>
-      <node id="189">
-        <label>boost/signals2.hpp</label>
+      <node id="194">
+        <label>time.h</label>
       </node>
-      <node id="200">
-        <label>stdexcept</label>
+      <node id="185">
+        <label>ExportDefinition.h</label>
+        <link refid="ExportDefinition_8h"/>
       </node>
-      <node id="180">
-        <label>boost/thread/thread.hpp</label>
+      <node id="184">
+        <label>sys/time.h</label>
       </node>
-      <node id="181">
-        <label>string</label>
-      </node>
-      <node id="196">
-        <label>map</label>
+      <node id="198">
+        <label>iostream</label>
       </node>
       <node id="187">
         <label>CCanAccess.h</label>
@@ -88,53 +124,17 @@
         <childnode refid="191" relation="include">
         </childnode>
       </node>
-      <node id="195">
-        <label>string.h</label>
-      </node>
-      <node id="190">
-        <label>CanMessage.h</label>
-        <link refid="CanMessage_8h"/>
-        <childnode refid="184" relation="include">
-        </childnode>
-      </node>
-      <node id="197">
-        <label>sstream</label>
-      </node>
-      <node id="193">
-        <label>AnaGateDllCan.h</label>
-      </node>
-      <node id="194">
-        <label>time.h</label>
-      </node>
-      <node id="184">
-        <label>sys/time.h</label>
-      </node>
-      <node id="198">
-        <label>iostream</label>
-      </node>
-      <node id="199">
-        <label>CanModuleUtils.h</label>
-        <link refid="CanModuleUtils_8h"/>
-        <childnode refid="184" relation="include">
-        </childnode>
-        <childnode refid="197" relation="include">
-        </childnode>
-        <childnode refid="200" relation="include">
-        </childnode>
-        <childnode refid="181" relation="include">
-        </childnode>
-        <childnode refid="186" relation="include">
-        </childnode>
-      </node>
       <node id="188">
         <label>boost/bind.hpp</label>
       </node>
       <node id="186">
         <label>chrono</label>
       </node>
-      <node id="185">
-        <label>ExportDefinition.h</label>
-        <link refid="ExportDefinition_8h"/>
+      <node id="190">
+        <label>CanMessage.h</label>
+        <link refid="CanMessage_8h"/>
+        <childnode refid="184" relation="include">
+        </childnode>
       </node>
       <node id="179">
         <label>AnaCanScan.h</label>
@@ -164,7 +164,7 @@
 <para>© Copyright CERN, 2015. All rights not expressly granted are reserved.</para><para><ref refid="AnaCanScan_8cpp" kindref="compound">AnaCanScan.cpp</ref></para><para>Created on: Mar 17, 2015 Author: pnikiel, vfilimon, quasar team mludwig at cern dot ch</para><para>This file is part of Quasar.</para><para>Quasar is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public Licence as published by the Free Software Foundation, either version 3 of the Licence.</para><para>Quasar is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public Licence for more details.</para><para>You should have received a copy of the GNU Lesser General Public License along with Quasar. If not, see <ulink url="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</ulink>.</para><para>Here the Anagate ethernet-CAN bridges are implemented </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/anagate/AnaCanScan.cpp" line="46" column="9" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/anagate/AnaCanScan.cpp" bodystart="46" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-staticLinkage/CanModule/CanInterfaceImplementations/anagate/AnaCanScan.cpp" line="46" column="9" bodyfile="/home/mludwig/projects/CanModule/CanModule-staticLinkage/CanModule/CanInterfaceImplementations/anagate/AnaCanScan.cpp" bodystart="46" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="AnaCanScan_8cpp_1a9aa60e1ead64be77ad551e745cbfd4d3" prot="public" static="no">
         <name>WINAPI</name>
@@ -174,7 +174,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/anagate/AnaCanScan.cpp" line="47" column="9" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/anagate/AnaCanScan.cpp" bodystart="47" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-staticLinkage/CanModule/CanInterfaceImplementations/anagate/AnaCanScan.cpp" line="47" column="9" bodyfile="/home/mludwig/projects/CanModule/CanModule-staticLinkage/CanModule/CanInterfaceImplementations/anagate/AnaCanScan.cpp" bodystart="47" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="AnaCanScan_8cpp_1ac34d62b5ffd4e8e1c3ece118f3f58485" prot="public" static="no">
         <name>MLOGANA</name>
@@ -187,7 +187,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/anagate/AnaCanScan.cpp" line="63" column="9" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/anagate/AnaCanScan.cpp" bodystart="63" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-staticLinkage/CanModule/CanInterfaceImplementations/anagate/AnaCanScan.cpp" line="63" column="9" bodyfile="/home/mludwig/projects/CanModule/CanModule-staticLinkage/CanModule/CanInterfaceImplementations/anagate/AnaCanScan.cpp" bodystart="63" bodyend="-1"/>
         <referencedby refid="classAnaCanScan_1ad917f9cda15bbf9dd9abe6417be5a5eb" compoundref="AnaCanScan_8cpp" startline="233" endline="287">AnaCanScan::configureCanBoard</referencedby>
         <referencedby refid="classAnaCanScan_1a428d6c62f3a2d6b4297898593961696b" compoundref="AnaCanScan_8cpp" startline="601" endline="647">AnaCanScan::connectReceptionHandler</referencedby>
         <referencedby refid="classAnaCanScan_1a54a66154c956b4605ff18f93f552db60" compoundref="AnaCanScan_8cpp" startline="195" endline="227">AnaCanScan::createBus</referencedby>
@@ -211,7 +211,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/anagate/AnaCanScan.cpp" line="55" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/anagate/AnaCanScan.cpp" bodystart="55" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-staticLinkage/CanModule/CanInterfaceImplementations/anagate/AnaCanScan.cpp" line="55" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-staticLinkage/CanModule/CanInterfaceImplementations/anagate/AnaCanScan.cpp" bodystart="55" bodyend="-1"/>
         <referencedby refid="classAnaCanScan_1abf8809be00bdc2f39344ec72cf66514c" compoundref="AnaCanScan_8cpp" startline="483" endline="594">AnaCanScan::reconnectAllPorts</referencedby>
       </memberdef>
       <memberdef kind="variable" id="AnaCanScan_8cpp_1a353343698532fde42f4eeba0de3e97cb" prot="public" static="no" mutable="no">
@@ -225,7 +225,7 @@
 <para>global map of connection-object-pointers: the map-key is the handle. Since handles are allocated by the OS the keys are getting changed as well when we reconnect, so that we do not keep the stale keys(=handles) in the map at all. The map the InternalCallback code straightforward and speedy, because we can get to the object by just looking up the map using the key(=the handle). </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/anagate/AnaCanScan.cpp" line="71" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/anagate/AnaCanScan.cpp" bodystart="71" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-staticLinkage/CanModule/CanInterfaceImplementations/anagate/AnaCanScan.cpp" line="71" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-staticLinkage/CanModule/CanInterfaceImplementations/anagate/AnaCanScan.cpp" bodystart="71" bodyend="-1"/>
         <referencedby refid="classAnaCanScan_1a428d6c62f3a2d6b4297898593961696b" compoundref="AnaCanScan_8cpp" startline="601" endline="647">AnaCanScan::connectReceptionHandler</referencedby>
         <referencedby refid="AnaCanScan_8cpp_1ad5698349874e3653b879b5de27311594" compoundref="AnaCanScan_8cpp" startline="135" endline="154">InternalCallback</referencedby>
         <referencedby refid="classAnaCanScan_1a0520647a69824883cb2a05be4735bb25" compoundref="AnaCanScan_8cpp" startline="452" endline="465">AnaCanScan::objectMapSize</referencedby>
@@ -245,7 +245,7 @@
 <para>creates and returns anagate can access object </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/anagate/AnaCanScan.cpp" line="124" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/anagate/AnaCanScan.cpp" bodystart="124" bodyend="128"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-staticLinkage/CanModule/CanInterfaceImplementations/anagate/AnaCanScan.cpp" line="124" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-staticLinkage/CanModule/CanInterfaceImplementations/anagate/AnaCanScan.cpp" bodystart="124" bodyend="128"/>
       </memberdef>
       <memberdef kind="function" id="AnaCanScan_8cpp_1ad5698349874e3653b879b5de27311594" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void <ref refid="STCanScan_8cpp_1a9aa60e1ead64be77ad551e745cbfd4d3" kindref="member">WINAPI</ref></type>
@@ -286,7 +286,7 @@
 <para>call back to catch incoming CAN messages for reading. It is called on a handle, which is internally registered and managed by the anagate API. If that handle changes, the callback has to be unregistered before I guess. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/anagate/AnaCanScan.cpp" line="135" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/anagate/AnaCanScan.cpp" bodystart="135" bodyend="154"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-staticLinkage/CanModule/CanInterfaceImplementations/anagate/AnaCanScan.cpp" line="135" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule-staticLinkage/CanModule/CanInterfaceImplementations/anagate/AnaCanScan.cpp" bodystart="135" bodyend="154"/>
         <references refid="structCanMsgStruct_1a2e47a33e7bba46b05a8fff29433f047b" compoundref="CanMessage_8h" startline="29">CanMsgStruct::c_data</references>
         <references refid="structCanMsgStruct_1a3e5add8ae9cdadfcf3f2255d375ec9b3" compoundref="CanMessage_8h" startline="27">CanMsgStruct::c_dlc</references>
         <references refid="structCanMsgStruct_1acf3abc93beb936e5f9431ef6ec4568f3" compoundref="CanMessage_8h" startline="25">CanMsgStruct::c_ff</references>
@@ -945,6 +945,6 @@
 <codeline lineno="810"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classAnaCanScan_1a862310267c2415fa9afb401402fa7b57" kindref="member">m_statistics</ref>.<ref refid="classCanModule_1_1CanStatistics_1a85e6c87ce5285884a0272088178bb8f6" kindref="member">beginNewRun</ref>();</highlight></codeline>
 <codeline lineno="811"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterfaceImplementations/anagate/AnaCanScan.cpp"/>
+    <location file="/home/mludwig/projects/CanModule/CanModule-staticLinkage/CanModule/CanInterfaceImplementations/anagate/AnaCanScan.cpp"/>
   </compounddef>
 </doxygen>

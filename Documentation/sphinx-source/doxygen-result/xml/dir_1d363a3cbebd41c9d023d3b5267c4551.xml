@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_1d363a3cbebd41c9d023d3b5267c4551" kind="dir">
+    <compoundname>CanInterfaceImplementations/pkcan</compoundname>
+    <innerfile refid="pkcan_8cpp">pkcan.cpp</innerfile>
+    <innerfile refid="pkcan_8h">pkcan.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/mludwig/projects/CanModule/CanModule-staticLinkage/CanModule/CanInterfaceImplementations/pkcan/"/>
+  </compounddef>
+</doxygen>

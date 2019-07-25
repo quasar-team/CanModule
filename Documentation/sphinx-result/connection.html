@@ -69,9 +69,22 @@ systematically (is it needed?).</p>
 <p>The anagate duo reconnects somewhat faster than the X4/X8 modules, because of firmware differences.
 The whole reconnection can take up to 60 secs until all buffers are cleared, so please be patient.</p>
 </div>
-<div class="section" id="peak-and-systec">
-<h2>peak and systec<a class="headerlink" href="#peak-and-systec" title="Permalink to this headline">¶</a></h2>
-<p>The reconnection behavior is still under investigation and testing.</p>
+<div class="section" id="peak">
+<h2>peak<a class="headerlink" href="#peak" title="Permalink to this headline">¶</a></h2>
+<p>The module is receiving power through the USB port, if this connection is lost we need to reconnect.
+Reconnection works for both normal (fixed) and flexible datarate (FD) modules under linux, as
+socketcan is used. For windows only
+normal datarate (fixed) are supported, and the reconnection also works for them.</p>
+<p>Reconnection takes less than 30sec.</p>
+</div>
+<div class="section" id="systec">
+<h2>systec<a class="headerlink" href="#systec" title="Permalink to this headline">¶</a></h2>
+<p>A power loss or a connection loss will trigger a reconnection. For linux, where socketcan is used,
+this works like for peak.</p>
+<p>For windows the reconnection is NOT WORKING, and it is not clear if it can actually
+be achieved within CanModule. It seems that a library reload is needed to make the module work again.
+This feature is therefore DROPPED for now, since also no strong user request for “systec reconnection
+under windows” is presently stated. I tried, using the systec <a class="reference external" href="mailto:API&#37;&#52;&#48;windows">API<span>&#64;</span>windows</a>, but did not manage.</p>
 </div>
 </div>
 
@@ -96,7 +109,8 @@ The whole reconnection can take up to 60 secs until all buffers are cleared, so 
 <li class="toctree-l1"><a class="reference internal" href="running.html">Running</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Connection</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#anagate">anagate</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#peak-and-systec">peak and systec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#peak">peak</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#systec">systec</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="support.html">Support</a></li>
@@ -142,7 +156,7 @@ The whole reconnection can take up to 60 secs until all buffers are cleared, so 
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2019, CERN, BE-ICS (Michael Ludwig).
-      Last updated on 16-Jul-2019 12:51:40.
+      Last updated on 25-Jul-2019 12:04:37.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
     </div>
   </body>

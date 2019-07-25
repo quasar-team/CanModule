@@ -5,20 +5,38 @@
     <includedby refid="CanStatistics_8h" local="yes">CanInterface/include/CanStatistics.h</includedby>
     <includedby refid="CanLibLoader_8h" local="yes">CanLibLoader/include/CanLibLoader.h</includedby>
     <invincdepgraph>
-      <node id="124">
-        <label>CanInterfaceImplementations/anagate/AnaCanScan.cpp</label>
-        <link refid="AnaCanScan_8cpp"/>
+      <node id="138">
+        <label>CanLibLoader/src/CanLibLoaderWin.cpp</label>
+        <link refid="CanLibLoaderWin_8cpp"/>
       </node>
-      <node id="131">
-        <label>CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.h</label>
-        <link refid="MockCanAccess_8h"/>
-        <childnode refid="132" relation="include">
+      <node id="137">
+        <label>CanLibLoader/include/CanLibLoaderWin.h</label>
+        <link refid="CanLibLoaderWin_8h"/>
+        <childnode refid="138" relation="include">
         </childnode>
       </node>
-      <node id="129">
-        <label>CanInterfaceImplementations/systec/STCanScan.h</label>
-        <link refid="STCanScan_8h"/>
-        <childnode refid="130" relation="include">
+      <node id="139">
+        <label>CanInterface/src/CanStatistics.cpp</label>
+        <link refid="CanStatistics_8cpp"/>
+      </node>
+      <node id="130">
+        <label>CanInterfaceImplementations/systec/STCanScan.cpp</label>
+        <link refid="STCanScan_8cpp"/>
+      </node>
+      <node id="135">
+        <label>CanLibLoader/src/CanLibLoader.cpp</label>
+        <link refid="CanLibLoader_8cpp"/>
+      </node>
+      <node id="133">
+        <label>CanLibLoader/include/CanLibLoader.h</label>
+        <link refid="CanLibLoader_8h"/>
+        <childnode refid="119" relation="include">
+        </childnode>
+        <childnode refid="134" relation="include">
+        </childnode>
+        <childnode refid="137" relation="include">
+        </childnode>
+        <childnode refid="135" relation="include">
         </childnode>
       </node>
       <node id="117">
@@ -39,15 +57,33 @@
         <childnode refid="131" relation="include">
         </childnode>
       </node>
-      <node id="121">
-        <label>CWrapper/include/canmodule_wrapper.h</label>
-        <link refid="canmodule__wrapper_8h"/>
-        <childnode refid="122" relation="include">
+      <node id="131">
+        <label>CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.h</label>
+        <link refid="MockCanAccess_8h"/>
+        <childnode refid="132" relation="include">
         </childnode>
       </node>
-      <node id="138">
-        <label>CanLibLoader/src/CanLibLoaderWin.cpp</label>
-        <link refid="CanLibLoaderWin_8cpp"/>
+      <node id="127">
+        <label>CanInterfaceImplementations/sockcan/SockCanScan.h</label>
+        <link refid="SockCanScan_8h"/>
+        <childnode refid="128" relation="include">
+        </childnode>
+      </node>
+      <node id="124">
+        <label>CanInterfaceImplementations/anagate/AnaCanScan.cpp</label>
+        <link refid="AnaCanScan_8cpp"/>
+      </node>
+      <node id="128">
+        <label>CanInterfaceImplementations/sockcan/SockCanScan.cpp</label>
+        <link refid="SockCanScan_8cpp"/>
+      </node>
+      <node id="119">
+        <label>CanInterface/include/CanBusAccess.h</label>
+        <link refid="CanBusAccess_8h"/>
+        <childnode refid="120" relation="include">
+        </childnode>
+        <childnode refid="121" relation="include">
+        </childnode>
       </node>
       <node id="134">
         <label>CanLibLoader/include/CanLibLoaderLin.h</label>
@@ -57,14 +93,50 @@
         <childnode refid="136" relation="include">
         </childnode>
       </node>
-      <node id="139">
-        <label>CanInterface/src/CanStatistics.cpp</label>
-        <link refid="CanStatistics_8cpp"/>
+      <node id="136">
+        <label>CanLibLoader/src/CanLibLoaderLin.cpp</label>
+        <link refid="CanLibLoaderLin_8cpp"/>
       </node>
-      <node id="127">
-        <label>CanInterfaceImplementations/sockcan/SockCanScan.h</label>
-        <link refid="SockCanScan_8h"/>
-        <childnode refid="128" relation="include">
+      <node id="129">
+        <label>CanInterfaceImplementations/systec/STCanScan.h</label>
+        <link refid="STCanScan_8h"/>
+        <childnode refid="130" relation="include">
+        </childnode>
+      </node>
+      <node id="122">
+        <label>CWrapper/src/canmodule_wrapper.cpp</label>
+        <link refid="canmodule__wrapper_8cpp"/>
+      </node>
+      <node id="121">
+        <label>CWrapper/include/canmodule_wrapper.h</label>
+        <link refid="canmodule__wrapper_8h"/>
+        <childnode refid="122" relation="include">
+        </childnode>
+      </node>
+      <node id="126">
+        <label>CanInterfaceImplementations/pkcan/pkcan.cpp</label>
+        <link refid="pkcan_8cpp"/>
+      </node>
+      <node id="120">
+        <label>CanInterface/src/CanBusAccess.cpp</label>
+        <link refid="CanBusAccess_8cpp"/>
+      </node>
+      <node id="132">
+        <label>CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.cpp</label>
+        <link refid="MockCanAccess_8cpp"/>
+      </node>
+      <node id="116">
+        <label>CanInterface/include/ExportDefinition.h</label>
+        <link refid="ExportDefinition.h"/>
+        <childnode refid="117" relation="include">
+        </childnode>
+        <childnode refid="133" relation="include">
+        </childnode>
+      </node>
+      <node id="125">
+        <label>CanInterfaceImplementations/pkcan/pkcan.h</label>
+        <link refid="pkcan_8h"/>
+        <childnode refid="126" relation="include">
         </childnode>
       </node>
       <node id="118">
@@ -85,82 +157,10 @@
         <childnode refid="133" relation="include">
         </childnode>
       </node>
-      <node id="135">
-        <label>CanLibLoader/src/CanLibLoader.cpp</label>
-        <link refid="CanLibLoader_8cpp"/>
-      </node>
-      <node id="128">
-        <label>CanInterfaceImplementations/sockcan/SockCanScan.cpp</label>
-        <link refid="SockCanScan_8cpp"/>
-      </node>
-      <node id="137">
-        <label>CanLibLoader/include/CanLibLoaderWin.h</label>
-        <link refid="CanLibLoaderWin_8h"/>
-        <childnode refid="138" relation="include">
-        </childnode>
-      </node>
-      <node id="130">
-        <label>CanInterfaceImplementations/systec/STCanScan.cpp</label>
-        <link refid="STCanScan_8cpp"/>
-      </node>
-      <node id="132">
-        <label>CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.cpp</label>
-        <link refid="MockCanAccess_8cpp"/>
-      </node>
-      <node id="120">
-        <label>CanInterface/src/CanBusAccess.cpp</label>
-        <link refid="CanBusAccess_8cpp"/>
-      </node>
-      <node id="126">
-        <label>CanInterfaceImplementations/pkcan/pkcan.cpp</label>
-        <link refid="pkcan_8cpp"/>
-      </node>
-      <node id="122">
-        <label>CWrapper/src/canmodule_wrapper.cpp</label>
-        <link refid="canmodule__wrapper_8cpp"/>
-      </node>
-      <node id="133">
-        <label>CanLibLoader/include/CanLibLoader.h</label>
-        <link refid="CanLibLoader_8h"/>
-        <childnode refid="119" relation="include">
-        </childnode>
-        <childnode refid="134" relation="include">
-        </childnode>
-        <childnode refid="137" relation="include">
-        </childnode>
-        <childnode refid="135" relation="include">
-        </childnode>
-      </node>
-      <node id="136">
-        <label>CanLibLoader/src/CanLibLoaderLin.cpp</label>
-        <link refid="CanLibLoaderLin_8cpp"/>
-      </node>
-      <node id="116">
-        <label>CanInterface/include/ExportDefinition.h</label>
-        <link refid="ExportDefinition.h"/>
-        <childnode refid="117" relation="include">
-        </childnode>
-        <childnode refid="133" relation="include">
-        </childnode>
-      </node>
-      <node id="125">
-        <label>CanInterfaceImplementations/pkcan/pkcan.h</label>
-        <link refid="pkcan_8h"/>
-        <childnode refid="126" relation="include">
-        </childnode>
-      </node>
       <node id="123">
         <label>CanInterfaceImplementations/anagate/AnaCanScan.h</label>
         <link refid="AnaCanScan_8h"/>
         <childnode refid="124" relation="include">
-        </childnode>
-      </node>
-      <node id="119">
-        <label>CanInterface/include/CanBusAccess.h</label>
-        <link refid="CanBusAccess_8h"/>
-        <childnode refid="120" relation="include">
-        </childnode>
-        <childnode refid="121" relation="include">
         </childnode>
       </node>
     </invincdepgraph>
@@ -173,7 +173,7 @@
 <para>© Copyright CERN, 2015. All rights not expressly granted are reserved.</para><para><ref refid="ExportDefinition_8h" kindref="compound">ExportDefinition.h</ref></para><para>Created on: Apr 4, 2011 Author: vfilimon maintaining touches: mludwig, quasar team</para><para>This file is part of Quasar.</para><para>Quasar is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public Licence as published by the Free Software Foundation, either version 3 of the Licence.</para><para>Quasar is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public Licence for more details.</para><para>You should have received a copy of the GNU Lesser General Public License along with Quasar. If not, see <ulink url="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</ulink>. If building dll, visual studio needs to know which functions are externally visible </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/ExportDefinition.h" line="33" column="11" bodyfile="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/ExportDefinition.h" bodystart="33" bodyend="-1"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule-staticLinkage/CanModule/CanInterface/include/ExportDefinition.h" line="33" column="11" bodyfile="/home/mludwig/projects/CanModule/CanModule-staticLinkage/CanModule/CanInterface/include/ExportDefinition.h" bodystart="33" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -193,6 +193,6 @@
 <codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>EXPORT_DEFINITION_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/home/mludwig/projects/CanModule/CanModule#singleLogItComponent/CanModule/CanInterface/include/ExportDefinition.h"/>
+    <location file="/home/mludwig/projects/CanModule/CanModule-staticLinkage/CanModule/CanInterface/include/ExportDefinition.h"/>
   </compounddef>
 </doxygen>

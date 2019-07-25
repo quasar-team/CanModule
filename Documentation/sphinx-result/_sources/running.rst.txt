@@ -31,6 +31,14 @@ Peak
 * windows: libpkcan.dll (standard API), PKCANBASIC.dll
 
 
+shared - reduced dependencies (*-static)
+----------------------------------------
+
+During execution, CanModule (*-static.so or *.so) looks for the standard shared libs.
+If you want to use the "reduced dependencies" versions then the env var CANMODULE_AS_STATIC_AS_POSSIBLE=1
+has to be set **during runtime** as well.
+
+See also "building"
 
 .. _Status: https://edms.cern.ch/file/2089743/1/CanModuleStatus2019_v4.pptx
   

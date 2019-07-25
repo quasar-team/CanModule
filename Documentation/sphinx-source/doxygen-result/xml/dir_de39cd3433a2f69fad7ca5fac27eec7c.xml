@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_de39cd3433a2f69fad7ca5fac27eec7c" kind="dir">
+    <compoundname>CanInterfaceImplementations/anagate</compoundname>
+    <innerfile refid="AnaCanScan_8cpp">AnaCanScan.cpp</innerfile>
+    <innerfile refid="AnaCanScan_8h">AnaCanScan.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/mludwig/projects/CanModule/CanModule-staticLinkage/CanModule/CanInterfaceImplementations/anagate/"/>
+  </compounddef>
+</doxygen>

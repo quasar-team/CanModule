@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_8b6799cf4ff22ffe6849c74375cedc39" kind="dir">
+    <compoundname>CanInterfaceImplementations/unitTestMockUpImplementation</compoundname>
+    <innerfile refid="MockCanAccess_8cpp">MockCanAccess.cpp</innerfile>
+    <innerfile refid="MockCanAccess_8h">MockCanAccess.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/mludwig/projects/CanModule/CanModule-staticLinkage/CanModule/CanInterfaceImplementations/unitTestMockUpImplementation/"/>
+  </compounddef>
+</doxygen>

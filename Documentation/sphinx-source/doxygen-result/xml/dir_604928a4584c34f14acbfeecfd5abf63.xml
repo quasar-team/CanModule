@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_604928a4584c34f14acbfeecfd5abf63" kind="dir">
+    <compoundname>CWrapper/src</compoundname>
+    <innerfile refid="canmodule__wrapper_8cpp">canmodule_wrapper.cpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/mludwig/projects/CanModule/CanModule-staticLinkage/CanModule/CWrapper/src/"/>
+  </compounddef>
+</doxygen>
