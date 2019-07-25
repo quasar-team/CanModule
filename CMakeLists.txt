@@ -17,8 +17,8 @@
 #  GNU Lesser General Public Licence for more details <http://www.gnu.org/licenses/>.
 #  
 #
-cmake_minimum_required(VERSION 2.8)
-project(CanModule)
+cmake_minimum_required(VERSION 3.1)
+project( CanModule LANGUAGES C CXX  VERSION 1.1.9.0  )
 
 SET( DEBUG "false" )
 if( DEFINED DEBUG )
