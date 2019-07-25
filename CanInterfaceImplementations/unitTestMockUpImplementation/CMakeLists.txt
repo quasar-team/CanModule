@@ -1,5 +1,5 @@
-cmake_minimum_required(VERSION 2.8)
-project(MockUpCanImplementationcan)
+cmake_minimum_required(VERSION 3.1 )
+project( MockUpCanImplementationcan LANGUAGES C CXX  VERSION 1.1.9.0  )
 
 message(STATUS "file [${CMAKE_CURRENT_LIST_FILE}]: STANDALONE_BUILD [${STANDALONE_BUILD}]")
 message(STATUS "file [${CMAKE_CURRENT_LIST_FILE}]: Using boost libraries: BOOST_LIBS [${BOOST_LIBS}]")  

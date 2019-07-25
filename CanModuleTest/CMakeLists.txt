@@ -1,5 +1,5 @@
-cmake_minimum_required(VERSION 2.8)
-project(CanModuleTest)
+cmake_minimum_required(VERSION 3.1 )
+project( CanModuleTest LANGUAGES C CXX  VERSION 1.1.9.0  )
 find_package(Threads REQUIRED)
 
 function ( clone_googletest GOOGLETEST_VERSION)
