@@ -39,7 +39,6 @@
 #include <LogIt.h>
 
 
-#define VERSION "CanModule version 1.1.8"
 
 /*
  * CCanAccess is an abstract class that defines the interface for controlling a canbus. Different implementations for different hardware and platforms should
