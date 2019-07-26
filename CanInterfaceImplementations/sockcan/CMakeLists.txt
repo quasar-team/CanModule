@@ -19,8 +19,8 @@
 #  
 # Authors: Viatcheslav Filimonov, Piotr Nikiel, Ben Farnham, Michael Ludwig ("the quasar team from Atlas and BE-ICS")
 #
-cmake_minimum_required(VERSION 2.8)
-project(sockcan)
+cmake_minimum_required(VERSION 3.0)
+project( sockcan LANGUAGES C CXX )
 
 if( (NOT DEFINED SOCKETCAN_LIB_PATH) OR (NOT DEFINED SOCKETCAN_HEADERS) OR (NOT DEFINED SOCKETCAN_LIB_FILE)  )
 	SET ( SOCKETCAN_LIB_PATH "/usr/local/lib" )
