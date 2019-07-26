@@ -130,9 +130,10 @@
 </parameteritem>
 </parameterlist>
 </para>        </inbodydescription>
-        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanLibLoader/include/CanLibLoader.h" line="43" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanLibLoader/src/CanLibLoader.cpp" bodystart="61" bodyend="92"/>
+        <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanLibLoader/include/CanLibLoader.h" line="43" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanLibLoader/src/CanLibLoader.cpp" bodystart="61" bodyend="93"/>
         <references refid="classCanModule_1_1CCanAccess_1a78590d342bc4f3433544d45371ca05ce">CanModule::CCanAccess::createBus</references>
         <references refid="classCanModule_1_1CCanAccess_1ab5a430fc27073d92c69659bda261b74d" compoundref="CCanAccess_8h" startline="315" endline="320">CanModule::CCanAccess::initialiseLogging</references>
+        <references refid="namespaceCanModule_1a78730a18f59663871883885f3914a2aa" compoundref="CCanAccess_8h" startline="50">CanModule::LogItComponentName</references>
         <referencedby refid="classCanModule_1_1CanBusAccess_1a487bdb65dc69be65d67721b63e38324b" compoundref="CanBusAccess_8cpp" startline="67" endline="92">CanModule::CanBusAccess::openCanBus</referencedby>
       </memberdef>
       <memberdef kind="function" id="classCanModule_1_1CanLibLoader_1acd7d3af103bb72d5bd18737333d682f4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">

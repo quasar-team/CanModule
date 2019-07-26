@@ -10,101 +10,106 @@
     <includes refid="CanStatistics_8h" local="yes">CanStatistics.h</includes>
     <includedby refid="pkcan_8cpp" local="yes">CanInterfaceImplementations/pkcan/pkcan.cpp</includedby>
     <incdepgraph>
-      <node id="246">
+      <node id="252">
         <label>CCanAccess.h</label>
         <link refid="CCanAccess_8h"/>
-        <childnode refid="247" relation="include">
+        <childnode refid="253" relation="include">
+        </childnode>
+        <childnode refid="254" relation="include">
+        </childnode>
+        <childnode refid="255" relation="include">
         </childnode>
         <childnode refid="248" relation="include">
         </childnode>
-        <childnode refid="249" relation="include">
+        <childnode refid="256" relation="include">
         </childnode>
-        <childnode refid="242" relation="include">
+        <childnode refid="257" relation="include">
+        </childnode>
+        <childnode refid="261" relation="include">
+        </childnode>
+        <childnode refid="262" relation="include">
+        </childnode>
+      </node>
+      <node id="258">
+        <label>stdatomic.h</label>
+      </node>
+      <node id="262">
+        <label>LogIt.h</label>
+      </node>
+      <node id="247">
+        <label>CanInterfaceImplementations/pkcan/pkcan.h</label>
+        <link refid="pkcan.h"/>
+        <childnode refid="248" relation="include">
+        </childnode>
+        <childnode refid="249" relation="include">
         </childnode>
         <childnode refid="250" relation="include">
         </childnode>
         <childnode refid="251" relation="include">
         </childnode>
-        <childnode refid="255" relation="include">
-        </childnode>
-      </node>
-      <node id="252">
-        <label>stdatomic.h</label>
-      </node>
-      <node id="255">
-        <label>LogIt.h</label>
-      </node>
-      <node id="241">
-        <label>CanInterfaceImplementations/pkcan/pkcan.h</label>
-        <link refid="pkcan.h"/>
-        <childnode refid="242" relation="include">
-        </childnode>
-        <childnode refid="243" relation="include">
-        </childnode>
-        <childnode refid="244" relation="include">
-        </childnode>
-        <childnode refid="245" relation="include">
-        </childnode>
-        <childnode refid="246" relation="include">
-        </childnode>
-        <childnode refid="251" relation="include">
-        </childnode>
-      </node>
-      <node id="244">
-        <label>windows.h</label>
-      </node>
-      <node id="251">
-        <label>CanStatistics.h</label>
-        <link refid="CanStatistics_8h"/>
         <childnode refid="252" relation="include">
         </childnode>
-        <childnode refid="247" relation="include">
+        <childnode refid="257" relation="include">
+        </childnode>
+      </node>
+      <node id="250">
+        <label>windows.h</label>
+      </node>
+      <node id="257">
+        <label>CanStatistics.h</label>
+        <link refid="CanStatistics_8h"/>
+        <childnode refid="258" relation="include">
         </childnode>
         <childnode refid="253" relation="include">
         </childnode>
-        <childnode refid="254" relation="include">
+        <childnode refid="259" relation="include">
+        </childnode>
+        <childnode refid="260" relation="include">
+        </childnode>
+      </node>
+      <node id="255">
+        <label>boost/signals2.hpp</label>
+      </node>
+      <node id="248">
+        <label>string</label>
+      </node>
+      <node id="261">
+        <label>VERSION.h</label>
+      </node>
+      <node id="251">
+        <label>PCANBasic.h</label>
+      </node>
+      <node id="256">
+        <label>CanMessage.h</label>
+        <link refid="CanMessage_8h"/>
+        <childnode refid="253" relation="include">
         </childnode>
       </node>
       <node id="249">
-        <label>boost/signals2.hpp</label>
-      </node>
-      <node id="242">
-        <label>string</label>
-      </node>
-      <node id="245">
-        <label>PCANBasic.h</label>
-      </node>
-      <node id="250">
-        <label>CanMessage.h</label>
-        <link refid="CanMessage_8h"/>
-        <childnode refid="247" relation="include">
-        </childnode>
-      </node>
-      <node id="243">
         <label>Winsock2.h</label>
       </node>
-      <node id="253">
+      <node id="259">
         <label>ExportDefinition.h</label>
         <link refid="ExportDefinition_8h"/>
       </node>
-      <node id="247">
+      <node id="253">
         <label>sys/time.h</label>
       </node>
-      <node id="248">
+      <node id="254">
         <label>boost/bind.hpp</label>
       </node>
-      <node id="254">
+      <node id="260">
         <label>chrono</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="256">
+      <node id="263">
         <label>CanInterfaceImplementations/pkcan/pkcan.h</label>
         <link refid="pkcan.h"/>
-        <childnode refid="257" relation="include">
+        <childnode refid="264" relation="include">
         </childnode>
       </node>
-      <node id="257">
+      <node id="264">
         <label>CanInterfaceImplementations/pkcan/pkcan.cpp</label>
         <link refid="pkcan_8cpp"/>
       </node>

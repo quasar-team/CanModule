@@ -71,7 +71,7 @@
         <references refid="classCanModule_1_1CanLibLoader_1ab22f43105bfc9cab3c0749b83c867352" compoundref="CanLibLoader_8cpp" startline="45" endline="53">CanModule::CanLibLoader::createInstance</references>
         <references refid="classCanModule_1_1CanBusAccess_1a826dbb3e3cfd06c7373fab6024759305" compoundref="CanBusAccess_8h" startline="51">m_Component</references>
         <references refid="classCanModule_1_1CanBusAccess_1aedb4f18a70e982020badd4de92a42f06" compoundref="CanBusAccess_8h" startline="52">m_ScanManagers</references>
-        <references refid="classCanModule_1_1CanLibLoader_1aaac995d89efdcf2b673cbd3e678be55b" compoundref="CanLibLoader_8cpp" startline="61" endline="92">CanModule::CanLibLoader::openCanBus</references>
+        <references refid="classCanModule_1_1CanLibLoader_1aaac995d89efdcf2b673cbd3e678be55b" compoundref="CanLibLoader_8cpp" startline="61" endline="93">CanModule::CanLibLoader::openCanBus</references>
       </memberdef>
       <memberdef kind="function" id="classCanModule_1_1CanBusAccess_1a30200d7e59055a516aceeba6c2bb534e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>

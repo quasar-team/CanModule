@@ -11,107 +11,112 @@
     <includes refid="CCanAccess_8h" local="yes">CCanAccess.h</includes>
     <includedby refid="STCanScan_8cpp" local="yes">CanInterfaceImplementations/systec/STCanScan.cpp</includedby>
     <incdepgraph>
-      <node id="345">
+      <node id="355">
         <label>CCanAccess.h</label>
         <link refid="CCanAccess_8h"/>
-        <childnode refid="341" relation="include">
+        <childnode refid="351" relation="include">
+        </childnode>
+        <childnode refid="356" relation="include">
+        </childnode>
+        <childnode refid="357" relation="include">
+        </childnode>
+        <childnode refid="348" relation="include">
+        </childnode>
+        <childnode refid="358" relation="include">
+        </childnode>
+        <childnode refid="349" relation="include">
+        </childnode>
+        <childnode refid="359" relation="include">
+        </childnode>
+        <childnode refid="360" relation="include">
+        </childnode>
+      </node>
+      <node id="350">
+        <label>stdatomic.h</label>
+      </node>
+      <node id="360">
+        <label>LogIt.h</label>
+      </node>
+      <node id="347">
+        <label>windows.h</label>
+      </node>
+      <node id="349">
+        <label>CanStatistics.h</label>
+        <link refid="CanStatistics_8h"/>
+        <childnode refid="350" relation="include">
+        </childnode>
+        <childnode refid="351" relation="include">
+        </childnode>
+        <childnode refid="352" relation="include">
+        </childnode>
+        <childnode refid="353" relation="include">
+        </childnode>
+      </node>
+      <node id="357">
+        <label>boost/signals2.hpp</label>
+      </node>
+      <node id="348">
+        <label>string</label>
+      </node>
+      <node id="359">
+        <label>VERSION.h</label>
+      </node>
+      <node id="358">
+        <label>CanMessage.h</label>
+        <link refid="CanMessage_8h"/>
+        <childnode refid="351" relation="include">
+        </childnode>
+      </node>
+      <node id="346">
+        <label>Winsock2.h</label>
+      </node>
+      <node id="352">
+        <label>ExportDefinition.h</label>
+        <link refid="ExportDefinition_8h"/>
+      </node>
+      <node id="351">
+        <label>sys/time.h</label>
+      </node>
+      <node id="345">
+        <label>tchar.h</label>
+      </node>
+      <node id="356">
+        <label>boost/bind.hpp</label>
+      </node>
+      <node id="353">
+        <label>chrono</label>
+      </node>
+      <node id="354">
+        <label>usbcan32.h</label>
+      </node>
+      <node id="344">
+        <label>CanInterfaceImplementations/systec/STCanScan.h</label>
+        <link refid="STCanScan.h"/>
+        <childnode refid="345" relation="include">
         </childnode>
         <childnode refid="346" relation="include">
         </childnode>
         <childnode refid="347" relation="include">
         </childnode>
-        <childnode refid="338" relation="include">
-        </childnode>
         <childnode refid="348" relation="include">
-        </childnode>
-        <childnode refid="339" relation="include">
         </childnode>
         <childnode refid="349" relation="include">
         </childnode>
-      </node>
-      <node id="340">
-        <label>stdatomic.h</label>
-      </node>
-      <node id="349">
-        <label>LogIt.h</label>
-      </node>
-      <node id="337">
-        <label>windows.h</label>
-      </node>
-      <node id="339">
-        <label>CanStatistics.h</label>
-        <link refid="CanStatistics_8h"/>
-        <childnode refid="340" relation="include">
+        <childnode refid="354" relation="include">
         </childnode>
-        <childnode refid="341" relation="include">
-        </childnode>
-        <childnode refid="342" relation="include">
-        </childnode>
-        <childnode refid="343" relation="include">
-        </childnode>
-      </node>
-      <node id="347">
-        <label>boost/signals2.hpp</label>
-      </node>
-      <node id="338">
-        <label>string</label>
-      </node>
-      <node id="348">
-        <label>CanMessage.h</label>
-        <link refid="CanMessage_8h"/>
-        <childnode refid="341" relation="include">
-        </childnode>
-      </node>
-      <node id="336">
-        <label>Winsock2.h</label>
-      </node>
-      <node id="342">
-        <label>ExportDefinition.h</label>
-        <link refid="ExportDefinition_8h"/>
-      </node>
-      <node id="341">
-        <label>sys/time.h</label>
-      </node>
-      <node id="335">
-        <label>tchar.h</label>
-      </node>
-      <node id="346">
-        <label>boost/bind.hpp</label>
-      </node>
-      <node id="343">
-        <label>chrono</label>
-      </node>
-      <node id="344">
-        <label>usbcan32.h</label>
-      </node>
-      <node id="334">
-        <label>CanInterfaceImplementations/systec/STCanScan.h</label>
-        <link refid="STCanScan.h"/>
-        <childnode refid="335" relation="include">
-        </childnode>
-        <childnode refid="336" relation="include">
-        </childnode>
-        <childnode refid="337" relation="include">
-        </childnode>
-        <childnode refid="338" relation="include">
-        </childnode>
-        <childnode refid="339" relation="include">
-        </childnode>
-        <childnode refid="344" relation="include">
-        </childnode>
-        <childnode refid="345" relation="include">
+        <childnode refid="355" relation="include">
         </childnode>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="351">
+      <node id="362">
         <label>CanInterfaceImplementations/systec/STCanScan.cpp</label>
         <link refid="STCanScan_8cpp"/>
       </node>
-      <node id="350">
+      <node id="361">
         <label>CanInterfaceImplementations/systec/STCanScan.h</label>
         <link refid="STCanScan.h"/>
-        <childnode refid="351" relation="include">
+        <childnode refid="362" relation="include">
         </childnode>
       </node>
     </invincdepgraph>

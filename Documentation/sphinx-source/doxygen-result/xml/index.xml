@@ -326,7 +326,6 @@
     <member refid="CanStatistics_8h_1adbba0f726fc66d7100916c683b7568ae" kind="define"><name>GCC_VERSION</name></member>
   </compound>
   <compound refid="CCanAccess_8h" kind="file"><name>CCanAccess.h</name>
-    <member refid="CCanAccess_8h_1a1c6d5de492ac61ad29aec7aa9a436bbf" kind="define"><name>VERSION</name></member>
     <member refid="CCanAccess_8h_1ad506d1f216984abc94d5a65f33053626" kind="define"><name>MLOG</name></member>
   </compound>
   <compound refid="ExportDefinition_8h" kind="file"><name>ExportDefinition.h</name>

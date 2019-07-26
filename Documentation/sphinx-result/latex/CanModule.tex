@@ -60,7 +60,7 @@
 
 
 \title{CanModule Developer Documentation}
-\date{July 18, 2019}
+\date{July 26, 2019}
 \release{1.1.8}
 \author{Michael Ludwig}
 \newcommand{\sphinxlogo}{\vbox{}}
@@ -1119,6 +1119,38 @@ SET( PEAK\PYGZus{}LIB\PYGZus{}PATH \PYGZdq{}M:/3rdPartySoftware/PCAN\PYGZhy{}Bas
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 cmake \PYGZhy{}DCMAKE\PYGZus{}TOOLCHAIN\PYGZus{}FILE=toolchain.cmake
 \end{sphinxVerbatim}
+
+
+\section{shared (default) and static linking/loading}
+\label{\detokenize{building:shared-default-and-static-linking-loading}}
+CanModule uses all shared libraries, and also loads shared libraries during runtime for each connection
+object and vendor. Nevertheless some shared libraries with reduced dependencies are made available
+where possible (they have suffix {\color{red}\bfseries{}*}-static.so).
+If the vendor APIs come, in some cases, in the form of relocateable static libraries/archives (-fPIC), then they
+can sometimes be integrated into the CanModule specific vendor shared lib.
+
+\sphinxstylestrong{Linux:}
+if the environment variable CANMODULE\_AS\_STATIC\_AS\_POSSIBLE=1 is set during building some extra {\color{red}\bfseries{}*}-static
+libs are produced with boost and other specific dependencies integrated as possible:
+\begin{itemize}
+\item {} 
+ancan-static.so
+
+\item {} 
+sockcan-static.so
+
+\item {} 
+CanModule-static.so
+
+\end{itemize}
+
+During execution, CanModule(-static.so or .so) looks for the standard shared libs.
+If you want to use the “reduced dependencies” versions then the env var CANMODULE\_AS\_STATIC\_AS\_POSSIBLE=1
+has to be set \sphinxstylestrong{during runtime} as well.
+
+\sphinxstylestrong{Windows}
+
+No reduced dependencies libs are available at this point.
 
 
 \chapter{Running}

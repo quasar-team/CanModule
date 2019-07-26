@@ -14,17 +14,15 @@
     <includedby refid="SockCanScan_8cpp" local="no">CanInterfaceImplementations/sockcan/SockCanScan.cpp</includedby>
     <includedby refid="STCanScan_8cpp" local="yes">CanInterfaceImplementations/systec/STCanScan.cpp</includedby>
     <incdepgraph>
-      <node id="45">
+      <node id="46">
         <label>stdexcept</label>
       </node>
-      <node id="46">
+      <node id="47">
         <label>string</label>
       </node>
-      <node id="42">
+      <node id="43">
         <label>CanInterface/include/CanModuleUtils.h</label>
         <link refid="CanModuleUtils.h"/>
-        <childnode refid="43" relation="include">
-        </childnode>
         <childnode refid="44" relation="include">
         </childnode>
         <childnode refid="45" relation="include">
@@ -33,27 +31,27 @@
         </childnode>
         <childnode refid="47" relation="include">
         </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
       </node>
-      <node id="44">
+      <node id="45">
         <label>sstream</label>
       </node>
-      <node id="43">
+      <node id="44">
         <label>sys/time.h</label>
       </node>
-      <node id="47">
+      <node id="48">
         <label>chrono</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="49">
+      <node id="50">
         <label>CanInterface/src/CanModuleUtils.cpp</label>
         <link refid="CanModuleUtils_8cpp"/>
       </node>
-      <node id="48">
+      <node id="49">
         <label>CanInterface/include/CanModuleUtils.h</label>
         <link refid="CanModuleUtils.h"/>
-        <childnode refid="49" relation="include">
-        </childnode>
         <childnode refid="50" relation="include">
         </childnode>
         <childnode refid="51" relation="include">
@@ -64,24 +62,26 @@
         </childnode>
         <childnode refid="54" relation="include">
         </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
       </node>
-      <node id="52">
+      <node id="53">
         <label>CanInterfaceImplementations/pkcan/pkcan.cpp</label>
         <link refid="pkcan_8cpp"/>
       </node>
-      <node id="51">
+      <node id="52">
         <label>CanInterfaceImplementations/anagate/AnaCanScan.cpp</label>
         <link refid="AnaCanScan_8cpp"/>
       </node>
-      <node id="53">
+      <node id="54">
         <label>CanInterfaceImplementations/sockcan/SockCanScan.cpp</label>
         <link refid="SockCanScan_8cpp"/>
       </node>
-      <node id="54">
+      <node id="55">
         <label>CanInterfaceImplementations/systec/STCanScan.cpp</label>
         <link refid="STCanScan_8cpp"/>
       </node>
-      <node id="50">
+      <node id="51">
         <label>CanInterface/src/CanStatistics.cpp</label>
         <link refid="CanStatistics_8cpp"/>
       </node>

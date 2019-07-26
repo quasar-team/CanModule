@@ -7,87 +7,92 @@
     <includes refid="CCanAccess_8h" local="yes">CCanAccess.h</includes>
     <includedby refid="MockCanAccess_8cpp" local="yes">CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.cpp</includedby>
     <incdepgraph>
-      <node id="379">
+      <node id="391">
         <label>CCanAccess.h</label>
         <link refid="CCanAccess_8h"/>
-        <childnode refid="376" relation="include">
+        <childnode refid="388" relation="include">
         </childnode>
-        <childnode refid="380" relation="include">
+        <childnode refid="392" relation="include">
         </childnode>
-        <childnode refid="381" relation="include">
+        <childnode refid="393" relation="include">
         </childnode>
-        <childnode refid="373" relation="include">
+        <childnode refid="385" relation="include">
         </childnode>
-        <childnode refid="382" relation="include">
+        <childnode refid="394" relation="include">
         </childnode>
-        <childnode refid="374" relation="include">
+        <childnode refid="386" relation="include">
         </childnode>
-        <childnode refid="383" relation="include">
+        <childnode refid="395" relation="include">
+        </childnode>
+        <childnode refid="396" relation="include">
         </childnode>
       </node>
-      <node id="375">
+      <node id="387">
         <label>stdatomic.h</label>
       </node>
-      <node id="383">
+      <node id="396">
         <label>LogIt.h</label>
       </node>
-      <node id="374">
+      <node id="386">
         <label>CanStatistics.h</label>
         <link refid="CanStatistics_8h"/>
-        <childnode refid="375" relation="include">
+        <childnode refid="387" relation="include">
         </childnode>
-        <childnode refid="376" relation="include">
+        <childnode refid="388" relation="include">
         </childnode>
-        <childnode refid="377" relation="include">
+        <childnode refid="389" relation="include">
         </childnode>
-        <childnode refid="378" relation="include">
+        <childnode refid="390" relation="include">
         </childnode>
       </node>
-      <node id="381">
+      <node id="393">
         <label>boost/signals2.hpp</label>
       </node>
-      <node id="373">
+      <node id="385">
         <label>string</label>
       </node>
-      <node id="382">
+      <node id="395">
+        <label>VERSION.h</label>
+      </node>
+      <node id="394">
         <label>CanMessage.h</label>
         <link refid="CanMessage_8h"/>
-        <childnode refid="376" relation="include">
+        <childnode refid="388" relation="include">
         </childnode>
       </node>
-      <node id="377">
+      <node id="389">
         <label>ExportDefinition.h</label>
         <link refid="ExportDefinition_8h"/>
       </node>
-      <node id="376">
+      <node id="388">
         <label>sys/time.h</label>
       </node>
-      <node id="380">
+      <node id="392">
         <label>boost/bind.hpp</label>
       </node>
-      <node id="378">
+      <node id="390">
         <label>chrono</label>
-      </node>
-      <node id="372">
-        <label>CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.h</label>
-        <link refid="MockCanAccess.h"/>
-        <childnode refid="373" relation="include">
-        </childnode>
-        <childnode refid="374" relation="include">
-        </childnode>
-        <childnode refid="379" relation="include">
-        </childnode>
-      </node>
-    </incdepgraph>
-    <invincdepgraph>
-      <node id="385">
-        <label>CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.cpp</label>
-        <link refid="MockCanAccess_8cpp"/>
       </node>
       <node id="384">
         <label>CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.h</label>
         <link refid="MockCanAccess.h"/>
         <childnode refid="385" relation="include">
+        </childnode>
+        <childnode refid="386" relation="include">
+        </childnode>
+        <childnode refid="391" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="398">
+        <label>CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.cpp</label>
+        <link refid="MockCanAccess_8cpp"/>
+      </node>
+      <node id="397">
+        <label>CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.h</label>
+        <link refid="MockCanAccess.h"/>
+        <childnode refid="398" relation="include">
         </childnode>
       </node>
     </invincdepgraph>

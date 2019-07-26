@@ -107,4 +107,30 @@ The dependencies are:
 	cmake -DCMAKE_TOOLCHAIN_FILE=toolchain.cmake
 	
 	
+shared (default) and static linking/loading
+-------------------------------------------
+
+CanModule uses all shared libraries, and also loads shared libraries during runtime for each connection
+object and vendor. Nevertheless some shared libraries with reduced dependencies are made available 
+where possible (they have suffix *-static.so).
+If the vendor APIs come, in some cases, in the form of relocateable static libraries/archives (-fPIC), then they
+can sometimes be integrated into the CanModule specific vendor shared lib.
+
+**Linux:**
+if the environment variable CANMODULE_AS_STATIC_AS_POSSIBLE=1 is set during building some extra *-static 
+libs are produced with boost and other specific dependencies integrated as possible:
+
+* ancan-static.so
+* sockcan-static.so
+* CanModule-static.so
+
+During execution, CanModule(-static.so or .so) looks for the standard shared libs.
+If you want to use the "reduced dependencies" versions then the env var CANMODULE_AS_STATIC_AS_POSSIBLE=1
+has to be set **during runtime** as well.
+
+**Windows**
+
+No reduced dependencies libs are available at this point.
+	
+	
 .. _cmake: https://cmake.org/

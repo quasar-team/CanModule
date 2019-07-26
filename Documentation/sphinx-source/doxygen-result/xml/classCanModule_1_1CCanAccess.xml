@@ -299,12 +299,12 @@
         <inbodydescription>
         </inbodydescription>
         <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="310" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" bodystart="310" bodyend="-1"/>
-        <referencedby refid="classCSockCanScan_1a4b5f7591bfd27b8770bfb9ac9e406f66" compoundref="SockCanScan_8cpp" startline="654" endline="661">CSockCanScan::clearErrorMessage</referencedby>
-        <referencedby refid="classPKCanScan_1a35ccc4082d56a736abb34d0c289c5a96" compoundref="pkcan_8cpp" startline="275" endline="291">PKCanScan::sendErrorCode</referencedby>
-        <referencedby refid="classSTCanScan_1a43454c0bc20eb764cbb4ef3dd5e52cc9" compoundref="STCanScan_8cpp" startline="273" endline="286">STCanScan::sendErrorCode</referencedby>
-        <referencedby refid="classAnaCanScan_1aaa001b34e6ee0a27295239f951b7b879" compoundref="AnaCanScan_8cpp" startline="373" endline="390">AnaCanScan::sendErrorCode</referencedby>
-        <referencedby refid="classCSockCanScan_1a512733f202345e5940460f84539c979a" compoundref="SockCanScan_8cpp" startline="663" endline="669">CSockCanScan::sendErrorMessage</referencedby>
-        <referencedby refid="classCSockCanScan_1a623057580187ecb241adf143c64d711c" compoundref="SockCanScan_8cpp" startline="688" endline="700">CSockCanScan::updateInitialError</referencedby>
+        <referencedby refid="classCSockCanScan_1a4b5f7591bfd27b8770bfb9ac9e406f66" compoundref="SockCanScan_8cpp" startline="652" endline="659">CSockCanScan::clearErrorMessage</referencedby>
+        <referencedby refid="classPKCanScan_1a35ccc4082d56a736abb34d0c289c5a96" compoundref="pkcan_8cpp" startline="274" endline="290">PKCanScan::sendErrorCode</referencedby>
+        <referencedby refid="classSTCanScan_1a43454c0bc20eb764cbb4ef3dd5e52cc9" compoundref="STCanScan_8cpp" startline="272" endline="285">STCanScan::sendErrorCode</referencedby>
+        <referencedby refid="classAnaCanScan_1aaa001b34e6ee0a27295239f951b7b879" compoundref="AnaCanScan_8cpp" startline="372" endline="389">AnaCanScan::sendErrorCode</referencedby>
+        <referencedby refid="classCSockCanScan_1a512733f202345e5940460f84539c979a" compoundref="SockCanScan_8cpp" startline="661" endline="667">CSockCanScan::sendErrorMessage</referencedby>
+        <referencedby refid="classCSockCanScan_1a623057580187ecb241adf143c64d711c" compoundref="SockCanScan_8cpp" startline="686" endline="698">CSockCanScan::updateInitialError</referencedby>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-attrib">
@@ -320,10 +320,10 @@
         <inbodydescription>
         </inbodydescription>
         <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="373" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" bodystart="373" bodyend="-1"/>
-        <referencedby refid="classPKCanScan_1a6fe021ecfdde5af1e7a74668b9819bfb" compoundref="pkcan_8cpp" startline="171" endline="272">PKCanScan::configureCanboard</referencedby>
-        <referencedby refid="classPKCanScan_1ae91999b9316ca127eecbabd9f27c3137" compoundref="pkcan_8cpp" startline="130" endline="164">PKCanScan::createBus</referencedby>
-        <referencedby refid="classSTCanScan_1aa99f9f23bdfd367a51efc40e228a6f88" compoundref="STCanScan_8cpp" startline="139" endline="173">STCanScan::createBus</referencedby>
-        <referencedby refid="classAnaCanScan_1a54a66154c956b4605ff18f93f552db60" compoundref="AnaCanScan_8cpp" startline="195" endline="227">AnaCanScan::createBus</referencedby>
+        <referencedby refid="classPKCanScan_1a6fe021ecfdde5af1e7a74668b9819bfb" compoundref="pkcan_8cpp" startline="170" endline="271">PKCanScan::configureCanboard</referencedby>
+        <referencedby refid="classPKCanScan_1ae91999b9316ca127eecbabd9f27c3137" compoundref="pkcan_8cpp" startline="130" endline="163">PKCanScan::createBus</referencedby>
+        <referencedby refid="classSTCanScan_1aa99f9f23bdfd367a51efc40e228a6f88" compoundref="STCanScan_8cpp" startline="139" endline="172">STCanScan::createBus</referencedby>
+        <referencedby refid="classAnaCanScan_1a54a66154c956b4605ff18f93f552db60" compoundref="AnaCanScan_8cpp" startline="195" endline="226">AnaCanScan::createBus</referencedby>
         <referencedby refid="classCanModule_1_1CCanAccess_1ac3f5126ae36d642217425e21696d19ca" compoundref="CCanAccess_8h" startline="155" endline="155">getBusName</referencedby>
         <referencedby refid="classCanModule_1_1CCanAccess_1af26c9d102638fb96e5e1305f807d148f" compoundref="CCanAccess_8h" startline="336" endline="370">parseNameAndParameters</referencedby>
       </memberdef>
@@ -339,13 +339,13 @@
         <inbodydescription>
         </inbodydescription>
         <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="374" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" bodystart="374" bodyend="-1"/>
-        <referencedby refid="classPKCanScan_1a6fe021ecfdde5af1e7a74668b9819bfb" compoundref="pkcan_8cpp" startline="171" endline="272">PKCanScan::configureCanboard</referencedby>
-        <referencedby refid="classSTCanScan_1a8e147c77933e11e9983f4d4e22830b21" compoundref="STCanScan_8cpp" startline="175" endline="226">STCanScan::configureCanBoard</referencedby>
-        <referencedby refid="classAnaCanScan_1ad917f9cda15bbf9dd9abe6417be5a5eb" compoundref="AnaCanScan_8cpp" startline="233" endline="287">AnaCanScan::configureCanBoard</referencedby>
-        <referencedby refid="classAnaCanScan_1a428d6c62f3a2d6b4297898593961696b" compoundref="AnaCanScan_8cpp" startline="601" endline="647">AnaCanScan::connectReceptionHandler</referencedby>
-        <referencedby refid="classCSockCanScan_1a38110f02c2d12fa9b620ba5ff438a960" compoundref="SockCanScan_8cpp" startline="681" endline="686">CSockCanScan::getStatistics</referencedby>
-        <referencedby refid="classCSockCanScan_1a203a51239f8efc013d4b9df36f271317" compoundref="SockCanScan_8cpp" startline="323" endline="395">CSockCanScan::openCanPort</referencedby>
-        <referencedby refid="classAnaCanScan_1ad94121f1933d50cafa52d625ee435f6c" compoundref="AnaCanScan_8cpp" startline="299" endline="371">AnaCanScan::openCanPort</referencedby>
+        <referencedby refid="classPKCanScan_1a6fe021ecfdde5af1e7a74668b9819bfb" compoundref="pkcan_8cpp" startline="170" endline="271">PKCanScan::configureCanboard</referencedby>
+        <referencedby refid="classSTCanScan_1a8e147c77933e11e9983f4d4e22830b21" compoundref="STCanScan_8cpp" startline="174" endline="225">STCanScan::configureCanBoard</referencedby>
+        <referencedby refid="classAnaCanScan_1ad917f9cda15bbf9dd9abe6417be5a5eb" compoundref="AnaCanScan_8cpp" startline="232" endline="286">AnaCanScan::configureCanBoard</referencedby>
+        <referencedby refid="classAnaCanScan_1a428d6c62f3a2d6b4297898593961696b" compoundref="AnaCanScan_8cpp" startline="600" endline="646">AnaCanScan::connectReceptionHandler</referencedby>
+        <referencedby refid="classCSockCanScan_1a38110f02c2d12fa9b620ba5ff438a960" compoundref="SockCanScan_8cpp" startline="679" endline="684">CSockCanScan::getStatistics</referencedby>
+        <referencedby refid="classCSockCanScan_1a203a51239f8efc013d4b9df36f271317" compoundref="SockCanScan_8cpp" startline="322" endline="394">CSockCanScan::openCanPort</referencedby>
+        <referencedby refid="classAnaCanScan_1ad94121f1933d50cafa52d625ee435f6c" compoundref="AnaCanScan_8cpp" startline="298" endline="370">AnaCanScan::openCanPort</referencedby>
         <referencedby refid="classCanModule_1_1CCanAccess_1af26c9d102638fb96e5e1305f807d148f" compoundref="CCanAccess_8h" startline="336" endline="370">parseNameAndParameters</referencedby>
       </memberdef>
       </sectiondef>
@@ -475,7 +475,7 @@
         <inbodydescription>
         </inbodydescription>
         <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="134" column="1"/>
-        <referencedby refid="classCanModule_1_1CanLibLoader_1aaac995d89efdcf2b673cbd3e678be55b" compoundref="CanLibLoader_8cpp" startline="61" endline="92">CanModule::CanLibLoader::openCanBus</referencedby>
+        <referencedby refid="classCanModule_1_1CanLibLoader_1aaac995d89efdcf2b673cbd3e678be55b" compoundref="CanLibLoader_8cpp" startline="61" endline="93">CanModule::CanLibLoader::openCanBus</referencedby>
       </memberdef>
       <memberdef kind="function" id="classCanModule_1_1CCanAccess_1aee42ab7fb9e50c02a1812202f7863d8c" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
         <type>bool</type>
@@ -679,7 +679,7 @@
         </inbodydescription>
         <location file="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" line="315" column="1" bodyfile="/home/mludwig/projects/CanModule/CanModule#master/CanModule/CanInterface/include/CCanAccess.h" bodystart="315" bodyend="320"/>
         <references refid="classCanModule_1_1CCanAccess_1a2dd4a63017d6b5b1f4ce482c30711683" compoundref="CCanAccess_8h" startline="380">s_logItRemoteInstance</references>
-        <referencedby refid="classCanModule_1_1CanLibLoader_1aaac995d89efdcf2b673cbd3e678be55b" compoundref="CanLibLoader_8cpp" startline="61" endline="92">CanModule::CanLibLoader::openCanBus</referencedby>
+        <referencedby refid="classCanModule_1_1CanLibLoader_1aaac995d89efdcf2b673cbd3e678be55b" compoundref="CanLibLoader_8cpp" startline="61" endline="93">CanModule::CanLibLoader::openCanBus</referencedby>
       </memberdef>
       <memberdef kind="function" id="classCanModule_1_1CCanAccess_1a8210a8161f1987973584b6dda5dc6d7d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>LogItInstance *</type>
@@ -719,10 +719,10 @@
         <references refid="classCanModule_1_1CCanAccess_1a484a4f9dc352fe31b4baff0365095705" compoundref="CCanAccess_8h" startline="374">m_CanParameters</references>
         <references refid="classCanModule_1_1CCanAccess_1a0eff18d10b7ee5d6f86b03898f38f7ca" compoundref="CCanAccess_8h" startline="373">m_sBusName</references>
         <references refid="structCanModule_1_1CanParameters_1ae3c938ac282acae4e49487cbb8a61133" compoundref="CCanAccess_8h" startline="67" endline="80">CanModule::CanParameters::scanParameters</references>
-        <referencedby refid="classPKCanScan_1a6fe021ecfdde5af1e7a74668b9819bfb" compoundref="pkcan_8cpp" startline="171" endline="272">PKCanScan::configureCanboard</referencedby>
-        <referencedby refid="classSTCanScan_1a8e147c77933e11e9983f4d4e22830b21" compoundref="STCanScan_8cpp" startline="175" endline="226">STCanScan::configureCanBoard</referencedby>
-        <referencedby refid="classCSockCanScan_1a8bb8fcdb24b2b917258d027e6a468bae" compoundref="SockCanScan_8cpp" startline="311" endline="317">CSockCanScan::configureCanBoard</referencedby>
-        <referencedby refid="classAnaCanScan_1ad917f9cda15bbf9dd9abe6417be5a5eb" compoundref="AnaCanScan_8cpp" startline="233" endline="287">AnaCanScan::configureCanBoard</referencedby>
+        <referencedby refid="classPKCanScan_1a6fe021ecfdde5af1e7a74668b9819bfb" compoundref="pkcan_8cpp" startline="170" endline="271">PKCanScan::configureCanboard</referencedby>
+        <referencedby refid="classSTCanScan_1a8e147c77933e11e9983f4d4e22830b21" compoundref="STCanScan_8cpp" startline="174" endline="225">STCanScan::configureCanBoard</referencedby>
+        <referencedby refid="classCSockCanScan_1a8bb8fcdb24b2b917258d027e6a468bae" compoundref="SockCanScan_8cpp" startline="310" endline="316">CSockCanScan::configureCanBoard</referencedby>
+        <referencedby refid="classAnaCanScan_1ad917f9cda15bbf9dd9abe6417be5a5eb" compoundref="AnaCanScan_8cpp" startline="232" endline="286">AnaCanScan::configureCanBoard</referencedby>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-static-func">

@@ -2,13 +2,21 @@
 All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
-## todo
-- create a decent pdf from the sphinx doc, via latex tools.
-- protection against several createBus calls for systec/linux
 
-### in progress
-- 64BIT/32BIT switch, assume defaults 64BIT but allow toolchain override with 32BIT explicitly
-  for all vendors/windows
+## [1.1.9.0] 26.july.2019
+* reduced dependency libs can be build and used, set environment 
+        export CANMODULE_AS_STATIC_AS_POSSIBLE=1
+   for build and also runtime
+* essentially reduce dependency to boost and libsocketcan, for linux only
+* for windows no changes
+* default behaviour is "all shared" as before
+* LogIt registering ONE component ONCE (Slava detected that ;-)
+* dropped some INF Logging messages
+* cmake 3.0 or higher, same as for quasar, to have much neater versioning
+* versioning ONLY in the top-level CMakeLists.txt, this creates a file VERSION.h
+* VERSION.h is included, and used to time-version-stamp the bins/libs
+* can identify the version of a lib like that, and when it was built
+* also output to ./lib for all artifacts, NOT to CanInterfaceImplementations/output any more
 
 ## [1.1.7] 21.june.2019
 ### Changed
