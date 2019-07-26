@@ -50,7 +50,7 @@ namespace CanModule
 const std::string LogItComponentName = "CanModule";
 #define MLOG(LEVEL,THIS) LOG(Log::LEVEL) << __FUNCTION__ << " " << CanModule::LogItComponentName << " bus= " << THIS->getBusName() << " "
 
-static std::string version(){ return( VERSION ); }
+static std::string version(){ return( CanModule_VERSION ); }
 
 struct CanParameters {
 	long m_lBaudRate;
