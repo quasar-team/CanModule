@@ -34,8 +34,6 @@ if( (NOT DEFINED SOCKETCAN_LIB_PATH) OR (NOT DEFINED SOCKETCAN_HEADERS) OR (NOT 
 endif() 
 link_directories( ${SOCKETCAN_LIB_PATH} )
 
-SET( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/CanInterfaceImplementations/output/)
-
 set(SOCKCAN_SOURCES
 	SockCanScan.cpp
 	SockCanScan.h
