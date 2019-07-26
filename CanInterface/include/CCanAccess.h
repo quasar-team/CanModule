@@ -35,6 +35,7 @@
 #include <string>
 #include "CanMessage.h"
 #include "CanStatistics.h"
+#include "VERSION.h"
 #include <LogIt.h>
 
 
