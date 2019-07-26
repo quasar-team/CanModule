@@ -19,8 +19,8 @@
 #  
 # Authors: Viatcheslav Filimonov, Piotr Nikiel, Ben Farnham, Michael Ludwig ("the quasar team from Atlas and BE-ICS")
 #
-cmake_minimum_required(VERSION 2.8)
-project(pkcan)
+cmake_minimum_required(VERSION 3.1 )
+project( pkcan LANGUAGES C CXX  VERSION 1.1.9.0  )
 
 SET( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/CanInterfaceImplementations/output/)
 

@@ -70,8 +70,9 @@ namespace CanModule
 		}
 
 		//The Logit instance of the executable is handled to the DLL at this point, so the instance is shared.
-		tcca->initialiseLogging( LogItInstance::getInstance() );
-		//LOG(Log::DBG, lh ) << __FUNCTION__ << " Logging initialized OK";
+		LogItInstance *logInstance = LogItInstance::getInstance() ;
+		tcca->initialiseLogging( logInstance );
+		logInstance->registerLoggingComponent( CanModule::LogItComponentName, Log::TRC );
 
 		LOG(Log::DBG, lh ) << __FUNCTION__ << " calling createBus. name= " << name << " parameters= " << parameters;
 		/** @param name: Name of the can bus channel. The specific mapping will change depending on the interface used. For example, accessing channel 0 for the

@@ -212,7 +212,6 @@ void* CSockCanScan::CanScanControlThread(void *p_voidSockCanScan)
 							// Stopping bus.";
 							// p_sockCanScan->stopBus();
 						} else {
-							MLOGSOCK(INF,p_sockCanScan) << "Socket closed"<< " tid= " << _tid;
 							sock = -1;
 						}
 					}
@@ -228,10 +227,10 @@ void* CSockCanScan::CanScanControlThread(void *p_voidSockCanScan)
 						if ((sock = p_sockCanScan->openCanPort()) < 0) {
 							MLOGSOCK(ERR,p_sockCanScan) << " tid= " << _tid << "openCanPort() failed.";
 						} else {
-							MLOGSOCK(INF,p_sockCanScan) << " tid= " << _tid << "Port reopened.";
+							// MLOGSOCK(INF,p_sockCanScan) << " tid= " << _tid << "Port reopened.";
 						}
 					} else {
-						MLOGSOCK(INF,p_sockCanScan) << " tid= " << _tid << "Leaving Port closed, not needed any more.";
+						// MLOGSOCK(INF,p_sockCanScan) << " tid= " << _tid << "Leaving Port closed, not needed any more.";
 					}
 				} // do...while ... we still have an error
 				while ( p_sockCanScan->m_CanScanThreadShutdownFlag && sock < 0 );
@@ -246,7 +245,7 @@ void* CSockCanScan::CanScanControlThread(void *p_voidSockCanScan)
 
 
 			if (numberOfReadBytes <(int) sizeof(struct can_frame)) {
-				MLOGSOCK( INF, p_sockCanScan ) << p_sockCanScan->m_channelName.c_str() << " incomplete frame received, numberOfReadBytes=[" << numberOfReadBytes << "]";
+				MLOGSOCK( WRN, p_sockCanScan ) << p_sockCanScan->m_channelName.c_str() << " incomplete frame received, numberOfReadBytes=[" << numberOfReadBytes << "]";
 
 				// we just report the error and continue the thread normally
 				continue;
@@ -299,7 +298,7 @@ void* CSockCanScan::CanScanControlThread(void *p_voidSockCanScan)
 					<< " socket= " << p_sockCanScan->m_sock << " (got nothing)"<< " tid= " << _tid;
 		}
 	}
-	MLOGSOCK(INF,p_sockCanScan) << "main loop of SockCanScan terminated." << " tid= " << _tid;
+	// MLOGSOCK(INF,p_sockCanScan) << "main loop of SockCanScan terminated." << " tid= " << _tid;
 	pthread_exit(NULL);
 }
 
@@ -551,7 +550,6 @@ bool CSockCanScan::createBus(const string name, const string parameters)
 		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
 		<< " could not set LogIt instance" << std::endl;
 
-	logItInstance->registerLoggingComponent( CanModule::LogItComponentName, Log::TRC );
 	if (!logItInstance->getComponentHandle(CanModule::LogItComponentName, myHandle))
 		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
 		<< " could not get LogIt component handle for " << LogItComponentName << std::endl;

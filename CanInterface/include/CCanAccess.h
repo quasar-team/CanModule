@@ -35,10 +35,10 @@
 #include <string>
 #include "CanMessage.h"
 #include "CanStatistics.h"
+#include "VERSION.h"
 #include <LogIt.h>
 
 
-#define VERSION "CanModule version 1.1.8"
 
 /*
  * CCanAccess is an abstract class that defines the interface for controlling a canbus. Different implementations for different hardware and platforms should
@@ -50,7 +50,7 @@ namespace CanModule
 const std::string LogItComponentName = "CanModule";
 #define MLOG(LEVEL,THIS) LOG(Log::LEVEL) << __FUNCTION__ << " " << CanModule::LogItComponentName << " bus= " << THIS->getBusName() << " "
 
-static std::string version(){ return( VERSION ); }
+static std::string version(){ return( CanModule_VERSION ); }
 
 struct CanParameters {
 	long m_lBaudRate;
@@ -293,7 +293,7 @@ public:
 			LOG(Log::ERR, _lh) << "can not connect to internal slot " << connectionIndex << " (available slots 0..15)"; }
 		}
 		s_connectionIndex = connectionIndex;
-		LOG(Log::INF, _lh) << "OK connected internal slot" << s_connectionIndex << " to boost signal of this object";
+		LOG(Log::DBG, _lh) << "OK connected internal slot" << s_connectionIndex << " to boost signal of this object";
 	}
 	void disconnectReceptionSlotX( void )
 	{

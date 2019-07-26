@@ -207,7 +207,6 @@ bool AnaCanScan::createBus(const string name,const string parameters)
 		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
 		<< " could not set LogIt instance" << std::endl;
 
-	logItInstance->registerLoggingComponent( CanModule::LogItComponentName, Log::TRC );
 
 	if (!logItInstance->getComponentHandle(CanModule::LogItComponentName, myHandle))
 		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
@@ -640,7 +639,7 @@ AnaInt32 AnaCanScan::connectReceptionHandler(){
 	g_AnaCanScanPointerMap[ m_UcanHandle ] = this;
 	setCanHandleInUse( m_UcanHandle, true );
 
-	MLOGANA(INF,this) << "RECEIVE handler looks good, handle= " << m_UcanHandle
+	MLOGANA(DBG,this) << "RECEIVE handler looks good, handle= " << m_UcanHandle
 			<< " CAN port= " << m_canPortNumber
 			<< " ip= " << m_canIPAddress << " Congratulations.";
 	return( anaCallReturn );
@@ -687,12 +686,12 @@ int AnaCanScan::reconnect(){
 
 	switch ( state ){
 	case 2: {
-		MLOGANA(INF,this) << "device is in state connecting, don't try to reconnect for now.";
+		MLOGANA(INF,this) << "device is in state CONNECTING, don't try to reconnect for now, skip.";
 		break;
 	}
 
 	case 3: {
-		MLOGANA(INF,this) << "device is connecting, don't try to reconnect, just skip.";
+		MLOGANA(INF,this) << "device is in state CONNECTED, don't try to reconnect, just skip.";
 		break;
 	}
 	default:
@@ -724,7 +723,7 @@ int AnaCanScan::reconnect(){
 			m_canCloseDevice = false;
 			return(-1);
 		}
-		MLOGANA(INF,this) << "CANOpenDevice m_canPortNumber= " << m_canPortNumber
+		MLOGANA(DBG,this) << "CANOpenDevice m_canPortNumber= " << m_canPortNumber
 				<< " canModuleHandle= " << canModuleHandle
 				<< " ip= " << m_canIPAddress << " timeout= " << m_timeout << " reconnect for SEND looks good";
 
@@ -760,7 +759,7 @@ void AnaCanScan::startAlive( int aliveTime_sec ){
 	if ( anaCallReturn != 0 ){
 		MLOGANA(ERR,this) << "could not start alive mechanism, error=  0x" << hex << anaCallReturn << dec;
 	} else {
-		MLOGANA(INF,this) << "started alive mechanism on handle= " << m_UcanHandle;
+		MLOGANA(DBG,this) << "started alive mechanism on handle= " << m_UcanHandle;
 	}
 }
 

@@ -19,8 +19,8 @@
 #  
 # Authors: Viatcheslav Filimonov, Piotr Nikiel, Ben Farnham, Michael Ludwig ("the quasar team from Atlas and BE-ICS")
 #
-cmake_minimum_required(VERSION 2.8)
-project(CanInterfaceImplementations)
+cmake_minimum_required( VERSION 3.1 )
+project( CanInterfaceImplementations LANGUAGES C CXX  VERSION 1.1.9.0  )
 
 # we have a mock up build without any vendor libs as well, for CI where we don't want to distribute vendors
 message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] building vendors [CANMODULE_BUILD_VENDORS:${CANMODULE_BUILD_VENDORS}]")
