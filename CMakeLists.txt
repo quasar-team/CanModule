@@ -127,7 +127,7 @@ include_directories( CanInterface/include )
 # libs: one which loads ancan-static.so, sockcan-static.so ("as static as possible") etc 
 # and one which loads ancan.so, sochcan.so as before, fully dynamic. The code itself is identic,
 # just the names of the libs are hardcoded and I don't want to introduce some dynamical switching
-# in the user API for that. Have to set env var AND compilation switch.
+# in the user API for that. Have to set env var for that: it is read by the lib loader.
 IF ( $ENV{CANMODULE_AS_STATIC_AS_POSSIBLE} )
 	SET ( CANMODULE_LIB_NAME CanModule-static )
   	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: building static CanModule lib: ${CANMODULE_LIB_NAME}" )

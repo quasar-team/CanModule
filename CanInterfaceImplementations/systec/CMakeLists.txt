@@ -22,7 +22,7 @@
 cmake_minimum_required(VERSION 3.0)
 project( stcan LANGUAGES C CXX )
 
-SET( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/CanInterfaceImplementations/output/)
+SET( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib )
 
 # check if toolchain injection was correct for systec
 # for windows we should use the default systec installer and location
