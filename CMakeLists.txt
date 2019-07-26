@@ -18,9 +18,12 @@
 #  
 #
 cmake_minimum_required(VERSION 3.0)
-project( CanModule LANGUAGES C CXX  VERSION 1.1.8.1  ) # sets PROJECT_VERSION etc etc
+project( CanModule LANGUAGES C CXX  VERSION 1.1.9.0  ) # sets PROJECT_VERSION etc etc
 message(STATUS " [${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CanModule version= ${PROJECT_VERSION}" )
 file(WRITE CanInterface/include/VERSION.h "// VERSION.h - do not edit\n#define CanModule_VERSION \"${PROJECT_VERSION}\"" )
+
+# specify -DCANMODULE_AS_STATIC_AS_POSSIBLE for cmake to switch the CanLibLoaderLin lib names accordingly
+# so that the "as-static-as-possible" shared libs are used by CanModule
 
 SET( DEBUG "false" )
 if( DEFINED DEBUG )
@@ -120,9 +123,21 @@ include_directories( include )
 include_directories( CanLibLoader/include )
 include_directories( CanInterface/include )
 
+# switch the CanModuleLibLoader library name, and we want to produce two different CanModule 
+# libs: one which loads ancan-static.so, sockcan-static.so ("as static as possible") etc 
+# and one which loads ancan.so, sochcan.so as before, fully dynamic. The code itself is identic,
+# just the names of the libs are hardcoded and I don't want to introduce some dynamical switching
+# in the user API for that. Have to set env var for that: it is read by the lib loader.
+IF ( $ENV{CANMODULE_AS_STATIC_AS_POSSIBLE} )
+	SET ( CANMODULE_LIB_NAME CanModule-static )
+  	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: building static CanModule lib: ${CANMODULE_LIB_NAME}" )
+ELSE()
+	SET ( CANMODULE_LIB_NAME CanModule )
+  	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: building shared CanModule lib: ${CANMODULE_LIB_NAME}" )
+ENDIF()
 
 if(NOT STANDALONE_BUILD)
-	add_library ( CanModule OBJECT ${SRCS} )
+	add_library ( ${CANMODULE_LIB_NAME} OBJECT ${SRCS} )
 	set( SERVER_LINK_LIBRARIES ${SERVER_LINK_LIBRARIES} ${CMAKE_DL_LIBS} PARENT_SCOPE )
 	message( STATUS "SERVER_LINK_LIBRARIES [${SERVER_LINK_LIBRARIES}]" )
 else()
@@ -133,16 +148,21 @@ else()
   	    clone_LogIt()
         add_subdirectory( ${PROJECT_BINARY_DIR}/LogIt )
         message(STATUS "LogIt added as compiled object code from sub-directory LogIt")
-        add_library( CanModule SHARED ${SRCS} $<TARGET_OBJECTS:LogIt> )
+        add_library( ${CANMODULE_LIB_NAME} SHARED ${SRCS} $<TARGET_OBJECTS:LogIt> )
     else()
 	    locateLogItSharedLib()
 	    message(STATUS "Using LogIt library: LOGIT_LIB [${LOGIT_LIB}]")
-	    add_library( CanModule SHARED ${SRCS} )
-	    target_link_libraries( CanModule ${LOGIT_LIB} )
+	    add_library( ${CANMODULE_LIB_NAME} SHARED ${SRCS} )
+	    target_link_libraries( ${CANMODULE_LIB_NAME} ${LOGIT_LIB} )
     endif()
-    target_link_libraries( CanModule ${BOOST_LIBS} )
     
-    add_subdirectory(CanModuleTest)
+IF ( $ENV{CANMODULE_AS_STATIC_AS_POSSIBLE} )
+   target_link_libraries( ${CANMODULE_LIB_NAME} ${BOOST_LIBS_STATIC} )
+ELSE()
+   target_link_libraries( ${CANMODULE_LIB_NAME} ${BOOST_LIBS} )
+ENDIF()
+     
+    # add_subdirectory(CanModuleTest) # we test in the lab
     	
 endif()
 
