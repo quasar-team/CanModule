@@ -18,7 +18,9 @@
 #  
 #
 cmake_minimum_required(VERSION 3.1)
-project( CanModule LANGUAGES C CXX  VERSION 1.1.9.0  )
+project( CanModule LANGUAGES C CXX  VERSION 1.1.9.0  ) # sets PROJECT_VERSION etc etc
+message(STATUS " [${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CanModule version= ${PROJECT_VERSION}" )
+file(WRITE CanInterface/include/VERSION.h "// VERSION.h - do not edit\n#define CanModule_VERSION ${PROJECT_VERSION}" )
 
 SET( DEBUG "false" )
 if( DEFINED DEBUG )
