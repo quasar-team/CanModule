@@ -19,8 +19,8 @@
 #  
 # Authors: Viatcheslav Filimonov, Piotr Nikiel, Ben Farnham, Michael Ludwig ("the quasar team from Atlas and BE-ICS")
 #
-cmake_minimum_required(VERSION 3.1 )
-project( ancan LANGUAGES C CXX  VERSION 1.1.9.0  )
+cmake_minimum_required(VERSION 2.8)
+project(ancan)
 
 SET( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/CanInterfaceImplementations/output/)
 
@@ -30,9 +30,7 @@ SET( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/CanInterfaceImplementati
 # and this needs no driver install etc. Spec for anagate libs 
 # is at http://www.anagate.de/download/Manual-AnaGate-TCPIP-V1.2.6-EN.pdf 
 if( (NOT DEFINED ANAGATE_LIB_PATH) OR (NOT DEFINED ANAGATE_HEADERS) OR (NOT DEFINED ANAGATE_LIB_FILE)  )
-	message(WARNING "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Required variable ANAGATE_LIB_PATH has not been defined." )
-	message(WARNING "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Required variable ANAGATE_HEADERS has not been defined." )
-	message(WARNING "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Required variable ANAGATE_LIB_FILE has not been defined." )
+	message(WARNING "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: at least one of the required variables ANAGATE_LIB_PATH, ANAGATE_HEADERS, ANAGATE_LIB_FILE has not been defined." )
 	message(WARNING "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: assuming default locations and libs for anagate (linux, windows)" )
 	message(WARNING "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: since anagate does not have an installer the default locations are likely to be wrong" )
 	if(WIN32)  
@@ -69,15 +67,23 @@ include_directories ( ${ANAGATE_INC_DIR} )
 	
 if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
 	add_library( ancan SHARED ${ANAGATE_SOURCES} $<TARGET_OBJECTS:LogIt>)
+	add_library( ancan-static SHARED ${ANAGATE_SOURCES} $<TARGET_OBJECTS:LogIt>)
 else()
 	add_library( ancan SHARED ${ANAGATE_SOURCES} )
 	target_link_libraries( ancan ${LOGIT_LIB} )
+	
+	add_library( ancan-static SHARED ${ANAGATE_SOURCES} )
+	target_link_libraries( ancan-static ${LOGIT_LIB} )
 endif()
 
 target_link_libraries ( ancan ${BOOST_LIBS}	${ANAGATE_LIB_FILE} )
+target_link_libraries ( ancan-static ${BOOST_LIBS_STATIC} ${ANAGATE_LIB_FILE} )
 
 set_property(TARGET ancan PROPERTY POSITION_INDEPENDENT_CODE TRUE)
 set_property(TARGET ancan PROPERTY LINKER_LANGUAGE CXX)
+
+set_property(TARGET ancan-static PROPERTY POSITION_INDEPENDENT_CODE TRUE)
+set_property(TARGET ancan-static PROPERTY LINKER_LANGUAGE CXX)
 
 link_directories( ${BOOST_PATH_LIBS} )
 

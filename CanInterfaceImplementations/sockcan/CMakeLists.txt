@@ -19,8 +19,8 @@
 #  
 # Authors: Viatcheslav Filimonov, Piotr Nikiel, Ben Farnham, Michael Ludwig ("the quasar team from Atlas and BE-ICS")
 #
-cmake_minimum_required(VERSION 3.1 )
-project( sockcan LANGUAGES C CXX  VERSION 1.1.9.0  )
+cmake_minimum_required(VERSION 2.8)
+project(sockcan)
 
 if( (NOT DEFINED SOCKETCAN_LIB_PATH) OR (NOT DEFINED SOCKETCAN_HEADERS) OR (NOT DEFINED SOCKETCAN_LIB_FILE)  )
 	SET ( SOCKETCAN_LIB_PATH "/usr/local/lib" )
@@ -40,15 +40,25 @@ set(SOCKCAN_SOURCES
 	../../CanInterface/src/CanStatistics.cpp
 	../../CanInterface/include/CanStatistics.h	
 )
+SET ( SOCK_LIB_NAME "sockcan" )
 
 if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
-	add_library( sockcan SHARED ${SOCKCAN_SOURCES} $<TARGET_OBJECTS:LogIt>)
+	add_library( ${SOCK_LIB_NAME} SHARED ${SOCKCAN_SOURCES} $<TARGET_OBJECTS:LogIt>)
+	add_library( ${SOCK_LIB_NAME}-static SHARED ${SOCKCAN_SOURCES} $<TARGET_OBJECTS:LogIt>)
+
 else()
-	add_library( sockcan SHARED ${SOCKCAN_SOURCES} )
-	target_link_libraries( sockcan ${LOGIT_LIB} )
+	add_library( ${SOCK_LIB_NAME} SHARED ${SOCKCAN_SOURCES} )
+	add_library( ${SOCK_LIB_NAME}-static SHARED ${SOCKCAN_SOURCES} )
 endif()
 
-target_link_libraries ( sockcan ${BOOST_LIBS} libsocketcan.a )
+target_link_libraries( ${SOCK_LIB_NAME} ${LOGIT_LIB} ${BOOST_LIBS} -lsocketcan )
+target_link_libraries( ${SOCK_LIB_NAME}-static ${LOGIT_LIB} ${BOOST_LIBS_STATIC} libsocketcan.a )
 
-set_property(TARGET sockcan PROPERTY POSITION_INDEPENDENT_CODE TRUE)
-set_property(TARGET sockcan PROPERTY LINKER_LANGUAGE CXX)
+set_property(TARGET ${SOCK_LIB_NAME} PROPERTY POSITION_INDEPENDENT_CODE TRUE)
+set_property(TARGET ${SOCK_LIB_NAME} PROPERTY LINKER_LANGUAGE CXX)
+
+set_property(TARGET ${SOCK_LIB_NAME}-static PROPERTY POSITION_INDEPENDENT_CODE TRUE)
+set_property(TARGET ${SOCK_LIB_NAME}-static PROPERTY LINKER_LANGUAGE CXX)
+
+
+
