@@ -51,6 +51,8 @@ else()
   	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: toolchain ANAGATE_HEADERS=  ${ANAGATE_HEADERS}" )
   	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: toolchain ANAGATE_LIB_FILE= ${ANAGATE_LIB_FILE}" )
 endif() 
+link_directories( ${ANAGATE_LIB_PATH} )
+include_directories ( ${ANAGATE_HEADERS} )
 
 
 set(ANAGATE_SOURCES
@@ -61,9 +63,6 @@ set(ANAGATE_SOURCES
 	../../CanInterface/src/CanModuleUtils.cpp
 	../../CanInterface/include/CanModuleUtils.h	
 )
-	
-link_directories( ${ANAGATE_PATH_LIBS} )
-include_directories ( ${ANAGATE_INC_DIR} )
 	
 if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
 	add_library( ancan SHARED ${ANAGATE_SOURCES} $<TARGET_OBJECTS:LogIt>)

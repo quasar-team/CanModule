@@ -51,9 +51,8 @@ else()
   message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: toolchain SYSTEC_LIB_FILE = ${SYSTEC_LIB_FILE}" )
 endif() 
 
-
-link_directories( ${SYSTEC_PATH_LIBS} )
 include_directories ( ${SYSTEC_HEADERS} )
+link_directories( ${SYSTEC_LIB_PATH} )
 
 set(STCAN_SOURCES
 	STCanScan.cpp

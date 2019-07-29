@@ -51,6 +51,8 @@ else()
   message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: toolchain PEAK_HEADERS=  ${PEAK_HEADERS}" )
   message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: toolchain PEAK_LIB_FILE= ${PEAK_LIB_FILE}" )
 endif() 
+include_directories ( ${PEAK_HEADERS} )
+link_directories ( ${PEAK_LIB_PATH} )
 
 set(PEAKCAN_SOURCES
 	pkcan.cpp
@@ -61,7 +63,6 @@ set(PEAKCAN_SOURCES
 	../../CanInterface/include/CanModuleUtils.h	
 )
 
-include_directories ( ${PEAKCAN_INC_DIR} )
 
 if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
 	add_library( pkcan SHARED ${PEAKCAN_SOURCES} $<TARGET_OBJECTS:LogIt>)
