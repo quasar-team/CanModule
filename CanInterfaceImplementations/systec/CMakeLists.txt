@@ -33,7 +33,7 @@ if( (NOT DEFINED SYSTEC_LIB_PATH) OR (NOT DEFINED SYSTEC_HEADERS) OR (NOT DEFINE
 	message(WARNING "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Required variable SYSTEC_LIB_FILE has not been defined." )
 	message(WARNING "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: assuming default locations and libs for systec and windows" )
 	if(WIN32)
-		SET(SYSTEC_INC_DIR "C:/Program Files (x86)/SYSTEC-electronic/USB-CANmodul Utility Disk/Examples/Include")
+		SET(SYSTEC_HEADERS "C:/Program Files (x86)/SYSTEC-electronic/USB-CANmodul Utility Disk/Examples/Include")
 		SET(SYSTEC_LIB_PATH "C:/Program Files (x86)/SYSTEC-electronic/USB-CANmodul Utility Disk/Examples/Lib")
 		SET(SYSTEC_LIB_FILE "USBCAN64.lib")
 		# for 32 bit 
