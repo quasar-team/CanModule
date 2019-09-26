@@ -8,6 +8,7 @@
     <innerfile refid="CanStatistics_8h">CanStatistics.h</innerfile>
     <innerfile refid="CCanAccess_8h">CCanAccess.h</innerfile>
     <innerfile refid="ExportDefinition_8h">ExportDefinition.h</innerfile>
+    <innerfile refid="VERSION_8h">VERSION.h</innerfile>
     <briefdescription>
     </briefdescription>
     <detaileddescription>

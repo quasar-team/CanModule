@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## [1.1.9.2] 1.aug.2019
+
 
 ## [1.1.9.0] 26.july.2019
 * reduced dependency libs can be build and used, set environment 

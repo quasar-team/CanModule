@@ -65,9 +65,6 @@
       <node id="2">
         <label>string</label>
       </node>
-      <node id="13">
-        <label>VERSION.h</label>
-      </node>
       <node id="3">
         <label>map</label>
       </node>
@@ -88,6 +85,10 @@
         </childnode>
         <childnode refid="2" relation="include">
         </childnode>
+      </node>
+      <node id="13">
+        <label>VERSION.h</label>
+        <link refid="VERSION_8h"/>
       </node>
       <node id="11">
         <label>ExportDefinition.h</label>

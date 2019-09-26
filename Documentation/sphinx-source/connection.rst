@@ -1,6 +1,6 @@
-==========
-Connection
-==========
+============
+Reconnection
+============
 
 CanModule tries to recuperate lost connections automatically, but presently there is no method
 to interrogate CanModule on the status of it's connected modules. This might be added later, though.

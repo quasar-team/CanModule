@@ -331,6 +331,8 @@
   <compound refid="ExportDefinition_8h" kind="file"><name>ExportDefinition.h</name>
     <member refid="ExportDefinition_8h_1a7478c359eb321f7939044e70abfb4cca" kind="define"><name>SHARED_LIB_EXPORT_DEFN</name></member>
   </compound>
+  <compound refid="VERSION_8h" kind="file"><name>VERSION.h</name>
+  </compound>
   <compound refid="CanBusAccess_8cpp" kind="file"><name>CanBusAccess.cpp</name>
   </compound>
   <compound refid="CanModuleUtils_8cpp" kind="file"><name>CanModuleUtils.cpp</name>

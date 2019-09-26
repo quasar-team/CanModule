@@ -11,146 +11,147 @@
     <includedby refid="CanLibLoaderWin_8h" local="yes">CanLibLoader/include/CanLibLoaderWin.h</includedby>
     <includedby refid="CanLibLoader_8cpp" local="yes">CanLibLoader/src/CanLibLoader.cpp</includedby>
     <incdepgraph>
-      <node id="402">
+      <node id="425">
         <label>CCanAccess.h</label>
         <link refid="CCanAccess_8h"/>
-        <childnode refid="403" relation="include">
+        <childnode refid="426" relation="include">
         </childnode>
-        <childnode refid="404" relation="include">
+        <childnode refid="427" relation="include">
         </childnode>
-        <childnode refid="405" relation="include">
+        <childnode refid="428" relation="include">
         </childnode>
-        <childnode refid="400" relation="include">
+        <childnode refid="423" relation="include">
         </childnode>
-        <childnode refid="406" relation="include">
+        <childnode refid="429" relation="include">
         </childnode>
-        <childnode refid="407" relation="include">
+        <childnode refid="430" relation="include">
         </childnode>
-        <childnode refid="411" relation="include">
+        <childnode refid="434" relation="include">
         </childnode>
-        <childnode refid="412" relation="include">
+        <childnode refid="435" relation="include">
         </childnode>
       </node>
-      <node id="408">
+      <node id="431">
         <label>stdatomic.h</label>
       </node>
-      <node id="412">
+      <node id="435">
         <label>LogIt.h</label>
       </node>
-      <node id="399">
+      <node id="422">
         <label>CanLibLoader/include/CanLibLoader.h</label>
         <link refid="CanLibLoader.h"/>
-        <childnode refid="400" relation="include">
+        <childnode refid="423" relation="include">
         </childnode>
-        <childnode refid="401" relation="include">
+        <childnode refid="424" relation="include">
         </childnode>
-        <childnode refid="402" relation="include">
+        <childnode refid="425" relation="include">
         </childnode>
-        <childnode refid="409" relation="include">
+        <childnode refid="432" relation="include">
         </childnode>
       </node>
-      <node id="407">
+      <node id="430">
         <label>CanStatistics.h</label>
         <link refid="CanStatistics_8h"/>
-        <childnode refid="408" relation="include">
+        <childnode refid="431" relation="include">
         </childnode>
-        <childnode refid="403" relation="include">
+        <childnode refid="426" relation="include">
         </childnode>
-        <childnode refid="409" relation="include">
+        <childnode refid="432" relation="include">
         </childnode>
-        <childnode refid="410" relation="include">
+        <childnode refid="433" relation="include">
         </childnode>
       </node>
-      <node id="405">
+      <node id="428">
         <label>boost/signals2.hpp</label>
       </node>
-      <node id="400">
+      <node id="423">
         <label>string</label>
       </node>
-      <node id="411">
-        <label>VERSION.h</label>
-      </node>
-      <node id="401">
+      <node id="424">
         <label>map</label>
       </node>
-      <node id="406">
+      <node id="429">
         <label>CanMessage.h</label>
         <link refid="CanMessage_8h"/>
-        <childnode refid="403" relation="include">
+        <childnode refid="426" relation="include">
         </childnode>
       </node>
-      <node id="409">
+      <node id="434">
+        <label>VERSION.h</label>
+        <link refid="VERSION_8h"/>
+      </node>
+      <node id="432">
         <label>ExportDefinition.h</label>
         <link refid="ExportDefinition_8h"/>
       </node>
-      <node id="403">
+      <node id="426">
         <label>sys/time.h</label>
       </node>
-      <node id="404">
+      <node id="427">
         <label>boost/bind.hpp</label>
       </node>
-      <node id="410">
+      <node id="433">
         <label>chrono</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="413">
+      <node id="436">
         <label>CanLibLoader/include/CanLibLoader.h</label>
         <link refid="CanLibLoader.h"/>
-        <childnode refid="414" relation="include">
+        <childnode refid="437" relation="include">
         </childnode>
-        <childnode refid="418" relation="include">
+        <childnode refid="441" relation="include">
         </childnode>
-        <childnode refid="421" relation="include">
+        <childnode refid="444" relation="include">
         </childnode>
-        <childnode refid="419" relation="include">
+        <childnode refid="442" relation="include">
         </childnode>
       </node>
-      <node id="419">
+      <node id="442">
         <label>CanLibLoader/src/CanLibLoader.cpp</label>
         <link refid="CanLibLoader_8cpp"/>
       </node>
-      <node id="421">
+      <node id="444">
         <label>CanLibLoader/include/CanLibLoaderWin.h</label>
         <link refid="CanLibLoaderWin_8h"/>
-        <childnode refid="422" relation="include">
+        <childnode refid="445" relation="include">
         </childnode>
       </node>
-      <node id="417">
+      <node id="440">
         <label>CWrapper/src/canmodule_wrapper.cpp</label>
         <link refid="canmodule__wrapper_8cpp"/>
       </node>
-      <node id="418">
+      <node id="441">
         <label>CanLibLoader/include/CanLibLoaderLin.h</label>
         <link refid="CanLibLoaderLin_8h"/>
-        <childnode refid="419" relation="include">
+        <childnode refid="442" relation="include">
         </childnode>
-        <childnode refid="420" relation="include">
+        <childnode refid="443" relation="include">
         </childnode>
       </node>
-      <node id="414">
+      <node id="437">
         <label>CanInterface/include/CanBusAccess.h</label>
         <link refid="CanBusAccess_8h"/>
-        <childnode refid="415" relation="include">
+        <childnode refid="438" relation="include">
         </childnode>
-        <childnode refid="416" relation="include">
+        <childnode refid="439" relation="include">
         </childnode>
       </node>
-      <node id="415">
+      <node id="438">
         <label>CanInterface/src/CanBusAccess.cpp</label>
         <link refid="CanBusAccess_8cpp"/>
       </node>
-      <node id="422">
+      <node id="445">
         <label>CanLibLoader/src/CanLibLoaderWin.cpp</label>
         <link refid="CanLibLoaderWin_8cpp"/>
       </node>
-      <node id="416">
+      <node id="439">
         <label>CWrapper/include/canmodule_wrapper.h</label>
         <link refid="canmodule__wrapper_8h"/>
-        <childnode refid="417" relation="include">
+        <childnode refid="440" relation="include">
         </childnode>
       </node>
-      <node id="420">
+      <node id="443">
         <label>CanLibLoader/src/CanLibLoaderLin.cpp</label>
         <link refid="CanLibLoaderLin_8cpp"/>
       </node>

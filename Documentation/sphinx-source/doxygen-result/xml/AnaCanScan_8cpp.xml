@@ -12,151 +12,152 @@
     <includes refid="CanModuleUtils_8h" local="yes">CanModuleUtils.h</includes>
     <includes local="no">sys/time.h</includes>
     <incdepgraph>
-      <node id="190">
+      <node id="213">
         <label>CCanAccess.h</label>
         <link refid="CCanAccess_8h"/>
-        <childnode refid="187" relation="include">
+        <childnode refid="210" relation="include">
         </childnode>
-        <childnode refid="191" relation="include">
+        <childnode refid="214" relation="include">
         </childnode>
-        <childnode refid="192" relation="include">
+        <childnode refid="215" relation="include">
         </childnode>
-        <childnode refid="184" relation="include">
+        <childnode refid="207" relation="include">
         </childnode>
-        <childnode refid="193" relation="include">
+        <childnode refid="216" relation="include">
         </childnode>
-        <childnode refid="185" relation="include">
+        <childnode refid="208" relation="include">
         </childnode>
-        <childnode refid="194" relation="include">
+        <childnode refid="217" relation="include">
         </childnode>
-        <childnode refid="195" relation="include">
+        <childnode refid="218" relation="include">
         </childnode>
       </node>
-      <node id="186">
+      <node id="209">
         <label>stdatomic.h</label>
       </node>
-      <node id="195">
+      <node id="218">
         <label>LogIt.h</label>
       </node>
-      <node id="196">
+      <node id="219">
         <label>AnaGateDLL.h</label>
       </node>
-      <node id="185">
+      <node id="208">
         <label>CanStatistics.h</label>
         <link refid="CanStatistics_8h"/>
-        <childnode refid="186" relation="include">
+        <childnode refid="209" relation="include">
         </childnode>
-        <childnode refid="187" relation="include">
+        <childnode refid="210" relation="include">
         </childnode>
-        <childnode refid="188" relation="include">
+        <childnode refid="211" relation="include">
         </childnode>
-        <childnode refid="189" relation="include">
+        <childnode refid="212" relation="include">
         </childnode>
       </node>
-      <node id="192">
+      <node id="215">
         <label>boost/signals2.hpp</label>
       </node>
-      <node id="204">
+      <node id="227">
         <label>stdexcept</label>
       </node>
-      <node id="183">
+      <node id="206">
         <label>boost/thread/thread.hpp</label>
       </node>
-      <node id="184">
+      <node id="207">
         <label>string</label>
       </node>
-      <node id="194">
-        <label>VERSION.h</label>
-      </node>
-      <node id="200">
+      <node id="223">
         <label>map</label>
       </node>
-      <node id="203">
+      <node id="226">
         <label>CanModuleUtils.h</label>
         <link refid="CanModuleUtils_8h"/>
-        <childnode refid="187" relation="include">
+        <childnode refid="210" relation="include">
         </childnode>
-        <childnode refid="201" relation="include">
+        <childnode refid="224" relation="include">
         </childnode>
-        <childnode refid="204" relation="include">
+        <childnode refid="227" relation="include">
         </childnode>
-        <childnode refid="184" relation="include">
+        <childnode refid="207" relation="include">
         </childnode>
-        <childnode refid="189" relation="include">
+        <childnode refid="212" relation="include">
         </childnode>
       </node>
-      <node id="193">
+      <node id="216">
         <label>CanMessage.h</label>
         <link refid="CanMessage_8h"/>
-        <childnode refid="187" relation="include">
+        <childnode refid="210" relation="include">
         </childnode>
       </node>
-      <node id="199">
+      <node id="222">
         <label>string.h</label>
       </node>
-      <node id="181">
+      <node id="204">
         <label>CanInterfaceImplementations/anagate/AnaCanScan.cpp</label>
         <link refid="AnaCanScan.cpp"/>
-        <childnode refid="182" relation="include">
+        <childnode refid="205" relation="include">
         </childnode>
-        <childnode refid="198" relation="include">
+        <childnode refid="221" relation="include">
         </childnode>
-        <childnode refid="199" relation="include">
+        <childnode refid="222" relation="include">
         </childnode>
-        <childnode refid="200" relation="include">
+        <childnode refid="223" relation="include">
         </childnode>
-        <childnode refid="195" relation="include">
+        <childnode refid="218" relation="include">
         </childnode>
-        <childnode refid="201" relation="include">
+        <childnode refid="224" relation="include">
         </childnode>
-        <childnode refid="202" relation="include">
+        <childnode refid="225" relation="include">
         </childnode>
-        <childnode refid="203" relation="include">
+        <childnode refid="226" relation="include">
         </childnode>
-        <childnode refid="187" relation="include">
+        <childnode refid="210" relation="include">
         </childnode>
       </node>
-      <node id="201">
+      <node id="224">
         <label>sstream</label>
       </node>
-      <node id="197">
+      <node id="220">
         <label>AnaGateDllCan.h</label>
       </node>
-      <node id="188">
+      <node id="217">
+        <label>VERSION.h</label>
+        <link refid="VERSION_8h"/>
+      </node>
+      <node id="211">
         <label>ExportDefinition.h</label>
         <link refid="ExportDefinition_8h"/>
       </node>
-      <node id="198">
+      <node id="221">
         <label>time.h</label>
       </node>
-      <node id="187">
+      <node id="210">
         <label>sys/time.h</label>
       </node>
-      <node id="202">
+      <node id="225">
         <label>iostream</label>
       </node>
-      <node id="191">
+      <node id="214">
         <label>boost/bind.hpp</label>
       </node>
-      <node id="189">
+      <node id="212">
         <label>chrono</label>
       </node>
-      <node id="182">
+      <node id="205">
         <label>AnaCanScan.h</label>
         <link refid="AnaCanScan_8h"/>
-        <childnode refid="183" relation="include">
+        <childnode refid="206" relation="include">
         </childnode>
-        <childnode refid="184" relation="include">
+        <childnode refid="207" relation="include">
         </childnode>
-        <childnode refid="185" relation="include">
+        <childnode refid="208" relation="include">
         </childnode>
-        <childnode refid="190" relation="include">
+        <childnode refid="213" relation="include">
         </childnode>
-        <childnode refid="193" relation="include">
+        <childnode refid="216" relation="include">
         </childnode>
-        <childnode refid="196" relation="include">
+        <childnode refid="219" relation="include">
         </childnode>
-        <childnode refid="197" relation="include">
+        <childnode refid="220" relation="include">
         </childnode>
       </node>
     </incdepgraph>

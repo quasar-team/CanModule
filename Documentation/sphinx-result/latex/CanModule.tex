@@ -60,8 +60,8 @@
 
 
 \title{CanModule Developer Documentation}
-\date{July 26, 2019}
-\release{1.1.8}
+\date{September 26, 2019}
+\release{1.1.9.2}
 \author{Michael Ludwig}
 \newcommand{\sphinxlogo}{\vbox{}}
 \renewcommand{\releasename}{Release}
@@ -1211,69 +1211,6 @@ linux: libsockcan.so (standard API), driver kernel module pcan.ko and dependent 
 windows: libpkcan.dll (standard API), PKCANBASIC.dll
 
 \end{itemize}
-
-
-\chapter{Connection}
-\label{\detokenize{connection:connection}}\label{\detokenize{connection::doc}}
-CanModule tries to recuperate lost connections automatically, but presently there is no method
-to interrogate CanModule on the status of it’s connected modules. This might be added later, though.
-
-
-\section{anagate}
-\label{\detokenize{connection:anagate}}
-The anagate modules are easily and uniquely identified by their IP address, also several modules
-per CanModule instance are straightforward. An anagate bridge can be disconnected in 3 ways:
-\begin{itemize}
-\item {} 
-power loss - power back
-
-\item {} 
-network interruption
-
-\item {} 
-firmware reset by software through the API
-
-\end{itemize}
-
-the firmware reset is NOT implemented in the CanModule, but a module can be remotely accessed and
-firmware reset using the vendor API, through code like:
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-\PYG{n}{AnaInt32} \PYG{n}{timeout} \PYG{o}{=} \PYG{l+m+mi}{10000}\PYG{p}{;} \PYG{c+c1}{// 10secs}
-\PYG{n}{AnaInt32} \PYG{n}{anaRet} \PYG{o}{=} \PYG{n}{CANRestart}\PYG{p}{(} \PYG{l+s}{\PYGZdq{}}\PYG{l+s}{192.168.1.10}\PYG{l+s}{\PYGZdq{}}\PYG{p}{,} \PYG{n}{timeout} \PYG{p}{)}\PYG{p}{;}
-\end{sphinxVerbatim}
-
-In all 3 cases CanModule detects a failure to send a message on a port, and tries to reconnect
-all ports of that module. Sending messages are buffered for \textasciitilde{}20secs, and the reconnection
-takes at least \textasciitilde{}20sec, so it takes \textasciitilde{}1 minute to reestablish communication. All received CAN frames
-are lost, and not all sent frames are guaranteed, therefore some care has to be taken when the
-connection is reestablished concerning the statuses of CAN slaves. CanModule reports reconnections
-as warnings, but there is no systematic CanModule-API yet to handle reconnections
-systematically (is it needed?).
-
-The anagate duo reconnects somewhat faster than the X4/X8 modules, because of firmware differences.
-The whole reconnection can take up to 60 secs until all buffers are cleared, so please be patient.
-
-
-\section{peak}
-\label{\detokenize{connection:peak}}
-The module is receiving power through the USB port, if this connection is lost we need to reconnect.
-Reconnection works for both normal (fixed) and flexible datarate (FD) modules under linux, as
-socketcan is used. For windows only
-normal datarate (fixed) are supported, and the reconnection also works for them.
-
-Reconnection takes less than 30sec.
-
-
-\section{systec}
-\label{\detokenize{connection:systec}}
-A power loss or a connection loss will trigger a reconnection. For linux, where socketcan is used,
-this works like for peak.
-
-For windows the reconnection is NOT WORKING, and it is not clear if it can actually
-be achieved within CanModule. It seems that a library reload is needed to make the module work again.
-This feature is therefore DROPPED for now, since also no strong user request for “systec reconnection
-under windows” is presently stated. I tried, using the systec \sphinxhref{mailto:API@windows}{API@windows}, but did not manage.
 
 
 \chapter{Support}
