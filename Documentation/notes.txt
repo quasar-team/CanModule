@@ -1,39 +1,11 @@
-sphinx notes
-============
-needs python3
+installation notes for doc tools
+================================
+need python3
+need sphinx 1.8.5
 
-Package python-sphinx-1.1.3-11.el7.noarch already installed and latest version
-stone old: installation from source
-
-git clone https://github.com/sphinx-doc/sphinx
-$ cd sphinx
-$ sudo pip install .
-
-   ERROR: Sphinx requires at least Python 3.5 to run.
-
-[mludwig@pcbe13632 sphinx]$ python3 --version
-Python 3.6.6
-
-[mludwig@pcbe13632 sphinx]$ pip3 --version
-pip 19.0.3 from /usr/local/lib/python3.6/site-packages/pip (python 3.6)
-[mludwig@pcbe13632 sphinx]$ pip2 --version
-pip 8.1.2 from /usr/lib/python2.7/site-packages (python 2.7)
-[mludwig@pcbe13632 sphinx]$ 
-
-==============================================
-ok, so to install sphinx from source (master):
-sudo /usr/local/bin/pip3 install .
-  The script pygmentize is installed in '/usr/local/bin' which is not on PATH.
-
-...
-
-https://github.com/sphinx-doc/sphinx.git install git+https://github.com/sphinx-doc/sphinx
-
-nope, too fresh. need sphinx 1.8.5
 git clone -b v1.8.5 https://github.com/sphinx-doc/sphinx/tree/v1.8.5
 cd <trunk>
 sudo /usr/local/bin/pip3 install .
-
 
 Installing collected packages: sphinxcontrib-websupport, Sphinx
   Found existing installation: Sphinx 3.0.0.dev20190417
@@ -50,11 +22,7 @@ sphinx-quickstart 1.8.5
 /usr/local/bin/sphinx-build --version
 sphinx-build 1.8.5
 
-
-
-============
 get pip for python3:
 https://stackoverflow.com/questions/6587507/how-to-install-pip-with-python-3
 dl get-pip.py
 [mludwig@pcbe13632 sphinx]$ sudo python3 ./get-pip.py 
------
