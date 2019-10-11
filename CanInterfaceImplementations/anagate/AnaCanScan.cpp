@@ -84,10 +84,12 @@ AnaCanScan::AnaCanScan():
 	m_statistics.beginNewRun();
 }
 
+/**
+ * Shut down can scan thread
+ */
 AnaCanScan::~AnaCanScan()
 {
 	LOG(Log::TRC, AnaCanScan::s_logItHandleAnagate ) << "Closing down Anagate Can Scan component";
-	//Shut down can scan thread
 	CANSetCallback(m_UcanHandle, 0);
 	CANCloseDevice(m_UcanHandle);
 	LOG(Log::TRC, AnaCanScan::s_logItHandleAnagate ) << "Anagate Can Scan component closed successfully";
@@ -154,6 +156,9 @@ void WINAPI InternalCallback(AnaUInt32 nIdentifier, const char * pcBuffer, AnaIn
 }
 
 
+/**
+ *  callback API
+ */
 void AnaCanScan::statisticsOnRecieve(int bytes)
 {
 	m_statistics.onReceive( bytes );
@@ -178,17 +183,15 @@ void AnaCanScan::callbackOnRecieve(CanMessage& msg)
  * 		ex.: "an:1:137.138.12.99" works as well
  *
  *
- * @param parameters up to 6 parameters separated by whitespaces : "p0 p1 p2 p3 p4 p5" in THAT order, positive integers
- * 				* "Unspecified" (or empty): using defaults = "125000 0 0 0 0 0" // all params missing
+ * @param parameters up to 5 parameters separated by whitespaces : "p0 p1 p2 p3 p4" in THAT order, positive integers
+ * 				* "Unspecified" (or empty): using defaults = "125000 0 0 0 0" // all params missing
  * 				* p0: bitrate: 10000, 20000, 50000, 62000, 100000, 125000, 250000, 500000, 800000, 1000000 bit/s
  * 				* p1: operatingMode: 0=default mode, values 1 (loop back) and 2 (listen) are not supported by CanModule
  * 				* p2: termination: 0=not terminated (default), 1=terminated (120 Ohm for CAN bus)
  * 				* p3: highSpeed: 0=deactivated (default), 1=activated. If activated, confirmation and filtering of CAN traffic are switched off
  * 				* p4: TimeStamp: 0=deactivated (default), 1=activated. If activated, a timestamp is added to the CAN frame. Not all modules support this.
- * 				* p5: syncMode: 0=default, unused but reserved for future use
- *				  i.e. "250000 0 1 0 0 1"
+ *				  i.e. "250000 0 1 0 0"
  * 				(see anagate manual for more details)
- *
  *
  * @return was the initialisation process successful?
  */
@@ -253,9 +256,8 @@ int AnaCanScan::configureCanBoard(const string name,const string parameters)
 	}
 	MLOGANA(TRC, this) << "(cleaned up) canPortNumber= " << m_canPortNumber << " ip= " << m_canIPAddress;
 
-	// handle up to 6 parameter, assume defaults if needed
-	long baudRate_default = 125000;
-	m_baudRate = baudRate_default;
+	// handle up to 5 parameter, assume defaults if needed
+	m_baudRate = 125000L;
 
 	if (strcmp(parameters.c_str(), "Unspecified") != 0) {
 
