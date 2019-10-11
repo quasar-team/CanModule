@@ -264,19 +264,22 @@ int AnaCanScan::configureCanBoard(const string name,const string parameters)
 		if ( m_CanParameters.m_iNumberOfDetectedParameters >= 1 )	{
 			m_baudRate = m_CanParameters.m_lBaudRate;
 
-			MLOGANA(TRC, this) << "m_baudRate= " << m_baudRate;
+			MLOGANA(TRC, this) << "m_lBaudRate= " << m_CanParameters.m_lBaudRate;
+			MLOGANA(TRC, this) << "m_iOperationMode= " << m_CanParameters.m_iOperationMode;
+			MLOGANA(TRC, this) << "m_iTermination= " << m_CanParameters.m_iTermination;
+			MLOGANA(TRC, this) << "m_iHighSpeed= " << m_CanParameters.m_iHighSpeed;
+			MLOGANA(TRC, this) << "m_iTimeStamp= " << m_CanParameters.m_iTimeStamp;
 
 			// any other parameters are already set, either to 0 by init,
 			// or by decoding. They are always used.
 		} else {
 			MLOGANA(ERR, this) << "Error while parsing parameters: this syntax is incorrect: [" << parameters << "]";
-			MLOGANA(ERR, this) << "you need up to 6 numbers separated by whitespaces, i.e. \"125000 0 0 0 0 0\" \"p0 p1 p2 p3 p4 p5\"";
+			MLOGANA(ERR, this) << "you need up to 5 numbers separated by whitespaces, i.e. \"125000 0 0 0 0 0\" \"p0 p1 p2 p3 p4\"";
 			MLOGANA(ERR, this) << "  p0 = baud rate, 125000 or whatever the module supports";
 			MLOGANA(ERR, this) << "  p1 = operation mode";
 			MLOGANA(ERR, this) << "  p2 = termination";
 			MLOGANA(ERR, this) << "  p3 = high speed";
 			MLOGANA(ERR, this) << "  p4 = time stamp";
-			MLOGANA(ERR, this) << "  p5 = sync mode";
 			return -1;
 		}
 	} else	{
@@ -325,7 +328,6 @@ int AnaCanScan::openCanPort()
 			<< " m_iTermination= " << m_CanParameters.m_iTermination
 			<< " m_iHighSpeed= " << m_CanParameters.m_iHighSpeed
 			<< " m_iTimeStamp= " << m_CanParameters.m_iTimeStamp;
-
 
 	anaCallReturn = CANSetGlobals(canModuleHandle, m_CanParameters.m_lBaudRate, m_CanParameters.m_iOperationMode,
 			m_CanParameters.m_iTermination, m_CanParameters.m_iHighSpeed, m_CanParameters.m_iTimeStamp);
