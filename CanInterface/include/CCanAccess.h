@@ -58,20 +58,19 @@ struct CanParameters {
 	unsigned int m_iTermination;
 	unsigned int m_iHighSpeed;
 	unsigned int m_iTimeStamp;
-	unsigned int m_iSyncMode;
 	int	m_iNumberOfDetectedParameters;
 	bool m_dontReconfigure;
 	CanParameters() : m_lBaudRate(0), m_iOperationMode(0), m_iTermination(0),
-			m_iHighSpeed(0), m_iTimeStamp(0), m_iSyncMode(0), m_iNumberOfDetectedParameters(), m_dontReconfigure(false) {}
+			m_iHighSpeed(1), m_iTimeStamp(0), m_iNumberOfDetectedParameters(), m_dontReconfigure(false) {}
 
 	void scanParameters(string parameters)
 	{
 		const char * canpars = parameters.c_str();
 		if (strcmp(canpars, "Unspecified") != 0) {
 #ifdef _WIN32
-			m_iNumberOfDetectedParameters = sscanf_s(canpars, "%ld %u %u %u %u %u", &m_lBaudRate, &m_iOperationMode, &m_iTermination, &m_iHighSpeed, &m_iTimeStamp, &m_iSyncMode);
+			m_iNumberOfDetectedParameters = sscanf_s(canpars, "%ld %u %u %u %u", &m_lBaudRate, &m_iOperationMode, &m_iTermination, &m_iHighSpeed, &m_iTimeStamp);
 #else
-			m_iNumberOfDetectedParameters = sscanf(canpars, "%ld %u %u %u %u %u", &m_lBaudRate, &m_iOperationMode, &m_iTermination, &m_iHighSpeed, &m_iTimeStamp, &m_iSyncMode);
+			m_iNumberOfDetectedParameters = sscanf(canpars, "%ld %u %u %u %u", &m_lBaudRate, &m_iOperationMode, &m_iTermination, &m_iHighSpeed, &m_iTimeStamp);
 #endif
 		} else {
 			m_dontReconfigure = true;
