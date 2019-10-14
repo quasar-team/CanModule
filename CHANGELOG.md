@@ -2,7 +2,15 @@
 All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## 1.1.9.4 [14.oct.2019]
+- sync flag suppressed
+
+## 1.1.9.3 [1.aug.2019]
+- cleanup and pruned documentation
+
+
 ## [1.1.9.2] 1.aug.2019
+- bugfix-OPCUA-1474: header file was wrong for systec@windows
 
 
 ## [1.1.9.0] 26.july.2019

@@ -68,14 +68,13 @@ Here the underlying vendor specific classes and the specific parameters are docu
 <dt><strong>Parameters</strong></dt>
 <dd><ul class="breatheparameterlist first last simple">
 <li><code class="docutils literal notranslate"><span class="pre">name</span></code>: 3 parameters separated by “:” like “n0:n1:n2” n0 = “an” for anagate n1 = port number on the module, 0=A, 1=B, etc etc n2 = ip number ex.: “an:can1:137.138.12.99” speaks to port B (=1) on anagate module at the ip ex.: “an:1:137.138.12.99” works as well</li>
-<li><code class="docutils literal notranslate"><span class="pre">parameters</span></code>: up to 6 parameters separated by whitespaces : “p0 p1 p2 p3 p4 p5” in THAT order, positive integers<ul>
-<li>”Unspecified” (or empty): using defaults = “125000 0 0 0 0 0” // all params missing</li>
+<li><code class="docutils literal notranslate"><span class="pre">parameters</span></code>: up to 5 parameters separated by whitespaces : “p0 p1 p2 p3 p4” in THAT order, positive integers<ul>
+<li>”Unspecified” (or empty): using defaults = “125000 0 0 0 0” // all params missing</li>
 <li>p0: bitrate: 10000, 20000, 50000, 62000, 100000, 125000, 250000, 500000, 800000, 1000000 bit/s</li>
 <li>p1: operatingMode: 0=default mode, values 1 (loop back) and 2 (listen) are not supported by CanModule</li>
 <li>p2: termination: 0=not terminated (default), 1=terminated (120 Ohm for CAN bus)</li>
 <li>p3: highSpeed: 0=deactivated (default), 1=activated. If activated, confirmation and filtering of CAN traffic are switched off</li>
-<li>p4: TimeStamp: 0=deactivated (default), 1=activated. If activated, a timestamp is added to the CAN frame. Not all modules support this.</li>
-<li>p5: syncMode: 0=default, unused but reserved for future use i.e. “250000 0 1 0 0 1” (see anagate manual for more details)</li>
+<li>p4: TimeStamp: 0=deactivated (default), 1=activated. If activated, a timestamp is added to the CAN frame. Not all modules support this. i.e. “250000 0 1 0 0” (see anagate manual for more details)</li>
 </ul>
 </li>
 </ul>
@@ -184,7 +183,7 @@ Here the underlying vendor specific classes and the specific parameters are docu
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2019, CERN, BE-ICS (Michael Ludwig).
-      Last updated on 11-Oct-2019 16:19:38.
+      Last updated on 14-Oct-2019 13:50:37.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
     </div>
   </body>
