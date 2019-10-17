@@ -64,7 +64,7 @@ extern "C" CCanAccess *getCanBusAccess()
 }
 
 CSockCanScan::CSockCanScan() :
-			m_CanScanThreadShutdownFlag(false),
+			m_CanScanThreadRunEnableFlag(false),
 			m_sock(0),
 			m_hCanScanThread(0),
 			m_idCanScanThread(0),
@@ -103,7 +103,7 @@ void* CSockCanScan::CanScanControlThread(void *p_voidSockCanScan)
 	CSockCanScan *p_sockCanScan = static_cast<CSockCanScan *>(p_voidSockCanScan);
 
 	MLOGSOCK(TRC, p_sockCanScan) << "created main loop tid= " << _tid;
-	p_sockCanScan->m_CanScanThreadShutdownFlag = true;
+	p_sockCanScan->m_CanScanThreadRunEnableFlag = true;
 	int sock = p_sockCanScan->m_sock;
 
 	{
@@ -124,7 +124,7 @@ void* CSockCanScan::CanScanControlThread(void *p_voidSockCanScan)
 	}
 
 	MLOGSOCK(TRC,p_sockCanScan) << "main loop of SockCanScan starting, tid= " << _tid;
-	while ( p_sockCanScan->m_CanScanThreadShutdownFlag ) {
+	while ( p_sockCanScan->m_CanScanThreadRunEnableFlag ) {
 		fd_set set;
 		FD_ZERO( &set );
 		FD_SET( sock, &set );
@@ -223,7 +223,7 @@ void* CSockCanScan::CanScanControlThread(void *p_voidSockCanScan)
 					 * If we need to shutdown the thread, leave it closed and
 					 * terminate main loop.
 					 */
-					if ( p_sockCanScan->m_CanScanThreadShutdownFlag ) {
+					if ( p_sockCanScan->m_CanScanThreadRunEnableFlag ) {
 						MLOGSOCK(INF,p_sockCanScan) << " tid= " << _tid << " Now port will be reopened.";
 						if ((sock = p_sockCanScan->openCanPort()) < 0) {
 							MLOGSOCK(ERR,p_sockCanScan) << " tid= " << _tid << "openCanPort() failed.";
@@ -234,7 +234,7 @@ void* CSockCanScan::CanScanControlThread(void *p_voidSockCanScan)
 						// MLOGSOCK(INF,p_sockCanScan) << " tid= " << _tid << "Leaving Port closed, not needed any more.";
 					}
 				} // do...while ... we still have an error
-				while ( p_sockCanScan->m_CanScanThreadShutdownFlag && sock < 0 );
+				while ( p_sockCanScan->m_CanScanThreadRunEnableFlag && sock < 0 );
 
 
 				/**
@@ -528,40 +528,24 @@ bool CSockCanScan::sendRemoteRequest(short cobID)
  *				*  i.e. "250000"
  *
  * @return Was the initialization process successful?
+ *
+ * dont create a main thread for the same bus twice: if it exists already, just configure the board again
+ * this protects agains having multiple threads if a given port ports is opened several times: protects
+ * against erro/unusual runtime. If the connection is closed, it's main thread is stopped and joined, and
+ * the port is erased from the connection map. when the same port is opened again later on, a (new)
+ * main thread is created, and the connection is again added to the map.
  */
 bool CSockCanScan::createBus(const string name, const string parameters)
 {
-	// check bus map contents OPCUA-1536
-	{
-		LOG(Log::TRC) << "OPCUA-1536 trying to create name= " << name << " wth parameters= " << parameters;
-		std::map<string, string>::iterator it0 = CSockCanScan::m_busMap.begin();
-		int ii = 0;
-		while ( it0 != CSockCanScan::m_busMap.end() ) {
-			LOG(Log::TRC) << "OPCUA-1536 before " << ii << " " << string(it0->first) << " " << string(it0->second) ;
-			it0++;ii++;
-		}
-	}
-
-	// dont create a main thread for the same bus twice: if it exists already, just configure the board again
-	bool skip = false;
+	// dont create a main thread for the same bus twice
+	bool skipMainThreadCreation = false;
 	std::map<string, string>::iterator it = CSockCanScan::m_busMap.find( name );
 	if (it == CSockCanScan::m_busMap.end()) {
 		CSockCanScan::m_busMap.insert ( std::pair<string, string>(name, parameters) );
 		m_busName = name;
 	} else {
-		LOG(Log::WRN) << __FUNCTION__ << " OPCUA-1536 bus exists already [" << name << ", " << parameters << "], not creating another main thread";
-		skip = true;
-	}
-
-	// check bus map contents OPCUA-1536
-	{
-		LOG(Log::TRC) << "OPCUA-1536 trying to create name= " << name << " wth parameters= " << parameters;
-		std::map<string, string>::iterator it0 = CSockCanScan::m_busMap.begin();
-		int ii = 0;
-		while ( it0 != CSockCanScan::m_busMap.end() ) {
-			LOG(Log::TRC) << "OPCUA-1536 after " << ii << " " << string(it0->first) << " " << string(it0->second) ;
-			it0++;ii++;
-		}
+		LOG(Log::WRN) << __FUNCTION__ << " bus exists already [" << name << ", " << parameters << "], not creating another main thread";
+		skipMainThreadCreation = true;
 	}
 
 	// calling base class to get the instance from there
@@ -580,14 +564,13 @@ bool CSockCanScan::createBus(const string name, const string parameters)
 
 	CSockCanScan::st_logItHandleSock = myHandle;
 
-	m_CanScanThreadShutdownFlag = true;
+	m_CanScanThreadRunEnableFlag = true;
 	m_sock = configureCanBoard(name,parameters);
 	if (m_sock < 0) {
 		MLOGSOCK(ERR,this) << "Could not create bus [" << name << "] with parameters [" << parameters << "]";
 		return false;
 	}
-	if ( skip ){
-		// m_idCanScanThread = 0; // reuse thread, don't invalidate
+	if ( skipMainThreadCreation ){
 		MLOGSOCK(TRC,this) << "Re-using main thread m_idCanScanThread= " << m_idCanScanThread;
 
 	} else {
@@ -692,44 +675,23 @@ void CSockCanScan::sendErrorMessage(const char *mess)
 	canMessageError(-1,mess,c_time);
 }
 
+/**
+ * notify the main thread to finish and delete the bus from the map of connections
+ */
 bool CSockCanScan::stopBus ()
 {
 	// notify the thread that it should finish.
-	m_CanScanThreadShutdownFlag = false;
+	m_CanScanThreadRunEnableFlag = false;
 	MLOGSOCK(DBG,this) << " joining threads... m_idCanScanThread= " << m_idCanScanThread;
 
 	pthread_join( m_hCanScanThread, 0 );
 	m_idCanScanThread = 0;
-	MLOGSOCK(DBG,this) << "stopBus() finished";
-
-	// check bus map contents OPCUA-1536
-	{
-		std::map<string, string>::iterator it0 = CSockCanScan::m_busMap.begin();
-		int ii = 0;
-		while ( it0 != CSockCanScan::m_busMap.end() ) {
-			LOG(Log::TRC) << "OPCUA-1536 before " << ii << " " << string(it0->first) << " " << string(it0->second) ;
-			it0++;ii++;
-		}
-	}
-
 	std::map<string, string>::iterator it = CSockCanScan::m_busMap.find( m_busName );
 	if (it != CSockCanScan::m_busMap.end()) {
 		CSockCanScan::m_busMap.erase ( it );
 		m_busName = "nobus";
 	}
-
-	// check bus map contents OPCUA-1536
-	{
-		std::map<string, string>::iterator it0 = CSockCanScan::m_busMap.begin();
-		int ii = 0;
-		while ( it0 != CSockCanScan::m_busMap.end() ) {
-			LOG(Log::TRC) << "OPCUA-1536 before " << ii << " " << string(it0->first) << " " << string(it0->second) ;
-			it0++;ii++;
-		}
-	}
-
-
-
+	MLOGSOCK(DBG,this) << "stopBus() finished";
 	return true;
 }
 
@@ -742,12 +704,9 @@ void CSockCanScan::getStatistics( CanStatistics & result )
 
 void CSockCanScan::updateInitialError ()
 {
-	if (m_errorCode == 0)
-	{
+	if (m_errorCode == 0) {
 		clearErrorMessage();
-	}
-	else
-	{
+	} else {
 		timeval now;
 		gettimeofday( &now, 0);
 		canMessageError( m_errorCode, "Initial port state: error", now );

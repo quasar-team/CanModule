@@ -79,8 +79,8 @@ public:
 
 private:
 
-	//Flag for shutting down the CanScan thread
-	volatile bool m_CanScanThreadShutdownFlag;
+	//Flag for running/shutting down the CanScan thread
+	volatile bool m_CanScanThreadRunEnableFlag;
 	//Socket handler
 	int m_sock;
 	//Instance of Can Statistics
