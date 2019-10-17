@@ -276,7 +276,7 @@ int AnaCanScan::configureCanBoard(const string name,const string parameters)
 			// or by decoding. They are always used.
 		} else {
 			MLOGANA(ERR, this) << "Error while parsing parameters: this syntax is incorrect: [" << parameters << "]";
-			MLOGANA(ERR, this) << "you need up to 5 numbers separated by whitespaces, i.e. \"125000 0 0 0 0 0\" \"p0 p1 p2 p3 p4\"";
+			MLOGANA(ERR, this) << "you need up to 5 numbers separated by whitespaces, i.e. \"125000 0 0 0 0\" \"p0 p1 p2 p3 p4\"";
 			MLOGANA(ERR, this) << "  p0 = baud rate, 125000 or whatever the module supports";
 			MLOGANA(ERR, this) << "  p1 = operation mode";
 			MLOGANA(ERR, this) << "  p2 = termination";
