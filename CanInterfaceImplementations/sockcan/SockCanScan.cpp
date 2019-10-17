@@ -537,7 +537,7 @@ bool CSockCanScan::createBus(const string name, const string parameters)
 		std::map<string, string>::iterator it0 = CSockCanScan::m_busMap.begin();
 		int ii = 0;
 		while ( it0 != CSockCanScan::m_busMap.end() ) {
-			LOG(Log::TRC) << "OPCUA-1536 " << ii << " " << string(it0->first) << " " << string(it0->second) ;
+			LOG(Log::TRC) << "OPCUA-1536 before " << ii << " " << string(it0->first) << " " << string(it0->second) ;
 			it0++;ii++;
 		}
 	}
@@ -550,6 +550,17 @@ bool CSockCanScan::createBus(const string name, const string parameters)
 	} else {
 		LOG(Log::WRN) << __FUNCTION__ << " OPCUA-1536 bus exists already [" << name << ", " << parameters << "], not creating another main thread";
 		skip = true;
+	}
+
+	// check bus map contents OPCUA-1536
+	{
+		LOG(Log::TRC) << "OPCUA-1536 trying to create name= " << name << " wth parameters= " << parameters;
+		std::map<string, string>::iterator it0 = CSockCanScan::m_busMap.begin();
+		int ii = 0;
+		while ( it0 != CSockCanScan::m_busMap.end() ) {
+			LOG(Log::TRC) << "OPCUA-1536 after " << ii << " " << string(it0->first) << " " << string(it0->second) ;
+			it0++;ii++;
+		}
 	}
 
 	// calling base class to get the instance from there
@@ -579,7 +590,7 @@ bool CSockCanScan::createBus(const string name, const string parameters)
 		m_idCanScanThread =	pthread_create(&m_hCanScanThread,NULL,&CanScanControlThread, (void *)this);
 		return (!m_idCanScanThread);
 	} else {
-		m_idCanScanThread = 0;
+		// m_idCanScanThread = 0; // reuse thrad
 		return( true );
 	}
 }
