@@ -54,20 +54,19 @@ namespace CanModule
 
 	void CanLibLoader::closeCanBus(CCanAccess *cInter) {
 		LOG(Log::DBG, lh ) << __FUNCTION__<< " OPCUA-1536 Canbus name to be deleted: " << cInter->getBusName();
-		cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__<< " OPCUA-1536 Canbus name to be deleted: " << cInter->getBusName() << endl;
 		//	m_openCanAccessMap.erase(cInter->getBusName().c_str());
 		delete cInter;
 	}
 
 	CCanAccess* CanLibLoader::openCanBus(string name, string parameters) {
-		LOG(Log::DBG, lh ) << __FUNCTION__ << " Creating CCanAccess: name= " << name << " parameters= " << parameters;
+		LOG(Log::DBG, lh ) << __FUNCTION__ << " OPCUA-1536 Creating CCanAccess: name= " << name << " parameters= " << parameters;
 		CCanAccess *tcca = createCanAccess();
 
 		if ( !tcca ){
-			LOG(Log::ERR, lh ) << __FUNCTION__ << " failed to create CCanAccess name= " << name << " parameters= " << parameters;
+			LOG(Log::ERR, lh ) << __FUNCTION__ << " OPCUA-1536 failed to create CCanAccess name= " << name << " parameters= " << parameters;
 			exit(-1);
 		} else {
-			LOG(Log::DBG, lh ) << __FUNCTION__ << " created CCanAccess name= " << name << " parameters= " << parameters;
+			LOG(Log::DBG, lh ) << __FUNCTION__ << " OPCUA-1536 created CCanAccess name= " << name << " parameters= " << parameters;
 		}
 
 		//The Logit instance of the executable is handled to the DLL at this point, so the instance is shared.

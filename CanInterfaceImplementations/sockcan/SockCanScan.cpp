@@ -548,7 +548,7 @@ bool CSockCanScan::createBus(const string name, const string parameters)
 	if (it == CSockCanScan::m_busMap.end()) {
 		CSockCanScan::m_busMap.insert ( std::pair<string, string>(name, parameters) );
 	} else {
-		LOG(Log::WRN) << __FUNCTION__ << " bus exists already [" << name << ", " << parameters << "], not creating another main thread";
+		LOG(Log::WRN) << __FUNCTION__ << " OPCUA-1536 bus exists already [" << name << ", " << parameters << "], not creating another main thread";
 		skip = true;
 	}
 
