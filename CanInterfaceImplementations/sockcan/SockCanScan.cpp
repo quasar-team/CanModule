@@ -587,11 +587,12 @@ bool CSockCanScan::createBus(const string name, const string parameters)
 	}
 	if ( skip ){
 		// m_idCanScanThread = 0; // reuse thread, don't invalidate
-		MLOGSOCK(TRC,this) << "Re-using bus with parameters [" << parameters << "], re-use main loop as well";
+		MLOGSOCK(TRC,this) << "Re-using main thread m_idCanScanThread= " << m_idCanScanThread;
 
 	} else {
 		MLOGSOCK(TRC,this) << "Created bus with parameters [" << parameters << "], starting main loop";
 		m_idCanScanThread =	pthread_create(&m_hCanScanThread,NULL,&CanScanControlThread, (void *)this);
+		MLOGSOCK(TRC,this) << "created main thread m_idCanScanThread= " << m_idCanScanThread;
 	}
 	return( true );
 }
@@ -694,9 +695,11 @@ bool CSockCanScan::stopBus ()
 {
 	// notify the thread that it should finish.
 	m_CanScanThreadShutdownFlag = false;
-	MLOGSOCK(DBG,this) << " joining threads...  m_hCanScanThread= " << m_hCanScanThread;
+	MLOGSOCK(DBG,this) << " joining threads... m_idCanScanThread= " << m_idCanScanThread;
+
 	pthread_join( m_hCanScanThread, 0 );
-	MLOGSOCK(DBG,this) << "stopBus() finished... m_hCanScanThread= " << m_hCanScanThread";
+	m_idCanScanThread = 0;
+	MLOGSOCK(DBG,this) << "stopBus() finished";
 	return true;
 }
 
