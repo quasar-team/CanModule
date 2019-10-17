@@ -4,6 +4,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ## 1.1.9.4 [14.oct.2019]
 - sync flag suppressed
+- hi speed to true as default for anagate
 
 ## 1.1.9.3 [1.aug.2019]
 - cleanup and pruned documentation
