@@ -530,6 +530,15 @@ bool CSockCanScan::sendRemoteRequest(short cobID)
  */
 bool CSockCanScan::createBus(const string name, const string parameters)
 {
+	// check bus map contents OPCUA-1536
+	{
+		LOG(Log::TRC) << "trying to create name= " << name << " wth parameters= " << parameters;
+		std::map<string, string>::iterator it0 = CSockCanScan::m_busMap.begin();
+		while ( it0 != CSockCanScan::m_busMap.end() ) {
+			LOG(Log::TRC) << string(it0->first) << " " << string(it0->second) << endl;
+		}
+	}
+
 	// dont create a main thread for the same bus twice: if it exists already, just configure the board again
 	bool skip = false;
 	std::map<string, string>::iterator it = CSockCanScan::m_busMap.find( name );
