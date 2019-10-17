@@ -694,7 +694,7 @@ bool CSockCanScan::stopBus ()
 {
 	// notify the thread that it should finish.
 	m_CanScanThreadShutdownFlag = false;
-	MLOGSOCK(DBG,this) << " joining threads...";
+	MLOGSOCK(DBG,this) << " joining threads..." << m_hCanScanThread;
 	pthread_join( m_hCanScanThread, 0 );
 	MLOGSOCK(DBG,this) << "stopBus() finished";
 	return true;
