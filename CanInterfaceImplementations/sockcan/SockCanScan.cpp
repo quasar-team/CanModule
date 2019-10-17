@@ -585,15 +585,15 @@ bool CSockCanScan::createBus(const string name, const string parameters)
 		MLOGSOCK(ERR,this) << "Could not create bus [" << name << "] with parameters [" << parameters << "]";
 		return false;
 	}
-	if ( !skip ){
-		MLOGSOCK(TRC,this) << "Created bus with parameters [" << parameters << "], starting main loop";
-		m_idCanScanThread =	pthread_create(&m_hCanScanThread,NULL,&CanScanControlThread, (void *)this);
-		return (!m_idCanScanThread);
-	} else {
+	if ( skip ){
 		// m_idCanScanThread = 0; // reuse thread, don't invalidate
 		MLOGSOCK(TRC,this) << "Re-using bus with parameters [" << parameters << "], re-use main loop as well";
-		return( true );
+
+	} else {
+		MLOGSOCK(TRC,this) << "Created bus with parameters [" << parameters << "], starting main loop";
+		m_idCanScanThread =	pthread_create(&m_hCanScanThread,NULL,&CanScanControlThread, (void *)this);
 	}
+	return( true );
 }
 
 /*
