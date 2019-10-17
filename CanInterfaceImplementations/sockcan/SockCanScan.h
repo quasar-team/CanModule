@@ -89,6 +89,7 @@ private:
 	pthread_t m_hCanScanThread;
 	//Thread ID for the CAN update scan manager thread.
 	int m_idCanScanThread;
+	std::string m_busName;
 
 	static Log::LogComponentHandle st_logItHandleSock;
 

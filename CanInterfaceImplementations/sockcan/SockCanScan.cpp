@@ -547,6 +547,7 @@ bool CSockCanScan::createBus(const string name, const string parameters)
 	std::map<string, string>::iterator it = CSockCanScan::m_busMap.find( name );
 	if (it == CSockCanScan::m_busMap.end()) {
 		CSockCanScan::m_busMap.insert ( std::pair<string, string>(name, parameters) );
+		m_busName = name;
 	} else {
 		LOG(Log::WRN) << __FUNCTION__ << " OPCUA-1536 bus exists already [" << name << ", " << parameters << "], not creating another main thread";
 		skip = true;
@@ -700,6 +701,35 @@ bool CSockCanScan::stopBus ()
 	pthread_join( m_hCanScanThread, 0 );
 	m_idCanScanThread = 0;
 	MLOGSOCK(DBG,this) << "stopBus() finished";
+
+	// check bus map contents OPCUA-1536
+	{
+		std::map<string, string>::iterator it0 = CSockCanScan::m_busMap.begin();
+		int ii = 0;
+		while ( it0 != CSockCanScan::m_busMap.end() ) {
+			LOG(Log::TRC) << "OPCUA-1536 before " << ii << " " << string(it0->first) << " " << string(it0->second) ;
+			it0++;ii++;
+		}
+	}
+
+	std::map<string, string>::iterator it = CSockCanScan::m_busMap.find( m_busName );
+	if (it != CSockCanScan::m_busMap.end()) {
+		CSockCanScan::m_busMap.erase ( it );
+		m_busName = "nobus";
+	}
+
+	// check bus map contents OPCUA-1536
+	{
+		std::map<string, string>::iterator it0 = CSockCanScan::m_busMap.begin();
+		int ii = 0;
+		while ( it0 != CSockCanScan::m_busMap.end() ) {
+			LOG(Log::TRC) << "OPCUA-1536 before " << ii << " " << string(it0->first) << " " << string(it0->second) ;
+			it0++;ii++;
+		}
+	}
+
+
+
 	return true;
 }
 
