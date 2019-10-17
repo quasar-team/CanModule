@@ -54,6 +54,7 @@ namespace CanModule
 
 	void CanLibLoader::closeCanBus(CCanAccess *cInter) {
 		LOG(Log::DBG, lh ) << __FUNCTION__<< " OPCUA-1536 Canbus name to be deleted: " << cInter->getBusName();
+		cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__<< " OPCUA-1536 Canbus name to be deleted: " << cInter->getBusName() << endl;
 		//	m_openCanAccessMap.erase(cInter->getBusName().c_str());
 		delete cInter;
 	}
