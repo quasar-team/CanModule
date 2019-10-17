@@ -45,7 +45,8 @@
 #include <LogIt.h>
 using namespace std;
 
-/* static */ std::map<string, string> CSockCanScan::m_busMap = {{"dummy_name", "dummy_parameters"}};
+// /* static */ std::map<string, string> CSockCanScan::m_busMap = {{"dummy_name", "dummy_parameters"}};
+/* static */ std::map<string, string> CSockCanScan::m_busMap;
 
 /* static */ Log::LogComponentHandle CSockCanScan::st_logItHandleSock;
 
