@@ -45,21 +45,12 @@ SET ( SOCK_LIB_NAME "sockcan" )
 
 if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
 	add_library( ${SOCK_LIB_NAME} SHARED ${SOCKCAN_SOURCES} $<TARGET_OBJECTS:LogIt>)
-	add_library( ${SOCK_LIB_NAME}-static SHARED ${SOCKCAN_SOURCES} $<TARGET_OBJECTS:LogIt>)
 
 else()
 	add_library( ${SOCK_LIB_NAME} SHARED ${SOCKCAN_SOURCES} )
-	add_library( ${SOCK_LIB_NAME}-static SHARED ${SOCKCAN_SOURCES} )
 endif()
 
 target_link_libraries( ${SOCK_LIB_NAME} ${LOGIT_LIB} ${BOOST_LIBS} -lsocketcan )
-target_link_libraries( ${SOCK_LIB_NAME}-static ${LOGIT_LIB} ${BOOST_LIBS_STATIC} libsocketcan.a )
 
 set_property(TARGET ${SOCK_LIB_NAME} PROPERTY POSITION_INDEPENDENT_CODE TRUE)
 set_property(TARGET ${SOCK_LIB_NAME} PROPERTY LINKER_LANGUAGE CXX)
-
-set_property(TARGET ${SOCK_LIB_NAME}-static PROPERTY POSITION_INDEPENDENT_CODE TRUE)
-set_property(TARGET ${SOCK_LIB_NAME}-static PROPERTY LINKER_LANGUAGE CXX)
-
-
-
