@@ -79,8 +79,8 @@ public:
 
 private:
 
-	//Flag for shutting down the CanScan thread
-	volatile bool m_CanScanThreadShutdownFlag;
+	//Flag for running/shutting down the CanScan thread
+	volatile bool m_CanScanThreadRunEnableFlag;
 	//Socket handler
 	int m_sock;
 	//Instance of Can Statistics
@@ -89,6 +89,7 @@ private:
 	pthread_t m_hCanScanThread;
 	//Thread ID for the CAN update scan manager thread.
 	int m_idCanScanThread;
+	std::string m_busName;
 
 	static Log::LogComponentHandle st_logItHandleSock;
 
