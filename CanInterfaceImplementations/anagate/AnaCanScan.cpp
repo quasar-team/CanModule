@@ -90,12 +90,8 @@ AnaCanScan::AnaCanScan():
 AnaCanScan::~AnaCanScan()
 {
 	stopBus();
-
 }
 
-/**
- * notify the main thread to finish and delete the bus from the map of connections
- */
 void AnaCanScan::stopBus ()
 {
 	MLOGANA(TRC,this) << __FUNCTION__ << " m_busName= " <<  m_busName;
