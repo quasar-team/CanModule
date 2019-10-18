@@ -99,7 +99,7 @@ void AnaCanScan::stopBus ()
 	CANCloseDevice(m_UcanHandle);
 
 	setCanHandleInUse(m_canPortNumber,false);
-
+	eraseReceptionHandlerFromMap( m_UcanHandle );
 
 #if 0
 	// notify the thread that it should finish.
@@ -676,6 +676,17 @@ AnaInt32 AnaCanScan::connectReceptionHandler(){
 	return( anaCallReturn );
 }
 
+
+void AnaCanScan::eraseReceptionHandlerFromMap( AnaInt32 h ){
+	std::map<string, string>::iterator it = AnaCanScan::g_AnaCanScanPointerMap.find( h );
+	if (it != AnaCanScan::g_AnaCanScanPointerMap.end()) {
+		AnaCanScan::g_AnaCanScanPointerMap.erase ( it );
+//		m_busName = "nobus";
+	} else {
+		MLOGANA(DBG,this) << " handler " << h << " not found in map, not erased;
+
+	}
+}
 
 /**
  * we try to reconnect one port after a power loss, and we should do this for all ports

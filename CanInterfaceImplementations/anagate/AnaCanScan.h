@@ -119,6 +119,7 @@ private:
 	int reconnect();
 	bool errorCodeToString(long error, char message[]);
 	void stopBus( void );
+	void eraseReceptionHandlerFromMap( AnaInt32 h );
 
 };
 
