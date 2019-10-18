@@ -683,7 +683,7 @@ void AnaCanScan::eraseReceptionHandlerFromMap( AnaInt32 h ){
 		AnaCanScan::g_AnaCanScanPointerMap.erase ( it );
 //		m_busName = "nobus";
 	} else {
-		MLOGANA(DBG,this) << " handler " << h << " not found in map, not erased;
+		MLOGANA(DBG,this) << " handler " << h << " not found in map, not erased";
 
 	}
 }
