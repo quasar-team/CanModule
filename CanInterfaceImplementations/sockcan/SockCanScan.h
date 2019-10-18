@@ -75,7 +75,7 @@ public:
 		}
 		return(f);
 	}
-	static std::map<string, string> m_busMap;
+	static std::map<string, string> m_busMap; // {name, parameters}
 
 private:
 	volatile bool m_CanScanThreadRunEnableFlag; //Flag for running/shutting down the CanScan thread

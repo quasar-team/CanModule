@@ -2,6 +2,13 @@
 All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## 1.1.9.5
+- disconnect and reconnect on the same bus by software: connection map management corrected
+- double-create of one bus protected
+- double-close of one bus protected
+- works for (systec and peak) socketcan@linux
+
+
 ## 1.1.9.4 [14.oct.2019]
 - sync flag suppressed
 - hi speed to true as default for anagate
