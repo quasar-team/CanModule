@@ -688,18 +688,22 @@ bool CSockCanScan::stopBus ()
 		std::map<string, string>::iterator it0 = CSockCanScan::m_busMap.begin();
 		int ii = 0;
 		while ( it0 != CSockCanScan::m_busMap.end() ) {
-			LOG(Log::TRC) << "OPCUA-1536 before " << ii << " " << string(it0->first) << " " << string(it0->second) ;
+			MLOGSOCK(DBG,this) << "OPCUA-1536 before " << ii << " " << string(it0->first) << " " << string(it0->second) ;
 			it0++;ii++;
 		}
 	}
 
 
-	pthread_join( m_hCanScanThread, 0 );
-	m_idCanScanThread = 0;
+//	pthread_join( m_hCanScanThread, 0 );
+//	m_idCanScanThread = 0;
 	std::map<string, string>::iterator it = CSockCanScan::m_busMap.find( m_busName );
 	if (it != CSockCanScan::m_busMap.end()) {
+		pthread_join( m_hCanScanThread, 0 );
+		m_idCanScanThread = 0;
 		CSockCanScan::m_busMap.erase ( it );
 		m_busName = "nobus";
+	} else {
+		MLOGSOCK(DBG,this) << " not joining threads... bus does not exist";
 	}
 	MLOGSOCK(DBG,this) << "stopBus() finished";
 	return true;
