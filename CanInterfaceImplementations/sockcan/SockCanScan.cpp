@@ -43,7 +43,7 @@
 #include <CanModuleUtils.h>
 
 #include <LogIt.h>
-using namespace std;
+// using namespace std;
 
 /* static */ std::map<string, string> CSockCanScan::m_busMap;
 /* static */ Log::LogComponentHandle CSockCanScan::st_logItHandleSock;
@@ -51,10 +51,10 @@ using namespace std;
 #define MLOGSOCK(LEVEL,THIS) LOG(Log::LEVEL, CSockCanScan::st_logItHandleSock) << __FUNCTION__ << " sock bus= " << THIS->getBusName() << " "
 
 
-//! The macro below is applicable only to this translation unit
-//#define MLOG(LEVEL,THIS) LOG(Log::LEVEL) << THIS->m_channelName << " "
-
-//This function creates an instance of this class and returns it. It will be loaded trough the dll to access the rest of the code.
+/**
+ * This function creates an instance of this class and returns it.
+ * It will be loaded trough the dll to access the rest of the code.
+ */
 extern "C" CCanAccess *getCanBusAccess()
 {
 	CCanAccess *cc = new CSockCanScan();
@@ -66,7 +66,8 @@ CSockCanScan::CSockCanScan() :
 			m_sock(0),
 			m_hCanScanThread(0),
 			m_idCanScanThread(0),
-			m_errorCode(-1)
+			m_errorCode(-1),
+			m_busName("nobus")
 {
 	m_statistics.beginNewRun();
 }
@@ -681,21 +682,8 @@ bool CSockCanScan::stopBus ()
 	MLOGSOCK(DBG,this) << __FUNCTION__ << " m_busName= " <<  m_busName;
 	// notify the thread that it should finish.
 	m_CanScanThreadRunEnableFlag = false;
-	MLOGSOCK(DBG,this) << " joining threads... m_idCanScanThread= " << m_idCanScanThread;
+	MLOGSOCK(DBG,this) << " try joining threads...";
 
-	// check bus map contents OPCUA-1536
-	{
-		std::map<string, string>::iterator it0 = CSockCanScan::m_busMap.begin();
-		int ii = 0;
-		while ( it0 != CSockCanScan::m_busMap.end() ) {
-			MLOGSOCK(DBG,this) << "OPCUA-1536 before " << ii << " " << string(it0->first) << " " << string(it0->second) ;
-			it0++;ii++;
-		}
-	}
-
-
-//	pthread_join( m_hCanScanThread, 0 );
-//	m_idCanScanThread = 0;
 	std::map<string, string>::iterator it = CSockCanScan::m_busMap.find( m_busName );
 	if (it != CSockCanScan::m_busMap.end()) {
 		pthread_join( m_hCanScanThread, 0 );
