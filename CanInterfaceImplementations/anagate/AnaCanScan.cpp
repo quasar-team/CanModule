@@ -678,9 +678,9 @@ AnaInt32 AnaCanScan::connectReceptionHandler(){
 
 
 void AnaCanScan::eraseReceptionHandlerFromMap( AnaInt32 h ){
-	std::map<string, string>::iterator it = AnaCanScan::g_AnaCanScanPointerMap.find( h );
-	if (it != AnaCanScan::g_AnaCanScanPointerMap.end()) {
-		AnaCanScan::g_AnaCanScanPointerMap.erase ( it );
+	std::map<string, string>::iterator it = g_AnaCanScanPointerMap.find( h );
+	if (it != g_AnaCanScanPointerMap.end()) {
+		g_AnaCanScanPointerMap.erase ( it );
 //		m_busName = "nobus";
 	} else {
 		MLOGANA(DBG,this) << " handler " << h << " not found in map, not erased";
