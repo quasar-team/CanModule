@@ -678,9 +678,21 @@ void CSockCanScan::sendErrorMessage(const char *mess)
  */
 bool CSockCanScan::stopBus ()
 {
+	MLOGSOCK(DBG,this) << __FUNCTION__ << " m_busName= " <<  m_busName;
 	// notify the thread that it should finish.
 	m_CanScanThreadRunEnableFlag = false;
 	MLOGSOCK(DBG,this) << " joining threads... m_idCanScanThread= " << m_idCanScanThread;
+
+	// check bus map contents OPCUA-1536
+	{
+		std::map<string, string>::iterator it0 = CSockCanScan::m_busMap.begin();
+		int ii = 0;
+		while ( it0 != CSockCanScan::m_busMap.end() ) {
+			LOG(Log::TRC) << "OPCUA-1536 before " << ii << " " << string(it0->first) << " " << string(it0->second) ;
+			it0++;ii++;
+		}
+	}
+
 
 	pthread_join( m_hCanScanThread, 0 );
 	m_idCanScanThread = 0;
