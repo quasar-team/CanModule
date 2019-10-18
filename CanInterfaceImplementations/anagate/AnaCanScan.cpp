@@ -89,11 +89,40 @@ AnaCanScan::AnaCanScan():
  */
 AnaCanScan::~AnaCanScan()
 {
-	LOG(Log::TRC, AnaCanScan::s_logItHandleAnagate ) << "Closing down Anagate Can Scan component";
+	stopBus();
+
+}
+
+/**
+ * notify the main thread to finish and delete the bus from the map of connections
+ */
+void AnaCanScan::stopBus ()
+{
+	MLOGANA(TRC,this) << __FUNCTION__ << " m_busName= " <<  m_busName;
 	CANSetCallback(m_UcanHandle, 0);
 	CANCloseDevice(m_UcanHandle);
-	LOG(Log::TRC, AnaCanScan::s_logItHandleAnagate ) << "Anagate Can Scan component closed successfully";
+
+
+#if 0
+	// notify the thread that it should finish.
+	m_CanScanThreadRunEnableFlag = false;
+	MLOGANA(DBG,this) << " try joining threads...";
+
+	std::map<string, string>::iterator it = CSockCanScan::m_busMap.find( m_busName );
+	if (it != CSockCanScan::m_busMap.end()) {
+		pthread_join( m_hCanScanThread, 0 );
+		m_idCanScanThread = 0;
+		CSockCanScan::m_busMap.erase ( it );
+		m_busName = "nobus";
+	} else {
+		MLOGANA(DBG,this) << " not joining threads... bus does not exist";
+	}
+#endif
+	MLOGANA(TRC,this) << __FUNCTION__ << " finished";
 }
+
+
+
 
 /* static */ void AnaCanScan::setIpReconnectInProgress( string ip, bool flag ){
 	std::map<string,bool>::iterator it = AnaCanScan::reconnectInProgress_map.find( ip );

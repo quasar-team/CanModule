@@ -118,6 +118,8 @@ private:
 	int openCanPort();
 	int reconnect();
 	bool errorCodeToString(long error, char message[]);
+	void stopBus( void );
+
 };
 
 #endif //CCANANASCAN_H_
