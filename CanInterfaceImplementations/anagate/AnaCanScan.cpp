@@ -94,9 +94,11 @@ AnaCanScan::~AnaCanScan()
 
 void AnaCanScan::stopBus ()
 {
-	MLOGANA(TRC,this) << __FUNCTION__ << " m_busName= " <<  m_busName;
+	MLOGANA(TRC,this) << __FUNCTION__ << " m_busName= " <<  m_busName << " m_canPortNumber= " << m_canPortNumber;
 	CANSetCallback(m_UcanHandle, 0);
 	CANCloseDevice(m_UcanHandle);
+
+	setCanHandleInUse(m_canPortNumber,false);
 
 
 #if 0
