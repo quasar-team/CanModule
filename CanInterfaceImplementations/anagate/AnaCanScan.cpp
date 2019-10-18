@@ -678,7 +678,7 @@ AnaInt32 AnaCanScan::connectReceptionHandler(){
 
 
 void AnaCanScan::eraseReceptionHandlerFromMap( AnaInt32 h ){
-	std::map<string, string>::iterator it = g_AnaCanScanPointerMap.find( h );
+	std::map<AnaInt32, AnaCanScan *>::iterator it = g_AnaCanScanPointerMap.find( h );
 	if (it != g_AnaCanScanPointerMap.end()) {
 		g_AnaCanScanPointerMap.erase ( it );
 //		m_busName = "nobus";
