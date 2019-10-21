@@ -117,7 +117,6 @@ void AnaCanScan::stopBus ()
 	}
 #endif
 #ifdef _WIN32
-	// maybe no delay neccessary ?
 #else
 	MLOGANA(TRC, this ) << " imposing a delay of 7 seconds before continuing";
 	{
