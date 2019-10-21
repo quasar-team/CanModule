@@ -20,7 +20,7 @@ firmware reset using the vendor API, through code like:
 
 .. code-block:: c++
 
-	AnaInt32 timeout = 10000; // 10secs
+	AnaInt32 timeout = 12000; // 12secs
 	AnaInt32 anaRet = CANRestart( "192.168.1.10", timeout );
 
 
@@ -39,28 +39,30 @@ The 4th case, software close/open, leads to a deallocation of the connection obj
 created connection. These objects are recorded in a (anagate-global) connection map. The library 
 load object (see standard API) can also be deallocated and recreated.
  
-Nevertheless the Anagate modules tend to firmware-crash if too many close/open are executed too quickly, 
-making a full power-cycle of the module necessary. A delay of 3 seconds between a close and 
-a (re-)open per module is therefore imposed by CanModule to avoid "killing" a module. 
+- the Anagate modules tend to firmware-crash if too many CAN bus close/open are executed too quickly, 
+making a full power-cycle of the module necessary. A delay of 7 seconds between a close and 
+a (re-)open per module is therefore imposed by CanModule to avoid "firmware-crashing" a module. This crash
+occurs independently from the connection timeout. A bigger delay is recommended if it can be afforded:
+lab-tests show a 7sec delay still crashes after 30 consecutive reconnects. These crashes can also
+be related to networking problems but they are difficult to investigate.
 
-- anagate fw reload takes 6 seconds, so adding another 4 seconds is recommended for anagate  
 
 peak
 ----
-The module is receiving power through the USB port, if this connection is lost we need to reconnect.
+- The module is receiving power through the USB port, if this connection is lost we need to reconnect.
 Reconnection works for both normal (fixed) and flexible datarate (FD) modules under linux, as 
-socketcan is used. For windows only
-normal datarate (fixed) are supported, and the reconnection also works for them.
-
-Reconnection takes less than 30sec.
+socketcan is used. For windows only normal datarate (fixed) are supported, and the reconnection 
+also works for them.
+- Reconnection takes less than 30sec.
+- A software close/open is fully supported and works under cc7 without limitations.
 
 systec
 ------
-A power loss or a connection loss will trigger a reconnection. For linux, where socketcan is used,
-this works like for peak. 
-
-For windows the reconnection is NOT WORKING, and it is not clear if it can actually
+- A power loss or a connection loss will trigger a reconnection. For linux, where socketcan is used,
+this works in the same way as for peak. Connections are managed in a systec-global map. 
+- A software close/open is fully supported and works under cc7 without limitations.
+- For windows the reconnection is NOT WORKING, and it is not clear if it can actually
 be achieved within CanModule. It seems that a library reload is needed to make the module work again.
 This feature is therefore DROPPED for now, since also no strong user request for "systec reconnection
-under windows" is presently stated. I tried, using the systec API@windows, but did not manage.
+under windows" is presently stated. I tried, using the systec API@windows as documented, but did not manage.
 
