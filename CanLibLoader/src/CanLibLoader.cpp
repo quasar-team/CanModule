@@ -53,17 +53,8 @@ namespace CanModule
 	}
 
 	void CanLibLoader::closeCanBus(CCanAccess *cInter) {
-		LOG(Log::DBG, lh ) << __FUNCTION__<< " Canbus name to be deleted: " << cInter->getBusName()
-				<< " imposing a delay of 3 seconds before continuing";
+		LOG(Log::DBG, lh ) << __FUNCTION__<< " Canbus name to be deleted: " << cInter->getBusName();
 		delete cInter; // dtor calls stopBus()
-		{
-			struct timespec tim, tim2;
-			tim.tv_sec = 3;
-			tim.tv_nsec = 0;
-			if(nanosleep(&tim , &tim2) < 0 ) {
-				LOG(Log::ERR, lh ) << __FUNCTION__ << " Waiting failed (nanosleep)";
-			}
-		}
 	}
 
 	CCanAccess* CanLibLoader::openCanBus(string name, string parameters) {
