@@ -116,13 +116,13 @@ void AnaCanScan::stopBus ()
 		MLOGANA(DBG,this) << " not joining threads... bus does not exist";
 	}
 #endif
-	MLOGANA(Log::TRC, this ) << " imposing a delay of 7 seconds before continuing";
+	MLOGANA(TRC, this ) << " imposing a delay of 7 seconds before continuing";
 	{
 		struct timespec tim, tim2;
 		tim.tv_sec = 7;
 		tim.tv_nsec = 0;
 		if(nanosleep(&tim , &tim2) < 0 ) {
-			MLOGANA(Log::ERR, lh ) << " Waiting failed (nanosleep)";
+			MLOGANA(ERR, this ) << " Waiting failed (nanosleep)";
 		}
 	}
 	MLOGANA(TRC,this) << " finished";
