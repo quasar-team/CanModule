@@ -58,7 +58,7 @@ namespace CanModule
 		delete cInter; // dtor calls stopBus()
 		{
 			struct timespec tim, tim2;
-			tim.tv_sec = 2;
+			tim.tv_sec = 3;
 			tim.tv_nsec = 0;
 			if(nanosleep(&tim , &tim2) < 0 ) {
 				LOG(Log::ERR, lh ) << __FUNCTION__ << " Waiting failed (nanosleep)";

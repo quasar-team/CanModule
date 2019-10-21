@@ -40,8 +40,10 @@ created connection. These objects are recorded in a (anagate-global) connection 
 load object (see standard API) can also be deallocated and recreated.
  
 Nevertheless the Anagate modules tend to firmware-crash if too many close/open are executed too quickly, 
-making a full power-cycle of the module necessary. A delay of at least 2 seconds between a close and 
-a (re-)open per module is recommended to avoid "killing" the module.  
+making a full power-cycle of the module necessary. A delay of 3 seconds between a close and 
+a (re-)open per module is therefore imposed by CanModule to avoid "killing" a module. 
+
+- anagate fw reload takes 6 seconds, so adding another 4 seconds is recommended for anagate  
 
 peak
 ----
