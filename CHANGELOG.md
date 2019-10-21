@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 - double-create of one bus protected
 - double-close of one bus protected
 - works for (systec and peak) socketcan@linux
+- increased anagate open can bus timeout from 6 to 12 seconds
 
 
 ## 1.1.9.4 [14.oct.2019]
