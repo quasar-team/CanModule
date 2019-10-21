@@ -116,6 +116,9 @@ void AnaCanScan::stopBus ()
 		MLOGANA(DBG,this) << " not joining threads... bus does not exist";
 	}
 #endif
+#ifdef _WIN32
+	// maybe no delay neccessary ?
+#else
 	MLOGANA(TRC, this ) << " imposing a delay of 7 seconds before continuing";
 	{
 		struct timespec tim, tim2;
@@ -125,7 +128,9 @@ void AnaCanScan::stopBus ()
 			MLOGANA(ERR, this ) << " Waiting failed (nanosleep)";
 		}
 	}
+#endif
 	MLOGANA(TRC,this) << " finished";
+
 }
 
 
