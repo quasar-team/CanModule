@@ -101,8 +101,11 @@ void AnaCanScan::stopBus ()
 	setCanHandleInUse(m_canPortNumber,false);
 	eraseReceptionHandlerFromMap( m_UcanHandle );
 
+#ifdef _WIN32
+#else
 	MLOGANA(TRC, this ) << " imposing a delay of 7 seconds before continuing";
 	boost::this_thread::sleep_for(boost::chrono::milliseconds( 7000 ));
+#endif
 	MLOGANA(TRC,this) << " finished";
 
 }
