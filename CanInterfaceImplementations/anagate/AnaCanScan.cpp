@@ -79,7 +79,7 @@ AnaCanScan::AnaCanScan():
 				m_busName(""),
 				m_busParameters(""),
 				m_UcanHandle(0),
-				m_timeout ( 6000 )
+				m_timeout ( 12000 )
 {
 	m_statistics.beginNewRun();
 }
@@ -339,7 +339,7 @@ int AnaCanScan::openCanPort()
 	} else {
 		//Otherwise we create it.
 		MLOGANA(DBG, this) << "Will call CANOpenDevice with parameters m_canHandleNumber:[" << m_canPortNumber << "], m_canIPAddress:[" << m_canIPAddress << "]";
-		anaCallReturn = CANOpenDevice(&canModuleHandle, FALSE, TRUE, m_canPortNumber, m_canIPAddress.c_str(),m_timeout);
+		anaCallReturn = CANOpenDevice(&canModuleHandle, FALSE, TRUE, m_canPortNumber, m_canIPAddress.c_str(), m_timeout);
 		if (anaCallReturn != 0) {
 			// fill out initialisation struct
 			MLOGANA(ERR,this) << "Error in CANOpenDevice, return code = [" << anaCallReturn << "]";
