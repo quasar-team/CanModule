@@ -61,8 +61,7 @@ namespace CanModule
 			tim.tv_sec = 2;
 			tim.tv_nsec = 0;
 			if(nanosleep(&tim , &tim2) < 0 ) {
-				MLOGSOCK(ERR,p_sockCanScan) << "Waiting 1s failed (nanosleep)"
-						<< " tid= " << _tid;
+				MLOGSOCK(ERR,p_sockCanScan) << "Waiting failed (nanosleep)";
 			}
 		}
 	}
