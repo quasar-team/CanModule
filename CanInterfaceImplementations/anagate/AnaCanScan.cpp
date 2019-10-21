@@ -101,33 +101,8 @@ void AnaCanScan::stopBus ()
 	setCanHandleInUse(m_canPortNumber,false);
 	eraseReceptionHandlerFromMap( m_UcanHandle );
 
-#if 0
-	// notify the thread that it should finish.
-	m_CanScanThreadRunEnableFlag = false;
-	MLOGANA(DBG,this) << " try joining threads...";
-
-	std::map<string, string>::iterator it = CSockCanScan::m_busMap.find( m_busName );
-	if (it != CSockCanScan::m_busMap.end()) {
-		pthread_join( m_hCanScanThread, 0 );
-		m_idCanScanThread = 0;
-		CSockCanScan::m_busMap.erase ( it );
-		m_busName = "nobus";
-	} else {
-		MLOGANA(DBG,this) << " not joining threads... bus does not exist";
-	}
-#endif
-#ifdef _WIN32
-#else
 	MLOGANA(TRC, this ) << " imposing a delay of 7 seconds before continuing";
-	{
-		struct timespec tim, tim2;
-		tim.tv_sec = 7;
-		tim.tv_nsec = 0;
-		if(nanosleep(&tim , &tim2) < 0 ) {
-			MLOGANA(ERR, this ) << " Waiting failed (nanosleep)";
-		}
-	}
-#endif
+	boost::this_thread::sleep_for(boost::chrono::milliseconds( 7000 ));
 	MLOGANA(TRC,this) << " finished";
 
 }
