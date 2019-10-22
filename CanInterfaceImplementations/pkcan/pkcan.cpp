@@ -195,7 +195,9 @@ bool PKCanScan::configureCanboard(const string name,const string parameters)
 	string interface = "USB";
 	string humanReadableCode = interface + channel.str();
 	m_canObjHandler = getHandle( humanReadableCode.c_str() );
-	MLOGPK( DBG, this ) << "PEAK handle for vectorString[1]= " << vectorString[1] << " is code= 0x" <<hex <<  m_canObjHandler << dec << std::endl;
+	MLOGPK( DBG, this ) << "PEAK handle for vectorString[1]= " << vectorString[1]
+	      << " is code= 0x" <<hex <<  m_canObjHandler << dec
+		  << " human readable code= " << humanReadableCode << std::endl;
 
 
 	if (strcmp(parameters.c_str(), "Unspecified") != 0)
@@ -242,7 +244,7 @@ bool PKCanScan::configureCanboard(const string name,const string parameters)
 	}
 
 	/** FD (flexible datarate) modules.
-	 * we need to contruct (a compplicated) bitrate string in this case, according to PEAK PCAN-Basic Documentation API manual p.82
+	 * we need to contruct (a complicated) bitrate string in this case, according to PEAK PCAN-Basic Documentation API manual p.82
 	 * two data rates, for nominal and data, can be defined.
 	 * all these parameters have to be passed
 	 *TPCANStatus tpcanStatus = CAN_InitializeFD(m_canObjHandler, m_baudRate);
