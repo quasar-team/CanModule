@@ -256,7 +256,9 @@ bool PKCanScan::configureCanboard(const string name,const string parameters)
 	/**
 	 * fixed datarate modules (classical CAN), plug and play
 	 */
+	MLOGPK(TRC, this) << "calling CAN_Initialize";
 	TPCANStatus tpcanStatus = CAN_Initialize(m_canObjHandler, m_baudRate );
+	MLOGPK(TRC, this) << "CAN_Initialize returns " << (int) tpcanStatus;
 
 	/** fixed data rate, non plug-and-play
 	 * static TPCANStatus Initialize(
