@@ -169,8 +169,6 @@ bool PKCanScan::createBus(const string name ,const string parameters )
  */
 bool PKCanScan::configureCanboard(const string name,const string parameters)
 {
-	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " name= " << name << " parameters= " << parameters << std::endl;
-
 	m_sBusName = name;
 	m_baudRate = PCAN_BAUD_125K;
 
