@@ -65,8 +65,10 @@ systec
 
 - A power loss or a connection loss will trigger a reconnection. For linux, where socketcan is used,
 this works in the same way as for peak. Connections are managed in a global map. 
-- A software close/open is fully supported and works under cc7 without limitations.
-- For windows the reconnection is NOT WORKING, and it is not clear if it can actually
+- A software close/open is fully supported and works under cc7 and also windows without limitations. 
+If the sequence is too fast (for the environment..) some messages will be lost, but the 
+module recuperates correctly in the following.  
+- For windows the hardware reconnection is NOT WORKING, and it is not clear if it can actually
 be achieved within CanModule. It seems that a library reload is needed to make the module work again.
 This feature is therefore DROPPED for now, since also no strong user request for "systec reconnection
 under windows" is presently stated. I tried, using the systec API@windows as documented, but did not manage.
