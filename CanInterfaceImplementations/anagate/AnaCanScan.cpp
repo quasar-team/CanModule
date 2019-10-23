@@ -113,6 +113,7 @@ void AnaCanScan::stopBus ()
 
 
 /* static */ void AnaCanScan::setIpReconnectInProgress( string ip, bool flag ){
+	anagateReconnectMutex.lock();
 	std::map<string,bool>::iterator it = AnaCanScan::reconnectInProgress_map.find( ip );
 
 	if ( flag ){
@@ -126,14 +127,17 @@ void AnaCanScan::stopBus ()
 			AnaCanScan::reconnectInProgress_map.erase( it );
 		}
 	}
+	anagateReconnectMutex.unlock();
 }
 
 /* static */ bool AnaCanScan::isIpReconnectInProgress( string ip ){
+	anagateReconnectMutex.lock();
 	std::map<string,bool>::iterator it = AnaCanScan::reconnectInProgress_map.find( ip );
 	if ( it == AnaCanScan::reconnectInProgress_map.end() )
 		return( false );
 	else
 		return( true );
+	anagateReconnectMutex.unlock();
 }
 
 
