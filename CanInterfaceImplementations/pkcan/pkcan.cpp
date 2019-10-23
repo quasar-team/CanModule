@@ -213,6 +213,7 @@ bool PKCanScan::createBus(const string name ,const string parameters )
 		return false;
 	}
 
+	bool skipMainThreadCreation = false;
 	{
 		peakReconnectMutex.lock();
 		// debug bus map
@@ -221,7 +222,6 @@ bool PKCanScan::createBus(const string name ,const string parameters )
 		}
 
 		// dont create a main thread for the same bus twice
-		bool skipMainThreadCreation = false;
 		std::map<string, string>::iterator it = PKCanScan::m_busMap.find( name );
 		if (it == PKCanScan::m_busMap.end()) {
 			PKCanScan::m_busMap.insert ( std::pair<string, string>(name, parameters) );
