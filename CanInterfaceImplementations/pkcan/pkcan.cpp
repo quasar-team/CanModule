@@ -75,9 +75,11 @@ void PKCanScan::stopBus ()
 
 	CAN_Uninitialize(m_canObjHandler);
 
-	// notify the thread that it should finish.
+
 	m_CanScanThreadRunEnableFlag = false;
-	MLOGPK(DBG,this) << " try joining threads...";
+	MLOGPK(DBG,this) << " try finishing thread...";
+
+	Sleep(2); // and wait a bit for the thread to die
 
 //#if 0
 	std::map<string, string>::iterator it = PKCanScan::m_busMap.find( m_busName );
