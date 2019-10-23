@@ -690,7 +690,7 @@ bool CSockCanScan::stopBus ()
 	MLOGSOCK(DBG,this) << " try joining threads...";
 
 	{
-		sockReconnectMutexectMutex.lock();
+		sockReconnectMutex.lock();
 		std::map<string, string>::iterator it = CSockCanScan::m_busMap.find( m_busName );
 		if (it != CSockCanScan::m_busMap.end()) {
 			pthread_join( m_hCanScanThread, 0 );
@@ -700,7 +700,7 @@ bool CSockCanScan::stopBus ()
 		} else {
 			MLOGSOCK(DBG,this) << " not joining threads... bus does not exist";
 		}
-		sockReconnectMutexectMutex.unlock();
+		sockReconnectMutex.unlock();
 	}
 	MLOGSOCK(DBG,this) << "stopBus() finished";
 	return true;
