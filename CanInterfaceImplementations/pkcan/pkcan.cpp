@@ -73,7 +73,9 @@ void PKCanScan::stopBus ()
 	// MLOGPK(DBG, this ) << __FUNCTION__ << " m_busName= " <<  m_busName ;
 	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " m_busName= " <<  m_busName << std::endl;
 
-	CAN_Uninitialize(m_canObjHandler);
+	MLOGPK(TRC, this) << "calling CAN_Uninitialize";
+	TPCANStatus tpcanStatus = CAN_Uninitialize(m_canObjHandler);
+	MLOGPK(TRC, this) << "CAN_Uninitialize returns " << (int) tpcanStatus;
 
 
 	m_CanScanThreadRunEnableFlag = false;
