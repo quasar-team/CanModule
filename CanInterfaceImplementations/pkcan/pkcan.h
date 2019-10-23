@@ -72,7 +72,7 @@ private:
 	//Instance of Can Statistics
 	CanStatistics m_statistics;
 	TPCANStatus m_busStatus;
-	bool m_CanScanThreadShutdownFlag;
+	bool m_CanScanThreadRunEnableFlag;
 	//Current baud rate
 	unsigned int m_baudRate;
 

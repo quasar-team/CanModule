@@ -107,7 +107,6 @@ void AnaCanScan::stopBus ()
 	boost::this_thread::sleep_for(boost::chrono::milliseconds( 7000 ));
 #endif
 	MLOGANA(TRC,this) << " finished";
-
 }
 
 

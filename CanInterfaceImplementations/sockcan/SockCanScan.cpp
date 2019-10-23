@@ -43,7 +43,6 @@
 #include <CanModuleUtils.h>
 
 #include <LogIt.h>
-// using namespace std;
 
 /* static */ std::map<string, string> CSockCanScan::m_busMap;
 /* static */ Log::LogComponentHandle CSockCanScan::st_logItHandleSock;

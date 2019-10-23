@@ -35,7 +35,7 @@
 
 #define MLOGPK(LEVEL,THIS) LOG(Log::LEVEL, PKCanScan::s_logItHandlePk) << __FUNCTION__ << " " << " peak bus= " << THIS->getBusName() << " "
 
-using namespace std;
+// using namespace std;
 
 bool  initLibarary =  false;
 extern "C" __declspec(dllexport) CCanAccess *getCanBusAccess()
@@ -49,16 +49,47 @@ PKCanScan::PKCanScan():
 				m_busStatus(0),
 				m_baudRate(0),
 				m_idCanScanThread(0),
-				m_CanScanThreadShutdownFlag(true)
+				m_CanScanThreadRunEnableFlag(false)
 {
 	m_statistics.beginNewRun();
 }
 
 PKCanScan::~PKCanScan()
 {
-	m_CanScanThreadShutdownFlag = false;
-	//	CloseHandle(m_ReadEvent);
+	stopBus();
+
+	// m_CanScanThreadRunEnableFlag = false;
+	////	CloseHandle(m_ReadEvent);
+
+	//CAN_Uninitialize(m_canObjHandler);
+}
+
+/**
+ * notify the main thread to finish and delete the bus from the map of connections
+ */
+bool PKCanScan::stopBus ()
+{
+	MLOGPK(DBG,this) << __FUNCTION__ << " m_busName= " <<  m_busName << " m_canObjHandler= 0x"
+			<< hex << m_canObjHandler << dec;
 	CAN_Uninitialize(m_canObjHandler);
+
+	// notify the thread that it should finish.
+	m_CanScanThreadRunEnableFlag = false;
+	MLOGPK(DBG,this) << " try joining threads...";
+
+#if 0
+	std::map<string, string>::iterator it = CSockCanScan::m_busMap.find( m_busName );
+	if (it != CSockCanScan::m_busMap.end()) {
+		pthread_join( m_hCanScanThread, 0 );
+		m_idCanScanThread = 0;
+		CSockCanScan::m_busMap.erase ( it );
+		m_busName = "nobus";
+	} else {
+		MLOGPK(DBG,this) << " not joining threads... bus does not exist";
+	}
+#endif
+	MLOGPK(DBG,this) << "stopBus() finished";
+	return true;
 }
 
 
@@ -69,8 +100,9 @@ DWORD WINAPI PKCanScan::CanScanControlThread(LPVOID pCanScan)
 {
 	PKCanScan *pkCanScanPointer = reinterpret_cast<PKCanScan *>(pCanScan);
 	TPCANHandle tpcanHandler = pkCanScanPointer->m_canObjHandler;
-	MLOGPK(DBG,pkCanScanPointer) << "CanScanControlThread Started. m_CanScanThreadShutdownFlag = [" << pkCanScanPointer->m_CanScanThreadShutdownFlag <<"]";
-	while ( pkCanScanPointer->m_CanScanThreadShutdownFlag ) {
+	MLOGPK(DBG,pkCanScanPointer) << "CanScanControlThread Started. m_CanScanThreadShutdownFlag = [" << pkCanScanPointer->m_CanScanThreadRunEnableFlag <<"]";
+	m_CanScanThreadRunEnableFlag = true;
+	while ( pkCanScanPointer->m_CanScanThreadRunEnableFlag ) {
 		TPCANMsg tpcanMessage;
 		TPCANTimestamp tpcanTimestamp;
 		TPCANStatus tpcanStatus = CAN_Read(tpcanHandler,&tpcanMessage,&tpcanTimestamp);
@@ -105,6 +137,11 @@ DWORD WINAPI PKCanScan::CanScanControlThread(LPVOID pCanScan)
 			}
 		}
 	}
+	MLOGPK(TRC, pkCanScanPointer) << "uninitializing CAN...";
+	//	CloseHandle(m_ReadEvent);
+	CAN_Uninitialize(m_canObjHandler);
+
+	MLOGPK(TRC, pkCanScanPointer) << "exiting thread...";
 	ExitThread(0);
 	return 0;
 }
@@ -206,6 +243,7 @@ bool PKCanScan::configureCanboard(const string name,const string parameters)
 		//Process the baudRate if needed
 		if (m_CanParameters.m_iNumberOfDetectedParameters == 1)
 		{
+			MLOGPK(DBG, this) << " m_CanParameters.m_lBaudRate= " << m_CanParameters.m_lBaudRate << std::endl;
 			switch (m_CanParameters.m_lBaudRate)
 			{
 			case 50000:
@@ -240,6 +278,7 @@ bool PKCanScan::configureCanboard(const string name,const string parameters)
 	} else {
 		MLOGPK(DBG, this) << "Unspecified parameters, default values will be used.";
 	}
+	MLOGPK(DBG, this) << " m_baudRate= " << m_baudRate << std::endl;
 
 	/** FD (flexible datarate) modules.
 	 * we need to contruct (a complicated) bitrate string in this case, according to PEAK PCAN-Basic Documentation API manual p.82
