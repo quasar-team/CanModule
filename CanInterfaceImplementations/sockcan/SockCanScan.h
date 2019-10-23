@@ -29,13 +29,12 @@
 #include <string>
 #include <sys/socket.h>
 #include <linux/can.h>
-#
 #include <boost/thread/thread.hpp>
 
 
 #include "CCanAccess.h"
 #include "CanStatistics.h"
-include "libsocketcan.h"
+#include "libsocketcan.h"
 
 /*
  * This is an implementation of the abstract class CCanAccess. It serves as a can bus access layer that will communicate with socket can (Linux only)
