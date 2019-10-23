@@ -81,6 +81,11 @@ void PKCanScan::stopBus ()
 
 	Sleep(2); // and wait a bit for the thread to die
 
+	// debug bus map
+	for (std::map<string, string>::iterator it = PKCanScan::m_busMap.begin(); it != PKCanScan::m_busMap.end(); ++it){
+		std::cout << " before " << it->first << " => " << it->second << std::endl;
+	}
+
 //#if 0
 	std::map<string, string>::iterator it = PKCanScan::m_busMap.find( m_busName );
 	if (it != PKCanScan::m_busMap.end()) {
@@ -91,9 +96,14 @@ void PKCanScan::stopBus ()
 		PKCanScan::m_busMap.erase ( it );
 		m_busName = "nobus";
 	} else {
-		MLOGPK(DBG,this) << " not joining threads... bus does not exist";
+		MLOGPK(DBG,this) << " bus " << m_busName << " does not exist";
 	}
 //#endif
+	// debug bus map
+	for (std::map<string, string>::iterator it = PKCanScan::m_busMap.begin(); it != PKCanScan::m_busMap.end(); ++it){
+		std::cout << " after " << it->first << " => " << it->second << std::endl;
+	}
+
 	MLOGPK(DBG,this) << "stopBus() finished";
 }
 
