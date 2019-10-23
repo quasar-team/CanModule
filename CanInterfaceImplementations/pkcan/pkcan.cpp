@@ -166,6 +166,9 @@ DWORD WINAPI PKCanScan::CanScanControlThread(LPVOID pCanScan)
  */
 bool PKCanScan::createBus(const string name ,const string parameters )
 {
+	m_busName = name;
+	m_busParameters = parameters;
+
 	// calling base class to get the instance from there
 	Log::LogComponentHandle myHandle;
 	LogItInstance* logItInstance = CCanAccess::getLogItInstance(); // actually calling instance method, not class

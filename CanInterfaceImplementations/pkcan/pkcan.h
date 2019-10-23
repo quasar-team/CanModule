@@ -76,6 +76,8 @@ private:
 	bool m_CanScanThreadRunEnableFlag;
 	//Current baud rate
 	unsigned int m_baudRate;
+	string m_busName;
+	string m_busParameters;
 
 	//Instance of the can handle
    	TPCANHandle	m_canObjHandler;
