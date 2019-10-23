@@ -111,8 +111,6 @@ void AnaCanScan::stopBus ()
 }
 
 
-
-
 /* static */ void AnaCanScan::setIpReconnectInProgress( string ip, bool flag ){
 	anagateReconnectMutex.lock();
 	std::map<string,bool>::iterator it = AnaCanScan::reconnectInProgress_map.find( ip );
@@ -251,7 +249,7 @@ bool AnaCanScan::createBus(const string name,const string parameters)
 
 
 /**
- * decode the name, parameter and return the port to the configured module
+ * decode the name, parameter and return the port of the configured module
  */
 int AnaCanScan::configureCanBoard(const string name,const string parameters)
 {
@@ -312,8 +310,7 @@ int AnaCanScan::configureCanBoard(const string name,const string parameters)
 }
 
 /**
- *
- * Obtains a Anagate canport and opens it.
+ * Obtains an Anagate canport and opens it.
  *  The name of the port and parameters should have been specified by preceding call to configureCanboard()
  *  @returns less than zero in case of error, otherwise success
  *
@@ -344,7 +341,6 @@ int AnaCanScan::openCanPort()
 	setCanHandleInUse(m_canPortNumber,true);
 
 	// initialize CAN interface
-
 	MLOGANA(TRC,this) << "calling CANSetGlobals with m_lBaudRate= "
 			<< m_CanParameters.m_lBaudRate
 			<< " m_iOperationMode= " << m_CanParameters.m_iOperationMode
@@ -675,10 +671,9 @@ void AnaCanScan::eraseReceptionHandlerFromMap( AnaInt32 h ){
 	std::map<AnaInt32, AnaCanScan *>::iterator it = g_AnaCanScanPointerMap.find( h );
 	if (it != g_AnaCanScanPointerMap.end()) {
 		g_AnaCanScanPointerMap.erase ( it );
-//		m_busName = "nobus";
+		m_busName = "nobus";
 	} else {
 		MLOGANA(DBG,this) << " handler " << h << " not found in map, not erased";
-
 	}
 }
 

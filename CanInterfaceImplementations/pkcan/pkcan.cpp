@@ -62,11 +62,6 @@ PKCanScan::PKCanScan():
 PKCanScan::~PKCanScan()
 {
 	stopBus();
-
-	// m_CanScanThreadRunEnableFlag = false;
-	////	CloseHandle(m_ReadEvent);
-
-	//CAN_Uninitialize(m_canObjHandler);
 }
 
 /**
@@ -74,23 +69,13 @@ PKCanScan::~PKCanScan()
  */
 void PKCanScan::stopBus ()
 {
-	// MLOGPK(DBG, this ) << __FUNCTION__ << " m_busName= " <<  m_busName ;
-	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " m_busName= " <<  m_busName << std::endl;
-
 	m_CanScanThreadRunEnableFlag = false;
-	MLOGPK(DBG,this) << " try finishing thread...";
-
-	MLOGPK(TRC, this) << "calling CAN_Uninitialize";
+	MLOGPK(TRC, this) << " try finishing thread...calling CAN_Uninitialize";
 	TPCANStatus tpcanStatus = CAN_Uninitialize(m_canObjHandler);
 	MLOGPK(TRC, this) << "CAN_Uninitialize returns " << (int) tpcanStatus;
 
 	{
 		peakReconnectMutex.lock();
-		// debug bus map
-		for (std::map<string, string>::iterator it = PKCanScan::m_busMap.begin(); it != PKCanScan::m_busMap.end(); ++it){
-			std::cout << __FILE__ << " " << __LINE__ << " before " << it->first << " => " << it->second << std::endl;
-		}
-
 		std::map<string, string>::iterator it = PKCanScan::m_busMap.find( m_busName );
 		if (it != PKCanScan::m_busMap.end()) {
 			m_idCanScanThread = 0;
@@ -100,15 +85,9 @@ void PKCanScan::stopBus ()
 		} else {
 			MLOGPK(DBG,this) << " bus " << m_busName << " does not exist";
 		}
-
-		// debug bus map
-		for (std::map<string, string>::iterator it = PKCanScan::m_busMap.begin(); it != PKCanScan::m_busMap.end(); ++it){
-			std::cout << __FILE__ << " " << __LINE__ << " after " << it->first << " => " << it->second << std::endl;
-		}
 		peakReconnectMutex.unlock();
 	}
 	Sleep(2); // and wait a bit for the thread to die
-
 	MLOGPK(DBG,this) << "stopBus() finished";
 }
 
@@ -202,9 +181,7 @@ bool PKCanScan::createBus(const string name ,const string parameters )
 	MLOGPK(DBG, this) << " name= " << name << " parameters= " << parameters << ", configuring CAN board";
 
 	m_sBusName = name; // maybe this can be cleaned up: we have m_busName already
-	//We configure the canboard
 	if ( !configureCanboard(name,parameters) ) {
-		//If we can't initialise the canboard, the thread is not started at all
 		MLOGPK( ERR, this ) << " name= " << name << " parameters= " << parameters << ", failed to configure CAN board";
 		return false;
 	}
@@ -212,11 +189,6 @@ bool PKCanScan::createBus(const string name ,const string parameters )
 	bool skipMainThreadCreation = false;
 	{
 		peakReconnectMutex.lock();
-		// debug bus map
-		for (std::map<string, string>::iterator it = PKCanScan::m_busMap.begin(); it != PKCanScan::m_busMap.end(); ++it){
-			std::cout << __FILE__ << " " << __LINE__ << " before " << it->first << " => " << it->second << std::endl;
-		}
-
 		// dont create a main thread for the same bus twice
 		std::map<string, string>::iterator it = PKCanScan::m_busMap.find( name );
 		if (it == PKCanScan::m_busMap.end()) {
@@ -225,10 +197,6 @@ bool PKCanScan::createBus(const string name ,const string parameters )
 		} else {
 			LOG(Log::WRN) << __FUNCTION__ << " bus exists already [" << name << ", " << parameters << "], not creating another main thread";
 			skipMainThreadCreation = true;
-		}
-		// debug bus map
-		for (std::map<string, string>::iterator it = PKCanScan::m_busMap.begin(); it != PKCanScan::m_busMap.end(); ++it){
-			std::cout << __FILE__ << " " << __LINE__ << " after " << it->first << " => " << it->second << std::endl;
 		}
 		peakReconnectMutex.unlock();
 	}
