@@ -335,10 +335,21 @@ bool PKCanScan::configureCanboard(const string name,const string parameters)
 
 	/**
 	 * fixed datarate modules (classical CAN), plug and play
+	 * we try 10 times until success, the OS is a bit slow
 	 */
 	MLOGPK(TRC, this) << "calling CAN_Initialize";
-	TPCANStatus tpcanStatus = CAN_Initialize(m_canObjHandler, m_baudRate );
-	MLOGPK(TRC, this) << "CAN_Initialize returns " << (int) tpcanStatus;
+	TPCANStatus tpcanStatus = 99;
+	int counter = 10;
+	while ( tpcanStatus != 0 && counter > 0 ){
+		tpcanStatus = CAN_Initialize(m_canObjHandler, m_baudRate );
+		MLOGPK(TRC, this) << "CAN_Initialize returns " << (int) tpcanStatus << " counter= " << counter;
+		if ( tpcanStatus == 0 ) {
+			MLOGPK(TRC, this) << "CAN_Initialize returns " << (int) tpcanStatus << " OK";
+			break;
+		}
+		Sleep( 1000 ); // 1000 ms
+		counter--;
+	}
 
 	/** fixed data rate, non plug-and-play
 	 * static TPCANStatus Initialize(
