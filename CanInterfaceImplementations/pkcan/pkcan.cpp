@@ -348,8 +348,9 @@ bool PKCanScan::configureCanboard(const string name,const string parameters)
 			break;
 		}
 		Sleep( 1000 ); // 1000 ms
+		MLOGPK(TRC, this) << "try again... calling Can_Uninitialize " ;
 		tpcanStatus = CAN_Uninitialize( m_canObjHandler );
-		Sleep( 3000 ); // 3000 ms
+		Sleep( 1000 ); // 1000 ms
 		counter--;
 	}
 

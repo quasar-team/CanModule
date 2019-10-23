@@ -53,6 +53,9 @@ they are difficult to fix.
 peak
 ====
 
+linux/cc7
+---------
+
 - The module is receiving power through the USB port, if this connection is lost we need to reconnect.
 Reconnection works for both normal (fixed) and flexible datarate (FD) modules under linux, as 
 socketcan is used. For windows only normal datarate (fixed) are supported, and the reconnection 
@@ -60,15 +63,29 @@ also works for them.
 - Reconnection takes less than 30sec.
 - A software close/open is fully supported and works under cc7 without limitations.
 
+windows
+-------
+
+For windows, the sw close/open will typically work several times, and CanModule tries to
+recuperate from a failed initialisation of the USB 10 times. Between successive attempts on a 
+given port a delay of several seconds is needed. This is not great, maybe further progress
+can be made later.   
+
 systec
 ======
 
+linux/cc7
+---------
 - A power loss or a connection loss will trigger a reconnection. For linux, where socketcan is used,
 this works in the same way as for peak. Connections are managed in a global map. 
 - A software close/open is fully supported and works under cc7 and also windows without limitations. 
 If the sequence is too fast (for the environment..) some messages will be lost, but the 
 module recuperates correctly in the following.  
-- For windows the hardware reconnection is NOT WORKING, and it is not clear if it can actually
+
+
+windows
+-------
+For windows the hardware reconnection is NOT WORKING, and it is not clear if it can actually
 be achieved within CanModule. It seems that a library reload is needed to make the module work again.
 This feature is therefore DROPPED for now, since also no strong user request for "systec reconnection
 under windows" is presently stated. I tried, using the systec API@windows as documented, but did not manage.
