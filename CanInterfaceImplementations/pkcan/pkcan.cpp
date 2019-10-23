@@ -73,15 +73,12 @@ void PKCanScan::stopBus ()
 	// MLOGPK(DBG, this ) << __FUNCTION__ << " m_busName= " <<  m_busName ;
 	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " m_busName= " <<  m_busName << std::endl;
 
-	MLOGPK(TRC, this) << "calling CAN_Uninitialize";
-	TPCANStatus tpcanStatus = CAN_Uninitialize(m_canObjHandler);
-	MLOGPK(TRC, this) << "CAN_Uninitialize returns " << (int) tpcanStatus;
-
-
 	m_CanScanThreadRunEnableFlag = false;
 	MLOGPK(DBG,this) << " try finishing thread...";
 
-	Sleep(2); // and wait a bit for the thread to die
+	MLOGPK(TRC, this) << "calling CAN_Uninitialize";
+	TPCANStatus tpcanStatus = CAN_Uninitialize(m_canObjHandler);
+	MLOGPK(TRC, this) << "CAN_Uninitialize returns " << (int) tpcanStatus;
 
 	// debug bus map
 	for (std::map<string, string>::iterator it = PKCanScan::m_busMap.begin(); it != PKCanScan::m_busMap.end(); ++it){
@@ -97,6 +94,7 @@ void PKCanScan::stopBus ()
 		m_idCanScanThread = 0;
 		PKCanScan::m_busMap.erase ( it );
 		m_busName = "nobus";
+		MLOGPK(TRC,this) << " bus " << m_busName << " erased from map, OK";
 	} else {
 		MLOGPK(DBG,this) << " bus " << m_busName << " does not exist";
 	}
@@ -105,6 +103,7 @@ void PKCanScan::stopBus ()
 	for (std::map<string, string>::iterator it = PKCanScan::m_busMap.begin(); it != PKCanScan::m_busMap.end(); ++it){
 		std::cout << __FILE__ << " " << __LINE__ << " after " << it->first << " => " << it->second << std::endl;
 	}
+	Sleep(2); // and wait a bit for the thread to die
 
 	MLOGPK(DBG,this) << "stopBus() finished";
 }
