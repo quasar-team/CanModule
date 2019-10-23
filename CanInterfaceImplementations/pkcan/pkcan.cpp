@@ -39,7 +39,7 @@
 
 #define MLOGPK(LEVEL,THIS) LOG(Log::LEVEL, PKCanScan::s_logItHandlePk) << __FUNCTION__ << " " << " peak bus= " << THIS->getBusName() << " "
 
-boost::mutex peakReconnectMutex; // protect m_busMap
+// boost::mutex peakReconnectMutex; // protect m_busMap
 
 
 bool  initLibarary =  false;
@@ -86,7 +86,7 @@ void PKCanScan::stopBus ()
 
 
 	{
-		peakReconnectMutex.lock();
+		// peakReconnectMutex.lock();
 		// debug bus map
 		for (std::map<string, string>::iterator it = PKCanScan::m_busMap.begin(); it != PKCanScan::m_busMap.end(); ++it){
 			std::cout << __FILE__ << " " << __LINE__ << " before " << it->first << " => " << it->second << std::endl;
@@ -109,7 +109,7 @@ void PKCanScan::stopBus ()
 		for (std::map<string, string>::iterator it = PKCanScan::m_busMap.begin(); it != PKCanScan::m_busMap.end(); ++it){
 			std::cout << __FILE__ << " " << __LINE__ << " after " << it->first << " => " << it->second << std::endl;
 		}
-		peakReconnectMutex.unlock();
+		// peakReconnectMutex.unlock();
 	}
 	Sleep(2); // and wait a bit for the thread to die
 
@@ -215,7 +215,7 @@ bool PKCanScan::createBus(const string name ,const string parameters )
 
 	bool skipMainThreadCreation = false;
 	{
-		peakReconnectMutex.lock();
+		// peakReconnectMutex.lock();
 		// debug bus map
 		for (std::map<string, string>::iterator it = PKCanScan::m_busMap.begin(); it != PKCanScan::m_busMap.end(); ++it){
 			std::cout << __FILE__ << " " << __LINE__ << " before " << it->first << " => " << it->second << std::endl;
@@ -234,7 +234,7 @@ bool PKCanScan::createBus(const string name ,const string parameters )
 		for (std::map<string, string>::iterator it = PKCanScan::m_busMap.begin(); it != PKCanScan::m_busMap.end(); ++it){
 			std::cout << __FILE__ << " " << __LINE__ << " after " << it->first << " => " << it->second << std::endl;
 		}
-		peakReconnectMutex.unlock();
+		// peakReconnectMutex.unlock();
 	}
 	if ( skipMainThreadCreation ){
 		MLOGPK(TRC, this) << "Re-using main thread m_idCanScanThread= " << m_idCanScanThread;
