@@ -46,7 +46,9 @@
 both manage the modules through their underlying vendor specific API according to the OS.
 Both classes provide the standard generic CanModule API.
 Here the underlying vendor specific classes and the specific parameters are documented.</p>
-<p>The modules from the families PCAN USB and USB Pro are supported.</p>
+<p>The modules from the families PCAN USB and USB Pro are supported. For linux, also the flexible
+datarate (FD) types are supported. The FD types are not supported for windows presently, but they
+could be added in principle if requested.</p>
 <div class="section" id="the-connection">
 <h2>The connection<a class="headerlink" href="#the-connection" title="Permalink to this headline">¶</a></h2>
 <p>To connect to a specific port for I/O, and send CAN messages, the following methods are used.</p>
@@ -95,7 +97,7 @@ Here the underlying vendor specific classes and the specific parameters are docu
 </dd></dl>
 
 <p>and communication takes place through peak’s open-source PCAN-Basic windows library. Only “plug-and-play”
-modules with USB interface and fixed datarate are supported by CanModule for now. PEAK’s flexible datarate (FD)
+modules with USB interface and fixed datarate (non-FD) are supported by CanModule for now. PEAK’s flexible datarate (FD)
 modules can be added later on (they need some different API-calls and more complex parameters), and also
 other interfaces like PCI are possible for windows.The implementation is based on the PCAN-Basic driver.</p>
 </div>
@@ -140,9 +142,10 @@ families.</p>
 </dd>
 </dl>
 </p>
-<p><dl class="docutils">
+<p><p>dont create a main thread for the same bus twice: if it exists already, just configure the board again this protects agains having multiple threads if a given port ports is opened several times: protects against erro/unusual runtime. If the connection is closed, it’s main thread is stopped and joined, and the port is erased from the connection map. when the same port is opened again later on, a (new) main thread is created, and the connection is again added to the map. </p>
+<dl class="docutils">
 <dt><strong>Return</strong></dt>
-<dd>Was the initialization process successful? </dd>
+<dd>Was the initialization process successful?</dd>
 </dl>
 </p>
 </dd></dl>
@@ -257,7 +260,7 @@ families.</p>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2019, CERN, BE-ICS (Michael Ludwig).
-      Last updated on 14-Oct-2019 13:50:37.
+      Last updated on 23-Oct-2019 18:25:34.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
     </div>
   </body>

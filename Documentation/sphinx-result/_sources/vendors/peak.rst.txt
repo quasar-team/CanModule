@@ -7,7 +7,9 @@ both manage the modules through their underlying vendor specific API according t
 Both classes provide the standard generic CanModule API. 
 Here the underlying vendor specific classes and the specific parameters are documented. 
 
-The modules from the families PCAN USB and USB Pro are supported. 
+The modules from the families PCAN USB and USB Pro are supported. For linux, also the flexible 
+datarate (FD) types are supported. The FD types are not supported for windows presently, but they
+could be added in principle if requested.
 
 The connection 
 --------------
@@ -24,7 +26,7 @@ the connection to a specific port for I/O is created by calling
 	:members: createBus, sendMessage
 	
 and communication takes place through peak's open-source PCAN-Basic windows library. Only "plug-and-play"
-modules with USB interface and fixed datarate are supported by CanModule for now. PEAK's flexible datarate (FD)
+modules with USB interface and fixed datarate (non-FD) are supported by CanModule for now. PEAK's flexible datarate (FD)
 modules can be added later on (they need some different API-calls and more complex parameters), and also
 other interfaces like PCI are possible for windows.The implementation is based on the PCAN-Basic driver.
 

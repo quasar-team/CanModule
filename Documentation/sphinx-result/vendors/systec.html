@@ -142,9 +142,10 @@ Here the underlying vendor specific classes and the specific parameters are docu
 </dd>
 </dl>
 </p>
-<p><dl class="docutils">
+<p><p>dont create a main thread for the same bus twice: if it exists already, just configure the board again this protects agains having multiple threads if a given port ports is opened several times: protects against erro/unusual runtime. If the connection is closed, it’s main thread is stopped and joined, and the port is erased from the connection map. when the same port is opened again later on, a (new) main thread is created, and the connection is again added to the map. </p>
+<dl class="docutils">
 <dt><strong>Return</strong></dt>
-<dd>Was the initialization process successful? </dd>
+<dd>Was the initialization process successful?</dd>
 </dl>
 </p>
 </dd></dl>
@@ -259,7 +260,7 @@ Here the underlying vendor specific classes and the specific parameters are docu
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2019, CERN, BE-ICS (Michael Ludwig).
-      Last updated on 14-Oct-2019 13:50:37.
+      Last updated on 23-Oct-2019 18:25:34.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
     </div>
   </body>
