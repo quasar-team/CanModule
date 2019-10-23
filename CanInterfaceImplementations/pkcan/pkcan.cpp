@@ -70,7 +70,7 @@ PKCanScan::~PKCanScan()
  */
 void PKCanScan::stopBus ()
 {
-	MLOGPK(DBG,s_logItHandlePk) << __FUNCTION__ << " m_busName= " <<  m_busName ;
+	MLOGPK(DBG, PKCanScan::s_logItHandlePk ) << __FUNCTION__ << " m_busName= " <<  m_busName ;
 	CAN_Uninitialize(m_canObjHandler);
 
 	// notify the thread that it should finish.
@@ -82,7 +82,7 @@ void PKCanScan::stopBus ()
 	if (it != PKCanScan::m_busMap.end()) {
 
 		// windows does not have pthread_join
-		pthread_join( m_hCanScanThread, 0 );
+		//pthread_join( m_hCanScanThread, 0 );
 		m_idCanScanThread = 0;
 		PKCanScan::m_busMap.erase ( it );
 		m_busName = "nobus";
@@ -138,10 +138,6 @@ DWORD WINAPI PKCanScan::CanScanControlThread(LPVOID pCanScan)
 			}
 		}
 	}
-	MLOGPK(TRC, pkCanScanPointer) << "uninitializing CAN...";
-	//	CloseHandle(m_ReadEvent);
-	CAN_Uninitialize(m_canObjHandler);
-
 	MLOGPK(TRC, pkCanScanPointer) << "exiting thread...";
 	ExitThread(0);
 	return 0;
