@@ -28,11 +28,12 @@
 
 #include <time.h>
 #include <string.h>
-
 #include <map>
 #include <LogIt.h>
 #include <sstream>
 #include <iostream>
+#include <boost/thread/thread.hpp>
+
 #include "CanModuleUtils.h"
 
 #ifdef _WIN32
@@ -79,7 +80,7 @@ AnaCanScan::AnaCanScan():
 				m_busName(""),
 				m_busParameters(""),
 				m_UcanHandle(0),
-				m_timeout ( 6000 )
+				m_timeout ( 12000 )
 {
 	m_statistics.beginNewRun();
 }
@@ -89,13 +90,29 @@ AnaCanScan::AnaCanScan():
  */
 AnaCanScan::~AnaCanScan()
 {
-	LOG(Log::TRC, AnaCanScan::s_logItHandleAnagate ) << "Closing down Anagate Can Scan component";
-	CANSetCallback(m_UcanHandle, 0);
-	CANCloseDevice(m_UcanHandle);
-	LOG(Log::TRC, AnaCanScan::s_logItHandleAnagate ) << "Anagate Can Scan component closed successfully";
+	stopBus();
 }
 
+void AnaCanScan::stopBus ()
+{
+	MLOGANA(TRC,this) << __FUNCTION__ << " m_busName= " <<  m_busName << " m_canPortNumber= " << m_canPortNumber;
+	CANSetCallback(m_UcanHandle, 0);
+	CANCloseDevice(m_UcanHandle);
+
+	setCanHandleInUse(m_canPortNumber,false);
+	eraseReceptionHandlerFromMap( m_UcanHandle );
+
+#ifdef _WIN32
+#else
+	MLOGANA(TRC, this ) << " imposing a delay of 7 seconds before continuing";
+	boost::this_thread::sleep_for(boost::chrono::milliseconds( 7000 ));
+#endif
+	MLOGANA(TRC,this) << " finished";
+}
+
+
 /* static */ void AnaCanScan::setIpReconnectInProgress( string ip, bool flag ){
+	anagateReconnectMutex.lock();
 	std::map<string,bool>::iterator it = AnaCanScan::reconnectInProgress_map.find( ip );
 
 	if ( flag ){
@@ -109,14 +126,17 @@ AnaCanScan::~AnaCanScan()
 			AnaCanScan::reconnectInProgress_map.erase( it );
 		}
 	}
+	anagateReconnectMutex.unlock();
 }
 
 /* static */ bool AnaCanScan::isIpReconnectInProgress( string ip ){
+	anagateReconnectMutex.lock();
 	std::map<string,bool>::iterator it = AnaCanScan::reconnectInProgress_map.find( ip );
 	if ( it == AnaCanScan::reconnectInProgress_map.end() )
 		return( false );
 	else
 		return( true );
+	anagateReconnectMutex.unlock();
 }
 
 
@@ -218,7 +238,6 @@ bool AnaCanScan::createBus(const string name,const string parameters)
 	//LOG(Log::TRC, myHandle) << __FUNCTION__ << " " __FILE__ << " " << __LINE__;
 	AnaCanScan::s_logItHandleAnagate = myHandle;
 
-	m_sBusName = name;
 	MLOGANA(DBG, this) << " parameters= " << parameters;
 	int returnCode = configureCanBoard(name, parameters);
 	if ( returnCode < 0 ) {
@@ -230,7 +249,7 @@ bool AnaCanScan::createBus(const string name,const string parameters)
 
 
 /**
- * decode the name, parameter and return the port to the configured module
+ * decode the name, parameter and return the port of the configured module
  */
 int AnaCanScan::configureCanBoard(const string name,const string parameters)
 {
@@ -276,7 +295,7 @@ int AnaCanScan::configureCanBoard(const string name,const string parameters)
 			// or by decoding. They are always used.
 		} else {
 			MLOGANA(ERR, this) << "Error while parsing parameters: this syntax is incorrect: [" << parameters << "]";
-			MLOGANA(ERR, this) << "you need up to 5 numbers separated by whitespaces, i.e. \"125000 0 0 0 0 0\" \"p0 p1 p2 p3 p4\"";
+			MLOGANA(ERR, this) << "you need up to 5 numbers separated by whitespaces, i.e. \"125000 0 0 0 0\" \"p0 p1 p2 p3 p4\"";
 			MLOGANA(ERR, this) << "  p0 = baud rate, 125000 or whatever the module supports";
 			MLOGANA(ERR, this) << "  p1 = operation mode";
 			MLOGANA(ERR, this) << "  p2 = termination";
@@ -291,8 +310,7 @@ int AnaCanScan::configureCanBoard(const string name,const string parameters)
 }
 
 /**
- *
- * Obtains a Anagate canport and opens it.
+ * Obtains an Anagate canport and opens it.
  *  The name of the port and parameters should have been specified by preceding call to configureCanboard()
  *  @returns less than zero in case of error, otherwise success
  *
@@ -312,7 +330,7 @@ int AnaCanScan::openCanPort()
 	} else {
 		//Otherwise we create it.
 		MLOGANA(DBG, this) << "Will call CANOpenDevice with parameters m_canHandleNumber:[" << m_canPortNumber << "], m_canIPAddress:[" << m_canIPAddress << "]";
-		anaCallReturn = CANOpenDevice(&canModuleHandle, FALSE, TRUE, m_canPortNumber, m_canIPAddress.c_str(),m_timeout);
+		anaCallReturn = CANOpenDevice(&canModuleHandle, FALSE, TRUE, m_canPortNumber, m_canIPAddress.c_str(), m_timeout);
 		if (anaCallReturn != 0) {
 			// fill out initialisation struct
 			MLOGANA(ERR,this) << "Error in CANOpenDevice, return code = [" << anaCallReturn << "]";
@@ -323,7 +341,6 @@ int AnaCanScan::openCanPort()
 	setCanHandleInUse(m_canPortNumber,true);
 
 	// initialize CAN interface
-
 	MLOGANA(TRC,this) << "calling CANSetGlobals with m_lBaudRate= "
 			<< m_CanParameters.m_lBaudRate
 			<< " m_iOperationMode= " << m_CanParameters.m_iOperationMode
@@ -649,6 +666,16 @@ AnaInt32 AnaCanScan::connectReceptionHandler(){
 	return( anaCallReturn );
 }
 
+
+void AnaCanScan::eraseReceptionHandlerFromMap( AnaInt32 h ){
+	std::map<AnaInt32, AnaCanScan *>::iterator it = g_AnaCanScanPointerMap.find( h );
+	if (it != g_AnaCanScanPointerMap.end()) {
+		g_AnaCanScanPointerMap.erase ( it );
+		m_busName = "nobus";
+	} else {
+		MLOGANA(DBG,this) << " handler " << h << " not found in map, not erased";
+	}
+}
 
 /**
  * we try to reconnect one port after a power loss, and we should do this for all ports

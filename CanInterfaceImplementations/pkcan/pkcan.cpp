@@ -23,19 +23,24 @@
  * PEAK bridge integration for windows
  */
 
-#include "pkcan.h"
 #include <time.h>
 #include <string.h>
-#include "CanModuleUtils.h"
+#include <boost/thread/thread.hpp>
 
 #include <LogIt.h>
 
+#include "pkcan.h"
+#include "CanModuleUtils.h"
+
+
 /* static */ bool PKCanScan::s_logItRegisteredPk = false;
 /* static */ Log::LogComponentHandle PKCanScan::s_logItHandlePk = 0;
+/* static */ std::map<string, string> PKCanScan::m_busMap;
 
 #define MLOGPK(LEVEL,THIS) LOG(Log::LEVEL, PKCanScan::s_logItHandlePk) << __FUNCTION__ << " " << " peak bus= " << THIS->getBusName() << " "
 
-using namespace std;
+boost::mutex peakReconnectMutex; // protect m_busMap
+
 
 bool  initLibarary =  false;
 extern "C" __declspec(dllexport) CCanAccess *getCanBusAccess()
@@ -49,16 +54,41 @@ PKCanScan::PKCanScan():
 				m_busStatus(0),
 				m_baudRate(0),
 				m_idCanScanThread(0),
-				m_CanScanThreadShutdownFlag(true)
+				m_CanScanThreadRunEnableFlag(false)
 {
 	m_statistics.beginNewRun();
 }
 
 PKCanScan::~PKCanScan()
 {
-	m_CanScanThreadShutdownFlag = false;
-	//	CloseHandle(m_ReadEvent);
-	CAN_Uninitialize(m_canObjHandler);
+	stopBus();
+}
+
+/**
+ * notify the main thread to finish and delete the bus from the map of connections
+ */
+void PKCanScan::stopBus ()
+{
+	m_CanScanThreadRunEnableFlag = false;
+	MLOGPK(TRC, this) << " try finishing thread...calling CAN_Uninitialize";
+	TPCANStatus tpcanStatus = CAN_Uninitialize(m_canObjHandler);
+	MLOGPK(TRC, this) << "CAN_Uninitialize returns " << (int) tpcanStatus;
+
+	{
+		peakReconnectMutex.lock();
+		std::map<string, string>::iterator it = PKCanScan::m_busMap.find( m_busName );
+		if (it != PKCanScan::m_busMap.end()) {
+			m_idCanScanThread = 0;
+			PKCanScan::m_busMap.erase ( it );
+			m_busName = "nobus";
+			MLOGPK(TRC,this) << " bus " << m_busName << " erased from map, OK";
+		} else {
+			MLOGPK(DBG,this) << " bus " << m_busName << " does not exist";
+		}
+		peakReconnectMutex.unlock();
+	}
+	Sleep(2); // and wait a bit for the thread to die
+	MLOGPK(DBG,this) << "stopBus() finished";
 }
 
 
@@ -69,8 +99,9 @@ DWORD WINAPI PKCanScan::CanScanControlThread(LPVOID pCanScan)
 {
 	PKCanScan *pkCanScanPointer = reinterpret_cast<PKCanScan *>(pCanScan);
 	TPCANHandle tpcanHandler = pkCanScanPointer->m_canObjHandler;
-	MLOGPK(DBG,pkCanScanPointer) << "CanScanControlThread Started. m_CanScanThreadShutdownFlag = [" << pkCanScanPointer->m_CanScanThreadShutdownFlag <<"]";
-	while ( pkCanScanPointer->m_CanScanThreadShutdownFlag ) {
+	MLOGPK(DBG,pkCanScanPointer) << "CanScanControlThread Started. m_CanScanThreadShutdownFlag = [" << pkCanScanPointer->m_CanScanThreadRunEnableFlag <<"]";
+	pkCanScanPointer->m_CanScanThreadRunEnableFlag = true;
+	while ( pkCanScanPointer->m_CanScanThreadRunEnableFlag ) {
 		TPCANMsg tpcanMessage;
 		TPCANTimestamp tpcanTimestamp;
 		TPCANStatus tpcanStatus = CAN_Read(tpcanHandler,&tpcanMessage,&tpcanTimestamp);
@@ -105,6 +136,7 @@ DWORD WINAPI PKCanScan::CanScanControlThread(LPVOID pCanScan)
 			}
 		}
 	}
+	MLOGPK(TRC, pkCanScanPointer) << "exiting thread...";
 	ExitThread(0);
 	return 0;
 }
@@ -129,6 +161,9 @@ DWORD WINAPI PKCanScan::CanScanControlThread(LPVOID pCanScan)
  */
 bool PKCanScan::createBus(const string name ,const string parameters )
 {
+	m_busName = name;
+	m_busParameters = parameters;
+
 	// calling base class to get the instance from there
 	Log::LogComponentHandle myHandle;
 	LogItInstance* logItInstance = CCanAccess::getLogItInstance(); // actually calling instance method, not class
@@ -145,19 +180,36 @@ bool PKCanScan::createBus(const string name ,const string parameters )
 	PKCanScan::s_logItHandlePk = myHandle;
 	MLOGPK(DBG, this) << " name= " << name << " parameters= " << parameters << ", configuring CAN board";
 
-	m_sBusName = name;
-	//We configure the canboard
+	m_sBusName = name; // maybe this can be cleaned up: we have m_busName already
 	if ( !configureCanboard(name,parameters) ) {
-		//If we can't initialise the canboard, the thread is not started at all
 		MLOGPK( ERR, this ) << " name= " << name << " parameters= " << parameters << ", failed to configure CAN board";
 		return false;
 	}
-	// Otherwise, we initialise the Scan thread
-	CAN_FilterMessages(m_canObjHandler,0,0x7FF,PCAN_MESSAGE_STANDARD);
-	m_hCanScanThread = CreateThread(NULL, 0, CanScanControlThread, this, 0, &m_idCanScanThread);
-	if ( NULL == m_hCanScanThread ) {
-		DebugBreak();
-		return false;
+
+	bool skipMainThreadCreation = false;
+	{
+		peakReconnectMutex.lock();
+		// dont create a main thread for the same bus twice
+		std::map<string, string>::iterator it = PKCanScan::m_busMap.find( name );
+		if (it == PKCanScan::m_busMap.end()) {
+			PKCanScan::m_busMap.insert ( std::pair<string, string>(name, parameters) );
+			m_busName = name;
+		} else {
+			LOG(Log::WRN) << __FUNCTION__ << " bus exists already [" << name << ", " << parameters << "], not creating another main thread";
+			skipMainThreadCreation = true;
+		}
+		peakReconnectMutex.unlock();
+	}
+	if ( skipMainThreadCreation ){
+		MLOGPK(TRC, this) << "Re-using main thread m_idCanScanThread= " << m_idCanScanThread;
+	}	else {
+		MLOGPK(TRC, this) << "creating  main thread m_idCanScanThread= " << m_idCanScanThread;
+		CAN_FilterMessages(m_canObjHandler,0,0x7FF,PCAN_MESSAGE_STANDARD);
+		m_hCanScanThread = CreateThread(NULL, 0, CanScanControlThread, this, 0, &m_idCanScanThread);
+		if ( NULL == m_hCanScanThread ) {
+			DebugBreak();
+			return false;
+		}
 	}
 	return true;
 }
@@ -169,8 +221,6 @@ bool PKCanScan::createBus(const string name ,const string parameters )
  */
 bool PKCanScan::configureCanboard(const string name,const string parameters)
 {
-	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " name= " << name << " parameters= " << parameters << std::endl;
-
 	m_sBusName = name;
 	m_baudRate = PCAN_BAUD_125K;
 
@@ -195,17 +245,20 @@ bool PKCanScan::configureCanboard(const string name,const string parameters)
 	string interface = "USB";
 	string humanReadableCode = interface + channel.str();
 	m_canObjHandler = getHandle( humanReadableCode.c_str() );
-	MLOGPK( DBG, this ) << "PEAK handle for vectorString[1]= " << vectorString[1] << " is code= 0x" <<hex <<  m_canObjHandler << dec << std::endl;
+	MLOGPK( DBG, this ) << "PEAK handle for vectorString[1]= " << vectorString[1]
+	      << " is code= 0x" <<hex <<  m_canObjHandler << dec
+		  << " human readable code= " << humanReadableCode << std::endl;
 
 
 	if (strcmp(parameters.c_str(), "Unspecified") != 0)
 	{
 		//numPar = sscanf_s(canpars, "%d %d %d %d %d %d", &parametersBaudRate, &parametersTseg1, &parametersTseg2, &parametersSjw, &parametersNoSamp, &parametersSyncmode);
 		//Get the can object handler
-		m_canObjHandler = getHandle(vectorString[1].c_str());
+		m_canObjHandler = getHandle( humanReadableCode.c_str() /* vectorString[1].c_str() */ );
 		//Process the baudRate if needed
 		if (m_CanParameters.m_iNumberOfDetectedParameters == 1)
 		{
+			MLOGPK(DBG, this) << " m_CanParameters.m_lBaudRate= " << m_CanParameters.m_lBaudRate << std::endl;
 			switch (m_CanParameters.m_lBaudRate)
 			{
 			case 50000:
@@ -240,9 +293,10 @@ bool PKCanScan::configureCanboard(const string name,const string parameters)
 	} else {
 		MLOGPK(DBG, this) << "Unspecified parameters, default values will be used.";
 	}
+	MLOGPK(DBG, this) << " m_baudRate= " << m_baudRate << std::endl;
 
 	/** FD (flexible datarate) modules.
-	 * we need to contruct (a compplicated) bitrate string in this case, according to PEAK PCAN-Basic Documentation API manual p.82
+	 * we need to contruct (a complicated) bitrate string in this case, according to PEAK PCAN-Basic Documentation API manual p.82
 	 * two data rates, for nominal and data, can be defined.
 	 * all these parameters have to be passed
 	 *TPCANStatus tpcanStatus = CAN_InitializeFD(m_canObjHandler, m_baudRate);
@@ -255,8 +309,24 @@ bool PKCanScan::configureCanboard(const string name,const string parameters)
 
 	/**
 	 * fixed datarate modules (classical CAN), plug and play
+	 * we try 10 times until success, the OS is a bit slow
 	 */
-	TPCANStatus tpcanStatus = CAN_Initialize(m_canObjHandler, m_baudRate );
+	MLOGPK(TRC, this) << "calling CAN_Initialize";
+	TPCANStatus tpcanStatus = 99;
+	int counter = 10;
+	while ( tpcanStatus != 0 && counter > 0 ){
+		tpcanStatus = CAN_Initialize(m_canObjHandler, m_baudRate );
+		MLOGPK(TRC, this) << "CAN_Initialize returns " << (int) tpcanStatus << " counter= " << counter;
+		if ( tpcanStatus == 0 ) {
+			MLOGPK(TRC, this) << "CAN_Initialize returns " << (int) tpcanStatus << " OK";
+			break;
+		}
+		Sleep( 1000 ); // 1000 ms
+		MLOGPK(TRC, this) << "try again... calling Can_Uninitialize " ;
+		tpcanStatus = CAN_Uninitialize( m_canObjHandler );
+		Sleep( 1000 ); // 1000 ms
+		counter--;
+	}
 
 	/** fixed data rate, non plug-and-play
 	 * static TPCANStatus Initialize(

@@ -27,10 +27,13 @@
 #include <pthread.h>
 #include <unistd.h>
 #include <string>
-#include "CCanAccess.h"
-#include "CanStatistics.h"
 #include <sys/socket.h>
 #include <linux/can.h>
+#include <boost/thread/thread.hpp>
+
+
+#include "CCanAccess.h"
+#include "CanStatistics.h"
 #include "libsocketcan.h"
 
 /*
@@ -75,20 +78,18 @@ public:
 		}
 		return(f);
 	}
-	static std::map<string, string> m_busMap;
+	static std::map<string, string> m_busMap; // {name, parameters}
 
 private:
+	volatile bool m_CanScanThreadRunEnableFlag; //Flag for running/shutting down the CanScan thread
 
-	//Flag for shutting down the CanScan thread
-	volatile bool m_CanScanThreadShutdownFlag;
-	//Socket handler
-	int m_sock;
-	//Instance of Can Statistics
-	CanStatistics m_statistics;
-	//Handle for the CAN update scan manager thread.
-	pthread_t m_hCanScanThread;
-	//Thread ID for the CAN update scan manager thread.
-	int m_idCanScanThread;
+	int m_sock;                 //Socket handler
+	CanStatistics m_statistics;// Instance of Can Statistics
+	pthread_t m_hCanScanThread;	// Handle for the CAN update scan manager thread.
+	int m_idCanScanThread; // Thread ID for the CAN update scan manager thread.
+	int m_errorCode; // As up-to-date as possible state of the interface.
+	std::string m_channelName;
+	std::string m_busName;
 
 	static Log::LogComponentHandle st_logItHandleSock;
 
@@ -116,11 +117,7 @@ private:
 	//The main control thread function for the CAN update scan manager.
 	static void* CanScanControlThread(void *);
 
-	//Channel name
-	std::string m_channelName;
 
-	//! As up-to-date as possible state of the interface.
-	int m_errorCode;
 };
 
 

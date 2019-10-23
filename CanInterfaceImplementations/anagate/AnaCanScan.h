@@ -24,7 +24,6 @@
 #ifndef CCANANASCAN_H_
 #define CCANANASCAN_H_
 
-#include <boost/thread/thread.hpp> // just needed for the boost sleep
 
 #include <string>
 #include "CanStatistics.h"
@@ -118,6 +117,9 @@ private:
 	int openCanPort();
 	int reconnect();
 	bool errorCodeToString(long error, char message[]);
+	void stopBus( void );
+	void eraseReceptionHandlerFromMap( AnaInt32 h );
+
 };
 
 #endif //CCANANASCAN_H_

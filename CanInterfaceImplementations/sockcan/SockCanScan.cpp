@@ -43,19 +43,19 @@
 #include <CanModuleUtils.h>
 
 #include <LogIt.h>
-using namespace std;
 
-/* static */ std::map<string, string> CSockCanScan::m_busMap = {{"dummy_name", "dummy_parameters"}};
-
+/* static */ std::map<string, string> CSockCanScan::m_busMap;
 /* static */ Log::LogComponentHandle CSockCanScan::st_logItHandleSock;
 
 #define MLOGSOCK(LEVEL,THIS) LOG(Log::LEVEL, CSockCanScan::st_logItHandleSock) << __FUNCTION__ << " sock bus= " << THIS->getBusName() << " "
 
+boost::mutex sockReconnectMutex; // protect m_busMap
 
-//! The macro below is applicable only to this translation unit
-//#define MLOG(LEVEL,THIS) LOG(Log::LEVEL) << THIS->m_channelName << " "
 
-//This function creates an instance of this class and returns it. It will be loaded trough the dll to access the rest of the code.
+/**
+ * This function creates an instance of this class and returns it.
+ * It will be loaded trough the dll to access the rest of the code.
+ */
 extern "C" CCanAccess *getCanBusAccess()
 {
 	CCanAccess *cc = new CSockCanScan();
@@ -63,11 +63,12 @@ extern "C" CCanAccess *getCanBusAccess()
 }
 
 CSockCanScan::CSockCanScan() :
-			m_CanScanThreadShutdownFlag(false),
+			m_CanScanThreadRunEnableFlag(false),
 			m_sock(0),
 			m_hCanScanThread(0),
 			m_idCanScanThread(0),
-			m_errorCode(-1)
+			m_errorCode(-1),
+			m_busName("nobus")
 {
 	m_statistics.beginNewRun();
 }
@@ -102,7 +103,7 @@ void* CSockCanScan::CanScanControlThread(void *p_voidSockCanScan)
 	CSockCanScan *p_sockCanScan = static_cast<CSockCanScan *>(p_voidSockCanScan);
 
 	MLOGSOCK(TRC, p_sockCanScan) << "created main loop tid= " << _tid;
-	p_sockCanScan->m_CanScanThreadShutdownFlag = true;
+	p_sockCanScan->m_CanScanThreadRunEnableFlag = true;
 	int sock = p_sockCanScan->m_sock;
 
 	{
@@ -123,7 +124,7 @@ void* CSockCanScan::CanScanControlThread(void *p_voidSockCanScan)
 	}
 
 	MLOGSOCK(TRC,p_sockCanScan) << "main loop of SockCanScan starting, tid= " << _tid;
-	while ( p_sockCanScan->m_CanScanThreadShutdownFlag ) {
+	while ( p_sockCanScan->m_CanScanThreadRunEnableFlag ) {
 		fd_set set;
 		FD_ZERO( &set );
 		FD_SET( sock, &set );
@@ -222,7 +223,7 @@ void* CSockCanScan::CanScanControlThread(void *p_voidSockCanScan)
 					 * If we need to shutdown the thread, leave it closed and
 					 * terminate main loop.
 					 */
-					if ( p_sockCanScan->m_CanScanThreadShutdownFlag ) {
+					if ( p_sockCanScan->m_CanScanThreadRunEnableFlag ) {
 						MLOGSOCK(INF,p_sockCanScan) << " tid= " << _tid << " Now port will be reopened.";
 						if ((sock = p_sockCanScan->openCanPort()) < 0) {
 							MLOGSOCK(ERR,p_sockCanScan) << " tid= " << _tid << "openCanPort() failed.";
@@ -233,7 +234,7 @@ void* CSockCanScan::CanScanControlThread(void *p_voidSockCanScan)
 						// MLOGSOCK(INF,p_sockCanScan) << " tid= " << _tid << "Leaving Port closed, not needed any more.";
 					}
 				} // do...while ... we still have an error
-				while ( p_sockCanScan->m_CanScanThreadShutdownFlag && sock < 0 );
+				while ( p_sockCanScan->m_CanScanThreadRunEnableFlag && sock < 0 );
 
 
 				/**
@@ -527,17 +528,29 @@ bool CSockCanScan::sendRemoteRequest(short cobID)
  *				*  i.e. "250000"
  *
  * @return Was the initialization process successful?
+ *
+ * dont create a main thread for the same bus twice: if it exists already, just configure the board again
+ * this protects agains having multiple threads if a given port ports is opened several times: protects
+ * against erro/unusual runtime. If the connection is closed, it's main thread is stopped and joined, and
+ * the port is erased from the connection map. when the same port is opened again later on, a (new)
+ * main thread is created, and the connection is again added to the map.
  */
 bool CSockCanScan::createBus(const string name, const string parameters)
 {
-	// dont create a main thread for the same bus twice: if it exists already, just configure the board again
-	bool skip = false;
-	std::map<string, string>::iterator it = CSockCanScan::m_busMap.find( name );
-	if (it == CSockCanScan::m_busMap.end()) {
-		CSockCanScan::m_busMap.insert ( std::pair<string, string>(name, parameters) );
-	} else {
-		LOG(Log::WRN) << __FUNCTION__ << " bus exists already [" << name << ", " << parameters << "], not creating another main thread";
-		skip = true;
+	// dont create a main thread for the same bus twice
+	bool skipMainThreadCreation = false;
+
+	{
+		sockReconnectMutex.lock();
+		std::map<string, string>::iterator it = CSockCanScan::m_busMap.find( name );
+		if (it == CSockCanScan::m_busMap.end()) {
+			CSockCanScan::m_busMap.insert ( std::pair<string, string>(name, parameters) );
+			m_busName = name;
+		} else {
+			LOG(Log::WRN) << __FUNCTION__ << " bus exists already [" << name << ", " << parameters << "], not creating another main thread";
+			skipMainThreadCreation = true;
+		}
+		sockReconnectMutex.unlock();
 	}
 
 	// calling base class to get the instance from there
@@ -556,20 +569,20 @@ bool CSockCanScan::createBus(const string name, const string parameters)
 
 	CSockCanScan::st_logItHandleSock = myHandle;
 
-	m_CanScanThreadShutdownFlag = true;
+	m_CanScanThreadRunEnableFlag = true;
 	m_sock = configureCanBoard(name,parameters);
 	if (m_sock < 0) {
 		MLOGSOCK(ERR,this) << "Could not create bus [" << name << "] with parameters [" << parameters << "]";
 		return false;
 	}
-	if ( !skip ){
-	MLOGSOCK(TRC,this) << "Created bus with parameters [" << parameters << "], starting main loop";
-		m_idCanScanThread =	pthread_create(&m_hCanScanThread,NULL,&CanScanControlThread, (void *)this);
-		return (!m_idCanScanThread);
+	if ( skipMainThreadCreation ){
+		MLOGSOCK(TRC,this) << "Re-using main thread m_idCanScanThread= " << m_idCanScanThread;
 	} else {
-		m_idCanScanThread = 0;
-		return( true );
+		MLOGSOCK(TRC,this) << "Created bus with parameters [" << parameters << "], starting main loop";
+		m_idCanScanThread =	pthread_create(&m_hCanScanThread,NULL,&CanScanControlThread, (void *)this);
+		MLOGSOCK(TRC,this) << "created main thread m_idCanScanThread= " << m_idCanScanThread;
 	}
+	return( true );
 }
 
 /*
@@ -666,12 +679,29 @@ void CSockCanScan::sendErrorMessage(const char *mess)
 	canMessageError(-1,mess,c_time);
 }
 
+/**
+ * notify the main thread to finish and delete the bus from the map of connections
+ */
 bool CSockCanScan::stopBus ()
 {
+	MLOGSOCK(DBG,this) << __FUNCTION__ << " m_busName= " <<  m_busName;
 	// notify the thread that it should finish.
-	m_CanScanThreadShutdownFlag = false;
-	MLOGSOCK(DBG,this) << " joining threads...";
-	pthread_join( m_hCanScanThread, 0 );
+	m_CanScanThreadRunEnableFlag = false;
+	MLOGSOCK(DBG,this) << " try joining threads...";
+
+	{
+		sockReconnectMutex.lock();
+		std::map<string, string>::iterator it = CSockCanScan::m_busMap.find( m_busName );
+		if (it != CSockCanScan::m_busMap.end()) {
+			pthread_join( m_hCanScanThread, 0 );
+			m_idCanScanThread = 0;
+			CSockCanScan::m_busMap.erase ( it );
+			m_busName = "nobus";
+		} else {
+			MLOGSOCK(DBG,this) << " not joining threads... bus does not exist";
+		}
+		sockReconnectMutex.unlock();
+	}
 	MLOGSOCK(DBG,this) << "stopBus() finished";
 	return true;
 }
@@ -685,12 +715,9 @@ void CSockCanScan::getStatistics( CanStatistics & result )
 
 void CSockCanScan::updateInitialError ()
 {
-	if (m_errorCode == 0)
-	{
+	if (m_errorCode == 0) {
 		clearErrorMessage();
-	}
-	else
-	{
+	} else {
 		timeval now;
 		gettimeofday( &now, 0);
 		canMessageError( m_errorCode, "Initial port state: error", now );

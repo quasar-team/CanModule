@@ -54,8 +54,7 @@ namespace CanModule
 
 	void CanLibLoader::closeCanBus(CCanAccess *cInter) {
 		LOG(Log::DBG, lh ) << __FUNCTION__<< " Canbus name to be deleted: " << cInter->getBusName();
-		//	m_openCanAccessMap.erase(cInter->getBusName().c_str());
-		delete cInter;
+		delete cInter; // dtor calls stopBus()
 	}
 
 	CCanAccess* CanLibLoader::openCanBus(string name, string parameters) {

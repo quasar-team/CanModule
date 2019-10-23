@@ -61,6 +61,7 @@ public:
 
 	static Log::LogComponentHandle s_logItHandlePk;
 	static bool s_logItRegisteredPk;
+	static std::map<string, string> m_busMap; // {name, parameters}
 
 private:
 	TPCANHandle getHandle(const char *name);
@@ -72,13 +73,16 @@ private:
 	//Instance of Can Statistics
 	CanStatistics m_statistics;
 	TPCANStatus m_busStatus;
-	bool m_CanScanThreadShutdownFlag;
+	bool m_CanScanThreadRunEnableFlag;
 	//Current baud rate
 	unsigned int m_baudRate;
+	string m_busName;
+	string m_busParameters;
 
 	//Instance of the can handle
    	TPCANHandle	m_canObjHandler;
 	bool configureCanboard(const string name,const string parameters);
+	void stopBus ( void );
 
 	HANDLE      m_hCanScanThread;
 //	HANDLE		m_ReadEvent;
