@@ -70,8 +70,7 @@ PKCanScan::~PKCanScan()
  */
 void PKCanScan::stopBus ()
 {
-	MLOGPK(DBG,s_logItHandlePk) << __FUNCTION__ << " m_busName= " <<  m_busName << " m_canObjHandler= 0x"
-			<< hex << m_canObjHandler << dec;
+	MLOGPK(DBG,s_logItHandlePk) << __FUNCTION__ << " m_busName= " <<  m_busName ;
 	CAN_Uninitialize(m_canObjHandler);
 
 	// notify the thread that it should finish.
@@ -185,7 +184,7 @@ bool PKCanScan::createBus(const string name ,const string parameters )
 	PKCanScan::s_logItHandlePk = myHandle;
 	MLOGPK(DBG, this) << " name= " << name << " parameters= " << parameters << ", configuring CAN board";
 
-	m_sBusName = name;
+	m_sBusName = name; // maybe this can be cleaned up: we have m_busName already
 	//We configure the canboard
 	if ( !configureCanboard(name,parameters) ) {
 		//If we can't initialise the canboard, the thread is not started at all
