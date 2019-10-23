@@ -28,11 +28,12 @@
 
 #include <time.h>
 #include <string.h>
-
 #include <map>
 #include <LogIt.h>
 #include <sstream>
 #include <iostream>
+#include <boost/thread/thread.hpp>
+
 #include "CanModuleUtils.h"
 
 #ifdef _WIN32

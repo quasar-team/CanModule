@@ -24,7 +24,6 @@
 #ifndef CCANANASCAN_H_
 #define CCANANASCAN_H_
 
-#include <boost/thread/thread.hpp> // just needed for the boost sleep
 
 #include <string>
 #include "CanStatistics.h"
