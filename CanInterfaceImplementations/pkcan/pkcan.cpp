@@ -80,6 +80,8 @@ void PKCanScan::stopBus ()
 //#if 0
 	std::map<string, string>::iterator it = PKCanScan::m_busMap.find( m_busName );
 	if (it != PKCanScan::m_busMap.end()) {
+
+		// windows does not have pthread_join
 		pthread_join( m_hCanScanThread, 0 );
 		m_idCanScanThread = 0;
 		PKCanScan::m_busMap.erase ( it );
@@ -100,7 +102,7 @@ DWORD WINAPI PKCanScan::CanScanControlThread(LPVOID pCanScan)
 	PKCanScan *pkCanScanPointer = reinterpret_cast<PKCanScan *>(pCanScan);
 	TPCANHandle tpcanHandler = pkCanScanPointer->m_canObjHandler;
 	MLOGPK(DBG,pkCanScanPointer) << "CanScanControlThread Started. m_CanScanThreadShutdownFlag = [" << pkCanScanPointer->m_CanScanThreadRunEnableFlag <<"]";
-	m_CanScanThreadRunEnableFlag = true;
+	pkCanScanPointer->m_CanScanThreadRunEnableFlag = true;
 	while ( pkCanScanPointer->m_CanScanThreadRunEnableFlag ) {
 		TPCANMsg tpcanMessage;
 		TPCANTimestamp tpcanTimestamp;
