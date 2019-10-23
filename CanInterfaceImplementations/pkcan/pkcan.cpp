@@ -68,15 +68,15 @@ PKCanScan::~PKCanScan()
 /**
  * notify the main thread to finish and delete the bus from the map of connections
  */
-bool PKCanScan::stopBus ()
+void PKCanScan::stopBus ()
 {
-	MLOGPK(DBG,pkCanScanPointer) << __FUNCTION__ << " m_busName= " <<  m_busName << " m_canObjHandler= 0x"
+	MLOGPK(DBG,s_logItHandlePk) << __FUNCTION__ << " m_busName= " <<  m_busName << " m_canObjHandler= 0x"
 			<< hex << m_canObjHandler << dec;
 	CAN_Uninitialize(m_canObjHandler);
 
 	// notify the thread that it should finish.
 	m_CanScanThreadRunEnableFlag = false;
-	MLOGPK(DBG,pkCanScanPointer) << " try joining threads...";
+	MLOGPK(DBG,s_logItHandlePk) << " try joining threads...";
 
 //#if 0
 	std::map<string, string>::iterator it = PKCanScan::m_busMap.find( m_busName );
@@ -86,11 +86,10 @@ bool PKCanScan::stopBus ()
 		PKCanScan::m_busMap.erase ( it );
 		m_busName = "nobus";
 	} else {
-		MLOGPK(DBG,pkCanScanPointer) << " not joining threads... bus does not exist";
+		MLOGPK(DBG,s_logItHandlePk) << " not joining threads... bus does not exist";
 	}
 //#endif
-	MLOGPK(DBG,pkCanScanPointer) << "stopBus() finished";
-	return true;
+	MLOGPK(DBG,s_logItHandlePk) << "stopBus() finished";
 }
 
 

@@ -80,7 +80,7 @@ private:
 	//Instance of the can handle
    	TPCANHandle	m_canObjHandler;
 	bool configureCanboard(const string name,const string parameters);
-	bool stopBus ( void );
+	void stopBus ( void );
 
 	HANDLE      m_hCanScanThread;
 //	HANDLE		m_ReadEvent;
