@@ -280,7 +280,7 @@ bool PKCanScan::configureCanboard(const string name,const string parameters)
 	{
 		//numPar = sscanf_s(canpars, "%d %d %d %d %d %d", &parametersBaudRate, &parametersTseg1, &parametersTseg2, &parametersSjw, &parametersNoSamp, &parametersSyncmode);
 		//Get the can object handler
-		m_canObjHandler = getHandle(vectorString[1].c_str());
+		m_canObjHandler = getHandle(humanReadableCode /* vectorString[1].c_str() */ );
 		//Process the baudRate if needed
 		if (m_CanParameters.m_iNumberOfDetectedParameters == 1)
 		{
@@ -348,6 +348,8 @@ bool PKCanScan::configureCanboard(const string name,const string parameters)
 			break;
 		}
 		Sleep( 1000 ); // 1000 ms
+		tpcanStatus = CAN_Uninitialize( m_canObjHandler );
+		Sleep( 3000 ); // 3000 ms
 		counter--;
 	}
 
