@@ -36,7 +36,8 @@
 
 #define MLOGPK(LEVEL,THIS) LOG(Log::LEVEL, PKCanScan::s_logItHandlePk) << __FUNCTION__ << " " << " peak bus= " << THIS->getBusName() << " "
 
-// using namespace std;
+boost::mutex peakReconnectMutex; // protect m_busMap
+
 
 bool  initLibarary =  false;
 extern "C" __declspec(dllexport) CCanAccess *getCanBusAccess()
@@ -80,28 +81,32 @@ void PKCanScan::stopBus ()
 	TPCANStatus tpcanStatus = CAN_Uninitialize(m_canObjHandler);
 	MLOGPK(TRC, this) << "CAN_Uninitialize returns " << (int) tpcanStatus;
 
-	// debug bus map
-	for (std::map<string, string>::iterator it = PKCanScan::m_busMap.begin(); it != PKCanScan::m_busMap.end(); ++it){
-		std::cout << __FILE__ << " " << __LINE__ << " before " << it->first << " => " << it->second << std::endl;
-	}
 
-//#if 0
-	std::map<string, string>::iterator it = PKCanScan::m_busMap.find( m_busName );
-	if (it != PKCanScan::m_busMap.end()) {
+	{
+		peakReconnectMutex.lock();
+		// debug bus map
+		for (std::map<string, string>::iterator it = PKCanScan::m_busMap.begin(); it != PKCanScan::m_busMap.end(); ++it){
+			std::cout << __FILE__ << " " << __LINE__ << " before " << it->first << " => " << it->second << std::endl;
+		}
 
-		// windows does not have pthread_join
-		//pthread_join( m_hCanScanThread, 0 );
-		m_idCanScanThread = 0;
-		PKCanScan::m_busMap.erase ( it );
-		m_busName = "nobus";
-		MLOGPK(TRC,this) << " bus " << m_busName << " erased from map, OK";
-	} else {
-		MLOGPK(DBG,this) << " bus " << m_busName << " does not exist";
-	}
-//#endif
-	// debug bus map
-	for (std::map<string, string>::iterator it = PKCanScan::m_busMap.begin(); it != PKCanScan::m_busMap.end(); ++it){
-		std::cout << __FILE__ << " " << __LINE__ << " after " << it->first << " => " << it->second << std::endl;
+		std::map<string, string>::iterator it = PKCanScan::m_busMap.find( m_busName );
+		if (it != PKCanScan::m_busMap.end()) {
+
+			// windows does not have pthread_join
+			//pthread_join( m_hCanScanThread, 0 );
+			m_idCanScanThread = 0;
+			PKCanScan::m_busMap.erase ( it );
+			m_busName = "nobus";
+			MLOGPK(TRC,this) << " bus " << m_busName << " erased from map, OK";
+		} else {
+			MLOGPK(DBG,this) << " bus " << m_busName << " does not exist";
+		}
+
+		// debug bus map
+		for (std::map<string, string>::iterator it = PKCanScan::m_busMap.begin(); it != PKCanScan::m_busMap.end(); ++it){
+			std::cout << __FILE__ << " " << __LINE__ << " after " << it->first << " => " << it->second << std::endl;
+		}
+		peakReconnectMutex.unlock();
 	}
 	Sleep(2); // and wait a bit for the thread to die
 
@@ -205,26 +210,29 @@ bool PKCanScan::createBus(const string name ,const string parameters )
 		return false;
 	}
 
-	// debug bus map
-	for (std::map<string, string>::iterator it = PKCanScan::m_busMap.begin(); it != PKCanScan::m_busMap.end(); ++it){
-		std::cout << __FILE__ << " " << __LINE__ << " before " << it->first << " => " << it->second << std::endl;
-	}
+	{
+		peakReconnectMutex.lock();
+		// debug bus map
+		for (std::map<string, string>::iterator it = PKCanScan::m_busMap.begin(); it != PKCanScan::m_busMap.end(); ++it){
+			std::cout << __FILE__ << " " << __LINE__ << " before " << it->first << " => " << it->second << std::endl;
+		}
 
-	// dont create a main thread for the same bus twice
-	bool skipMainThreadCreation = false;
-	std::map<string, string>::iterator it = PKCanScan::m_busMap.find( name );
-	if (it == PKCanScan::m_busMap.end()) {
-		PKCanScan::m_busMap.insert ( std::pair<string, string>(name, parameters) );
-		m_busName = name;
-	} else {
-		LOG(Log::WRN) << __FUNCTION__ << " bus exists already [" << name << ", " << parameters << "], not creating another main thread";
-		skipMainThreadCreation = true;
+		// dont create a main thread for the same bus twice
+		bool skipMainThreadCreation = false;
+		std::map<string, string>::iterator it = PKCanScan::m_busMap.find( name );
+		if (it == PKCanScan::m_busMap.end()) {
+			PKCanScan::m_busMap.insert ( std::pair<string, string>(name, parameters) );
+			m_busName = name;
+		} else {
+			LOG(Log::WRN) << __FUNCTION__ << " bus exists already [" << name << ", " << parameters << "], not creating another main thread";
+			skipMainThreadCreation = true;
+		}
+		// debug bus map
+		for (std::map<string, string>::iterator it = PKCanScan::m_busMap.begin(); it != PKCanScan::m_busMap.end(); ++it){
+			std::cout << __FILE__ << " " << __LINE__ << " after " << it->first << " => " << it->second << std::endl;
+		}
+		peakReconnectMutex.lock();
 	}
-	// debug bus map
-	for (std::map<string, string>::iterator it = PKCanScan::m_busMap.begin(); it != PKCanScan::m_busMap.end(); ++it){
-		std::cout << __FILE__ << " " << __LINE__ << " after " << it->first << " => " << it->second << std::endl;
-	}
-
 	if ( skipMainThreadCreation ){
 		MLOGPK(TRC, this) << "Re-using main thread m_idCanScanThread= " << m_idCanScanThread;
 	}	else {

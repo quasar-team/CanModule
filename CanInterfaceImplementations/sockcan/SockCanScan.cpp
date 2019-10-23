@@ -49,6 +49,8 @@
 
 #define MLOGSOCK(LEVEL,THIS) LOG(Log::LEVEL, CSockCanScan::st_logItHandleSock) << __FUNCTION__ << " sock bus= " << THIS->getBusName() << " "
 
+boost::mutex sockReconnectMutex; // protect m_busMap
+
 
 /**
  * This function creates an instance of this class and returns it.
@@ -537,13 +539,18 @@ bool CSockCanScan::createBus(const string name, const string parameters)
 {
 	// dont create a main thread for the same bus twice
 	bool skipMainThreadCreation = false;
-	std::map<string, string>::iterator it = CSockCanScan::m_busMap.find( name );
-	if (it == CSockCanScan::m_busMap.end()) {
-		CSockCanScan::m_busMap.insert ( std::pair<string, string>(name, parameters) );
-		m_busName = name;
-	} else {
-		LOG(Log::WRN) << __FUNCTION__ << " bus exists already [" << name << ", " << parameters << "], not creating another main thread";
-		skipMainThreadCreation = true;
+
+	{
+		sockReconnectMutex.lock();
+		std::map<string, string>::iterator it = CSockCanScan::m_busMap.find( name );
+		if (it == CSockCanScan::m_busMap.end()) {
+			CSockCanScan::m_busMap.insert ( std::pair<string, string>(name, parameters) );
+			m_busName = name;
+		} else {
+			LOG(Log::WRN) << __FUNCTION__ << " bus exists already [" << name << ", " << parameters << "], not creating another main thread";
+			skipMainThreadCreation = true;
+		}
+		sockReconnectMutex.unlock();
 	}
 
 	// calling base class to get the instance from there
@@ -682,14 +689,18 @@ bool CSockCanScan::stopBus ()
 	m_CanScanThreadRunEnableFlag = false;
 	MLOGSOCK(DBG,this) << " try joining threads...";
 
-	std::map<string, string>::iterator it = CSockCanScan::m_busMap.find( m_busName );
-	if (it != CSockCanScan::m_busMap.end()) {
-		pthread_join( m_hCanScanThread, 0 );
-		m_idCanScanThread = 0;
-		CSockCanScan::m_busMap.erase ( it );
-		m_busName = "nobus";
-	} else {
-		MLOGSOCK(DBG,this) << " not joining threads... bus does not exist";
+	{
+		sockReconnectMutexectMutex.lock();
+		std::map<string, string>::iterator it = CSockCanScan::m_busMap.find( m_busName );
+		if (it != CSockCanScan::m_busMap.end()) {
+			pthread_join( m_hCanScanThread, 0 );
+			m_idCanScanThread = 0;
+			CSockCanScan::m_busMap.erase ( it );
+			m_busName = "nobus";
+		} else {
+			MLOGSOCK(DBG,this) << " not joining threads... bus does not exist";
+		}
+		sockReconnectMutexectMutex.unlock();
 	}
 	MLOGSOCK(DBG,this) << "stopBus() finished";
 	return true;
