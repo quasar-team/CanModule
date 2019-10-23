@@ -239,7 +239,7 @@ bool PKCanScan::createBus(const string name ,const string parameters )
 	if ( skipMainThreadCreation ){
 		MLOGPK(TRC, this) << "Re-using main thread m_idCanScanThread= " << m_idCanScanThread;
 	}	else {
-		// Otherwise, we initialise the Scan thread
+		MLOGPK(TRC, this) << "creating  main thread m_idCanScanThread= " << m_idCanScanThread;
 		CAN_FilterMessages(m_canObjHandler,0,0x7FF,PCAN_MESSAGE_STANDARD);
 		m_hCanScanThread = CreateThread(NULL, 0, CanScanControlThread, this, 0, &m_idCanScanThread);
 		if ( NULL == m_hCanScanThread ) {
@@ -247,7 +247,6 @@ bool PKCanScan::createBus(const string name ,const string parameters )
 			return false;
 		}
 	}
-
 	return true;
 }
 
