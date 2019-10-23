@@ -234,7 +234,7 @@ bool PKCanScan::createBus(const string name ,const string parameters )
 		for (std::map<string, string>::iterator it = PKCanScan::m_busMap.begin(); it != PKCanScan::m_busMap.end(); ++it){
 			std::cout << __FILE__ << " " << __LINE__ << " after " << it->first << " => " << it->second << std::endl;
 		}
-		peakReconnectMutex.lock();
+		peakReconnectMutex.unlock();
 	}
 	if ( skipMainThreadCreation ){
 		MLOGPK(TRC, this) << "Re-using main thread m_idCanScanThread= " << m_idCanScanThread;
