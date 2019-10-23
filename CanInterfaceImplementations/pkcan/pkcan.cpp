@@ -83,7 +83,7 @@ void PKCanScan::stopBus ()
 
 	// debug bus map
 	for (std::map<string, string>::iterator it = PKCanScan::m_busMap.begin(); it != PKCanScan::m_busMap.end(); ++it){
-		std::cout << " before " << it->first << " => " << it->second << std::endl;
+		std::cout << __FILE__ << " " << __LINE__ << " before " << it->first << " => " << it->second << std::endl;
 	}
 
 //#if 0
@@ -101,7 +101,7 @@ void PKCanScan::stopBus ()
 //#endif
 	// debug bus map
 	for (std::map<string, string>::iterator it = PKCanScan::m_busMap.begin(); it != PKCanScan::m_busMap.end(); ++it){
-		std::cout << " after " << it->first << " => " << it->second << std::endl;
+		std::cout << __FILE__ << " " << __LINE__ << " after " << it->first << " => " << it->second << std::endl;
 	}
 
 	MLOGPK(DBG,this) << "stopBus() finished";
@@ -204,6 +204,11 @@ bool PKCanScan::createBus(const string name ,const string parameters )
 		return false;
 	}
 
+	// debug bus map
+	for (std::map<string, string>::iterator it = PKCanScan::m_busMap.begin(); it != PKCanScan::m_busMap.end(); ++it){
+		std::cout << __FILE__ << " " << __LINE__ << " before " << it->first << " => " << it->second << std::endl;
+	}
+
 	// dont create a main thread for the same bus twice
 	bool skipMainThreadCreation = false;
 	std::map<string, string>::iterator it = PKCanScan::m_busMap.find( name );
@@ -213,6 +218,10 @@ bool PKCanScan::createBus(const string name ,const string parameters )
 	} else {
 		LOG(Log::WRN) << __FUNCTION__ << " bus exists already [" << name << ", " << parameters << "], not creating another main thread";
 		skipMainThreadCreation = true;
+	}
+	// debug bus map
+	for (std::map<string, string>::iterator it = PKCanScan::m_busMap.begin(); it != PKCanScan::m_busMap.end(); ++it){
+		std::cout << __FILE__ << " " << __LINE__ << " after " << it->first << " => " << it->second << std::endl;
 	}
 
 	if ( skipMainThreadCreation ){
