@@ -70,7 +70,9 @@ PKCanScan::~PKCanScan()
  */
 void PKCanScan::stopBus ()
 {
-	MLOGPK(DBG, this ) << __FUNCTION__ << " m_busName= " <<  m_busName ;
+	// MLOGPK(DBG, this ) << __FUNCTION__ << " m_busName= " <<  m_busName ;
+	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " m_busName= " <<  m_busName << std::endl;
+
 	CAN_Uninitialize(m_canObjHandler);
 
 	// notify the thread that it should finish.
