@@ -570,7 +570,6 @@ bool CSockCanScan::createBus(const string name, const string parameters)
 	}
 	if ( skipMainThreadCreation ){
 		MLOGSOCK(TRC,this) << "Re-using main thread m_idCanScanThread= " << m_idCanScanThread;
-
 	} else {
 		MLOGSOCK(TRC,this) << "Created bus with parameters [" << parameters << "], starting main loop";
 		m_idCanScanThread =	pthread_create(&m_hCanScanThread,NULL,&CanScanControlThread, (void *)this);

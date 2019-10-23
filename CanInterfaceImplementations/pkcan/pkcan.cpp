@@ -32,6 +32,7 @@
 
 /* static */ bool PKCanScan::s_logItRegisteredPk = false;
 /* static */ Log::LogComponentHandle PKCanScan::s_logItHandlePk = 0;
+/* static */ std::map<string, string> PKCanScan::m_busMap;
 
 #define MLOGPK(LEVEL,THIS) LOG(Log::LEVEL, PKCanScan::s_logItHandlePk) << __FUNCTION__ << " " << " peak bus= " << THIS->getBusName() << " "
 
@@ -78,11 +79,11 @@ bool PKCanScan::stopBus ()
 	MLOGPK(DBG,this) << " try joining threads...";
 
 #if 0
-	std::map<string, string>::iterator it = CSockCanScan::m_busMap.find( m_busName );
-	if (it != CSockCanScan::m_busMap.end()) {
+	std::map<string, string>::iterator it = PKCanScan::m_busMap.find( m_busName );
+	if (it != PKCanScan::m_busMap.end()) {
 		pthread_join( m_hCanScanThread, 0 );
 		m_idCanScanThread = 0;
-		CSockCanScan::m_busMap.erase ( it );
+		PKCanScan::m_busMap.erase ( it );
 		m_busName = "nobus";
 	} else {
 		MLOGPK(DBG,this) << " not joining threads... bus does not exist";
@@ -189,13 +190,30 @@ bool PKCanScan::createBus(const string name ,const string parameters )
 		MLOGPK( ERR, this ) << " name= " << name << " parameters= " << parameters << ", failed to configure CAN board";
 		return false;
 	}
-	// Otherwise, we initialise the Scan thread
-	CAN_FilterMessages(m_canObjHandler,0,0x7FF,PCAN_MESSAGE_STANDARD);
-	m_hCanScanThread = CreateThread(NULL, 0, CanScanControlThread, this, 0, &m_idCanScanThread);
-	if ( NULL == m_hCanScanThread ) {
-		DebugBreak();
-		return false;
+
+	// dont create a main thread for the same bus twice
+	bool skipMainThreadCreation = false;
+	std::map<string, string>::iterator it = PKCanScan::m_busMap.find( name );
+	if (it == PKCanScan::m_busMap.end()) {
+		PKCanScan::m_busMap.insert ( std::pair<string, string>(name, parameters) );
+		m_busName = name;
+	} else {
+		LOG(Log::WRN) << __FUNCTION__ << " bus exists already [" << name << ", " << parameters << "], not creating another main thread";
+		skipMainThreadCreation = true;
 	}
+
+	if ( skipMainThreadCreation ){
+		MLOGPK(TRC, this) << "Re-using main thread m_idCanScanThread= " << m_idCanScanThread;
+	}	else {
+		// Otherwise, we initialise the Scan thread
+		CAN_FilterMessages(m_canObjHandler,0,0x7FF,PCAN_MESSAGE_STANDARD);
+		m_hCanScanThread = CreateThread(NULL, 0, CanScanControlThread, this, 0, &m_idCanScanThread);
+		if ( NULL == m_hCanScanThread ) {
+			DebugBreak();
+			return false;
+		}
+	}
+
 	return true;
 }
 
