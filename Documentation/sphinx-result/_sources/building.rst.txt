@@ -5,12 +5,12 @@ Building
 .. this shows a huuuge amount of languages available, I choose basemake 
 .. for cmake stuff
 
-We use `cmake`_ 2.8 or higher for multi-OS building.
+We use `cmake`_ 3.0 or higher for multi-OS building.
 The dependencies are:
 
 * xerces-c
-* boost (1.64.0 preferred, but any version >=1.59.0 should work)
-* socketcan libs (CC7) (not to be confused with the CanModule sockcan.so lib!)
+* boost (1.64.0 or later preferred, but any version >=1.59.0 should work)
+* socketcan libs (CC7, ubuntu) (not to be confused with the CanModule sockcan.so lib!)
 * dependencies for CanModule: LogIt (sources gto github pulled in by cmake)
 * vendor libs (to be installed on your build/target machine)
 * you will have to switch off vendor builds if you want ONLY mockup, using the toolchain
@@ -116,8 +116,8 @@ where possible (they have suffix *-static.so).
 If the vendor APIs come, in some cases, in the form of relocateable static libraries/archives (-fPIC), then they
 can sometimes be integrated into the CanModule specific vendor shared lib.
 
-**Linux:**
-if the environment variable CANMODULE_AS_STATIC_AS_POSSIBLE=1 is set during building some extra *-static 
+**Linux (CC7, ubuntu):**
+if the environment variable CANMODULE_AS_STATIC_AS_POSSIBLE=1 is set during building the *-static 
 libs are produced with boost and other specific dependencies integrated as possible:
 
 * ancan-static.so

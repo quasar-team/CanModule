@@ -63,26 +63,24 @@ set(ANAGATE_SOURCES
 	../../CanInterface/src/CanModuleUtils.cpp
 	../../CanInterface/include/CanModuleUtils.h	
 )
+
+# you can either build the fully dynamic libs or the as-static-as-possible, 
+# but not both in one go
+IF ( $ENV{CANMODULE_AS_STATIC_AS_POSSIBLE} )
+	SET ( ANAGATE_LIB_NAME "ancan-static" )
+ELSE()
+	SET ( ANAGATE_LIB_NAME "ancan" )
+ENDIF()	
 	
 if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
-	add_library( ancan SHARED ${ANAGATE_SOURCES} $<TARGET_OBJECTS:LogIt>)
-	add_library( ancan-static SHARED ${ANAGATE_SOURCES} $<TARGET_OBJECTS:LogIt>)
+	add_library( ${ANAGATE_LIB_NAME} SHARED ${ANAGATE_SOURCES} $<TARGET_OBJECTS:LogIt>)
 else()
-	add_library( ancan SHARED ${ANAGATE_SOURCES} )
-	target_link_libraries( ancan ${LOGIT_LIB} )
-	
-	add_library( ancan-static SHARED ${ANAGATE_SOURCES} )
-	target_link_libraries( ancan-static ${LOGIT_LIB} )
+	add_library( ${ANAGATE_LIB_NAME} SHARED ${ANAGATE_SOURCES} )
+	target_link_libraries( ${ANAGATE_LIB_NAME} ${LOGIT_LIB} )
 endif()
 
-target_link_libraries ( ancan ${BOOST_LIBS}	${ANAGATE_LIB_FILE} )
-target_link_libraries ( ancan-static ${BOOST_LIBS_STATIC} ${ANAGATE_LIB_FILE} )
-
-set_property(TARGET ancan PROPERTY POSITION_INDEPENDENT_CODE TRUE)
-set_property(TARGET ancan PROPERTY LINKER_LANGUAGE CXX)
-
-set_property(TARGET ancan-static PROPERTY POSITION_INDEPENDENT_CODE TRUE)
-set_property(TARGET ancan-static PROPERTY LINKER_LANGUAGE CXX)
-
+target_link_libraries ( ${ANAGATE_LIB_NAME} ${BOOST_LIBS}	${ANAGATE_LIB_FILE} )
+set_property(TARGET ${ANAGATE_LIB_NAME} PROPERTY POSITION_INDEPENDENT_CODE TRUE)
+set_property(TARGET ${ANAGATE_LIB_NAME} PROPERTY LINKER_LANGUAGE CXX)
 link_directories( ${BOOST_PATH_LIBS} )
 
