@@ -2,6 +2,14 @@
 All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## 1.1.9.6
+- added toolchain for ubuntu, the obnly differences to cc7 come from the fact that a 
+  physical jenkins slave for ubuntu has to be used right now. Nexus delivers into ubuntu1804LTS
+  We can support ubuntu inofficially.
+- separated build for dynamical and as-static-as-possible libs for CanModule, anagate and 
+  socketcan (=peak, systec) for all linux flavours. Set env var "CANMODULE_AS_STATIC_AS_POSSIBLE=1"
+  for the -static lib versions. Default is of course dynamical (env var not set).
+
 ## 1.1.9.5
 - disconnect and reconnect on the same bus by software: connection map management corrected
 - double-create of one bus protected
