@@ -43,7 +43,7 @@ set(SOCKCAN_SOURCES
 )
 # you can either build the fully dynamic libs or the as-static-as-possible, 
 # but not both in one go
-IF ( ENV{CANMODULE_AS_STATIC_AS_POSSIBLE} )
+IF ( $ENV{CANMODULE_AS_STATIC_AS_POSSIBLE} )
 	SET ( SOCK_LIB_NAME "sockcan-static" )
 ELSE()
 	SET ( SOCK_LIB_NAME "sockcan" )
@@ -56,7 +56,7 @@ else()
 endif()
 
 # we profit and also link the linux socketcan static if specified
-IF ( ENV{CANMODULE_AS_STATIC_AS_POSSIBLE} )
+IF ( $ENV{CANMODULE_AS_STATIC_AS_POSSIBLE} )
 	target_link_libraries( ${SOCK_LIB_NAME} ${LOGIT_LIB} ${BOOST_LIBS} libsocketcan.a )
 ELSE()
 	target_link_libraries( ${SOCK_LIB_NAME} ${LOGIT_LIB} ${BOOST_LIBS} -lsocketcan )

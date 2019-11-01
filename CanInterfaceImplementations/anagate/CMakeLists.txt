@@ -66,7 +66,7 @@ set(ANAGATE_SOURCES
 
 # you can either build the fully dynamic libs or the as-static-as-possible, 
 # but not both in one go
-IF ( ENV{CANMODULE_AS_STATIC_AS_POSSIBLE} )
+IF ( $ENV{CANMODULE_AS_STATIC_AS_POSSIBLE} )
 	SET ( ANAGATE_LIB_NAME "ancan-static" )
 ELSE()
 	SET ( ANAGATE_LIB_NAME "ancan" )
