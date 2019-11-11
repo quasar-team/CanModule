@@ -44,27 +44,46 @@
 <h1>Building<a class="headerlink" href="#building" title="Permalink to this headline">¶</a></h1>
 <p>We use <a class="reference external" href="https://cmake.org/">cmake</a> 3.0 or higher for multi-OS building.
 The dependencies are:</p>
-<ul class="simple">
-<li>xerces-c</li>
-<li>boost (1.64.0 or later preferred, but any version &gt;=1.59.0 should work)</li>
-<li>socketcan libs (CC7, ubuntu) (not to be confused with the CanModule sockcan.so lib!)</li>
-<li>dependencies for CanModule: LogIt (sources gto github pulled in by cmake)</li>
-<li>vendor libs (to be installed on your build/target machine)</li>
+<ul>
+<li><p class="first"><a class="reference external" href="http://xerces.apache.org/xerces-c/">xerces</a>-c</p>
+</li>
+<li><p class="first"><a class="reference external" href="https://www.boost.org/">boost</a> (1.64.0 or later preferred, but any version &gt;=1.59.0 should work)</p>
+</li>
+<li><p class="first"><a class="reference external" href="https://gitlab.cern.ch/mludwig/CAN_libsocketcan">socketcan</a> libs (CC7, ubuntu) (not to be confused with the CanModule sockcan.so lib!).
+They can also be found in various places for open software.</p>
+</li>
+<li><p class="first">dependencies for CanModule: LogIt (sources to github pulled in by cmake)</p>
+</li>
+<li><p class="first">vendor libs (to be installed on your build/target machine)</p>
+</li>
 <li><dl class="first docutils">
-<dt>you will have to switch off vendor builds if you want ONLY mockup, using the toolchain</dt>
-<dd><ul class="first last">
-<li>SET( CANMODULE_BUILD_VENDORS “OFF”)</li>
-<li>default is “ON”</li>
+<dt>if general vendor builds are off you will build ONLY mockup. Using the toolchain:</dt>
+<dd><ul class="first last simple">
+<li>SET( CANMODULE_BUILD_VENDORS “OFF”) or UNSET( CANMODULE_BUILD_VENDORS ) or &lt;nothing&gt;</li>
+<li>default is therefore “OFF” if you do nothing</li>
 </ul>
 </dd>
 </dl>
 </li>
+<li><p class="first">if you need the general vendor builds, and usually that is the case, then you need to
+switch them on explicitly in the toolchain:</p>
+<blockquote>
+<div><ul class="simple">
+<li>SET( CANMODULE_BUILD_VENDORS “ON”)</li>
+</ul>
+</div></blockquote>
+</li>
 <li><dl class="first docutils">
-<dt>you can switch off selected vendor which you do not need using the toolchain</dt>
-<dd><ul class="first last">
+<dt>you can switch off selected vendor builds which you do not need using the toolchain:</dt>
+<dd><blockquote class="first">
+<div><ul class="simple">
 <li>SET(CANMODULE_BUILD_SYSTEC “OFF”)</li>
 <li>SET(CANMODULE_BUILD_ANAGATE “OFF”)</li>
 <li>SET(CANMODULE_BUILD_PEAK “OFF”)</li>
+</ul>
+</div></blockquote>
+<ul class="last simple">
+<li>by default, all selected vendors are built</li>
 </ul>
 </dd>
 </dl>
@@ -123,7 +142,7 @@ SET(CANMODULE_BUILD_VENDORS &quot;ON&quot; )
 # disable a vendor
 #SET(CANMODULE_BUILD_SYSTEC &quot;OFF&quot;)
 #SET(CANMODULE_BUILD_ANAGATE &quot;OFF&quot;)
-#SET(CANMODULE_BUILD_PEAK &quot;OFF&quot;)
+SET(CANMODULE_BUILD_PEAK &quot;OFF&quot;)
 #
 # systec
 # version 6.02 for windows 10 7may2018
@@ -137,11 +156,11 @@ SET( ANAGATE_LIB_FILE &quot;AnaGateCanDll64.lib&quot;)
 SET( ANAGATE_HEADERS &quot;M:/3rdPartySoftware/AnaGateCAN/win64/vc8/include&quot; )
 SET( ANAGATE_LIB_PATH &quot;M:/3rdPartySoftware/AnaGateCAN/win64/vc8/Release&quot; )
 #
-# peak
-# version PCAN Basic 4.3.2
-SET( PEAK_LIB_FILE &quot;PCANBasic.lib&quot;)
-SET( PEAK_HEADERS &quot;M:/3rdPartySoftware/PCAN-Basic API/Include&quot; )
-SET( PEAK_LIB_PATH &quot;M:/3rdPartySoftware/PCAN-Basic API/x64/VC_LIB&quot; )
+## peak
+## version PCAN Basic 4.3.2
+##SET( PEAK_LIB_FILE &quot;PCANBasic.lib&quot;)
+##SET( PEAK_HEADERS &quot;M:/3rdPartySoftware/PCAN-Basic API/Include&quot; )
+##SET( PEAK_LIB_PATH &quot;M:/3rdPartySoftware/PCAN-Basic API/x64/VC_LIB&quot; )
 </pre></div>
 </div>
 <p><strong>The toolchain gets then injected by running cmake:</strong></p>
@@ -152,7 +171,7 @@ SET( PEAK_LIB_PATH &quot;M:/3rdPartySoftware/PCAN-Basic API/x64/VC_LIB&quot; )
 <h2>shared (default) and static linking/loading<a class="headerlink" href="#shared-default-and-static-linking-loading" title="Permalink to this headline">¶</a></h2>
 <p>CanModule uses all shared libraries, and also loads shared libraries during runtime for each connection
 object and vendor. Nevertheless some shared libraries with reduced dependencies are made available
-where possible (they have suffix <a href="#id1"><span class="problematic" id="id2">*</span></a>-static.so).
+where possible (they have suffix <a href="#id1"><span class="problematic" id="id2">*</span></a>-static.so) for linux.
 If the vendor APIs come, in some cases, in the form of relocateable static libraries/archives (-fPIC), then they
 can sometimes be integrated into the CanModule specific vendor shared lib.</p>
 <p><strong>Linux (CC7, ubuntu):</strong>
@@ -237,7 +256,7 @@ has to be set <strong>during runtime</strong> as well.</p>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2019, CERN, BE-ICS (Michael Ludwig).
-      Last updated on 11-Nov-2019 11:02:49.
+      Last updated on 11-Nov-2019 15:07:44.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
     </div>
   </body>
