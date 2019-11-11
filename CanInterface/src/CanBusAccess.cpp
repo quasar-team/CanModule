@@ -25,32 +25,7 @@
 
 namespace CanModule
 {
-/**
- * these static function pointers are needed to register a user handler
- * for the CanModule-C-Wrapper. And no - it is not possible to have a map
- * of pointers, otherwise the threads/mutexes will not work.
- * Why do we have 16 and not 8, since the systec16 has only 8 CAN ports per USB,
- * and no other module has more ? Simple answer: the ISEG HAL can handle up to
- * 16 receiver threads (hardcoded), so let's play is safe. It is a  bit unclear
- * what ISEG does with 8..15, but at least CanModule supports this. Most probably
- * the slots 8..15 are unused, though.
- */
-/* static */ boost::function< void ( const CanMsgStruct ) > CCanAccess::fw_slot0 = 0;
-/* static */ boost::function< void ( const CanMsgStruct ) > CCanAccess::fw_slot1 = 0;
-/* static */ boost::function< void ( const CanMsgStruct ) > CCanAccess::fw_slot2 = 0;
-/* static */ boost::function< void ( const CanMsgStruct ) > CCanAccess::fw_slot3 = 0;
-/* static */ boost::function< void ( const CanMsgStruct ) > CCanAccess::fw_slot4 = 0;
-/* static */ boost::function< void ( const CanMsgStruct ) > CCanAccess::fw_slot5 = 0;
-/* static */ boost::function< void ( const CanMsgStruct ) > CCanAccess::fw_slot6 = 0;
-/* static */ boost::function< void ( const CanMsgStruct ) > CCanAccess::fw_slot7 = 0;
-/* static */ boost::function< void ( const CanMsgStruct ) > CCanAccess::fw_slot8 = 0;
-/* static */ boost::function< void ( const CanMsgStruct ) > CCanAccess::fw_slot9 = 0;
-/* static */ boost::function< void ( const CanMsgStruct ) > CCanAccess::fw_slot10 = 0;
-/* static */ boost::function< void ( const CanMsgStruct ) > CCanAccess::fw_slot11 = 0;
-/* static */ boost::function< void ( const CanMsgStruct ) > CCanAccess::fw_slot12 = 0;
-/* static */ boost::function< void ( const CanMsgStruct ) > CCanAccess::fw_slot13 = 0;
-/* static */ boost::function< void ( const CanMsgStruct ) > CCanAccess::fw_slot14 = 0;
-/* static */ boost::function< void ( const CanMsgStruct ) > CCanAccess::fw_slot15 = 0;
+
 
 void CanBusAccess::closeCanBus(CCanAccess *cInter)
 {

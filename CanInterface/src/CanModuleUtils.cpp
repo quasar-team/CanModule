@@ -78,12 +78,4 @@ namespace CanModule
 		std::chrono::duration<double> differ = t2 - t1;
 		return differ.count();
 	}
-
-#if 0
-	// linux version
-	double CanModulesubtractTimeval(const timeval &t1, const timeval &t2)
-	{
-		return t2.tv_sec - t1.tv_sec + double(t2.tv_usec - t1.tv_usec) / 1000000.0;
-	}
-#endif
 }
