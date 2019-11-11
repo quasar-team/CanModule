@@ -10,7 +10,6 @@ CanModule reference documentation
    quickstart
    objective
    standardApi
-   cwrapper
    vendors/systec
    vendors/anagate
    vendors/peak
