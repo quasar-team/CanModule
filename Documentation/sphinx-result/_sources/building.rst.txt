@@ -8,18 +8,23 @@ Building
 We use `cmake`_ 3.0 or higher for multi-OS building.
 The dependencies are:
 
-* xerces-c
-* boost (1.64.0 or later preferred, but any version >=1.59.0 should work)
-* socketcan libs (CC7, ubuntu) (not to be confused with the CanModule sockcan.so lib!)
-* dependencies for CanModule: LogIt (sources gto github pulled in by cmake)
+* `xerces`_-c 
+* `boost`_ (1.64.0 or later preferred, but any version >=1.59.0 should work)
+* `socketcan`_ libs (CC7, ubuntu) (not to be confused with the CanModule sockcan.so lib!). 
+  They can also be found in various places for open software.
+* dependencies for CanModule: LogIt (sources to github pulled in by cmake)
 * vendor libs (to be installed on your build/target machine)
-* you will have to switch off vendor builds if you want ONLY mockup, using the toolchain
-	* SET( CANMODULE_BUILD_VENDORS "OFF")
-	* default is "ON"
-* you can switch off selected vendor which you do not need using the toolchain
+* if general vendor builds are off you will build ONLY mockup. Using the toolchain:
+	* SET( CANMODULE_BUILD_VENDORS "OFF") or UNSET( CANMODULE_BUILD_VENDORS ) or <nothing>
+	* default is therefore "OFF" if you do nothing
+* if you need the general vendor builds, and usually that is the case, then you need to 
+  switch them on explicitly in the toolchain:
+   * SET( CANMODULE_BUILD_VENDORS "ON")
+* you can switch off selected vendor builds which you do not need using the toolchain:
 	* SET(CANMODULE_BUILD_SYSTEC "OFF")
 	* SET(CANMODULE_BUILD_ANAGATE "OFF")
 	* SET(CANMODULE_BUILD_PEAK "OFF")
+   * by default, all selected vendors are built
 
 
 **These dependencies should conveniently be injected into cmake using a toolchain file:**
@@ -80,7 +85,7 @@ The dependencies are:
 	# disable a vendor
 	#SET(CANMODULE_BUILD_SYSTEC "OFF")
 	#SET(CANMODULE_BUILD_ANAGATE "OFF")
-	#SET(CANMODULE_BUILD_PEAK "OFF")
+	SET(CANMODULE_BUILD_PEAK "OFF")
 	#
 	# systec
 	# version 6.02 for windows 10 7may2018
@@ -94,11 +99,11 @@ The dependencies are:
 	SET( ANAGATE_HEADERS "M:/3rdPartySoftware/AnaGateCAN/win64/vc8/include" )
 	SET( ANAGATE_LIB_PATH "M:/3rdPartySoftware/AnaGateCAN/win64/vc8/Release" )
 	#
-	# peak
-	# version PCAN Basic 4.3.2
-	SET( PEAK_LIB_FILE "PCANBasic.lib")
-	SET( PEAK_HEADERS "M:/3rdPartySoftware/PCAN-Basic API/Include" )
-	SET( PEAK_LIB_PATH "M:/3rdPartySoftware/PCAN-Basic API/x64/VC_LIB" )
+	## peak
+	## version PCAN Basic 4.3.2
+	##SET( PEAK_LIB_FILE "PCANBasic.lib")
+	##SET( PEAK_HEADERS "M:/3rdPartySoftware/PCAN-Basic API/Include" )
+	##SET( PEAK_LIB_PATH "M:/3rdPartySoftware/PCAN-Basic API/x64/VC_LIB" )
 
 **The toolchain gets then injected by running cmake:**
 
@@ -112,7 +117,7 @@ shared (default) and static linking/loading
 
 CanModule uses all shared libraries, and also loads shared libraries during runtime for each connection
 object and vendor. Nevertheless some shared libraries with reduced dependencies are made available 
-where possible (they have suffix *-static.so).
+where possible (they have suffix *-static.so) for linux.
 If the vendor APIs come, in some cases, in the form of relocateable static libraries/archives (-fPIC), then they
 can sometimes be integrated into the CanModule specific vendor shared lib.
 
@@ -134,3 +139,8 @@ No reduced dependencies libs are available at this point.
 	
 	
 .. _cmake: https://cmake.org/
+.. _xerces: http://xerces.apache.org/xerces-c/
+.. _boost: https://www.boost.org/
+.. _socketcan: https://gitlab.cern.ch/mludwig/CAN_libsocketcan
+
+
