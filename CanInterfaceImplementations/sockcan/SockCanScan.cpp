@@ -537,6 +537,8 @@ bool CSockCanScan::sendRemoteRequest(short cobID)
  */
 bool CSockCanScan::createBus(const string name, const string parameters)
 {
+	LOG(Log::TRC) << __FUNCTION__ << " name= " << name << " parameters= " << parameters;
+
 	// dont create a main thread for the same bus twice
 	bool skipMainThreadCreation = false;
 
