@@ -168,11 +168,28 @@ void WINAPI InternalCallback(AnaUInt32 nIdentifier, const char * pcBuffer, AnaIn
 	//		<< " anagate message reception hHandle= " << hHandle
 	//		<< " nIdentifier= " << nIdentifier
 	//		<< endl;
+	MLOGANA(TRC, g_AnaCanScanPointerMap[hHandle] ) << "read(): " << canMessageToString(canMsgCopy);
 
 	g_AnaCanScanPointerMap[hHandle]->callbackOnRecieve(canMsgCopy);
 	g_AnaCanScanPointerMap[hHandle]->statisticsOnRecieve( nBufferLen );
 }
 
+static std::string canMessageToString(CanMessage &f)
+{
+
+	f.c_id
+	std::string result;
+	result =  "[id=0x"+CanModuleUtils::toHexString(f.c_id, 3, '0')+" ";
+	if (f.can_id & CAN_RTR_FLAG)
+		result += "RTR ";
+	result+="dlc=" + CanModuleUtils::toString(int(f.c_dlc)) + " data=[";
+
+	for (int i=0; i<f.c_dlc; i++)
+		result+= CanModuleUtils::toHexString((unsigned int)f.c_data[i], 2, '0')+" ";
+	result += "]]";
+
+	return result;
+}
 
 /**
  *  callback API

@@ -107,6 +107,7 @@ private:
 	static std::map<string, bool> reconnectInProgress_map; // could use 1-dim vector but map is faster
 	static void setIpReconnectInProgress( string ip, bool flag );
 	static bool isIpReconnectInProgress( string ip );
+	static std::string canMessageToString(CanMessage &f);
 
 	bool sendErrorCode(AnaInt32);
 	string ipAdress(){ return(m_canIPAddress );}
