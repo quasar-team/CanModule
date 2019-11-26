@@ -15,6 +15,22 @@ Only a few common methods are needed:
 .. doxygenclass:: CanModule::CCanAccess 
 	:project: CanModule
 	
+
+CAN ports
+---------
+
+CAN ports are specified by the user, and in the strict sense, a port is an integer number 0..N.
+Vendors and implementations tend to handle that differently, but CanModule tries to provide a
+standard API across all vendors. The following strings, specified for CAN ports, will connect to port X:
+
+* "X"
+* "canX"
+* "vcanX"
+* "moduleX"
+* "whateverX"
+
+but "module2PortX" will connect to 2 instead of port X, so please stay reasonable.
+
 * The **access to a CAN port** is through:
 
 .. doxygenclass:: CanModule::CanBusAccess
