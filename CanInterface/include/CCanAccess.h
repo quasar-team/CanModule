@@ -189,15 +189,22 @@ public:
 			isSocketCanLinux = true;
 		}
 
-		// strip off any leading chars from port number: ":canwhatever7:" becomes just ":7:"
-		std::size_t found0 = name.find_first_of (":", 0);
-		std::size_t found1 = name.find_first_of ( "0123456789", found0 );
-		if ( found1 != std::string::npos ) name.erase( found0 + 1, found1 - found0 - 1 );
+		// care for ":vcanwhatsoever0:" for linux. It shall become ":vcan0"
+		std::size_t foundVcan = name.find_first_of (":vcan", 0);
 
-		// for socketcan, have to prefix "can" to port number
+		// strip off any leading chars from port number: ":(v)canwhatever7:" becomes just ":7:"
+		std::size_t foundCan = name.find_first_of (":", 0);
+		std::size_t found1 = name.find_first_of ( "0123456789", foundCan );
+		if ( found1 != std::string::npos ) name.erase( foundCan + 1, found1 - foundCan - 1 );
+
+		// for socketcan, have to prefix "can" or "vcan" to port number
 		if ( isSocketCanLinux ){
-			found0 = name.find_first_of (":", 0);
-			m_sBusName = name.insert( found0 + 1, "can");
+			foundCan = name.find_first_of (":", 0);
+			if ( foundVcan != std::string::npos ) {
+				m_sBusName = name.insert( foundCan + 1, "vcan");
+			} else {
+				m_sBusName = name.insert( foundCan + 1, "can");
+			}
 		} else {
 			m_sBusName = name;
 		}
