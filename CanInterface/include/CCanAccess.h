@@ -112,7 +112,7 @@ public:
 	 * 				anagate: pass the ip number
 	 * @return: Was the initialisation process successful?
 	 */
-//	virtual bool createBus(const string name, const string parameters) = 0;
+	virtual bool createBus(const string name, const string parameters) = 0;
 
 	/*
 	 * Method that sends a message through the can bus channel. If the method createBUS was not called before this, sendMessage will fail, as there is no
@@ -221,7 +221,6 @@ protected:
 	CanParameters m_CanParameters;
 
 private:
-	virtual bool createBus(const string name, const string parameters) = 0;
 
 	boost::signals2::connection s_cconnection;
 	int s_connectionIndex;
