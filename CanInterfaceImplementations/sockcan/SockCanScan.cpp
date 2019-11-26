@@ -468,6 +468,8 @@ bool CSockCanScan::sendMessage(short cobID, unsigned char len, unsigned char *me
  * can bus channel to send the request trough. Similar to sendMessage, but it sends an special message reserved for requests.
  * @param cobID: Identifier that will be used for the request.
  * @return: Was the initialisation process successful?
+ *
+ * that is not tested or used until now, and I am not sure it works
  */
 bool CSockCanScan::sendRemoteRequest(short cobID)
 {
@@ -508,7 +510,7 @@ bool CSockCanScan::sendRemoteRequest(short cobID)
 		}
 		break;//If everything was successful we quit the loop.
 	}
-	while(true);
+	while(true); // hmm !?
 	return true;
 }
 
@@ -537,28 +539,9 @@ bool CSockCanScan::sendRemoteRequest(short cobID)
  */
 bool CSockCanScan::createBus(const string name, const string parameters)
 {
-	LOG(Log::TRC) << __FUNCTION__ << " name= " << name << " parameters= " << parameters;
-
-	// dont create a main thread for the same bus twice
-	bool skipMainThreadCreation = false;
-
-	{
-		sockReconnectMutex.lock();
-		std::map<string, string>::iterator it = CSockCanScan::m_busMap.find( name );
-		if (it == CSockCanScan::m_busMap.end()) {
-			CSockCanScan::m_busMap.insert ( std::pair<string, string>(name, parameters) );
-			m_busName = name;
-		} else {
-			LOG(Log::WRN) << __FUNCTION__ << " bus exists already [" << name << ", " << parameters << "], not creating another main thread";
-			skipMainThreadCreation = true;
-		}
-		sockReconnectMutex.unlock();
-	}
-
 	// calling base class to get the instance from there
 	Log::LogComponentHandle myHandle;
 	LogItInstance* logItInstance = CCanAccess::getLogItInstance(); // actually calling instance method, not class
-	// std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " ptr= 0x" << logItInstance << std::endl;
 
 	// register socket component for logging
 	if ( !LogItInstance::setInstance(logItInstance))
@@ -571,19 +554,33 @@ bool CSockCanScan::createBus(const string name, const string parameters)
 
 	CSockCanScan::st_logItHandleSock = myHandle;
 
+	// protect against creating the same bus twice
+	bool skip = false;
+	{
+		sockReconnectMutex.lock();
+		std::map<string, string>::iterator it = CSockCanScan::m_busMap.find( name );
+		if (it == CSockCanScan::m_busMap.end()) {
+			CSockCanScan::m_busMap.insert ( std::pair<string, string>(name, parameters) );
+			m_busName = name;
+		} else {
+			skip = true;
+		}
+		sockReconnectMutex.unlock();
+	}
+	if ( skip ){
+		LOG(Log::WRN) << __FUNCTION__ << " bus exists already [" << name << ", " << parameters << "], skipping";
+		return( true );
+	}
+
 	m_CanScanThreadRunEnableFlag = true;
 	m_sock = configureCanBoard(name,parameters);
 	if (m_sock < 0) {
 		MLOGSOCK(ERR,this) << "Could not create bus [" << name << "] with parameters [" << parameters << "]";
 		return false;
 	}
-	if ( skipMainThreadCreation ){
-		MLOGSOCK(TRC,this) << "Re-using main thread m_idCanScanThread= " << m_idCanScanThread;
-	} else {
-		MLOGSOCK(TRC,this) << "Created bus with parameters [" << parameters << "], starting main loop";
-		m_idCanScanThread =	pthread_create(&m_hCanScanThread,NULL,&CanScanControlThread, (void *)this);
-		MLOGSOCK(TRC,this) << "created main thread m_idCanScanThread= " << m_idCanScanThread;
-	}
+	MLOGSOCK(TRC,this) << "Created bus with parameters [" << parameters << "], starting main loop";
+	m_idCanScanThread =	pthread_create(&m_hCanScanThread,NULL,&CanScanControlThread, (void *)this);
+	MLOGSOCK(TRC,this) << "created main thread m_idCanScanThread= " << m_idCanScanThread;
 	return( true );
 }
 
