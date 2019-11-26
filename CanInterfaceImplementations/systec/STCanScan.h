@@ -48,7 +48,7 @@ public:
 	//Destructor of the class
 	virtual ~STCanScan();
 
-	virtual bool createBus(const string name ,const string parameters);
+	//virtual bool createBus(const string name ,const string parameters);
 
     virtual bool sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr = false);
 
@@ -66,6 +66,8 @@ public:
 	static bool s_logItRegisteredSt;
 
 private:
+	virtual bool createBus(const string name ,const string parameters);
+
 	//The number of the can module associated with this instance.
 	int m_moduleNumber;
 	//The number of the can channel associated with this instance.
