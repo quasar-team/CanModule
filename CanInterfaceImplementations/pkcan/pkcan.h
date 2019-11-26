@@ -33,7 +33,7 @@ public:
 	PKCanScan& operator=(PKCanScan const & other) = delete;
 	//Destructor of the class
 	virtual ~PKCanScan();
-	// virtual bool createBus(const string name,const string parameters);
+	virtual bool createBus(const string name,const string parameters);
 	/*
 	 * Method that sends a message trough the can bus channel. If the method createBus was not called before this, sendMessage will fail, as there is no
 	 * can bus channel to send a message trough.
@@ -64,7 +64,6 @@ public:
 	static std::map<string, string> m_busMap; // {name, parameters}
 
 private:
-	virtual bool createBus(const string name,const string parameters);
 
 	TPCANHandle getHandle(const char *name);
 

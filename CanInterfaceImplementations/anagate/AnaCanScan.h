@@ -63,7 +63,7 @@ public:
 	AnaCanScan& operator=(AnaCanScan const & other) = delete; // Disables assignment
 	virtual ~AnaCanScan();
 
-	//virtual bool createBus(const string name ,const string parameters);
+	virtual bool createBus(const string name ,const string parameters);
     virtual bool sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr = false);
 	virtual bool sendMessage(CanMessage *);
 	virtual bool sendRemoteRequest(short cobID);
@@ -77,7 +77,6 @@ public:
 	static std::string canMessageToString(CanMessage &f);
 
 private:
-	virtual bool createBus(const string name ,const string parameters);
 
  	int m_canPortNumber; //The number of can port (CANA, CANB, ...) associated with this instance.
 	string  m_canIPAddress;

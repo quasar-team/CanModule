@@ -53,7 +53,7 @@ public:
 	virtual ~CSockCanScan();
 
 	virtual bool sendRemoteRequest(short cobID);
-	// virtual bool createBus(const string name ,string parameters );
+	virtual bool createBus(const string name ,string parameters );
 	virtual bool sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr = false);
 
 	/**
@@ -82,7 +82,6 @@ public:
 
 private:
 	volatile bool m_CanScanThreadRunEnableFlag; //Flag for running/shutting down the CanScan thread
-	virtual bool createBus(const string name ,string parameters );
 
 	int m_sock;                 //Socket handler
 	CanStatistics m_statistics;// Instance of Can Statistics
