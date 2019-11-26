@@ -79,7 +79,8 @@ must be registered to treat received messages (boost slot connected to boost sig
 	}
 	
 
-* you can take a look at `CANX`_ for a full multithreaded example using CanModule (CERN, gitlab)
+* you can take a look at `CANX`_ for a full multithreaded example using CanModule (CERN, gitlab).
+Contact me for a simple code example.
 
 .. _CANX: https://gitlab.cern.ch/mludwig/canx.git
 
