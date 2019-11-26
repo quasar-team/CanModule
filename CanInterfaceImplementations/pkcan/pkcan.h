@@ -64,6 +64,7 @@ public:
 	static std::map<string, string> m_busMap; // {name, parameters}
 
 private:
+
 	TPCANHandle getHandle(const char *name);
 
 	bool sendErrorCode(long);

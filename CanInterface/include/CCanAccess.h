@@ -228,6 +228,7 @@ protected:
 	CanParameters m_CanParameters;
 
 private:
+
 	boost::signals2::connection s_cconnection;
 	int s_connectionIndex;
 	Log::LogComponentHandle _lh; // s_lh ?!? @ windows w.t.f.

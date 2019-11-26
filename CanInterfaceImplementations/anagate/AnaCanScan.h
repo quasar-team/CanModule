@@ -74,8 +74,11 @@ public:
 	void startAlive( int aliveTime_sec );
 	void setConnectWaitTime( int timeout_ms );
 
+	static std::string canMessageToString(CanMessage &f);
+
 private:
-	int m_canPortNumber; //The number of can port (CANA, CANB, ...) associated with this instance.
+
+ 	int m_canPortNumber; //The number of can port (CANA, CANB, ...) associated with this instance.
 	string  m_canIPAddress;
 	unsigned int m_baudRate; 	//Current baud rate for statistics
 	DWORD   m_idCanScanThread; // Thread ID for the CAN update scan manager thread.

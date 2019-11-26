@@ -66,6 +66,7 @@ public:
 	static bool s_logItRegisteredSt;
 
 private:
+
 	//The number of the can module associated with this instance.
 	int m_moduleNumber;
 	//The number of the can channel associated with this instance.
