@@ -200,11 +200,11 @@ public:
 		// for socketcan, have to prefix "can" or "vcan" to port number
 		if ( isSocketCanLinux ){
 			foundCan = name.find_first_of (":", 0);
-			if ( foundVcan != std::string::npos ) {
-				m_sBusName = name.insert( foundCan + 1, "vcan");
-			} else {
+			//if ( foundVcan != std::string::npos ) {
+			//	m_sBusName = name.insert( foundCan + 1, "vcan");
+			//} else {
 				m_sBusName = name.insert( foundCan + 1, "can");
-			}
+			//}
 		} else {
 			m_sBusName = name;
 		}
