@@ -250,13 +250,11 @@ bool AnaCanScan::createBus(const string name,const string parameters)
 
 	//LOG(Log::TRC, myHandle) << __FUNCTION__ << " " __FILE__ << " " << __LINE__;
 	AnaCanScan::s_logItHandleAnagate = myHandle;
-
-	MLOGANA(DBG, this) << " parameters= " << parameters;
 	int returnCode = configureCanBoard(name, parameters);
 	if ( returnCode < 0 ) {
 		return false;
 	}
-	MLOGANA(DBG,this) << " OK, Bus created with parameters= " << parameters;
+	MLOGANA(DBG,this) << " OK, Bus created with name= " << name << " parameters= " << parameters;
 	return true;
 }
 
@@ -266,7 +264,7 @@ bool AnaCanScan::createBus(const string name,const string parameters)
  */
 int AnaCanScan::configureCanBoard(const string name,const string parameters)
 {
-	MLOGANA(DBG, this) << "(user supplied) parameters= " << parameters;
+	MLOGANA(DBG, this) << "(user supplied) name= " << name << " parameters= " << parameters;
 	vector<string> stringVector;
 	stringVector = parseNameAndParameters(name, parameters);
 

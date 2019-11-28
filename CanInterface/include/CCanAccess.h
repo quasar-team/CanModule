@@ -86,6 +86,7 @@ public:
 	//Empty constructor, just get rid of a useless warning
 	CCanAccess():
 		s_connectionIndex(0),
+		_lh(0),
 		s_logItRemoteInstance(NULL)
 	{
 		CanModule::version();
@@ -189,22 +190,39 @@ public:
 			isSocketCanLinux = true;
 		}
 
-		// care for ":vcanwhatsoever0:" for linux. It shall become ":vcan0"
-		std::size_t foundVcan = name.find_first_of (":vcan", 0);
-
-		// strip off any leading chars from port number: ":(v)canwhatever7:" becomes just ":7:"
-		std::size_t foundCan = name.find_first_of (":", 0);
-		std::size_t found1 = name.find_first_of ( "0123456789", foundCan );
-		if ( found1 != std::string::npos ) name.erase( foundCan + 1, found1 - foundCan - 1 );
+		/** care for different syntax:
+		 * "sock:0" => sock:can0
+		 * "sock:can0" => "sock:can0"
+		 * "sock:vcan0" => "sock:vcan0"
+		 *
+		 * "sock:whatsoever0" => "sock:can0"
+		 * "sock:whatsoevervcan0" => "sock:vcan0"
+		 * "sock:wvcanhatso0" => "sock:vcan0"
+		 *
+		 * if you specify only an integer portnumber we default to "can"
+		 * if you specify ":can" we stay with "can"
+		 * if you specify ":vcan" we stay with "vcan"
+		 * if you specify anything else which contains a string and an integer, we use can
+		 * if you specify anything else which contains a string containing ":vcan" and an integer, we use vcan
+		 * so basically you have the freedom to call your devices as you want. Maybe this is too much freedom.
+		*/
+		std::size_t foundVcan = name.find(":vcan", 0);
+		std::size_t foundSeperator = name.find_first_of (":", 0);
+		std::size_t foundPortNumber = name.find_first_of ( "0123456789", foundSeperator );
+		if ( foundPortNumber != std::string::npos ) {
+			name.erase( foundSeperator + 1, foundPortNumber - foundSeperator - 1 );
+		} else {
+			throw std::runtime_error("could not decode port number (need an integer, i.e. can0)");
+		}
 
 		// for socketcan, have to prefix "can" or "vcan" to port number
 		if ( isSocketCanLinux ){
-			foundCan = name.find_first_of (":", 0);
-			//if ( foundVcan != std::string::npos ) {
-			//	m_sBusName = name.insert( foundCan + 1, "vcan");
-			//} else {
-				m_sBusName = name.insert( foundCan + 1, "can");
-			//}
+			foundSeperator = name.find_first_of (":", 0);
+			if ( foundVcan != std::string::npos ) {
+				m_sBusName = name.insert( foundSeperator + 1, "vcan");
+			} else {
+				m_sBusName = name.insert( foundSeperator + 1, "can");
+			}
 		} else {
 			m_sBusName = name;
 		}
@@ -231,7 +249,7 @@ private:
 
 	boost::signals2::connection s_cconnection;
 	int s_connectionIndex;
-	Log::LogComponentHandle _lh; // s_lh ?!? @ windows w.t.f.
+	Log::LogComponentHandle _lh; // s_lh ?!? problem with windows w.t.f.
 	LogItInstance* s_logItRemoteInstance;
 
 };

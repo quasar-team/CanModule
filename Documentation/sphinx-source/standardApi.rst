@@ -21,15 +21,20 @@ CAN ports
 
 CAN ports are specified by the user, and in the strict sense, a port is an integer number 0..N.
 Vendors and implementations tend to handle that differently, but CanModule tries to provide a
-standard API across all vendors. The following strings, specified for CAN ports, will connect to port X:
+standard API across all vendors. The following strings, specified for CAN ports, will connect 
+to can port P:
 
-* "X"
-* "canX"
-* "vcanX"
-* "moduleX"
-* "whateverX"
+* "P"
+* "canP"
+* "moduleP"
+* "whateverP"
 
-but "module2PortX" will connect to 2 instead of port X, so please stay reasonable.
+but specifying
+
+* "vcanP"
+* "vcanmoduleP"
+
+will use vcan (virtual can) instead under linux for USB/socketcan bridges. P has to be an integer. 
 
 * The **access to a CAN port** is through:
 

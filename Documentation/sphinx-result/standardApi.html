@@ -62,6 +62,24 @@ Only a few common methods are needed:</p>
 <dd><p>Subclassed by <a class="reference internal" href="vendors/anagate.html#classAnaCanScan"><span class="std std-ref">AnaCanScan</span></a>, <a class="reference internal" href="vendors/systec.html#classCSockCanScan"><span class="std std-ref">CSockCanScan</span></a>, MockCanAccess, <a class="reference internal" href="vendors/peak.html#classPKCanScan"><span class="std std-ref">PKCanScan</span></a>, <a class="reference internal" href="vendors/systec.html#classSTCanScan"><span class="std std-ref">STCanScan</span></a></p>
 </dd></dl>
 
+<div class="section" id="can-ports">
+<h2>CAN ports<a class="headerlink" href="#can-ports" title="Permalink to this headline">¶</a></h2>
+<p>CAN ports are specified by the user, and in the strict sense, a port is an integer number 0..N.
+Vendors and implementations tend to handle that differently, but CanModule tries to provide a
+standard API across all vendors. The following strings, specified for CAN ports, will connect
+to can port P:</p>
+<ul class="simple">
+<li>“P”</li>
+<li>“canP”</li>
+<li>“moduleP”</li>
+<li>“whateverP”</li>
+</ul>
+<p>but specifying</p>
+<ul class="simple">
+<li>“vcanP”</li>
+<li>“vcanmoduleP”</li>
+</ul>
+<p>will use vcan (virtual can) instead under linux for USB/socketcan bridges. P has to be an integer.</p>
 <ul class="simple">
 <li>The <strong>access to a CAN port</strong> is through:</li>
 </ul>
@@ -108,8 +126,10 @@ Only a few common methods are needed:</p>
 </pre></div>
 </div>
 <ul class="simple">
-<li>you can take a look at <a class="reference external" href="https://gitlab.cern.ch/mludwig/canx.git">CANX</a> for a full multithreaded example using CanModule (CERN, gitlab)</li>
+<li>you can take a look at <a class="reference external" href="https://gitlab.cern.ch/mludwig/canx.git">CANX</a> for a full multithreaded example using CanModule (CERN, gitlab).</li>
 </ul>
+<p>Contact me for a simple code example.</p>
+</div>
 </div>
 
 
@@ -123,7 +143,10 @@ Only a few common methods are needed:</p>
 <li class="toctree-l1"><a class="reference internal" href="downloading.html">Downloading</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="objective.html">Objective</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Standard API</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Standard API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#can-ports">CAN ports</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="vendors/systec.html">SysTec</a></li>
 <li class="toctree-l1"><a class="reference internal" href="vendors/anagate.html">AnaGate</a></li>
 <li class="toctree-l1"><a class="reference internal" href="vendors/peak.html">Peak</a></li>
@@ -174,7 +197,7 @@ Only a few common methods are needed:</p>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2019, CERN, BE-ICS (Michael Ludwig).
-      Last updated on 11-Nov-2019 16:53:34.
+      Last updated on 28-Nov-2019 12:31:53.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
     </div>
   </body>
