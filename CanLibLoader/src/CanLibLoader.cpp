@@ -30,14 +30,12 @@
 #include "CanLibLoaderLin.h"
 #endif
 
-using namespace std;
 namespace CanModule
 {
 
 	CanLibLoader::CanLibLoader(const std::string& libName)	{
 		LogItInstance *logIt = LogItInstance::getInstance();
 		logIt->getComponentHandle( CanModule::LogItComponentName, lh );
-		//LOG(Log::TRC, lh ) << "logItComponentHandle= " << lh;
 	}
 
 	CanLibLoader::~CanLibLoader() {}
