@@ -45,11 +45,10 @@
 #include <LogIt.h>
 
 /* static */ std::map<string, string> CSockCanScan::m_busMap;
-// /* static */ Log::LogComponentHandle CSockCanScan::st_logItHandleSock;
-
-#define MLOGSOCK(LEVEL,THIS) LOG(Log::LEVEL, CSockCanScan::st_logItHandleSock) << __FUNCTION__ << " sock bus= " << THIS->getBusName() << " "
-
 boost::mutex sockReconnectMutex; // protect m_busMap
+
+#define MLOGSOCK(LEVEL,THIS) LOG(Log::LEVEL, THIS->logItHandle()) << __FUNCTION__ << " sock bus= " << THIS->getBusName() << " "
+
 
 
 /**

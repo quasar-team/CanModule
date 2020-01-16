@@ -79,6 +79,7 @@ public:
 		return(f);
 	}
 	static std::map<string, string> m_busMap; // {name, parameters}
+	Log::LogComponentHandle logItHandle() { return st_logItHandleSock; }
 
 private:
 	volatile bool m_CanScanThreadRunEnableFlag; //Flag for running/shutting down the CanScan thread
