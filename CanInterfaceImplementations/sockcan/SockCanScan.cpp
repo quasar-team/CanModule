@@ -539,20 +539,14 @@ bool CSockCanScan::sendRemoteRequest(short cobID)
 bool CSockCanScan::createBus(const string name, const string parameters)
 {
 
-	// calling base class to get the instance from there
-	Log::LogComponentHandle myHandle;
-	LogItInstance* logItInstance = CCanAccess::getLogItInstance(); // actually calling instance method, not class
-
-	// register socket component for logging
+	LogItInstance* logItInstance = CCanAccess::getLogItInstance();
 	if ( !LogItInstance::setInstance(logItInstance))
 		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
 		<< " could not set LogIt instance" << std::endl;
 
-	if (!logItInstance->getComponentHandle(CanModule::LogItComponentName, myHandle))
+	if (!logItInstance->getComponentHandle(CanModule::LogItComponentName, m_logItHandleSock))
 		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
 		<< " could not get LogIt component handle for " << LogItComponentName << std::endl;
-
-	CSockCanScan::st_logItHandleSock = myHandle;
 
 	// protect against creating the same bus twice
 	bool skip = false;
