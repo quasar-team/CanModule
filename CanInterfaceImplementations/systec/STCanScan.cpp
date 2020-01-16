@@ -135,15 +135,20 @@ STCanScan::~STCanScan()
  *				  i.e. "250000"
  *
  * @return was the initialisation process successful?
+ *
+ * ===note from Piotr===
+ * in the Windows implementation of Systec (hardware component: st):
+ * to define the interface naming as canX, where X is a non-negative number
+ * note: the SysTec driver for windows expects addressing in terms of module
+ * number and channel (e.g. 0:0 is can0, 1:0 is can2, 1:1 is can3, etc)
+ * so can0 should open a SysTec interface 0:0 matching "can0" on the box,
+ * can1 should open a SysTec interface 0:1 matching "can1" on the box, etc.
  */
 bool STCanScan::createBus(const string name,const string parameters)
 {	
-	// calling base class to get the instance from there
 	Log::LogComponentHandle myHandle;
 	LogItInstance* logItInstance = CCanAccess::getLogItInstance(); // actually calling instance method, not class
-	//std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " ptr= 0x" << logItInstance << std::endl;
 
-	// register systec@W component for logging
 	if ( !LogItInstance::setInstance(logItInstance))
 		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
 		<< " could not set LogIt instance" << std::endl;

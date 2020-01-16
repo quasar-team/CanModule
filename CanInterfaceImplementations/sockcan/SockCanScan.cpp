@@ -45,7 +45,7 @@
 #include <LogIt.h>
 
 /* static */ std::map<string, string> CSockCanScan::m_busMap;
-/* static */ Log::LogComponentHandle CSockCanScan::st_logItHandleSock;
+// /* static */ Log::LogComponentHandle CSockCanScan::st_logItHandleSock;
 
 #define MLOGSOCK(LEVEL,THIS) LOG(Log::LEVEL, CSockCanScan::st_logItHandleSock) << __FUNCTION__ << " sock bus= " << THIS->getBusName() << " "
 
@@ -539,6 +539,7 @@ bool CSockCanScan::sendRemoteRequest(short cobID)
  */
 bool CSockCanScan::createBus(const string name, const string parameters)
 {
+
 	// calling base class to get the instance from there
 	Log::LogComponentHandle myHandle;
 	LogItInstance* logItInstance = CCanAccess::getLogItInstance(); // actually calling instance method, not class

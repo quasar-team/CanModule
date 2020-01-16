@@ -149,7 +149,7 @@ DWORD WINAPI PKCanScan::CanScanControlThread(LPVOID pCanScan)
  * @param name = 2 parameters separated by ":" like "n0:n1"
  * 		* n0 = "pk" for peak@windows
  * 		* n1 = CAN port number on the module, can be prefixed with "can": 0..N
- * 		* ex.: "pk:can1" speaks to port 1 (the second port) on peak module at the ip
+ * 		* ex.: "pk:can1" speaks to port 1 (the second port) on peak module
  * 		* ex.: "pk:1" works as well
  *
  * @param parameters one parameter: "p0", positive integer
