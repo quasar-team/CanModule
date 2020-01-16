@@ -88,8 +88,7 @@ private:
 	AnaInt32 m_UcanHandle; //Instance of the can handle
 	CanStatistics m_statistics; //Instance of Can Statistics
     AnaInt32 m_timeout; 		// connect_wait time
-	static Log::LogComponentHandle s_logItHandleAnagate;
-	static bool s_logItRegisteredAnagate;
+	static Log::LogComponentHandle st_logItHandleAnagate;
 	static AnaInt32 s_canHandleArray[256];
 	static bool s_isCanHandleInUseArray[256];
 
