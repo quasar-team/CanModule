@@ -92,7 +92,7 @@ private:
 	std::string m_channelName;
 	std::string m_busName;
 
-	Log::LogComponentHandle st_logItHandleSock;
+	Log::LogComponentHandle m_logItHandleSock;
 
 	//Closeup method that will be called from the destructor.
 	bool stopBus ();
