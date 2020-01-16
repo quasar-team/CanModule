@@ -93,7 +93,7 @@ private:
 
 	// static Log::LogComponentHandle st_logItHandleSock;
 	// per thread
-	Log::LogComponentHandle CSockCanScan::st_logItHandleSock;
+	Log::LogComponentHandle st_logItHandleSock;
 
 	//Closeup method that will be called from the destructor.
 	bool stopBus ();
