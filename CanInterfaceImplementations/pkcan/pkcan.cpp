@@ -32,7 +32,6 @@
 #include "pkcan.h"
 #include "CanModuleUtils.h"
 
-///* static */ Log::LogComponentHandle PKCanScan::st_logItHandlePk = 0;
 /* static */ std::map<string, string> PKCanScan::m_busMap;
 
 #define MLOGPK(LEVEL,THIS) LOG(Log::LEVEL, THIS->logItHandle()) << __FUNCTION__ << " " << " peak bus= " << THIS->getBusName() << " "
@@ -162,21 +161,15 @@ bool PKCanScan::createBus(const string name ,const string parameters )
 	m_busName = name;
 	m_busParameters = parameters;
 
-	// calling base class to get the instance from there
-	Log::LogComponentHandle myHandle;
 	LogItInstance* logItInstance = CCanAccess::getLogItInstance(); // actually calling instance method, not class
-
-	// register peak@W component for logging
 	if (!LogItInstance::setInstance(logItInstance))
 		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
 		<< " could not set LogIt instance" << std::endl;
 
-	if (!logItInstance->getComponentHandle( CanModule::LogItComponentName, myHandle))
+	if (!logItInstance->getComponentHandle( CanModule::LogItComponentName, m_logItHandlePk))
 		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
 		<< " could not get LogIt component handle for " << LogItComponentName << std::endl;
 
-	// PKCanScan::st_logItHandlePk = myHandle;
-	m_logItHandlePk = myHandle;
 	MLOGPK(DBG, this) << " name= " << name << " parameters= " << parameters << ", configuring CAN board";
 
 	m_sBusName = name; // maybe this can be cleaned up: we have m_busName already
