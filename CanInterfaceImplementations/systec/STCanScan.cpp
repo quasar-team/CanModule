@@ -146,18 +146,16 @@ STCanScan::~STCanScan()
  */
 bool STCanScan::createBus(const string name,const string parameters)
 {	
-	Log::LogComponentHandle myHandle;
 	LogItInstance* logItInstance = CCanAccess::getLogItInstance(); // actually calling instance method, not class
 
 	if ( !LogItInstance::setInstance(logItInstance))
 		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
 		<< " could not set LogIt instance" << std::endl;
 
-	if (!logItInstance->getComponentHandle(CanModule::LogItComponentName, myHandle))
+	if (!logItInstance->getComponentHandle(CanModule::LogItComponentName, m_logItHandleSt))
 		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
 		<< " could not get LogIt component handle for " << LogItComponentName << std::endl;
 
-	STCanScan::s_logItHandleSt = myHandle;
 
 	MLOGST(DBG, this) << " name= " << name << " parameters= " << parameters << ", configuring CAN board";
 	m_sBusName = name;
