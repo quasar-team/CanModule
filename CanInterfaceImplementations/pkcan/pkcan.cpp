@@ -175,7 +175,8 @@ bool PKCanScan::createBus(const string name ,const string parameters )
 		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
 		<< " could not get LogIt component handle for " << LogItComponentName << std::endl;
 
-	PKCanScan::st_logItHandlePk = myHandle;
+	// PKCanScan::st_logItHandlePk = myHandle;
+	m_logItHandlePk = myHandle;
 	MLOGPK(DBG, this) << " name= " << name << " parameters= " << parameters << ", configuring CAN board";
 
 	m_sBusName = name; // maybe this can be cleaned up: we have m_busName already
