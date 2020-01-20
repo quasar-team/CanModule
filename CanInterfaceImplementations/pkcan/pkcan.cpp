@@ -32,12 +32,10 @@
 #include "pkcan.h"
 #include "CanModuleUtils.h"
 
-
-// /* static */ bool PKCanScan::st_logItRegisteredPk = false;
-/* static */ Log::LogComponentHandle PKCanScan::st_logItHandlePk = 0;
+///* static */ Log::LogComponentHandle PKCanScan::st_logItHandlePk = 0;
 /* static */ std::map<string, string> PKCanScan::m_busMap;
 
-#define MLOGPK(LEVEL,THIS) LOG(Log::LEVEL, PKCanScan::st_logItHandlePk) << __FUNCTION__ << " " << " peak bus= " << THIS->getBusName() << " "
+#define MLOGPK(LEVEL,THIS) LOG(Log::LEVEL, THIS->logItHandle()) << __FUNCTION__ << " " << " peak bus= " << THIS->getBusName() << " "
 
 boost::mutex peakReconnectMutex; // protect m_busMap
 
