@@ -34,7 +34,7 @@
 
 
 /* static */ bool PKCanScan::s_logItRegisteredPk = false;
-/* static */ Log::LogComponentHandle PKCanScan::s_logItHandlePk = 0;
+/* static */ Log::LogComponentHandle PKCanScan::st_logItHandlePk = 0;
 /* static */ std::map<string, string> PKCanScan::m_busMap;
 
 #define MLOGPK(LEVEL,THIS) LOG(Log::LEVEL, PKCanScan::st_logItHandlePk) << __FUNCTION__ << " " << " peak bus= " << THIS->getBusName() << " "
@@ -177,7 +177,7 @@ bool PKCanScan::createBus(const string name ,const string parameters )
 		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
 		<< " could not get LogIt component handle for " << LogItComponentName << std::endl;
 
-	PKCanScan::s_logItHandlePk = myHandle;
+	PKCanScan::st_logItHandlePk = myHandle;
 	MLOGPK(DBG, this) << " name= " << name << " parameters= " << parameters << ", configuring CAN board";
 
 	m_sBusName = name; // maybe this can be cleaned up: we have m_busName already
