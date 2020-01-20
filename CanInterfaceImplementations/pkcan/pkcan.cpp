@@ -37,7 +37,7 @@
 /* static */ Log::LogComponentHandle PKCanScan::s_logItHandlePk = 0;
 /* static */ std::map<string, string> PKCanScan::m_busMap;
 
-#define MLOGPK(LEVEL,THIS) LOG(Log::LEVEL, PKCanScan::s_logItHandlePk) << __FUNCTION__ << " " << " peak bus= " << THIS->getBusName() << " "
+#define MLOGPK(LEVEL,THIS) LOG(Log::LEVEL, PKCanScan::st_logItHandlePk) << __FUNCTION__ << " " << " peak bus= " << THIS->getBusName() << " "
 
 boost::mutex peakReconnectMutex; // protect m_busMap
 

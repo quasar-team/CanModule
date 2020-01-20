@@ -59,7 +59,6 @@ public:
 	 */
 	bool getErrorMessage(long error, char **message);
 
-	static bool s_logItRegisteredPk;
 	static std::map<string, string> m_busMap; // {name, parameters}
 
 private:
