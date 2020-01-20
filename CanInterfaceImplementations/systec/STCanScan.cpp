@@ -34,10 +34,10 @@
 bool STCanScan::s_isCanHandleInUseArray[256];
 tUcanHandle STCanScan::s_canHandleArray[256];
 
-/* static */ bool STCanScan::s_logItRegisteredSt = false;
-/* static */ Log::LogComponentHandle STCanScan::s_logItHandleSt = 0;
+///* static */ bool STCanScan::s_logItRegisteredSt = false;
+///* static */ Log::LogComponentHandle STCanScan::s_logItHandleSt = 0;
 
-#define MLOGST(LEVEL,THIS) LOG(Log::LEVEL, STCanScan::s_logItHandleSt) << __FUNCTION__ << " " << " systec bus= " << THIS->getBusName() << " "
+#define MLOGST(LEVEL,THIS) LOG(Log::LEVEL, THIS->logItHandle()) << __FUNCTION__ << " " << " systec bus= " << THIS->getBusName() << " "
 
 #ifdef _WIN32
 
