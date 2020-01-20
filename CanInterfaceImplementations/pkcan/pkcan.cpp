@@ -33,7 +33,7 @@
 #include "CanModuleUtils.h"
 
 
-/* static */ bool PKCanScan::st_logItRegisteredPk = false;
+// /* static */ bool PKCanScan::st_logItRegisteredPk = false;
 /* static */ Log::LogComponentHandle PKCanScan::st_logItHandlePk = 0;
 /* static */ std::map<string, string> PKCanScan::m_busMap;
 
