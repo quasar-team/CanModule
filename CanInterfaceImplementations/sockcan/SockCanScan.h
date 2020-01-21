@@ -79,6 +79,7 @@ public:
 		return(f);
 	}
 	static std::map<string, string> m_busMap; // {name, parameters}
+	Log::LogComponentHandle logItHandle() { return m_logItHandleSock; }
 
 private:
 	volatile bool m_CanScanThreadRunEnableFlag; //Flag for running/shutting down the CanScan thread
@@ -91,7 +92,7 @@ private:
 	std::string m_channelName;
 	std::string m_busName;
 
-	static Log::LogComponentHandle st_logItHandleSock;
+	Log::LogComponentHandle m_logItHandleSock;
 
 	//Closeup method that will be called from the destructor.
 	bool stopBus ();

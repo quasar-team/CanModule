@@ -88,8 +88,17 @@ private:
 	AnaInt32 m_UcanHandle; //Instance of the can handle
 	CanStatistics m_statistics; //Instance of Can Statistics
     AnaInt32 m_timeout; 		// connect_wait time
-	static Log::LogComponentHandle s_logItHandleAnagate;
-	static bool s_logItRegisteredAnagate;
+
+    /**
+     * we would like to keep logging from a few static methods as well, since one IP
+     * number corresponds to many ports and some class-level management is going on for
+     * the connect-reconnect behavior. We definitely need these to be static. So since we
+     * need the logit handle static there is no point in having it also private. At least the
+     * cross-thread references to the handler are within this class only. It is
+     * all re-entrant code, and the handler does not change during runtime any more, so no
+     * mutex protection for now.
+     */
+    static Log::LogComponentHandle st_logItHandleAnagate;
 	static AnaInt32 s_canHandleArray[256];
 	static bool s_isCanHandleInUseArray[256];
 

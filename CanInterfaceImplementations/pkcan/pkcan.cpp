@@ -32,12 +32,9 @@
 #include "pkcan.h"
 #include "CanModuleUtils.h"
 
-
-/* static */ bool PKCanScan::s_logItRegisteredPk = false;
-/* static */ Log::LogComponentHandle PKCanScan::s_logItHandlePk = 0;
 /* static */ std::map<string, string> PKCanScan::m_busMap;
 
-#define MLOGPK(LEVEL,THIS) LOG(Log::LEVEL, PKCanScan::s_logItHandlePk) << __FUNCTION__ << " " << " peak bus= " << THIS->getBusName() << " "
+#define MLOGPK(LEVEL,THIS) LOG(Log::LEVEL, THIS->logItHandle()) << __FUNCTION__ << " " << " peak bus= " << THIS->getBusName() << " "
 
 boost::mutex peakReconnectMutex; // protect m_busMap
 
@@ -149,7 +146,7 @@ DWORD WINAPI PKCanScan::CanScanControlThread(LPVOID pCanScan)
  * @param name = 2 parameters separated by ":" like "n0:n1"
  * 		* n0 = "pk" for peak@windows
  * 		* n1 = CAN port number on the module, can be prefixed with "can": 0..N
- * 		* ex.: "pk:can1" speaks to port 1 (the second port) on peak module at the ip
+ * 		* ex.: "pk:can1" speaks to port 1 (the second port) on peak module
  * 		* ex.: "pk:1" works as well
  *
  * @param parameters one parameter: "p0", positive integer
@@ -164,20 +161,15 @@ bool PKCanScan::createBus(const string name ,const string parameters )
 	m_busName = name;
 	m_busParameters = parameters;
 
-	// calling base class to get the instance from there
-	Log::LogComponentHandle myHandle;
 	LogItInstance* logItInstance = CCanAccess::getLogItInstance(); // actually calling instance method, not class
-
-	// register peak@W component for logging
 	if (!LogItInstance::setInstance(logItInstance))
 		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
 		<< " could not set LogIt instance" << std::endl;
 
-	if (!logItInstance->getComponentHandle( CanModule::LogItComponentName, myHandle))
+	if (!logItInstance->getComponentHandle( CanModule::LogItComponentName, m_logItHandlePk))
 		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
 		<< " could not get LogIt component handle for " << LogItComponentName << std::endl;
 
-	PKCanScan::s_logItHandlePk = myHandle;
 	MLOGPK(DBG, this) << " name= " << name << " parameters= " << parameters << ", configuring CAN board";
 
 	m_sBusName = name; // maybe this can be cleaned up: we have m_busName already

@@ -59,13 +59,13 @@ public:
 	 */
 	bool getErrorMessage(long error, char **message);
 
-	static Log::LogComponentHandle s_logItHandlePk;
-	static bool s_logItRegisteredPk;
 	static std::map<string, string> m_busMap; // {name, parameters}
+	Log::LogComponentHandle logItHandle(){ return m_logItHandlePk; }
 
 private:
 
 	TPCANHandle getHandle(const char *name);
+	Log::LogComponentHandle m_logItHandlePk;
 
 	bool sendErrorCode(long);
 	// The main control thread function for the CAN update scan manager.

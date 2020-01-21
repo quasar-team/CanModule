@@ -62,8 +62,7 @@ public:
 	//Returns the instance of the CanStatistics object
 	virtual void getStatistics( CanStatistics & result );
 
-	static Log::LogComponentHandle s_logItHandleSt;
-	static bool s_logItRegisteredSt;
+	Log::LogComponentHandle logItHandle(){ return m_logItHandleSt; }
 
 private:
 
@@ -80,6 +79,7 @@ private:
 	//Current baud rate
 	unsigned int m_baudRate;
 
+	Log::LogComponentHandle m_logItHandleSt;
 
 	bool sendErrorCode(long);
 

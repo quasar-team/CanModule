@@ -1,6 +1,6 @@
-===========
+==========
 `AnaGate`_
-===========
+==========
 
 All modules from vendor `AnaGate`_ are handled by class AnaCanScan which manages the modules through their underlying vendor specific API and provides 
 the standard generic CanModule API. 
@@ -14,7 +14,7 @@ Here the underlying vendor specific classes and the specific parameters are docu
 
 The downside of Anagate CAN-ethernet modules is of course that the latency of the network has to be added to the bridge latency. 
 
-The connection 
+The connection
 --------------
 
 To connect to a specific port for I/O, and send CAN messages, the following methods are used.
@@ -32,7 +32,7 @@ This is how the CanModule standard API is used for anagate. The code is identica
 .. code-block:: c++
 
  libloader = CanModule::CanLibLoader::createInstance( "an" );
- cca = libloader->openCanBus( "an:can0", "250000 0 1" ); // termination, ISEG controllers, p3, p4, p5 defaults
+ cca = libloader->openCanBus( "an:can0:137.138.12.99", "250000 0 1" ); // termination, ISEG controllers, p3, p4, p5 defaults
  CanMessage cm; // empty
  cca->sendMessage( &cm );
  
