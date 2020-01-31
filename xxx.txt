@@ -1,7 +1,0 @@
-    ixing OPCUA-1597: added feature so that you can use "vcan" now for socketcan@linux as well, please try out.
-    fixed OPCISEG-119: user code called createBus() as well, so that method got called twice. Two problems solved:
-    (1) only one reply-handler (from the first call) should be connected, the second call (and all subsequent calls for the same bus) to createBus() should be ignored.
-    (2) the user code should not call createBus() explicitly but rather follow the API as documented. The createBus() has to be public unfortunately, by design. I am open to suggestions how to isolate this virtual public method from the user API. But with (1) already fixed, CanModule will only connect one reply-handler anyway , so the code will run correctly.
-    documentation updated accordingly
-
-025ce7
