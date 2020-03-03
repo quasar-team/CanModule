@@ -32,6 +32,9 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/socket.h>
+
+#include <linux/sockios.h> // needed for SIOCGSTAMP in can-utils kernel since 4.feb.2020
+
 #include <sys/ioctl.h>
 #include <sys/uio.h>
 #include <net/if.h>
