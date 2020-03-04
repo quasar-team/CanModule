@@ -53,63 +53,16 @@ Here the underlying vendor specific classes and the specific parameters are docu
 <div class="section" id="the-connection">
 <h2>The connection<a class="headerlink" href="#the-connection" title="Permalink to this headline">¶</a></h2>
 <p>To connect to a specific port for I/O, and send CAN messages, the following methods are used.</p>
-<dl class="class">
-<dt id="_CPPv410AnaCanScan">
-<span id="_CPPv310AnaCanScan"></span><span id="_CPPv210AnaCanScan"></span><span id="AnaCanScan"></span><span class="target" id="classAnaCanScan"></span><em class="property">class </em><code class="descname">AnaCanScan</code> : <em class="property">public</em> CanModule::<a class="reference internal" href="../standardApi.html#_CPPv4N9CanModule10CCanAccessE" title="CanModule::CCanAccess">CCanAccess</a><a class="headerlink" href="#_CPPv410AnaCanScan" title="Permalink to this definition">¶</a><br /></dt>
-<dd><div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Public Functions</p>
-<dl class="function">
-<dt id="_CPPv4N10AnaCanScan9createBusEK6stringK6string">
-<span id="_CPPv3N10AnaCanScan9createBusEK6stringK6string"></span><span id="_CPPv2N10AnaCanScan9createBusEK6stringK6string"></span><span id="AnaCanScan::createBus__stringC.stringC"></span><span class="target" id="classAnaCanScan_1a54a66154c956b4605ff18f93f552db60"></span>bool <code class="descname">createBus</code><span class="sig-paren">(</span><em class="property">const</em> string <em>name</em>, <em class="property">const</em> string <em>parameters</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10AnaCanScan9createBusEK6stringK6string" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Method that initialises a CAN bus channel for anagate. All following methods called on the same object will be using this initialized channel.</p>
-<p><dl class="docutils">
-<dt><strong>Return</strong></dt>
-<dd>was the initialisation process successful? </dd>
-<dt><strong>Parameters</strong></dt>
-<dd><ul class="breatheparameterlist first last simple">
-<li><code class="docutils literal notranslate"><span class="pre">name</span></code>: 3 parameters separated by “:” like “n0:n1:n2” n0 = “an” for anagate n1 = port number on the module, 0=A, 1=B, etc etc n2 = ip number ex.: “an:can1:137.138.12.99” speaks to port B (=1) on anagate module at the ip ex.: “an:1:137.138.12.99” works as well</li>
-<li><code class="docutils literal notranslate"><span class="pre">parameters</span></code>: up to 5 parameters separated by whitespaces : “p0 p1 p2 p3 p4” in THAT order, positive integers<ul>
-<li>”Unspecified” (or empty): using defaults = “125000 0 0 0 0” // all params missing</li>
-<li>p0: bitrate: 10000, 20000, 50000, 62000, 100000, 125000, 250000, 500000, 800000, 1000000 bit/s</li>
-<li>p1: operatingMode: 0=default mode, values 1 (loop back) and 2 (listen) are not supported by CanModule</li>
-<li>p2: termination: 0=not terminated (default), 1=terminated (120 Ohm for CAN bus)</li>
-<li>p3: highSpeed: 0=deactivated (default), 1=activated. If activated, confirmation and filtering of CAN traffic are switched off</li>
-<li>p4: TimeStamp: 0=deactivated (default), 1=activated. If activated, a timestamp is added to the CAN frame. Not all modules support this. i.e. “250000 0 1 0 0” (see anagate manual for more details)</li>
-</ul>
-</li>
-</ul>
-</dd>
-</dl>
-</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="_CPPv4N10AnaCanScan11sendMessageEshPhb">
-<span id="_CPPv3N10AnaCanScan11sendMessageEshPhb"></span><span id="_CPPv2N10AnaCanScan11sendMessageEshPhb"></span><span id="AnaCanScan::sendMessage__short.unsigned-c.unsigned-cP.b"></span><span class="target" id="classAnaCanScan_1ad45666454318c891d7acd9fe16ae4c49"></span>bool <code class="descname">sendMessage</code><span class="sig-paren">(</span>short <em>cobID</em>, unsigned char <em>len</em>, unsigned char *<em>message</em>, bool <em>rtr</em> = false<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10AnaCanScan11sendMessageEshPhb" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>send a CAN message frame (8 byte) for anagate Method that sends a message through the can bus channel. If the method createBus was not called before this, sendMessage will fail, as there is no can bus channel to send a message trough. <dl class="docutils">
-<dt><strong>Return</strong></dt>
-<dd>Was the sending process successful? </dd>
-<dt><strong>Parameters</strong></dt>
-<dd><ul class="breatheparameterlist first last simple">
-<li><code class="docutils literal notranslate"><span class="pre">cobID</span><span class="pre">:</span></code>: Identifier that will be used for the message. </li>
-<li><code class="docutils literal notranslate"><span class="pre">len</span><span class="pre">:</span></code>: Length of the message. If the message is bigger than 8 characters, it will be split into separate 8 characters messages. </li>
-<li><code class="docutils literal notranslate"><span class="pre">message</span><span class="pre">:</span></code>: Message to be sent trough the can bus. </li>
-<li><code class="docutils literal notranslate"><span class="pre">rtr</span><span class="pre">:</span></code>: is the message a remote transmission request? </li>
-</ul>
-</dd>
-</dl>
-</p>
-</dd></dl>
-
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">doxygenclass: Cannot find file: /home/mludwig/projects/CanModule/CanModule-master/CanModule/Documentation/sphinx-source/doxygen-result/xml/index.xml</p>
 </div>
-</dd></dl>
-
 </div>
 <div class="section" id="standard-canmodule-api-example">
 <h2>standard CanModule API example<a class="headerlink" href="#standard-canmodule-api-example" title="Permalink to this headline">¶</a></h2>
 <p>This is how the CanModule standard API is used for anagate. The code is identical for linux and windows.</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">libloader</span> <span class="o">=</span> <span class="n">CanModule</span><span class="o">::</span><span class="n">CanLibLoader</span><span class="o">::</span><span class="n">createInstance</span><span class="p">(</span> <span class="s">&quot;an&quot;</span> <span class="p">);</span>
-<span class="n">cca</span> <span class="o">=</span> <span class="n">libloader</span><span class="o">-&gt;</span><span class="n">openCanBus</span><span class="p">(</span> <span class="s">&quot;an:can0&quot;</span><span class="p">,</span> <span class="s">&quot;250000 0 1&quot;</span> <span class="p">);</span> <span class="c1">// termination, ISEG controllers, p3, p4, p5 defaults</span>
+<span class="n">cca</span> <span class="o">=</span> <span class="n">libloader</span><span class="o">-&gt;</span><span class="n">openCanBus</span><span class="p">(</span> <span class="s">&quot;an:can0:137.138.12.99&quot;</span><span class="p">,</span> <span class="s">&quot;250000 0 1&quot;</span> <span class="p">);</span> <span class="c1">// termination, ISEG controllers, p3, p4, p5 defaults</span>
 <span class="n">CanMessage</span> <span class="n">cm</span><span class="p">;</span> <span class="c1">// empty</span>
 <span class="n">cca</span><span class="o">-&gt;</span><span class="n">sendMessage</span><span class="p">(</span> <span class="o">&amp;</span><span class="n">cm</span> <span class="p">);</span>
 </pre></div>
@@ -183,7 +136,7 @@ Here the underlying vendor specific classes and the specific parameters are docu
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2019, CERN, BE-ICS (Michael Ludwig).
-      Last updated on 28-Nov-2019 12:31:53.
+      Last updated on 04-Mar-2020 14:46:16.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
     </div>
   </body>

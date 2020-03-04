@@ -33,7 +33,7 @@
 #include <sys/stat.h>
 #include <sys/socket.h>
 
-#include <linux/sockios.h> // needed for SIOCGSTAMP in can-utils kernel since 4.feb.2020
+#include <linux/sockios.h> // needed for SIOCGSTAMP in can-utils kernel since 4.feb.2020 3.10.0-1062.12.1.el7.x86_64
 
 #include <sys/ioctl.h>
 #include <sys/uio.h>
