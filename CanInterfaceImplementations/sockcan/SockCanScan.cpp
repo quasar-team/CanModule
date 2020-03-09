@@ -320,9 +320,13 @@ int CSockCanScan::_findLocalPort( string name ){
 }
 /**
  * this is where we do the udev call and come back with the corresponding global port number
+ * system wide: need to scan for all pcan device links
  */
-int CSockCanScan::_findGlobalPort( int deviceID, int localPort ){
+int CSockCanScan::_findGlobalPorts( int deviceID, int localPort ){
 
+	string cmd0 = "ls -1 /dev/pcanusb*";
+	string cmd1 = "/sbin/udevadm info -q symlink /dev/pcanusbfd32";
+	return (-1);
 }
 
 int CSockCanScan::configureCanBoard(const string name,const string parameters)
@@ -332,8 +336,8 @@ int CSockCanScan::configureCanBoard(const string name,const string parameters)
 	 * ports in a deterministic way. OPCUA-1735.
 	 * So, lets make a udev call here, analyze the result and manipulate the port number so that
 	 * it becomes a global port number.
-	 * In order to distinguish between systec (where it works) and peak bridges we use an extended name:
 	 *
+	 * In order to distinguish between systec (where it works) and peak bridges we use an extended name:
 	 * systec: name="sock:can0"
 	 * peak: name="sock:can0:device17440"
 	 */
@@ -343,8 +347,9 @@ int CSockCanScan::configureCanBoard(const string name,const string parameters)
 		int localPort = _findLocalPort( name );
 		MLOGSOCK(DBG, this) << "extended port identifier for PEAK: devId" << devId
 				<< " localPort= " << localPort;
-		int globalPort = _findGlobalPort( devId, localPort );
+		int globalPort = _findGlobalPorts( devId, localPort );
 		MLOGSOCK(DBG, this) << "extended port identifier for PEAK: globalPort" << globalPort;
+		exit(0);
 	}
 
 	vector<string> parset;

@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## 1.1.10.0
+working on OPCUA-1735 for peak bridges
+
 ## 1.1.9.6
 - added toolchain for ubuntu, the obnly differences to cc7 come from the fact that a 
   physical jenkins slave for ubuntu has to be used right now. Nexus delivers into ubuntu1804LTS

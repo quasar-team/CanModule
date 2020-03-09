@@ -120,7 +120,7 @@ private:
 
 	int _findDeviceID( string name );
 	int _findLocalPort( string name );
-	int _findGlobalPort( int deviceID, int localPort );
+	int _findGlobalPorts( int deviceID, int localPort );
 
 };
 
