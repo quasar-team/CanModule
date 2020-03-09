@@ -333,23 +333,27 @@ int CSockCanScan::_findGlobalPorts( int deviceID, int localPort ){
 	const execcommand_ns::ExecCommand::CmdResults results0 = exec0.getResults();
 	std::cout << exec0; // << std::endl;
 
-	// get the symlinks for each device
+	// get the symlinks for each device and the first port
 	for ( unsigned int i = 0; i < results0.size(); i++ ){
 		string cmd1 = string("/sbin/udevadm info -q symlink ") + results0[ i ] + string(" | grep \"devid=\"");
-		string cmd2 = string("/sbin/udevadm info -q symlink ") + results0[ i ] + string(" | grep -v \"devid=\"");;
 		execcommand_ns::ExecCommand exec1( cmd1 );
-		execcommand_ns::ExecCommand exec2( cmd2 );
 		execcommand_ns::ExecCommand::CmdResults results1 = exec1.getResults();
-		execcommand_ns::ExecCommand::CmdResults results2 = exec2.getResults();
 		std::cout << exec1; // << std::endl;
+	}
+	// get the links of the other ports
+	for ( unsigned int i = 0; i < results0.size(); i++ ){
+		string cmd2 = string("/sbin/udevadm info -q symlink ") + results0[ i ] + string(" | grep -v \"devid=\"");;
+		execcommand_ns::ExecCommand exec2( cmd2 );
+		execcommand_ns::ExecCommand::CmdResults results2 = exec2.getResults();
 		std::cout << exec2; // << std::endl;
 	}
 
 	/** now, build the map from results1:
-	 *
 	 * pcan-usb_pro_fd/0/can0 pcan-usb_pro_fd/devid=9054 pcan32 pcanusbpfd32
-	 * pcan-usb_pro_fd/0/can1 pcan33 pcanusbpfd33
 	 * pcan-usb_pro_fd/1/can0 pcan-usb_pro_fd/devid=8910 pcan34 pcanusbpfd34
+	 *
+	 * and result2:
+	 * pcan-usb_pro_fd/0/can1 pcan33 pcanusbpfd33
 	 * pcan-usb_pro_fd/1/can1 pcan35 pcanusbpfd35
 	 */
 	typedef struct {
