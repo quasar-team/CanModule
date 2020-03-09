@@ -311,8 +311,42 @@ CSockCanScan::~CSockCanScan()
 	stopBus();
 }
 
+
+int CSockCanScan::_findDeviceID( string name ){
+	return 173277;
+}
+int CSockCanScan::_findLocalPort( string name ){
+	return 1;
+}
+/**
+ * this is where we do the udev call and come back with the corresponding global port number
+ */
+int CSockCanScan::_findGlobalPort( int deviceID, int localPort ){
+
+}
+
 int CSockCanScan::configureCanBoard(const string name,const string parameters)
 {
+	/**
+	 * for PEAK bridges, we have a problem: the local ports are not mapped to the global socketcan
+	 * ports in a deterministic way. OPCUA-1735.
+	 * So, lets make a udev call here, analyze the result and manipulate the port number so that
+	 * it becomes a global port number.
+	 * In order to distinguish between systec (where it works) and peak bridges we use an extended name:
+	 *
+	 * systec: name="sock:can0"
+	 * peak: name="sock:can0:device17440"
+	 */
+	if ( name.find("device") != string::npos ) {
+		MLOGSOCK(DBG, this) << "found extended port identifier for PEAK " << name;
+		int devId = _findDeviceID( name );
+		int localPort = _findLocalPort( name );
+		MLOGSOCK(DBG, this) << "extended port identifier for PEAK: devId" << devId
+				<< " localPort= " << localPort;
+		int globalPort = _findGlobalPort( devId, localPort );
+		MLOGSOCK(DBG, this) << "extended port identifier for PEAK: globalPort" << globalPort;
+	}
+
 	vector<string> parset;
 	parset = parseNameAndParameters( name, parameters );
 	m_channelName = parset[1];
