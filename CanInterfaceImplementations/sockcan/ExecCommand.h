@@ -10,6 +10,13 @@
 #ifndef SIMPLETEST6_CANMODULE_CANINTERFACEIMPLEMENTATIONS_SOCKCAN_EXECCOMMAND_H_
 #define SIMPLETEST6_CANMODULE_CANINTERFACEIMPLEMENTATIONS_SOCKCAN_EXECCOMMAND_H_
 
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <stdexcept>
+#include <sstream>
+#include <iostream>
+
 namespace execcommand_ns {
 
 class ExecCommand {
@@ -33,10 +40,9 @@ class ExecCommand {
       pclose( pfd );
     }
 
-    const CmdResults getResults() const {
-      return m_results;
-    }
+    const CmdResults getResults() const { return m_results;  }
 
+    /// uuh oh, elegant !
     friend std::ostream & operator<<( std::ostream &os, const ExecCommand &exec ) {
       std::for_each( exec.m_results.begin(), exec.m_results.end(), ExecCommand::Displayer(os) );
       return os;
