@@ -22,9 +22,11 @@
  *  along with Quasar.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "SockCanScan.h"
+#include "ExecCommand.h"
 #include <errno.h>
 #include <fstream>
 #include <iostream>
+#include <stdlib.h>
 
 #include <time.h>
 #include <string.h>
@@ -326,6 +328,7 @@ int CSockCanScan::_findGlobalPorts( int deviceID, int localPort ){
 
 	string cmd0 = "ls -1 /dev/pcanusb*";
 	string cmd1 = "/sbin/udevadm info -q symlink /dev/pcanusbfd32";
+	int ret = system( cmd0.c_str() );
 	return (-1);
 }
 
