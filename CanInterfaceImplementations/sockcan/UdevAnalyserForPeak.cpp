@@ -6,17 +6,11 @@
  */
 
 #include "UdevAnalyserForPeak.h"
+#include "ExecCommand.h"
 
-namespace execcommand_ns {
+namespace udevanalyserforpeak_ns {
 
-UdevAnalyserForPeak::UdevAnalyserForPeak() {
-	// TODO Auto-generated constructor stub
 
-}
-
-UdevAnalyserForPeak::~UdevAnalyserForPeak() {
-	// TODO Auto-generated destructor stub
-}
 /**
  * this is where we do the udev call and construct a locl-global port map which is
  * system wide: need to scan for all pcan device links
@@ -176,4 +170,7 @@ unsigned int UdevAnalyserForPeak::_peakSystemDeviceIndex( std::string s ){
 //
 //}
 
-} /* namespace execcommand_ns */
+
+} // namespace udevanalyserforpeak_ns
+
+

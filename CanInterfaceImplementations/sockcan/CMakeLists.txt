@@ -38,8 +38,8 @@ link_directories( ${SOCKETCAN_LIB_PATH} )
 set(SOCKCAN_SOURCES
 	ExecCommand.cpp
 	ExecCommand.h
-	UdevAnalyzerForPeak.cpp
-	UdevAnalyzerForPeak.h
+	UdevAnalyserForPeak.cpp
+	UdevAnalyserForPeak.h
 	SockCanScan.cpp
 	SockCanScan.h
 	../../CanInterface/src/CanStatistics.cpp

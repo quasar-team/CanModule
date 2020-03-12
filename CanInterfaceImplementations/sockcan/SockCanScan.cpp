@@ -22,7 +22,8 @@
  *  along with Quasar.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "SockCanScan.h"
-#include "ExecCommand.h"
+// #include "ExecCommand.h"
+#include "UdevAnalyserForPeak.h"
 
 #include <time.h>
 #include <string.h>
@@ -326,7 +327,7 @@ int CSockCanScan::configureCanBoard(const string name,const string parameters)
 	 */
 	if ( name.find("device") != string::npos ) {
 		MLOGSOCK(DBG, this) << "found extended port identifier for PEAK " << name;
-		int ret = execcommand_ns::ExecCommand::portMap();
+		int ret = udevanalyserforpeak_ns::UdevAnalyserForPeak::portMap();
 		MLOGSOCK(DBG, this) << "_portMap ret= " << ret;
 		exit(0);
 	}

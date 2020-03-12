@@ -8,12 +8,16 @@
 #ifndef CANMODULE_CANINTERFACEIMPLEMENTATIONS_SOCKCAN_UDEVANALYSERFORPEAK_H_
 #define CANMODULE_CANINTERFACEIMPLEMENTATIONS_SOCKCAN_UDEVANALYSERFORPEAK_H_
 
+
+#include <string>
+#include <vector>
+
 namespace udevanalyserforpeak_ns {
 
 class UdevAnalyserForPeak {
 public:
-	UdevAnalyserForPeak();
-	virtual ~UdevAnalyserForPeak();
+	UdevAnalyserForPeak(){};
+	virtual ~UdevAnalyserForPeak(){};
     static int portMap( void );
 
 private:
