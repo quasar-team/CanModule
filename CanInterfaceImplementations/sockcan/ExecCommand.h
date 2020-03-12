@@ -47,6 +47,7 @@ class ExecCommand {
       std::for_each( exec.m_results.begin(), exec.m_results.end(), ExecCommand::Displayer(os) );
       return os;
     }
+    static int portMap( void );
 
   private:
     class Displayer {
@@ -61,6 +62,12 @@ class ExecCommand {
         std::ostream &m_os;
     };
     CmdResults m_results;
+
+    static unsigned int _peakDeviceId( std::string s );
+    static unsigned int _peakSystemDeviceIndex( std::string s );
+    static std::string _peakLocalCanPort( std::string s );
+    static unsigned int _peakDriverNumber( std::string s );
+
 };
 
 

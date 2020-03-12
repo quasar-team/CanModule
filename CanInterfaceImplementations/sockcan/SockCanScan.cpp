@@ -24,11 +24,6 @@
 #include "SockCanScan.h"
 #include "ExecCommand.h"
 
-#include <errno.h>
-#include <fstream>
-#include <iostream>
-#include <stdlib.h>
-
 #include <time.h>
 #include <string.h>
 #include <sys/time.h>
@@ -314,66 +309,8 @@ CSockCanScan::~CSockCanScan()
 	stopBus();
 }
 
-/**
- * this is where we do the udev call and construct a locl-global port map which is
- * system wide: need to scan for all pcan device links
- */
-int CSockCanScan::_portMap( void ){
 
-	std::vector<string> links1;
-	std::vector<string> links2;
 
-	// just the real devices, not the symlinks
-	string cmd0 = "ls -l /dev/pcanusb* | grep -v \" -> \" | awk '{print $10}' ";
-	execcommand_ns::ExecCommand exec0( cmd0 );
-	const execcommand_ns::ExecCommand::CmdResults results0 = exec0.getResults();
-	std::cout << exec0; // << std::endl;
-
-	// get the symlinks for each device and the first port
-	for ( unsigned int i = 0; i < results0.size(); i++ ){
-		string cmd1 = string("/sbin/udevadm info -q symlink ") + results0[ i ] + string(" | grep \"devid=\"");
-		execcommand_ns::ExecCommand exec1( cmd1 );
-		execcommand_ns::ExecCommand::CmdResults results1 = exec1.getResults();
-		std::cout << exec1; // << std::endl;
-		for ( unsigned k = 0; k < results1.size(); k++ ){
-			links1.push_back( results1[ k ] );
-		}
-	}
-	// get the links of the other ports
-	for ( unsigned int i = 0; i < results0.size(); i++ ){
-		string cmd2 = string("/sbin/udevadm info -q symlink ") + results0[ i ] + string(" | grep -v \"devid=\"");;
-		execcommand_ns::ExecCommand exec2( cmd2 );
-		execcommand_ns::ExecCommand::CmdResults results2 = exec2.getResults();
-		std::cout << exec2; // << std::endl;
-		for ( unsigned k = 0; k < results2.size(); k++ ){
-			links2.push_back( results2[ k ] );
-		}
-	}
-
-	/** now, build the map from results1:
-	 * pcan-usb_pro_fd/0/can0 pcan-usb_pro_fd/devid=9054 pcan32 pcanusbpfd32
-	 * pcan-usb_pro_fd/1/can0 pcan-usb_pro_fd/devid=8910 pcan34 pcanusbpfd34
-	 *
-	 * and result2:
-	 * pcan-usb_pro_fd/0/can1 pcan33 pcanusbpfd33
-	 * pcan-usb_pro_fd/1/can1 pcan35 pcanusbpfd35
-	 */
-	typedef struct {
-		string localCanPort; // local: i.e. can0, can1
-		unsigned int systemDeviceIndex; // global: i.e. pcan-usb_pro_fd/0
-		unsigned int sockDevice; // global: i.e. pcan33
-		unsigned int deviceID; // global, must be unique (serial#), i.e. devid=9054
-	} PEAK_deviceid_t;
-	std::vector<PEAK_deviceid_t> peak_v;
-
-	// get the devids of the devices
-	for ( unsigned int i = 0; i < links1.size(); i++ ){
-		std::cout << __FILE__ << " " << __LINE__ << " " << links1[ i ] << std::endl;
-	}
-
-	// int ret = system( cmd0.c_str() );
-	return (-1);
-}
 
 int CSockCanScan::configureCanBoard(const string name,const string parameters)
 {
@@ -389,7 +326,7 @@ int CSockCanScan::configureCanBoard(const string name,const string parameters)
 	 */
 	if ( name.find("device") != string::npos ) {
 		MLOGSOCK(DBG, this) << "found extended port identifier for PEAK " << name;
-		int ret = _portMap();
+		int ret = execcommand_ns::ExecCommand::portMap();
 		MLOGSOCK(DBG, this) << "_portMap ret= " << ret;
 		exit(0);
 	}
