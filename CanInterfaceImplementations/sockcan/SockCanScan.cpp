@@ -319,8 +319,9 @@ CSockCanScan::~CSockCanScan()
  * system wide: need to scan for all pcan device links
  */
 int CSockCanScan::_portMap( void ){
-	execcommand_ns::ExecCommand::CmdResults results1;
-	execcommand_ns::ExecCommand::CmdResults results2;
+
+	std::vector<string> links1;
+	std::vector<string> links2;
 
 	// just the real devices, not the symlinks
 	string cmd0 = "ls -l /dev/pcanusb* | grep -v \" -> \" | awk '{print $10}' ";
@@ -332,15 +333,21 @@ int CSockCanScan::_portMap( void ){
 	for ( unsigned int i = 0; i < results0.size(); i++ ){
 		string cmd1 = string("/sbin/udevadm info -q symlink ") + results0[ i ] + string(" | grep \"devid=\"");
 		execcommand_ns::ExecCommand exec1( cmd1 );
-		results1 = exec1.getResults();
+		execcommand_ns::ExecCommand::CmdResults results1 = exec1.getResults();
 		std::cout << exec1; // << std::endl;
+		for ( unsigned k = 0; k < results1.size(); k++ ){
+			links1.push_back( results1[ k ] );
+		}
 	}
 	// get the links of the other ports
 	for ( unsigned int i = 0; i < results0.size(); i++ ){
 		string cmd2 = string("/sbin/udevadm info -q symlink ") + results0[ i ] + string(" | grep -v \"devid=\"");;
 		execcommand_ns::ExecCommand exec2( cmd2 );
-		results2 = exec2.getResults();
+		execcommand_ns::ExecCommand::CmdResults results2 = exec2.getResults();
 		std::cout << exec2; // << std::endl;
+		for ( unsigned k = 0; k < results2.size(); k++ ){
+			links2.push_back( results2[ k ] );
+		}
 	}
 
 	/** now, build the map from results1:
@@ -360,8 +367,8 @@ int CSockCanScan::_portMap( void ){
 	std::vector<PEAK_deviceid_t> peak_v;
 
 	// get the devids of the devices
-	for ( unsigned int i = 0; i < results1.size(); i++ ){
-		std::cout << __FILE__ << " " << __LINE__ << " " << results1[ i ] << std::endl;
+	for ( unsigned int i = 0; i < links1.size(); i++ ){
+		std::cout << __FILE__ << " " << __LINE__ << " " << links1[ i ] << std::endl;
 	}
 
 	// int ret = system( cmd0.c_str() );
