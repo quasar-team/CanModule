@@ -314,18 +314,11 @@ CSockCanScan::~CSockCanScan()
 	stopBus();
 }
 
-
-int CSockCanScan::_findDeviceID( string name ){
-	return 173277;
-}
-int CSockCanScan::_findLocalPort( string name ){
-	return 1;
-}
 /**
- * this is where we do the udev call and come back with the corresponding global port number
+ * this is where we do the udev call and construct a locl-global port map which is
  * system wide: need to scan for all pcan device links
  */
-int CSockCanScan::_findGlobalPorts( int deviceID, int localPort ){
+int CSockCanScan::_portMap( void ){
 
 	// just the real devices, not the symlinks
 	string cmd0 = "ls -l /dev/pcanusb* | grep -v \" -> \" | awk '{print $10}' ";
@@ -357,11 +350,12 @@ int CSockCanScan::_findGlobalPorts( int deviceID, int localPort ){
 	 * pcan-usb_pro_fd/1/can1 pcan35 pcanusbpfd35
 	 */
 	typedef struct {
-		string localCanPort;
-		unsigned int systemDeviceIndex;
-		string link;
+		string localCanPort; // local: i.e. can0, can1
+		unsigned int systemDeviceIndex; // global: i.e. pcan-usb_pro_fd/0
+		unsigned int sockDevice; // global: i.e. pcan33
+		unsigned int deviceID; // global, must be unique (serial#), i.e. devid=9054
 	} PEAK_deviceid_t;
-	std::map<int,PEAK_deviceid_t> peakMap;
+	std::vector<PEAK_deviceid_t> peak_v;
 
 	// int ret = system( cmd0.c_str() );
 	return (-1);
@@ -381,12 +375,8 @@ int CSockCanScan::configureCanBoard(const string name,const string parameters)
 	 */
 	if ( name.find("device") != string::npos ) {
 		MLOGSOCK(DBG, this) << "found extended port identifier for PEAK " << name;
-		int devId = _findDeviceID( name );
-		int localPort = _findLocalPort( name );
-		MLOGSOCK(DBG, this) << "extended port identifier for PEAK: devId" << devId
-				<< " localPort= " << localPort;
-		int globalPort = _findGlobalPorts( devId, localPort );
-		MLOGSOCK(DBG, this) << "extended port identifier for PEAK: globalPort" << globalPort;
+		int ret = _portMap();
+		MLOGSOCK(DBG, this) << "_portMap ret= " << ret;
 		exit(0);
 	}
 

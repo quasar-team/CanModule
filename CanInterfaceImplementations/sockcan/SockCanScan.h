@@ -118,9 +118,7 @@ private:
 	//The main control thread function for the CAN update scan manager.
 	static void* CanScanControlThread(void *);
 
-	int _findDeviceID( string name );
-	int _findLocalPort( string name );
-	int _findGlobalPorts( int deviceID, int localPort );
+	int _portMap( void );
 
 };
 
