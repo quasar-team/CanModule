@@ -35,6 +35,7 @@ private:
     unsigned int m_peakSystemDeviceIndex( std::string s );
     std::string m_peakLocalCanPort( std::string s );
     unsigned int m_peakDriverNumber( std::string s );
+    static bool m_peakStructCompare( PEAK_device_t peak1, PEAK_device_t peak2 );
 
 };
 

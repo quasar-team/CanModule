@@ -7,12 +7,21 @@
 
 #include "UdevAnalyserForPeak.h"
 #include "ExecCommand.h"
+#include <bits/stdc++.h>
 
 namespace udevanalyserforpeak_ns {
 
 UdevAnalyserForPeak::UdevAnalyserForPeak(){
 
 }; // singleton
+
+/**
+ * compares structs peak1 and peak2 and returns TRUE if the peak1->peakDriverNumber is SMALLER
+ * than peak2->peakDriverNumber .
+ */
+/* static */ bool UdevAnalyserForPeak::m_peakStructCompare( PEAK_device_t peak1, PEAK_device_t peak2 ){
+	return( peak1.peakDriverNumber < peak2.peakDriverNumber );
+}
 
 /**
  * this is where we do the udev call and construct a locl-global port map which is
@@ -105,12 +114,25 @@ UdevAnalyserForPeak::UdevAnalyserForPeak(){
 	 * now we have to sort this with key=peakDriverNumber, since that is what socketcan does when assigning
 	 * the socketcan devices
 	 */
+	sort( m_peak_v.begin(), m_peak_v.end(), UdevAnalyserForPeak::m_peakStructCompare );
+	for ( unsigned i = 0; i < m_peak_v.size(); i++ ){
 
+		m_peak_v[ i ].socketNumber = i;
+
+		std::cout << __FILE__ << " " << __LINE__ << std::endl
+				<< " peak.deviceID= " << m_peak_v[ i ].deviceID
+				<< " peak.systemDeviceIndex= " << m_peak_v[ i ].systemDeviceIndex
+				<< " peak.localCanPort= " << m_peak_v[ i ].localCanPort
+				<< " peak.peakDriverNumber= " << m_peak_v[ i ].peakDriverNumber
+				<< " peak.socketNumber= can" << m_peak_v[ i ].socketNumber
+				<< std::endl;
+	}
 
 
 
 	return (-1);
 }
+
 
 /**
  * get the local socket nb of the devices: "32"
@@ -161,9 +183,6 @@ unsigned int UdevAnalyserForPeak::m_peakSystemDeviceIndex( std::string s ){
 	std::string sub2 = sub1.substr( 0, sub1.find("/") );
 	return( std::stoi( sub2 ));
 }
-//bool _peakStructCompare( PEAK_device_t &peak1, PEAK_device_t &peak2 ){
-//
-//}
 
 
 } // namespace udevanalyserforpeak_ns
