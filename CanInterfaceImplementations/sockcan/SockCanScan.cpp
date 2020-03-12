@@ -361,7 +361,7 @@ int CSockCanScan::_portMap( void ){
 
 	// get the devids of the devices
 	for ( unsigned int i = 0; i < results1.size(); i++ ){
-		std::cout << results1 << std::endl;
+		std::cout << __FILE__ << " " << __LINE__ << " " << results1[ i ] << std::endl;
 	}
 
 	// int ret = system( cmd0.c_str() );
