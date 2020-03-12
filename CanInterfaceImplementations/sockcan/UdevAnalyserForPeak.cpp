@@ -10,6 +10,9 @@
 
 namespace udevanalyserforpeak_ns {
 
+UdevAnalyserForPeak::UdevAnalyserForPeak(){
+
+}; // singleton
 
 /**
  * this is where we do the udev call and construct a locl-global port map which is
@@ -55,30 +58,22 @@ namespace udevanalyserforpeak_ns {
 	 * pcan-usb_pro_fd/0/can1 pcan33 pcanusbpfd33
 	 * pcan-usb_pro_fd/1/can1 pcan35 pcanusbpfd35
 	 */
-	typedef struct {
-		std::string localCanPort; // local: i.e. can0, can1
-		unsigned int systemDeviceIndex; // global: i.e. pcan-usb_pro_fd/0
-		unsigned int peakDriverNumber; // global: i.e. pcan33
-		int deviceID; // global, must be unique (serial#), i.e. devid=9054, -1 if not found for secondary ports
-		unsigned int socketNumber;
-	} PEAK_device_t;
-	std::vector<PEAK_device_t> peak_v;
 
 	for ( unsigned int i = 0; i < links1.size(); i++ ){
 		PEAK_device_t peak;
 //		std::cout << __FILE__ << " " << __LINE__ << " i= " << i << " links1= " << links1[ i ] << std::endl;
-		peak.deviceID = _peakDeviceId( links1[ i ] );
+		peak.deviceID = m_peakDeviceId( links1[ i ] );
 //		std::cout << __FILE__ << " " << __LINE__ << " peak.deviceID= " << peak.deviceID << std::endl;
 
-		peak.systemDeviceIndex = _peakSystemDeviceIndex( links1[ i ] );
+		peak.systemDeviceIndex = m_peakSystemDeviceIndex( links1[ i ] );
 //		std::cout << __FILE__ << " " << __LINE__ << " peak.systemDeviceIndex= " << peak.systemDeviceIndex << std::endl;
 
-		peak.localCanPort = _peakLocalCanPort( links1[ i ] );
+		peak.localCanPort = m_peakLocalCanPort( links1[ i ] );
 //		std::cout << __FILE__ << " " << __LINE__ << " peak.localCanPort= " << peak.localCanPort << std::endl;
 
-		peak.peakDriverNumber = _peakDriverNumber( links1[ i ] );
+		peak.peakDriverNumber = m_peakDriverNumber( links1[ i ] );
 //		std::cout << __FILE__ << " " << __LINE__ << " peak.socketNumber= " << peak.socketNumber << std::endl;
-		peak_v.push_back( peak );
+		m_peak_v.push_back( peak );
 	}
 	for ( unsigned int i = 0; i < links2.size(); i++ ){
 		PEAK_device_t peak;
@@ -86,23 +81,23 @@ namespace udevanalyserforpeak_ns {
 		peak.deviceID = -1;
 //		std::cout << __FILE__ << " " << __LINE__ << " peak.deviceID= " << peak.deviceID << std::endl;
 
-		peak.systemDeviceIndex = _peakSystemDeviceIndex( links2[ i ] );
+		peak.systemDeviceIndex = m_peakSystemDeviceIndex( links2[ i ] );
 //		std::cout << __FILE__ << " " << __LINE__ << " peak.systemDeviceIndex= " << peak.systemDeviceIndex << std::endl;
 
-		peak.localCanPort = _peakLocalCanPort( links2[ i ] );
+		peak.localCanPort = m_peakLocalCanPort( links2[ i ] );
 //		std::cout << __FILE__ << " " << __LINE__ << " peak.localCanPort= " << peak.localCanPort << std::endl;
 
-		peak.peakDriverNumber = _peakDriverNumber( links2[ i ] );
+		peak.peakDriverNumber = m_peakDriverNumber( links2[ i ] );
 //		std::cout << __FILE__ << " " << __LINE__ << " peak.socketNumber= " << peak.socketNumber << std::endl;
-		peak_v.push_back( peak );
+		m_peak_v.push_back( peak );
 	}
 
-	for ( unsigned i = 0; i < peak_v.size(); i++ ){
+	for ( unsigned i = 0; i < m_peak_v.size(); i++ ){
 		std::cout << __FILE__ << " " << __LINE__ << std::endl
-				<< " peak.deviceID= " << peak_v[ i ].deviceID
-				<< " peak.systemDeviceIndex= " << peak_v[ i ].systemDeviceIndex
-				<< " peak.localCanPort= " << peak_v[ i ].localCanPort
-				<< " peak.peakDriverNumber= " << peak_v[ i ].peakDriverNumber
+				<< " peak.deviceID= " << m_peak_v[ i ].deviceID
+				<< " peak.systemDeviceIndex= " << m_peak_v[ i ].systemDeviceIndex
+				<< " peak.localCanPort= " << m_peak_v[ i ].localCanPort
+				<< " peak.peakDriverNumber= " << m_peak_v[ i ].peakDriverNumber
 				<< std::endl;
 	}
 
@@ -121,7 +116,7 @@ namespace udevanalyserforpeak_ns {
  * get the local socket nb of the devices: "32"
  * pcan-usb_pro_fd/0/can0 pcan-usb_pro_fd/devid=9054 pcan32 pcanusbpfd32
  */
-unsigned int UdevAnalyserForPeak::_peakDriverNumber( std::string s ){
+unsigned int UdevAnalyserForPeak::m_peakDriverNumber( std::string s ){
 	size_t pos1 = s.find( "devid=" ) + 6;
 	std::string sub1 = s.substr( pos1, std::string::npos );
 //	std::cout << __FILE__ << " " << __LINE__ << " sub1= " << sub1 << std::endl;
@@ -136,7 +131,7 @@ unsigned int UdevAnalyserForPeak::_peakDriverNumber( std::string s ){
  * get the local can port of the devices: "can0"
  * pcan-usb_pro_fd/0/can0 pcan-usb_pro_fd/devid=9054 pcan32 pcanusbpfd32
  */
-std::string UdevAnalyserForPeak::_peakLocalCanPort( std::string s ){
+std::string UdevAnalyserForPeak::m_peakLocalCanPort( std::string s ){
 	size_t pos1 = s.find( "/" ) + 1;
 	std::string sub1 = s.substr( pos1, std::string::npos );
 	size_t pos2 = sub1.find( "/" ) + 1;
@@ -148,7 +143,7 @@ std::string UdevAnalyserForPeak::_peakLocalCanPort( std::string s ){
  * get the devids of the devices "9054"
  * pcan-usb_pro_fd/0/can0 pcan-usb_pro_fd/devid=9054 pcan32 pcanusbpfd32
  */
-unsigned int UdevAnalyserForPeak::_peakDeviceId( std::string s ){
+unsigned int UdevAnalyserForPeak::m_peakDeviceId( std::string s ){
 	const std::string devid = "devid=";
 	size_t pos1 = s.find( devid ) + std::string( devid ).length();
 	std::string sub1 = s.substr( pos1, std::string::npos );
@@ -160,7 +155,7 @@ unsigned int UdevAnalyserForPeak::_peakDeviceId( std::string s ){
  * get the global device index "0"
  * pcan-usb_pro_fd/0/can0 pcan-usb_pro_fd/devid=9054 pcan32 pcanusbpfd32
  */
-unsigned int UdevAnalyserForPeak::_peakSystemDeviceIndex( std::string s ){
+unsigned int UdevAnalyserForPeak::m_peakSystemDeviceIndex( std::string s ){
 	size_t pos1 = s.find( "/" ) + 1;
 	std::string sub1 = s.substr( pos1, std::string::npos );
 	std::string sub2 = sub1.substr( 0, sub1.find("/") );

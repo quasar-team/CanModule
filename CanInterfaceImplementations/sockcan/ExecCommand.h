@@ -3,7 +3,7 @@
  *
  *  Created on: Mar 9, 2020
  *      Author: mludwig
- *
+ * copied from
  * https://www.linuxquestions.org/questions/programming-9/how-to-get-info-from-system-calls-in-linux-using-c-677436/
  */
 
@@ -61,8 +61,6 @@ class ExecCommand {
         std::ostream &m_os;
     };
     CmdResults m_results;
-
-
 };
 
 

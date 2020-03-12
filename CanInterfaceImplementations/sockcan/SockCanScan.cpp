@@ -327,7 +327,11 @@ int CSockCanScan::configureCanBoard(const string name,const string parameters)
 	 */
 	if ( name.find("device") != string::npos ) {
 		MLOGSOCK(DBG, this) << "found extended port identifier for PEAK " << name;
-		int ret = udevanalyserforpeak_ns::UdevAnalyserForPeak::portMap();
+
+		// should be a singleton
+		udevanalyserforpeak_ns::UdevAnalyserForPeak *pa = new udevanalyserforpeak_ns::UdevAnalyserForPeak();
+		int ret = pa->portMap();
+
 		MLOGSOCK(DBG, this) << "_portMap ret= " << ret;
 		exit(0);
 	}

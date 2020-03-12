@@ -16,15 +16,25 @@ namespace udevanalyserforpeak_ns {
 
 class UdevAnalyserForPeak {
 public:
-	UdevAnalyserForPeak(){};
+	typedef struct {
+		std::string localCanPort; // local: i.e. can0, can1
+		unsigned int systemDeviceIndex; // global: i.e. pcan-usb_pro_fd/0
+		unsigned int peakDriverNumber; // global: i.e. pcan33
+		int deviceID; // global, must be unique (serial#), i.e. devid=9054, -1 if not found for secondary ports
+		unsigned int socketNumber;
+	} PEAK_device_t;
+
+	UdevAnalyserForPeak(); // singleton
 	virtual ~UdevAnalyserForPeak(){};
-    static int portMap( void );
+    int portMap( void );
 
 private:
-    static unsigned int _peakDeviceId( std::string s );
-    static unsigned int _peakSystemDeviceIndex( std::string s );
-    static std::string _peakLocalCanPort( std::string s );
-    static unsigned int _peakDriverNumber( std::string s );
+	std::vector<PEAK_device_t> m_peak_v;
+
+	unsigned int m_peakDeviceId( std::string s );
+    unsigned int m_peakSystemDeviceIndex( std::string s );
+    std::string m_peakLocalCanPort( std::string s );
+    unsigned int m_peakDriverNumber( std::string s );
 
 };
 
