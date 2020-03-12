@@ -26,7 +26,8 @@ public:
 
 	UdevAnalyserForPeak(); // singleton
 	virtual ~UdevAnalyserForPeak(){};
-    int portMap( void );
+    void portMap( void );
+    std::string portIdentifierToSocketCanDevice( std::string portId );
 
 private:
 	std::vector<PEAK_device_t> m_peak_v;
@@ -36,6 +37,7 @@ private:
     std::string m_peakLocalCanPort( std::string s );
     unsigned int m_peakDriverNumber( std::string s );
     static bool m_peakStructCompare( PEAK_device_t peak1, PEAK_device_t peak2 );
+    unsigned int m_peakDeviceIdFromSystemDeviceIndex( unsigned int sd );
 
 };
 

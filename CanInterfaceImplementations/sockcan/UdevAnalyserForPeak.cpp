@@ -15,6 +15,39 @@ UdevAnalyserForPeak::UdevAnalyserForPeak(){
 
 }; // singleton
 
+
+/**
+ * convert a PEAK extended portIdentifier to a socketcan device, i.e.
+ *  "sock:can0:device123456" -> "can2"
+ *
+ *  meaning
+ *  -------
+ *  input:
+ *  PEAK_device_t.localCanPort = 0
+ *  PEAK_device_t.deviceID = 123456
+ *
+ *  returns:
+ *  "can2"
+ *
+ *  This means that the PEAK can bridge with deviceID123456 is currently the second device
+ *  in the socketcan sequence, and that we talk to the first port (locally "can0") of that device. Since the
+ *  first device has (obviously) 2 can ports (globally "can0", "can1") we end up with globally "can2"
+ *  which is the next in the sequence.
+ */
+std::string UdevAnalyserForPeak::portIdentifierToSocketCanDevice( std::string extPortId ){
+	size_t pos1 = extPortId.find( ":" ) + 1;
+	std::string sub1 = extPortId.substr( pos1, std::string::npos );
+	std::cout << __FILE__ << " " << __LINE__ << " sub1= " << sub1 << std::endl;
+
+	size_t pos2 = sub1.find( ":device" ) + 1;
+	std::string sub2 = sub1.substr( pos2, std::string::npos );
+	std::cout << __FILE__ << " " << __LINE__ << " sub2= " << sub2 << std::endl;
+
+	return( "xxx" );
+
+}
+
+
 /**
  * compares structs peak1 and peak2 and returns TRUE if the peak1->peakDriverNumber is SMALLER
  * than peak2->peakDriverNumber .
@@ -27,7 +60,7 @@ UdevAnalyserForPeak::UdevAnalyserForPeak(){
  * this is where we do the udev call and construct a locl-global port map which is
  * system wide: need to scan for all pcan device links
  */
-/* static */ int UdevAnalyserForPeak::portMap( void ){
+void UdevAnalyserForPeak::portMap( void ){
 
 	std::vector<std::string> links1;
 	std::vector<std::string> links2;
@@ -70,34 +103,18 @@ UdevAnalyserForPeak::UdevAnalyserForPeak(){
 
 	for ( unsigned int i = 0; i < links1.size(); i++ ){
 		PEAK_device_t peak;
-//		std::cout << __FILE__ << " " << __LINE__ << " i= " << i << " links1= " << links1[ i ] << std::endl;
 		peak.deviceID = m_peakDeviceId( links1[ i ] );
-//		std::cout << __FILE__ << " " << __LINE__ << " peak.deviceID= " << peak.deviceID << std::endl;
-
 		peak.systemDeviceIndex = m_peakSystemDeviceIndex( links1[ i ] );
-//		std::cout << __FILE__ << " " << __LINE__ << " peak.systemDeviceIndex= " << peak.systemDeviceIndex << std::endl;
-
 		peak.localCanPort = m_peakLocalCanPort( links1[ i ] );
-//		std::cout << __FILE__ << " " << __LINE__ << " peak.localCanPort= " << peak.localCanPort << std::endl;
-
 		peak.peakDriverNumber = m_peakDriverNumber( links1[ i ] );
-//		std::cout << __FILE__ << " " << __LINE__ << " peak.socketNumber= " << peak.socketNumber << std::endl;
 		m_peak_v.push_back( peak );
 	}
 	for ( unsigned int i = 0; i < links2.size(); i++ ){
 		PEAK_device_t peak;
-//		std::cout << __FILE__ << " " << __LINE__ << " i= " << i << " links2= " << links2[ i ] << std::endl;
-		peak.deviceID = -1;
-//		std::cout << __FILE__ << " " << __LINE__ << " peak.deviceID= " << peak.deviceID << std::endl;
-
 		peak.systemDeviceIndex = m_peakSystemDeviceIndex( links2[ i ] );
-//		std::cout << __FILE__ << " " << __LINE__ << " peak.systemDeviceIndex= " << peak.systemDeviceIndex << std::endl;
-
+		peak.deviceID = m_peakDeviceIdFromSystemDeviceIndex( peak.systemDeviceIndex );
 		peak.localCanPort = m_peakLocalCanPort( links2[ i ] );
-//		std::cout << __FILE__ << " " << __LINE__ << " peak.localCanPort= " << peak.localCanPort << std::endl;
-
 		peak.peakDriverNumber = m_peakDriverNumber( links2[ i ] );
-//		std::cout << __FILE__ << " " << __LINE__ << " peak.socketNumber= " << peak.socketNumber << std::endl;
 		m_peak_v.push_back( peak );
 	}
 
@@ -116,9 +133,7 @@ UdevAnalyserForPeak::UdevAnalyserForPeak(){
 	 */
 	sort( m_peak_v.begin(), m_peak_v.end(), UdevAnalyserForPeak::m_peakStructCompare );
 	for ( unsigned i = 0; i < m_peak_v.size(); i++ ){
-
 		m_peak_v[ i ].socketNumber = i;
-
 		std::cout << __FILE__ << " " << __LINE__ << std::endl
 				<< " peak.deviceID= " << m_peak_v[ i ].deviceID
 				<< " peak.systemDeviceIndex= " << m_peak_v[ i ].systemDeviceIndex
@@ -127,12 +142,18 @@ UdevAnalyserForPeak::UdevAnalyserForPeak(){
 				<< " peak.socketNumber= can" << m_peak_v[ i ].socketNumber
 				<< std::endl;
 	}
-
-
-
-	return (-1);
 }
 
+/**
+ * get the deviceID from the system driver number
+ */
+unsigned int UdevAnalyserForPeak::m_peakDeviceIdFromSystemDeviceIndex( unsigned int sd ){
+	std::vector<PEAK_device_t>::iterator it = m_peak_v.begin();
+	for ( std::vector<PEAK_device_t>::iterator it = m_peak_v.begin(); it <= m_peak_v.end(); it++ ){
+		if ( it->systemDeviceIndex == sd ) return( it->deviceID );
+	}
+	return(-1); // not found
+}
 
 /**
  * get the local socket nb of the devices: "32"

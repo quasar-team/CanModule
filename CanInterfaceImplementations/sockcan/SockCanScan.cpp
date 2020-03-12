@@ -330,9 +330,8 @@ int CSockCanScan::configureCanBoard(const string name,const string parameters)
 
 		// should be a singleton
 		udevanalyserforpeak_ns::UdevAnalyserForPeak *pa = new udevanalyserforpeak_ns::UdevAnalyserForPeak();
-		int ret = pa->portMap();
+		pa->portMap();
 
-		MLOGSOCK(DBG, this) << "_portMap ret= " << ret;
 		exit(0);
 	}
 
