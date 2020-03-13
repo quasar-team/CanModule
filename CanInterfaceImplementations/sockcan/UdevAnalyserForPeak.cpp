@@ -49,7 +49,7 @@ UdevAnalyserForPeak::UdevAnalyserForPeak(){
  *  which is the next in the sequence.
  */
 std::string UdevAnalyserForPeak::portIdentifierToSocketCanDevice( std::string extPortId ){
-	LOG(Log::TRC, m_logItHandleSock) << " extPortId= " << extPortId;
+	LOG(Log::TRC, m_logItHandleSock) << "peak extPortId= " << extPortId;
 
 	// first, sift out the device ID as given
 	size_t pos1 = extPortId.find( ":" ) + 1;
@@ -71,22 +71,22 @@ std::string UdevAnalyserForPeak::portIdentifierToSocketCanDevice( std::string ex
 	unsigned int localPort =  std::stoi( sub4 );
 
 	// look at the map and find out the correct socketcan global port
-	LOG(Log::TRC, m_logItHandleSock) << " looking for deviceId= " << deviceId
+	LOG(Log::TRC, m_logItHandleSock) << "peak looking for deviceId= " << deviceId
 			<< " localPort= " << localPort;
 
 	for ( unsigned int i = 0; i < m_peak_v.size(); i++ ){
-		LOG(Log::TRC, m_logItHandleSock) << " comparing " << i
+		LOG(Log::TRC, m_logItHandleSock) << "peak comparing " << i
 				<< " deviceID= " << m_peak_v[ i ].deviceID
 				<< " localCanPort= " <<  m_peak_v[ i ].localCanPort;
 
 		if (( m_peak_v[ i ].deviceID == deviceId ) && ( m_peak_v[ i ].localCanPort == localPort )){
-			LOG(Log::TRC, m_logItHandleSock) << " found "
+			LOG(Log::TRC, m_logItHandleSock) << "peak found "
 					<< " deviceID= " << deviceId << " localPort= " <<  localPort;
 			return( std::string("can") + std::to_string( m_peak_v[ i ].socketNumber ));
 		}
 	}
 
-	LOG(Log::ERR, m_logItHandleSock) << " could not find "
+	LOG(Log::ERR, m_logItHandleSock) << "peak could not find "
 			<< " " << deviceId << " " <<  localPort << " in the udev system" << std::endl;
 	return( "" );
 }
@@ -116,7 +116,7 @@ void UdevAnalyserForPeak::showMap(){
  * system wide: need to scan for all pcan device links
  */
 void UdevAnalyserForPeak::portMap( void ){
-	LOG(Log::TRC, m_logItHandleSock) << __FUNCTION__ << " doing udev calls to discover PEAK socketcan device mapping";
+	LOG(Log::TRC, m_logItHandleSock) << "peak doing udev calls to discover PEAK socketcan device mapping";
 
 	std::vector<std::string> links1;
 	std::vector<std::string> links2;
@@ -125,14 +125,14 @@ void UdevAnalyserForPeak::portMap( void ){
 	std::string cmd0 = "ls -l /dev/pcanusb* | grep -v \" -> \" | awk '{print $10}' ";
 	execcommand_ns::ExecCommand exec0( cmd0 );
 	const execcommand_ns::ExecCommand::CmdResults results0 = exec0.getResults();
-	LOG(Log::TRC, m_logItHandleSock) << exec0;
+	LOG(Log::TRC, m_logItHandleSock) << "peak " << exec0;
 
 	// get the symlinks for each device and the first port
 	for ( unsigned int i = 0; i < results0.size(); i++ ){
 		std::string cmd1 = std::string("/sbin/udevadm info -q symlink ") + results0[ i ] + std::string(" | grep \"devid=\"");
 		execcommand_ns::ExecCommand exec1( cmd1 );
 		execcommand_ns::ExecCommand::CmdResults results1 = exec1.getResults();
-		LOG(Log::TRC, m_logItHandleSock) << exec1;
+		LOG(Log::TRC, m_logItHandleSock) << "peak " << exec1;
 		for ( unsigned k = 0; k < results1.size(); k++ ){
 			links1.push_back( results1[ k ] );
 		}
@@ -142,7 +142,7 @@ void UdevAnalyserForPeak::portMap( void ){
 		std::string cmd2 = std::string("/sbin/udevadm info -q symlink ") + results0[ i ] + std::string(" | grep -v \"devid=\"");
 		execcommand_ns::ExecCommand exec2( cmd2 );
 		execcommand_ns::ExecCommand::CmdResults results2 = exec2.getResults();
-		LOG(Log::TRC, m_logItHandleSock) << exec2;
+		LOG(Log::TRC, m_logItHandleSock) << "peak " << exec2;
 		for ( unsigned k = 0; k < results2.size(); k++ ){
 			links2.push_back( results2[ k ] );
 		}
