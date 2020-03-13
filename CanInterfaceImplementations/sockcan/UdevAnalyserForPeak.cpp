@@ -9,9 +9,23 @@
 #include "ExecCommand.h"
 #include <bits/stdc++.h>
 
+#include <CCanAccess.h>
+#include <LogIt.h>
+
+
+// using namespace CanModule;
 namespace udevanalyserforpeak_ns {
 
+
 UdevAnalyserForPeak::UdevAnalyserForPeak(){
+	LogItInstance* logItInstance = LogItInstance::getInstance();
+	if ( !LogItInstance::setInstance(logItInstance))
+		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
+		<< " could not set LogIt instance" << std::endl;
+
+	if (!logItInstance->getComponentHandle(CanModule::LogItComponentName, m_logItHandleSock))
+		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
+		<< " could not get LogIt component handle for " << CanModule::LogItComponentName << std::endl;
 
 }; // singleton
 
@@ -35,18 +49,59 @@ UdevAnalyserForPeak::UdevAnalyserForPeak(){
  *  which is the next in the sequence.
  */
 std::string UdevAnalyserForPeak::portIdentifierToSocketCanDevice( std::string extPortId ){
+	LOG(Log::TRC, m_logItHandleSock) << " extPortId= " << extPortId;
+
+	// first, sift out the device ID as given
 	size_t pos1 = extPortId.find( ":" ) + 1;
 	std::string sub1 = extPortId.substr( pos1, std::string::npos );
-	std::cout << __FILE__ << " " << __LINE__ << " sub1= " << sub1 << std::endl;
+	//std::cout << __FILE__ << " " << __LINE__ << " sub1= " << sub1 << std::endl;
 
-	size_t pos2 = sub1.find( ":device" ) + 1;
+	size_t pos2 = sub1.find( ":device" ) + 7;
 	std::string sub2 = sub1.substr( pos2, std::string::npos );
-	std::cout << __FILE__ << " " << __LINE__ << " sub2= " << sub2 << std::endl;
+	//std::cout << __FILE__ << " " << __LINE__ << " sub2= " << sub2 << std::endl;
+	int deviceId =  std::stoi( sub2 );
 
-	return( "xxx" );
+	// second, sift out the local port number as well
+	//	size_t pos3 = sub1.find( ":" );
+	std::string sub3 = sub1.substr( 0, sub1.find( ":" ) );
+	//std::cout << __FILE__ << " " << __LINE__ << " sub3= " << sub3 << std::endl;
+	std::string sub4 = sub3.substr( 3, std::string::npos );
 
+	//std::cout << __FILE__ << " " << __LINE__ << " sub4= " << sub4 << std::endl;
+	unsigned int localPort =  std::stoi( sub4 );
+
+	// look at the map and find out the correct socketcan global port
+	LOG(Log::TRC, m_logItHandleSock) << " looking for deviceId= " << deviceId
+			<< " localPort= " << localPort;
+
+	for ( unsigned int i = 0; i < m_peak_v.size(); i++ ){
+		LOG(Log::TRC, m_logItHandleSock) << " comparing " << i
+				<< " deviceID= " << m_peak_v[ i ].deviceID
+				<< " localCanPort= " <<  m_peak_v[ i ].localCanPort;
+
+		if (( m_peak_v[ i ].deviceID == deviceId ) && ( m_peak_v[ i ].localCanPort == localPort )){
+			LOG(Log::TRC, m_logItHandleSock) << " found "
+					<< " deviceID= " << deviceId << " localPort= " <<  localPort;
+			return( std::string("can") + std::to_string( m_peak_v[ i ].socketNumber ));
+		}
+	}
+
+	LOG(Log::ERR, m_logItHandleSock) << " could not find "
+			<< " " << deviceId << " " <<  localPort << " in the udev system" << std::endl;
+	return( "" );
 }
 
+void UdevAnalyserForPeak::showMap(){
+	for ( unsigned int i = 0; i < m_peak_v.size(); i++ ){
+		LOG(Log::TRC, m_logItHandleSock) << "peak map: "
+				<< " deviceID= " << m_peak_v[ i ].deviceID
+				<< " systemDeviceIndex= " << m_peak_v[ i ].systemDeviceIndex
+				<< " localCanPort= " << m_peak_v[ i ].localCanPort
+				<< " socketNumber= " << m_peak_v[ i ].socketNumber
+				<< " peakDriverNumber= " << m_peak_v[ i ].peakDriverNumber
+				<< " link= " << m_peak_v[ i ].link;
+	}
+}
 
 /**
  * compares structs peak1 and peak2 and returns TRUE if the peak1->peakDriverNumber is SMALLER
@@ -61,6 +116,7 @@ std::string UdevAnalyserForPeak::portIdentifierToSocketCanDevice( std::string ex
  * system wide: need to scan for all pcan device links
  */
 void UdevAnalyserForPeak::portMap( void ){
+	LOG(Log::TRC, m_logItHandleSock) << __FUNCTION__ << " doing udev calls to discover PEAK socketcan device mapping";
 
 	std::vector<std::string> links1;
 	std::vector<std::string> links2;
@@ -69,14 +125,14 @@ void UdevAnalyserForPeak::portMap( void ){
 	std::string cmd0 = "ls -l /dev/pcanusb* | grep -v \" -> \" | awk '{print $10}' ";
 	execcommand_ns::ExecCommand exec0( cmd0 );
 	const execcommand_ns::ExecCommand::CmdResults results0 = exec0.getResults();
-	std::cout << exec0; // << std::endl;
+	LOG(Log::TRC, m_logItHandleSock) << exec0;
 
 	// get the symlinks for each device and the first port
 	for ( unsigned int i = 0; i < results0.size(); i++ ){
 		std::string cmd1 = std::string("/sbin/udevadm info -q symlink ") + results0[ i ] + std::string(" | grep \"devid=\"");
 		execcommand_ns::ExecCommand exec1( cmd1 );
 		execcommand_ns::ExecCommand::CmdResults results1 = exec1.getResults();
-		std::cout << exec1; // << std::endl;
+		LOG(Log::TRC, m_logItHandleSock) << exec1;
 		for ( unsigned k = 0; k < results1.size(); k++ ){
 			links1.push_back( results1[ k ] );
 		}
@@ -86,7 +142,7 @@ void UdevAnalyserForPeak::portMap( void ){
 		std::string cmd2 = std::string("/sbin/udevadm info -q symlink ") + results0[ i ] + std::string(" | grep -v \"devid=\"");
 		execcommand_ns::ExecCommand exec2( cmd2 );
 		execcommand_ns::ExecCommand::CmdResults results2 = exec2.getResults();
-		std::cout << exec2; // << std::endl;
+		LOG(Log::TRC, m_logItHandleSock) << exec2;
 		for ( unsigned k = 0; k < results2.size(); k++ ){
 			links2.push_back( results2[ k ] );
 		}
@@ -107,6 +163,7 @@ void UdevAnalyserForPeak::portMap( void ){
 		peak.systemDeviceIndex = m_peakSystemDeviceIndex( links1[ i ] );
 		peak.localCanPort = m_peakLocalCanPort( links1[ i ] );
 		peak.peakDriverNumber = m_peakDriverNumber( links1[ i ] );
+		peak.link = links1[ i ];
 		m_peak_v.push_back( peak );
 	}
 	for ( unsigned int i = 0; i < links2.size(); i++ ){
@@ -115,16 +172,8 @@ void UdevAnalyserForPeak::portMap( void ){
 		peak.deviceID = m_peakDeviceIdFromSystemDeviceIndex( peak.systemDeviceIndex );
 		peak.localCanPort = m_peakLocalCanPort( links2[ i ] );
 		peak.peakDriverNumber = m_peakDriverNumber( links2[ i ] );
+		peak.link = links2[ i ];
 		m_peak_v.push_back( peak );
-	}
-
-	for ( unsigned i = 0; i < m_peak_v.size(); i++ ){
-		std::cout << __FILE__ << " " << __LINE__ << std::endl
-				<< " peak.deviceID= " << m_peak_v[ i ].deviceID
-				<< " peak.systemDeviceIndex= " << m_peak_v[ i ].systemDeviceIndex
-				<< " peak.localCanPort= " << m_peak_v[ i ].localCanPort
-				<< " peak.peakDriverNumber= " << m_peak_v[ i ].peakDriverNumber
-				<< std::endl;
 	}
 
 	/**
@@ -134,14 +183,8 @@ void UdevAnalyserForPeak::portMap( void ){
 	sort( m_peak_v.begin(), m_peak_v.end(), UdevAnalyserForPeak::m_peakStructCompare );
 	for ( unsigned i = 0; i < m_peak_v.size(); i++ ){
 		m_peak_v[ i ].socketNumber = i;
-		std::cout << __FILE__ << " " << __LINE__ << std::endl
-				<< " peak.deviceID= " << m_peak_v[ i ].deviceID
-				<< " peak.systemDeviceIndex= " << m_peak_v[ i ].systemDeviceIndex
-				<< " peak.localCanPort= " << m_peak_v[ i ].localCanPort
-				<< " peak.peakDriverNumber= " << m_peak_v[ i ].peakDriverNumber
-				<< " peak.socketNumber= can" << m_peak_v[ i ].socketNumber
-				<< std::endl;
 	}
+	showMap();
 }
 
 /**
@@ -162,24 +205,27 @@ unsigned int UdevAnalyserForPeak::m_peakDeviceIdFromSystemDeviceIndex( unsigned 
 unsigned int UdevAnalyserForPeak::m_peakDriverNumber( std::string s ){
 	size_t pos1 = s.find( "devid=" ) + 6;
 	std::string sub1 = s.substr( pos1, std::string::npos );
-//	std::cout << __FILE__ << " " << __LINE__ << " sub1= " << sub1 << std::endl;
+	//	std::cout << __FILE__ << " " << __LINE__ << " sub1= " << sub1 << std::endl;
 	size_t pos2 = sub1.find( " pcan" ) + 5;
 	std::string sub2 = sub1.substr( pos2, std::string::npos );
-//	std::cout << __FILE__ << " " << __LINE__ << " sub2= " << sub2 << std::endl;
+	//	std::cout << __FILE__ << " " << __LINE__ << " sub2= " << sub2 << std::endl;
 	std::string sub3 = sub2.substr( 0, sub2.find(" ") );
-//	std::cout << __FILE__ << " " << __LINE__ << " sub3= " << sub3 << std::endl;
+	//	std::cout << __FILE__ << " " << __LINE__ << " sub3= " << sub3 << std::endl;
 	return( std::stoi( sub3 ));
 }
+
 /**
- * get the local can port of the devices: "can0"
+ * get the local can port of the devices: the "0" of "can0"
  * pcan-usb_pro_fd/0/can0 pcan-usb_pro_fd/devid=9054 pcan32 pcanusbpfd32
  */
-std::string UdevAnalyserForPeak::m_peakLocalCanPort( std::string s ){
+unsigned int UdevAnalyserForPeak::m_peakLocalCanPort( std::string s ){
 	size_t pos1 = s.find( "/" ) + 1;
 	std::string sub1 = s.substr( pos1, std::string::npos );
 	size_t pos2 = sub1.find( "/" ) + 1;
 	std::string sub2 = sub1.substr( pos2, sub1.find(" ") - 2 );
-	return( sub2 );
+	std::string sub3 = sub2.substr( 3, std::string::npos );
+	//std::cout << __FILE__ << " " << __LINE__ << " sub3= " << sub3 << std::endl;
+	return( std::stoi( sub3 ));
 }
 
 /**

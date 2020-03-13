@@ -22,7 +22,6 @@
  *  along with Quasar.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "SockCanScan.h"
-// #include "ExecCommand.h"
 #include "UdevAnalyserForPeak.h"
 
 #include <time.h>
@@ -331,6 +330,13 @@ int CSockCanScan::configureCanBoard(const string name,const string parameters)
 		// should be a singleton
 		udevanalyserforpeak_ns::UdevAnalyserForPeak *pa = new udevanalyserforpeak_ns::UdevAnalyserForPeak();
 		pa->portMap();
+
+		// show the whole map
+		pa->showMap();
+
+		// check if we can get a mapping
+		string sockPort = pa->portIdentifierToSocketCanDevice( name );
+		MLOGSOCK(DBG, this) << "portIdentifierToSocketCanDevice: name= " << name << " sockPort= " << sockPort;
 
 		exit(0);
 	}
