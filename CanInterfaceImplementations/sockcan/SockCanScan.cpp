@@ -338,6 +338,12 @@ int CSockCanScan::configureCanBoard(const string name,const string parameters)
 		string sockPort = pa->portIdentifierToSocketCanDevice( name );
 		MLOGSOCK(DBG, this) << "portIdentifierToSocketCanDevice: name= " << name << " sockPort= " << sockPort;
 
+		// make this class a singleton class
+		// make sure singleton exists
+		// singleton is created once: creator does udev calls
+		// unlock map interrogating method in singleton when map is initialized
+		// finish runtime re-mapping in a performant way: assign once per object, class static calls, re-entrant, no mutex
+		xxx
 		exit(0);
 	}
 
