@@ -47,12 +47,23 @@ namespace udevanalyserforpeak_ns {
  *  returns:
  *  "can2"
  *
- *  This means that the PEAK can bridge with deviceID123456 is currently the second device
+ *  This means that the PEAK can bridge with deviceID 123456 is currently the second device
  *  in the socketcan sequence, and that we talk to the first port (locally "can0") of that device. Since the
  *  first device has (obviously) 2 can ports (globally "can0", "can1") we end up with globally "can2"
  *  which is the next in the sequence.
+ *     Why do we need this? With peak bridges the socketcan device sequence depends on the USB plugin events
+ *  and is therefore not deterministic. Strictly speaking on has no guarantee that "can2" [second bridge, first port]
+ *  talks to the same electronics on every day, on monday it might also talk to the firs device.
+ *  This stems from the fact that the peak driver does NOT publish the device ID under linux, therefore the udev
+ *  system can't pick it up to provide deterministic mapping either.
+ *     The fix is
+ *     (1) stamp a unique deviceID into the bridge using peak tools under windows. this value is persistent
+ *  and will survive a reboot.
+ *     (2) under linux, use an extended  peak port identifier : "sock:can0:device123456".
+ *     (3) under windows, use the brief port identifier "sock:can2" as before.
+ *
  */
-std::string UdevAnalyserForPeak::portIdentifierToSocketCanDevice( std::string extPortId ){
+std::string UdevAnalyserForPeak::peakExtendedIdentifierToSocketCanDevice( std::string extPortId ){
 	LOG(Log::TRC, m_logItHandleSock) << "peak extPortId= " << extPortId;
 
 
@@ -82,9 +93,9 @@ std::string UdevAnalyserForPeak::portIdentifierToSocketCanDevice( std::string ex
 			<< " localPort= " << localPort;
 
 	for ( unsigned int i = 0; i < m_peak_v.size(); i++ ){
-		LOG(Log::TRC, m_logItHandleSock) << "peak comparing " << i
-				<< " deviceID= " << m_peak_v[ i ].deviceID
-				<< " localCanPort= " <<  m_peak_v[ i ].localCanPort;
+		//LOG(Log::TRC, m_logItHandleSock) << "peak comparing " << i
+		//		<< " deviceID= " << m_peak_v[ i ].deviceID
+		//		<< " localCanPort= " <<  m_peak_v[ i ].localCanPort;
 
 		if (( m_peak_v[ i ].deviceID == deviceId ) && ( m_peak_v[ i ].localCanPort == localPort )){
 			LOG(Log::TRC, m_logItHandleSock) << "peak found "
@@ -99,8 +110,9 @@ std::string UdevAnalyserForPeak::portIdentifierToSocketCanDevice( std::string ex
 }
 
 void UdevAnalyserForPeak::showMap(){
+	LOG(Log::INF, m_logItHandleSock) << "peak map: ";
 	for ( unsigned int i = 0; i < m_peak_v.size(); i++ ){
-		LOG(Log::TRC, m_logItHandleSock) << "peak map: "
+		LOG(Log::INF, m_logItHandleSock)
 				<< " deviceID= " << m_peak_v[ i ].deviceID
 				<< " systemDeviceIndex= " << m_peak_v[ i ].systemDeviceIndex
 				<< " localCanPort= " << m_peak_v[ i ].localCanPort
@@ -149,7 +161,7 @@ void UdevAnalyserForPeak::m_createUdevPortMap( void ){
 		std::string cmd2 = std::string("/sbin/udevadm info -q symlink ") + results0[ i ] + std::string(" | grep -v \"devid=\"");
 		execcommand_ns::ExecCommand exec2( cmd2 );
 		execcommand_ns::ExecCommand::CmdResults results2 = exec2.getResults();
-		LOG(Log::TRC, m_logItHandleSock) << "peak " << exec2;
+		//LOG(Log::TRC, m_logItHandleSock) << "peak " << exec2;
 		for ( unsigned k = 0; k < results2.size(); k++ ){
 			links2.push_back( results2[ k ] );
 		}
@@ -191,7 +203,7 @@ void UdevAnalyserForPeak::m_createUdevPortMap( void ){
 	for ( unsigned i = 0; i < m_peak_v.size(); i++ ){
 		m_peak_v[ i ].socketNumber = i;
 	}
-	showMap();
+	// showMap();
 }
 
 /**

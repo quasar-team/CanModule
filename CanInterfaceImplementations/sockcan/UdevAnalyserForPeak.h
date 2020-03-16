@@ -34,12 +34,16 @@ public:
 
 	// factory providing one singleton
 	static UdevAnalyserForPeak* getInstance() {
-		if ( !m_instance_ptr )
+		if ( !m_instance_ptr ) {
+			//std::cout << "creating singleton for UdevAnalyserForPeak class" << std::endl;
 			m_instance_ptr = new UdevAnalyserForPeak;
+		} else {
+			//std::cout << "reusing existing singleton for UdevAnalyserForPeak class" << std::endl;
+		}
 		return m_instance_ptr;
 	}
 
-	static std::string portIdentifierToSocketCanDevice( std::string portId );
+	static std::string peakExtendedIdentifierToSocketCanDevice( std::string portId );
 	static void showMap();
 
 private:

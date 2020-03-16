@@ -314,6 +314,8 @@ CSockCanScan::~CSockCanScan()
 
 int CSockCanScan::configureCanBoard(const string name,const string parameters)
 {
+	string lname = name;
+
 	/**
 	 * for PEAK bridges, we have a problem: the local ports are not mapped to the global socketcan
 	 * ports in a deterministic way. OPCUA-1735.
@@ -325,31 +327,27 @@ int CSockCanScan::configureCanBoard(const string name,const string parameters)
 	 * peak: name="sock:can0:device17440"
 	 */
 	if ( name.find("device") != string::npos ) {
-		MLOGSOCK(DBG, this) << "found extended port identifier for PEAK " << name;
+		MLOGSOCK(INF, this) << "found extended port identifier for PEAK " << name;
 
-		// udevanalyserforpeak_ns::UdevAnalyserForPeak *pa = udevanalyserforpeak_ns::UdevAnalyserForPeak::getInstance();
-
+		// get a mapping: do all the udev calls in the constructor of the singleton
+		string sockPort = udevanalyserforpeak_ns::UdevAnalyserForPeak::peakExtendedIdentifierToSocketCanDevice( name );
+		MLOGSOCK(TRC, this) << "portIdentifierToSocketCanDevice: name= " << name << " sockPort= " << sockPort;
 
 		// show the whole map
 		udevanalyserforpeak_ns::UdevAnalyserForPeak::showMap();
 
-		// check if we can get a mapping
-		// string sockPort = pa->portIdentifierToSocketCanDevice( name );
-		string sockPort = udevanalyserforpeak_ns::UdevAnalyserForPeak::portIdentifierToSocketCanDevice( name );
-		MLOGSOCK(DBG, this) << "portIdentifierToSocketCanDevice: name= " << name << " sockPort= " << sockPort;
-
-		// make this class a singleton class
-		// make sure singleton exists
-		// singleton is created once: creator does udev calls
-		// unlock map interrogating method in singleton when map is initialized
-		// finish runtime re-mapping in a performant way: assign once per object, class static calls, re-entrant, no mutex
-		// xxx
-		exit(0);
+		/**
+		 * now, we manipulate the lname to reflect the absolute port which we found out. We do the rewiring at initialisation, like this we don't
+		 * care anymore during runtime.
+		 */
+		lname = string("sock:") + sockPort;
+		LOG(Log::INF, m_logItHandleSock) << "peak remapping extended port ID= " << name << " to global socketcan portID= " << lname;
+		// MLOGSOCK(INF, this) << "peak remapping extended port ID= " << name << " to global socketcan portID= " << lname;
 	}
-
 	vector<string> parset;
-	parset = parseNameAndParameters( name, parameters );
+	parset = parseNameAndParameters( lname, parameters );
 	m_channelName = parset[1];
+	MLOGSOCK(TRC, this) << "m_channelName= " << m_channelName ;
 	return openCanPort();
 }
 
