@@ -327,15 +327,15 @@ int CSockCanScan::configureCanBoard(const string name,const string parameters)
 	if ( name.find("device") != string::npos ) {
 		MLOGSOCK(DBG, this) << "found extended port identifier for PEAK " << name;
 
-		// should be a singleton
-		udevanalyserforpeak_ns::UdevAnalyserForPeak *pa = new udevanalyserforpeak_ns::UdevAnalyserForPeak();
-		pa->portMap();
+		// udevanalyserforpeak_ns::UdevAnalyserForPeak *pa = udevanalyserforpeak_ns::UdevAnalyserForPeak::getInstance();
+
 
 		// show the whole map
-		pa->showMap();
+		udevanalyserforpeak_ns::UdevAnalyserForPeak::showMap();
 
 		// check if we can get a mapping
-		string sockPort = pa->portIdentifierToSocketCanDevice( name );
+		// string sockPort = pa->portIdentifierToSocketCanDevice( name );
+		string sockPort = udevanalyserforpeak_ns::UdevAnalyserForPeak::portIdentifierToSocketCanDevice( name );
 		MLOGSOCK(DBG, this) << "portIdentifierToSocketCanDevice: name= " << name << " sockPort= " << sockPort;
 
 		// make this class a singleton class
@@ -343,7 +343,7 @@ int CSockCanScan::configureCanBoard(const string name,const string parameters)
 		// singleton is created once: creator does udev calls
 		// unlock map interrogating method in singleton when map is initialized
 		// finish runtime re-mapping in a performant way: assign once per object, class static calls, re-entrant, no mutex
-		xxx
+		// xxx
 		exit(0);
 	}
 

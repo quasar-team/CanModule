@@ -32,22 +32,35 @@ public:
 		unsigned int socketNumber;
 	} PEAK_device_t;
 
-	UdevAnalyserForPeak(); // singleton
-	virtual ~UdevAnalyserForPeak(){};
-    void portMap();
-    std::string portIdentifierToSocketCanDevice( std::string portId );
-   void showMap();
+	// factory providing one singleton
+	static UdevAnalyserForPeak* getInstance() {
+		if ( !m_instance_ptr )
+			m_instance_ptr = new UdevAnalyserForPeak;
+		return m_instance_ptr;
+	}
+
+	static std::string portIdentifierToSocketCanDevice( std::string portId );
+	static void showMap();
 
 private:
-	std::vector<PEAK_device_t> m_peak_v;
-	Log::LogComponentHandle m_logItHandleSock;
+	// singleton, allocated at compile time, static.
+	static UdevAnalyserForPeak *m_instance_ptr;
+	UdevAnalyserForPeak(); // private constructor singleton
+	UdevAnalyserForPeak(const UdevAnalyserForPeak&); // no copy
+	virtual ~UdevAnalyserForPeak(){};
+
+	static std::vector<PEAK_device_t> m_peak_v;
+	static Log::LogComponentHandle m_logItHandleSock;
+
+	void m_createUdevPortMap(); // udev calls in constructor
 
 	unsigned int m_peakDeviceId( std::string s );
-    unsigned int m_peakSystemDeviceIndex( std::string s );
-    unsigned int m_peakLocalCanPort( std::string s );
-    unsigned int m_peakDriverNumber( std::string s );
-    static bool m_peakStructCompare( PEAK_device_t peak1, PEAK_device_t peak2 );
-    unsigned int m_peakDeviceIdFromSystemDeviceIndex( unsigned int sd );
+	unsigned int m_peakSystemDeviceIndex( std::string s );
+	unsigned int m_peakLocalCanPort( std::string s );
+	unsigned int m_peakDriverNumber( std::string s );
+	unsigned int m_peakDeviceIdFromSystemDeviceIndex( unsigned int sd );
+
+	static bool m_peakStructCompare( PEAK_device_t peak1, PEAK_device_t peak2 ); // sort method
 
 };
 

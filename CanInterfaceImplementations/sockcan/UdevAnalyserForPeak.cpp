@@ -16,8 +16,10 @@
 // using namespace CanModule;
 namespace udevanalyserforpeak_ns {
 
+/* static, private */ UdevAnalyserForPeak* UdevAnalyserForPeak::m_instance_ptr = 0;
+// /* static */ UdevAnalyserForPeak::m_peak_v = 0; // <PEAK_device_t>
 
-UdevAnalyserForPeak::UdevAnalyserForPeak(){
+/* private, singleton */ UdevAnalyserForPeak::UdevAnalyserForPeak(){
 	LogItInstance* logItInstance = LogItInstance::getInstance();
 	if ( !LogItInstance::setInstance(logItInstance))
 		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
@@ -27,6 +29,7 @@ UdevAnalyserForPeak::UdevAnalyserForPeak(){
 		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
 		<< " could not get LogIt component handle for " << CanModule::LogItComponentName << std::endl;
 
+	this->m_createUdevPortMap();
 }; // singleton
 
 
@@ -50,6 +53,9 @@ UdevAnalyserForPeak::UdevAnalyserForPeak(){
  */
 std::string UdevAnalyserForPeak::portIdentifierToSocketCanDevice( std::string extPortId ){
 	LOG(Log::TRC, m_logItHandleSock) << "peak extPortId= " << extPortId;
+
+
+	getInstance(); // make sure we have a map
 
 	// first, sift out the device ID as given
 	size_t pos1 = extPortId.find( ":" ) + 1;
@@ -115,7 +121,7 @@ void UdevAnalyserForPeak::showMap(){
  * this is where we do the udev call and construct a locl-global port map which is
  * system wide: need to scan for all pcan device links
  */
-void UdevAnalyserForPeak::portMap( void ){
+void UdevAnalyserForPeak::m_createUdevPortMap( void ){
 	LOG(Log::TRC, m_logItHandleSock) << "peak doing udev calls to discover PEAK socketcan device mapping";
 
 	std::vector<std::string> links1;
