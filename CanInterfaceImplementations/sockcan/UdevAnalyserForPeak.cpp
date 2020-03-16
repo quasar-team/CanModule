@@ -17,7 +17,8 @@
 namespace udevanalyserforpeak_ns {
 
 /* static, private */ UdevAnalyserForPeak* UdevAnalyserForPeak::m_instance_ptr = 0;
-// /* static */ UdevAnalyserForPeak::m_peak_v = 0; // <PEAK_device_t>
+/* static */ Log::LogComponentHandle UdevAnalyserForPeak::m_logItHandleSock = 0;
+/* static */ std::vector<UdevAnalyserForPeak::PEAK_device_t> UdevAnalyserForPeak::m_peak_v;
 
 /* private, singleton */ UdevAnalyserForPeak::UdevAnalyserForPeak(){
 	LogItInstance* logItInstance = LogItInstance::getInstance();
@@ -131,14 +132,14 @@ void UdevAnalyserForPeak::m_createUdevPortMap( void ){
 	std::string cmd0 = "ls -l /dev/pcanusb* | grep -v \" -> \" | awk '{print $10}' ";
 	execcommand_ns::ExecCommand exec0( cmd0 );
 	const execcommand_ns::ExecCommand::CmdResults results0 = exec0.getResults();
-	LOG(Log::TRC, m_logItHandleSock) << "peak " << exec0;
+	//LOG(Log::TRC, m_logItHandleSock) << "peak " << exec0;
 
 	// get the symlinks for each device and the first port
 	for ( unsigned int i = 0; i < results0.size(); i++ ){
 		std::string cmd1 = std::string("/sbin/udevadm info -q symlink ") + results0[ i ] + std::string(" | grep \"devid=\"");
 		execcommand_ns::ExecCommand exec1( cmd1 );
 		execcommand_ns::ExecCommand::CmdResults results1 = exec1.getResults();
-		LOG(Log::TRC, m_logItHandleSock) << "peak " << exec1;
+		//LOG(Log::TRC, m_logItHandleSock) << "peak " << exec1;
 		for ( unsigned k = 0; k < results1.size(); k++ ){
 			links1.push_back( results1[ k ] );
 		}
