@@ -327,11 +327,10 @@ int CSockCanScan::configureCanBoard(const string name,const string parameters)
 	 * peak: name="sock:can0:device17440"
 	 */
 	if ( name.find("device") != string::npos ) {
-		MLOGSOCK(INF, this) << "found extended port identifier for PEAK " << name;
-
+		LOG(Log::INF, m_logItHandleSock) << "found extended port identifier for PEAK " << name;
 		// get a mapping: do all the udev calls in the constructor of the singleton
 		string sockPort = udevanalyserforpeak_ns::UdevAnalyserForPeak::peakExtendedIdentifierToSocketCanDevice( name );
-		MLOGSOCK(TRC, this) << "portIdentifierToSocketCanDevice: name= " << name << " sockPort= " << sockPort;
+		LOG(Log::INF, m_logItHandleSock) << "portIdentifierToSocketCanDevice: name= " << name << " sockPort= " << sockPort;
 
 		// show the whole map
 		udevanalyserforpeak_ns::UdevAnalyserForPeak::showMap();
@@ -341,8 +340,7 @@ int CSockCanScan::configureCanBoard(const string name,const string parameters)
 		 * care anymore during runtime.
 		 */
 		lname = string("sock:") + sockPort;
-		LOG(Log::INF, m_logItHandleSock) << "peak remapping extended port ID= " << name << " to global socketcan portID= " << lname;
-		// MLOGSOCK(INF, this) << "peak remapping extended port ID= " << name << " to global socketcan portID= " << lname;
+		LOG(Log::INF, m_logItHandleSock) << "peak *** remapping extended port ID= " << name << " to global socketcan portID= " << lname << " *** ";
 	}
 	vector<string> parset;
 	parset = parseNameAndParameters( lname, parameters );

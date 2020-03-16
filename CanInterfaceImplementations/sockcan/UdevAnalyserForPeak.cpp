@@ -59,13 +59,13 @@ namespace udevanalyserforpeak_ns {
  *     The fix is
  *     (1) stamp a unique deviceID into the bridge using peak tools under windows. this value is persistent
  *  and will survive a reboot.
- *     (2) under linux, use an extended  peak port identifier : "sock:can0:device123456".
- *     (3) under windows, use the brief port identifier "sock:can2" as before.
- *
+ *     (2) under linux, use an extended  peak port identifier : "sock:can0:device123456". CanModule remaps ports under the hood for you
+ *     (3) under windows, use the brief port identifier "sock:can2" as before. If you use an extended port identifier the world will explode.
+ *     But you can't, anyway, since socketcan is linux only. The peak driver for windows is better: it (seems to) take care of the
+ *     device ID properly, BUT DONT ASK ME for that crap...
  */
 std::string UdevAnalyserForPeak::peakExtendedIdentifierToSocketCanDevice( std::string extPortId ){
 	LOG(Log::TRC, m_logItHandleSock) << "peak extPortId= " << extPortId;
-
 
 	getInstance(); // make sure we have a map
 
@@ -110,7 +110,7 @@ std::string UdevAnalyserForPeak::peakExtendedIdentifierToSocketCanDevice( std::s
 }
 
 void UdevAnalyserForPeak::showMap(){
-	LOG(Log::INF, m_logItHandleSock) << "peak map: ";
+	LOG(Log::INF, m_logItHandleSock) << "here is the map of all PEAK USB-CAN bridges on your system: ";
 	for ( unsigned int i = 0; i < m_peak_v.size(); i++ ){
 		LOG(Log::INF, m_logItHandleSock)
 				<< " deviceID= " << m_peak_v[ i ].deviceID
@@ -131,7 +131,7 @@ void UdevAnalyserForPeak::showMap(){
 }
 
 /**
- * this is where we do the udev call and construct a locl-global port map which is
+ * this is where we do the udev call and construct a local-global port map which is
  * system wide: need to scan for all pcan device links
  */
 void UdevAnalyserForPeak::m_createUdevPortMap( void ){
