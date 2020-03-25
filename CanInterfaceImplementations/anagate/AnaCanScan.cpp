@@ -293,7 +293,7 @@ int AnaCanScan::configureCanBoard(const string name,const string parameters)
 		MLOGANA(TRC, this) << "m_CanParameters.m_iNumberOfDetectedParameters" << m_CanParameters.m_iNumberOfDetectedParameters;
 
 		if ( m_CanParameters.m_iNumberOfDetectedParameters >= 1 )	{
-			m_baudRate = m_CanParameters.m_lBaudRate;
+			m_baudRate = m_CanParameters.m_lBaudRate; // just for the statistics
 
 			MLOGANA(TRC, this) << "m_lBaudRate= " << m_CanParameters.m_lBaudRate;
 			MLOGANA(TRC, this) << "m_iOperationMode= " << m_CanParameters.m_iOperationMode;
@@ -314,6 +314,7 @@ int AnaCanScan::configureCanBoard(const string name,const string parameters)
 			return -1;
 		}
 	} else	{
+		m_CanParameters.m_iTermination = 1; // ENS-26903
 		MLOGANA(INF, this) << "Unspecified parameters, default values will be used.";
 	}
 	return openCanPort();

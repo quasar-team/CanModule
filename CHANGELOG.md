@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## 1.2.0.0
+make a minor release increment because the behaviour IS NOT fully backward compatible in the strict sense. ELMB boards
+need a termination (Alice)
+- ENS-26903: the default behavior for anagate chanhes from no termination to termination (channel ohmic termination
+
 ## 1.1.9.6
 - added toolchain for ubuntu, the obnly differences to cc7 come from the fact that a 
   physical jenkins slave for ubuntu has to be used right now. Nexus delivers into ubuntu1804LTS
