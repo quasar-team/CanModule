@@ -221,6 +221,7 @@ void AnaCanScan::callbackOnRecieve(CanMessage& msg)
  * 				* p1: operatingMode: 0=default mode, values 1 (loop back) and 2 (listen) are not supported by CanModule
  * 				* p2: termination: 0=not terminated (default), 1=terminated (120 Ohm for CAN bus)
  * 				* p3: highSpeed: 0=deactivated (default), 1=activated. If activated, confirmation and filtering of CAN traffic are switched off
+ * 				      for baud rates > 125000 this flag is needed, and it is set automatically for you if you forgot it (WRN)
  * 				* p4: TimeStamp: 0=deactivated (default), 1=activated. If activated, a timestamp is added to the CAN frame. Not all modules support this.
  *				  i.e. "250000 0 1 0 0"
  * 				(see anagate manual for more details)
@@ -295,11 +296,17 @@ int AnaCanScan::configureCanBoard(const string name,const string parameters)
 		if ( m_CanParameters.m_iNumberOfDetectedParameters >= 1 )	{
 			m_baudRate = m_CanParameters.m_lBaudRate; // just for the statistics
 
+			if (( m_CanParameters.m_lBaudRate > 125000L ) && ( ! m_CanParameters.m_iHighSpeed )){
+				MLOGANA(WRN, this) << "baud rate is above 120000bits/s, and the high speed flag is not set, but needed. Setting high speed flag for you. To avoid this warning set the high speed flag properly in your configuration";
+				m_CanParameters.m_iHighSpeed = 1;
+			}
+
 			MLOGANA(TRC, this) << "m_lBaudRate= " << m_CanParameters.m_lBaudRate;
 			MLOGANA(TRC, this) << "m_iOperationMode= " << m_CanParameters.m_iOperationMode;
 			MLOGANA(TRC, this) << "m_iTermination= " << m_CanParameters.m_iTermination;
 			MLOGANA(TRC, this) << "m_iHighSpeed= " << m_CanParameters.m_iHighSpeed;
 			MLOGANA(TRC, this) << "m_iTimeStamp= " << m_CanParameters.m_iTimeStamp;
+
 
 			// any other parameters are already set, either to 0 by init,
 			// or by decoding. They are always used.
@@ -314,8 +321,13 @@ int AnaCanScan::configureCanBoard(const string name,const string parameters)
 			return -1;
 		}
 	} else	{
+
 		m_CanParameters.m_iTermination = 1; // ENS-26903
-		MLOGANA(INF, this) << "Unspecified parameters, default values will be used.";
+
+		// termination 1
+
+
+		MLOGANA(INF, this) << "Unspecified parameters, default values (termination=1) will be used.";
 	}
 	return openCanPort();
 }

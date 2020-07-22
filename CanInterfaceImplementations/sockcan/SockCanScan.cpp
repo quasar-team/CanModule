@@ -22,9 +22,7 @@
  *  along with Quasar.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "SockCanScan.h"
-#include <errno.h>
-#include <fstream>
-#include <iostream>
+#include "UdevAnalyserForPeak.h"
 
 #include <time.h>
 #include <string.h>
@@ -311,11 +309,43 @@ CSockCanScan::~CSockCanScan()
 	stopBus();
 }
 
+
+
+
 int CSockCanScan::configureCanBoard(const string name,const string parameters)
 {
+	string lname = name;
+
+	/**
+	 * for PEAK bridges, we have a problem: the local ports are not mapped to the global socketcan
+	 * ports in a deterministic way. OPCUA-1735.
+	 * So, lets make a udev call here, analyze the result and manipulate the port number so that
+	 * it becomes a global port number.
+	 *
+	 * In order to distinguish between systec (where it works) and peak bridges we use an extended name:
+	 * systec: name="sock:can0"
+	 * peak: name="sock:can0:device17440"
+	 */
+	if ( name.find("device") != string::npos ) {
+		LOG(Log::INF, m_logItHandleSock) << "found extended port identifier for PEAK " << name;
+		// get a mapping: do all the udev calls in the constructor of the singleton
+		string sockPort = udevanalyserforpeak_ns::UdevAnalyserForPeak::peakExtendedIdentifierToSocketCanDevice( name );
+		LOG(Log::INF, m_logItHandleSock) << "portIdentifierToSocketCanDevice: name= " << name << " sockPort= " << sockPort;
+
+		// show the whole map
+		udevanalyserforpeak_ns::UdevAnalyserForPeak::showMap();
+
+		/**
+		 * now, we manipulate the lname to reflect the absolute port which we found out. We do the rewiring at initialisation, like this we don't
+		 * care anymore during runtime.
+		 */
+		lname = string("sock:") + sockPort;
+		LOG(Log::INF, m_logItHandleSock) << "peak *** remapping extended port ID= " << name << " to global socketcan portID= " << lname << " *** ";
+	}
 	vector<string> parset;
-	parset = parseNameAndParameters( name, parameters );
+	parset = parseNameAndParameters( lname, parameters );
 	m_channelName = parset[1];
+	MLOGSOCK(TRC, this) << "m_channelName= " << m_channelName ;
 	return openCanPort();
 }
 
