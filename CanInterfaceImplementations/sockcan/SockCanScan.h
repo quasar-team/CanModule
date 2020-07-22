@@ -118,6 +118,7 @@ private:
 	//The main control thread function for the CAN update scan manager.
 	static void* CanScanControlThread(void *);
 
+	int _portMap( void );
 
 };
 

@@ -52,19 +52,127 @@ Here the underlying vendor specific classes and the specific parameters are docu
 <div class="section" id="windows">
 <h3>windows<a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h3>
 <p>The connection to a specific port for I/O is created by calling</p>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">doxygenclass: Cannot find file: /home/mludwig/projects/CanModule/CanModule-master/CanModule/Documentation/sphinx-source/doxygen-result/xml/index.xml</p>
+<dl class="class">
+<dt id="_CPPv49STCanScan">
+<span id="_CPPv39STCanScan"></span><span id="_CPPv29STCanScan"></span><span id="STCanScan"></span><span class="target" id="classSTCanScan"></span><em class="property">class </em><code class="descname">STCanScan</code> : <em class="property">public</em> CanModule::<a class="reference internal" href="../standardApi.html#_CPPv4N9CanModule10CCanAccessE" title="CanModule::CCanAccess">CCanAccess</a><a class="headerlink" href="#_CPPv49STCanScan" title="Permalink to this definition">¶</a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="function">
+<dt id="_CPPv4N9STCanScan9createBusEK6stringK6string">
+<span id="_CPPv3N9STCanScan9createBusEK6stringK6string"></span><span id="_CPPv2N9STCanScan9createBusEK6stringK6string"></span><span id="STCanScan::createBus__stringC.stringC"></span><span class="target" id="classSTCanScan_1aa99f9f23bdfd367a51efc40e228a6f88"></span>bool <code class="descname">createBus</code><span class="sig-paren">(</span><em class="property">const</em> string <em>name</em>, <em class="property">const</em> string <em>parameters</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N9STCanScan9createBusEK6stringK6string" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Method that initialises a CAN bus channel for systec. All following methods called on the same object will be using this initialized channel.</p>
+<p><p>===note from Piotr=== in the Windows implementation of Systec (hardware component: st): to define the interface naming as canX, where X is a non-negative number note: the SysTec driver for windows expects addressing in terms of module number and channel (e.g. 0:0 is can0, 1:0 is can2, 1:1 is can3, etc) so can0 should open a SysTec interface 0:0 matching “can0” on the box, can1 should open a SysTec interface 0:1 matching “can1” on the box, etc. </p>
+<dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>was the initialisation process successful?</dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">name</span></code>: = 2 parameters separated by “:” like “n0:n1”<ul>
+<li>n0 = “st” for systec</li>
+<li>n1 = CAN port number on the module, can be prefixed with “can”</li>
+<li>ex.: “st:can1” speaks to port 1 on systec module at the ip</li>
+<li>ex.: “st:1” works as well</li>
+</ul>
+</li>
+<li><code class="docutils literal notranslate"><span class="pre">parameters</span></code>: one parameter: “p0”, positive integers<ul>
+<li>”Unspecified” (or empty): using defaults = “125000” // params missing</li>
+<li>p0: bitrate: 50000, 100000, 125000, 250000, 500000, 1000000 bit/s i.e. “250000”</li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N9STCanScan11sendMessageEshPhb">
+<span id="_CPPv3N9STCanScan11sendMessageEshPhb"></span><span id="_CPPv2N9STCanScan11sendMessageEshPhb"></span><span id="STCanScan::sendMessage__short.unsigned-c.unsigned-cP.b"></span><span class="target" id="classSTCanScan_1a45f0ec011022bf58a23e8370bac7f829"></span>bool <code class="descname">sendMessage</code><span class="sig-paren">(</span>short <em>cobID</em>, unsigned char <em>len</em>, unsigned char *<em>message</em>, bool <em>rtr</em> = false<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N9STCanScan11sendMessageEshPhb" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Method that sends a message trough the can bus channel. If the method createBUS was not called before this, sendMessage will fail, as there is no can bus channel to send a message through.</p>
+<p><dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>Was the sending process successful? </dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">cobID</span></code>: Identifier that will be used for the message. </li>
+<li><code class="docutils literal notranslate"><span class="pre">len</span></code>: Length of the message. If the message is bigger than 8 characters, it will be split into separate 8 characters messages. </li>
+<li><code class="docutils literal notranslate"><span class="pre">message</span></code>: Message to be sent trough the can bus. </li>
+<li><code class="docutils literal notranslate"><span class="pre">rtr</span></code>: is the message a remote transmission request? </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
 </div>
+</dd></dl>
+
 <p>and communication takes place through systec’s closed-source windows library.</p>
 </div>
 <div class="section" id="linux">
 <h3>linux<a class="headerlink" href="#linux" title="Permalink to this headline">¶</a></h3>
 <p>The open-source socketcan interface is used on top of systec’s open source driver:</p>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">doxygenclass: Cannot find file: /home/mludwig/projects/CanModule/CanModule-master/CanModule/Documentation/sphinx-source/doxygen-result/xml/index.xml</p>
+<dl class="class">
+<dt id="_CPPv412CSockCanScan">
+<span id="_CPPv312CSockCanScan"></span><span id="_CPPv212CSockCanScan"></span><span id="CSockCanScan"></span><span class="target" id="classCSockCanScan"></span><em class="property">class </em><code class="descname">CSockCanScan</code> : <em class="property">public</em> CanModule::<a class="reference internal" href="../standardApi.html#_CPPv4N9CanModule10CCanAccessE" title="CanModule::CCanAccess">CCanAccess</a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="function">
+<dt id="_CPPv4N12CSockCanScan9createBusEK6string6string">
+<span id="_CPPv3N12CSockCanScan9createBusEK6string6string"></span><span id="_CPPv2N12CSockCanScan9createBusEK6string6string"></span><span id="CSockCanScan::createBus__stringC.string"></span><span class="target" id="classCSockCanScan_1ac5c669f96d2d6cf7387f8a646bd65b3f"></span>bool <code class="descname">createBus</code><span class="sig-paren">(</span><em class="property">const</em> string <em>name</em>, string <em>parameters</em><span class="sig-paren">)</span><br /></dt>
+<dd><p>Method that initializes a can bus channel. The following methods called upon the same object will be using this initialized channel.</p>
+<p><ul class="simple">
+<li>i.e. “250000”</li>
+</ul>
+<dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">name</span></code>: = 2 parameters separated by “:”, like “n0:n1”<ul>
+<li>n0 = “sock” for sockets, used by systec and peak</li>
+<li>n1 = CAN port number on the module, can be prefixed with “can”</li>
+<li>ex.: “sock:can1” speaks to port 1 on systec or peak module</li>
+<li>ex.: “sock:1” works as well</li>
+</ul>
+</li>
+<li><code class="docutils literal notranslate"><span class="pre">parameters</span></code>: one parameter: “p0”, positive integer<ul>
+<li>”Unspecified” (or empty): using defaults = “125000” // params missing</li>
+<li>p0: bitrate: 50000, 100000, 125000, 250000, 500000, 1000000 bit/s, other values might be allowed by the module</li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+<p><p>dont create a main thread for the same bus twice: if it exists already, just configure the board again this protects agains having multiple threads if a given port ports is opened several times: protects against erro/unusual runtime. If the connection is closed, it’s main thread is stopped and joined, and the port is erased from the connection map. when the same port is opened again later on, a (new) main thread is created, and the connection is again added to the map. </p>
+<dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>Was the initialization process successful?</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N12CSockCanScan11sendMessageEshPhb">
+<span id="_CPPv3N12CSockCanScan11sendMessageEshPhb"></span><span id="_CPPv2N12CSockCanScan11sendMessageEshPhb"></span><span id="CSockCanScan::sendMessage__short.unsigned-c.unsigned-cP.b"></span><span class="target" id="classCSockCanScan_1a485ec8621a98cdacad8e27433e09d919"></span>bool <code class="descname">sendMessage</code><span class="sig-paren">(</span>short <em>cobID</em>, unsigned char <em>len</em>, unsigned char *<em>message</em>, bool <em>rtr</em> = false<span class="sig-paren">)</span><br /></dt>
+<dd><p>Method that sends a message trough the can bus channel. If the method createBUS was not called before this, sendMessage will fail, as there is no can bus channel to send a message through.</p>
+<p><dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>Was the initialisation process successful? </dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">cobID</span></code>: Identifier that will be used for the message. </li>
+<li><code class="docutils literal notranslate"><span class="pre">len</span></code>: Length of the message. If the message is bigger than 8 characters, it will be split into separate 8 characters messages. </li>
+<li><code class="docutils literal notranslate"><span class="pre">message</span></code>: Message to be sent trough the can bus. </li>
+<li><code class="docutils literal notranslate"><span class="pre">rtr</span></code>: is the message a remote transmission request? </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
 </div>
+</dd></dl>
+
 <p>sockets are used normally, using linux’ built-in CAN protocols:</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">mysock</span> <span class="o">=</span> <span class="n">socket</span><span class="p">(</span><span class="n">domain</span><span class="o">=</span><span class="n">PF_CAN</span><span class="p">,</span> <span class="n">type</span><span class="o">=</span><span class="n">SOCK_RAW</span><span class="p">,</span> <span class="n">protocol</span><span class="o">=</span><span class="n">CAN_RAW</span><span class="p">)</span>
 </pre></div>
@@ -153,7 +261,7 @@ Here the underlying vendor specific classes and the specific parameters are docu
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2019, CERN, BE-ICS (Michael Ludwig).
-      Last updated on 04-Mar-2020 14:45:17.
+      Last updated on 16-Mar-2020 16:55:15.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
     </div>
   </body>
