@@ -42,14 +42,19 @@ namespace CanModule
 	class CanBusAccess {
 
 	public:
-		CanBusAccess() : m_Component(), m_ScanManagers() {};
+		//CanBusAccess() : m_Component(), m_ScanManagers() {};
+		CanBusAccess() : m_Component() {};
 		CCanAccess * openCanBus(string name, string parameters);
 		void closeCanBus(CCanAccess *cca);
 
 	private:
-		bool isCanPortOpen(string pn) { return (m_ScanManagers.find(pn) != m_ScanManagers.end()); }
+
+		// todo: OPCUA-1913
+	//	bool isCanPortOpen(string pn) { return (m_ScanManagers.find(pn) != m_ScanManagers.end()); }
 		map<string, CanLibLoader *> m_Component;
-		map<string, CCanAccess *> m_ScanManagers;
+
+	//	map<string, CCanAccess *> m_ScanManagers;	// todo: OPCUA-1913
+
 	};
 }
 #endif // CANBUSACCESS_H

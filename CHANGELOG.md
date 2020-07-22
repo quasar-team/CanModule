@@ -2,8 +2,14 @@
 All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## 2.0.0.0
+- OPCUA-1913: isCanPortOpen() suppressed as it is dead code, including the map m_ScanManagers
+  The connection/reconnection behavior per port is under review anyway
+- OPCUA-1581 (anagate gigh speed flag suppressed): merged branch
+- OPCUA-1735 (peak connect to deterministic module): merged branch
+- ENS26903: (default termination for anagate HIGH): merged branch
 
-
+   
 ## 1.1.10.0
 - OPCUA-1735 for peak bridges
 - OPCUA-1735: that is a fat one, fixing peak non-deterministic port numbering.
