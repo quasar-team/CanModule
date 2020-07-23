@@ -17,6 +17,8 @@ CanModule reference documentation
    building
    running
    reconnection
+   multithreading
+   multitasking
    support
 
 
