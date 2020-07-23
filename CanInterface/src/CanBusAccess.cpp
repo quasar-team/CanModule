@@ -46,10 +46,13 @@ CCanAccess* CanBusAccess::openCanBus(string name, string parameters)
 	CanLibLoader *dlcan = 0;
 	string nameComponent;
 
+	// remove dead code
+#if 0
 	it = m_ScanManagers.find(name);
 	if (!(it == m_ScanManagers.end())) {
 		return (*it).second;
 	}
+#endif
 
 	nameComponent = name.substr(0, name.find_first_of(':'));
 	itcomponent = m_Component.find(nameComponent);
