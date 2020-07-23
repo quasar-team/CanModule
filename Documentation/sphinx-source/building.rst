@@ -144,3 +144,25 @@ No reduced dependencies libs are available at this point.
 .. _socketcan: https://gitlab.cern.ch/mludwig/CAN_libsocketcan
 
 
+QA and documentation
+====================
+
+Local gitlab runners are used for the ics-fd-qa and documentation integration into the CI/CD. Therefore the `githubCanModule`_
+repo is mirrored into `gitlabCanModule`_ and the .gitlab-ci.yml is executed on gitlab for the two stages only: 
+
+- ics-fd-qa 
+- documentation. 
+
+No libraries or binaries are built, since anyway CanModule is cross-platform and cannot be built entirely on gitlab 
+runners. A jenkins instance at `jenkins`_ is used instead.
+
+
+.. _githubCanmodule: https://github.com/quasar-team/CanModule.git
+.. _gitlabCanModule: https://gitlab.cern.ch/mludwig/canmodule-mirror.git
+.. _jenkins:  https://ics-fd-cpp-master.web.cern.ch/view/CAN
+
+The QA results are available at `sonarqube`_ under ics-fd-qa-CanModule-mirror
+
+.. _sonarqube: https://cvl.sonarqube.cern.ch
+
+
