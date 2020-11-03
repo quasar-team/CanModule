@@ -1,0 +1,220 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Reconnection &#8212; CanModule 1.1.9.7 documentation</title>
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Support" href="support.html" />
+    <link rel="prev" title="Running" href="running.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="support.html" title="Support"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="running.html" title="Running"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">CanModule 1.1.9.7 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="reconnection">
+<h1>Reconnection<a class="headerlink" href="#reconnection" title="Permalink to this headline">¶</a></h1>
+<p>CanModule tries to recuperate lost connections automatically, but presently there is no method
+to interrogate CanModule on the status of it’s connected modules. This might be added later, though.
+There are up to four ways how to loose a connection, depending on the vendor and type of the module:</p>
+<ol class="arabic simple">
+<li>power loss</li>
+<li>network or USB loss/interruption</li>
+<li>firmware or “full” module reset through API</li>
+<li>software close/open CAN bus WITHOUT reloading the library.</li>
+</ol>
+<p>in short: please avoid (4) and reload the library if possible.</p>
+<div class="section" id="anagate">
+<h2>anagate<a class="headerlink" href="#anagate" title="Permalink to this headline">¶</a></h2>
+<p>The anagate modules are easily and uniquely identified by their IP address, also several modules
+per CanModule instance are straightforward. The firmware reset (3) is NOT implemented in the CanModule,
+but a module can be remotely accessed and firmware reset using the vendor API, through code like:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">AnaInt32</span> <span class="n">timeout</span> <span class="o">=</span> <span class="mi">12000</span><span class="p">;</span> <span class="c1">// 12secs</span>
+<span class="n">AnaInt32</span> <span class="n">anaRet</span> <span class="o">=</span> <span class="n">CANRestart</span><span class="p">(</span> <span class="s">&quot;192.168.1.10&quot;</span><span class="p">,</span> <span class="n">timeout</span> <span class="p">);</span>
+</pre></div>
+</div>
+<p>In the cases (1),(2) CanModule detects a failure to send a message on a port, and tries to reconnect
+all ports of that module. Sending messages are buffered for ~20secs, and the reconnection
+takes at least ~20sec, so it takes ~1 minute to reestablish communication. All received CAN frames
+are lost, and not all sent frames are guaranteed, therefore some care has to be taken when the
+connection is reestablished concerning the statuses of CAN slaves. CanModule reports reconnections
+as warnings, but there is no systematic CanModule-API yet to handle reconnections
+systematically (is it needed?).</p>
+<p>The anagate duo reconnects somewhat faster than the X4/X8 modules, because of firmware differences.
+The whole reconnection can take up to 60 secs until all buffers are cleared, so please be patient.</p>
+<p>The case (4), software close/open, leads to a deallocation of the connection object, followed by a newly
+created connection. These objects are recorded in a (anagate-global) connection map. The library
+load object (see standard API) can also be deallocated and recreated, but it may also be reused.
+Although the library does not need to be reloaded, strictly speaking, it is recommended to reload it
+before a (re-)connect:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span>        <span class="n">libloader</span> <span class="o">=</span> <span class="n">CanModule</span><span class="o">::</span><span class="n">CanLibLoader</span><span class="o">::</span><span class="n">createInstance</span><span class="p">(</span> <span class="s">&quot;an&quot;</span> <span class="p">);</span>
+<span class="n">cca</span> <span class="o">=</span> <span class="n">libloader</span><span class="o">-&gt;</span><span class="n">openCanBus</span><span class="p">(</span> <span class="s">&quot;an:can0:xxx.xxx.xxx.xxx&quot;</span><span class="p">,</span> <span class="s">&quot;125000 0 0 0 0&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>WARNING: the Anagate modules tend to firmware-crash if too many CAN bus software close/open are
+executed too quickly, making a full power-cycle of the module necessary. A delay of 7 seconds
+between a close and a (re-)open per module is therefore imposed by CanModule to avoid
+“firmware-crashing” of the anagate module. This crash occurs independently from the connection
+timeout.</p>
+<p>A bigger delay is recommended if it can be afforded: lab-tests show a 7sec delay still crashes
+after 30 consecutive reconnects. These crashes can also be related to networking problems but
+they are difficult to fix.</p>
+</div>
+<div class="section" id="peak">
+<h2>peak<a class="headerlink" href="#peak" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="linux-cc7">
+<h3>linux/cc7<a class="headerlink" href="#linux-cc7" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>power loss is recuperated correctly: the module is receiving power through the USB port,</li>
+</ul>
+<p>if this connection is lost we need to reconnect. Reconnection works for both normal (fixed)
+and flexible datarate (FD) modules under linux, as socketcan is used.
+- Reconnection takes less than 30sec.
+- A software close/open is fully supported and works under cc7 without limitations.</p>
+</div>
+<div class="section" id="windows">
+<h3>windows<a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>power loss is recuperated correctly, but only normal datarate (fixed) are supported</li>
+<li>the sw close/open will typically work several times, and CanModule tries to</li>
+</ul>
+<p>recuperate from a failed initialisation of the USB 10 times. Between successive attempts on a
+given port a delay of several seconds is needed. This is not great, maybe further progress
+can be made later.</p>
+</div>
+</div>
+<div class="section" id="systec">
+<h2>systec<a class="headerlink" href="#systec" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id1">
+<h3>linux/cc7<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>A power loss or a connection loss will trigger a reconnection. For linux, where socketcan is used,</li>
+</ul>
+<p>this works in the same way as for peak. Connections are managed in a global map.
+- A software close/open is fully supported and works under cc7 and also windows without limitations.
+If the sequence is too fast (for the environment..) some messages will be lost, but the
+module recuperates correctly in the following.</p>
+</div>
+<div class="section" id="id2">
+<h3>windows<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>the hardware reconnection is NOT WORKING, and it is not clear if it can actually</li>
+</ul>
+<p>be achieved within CanModule. It seems that a library reload is needed to make the module work again.
+This feature is therefore DROPPED for now, since also no strong user request for “systec reconnection
+under windows” is presently stated. I tried, using the systec <a class="reference external" href="mailto:API&#37;&#52;&#48;windows">API<span>&#64;</span>windows</a> as documented, but did not manage.</p>
+<ul class="simple">
+<li>the software close/open works correctly, some messages can be lost.</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="index.html">Table of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="downloading.html">Downloading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="objective.html">Objective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="standardApi.html">Standard API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vendors/systec.html">SysTec</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vendors/anagate.html">AnaGate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vendors/peak.html">Peak</a></li>
+<li class="toctree-l1"><a class="reference internal" href="logging.html">Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building.html">Building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="running.html">Running</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Reconnection</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#anagate">anagate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#peak">peak</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#linux-cc7">linux/cc7</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#windows">windows</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#systec">systec</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">linux/cc7</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">windows</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="support.html">Support</a></li>
+</ul>
+
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/reconnection.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="support.html" title="Support"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="running.html" title="Running"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">CanModule 1.1.9.7 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, CERN, BE-ICS (Michael Ludwig).
+      Last updated on 07-Aug-2020 08:37:24.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
+    </div>
+  </body>
+</html>

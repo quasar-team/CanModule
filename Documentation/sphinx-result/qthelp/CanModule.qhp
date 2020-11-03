@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<QtHelpProject version="1.0">
+    <namespace>be-ics-fd-canmodule</namespace>
+    <virtualFolder>doc</virtualFolder>
+    <customFilter name="CanModule 1.1.9.7">
+        <filterAttribute>CanModule</filterAttribute>
+        <filterAttribute>1.1.9.7</filterAttribute>
+    </customFilter>
+    <filterSection>
+        <filterAttribute>CanModule</filterAttribute>
+        <filterAttribute>1.1.9.7</filterAttribute>
+        <toc>
+            <section title="CanModule 1.1.9.7 documentation" ref="index.html">
+                <section title="Downloading" ref="downloading.html">
+                    <section title="The sources" ref="downloading.html#the-sources"/>
+                    <section title="The binaries" ref="downloading.html#the-binaries"/>
+                </section>
+                <section title="Quickstart" ref="quickstart.html"/>
+                <section title="Objective" ref="objective.html">
+                    <section title="Supported OS" ref="objective.html#supported-os"/>
+                    <section title="compatible vendors" ref="objective.html#compatible-vendors"/>
+                    <section title="Integration into projects" ref="objective.html#integration-into-projects"/>
+                </section>
+                <section title="Standard API" ref="standardApi.html">
+                    <section title="CAN ports" ref="standardApi.html#can-ports"/>
+                </section>
+                <section title="SysTec" ref="vendors/systec.html">
+                    <section title="The connection" ref="vendors/systec.html#the-connection">
+                        <section title="windows" ref="vendors/systec.html#windows"/>
+                        <section title="linux" ref="vendors/systec.html#linux"/>
+                    </section>
+                    <section title="standard CanModule API example" ref="vendors/systec.html#standard-canmodule-api-example"/>
+                </section>
+                <section title="AnaGate" ref="vendors/anagate.html">
+                    <section title="The connection" ref="vendors/anagate.html#the-connection"/>
+                    <section title="standard CanModule API example" ref="vendors/anagate.html#standard-canmodule-api-example"/>
+                </section>
+                <section title="Peak" ref="vendors/peak.html">
+                    <section title="The connection" ref="vendors/peak.html#the-connection">
+                        <section title="windows" ref="vendors/peak.html#windows"/>
+                        <section title="linux" ref="vendors/peak.html#linux"/>
+                    </section>
+                    <section title="standard CanModule API example" ref="vendors/peak.html#standard-canmodule-api-example"/>
+                </section>
+                <section title="Logging" ref="logging.html"/>
+                <section title="Building" ref="building.html">
+                    <section title="shared (default) and static linking/loading" ref="building.html#shared-default-and-static-linking-loading"/>
+                </section>
+                <section title="Running" ref="running.html">
+                    <section title="general dependencies" ref="running.html#general-dependencies"/>
+                    <section title="Anagate" ref="running.html#anagate"/>
+                    <section title="Systec" ref="running.html#systec"/>
+                    <section title="Peak" ref="running.html#peak"/>
+                </section>
+                <section title="Reconnection" ref="reconnection.html">
+                    <section title="anagate" ref="reconnection.html#anagate"/>
+                    <section title="peak" ref="reconnection.html#peak">
+                        <section title="linux/cc7" ref="reconnection.html#linux-cc7"/>
+                        <section title="windows" ref="reconnection.html#windows"/>
+                    </section>
+                    <section title="systec" ref="reconnection.html#systec">
+                        <section title="linux/cc7" ref="reconnection.html#id1"/>
+                        <section title="windows" ref="reconnection.html#id2"/>
+                    </section>
+                </section>
+                <section title="Support" ref="support.html"/>
+            </section>
+        </toc>
+        <keywords>
+
+        </keywords>
+        <files>
+            <file>building.html</file>
+            <file>downloading.html</file>
+            <file>genindex.html</file>
+            <file>index.html</file>
+            <file>logging.html</file>
+            <file>objective.html</file>
+            <file>quickstart.html</file>
+            <file>reconnection.html</file>
+            <file>running.html</file>
+            <file>standardApi.html</file>
+            <file>support.html</file>
+            <file>vendors/anagate.html</file>
+            <file>vendors/peak.html</file>
+            <file>vendors/systec.html</file>
+            <file>_static/ajax-loader.gif</file>
+            <file>_static/alert_info_32.png</file>
+            <file>_static/alert_warning_32.png</file>
+            <file>_static/basic.css</file>
+            <file>_static/bg-page.png</file>
+            <file>_static/bullet_orange.png</file>
+            <file>_static/comment-bright.png</file>
+            <file>_static/comment-close.png</file>
+            <file>_static/comment.png</file>
+            <file>_static/down-pressed.png</file>
+            <file>_static/down.png</file>
+            <file>_static/file.png</file>
+            <file>_static/haiku.css</file>
+            <file>_static/minus.png</file>
+            <file>_static/plus.png</file>
+            <file>_static/pygments.css</file>
+            <file>_static/up-pressed.png</file>
+            <file>_static/up.png</file>
+        </files>
+    </filterSection>
+</QtHelpProject>
