@@ -4,29 +4,28 @@ Downloading
  
 The sources
 -----------
-CanModule can be cloned from github, and are integrated in a cmake build chain:
+CanModule can be cloned from github, and is integrated in a cmake build chain:
 
-the latest stable release (preferred):
-git clone **-b latestStable** https://github.com/quasar-team/CanModule.git
+git clone https://github.com/quasar-team/CanModule.git
 
-or 
-
-a specific version:
-git clone **-b 1.1.0** https://github.com/quasar-team/CanModule.git
+or a specific tag
+git clone **-b v2.0** https://github.com/quasar-team/CanModule.git
 
 
-The binaries 
+dependencies
 ------------
-(bin/exe) and libraries (so/dll) for the target platforms 
 
-* CERN CC7 
-* windows 2016 server
-* windows 10
-* and windows 2008r2 (server) LEGACY
+- boost 1.73.0 from `boost`_
 
-are available at `NexusCan`_ from inside CERN.
+- libsocketcan for linux
+git clone `libsocketcan`_ && cmake . && sudo make install 
 
-.. _NexusCan: https://repository.cern.ch/nexus/content/repositories/cern-can/
+anagate lib
+systec driver
+peak driver
+
+.. _libsocketcan: https://gitlab.cern.ch/mludwig/CAN_libsocketcan.git
+.. _boost: https://www.boost.org/
 
 
 

@@ -42,7 +42,7 @@ public:
 	/*
 	 * Required overrides of abstract base class CCanAccess
 	 */
-	virtual bool createBus(const string name, const string parameters);
+	virtual int createBus(const string name, const string parameters);
 	virtual bool sendRemoteRequest(short cobID);
     virtual bool sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr = false);
 	virtual void getStatistics( CanModule::CanStatistics & result );
@@ -50,12 +50,21 @@ public:
 
 	static std::string getCanMessageDataAsString(const unsigned char* data, const unsigned char& len = 8);
 
+	virtual void setReconnectBehavior( CanModule::ReconnectAutoCondition cond, CanModule::ReconnectAction action ){}
+	virtual void setReconnectReceptionTimeout( unsigned int timeout ){ 	m_timeoutOnReception = timeout;	};
+	virtual void setReconnectFailedSendCount( unsigned int c ){ m_failedSendCounter = m_triggerCounter = c;	}
+	virtual CanModule::ReconnectAutoCondition getReconnectCondition() { return m_reconnectCondition; };
+	virtual CanModule::ReconnectAction getReconnectAction() { return m_reconnectAction; };
+	virtual uint32_t getPortStatus(){ return 0xbebecaca; };
+
 private:
 	//Instance of Can Statistics
 	CanModule::CanStatistics m_statistics;
 
 	//Current baud rate
 	unsigned int m_baudRate;
+
+	static int st_CCanAccess_icount;
 };
 
 #endif //MOCKCANACCESS_H_

@@ -29,13 +29,14 @@
 
 namespace CanModule 
 {
-class CanLibLoader
-	{
-	protected:
+
+class CanLibLoader 	{
+
+protected:
 	//Empty constructor
 	CanLibLoader(const std::string& libName);
 
-	public:
+public:
 	//Will cleanup the loaded dynamic library
 	virtual ~CanLibLoader();
 	SHARED_LIB_EXPORT_DEFN static CanLibLoader* createInstance(const std::string& libName);
@@ -46,14 +47,18 @@ class CanLibLoader
 	// LogIt handle
 	Log::LogComponentHandle lh;
 
+	void setLibName( std::string ln ){ m_libName = ln; }
+	std::string getLibName(){ return (m_libName);}
 
-	protected:
+
+protected:
 	//Load a dynamic library.
 	virtual void dynamicallyLoadLib(const std::string& libName) = 0;
 	//Uses the loaded library to create a HAL object and store it in p_halInstance
 	virtual CCanAccess* createCanAccess() = 0;
 
-	private:
+private:
+	std::string m_libName;
 
-	};
+};
 }

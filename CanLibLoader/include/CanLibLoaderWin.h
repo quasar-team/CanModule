@@ -35,6 +35,7 @@ namespace CanModule
 	public:
 		// system error reporter
 		void ErrorExit(LPTSTR lpszFunction);
+
 		//Empty constructor
 		CanLibLoaderWin(const std::string& libName);
 		//Will cleanup the loaded dynamic library
@@ -47,5 +48,6 @@ namespace CanModule
 	private:
 		//Pointer to the dynamic library stored on the memory
 		HMODULE m_pDynamicLibrary; 
-	};
+
+};
 }

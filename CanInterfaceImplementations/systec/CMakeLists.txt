@@ -63,12 +63,12 @@ set(STCAN_SOURCES
 	../../CanInterface/include/CanModuleUtils.h	
 )
 
-if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
+#if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
 	add_library( stcan SHARED ${STCAN_SOURCES} $<TARGET_OBJECTS:LogIt>)
-else()
-	add_library( stcan SHARED ${STCAN_SOURCES} )
-	target_link_libraries( stcan ${LOGIT_LIB} )
-endif()
+#else()
+#	add_library( stcan SHARED ${STCAN_SOURCES} )
+#	target_link_libraries( stcan ${LOGIT_LIB} )
+#endif()
 
 message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] systec [BOOST_PATH_LIBS:${BOOST_PATH_LIBS}]" )
 message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] systec [BOOST_HEADERS:${BOOST_HEADERS}]" )

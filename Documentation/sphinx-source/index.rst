@@ -13,10 +13,15 @@ CanModule reference documentation
    vendors/systec
    vendors/anagate
    vendors/peak
+   statusbp
+   reconnection   
+   reconnectionmatrix
+   multitasking
+   specialistNotes
    logging
    building
    running
-   reconnection
+   testing
    support
 
 
@@ -28,5 +33,6 @@ alphabetical index
 
 .. * :ref:`search`
 .. * :ref:`modindex`
+
 
 

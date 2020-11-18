@@ -37,7 +37,8 @@ namespace CanModule
 		m_transmitted(0),
 		m_received(0),
 		m_transmittedOctets(0),
-		m_receivedOctets(0)
+		m_receivedOctets(0),
+		m_portStatus(0)
 	{}
 
 	void CanStatistics::beginNewRun()
@@ -47,6 +48,27 @@ namespace CanModule
 		m_received = 0;
 		m_transmittedOctets = 0;
 		m_receivedOctets = 0;
+	}
+
+	/**
+	 * encode a port status from the various informations of the CAN system
+	 *
+	 * the whole netlink structs are available. We can code anything as long as
+	 * it is usefully making sense for all vendors. see void CSockCanScan::updateBusStatus(){
+	 * but lets just copy the _state for now, which is a simple enum:
+	 *
+	 * enum can_state {
+	 * 	CAN_STATE_ERROR_ACTIVE = 0,	 RX/TX error count < 96
+	 * 	CAN_STATE_ERROR_WARNING,	 RX/TX error count < 128
+	 * 	CAN_STATE_ERROR_PASSIVE,	 RX/TX error count < 256
+	 * 	CAN_STATE_BUS_OFF,		 RX/TX error count >= 256
+	 * 	CAN_STATE_STOPPED,		 Device is stopped
+	 * 	CAN_STATE_SLEEPING,		 Device is sleeping
+	 * 	CAN_STATE_MAX
+	 * 	};
+	 */
+	void CanStatistics::encodeCanModuleStatus(){
+		m_portStatus = m_internals.m_state;
 	}
 
 	void CanStatistics::computeDerived(unsigned int baudRate)
@@ -81,6 +103,11 @@ namespace CanModule
 		m_totalReceived++;
 		m_received++;
 		m_receivedOctets += 2 + 1 + dataLength + 2; /* ID, DLC, USER DATA, CRC */
+#ifdef _WIN32
+		GetSystemTime(&m_dreceived);
+#else
+		gettimeofday( &m_dreceived, &m_tz);
+#endif
 	}
 
 	void CanStatistics::operator=(const CanStatistics & other)
@@ -92,5 +119,12 @@ namespace CanModule
 		this->m_transmittedOctets = other.m_transmittedOctets.load();
 		this->m_receivedOctets = other.m_receivedOctets.load();
 		this->m_internals = other.m_internals;
+
+		this->m_dreceived = other.m_dreceived;
+		this->m_dtransmitted = other.m_dtransmitted;
+		this->m_dopen = other.m_dopen;
+		this->m_now = other.m_now;
+
+		this->m_portStatus = other.m_portStatus;
 	}
 }

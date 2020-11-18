@@ -51,14 +51,19 @@ PKCanScan::PKCanScan():
 				m_busStatus(0),
 				m_baudRate(0),
 				m_idCanScanThread(0),
-				m_CanScanThreadRunEnableFlag(false)
+				m_CanScanThreadRunEnableFlag(false),
+				m_logItHandlePk(0),
+				m_pkCanHandle(0)
 {
+	m_statistics.setTimeSinceOpened();
 	m_statistics.beginNewRun();
+	m_triggerCounter = m_failedSendCounter;
 }
 
 PKCanScan::~PKCanScan()
 {
 	stopBus();
+	MLOGPK(DBG,this) << "PL Can Scan component closed successfully";
 }
 
 /**
@@ -68,7 +73,7 @@ void PKCanScan::stopBus ()
 {
 	m_CanScanThreadRunEnableFlag = false;
 	MLOGPK(TRC, this) << " try finishing thread...calling CAN_Uninitialize";
-	TPCANStatus tpcanStatus = CAN_Uninitialize(m_canObjHandler);
+	TPCANStatus tpcanStatus = CAN_Uninitialize(m_pkCanHandle);
 	MLOGPK(TRC, this) << "CAN_Uninitialize returns " << (int) tpcanStatus;
 
 	{
@@ -90,22 +95,30 @@ void PKCanScan::stopBus ()
 
 
 /**
+ * PCANBasic.h:113
+ */
+uint32_t PKCanScan::getPortStatus(){
+	TPCANStatus stat = CAN_GetStatus( m_pkCanHandle );
+	return( stat | CANMODULE_STATUS_BP_PEAK );
+}
+
+
+/**
  * thread to supervise port activity
  */
 DWORD WINAPI PKCanScan::CanScanControlThread(LPVOID pCanScan)
 {
 	PKCanScan *pkCanScanPointer = reinterpret_cast<PKCanScan *>(pCanScan);
-	TPCANHandle tpcanHandler = pkCanScanPointer->m_canObjHandler;
+	TPCANHandle tpcanHandler = pkCanScanPointer->m_pkCanHandle;
 	MLOGPK(DBG,pkCanScanPointer) << "CanScanControlThread Started. m_CanScanThreadShutdownFlag = [" << pkCanScanPointer->m_CanScanThreadRunEnableFlag <<"]";
 	pkCanScanPointer->m_CanScanThreadRunEnableFlag = true;
 	while ( pkCanScanPointer->m_CanScanThreadRunEnableFlag ) {
 		TPCANMsg tpcanMessage;
 		TPCANTimestamp tpcanTimestamp;
 		TPCANStatus tpcanStatus = CAN_Read(tpcanHandler,&tpcanMessage,&tpcanTimestamp);
-		if (tpcanStatus == PCAN_ERROR_OK) {
+		if ( tpcanStatus == PCAN_ERROR_OK ) {
 			CanMsgStruct canMessage;
-			for(int i=0; i < 8; i++)
-			{
+			for(int i=0; i < 8; i++) {
 				canMessage.c_data[i] = tpcanMessage.DATA[i];
 			}
 			canMessage.c_dlc = tpcanMessage.LEN;
@@ -122,10 +135,41 @@ DWORD WINAPI PKCanScan::CanScanControlThread(LPVOID pCanScan)
 			canMessage.c_time.tv_sec = long(mmsec / 1000000UL);
 			pkCanScanPointer->canMessageCame(canMessage);
 			pkCanScanPointer->m_statistics.onReceive( canMessage.c_dlc );
+			pkCanScanPointer->m_statistics.setTimeSinceReceived();
+
+			// we can reset the reconnectionTimeout here, since we have received a message
+			pkCanScanPointer->resetTimeoutOnReception();
 		} else {
 			if (tpcanStatus & PCAN_ERROR_QRCVEMPTY) {
+				// timeout
+				/**
+				 * lets check the timeoutOnReception reconnect condition. If it is true, all we can do is to
+				 * close/open the port again since the underlying hardware is hidden by socketcan abstraction.
+				 * Like his we do not have to pollute the "sendMessage" like for anagate, and that is cleaner.
+				 */
+				CanModule::ReconnectAutoCondition rcond = pkCanScanPointer->getReconnectCondition();
+				CanModule::ReconnectAction ract = pkCanScanPointer->getReconnectAction();
+				if ( rcond == CanModule::ReconnectAutoCondition::timeoutOnReception && pkCanScanPointer->hasTimeoutOnReception()) {
+					if ( ract == CanModule::ReconnectAction::singleBus ){
+						MLOGPK(INF, pkCanScanPointer) << " reconnect condition " << (int) rcond
+								<< pkCanScanPointer->reconnectConditionString(rcond)
+								<< " triggered action " << (int) ract
+								<< pkCanScanPointer->reconnectActionString(ract);
+						pkCanScanPointer->resetTimeoutOnReception();  // renew timeout while reconnect is in progress
+
+						// deinit single bus and reopen. We do not have a openCanPort() method
+						CAN_Initialize( tpcanHandler, pkCanScanPointer->m_baudRate );
+						MLOGPK(TRC, pkCanScanPointer) << "reconnect one CAN port  m_UcanHandle= " << pkCanScanPointer->m_pkCanHandle;
+					} else {
+						MLOGPK(INF, pkCanScanPointer) << "reconnect action " << (int) ract
+								<< pkCanScanPointer->reconnectActionString(ract)
+								<< " is not implemented for peak";
+					}
+				}  // reconnect condition
 				continue;
 			}
+
+			// default behaviour: reopen the port
 			pkCanScanPointer->sendErrorCode(tpcanStatus);
 			if (tpcanStatus | PCAN_ERROR_ANYBUSERR) {
 				CAN_Initialize(tpcanHandler,pkCanScanPointer->m_baudRate);
@@ -156,7 +200,7 @@ DWORD WINAPI PKCanScan::CanScanControlThread(LPVOID pCanScan)
  *
  * @return was the initialisation process successful?
  */
-bool PKCanScan::createBus(const string name ,const string parameters )
+int PKCanScan::createBus(const string name ,const string parameters )
 {
 	m_busName = name;
 	m_busParameters = parameters;
@@ -172,7 +216,6 @@ bool PKCanScan::createBus(const string name ,const string parameters )
 
 	MLOGPK(DBG, this) << " name= " << name << " parameters= " << parameters << ", configuring CAN board";
 
-	m_sBusName = name; // maybe this can be cleaned up: we have m_busName already
 	if ( !configureCanboard(name,parameters) ) {
 		MLOGPK( ERR, this ) << " name= " << name << " parameters= " << parameters << ", failed to configure CAN board";
 		return false;
@@ -196,7 +239,7 @@ bool PKCanScan::createBus(const string name ,const string parameters )
 		MLOGPK(TRC, this) << "Re-using main thread m_idCanScanThread= " << m_idCanScanThread;
 	}	else {
 		MLOGPK(TRC, this) << "creating  main thread m_idCanScanThread= " << m_idCanScanThread;
-		CAN_FilterMessages(m_canObjHandler,0,0x7FF,PCAN_MESSAGE_STANDARD);
+		CAN_FilterMessages(m_pkCanHandle,0,0x7FF,PCAN_MESSAGE_STANDARD);
 		m_hCanScanThread = CreateThread(NULL, 0, CanScanControlThread, this, 0, &m_idCanScanThread);
 		if ( NULL == m_hCanScanThread ) {
 			DebugBreak();
@@ -236,9 +279,9 @@ bool PKCanScan::configureCanboard(const string name,const string parameters)
 
 	string interface = "USB";
 	string humanReadableCode = interface + channel.str();
-	m_canObjHandler = getHandle( humanReadableCode.c_str() );
+	m_pkCanHandle = getHandle( humanReadableCode.c_str() );
 	MLOGPK( DBG, this ) << "PEAK handle for vectorString[1]= " << vectorString[1]
-	      << " is code= 0x" <<hex <<  m_canObjHandler << dec
+	      << " is code= 0x" <<hex <<  m_pkCanHandle << dec
 		  << " human readable code= " << humanReadableCode << std::endl;
 
 
@@ -246,7 +289,7 @@ bool PKCanScan::configureCanboard(const string name,const string parameters)
 	{
 		//numPar = sscanf_s(canpars, "%d %d %d %d %d %d", &parametersBaudRate, &parametersTseg1, &parametersTseg2, &parametersSjw, &parametersNoSamp, &parametersSyncmode);
 		//Get the can object handler
-		m_canObjHandler = getHandle( humanReadableCode.c_str() /* vectorString[1].c_str() */ );
+		m_pkCanHandle = getHandle( humanReadableCode.c_str() /* vectorString[1].c_str() */ );
 		//Process the baudRate if needed
 		if (m_CanParameters.m_iNumberOfDetectedParameters == 1)
 		{
@@ -307,7 +350,7 @@ bool PKCanScan::configureCanboard(const string name,const string parameters)
 	TPCANStatus tpcanStatus = 99;
 	int counter = 10;
 	while ( tpcanStatus != 0 && counter > 0 ){
-		tpcanStatus = CAN_Initialize(m_canObjHandler, m_baudRate );
+		tpcanStatus = CAN_Initialize(m_pkCanHandle, m_baudRate );
 		MLOGPK(TRC, this) << "CAN_Initialize returns " << (int) tpcanStatus << " counter= " << counter;
 		if ( tpcanStatus == 0 ) {
 			MLOGPK(TRC, this) << "CAN_Initialize returns " << (int) tpcanStatus << " OK";
@@ -315,7 +358,7 @@ bool PKCanScan::configureCanboard(const string name,const string parameters)
 		}
 		Sleep( 1000 ); // 1000 ms
 		MLOGPK(TRC, this) << "try again... calling Can_Uninitialize " ;
-		tpcanStatus = CAN_Uninitialize( m_canObjHandler );
+		tpcanStatus = CAN_Uninitialize( m_pkCanHandle );
 		Sleep( 1000 ); // 1000 ms
 		counter--;
 	}
@@ -345,7 +388,7 @@ bool PKCanScan::sendErrorCode(long status)
 	}
 	if (status != PCAN_ERROR_OK)
 	{
-		status = CAN_Reset(m_canObjHandler);
+		status = CAN_Reset(m_pkCanHandle);
 		return false;
 	}
 	return true;
@@ -381,8 +424,55 @@ bool PKCanScan::sendMessage(short cobID, unsigned char len, unsigned char *messa
 		tpcanMessage.LEN = lengthToBeSent;
 
 		memcpy(tpcanMessage.DATA,message,lengthToBeSent);
-		tpcanStatus = CAN_Write(m_canObjHandler, &tpcanMessage);
+		tpcanStatus = CAN_Write(m_pkCanHandle, &tpcanMessage);
 		if (tpcanStatus != PCAN_ERROR_OK) {
+
+			// here we should see if we need to reconnect
+			switch( m_reconnectCondition ){
+			case CanModule::ReconnectAutoCondition::sendFail: {
+				MLOGPK(WRN, this) << " detected a sendFail, triggerCounter= " << m_triggerCounter
+						<< " failedSendCounter= " << m_failedSendCounter;
+				m_triggerCounter--;
+				break;
+			}
+			case CanModule::ReconnectAutoCondition::never:
+			default:{
+				m_triggerCounter = m_failedSendCounter;
+				break;
+			}
+			}
+
+			switch ( m_reconnectAction ){
+			case CanModule::ReconnectAction::allBusesOnBridge: {
+				if ( m_triggerCounter <= 0 ){
+					MLOGPK(INF, this) << " reconnect condition " << (int) m_reconnectCondition
+							<< reconnectConditionString(m_reconnectCondition)
+							<< " triggered action " << (int) m_reconnectAction
+							<< reconnectActionString(m_reconnectAction)
+							<< " not yet implemented";
+					m_triggerCounter = m_failedSendCounter;
+				}
+				break;
+			}
+			case CanModule::ReconnectAction::singleBus: {
+				MLOGPK(INF, this) << " reconnect condition " << (int) m_reconnectCondition
+						<< reconnectConditionString(m_reconnectCondition)
+						<< " triggered action " << (int) m_reconnectAction
+						<< reconnectActionString(m_reconnectAction);
+				if ( m_triggerCounter <= 0 ){
+					stopBus();
+					createBus(m_busName, m_busParameters );
+					MLOGPK(TRC, this) << "reconnect one CAN port  m_pkCanHandle= " << m_pkCanHandle;
+					m_triggerCounter = m_failedSendCounter;
+				}
+				break;
+			}
+			default: {
+				break;
+			}
+			}
+
+
 			return sendErrorCode(tpcanStatus);
 		}
 		m_statistics.onTransmit( tpcanMessage.LEN );
@@ -397,7 +487,7 @@ bool PKCanScan::sendRemoteRequest(short cobID)
 	TPCANMsg    tpcanMessage;
 	tpcanMessage.ID = cobID;
 	tpcanMessage.MSGTYPE = PCAN_MESSAGE_RTR;
-	TPCANStatus tpcanStatus = CAN_Write(m_canObjHandler, &tpcanMessage);
+	TPCANStatus tpcanStatus = CAN_Write(m_pkCanHandle, &tpcanMessage);
 	return sendErrorCode(tpcanStatus);
 }
 

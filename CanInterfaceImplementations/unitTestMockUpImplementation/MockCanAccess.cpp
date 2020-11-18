@@ -30,7 +30,9 @@ extern "C" DLLEXPORTFLAG CanModule::CCanAccess *getCanBusAccess()
 MockCanAccess::MockCanAccess()
 :CanModule::CCanAccess(),m_baudRate(0)
 {
+	m_statistics.setTimeSinceOpened();
 	m_statistics.beginNewRun();
+	m_triggerCounter = m_failedSendCounter;
 }
 
 MockCanAccess::~MockCanAccess()
@@ -38,11 +40,12 @@ MockCanAccess::~MockCanAccess()
 	LOG(Log::DBG) << "Destroying MockCanAccess object";
 }
 
-bool MockCanAccess::createBus(const string name, const string parameters)
+int MockCanAccess::createBus(const string name, const string parameters)
 {	
 	LOG(Log::INF) << __FUNCTION__ << " called with name [" << name << "] parameters [" << parameters << "]";
-	return true;
+	return 1;
 }
+
 
 bool MockCanAccess::sendRemoteRequest(short cobID)
 {

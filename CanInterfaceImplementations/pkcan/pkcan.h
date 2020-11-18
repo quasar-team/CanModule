@@ -1,8 +1,21 @@
-/**
+/** © Copyright CERN, 2015. All rights not expressly granted are reserved.
  * pkcan.h
  *
  *  Created on: JUL 2, 2012
  *      Author: vfilimon, mludwig
+ *  This file is part of Quasar.
+ *
+ *  Quasar is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Lesser General Public Licence as published by
+ *  the Free Software Foundation, either version 3 of the Licence.
+ *
+ *  Quasar is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Lesser General Public Licence for more details.
+ *
+ *  You should have received a copy of the GNU Lesser General Public License
+ *  along with Quasar.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #ifndef CCANPKSCAN_H_
@@ -25,15 +38,13 @@ using namespace CanModule;
 class PKCanScan: public CanModule::CCanAccess
 {
 public:
-	//Constructor of the class. Will initiate the statistics.
 	PKCanScan();
-	//Disables copy constructor
-	PKCanScan(PKCanScan const & other) = delete;
-	//Disables asignation
-	PKCanScan& operator=(PKCanScan const & other) = delete;
-	//Destructor of the class
+	PKCanScan(PKCanScan const & other) = delete; //Disables copy constructor
+	PKCanScan& operator=(PKCanScan const & other) = delete;//Disables assignment
 	virtual ~PKCanScan();
-	virtual bool createBus(const string name,const string parameters);
+
+	virtual int createBus(const string name,const string parameters);
+
 	/*
 	 * Method that sends a message trough the can bus channel. If the method createBus was not called before this, sendMessage will fail, as there is no
 	 * can bus channel to send a message trough.
@@ -53,6 +64,7 @@ public:
 	virtual bool sendRemoteRequest(short cobID);
 	//Returns the instance of the CanStatistics object
 	virtual void getStatistics( CanStatistics & result );
+	virtual uint32_t getPortStatus();
 
 	/*
 	 * Converts Error code into a text message.
@@ -61,6 +73,14 @@ public:
 
 	static std::map<string, string> m_busMap; // {name, parameters}
 	Log::LogComponentHandle logItHandle(){ return m_logItHandlePk; }
+	virtual void setReconnectBehavior( CanModule::ReconnectAutoCondition cond, CanModule::ReconnectAction action ){
+		m_reconnectCondition = cond;
+		m_reconnectAction = action;
+	};
+	virtual void setReconnectReceptionTimeout( unsigned int timeout ){ 	m_timeoutOnReception = timeout;	};
+	virtual void setReconnectFailedSendCount( unsigned int c ){ m_failedSendCounter = m_triggerCounter = c;	}
+	virtual CanModule::ReconnectAutoCondition getReconnectCondition() { return m_reconnectCondition; };
+	virtual CanModule::ReconnectAction getReconnectAction() { return m_reconnectAction; };
 
 private:
 
@@ -71,22 +91,21 @@ private:
 	// The main control thread function for the CAN update scan manager.
 	static DWORD WINAPI CanScanControlThread(LPVOID pCanScan);
 
-	//Instance of Can Statistics
+
 	CanStatistics m_statistics;
 	TPCANStatus m_busStatus;
 	bool m_CanScanThreadRunEnableFlag;
-	//Current baud rate
+
 	unsigned int m_baudRate;
 	string m_busName;
 	string m_busParameters;
 
-	//Instance of the can handle
-   	TPCANHandle	m_canObjHandler;
+   	TPCANHandle	m_pkCanHandle;
 	bool configureCanboard(const string name,const string parameters);
 	void stopBus ( void );
 
 	HANDLE      m_hCanScanThread;
-//	HANDLE		m_ReadEvent;
+	//	HANDLE		m_ReadEvent;
 
     // Thread ID for the CAN update scan manager thread.
     DWORD           m_idCanScanThread;

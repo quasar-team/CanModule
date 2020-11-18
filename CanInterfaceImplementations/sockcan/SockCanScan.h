@@ -41,8 +41,6 @@
  */
 using namespace CanModule;
 
-
-
 class CSockCanScan : public CCanAccess
 {
 public:
@@ -53,18 +51,34 @@ public:
 	virtual ~CSockCanScan();
 
 	virtual bool sendRemoteRequest(short cobID);
-	virtual bool createBus(const string name ,string parameters );
+	virtual int createBus(const string name ,string parameters );
 	virtual bool sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr = false);
+	virtual void getStatistics( CanStatistics & result );
+
+	/**
+	 * return socketcan port status as-is, from can_netlink.h
+	 * enum can_state {
+	 * CAN_STATE_ERROR_ACTIVE = 0,	 RX/TX error count < 96
+	 * CAN_STATE_ERROR_WARNING,	 RX/TX error count < 128
+	 * CAN_STATE_ERROR_PASSIVE,	 RX/TX error count < 256
+	 * CAN_STATE_BUS_OFF,		 RX/TX error count >= 256
+	 * CAN_STATE_STOPPED,		 Device is stopped
+	 * CAN_STATE_SLEEPING,		 Device is sleeping
+	 * CAN_STATE_MAX
+	 * };
+	 *
+	 */
+	virtual uint32_t getPortStatus(){
+		CanStatistics stats;
+		getStatistics( stats );
+		return( stats.portStatus() | CANMODULE_STATUS_BP_SOCK );
+	};
+
 
 	/**
 	 * Returns socket handler
 	 */
 	int getHandler() { return m_sock; }
-
-	/**
-	 * Returns the instance of the CanStatistics object
-	 */
-	virtual void getStatistics( CanStatistics & result );
 
 	/**
 	 * produce and empty can frame
@@ -81,6 +95,18 @@ public:
 	static std::map<string, string> m_busMap; // {name, parameters}
 	Log::LogComponentHandle logItHandle() { return m_logItHandleSock; }
 
+	virtual void setReconnectBehavior( CanModule::ReconnectAutoCondition cond, CanModule::ReconnectAction action ){
+		m_reconnectCondition = cond;
+		m_reconnectAction = action;
+	};
+	virtual void setReconnectReceptionTimeout( unsigned int timeout ){ 	m_timeoutOnReception = timeout;	};
+	virtual void setReconnectFailedSendCount( unsigned int c ){
+		m_failedSendCounter = m_triggerCounter = c;
+		std::cout << __FILE__ << " " << __LINE__ << " m_triggerCounter= " << m_triggerCounter << std::endl;
+	}
+	virtual CanModule::ReconnectAutoCondition getReconnectCondition() { return m_reconnectCondition; };
+	virtual CanModule::ReconnectAction getReconnectAction() { return m_reconnectAction; };
+
 private:
 	volatile bool m_CanScanThreadRunEnableFlag; //Flag for running/shutting down the CanScan thread
 
@@ -94,19 +120,26 @@ private:
 
 	Log::LogComponentHandle m_logItHandleSock;
 
-	//Closeup method that will be called from the destructor.
+
+	/**
+	 * Closeup method that will be called from the destructor.
+	 */
 	bool stopBus ();
-	//Report an error when opening a can port
+
+	/**
+	 * Report an error when opening a can port
+	 */
 	void updateInitialError () ;
-	//Transforms an error frame into an error message (string format)
+
+	/**
+	 * Transforms an error frame into an error message (string format)
+	 */
 	static std::string errorFrameToString (const struct can_frame &f);
 
 	void sendErrorMessage(const char  *);
-	//   void sendErrorMessage(const struct can_frame *);
-
 	void clearErrorMessage();
-
 	int configureCanBoard(const string name,const string parameters);
+	void updateBusStatus();
 
 	/** Obtains a SocketCAN socket and opens it.
 	 *  The name of the port and parameters should have been specified by preceding call to configureCanboard()
@@ -115,7 +148,9 @@ private:
 	 */
 	int openCanPort();
 
-	//The main control thread function for the CAN update scan manager.
+	/**
+	 * The main control thread function for the CAN update scan manager.
+	 */
 	static void* CanScanControlThread(void *);
 
 

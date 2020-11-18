@@ -1,4 +1,4 @@
-# #!bin/bash
+#!/bin/bash
 # documentation.sh - make all the doc
 # running in an updated ubuntu image with a decent tex, sphinx and breathe installation
 # we are supposed to run in the Documentation directory
@@ -11,11 +11,10 @@ cd ${DOC_ROOT}/.. && doxygen # run it in the src root
 
 cd ${DOC_ROOT}
 rm -rf ${DOC_ROOT}/doxygen-html
-#mkdir -p ${DOC_ROOT}/doxygen-html
-mv -v ../html ${DOC_ROOT}/doxygen-html
-rm -rf ${DOC_ROOT}/sphinx-source/doxygen-result/xml
-mkdir -p ${DOC_ROOT}/sphinx-source/doxygen-result
-mv -v ../xml ${DOC_ROOT}/sphinx-source/doxygen-result/xml
+mv -v ${DOC_ROOT}/sphinx-source/doxygen-result/html ${DOC_ROOT}/doxygen-html
+
+# doxygen xml should be in ${DOC_ROOT}/sphinx-source/doxygen-result/xml
+ls -l ${DOC_ROOT}/sphinx-source/doxygen-result/xml
 
 
 #

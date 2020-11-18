@@ -64,12 +64,12 @@ set(PEAKCAN_SOURCES
 )
 
 
-if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
+#if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
 	add_library( pkcan SHARED ${PEAKCAN_SOURCES} $<TARGET_OBJECTS:LogIt>)
-else()
-	add_library( pkcan SHARED ${PEAKCAN_SOURCES} )
-	target_link_libraries( pkcan ${LOGIT_LIB} )
-endif()
+#else()
+#	add_library( pkcan SHARED ${PEAKCAN_SOURCES} )
+#	target_link_libraries( pkcan ${LOGIT_LIB} )
+#endif()
 
 target_link_libraries ( pkcan ${BOOST_LIBS} ${PEAK_LIB_FILE} )
 

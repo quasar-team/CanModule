@@ -3,8 +3,8 @@
  * CCanAccess.h
  *
  *  Created on: Apr 4, 2011
- *      Author: vfilimon
- *      maintaining touches: mludwig, quasar team
+ *      original author: vfilimon
+ *      maintaining: mludwig, quasar team
  *
  *  This file is part of Quasar.
  *
@@ -30,7 +30,7 @@
 #else
 #include <sys/time.h>
 #endif
-#include "boost/bind.hpp"
+#include "boost/bind/bind.hpp"
 #include "boost/signals2.hpp"
 #include <string>
 #include "CanMessage.h"
@@ -50,7 +50,63 @@ namespace CanModule
 const std::string LogItComponentName = "CanModule";
 #define MLOG(LEVEL,THIS) LOG(Log::LEVEL) << __FUNCTION__ << " " << CanModule::LogItComponentName << " bus= " << THIS->getBusName() << " "
 
+/**
+ * implementation specific counter (high nibble of status bitpattern)
+ * * 0x1<<28 = sock (linux)
+ */
+#define CANMODULE_STATUS_BP_SOCK (0x1<<28)
+/**
+ * implementation specific counter (high nibble of status bitpattern)
+ * * 0x2<<28 = anagate (linux, windows)
+ */
+#define CANMODULE_STATUS_BP_ANAGATE (0x2<<28)
+/**
+ * implementation specific counter (high nibble of status bitpattern)
+ * * 0x3<<28 = peak (windows)
+ */
+#define CANMODULE_STATUS_BP_PEAK (0x3<<28)
+/**
+ * implementation specific counter (high nibble of status bitpattern)
+ * * 0x4<<28 = systec (windows)
+ */
+#define CANMODULE_STATUS_BP_SYSTEC (0x4<<28)
+
+
+/**
+ * returns a version string which is created at build-time, stemming from the CMakeLists.txt
+ */
 static std::string version(){ return( CanModule_VERSION ); }
+
+/**
+ * if a reconnect condition becomes true, a reconnect action is performed.
+ * @param sendFail (default):
+ * 		the number of allowed fails for a send attempt can be set (default=10).
+ *
+ * @param timeoutOnReception:
+ * 		the number of seconds during which no message was received can be set (default=120sec). If the timeout is exceeded
+ * 		the condition becomes true. For anagate, this condition is only checked before a sending attempt. For all others the condition
+ * 		is checked in the supervisory thread.
+ *
+ * 	@param never:
+ * 		this condition is never true, use it to switch off reconnection behavior. You might need this if you share a bridge between
+ * 		several tasks.
+ */
+SHARED_LIB_EXPORT_DEFN enum class ReconnectAutoCondition { sendFail=0, timeoutOnReception, never };
+
+
+/**
+ * a reconnect action is performed if it is triggered by a reconnect condition of that channel/bus.
+ * @param singleBus (default):
+ * 		only the bus in question (this object) is reconnected, including it's reply handler, using the available implementation and vendor API.
+ *
+ * 	@param 	allBusesOnBridge:
+ * 		all the buses/channels on the bridge where this channel/bus physically belongs to are reconnected. Only available for anagate, where
+ * 		the whole bridge can be reset using it's ip number.
+ *
+ * 	@param hardReset:
+ * 		the whole bridge receives some kind of "hard reset via software", only available for anagate (firmware reboot).
+ */
+SHARED_LIB_EXPORT_DEFN enum class ReconnectAction { singleBus=0, allBusesOnBridge, hardReset };
 
 struct CanParameters {
 	long m_lBaudRate;
@@ -75,7 +131,6 @@ struct CanParameters {
 		} else {
 			m_dontReconfigure = true;
 		}
-
 	}
 };
 
@@ -83,18 +138,24 @@ class CCanAccess
 {
 
 public:
-	//Empty constructor, just get rid of a useless warning
+
 	CCanAccess():
-		s_connectionIndex(0),
-		_lh(0),
-		s_logItRemoteInstance(NULL)
-	{
+		m_reconnectCondition( CanModule::ReconnectAutoCondition::sendFail ),
+		m_reconnectAction( CanModule::ReconnectAction::singleBus ),
+		m_timeoutOnReception( 120 ),
+		m_triggerCounter(0),
+		m_failedSendCounter( 0 ),
+		m_connectionIndex(0),
+		m_lh(0),
+		m_logItRemoteInstance( NULL )
+{
+		resetTimeoutOnReception();
+		resetTimeNow();
 		CanModule::version();
-	};
+};
 
 
-
-	/*
+	/**
 	 * Method that sends a remote request trough the can bus channel. If the method createBus was not called before this, sendMessage will fail, as there is no
 	 * can bus channel to send the request trough. Similar to sendMessage, but it sends an special message reserved for requests.
 	 * @param cobID: Identifier that will be used for the request.
@@ -103,7 +164,7 @@ public:
 	virtual bool sendRemoteRequest(short cobID) = 0;
 
 
-	/*
+	/**
 	 * Method that initialises a can bus channel. The following methods called upon the same object will be using this initialised channel.
 	 *
 	 * @param name: Name of the can bus channel. The specific mapping will change depending on the interface used. For example, accessing channel 0 for the
@@ -111,11 +172,16 @@ public:
 	 * 				anagate interface would be an:192.168.1.2 for the default ip address
 	 * @param parameters: Different parameters used for the initialisation. For using the default parameters just set this to "Unspecified"
 	 * 				anagate: pass the ip number
-	 * @return: Was the initialisation process successful?
+	 *
+	 * @return:
+	 * init OK, bus was created = OK = 0
+	 * init OK, bus was skipped because it exists already = 1
+	 * init failed = -1
 	 */
-	virtual bool createBus(const string name, const string parameters) = 0;
+	virtual int createBus(const string name, const string parameters) = 0;
 
-	/*
+
+	/**
 	 * Method that sends a message through the can bus channel. If the method createBUS was not called before this, sendMessage will fail, as there is no
 	 * can bus channel to send a message through.
 	 * @param cobID: Identifier that will be used for the message.
@@ -132,11 +198,92 @@ public:
 		return sendMessage(short(canm->c_id), canm->c_dlc, canm->c_data, canm->c_rtr);
 	}
 
-
-	//Returns bus name
+	/**
+	 * Returns the can bus name
+	 */
 	std::string& getBusName() { return m_sBusName; }
-	//Changes bus name
 
+	/**
+	 * according to vendor and OS, acquire bus status, and return one uint32_t bitpattern which has
+	 * the same rules for all vendors. In fact the status for vendors is too different to be abstracted
+	 * into a common bitpattern.
+	 *
+	 * the **implementation** occupies the highest nibble, and it is a counter (see CANMODULE_STATUS_BP_SOCK etc)
+	 * * 0x1<<28 = sock (linux)
+	 * * 0x2<<28 = anagate (linux, windows)
+	 * * 0x3<<28 = peak (windows)
+	 * * 0x4<<28 = systec (windows)
+	 * * 0x5<<28....0xf<<28 = unused, for future use
+	 *
+	 * the **specific status** occupies bits b0..b27, and it is a (composed) implementation specific bitpattern
+	 *
+	 * @param sock (linux): [ see can_netlink.h  enum can_state ]
+	 * * b0: 0x1 = CAN_STATE_ERROR_ACTIVE   : RX/TX error count < 96
+	 * * b1: 0x2 = CAN_STATE_ERROR_WARNING  : RX/TX error count < 128
+	 * * b2: 0x4 = CAN_STATE_ERROR_PASSIVE  : RX/TX error count < 256
+	 * * b3: 0x8 = CAN_STATE_BUS_OFF        : RX/TX error count >= 256
+	 * * b4: 0x10 = CAN_STATE_STOPPED       : Device is stopped
+	 * * b5: 0x20 = CAN_STATE_SLEEPING      : Device is sleeping
+	 * * b6...b27 unused
+	 *
+	 * @param anagate (linux, windows): [ see CANDeviceConnectState ]
+	 * CANCanDeviceConnectState , translate from counter (0 does not exists, thank you anagate)
+	 * * 1 = DISCONNECTED   :
+	 * * 2 = CONNECTING :
+	 * * 3 = CONNECTED
+	 * * 4 = DISCONNECTING
+	 * * 5 = NOT_INITIALIZED
+	 * * b3...b27: unused
+	 * * I translate this into a simple bitpattern which is a counter :
+	 * 000 (for OK), 001, 010, 011, 100, 101
+	 *
+	 * @param peak (windows): see PCANBasic.h:113
+	 * * #define PCAN_ERROR_OK                0x00000U  // No error
+	 * * #define PCAN_ERROR_XMTFULL           0x00001U  // Transmit buffer in CAN controller is full
+	 * * #define PCAN_ERROR_OVERRUN           0x00002U  // CAN controller was read too late
+	 * * #define PCAN_ERROR_BUSLIGHT          0x00004U  // Bus error: an error counter reached the 'light' limit
+	 * * #define PCAN_ERROR_BUSHEAVY          0x00008U  // Bus error: an error counter reached the 'heavy' limit
+	 * * #define PCAN_ERROR_BUSWARNING        PCAN_ERROR_BUSHEAVY // Bus error: an error counter reached the 'warning' limit
+	 * * #define PCAN_ERROR_BUSPASSIVE        0x40000U  // Bus error: the CAN controller is error passive
+	 * * #define PCAN_ERROR_BUSOFF            0x00010U  // Bus error: the CAN controller is in bus-off state
+	 * * #define PCAN_ERROR_ANYBUSERR         (PCAN_ERROR_BUSWARNING | PCAN_ERROR_BUSLIGHT | PCAN_ERROR_BUSHEAVY | PCAN_ERROR_BUSOFF | PCAN_ERROR_BUSPASSIVE) // Mask for all bus errors
+	 * * #define PCAN_ERROR_QRCVEMPTY         0x00020U  // Receive queue is empty
+	 * * #define PCAN_ERROR_QOVERRUN          0x00040U  // Receive queue was read too late
+	 * * #define PCAN_ERROR_QXMTFULL          0x00080U  // Transmit queue is full
+	 * * #define PCAN_ERROR_REGTEST           0x00100U  // Test of the CAN controller hardware registers failed (no hardware found)
+	 * * #define PCAN_ERROR_NODRIVER          0x00200U  // Driver not loaded
+	 * * #define PCAN_ERROR_HWINUSE           0x00400U  // Hardware already in use by a Net
+	 * * #define PCAN_ERROR_NETINUSE          0x00800U  // A Client is already connected to the Net
+	 * * #define PCAN_ERROR_ILLHW             0x01400U  // Hardware handle is invalid
+	 * * #define PCAN_ERROR_ILLNET            0x01800U  // Net handle is invalid
+	 * * #define PCAN_ERROR_ILLCLIENT         0x01C00U  // Client handle is invalid
+	 * * #define PCAN_ERROR_ILLHANDLE         (PCAN_ERROR_ILLHW | PCAN_ERROR_ILLNET | PCAN_ERROR_ILLCLIENT)  // Mask for all handle errors
+	 * * #define PCAN_ERROR_RESOURCE          0x02000U  // Resource (FIFO, Client, timeout) cannot be created
+	 * * #define PCAN_ERROR_ILLPARAMTYPE      0x04000U  // Invalid parameter
+	 * * #define PCAN_ERROR_ILLPARAMVAL       0x08000U  // Invalid parameter value
+	 * * #define PCAN_ERROR_UNKNOWN           0x10000U  // Unknown error
+	 * * #define PCAN_ERROR_ILLDATA           0x20000U  // Invalid data, function, or action
+	 * * #define PCAN_ERROR_CAUTION           0x2000000U  // An operation was successfully carried out, however, irregularities were registered
+	 * * #define PCAN_ERROR_INITIALIZE        0x4000000U  // Channel is not initialized [Value was changed from 0x40000 to 0x4000000]
+	 * * #define PCAN_ERROR_ILLOPERATION      0x8000000U  // Invalid operation [Value was changed from 0x80000 to 0x8000000]
+	 *
+	 * @param systec (windows): [ see UcanGetStatus  table19 (for CAN) and table20 (for USB) ]. This is a combination of socketcan bits and usb bits
+	 * * b0: 0x1: tx overrun
+	 * * b1: 0x2: rx overrun
+	 * * b2: 0x4: error limit1 exceeded: warning limit
+	 * * b3: 0x8: error limit2 exceeded: error passive
+	 * * b4: 0x10: can controller is off
+	 * * b5: unused
+	 * * b6: 0x40: rx buffer overrun
+	 * * b7: 0x80: tx buffer overrun
+	 * * b8..b9: unused
+	 * * b10: 0x400: transmit timeout, message dropped
+	 * * b12..b11: unused
+	 * * b13: 0x2000: module/usb got reset because of polling failure per second
+	 * * b14: 0x4000: module/usb got reset because watchdog was not triggered
+	 * * b15...b27: unused
+	 */
+	virtual uint32_t getPortStatus() = 0;
 
 	/*
 	 * Signal that will be called when a can Message arrives into the initialised can bus.
@@ -157,13 +304,13 @@ public:
 	 */
 	boost::signals2::signal<void (const int,const char *,timeval &) > canMessageError;
 
-	//Returns the CanStatistics object.
+	// Returns the CanStatistics object.
 	virtual void getStatistics( CanStatistics & result ) = 0;
 
 	inline bool initialiseLogging(LogItInstance* remoteInstance)
 	{
 		bool ret = Log::initializeDllLogging(remoteInstance);
-		s_logItRemoteInstance = remoteInstance;
+		m_logItRemoteInstance = remoteInstance;
 		return ret;
 	}
 
@@ -173,7 +320,7 @@ public:
 	 */
 	LogItInstance* getLogItInstance()
 	{
-		return( s_logItRemoteInstance );
+		return( m_logItRemoteInstance );
 	}
 
 	/* @ Parse the input parameters
@@ -182,7 +329,7 @@ public:
 	 * @return: the result is saved in internal variable m_sBusName and m_CanParameters
 	 */
 	inline vector<string> parseNameAndParameters(string name, string parameters){
-		LOG(Log::TRC, _lh) << __FUNCTION__ << " name= " << name << " parameters= " << parameters;
+		LOG(Log::TRC, m_lh) << __FUNCTION__ << " name= " << name << " parameters= " << parameters;
 
 		bool isSocketCanLinux = false;
 		std::size_t s = name.find("sock");
@@ -227,30 +374,185 @@ public:
 			m_sBusName = name;
 		}
 
-		LOG(Log::TRC, _lh) << __FUNCTION__ << " m_sBusName= " << m_sBusName;
+		LOG(Log::TRC, m_lh) << __FUNCTION__ << " m_sBusName= " << m_sBusName;
 
 		vector<string> stringVector;
 		istringstream nameSS(name);
 		string temporalString;
 		while (getline(nameSS, temporalString, ':')) {
 			stringVector.push_back(temporalString);
-			LOG(Log::TRC, _lh) << __FUNCTION__ << " stringVector new element= " << temporalString;
+			LOG(Log::TRC, m_lh) << __FUNCTION__ << " stringVector new element= " << temporalString;
 		}
 		m_CanParameters.scanParameters(parameters);
-		LOG(Log::TRC, _lh) << __FUNCTION__ << " stringVector size= " << stringVector.size();
+		LOG(Log::TRC, m_lh) << __FUNCTION__ << " stringVector size= " << stringVector.size();
 		return stringVector;
 	}
 
+	/**
+	 * configuring the reconnection behavior: a condition triggers an action. The implementation is implementation-specific
+	 * because not all vendor APIs permit the same behavior: not all combinations are available for all vendors/implementations.
+	 * The implemented reconnection behavior is standardized nevertheless: "you get what you see". Foe each CanBus you have to choose
+	 * one condition and one action. Condition detection and action execution are then automatic inside CanModule.
+	 *
+	 * @param CanModule::ReconnectAutoCondition cond
+	 * 		* sendFail (default):
+	 * 		  	a reconnection is triggered automatically if a send on the canBus fails. The number of failed sends can be set
+	 *	 		(default is 10). The failed sending must be strictly consecutive, if there is a succeeded sending,
+	 *  	    the internal counting restarts.
+	 *
+	 * 		* timeoutOnReception:
+	 * 			the last time of a successful reception on a given channel can be monitored. If the last reception is
+	 * 			older than 120 sec a reset is triggered automatically. This last successful reception time
+	 * 			is calculated each time a send is invoked. The timeout is specified in seconds, default is 120sec.
+	 *
+	 * 		* never:
+	 * 			this condition is always false and therefore no automatic reconnection action will be triggered. You can still
+	 * 			call the explicit method reconnect( <action> ) but it is up to the client (server) to decide when.
+	 *
+	 * @param CanModule::ReconnectAction action
+	 * 		* singleBus (default):
+	 * 			a single connection (canbus, channel) is reset and reception handler is reconnected.
+	 *
+	 * 		* wholeBridge
+	 * 			if available, the whole bridge is reset, affecting all physical channels on that bridge. Only available for anagate.
+	 * 			If a bridge is shared between multiple tasks, all channels across tasks are reset, affecting all tasks connected to
+	 * 			that bridge. Evidently, a given channel must only be used by at most one task.
+	 *
+	 * 		* hardReset:
+	 * 			the bridge is reset in a "hard" way, i.e. firmware is rebooted (NOT reloaded or overwritten). Only available for anagate:
+	 * 			the firmware of the bridge (ip) is reloaded using a special command of the anagate API which is not available through
+	 * 			the common CanModule API, since it is vendor specific. This is a "hard software reset", and it is not the same as just
+	 * 			power-cycling the module. It takes ~15secs and "is known to work nicely".
+	 */
+#if 0
+	virtual void setReconnectBehavior( CanModule::ReconnectAutoCondition cond, CanModule::ReconnectAction action ){
+		m_reconnectCondition = cond;
+		m_reconnectAction = action;
+	};
+#endif
+	virtual void setReconnectBehavior( CanModule::ReconnectAutoCondition cond, CanModule::ReconnectAction action ) = 0;
+
+	/**
+	 * set the timout interval for message reception, for the reconnection behaviour. Units is seconds, default is 120.
+	 */
+#if 0
+	virtual void setReconnectReceptionTimeout( unsigned int timeout ){ 	m_timeoutOnReception = timeout;	};
+#endif
+	virtual void setReconnectReceptionTimeout( unsigned int timeout ) = 0;
+
+	/**
+	 * set the counter for failed consecutive sending attempts, for reconnection. default is 10.
+	 */
+#if 0
+	virtual void setReconnectFailedSendCount( unsigned int c ){
+		m_failedSendCounter = c;
+		m_triggerCounter = m_failedSendCounter;
+		std::cout << __FILE__ << " " << __LINE__ << " triggerCounter= " << m_triggerCounter << std::endl;
+	}
+#endif
+	virtual void setReconnectFailedSendCount( unsigned int c ) = 0;
+
+
+	/**
+	 * read back the r.condition
+	 */
+#if 0
+	virtual CanModule::ReconnectAutoCondition getReconnectCondition() { return m_reconnectCondition; };
+#endif
+	virtual CanModule::ReconnectAutoCondition getReconnectCondition() = 0;
+
+	/**
+	 * read back the r.action
+	 */
+#if 0
+	virtual CanModule::ReconnectAction getReconnectAction() { return m_reconnectAction; };
+#endif
+	virtual CanModule::ReconnectAction getReconnectAction() = 0;
+
+
+
+
 protected:
+
 	string m_sBusName;
 	CanParameters m_CanParameters;
 
-private:
+	// reconnection
+    CanModule::ReconnectAutoCondition m_reconnectCondition;
+    CanModule::ReconnectAction m_reconnectAction;
+	unsigned int m_timeoutOnReception;
+	int m_triggerCounter;
+	unsigned int m_failedSendCounter;
 
-	boost::signals2::connection s_cconnection;
-	int s_connectionIndex;
-	Log::LogComponentHandle _lh; // s_lh ?!? problem with windows w.t.f.
-	LogItInstance* s_logItRemoteInstance;
+	/**
+	 * just translate the ugly r.condition enum into a user-friendly string for convenience and logging.
+	 */
+	static std::string reconnectConditionString(CanModule::ReconnectAutoCondition c) {
+		switch (c) {
+		case ReconnectAutoCondition::sendFail: return(" sendFail");
+		case ReconnectAutoCondition::timeoutOnReception: return(" timeoutOnReception");
+		case ReconnectAutoCondition::never: return(" never");
+		}
+		return(" unknown condition");
+	}
+
+	/**
+	 * just translate the ugly r.action enum into a user-friendly string for convenience and logging.
+	 */
+	static std::string reconnectActionString(CanModule::ReconnectAction c) {
+		switch (c) {
+		case ReconnectAction::allBusesOnBridge: return(" allBusesOnBridge");
+		case ReconnectAction::singleBus: return(" singleBus");
+		case ReconnectAction::hardReset: return(" hardReset");
+		}
+		return(" unknown action");
+	}
+
+	/**
+	 * compared to the last received message, are we in timeout?
+	 */
+	bool hasTimeoutOnReception() {
+#ifdef _WIN32
+		GetSystemTime(&m_now);
+		double delta = m_now.wSecond- m_dreceived.wSecond ;
+#else
+		gettimeofday( &m_now, &m_tz);
+		double delta = (double) ( m_now.tv_sec - m_dreceived.tv_sec);
+#endif
+		if ( delta > m_timeoutOnReception ) return true;
+		else return false;
+	}
+
+	/**
+	 * reset the internal reconnection timeout counter
+	 */
+	void resetTimeoutOnReception() {
+#ifdef _WIN32
+		GetSystemTime(&m_dreceived);
+#else
+		gettimeofday( &m_dreceived, &m_tz);
+#endif
+	}
+	void resetTimeNow() {
+#ifdef _WIN32
+		GetSystemTime(&m_now);
+#else
+		gettimeofday( &m_now, &m_tz);
+#endif
+	}
+
+private:
+	boost::signals2::connection m_signal_connection;
+	int m_connectionIndex;
+	Log::LogComponentHandle m_lh; // s_lh ?!? problem with windows w.t.f.
+	LogItInstance* m_logItRemoteInstance;
+
+#ifdef _WIN32
+	SYSTEMTIME m_now, m_dreceived, m_dtransmitted, m_dopen;
+#else
+	struct timeval m_now, m_dreceived;
+	struct timezone m_tz;
+#endif
 
 };
 };

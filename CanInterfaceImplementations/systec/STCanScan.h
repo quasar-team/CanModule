@@ -39,17 +39,12 @@ using namespace CanModule;
 class STCanScan: public CanModule::CCanAccess
 {
 public:
-	//Constructor of the class. Will initiate the statistics.
 	STCanScan();
-	//Disables copy constructor
-	STCanScan(STCanScan const & other) = delete;
-	//Disables asignation
-	STCanScan& operator=(STCanScan const & other) = delete;
-	//Destructor of the class
+	STCanScan(STCanScan const & other) = delete; //Disables copy constructor
+	STCanScan& operator=(STCanScan const & other) = delete; //Disables assignment
 	virtual ~STCanScan();
 
-	virtual bool createBus(const string name ,const string parameters);
-
+	virtual int createBus(const string name ,const string parameters);
     virtual bool sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr = false);
 
     /*
@@ -61,26 +56,28 @@ public:
 	virtual bool sendRemoteRequest(short cobID);
 	//Returns the instance of the CanStatistics object
 	virtual void getStatistics( CanStatistics & result );
+	// unified status
+	virtual uint32_t getPortStatus();
 
 	Log::LogComponentHandle logItHandle(){ return m_logItHandleSt; }
+	virtual void setReconnectBehavior( CanModule::ReconnectAutoCondition cond, CanModule::ReconnectAction action ){
+		m_reconnectCondition = cond;
+		m_reconnectAction = action;
+	};
+	virtual void setReconnectReceptionTimeout( unsigned int timeout ){ 	m_timeoutOnReception = timeout;	};
+	virtual void setReconnectFailedSendCount( unsigned int c ){ m_failedSendCounter = m_triggerCounter = c;	}
+	virtual CanModule::ReconnectAutoCondition getReconnectCondition() { return m_reconnectCondition; };
+	virtual CanModule::ReconnectAction getReconnectAction() { return m_reconnectAction; };
 
 private:
 
-	//The number of the can module associated with this instance.
 	int m_moduleNumber;
-	//The number of the can channel associated with this instance.
 	int m_channelNumber;
-	//The number of can handle associated with this instance.
 	int m_canHandleNumber;
-	//Instance of the can handle
 	tUcanHandle m_UcanHandle;
-	//Instance of Can Statistics
 	CanStatistics m_statistics;
-	//Current baud rate
 	unsigned int m_baudRate;
-
 	Log::LogComponentHandle m_logItHandleSt;
-
 	bool sendErrorCode(long);
 
 	DWORD	m_busStatus;
@@ -91,6 +88,7 @@ private:
     DWORD   m_idCanScanThread;
     // The main control thread function for the CAN update scan manager.
 	static DWORD WINAPI CanScanControlThread(LPVOID pCanScan);
+	static tUcanInitCanParam createInitializationParameters( unsigned int br );
 
 	int configureCanBoard(const string name,const string parameters);
 	int openCanPort(tUcanInitCanParam initializationParameters);
@@ -105,6 +103,8 @@ private:
 
 	static tUcanHandle s_canHandleArray[256];
 	static bool s_isCanHandleInUseArray[256];
+
+	static int reconnectAllPorts( tUcanHandle h );
 
 
 };

@@ -36,6 +36,10 @@ include_directories( ${SOCKETCAN_HEADERS} )
 link_directories( ${SOCKETCAN_LIB_PATH} )
 
 set(SOCKCAN_SOURCES
+	ExecCommand.cpp
+	ExecCommand.h
+	UdevAnalyserForPeak.cpp
+	UdevAnalyserForPeak.h
 	SockCanScan.cpp
 	SockCanScan.h
 	../../CanInterface/src/CanStatistics.cpp
@@ -43,22 +47,24 @@ set(SOCKCAN_SOURCES
 )
 # you can either build the fully dynamic libs or the as-static-as-possible, 
 # but not both in one go
-IF ( $ENV{CANMODULE_AS_STATIC_AS_POSSIBLE} )
-	SET ( SOCK_LIB_NAME "sockcan-static" )
-ELSE()
-	SET ( SOCK_LIB_NAME "sockcan" )
-ENDIF()
+#IF ( $ENV{CANMODULE_AS_STATIC_AS_POSSIBLE} )
+#ELSE()
+#ENDIF()
 
-if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
-	add_library( ${SOCK_LIB_NAME} SHARED ${SOCKCAN_SOURCES} $<TARGET_OBJECTS:LogIt>)
-else()
-	add_library( ${SOCK_LIB_NAME} SHARED ${SOCKCAN_SOURCES} )
-endif()
+#if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
+#	add_library( ${SOCK_LIB_NAME} SHARED ${SOCKCAN_SOURCES} $<TARGET_OBJECTS:LogIt>)
+#else()
+#	add_library( ${SOCK_LIB_NAME} SHARED ${SOCKCAN_SOURCES} )
+#endif()
 
 # we profit and also link the linux socketcan static if specified
 IF ( $ENV{CANMODULE_AS_STATIC_AS_POSSIBLE} )
+	SET ( SOCK_LIB_NAME "sockcan-static" )
+	add_library( ${SOCK_LIB_NAME} STATIC ${SOCKCAN_SOURCES} $<TARGET_OBJECTS:LogIt>)
 	target_link_libraries( ${SOCK_LIB_NAME} ${LOGIT_LIB} ${BOOST_LIBS} libsocketcan.a )
 ELSE()
+	SET ( SOCK_LIB_NAME "sockcan" )
+	add_library( ${SOCK_LIB_NAME} SHARED ${SOCKCAN_SOURCES} $<TARGET_OBJECTS:LogIt>)
 	target_link_libraries( ${SOCK_LIB_NAME} ${LOGIT_LIB} ${BOOST_LIBS} -lsocketcan )
 ENDIF()
 

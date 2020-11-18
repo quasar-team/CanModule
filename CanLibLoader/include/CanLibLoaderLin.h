@@ -30,6 +30,7 @@ namespace CanModule
      public:
 	//Empty constructor
 	CanLibLoaderLin(const std::string& libName);
+
 	//Will cleanup the loaded dynamic library
 	virtual ~CanLibLoaderLin();
      protected:
@@ -39,6 +40,7 @@ namespace CanModule
 	virtual CCanAccess*  createCanAccess();
      private:
 	//Pointer to the dynamic library stored on the memory
-	void *p_dynamicLibrary;	
+	void *p_dynamicLibrary;
+
     };
 }

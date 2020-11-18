@@ -11,9 +11,9 @@ This is how to quick start CANX (if you know already what this is):
   
 - run it (on your target platform): CANX-tester -T -cfg ./myconfig.xml
   enjoy the output
+  
+- check out the `readthedocs`_ and the generated doc from gitlab CI
 
- .. _nexus_can: https://repository.cern.ch/nexus/content/repositories/cern-can/
- .. _jenkins_can: https://ics-fd-cpp-master.web.cern.ch/view/CAN/job/CANX-multi.cc7/lastSuccessfulBuild/artifact/
- 
- 
-
+.. _nexus_can: https://repository.cern.ch/nexus/content/repositories/cern-can/
+.. _jenkins_can: https://ics-fd-cpp-master.web.cern.ch/view/CAN/job/CANX-multi.cc7/lastSuccessfulBuild/artifact/
+.. _readthedocs: https://readthedocs.web.cern.ch/display/CANDev/CAN+development?src=sidebar

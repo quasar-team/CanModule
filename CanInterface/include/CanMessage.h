@@ -43,7 +43,7 @@ public:
 			for (int i=0; i<8; i++)
 				c_data[i] = 0;
 		}
-#endif //Be careful when using this strut from C
+#endif //Be careful when using this struct from C
 
 } CanMessage;
 

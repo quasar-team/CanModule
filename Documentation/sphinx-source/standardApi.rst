@@ -19,7 +19,7 @@ Only a few common methods are needed:
 CAN ports
 ---------
 
-CAN ports are specified by the user, and in the strict sense, a port is an integer number 0..N.
+CAN ports are specified by the user with an integer number 0..N.
 Vendors and implementations tend to handle that differently, but CanModule tries to provide a
 standard API across all vendors. The following strings, specified for CAN ports, will connect 
 to can port P:

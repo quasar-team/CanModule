@@ -34,9 +34,6 @@
 bool STCanScan::s_isCanHandleInUseArray[256];
 tUcanHandle STCanScan::s_canHandleArray[256];
 
-///* static */ bool STCanScan::s_logItRegisteredSt = false;
-///* static */ Log::LogComponentHandle STCanScan::s_logItHandleSt = 0;
-
 #define MLOGST(LEVEL,THIS) LOG(Log::LEVEL, THIS->logItHandle()) << __FUNCTION__ << " " << " systec bus= " << THIS->getBusName() << " "
 
 #ifdef _WIN32
@@ -63,11 +60,32 @@ STCanScan::STCanScan():
 				m_moduleNumber(0),
 				m_channelNumber(0),
 				m_canHandleNumber(0),
-				m_busStatus(USBCAN_SUCCESSFUL),
+				m_busStatus( USBCAN_SUCCESSFUL ),
 				m_baudRate(0),
-				m_idCanScanThread(0)
+				m_idCanScanThread(0),
+				m_logItHandleSt(0)
 {
+	m_statistics.setTimeSinceOpened();
 	m_statistics.beginNewRun();
+	m_triggerCounter = m_failedSendCounter;
+}
+/**
+ * We create and fill initializationParameters, to pass it to openCanPort
+ */
+ /* static */ tUcanInitCanParam STCanScan::createInitializationParameters( unsigned int baudRate ){
+	tUcanInitCanParam   initializationParameters;
+	initializationParameters.m_dwSize = sizeof(initializationParameters);           // size of this struct
+	initializationParameters.m_bMode = kUcanModeNormal;              // normal operation mode
+	initializationParameters.m_bBTR0 = HIBYTE( baudRate );              // baudrate
+	initializationParameters.m_bBTR1 = LOBYTE( baudRate );
+	initializationParameters.m_bOCR = 0x1A;                         // standard output
+	initializationParameters.m_dwAMR = USBCAN_AMR_ALL;               // receive all CAN messages
+	initializationParameters.m_dwACR = USBCAN_ACR_ALL;
+	initializationParameters.m_dwBaudrate = USBCAN_BAUDEX_USE_BTR01;
+	initializationParameters.m_wNrOfRxBufferEntries = USBCAN_DEFAULT_BUFFER_ENTRIES;
+	initializationParameters.m_wNrOfTxBufferEntries = USBCAN_DEFAULT_BUFFER_ENTRIES;
+
+	return ( initializationParameters );
 }
 
 
@@ -78,10 +96,11 @@ DWORD WINAPI STCanScan::CanScanControlThread(LPVOID pCanScan)
 {
 	BYTE status;
 	tCanMsgStruct readCanMessage;
-	STCanScan *canScanInstancePointer = reinterpret_cast<STCanScan *>(pCanScan);
-	MLOGST(DBG,canScanInstancePointer) << "CanScanControlThread Started. m_CanScanThreadShutdownFlag = [" << canScanInstancePointer->m_CanScanThreadShutdownFlag <<"]";
-	while (canScanInstancePointer->m_CanScanThreadShutdownFlag) {
-		status = UcanReadCanMsgEx(canScanInstancePointer->m_UcanHandle, (BYTE *)&canScanInstancePointer->m_channelNumber, &readCanMessage, 0);
+	STCanScan *stCanScanPointer = reinterpret_cast<STCanScan *>(pCanScan);
+	MLOGST(DBG,stCanScanPointer) << "CanScanControlThread Started. m_CanScanThreadShutdownFlag = [" << stCanScanPointer->m_CanScanThreadShutdownFlag <<"]";
+	while (stCanScanPointer->m_CanScanThreadShutdownFlag) {
+
+		status = UcanReadCanMsgEx(stCanScanPointer->m_UcanHandle, (BYTE *)&stCanScanPointer->m_channelNumber, &readCanMessage, 0);
 		if (status == USBCAN_SUCCESSFUL) {
 			if (readCanMessage.m_bFF == USBCAN_MSG_FF_RTR)
 				continue;
@@ -94,13 +113,49 @@ DWORD WINAPI STCanScan::CanScanControlThread(LPVOID pCanScan)
 
 			canMsgCopy.c_time = convertTimepointToTimeval(currentTimeTimeval());
 
-			canScanInstancePointer->canMessageCame(canMsgCopy);
-			canScanInstancePointer->m_statistics.onReceive( readCanMessage.m_bDLC );
+			stCanScanPointer->canMessageCame(canMsgCopy);
+			stCanScanPointer->m_statistics.onReceive( readCanMessage.m_bDLC );
+			stCanScanPointer->m_statistics.setTimeSinceReceived();
+
+			// we can reset the reconnectionTimeout here, since we have received a message
+			stCanScanPointer->resetTimeoutOnReception();
 		} else {
 			if (status == USBCAN_WARN_NODATA) {
-				Sleep(100);
+
+				/**
+				 * lets check the timeoutOnReception reconnect condition. If it is true, all we can do is to
+				 * close/open the port again since the underlying hardware is hidden by socketcan abstraction.
+				 * Like his we do not have to pollute the "sendMessage" like for anagate, and that is cleaner.
+				 */
+				CanModule::ReconnectAutoCondition rcond = stCanScanPointer->getReconnectCondition();
+				CanModule::ReconnectAction ract = stCanScanPointer->getReconnectAction();
+				if ( rcond == CanModule::ReconnectAutoCondition::timeoutOnReception && stCanScanPointer->hasTimeoutOnReception()) {
+					if ( ract == CanModule::ReconnectAction::singleBus ){
+						MLOGST(INF, stCanScanPointer) << " reconnect condition " << (int) rcond
+								<< stCanScanPointer->reconnectConditionString(rcond)
+								<< " triggered action " << (int) ract
+								<< stCanScanPointer->reconnectActionString(ract);
+						stCanScanPointer->resetTimeoutOnReception();  // renew timeout while reconnect is in progress
+
+						// deinit single bus and reopen
+						::UcanDeinitCanEx ( stCanScanPointer->m_UcanHandle, (BYTE )stCanScanPointer->m_channelNumber );
+						setCanHandleInUse( stCanScanPointer->m_moduleNumber, false);
+
+						unsigned int br = stCanScanPointer->m_baudRate;
+						int ret = stCanScanPointer->openCanPort( createInitializationParameters( br ) );
+
+						MLOGST(TRC, stCanScanPointer) << "reconnect one CAN port  m_UcanHandle= " << stCanScanPointer->m_UcanHandle;
+					} else {
+						MLOGST(INF, stCanScanPointer) << "reconnect action " << (int) ract
+								<< stCanScanPointer->reconnectActionString(ract)
+								<< " is not implemented for systec";
+					}
+				}  // reconnect condition
+
+				Sleep( 100 ); // ms
+
 			} else {
-				canScanInstancePointer->sendErrorCode(status);
+				stCanScanPointer->sendErrorCode(status);
 			}
 		}
 	}
@@ -111,9 +166,7 @@ DWORD WINAPI STCanScan::CanScanControlThread(LPVOID pCanScan)
 STCanScan::~STCanScan()
 {
 	m_CanScanThreadShutdownFlag = false;
-	//Shut down can scan thread
-	DWORD result = WaitForSingleObject(m_hCanScanThread, INFINITE);
-	// deinitialize CAN interface
+	DWORD result = WaitForSingleObject(m_hCanScanThread, INFINITE); 	//Shut down can scan thread
 	::UcanDeinitCanEx (m_UcanHandle,(BYTE)m_channelNumber);
 	MLOGST(DBG,this) << "ST Can Scan component closed successfully";
 }
@@ -144,7 +197,7 @@ STCanScan::~STCanScan()
  * so can0 should open a SysTec interface 0:0 matching "can0" on the box,
  * can1 should open a SysTec interface 0:1 matching "can1" on the box, etc.
  */
-bool STCanScan::createBus(const string name,const string parameters)
+int STCanScan::createBus(const string name,const string parameters)
 {	
 	LogItInstance* logItInstance = CCanAccess::getLogItInstance(); // actually calling instance method, not class
 
@@ -205,26 +258,11 @@ int STCanScan::configureCanBoard(const string name,const string parameters)
 			MLOGST(ERR, this) << "parsing parameters: this syntax is incorrect: [" << parameters << "]";
 			return -1;
 		}
-		m_baudRate = baudRate;
 	} else 	{
-		m_baudRate = baudRate;
 		MLOGST(DBG, this) << "Unspecified parameters, default values will be used.";
 	}
-
-	// We create and fill initializationParameters, to pass it to openCanPort
-	tUcanInitCanParam   initializationParameters;
-	initializationParameters.m_dwSize = sizeof(initializationParameters);           // size of this struct
-	initializationParameters.m_bMode = kUcanModeNormal;              // normal operation mode
-	initializationParameters.m_bBTR0 = HIBYTE(baudRate);              // baudrate
-	initializationParameters.m_bBTR1 = LOBYTE(baudRate);
-	initializationParameters.m_bOCR = 0x1A;                         // standard output
-	initializationParameters.m_dwAMR = USBCAN_AMR_ALL;               // receive all CAN messages
-	initializationParameters.m_dwACR = USBCAN_ACR_ALL;
-	initializationParameters.m_dwBaudrate = USBCAN_BAUDEX_USE_BTR01;
-	initializationParameters.m_wNrOfRxBufferEntries = USBCAN_DEFAULT_BUFFER_ENTRIES;
-	initializationParameters.m_wNrOfTxBufferEntries = USBCAN_DEFAULT_BUFFER_ENTRIES;
-
-	return openCanPort(initializationParameters);
+	m_baudRate = baudRate;
+	return openCanPort( createInitializationParameters( m_baudRate ) );
 }
 
 /**
@@ -236,40 +274,59 @@ int STCanScan::configureCanBoard(const string name,const string parameters)
 int STCanScan::openCanPort(tUcanInitCanParam initializationParameters)
 {
 	BYTE systecCallReturn = USBCAN_SUCCESSFUL;
-	//The Handle of the can Module
 	tUcanHandle		canModuleHandle;
 
 	// check if USB-CANmodul already is initialized
-	if (isCanHandleInUse(m_moduleNumber))
-	{
-		//if it is, we get the handle
-		canModuleHandle = getCanHandle(m_moduleNumber);
-	}
-	else
-	{
+	if (isCanHandleInUse(m_moduleNumber)) {
+		canModuleHandle = getCanHandle(m_moduleNumber); //if it is, we get the handle
+	} else {
 		//Otherwise we create it.
 		systecCallReturn = ::UcanInitHardwareEx(&canModuleHandle, m_moduleNumber, 0, 0);
-		if (systecCallReturn != USBCAN_SUCCESSFUL)
-		{
-			// fill out initialisation struct
-			MLOGST(ERR,this) << "UcanInitHardwareEx, return code = [" << systecCallReturn << "]";
+		if (systecCallReturn != USBCAN_SUCCESSFUL ) 	{
+			MLOGST(ERR,this) << "UcanInitHardwareEx, return code = " << systecCallReturn;
 			::UcanDeinitHardware(canModuleHandle);
 			return -1;
 		}
 	}
 
 	setCanHandleInUse(m_moduleNumber,true);
-	// initialize CAN interface
 	systecCallReturn = ::UcanInitCanEx2(canModuleHandle, m_channelNumber, &initializationParameters);
-	if (systecCallReturn != USBCAN_SUCCESSFUL)
-	{
+	if ( systecCallReturn != USBCAN_SUCCESSFUL )	{
 		MLOGST(ERR,this) << "UcanInitCanEx2, return code = [" << systecCallReturn << "]";
 		::UcanDeinitCanEx(canModuleHandle, m_channelNumber);
 		return -1;
 	}
 	setCanHandle(m_moduleNumber, canModuleHandle);
 	m_UcanHandle = canModuleHandle;
+	m_statistics.setTimeSinceOpened();
 	return 0;
+}
+
+/**
+ * get CAN port and USB status, code it into an int > 200 (for windows@systec).
+ * use the API directly
+ * table19 says for CAN status:
+ * 0x0: no error
+ * 0x1: tx overrun
+ * 0x2: rx overrun
+ * 0x4: error limit1 exceeded: warning limit
+ * 0x8: error limit2 exceeded: error passive
+ * 0x10: can controller is off
+ * 0x40: rx buffer overrun
+ * 0x80: tx buffer overrun
+ * 0x400: transmit timeout, message dropped
+ *
+ * table20 says for USB status:
+ * 0x2000: module/usb got reset because of polling failure per second
+ * 0x4000: module/usb got reset because watchdog was not triggered
+ *
+ */
+uint32_t STCanScan::getPortStatus(){
+	uint32_t stat2 = 0;
+	tStatusStruct stat;
+	::UcanGetStatus( m_UcanHandle, &stat );
+	stat2 = stat.m_wCanStatus + stat.m_wUsbStatus;
+	return( stat2 | CANMODULE_STATUS_BP_SYSTEC );
 }
 
 bool STCanScan::sendErrorCode(long status)
@@ -285,6 +342,30 @@ bool STCanScan::sendErrorCode(long status)
 		m_busStatus = status;
 	}
 	return true;
+}
+
+/**
+ * hard reset the bridge and reconnect all ports and handlers
+ */
+/* static */ int STCanScan::reconnectAllPorts( tUcanHandle h ){
+	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " hard reset not yet implemented, but can be done";
+#if 0
+	/// have to call these two API methods
+	BYTE ret0 = ::UcanDeinitHardware ( m_UcanHandle );
+	if ( ret0 != USBCAN_SUCCESSFUL) {
+	}
+
+	BYTE ret1 = ::UcanInitHardwareEx(&m_UcanHandle, m_moduleNumber, 0, 0);
+	if ( ret1 != USBCAN_SUCCESSFUL) {
+	}
+
+	/**
+	 * and now reconnect all ports, but n order to do that we need to keep thrack of them globally.
+	 * That is a risky thing to do under windows, and takes some careful programming.
+	 * Since I am not sure this is really needed at this point I skip it for now.
+	 */
+#endif
+	return(0);
 }
 
 /**
@@ -308,18 +389,16 @@ bool STCanScan::sendMessage(short cobID, unsigned char len, unsigned char *messa
 	canMsgToBeSent.m_dwID = cobID;
 	canMsgToBeSent.m_bDLC = len;
 	canMsgToBeSent.m_bFF = 0;
-	if (rtr)
-	{
+	if (rtr) {
 		canMsgToBeSent.m_bFF = USBCAN_MSG_FF_RTR;
 	}
 	int  messageLengthToBeProcessed;
-	if (len > 8)//If there is more than 8 characters to process, we process 8 of them in this iteration of the loop
-	{
+	//If there is more than 8 characters to process, we process 8 of them in this iteration of the loop
+	if (len > 8) {
 		messageLengthToBeProcessed = 8;
 		MLOGST(DBG, this) << "The length is more then 8 bytes, adjust to 8, ignore >8. len= " << len;
-	}
-	else  //Otherwise if there is less than 8 characters to process, we process all of them in this iteration of the loop
-	{
+	} else {
+		//Otherwise if there is less than 8 characters to process, we process all of them in this iteration of the loop
 		messageLengthToBeProcessed = len;
 		if (len < 8) {
 			MLOGST(DBG, this) << "The length is less then 8 bytes, process only. len= " << len;
@@ -329,13 +408,55 @@ bool STCanScan::sendMessage(short cobID, unsigned char len, unsigned char *messa
 	memcpy(canMsgToBeSent.m_bData, message, messageLengthToBeProcessed);
 	//	MLOG(TRC,this) << "Channel Number: [" << m_channelNumber << "], cobID: [" << canMsgToBeSent.m_dwID << "], Message Length: [" << static_cast<int>(canMsgToBeSent.m_bDLC) << "]";
 	Status = UcanWriteCanMsgEx(m_UcanHandle, m_channelNumber, &canMsgToBeSent, NULL);
-	if (Status != USBCAN_SUCCESSFUL)
-	{
+	if ( Status != USBCAN_SUCCESSFUL ) {
 		MLOGST(ERR,this) << "There was a problem when sending a message.";
-	}
-	else
-	{
+
+		switch( m_reconnectCondition ){
+		case CanModule::ReconnectAutoCondition::sendFail: {
+			MLOGST(WRN, this) << " detected a sendFail, triggerCounter= " << m_triggerCounter
+					<< " failedSendCounter= " << m_failedSendCounter;
+			m_triggerCounter--;
+			break;
+		}
+		case CanModule::ReconnectAutoCondition::never:
+		default:{
+			m_triggerCounter = m_failedSendCounter;
+			break;
+		}
+		}
+
+		switch ( m_reconnectAction ){
+		case CanModule::ReconnectAction::allBusesOnBridge: {
+			if ( m_triggerCounter <= 0 ){
+				MLOGST(INF, this) << " reconnect condition " << (int) m_reconnectCondition
+						<< reconnectConditionString(m_reconnectCondition)
+						<< " triggered action " << (int) m_reconnectAction
+						<< reconnectActionString(m_reconnectAction);
+
+				STCanScan::reconnectAllPorts( m_UcanHandle );
+				m_triggerCounter = m_failedSendCounter;
+			}
+			break;
+		}
+		case CanModule::ReconnectAction::singleBus: {
+			MLOGST(INF, this) << " reconnect condition " << (int) m_reconnectCondition
+					<< reconnectConditionString(m_reconnectCondition)
+					<< " triggered action " << (int) m_reconnectAction
+					<< reconnectActionString(m_reconnectAction);
+			if ( m_triggerCounter <= 0 ){
+				openCanPort( createInitializationParameters( m_baudRate ));
+				MLOGST(TRC, this) << "reconnect one CAN port  m_UcanHandle= " << m_UcanHandle;
+				m_triggerCounter = m_failedSendCounter;
+			}
+			break;
+		}
+		default: {
+			break;
+		}
+		}
+	} else {
 		m_statistics.onTransmit( canMsgToBeSent.m_bDLC );
+		m_statistics.setTimeSinceTransmitted();
 	}
 	return sendErrorCode(Status);
 }
