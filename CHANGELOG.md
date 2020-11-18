@@ -2,6 +2,42 @@
 All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## 2.0.0rc
+- https://its.cern.ch/jira/browse/OPCUA-2014
+  according to vendor and OS, acquire bus status, and return one uint32_t bitpattern which has
+  the same rules for all vendors. In fact the status for vendors is too different to be abstracted
+  into a common bitpattern.
+- https://its.cern.ch/jira/browse/OPCUA-1998
+  LD_LIBRARY_PATH replaced by rpath in the cmake toolchain. Hope it is OK now.
+- https://its.cern.ch/jira/browse/OPCUA-1996
+  vendor libs are at https://gitlab.cern.ch/mludwig/canmodulevendorlibs pls README.md
+- https://its.cern.ch/jira/browse/OPCUA-1913
+  dead code supressed
+- https://its.cern.ch/jira/browse/OPCUA-1905
+  deeper issue fixed, can have more than 4 buses for anagate
+- https://its.cern.ch/jira/browse/OPCUA-1902
+  doc revamped, should be better, still in progress as always
+- https://its.cern.ch/jira/browse/OPCUA-1735
+  PEAK PCAN: fix can port number to certain device
+  solved, making calls to the udev system, using device identifier in each peak module
+  and specifying this as "extended device ID" to the CanModule. 
+- https://its.cern.ch/jira/browse/OPCUA-1581
+  anagate high speed flag gets set automatically, but API is bw compatible
+- https://its.cern.ch/jira/browse/ENS-26903
+  anagate default termination is ON now (was off)
+- https://its.cern.ch/jira/browse/JCOP-763
+  shared modules and reconnection behavior done in v2.0
+- https://its.cern.ch/jira/browse/CANT-40
+  statistics related: canx shows this correctly. 
+
+remaining open for the moment (no time yet, somewhat lower prio)
+- https://its.cern.ch/jira/browse/OPCUA-1691
+- https://its.cern.ch/jira/browse/OPCUA-794
+- https://its.cern.ch/jira/browse/OPCUA-629
+- https://its.cern.ch/jira/browse/CANT-38 
+  have to print the chars as hex to avoid the nonprinting chars at reception (sockcan)
+- https://its.cern.ch/jira/browse/OPCUA-2027
+
 ## 1.1.9.6
 - added toolchain for ubuntu, the obnly differences to cc7 come from the fact that a 
   physical jenkins slave for ubuntu has to be used right now. Nexus delivers into ubuntu1804LTS
