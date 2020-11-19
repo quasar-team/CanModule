@@ -18,7 +18,7 @@
 #  
 #
 cmake_minimum_required(VERSION 3.0)
-project( CanModule LANGUAGES C CXX  VERSION 1.1.9.10  ) # sets PROJECT_VERSION etc etc
+project( CanModule LANGUAGES C CXX  VERSION 2.0.0  ) # sets PROJECT_VERSION etc etc
 message(STATUS " [${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CanModule version= ${PROJECT_VERSION}" )
 file(WRITE CanInterface/include/VERSION.h "// VERSION.h - do not edit\n#define CanModule_VERSION \"${PROJECT_VERSION}\"" )
 
@@ -41,6 +41,8 @@ else()
 		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
 	ENDIF()
 endif()
+
+
 
 function ( locateBoostLibsUsingToolchainFile )
   if(DEFINED CMAKE_TOOLCHAIN_FILE)
@@ -103,6 +105,8 @@ ELSE()
 ENDIF()
 
 SET( SRCS
+		Diagnostic/src/Diag.cpp
+		Diagnostic/include/Diag.h
 		CanLibLoader/src/CanLibLoader.cpp
 		CanLibLoader/include/CanLibLoader.h
 		${CAN_LIBRARY_LOADER_PLATFORM_IMPL}
@@ -111,9 +115,10 @@ SET( SRCS
 		CanInterface/include/CanStatistics.h 
 		CanInterface/src/CanModuleUtils.cpp
 		CanInterface/include/CanModuleUtils.h
-		CanInterface/src/CanBusAccess.cpp
-		CanInterface/include/CanBusAccess.h
+	#	CanInterface/src/CanBusAccess.cpp
+	#	CanInterface/include/CanBusAccess.h
 		CanInterface/include/CanMessage.h
+		CanInterface/src/CCanAccess.cpp
 		CanInterface/include/CCanAccess.h
 		${CAN_LIBRARY_GETTIMEOFDAY}
 		${CAN_LIBRARY_GETTIMEOFDAY_HEADER}		
@@ -122,6 +127,7 @@ SET( SRCS
 include_directories( include )
 include_directories( CanLibLoader/include )
 include_directories( CanInterface/include )
+include_directories( Diagnostic/include )
 
 # switch the CanModuleLibLoader library name, and we want to produce two different CanModule 
 # libs: one which loads ancan-static.so, sockcan-static.so ("as static as possible") etc 
@@ -165,6 +171,15 @@ endif()
  message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] [BOOST_HEADERS:${BOOST_HEADERS}]" )
  message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] [BOOST_LIBS:${BOOST_LIBS}]" )
 
+# add rpath: burn some execution paths into bins for linux
+IF (WIN32)
+ELSE()
+    # use RUNPATH instead of RPATH -Wl,--disable-new-dtags does not work on g++ (GCC) 4.8.5 20150623 (Red Hat 4.8.5-39)
+    SET( CMAKE_SKIP_RPATH TRUE )
+	SET( CANMODULE_RPATHS "-Wl,-rpath,./ -Wl,-rpath,./lib -Wl,-rpath,/usr/local/lib" )
+ENDIF()
+
+target_link_libraries( ${CANMODULE_LIB_NAME} ${CANMODULE_RPATHS} )
 
 # build implementation shared libs (reqd at runtime - loaded dynamically)
 # we have a mock up build without any vendor libs as well, for CI where we don't want to distribute vendor libs
