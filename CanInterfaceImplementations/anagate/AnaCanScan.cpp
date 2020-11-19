@@ -554,7 +554,7 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 	}
 
 	if (anaCallReturn != 0) {
-		MLOGANA(ERR, this) << "There was a problem when sending a message with CANWrite or reconnect condition: 0x"
+		MLOGANA(ERR, this) << "There was a problem when sending a message with CANWrite or a reconnect condition: 0x"
 				<< hex << anaCallReturn << dec
 				<< " ip= " << m_canIPAddress;
 		m_canCloseDevice = false;
@@ -622,6 +622,10 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 		}
 
 		case CanModule::ReconnectAction::hardReset: {
+			// presently it crashes the anagate lib when closing the port. Maybe I am doing something not quite right and it can be fixed,
+			// but for now lets have it disabled.
+			MLOGANA(WRN, this) << "hardReset is not yet implemented";
+#if 0
 			AnaInt32 timeout = 10000; // 10secs
 			MLOGANA(INF, this) << " reconnect condition " << (int) m_reconnectCondition
 					<< reconnectConditionString(m_reconnectCondition)
@@ -654,8 +658,11 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 				anaRet = AnaCanScan::reconnectAllPorts( m_canIPAddress );
 			}
 			showAnaCanScanObjectMap();
+#endif
+			break;
 		}
-		}
+
+		} // switch
 	} else {
 		m_statistics.onTransmit(messageLengthToBeProcessed);
 		m_statistics.setTimeSinceTransmitted();
