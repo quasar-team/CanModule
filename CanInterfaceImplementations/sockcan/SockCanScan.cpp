@@ -612,7 +612,7 @@ bool CSockCanScan::sendMessage(short cobID, unsigned char len, unsigned char *me
 				m_triggerCounter = m_failedSendCounter;
 				MLOGSOCK(TRC, this) << "set internal triggerCounter= " << m_triggerCounter;
 				{
-					MLOGSOCK(WRN,this) << "wite error ENOBUFS: waiting a jiffy [100ms]...";
+					MLOGSOCK(WRN,this) << "write error ENOBUFS: waiting a jiffy [100ms]...";
 					struct timespec tim, tim2;
 					tim.tv_sec = 0;
 					tim.tv_nsec = 100000;
