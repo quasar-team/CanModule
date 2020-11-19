@@ -63,13 +63,13 @@ extern "C" CCanAccess *getCanBusAccess()
 }
 
 CSockCanScan::CSockCanScan() :
-					m_CanScanThreadRunEnableFlag(false),
-					m_sock(0),
-					m_hCanScanThread(0),
-					m_idCanScanThread(0),
-					m_errorCode(-1),
-					m_busName("nobus"),
-					m_logItHandleSock(0)
+							m_CanScanThreadRunEnableFlag(false),
+							m_sock(0),
+							m_hCanScanThread(0),
+							m_idCanScanThread(0),
+							m_errorCode(-1),
+							m_busName("nobus"),
+							m_logItHandleSock(0)
 {
 	m_statistics.setTimeSinceOpened();
 	m_statistics.beginNewRun();
@@ -152,7 +152,7 @@ void* CSockCanScan::CanScanControlThread(void *p_voidSockCanScan)
 		 */
 		if ( selectResult < 0 ){
 			MLOGSOCK(ERR,p_sockCanScan) << "select() failed: " << CanModuleerrnoToString()
-							<< " tid= " << _tid;
+									<< " tid= " << _tid;
 			{
 				struct timespec tim, tim2;
 				tim.tv_sec = 1;
@@ -241,6 +241,9 @@ void* CSockCanScan::CanScanControlThread(void *p_voidSockCanScan)
 						} //else {
 						// MLOGSOCK(INF,p_sockCanScan) << " tid= " << _tid << "Port reopened.";
 						//}
+
+						// the reception handler is still connected to it's signal, by the calling task
+
 					} //else {
 					// MLOGSOCK(INF,p_sockCanScan) << " tid= " << _tid << "Leaving Port closed, not needed any more.";
 					//}
@@ -296,10 +299,11 @@ void* CSockCanScan::CanScanControlThread(void *p_voidSockCanScan)
 			 * this actually should exclude more bits
 			 */
 			canMessage.c_id = socketMessage.can_id & ~CAN_RTR_FLAG;
-			int ioctlReturn2 = ioctl(sock,SIOCGSTAMP,&canMessage.c_time); //TODO: Return code is not even checked
-			MLOGSOCK(TRC, p_sockCanScan) << " SocketCAN ioctl return: [" << ioctlReturn2 << "]" << " tid= " << _tid;
+			int ioctlReturn2 = ioctl(sock,SIOCGSTAMP,&canMessage.c_time);   //TODO: Return code is not even checked, yeah, but...
+			MLOGSOCK(TRC, p_sockCanScan) << " SocketCAN ioctl SIOCGSTAMP return: [" << ioctlReturn2 << "]" << " tid= " << _tid;
 			canMessage.c_dlc = socketMessage.can_dlc;
 			memcpy(&canMessage.c_data[0],&socketMessage.data[0],8);
+			MLOGSOCK(TRC, p_sockCanScan) << " sending message id= " << canMessage.c_id << " through signal with payload";
 			p_sockCanScan->canMessageCame( canMessage ); // signal with payload to trigger registered handler
 			p_sockCanScan->m_statistics.onReceive( socketMessage.can_dlc );
 
@@ -311,8 +315,7 @@ void* CSockCanScan::CanScanControlThread(void *p_voidSockCanScan)
 			 * the select got nothing to read, this was just a timeout.
 			 */
 			MLOGSOCK(DBG,p_sockCanScan) << "listening on " << p_sockCanScan->getBusName()
-							<< " socket= " << p_sockCanScan->m_sock << " (got nothing)"<< " tid= " << _tid;
-
+									<< " socket= " << p_sockCanScan->m_sock << " (got nothing)"<< " tid= " << _tid;
 
 			/**
 			 * lets check the timeoutOnReception reconnect condition. If it is true, all we can do is to
@@ -447,6 +450,7 @@ int CSockCanScan::openCanPort()
 	socketAdress.can_family = AF_CAN;
 	socketAdress.can_ifindex = ifr.ifr_ifindex;
 
+	// server listening on socket
 	if (::bind(m_sock, (struct sockaddr *)&socketAdress, sizeof(socketAdress)) < 0)
 	{
 		MLOGSOCK(ERR,this) << "While bind(): " << CanModuleerrnoToString();
@@ -574,8 +578,8 @@ bool CSockCanScan::sendMessage(short cobID, unsigned char len, unsigned char *me
 			ret = false;
 		}
 		if ( numberOfWrittenBytes < (int)sizeof(struct can_frame)){
-		MLOGSOCK(ERR,this) << "Error: Incorrect number of bytes [" << numberOfWrittenBytes << "] written when sending a message.";
-		ret = false;
+			MLOGSOCK(ERR,this) << "Error: Incorrect number of bytes [" << numberOfWrittenBytes << "] written when sending a message.";
+			ret = false;
 		}
 
 		// check the reconnect condition
@@ -608,7 +612,7 @@ bool CSockCanScan::sendMessage(short cobID, unsigned char len, unsigned char *me
 				m_triggerCounter = m_failedSendCounter;
 				MLOGSOCK(TRC, this) << "set internal triggerCounter= " << m_triggerCounter;
 				{
-					MLOGSOCK(ERR,this) << "wite error ENOBUFS: waiting a jiffy [100ms]...";
+					MLOGSOCK(WRN,this) << "wite error ENOBUFS: waiting a jiffy [100ms]...";
 					struct timespec tim, tim2;
 					tim.tv_sec = 0;
 					tim.tv_nsec = 100000;
@@ -643,15 +647,6 @@ bool CSockCanScan::sendMessage(short cobID, unsigned char len, unsigned char *me
 		m_statistics.setTimeSinceTransmitted();
 		m_triggerCounter = m_failedSendCounter;
 	}
-
-#if 0
-	if (numberOfWrittenBytes < (int)sizeof(struct can_frame)) {
-		std::cerr << "Error: Incorrect number of bytes [" << numberOfWrittenBytes << "] written when sending a message." << std::endl;
-		MLOGSOCK(ERR,this) << "Error: Incorrect number of bytes [" << numberOfWrittenBytes << "] written when sending a message.";
-		return false;
-	}
-#endif
-	// return true;
 	return ( ret );
 }
 
@@ -670,7 +665,7 @@ bool CSockCanScan::sendRemoteRequest(short cobID)
 	canFrame.can_id = cobID + CAN_RTR_FLAG	;
 	canFrame.can_dlc = 0;
 	numberOfWrittenBytes = write(m_sock, &canFrame, sizeof(struct can_frame));
-	do//TODO: dirty solution, find somethin better (Recursive call?)
+	do   //TODO: dirty solution, find somethin better (Recursive call?)
 	{
 		if (numberOfWrittenBytes < 0)
 		{
@@ -678,8 +673,6 @@ bool CSockCanScan::sendRemoteRequest(short cobID)
 			if (errno == ENOBUFS)
 			{
 				MLOGSOCK(ERR,this) << "ENOBUFS; waiting a jiffy [100ms]...";
-				//std::cout << "ENOBUFS; waiting a jiffy ..." << std::endl;
-				// insert deleted systec buffer
 				{
 					struct timespec tim, tim2;
 					tim.tv_sec = 0;
@@ -688,7 +681,6 @@ bool CSockCanScan::sendRemoteRequest(short cobID)
 						MLOGSOCK(ERR,this) << "Waiting 100ms failed (nanosleep)";
 					}
 				}
-				//				usleep(100000);
 				continue;//If this happens we sleep and start from the beggining of the loop
 			}
 		}
