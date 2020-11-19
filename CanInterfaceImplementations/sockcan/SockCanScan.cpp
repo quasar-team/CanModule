@@ -602,6 +602,7 @@ bool CSockCanScan::sendMessage(short cobID, unsigned char len, unsigned char *me
 						<< " triggered action " << (int) m_reconnectAction
 						<< reconnectActionString(m_reconnectAction);
 				close( m_sock );
+				MLOGSOCK(TRC, this) << "calling openCanPort() for " << this->getBusName();
 				int return0 = openCanPort();
 				MLOGSOCK(TRC, this) << "reconnect one CAN port  ret= " << return0;
 				m_triggerCounter = m_failedSendCounter;
