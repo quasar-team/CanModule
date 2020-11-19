@@ -143,8 +143,8 @@ public:
 		m_reconnectCondition( CanModule::ReconnectAutoCondition::sendFail ),
 		m_reconnectAction( CanModule::ReconnectAction::singleBus ),
 		m_timeoutOnReception( 120 ),
-		m_triggerCounter(0),
-		m_failedSendCounter( 0 ),
+		m_triggerCounter( 10 ),
+		m_failedSendCounter( 10 ),
 		m_connectionIndex(0),
 		m_lh(0),
 		m_logItRemoteInstance( NULL )
