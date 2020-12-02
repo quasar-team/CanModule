@@ -24,6 +24,8 @@
 #pragma once
 #include <string>
 #include <map>
+#include <boost/thread/thread.hpp>
+
 #include "CCanAccess.h"
 #include "ExportDefinition.h"
 

@@ -25,23 +25,6 @@ file(WRITE CanInterface/include/VERSION.h "// VERSION.h - do not edit\n#define C
 # specify -DCANMODULE_AS_STATIC_AS_POSSIBLE for cmake to switch the CanLibLoaderLin lib names accordingly
 # so that the "as-static-as-possible" shared libs are used by CanModule
 
-#UNSET( DEBUG )
-#if( DEFINED DEBUG )
-#	message(STATUS "--WARNING-WARNING-WARNING-- generating DEBUG builds no matter what the command line says")
-#	IF (WIN32)
-#		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /DEBUG")
-#	ELSE()
-#		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -fPIC")
-#	ENDIF()
-#else()
-#	message(STATUS "generating Release builds")
-#	IF (WIN32)
-#		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /RELEASE")
-#	ELSE()
-#		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
-#	ENDIF()
-#endif()
-
 IF (WIN32)
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
 ELSE()
