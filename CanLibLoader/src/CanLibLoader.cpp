@@ -104,7 +104,7 @@ CCanAccess* CanLibLoader::openCanBus(string name, string parameters) {
 		}
 		case -1:{
 			LOG(Log::ERR, lh ) << __FUNCTION__ << " createBus Problem opening canBus for: " << name;
-			throw std::runtime_error("CanLibLoader::openCanBus: createBus Problem when opening canBus. stop." );
+			//throw std::runtime_error("CanLibLoader::openCanBus: createBus Problem when opening canBus. stop." );
 			break;
 		}
 		LOG(Log::DBG, lh ) << __FUNCTION__ << " OK: createBus Skipping existing CCanAccess to the map for: " << name;
