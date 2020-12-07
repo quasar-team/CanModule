@@ -89,6 +89,7 @@ CCanAccess* CanLibLoader::openCanBus(string name, string parameters) {
 	int c = -1;
 	while ( c != 0 ){
 		c = tcca->createBus(name, parameters);
+		LOG(Log::DBG, lh ) << __FUNCTION__ << " createBus returns= " << c;
 		switch ( c ){
 		case 0:{
 			LOG(Log::DBG, lh ) << __FUNCTION__ << " OK: createBus Adding new CCanAccess to the map for: " << name;
