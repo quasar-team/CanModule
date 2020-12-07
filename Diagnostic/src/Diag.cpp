@@ -41,10 +41,6 @@ void Diag::insert_maps( CanLibLoader *lib, CCanAccess *acc, std::string params )
 
 	LOG(Log::TRC, lh ) << " c0= " << c0 << " c1= " << c1 << " key= " << key;
 
-	LOG(Log::TRC, lh ) << " lib_map.size()= " << lib_map.size()
-			<< " port_map.size()= " << port_map.size()
-			<< " parameter_map.size()= " << parameter_map.size();
-
 	if ( lib_map.find( key ) != lib_map.end()) {
 		LOG(Log::INF, lh )<< " key= " << key << " exists already, skip lib insert";
 	} else	{
@@ -63,13 +59,9 @@ void Diag::insert_maps( CanLibLoader *lib, CCanAccess *acc, std::string params )
 		std::pair<std::string, std::string> pa2 = std::pair<std::string, std::string>( key, params );
 		parameter_map.insert( pa2 );
 	}
-	LOG(Log::TRC, lh ) << " lib_map.size()= " << lib_map.size()
-			<< " port_map.size()= " << port_map.size()
-			<< " parameter_map.size()= " << parameter_map.size();
 }
 
-vector<Diag::CONNECTION_DIAG_t> Diag::get_connections(){
-	vector<Diag::CONNECTION_DIAG_t> vreturn;
+void Diag::get_connections(vector<Diag::CONNECTION_DIAG_t> &vreturn){
 	for (std::map<std::string, CCanAccess *>::iterator it=port_map.begin(); it!=port_map.end(); ++it){
 		Diag::CONNECTION_DIAG_t c;
 		std::string key = it->first;
@@ -78,7 +70,6 @@ vector<Diag::CONNECTION_DIAG_t> Diag::get_connections(){
 		c.parameter = parameter_map.find( key )->second;
 		vreturn.push_back( c );
 	}
-	return( vreturn );
 };
 
 
