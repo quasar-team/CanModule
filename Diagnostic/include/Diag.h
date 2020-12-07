@@ -48,8 +48,8 @@ public:
 
 	void insert_maps( CanLibLoader *lib, CCanAccess *acc, std::string params );
 	void delete_maps( CanLibLoader *lib, CCanAccess *acc );
-//	vector<Diag::CONNECTION_DIAG_t> get_connections();
-	void get_connections(vector<Diag::CONNECTION_DIAG_t>  &vreturn );
+	vector<Diag::CONNECTION_DIAG_t> get_connections();
+//	void get_connections(vector<Diag::CONNECTION_DIAG_t>  &vreturn );
 
 private:
 	Diag();
