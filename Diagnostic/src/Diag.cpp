@@ -62,7 +62,6 @@ void Diag::insert_maps( CanLibLoader *lib, CCanAccess *acc, std::string params )
 	LOG(Log::TRC, lh )<< __FUNCTION__ << " port_map.size()= " << port_map.size();
 }
 
-//void Diag::get_connections(vector<Diag::CONNECTION_DIAG_t> &vreturn){
 vector<Diag::CONNECTION_DIAG_t> Diag::get_connections(){
 	LOG(Log::TRC, lh )<< __FUNCTION__ << " port_map.size()= " << port_map.size();
 	vector<Diag::CONNECTION_DIAG_t> vreturn;
