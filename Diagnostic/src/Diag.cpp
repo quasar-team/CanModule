@@ -9,9 +9,16 @@
 
 namespace CanModule {
 
-Diag::Diag():
-	CanLibLoader_icount(0),
-	CanAccess_icount(0)
+/* static */ int Diag::CanLibLoader_icount = 0;
+/* static */ int Diag::CanAccess_icount = 0;
+/* static */ Log::LogComponentHandle Diag::lh = 0;
+/* static */ std::map<std::string, CCanAccess *> Diag::port_map;
+/* static */ std::map<std::string, CanLibLoader *> Diag::lib_map;
+/* static */ std::map<std::string, std::string> Diag::parameter_map;
+
+Diag::Diag()
+	//: CanLibLoader_icount(0),
+	//CanAccess_icount(0)
 {
 	LogItInstance *logIt = LogItInstance::getInstance();
 	logIt->getComponentHandle( CanModule::LogItComponentName, lh );
@@ -59,13 +66,13 @@ void Diag::insert_maps( CanLibLoader *lib, CCanAccess *acc, std::string params )
 		std::pair<std::string, std::string> pa2 = std::pair<std::string, std::string>( key, params );
 		parameter_map.insert( pa2 );
 	}
-	LOG(Log::TRC, lh )<< __FUNCTION__ << " port_map.size()= " << port_map.size()
-			<< hex << this << dec;
+	LOG(Log::TRC, lh )<< __FUNCTION__ << " port_map.size()= " << port_map.size();
+
 }
 
 vector<Diag::CONNECTION_DIAG_t> Diag::get_connections(){
-	LOG(Log::TRC, lh )<< __FUNCTION__ << " port_map.size()= " << port_map.size()
-			<< hex << this << dec;
+	LOG(Log::TRC, lh )<< __FUNCTION__ << " port_map.size()= " << port_map.size();
+
 	vector<Diag::CONNECTION_DIAG_t> vreturn;
 	for (std::map<std::string, CCanAccess *>::iterator it=port_map.begin(); it!=port_map.end(); ++it){
 		Diag::CONNECTION_DIAG_t c;

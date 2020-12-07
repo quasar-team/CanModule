@@ -57,7 +57,7 @@ CanLibLoader* CanLibLoader::createInstance(const std::string& libName)	{
 void CanLibLoader::closeCanBus(CCanAccess *cInter) {
 	LOG(Log::DBG, lh ) << __FUNCTION__<< " Canbus name to be deleted: " << cInter->getBusName();
 
-	Diag::instance().delete_maps( this, cInter );
+	Diag::delete_maps( this, cInter );
 
 	delete cInter; // dtor calls stopBus()
 }
@@ -93,7 +93,7 @@ CCanAccess* CanLibLoader::openCanBus(string name, string parameters) {
 		switch ( c ){
 		case 0:{
 			LOG(Log::DBG, lh ) << __FUNCTION__ << " OK: createBus Adding new CCanAccess to the map for: " << name;
-			Diag::instance().insert_maps( this, tcca, parameters );
+			Diag::insert_maps( this, tcca, parameters );
 			return tcca;
 			break;
 		}
