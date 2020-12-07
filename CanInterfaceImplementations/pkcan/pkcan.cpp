@@ -202,7 +202,8 @@ DWORD WINAPI PKCanScan::CanScanControlThread(LPVOID pCanScan)
  * 0 = ok
  * 1 = ok, bus exists already, we skip
  * -1: not ok, problem configuring the board, try again
- * -2: sth else went wrong
+ * -2: could not create the thread
+ * -3: sth else went wrong
  */
 int PKCanScan::createBus(const string name ,const string parameters )
 {
@@ -248,10 +249,12 @@ int PKCanScan::createBus(const string name ,const string parameters )
 		m_hCanScanThread = CreateThread(NULL, 0, CanScanControlThread, this, 0, &m_idCanScanThread);
 		if ( NULL == m_hCanScanThread ) {
 			DebugBreak();
-			return (0);
+			return (-2);
+		} else {
+			return(0);
 		}
 	}
-	return (-2); // sth else went wrong since we did not return >= 0
+	return (-3); // sth else went wrong since we did not return before
 }
 
 
