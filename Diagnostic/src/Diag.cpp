@@ -69,6 +69,7 @@ void Diag::get_connections(vector<Diag::CONNECTION_DIAG_t> &vreturn){
 		c.lib = lib_map.find( key )->second->getLibName();
 		c.parameter = parameter_map.find( key )->second;
 		vreturn.push_back( c );
+		LOG(Log::INF, lh )<< __FUNCTION__ << " added key= " << key;
 	}
 };
 
