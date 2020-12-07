@@ -99,7 +99,7 @@ namespace CanModule
 		//We check for errors while loading the library
 		if ( m_pDynamicLibrary != NULL )  {
 			LOG(Log::DBG, lh) << " loaded the dynamic library: [" << ss.str() << "]";
-			setLibName(libName);
+			setLibName(ss.str());
 		} else {
 			string msg = string(__FUNCTION__) + string("Error: could not load the dynamic library ") + ss.str();
 			LOG(Log::ERR, lh) << msg;

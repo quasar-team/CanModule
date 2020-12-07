@@ -37,7 +37,7 @@ void Diag::delete_maps(CanLibLoader *lib, CCanAccess *acc ){
 void Diag::insert_maps( CanLibLoader *lib, CCanAccess *acc, std::string params ){
 	std::string c0 = lib->getLibName() + "_" + std::to_string( CanLibLoader_icount );
 	std::string c1 = acc->getBusName() + "_" + std::to_string( CanAccess_icount );
-	std::string key = c0 + ":" + c1;
+	std::string key = c0 + "::" + c1;
 
 	LOG(Log::TRC, lh ) << " c0= " << c0 << " c1= " << c1 << " key= " << key;
 
