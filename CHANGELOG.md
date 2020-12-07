@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## 2.0.4
+- added an infinite retry if init open port fails. works very well for anagate
+- took out some debugging leftovers
+
+
 ## 2.0.0rc
 - https://its.cern.ch/jira/browse/OPCUA-2014
   according to vendor and OS, acquire bus status, and return one uint32_t bitpattern which has

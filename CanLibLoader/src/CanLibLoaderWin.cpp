@@ -123,8 +123,7 @@ namespace CanModule
 		LOG(Log::TRC, lh) << __FUNCTION__ << ": Accessing method get getCanBusAccess";
 		f_CCanAccess *canAccess = (f_CCanAccess *)GetProcAddress(m_pDynamicLibrary, "getCanBusAccess");
 
-		std::cout << __FILE__ << " " << __LINE__ << " " << __LINE__ << " CanAccess= 0x" << canAccess << std::endl;
-
+		//std::cout << __FILE__ << " " << __LINE__ << " " << __LINE__ << " CanAccess= 0x" << canAccess << std::endl;
 
 		// We check for errors again. If there is an error the library is released from memory.
 		if (!canAccess) {
