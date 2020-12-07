@@ -104,14 +104,14 @@ CCanAccess* CanLibLoader::openCanBus(string name, string parameters) {
 			break;
 		}
 		case -1:{
-			LOG(Log::ERR, lh ) << __FUNCTION__ << " createBus Problem opening canBus for: " << name;
+			LOG(Log::WRN, lh ) << __FUNCTION__ << " createBus Problem opening canBus for: " << name;
 			//throw std::runtime_error("CanLibLoader::openCanBus: createBus Problem when opening canBus. stop." );
 			break;
 		}
 		LOG(Log::DBG, lh ) << __FUNCTION__ << " OK: createBus Skipping existing CCanAccess to the map for: " << name;
 		} // switch
 
-		LOG(Log::DBG, lh ) << __FUNCTION__ << " try again in a moment: " << name;
+		LOG(Log::WRN, lh ) << __FUNCTION__ << " try again in a moment: " << name;
 		int us = 2000000;
 		boost::this_thread::sleep(boost::posix_time::microseconds( us ));
 	}

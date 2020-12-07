@@ -201,7 +201,8 @@ DWORD WINAPI PKCanScan::CanScanControlThread(LPVOID pCanScan)
  * @return was the initialisation process successful:
  * 0 = ok
  * 1 = ok, bus exists already, we skip
- * -1: not ok, problem, try again
+ * -1: not ok, problem configuring the board, try again
+ * -2: sth else went wrong
  */
 int PKCanScan::createBus(const string name ,const string parameters )
 {
@@ -250,7 +251,7 @@ int PKCanScan::createBus(const string name ,const string parameters )
 			return (0);
 		}
 	}
-	return (-1); // sth else went wrong since we did not return >= 0
+	return (-2); // sth else went wrong since we did not return >= 0
 }
 
 
