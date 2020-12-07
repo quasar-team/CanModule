@@ -198,7 +198,10 @@ DWORD WINAPI PKCanScan::CanScanControlThread(LPVOID pCanScan)
  * 				* p0: bitrate: 50000, 100000, 125000, 250000, 500000, 1000000 bit/s
  *				  i.e. "250000"
  *
- * @return was the initialisation process successful?
+ * @return was the initialisation process successful:
+ * 0 = ok
+ * 1 = ok, bus exists already, we skip
+ * -1: not ok, problem, try again
  */
 int PKCanScan::createBus(const string name ,const string parameters )
 {
@@ -218,7 +221,7 @@ int PKCanScan::createBus(const string name ,const string parameters )
 
 	if ( !configureCanboard(name,parameters) ) {
 		MLOGPK( ERR, this ) << " name= " << name << " parameters= " << parameters << ", failed to configure CAN board";
-		return false;
+		return (-1);
 	}
 
 	bool skipMainThreadCreation = false;
@@ -237,16 +240,17 @@ int PKCanScan::createBus(const string name ,const string parameters )
 	}
 	if ( skipMainThreadCreation ){
 		MLOGPK(TRC, this) << "Re-using main thread m_idCanScanThread= " << m_idCanScanThread;
+		return (1);
 	}	else {
 		MLOGPK(TRC, this) << "creating  main thread m_idCanScanThread= " << m_idCanScanThread;
 		CAN_FilterMessages(m_pkCanHandle,0,0x7FF,PCAN_MESSAGE_STANDARD);
 		m_hCanScanThread = CreateThread(NULL, 0, CanScanControlThread, this, 0, &m_idCanScanThread);
 		if ( NULL == m_hCanScanThread ) {
 			DebugBreak();
-			return false;
+			return (0);
 		}
 	}
-	return true;
+	return (-1); // sth else went wrong since we did not return >= 0
 }
 
 
