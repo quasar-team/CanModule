@@ -59,11 +59,13 @@ void Diag::insert_maps( CanLibLoader *lib, CCanAccess *acc, std::string params )
 		std::pair<std::string, std::string> pa2 = std::pair<std::string, std::string>( key, params );
 		parameter_map.insert( pa2 );
 	}
-	LOG(Log::TRC, lh )<< __FUNCTION__ << " port_map.size()= " << port_map.size();
+	LOG(Log::TRC, lh )<< __FUNCTION__ << " port_map.size()= " << port_map.size()
+			<< hex << this << dec;
 }
 
 vector<Diag::CONNECTION_DIAG_t> Diag::get_connections(){
-	LOG(Log::TRC, lh )<< __FUNCTION__ << " port_map.size()= " << port_map.size();
+	LOG(Log::TRC, lh )<< __FUNCTION__ << " port_map.size()= " << port_map.size()
+			<< hex << this << dec;
 	vector<Diag::CONNECTION_DIAG_t> vreturn;
 	for (std::map<std::string, CCanAccess *>::iterator it=port_map.begin(); it!=port_map.end(); ++it){
 		Diag::CONNECTION_DIAG_t c;
