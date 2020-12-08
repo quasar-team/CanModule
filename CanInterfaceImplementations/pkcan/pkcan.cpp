@@ -63,7 +63,7 @@ PKCanScan::PKCanScan():
 PKCanScan::~PKCanScan()
 {
 	stopBus();
-	MLOGPK(DBG,this) << "PL Can Scan component closed successfully";
+	MLOGPK(DBG,this) << __FUNCTION__ <<" closed successfully";
 }
 
 /**
@@ -82,15 +82,15 @@ void PKCanScan::stopBus ()
 		if (it != PKCanScan::m_busMap.end()) {
 			m_idCanScanThread = 0;
 			PKCanScan::m_busMap.erase ( it );
-			m_busName = "nobus";
 			MLOGPK(TRC,this) << " bus " << m_busName << " erased from map, OK";
+			m_busName = "nobus";
 		} else {
 			MLOGPK(DBG,this) << " bus " << m_busName << " does not exist";
 		}
 		peakReconnectMutex.unlock();
 	}
 	Sleep(2); // and wait a bit for the thread to die
-	MLOGPK(DBG,this) << "stopBus() finished";
+	MLOGPK(DBG,this) << __FUNCTION__ << " finished";
 }
 
 
@@ -177,7 +177,8 @@ DWORD WINAPI PKCanScan::CanScanControlThread(LPVOID pCanScan)
 			}
 		}
 	}
-	MLOGPK(TRC, pkCanScanPointer) << "exiting thread...";
+	MLOGPK(TRC, pkCanScanPointer) << "exiting thread...(in 2 secs)";
+	Sleep(2000);
 	ExitThread(0);
 	return 0;
 }
