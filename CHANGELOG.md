@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 - use library file name ( .so or .dll) as firts part in key: i.e. ancan.dll_0::an:0_0
   means "anagate windows lib instanc0, port0, instance0". The following _X is always the 
   instance count.
+- added method getPortBitrate(), and updated standardApi documentation
 
 
 ## 2.0.0rc
