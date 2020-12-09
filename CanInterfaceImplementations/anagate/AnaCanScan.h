@@ -90,7 +90,7 @@ public:
 	 */
 	uint32_t getPortStatus(){
 		AnaInt32 state = CANDeviceConnectState( m_UcanHandle );
-		return( state & CANMODULE_STATUS_BP_ANAGATE );
+		return( state | CANMODULE_STATUS_BP_ANAGATE );
 	}
 
 	virtual void setReconnectBehavior( CanModule::ReconnectAutoCondition cond, CanModule::ReconnectAction action ){
