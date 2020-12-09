@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="classCanModule_1_1CanStatistics_1_1Internals" kind="class" language="C++" prot="private">
+    <compoundname>CanModule::CanStatistics::Internals</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classCanModule_1_1CanStatistics_1_1Internals_1a344b6c86e9644f8cee1946f08d0d0d2a" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float CanModule::CanStatistics::Internals::m_transmittedPerSec</definition>
+        <argsstring></argsstring>
+        <name>m_transmittedPerSec</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterface/include/CanStatistics.h" line="172" column="7" bodyfile="CanInterface/include/CanStatistics.h" bodystart="172" bodyend="-1"/>
+        <referencedby refid="classCanModule_1_1CanStatistics_1a8ec66bd11141579779f143362b70640e" compoundref="CanStatistics_8cpp" startline="74" endline="92">CanModule::CanStatistics::computeDerived</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classCanModule_1_1CanStatistics_1_1Internals_1ad6a0884d188d724c4d43ae06ed4ecc1a" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float CanModule::CanStatistics::Internals::m_receivedPerSec</definition>
+        <argsstring></argsstring>
+        <name>m_receivedPerSec</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterface/include/CanStatistics.h" line="173" column="7" bodyfile="CanInterface/include/CanStatistics.h" bodystart="173" bodyend="-1"/>
+        <referencedby refid="classCanModule_1_1CanStatistics_1a8ec66bd11141579779f143362b70640e" compoundref="CanStatistics_8cpp" startline="74" endline="92">CanModule::CanStatistics::computeDerived</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classCanModule_1_1CanStatistics_1_1Internals_1acee7cde0976a6c9957ec00446e7a3589" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float CanModule::CanStatistics::Internals::m_busLoad</definition>
+        <argsstring></argsstring>
+        <name>m_busLoad</name>
+        <briefdescription>
+<para>Bus load derived from #TX and #RX packages. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterface/include/CanStatistics.h" line="175" column="7" bodyfile="CanInterface/include/CanStatistics.h" bodystart="175" bodyend="-1"/>
+        <referencedby refid="classCanModule_1_1CanStatistics_1a8ec66bd11141579779f143362b70640e" compoundref="CanStatistics_8cpp" startline="74" endline="92">CanModule::CanStatistics::computeDerived</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classCanModule_1_1CanStatistics_1_1Internals_1a2aa4f058776d0ccc832479225bc23428" prot="public" static="no" mutable="no">
+        <type>system_clock::time_point</type>
+        <definition>system_clock::time_point CanModule::CanStatistics::Internals::m_observationStart</definition>
+        <argsstring></argsstring>
+        <name>m_observationStart</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterface/include/CanStatistics.h" line="176" column="26" bodyfile="CanInterface/include/CanStatistics.h" bodystart="176" bodyend="-1"/>
+        <referencedby refid="classCanModule_1_1CanStatistics_1a85e6c87ce5285884a0272088178bb8f6" compoundref="CanStatistics_8cpp" startline="44" endline="51">CanModule::CanStatistics::beginNewRun</referencedby>
+        <referencedby refid="classCanModule_1_1CanStatistics_1a8ec66bd11141579779f143362b70640e" compoundref="CanStatistics_8cpp" startline="74" endline="92">CanModule::CanStatistics::computeDerived</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classCanModule_1_1CanStatistics_1_1Internals_1a6fa5715f28aee4207af35058a708fc22" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CanModule::CanStatistics::Internals::m_state</definition>
+        <argsstring></argsstring>
+        <name>m_state</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterface/include/CanStatistics.h" line="178" column="10" bodyfile="CanInterface/include/CanStatistics.h" bodystart="178" bodyend="-1"/>
+        <referencedby refid="classCanModule_1_1CanStatistics_1a3e65a8d28a3eeed8b05cdb69e419c445" compoundref="CanStatistics_8cpp" startline="70" endline="72">CanModule::CanStatistics::encodeCanModuleStatus</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Following is encapsulated as a class, to provide sane copying in assignment operator. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="CanInterface/include/CanStatistics.h" line="170" column="1" bodyfile="CanInterface/include/CanStatistics.h" bodystart="169" bodyend="179"/>
+    <listofallmembers>
+      <member refid="classCanModule_1_1CanStatistics_1_1Internals_1acee7cde0976a6c9957ec00446e7a3589" prot="public" virt="non-virtual"><scope>CanModule::CanStatistics::Internals</scope><name>m_busLoad</name></member>
+      <member refid="classCanModule_1_1CanStatistics_1_1Internals_1a2aa4f058776d0ccc832479225bc23428" prot="public" virt="non-virtual"><scope>CanModule::CanStatistics::Internals</scope><name>m_observationStart</name></member>
+      <member refid="classCanModule_1_1CanStatistics_1_1Internals_1ad6a0884d188d724c4d43ae06ed4ecc1a" prot="public" virt="non-virtual"><scope>CanModule::CanStatistics::Internals</scope><name>m_receivedPerSec</name></member>
+      <member refid="classCanModule_1_1CanStatistics_1_1Internals_1a6fa5715f28aee4207af35058a708fc22" prot="public" virt="non-virtual"><scope>CanModule::CanStatistics::Internals</scope><name>m_state</name></member>
+      <member refid="classCanModule_1_1CanStatistics_1_1Internals_1a344b6c86e9644f8cee1946f08d0d0d2a" prot="public" virt="non-virtual"><scope>CanModule::CanStatistics::Internals</scope><name>m_transmittedPerSec</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

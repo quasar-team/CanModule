@@ -1,0 +1,80 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Downloading</title>
+    <link rel="stylesheet" href="_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="next" title="Objective" href="objective.html" />
+    <link rel="prev" title="CanModule reference documentation" href="index.html" /> 
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="index.html">
+          <span>CanModule 2.0.0 documentation</span></a></h1>
+        <h2 class="heading"><span>Downloading</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        «&#160;&#160;<a href="index.html">CanModule reference documentation</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="objective.html">Objective</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <div class="section" id="downloading">
+<h1>Downloading</h1>
+<div class="section" id="sources">
+<h2>sources</h2>
+<p>CanModule can be cloned from github, and is integrated in a cmake build chain:</p>
+<p>git clone <a class="reference external" href="https://github.com/quasar-team/CanModule.git">https://github.com/quasar-team/CanModule.git</a></p>
+<p>or a specific tag
+git clone <strong>-b v2.0</strong> <a class="reference external" href="https://github.com/quasar-team/CanModule.git">https://github.com/quasar-team/CanModule.git</a></p>
+<ul class="simple">
+<li><p>check out the <a class="reference external" href="https://readthedocs.web.cern.ch/display/CANDev/CAN+development?src=sidebar">readthedocs</a> and the generated doc from gitlab CI</p></li>
+<li><p>the cross OS CI is on <a class="reference external" href="https://ics-fd-cpp-master.web.cern.ch/view/CAN/">jenkins_can</a> .</p></li>
+</ul>
+</div>
+<div class="section" id="runtime-dependencies">
+<h2>runtime dependencies</h2>
+<ul class="simple">
+<li><p>boost 1.73.0 from <a class="reference external" href="https://www.boost.org/">boost</a></p></li>
+<li><p>libsocketcan for linux.
+git clone <a class="reference external" href="https://gitlab.cern.ch/mludwig/CAN_libsocketcan.git">libsocketcan</a> &amp;&amp; cmake . &amp;&amp; sudo make install</p></li>
+<li><p>anagate lib</p></li>
+<li><p>systec driver</p></li>
+<li><p>peak driver</p></li>
+</ul>
+<p>you can also build a reduced dependency CanModule with boost and libsocketcan linked statically.</p>
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        «&#160;&#160;<a href="index.html">CanModule reference documentation</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="objective.html">Objective</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, CERN, quasar-team, BE-ICS (Michael Ludwig).
+      Last updated on 09-Dec-2020 15:36:47.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.1.2.
+    </div>
+  </body>
+</html>

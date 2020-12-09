@@ -1,0 +1,748 @@
+\hypertarget{classPKCanScan}{}\doxysection{P\+K\+Can\+Scan Class Reference}
+\label{classPKCanScan}\index{PKCanScan@{PKCanScan}}
+
+
+{\ttfamily \#include $<$pkcan.\+h$>$}
+
+
+
+Inheritance diagram for P\+K\+Can\+Scan\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=217pt]{classPKCanScan__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for P\+K\+Can\+Scan\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classPKCanScan__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classPKCanScan_adfc8b4e20f4548295a99af69bf1888d5}{P\+K\+Can\+Scan}} ()
+\item 
+\mbox{\hyperlink{classPKCanScan_aa323b8cf8e476c7dfec2719756f25962}{P\+K\+Can\+Scan}} (\mbox{\hyperlink{classPKCanScan}{P\+K\+Can\+Scan}} const \&other)=delete
+\item 
+\mbox{\hyperlink{classPKCanScan}{P\+K\+Can\+Scan}} \& \mbox{\hyperlink{classPKCanScan_a7a5e5fe4cb8b99c64c3908f3143a8f1c}{operator=}} (\mbox{\hyperlink{classPKCanScan}{P\+K\+Can\+Scan}} const \&other)=delete
+\item 
+virtual \mbox{\hyperlink{classPKCanScan_a924778bdca171eb7f3f597dfe9f99fb4}{$\sim$\+P\+K\+Can\+Scan}} ()
+\item 
+virtual int \mbox{\hyperlink{classPKCanScan_a565d5200fe4c139796bd073c6296208f}{create\+Bus}} (const string name, const string parameters)
+\item 
+virtual bool \mbox{\hyperlink{classPKCanScan_a48a2e9ba00dae1b1fe01f7b095430503}{send\+Message}} (short cob\+ID, unsigned char len, unsigned char $\ast$message, bool rtr=false)
+\item 
+virtual bool \mbox{\hyperlink{classPKCanScan_af7e22b4a484de11ccaea060ad0adb47d}{send\+Remote\+Request}} (short cob\+ID)
+\item 
+virtual void \mbox{\hyperlink{classPKCanScan_a2ef38527fb5009c43487fccbbe4694ba}{get\+Statistics}} (\mbox{\hyperlink{classCanModule_1_1CanStatistics}{Can\+Statistics}} \&result)
+\item 
+virtual uint32\+\_\+t \mbox{\hyperlink{classPKCanScan_aae31de6a82fcacc8ef3f581aff5305fc}{get\+Port\+Status}} ()
+\item 
+virtual uint32\+\_\+t \mbox{\hyperlink{classPKCanScan_a0d76eac41bbcbff75bd690c3b7f289f6}{get\+Port\+Bitrate}} ()
+\item 
+bool \mbox{\hyperlink{classPKCanScan_a077b19a57357437f6c2e6ce00030a698}{get\+Error\+Message}} (long error, char $\ast$$\ast$message)
+\item 
+Log\+::\+Log\+Component\+Handle \mbox{\hyperlink{classPKCanScan_a6c53d03956f54ac706a556be4dcbfe1a}{log\+It\+Handle}} ()
+\item 
+virtual void \mbox{\hyperlink{classPKCanScan_abbc20782e1ebbd9cb552a957a3196561}{set\+Reconnect\+Behavior}} (\mbox{\hyperlink{namespaceCanModule_a2f4fee79cc7ba53467c2538fe6b9adbb}{Can\+Module\+::\+Reconnect\+Auto\+Condition}} cond, \mbox{\hyperlink{namespaceCanModule_a2062089fa4fa87c8354295f2a8fe31a5}{Can\+Module\+::\+Reconnect\+Action}} action)
+\item 
+virtual void \mbox{\hyperlink{classPKCanScan_a5b908a0bc16dae74b88b6feed7eea272}{set\+Reconnect\+Reception\+Timeout}} (unsigned int timeout)
+\item 
+virtual void \mbox{\hyperlink{classPKCanScan_a3471105853a5036dd8a3f421c67de628}{set\+Reconnect\+Failed\+Send\+Count}} (unsigned int c)
+\item 
+virtual \mbox{\hyperlink{namespaceCanModule_a2f4fee79cc7ba53467c2538fe6b9adbb}{Can\+Module\+::\+Reconnect\+Auto\+Condition}} \mbox{\hyperlink{classPKCanScan_a4ae1f1cfd3e566a903b79f2502fe8752}{get\+Reconnect\+Condition}} ()
+\item 
+virtual \mbox{\hyperlink{namespaceCanModule_a2062089fa4fa87c8354295f2a8fe31a5}{Can\+Module\+::\+Reconnect\+Action}} \mbox{\hyperlink{classPKCanScan_a00c1fa5d1abd77601c46669df80b6fba}{get\+Reconnect\+Action}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static std\+::map$<$ string, string $>$ \mbox{\hyperlink{classPKCanScan_ade2df2a66357db34e6df07abb02ac4ac}{m\+\_\+bus\+Map}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+T\+P\+C\+A\+N\+Handle \mbox{\hyperlink{classPKCanScan_a53471be1a2b2b34afc091e90bfcd29fb}{get\+Handle}} (const char $\ast$name)
+\item 
+bool \mbox{\hyperlink{classPKCanScan_a35ccc4082d56a736abb34d0c289c5a96}{send\+Error\+Code}} (long)
+\item 
+bool \mbox{\hyperlink{classPKCanScan_a6fe021ecfdde5af1e7a74668b9819bfb}{configure\+Canboard}} (const string name, const string parameters)
+\item 
+void \mbox{\hyperlink{classPKCanScan_af7d899c65e6abef105d82a89115fd59b}{stop\+Bus}} (void)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{AnaCanScan_8h_ad342ac907eb044443153a22f964bf0af}{D\+W\+O\+RD}} \mbox{\hyperlink{STCanScan_8cpp_a9aa60e1ead64be77ad551e745cbfd4d3}{W\+I\+N\+A\+PI}} \mbox{\hyperlink{classPKCanScan_a45bd5feda5ccb009775c45bfabe41614}{Can\+Scan\+Control\+Thread}} (L\+P\+V\+O\+ID p\+Can\+Scan)
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+Log\+::\+Log\+Component\+Handle \mbox{\hyperlink{classPKCanScan_ae77567d34d33ec9576a7e4eebd0c1f09}{m\+\_\+log\+It\+Handle\+Pk}}
+\item 
+\mbox{\hyperlink{classCanModule_1_1CanStatistics}{Can\+Statistics}} \mbox{\hyperlink{classPKCanScan_a03eec54c44937d843f48b2b1a086b37b}{m\+\_\+statistics}}
+\item 
+T\+P\+C\+A\+N\+Status \mbox{\hyperlink{classPKCanScan_a1c361b38cbc6016192fbcd9a6d81236c}{m\+\_\+bus\+Status}}
+\item 
+bool \mbox{\hyperlink{classPKCanScan_abf46ef73d86a3ab7212e6484d35cd92b}{m\+\_\+\+Can\+Scan\+Thread\+Run\+Enable\+Flag}}
+\item 
+unsigned int \mbox{\hyperlink{classPKCanScan_a84e9c4874e065b79d5600c0a5f9f7877}{m\+\_\+baud\+Rate}}
+\item 
+string \mbox{\hyperlink{classPKCanScan_a4a881ec178b83b4a8937180d45738a2e}{m\+\_\+bus\+Name}}
+\item 
+string \mbox{\hyperlink{classPKCanScan_aa12640926d5f9f2e72f728dc084ace80}{m\+\_\+bus\+Parameters}}
+\item 
+T\+P\+C\+A\+N\+Handle \mbox{\hyperlink{classPKCanScan_a4b662f651cf1bffd217aee603f9751a9}{m\+\_\+pk\+Can\+Handle}}
+\item 
+H\+A\+N\+D\+LE \mbox{\hyperlink{classPKCanScan_a169a32c5961996acbd55aa5c12118de0}{m\+\_\+h\+Can\+Scan\+Thread}}
+\item 
+\mbox{\hyperlink{AnaCanScan_8h_ad342ac907eb044443153a22f964bf0af}{D\+W\+O\+RD}} \mbox{\hyperlink{classPKCanScan_a5ba2a765e250376fde32db88272339d6}{m\+\_\+id\+Can\+Scan\+Thread}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 38 of file pkcan.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classPKCanScan_adfc8b4e20f4548295a99af69bf1888d5}\label{classPKCanScan_adfc8b4e20f4548295a99af69bf1888d5}} 
+\index{PKCanScan@{PKCanScan}!PKCanScan@{PKCanScan}}
+\index{PKCanScan@{PKCanScan}!PKCanScan@{PKCanScan}}
+\doxysubsubsection{\texorpdfstring{PKCanScan()}{PKCanScan()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily P\+K\+Can\+Scan\+::\+P\+K\+Can\+Scan (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 50 of file pkcan.\+cpp.
+
+
+
+References Can\+Module\+::\+Can\+Statistics\+::begin\+New\+Run(), Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+failed\+Send\+Counter, m\+\_\+statistics, Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+trigger\+Counter, and Can\+Module\+::\+Can\+Statistics\+::set\+Time\+Since\+Opened().
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classPKCanScan_adfc8b4e20f4548295a99af69bf1888d5_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classPKCanScan_aa323b8cf8e476c7dfec2719756f25962}\label{classPKCanScan_aa323b8cf8e476c7dfec2719756f25962}} 
+\index{PKCanScan@{PKCanScan}!PKCanScan@{PKCanScan}}
+\index{PKCanScan@{PKCanScan}!PKCanScan@{PKCanScan}}
+\doxysubsubsection{\texorpdfstring{PKCanScan()}{PKCanScan()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily P\+K\+Can\+Scan\+::\+P\+K\+Can\+Scan (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classPKCanScan}{P\+K\+Can\+Scan}} const \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classPKCanScan_a924778bdca171eb7f3f597dfe9f99fb4}\label{classPKCanScan_a924778bdca171eb7f3f597dfe9f99fb4}} 
+\index{PKCanScan@{PKCanScan}!````~PKCanScan@{$\sim$PKCanScan}}
+\index{````~PKCanScan@{$\sim$PKCanScan}!PKCanScan@{PKCanScan}}
+\doxysubsubsection{\texorpdfstring{$\sim$PKCanScan()}{~PKCanScan()}}
+{\footnotesize\ttfamily P\+K\+Can\+Scan\+::$\sim$\+P\+K\+Can\+Scan (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line 63 of file pkcan.\+cpp.
+
+
+
+References M\+L\+O\+G\+PK, and stop\+Bus().
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classPKCanScan_a924778bdca171eb7f3f597dfe9f99fb4_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classPKCanScan_a45bd5feda5ccb009775c45bfabe41614}\label{classPKCanScan_a45bd5feda5ccb009775c45bfabe41614}} 
+\index{PKCanScan@{PKCanScan}!CanScanControlThread@{CanScanControlThread}}
+\index{CanScanControlThread@{CanScanControlThread}!PKCanScan@{PKCanScan}}
+\doxysubsubsection{\texorpdfstring{CanScanControlThread()}{CanScanControlThread()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{AnaCanScan_8h_ad342ac907eb044443153a22f964bf0af}{D\+W\+O\+RD}} \mbox{\hyperlink{STCanScan_8cpp_a9aa60e1ead64be77ad551e745cbfd4d3}{W\+I\+N\+A\+PI}} P\+K\+Can\+Scan\+::\+Can\+Scan\+Control\+Thread (\begin{DoxyParamCaption}\item[{L\+P\+V\+O\+ID}]{p\+Can\+Scan }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+thread to supervise port activity lets check the timeout\+On\+Reception reconnect condition. If it is true, all we can do is to close/open the port again since the underlying hardware is hidden by socketcan abstraction. Like his we do not have to pollute the \char`\"{}send\+Message\char`\"{} like for anagate, and that is cleaner.
+
+Definition at line 109 of file pkcan.\+cpp.
+
+
+
+References Can\+Msg\+Struct\+::c\+\_\+data, Can\+Msg\+Struct\+::c\+\_\+dlc, Can\+Msg\+Struct\+::c\+\_\+ff, Can\+Msg\+Struct\+::c\+\_\+id, Can\+Msg\+Struct\+::c\+\_\+time, Can\+Module\+::\+C\+Can\+Access\+::can\+Message\+Came, get\+Reconnect\+Action(), get\+Reconnect\+Condition(), Can\+Module\+::\+C\+Can\+Access\+::has\+Timeout\+On\+Reception(), m\+\_\+baud\+Rate, m\+\_\+\+Can\+Scan\+Thread\+Run\+Enable\+Flag, m\+\_\+pk\+Can\+Handle, m\+\_\+statistics, M\+L\+O\+G\+PK, Can\+Module\+::\+Can\+Statistics\+::on\+Receive(), Can\+Module\+::\+C\+Can\+Access\+::reconnect\+Action\+String(), Can\+Module\+::\+C\+Can\+Access\+::reconnect\+Condition\+String(), Can\+Module\+::\+C\+Can\+Access\+::reset\+Timeout\+On\+Reception(), send\+Error\+Code(), Can\+Module\+::\+Can\+Statistics\+::set\+Time\+Since\+Received(), Can\+Module\+::single\+Bus, and Can\+Module\+::timeout\+On\+Reception.
+
+
+
+Referenced by create\+Bus().
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classPKCanScan_a45bd5feda5ccb009775c45bfabe41614_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classPKCanScan_a6fe021ecfdde5af1e7a74668b9819bfb}\label{classPKCanScan_a6fe021ecfdde5af1e7a74668b9819bfb}} 
+\index{PKCanScan@{PKCanScan}!configureCanboard@{configureCanboard}}
+\index{configureCanboard@{configureCanboard}!PKCanScan@{PKCanScan}}
+\doxysubsubsection{\texorpdfstring{configureCanboard()}{configureCanboard()}}
+{\footnotesize\ttfamily bool P\+K\+Can\+Scan\+::configure\+Canboard (\begin{DoxyParamCaption}\item[{const string}]{name,  }\item[{const string}]{parameters }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+method to configure peak modules, one channel at a time. We restrict this to U\+SB interfaces and fixed datarate (not FD) modules If needed this can relatively easily be extended to other interfaces and FD mods as well. FD (flexible datarate) modules. we need to contruct (a complicated) bitrate string in this case, according to P\+E\+AK P\+C\+A\+N-\/\+Basic Documentation A\+PI manual p.\+82 two data rates, for nominal and data, can be defined. all these parameters have to be passed T\+P\+C\+A\+N\+Status tpcan\+Status = C\+A\+N\+\_\+\+Initialize\+F\+D(m\+\_\+can\+Obj\+Handler, m\+\_\+baud\+Rate); T\+P\+C\+A\+N\+Bitrate\+FD br = \char`\"{}f\+\_\+clock\+\_\+mhz=20, nom\+\_\+brp=5, nom\+\_\+tseg1=2, nom\+\_\+tseg2=1, nom\+\_\+sjw=1\char`\"{}; P\+C\+A\+N\+\_\+\+B\+R\+\_\+\+C\+L\+O\+C\+K\+\_\+\+M\+HZ=20, P\+C\+A\+N\+\_\+\+B\+R\+\_\+\+N\+O\+M\+\_\+\+B\+RP=5, P\+C\+A\+N\+\_\+\+B\+R\+\_\+\+D\+A\+T\+A\+\_\+\+T\+S\+E\+G1=2, P\+C\+A\+N\+\_\+\+B\+R\+\_\+\+D\+A\+T\+A\+\_\+\+T\+S\+E\+G2=1, P\+C\+A\+N\+\_\+\+B\+R\+\_\+\+N\+O\+M\+\_\+\+S\+JW=1;
+
+fixed datarate modules (classical C\+AN), plug and play we try 10 times until success, the OS is a bit slow
+
+fixed data rate, non plug-\/and-\/play static T\+P\+C\+A\+N\+Status Initialize( T\+P\+C\+A\+N\+Handle Channel, T\+P\+C\+A\+N\+Baudrate Btr0\+Btr1, T\+P\+C\+A\+N\+Type Hw\+Type, U\+Int32 I\+O\+Port, U\+Int16 Interrupt);
+
+Definition at line 266 of file pkcan.\+cpp.
+
+
+
+References get\+Handle(), m\+\_\+baud\+Rate, Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+\+Can\+Parameters, Can\+Module\+::\+Can\+Parameters\+::m\+\_\+i\+Number\+Of\+Detected\+Parameters, Can\+Module\+::\+Can\+Parameters\+::m\+\_\+l\+Baud\+Rate, m\+\_\+pk\+Can\+Handle, Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+s\+Bus\+Name, M\+L\+O\+G\+PK, and Can\+Module\+::\+C\+Can\+Access\+::parse\+Name\+And\+Parameters().
+
+
+
+Referenced by create\+Bus().
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classPKCanScan_a6fe021ecfdde5af1e7a74668b9819bfb_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classPKCanScan_a565d5200fe4c139796bd073c6296208f}\label{classPKCanScan_a565d5200fe4c139796bd073c6296208f}} 
+\index{PKCanScan@{PKCanScan}!createBus@{createBus}}
+\index{createBus@{createBus}!PKCanScan@{PKCanScan}}
+\doxysubsubsection{\texorpdfstring{createBus()}{createBus()}}
+{\footnotesize\ttfamily int P\+K\+Can\+Scan\+::create\+Bus (\begin{DoxyParamCaption}\item[{const string}]{name,  }\item[{const string}]{parameters }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+Method that initialises a C\+AN bus channel for peak@windows (using P\+E\+AK Basic) All following methods called on the same object will be using this initialized channel. Only U\+SB interfaces for P\+E\+AK modules, and only N\+ON FD modules are supported for now.
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & = 2 parameters separated by \char`\"{}\+:\char`\"{} like \char`\"{}n0\+:n1\char`\"{}
+\begin{DoxyItemize}
+\item n0 = \char`\"{}pk\char`\"{} for peak@windows
+\item n1 = C\+AN port number on the module, can be prefixed with \char`\"{}can\char`\"{}\+: 0..N
+\item ex.\+: \char`\"{}pk\+:can1\char`\"{} speaks to port 1 (the second port) on peak module
+\item ex.\+: \char`\"{}pk\+:1\char`\"{} works as well
+\end{DoxyItemize}\\
+\hline
+{\em parameters} & one parameter\+: \char`\"{}p0\char`\"{}, positive integer
+\begin{DoxyItemize}
+\item \char`\"{}\+Unspecified\char`\"{} (or empty)\+: using defaults = \char`\"{}125000\char`\"{} // params missing
+\item p0\+: bitrate\+: 50000, 100000, 125000, 250000, 500000, 1000000 bit/s i.\+e. \char`\"{}250000\char`\"{}
+\end{DoxyItemize}\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+was the initialisation process successful\+: 0 = ok 1 = ok, bus exists already, we skip -\/1\+: not ok, problem configuring the board, try again -\/2\+: could not create the thread -\/3\+: sth else went wrong 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classCanModule_1_1CCanAccess_a0eeee5c3d48f1102012d1483cbe6e64b}{Can\+Module\+::\+C\+Can\+Access}}.
+
+
+
+Definition at line 209 of file pkcan.\+cpp.
+
+
+
+References Can\+Scan\+Control\+Thread(), configure\+Canboard(), Can\+Module\+::\+Log\+It\+Component\+Name, m\+\_\+bus\+Map, m\+\_\+bus\+Name, m\+\_\+bus\+Parameters, m\+\_\+h\+Can\+Scan\+Thread, m\+\_\+id\+Can\+Scan\+Thread, m\+\_\+log\+It\+Handle\+Pk, m\+\_\+pk\+Can\+Handle, M\+L\+O\+G\+PK, and peak\+Reconnect\+Mutex.
+
+
+
+Referenced by send\+Message().
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classPKCanScan_a565d5200fe4c139796bd073c6296208f_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classPKCanScan_a077b19a57357437f6c2e6ce00030a698}\label{classPKCanScan_a077b19a57357437f6c2e6ce00030a698}} 
+\index{PKCanScan@{PKCanScan}!getErrorMessage@{getErrorMessage}}
+\index{getErrorMessage@{getErrorMessage}!PKCanScan@{PKCanScan}}
+\doxysubsubsection{\texorpdfstring{getErrorMessage()}{getErrorMessage()}}
+{\footnotesize\ttfamily bool P\+K\+Can\+Scan\+::get\+Error\+Message (\begin{DoxyParamCaption}\item[{long}]{error,  }\item[{char $\ast$$\ast$}]{message }\end{DoxyParamCaption})}
+
+
+
+Definition at line 503 of file pkcan.\+cpp.
+
+
+
+Referenced by send\+Error\+Code().
+
+\mbox{\Hypertarget{classPKCanScan_a53471be1a2b2b34afc091e90bfcd29fb}\label{classPKCanScan_a53471be1a2b2b34afc091e90bfcd29fb}} 
+\index{PKCanScan@{PKCanScan}!getHandle@{getHandle}}
+\index{getHandle@{getHandle}!PKCanScan@{PKCanScan}}
+\doxysubsubsection{\texorpdfstring{getHandle()}{getHandle()}}
+{\footnotesize\ttfamily T\+P\+C\+A\+N\+Handle P\+K\+Can\+Scan\+::get\+Handle (\begin{DoxyParamCaption}\item[{const char $\ast$}]{name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+This method returns a T\+P\+C\+A\+N\+Handle (which is in fact a specific vendor defined hex value) as a function of a human readable string. The human readable string basically codes the intefrace type (U\+SB, I\+SA, P\+CI...) and the C\+AN port (1..8) so that i.\+e. U\+S\+B3-\/$>$0x53 which means U\+SB interface 3rd channel 
+
+Definition at line 517 of file pkcan.\+cpp.
+
+
+
+Referenced by configure\+Canboard().
+
+\mbox{\Hypertarget{classPKCanScan_a0d76eac41bbcbff75bd690c3b7f289f6}\label{classPKCanScan_a0d76eac41bbcbff75bd690c3b7f289f6}} 
+\index{PKCanScan@{PKCanScan}!getPortBitrate@{getPortBitrate}}
+\index{getPortBitrate@{getPortBitrate}!PKCanScan@{PKCanScan}}
+\doxysubsubsection{\texorpdfstring{getPortBitrate()}{getPortBitrate()}}
+{\footnotesize\ttfamily virtual uint32\+\_\+t P\+K\+Can\+Scan\+::get\+Port\+Bitrate (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+returns the bitrate of that port \mbox{[}bits/sec\mbox{]} according to what \mbox{\hyperlink{namespaceCanModule}{Can\+Module}} buffers say. This is the setting used for setting up the hardware, after any default rules have been applied, but B\+E\+F\+O\+RE any vendor specific encoding into obscure bitpatterns occurs. This happens at port opening and the bitrate can only be changed at that moment. So please call this method just after you have opened the port. But also since there is no hw interaction and it just returns a buffer, you may call it as often as you like. Default bitrate is always 125000bits/s if \char`\"{}\+Unspecified\char`\"{} 
+
+Implements \mbox{\hyperlink{classCanModule_1_1CCanAccess_aa8cb67096349fefc6e03aeb33e45ef81}{Can\+Module\+::\+C\+Can\+Access}}.
+
+
+
+Definition at line 68 of file pkcan.\+h.
+
+\mbox{\Hypertarget{classPKCanScan_aae31de6a82fcacc8ef3f581aff5305fc}\label{classPKCanScan_aae31de6a82fcacc8ef3f581aff5305fc}} 
+\index{PKCanScan@{PKCanScan}!getPortStatus@{getPortStatus}}
+\index{getPortStatus@{getPortStatus}!PKCanScan@{PKCanScan}}
+\doxysubsubsection{\texorpdfstring{getPortStatus()}{getPortStatus()}}
+{\footnotesize\ttfamily uint32\+\_\+t P\+K\+Can\+Scan\+::get\+Port\+Status (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+P\+C\+A\+N\+Basic.\+h\+:113 
+
+Implements \mbox{\hyperlink{classCanModule_1_1CCanAccess_a33fe530d070cf35d096e967d543186a4}{Can\+Module\+::\+C\+Can\+Access}}.
+
+
+
+Definition at line 100 of file pkcan.\+cpp.
+
+
+
+References C\+A\+N\+M\+O\+D\+U\+L\+E\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+B\+P\+\_\+\+P\+E\+AK, and m\+\_\+pk\+Can\+Handle.
+
+\mbox{\Hypertarget{classPKCanScan_a00c1fa5d1abd77601c46669df80b6fba}\label{classPKCanScan_a00c1fa5d1abd77601c46669df80b6fba}} 
+\index{PKCanScan@{PKCanScan}!getReconnectAction@{getReconnectAction}}
+\index{getReconnectAction@{getReconnectAction}!PKCanScan@{PKCanScan}}
+\doxysubsubsection{\texorpdfstring{getReconnectAction()}{getReconnectAction()}}
+{\footnotesize\ttfamily virtual \mbox{\hyperlink{namespaceCanModule_a2062089fa4fa87c8354295f2a8fe31a5}{Can\+Module\+::\+Reconnect\+Action}} P\+K\+Can\+Scan\+::get\+Reconnect\+Action (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+read back the r.\+action 
+
+Implements \mbox{\hyperlink{classCanModule_1_1CCanAccess_aaf2312ff9074ce7a4ec2e7d0a5b6fa16}{Can\+Module\+::\+C\+Can\+Access}}.
+
+
+
+Definition at line 84 of file pkcan.\+h.
+
+
+
+Referenced by Can\+Scan\+Control\+Thread().
+
+\mbox{\Hypertarget{classPKCanScan_a4ae1f1cfd3e566a903b79f2502fe8752}\label{classPKCanScan_a4ae1f1cfd3e566a903b79f2502fe8752}} 
+\index{PKCanScan@{PKCanScan}!getReconnectCondition@{getReconnectCondition}}
+\index{getReconnectCondition@{getReconnectCondition}!PKCanScan@{PKCanScan}}
+\doxysubsubsection{\texorpdfstring{getReconnectCondition()}{getReconnectCondition()}}
+{\footnotesize\ttfamily virtual \mbox{\hyperlink{namespaceCanModule_a2f4fee79cc7ba53467c2538fe6b9adbb}{Can\+Module\+::\+Reconnect\+Auto\+Condition}} P\+K\+Can\+Scan\+::get\+Reconnect\+Condition (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+read back the r.\+condition 
+
+Implements \mbox{\hyperlink{classCanModule_1_1CCanAccess_a003566cbcdf4ce8195853bd8049a8800}{Can\+Module\+::\+C\+Can\+Access}}.
+
+
+
+Definition at line 83 of file pkcan.\+h.
+
+
+
+Referenced by Can\+Scan\+Control\+Thread().
+
+\mbox{\Hypertarget{classPKCanScan_a2ef38527fb5009c43487fccbbe4694ba}\label{classPKCanScan_a2ef38527fb5009c43487fccbbe4694ba}} 
+\index{PKCanScan@{PKCanScan}!getStatistics@{getStatistics}}
+\index{getStatistics@{getStatistics}!PKCanScan@{PKCanScan}}
+\doxysubsubsection{\texorpdfstring{getStatistics()}{getStatistics()}}
+{\footnotesize\ttfamily void P\+K\+Can\+Scan\+::get\+Statistics (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classCanModule_1_1CanStatistics}{Can\+Statistics}} \&}]{result }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classCanModule_1_1CCanAccess_ad3182c83b4c5d7e6aef982c36e731507}{Can\+Module\+::\+C\+Can\+Access}}.
+
+
+
+Definition at line 573 of file pkcan.\+cpp.
+
+
+
+References Can\+Module\+::\+Can\+Statistics\+::begin\+New\+Run(), Can\+Module\+::\+Can\+Statistics\+::compute\+Derived(), m\+\_\+baud\+Rate, and m\+\_\+statistics.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classPKCanScan_a2ef38527fb5009c43487fccbbe4694ba_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classPKCanScan_a6c53d03956f54ac706a556be4dcbfe1a}\label{classPKCanScan_a6c53d03956f54ac706a556be4dcbfe1a}} 
+\index{PKCanScan@{PKCanScan}!logItHandle@{logItHandle}}
+\index{logItHandle@{logItHandle}!PKCanScan@{PKCanScan}}
+\doxysubsubsection{\texorpdfstring{logItHandle()}{logItHandle()}}
+{\footnotesize\ttfamily Log\+::\+Log\+Component\+Handle P\+K\+Can\+Scan\+::log\+It\+Handle (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 76 of file pkcan.\+h.
+
+\mbox{\Hypertarget{classPKCanScan_a7a5e5fe4cb8b99c64c3908f3143a8f1c}\label{classPKCanScan_a7a5e5fe4cb8b99c64c3908f3143a8f1c}} 
+\index{PKCanScan@{PKCanScan}!operator=@{operator=}}
+\index{operator=@{operator=}!PKCanScan@{PKCanScan}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classPKCanScan}{P\+K\+Can\+Scan}}\& P\+K\+Can\+Scan\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classPKCanScan}{P\+K\+Can\+Scan}} const \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classPKCanScan_a35ccc4082d56a736abb34d0c289c5a96}\label{classPKCanScan_a35ccc4082d56a736abb34d0c289c5a96}} 
+\index{PKCanScan@{PKCanScan}!sendErrorCode@{sendErrorCode}}
+\index{sendErrorCode@{sendErrorCode}!PKCanScan@{PKCanScan}}
+\doxysubsubsection{\texorpdfstring{sendErrorCode()}{sendErrorCode()}}
+{\footnotesize\ttfamily bool P\+K\+Can\+Scan\+::send\+Error\+Code (\begin{DoxyParamCaption}\item[{long}]{status }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 388 of file pkcan.\+cpp.
+
+
+
+References Can\+Module\+::\+C\+Can\+Access\+::can\+Message\+Error, Can\+Module\+::convert\+Timepoint\+To\+Timeval(), Can\+Module\+::current\+Time\+Timeval(), get\+Error\+Message(), m\+\_\+bus\+Status, and m\+\_\+pk\+Can\+Handle.
+
+
+
+Referenced by Can\+Scan\+Control\+Thread(), send\+Message(), and send\+Remote\+Request().
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classPKCanScan_a35ccc4082d56a736abb34d0c289c5a96_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classPKCanScan_a48a2e9ba00dae1b1fe01f7b095430503}\label{classPKCanScan_a48a2e9ba00dae1b1fe01f7b095430503}} 
+\index{PKCanScan@{PKCanScan}!sendMessage@{sendMessage}}
+\index{sendMessage@{sendMessage}!PKCanScan@{PKCanScan}}
+\doxysubsubsection{\texorpdfstring{sendMessage()}{sendMessage()}}
+{\footnotesize\ttfamily bool P\+K\+Can\+Scan\+::send\+Message (\begin{DoxyParamCaption}\item[{short}]{cob\+ID,  }\item[{unsigned char}]{len,  }\item[{unsigned char $\ast$}]{message,  }\item[{bool}]{rtr = {\ttfamily false} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+method to send a C\+AN message to the peak module. we use the standard A\+PI \char`\"{}\+P\+C\+A\+N-\/\+Basic\char`\"{} for this for windows and we talk only over U\+SB to fixed bitrate modules. The flexible bitrate (FD) modules can be implemented later as well\+: for this we need more parameters to pass and a switch between C\+A\+N\+\_\+\+Write and C\+A\+N\+\_\+\+Write\+FD. 
+
+Implements \mbox{\hyperlink{classCanModule_1_1CCanAccess_aee42ab7fb9e50c02a1812202f7863d8c}{Can\+Module\+::\+C\+Can\+Access}}.
+
+
+
+Definition at line 411 of file pkcan.\+cpp.
+
+
+
+References Can\+Module\+::all\+Buses\+On\+Bridge, create\+Bus(), m\+\_\+bus\+Name, m\+\_\+bus\+Parameters, Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+failed\+Send\+Counter, m\+\_\+pk\+Can\+Handle, Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+reconnect\+Action, Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+reconnect\+Condition, m\+\_\+statistics, Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+trigger\+Counter, M\+L\+O\+G\+PK, Can\+Module\+::never, Can\+Module\+::\+Can\+Statistics\+::on\+Transmit(), Can\+Module\+::\+C\+Can\+Access\+::reconnect\+Action\+String(), Can\+Module\+::\+C\+Can\+Access\+::reconnect\+Condition\+String(), send\+Error\+Code(), Can\+Module\+::send\+Fail, Can\+Module\+::single\+Bus, and stop\+Bus().
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classPKCanScan_a48a2e9ba00dae1b1fe01f7b095430503_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classPKCanScan_af7e22b4a484de11ccaea060ad0adb47d}\label{classPKCanScan_af7e22b4a484de11ccaea060ad0adb47d}} 
+\index{PKCanScan@{PKCanScan}!sendRemoteRequest@{sendRemoteRequest}}
+\index{sendRemoteRequest@{sendRemoteRequest}!PKCanScan@{PKCanScan}}
+\doxysubsubsection{\texorpdfstring{sendRemoteRequest()}{sendRemoteRequest()}}
+{\footnotesize\ttfamily bool P\+K\+Can\+Scan\+::send\+Remote\+Request (\begin{DoxyParamCaption}\item[{short}]{cob\+ID }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+Method that sends a remote request trough the can bus channel. If the method create\+Bus was not called before this, send\+Message will fail, as there is no can bus channel to send the request trough. Similar to send\+Message, but it sends an special message reserved for requests. 
+\begin{DoxyParams}{Parameters}
+{\em cob\+ID} & Identifier that will be used for the request. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\+: Was the initialisation process successful? 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classCanModule_1_1CCanAccess_acfefbc9be2696b1388cf6df2bba00aa1}{Can\+Module\+::\+C\+Can\+Access}}.
+
+
+
+Definition at line 494 of file pkcan.\+cpp.
+
+
+
+References m\+\_\+pk\+Can\+Handle, and send\+Error\+Code().
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classPKCanScan_af7e22b4a484de11ccaea060ad0adb47d_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classPKCanScan_abbc20782e1ebbd9cb552a957a3196561}\label{classPKCanScan_abbc20782e1ebbd9cb552a957a3196561}} 
+\index{PKCanScan@{PKCanScan}!setReconnectBehavior@{setReconnectBehavior}}
+\index{setReconnectBehavior@{setReconnectBehavior}!PKCanScan@{PKCanScan}}
+\doxysubsubsection{\texorpdfstring{setReconnectBehavior()}{setReconnectBehavior()}}
+{\footnotesize\ttfamily virtual void P\+K\+Can\+Scan\+::set\+Reconnect\+Behavior (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespaceCanModule_a2f4fee79cc7ba53467c2538fe6b9adbb}{Can\+Module\+::\+Reconnect\+Auto\+Condition}}}]{cond,  }\item[{\mbox{\hyperlink{namespaceCanModule_a2062089fa4fa87c8354295f2a8fe31a5}{Can\+Module\+::\+Reconnect\+Action}}}]{action }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+configuring the reconnection behavior\+: a condition triggers an action. The implementation is implementation-\/specific because not all vendor A\+P\+Is permit the same behavior\+: not all combinations are available for all vendors/implementations. The implemented reconnection behavior is standardized nevertheless\+: \char`\"{}you get what you see\char`\"{}. Foe each Can\+Bus you have to choose one condition and one action. Condition detection and action execution are then automatic inside \mbox{\hyperlink{namespaceCanModule}{Can\+Module}}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em \mbox{\hyperlink{namespaceCanModule_a2f4fee79cc7ba53467c2538fe6b9adbb}{Can\+Module\+::\+Reconnect\+Auto\+Condition}}} & cond
+\begin{DoxyItemize}
+\item send\+Fail (default)\+: a reconnection is triggered automatically if a send on the can\+Bus fails. The number of failed sends can be set (default is 10). The failed sending must be strictly consecutive, if there is a succeeded sending, the internal counting restarts.
+\item timeout\+On\+Reception\+: the last time of a successful reception on a given channel can be monitored. If the last reception is older than 120 sec a reset is triggered automatically. This last successful reception time is calculated each time a send is invoked. The timeout is specified in seconds, default is 120sec.
+\item never\+: this condition is always false and therefore no automatic reconnection action will be triggered. You can still call the explicit method reconnect( $<$action$>$ ) but it is up to the client (server) to decide when.
+\end{DoxyItemize}\\
+\hline
+{\em \mbox{\hyperlink{namespaceCanModule_a2062089fa4fa87c8354295f2a8fe31a5}{Can\+Module\+::\+Reconnect\+Action}}} & action
+\begin{DoxyItemize}
+\item single\+Bus (default)\+: a single connection (canbus, channel) is reset and reception handler is reconnected.
+\item whole\+Bridge if available, the whole bridge is reset, affecting all physical channels on that bridge. Only available for anagate. If a bridge is shared between multiple tasks, all channels across tasks are reset, affecting all tasks connected to that bridge. Evidently, a given channel must only be used by at most one task.
+\item hard\+Reset\+: the bridge is reset in a \char`\"{}hard\char`\"{} way, i.\+e. firmware is rebooted (N\+OT reloaded or overwritten). Only available for anagate\+: the firmware of the bridge (ip) is reloaded using a special command of the anagate A\+PI which is not available through the common \mbox{\hyperlink{namespaceCanModule}{Can\+Module}} A\+PI, since it is vendor specific. This is a \char`\"{}hard software reset\char`\"{}, and it is not the same as just power-\/cycling the module. It takes $\sim$15secs and \char`\"{}is known to work nicely\char`\"{}. 
+\end{DoxyItemize}\\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classCanModule_1_1CCanAccess_ae1088edaf5444ff42ee094ae46240cc5}{Can\+Module\+::\+C\+Can\+Access}}.
+
+
+
+Definition at line 77 of file pkcan.\+h.
+
+\mbox{\Hypertarget{classPKCanScan_a3471105853a5036dd8a3f421c67de628}\label{classPKCanScan_a3471105853a5036dd8a3f421c67de628}} 
+\index{PKCanScan@{PKCanScan}!setReconnectFailedSendCount@{setReconnectFailedSendCount}}
+\index{setReconnectFailedSendCount@{setReconnectFailedSendCount}!PKCanScan@{PKCanScan}}
+\doxysubsubsection{\texorpdfstring{setReconnectFailedSendCount()}{setReconnectFailedSendCount()}}
+{\footnotesize\ttfamily virtual void P\+K\+Can\+Scan\+::set\+Reconnect\+Failed\+Send\+Count (\begin{DoxyParamCaption}\item[{unsigned int}]{c }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+set the counter for failed consecutive sending attempts, for reconnection. default is 10. 
+
+Implements \mbox{\hyperlink{classCanModule_1_1CCanAccess_a665620fe5924cf87db0589a353d3d148}{Can\+Module\+::\+C\+Can\+Access}}.
+
+
+
+Definition at line 82 of file pkcan.\+h.
+
+\mbox{\Hypertarget{classPKCanScan_a5b908a0bc16dae74b88b6feed7eea272}\label{classPKCanScan_a5b908a0bc16dae74b88b6feed7eea272}} 
+\index{PKCanScan@{PKCanScan}!setReconnectReceptionTimeout@{setReconnectReceptionTimeout}}
+\index{setReconnectReceptionTimeout@{setReconnectReceptionTimeout}!PKCanScan@{PKCanScan}}
+\doxysubsubsection{\texorpdfstring{setReconnectReceptionTimeout()}{setReconnectReceptionTimeout()}}
+{\footnotesize\ttfamily virtual void P\+K\+Can\+Scan\+::set\+Reconnect\+Reception\+Timeout (\begin{DoxyParamCaption}\item[{unsigned int}]{timeout }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+set the timout interval for message reception, for the reconnection behaviour. Units is seconds, default is 120. 
+
+Implements \mbox{\hyperlink{classCanModule_1_1CCanAccess_a3c902569c0712d165fc7e385e683dc95}{Can\+Module\+::\+C\+Can\+Access}}.
+
+
+
+Definition at line 81 of file pkcan.\+h.
+
+\mbox{\Hypertarget{classPKCanScan_af7d899c65e6abef105d82a89115fd59b}\label{classPKCanScan_af7d899c65e6abef105d82a89115fd59b}} 
+\index{PKCanScan@{PKCanScan}!stopBus@{stopBus}}
+\index{stopBus@{stopBus}!PKCanScan@{PKCanScan}}
+\doxysubsubsection{\texorpdfstring{stopBus()}{stopBus()}}
+{\footnotesize\ttfamily void P\+K\+Can\+Scan\+::stop\+Bus (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+notify the main thread to finish and delete the bus from the map of connections 
+
+Definition at line 72 of file pkcan.\+cpp.
+
+
+
+References m\+\_\+bus\+Map, m\+\_\+bus\+Name, m\+\_\+\+Can\+Scan\+Thread\+Run\+Enable\+Flag, m\+\_\+id\+Can\+Scan\+Thread, m\+\_\+pk\+Can\+Handle, M\+L\+O\+G\+PK, and peak\+Reconnect\+Mutex.
+
+
+
+Referenced by send\+Message(), and $\sim$\+P\+K\+Can\+Scan().
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classPKCanScan_a84e9c4874e065b79d5600c0a5f9f7877}\label{classPKCanScan_a84e9c4874e065b79d5600c0a5f9f7877}} 
+\index{PKCanScan@{PKCanScan}!m\_baudRate@{m\_baudRate}}
+\index{m\_baudRate@{m\_baudRate}!PKCanScan@{PKCanScan}}
+\doxysubsubsection{\texorpdfstring{m\_baudRate}{m\_baudRate}}
+{\footnotesize\ttfamily unsigned int P\+K\+Can\+Scan\+::m\+\_\+baud\+Rate\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 100 of file pkcan.\+h.
+
+
+
+Referenced by Can\+Scan\+Control\+Thread(), configure\+Canboard(), and get\+Statistics().
+
+\mbox{\Hypertarget{classPKCanScan_ade2df2a66357db34e6df07abb02ac4ac}\label{classPKCanScan_ade2df2a66357db34e6df07abb02ac4ac}} 
+\index{PKCanScan@{PKCanScan}!m\_busMap@{m\_busMap}}
+\index{m\_busMap@{m\_busMap}!PKCanScan@{PKCanScan}}
+\doxysubsubsection{\texorpdfstring{m\_busMap}{m\_busMap}}
+{\footnotesize\ttfamily std\+::map$<$ string, string $>$ P\+K\+Can\+Scan\+::m\+\_\+bus\+Map\hspace{0.3cm}{\ttfamily [static]}}
+
+© Copyright C\+E\+RN, 2015. All rights not expressly granted are reserved.
+
+\mbox{\hyperlink{AnaCanScan_8cpp}{Ana\+Can\+Scan.\+cpp}}
+
+Created on\+: Mar 17, 2015 Author\+: pnikiel, vfilimon, quasar team mludwig at cern dot ch
+
+This file is part of Quasar.
+
+Quasar is free software\+: you can redistribute it and/or modify it under the terms of the G\+NU Lesser General Public Licence as published by the Free Software Foundation, either version 3 of the Licence.
+
+Quasar is distributed in the hope that it will be useful, but W\+I\+T\+H\+O\+UT A\+NY W\+A\+R\+R\+A\+N\+TY; without even the implied warranty of M\+E\+R\+C\+H\+A\+N\+T\+A\+B\+I\+L\+I\+TY or F\+I\+T\+N\+E\+SS F\+OR A P\+A\+R\+T\+I\+C\+U\+L\+AR P\+U\+R\+P\+O\+SE. See the G\+NU Lesser General Public Licence for more details.
+
+You should have received a copy of the G\+NU Lesser General Public License along with Quasar. If not, see \href{http://www.gnu.org/licenses/}{\texttt{ http\+://www.\+gnu.\+org/licenses/}}.
+
+P\+E\+AK bridge integration for windows 
+
+Definition at line 75 of file pkcan.\+h.
+
+
+
+Referenced by create\+Bus(), and stop\+Bus().
+
+\mbox{\Hypertarget{classPKCanScan_a4a881ec178b83b4a8937180d45738a2e}\label{classPKCanScan_a4a881ec178b83b4a8937180d45738a2e}} 
+\index{PKCanScan@{PKCanScan}!m\_busName@{m\_busName}}
+\index{m\_busName@{m\_busName}!PKCanScan@{PKCanScan}}
+\doxysubsubsection{\texorpdfstring{m\_busName}{m\_busName}}
+{\footnotesize\ttfamily string P\+K\+Can\+Scan\+::m\+\_\+bus\+Name\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 101 of file pkcan.\+h.
+
+
+
+Referenced by create\+Bus(), send\+Message(), and stop\+Bus().
+
+\mbox{\Hypertarget{classPKCanScan_aa12640926d5f9f2e72f728dc084ace80}\label{classPKCanScan_aa12640926d5f9f2e72f728dc084ace80}} 
+\index{PKCanScan@{PKCanScan}!m\_busParameters@{m\_busParameters}}
+\index{m\_busParameters@{m\_busParameters}!PKCanScan@{PKCanScan}}
+\doxysubsubsection{\texorpdfstring{m\_busParameters}{m\_busParameters}}
+{\footnotesize\ttfamily string P\+K\+Can\+Scan\+::m\+\_\+bus\+Parameters\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 102 of file pkcan.\+h.
+
+
+
+Referenced by create\+Bus(), and send\+Message().
+
+\mbox{\Hypertarget{classPKCanScan_a1c361b38cbc6016192fbcd9a6d81236c}\label{classPKCanScan_a1c361b38cbc6016192fbcd9a6d81236c}} 
+\index{PKCanScan@{PKCanScan}!m\_busStatus@{m\_busStatus}}
+\index{m\_busStatus@{m\_busStatus}!PKCanScan@{PKCanScan}}
+\doxysubsubsection{\texorpdfstring{m\_busStatus}{m\_busStatus}}
+{\footnotesize\ttfamily T\+P\+C\+A\+N\+Status P\+K\+Can\+Scan\+::m\+\_\+bus\+Status\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 97 of file pkcan.\+h.
+
+
+
+Referenced by send\+Error\+Code().
+
+\mbox{\Hypertarget{classPKCanScan_abf46ef73d86a3ab7212e6484d35cd92b}\label{classPKCanScan_abf46ef73d86a3ab7212e6484d35cd92b}} 
+\index{PKCanScan@{PKCanScan}!m\_CanScanThreadRunEnableFlag@{m\_CanScanThreadRunEnableFlag}}
+\index{m\_CanScanThreadRunEnableFlag@{m\_CanScanThreadRunEnableFlag}!PKCanScan@{PKCanScan}}
+\doxysubsubsection{\texorpdfstring{m\_CanScanThreadRunEnableFlag}{m\_CanScanThreadRunEnableFlag}}
+{\footnotesize\ttfamily bool P\+K\+Can\+Scan\+::m\+\_\+\+Can\+Scan\+Thread\+Run\+Enable\+Flag\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 98 of file pkcan.\+h.
+
+
+
+Referenced by Can\+Scan\+Control\+Thread(), and stop\+Bus().
+
+\mbox{\Hypertarget{classPKCanScan_a169a32c5961996acbd55aa5c12118de0}\label{classPKCanScan_a169a32c5961996acbd55aa5c12118de0}} 
+\index{PKCanScan@{PKCanScan}!m\_hCanScanThread@{m\_hCanScanThread}}
+\index{m\_hCanScanThread@{m\_hCanScanThread}!PKCanScan@{PKCanScan}}
+\doxysubsubsection{\texorpdfstring{m\_hCanScanThread}{m\_hCanScanThread}}
+{\footnotesize\ttfamily H\+A\+N\+D\+LE P\+K\+Can\+Scan\+::m\+\_\+h\+Can\+Scan\+Thread\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 108 of file pkcan.\+h.
+
+
+
+Referenced by create\+Bus().
+
+\mbox{\Hypertarget{classPKCanScan_a5ba2a765e250376fde32db88272339d6}\label{classPKCanScan_a5ba2a765e250376fde32db88272339d6}} 
+\index{PKCanScan@{PKCanScan}!m\_idCanScanThread@{m\_idCanScanThread}}
+\index{m\_idCanScanThread@{m\_idCanScanThread}!PKCanScan@{PKCanScan}}
+\doxysubsubsection{\texorpdfstring{m\_idCanScanThread}{m\_idCanScanThread}}
+{\footnotesize\ttfamily \mbox{\hyperlink{AnaCanScan_8h_ad342ac907eb044443153a22f964bf0af}{D\+W\+O\+RD}} P\+K\+Can\+Scan\+::m\+\_\+id\+Can\+Scan\+Thread\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 112 of file pkcan.\+h.
+
+
+
+Referenced by create\+Bus(), and stop\+Bus().
+
+\mbox{\Hypertarget{classPKCanScan_ae77567d34d33ec9576a7e4eebd0c1f09}\label{classPKCanScan_ae77567d34d33ec9576a7e4eebd0c1f09}} 
+\index{PKCanScan@{PKCanScan}!m\_logItHandlePk@{m\_logItHandlePk}}
+\index{m\_logItHandlePk@{m\_logItHandlePk}!PKCanScan@{PKCanScan}}
+\doxysubsubsection{\texorpdfstring{m\_logItHandlePk}{m\_logItHandlePk}}
+{\footnotesize\ttfamily Log\+::\+Log\+Component\+Handle P\+K\+Can\+Scan\+::m\+\_\+log\+It\+Handle\+Pk\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 89 of file pkcan.\+h.
+
+
+
+Referenced by create\+Bus().
+
+\mbox{\Hypertarget{classPKCanScan_a4b662f651cf1bffd217aee603f9751a9}\label{classPKCanScan_a4b662f651cf1bffd217aee603f9751a9}} 
+\index{PKCanScan@{PKCanScan}!m\_pkCanHandle@{m\_pkCanHandle}}
+\index{m\_pkCanHandle@{m\_pkCanHandle}!PKCanScan@{PKCanScan}}
+\doxysubsubsection{\texorpdfstring{m\_pkCanHandle}{m\_pkCanHandle}}
+{\footnotesize\ttfamily T\+P\+C\+A\+N\+Handle P\+K\+Can\+Scan\+::m\+\_\+pk\+Can\+Handle\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 104 of file pkcan.\+h.
+
+
+
+Referenced by Can\+Scan\+Control\+Thread(), configure\+Canboard(), create\+Bus(), get\+Port\+Status(), send\+Error\+Code(), send\+Message(), send\+Remote\+Request(), and stop\+Bus().
+
+\mbox{\Hypertarget{classPKCanScan_a03eec54c44937d843f48b2b1a086b37b}\label{classPKCanScan_a03eec54c44937d843f48b2b1a086b37b}} 
+\index{PKCanScan@{PKCanScan}!m\_statistics@{m\_statistics}}
+\index{m\_statistics@{m\_statistics}!PKCanScan@{PKCanScan}}
+\doxysubsubsection{\texorpdfstring{m\_statistics}{m\_statistics}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classCanModule_1_1CanStatistics}{Can\+Statistics}} P\+K\+Can\+Scan\+::m\+\_\+statistics\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 96 of file pkcan.\+h.
+
+
+
+Referenced by Can\+Scan\+Control\+Thread(), get\+Statistics(), P\+K\+Can\+Scan(), and send\+Message().
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Can\+Interface\+Implementations/pkcan/\mbox{\hyperlink{pkcan_8h}{pkcan.\+h}}\item 
+Can\+Interface\+Implementations/pkcan/\mbox{\hyperlink{pkcan_8cpp}{pkcan.\+cpp}}\end{DoxyCompactItemize}

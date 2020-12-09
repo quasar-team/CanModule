@@ -92,6 +92,7 @@ public:
 		AnaInt32 state = CANDeviceConnectState( m_UcanHandle );
 		return( state & CANMODULE_STATUS_BP_ANAGATE );
 	}
+	virtual uint32_t getPortBitrate(){ return m_CanParameters.m_lBaudRate; };
 
 	virtual void setReconnectBehavior( CanModule::ReconnectAutoCondition cond, CanModule::ReconnectAction action ){
 		m_reconnectCondition = cond;

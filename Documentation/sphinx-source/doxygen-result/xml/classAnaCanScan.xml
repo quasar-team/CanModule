@@ -1,0 +1,1365 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="classAnaCanScan" kind="class" language="C++" prot="public">
+    <compoundname>AnaCanScan</compoundname>
+    <basecompoundref refid="classCanModule_1_1CCanAccess" prot="public" virt="non-virtual">CanModule::CCanAccess</basecompoundref>
+    <includes refid="AnaCanScan_8h" local="no">AnaCanScan.h</includes>
+    <innerclass refid="structAnaCanScan_1_1ANAGATE__PORTDEF__t" prot="private">AnaCanScan::ANAGATE_PORTDEF_t</innerclass>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classAnaCanScan_1a2ef4dd0b4c07b341597382688b8a2964" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int AnaCanScan::m_canPortNumber</definition>
+        <argsstring></argsstring>
+        <name>m_canPortNumber</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/anagate/AnaCanScan.h" line="109" column="6" bodyfile="CanInterfaceImplementations/anagate/AnaCanScan.h" bodystart="104" bodyend="-1"/>
+        <referencedby refid="classAnaCanScan_1ad917f9cda15bbf9dd9abe6417be5a5eb" compoundref="AnaCanScan_8cpp" startline="277" endline="341">configureCanBoard</referencedby>
+        <referencedby refid="classAnaCanScan_1a428d6c62f3a2d6b4297898593961696b" compoundref="AnaCanScan_8cpp" startline="865" endline="911">connectReceptionHandler</referencedby>
+        <referencedby refid="classAnaCanScan_1ad94121f1933d50cafa52d625ee435f6c" compoundref="AnaCanScan_8cpp" startline="412" endline="482">openCanPort</referencedby>
+        <referencedby refid="classAnaCanScan_1af1deaf420c98dcdc4687f481fd4d9a08" compoundref="AnaCanScan_8cpp" startline="935" endline="1024">reconnect</referencedby>
+        <referencedby refid="classAnaCanScan_1aedcf208c8b79a297650bb2790884a79d" compoundref="AnaCanScan_8cpp" startline="695" endline="728">reconnectThisPort</referencedby>
+        <referencedby refid="classAnaCanScan_1ad45666454318c891d7acd9fe16ae4c49" compoundref="AnaCanScan_8cpp" startline="516" endline="672">sendMessage</referencedby>
+        <referencedby refid="classAnaCanScan_1a4631538bddfbe61637ea5ed0071b780f" compoundref="AnaCanScan_8cpp" startline="98" endline="106">stopBus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classAnaCanScan_1a501c8cb87a6e4a11b526840f052ec028" prot="private" static="no" mutable="no">
+        <type>string</type>
+        <definition>string AnaCanScan::m_canIPAddress</definition>
+        <argsstring></argsstring>
+        <name>m_canIPAddress</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/anagate/AnaCanScan.h" line="110" column="9" bodyfile="CanInterfaceImplementations/anagate/AnaCanScan.h" bodystart="110" bodyend="-1"/>
+        <referencedby refid="classAnaCanScan_1ad917f9cda15bbf9dd9abe6417be5a5eb" compoundref="AnaCanScan_8cpp" startline="277" endline="341">configureCanBoard</referencedby>
+        <referencedby refid="classAnaCanScan_1a428d6c62f3a2d6b4297898593961696b" compoundref="AnaCanScan_8cpp" startline="865" endline="911">connectReceptionHandler</referencedby>
+        <referencedby refid="classAnaCanScan_1ad94121f1933d50cafa52d625ee435f6c" compoundref="AnaCanScan_8cpp" startline="412" endline="482">openCanPort</referencedby>
+        <referencedby refid="classAnaCanScan_1af1deaf420c98dcdc4687f481fd4d9a08" compoundref="AnaCanScan_8cpp" startline="935" endline="1024">reconnect</referencedby>
+        <referencedby refid="classAnaCanScan_1aedcf208c8b79a297650bb2790884a79d" compoundref="AnaCanScan_8cpp" startline="695" endline="728">reconnectThisPort</referencedby>
+        <referencedby refid="classAnaCanScan_1ad45666454318c891d7acd9fe16ae4c49" compoundref="AnaCanScan_8cpp" startline="516" endline="672">sendMessage</referencedby>
+        <referencedby refid="classAnaCanScan_1a4631538bddfbe61637ea5ed0071b780f" compoundref="AnaCanScan_8cpp" startline="98" endline="106">stopBus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classAnaCanScan_1ae2d7c7a9b314adffbde6eafac5a3607e" prot="private" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int AnaCanScan::m_baudRate</definition>
+        <argsstring></argsstring>
+        <name>m_baudRate</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/anagate/AnaCanScan.h" line="111" column="14" bodyfile="CanInterfaceImplementations/anagate/AnaCanScan.h" bodystart="111" bodyend="-1"/>
+        <referencedby refid="classAnaCanScan_1ad917f9cda15bbf9dd9abe6417be5a5eb" compoundref="AnaCanScan_8cpp" startline="277" endline="341">configureCanBoard</referencedby>
+        <referencedby refid="classAnaCanScan_1ad4576bc409a954c888a6fd7f06ca697f" compoundref="AnaCanScan_8cpp" startline="1077" endline="1082">getStatistics</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classAnaCanScan_1a140c655eb7afe156add0edbd93ca2789" prot="private" static="no" mutable="no">
+        <type><ref refid="AnaCanScan_8h_1ad342ac907eb044443153a22f964bf0af" kindref="member">DWORD</ref></type>
+        <definition>DWORD AnaCanScan::m_idCanScanThread</definition>
+        <argsstring></argsstring>
+        <name>m_idCanScanThread</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/anagate/AnaCanScan.h" line="112" column="9" bodyfile="CanInterfaceImplementations/anagate/AnaCanScan.h" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classAnaCanScan_1adea6b9e3f699ae412a8fc532a3eb9a48" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool AnaCanScan::m_canCloseDevice</definition>
+        <argsstring></argsstring>
+        <name>m_canCloseDevice</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/anagate/AnaCanScan.h" line="113" column="6" bodyfile="CanInterfaceImplementations/anagate/AnaCanScan.h" bodystart="113" bodyend="-1"/>
+        <referencedby refid="classAnaCanScan_1af1deaf420c98dcdc4687f481fd4d9a08" compoundref="AnaCanScan_8cpp" startline="935" endline="1024">reconnect</referencedby>
+        <referencedby refid="classAnaCanScan_1ad45666454318c891d7acd9fe16ae4c49" compoundref="AnaCanScan_8cpp" startline="516" endline="672">sendMessage</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classAnaCanScan_1ad515df0b16ec1a2877282f54c0733a98" prot="private" static="no" mutable="no">
+        <type>string</type>
+        <definition>string AnaCanScan::m_busName</definition>
+        <argsstring></argsstring>
+        <name>m_busName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/anagate/AnaCanScan.h" line="114" column="8" bodyfile="CanInterfaceImplementations/anagate/AnaCanScan.h" bodystart="114" bodyend="-1"/>
+        <referencedby refid="classAnaCanScan_1a92f73e718c24985f247e5522486aace9" compoundref="AnaCanScan_8cpp" startline="244" endline="270">createBus</referencedby>
+        <referencedby refid="classAnaCanScan_1ae7ab2706bb4cd5e02409db38e73dbb3e" compoundref="AnaCanScan_8cpp" startline="916" endline="924">eraseReceptionHandlerFromMap</referencedby>
+        <referencedby refid="classAnaCanScan_1a4631538bddfbe61637ea5ed0071b780f" compoundref="AnaCanScan_8cpp" startline="98" endline="106">stopBus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classAnaCanScan_1a84c4a44bd26c3e3f21288f3abeba8326" prot="private" static="no" mutable="no">
+        <type>string</type>
+        <definition>string AnaCanScan::m_busParameters</definition>
+        <argsstring></argsstring>
+        <name>m_busParameters</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/anagate/AnaCanScan.h" line="115" column="8" bodyfile="CanInterfaceImplementations/anagate/AnaCanScan.h" bodystart="115" bodyend="-1"/>
+        <referencedby refid="classAnaCanScan_1a92f73e718c24985f247e5522486aace9" compoundref="AnaCanScan_8cpp" startline="244" endline="270">createBus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classAnaCanScan_1a581830a4a70cee6b31e3e895d669a9be" prot="private" static="no" mutable="no">
+        <type>AnaInt32</type>
+        <definition>AnaInt32 AnaCanScan::m_UcanHandle</definition>
+        <argsstring></argsstring>
+        <name>m_UcanHandle</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/anagate/AnaCanScan.h" line="116" column="10" bodyfile="CanInterfaceImplementations/anagate/AnaCanScan.h" bodystart="116" bodyend="-1"/>
+        <referencedby refid="classAnaCanScan_1a428d6c62f3a2d6b4297898593961696b" compoundref="AnaCanScan_8cpp" startline="865" endline="911">connectReceptionHandler</referencedby>
+        <referencedby refid="classAnaCanScan_1ad94121f1933d50cafa52d625ee435f6c" compoundref="AnaCanScan_8cpp" startline="412" endline="482">openCanPort</referencedby>
+        <referencedby refid="classAnaCanScan_1af1deaf420c98dcdc4687f481fd4d9a08" compoundref="AnaCanScan_8cpp" startline="935" endline="1024">reconnect</referencedby>
+        <referencedby refid="classAnaCanScan_1ad45666454318c891d7acd9fe16ae4c49" compoundref="AnaCanScan_8cpp" startline="516" endline="672">sendMessage</referencedby>
+        <referencedby refid="classAnaCanScan_1a345abb2f9712275425f4af8eb98cbd38" compoundref="AnaCanScan_8cpp" startline="1050" endline="1060">sendRemoteRequest</referencedby>
+        <referencedby refid="classAnaCanScan_1a7cbad1b8b5c44282c86bfcfda5464b8f" compoundref="AnaCanScan_8cpp" startline="1031" endline="1035">setConnectWaitTime</referencedby>
+        <referencedby refid="classAnaCanScan_1a4631538bddfbe61637ea5ed0071b780f" compoundref="AnaCanScan_8cpp" startline="98" endline="106">stopBus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classAnaCanScan_1a862310267c2415fa9afb401402fa7b57" prot="private" static="no" mutable="no">
+        <type><ref refid="classCanModule_1_1CanStatistics" kindref="compound">CanStatistics</ref></type>
+        <definition>CanStatistics AnaCanScan::m_statistics</definition>
+        <argsstring></argsstring>
+        <name>m_statistics</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/anagate/AnaCanScan.h" line="117" column="15" bodyfile="CanInterfaceImplementations/anagate/AnaCanScan.h" bodystart="117" bodyend="-1"/>
+        <referencedby refid="classAnaCanScan_1af6c27ae08034c5da64a54de29e2e875e" compoundref="AnaCanScan_8cpp" startline="74" endline="88">AnaCanScan</referencedby>
+        <referencedby refid="classAnaCanScan_1ad4576bc409a954c888a6fd7f06ca697f" compoundref="AnaCanScan_8cpp" startline="1077" endline="1082">getStatistics</referencedby>
+        <referencedby refid="classAnaCanScan_1ad45666454318c891d7acd9fe16ae4c49" compoundref="AnaCanScan_8cpp" startline="516" endline="672">sendMessage</referencedby>
+        <referencedby refid="classAnaCanScan_1a7ba68ea800d7a6837b6bc808d473323d" compoundref="AnaCanScan_8cpp" startline="200" endline="204">statisticsOnRecieve</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classAnaCanScan_1a2ef809f84d976b6f453049a7298760fe" prot="private" static="no" mutable="no">
+        <type>AnaInt32</type>
+        <definition>AnaInt32 AnaCanScan::m_timeout</definition>
+        <argsstring></argsstring>
+        <name>m_timeout</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/anagate/AnaCanScan.h" line="118" column="14" bodyfile="CanInterfaceImplementations/anagate/AnaCanScan.h" bodystart="118" bodyend="-1"/>
+        <referencedby refid="classAnaCanScan_1ad94121f1933d50cafa52d625ee435f6c" compoundref="AnaCanScan_8cpp" startline="412" endline="482">openCanPort</referencedby>
+        <referencedby refid="classAnaCanScan_1af1deaf420c98dcdc4687f481fd4d9a08" compoundref="AnaCanScan_8cpp" startline="935" endline="1024">reconnect</referencedby>
+        <referencedby refid="classAnaCanScan_1a7cbad1b8b5c44282c86bfcfda5464b8f" compoundref="AnaCanScan_8cpp" startline="1031" endline="1035">setConnectWaitTime</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-static-attrib">
+      <memberdef kind="variable" id="classAnaCanScan_1a39ab4f1c865bef7349992abd4d91da1d" prot="private" static="yes" mutable="no">
+        <type>Log::LogComponentHandle</type>
+        <definition>Log::LogComponentHandle AnaCanScan::st_logItHandleAnagate</definition>
+        <argsstring></argsstring>
+        <name>st_logItHandleAnagate</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>we would like to keep logging from a few static methods as well, since one IP number corresponds to many ports and some class-level management is going on for the connect-reconnect behavior. We definitely need these to be static. So since we need the logit handle static there is no point in having it also private. At least the cross-thread references to the handler are within this class only. It is all re-entrant code, and the handler does not change during runtime any more, so no mutex protection for now. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/anagate/AnaCanScan.h" line="130" column="36" bodyfile="CanInterfaceImplementations/anagate/AnaCanScan.h" bodystart="130" bodyend="-1"/>
+        <referencedby refid="classAnaCanScan_1a3e2635663ebdfac68591d6a0577fa951" compoundref="AnaCanScan_8cpp" startline="346" endline="358">addCanHandleOfPortIp</referencedby>
+        <referencedby refid="classAnaCanScan_1a92f73e718c24985f247e5522486aace9" compoundref="AnaCanScan_8cpp" startline="244" endline="270">createBus</referencedby>
+        <referencedby refid="classAnaCanScan_1a1b62497ac5f0edcf9895c9f8cfad6b50" compoundref="AnaCanScan_8cpp" startline="364" endline="383">deleteCanHandleOfPortIp</referencedby>
+        <referencedby refid="classAnaCanScan_1a7bf29c3cb20f59bca41d581e4d8c9c04" compoundref="AnaCanScan_8cpp" startline="389" endline="401">getCanHandleOfPortIp</referencedby>
+        <referencedby refid="classAnaCanScan_1abf8809be00bdc2f39344ec72cf66514c" compoundref="AnaCanScan_8cpp" startline="748" endline="858">reconnectAllPorts</referencedby>
+        <referencedby refid="classAnaCanScan_1aedcf208c8b79a297650bb2790884a79d" compoundref="AnaCanScan_8cpp" startline="695" endline="728">reconnectThisPort</referencedby>
+        <referencedby refid="classAnaCanScan_1a9ebdd69b0b5f2e43b152fde44dfbd543" compoundref="AnaCanScan_8cpp" startline="677" endline="689">showAnaCanScanObjectMap</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classAnaCanScan_1a71e415a2fec462b991777ca38a9797cc" prot="private" static="yes" mutable="no">
+        <type>std::map&lt; int, <ref refid="structAnaCanScan_1_1ANAGATE__PORTDEF__t" kindref="compound">ANAGATE_PORTDEF_t</ref> &gt;</type>
+        <definition>std::map&lt; int, AnaCanScan::ANAGATE_PORTDEF_t &gt; AnaCanScan::st_canHandleMap</definition>
+        <argsstring></argsstring>
+        <name>st_canHandleMap</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/anagate/AnaCanScan.h" line="143" column="17" bodyfile="CanInterfaceImplementations/anagate/AnaCanScan.h" bodystart="143" bodyend="-1"/>
+        <referencedby refid="classAnaCanScan_1a3e2635663ebdfac68591d6a0577fa951" compoundref="AnaCanScan_8cpp" startline="346" endline="358">addCanHandleOfPortIp</referencedby>
+        <referencedby refid="classAnaCanScan_1a1b62497ac5f0edcf9895c9f8cfad6b50" compoundref="AnaCanScan_8cpp" startline="364" endline="383">deleteCanHandleOfPortIp</referencedby>
+        <referencedby refid="classAnaCanScan_1a7bf29c3cb20f59bca41d581e4d8c9c04" compoundref="AnaCanScan_8cpp" startline="389" endline="401">getCanHandleOfPortIp</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classAnaCanScan_1a3ff66979e02a0904488365ec412fc994" prot="private" static="yes" mutable="no">
+        <type>std::map&lt; string, bool &gt;</type>
+        <definition>std::map&lt; string, bool &gt; AnaCanScan::m_reconnectInProgress_map</definition>
+        <argsstring></argsstring>
+        <name>m_reconnectInProgress_map</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/anagate/AnaCanScan.h" line="166" column="17" bodyfile="CanInterfaceImplementations/anagate/AnaCanScan.h" bodystart="166" bodyend="-1"/>
+        <referencedby refid="classAnaCanScan_1afeaf22bfd209035e9ad9ac3111c6ba65" compoundref="AnaCanScan_8cpp" startline="130" endline="137">isIpReconnectInProgress</referencedby>
+        <referencedby refid="classAnaCanScan_1a04a0124990e52b55b8c1046709ccb2d9" compoundref="AnaCanScan_8cpp" startline="109" endline="124">setIpReconnectInProgress</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classAnaCanScan_1af6c27ae08034c5da64a54de29e2e875e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>AnaCanScan::AnaCanScan</definition>
+        <argsstring>()</argsstring>
+        <name>AnaCanScan</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/anagate/AnaCanScan.h" line="60" column="1" bodyfile="CanInterfaceImplementations/anagate/AnaCanScan.cpp" bodystart="74" bodyend="88"/>
+        <references refid="classCanModule_1_1CanStatistics_1a85e6c87ce5285884a0272088178bb8f6" compoundref="CanStatistics_8cpp" startline="44" endline="51">CanModule::CanStatistics::beginNewRun</references>
+        <references refid="classCanModule_1_1CCanAccess_1a686ba59e549d1fde3727ab1f88a8c463" compoundref="CCanAccess_8h" startline="474">CanModule::CCanAccess::m_failedSendCounter</references>
+        <references refid="classAnaCanScan_1a862310267c2415fa9afb401402fa7b57" compoundref="AnaCanScan_8h" startline="117">m_statistics</references>
+        <references refid="classCanModule_1_1CCanAccess_1a74e437526e45192804ca1cffc663d2e2" compoundref="CCanAccess_8h" startline="473">CanModule::CCanAccess::m_triggerCounter</references>
+        <references refid="classCanModule_1_1CanStatistics_1af3f15dedf80e67f1309946632d87198d" compoundref="CanStatistics_8h" startline="107" endline="113">CanModule::CanStatistics::setTimeSinceOpened</references>
+      </memberdef>
+      <memberdef kind="function" id="classAnaCanScan_1af05ec5dfd6ac56764c6db8e721648b75" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>AnaCanScan::AnaCanScan</definition>
+        <argsstring>(AnaCanScan const &amp;other)=delete</argsstring>
+        <name>AnaCanScan</name>
+        <param>
+          <type><ref refid="classAnaCanScan" kindref="compound">AnaCanScan</ref> const &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/anagate/AnaCanScan.h" line="61" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classAnaCanScan_1acf15b51af8c83b38115f83b343eaf2d6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classAnaCanScan" kindref="compound">AnaCanScan</ref> &amp;</type>
+        <definition>AnaCanScan&amp; AnaCanScan::operator=</definition>
+        <argsstring>(AnaCanScan const &amp;other)=delete</argsstring>
+        <name>operator=</name>
+        <param>
+          <type><ref refid="classAnaCanScan" kindref="compound">AnaCanScan</ref> const &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/anagate/AnaCanScan.h" line="62" column="12"/>
+      </memberdef>
+      <memberdef kind="function" id="classAnaCanScan_1a2c8256b5096aa1351fbd9f3f2f717180" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>AnaCanScan::~AnaCanScan</definition>
+        <argsstring>()</argsstring>
+        <name>~AnaCanScan</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Shut down can scan thread </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/anagate/AnaCanScan.h" line="63" column="9" bodyfile="CanInterfaceImplementations/anagate/AnaCanScan.cpp" bodystart="93" bodyend="96"/>
+        <references refid="classAnaCanScan_1a4631538bddfbe61637ea5ed0071b780f" compoundref="AnaCanScan_8cpp" startline="98" endline="106">stopBus</references>
+      </memberdef>
+      <memberdef kind="function" id="classAnaCanScan_1a92f73e718c24985f247e5522486aace9" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>int</type>
+        <definition>int AnaCanScan::createBus</definition>
+        <argsstring>(const string name, const string parameters)</argsstring>
+        <name>createBus</name>
+        <reimplements refid="classCanModule_1_1CCanAccess_1a0eeee5c3d48f1102012d1483cbe6e64b">createBus</reimplements>
+        <param>
+          <type>const string</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>const string</type>
+          <declname>parameters</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Method that initialises a CAN bus channel for anagate. All following methods called on the same object will be using this initialized channel.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>3 parameters separated by &quot;:&quot; like &quot;n0:n1:n2&quot; n0 = &quot;an&quot; for anagate n1 = port number on the module, 0=A, 1=B, etc etc n2 = ip number ex.: &quot;an:can1:137.138.12.99&quot; speaks to port B (=1) on anagate module at the ip ex.: &quot;an:1:137.138.12.99&quot; works as well</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>parameters</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>up to 5 parameters separated by whitespaces : &quot;p0 p1 p2 p3 p4&quot; in THAT order, positive integers<itemizedlist>
+<listitem><para>&quot;Unspecified&quot; (or empty): using defaults = &quot;125000 0 0 0 0&quot; // all params missing</para>
+</listitem><listitem><para>p0: bitrate: 10000, 20000, 50000, 62000, 100000, 125000, 250000, 500000, 800000, 1000000 bit/s</para>
+</listitem><listitem><para>p1: operatingMode: 0=default mode, values 1 (loop back) and 2 (listen) are not supported by <ref refid="namespaceCanModule" kindref="compound">CanModule</ref></para>
+</listitem><listitem><para>p2: termination: 0=not terminated (default), 1=terminated (120 Ohm for CAN bus)</para>
+</listitem><listitem><para>p3: highSpeed: 0=deactivated (default), 1=activated. If activated, confirmation and filtering of CAN traffic are switched off for baud rates &gt; 125000 this flag is needed, and it is set automatically for you if you forgot it (WRN)</para>
+</listitem><listitem><para>p4: TimeStamp: 0=deactivated (default), 1=activated. If activated, a timestamp is added to the CAN frame. Not all modules support this. i.e. &quot;250000 0 1 0 0&quot; (see anagate manual for more details)</para>
+</listitem></itemizedlist>
+</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>0: new bus, OK, add it please 1: existing bus, OK, do not add -1: error </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/anagate/AnaCanScan.h" line="65" column="13" bodyfile="CanInterfaceImplementations/anagate/AnaCanScan.cpp" bodystart="244" bodyend="270"/>
+        <references refid="classAnaCanScan_1ad917f9cda15bbf9dd9abe6417be5a5eb" compoundref="AnaCanScan_8cpp" startline="277" endline="341">configureCanBoard</references>
+        <references refid="namespaceCanModule_1a78730a18f59663871883885f3914a2aa" compoundref="CCanAccess_8h" startline="50">CanModule::LogItComponentName</references>
+        <references refid="classAnaCanScan_1ad515df0b16ec1a2877282f54c0733a98" compoundref="AnaCanScan_8h" startline="114">m_busName</references>
+        <references refid="classAnaCanScan_1a84c4a44bd26c3e3f21288f3abeba8326" compoundref="AnaCanScan_8h" startline="115">m_busParameters</references>
+        <references refid="AnaCanScan_8cpp_1ac34d62b5ffd4e8e1c3ece118f3f58485" compoundref="AnaCanScan_8cpp" startline="72">MLOGANA</references>
+        <references refid="classAnaCanScan_1a39ab4f1c865bef7349992abd4d91da1d" compoundref="AnaCanScan_8h" startline="130">st_logItHandleAnagate</references>
+      </memberdef>
+      <memberdef kind="function" id="classAnaCanScan_1ad45666454318c891d7acd9fe16ae4c49" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool AnaCanScan::sendMessage</definition>
+        <argsstring>(short cobID, unsigned char len, unsigned char *message, bool rtr=false)</argsstring>
+        <name>sendMessage</name>
+        <reimplements refid="classCanModule_1_1CCanAccess_1aee42ab7fb9e50c02a1812202f7863d8c">sendMessage</reimplements>
+        <param>
+          <type>short</type>
+          <declname>cobID</declname>
+        </param>
+        <param>
+          <type>unsigned char</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>unsigned char *</type>
+          <declname>message</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>rtr</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>send a CAN message frame (8 byte) for anagate Method that sends a message through the can bus channel. If the method createBus was not called before this, sendMessage will fail, as there is no can bus channel to send a message trough. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>cobID</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Identifier that will be used for the message. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>len</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of the message. If the message is bigger than 8 characters, it will be split into separate 8 characters messages. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>message</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Message to be sent trough the can bus. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>rtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the message a remote transmission request? </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Was the sending process successful? </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+<para>before sending the message we check if the reception timeout has not been overrun. Because this would entail some reconnection action, and in that case we skip the send on that bus.</para>
+<para>we can send now</para>
+<para>something failed miserably. we are pessimistic and assume that the whole module (=ip) with all open ports has lost power. Anyway, per-port resetting will not work. Therefore we try to reconnect all used ports of this ip. This is a bit brute, but it will work, so you do not have to go down the tunnel. Nevertheless we should limit our efforts to this module=ip only and not reconnect all other modules managed by this task. we also avoid reconnecting all ports of an ip several times (for each failed send on any port)</para>
+<para>something failed miserably. we only reconnect a single bus</para>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/anagate/AnaCanScan.h" line="66" column="18" bodyfile="CanInterfaceImplementations/anagate/AnaCanScan.cpp" bodystart="516" bodyend="672"/>
+        <references refid="namespaceCanModule_1a2062089fa4fa87c8354295f2a8fe31a5a319ee2c9d887d55f6bc1941518a5ae76">CanModule::allBusesOnBridge</references>
+        <references refid="namespaceCanModule_1a2062089fa4fa87c8354295f2a8fe31a5a74fa07b834c8e10084ece32c00d9bbbc">CanModule::hardReset</references>
+        <references refid="classCanModule_1_1CCanAccess_1a79c236a0e2b3e3b183b1c85aab3f5b71" compoundref="CCanAccess_8h" startline="503" endline="513">CanModule::CCanAccess::hasTimeoutOnReception</references>
+        <references refid="classAnaCanScan_1adea6b9e3f699ae412a8fc532a3eb9a48" compoundref="AnaCanScan_8h" startline="113">m_canCloseDevice</references>
+        <references refid="classAnaCanScan_1a501c8cb87a6e4a11b526840f052ec028" compoundref="AnaCanScan_8h" startline="110">m_canIPAddress</references>
+        <references refid="classAnaCanScan_1a2ef4dd0b4c07b341597382688b8a2964" compoundref="AnaCanScan_8h" startline="104">m_canPortNumber</references>
+        <references refid="classCanModule_1_1CCanAccess_1a686ba59e549d1fde3727ab1f88a8c463" compoundref="CCanAccess_8h" startline="474">CanModule::CCanAccess::m_failedSendCounter</references>
+        <references refid="classCanModule_1_1CCanAccess_1a6baf24c56eb715adf55a569d08b12c25" compoundref="CCanAccess_8h" startline="471">CanModule::CCanAccess::m_reconnectAction</references>
+        <references refid="classCanModule_1_1CCanAccess_1abfd40edc34a777a5ff4503a6e8a239d6" compoundref="CCanAccess_8h" startline="470">CanModule::CCanAccess::m_reconnectCondition</references>
+        <references refid="classAnaCanScan_1a862310267c2415fa9afb401402fa7b57" compoundref="AnaCanScan_8h" startline="117">m_statistics</references>
+        <references refid="classCanModule_1_1CCanAccess_1a74e437526e45192804ca1cffc663d2e2" compoundref="CCanAccess_8h" startline="473">CanModule::CCanAccess::m_triggerCounter</references>
+        <references refid="classAnaCanScan_1a581830a4a70cee6b31e3e895d669a9be" compoundref="AnaCanScan_8h" startline="116">m_UcanHandle</references>
+        <references refid="AnaCanScan_8cpp_1ac34d62b5ffd4e8e1c3ece118f3f58485" compoundref="AnaCanScan_8cpp" startline="72">MLOGANA</references>
+        <references refid="namespaceCanModule_1a2f4fee79cc7ba53467c2538fe6b9adbbac7561db7a418dd39b2201dfe110ab4a4">CanModule::never</references>
+        <references refid="classCanModule_1_1CanStatistics_1a0265b75e9e2e16737950b6b5c5662f35" compoundref="CanStatistics_8cpp" startline="94" endline="99">CanModule::CanStatistics::onTransmit</references>
+        <references refid="classCanModule_1_1CCanAccess_1aa12f64e9e31bd491f39fc3169b1e5025" compoundref="CCanAccess_8h" startline="491" endline="498">CanModule::CCanAccess::reconnectActionString</references>
+        <references refid="classAnaCanScan_1abf8809be00bdc2f39344ec72cf66514c" compoundref="AnaCanScan_8cpp" startline="748" endline="858">reconnectAllPorts</references>
+        <references refid="classCanModule_1_1CCanAccess_1a9da88ce122d5de04a0235a4682a13dc0" compoundref="CCanAccess_8h" startline="479" endline="486">CanModule::CCanAccess::reconnectConditionString</references>
+        <references refid="classAnaCanScan_1aedcf208c8b79a297650bb2790884a79d" compoundref="AnaCanScan_8cpp" startline="695" endline="728">reconnectThisPort</references>
+        <references refid="classCanModule_1_1CCanAccess_1a067f50699c1ed4b6ee6732eb0078ed0a" compoundref="CCanAccess_8h" startline="518" endline="524">CanModule::CCanAccess::resetTimeoutOnReception</references>
+        <references refid="classAnaCanScan_1aaa001b34e6ee0a27295239f951b7b879" compoundref="AnaCanScan_8cpp" startline="487" endline="504">sendErrorCode</references>
+        <references refid="namespaceCanModule_1a2f4fee79cc7ba53467c2538fe6b9adbbae323a25a871808f9a0df9a72ce954585">CanModule::sendFail</references>
+        <references refid="classCanModule_1_1CanStatistics_1afe8d43dfb65ee2675ceac1dc84f7eb1a" compoundref="CanStatistics_8h" startline="123" endline="129">CanModule::CanStatistics::setTimeSinceTransmitted</references>
+        <references refid="classAnaCanScan_1a9ebdd69b0b5f2e43b152fde44dfbd543" compoundref="AnaCanScan_8cpp" startline="677" endline="689">showAnaCanScanObjectMap</references>
+        <references refid="namespaceCanModule_1a2062089fa4fa87c8354295f2a8fe31a5a5f768fefafa6db21eee26885afb6163d">CanModule::singleBus</references>
+        <references refid="namespaceCanModule_1a2f4fee79cc7ba53467c2538fe6b9adbbaba350cf15e5a1471109f17351afb401a">CanModule::timeoutOnReception</references>
+        <referencedby refid="classAnaCanScan_1a75c1a41d3e8ed31b39e2813596358472" compoundref="AnaCanScan_8cpp" startline="1038" endline="1041">sendMessage</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classAnaCanScan_1a75c1a41d3e8ed31b39e2813596358472" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool AnaCanScan::sendMessage</definition>
+        <argsstring>(CanMessage *)</argsstring>
+        <name>sendMessage</name>
+        <reimplements refid="classCanModule_1_1CCanAccess_1ad0360c49d00ec0ee92cfdd73c2e43935">sendMessage</reimplements>
+        <param>
+          <type><ref refid="CanMessage_8h_1ab1aeab76298263f21dfde5bbdacaf46f" kindref="member">CanMessage</ref> *</type>
+          <defname>canm</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/anagate/AnaCanScan.h" line="67" column="14" bodyfile="CanInterfaceImplementations/anagate/AnaCanScan.cpp" bodystart="1038" bodyend="1041"/>
+        <references refid="structCanMsgStruct_1a2e47a33e7bba46b05a8fff29433f047b" compoundref="CanMessage_8h" startline="29">CanMsgStruct::c_data</references>
+        <references refid="structCanMsgStruct_1a3e5add8ae9cdadfcf3f2255d375ec9b3" compoundref="CanMessage_8h" startline="27">CanMsgStruct::c_dlc</references>
+        <references refid="structCanMsgStruct_1a619515aef041e64b78e7e8c33989ddd0" compoundref="CanMessage_8h" startline="23">CanMsgStruct::c_id</references>
+        <references refid="structCanMsgStruct_1ad4a78c27262604bacb5720d8633f71c6" compoundref="CanMessage_8h" startline="33">CanMsgStruct::c_rtr</references>
+        <references refid="classAnaCanScan_1ad45666454318c891d7acd9fe16ae4c49" compoundref="AnaCanScan_8cpp" startline="516" endline="672">sendMessage</references>
+      </memberdef>
+      <memberdef kind="function" id="classAnaCanScan_1a345abb2f9712275425f4af8eb98cbd38" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool AnaCanScan::sendRemoteRequest</definition>
+        <argsstring>(short cobID)</argsstring>
+        <name>sendRemoteRequest</name>
+        <reimplements refid="classCanModule_1_1CCanAccess_1acfefbc9be2696b1388cf6df2bba00aa1">sendRemoteRequest</reimplements>
+        <param>
+          <type>short</type>
+          <declname>cobID</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Method that sends a remote request trough the can bus channel. If the method createBus was not called before this, sendMessage will fail, as there is no can bus channel to send the request trough. Similar to sendMessage, but it sends an special message reserved for requests. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>cobID</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Identifier that will be used for the request. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Was the initialisation process successful? </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/anagate/AnaCanScan.h" line="68" column="14" bodyfile="CanInterfaceImplementations/anagate/AnaCanScan.cpp" bodystart="1050" bodyend="1060"/>
+        <references refid="classAnaCanScan_1a581830a4a70cee6b31e3e895d669a9be" compoundref="AnaCanScan_8h" startline="116">m_UcanHandle</references>
+        <references refid="AnaCanScan_8cpp_1ac34d62b5ffd4e8e1c3ece118f3f58485" compoundref="AnaCanScan_8cpp" startline="72">MLOGANA</references>
+        <references refid="classAnaCanScan_1aaa001b34e6ee0a27295239f951b7b879" compoundref="AnaCanScan_8cpp" startline="487" endline="504">sendErrorCode</references>
+      </memberdef>
+      <memberdef kind="function" id="classAnaCanScan_1ad4576bc409a954c888a6fd7f06ca697f" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void AnaCanScan::getStatistics</definition>
+        <argsstring>(CanStatistics &amp;result)</argsstring>
+        <name>getStatistics</name>
+        <reimplements refid="classCanModule_1_1CCanAccess_1ad3182c83b4c5d7e6aef982c36e731507">getStatistics</reimplements>
+        <param>
+          <type><ref refid="classCanModule_1_1CanStatistics" kindref="compound">CanStatistics</ref> &amp;</type>
+          <declname>result</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/anagate/AnaCanScan.h" line="69" column="14" bodyfile="CanInterfaceImplementations/anagate/AnaCanScan.cpp" bodystart="1077" bodyend="1082"/>
+        <references refid="classCanModule_1_1CanStatistics_1a85e6c87ce5285884a0272088178bb8f6" compoundref="CanStatistics_8cpp" startline="44" endline="51">CanModule::CanStatistics::beginNewRun</references>
+        <references refid="classCanModule_1_1CanStatistics_1a8ec66bd11141579779f143362b70640e" compoundref="CanStatistics_8cpp" startline="74" endline="92">CanModule::CanStatistics::computeDerived</references>
+        <references refid="classAnaCanScan_1ae2d7c7a9b314adffbde6eafac5a3607e" compoundref="AnaCanScan_8h" startline="111">m_baudRate</references>
+        <references refid="classAnaCanScan_1a862310267c2415fa9afb401402fa7b57" compoundref="AnaCanScan_8h" startline="117">m_statistics</references>
+      </memberdef>
+      <memberdef kind="function" id="classAnaCanScan_1a7ba68ea800d7a6837b6bc808d473323d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void AnaCanScan::statisticsOnRecieve</definition>
+        <argsstring>(int)</argsstring>
+        <name>statisticsOnRecieve</name>
+        <param>
+          <type>int</type>
+          <defname>bytes</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>update statistics API </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/anagate/AnaCanScan.h" line="71" column="6" bodyfile="CanInterfaceImplementations/anagate/AnaCanScan.cpp" bodystart="200" bodyend="204"/>
+        <references refid="classAnaCanScan_1a862310267c2415fa9afb401402fa7b57" compoundref="AnaCanScan_8h" startline="117">m_statistics</references>
+        <references refid="classCanModule_1_1CanStatistics_1a82b38a2383bc0ad6b1d306e86b9ef5c6" compoundref="CanStatistics_8cpp" startline="101" endline="111">CanModule::CanStatistics::onReceive</references>
+        <references refid="classCanModule_1_1CanStatistics_1a99de404f1b24cee80edfaad7ad1f9499" compoundref="CanStatistics_8h" startline="115" endline="121">CanModule::CanStatistics::setTimeSinceReceived</references>
+      </memberdef>
+      <memberdef kind="function" id="classAnaCanScan_1af9a44b6ac914643225e2e61ca7a52f4c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void AnaCanScan::callbackOnRecieve</definition>
+        <argsstring>(CanMessage &amp;)</argsstring>
+        <name>callbackOnRecieve</name>
+        <param>
+          <type><ref refid="CanMessage_8h_1ab1aeab76298263f21dfde5bbdacaf46f" kindref="member">CanMessage</ref> &amp;</type>
+          <defname>msg</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>callback API: sends a boost signal with payload </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/anagate/AnaCanScan.h" line="72" column="6" bodyfile="CanInterfaceImplementations/anagate/AnaCanScan.cpp" bodystart="209" bodyend="215"/>
+        <references refid="classCanModule_1_1CCanAccess_1aa8e0e974863874b0e7bbcdb57084c241" compoundref="CCanAccess_8h" startline="305">CanModule::CCanAccess::canMessageCame</references>
+        <references refid="classCanModule_1_1CCanAccess_1abfd40edc34a777a5ff4503a6e8a239d6" compoundref="CCanAccess_8h" startline="470">CanModule::CCanAccess::m_reconnectCondition</references>
+        <references refid="classCanModule_1_1CCanAccess_1a067f50699c1ed4b6ee6732eb0078ed0a" compoundref="CCanAccess_8h" startline="518" endline="524">CanModule::CCanAccess::resetTimeoutOnReception</references>
+      </memberdef>
+      <memberdef kind="function" id="classAnaCanScan_1a7cbad1b8b5c44282c86bfcfda5464b8f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void AnaCanScan::setConnectWaitTime</definition>
+        <argsstring>(int timeout_ms)</argsstring>
+        <name>setConnectWaitTime</name>
+        <param>
+          <type>int</type>
+          <declname>timeout_ms</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>set a connection specific timeout value. Global timeout is 6000, set by CanOpenDevice In order to make this specific timeout apply we have to reconnect </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/anagate/AnaCanScan.h" line="73" column="6" bodyfile="CanInterfaceImplementations/anagate/AnaCanScan.cpp" bodystart="1031" bodyend="1035"/>
+        <references refid="classAnaCanScan_1a2ef809f84d976b6f453049a7298760fe" compoundref="AnaCanScan_8h" startline="118">m_timeout</references>
+        <references refid="classAnaCanScan_1a581830a4a70cee6b31e3e895d669a9be" compoundref="AnaCanScan_8h" startline="116">m_UcanHandle</references>
+        <references refid="AnaCanScan_8cpp_1ac34d62b5ffd4e8e1c3ece118f3f58485" compoundref="AnaCanScan_8cpp" startline="72">MLOGANA</references>
+        <references refid="classAnaCanScan_1af1deaf420c98dcdc4687f481fd4d9a08" compoundref="AnaCanScan_8cpp" startline="935" endline="1024">reconnect</references>
+      </memberdef>
+      <memberdef kind="function" id="classAnaCanScan_1a4c115df4a8755c0fd70030ae457af24c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t AnaCanScan::getPortStatus</definition>
+        <argsstring>()</argsstring>
+        <name>getPortStatus</name>
+        <reimplements refid="classCanModule_1_1CCanAccess_1a33fe530d070cf35d096e967d543186a4">getPortStatus</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>CANCanDeviceConnectState , translate from counter 1 = DISCONNECTED : 2 = CONNECTING : 3 = CONNECTED 4 = DISCONNECTING 5 = NOT_INITIALIZED b3...b27: unused</para>
+<para>into simple bitpattern (counter) 0, 10, 11, 100, 101 </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/anagate/AnaCanScan.h" line="91" column="10" bodyfile="CanInterfaceImplementations/anagate/AnaCanScan.h" bodystart="91" bodyend="94"/>
+        <references refid="CCanAccess_8h_1a1f1789533d0f909368bb51596939ef5b" compoundref="CCanAccess_8h" startline="62">CANMODULE_STATUS_BP_ANAGATE</references>
+      </memberdef>
+      <memberdef kind="function" id="classAnaCanScan_1a8618662dac4627418ed9c69442f51714" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>uint32_t</type>
+        <definition>virtual uint32_t AnaCanScan::getPortBitrate</definition>
+        <argsstring>()</argsstring>
+        <name>getPortBitrate</name>
+        <reimplements refid="classCanModule_1_1CCanAccess_1aa8cb67096349fefc6e03aeb33e45ef81">getPortBitrate</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>returns the bitrate of that port [bits/sec] according to what <ref refid="namespaceCanModule" kindref="compound">CanModule</ref> buffers say. This is the setting used for setting up the hardware, after any default rules have been applied, but BEFORE any vendor specific encoding into obscure bitpatterns occurs. This happens at port opening and the bitrate can only be changed at that moment. So please call this method just after you have opened the port. But also since there is no hw interaction and it just returns a buffer, you may call it as often as you like. Default bitrate is always 125000bits/s if &quot;Unspecified&quot; </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/anagate/AnaCanScan.h" line="95" column="18" bodyfile="CanInterfaceImplementations/anagate/AnaCanScan.h" bodystart="95" bodyend="95"/>
+      </memberdef>
+      <memberdef kind="function" id="classAnaCanScan_1a0b9879988a65b60c9f9abc7c88ce6993" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void AnaCanScan::setReconnectBehavior</definition>
+        <argsstring>(CanModule::ReconnectAutoCondition cond, CanModule::ReconnectAction action)</argsstring>
+        <name>setReconnectBehavior</name>
+        <reimplements refid="classCanModule_1_1CCanAccess_1ae1088edaf5444ff42ee094ae46240cc5">setReconnectBehavior</reimplements>
+        <param>
+          <type><ref refid="namespaceCanModule_1a2f4fee79cc7ba53467c2538fe6b9adbb" kindref="member">CanModule::ReconnectAutoCondition</ref></type>
+          <declname>cond</declname>
+        </param>
+        <param>
+          <type><ref refid="namespaceCanModule_1a2062089fa4fa87c8354295f2a8fe31a5" kindref="member">CanModule::ReconnectAction</ref></type>
+          <declname>action</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>configuring the reconnection behavior: a condition triggers an action. The implementation is implementation-specific because not all vendor APIs permit the same behavior: not all combinations are available for all vendors/implementations. The implemented reconnection behavior is standardized nevertheless: &quot;you get what you see&quot;. Foe each CanBus you have to choose one condition and one action. Condition detection and action execution are then automatic inside <ref refid="namespaceCanModule" kindref="compound">CanModule</ref>.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername><ref refid="namespaceCanModule_1a2f4fee79cc7ba53467c2538fe6b9adbb" kindref="member">CanModule::ReconnectAutoCondition</ref></parametername>
+</parameternamelist>
+<parameterdescription>
+<para>cond<itemizedlist>
+<listitem><para>sendFail (default): a reconnection is triggered automatically if a send on the canBus fails. The number of failed sends can be set (default is 10). The failed sending must be strictly consecutive, if there is a succeeded sending, the internal counting restarts.</para>
+</listitem><listitem><para>timeoutOnReception: the last time of a successful reception on a given channel can be monitored. If the last reception is older than 120 sec a reset is triggered automatically. This last successful reception time is calculated each time a send is invoked. The timeout is specified in seconds, default is 120sec.</para>
+</listitem><listitem><para>never: this condition is always false and therefore no automatic reconnection action will be triggered. You can still call the explicit method reconnect( &lt;action&gt; ) but it is up to the client (server) to decide when.</para>
+</listitem></itemizedlist>
+</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername><ref refid="namespaceCanModule_1a2062089fa4fa87c8354295f2a8fe31a5" kindref="member">CanModule::ReconnectAction</ref></parametername>
+</parameternamelist>
+<parameterdescription>
+<para>action<itemizedlist>
+<listitem><para>singleBus (default): a single connection (canbus, channel) is reset and reception handler is reconnected.</para>
+</listitem><listitem><para>wholeBridge if available, the whole bridge is reset, affecting all physical channels on that bridge. Only available for anagate. If a bridge is shared between multiple tasks, all channels across tasks are reset, affecting all tasks connected to that bridge. Evidently, a given channel must only be used by at most one task.</para>
+</listitem><listitem><para>hardReset: the bridge is reset in a &quot;hard&quot; way, i.e. firmware is rebooted (NOT reloaded or overwritten). Only available for anagate: the firmware of the bridge (ip) is reloaded using a special command of the anagate API which is not available through the common <ref refid="namespaceCanModule" kindref="compound">CanModule</ref> API, since it is vendor specific. This is a &quot;hard software reset&quot;, and it is not the same as just power-cycling the module. It takes ~15secs and &quot;is known to work nicely&quot;. </para>
+</listitem></itemizedlist>
+</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/anagate/AnaCanScan.h" line="97" column="14" bodyfile="CanInterfaceImplementations/anagate/AnaCanScan.h" bodystart="97" bodyend="100"/>
+      </memberdef>
+      <memberdef kind="function" id="classAnaCanScan_1a6b617410ab9dcbb9c89302cc2ffd78c0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void AnaCanScan::setReconnectReceptionTimeout</definition>
+        <argsstring>(unsigned int timeout)</argsstring>
+        <name>setReconnectReceptionTimeout</name>
+        <reimplements refid="classCanModule_1_1CCanAccess_1a3c902569c0712d165fc7e385e683dc95">setReconnectReceptionTimeout</reimplements>
+        <param>
+          <type>unsigned int</type>
+          <declname>timeout</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>set the timout interval for message reception, for the reconnection behaviour. Units is seconds, default is 120. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/anagate/AnaCanScan.h" line="101" column="14" bodyfile="CanInterfaceImplementations/anagate/AnaCanScan.h" bodystart="101" bodyend="101"/>
+      </memberdef>
+      <memberdef kind="function" id="classAnaCanScan_1ae986496d224081758e5bd2eca0b343c5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void AnaCanScan::setReconnectFailedSendCount</definition>
+        <argsstring>(unsigned int c)</argsstring>
+        <name>setReconnectFailedSendCount</name>
+        <reimplements refid="classCanModule_1_1CCanAccess_1a665620fe5924cf87db0589a353d3d148">setReconnectFailedSendCount</reimplements>
+        <param>
+          <type>unsigned int</type>
+          <declname>c</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>set the counter for failed consecutive sending attempts, for reconnection. default is 10. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/anagate/AnaCanScan.h" line="102" column="14" bodyfile="CanInterfaceImplementations/anagate/AnaCanScan.h" bodystart="102" bodyend="102"/>
+      </memberdef>
+      <memberdef kind="function" id="classAnaCanScan_1a74073d663dd44148033b3d6d15428ea9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type><ref refid="namespaceCanModule_1a2f4fee79cc7ba53467c2538fe6b9adbb" kindref="member">CanModule::ReconnectAutoCondition</ref></type>
+        <definition>virtual CanModule::ReconnectAutoCondition AnaCanScan::getReconnectCondition</definition>
+        <argsstring>()</argsstring>
+        <name>getReconnectCondition</name>
+        <reimplements refid="classCanModule_1_1CCanAccess_1a003566cbcdf4ce8195853bd8049a8800">getReconnectCondition</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>read back the r.condition </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/anagate/AnaCanScan.h" line="103" column="43" bodyfile="CanInterfaceImplementations/anagate/AnaCanScan.h" bodystart="103" bodyend="103"/>
+      </memberdef>
+      <memberdef kind="function" id="classAnaCanScan_1a6ad398dd6aec952c19165899abd48b8a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type><ref refid="namespaceCanModule_1a2062089fa4fa87c8354295f2a8fe31a5" kindref="member">CanModule::ReconnectAction</ref></type>
+        <definition>virtual CanModule::ReconnectAction AnaCanScan::getReconnectAction</definition>
+        <argsstring>()</argsstring>
+        <name>getReconnectAction</name>
+        <reimplements refid="classCanModule_1_1CCanAccess_1aaf2312ff9074ce7a4ec2e7d0a5b6fa16">getReconnectAction</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>read back the r.action </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/anagate/AnaCanScan.h" line="104" column="36" bodyfile="CanInterfaceImplementations/anagate/AnaCanScan.h" bodystart="104" bodyend="104"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classAnaCanScan_1ad4a01934370aa2e9ee72bd31406e2752" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string AnaCanScan::canMessageToString</definition>
+        <argsstring>(CanMessage &amp;f)</argsstring>
+        <name>canMessageToString</name>
+        <param>
+          <type><ref refid="CanMessage_8h_1ab1aeab76298263f21dfde5bbdacaf46f" kindref="member">CanMessage</ref> &amp;</type>
+          <declname>f</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>return a human readabale CAN message </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/anagate/AnaCanScan.h" line="75" column="20" bodyfile="CanInterfaceImplementations/anagate/AnaCanScan.cpp" bodystart="183" bodyend="195"/>
+        <references refid="structCanMsgStruct_1a2e47a33e7bba46b05a8fff29433f047b" compoundref="CanMessage_8h" startline="29">CanMsgStruct::c_data</references>
+        <references refid="structCanMsgStruct_1a3e5add8ae9cdadfcf3f2255d375ec9b3" compoundref="CanMessage_8h" startline="27">CanMsgStruct::c_dlc</references>
+        <references refid="structCanMsgStruct_1a619515aef041e64b78e7e8c33989ddd0" compoundref="CanMessage_8h" startline="23">CanMsgStruct::c_id</references>
+        <references refid="structCanMsgStruct_1ad4a78c27262604bacb5720d8633f71c6" compoundref="CanMessage_8h" startline="33">CanMsgStruct::c_rtr</references>
+        <referencedby refid="AnaCanScan_8cpp_1ad5698349874e3653b879b5de27311594" compoundref="AnaCanScan_8cpp" startline="154" endline="178">InternalCallback</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-static-func">
+      <memberdef kind="function" id="classAnaCanScan_1a9ebdd69b0b5f2e43b152fde44dfbd543" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void AnaCanScan::showAnaCanScanObjectMap</definition>
+        <argsstring>()</argsstring>
+        <name>showAnaCanScanObjectMap</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>display the handle-&gt;object map, and using the object, show more details </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/anagate/AnaCanScan.h" line="145" column="13" bodyfile="CanInterfaceImplementations/anagate/AnaCanScan.cpp" bodystart="677" bodyend="689"/>
+        <references refid="AnaCanScan_8cpp_1a348494361939b368693ef24a71f3d9bc" compoundref="AnaCanScan_8cpp" startline="70">g_AnaCanScanObjectMap</references>
+        <references refid="classAnaCanScan_1a39ab4f1c865bef7349992abd4d91da1d" compoundref="AnaCanScan_8h" startline="130">st_logItHandleAnagate</references>
+        <referencedby refid="classAnaCanScan_1abf8809be00bdc2f39344ec72cf66514c" compoundref="AnaCanScan_8cpp" startline="748" endline="858">reconnectAllPorts</referencedby>
+        <referencedby refid="classAnaCanScan_1aedcf208c8b79a297650bb2790884a79d" compoundref="AnaCanScan_8cpp" startline="695" endline="728">reconnectThisPort</referencedby>
+        <referencedby refid="classAnaCanScan_1ad45666454318c891d7acd9fe16ae4c49" compoundref="AnaCanScan_8cpp" startline="516" endline="672">sendMessage</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classAnaCanScan_1abf8809be00bdc2f39344ec72cf66514c" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>AnaInt32 AnaCanScan::reconnectAllPorts</definition>
+        <argsstring>(string ip)</argsstring>
+        <name>reconnectAllPorts</name>
+        <param>
+          <type>string</type>
+          <declname>ip</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>reconnects all opened ports of a given ip address=one module. We have one object per CAN port, so i.e. for an anagate duo (ports A and B) we have two objects with the same IP but with port 0 and 1.So we will have to scan over all objects there because we do not know how many CANports a given anagate bridge has. We also allow globally only one ongoing reconnect to one ip at a time. Theoretically we could have a separate reconnection thread per ip, but that looks like overcomplicating the code and the issue. If several anagate modules fail they will all reconnect one after the other. That is OK since if all of these modules loose power and reboot at the same moment they will also be ready at roughly the same moment for reconnect. That means that we have to wait for the first ip to reconnect for a while but then all other ips will reconnect rather quickly in the most likely case. returns: 0 = OK -1 = cant open / reconnect CAN ports +1 = ignore, since another thread is doing the reconnect already </para>
+        </detaileddescription>
+        <inbodydescription>
+<para>delete the map elements where the key is different from the handle, since we reassigned handles in the living objects like: g_AnaCanScanPointerMap[ m_UcanHandle ] = this;</para>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/anagate/AnaCanScan.h" line="146" column="12" bodyfile="CanInterfaceImplementations/anagate/AnaCanScan.cpp" bodystart="748" bodyend="858"/>
+        <references refid="AnaCanScan_8cpp_1a123d03be0edb10af2357fadbbcc7d1e0" compoundref="AnaCanScan_8cpp" startline="56">anagateReconnectMutex</references>
+        <references refid="AnaCanScan_8cpp_1a348494361939b368693ef24a71f3d9bc" compoundref="AnaCanScan_8cpp" startline="70">g_AnaCanScanObjectMap</references>
+        <references refid="classAnaCanScan_1afeaf22bfd209035e9ad9ac3111c6ba65" compoundref="AnaCanScan_8cpp" startline="130" endline="137">isIpReconnectInProgress</references>
+        <references refid="classAnaCanScan_1a04a0124990e52b55b8c1046709ccb2d9" compoundref="AnaCanScan_8cpp" startline="109" endline="124">setIpReconnectInProgress</references>
+        <references refid="classAnaCanScan_1a9ebdd69b0b5f2e43b152fde44dfbd543" compoundref="AnaCanScan_8cpp" startline="677" endline="689">showAnaCanScanObjectMap</references>
+        <references refid="classAnaCanScan_1a39ab4f1c865bef7349992abd4d91da1d" compoundref="AnaCanScan_8h" startline="130">st_logItHandleAnagate</references>
+        <referencedby refid="classAnaCanScan_1ad45666454318c891d7acd9fe16ae4c49" compoundref="AnaCanScan_8cpp" startline="516" endline="672">sendMessage</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classAnaCanScan_1a3e2635663ebdfac68591d6a0577fa951" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void AnaCanScan::addCanHandleOfPortIp</definition>
+        <argsstring>(AnaInt32 handle, int port, std::string ip)</argsstring>
+        <name>addCanHandleOfPortIp</name>
+        <param>
+          <type>AnaInt32</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>port</declname>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>ip</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>add a can handle into the map if it does not yet exist</para>
+<para>add a new map entry to handle-&gt;{port, ip} map todo: mutex protect, work on copy </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/anagate/AnaCanScan.h" line="153" column="13" bodyfile="CanInterfaceImplementations/anagate/AnaCanScan.cpp" bodystart="346" bodyend="358"/>
+        <references refid="classAnaCanScan_1a9ce965955bb5eba734ed36b81945cb74" compoundref="AnaCanScan_8h" startline="173" endline="173">handle</references>
+        <references refid="structAnaCanScan_1_1ANAGATE__PORTDEF__t_1a6ad8dd52dfbbfe170f3c5e0f4e20a49d" compoundref="AnaCanScan_8h" startline="141">AnaCanScan::ANAGATE_PORTDEF_t::ip</references>
+        <references refid="structAnaCanScan_1_1ANAGATE__PORTDEF__t_1a3bd14d317f470ae619d41105908436a0" compoundref="AnaCanScan_8h" startline="140">AnaCanScan::ANAGATE_PORTDEF_t::port</references>
+        <references refid="classAnaCanScan_1a71e415a2fec462b991777ca38a9797cc" compoundref="AnaCanScan_8h" startline="143">st_canHandleMap</references>
+        <references refid="classAnaCanScan_1a39ab4f1c865bef7349992abd4d91da1d" compoundref="AnaCanScan_8h" startline="130">st_logItHandleAnagate</references>
+        <referencedby refid="classAnaCanScan_1ad94121f1933d50cafa52d625ee435f6c" compoundref="AnaCanScan_8cpp" startline="412" endline="482">openCanPort</referencedby>
+        <referencedby refid="classAnaCanScan_1af1deaf420c98dcdc4687f481fd4d9a08" compoundref="AnaCanScan_8cpp" startline="935" endline="1024">reconnect</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classAnaCanScan_1a1b62497ac5f0edcf9895c9f8cfad6b50" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void AnaCanScan::deleteCanHandleOfPortIp</definition>
+        <argsstring>(int port, std::string ip)</argsstring>
+        <name>deleteCanHandleOfPortIp</name>
+        <param>
+          <type>int</type>
+          <declname>port</declname>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>ip</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>add a can handle into the map if it does not yet exist</para>
+<para>find and erase a map entry handle-&gt;{port, ip} todo: mutex protect, work on copy </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/anagate/AnaCanScan.h" line="158" column="13" bodyfile="CanInterfaceImplementations/anagate/AnaCanScan.cpp" bodystart="364" bodyend="383"/>
+        <references refid="classAnaCanScan_1a9ce965955bb5eba734ed36b81945cb74" compoundref="AnaCanScan_8h" startline="173" endline="173">handle</references>
+        <references refid="structAnaCanScan_1_1ANAGATE__PORTDEF__t_1a6ad8dd52dfbbfe170f3c5e0f4e20a49d" compoundref="AnaCanScan_8h" startline="141">AnaCanScan::ANAGATE_PORTDEF_t::ip</references>
+        <references refid="structAnaCanScan_1_1ANAGATE__PORTDEF__t_1a3bd14d317f470ae619d41105908436a0" compoundref="AnaCanScan_8h" startline="140">AnaCanScan::ANAGATE_PORTDEF_t::port</references>
+        <references refid="classAnaCanScan_1a71e415a2fec462b991777ca38a9797cc" compoundref="AnaCanScan_8h" startline="143">st_canHandleMap</references>
+        <references refid="classAnaCanScan_1a39ab4f1c865bef7349992abd4d91da1d" compoundref="AnaCanScan_8h" startline="130">st_logItHandleAnagate</references>
+        <referencedby refid="classAnaCanScan_1af1deaf420c98dcdc4687f481fd4d9a08" compoundref="AnaCanScan_8cpp" startline="935" endline="1024">reconnect</referencedby>
+        <referencedby refid="classAnaCanScan_1a4631538bddfbe61637ea5ed0071b780f" compoundref="AnaCanScan_8cpp" startline="98" endline="106">stopBus</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classAnaCanScan_1a7bf29c3cb20f59bca41d581e4d8c9c04" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>AnaInt32</type>
+        <definition>AnaInt32 AnaCanScan::getCanHandleOfPortIp</definition>
+        <argsstring>(int port, std::string ip)</argsstring>
+        <name>getCanHandleOfPortIp</name>
+        <param>
+          <type>int</type>
+          <declname>port</declname>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>ip</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>find the handle from port, ip we have to search through the whole map to know</para>
+<para>given the {port, ip} we search through the map and return the handle if it exists, otherwise -1 </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/anagate/AnaCanScan.h" line="164" column="17" bodyfile="CanInterfaceImplementations/anagate/AnaCanScan.cpp" bodystart="389" bodyend="401"/>
+        <references refid="classAnaCanScan_1a71e415a2fec462b991777ca38a9797cc" compoundref="AnaCanScan_8h" startline="143">st_canHandleMap</references>
+        <references refid="classAnaCanScan_1a39ab4f1c865bef7349992abd4d91da1d" compoundref="AnaCanScan_8h" startline="130">st_logItHandleAnagate</references>
+        <referencedby refid="classAnaCanScan_1ad94121f1933d50cafa52d625ee435f6c" compoundref="AnaCanScan_8cpp" startline="412" endline="482">openCanPort</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classAnaCanScan_1a04a0124990e52b55b8c1046709ccb2d9" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void AnaCanScan::setIpReconnectInProgress</definition>
+        <argsstring>(string ip, bool flag)</argsstring>
+        <name>setIpReconnectInProgress</name>
+        <param>
+          <type>string</type>
+          <declname>ip</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>flag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/anagate/AnaCanScan.h" line="167" column="13" bodyfile="CanInterfaceImplementations/anagate/AnaCanScan.cpp" bodystart="109" bodyend="124"/>
+        <references refid="classAnaCanScan_1a3ff66979e02a0904488365ec412fc994" compoundref="AnaCanScan_8h" startline="166">m_reconnectInProgress_map</references>
+        <referencedby refid="classAnaCanScan_1abf8809be00bdc2f39344ec72cf66514c" compoundref="AnaCanScan_8cpp" startline="748" endline="858">reconnectAllPorts</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classAnaCanScan_1afeaf22bfd209035e9ad9ac3111c6ba65" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool AnaCanScan::isIpReconnectInProgress</definition>
+        <argsstring>(string ip)</argsstring>
+        <name>isIpReconnectInProgress</name>
+        <param>
+          <type>string</type>
+          <declname>ip</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>checks if a reconnection is already in progress for the bridge at that IP. Several ports can (and will) fail at the same time, but the bridge should be reset only once, and not again for each port. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/anagate/AnaCanScan.h" line="168" column="13" bodyfile="CanInterfaceImplementations/anagate/AnaCanScan.cpp" bodystart="130" bodyend="137"/>
+        <references refid="classAnaCanScan_1a3ff66979e02a0904488365ec412fc994" compoundref="AnaCanScan_8h" startline="166">m_reconnectInProgress_map</references>
+        <referencedby refid="classAnaCanScan_1abf8809be00bdc2f39344ec72cf66514c" compoundref="AnaCanScan_8cpp" startline="748" endline="858">reconnectAllPorts</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classAnaCanScan_1aedcf208c8b79a297650bb2790884a79d" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>AnaInt32</type>
+        <definition>AnaInt32 AnaCanScan::reconnectThisPort</definition>
+        <argsstring>()</argsstring>
+        <name>reconnectThisPort</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>only reconnect this object&apos;s port and make dure the callback map entry is updated as well </para>
+        </detaileddescription>
+        <inbodydescription>
+<para>delete the map elements where the key is different from the handle, since we reassigned handles in the living objects like: g_AnaCanScanPointerMap[ m_UcanHandle ] = this;</para>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/anagate/AnaCanScan.h" line="147" column="10" bodyfile="CanInterfaceImplementations/anagate/AnaCanScan.cpp" bodystart="695" bodyend="728"/>
+        <references refid="classAnaCanScan_1a428d6c62f3a2d6b4297898593961696b" compoundref="AnaCanScan_8cpp" startline="865" endline="911">connectReceptionHandler</references>
+        <references refid="AnaCanScan_8cpp_1a348494361939b368693ef24a71f3d9bc" compoundref="AnaCanScan_8cpp" startline="70">g_AnaCanScanObjectMap</references>
+        <references refid="classAnaCanScan_1a501c8cb87a6e4a11b526840f052ec028" compoundref="AnaCanScan_8h" startline="110">m_canIPAddress</references>
+        <references refid="classAnaCanScan_1a2ef4dd0b4c07b341597382688b8a2964" compoundref="AnaCanScan_8h" startline="104">m_canPortNumber</references>
+        <references refid="AnaCanScan_8cpp_1ac34d62b5ffd4e8e1c3ece118f3f58485" compoundref="AnaCanScan_8cpp" startline="72">MLOGANA</references>
+        <references refid="classAnaCanScan_1af1deaf420c98dcdc4687f481fd4d9a08" compoundref="AnaCanScan_8cpp" startline="935" endline="1024">reconnect</references>
+        <references refid="classAnaCanScan_1a9ebdd69b0b5f2e43b152fde44dfbd543" compoundref="AnaCanScan_8cpp" startline="677" endline="689">showAnaCanScanObjectMap</references>
+        <references refid="classAnaCanScan_1a39ab4f1c865bef7349992abd4d91da1d" compoundref="AnaCanScan_8h" startline="130">st_logItHandleAnagate</references>
+        <referencedby refid="classAnaCanScan_1ad45666454318c891d7acd9fe16ae4c49" compoundref="AnaCanScan_8cpp" startline="516" endline="672">sendMessage</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classAnaCanScan_1aaa001b34e6ee0a27295239f951b7b879" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool AnaCanScan::sendErrorCode</definition>
+        <argsstring>(AnaInt32)</argsstring>
+        <name>sendErrorCode</name>
+        <param>
+          <type>AnaInt32</type>
+          <defname>status</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>if sending had a problem invoke the error handler with a message </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/anagate/AnaCanScan.h" line="170" column="6" bodyfile="CanInterfaceImplementations/anagate/AnaCanScan.cpp" bodystart="487" bodyend="504"/>
+        <references refid="classCanModule_1_1CCanAccess_1a33fbd693f04b4f4e21cee20856c44866" compoundref="CCanAccess_8h" startline="307">CanModule::CCanAccess::canMessageError</references>
+        <references refid="classAnaCanScan_1a6eec29a421ec4af879143379833ec676" compoundref="AnaCanScan_8cpp" startline="1067" endline="1075">errorCodeToString</references>
+        <referencedby refid="classAnaCanScan_1ad45666454318c891d7acd9fe16ae4c49" compoundref="AnaCanScan_8cpp" startline="516" endline="672">sendMessage</referencedby>
+        <referencedby refid="classAnaCanScan_1a345abb2f9712275425f4af8eb98cbd38" compoundref="AnaCanScan_8cpp" startline="1050" endline="1060">sendRemoteRequest</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classAnaCanScan_1a23bc4d0b7c2fbb29cc6ec513d060d56e" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>string</type>
+        <definition>string AnaCanScan::ipAdress</definition>
+        <argsstring>()</argsstring>
+        <name>ipAdress</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/anagate/AnaCanScan.h" line="171" column="8" bodyfile="CanInterfaceImplementations/anagate/AnaCanScan.h" bodystart="171" bodyend="171"/>
+      </memberdef>
+      <memberdef kind="function" id="classAnaCanScan_1aa7198f11bf94e97b26855fecdbcc85ed" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int AnaCanScan::canPortNumber</definition>
+        <argsstring>()</argsstring>
+        <name>canPortNumber</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/anagate/AnaCanScan.h" line="172" column="5" bodyfile="CanInterfaceImplementations/anagate/AnaCanScan.h" bodystart="172" bodyend="172"/>
+      </memberdef>
+      <memberdef kind="function" id="classAnaCanScan_1a9ce965955bb5eba734ed36b81945cb74" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int AnaCanScan::handle</definition>
+        <argsstring>()</argsstring>
+        <name>handle</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/anagate/AnaCanScan.h" line="173" column="5" bodyfile="CanInterfaceImplementations/anagate/AnaCanScan.h" bodystart="173" bodyend="173"/>
+        <referencedby refid="classAnaCanScan_1a3e2635663ebdfac68591d6a0577fa951" compoundref="AnaCanScan_8cpp" startline="346" endline="358">addCanHandleOfPortIp</referencedby>
+        <referencedby refid="classAnaCanScan_1a1b62497ac5f0edcf9895c9f8cfad6b50" compoundref="AnaCanScan_8cpp" startline="364" endline="383">deleteCanHandleOfPortIp</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classAnaCanScan_1ad917f9cda15bbf9dd9abe6417be5a5eb" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int AnaCanScan::configureCanBoard</definition>
+        <argsstring>(const string name, const string parameters)</argsstring>
+        <name>configureCanBoard</name>
+        <param>
+          <type>const string</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>const string</type>
+          <declname>parameters</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>decode the name, parameter and return the port of the configured module like &quot;an:0:128.141.159.194&quot; </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/anagate/AnaCanScan.h" line="174" column="5" bodyfile="CanInterfaceImplementations/anagate/AnaCanScan.cpp" bodystart="277" bodyend="341"/>
+        <references refid="classAnaCanScan_1ae2d7c7a9b314adffbde6eafac5a3607e" compoundref="AnaCanScan_8h" startline="111">m_baudRate</references>
+        <references refid="classAnaCanScan_1a501c8cb87a6e4a11b526840f052ec028" compoundref="AnaCanScan_8h" startline="110">m_canIPAddress</references>
+        <references refid="classCanModule_1_1CCanAccess_1a484a4f9dc352fe31b4baff0365095705" compoundref="CCanAccess_8h" startline="467">CanModule::CCanAccess::m_CanParameters</references>
+        <references refid="classAnaCanScan_1a2ef4dd0b4c07b341597382688b8a2964" compoundref="AnaCanScan_8h" startline="104">m_canPortNumber</references>
+        <references refid="structCanModule_1_1CanParameters_1a3481b638a47d3a832c6fad761973c9de" compoundref="CCanAccess_8h" startline="115">CanModule::CanParameters::m_iHighSpeed</references>
+        <references refid="structCanModule_1_1CanParameters_1ac4e03899b26e33a3867ee1f0bce674b5" compoundref="CCanAccess_8h" startline="117">CanModule::CanParameters::m_iNumberOfDetectedParameters</references>
+        <references refid="structCanModule_1_1CanParameters_1a6dcce5899a28a07c35042c2005fbac03" compoundref="CCanAccess_8h" startline="113">CanModule::CanParameters::m_iOperationMode</references>
+        <references refid="structCanModule_1_1CanParameters_1ac15d1cfe926f508a2788dab50aed992b" compoundref="CCanAccess_8h" startline="114">CanModule::CanParameters::m_iTermination</references>
+        <references refid="structCanModule_1_1CanParameters_1a0f3653eda77900c9d2450793bd285c29" compoundref="CCanAccess_8h" startline="116">CanModule::CanParameters::m_iTimeStamp</references>
+        <references refid="structCanModule_1_1CanParameters_1a53ce17e16c2a818ffbc05904d9e56e11" compoundref="CCanAccess_8h" startline="112">CanModule::CanParameters::m_lBaudRate</references>
+        <references refid="AnaCanScan_8cpp_1ac34d62b5ffd4e8e1c3ece118f3f58485" compoundref="AnaCanScan_8cpp" startline="72">MLOGANA</references>
+        <references refid="classAnaCanScan_1ad94121f1933d50cafa52d625ee435f6c" compoundref="AnaCanScan_8cpp" startline="412" endline="482">openCanPort</references>
+        <references refid="classCanModule_1_1CCanAccess_1af26c9d102638fb96e5e1305f807d148f" compoundref="CCanAccess_8h" startline="342" endline="400">CanModule::CCanAccess::parseNameAndParameters</references>
+        <referencedby refid="classAnaCanScan_1a92f73e718c24985f247e5522486aace9" compoundref="AnaCanScan_8cpp" startline="244" endline="270">createBus</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classAnaCanScan_1a428d6c62f3a2d6b4297898593961696b" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>AnaInt32 AnaCanScan::connectReceptionHandler</definition>
+        <argsstring>()</argsstring>
+        <name>connectReceptionHandler</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>connect the reception handler and only AFTER that register the handle in the global obj. map, since reception is asynchron. Finally, in the caller, the stale handle is deleted from the map. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/anagate/AnaCanScan.h" line="175" column="5" bodyfile="CanInterfaceImplementations/anagate/AnaCanScan.cpp" bodystart="865" bodyend="911"/>
+        <references refid="AnaCanScan_8cpp_1a348494361939b368693ef24a71f3d9bc" compoundref="AnaCanScan_8cpp" startline="70">g_AnaCanScanObjectMap</references>
+        <references refid="AnaCanScan_8cpp_1ad5698349874e3653b879b5de27311594" compoundref="AnaCanScan_8cpp" startline="154" endline="178">InternalCallback</references>
+        <references refid="classAnaCanScan_1a501c8cb87a6e4a11b526840f052ec028" compoundref="AnaCanScan_8h" startline="110">m_canIPAddress</references>
+        <references refid="classCanModule_1_1CCanAccess_1a484a4f9dc352fe31b4baff0365095705" compoundref="CCanAccess_8h" startline="467">CanModule::CCanAccess::m_CanParameters</references>
+        <references refid="classAnaCanScan_1a2ef4dd0b4c07b341597382688b8a2964" compoundref="AnaCanScan_8h" startline="104">m_canPortNumber</references>
+        <references refid="structCanModule_1_1CanParameters_1a3481b638a47d3a832c6fad761973c9de" compoundref="CCanAccess_8h" startline="115">CanModule::CanParameters::m_iHighSpeed</references>
+        <references refid="structCanModule_1_1CanParameters_1a6dcce5899a28a07c35042c2005fbac03" compoundref="CCanAccess_8h" startline="113">CanModule::CanParameters::m_iOperationMode</references>
+        <references refid="structCanModule_1_1CanParameters_1ac15d1cfe926f508a2788dab50aed992b" compoundref="CCanAccess_8h" startline="114">CanModule::CanParameters::m_iTermination</references>
+        <references refid="structCanModule_1_1CanParameters_1a0f3653eda77900c9d2450793bd285c29" compoundref="CCanAccess_8h" startline="116">CanModule::CanParameters::m_iTimeStamp</references>
+        <references refid="structCanModule_1_1CanParameters_1a53ce17e16c2a818ffbc05904d9e56e11" compoundref="CCanAccess_8h" startline="112">CanModule::CanParameters::m_lBaudRate</references>
+        <references refid="classAnaCanScan_1a581830a4a70cee6b31e3e895d669a9be" compoundref="AnaCanScan_8h" startline="116">m_UcanHandle</references>
+        <references refid="AnaCanScan_8cpp_1ac34d62b5ffd4e8e1c3ece118f3f58485" compoundref="AnaCanScan_8cpp" startline="72">MLOGANA</references>
+        <referencedby refid="classAnaCanScan_1aedcf208c8b79a297650bb2790884a79d" compoundref="AnaCanScan_8cpp" startline="695" endline="728">reconnectThisPort</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classAnaCanScan_1ad94121f1933d50cafa52d625ee435f6c" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int AnaCanScan::openCanPort</definition>
+        <argsstring>()</argsstring>
+        <name>openCanPort</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Obtains an Anagate canport and opens it. The name of the port and parameters should have been specified by preceding call to configureCanboard() <simplesect kind="return"><para>less than zero in case of error, otherwise success</para>
+</simplesect>
+communicate with the hardware using the CanOpen interface: open anagate port, attach reply handler. No message queuing. CANSetMaxSizePerQueue not called==default==0 </para>
+        </detaileddescription>
+        <inbodydescription>
+<para>check if that anagate bridge (ip) is already initialized, if not we create it.</para>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/anagate/AnaCanScan.h" line="176" column="5" bodyfile="CanInterfaceImplementations/anagate/AnaCanScan.cpp" bodystart="412" bodyend="482"/>
+        <references refid="classAnaCanScan_1a3e2635663ebdfac68591d6a0577fa951" compoundref="AnaCanScan_8cpp" startline="346" endline="358">addCanHandleOfPortIp</references>
+        <references refid="AnaCanScan_8cpp_1a348494361939b368693ef24a71f3d9bc" compoundref="AnaCanScan_8cpp" startline="70">g_AnaCanScanObjectMap</references>
+        <references refid="classAnaCanScan_1a7bf29c3cb20f59bca41d581e4d8c9c04" compoundref="AnaCanScan_8cpp" startline="389" endline="401">getCanHandleOfPortIp</references>
+        <references refid="AnaCanScan_8cpp_1ad5698349874e3653b879b5de27311594" compoundref="AnaCanScan_8cpp" startline="154" endline="178">InternalCallback</references>
+        <references refid="classAnaCanScan_1a501c8cb87a6e4a11b526840f052ec028" compoundref="AnaCanScan_8h" startline="110">m_canIPAddress</references>
+        <references refid="classCanModule_1_1CCanAccess_1a484a4f9dc352fe31b4baff0365095705" compoundref="CCanAccess_8h" startline="467">CanModule::CCanAccess::m_CanParameters</references>
+        <references refid="classAnaCanScan_1a2ef4dd0b4c07b341597382688b8a2964" compoundref="AnaCanScan_8h" startline="104">m_canPortNumber</references>
+        <references refid="structCanModule_1_1CanParameters_1a3481b638a47d3a832c6fad761973c9de" compoundref="CCanAccess_8h" startline="115">CanModule::CanParameters::m_iHighSpeed</references>
+        <references refid="structCanModule_1_1CanParameters_1a6dcce5899a28a07c35042c2005fbac03" compoundref="CCanAccess_8h" startline="113">CanModule::CanParameters::m_iOperationMode</references>
+        <references refid="structCanModule_1_1CanParameters_1ac15d1cfe926f508a2788dab50aed992b" compoundref="CCanAccess_8h" startline="114">CanModule::CanParameters::m_iTermination</references>
+        <references refid="structCanModule_1_1CanParameters_1a0f3653eda77900c9d2450793bd285c29" compoundref="CCanAccess_8h" startline="116">CanModule::CanParameters::m_iTimeStamp</references>
+        <references refid="structCanModule_1_1CanParameters_1a53ce17e16c2a818ffbc05904d9e56e11" compoundref="CCanAccess_8h" startline="112">CanModule::CanParameters::m_lBaudRate</references>
+        <references refid="classAnaCanScan_1a2ef809f84d976b6f453049a7298760fe" compoundref="AnaCanScan_8h" startline="118">m_timeout</references>
+        <references refid="classAnaCanScan_1a581830a4a70cee6b31e3e895d669a9be" compoundref="AnaCanScan_8h" startline="116">m_UcanHandle</references>
+        <references refid="AnaCanScan_8cpp_1ac34d62b5ffd4e8e1c3ece118f3f58485" compoundref="AnaCanScan_8cpp" startline="72">MLOGANA</references>
+        <referencedby refid="classAnaCanScan_1ad917f9cda15bbf9dd9abe6417be5a5eb" compoundref="AnaCanScan_8cpp" startline="277" endline="341">configureCanBoard</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classAnaCanScan_1af1deaf420c98dcdc4687f481fd4d9a08" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int AnaCanScan::reconnect</definition>
+        <argsstring>()</argsstring>
+        <name>reconnect</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>we try to reconnect one port after a power loss, and we should do this for all ports returns: 0 = OK -1 = could not CANOpenDevice device -2 = could not connect callback CANSetCallbackEx -3 = device was found open, tried to close but did not succeed (maybe you should just try sending again) </para>
+        </detaileddescription>
+        <inbodydescription>
+<para>• 1 = DISCONNECTED : The connection to the AnaGate is disconnected. • 2 = CONNECTING : The connection is connecting. • 3 = CONNECTED : The connection is established. • 4 = DISCONNECTING : The connection is disonnecting. • 5 = NOT_INITIALIZED : The network protocol is not successfully initialized.</para>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/anagate/AnaCanScan.h" line="177" column="5" bodyfile="CanInterfaceImplementations/anagate/AnaCanScan.cpp" bodystart="935" bodyend="1024"/>
+        <references refid="classAnaCanScan_1a3e2635663ebdfac68591d6a0577fa951" compoundref="AnaCanScan_8cpp" startline="346" endline="358">addCanHandleOfPortIp</references>
+        <references refid="classAnaCanScan_1a1b62497ac5f0edcf9895c9f8cfad6b50" compoundref="AnaCanScan_8cpp" startline="364" endline="383">deleteCanHandleOfPortIp</references>
+        <references refid="classAnaCanScan_1adea6b9e3f699ae412a8fc532a3eb9a48" compoundref="AnaCanScan_8h" startline="113">m_canCloseDevice</references>
+        <references refid="classAnaCanScan_1a501c8cb87a6e4a11b526840f052ec028" compoundref="AnaCanScan_8h" startline="110">m_canIPAddress</references>
+        <references refid="classAnaCanScan_1a2ef4dd0b4c07b341597382688b8a2964" compoundref="AnaCanScan_8h" startline="104">m_canPortNumber</references>
+        <references refid="classAnaCanScan_1a2ef809f84d976b6f453049a7298760fe" compoundref="AnaCanScan_8h" startline="118">m_timeout</references>
+        <references refid="classAnaCanScan_1a581830a4a70cee6b31e3e895d669a9be" compoundref="AnaCanScan_8h" startline="116">m_UcanHandle</references>
+        <references refid="AnaCanScan_8cpp_1ac34d62b5ffd4e8e1c3ece118f3f58485" compoundref="AnaCanScan_8cpp" startline="72">MLOGANA</references>
+        <referencedby refid="classAnaCanScan_1aedcf208c8b79a297650bb2790884a79d" compoundref="AnaCanScan_8cpp" startline="695" endline="728">reconnectThisPort</referencedby>
+        <referencedby refid="classAnaCanScan_1a7cbad1b8b5c44282c86bfcfda5464b8f" compoundref="AnaCanScan_8cpp" startline="1031" endline="1035">setConnectWaitTime</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classAnaCanScan_1a6eec29a421ec4af879143379833ec676" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool AnaCanScan::errorCodeToString</definition>
+        <argsstring>(long error, char message[])</argsstring>
+        <name>errorCodeToString</name>
+        <param>
+          <type>long</type>
+          <declname>error</declname>
+        </param>
+        <param>
+          <type>char</type>
+          <declname>message</declname>
+          <array>[]</array>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Provides textual representation of an error code. error return from module <xrefsect id="todo_1_todo000001"><xreftitle>Todo</xreftitle><xrefdescription><para>: Fix <ref refid="classAnaCanScan_1a6eec29a421ec4af879143379833ec676" kindref="member">AnaCanScan::errorCodeToString</ref> method, this doesn&apos;t do anything!! </para>
+</xrefdescription></xrefsect></para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/anagate/AnaCanScan.h" line="178" column="6" bodyfile="CanInterfaceImplementations/anagate/AnaCanScan.cpp" bodystart="1067" bodyend="1075"/>
+        <referencedby refid="classAnaCanScan_1aaa001b34e6ee0a27295239f951b7b879" compoundref="AnaCanScan_8cpp" startline="487" endline="504">sendErrorCode</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classAnaCanScan_1a4631538bddfbe61637ea5ed0071b780f" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void AnaCanScan::stopBus</definition>
+        <argsstring>(void)</argsstring>
+        <name>stopBus</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/anagate/AnaCanScan.h" line="179" column="6" bodyfile="CanInterfaceImplementations/anagate/AnaCanScan.cpp" bodystart="98" bodyend="106"/>
+        <references refid="classAnaCanScan_1a1b62497ac5f0edcf9895c9f8cfad6b50" compoundref="AnaCanScan_8cpp" startline="364" endline="383">deleteCanHandleOfPortIp</references>
+        <references refid="classAnaCanScan_1ae7ab2706bb4cd5e02409db38e73dbb3e" compoundref="AnaCanScan_8cpp" startline="916" endline="924">eraseReceptionHandlerFromMap</references>
+        <references refid="classAnaCanScan_1ad515df0b16ec1a2877282f54c0733a98" compoundref="AnaCanScan_8h" startline="114">m_busName</references>
+        <references refid="classAnaCanScan_1a501c8cb87a6e4a11b526840f052ec028" compoundref="AnaCanScan_8h" startline="110">m_canIPAddress</references>
+        <references refid="classAnaCanScan_1a2ef4dd0b4c07b341597382688b8a2964" compoundref="AnaCanScan_8h" startline="104">m_canPortNumber</references>
+        <references refid="classAnaCanScan_1a581830a4a70cee6b31e3e895d669a9be" compoundref="AnaCanScan_8h" startline="116">m_UcanHandle</references>
+        <references refid="AnaCanScan_8cpp_1ac34d62b5ffd4e8e1c3ece118f3f58485" compoundref="AnaCanScan_8cpp" startline="72">MLOGANA</references>
+        <referencedby refid="classAnaCanScan_1a2c8256b5096aa1351fbd9f3f2f717180" compoundref="AnaCanScan_8cpp" startline="93" endline="96">~AnaCanScan</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classAnaCanScan_1ae7ab2706bb4cd5e02409db38e73dbb3e" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void AnaCanScan::eraseReceptionHandlerFromMap</definition>
+        <argsstring>(AnaInt32 h)</argsstring>
+        <name>eraseReceptionHandlerFromMap</name>
+        <param>
+          <type>AnaInt32</type>
+          <declname>h</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>todo: protect with mutex, work on copy </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/anagate/AnaCanScan.h" line="180" column="6" bodyfile="CanInterfaceImplementations/anagate/AnaCanScan.cpp" bodystart="916" bodyend="924"/>
+        <references refid="AnaCanScan_8cpp_1a348494361939b368693ef24a71f3d9bc" compoundref="AnaCanScan_8cpp" startline="70">g_AnaCanScanObjectMap</references>
+        <references refid="classAnaCanScan_1ad515df0b16ec1a2877282f54c0733a98" compoundref="AnaCanScan_8h" startline="114">m_busName</references>
+        <references refid="AnaCanScan_8cpp_1ac34d62b5ffd4e8e1c3ece118f3f58485" compoundref="AnaCanScan_8cpp" startline="72">MLOGANA</references>
+        <referencedby refid="classAnaCanScan_1a4631538bddfbe61637ea5ed0071b780f" compoundref="AnaCanScan_8cpp" startline="98" endline="106">stopBus</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>CanModule::CCanAccess</label>
+        <link refid="classCanModule_1_1CCanAccess"/>
+      </node>
+      <node id="1">
+        <label>AnaCanScan</label>
+        <link refid="classAnaCanScan"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3">
+        <label>CanModule::CanParameters</label>
+        <link refid="structCanModule_1_1CanParameters"/>
+      </node>
+      <node id="4">
+        <label>CanModule::CanStatistics</label>
+        <link refid="classCanModule_1_1CanStatistics"/>
+        <childnode refid="5" relation="usage">
+          <edgelabel>m_internals</edgelabel>
+        </childnode>
+      </node>
+      <node id="5">
+        <label>CanModule::CanStatistics::Internals</label>
+        <link refid="classCanModule_1_1CanStatistics_1_1Internals"/>
+      </node>
+      <node id="2">
+        <label>CanModule::CCanAccess</label>
+        <link refid="classCanModule_1_1CCanAccess"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>m_CanParameters</edgelabel>
+        </childnode>
+      </node>
+      <node id="1">
+        <label>AnaCanScan</label>
+        <link refid="classAnaCanScan"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>m_statistics</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="CanInterfaceImplementations/anagate/AnaCanScan.h" line="57" column="1" bodyfile="CanInterfaceImplementations/anagate/AnaCanScan.h" bodystart="56" bodyend="182"/>
+    <listofallmembers>
+      <member refid="classAnaCanScan_1a3e2635663ebdfac68591d6a0577fa951" prot="private" virt="non-virtual"><scope>AnaCanScan</scope><name>addCanHandleOfPortIp</name></member>
+      <member refid="classAnaCanScan_1af6c27ae08034c5da64a54de29e2e875e" prot="public" virt="non-virtual"><scope>AnaCanScan</scope><name>AnaCanScan</name></member>
+      <member refid="classAnaCanScan_1af05ec5dfd6ac56764c6db8e721648b75" prot="public" virt="non-virtual"><scope>AnaCanScan</scope><name>AnaCanScan</name></member>
+      <member refid="classAnaCanScan_1af9a44b6ac914643225e2e61ca7a52f4c" prot="public" virt="non-virtual"><scope>AnaCanScan</scope><name>callbackOnRecieve</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1aa8e0e974863874b0e7bbcdb57084c241" prot="public" virt="non-virtual"><scope>AnaCanScan</scope><name>canMessageCame</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a33fbd693f04b4f4e21cee20856c44866" prot="public" virt="non-virtual"><scope>AnaCanScan</scope><name>canMessageError</name></member>
+      <member refid="classAnaCanScan_1ad4a01934370aa2e9ee72bd31406e2752" prot="public" virt="non-virtual"><scope>AnaCanScan</scope><name>canMessageToString</name></member>
+      <member refid="classAnaCanScan_1aa7198f11bf94e97b26855fecdbcc85ed" prot="private" virt="non-virtual"><scope>AnaCanScan</scope><name>canPortNumber</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a7c9b87d205b0ec265c972a3303cecda2" prot="public" virt="non-virtual"><scope>AnaCanScan</scope><name>CCanAccess</name></member>
+      <member refid="classAnaCanScan_1ad917f9cda15bbf9dd9abe6417be5a5eb" prot="private" virt="non-virtual"><scope>AnaCanScan</scope><name>configureCanBoard</name></member>
+      <member refid="classAnaCanScan_1a428d6c62f3a2d6b4297898593961696b" prot="private" virt="non-virtual"><scope>AnaCanScan</scope><name>connectReceptionHandler</name></member>
+      <member refid="classAnaCanScan_1a92f73e718c24985f247e5522486aace9" prot="public" virt="virtual"><scope>AnaCanScan</scope><name>createBus</name></member>
+      <member refid="classAnaCanScan_1a1b62497ac5f0edcf9895c9f8cfad6b50" prot="private" virt="non-virtual"><scope>AnaCanScan</scope><name>deleteCanHandleOfPortIp</name></member>
+      <member refid="classAnaCanScan_1ae7ab2706bb4cd5e02409db38e73dbb3e" prot="private" virt="non-virtual"><scope>AnaCanScan</scope><name>eraseReceptionHandlerFromMap</name></member>
+      <member refid="classAnaCanScan_1a6eec29a421ec4af879143379833ec676" prot="private" virt="non-virtual"><scope>AnaCanScan</scope><name>errorCodeToString</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1ac3f5126ae36d642217425e21696d19ca" prot="public" virt="non-virtual"><scope>AnaCanScan</scope><name>getBusName</name></member>
+      <member refid="classAnaCanScan_1a7bf29c3cb20f59bca41d581e4d8c9c04" prot="private" virt="non-virtual"><scope>AnaCanScan</scope><name>getCanHandleOfPortIp</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a8210a8161f1987973584b6dda5dc6d7d" prot="public" virt="non-virtual"><scope>AnaCanScan</scope><name>getLogItInstance</name></member>
+      <member refid="classAnaCanScan_1a8618662dac4627418ed9c69442f51714" prot="public" virt="virtual"><scope>AnaCanScan</scope><name>getPortBitrate</name></member>
+      <member refid="classAnaCanScan_1a4c115df4a8755c0fd70030ae457af24c" prot="public" virt="virtual"><scope>AnaCanScan</scope><name>getPortStatus</name></member>
+      <member refid="classAnaCanScan_1a6ad398dd6aec952c19165899abd48b8a" prot="public" virt="virtual"><scope>AnaCanScan</scope><name>getReconnectAction</name></member>
+      <member refid="classAnaCanScan_1a74073d663dd44148033b3d6d15428ea9" prot="public" virt="virtual"><scope>AnaCanScan</scope><name>getReconnectCondition</name></member>
+      <member refid="classAnaCanScan_1ad4576bc409a954c888a6fd7f06ca697f" prot="public" virt="virtual"><scope>AnaCanScan</scope><name>getStatistics</name></member>
+      <member refid="classAnaCanScan_1a9ce965955bb5eba734ed36b81945cb74" prot="private" virt="non-virtual"><scope>AnaCanScan</scope><name>handle</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a79c236a0e2b3e3b183b1c85aab3f5b71" prot="protected" virt="non-virtual"><scope>AnaCanScan</scope><name>hasTimeoutOnReception</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1ab5a430fc27073d92c69659bda261b74d" prot="public" virt="non-virtual"><scope>AnaCanScan</scope><name>initialiseLogging</name></member>
+      <member refid="classAnaCanScan_1a23bc4d0b7c2fbb29cc6ec513d060d56e" prot="private" virt="non-virtual"><scope>AnaCanScan</scope><name>ipAdress</name></member>
+      <member refid="classAnaCanScan_1afeaf22bfd209035e9ad9ac3111c6ba65" prot="private" virt="non-virtual"><scope>AnaCanScan</scope><name>isIpReconnectInProgress</name></member>
+      <member refid="classAnaCanScan_1ae2d7c7a9b314adffbde6eafac5a3607e" prot="private" virt="non-virtual"><scope>AnaCanScan</scope><name>m_baudRate</name></member>
+      <member refid="classAnaCanScan_1ad515df0b16ec1a2877282f54c0733a98" prot="private" virt="non-virtual"><scope>AnaCanScan</scope><name>m_busName</name></member>
+      <member refid="classAnaCanScan_1a84c4a44bd26c3e3f21288f3abeba8326" prot="private" virt="non-virtual"><scope>AnaCanScan</scope><name>m_busParameters</name></member>
+      <member refid="classAnaCanScan_1adea6b9e3f699ae412a8fc532a3eb9a48" prot="private" virt="non-virtual"><scope>AnaCanScan</scope><name>m_canCloseDevice</name></member>
+      <member refid="classAnaCanScan_1a501c8cb87a6e4a11b526840f052ec028" prot="private" virt="non-virtual"><scope>AnaCanScan</scope><name>m_canIPAddress</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a484a4f9dc352fe31b4baff0365095705" prot="protected" virt="non-virtual"><scope>AnaCanScan</scope><name>m_CanParameters</name></member>
+      <member refid="classAnaCanScan_1a2ef4dd0b4c07b341597382688b8a2964" prot="private" virt="non-virtual"><scope>AnaCanScan</scope><name>m_canPortNumber</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1aab58c9d55e8430de64046e13100e4893" prot="private" virt="non-virtual"><scope>AnaCanScan</scope><name>m_connectionIndex</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a6a9790a2842b40ced0ff98e1e171acbc" prot="private" virt="non-virtual"><scope>AnaCanScan</scope><name>m_dreceived</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a686ba59e549d1fde3727ab1f88a8c463" prot="protected" virt="non-virtual"><scope>AnaCanScan</scope><name>m_failedSendCounter</name></member>
+      <member refid="classAnaCanScan_1a140c655eb7afe156add0edbd93ca2789" prot="private" virt="non-virtual"><scope>AnaCanScan</scope><name>m_idCanScanThread</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a782b2e9b52ebb49a14307e1f37440490" prot="private" virt="non-virtual"><scope>AnaCanScan</scope><name>m_lh</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a2bb6325281679f955ab32fc18367a7b3" prot="private" virt="non-virtual"><scope>AnaCanScan</scope><name>m_logItRemoteInstance</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a6baf24c56eb715adf55a569d08b12c25" prot="protected" virt="non-virtual"><scope>AnaCanScan</scope><name>m_reconnectAction</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1abfd40edc34a777a5ff4503a6e8a239d6" prot="protected" virt="non-virtual"><scope>AnaCanScan</scope><name>m_reconnectCondition</name></member>
+      <member refid="classAnaCanScan_1a3ff66979e02a0904488365ec412fc994" prot="private" virt="non-virtual"><scope>AnaCanScan</scope><name>m_reconnectInProgress_map</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a0eff18d10b7ee5d6f86b03898f38f7ca" prot="protected" virt="non-virtual"><scope>AnaCanScan</scope><name>m_sBusName</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1aebd1f5d34904ed64d20293d7c385e80c" prot="private" virt="non-virtual"><scope>AnaCanScan</scope><name>m_signal_connection</name></member>
+      <member refid="classAnaCanScan_1a862310267c2415fa9afb401402fa7b57" prot="private" virt="non-virtual"><scope>AnaCanScan</scope><name>m_statistics</name></member>
+      <member refid="classAnaCanScan_1a2ef809f84d976b6f453049a7298760fe" prot="private" virt="non-virtual"><scope>AnaCanScan</scope><name>m_timeout</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1abd6b2ab3f6759bfc05c6dc70911eab50" prot="protected" virt="non-virtual"><scope>AnaCanScan</scope><name>m_timeoutOnReception</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a74e437526e45192804ca1cffc663d2e2" prot="protected" virt="non-virtual"><scope>AnaCanScan</scope><name>m_triggerCounter</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a7bb4a17c5b05e5b01f59d9d9a0728f8a" prot="private" virt="non-virtual"><scope>AnaCanScan</scope><name>m_tz</name></member>
+      <member refid="classAnaCanScan_1a581830a4a70cee6b31e3e895d669a9be" prot="private" virt="non-virtual"><scope>AnaCanScan</scope><name>m_UcanHandle</name></member>
+      <member refid="classAnaCanScan_1ad94121f1933d50cafa52d625ee435f6c" prot="private" virt="non-virtual"><scope>AnaCanScan</scope><name>openCanPort</name></member>
+      <member refid="classAnaCanScan_1acf15b51af8c83b38115f83b343eaf2d6" prot="public" virt="non-virtual"><scope>AnaCanScan</scope><name>operator=</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1af26c9d102638fb96e5e1305f807d148f" prot="public" virt="non-virtual"><scope>AnaCanScan</scope><name>parseNameAndParameters</name></member>
+      <member refid="classAnaCanScan_1af1deaf420c98dcdc4687f481fd4d9a08" prot="private" virt="non-virtual"><scope>AnaCanScan</scope><name>reconnect</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1aa12f64e9e31bd491f39fc3169b1e5025" prot="protected" virt="non-virtual"><scope>AnaCanScan</scope><name>reconnectActionString</name></member>
+      <member refid="classAnaCanScan_1abf8809be00bdc2f39344ec72cf66514c" prot="private" virt="non-virtual"><scope>AnaCanScan</scope><name>reconnectAllPorts</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a9da88ce122d5de04a0235a4682a13dc0" prot="protected" virt="non-virtual"><scope>AnaCanScan</scope><name>reconnectConditionString</name></member>
+      <member refid="classAnaCanScan_1aedcf208c8b79a297650bb2790884a79d" prot="private" virt="non-virtual"><scope>AnaCanScan</scope><name>reconnectThisPort</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1afefee3a90966dd8a01ca471022a7a9cd" prot="protected" virt="non-virtual"><scope>AnaCanScan</scope><name>resetTimeNow</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a067f50699c1ed4b6ee6732eb0078ed0a" prot="protected" virt="non-virtual"><scope>AnaCanScan</scope><name>resetTimeoutOnReception</name></member>
+      <member refid="classAnaCanScan_1aaa001b34e6ee0a27295239f951b7b879" prot="private" virt="non-virtual"><scope>AnaCanScan</scope><name>sendErrorCode</name></member>
+      <member refid="classAnaCanScan_1ad45666454318c891d7acd9fe16ae4c49" prot="public" virt="virtual"><scope>AnaCanScan</scope><name>sendMessage</name></member>
+      <member refid="classAnaCanScan_1a75c1a41d3e8ed31b39e2813596358472" prot="public" virt="virtual"><scope>AnaCanScan</scope><name>sendMessage</name></member>
+      <member refid="classAnaCanScan_1a345abb2f9712275425f4af8eb98cbd38" prot="public" virt="virtual"><scope>AnaCanScan</scope><name>sendRemoteRequest</name></member>
+      <member refid="classAnaCanScan_1a7cbad1b8b5c44282c86bfcfda5464b8f" prot="public" virt="non-virtual"><scope>AnaCanScan</scope><name>setConnectWaitTime</name></member>
+      <member refid="classAnaCanScan_1a04a0124990e52b55b8c1046709ccb2d9" prot="private" virt="non-virtual"><scope>AnaCanScan</scope><name>setIpReconnectInProgress</name></member>
+      <member refid="classAnaCanScan_1a0b9879988a65b60c9f9abc7c88ce6993" prot="public" virt="virtual"><scope>AnaCanScan</scope><name>setReconnectBehavior</name></member>
+      <member refid="classAnaCanScan_1ae986496d224081758e5bd2eca0b343c5" prot="public" virt="virtual"><scope>AnaCanScan</scope><name>setReconnectFailedSendCount</name></member>
+      <member refid="classAnaCanScan_1a6b617410ab9dcbb9c89302cc2ffd78c0" prot="public" virt="virtual"><scope>AnaCanScan</scope><name>setReconnectReceptionTimeout</name></member>
+      <member refid="classAnaCanScan_1a9ebdd69b0b5f2e43b152fde44dfbd543" prot="private" virt="non-virtual"><scope>AnaCanScan</scope><name>showAnaCanScanObjectMap</name></member>
+      <member refid="classAnaCanScan_1a71e415a2fec462b991777ca38a9797cc" prot="private" virt="non-virtual"><scope>AnaCanScan</scope><name>st_canHandleMap</name></member>
+      <member refid="classAnaCanScan_1a39ab4f1c865bef7349992abd4d91da1d" prot="private" virt="non-virtual"><scope>AnaCanScan</scope><name>st_logItHandleAnagate</name></member>
+      <member refid="classAnaCanScan_1a7ba68ea800d7a6837b6bc808d473323d" prot="public" virt="non-virtual"><scope>AnaCanScan</scope><name>statisticsOnRecieve</name></member>
+      <member refid="classAnaCanScan_1a4631538bddfbe61637ea5ed0071b780f" prot="private" virt="non-virtual"><scope>AnaCanScan</scope><name>stopBus</name></member>
+      <member refid="classAnaCanScan_1a2c8256b5096aa1351fbd9f3f2f717180" prot="public" virt="virtual"><scope>AnaCanScan</scope><name>~AnaCanScan</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1ac96f1cce6beda4309cdfb6651d3ce547" prot="public" virt="virtual"><scope>AnaCanScan</scope><name>~CCanAccess</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

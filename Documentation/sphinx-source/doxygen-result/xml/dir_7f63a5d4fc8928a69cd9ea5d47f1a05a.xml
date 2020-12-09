@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="dir_7f63a5d4fc8928a69cd9ea5d47f1a05a" kind="dir">
+    <compoundname>CanInterface/src</compoundname>
+    <innerfile refid="CanModuleUtils_8cpp">CanModuleUtils.cpp</innerfile>
+    <innerfile refid="CanStatistics_8cpp">CanStatistics.cpp</innerfile>
+    <innerfile refid="CCanAccess_8cpp">CCanAccess.cpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="CanInterface/src/"/>
+  </compounddef>
+</doxygen>

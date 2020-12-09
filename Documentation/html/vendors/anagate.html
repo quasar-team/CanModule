@@ -1,19 +1,18 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<html lang="en">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>AnaGate &#8212; CanModule 1.1.9.7 documentation</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AnaGate &#8212; CanModule 2.0.0 documentation</title>
     <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Peak" href="peak.html" />
@@ -31,7 +30,8 @@
         <li class="right" >
           <a href="systec.html" title="SysTec"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">CanModule 1.1.9.7 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">CanModule 2.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">AnaGate</a></li> 
       </ul>
     </div>  
 
@@ -53,10 +53,55 @@ Here the underlying vendor specific classes and the specific parameters are docu
 <div class="section" id="the-connection">
 <h2>The connection<a class="headerlink" href="#the-connection" title="Permalink to this headline">¶</a></h2>
 <p>To connect to a specific port for I/O, and send CAN messages, the following methods are used.</p>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">doxygenclass: Cannot find file: /home/mludwig/projects/CanModule/CanModule-master/Documentation/sphinx-source/doxygen-result/xml/index.xml</p>
+<dl class="cpp class">
+<dt id="_CPPv410AnaCanScan">
+<span id="_CPPv310AnaCanScan"></span><span id="_CPPv210AnaCanScan"></span><span id="AnaCanScan"></span><span class="target" id="classAnaCanScan"></span><em class="property">class </em><code class="sig-name descname">AnaCanScan</code> : <em class="property">public</em> CanModule::<a class="reference internal" href="../canports.html#_CPPv4N9CanModule10CCanAccessE" title="CanModule::CCanAccess">CCanAccess</a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="cpp function">
+<dt id="_CPPv4N10AnaCanScan9createBusEK6stringK6string">
+<span id="_CPPv3N10AnaCanScan9createBusEK6stringK6string"></span><span id="_CPPv2N10AnaCanScan9createBusEK6stringK6string"></span><span id="AnaCanScan::createBus__stringC.stringC"></span><span class="target" id="classAnaCanScan_1a92f73e718c24985f247e5522486aace9"></span>int <code class="sig-name descname">createBus</code><span class="sig-paren">(</span><em class="property">const</em> string <em>name</em>, <em class="property">const</em> string <em>parameters</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10AnaCanScan9createBusEK6stringK6string" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Method that initialises a CAN bus channel for anagate. All following methods called on the same object will be using this initialized channel.</p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>0: new bus, OK, add it please 1: existing bus, OK, do not add -1: error </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>: 3 parameters separated by “:” like “n0:n1:n2” n0 = “an” for anagate n1 = port number on the module, 0=A, 1=B, etc etc n2 = ip number ex.: “an:can1:137.138.12.99” speaks to port B (=1) on anagate module at the ip ex.: “an:1:137.138.12.99” works as well</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">parameters</span></code>: up to 5 parameters separated by whitespaces : “p0 p1 p2 p3 p4” in THAT order, positive integers<ul>
+<li><p>”Unspecified” (or empty): using defaults = “125000 0 0 0 0” // all params missing</p></li>
+<li><p>p0: bitrate: 10000, 20000, 50000, 62000, 100000, 125000, 250000, 500000, 800000, 1000000 bit/s</p></li>
+<li><p>p1: operatingMode: 0=default mode, values 1 (loop back) and 2 (listen) are not supported by CanModule</p></li>
+<li><p>p2: termination: 0=not terminated (default), 1=terminated (120 Ohm for CAN bus)</p></li>
+<li><p>p3: highSpeed: 0=deactivated (default), 1=activated. If activated, confirmation and filtering of CAN traffic are switched off for baud rates &gt; 125000 this flag is needed, and it is set automatically for you if you forgot it (WRN)</p></li>
+<li><p>p4: TimeStamp: 0=deactivated (default), 1=activated. If activated, a timestamp is added to the CAN frame. Not all modules support this. i.e. “250000 0 1 0 0” (see anagate manual for more details)</p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N10AnaCanScan11sendMessageEshPhb">
+<span id="_CPPv3N10AnaCanScan11sendMessageEshPhb"></span><span id="_CPPv2N10AnaCanScan11sendMessageEshPhb"></span><span id="AnaCanScan::sendMessage__short.unsigned-c.unsigned-cP.b"></span><span class="target" id="classAnaCanScan_1ad45666454318c891d7acd9fe16ae4c49"></span>bool <code class="sig-name descname">sendMessage</code><span class="sig-paren">(</span>short <em>cobID</em>, unsigned char <em>len</em>, unsigned char *<em>message</em>, bool <em>rtr</em> = false<span class="sig-paren">)</span><br /></dt>
+<dd><p>send a CAN message frame (8 byte) for anagate Method that sends a message through the can bus channel. If the method createBus was not called before this, sendMessage will fail, as there is no can bus channel to send a message trough. <dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>Was the sending process successful? </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">cobID</span></code>: Identifier that will be used for the message. </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">len</span></code>: Length of the message. If the message is bigger than 8 characters, it will be split into separate 8 characters messages. </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">message</span></code>: Message to be sent trough the can bus. </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rtr</span></code>: is the message a remote transmission request? </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
 </div>
+</dd></dl>
+
 </div>
 <div class="section" id="standard-canmodule-api-example">
 <h2>standard CanModule API example<a class="headerlink" href="#standard-canmodule-api-example" title="Permalink to this headline">¶</a></h2>
@@ -71,6 +116,7 @@ Here the underlying vendor specific classes and the specific parameters are docu
 </div>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
@@ -79,9 +125,10 @@ Here the underlying vendor specific classes and the specific parameters are docu
 <h3><a href="../index.html">Table of Contents</a></h3>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../downloading.html">Downloading</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../objective.html">Objective</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../standardApi.html">Standard API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../canports.html">CAN ports</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../classestracing.html">Details on classes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="systec.html">SysTec</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">AnaGate</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#the-connection">The connection</a></li>
@@ -89,10 +136,10 @@ Here the underlying vendor specific classes and the specific parameters are docu
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="peak.html">Peak</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reconnection.html">Reconnection OBSOLETE IS REWRITTEN CURRENTLY</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../logging.html">Logging</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../building.html">Building</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../running.html">Running</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../reconnection.html">Reconnection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../support.html">Support</a></li>
 </ul>
 
@@ -104,17 +151,15 @@ Here the underlying vendor specific classes and the specific parameters are docu
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -131,13 +176,14 @@ Here the underlying vendor specific classes and the specific parameters are docu
         <li class="right" >
           <a href="systec.html" title="SysTec"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">CanModule 1.1.9.7 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">CanModule 2.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">AnaGate</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2019, CERN, BE-ICS (Michael Ludwig).
-      Last updated on 07-Aug-2020 08:37:24.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
+        &#169; Copyright 2020, CERN, quasar-team, BE-ICS (Michael Ludwig).
+      Last updated on 09-Dec-2020 15:36:43.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.1.2.
     </div>
   </body>
 </html>

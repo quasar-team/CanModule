@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<QHelpCollectionProject version="1.0">
+    <assistant>
+        <title>CanModule 2.0.0 documentation</title>
+        <homePage>qthelp://canmodule/doc/index.html</homePage>
+        <startPage>qthelp://canmodule/doc/index.html</startPage>
+    </assistant>
+    <docFiles>
+        <generate>
+            <file>
+                <input>CanModule.qhp</input>
+                <output>CanModule.qch</output>
+            </file>
+        </generate>
+        <register>
+            <file>CanModule.qch</file>
+        </register>
+    </docFiles>
+</QHelpCollectionProject>

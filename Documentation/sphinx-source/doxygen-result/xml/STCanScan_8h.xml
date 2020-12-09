@@ -1,0 +1,225 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="STCanScan_8h" kind="file" language="C++">
+    <compoundname>STCanScan.h</compoundname>
+    <includes local="yes">tchar.h</includes>
+    <includes local="yes">Winsock2.h</includes>
+    <includes local="yes">windows.h</includes>
+    <includes local="no">string</includes>
+    <includes refid="CanStatistics_8h" local="yes">CanStatistics.h</includes>
+    <includes local="yes">usbcan32.h</includes>
+    <includes refid="CCanAccess_8h" local="yes">CCanAccess.h</includes>
+    <includedby refid="STCanScan_8cpp" local="yes">CanInterfaceImplementations/systec/STCanScan.cpp</includedby>
+    <incdepgraph>
+      <node id="7">
+        <label>stdatomic.h</label>
+      </node>
+      <node id="17">
+        <label>LogIt.h</label>
+      </node>
+      <node id="4">
+        <label>windows.h</label>
+      </node>
+      <node id="6">
+        <label>CanStatistics.h</label>
+        <link refid="CanStatistics_8h"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>CanInterfaceImplementations/systec/STCanScan.h</label>
+        <link refid="STCanScan_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>boost/signals2.hpp</label>
+      </node>
+      <node id="5">
+        <label>string</label>
+      </node>
+      <node id="13">
+        <label>boost/bind/bind.hpp</label>
+      </node>
+      <node id="3">
+        <label>Winsock2.h</label>
+      </node>
+      <node id="12">
+        <label>CCanAccess.h</label>
+        <link refid="CCanAccess_8h"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>VERSION.h</label>
+        <link refid="VERSION_8h"/>
+      </node>
+      <node id="9">
+        <label>ExportDefinition.h</label>
+        <link refid="ExportDefinition_8h"/>
+      </node>
+      <node id="8">
+        <label>sys/time.h</label>
+      </node>
+      <node id="15">
+        <label>CanMessage.h</label>
+        <link refid="CanMessage_8h"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>tchar.h</label>
+      </node>
+      <node id="10">
+        <label>chrono</label>
+      </node>
+      <node id="11">
+        <label>usbcan32.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>CanInterfaceImplementations/systec/STCanScan.cpp</label>
+        <link refid="STCanScan_8cpp"/>
+      </node>
+      <node id="1">
+        <label>CanInterfaceImplementations/systec/STCanScan.h</label>
+        <link refid="STCanScan_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classSTCanScan" prot="public">STCanScan</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"></codeline>
+<codeline lineno="23"><highlight class="preprocessor">#ifndef<sp/>CCANSTSCAN_H_</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CCANSTSCAN_H_</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;tchar.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;Winsock2.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;windows.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="CanStatistics_8h" kindref="compound">CanStatistics.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;usbcan32.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="CCanAccess_8h" kindref="compound">CCanAccess.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="keyword">using<sp/>namespace<sp/></highlight><highlight class="normal"><ref refid="namespaceCanModule" kindref="compound">CanModule</ref>;</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="37"><highlight class="comment"><sp/>*<sp/>This<sp/>is<sp/>an<sp/>implementation<sp/>of<sp/>the<sp/>abstract<sp/>class<sp/>CCanAccess.<sp/>It<sp/>serves<sp/>as<sp/>a<sp/>can<sp/>bus<sp/>access<sp/>layer<sp/>that<sp/>will<sp/>communicate<sp/>with<sp/>Systec<sp/>crates<sp/>(Windows<sp/>only)</highlight></codeline>
+<codeline lineno="38"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39" refid="classSTCanScan" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classSTCanScan" kindref="compound">STCanScan</ref>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="classCanModule_1_1CCanAccess" kindref="compound">CanModule::CCanAccess</ref></highlight></codeline>
+<codeline lineno="40"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classSTCanScan" kindref="compound">STCanScan</ref>();</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classSTCanScan" kindref="compound">STCanScan</ref>(<ref refid="classSTCanScan" kindref="compound">STCanScan</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>&amp;<sp/>other)<sp/>=<sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal">;<sp/></highlight><highlight class="comment">//Disables<sp/>copy<sp/>constructor</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classSTCanScan" kindref="compound">STCanScan</ref>&amp;<sp/>operator=(<ref refid="classSTCanScan" kindref="compound">STCanScan</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>&amp;<sp/>other)<sp/>=<sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal">;<sp/></highlight><highlight class="comment">//Disables<sp/>assignment</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>~<ref refid="classSTCanScan" kindref="compound">STCanScan</ref>();</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>createBus(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/>name<sp/>,</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/>parameters);</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>sendMessage(</highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/>cobID,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*message,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>rtr<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="51"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*<sp/>Method<sp/>that<sp/>sends<sp/>a<sp/>remote<sp/>request<sp/>trough<sp/>the<sp/>can<sp/>bus<sp/>channel.<sp/>If<sp/>the<sp/>method<sp/>createBUS<sp/>was<sp/>not<sp/>called<sp/>before<sp/>this,<sp/>sendMessage<sp/>will<sp/>fail,<sp/>as<sp/>there<sp/>is<sp/>no</highlight></codeline>
+<codeline lineno="52"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*<sp/>can<sp/>bus<sp/>channel<sp/>to<sp/>send<sp/>the<sp/>request<sp/>trough.<sp/>Similar<sp/>to<sp/>sendMessage,<sp/>but<sp/>it<sp/>sends<sp/>an<sp/>special<sp/>message<sp/>reserved<sp/>for<sp/>requests.</highlight></codeline>
+<codeline lineno="53"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*<sp/>@param<sp/>cobID:<sp/>Identifier<sp/>that<sp/>will<sp/>be<sp/>used<sp/>for<sp/>the<sp/>request.</highlight></codeline>
+<codeline lineno="54"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*<sp/>@return:<sp/>Was<sp/>the<sp/>initialisation<sp/>process<sp/>successful?</highlight></codeline>
+<codeline lineno="55"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>sendRemoteRequest(</highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/>cobID);</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//Returns<sp/>the<sp/>instance<sp/>of<sp/>the<sp/>CanStatistics<sp/>object</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>getStatistics(<sp/><ref refid="classCanModule_1_1CanStatistics" kindref="compound">CanStatistics</ref><sp/>&amp;<sp/>result<sp/>);</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>unified<sp/>status</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>uint32_t<sp/>getPortStatus();</highlight></codeline>
+<codeline lineno="61" refid="classSTCanScan_1a91743fa3da0804c3bf55e40c8c8da9b6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>uint32_t<sp/><ref refid="classSTCanScan_1a91743fa3da0804c3bf55e40c8c8da9b6" kindref="member">getPortBitrate</ref>(){<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>m_CanParameters.m_lBaudRate;<sp/>};</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63" refid="classSTCanScan_1ab9c50de0ed0386a7826c6bbabafc4117" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>Log::LogComponentHandle<sp/><ref refid="classSTCanScan_1ab9c50de0ed0386a7826c6bbabafc4117" kindref="member">logItHandle</ref>(){<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>m_logItHandleSt;<sp/>}</highlight></codeline>
+<codeline lineno="64" refid="classSTCanScan_1a17bfbbb7ad6c03fc1ec9ef5f6fed0d3f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classSTCanScan_1a17bfbbb7ad6c03fc1ec9ef5f6fed0d3f" kindref="member">setReconnectBehavior</ref>(<sp/><ref refid="namespaceCanModule_1a2f4fee79cc7ba53467c2538fe6b9adbb" kindref="member">CanModule::ReconnectAutoCondition</ref><sp/>cond,<sp/><ref refid="namespaceCanModule_1a2062089fa4fa87c8354295f2a8fe31a5" kindref="member">CanModule::ReconnectAction</ref><sp/>action<sp/>){</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>m_reconnectCondition<sp/>=<sp/>cond;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>m_reconnectAction<sp/>=<sp/>action;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="68" refid="classSTCanScan_1adca4386c1a008644c27f1d8e7c395272" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classSTCanScan_1adca4386c1a008644c27f1d8e7c395272" kindref="member">setReconnectReceptionTimeout</ref>(<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>timeout<sp/>){<sp/><sp/>m_timeoutOnReception<sp/>=<sp/>timeout;<sp/>};</highlight></codeline>
+<codeline lineno="69" refid="classSTCanScan_1a2525cc89387ee92ce7e62be414d3c83e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classSTCanScan_1a2525cc89387ee92ce7e62be414d3c83e" kindref="member">setReconnectFailedSendCount</ref>(<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>c<sp/>){<sp/>m_failedSendCounter<sp/>=<sp/>m_triggerCounter<sp/>=<sp/>c;<sp/>}</highlight></codeline>
+<codeline lineno="70" refid="classSTCanScan_1a01b70015904374f482647fbfb1806b08" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="namespaceCanModule_1a2f4fee79cc7ba53467c2538fe6b9adbb" kindref="member">CanModule::ReconnectAutoCondition</ref><sp/><ref refid="classSTCanScan_1a01b70015904374f482647fbfb1806b08" kindref="member">getReconnectCondition</ref>()<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>m_reconnectCondition;<sp/>};</highlight></codeline>
+<codeline lineno="71" refid="classSTCanScan_1a38531e0fcde0f184eb968a01fb5984c9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="namespaceCanModule_1a2062089fa4fa87c8354295f2a8fe31a5" kindref="member">CanModule::ReconnectAction</ref><sp/>getReconnectAction()<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>m_reconnectAction;<sp/>};</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>m_moduleNumber;</highlight></codeline>
+<codeline lineno="76" refid="classSTCanScan_1ac5e311e695c1a3c810f82b0c21ee3618" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classSTCanScan_1ac5e311e695c1a3c810f82b0c21ee3618" kindref="member">m_channelNumber</ref>;</highlight></codeline>
+<codeline lineno="77" refid="classSTCanScan_1a8d6dd7c1cbf4a97607909086da6361e1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classSTCanScan_1a8d6dd7c1cbf4a97607909086da6361e1" kindref="member">m_canHandleNumber</ref>;</highlight></codeline>
+<codeline lineno="78" refid="classSTCanScan_1add94dcac99b3ba3a17cb3708fd0cd20d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>tUcanHandle<sp/><ref refid="classSTCanScan_1add94dcac99b3ba3a17cb3708fd0cd20d" kindref="member">m_UcanHandle</ref>;</highlight></codeline>
+<codeline lineno="79" refid="classSTCanScan_1a93abd76cf68726a0bfa4b9d3982ec9aa" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCanModule_1_1CanStatistics" kindref="compound">CanStatistics</ref><sp/><ref refid="classSTCanScan_1a93abd76cf68726a0bfa4b9d3982ec9aa" kindref="member">m_statistics</ref>;</highlight></codeline>
+<codeline lineno="80" refid="classSTCanScan_1add0582f666b4f0a5883311a284a0e9c4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classSTCanScan_1add0582f666b4f0a5883311a284a0e9c4" kindref="member">m_baudRate</ref>;</highlight></codeline>
+<codeline lineno="81" refid="classSTCanScan_1acf5dfe6c253afa4e08e883f8177e2eb3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>Log::LogComponentHandle<sp/><ref refid="classSTCanScan_1acf5dfe6c253afa4e08e883f8177e2eb3" kindref="member">m_logItHandleSt</ref>;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>sendErrorCode(</highlight><highlight class="keywordtype">long</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84" refid="classSTCanScan_1aa1c2f27f78da63fc7d1f542f818b9624" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="AnaCanScan_8h_1ad342ac907eb044443153a22f964bf0af" kindref="member">DWORD</ref><sp/><sp/><sp/><ref refid="classSTCanScan_1aa1c2f27f78da63fc7d1f542f818b9624" kindref="member">m_busStatus</ref>;</highlight></codeline>
+<codeline lineno="85" refid="classSTCanScan_1abd418113d56ef882bb12cd7473d031e1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classSTCanScan_1abd418113d56ef882bb12cd7473d031e1" kindref="member">m_CanScanThreadShutdownFlag</ref>;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Handle<sp/>for<sp/>the<sp/>CAN<sp/>update<sp/>scan<sp/>manager<sp/>thread.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87" refid="classSTCanScan_1a2a57272e12f97f245e6f204347782bc0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>HANDLE<sp/><sp/><ref refid="classSTCanScan_1a2a57272e12f97f245e6f204347782bc0" kindref="member">m_hCanScanThread</ref>;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Thread<sp/>ID<sp/>for<sp/>the<sp/>CAN<sp/>update<sp/>scan<sp/>manager<sp/>thread.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="89" refid="classSTCanScan_1a8ae65fcef31d4bb84aa5bb8978973f86" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="AnaCanScan_8h_1ad342ac907eb044443153a22f964bf0af" kindref="member">DWORD</ref><sp/><sp/><sp/><ref refid="classSTCanScan_1a8ae65fcef31d4bb84aa5bb8978973f86" kindref="member">m_idCanScanThread</ref>;</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>The<sp/>main<sp/>control<sp/>thread<sp/>function<sp/>for<sp/>the<sp/>CAN<sp/>update<sp/>scan<sp/>manager.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="AnaCanScan_8h_1ad342ac907eb044443153a22f964bf0af" kindref="member">DWORD</ref><sp/><ref refid="AnaCanScan_8cpp_1a9aa60e1ead64be77ad551e745cbfd4d3" kindref="member">WINAPI</ref><sp/>CanScanControlThread(LPVOID<sp/>pCanScan);</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>tUcanInitCanParam<sp/>createInitializationParameters(<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>br<sp/>);</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>configureCanBoard(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/>name,</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/>parameters);</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>openCanPort(tUcanInitCanParam<sp/>initializationParameters);</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="97"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*<sp/>Provides<sp/>textual<sp/>representation<sp/>of<sp/>an<sp/>error<sp/>code.</highlight></codeline>
+<codeline lineno="98"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>errorCodeToString(</highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/>error,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>message[]);</highlight></codeline>
+<codeline lineno="100" refid="classSTCanScan_1ae29a23d161c115f173cbdb3a807c895e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classSTCanScan_1ae29a23d161c115f173cbdb3a807c895e" kindref="member">setCanHandleInUse</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>n,</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>t)<sp/>{<sp/>s_isCanHandleInUseArray[n]<sp/>=<sp/>t;<sp/>}</highlight></codeline>
+<codeline lineno="101" refid="classSTCanScan_1a2f2a9aaa3ce2c653a4e1152eb8497493" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classSTCanScan_1a2f2a9aaa3ce2c653a4e1152eb8497493" kindref="member">isCanHandleInUse</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>n)<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>s_isCanHandleInUseArray[n];<sp/>}</highlight></codeline>
+<codeline lineno="102" refid="classSTCanScan_1a50f89ce5fc0b2961937dc8a4b86081f8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classSTCanScan_1a50f89ce5fc0b2961937dc8a4b86081f8" kindref="member">setCanHandle</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>n,tUcanHandle<sp/>tU)<sp/>{<sp/>s_canHandleArray[n]<sp/>=<sp/>tU;<sp/>}</highlight></codeline>
+<codeline lineno="103" refid="classSTCanScan_1a29b4c3c8f29e45f808fbb7528e4593aa" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>tUcanHandle<sp/><ref refid="classSTCanScan_1a29b4c3c8f29e45f808fbb7528e4593aa" kindref="member">getCanHandle</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>n)<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>s_canHandleArray[n];<sp/>}</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105" refid="classSTCanScan_1ac3f6c36fec9666c086da47f241f75dba" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>tUcanHandle<sp/>s_canHandleArray[256];</highlight></codeline>
+<codeline lineno="106" refid="classSTCanScan_1a310439aeb8688c29fb3fe8faa4a9e198" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>s_isCanHandleInUseArray[256];</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>reconnectAllPorts(<sp/>tUcanHandle<sp/>h<sp/>);</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="CanInterfaceImplementations/systec/STCanScan.h"/>
+  </compounddef>
+</doxygen>

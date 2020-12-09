@@ -1,0 +1,85 @@
+\hypertarget{pkcan_8cpp}{}\doxysection{Can\+Interface\+Implementations/pkcan/pkcan.cpp File Reference}
+\label{pkcan_8cpp}\index{CanInterfaceImplementations/pkcan/pkcan.cpp@{CanInterfaceImplementations/pkcan/pkcan.cpp}}
+{\ttfamily \#include $<$time.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$boost/thread/thread.\+hpp$>$}\newline
+{\ttfamily \#include $<$Log\+It.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}pkcan.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Can\+Module\+Utils.\+h\char`\"{}}\newline
+Include dependency graph for pkcan.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{pkcan_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{pkcan_8cpp_a73247195a8f4adaf8cc04e0ac302e045}{M\+L\+O\+G\+PK}}(L\+E\+V\+EL,  T\+H\+IS)~L\+OG(Log\+::\+L\+E\+V\+EL, T\+H\+IS-\/$>$log\+It\+Handle()) $<$$<$ \+\_\+\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+\_\+ $<$$<$ \char`\"{} \char`\"{} $<$$<$ \char`\"{} peak bus= \char`\"{} $<$$<$ T\+H\+IS-\/$>$get\+Bus\+Name() $<$$<$ \char`\"{} \char`\"{}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{pkcan_8cpp_a720081fb383c8d118471780c998a8b2e}{\+\_\+\+\_\+declspec}} (dllexport) \mbox{\hyperlink{classCanModule_1_1CCanAccess}{C\+Can\+Access}} $\ast$\mbox{\hyperlink{MockCanAccess_8cpp_af5a524932d22bba66db40b8d5d33409d}{get\+Can\+Bus\+Access}}()
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+boost\+::mutex \mbox{\hyperlink{pkcan_8cpp_a11d79a171d802cdff9ec12d685d14d57}{peak\+Reconnect\+Mutex}}
+\item 
+bool \mbox{\hyperlink{pkcan_8cpp_a0ec23bcfb114109a7d87fb033501f29b}{init\+Libarary}} = false
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{pkcan_8cpp_a73247195a8f4adaf8cc04e0ac302e045}\label{pkcan_8cpp_a73247195a8f4adaf8cc04e0ac302e045}} 
+\index{pkcan.cpp@{pkcan.cpp}!MLOGPK@{MLOGPK}}
+\index{MLOGPK@{MLOGPK}!pkcan.cpp@{pkcan.cpp}}
+\doxysubsubsection{\texorpdfstring{MLOGPK}{MLOGPK}}
+{\footnotesize\ttfamily \#define M\+L\+O\+G\+PK(\begin{DoxyParamCaption}\item[{}]{L\+E\+V\+EL,  }\item[{}]{T\+H\+IS }\end{DoxyParamCaption})~L\+OG(Log\+::\+L\+E\+V\+EL, T\+H\+IS-\/$>$log\+It\+Handle()) $<$$<$ \+\_\+\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+\_\+ $<$$<$ \char`\"{} \char`\"{} $<$$<$ \char`\"{} peak bus= \char`\"{} $<$$<$ T\+H\+IS-\/$>$get\+Bus\+Name() $<$$<$ \char`\"{} \char`\"{}}
+
+
+
+Definition at line 37 of file pkcan.\+cpp.
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{pkcan_8cpp_a720081fb383c8d118471780c998a8b2e}\label{pkcan_8cpp_a720081fb383c8d118471780c998a8b2e}} 
+\index{pkcan.cpp@{pkcan.cpp}!\_\_declspec@{\_\_declspec}}
+\index{\_\_declspec@{\_\_declspec}!pkcan.cpp@{pkcan.cpp}}
+\doxysubsubsection{\texorpdfstring{\_\_declspec()}{\_\_declspec()}}
+{\footnotesize\ttfamily \+\_\+\+\_\+declspec (\begin{DoxyParamCaption}\item[{dllexport}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 43 of file pkcan.\+cpp.
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{pkcan_8cpp_a0ec23bcfb114109a7d87fb033501f29b}\label{pkcan_8cpp_a0ec23bcfb114109a7d87fb033501f29b}} 
+\index{pkcan.cpp@{pkcan.cpp}!initLibarary@{initLibarary}}
+\index{initLibarary@{initLibarary}!pkcan.cpp@{pkcan.cpp}}
+\doxysubsubsection{\texorpdfstring{initLibarary}{initLibarary}}
+{\footnotesize\ttfamily bool init\+Libarary = false}
+
+
+
+Definition at line 42 of file pkcan.\+cpp.
+
+\mbox{\Hypertarget{pkcan_8cpp_a11d79a171d802cdff9ec12d685d14d57}\label{pkcan_8cpp_a11d79a171d802cdff9ec12d685d14d57}} 
+\index{pkcan.cpp@{pkcan.cpp}!peakReconnectMutex@{peakReconnectMutex}}
+\index{peakReconnectMutex@{peakReconnectMutex}!pkcan.cpp@{pkcan.cpp}}
+\doxysubsubsection{\texorpdfstring{peakReconnectMutex}{peakReconnectMutex}}
+{\footnotesize\ttfamily boost\+::mutex peak\+Reconnect\+Mutex}
+
+
+
+Definition at line 39 of file pkcan.\+cpp.
+
+
+
+Referenced by P\+K\+Can\+Scan\+::create\+Bus(), and P\+K\+Can\+Scan\+::stop\+Bus().
+

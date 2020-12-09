@@ -131,10 +131,7 @@ public:
 
 	/*
 	 * acquire the latest status of the CAN bus, from as-low-as-possible SW layer,
-	 * and put it into a bitpattern which is common for all vendor modules. Since we talk
-	 * about CAN bus status we use the netlink layer cc7 as a reference (socketcan/linux).
-	 * The bitpatterns from all others are acquired and reformatted to be semantically
-	 * (downwards) compatible: same bits mean the same.
+	 * and put it into a bitpattern.
 	 * socketcan: netlink layer IFLA states STATUS and others...
 	 * anagate:
 	 * peak (windows):

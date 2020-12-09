@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<QtHelpProject version="1.0">
+    <namespace>canmodule</namespace>
+    <virtualFolder>doc</virtualFolder>
+    <customFilter name="CanModule 2.0.0">
+        <filterAttribute>CanModule</filterAttribute>
+        <filterAttribute>2.0.0</filterAttribute>
+    </customFilter>
+    <filterSection>
+        <filterAttribute>CanModule</filterAttribute>
+        <filterAttribute>2.0.0</filterAttribute>
+        <toc>
+            <section title="CanModule 2.0.0 documentation" ref="index.html">
+                <section title="Downloading" ref="downloading.html">
+                    <section title="sources" ref="downloading.html#sources"/>
+                    <section title="runtime dependencies" ref="downloading.html#runtime-dependencies"/>
+                </section>
+                <section title="Objective" ref="objective.html">
+                    <section title="Supported OS" ref="objective.html#supported-os"/>
+                    <section title="compatible vendors" ref="objective.html#compatible-vendors"/>
+                    <section title="Integration into projects" ref="objective.html#integration-into-projects"/>
+                </section>
+                <section title="Standard API" ref="standardApi.html">
+                    <section title="example snippet" ref="standardApi.html#example-snippet"/>
+                </section>
+                <section title="CAN ports" ref="canports.html">
+                    <section title="port bit rate and statistics" ref="canports.html#port-bit-rate-and-statistics"/>
+                    <section title="port unified status" ref="canports.html#port-unified-status"/>
+                    <section title="syntax for port names" ref="canports.html#syntax-for-port-names"/>
+                </section>
+                <section title="Details on classes" ref="classestracing.html">
+                    <section title="tracing connections" ref="classestracing.html#tracing-connections"/>
+                </section>
+                <section title="SysTec" ref="vendors/systec.html">
+                    <section title="The connection" ref="vendors/systec.html#the-connection">
+                        <section title="windows" ref="vendors/systec.html#windows"/>
+                        <section title="linux" ref="vendors/systec.html#linux"/>
+                    </section>
+                    <section title="standard CanModule API example" ref="vendors/systec.html#standard-canmodule-api-example"/>
+                </section>
+                <section title="AnaGate" ref="vendors/anagate.html">
+                    <section title="The connection" ref="vendors/anagate.html#the-connection"/>
+                    <section title="standard CanModule API example" ref="vendors/anagate.html#standard-canmodule-api-example"/>
+                </section>
+                <section title="Peak" ref="vendors/peak.html">
+                    <section title="The connection" ref="vendors/peak.html#the-connection">
+                        <section title="windows" ref="vendors/peak.html#windows"/>
+                        <section title="linux" ref="vendors/peak.html#linux"/>
+                    </section>
+                    <section title="API example Windows" ref="vendors/peak.html#api-example-windows"/>
+                    <section title="API example Linux" ref="vendors/peak.html#api-example-linux"/>
+                </section>
+                <section title="Reconnection OBSOLETE IS REWRITTEN CURRENTLY" ref="reconnection.html">
+                    <section title="anagate" ref="reconnection.html#anagate"/>
+                    <section title="peak" ref="reconnection.html#peak">
+                        <section title="linux/cc7" ref="reconnection.html#linux-cc7"/>
+                        <section title="windows" ref="reconnection.html#windows"/>
+                    </section>
+                    <section title="systec" ref="reconnection.html#systec">
+                        <section title="linux/cc7" ref="reconnection.html#id1"/>
+                        <section title="windows" ref="reconnection.html#id2"/>
+                    </section>
+                </section>
+                <section title="Logging" ref="logging.html"/>
+                <section title="Building" ref="building.html">
+                    <section title="shared and static linking" ref="building.html#shared-and-static-linking">
+                        <section title="QA and documentation" ref="building.html#qa-and-documentation"/>
+                    </section>
+                </section>
+                <section title="Running" ref="running.html">
+                    <section title="general dependencies" ref="running.html#general-dependencies"/>
+                    <section title="Anagate" ref="running.html#anagate"/>
+                    <section title="Systec" ref="running.html#systec"/>
+                    <section title="Peak" ref="running.html#peak"/>
+                </section>
+                <section title="Support" ref="support.html"/>
+            </section>
+        </toc>
+        <keywords>
+            <keyword name="AnaCanScan (C++ class)" ref="classestracing.html#_CPPv410AnaCanScan"/>
+            <keyword name="AnaCanScan (C++ class)" ref="vendors/anagate.html#_CPPv410AnaCanScan"/>
+            <keyword name="AnaCanScan::createBus (C++ function)" ref="vendors/anagate.html#_CPPv4N10AnaCanScan9createBusEK6stringK6string"/>
+            <keyword name="AnaCanScan::getPortStatus (C++ function)" ref="classestracing.html#_CPPv4N10AnaCanScan13getPortStatusEv"/>
+            <keyword name="AnaCanScan::sendMessage (C++ function)" ref="classestracing.html#_CPPv4N10AnaCanScan11sendMessageEshPhb"/>
+            <keyword name="AnaCanScan::sendMessage (C++ function)" ref="vendors/anagate.html#_CPPv4N10AnaCanScan11sendMessageEshPhb"/>
+            <keyword name="CanModule::CanLibLoader (C++ class)" ref="classestracing.html#_CPPv4N9CanModule12CanLibLoaderE"/>
+            <keyword name="CanModule::CanLibLoaderLin (C++ class)" ref="classestracing.html#_CPPv4N9CanModule15CanLibLoaderLinE"/>
+            <keyword name="CanModule::CanLibLoaderWin (C++ class)" ref="classestracing.html#_CPPv4N9CanModule15CanLibLoaderWinE"/>
+            <keyword name="CanModule::CCanAccess (C++ class)" ref="canports.html#_CPPv4N9CanModule10CCanAccessE"/>
+            <keyword name="CanModule::CCanAccess (C++ class)" ref="canports.html#_CPPv4N9CanModule10CCanAccessE"/>
+            <keyword name="CanModule::CCanAccess (C++ class)" ref="canports.html#_CPPv4N9CanModule10CCanAccessE"/>
+            <keyword name="CanModule::CCanAccess (C++ class)" ref="classestracing.html#_CPPv4N9CanModule10CCanAccessE"/>
+            <keyword name="CanModule::CCanAccess::getPortBitrate (C++ function)" ref="canports.html#_CPPv4N9CanModule10CCanAccess14getPortBitrateEv"/>
+            <keyword name="CanModule::CCanAccess::getPortStatus (C++ function)" ref="canports.html#_CPPv4N9CanModule10CCanAccess13getPortStatusEv"/>
+            <keyword name="CanModule::Diag (C++ class)" ref="classestracing.html#_CPPv4N9CanModule4DiagE"/>
+            <keyword name="CanModule::Diag::get_connections (C++ function)" ref="classestracing.html#_CPPv4N9CanModule4Diag15get_connectionsEv"/>
+            <keyword name="CSockCanScan (C++ class)" ref="classestracing.html#_CPPv412CSockCanScan"/>
+            <keyword name="CSockCanScan (C++ class)" ref="vendors/peak.html#_CPPv412CSockCanScan"/>
+            <keyword name="CSockCanScan (C++ class)" ref="vendors/systec.html#_CPPv412CSockCanScan"/>
+            <keyword name="CSockCanScan::createBus (C++ function)" ref="vendors/peak.html#_CPPv4N12CSockCanScan9createBusEK6string6string"/>
+            <keyword name="CSockCanScan::createBus (C++ function)" ref="vendors/systec.html#_CPPv4N12CSockCanScan9createBusEK6string6string"/>
+            <keyword name="CSockCanScan::getPortStatus (C++ function)" ref="classestracing.html#_CPPv4N12CSockCanScan13getPortStatusEv"/>
+            <keyword name="CSockCanScan::sendMessage (C++ function)" ref="classestracing.html#_CPPv4N12CSockCanScan11sendMessageEshPhb"/>
+            <keyword name="CSockCanScan::sendMessage (C++ function)" ref="vendors/peak.html#_CPPv4N12CSockCanScan11sendMessageEshPhb"/>
+            <keyword name="CSockCanScan::sendMessage (C++ function)" ref="vendors/systec.html#_CPPv4N12CSockCanScan11sendMessageEshPhb"/>
+            <keyword name="PKCanScan (C++ class)" ref="classestracing.html#_CPPv49PKCanScan"/>
+            <keyword name="PKCanScan (C++ class)" ref="vendors/peak.html#_CPPv49PKCanScan"/>
+            <keyword name="PKCanScan::createBus (C++ function)" ref="vendors/peak.html#_CPPv4N9PKCanScan9createBusEK6stringK6string"/>
+            <keyword name="PKCanScan::getPortStatus (C++ function)" ref="classestracing.html#_CPPv4N9PKCanScan13getPortStatusEv"/>
+            <keyword name="PKCanScan::sendMessage (C++ function)" ref="classestracing.html#_CPPv4N9PKCanScan11sendMessageEshPhb"/>
+            <keyword name="PKCanScan::sendMessage (C++ function)" ref="vendors/peak.html#_CPPv4N9PKCanScan11sendMessageEshPhb"/>
+            <keyword name="STCanScan (C++ class)" ref="classestracing.html#_CPPv49STCanScan"/>
+            <keyword name="STCanScan (C++ class)" ref="vendors/systec.html#_CPPv49STCanScan"/>
+            <keyword name="STCanScan::createBus (C++ function)" ref="vendors/systec.html#_CPPv4N9STCanScan9createBusEK6stringK6string"/>
+            <keyword name="STCanScan::getPortStatus (C++ function)" ref="classestracing.html#_CPPv4N9STCanScan13getPortStatusEv"/>
+            <keyword name="STCanScan::sendMessage (C++ function)" ref="classestracing.html#_CPPv4N9STCanScan11sendMessageEshPhb"/>
+            <keyword name="STCanScan::sendMessage (C++ function)" ref="vendors/systec.html#_CPPv4N9STCanScan11sendMessageEshPhb"/>
+        </keywords>
+        <files>
+            <file>building.html</file>
+            <file>canports.html</file>
+            <file>classestracing.html</file>
+            <file>downloading.html</file>
+            <file>genindex.html</file>
+            <file>index.html</file>
+            <file>logging.html</file>
+            <file>objective.html</file>
+            <file>reconnection.html</file>
+            <file>running.html</file>
+            <file>standardApi.html</file>
+            <file>support.html</file>
+            <file>_static/alert_info_32.png</file>
+            <file>_static/alert_warning_32.png</file>
+            <file>_static/basic.css</file>
+            <file>_static/bg-page.png</file>
+            <file>_static/bullet_orange.png</file>
+            <file>_static/file.png</file>
+            <file>_static/haiku.css</file>
+            <file>_static/minus.png</file>
+            <file>_static/plus.png</file>
+            <file>_static/pygments.css</file>
+            <file>vendors/anagate.html</file>
+            <file>vendors/peak.html</file>
+            <file>vendors/systec.html</file>
+        </files>
+    </filterSection>
+</QtHelpProject>

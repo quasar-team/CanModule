@@ -7,16 +7,20 @@ CanModule reference documentation
    :maxdepth: 3
 
    downloading
-   quickstart
    objective
    standardApi
+   canports
+   classestracing
    vendors/systec
    vendors/anagate
    vendors/peak
+   reconnection   
+   multitasking
+   specialistNotes
    logging
    building
    running
-   reconnection
+   testing
    support
 
 
@@ -28,5 +32,6 @@ alphabetical index
 
 .. * :ref:`search`
 .. * :ref:`modindex`
+
 
 

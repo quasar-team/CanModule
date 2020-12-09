@@ -235,7 +235,7 @@ public:
 	 * * 5 = NOT_INITIALIZED
 	 * * b3...b27: unused
 	 * * I translate this into a simple bitpattern which is a counter :
-	 * 000 (for OK), 001, 010, 011, 100, 101
+	 * 000(does not occur), 001, 010, 011, 100, 101. Actually 011 means OK therefore. great.
 	 *
 	 * @param peak (windows): see PCANBasic.h:113
 	 * * #define PCAN_ERROR_OK                0x00000U  // No error
@@ -284,6 +284,17 @@ public:
 	 * * b15...b27: unused
 	 */
 	virtual uint32_t getPortStatus() = 0;
+
+	/**
+	 * returns the bitrate of that port [bits/sec] according to what CanModule buffers say. This is
+	 * the setting used for setting up the hardware, after any default rules have been applied, but
+	 * BEFORE any vendor specific encoding into obscure bitpatterns occurs. This happens at port opening
+	 * and the bitrate can only be changed at that moment. So please call this method just after you have
+	 * opened the port. But also since there is no hw interaction and it just returns a buffer, you may
+	 * call it as often as you like.
+	 * Default bitrate is always 125000bits/s if "Unspecified"
+	 */
+	virtual uint32_t getPortBitrate() = 0;
 
 	/*
 	 * Signal that will be called when a can Message arrives into the initialised can bus.
@@ -424,49 +435,27 @@ public:
 	 * 			the common CanModule API, since it is vendor specific. This is a "hard software reset", and it is not the same as just
 	 * 			power-cycling the module. It takes ~15secs and "is known to work nicely".
 	 */
-#if 0
-	virtual void setReconnectBehavior( CanModule::ReconnectAutoCondition cond, CanModule::ReconnectAction action ){
-		m_reconnectCondition = cond;
-		m_reconnectAction = action;
-	};
-#endif
 	virtual void setReconnectBehavior( CanModule::ReconnectAutoCondition cond, CanModule::ReconnectAction action ) = 0;
 
 	/**
 	 * set the timout interval for message reception, for the reconnection behaviour. Units is seconds, default is 120.
 	 */
-#if 0
-	virtual void setReconnectReceptionTimeout( unsigned int timeout ){ 	m_timeoutOnReception = timeout;	};
-#endif
 	virtual void setReconnectReceptionTimeout( unsigned int timeout ) = 0;
 
 	/**
 	 * set the counter for failed consecutive sending attempts, for reconnection. default is 10.
 	 */
-#if 0
-	virtual void setReconnectFailedSendCount( unsigned int c ){
-		m_failedSendCounter = c;
-		m_triggerCounter = m_failedSendCounter;
-		std::cout << __FILE__ << " " << __LINE__ << " triggerCounter= " << m_triggerCounter << std::endl;
-	}
-#endif
 	virtual void setReconnectFailedSendCount( unsigned int c ) = 0;
 
 
 	/**
 	 * read back the r.condition
 	 */
-#if 0
-	virtual CanModule::ReconnectAutoCondition getReconnectCondition() { return m_reconnectCondition; };
-#endif
 	virtual CanModule::ReconnectAutoCondition getReconnectCondition() = 0;
 
 	/**
 	 * read back the r.action
 	 */
-#if 0
-	virtual CanModule::ReconnectAction getReconnectAction() { return m_reconnectAction; };
-#endif
 	virtual CanModule::ReconnectAction getReconnectAction() = 0;
 
 

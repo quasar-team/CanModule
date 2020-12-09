@@ -1,0 +1,280 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="classCanModule_1_1CanLibLoader" kind="class" language="C++" prot="public" abstract="yes">
+    <compoundname>CanModule::CanLibLoader</compoundname>
+    <derivedcompoundref refid="classCanModule_1_1CanLibLoaderLin" prot="public" virt="non-virtual">CanModule::CanLibLoaderLin</derivedcompoundref>
+    <derivedcompoundref refid="classCanModule_1_1CanLibLoaderWin" prot="public" virt="non-virtual">CanModule::CanLibLoaderWin</derivedcompoundref>
+    <includes refid="CanLibLoader_8h" local="no">CanLibLoader.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classCanModule_1_1CanLibLoader_1af891a85f28376052c3f4b22d97eb3ac2" prot="public" static="no" mutable="no">
+        <type>Log::LogComponentHandle</type>
+        <definition>Log::LogComponentHandle CanModule::CanLibLoader::lh</definition>
+        <argsstring></argsstring>
+        <name>lh</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanLibLoader/include/CanLibLoader.h" line="53" column="25" bodyfile="CanLibLoader/include/CanLibLoader.h" bodystart="53" bodyend="-1"/>
+        <referencedby refid="classCanModule_1_1CanLibLoader_1aa303c1dd64affa5c27f707e0306786a0" compoundref="CanLibLoader_8cpp" startline="39" endline="43">CanLibLoader</referencedby>
+        <referencedby refid="classCanModule_1_1CanLibLoaderLin_1a2704a1d43e18e97223848c28dc5dc6ce" compoundref="CanLibLoaderLin_8cpp" startline="38" endline="45">CanModule::CanLibLoaderLin::CanLibLoaderLin</referencedby>
+        <referencedby refid="classCanModule_1_1CanLibLoaderWin_1a52236485330327832d4a282ea370df54" compoundref="CanLibLoaderWin_8cpp" startline="69" endline="74">CanModule::CanLibLoaderWin::CanLibLoaderWin</referencedby>
+        <referencedby refid="classCanModule_1_1CanLibLoader_1acd7d3af103bb72d5bd18737333d682f4" compoundref="CanLibLoader_8cpp" startline="60" endline="66">closeCanBus</referencedby>
+        <referencedby refid="classCanModule_1_1CanLibLoaderLin_1a7d222a82ab3f005ebed4927b299fce64" compoundref="CanLibLoaderLin_8cpp" startline="77" endline="95">CanModule::CanLibLoaderLin::createCanAccess</referencedby>
+        <referencedby refid="classCanModule_1_1CanLibLoaderWin_1adcc42606c727f4ca010ad08719d88a18" compoundref="CanLibLoaderWin_8cpp" startline="121" endline="137">CanModule::CanLibLoaderWin::createCanAccess</referencedby>
+        <referencedby refid="classCanModule_1_1CanLibLoaderLin_1aaef852fe6e43d093f58529fab0b2e841" compoundref="CanLibLoaderLin_8cpp" startline="50" endline="69">CanModule::CanLibLoaderLin::dynamicallyLoadLib</referencedby>
+        <referencedby refid="classCanModule_1_1CanLibLoaderWin_1a8206b2ad7d352ecb8e119b55d2069bc0" compoundref="CanLibLoaderWin_8cpp" startline="88" endline="113">CanModule::CanLibLoaderWin::dynamicallyLoadLib</referencedby>
+        <referencedby refid="classCanModule_1_1CanLibLoader_1aaac995d89efdcf2b673cbd3e678be55b" compoundref="CanLibLoader_8cpp" startline="71" endline="129">openCanBus</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classCanModule_1_1CanLibLoader_1a63bf9755c345afe6286d6751337806d6" prot="private" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string CanModule::CanLibLoader::m_libName</definition>
+        <argsstring></argsstring>
+        <name>m_libName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanLibLoader/include/CanLibLoader.h" line="66" column="13" bodyfile="CanLibLoader/include/CanLibLoader.h" bodystart="66" bodyend="-1"/>
+        <referencedby refid="classCanModule_1_1CanLibLoader_1a7b4d0043b9715fce19bca9bb4035df0a" compoundref="CanLibLoader_8h" startline="56" endline="56">getLibName</referencedby>
+        <referencedby refid="classCanModule_1_1CanLibLoader_1a6fdf0514c73c030acd7919cd04c7a89d" compoundref="CanLibLoader_8h" startline="55" endline="55">setLibName</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classCanModule_1_1CanLibLoader_1aa303c1dd64affa5c27f707e0306786a0" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CanModule::CanLibLoader::CanLibLoader</definition>
+        <argsstring>(const std::string &amp;libName)</argsstring>
+        <name>CanLibLoader</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>libName</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanLibLoader/include/CanLibLoader.h" line="39" column="1" bodyfile="CanLibLoader/src/CanLibLoader.cpp" bodystart="39" bodyend="43"/>
+        <references refid="classCanModule_1_1CanLibLoader_1af891a85f28376052c3f4b22d97eb3ac2" compoundref="CanLibLoader_8h" startline="53">lh</references>
+        <references refid="namespaceCanModule_1a78730a18f59663871883885f3914a2aa" compoundref="CCanAccess_8h" startline="50">CanModule::LogItComponentName</references>
+      </memberdef>
+      <memberdef kind="function" id="classCanModule_1_1CanLibLoader_1a2443baffbe92cd107d09ea09e6cb7b28" prot="protected" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void CanModule::CanLibLoader::dynamicallyLoadLib</definition>
+        <argsstring>(const std::string &amp;libName)=0</argsstring>
+        <name>dynamicallyLoadLib</name>
+        <reimplementedby refid="classCanModule_1_1CanLibLoaderLin_1aaef852fe6e43d093f58529fab0b2e841">dynamicallyLoadLib</reimplementedby>
+        <reimplementedby refid="classCanModule_1_1CanLibLoaderWin_1a8206b2ad7d352ecb8e119b55d2069bc0">dynamicallyLoadLib</reimplementedby>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>libName</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanLibLoader/include/CanLibLoader.h" line="61" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="classCanModule_1_1CanLibLoader_1a69dc0bf543d395f60bb8701339f99e29" prot="protected" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type><ref refid="classCanModule_1_1CCanAccess" kindref="compound">CCanAccess</ref> *</type>
+        <definition>virtual CCanAccess* CanModule::CanLibLoader::createCanAccess</definition>
+        <argsstring>()=0</argsstring>
+        <name>createCanAccess</name>
+        <reimplementedby refid="classCanModule_1_1CanLibLoaderLin_1a7d222a82ab3f005ebed4927b299fce64">createCanAccess</reimplementedby>
+        <reimplementedby refid="classCanModule_1_1CanLibLoaderWin_1adcc42606c727f4ca010ad08719d88a18">createCanAccess</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanLibLoader/include/CanLibLoader.h" line="63" column="20"/>
+        <referencedby refid="classCanModule_1_1CanLibLoader_1aaac995d89efdcf2b673cbd3e678be55b" compoundref="CanLibLoader_8cpp" startline="71" endline="129">openCanBus</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classCanModule_1_1CanLibLoader_1aaf19503282f3fe164c434674721c4972" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>CanModule::CanLibLoader::~CanLibLoader</definition>
+        <argsstring>()</argsstring>
+        <name>~CanLibLoader</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanLibLoader/include/CanLibLoader.h" line="43" column="9" bodyfile="CanLibLoader/src/CanLibLoader.cpp" bodystart="45" bodyend="45"/>
+      </memberdef>
+      <memberdef kind="function" id="classCanModule_1_1CanLibLoader_1aaac995d89efdcf2b673cbd3e678be55b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="ExportDefinition_8h_1a7478c359eb321f7939044e70abfb4cca" kindref="member">SHARED_LIB_EXPORT_DEFN</ref> <ref refid="classCanModule_1_1CCanAccess" kindref="compound">CanModule::CCanAccess</ref> *</type>
+        <definition>CCanAccess * CanModule::CanLibLoader::openCanBus</definition>
+        <argsstring>(std::string name, std::string parameters)</argsstring>
+        <name>openCanBus</name>
+        <param>
+          <type>std::string</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>parameters</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>opens a can bus </para>
+        </detaileddescription>
+        <inbodydescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Name of the can bus channel. The specific mapping will change depending on the interface used. For example, accessing channel 0 for the systec interface would be using name &quot;st:9&quot;, while in socket can the same channel would be &quot;sock:can0&quot;. anagate interface would be &quot;an:0:192.168.1.2&quot; for port A and ip address </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>parameters</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Different parameters used for the initialisation. For using the default parameters just set this to &quot;Unspecified&quot;</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </inbodydescription>
+        <location file="CanLibLoader/include/CanLibLoader.h" line="49" column="47" bodyfile="CanLibLoader/src/CanLibLoader.cpp" bodystart="71" bodyend="129"/>
+        <references refid="classCanModule_1_1CCanAccess_1a0eeee5c3d48f1102012d1483cbe6e64b">CanModule::CCanAccess::createBus</references>
+        <references refid="classCanModule_1_1CanLibLoader_1a69dc0bf543d395f60bb8701339f99e29">createCanAccess</references>
+        <references refid="classCanModule_1_1CCanAccess_1ab5a430fc27073d92c69659bda261b74d" compoundref="CCanAccess_8h" startline="321" endline="326">CanModule::CCanAccess::initialiseLogging</references>
+        <references refid="classCanModule_1_1Diag_1addd2c4afbe8b21115f487085f3226e8d" compoundref="Diag_8cpp" startline="46" endline="70">CanModule::Diag::insert_maps</references>
+        <references refid="classCanModule_1_1CanLibLoader_1af891a85f28376052c3f4b22d97eb3ac2" compoundref="CanLibLoader_8h" startline="53">lh</references>
+        <references refid="namespaceCanModule_1a78730a18f59663871883885f3914a2aa" compoundref="CCanAccess_8h" startline="50">CanModule::LogItComponentName</references>
+      </memberdef>
+      <memberdef kind="function" id="classCanModule_1_1CanLibLoader_1acd7d3af103bb72d5bd18737333d682f4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="ExportDefinition_8h_1a7478c359eb321f7939044e70abfb4cca" kindref="member">SHARED_LIB_EXPORT_DEFN</ref> void</type>
+        <definition>void CanModule::CanLibLoader::closeCanBus</definition>
+        <argsstring>(CanModule::CCanAccess *cca)</argsstring>
+        <name>closeCanBus</name>
+        <param>
+          <type><ref refid="classCanModule_1_1CCanAccess" kindref="compound">CanModule::CCanAccess</ref> *</type>
+          <declname>cca</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>make a guess: it orders diet coke </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanLibLoader/include/CanLibLoader.h" line="50" column="28" bodyfile="CanLibLoader/src/CanLibLoader.cpp" bodystart="60" bodyend="66"/>
+        <references refid="classCanModule_1_1Diag_1aa79c20827b6e33fa35d4106d9aa479b8" compoundref="Diag_8cpp" startline="27" endline="37">CanModule::Diag::delete_maps</references>
+        <references refid="classCanModule_1_1CCanAccess_1ac3f5126ae36d642217425e21696d19ca" compoundref="CCanAccess_8h" startline="204" endline="204">CanModule::CCanAccess::getBusName</references>
+        <references refid="classCanModule_1_1CanLibLoader_1af891a85f28376052c3f4b22d97eb3ac2" compoundref="CanLibLoader_8h" startline="53">lh</references>
+      </memberdef>
+      <memberdef kind="function" id="classCanModule_1_1CanLibLoader_1a6fdf0514c73c030acd7919cd04c7a89d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void CanModule::CanLibLoader::setLibName</definition>
+        <argsstring>(std::string ln)</argsstring>
+        <name>setLibName</name>
+        <param>
+          <type>std::string</type>
+          <declname>ln</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanLibLoader/include/CanLibLoader.h" line="55" column="6" bodyfile="CanLibLoader/include/CanLibLoader.h" bodystart="55" bodyend="55"/>
+        <references refid="classCanModule_1_1CanLibLoader_1a63bf9755c345afe6286d6751337806d6" compoundref="CanLibLoader_8h" startline="66">m_libName</references>
+        <referencedby refid="classCanModule_1_1CanLibLoaderLin_1aaef852fe6e43d093f58529fab0b2e841" compoundref="CanLibLoaderLin_8cpp" startline="50" endline="69">CanModule::CanLibLoaderLin::dynamicallyLoadLib</referencedby>
+        <referencedby refid="classCanModule_1_1CanLibLoaderWin_1a8206b2ad7d352ecb8e119b55d2069bc0" compoundref="CanLibLoaderWin_8cpp" startline="88" endline="113">CanModule::CanLibLoaderWin::dynamicallyLoadLib</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classCanModule_1_1CanLibLoader_1a7b4d0043b9715fce19bca9bb4035df0a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string CanModule::CanLibLoader::getLibName</definition>
+        <argsstring>()</argsstring>
+        <name>getLibName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanLibLoader/include/CanLibLoader.h" line="56" column="13" bodyfile="CanLibLoader/include/CanLibLoader.h" bodystart="56" bodyend="56"/>
+        <references refid="classCanModule_1_1CanLibLoader_1a63bf9755c345afe6286d6751337806d6" compoundref="CanLibLoader_8h" startline="66">m_libName</references>
+        <referencedby refid="classCanModule_1_1Diag_1aa79c20827b6e33fa35d4106d9aa479b8" compoundref="Diag_8cpp" startline="27" endline="37">CanModule::Diag::delete_maps</referencedby>
+        <referencedby refid="classCanModule_1_1Diag_1addd2c4afbe8b21115f487085f3226e8d" compoundref="Diag_8cpp" startline="46" endline="70">CanModule::Diag::insert_maps</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classCanModule_1_1CanLibLoader_1ab22f43105bfc9cab3c0749b83c867352" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="ExportDefinition_8h_1a7478c359eb321f7939044e70abfb4cca" kindref="member">SHARED_LIB_EXPORT_DEFN</ref> <ref refid="classCanModule_1_1CanLibLoader" kindref="compound">CanLibLoader</ref> *</type>
+        <definition>CanLibLoader * CanModule::CanLibLoader::createInstance</definition>
+        <argsstring>(const std::string &amp;libName)</argsstring>
+        <name>createInstance</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>libName</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>creates an instance </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanLibLoader/include/CanLibLoader.h" line="47" column="44" bodyfile="CanLibLoader/src/CanLibLoader.cpp" bodystart="47" bodyend="55"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>CanModule::CanLibLoaderLin</label>
+        <link refid="classCanModule_1_1CanLibLoaderLin"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>CanModule::CanLibLoader</label>
+        <link refid="classCanModule_1_1CanLibLoader"/>
+      </node>
+      <node id="3">
+        <label>CanModule::CanLibLoaderWin</label>
+        <link refid="classCanModule_1_1CanLibLoaderWin"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <location file="CanLibLoader/include/CanLibLoader.h" line="35" column="19" bodyfile="CanLibLoader/include/CanLibLoader.h" bodystart="35" bodyend="68"/>
+    <listofallmembers>
+      <member refid="classCanModule_1_1CanLibLoader_1aa303c1dd64affa5c27f707e0306786a0" prot="protected" virt="non-virtual"><scope>CanModule::CanLibLoader</scope><name>CanLibLoader</name></member>
+      <member refid="classCanModule_1_1CanLibLoader_1acd7d3af103bb72d5bd18737333d682f4" prot="public" virt="non-virtual"><scope>CanModule::CanLibLoader</scope><name>closeCanBus</name></member>
+      <member refid="classCanModule_1_1CanLibLoader_1a69dc0bf543d395f60bb8701339f99e29" prot="protected" virt="pure-virtual"><scope>CanModule::CanLibLoader</scope><name>createCanAccess</name></member>
+      <member refid="classCanModule_1_1CanLibLoader_1ab22f43105bfc9cab3c0749b83c867352" prot="public" virt="non-virtual"><scope>CanModule::CanLibLoader</scope><name>createInstance</name></member>
+      <member refid="classCanModule_1_1CanLibLoader_1a2443baffbe92cd107d09ea09e6cb7b28" prot="protected" virt="pure-virtual"><scope>CanModule::CanLibLoader</scope><name>dynamicallyLoadLib</name></member>
+      <member refid="classCanModule_1_1CanLibLoader_1a7b4d0043b9715fce19bca9bb4035df0a" prot="public" virt="non-virtual"><scope>CanModule::CanLibLoader</scope><name>getLibName</name></member>
+      <member refid="classCanModule_1_1CanLibLoader_1af891a85f28376052c3f4b22d97eb3ac2" prot="public" virt="non-virtual"><scope>CanModule::CanLibLoader</scope><name>lh</name></member>
+      <member refid="classCanModule_1_1CanLibLoader_1a63bf9755c345afe6286d6751337806d6" prot="private" virt="non-virtual"><scope>CanModule::CanLibLoader</scope><name>m_libName</name></member>
+      <member refid="classCanModule_1_1CanLibLoader_1aaac995d89efdcf2b673cbd3e678be55b" prot="public" virt="non-virtual"><scope>CanModule::CanLibLoader</scope><name>openCanBus</name></member>
+      <member refid="classCanModule_1_1CanLibLoader_1a6fdf0514c73c030acd7919cd04c7a89d" prot="public" virt="non-virtual"><scope>CanModule::CanLibLoader</scope><name>setLibName</name></member>
+      <member refid="classCanModule_1_1CanLibLoader_1aaf19503282f3fe164c434674721c4972" prot="public" virt="virtual"><scope>CanModule::CanLibLoader</scope><name>~CanLibLoader</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

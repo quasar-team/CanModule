@@ -1,0 +1,247 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="classCanModule_1_1Diag" kind="class" language="C++" prot="public">
+    <compoundname>CanModule::Diag</compoundname>
+    <includes refid="Diag_8h" local="no">Diag.h</includes>
+    <innerclass refid="structCanModule_1_1Diag_1_1CONNECTION__DIAG__t" prot="public">CanModule::Diag::CONNECTION_DIAG_t</innerclass>
+      <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="classCanModule_1_1Diag_1a71e31de7bd89a83e624d15a7a4e7a0c9" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int CanModule::Diag::CanLibLoader_icount</definition>
+        <argsstring></argsstring>
+        <name>CanLibLoader_icount</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Diagnostic/include/Diag.h" line="46" column="12" bodyfile="Diagnostic/include/Diag.h" bodystart="46" bodyend="-1"/>
+        <referencedby refid="classCanModule_1_1Diag_1aa79c20827b6e33fa35d4106d9aa479b8" compoundref="Diag_8cpp" startline="27" endline="37">delete_maps</referencedby>
+        <referencedby refid="classCanModule_1_1Diag_1addd2c4afbe8b21115f487085f3226e8d" compoundref="Diag_8cpp" startline="46" endline="70">insert_maps</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classCanModule_1_1Diag_1a1f42c5f2717eb1f36f4f85bb93c5a338" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int CanModule::Diag::CanAccess_icount</definition>
+        <argsstring></argsstring>
+        <name>CanAccess_icount</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Diagnostic/include/Diag.h" line="47" column="12" bodyfile="Diagnostic/include/Diag.h" bodystart="47" bodyend="-1"/>
+        <referencedby refid="classCanModule_1_1Diag_1aa79c20827b6e33fa35d4106d9aa479b8" compoundref="Diag_8cpp" startline="27" endline="37">delete_maps</referencedby>
+        <referencedby refid="classCanModule_1_1Diag_1addd2c4afbe8b21115f487085f3226e8d" compoundref="Diag_8cpp" startline="46" endline="70">insert_maps</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classCanModule_1_1Diag_1acbdf0ac17a375b59f6fb0f41c6fdf22a" prot="public" static="yes" mutable="no">
+        <type>Log::LogComponentHandle</type>
+        <definition>Log::LogComponentHandle CanModule::Diag::lh</definition>
+        <argsstring></argsstring>
+        <name>lh</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Diagnostic/include/Diag.h" line="48" column="32" bodyfile="Diagnostic/include/Diag.h" bodystart="48" bodyend="-1"/>
+        <referencedby refid="classCanModule_1_1Diag_1a282a54b7181d085ba0abccca8fcb0874" compoundref="Diag_8cpp" startline="21" endline="25">Diag</referencedby>
+        <referencedby refid="classCanModule_1_1Diag_1addd2c4afbe8b21115f487085f3226e8d" compoundref="Diag_8cpp" startline="46" endline="70">insert_maps</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classCanModule_1_1Diag_1a1f761ca050e1c4f3da1f219218c541c9" prot="public" static="yes" mutable="no">
+        <type>std::map&lt; std::string, <ref refid="classCanModule_1_1CCanAccess" kindref="compound">CCanAccess</ref> * &gt;</type>
+        <definition>std::map&lt; std::string, CCanAccess * &gt; CanModule::Diag::port_map</definition>
+        <argsstring></argsstring>
+        <name>port_map</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Diagnostic/include/Diag.h" line="49" column="17" bodyfile="Diagnostic/include/Diag.h" bodystart="49" bodyend="-1"/>
+        <referencedby refid="classCanModule_1_1Diag_1aa79c20827b6e33fa35d4106d9aa479b8" compoundref="Diag_8cpp" startline="27" endline="37">delete_maps</referencedby>
+        <referencedby refid="classCanModule_1_1Diag_1afcea76f7b51b8fa0996b7574abc03c46" compoundref="Diag_8cpp" startline="76" endline="87">get_connections</referencedby>
+        <referencedby refid="classCanModule_1_1Diag_1addd2c4afbe8b21115f487085f3226e8d" compoundref="Diag_8cpp" startline="46" endline="70">insert_maps</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classCanModule_1_1Diag_1a2fb2c9c6a0cd7ad1acd2e505ebde3beb" prot="public" static="yes" mutable="no">
+        <type>std::map&lt; std::string, <ref refid="classCanModule_1_1CanLibLoader" kindref="compound">CanLibLoader</ref> * &gt;</type>
+        <definition>std::map&lt; std::string, CanLibLoader * &gt; CanModule::Diag::lib_map</definition>
+        <argsstring></argsstring>
+        <name>lib_map</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Diagnostic/include/Diag.h" line="50" column="17" bodyfile="Diagnostic/include/Diag.h" bodystart="50" bodyend="-1"/>
+        <referencedby refid="classCanModule_1_1Diag_1aa79c20827b6e33fa35d4106d9aa479b8" compoundref="Diag_8cpp" startline="27" endline="37">delete_maps</referencedby>
+        <referencedby refid="classCanModule_1_1Diag_1afcea76f7b51b8fa0996b7574abc03c46" compoundref="Diag_8cpp" startline="76" endline="87">get_connections</referencedby>
+        <referencedby refid="classCanModule_1_1Diag_1addd2c4afbe8b21115f487085f3226e8d" compoundref="Diag_8cpp" startline="46" endline="70">insert_maps</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classCanModule_1_1Diag_1aca8bc6fe0248257cbc526f9485c287cb" prot="public" static="yes" mutable="no">
+        <type>std::map&lt; std::string, std::string &gt;</type>
+        <definition>std::map&lt; std::string, std::string &gt; CanModule::Diag::parameter_map</definition>
+        <argsstring></argsstring>
+        <name>parameter_map</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Diagnostic/include/Diag.h" line="51" column="17" bodyfile="Diagnostic/include/Diag.h" bodystart="51" bodyend="-1"/>
+        <referencedby refid="classCanModule_1_1Diag_1aa79c20827b6e33fa35d4106d9aa479b8" compoundref="Diag_8cpp" startline="27" endline="37">delete_maps</referencedby>
+        <referencedby refid="classCanModule_1_1Diag_1afcea76f7b51b8fa0996b7574abc03c46" compoundref="Diag_8cpp" startline="76" endline="87">get_connections</referencedby>
+        <referencedby refid="classCanModule_1_1Diag_1addd2c4afbe8b21115f487085f3226e8d" compoundref="Diag_8cpp" startline="46" endline="70">insert_maps</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classCanModule_1_1Diag_1addd2c4afbe8b21115f487085f3226e8d" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CanModule::Diag::insert_maps</definition>
+        <argsstring>(CanLibLoader *lib, CCanAccess *acc, std::string params)</argsstring>
+        <name>insert_maps</name>
+        <param>
+          <type><ref refid="classCanModule_1_1CanLibLoader" kindref="compound">CanLibLoader</ref> *</type>
+          <declname>lib</declname>
+        </param>
+        <param>
+          <type><ref refid="classCanModule_1_1CCanAccess" kindref="compound">CCanAccess</ref> *</type>
+          <declname>acc</declname>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>params</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>insert the two objects into the tracing maps and define a common key the key looks like this: libname_CanLibLoader_icount:busname_CanAccess_icount i.e. an_1:can2_0 [ anagate lib instance 1, bus can2 instance 0 ] sock_0:can2_4 [ sock instance 0, bus can2 instance 4 ] </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Diagnostic/include/Diag.h" line="42" column="13" bodyfile="Diagnostic/src/Diag.cpp" bodystart="46" bodyend="70"/>
+        <references refid="classCanModule_1_1Diag_1a1f42c5f2717eb1f36f4f85bb93c5a338" compoundref="Diag_8h" startline="47">CanAccess_icount</references>
+        <references refid="classCanModule_1_1Diag_1a71e31de7bd89a83e624d15a7a4e7a0c9" compoundref="Diag_8h" startline="46">CanLibLoader_icount</references>
+        <references refid="classCanModule_1_1CCanAccess_1ac3f5126ae36d642217425e21696d19ca" compoundref="CCanAccess_8h" startline="204" endline="204">CanModule::CCanAccess::getBusName</references>
+        <references refid="classCanModule_1_1CanLibLoader_1a7b4d0043b9715fce19bca9bb4035df0a" compoundref="CanLibLoader_8h" startline="56" endline="56">CanModule::CanLibLoader::getLibName</references>
+        <references refid="classCanModule_1_1Diag_1acbdf0ac17a375b59f6fb0f41c6fdf22a" compoundref="Diag_8h" startline="48">lh</references>
+        <references refid="classCanModule_1_1Diag_1a2fb2c9c6a0cd7ad1acd2e505ebde3beb" compoundref="Diag_8h" startline="50">lib_map</references>
+        <references refid="namespaceCanModule_1a30152f28b688b7faa77e56732989f4de" compoundref="Diag_8cpp" startline="19">CanModule::mtx</references>
+        <references refid="classCanModule_1_1Diag_1aca8bc6fe0248257cbc526f9485c287cb" compoundref="Diag_8h" startline="51">parameter_map</references>
+        <references refid="classCanModule_1_1Diag_1a1f761ca050e1c4f3da1f219218c541c9" compoundref="Diag_8h" startline="49">port_map</references>
+        <referencedby refid="classCanModule_1_1CanLibLoader_1aaac995d89efdcf2b673cbd3e678be55b" compoundref="CanLibLoader_8cpp" startline="71" endline="129">CanModule::CanLibLoader::openCanBus</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classCanModule_1_1Diag_1aa79c20827b6e33fa35d4106d9aa479b8" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CanModule::Diag::delete_maps</definition>
+        <argsstring>(CanLibLoader *lib, CCanAccess *acc)</argsstring>
+        <name>delete_maps</name>
+        <param>
+          <type><ref refid="classCanModule_1_1CanLibLoader" kindref="compound">CanLibLoader</ref> *</type>
+          <declname>lib</declname>
+        </param>
+        <param>
+          <type><ref refid="classCanModule_1_1CCanAccess" kindref="compound">CCanAccess</ref> *</type>
+          <declname>acc</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Diagnostic/include/Diag.h" line="43" column="13" bodyfile="Diagnostic/src/Diag.cpp" bodystart="27" bodyend="37"/>
+        <references refid="classCanModule_1_1Diag_1a1f42c5f2717eb1f36f4f85bb93c5a338" compoundref="Diag_8h" startline="47">CanAccess_icount</references>
+        <references refid="classCanModule_1_1Diag_1a71e31de7bd89a83e624d15a7a4e7a0c9" compoundref="Diag_8h" startline="46">CanLibLoader_icount</references>
+        <references refid="classCanModule_1_1CCanAccess_1ac3f5126ae36d642217425e21696d19ca" compoundref="CCanAccess_8h" startline="204" endline="204">CanModule::CCanAccess::getBusName</references>
+        <references refid="classCanModule_1_1CanLibLoader_1a7b4d0043b9715fce19bca9bb4035df0a" compoundref="CanLibLoader_8h" startline="56" endline="56">CanModule::CanLibLoader::getLibName</references>
+        <references refid="classCanModule_1_1Diag_1a2fb2c9c6a0cd7ad1acd2e505ebde3beb" compoundref="Diag_8h" startline="50">lib_map</references>
+        <references refid="namespaceCanModule_1a30152f28b688b7faa77e56732989f4de" compoundref="Diag_8cpp" startline="19">CanModule::mtx</references>
+        <references refid="classCanModule_1_1Diag_1aca8bc6fe0248257cbc526f9485c287cb" compoundref="Diag_8h" startline="51">parameter_map</references>
+        <references refid="classCanModule_1_1Diag_1a1f761ca050e1c4f3da1f219218c541c9" compoundref="Diag_8h" startline="49">port_map</references>
+        <referencedby refid="classCanModule_1_1CanLibLoader_1acd7d3af103bb72d5bd18737333d682f4" compoundref="CanLibLoader_8cpp" startline="60" endline="66">CanModule::CanLibLoader::closeCanBus</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classCanModule_1_1Diag_1afcea76f7b51b8fa0996b7574abc03c46" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>vector&lt; <ref refid="structCanModule_1_1Diag_1_1CONNECTION__DIAG__t" kindref="compound">Diag::CONNECTION_DIAG_t</ref> &gt;</type>
+        <definition>vector&lt; Diag::CONNECTION_DIAG_t &gt; CanModule::Diag::get_connections</definition>
+        <argsstring>()</argsstring>
+        <name>get_connections</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>gives back a vector filled with connection details, mostly timestamp related the maps are only used as rvalues in a reentrant method: fine without mutex </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Diagnostic/include/Diag.h" line="44" column="15" bodyfile="Diagnostic/src/Diag.cpp" bodystart="76" bodyend="87"/>
+        <references refid="structCanModule_1_1Diag_1_1CONNECTION__DIAG__t_1aa5b85c2aa4300d4cd8da18e8b8e32be1" compoundref="Diag_8h" startline="37">CanModule::Diag::CONNECTION_DIAG_t::bus</references>
+        <references refid="structCanModule_1_1Diag_1_1CONNECTION__DIAG__t_1a94f9b3b1352605e99904352667c013c5" compoundref="Diag_8h" startline="38">CanModule::Diag::CONNECTION_DIAG_t::lib</references>
+        <references refid="classCanModule_1_1Diag_1a2fb2c9c6a0cd7ad1acd2e505ebde3beb" compoundref="Diag_8h" startline="50">lib_map</references>
+        <references refid="structCanModule_1_1Diag_1_1CONNECTION__DIAG__t_1a2bd7ac2df6af5b06078aa0329db9fd7b" compoundref="Diag_8h" startline="39">CanModule::Diag::CONNECTION_DIAG_t::parameter</references>
+        <references refid="classCanModule_1_1Diag_1aca8bc6fe0248257cbc526f9485c287cb" compoundref="Diag_8h" startline="51">parameter_map</references>
+        <references refid="classCanModule_1_1Diag_1a1f761ca050e1c4f3da1f219218c541c9" compoundref="Diag_8h" startline="49">port_map</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classCanModule_1_1Diag_1a282a54b7181d085ba0abccca8fcb0874" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CanModule::Diag::Diag</definition>
+        <argsstring>()</argsstring>
+        <name>Diag</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Diagnostic/include/Diag.h" line="54" column="1" bodyfile="Diagnostic/src/Diag.cpp" bodystart="21" bodyend="25"/>
+        <references refid="classCanModule_1_1Diag_1acbdf0ac17a375b59f6fb0f41c6fdf22a" compoundref="Diag_8h" startline="48">lh</references>
+        <references refid="namespaceCanModule_1a78730a18f59663871883885f3914a2aa" compoundref="CCanAccess_8h" startline="50">CanModule::LogItComponentName</references>
+      </memberdef>
+      <memberdef kind="function" id="classCanModule_1_1Diag_1a2725bd2ef8f986c94a0f025ac6b95240" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>CanModule::Diag::~Diag</definition>
+        <argsstring>()</argsstring>
+        <name>~Diag</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Diagnostic/include/Diag.h" line="55" column="1" bodyfile="Diagnostic/include/Diag.h" bodystart="55" bodyend="55"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>diagnostic class to monitor what is going on inside <ref refid="namespaceCanModule" kindref="compound">CanModule</ref>, used as static api only<itemizedlist>
+<listitem><para>keeps track of library instances and pointers</para>
+</listitem><listitem><para>tracks opened can buses for each lib instance </para>
+</listitem></itemizedlist>
+</para>
+    </detaileddescription>
+    <location file="Diagnostic/include/Diag.h" line="34" column="11" bodyfile="Diagnostic/include/Diag.h" bodystart="34" bodyend="56"/>
+    <listofallmembers>
+      <member refid="classCanModule_1_1Diag_1a1f42c5f2717eb1f36f4f85bb93c5a338" prot="public" virt="non-virtual"><scope>CanModule::Diag</scope><name>CanAccess_icount</name></member>
+      <member refid="classCanModule_1_1Diag_1a71e31de7bd89a83e624d15a7a4e7a0c9" prot="public" virt="non-virtual"><scope>CanModule::Diag</scope><name>CanLibLoader_icount</name></member>
+      <member refid="classCanModule_1_1Diag_1aa79c20827b6e33fa35d4106d9aa479b8" prot="public" virt="non-virtual"><scope>CanModule::Diag</scope><name>delete_maps</name></member>
+      <member refid="classCanModule_1_1Diag_1a282a54b7181d085ba0abccca8fcb0874" prot="private" virt="non-virtual"><scope>CanModule::Diag</scope><name>Diag</name></member>
+      <member refid="classCanModule_1_1Diag_1afcea76f7b51b8fa0996b7574abc03c46" prot="public" virt="non-virtual"><scope>CanModule::Diag</scope><name>get_connections</name></member>
+      <member refid="classCanModule_1_1Diag_1addd2c4afbe8b21115f487085f3226e8d" prot="public" virt="non-virtual"><scope>CanModule::Diag</scope><name>insert_maps</name></member>
+      <member refid="classCanModule_1_1Diag_1acbdf0ac17a375b59f6fb0f41c6fdf22a" prot="public" virt="non-virtual"><scope>CanModule::Diag</scope><name>lh</name></member>
+      <member refid="classCanModule_1_1Diag_1a2fb2c9c6a0cd7ad1acd2e505ebde3beb" prot="public" virt="non-virtual"><scope>CanModule::Diag</scope><name>lib_map</name></member>
+      <member refid="classCanModule_1_1Diag_1aca8bc6fe0248257cbc526f9485c287cb" prot="public" virt="non-virtual"><scope>CanModule::Diag</scope><name>parameter_map</name></member>
+      <member refid="classCanModule_1_1Diag_1a1f761ca050e1c4f3da1f219218c541c9" prot="public" virt="non-virtual"><scope>CanModule::Diag</scope><name>port_map</name></member>
+      <member refid="classCanModule_1_1Diag_1a2725bd2ef8f986c94a0f025ac6b95240" prot="private" virt="non-virtual"><scope>CanModule::Diag</scope><name>~Diag</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

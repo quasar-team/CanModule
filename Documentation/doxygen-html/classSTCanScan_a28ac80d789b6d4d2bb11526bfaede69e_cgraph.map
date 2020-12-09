@@ -1,0 +1,26 @@
+<map id="STCanScan::createBus" name="STCanScan::createBus">
+<area shape="rect" id="node1" title=" " alt="" coords="5,338,172,365"/>
+<area shape="rect" id="node2" href="$classSTCanScan.html#aab42375da764eb0d50dee318cd790646" title=" " alt="" coords="230,480,434,521"/>
+<area shape="rect" id="node22" href="$classSTCanScan.html#a8e147c77933e11e9983f4d4e22830b21" title=" " alt="" coords="220,159,444,186"/>
+<area shape="rect" id="node3" href="$namespaceCanModule.html#a3ec3082d7d11a9c1641023cb3f53cbe5" title=" " alt="" coords="800,720,1019,761"/>
+<area shape="rect" id="node4" href="$classSTCanScan.html#af6cf11abff5d1b39b35ceff9ae857270" title=" " alt="" coords="507,181,729,223"/>
+<area shape="rect" id="node5" href="$namespaceCanModule.html#a6d0711aac0a75de5d2bf6142997a814d" title=" " alt="" coords="792,866,1027,893"/>
+<area shape="rect" id="node6" href="$classSTCanScan.html#a471b6a8617a57b974cb71a2dc540d370" title=" " alt="" coords="503,313,733,339"/>
+<area shape="rect" id="node7" href="$classSTCanScan.html#a01b70015904374f482647fbfb1806b08" title=" " alt="" coords="492,363,744,390"/>
+<area shape="rect" id="node8" href="$classCanModule_1_1CCanAccess.html#a79c236a0e2b3e3b183b1c85aab3f5b71" title=" " alt="" coords="523,415,713,456"/>
+<area shape="rect" id="node9" href="$classCanModule_1_1CanStatistics.html#a82b38a2383bc0ad6b1d306e86b9ef5c6" title="dataLength is the user data size (DLC field)" alt="" coords="524,480,712,521"/>
+<area shape="rect" id="node10" href="$classSTCanScan.html#a5f74df7e9615929365b33c08e709e918" title=" " alt="" coords="526,130,710,157"/>
+<area shape="rect" id="node14" href="$classSTCanScan.html#ae29a23d161c115f173cbdb3a807c895e" title=" " alt="" coords="795,479,1024,506"/>
+<area shape="rect" id="node16" href="$classCanModule_1_1CCanAccess.html#aa12f64e9e31bd491f39fc3169b1e5025" title=" " alt="" coords="527,545,709,587"/>
+<area shape="rect" id="node17" href="$classCanModule_1_1CCanAccess.html#a9da88ce122d5de04a0235a4682a13dc0" title=" " alt="" coords="521,611,715,652"/>
+<area shape="rect" id="node18" href="$classCanModule_1_1CCanAccess.html#a067f50699c1ed4b6ee6732eb0078ed0a" title=" " alt="" coords="518,829,718,871"/>
+<area shape="rect" id="node19" href="$classSTCanScan.html#a43454c0bc20eb764cbb4ef3dd5e52cc9" title=" " alt="" coords="520,778,716,805"/>
+<area shape="rect" id="node21" href="$classCanModule_1_1CanStatistics.html#a99de404f1b24cee80edfaad7ad1f9499" title=" " alt="" coords="524,247,712,288"/>
+<area shape="rect" id="node11" href="$classSTCanScan.html#a29b4c3c8f29e45f808fbb7528e4593aa" title=" " alt="" coords="813,189,1006,215"/>
+<area shape="rect" id="node12" href="$classSTCanScan.html#a2f2a9aaa3ce2c653a4e1152eb8497493" title=" " alt="" coords="799,239,1019,266"/>
+<area shape="rect" id="node13" href="$classSTCanScan.html#a50f89ce5fc0b2961937dc8a4b86081f8" title=" " alt="" coords="813,71,1005,98"/>
+<area shape="rect" id="node15" href="$classCanModule_1_1CanStatistics.html#af3f15dedf80e67f1309946632d87198d" title=" " alt="" coords="815,123,1003,164"/>
+<area shape="rect" id="node20" href="$classSTCanScan.html#a9a4da7b1dd74e81e8066894a1a8c051e" title=" " alt="" coords="801,786,1018,813"/>
+<area shape="rect" id="node23" href="$classCanModule_1_1CCanAccess.html#af26c9d102638fb96e5e1305f807d148f" title=" " alt="" coords="516,35,720,76"/>
+<area shape="rect" id="node24" href="$structCanModule_1_1CanParameters.html#ae3c938ac282acae4e49487cbb8a61133" title=" " alt="" coords="808,5,1011,47"/>
+</map>

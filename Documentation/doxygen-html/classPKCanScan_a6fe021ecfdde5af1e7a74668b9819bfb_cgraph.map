@@ -1,0 +1,6 @@
+<map id="PKCanScan::configureCanboard" name="PKCanScan::configureCanboard">
+<area shape="rect" id="node1" title=" " alt="" coords="5,35,229,61"/>
+<area shape="rect" id="node2" href="$classPKCanScan.html#a53471be1a2b2b34afc091e90bfcd29fb" title=" " alt="" coords="295,5,464,32"/>
+<area shape="rect" id="node3" href="$classCanModule_1_1CCanAccess.html#af26c9d102638fb96e5e1305f807d148f" title=" " alt="" coords="277,57,481,98"/>
+<area shape="rect" id="node4" href="$structCanModule_1_1CanParameters.html#ae3c938ac282acae4e49487cbb8a61133" title=" " alt="" coords="529,57,732,98"/>
+</map>

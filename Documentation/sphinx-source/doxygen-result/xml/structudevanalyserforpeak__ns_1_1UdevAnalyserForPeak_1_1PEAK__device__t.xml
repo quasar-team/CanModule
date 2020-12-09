@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="structudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1_1PEAK__device__t" kind="struct" language="C++" prot="public">
+    <compoundname>udevanalyserforpeak_ns::UdevAnalyserForPeak::PEAK_device_t</compoundname>
+    <includes refid="UdevAnalyserForPeak_8h" local="no">UdevAnalyserForPeak.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1_1PEAK__device__t_1aefdb41c5f4c5d5f097143f5a2801e0d8" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string udevanalyserforpeak_ns::UdevAnalyserForPeak::PEAK_device_t::link</definition>
+        <argsstring></argsstring>
+        <name>link</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/sockcan/UdevAnalyserForPeak.h" line="22" column="13" bodyfile="CanInterfaceImplementations/sockcan/UdevAnalyserForPeak.h" bodystart="22" bodyend="-1"/>
+        <referencedby refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1acd46c5ec27ddad48e2f32ab65b2ac2be" compoundref="UdevAnalyserForPeak_8cpp" startline="143" endline="213">udevanalyserforpeak_ns::UdevAnalyserForPeak::m_createUdevPortMap</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1_1PEAK__device__t_1aef8fb355e35084f8719b89b7815c998f" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int udevanalyserforpeak_ns::UdevAnalyserForPeak::PEAK_device_t::localCanPort</definition>
+        <argsstring></argsstring>
+        <name>localCanPort</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/sockcan/UdevAnalyserForPeak.h" line="23" column="14" bodyfile="CanInterfaceImplementations/sockcan/UdevAnalyserForPeak.h" bodystart="23" bodyend="-1"/>
+        <referencedby refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1acd46c5ec27ddad48e2f32ab65b2ac2be" compoundref="UdevAnalyserForPeak_8cpp" startline="143" endline="213">udevanalyserforpeak_ns::UdevAnalyserForPeak::m_createUdevPortMap</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1_1PEAK__device__t_1a8772a7ff45b2b0c303fc9df95b810299" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int udevanalyserforpeak_ns::UdevAnalyserForPeak::PEAK_device_t::systemDeviceIndex</definition>
+        <argsstring></argsstring>
+        <name>systemDeviceIndex</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/sockcan/UdevAnalyserForPeak.h" line="24" column="14" bodyfile="CanInterfaceImplementations/sockcan/UdevAnalyserForPeak.h" bodystart="24" bodyend="-1"/>
+        <referencedby refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1acd46c5ec27ddad48e2f32ab65b2ac2be" compoundref="UdevAnalyserForPeak_8cpp" startline="143" endline="213">udevanalyserforpeak_ns::UdevAnalyserForPeak::m_createUdevPortMap</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1_1PEAK__device__t_1ad38c81f9ab8101e037fec4ceadb99681" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int udevanalyserforpeak_ns::UdevAnalyserForPeak::PEAK_device_t::peakDriverNumber</definition>
+        <argsstring></argsstring>
+        <name>peakDriverNumber</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/sockcan/UdevAnalyserForPeak.h" line="25" column="14" bodyfile="CanInterfaceImplementations/sockcan/UdevAnalyserForPeak.h" bodystart="25" bodyend="-1"/>
+        <referencedby refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1acd46c5ec27ddad48e2f32ab65b2ac2be" compoundref="UdevAnalyserForPeak_8cpp" startline="143" endline="213">udevanalyserforpeak_ns::UdevAnalyserForPeak::m_createUdevPortMap</referencedby>
+        <referencedby refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1a2b522c5a1624c408d0f1854fba53b066" compoundref="UdevAnalyserForPeak_8cpp" startline="135" endline="137">udevanalyserforpeak_ns::UdevAnalyserForPeak::m_peakStructCompare</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1_1PEAK__device__t_1ac29ee824c7e4d8441a815af4c0523f6a" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int udevanalyserforpeak_ns::UdevAnalyserForPeak::PEAK_device_t::deviceID</definition>
+        <argsstring></argsstring>
+        <name>deviceID</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/sockcan/UdevAnalyserForPeak.h" line="26" column="5" bodyfile="CanInterfaceImplementations/sockcan/UdevAnalyserForPeak.h" bodystart="26" bodyend="-1"/>
+        <referencedby refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1acd46c5ec27ddad48e2f32ab65b2ac2be" compoundref="UdevAnalyserForPeak_8cpp" startline="143" endline="213">udevanalyserforpeak_ns::UdevAnalyserForPeak::m_createUdevPortMap</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1_1PEAK__device__t_1a10aab83a9d849599afb6ffcb75670e6b" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int udevanalyserforpeak_ns::UdevAnalyserForPeak::PEAK_device_t::socketNumber</definition>
+        <argsstring></argsstring>
+        <name>socketNumber</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/sockcan/UdevAnalyserForPeak.h" line="27" column="14" bodyfile="CanInterfaceImplementations/sockcan/UdevAnalyserForPeak.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="CanInterfaceImplementations/sockcan/UdevAnalyserForPeak.h" line="21" column="15" bodyfile="CanInterfaceImplementations/sockcan/UdevAnalyserForPeak.h" bodystart="21" bodyend="28"/>
+    <listofallmembers>
+      <member refid="structudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1_1PEAK__device__t_1ac29ee824c7e4d8441a815af4c0523f6a" prot="public" virt="non-virtual"><scope>udevanalyserforpeak_ns::UdevAnalyserForPeak::PEAK_device_t</scope><name>deviceID</name></member>
+      <member refid="structudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1_1PEAK__device__t_1aefdb41c5f4c5d5f097143f5a2801e0d8" prot="public" virt="non-virtual"><scope>udevanalyserforpeak_ns::UdevAnalyserForPeak::PEAK_device_t</scope><name>link</name></member>
+      <member refid="structudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1_1PEAK__device__t_1aef8fb355e35084f8719b89b7815c998f" prot="public" virt="non-virtual"><scope>udevanalyserforpeak_ns::UdevAnalyserForPeak::PEAK_device_t</scope><name>localCanPort</name></member>
+      <member refid="structudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1_1PEAK__device__t_1ad38c81f9ab8101e037fec4ceadb99681" prot="public" virt="non-virtual"><scope>udevanalyserforpeak_ns::UdevAnalyserForPeak::PEAK_device_t</scope><name>peakDriverNumber</name></member>
+      <member refid="structudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1_1PEAK__device__t_1a10aab83a9d849599afb6ffcb75670e6b" prot="public" virt="non-virtual"><scope>udevanalyserforpeak_ns::UdevAnalyserForPeak::PEAK_device_t</scope><name>socketNumber</name></member>
+      <member refid="structudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1_1PEAK__device__t_1a8772a7ff45b2b0c303fc9df95b810299" prot="public" virt="non-virtual"><scope>udevanalyserforpeak_ns::UdevAnalyserForPeak::PEAK_device_t</scope><name>systemDeviceIndex</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

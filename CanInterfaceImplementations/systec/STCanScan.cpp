@@ -196,6 +196,14 @@ STCanScan::~STCanScan()
  * number and channel (e.g. 0:0 is can0, 1:0 is can2, 1:1 is can3, etc)
  * so can0 should open a SysTec interface 0:0 matching "can0" on the box,
  * can1 should open a SysTec interface 0:1 matching "can1" on the box, etc.
+ *
+ * returns:
+ * 0 = OK, bus created
+ * -1 = not ok, board init failed
+ * -2 = not ok, thread creation failed
+ *
+ * no implemented: 1=OK, bus creation skipped since it exists already
+ *
  */
 int STCanScan::createBus(const string name,const string parameters)
 {	
@@ -214,17 +222,17 @@ int STCanScan::createBus(const string name,const string parameters)
 	m_sBusName = name;
 	int returnCode = configureCanBoard(name, parameters);
 	if (returnCode < 0) {
-		return false;
+		return (-1);
 	}
 
 	// After the canboard is configured and started, we start the scan control thread
 	m_hCanScanThread = CreateThread(NULL, 0, CanScanControlThread, this, 0, &m_idCanScanThread);
 	if (NULL == m_hCanScanThread) {
 		MLOGST(ERR,this) << "creating the canScanControl thread.";
-		return false;
+		return (-2);
 	}
 	MLOGST(DBG,this) <<  " Bus [" << name << "] created with parameters [" << parameters << "]";
-	return true;
+	return (0);
 }
 
 int STCanScan::configureCanBoard(const string name,const string parameters)

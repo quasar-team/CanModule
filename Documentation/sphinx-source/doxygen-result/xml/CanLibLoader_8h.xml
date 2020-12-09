@@ -1,0 +1,209 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="CanLibLoader_8h" kind="file" language="C++">
+    <compoundname>CanLibLoader.h</compoundname>
+    <includes local="no">string</includes>
+    <includes local="no">map</includes>
+    <includes local="no">boost/thread/thread.hpp</includes>
+    <includes refid="CCanAccess_8h" local="yes">CCanAccess.h</includes>
+    <includes refid="ExportDefinition_8h" local="yes">ExportDefinition.h</includes>
+    <includedby refid="CanLibLoaderLin_8h" local="yes">CanLibLoader/include/CanLibLoaderLin.h</includedby>
+    <includedby refid="CanLibLoaderWin_8h" local="yes">CanLibLoader/include/CanLibLoaderWin.h</includedby>
+    <includedby refid="CanLibLoader_8cpp" local="yes">CanLibLoader/src/CanLibLoader.cpp</includedby>
+    <includedby refid="Diag_8h" local="no">Diagnostic/include/Diag.h</includedby>
+    <incdepgraph>
+      <node id="11">
+        <label>stdatomic.h</label>
+      </node>
+      <node id="15">
+        <label>LogIt.h</label>
+      </node>
+      <node id="10">
+        <label>CanStatistics.h</label>
+        <link refid="CanStatistics_8h"/>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>boost/signals2.hpp</label>
+      </node>
+      <node id="1">
+        <label>CanLibLoader/include/CanLibLoader.h</label>
+        <link refid="CanLibLoader_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>boost/thread/thread.hpp</label>
+      </node>
+      <node id="2">
+        <label>string</label>
+      </node>
+      <node id="3">
+        <label>map</label>
+      </node>
+      <node id="7">
+        <label>boost/bind/bind.hpp</label>
+      </node>
+      <node id="5">
+        <label>CCanAccess.h</label>
+        <link refid="CCanAccess_8h"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>VERSION.h</label>
+        <link refid="VERSION_8h"/>
+      </node>
+      <node id="12">
+        <label>ExportDefinition.h</label>
+        <link refid="ExportDefinition_8h"/>
+      </node>
+      <node id="6">
+        <label>sys/time.h</label>
+      </node>
+      <node id="9">
+        <label>CanMessage.h</label>
+        <link refid="CanMessage_8h"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>chrono</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="7">
+        <label>Diagnostic/include/Diag.h</label>
+        <link refid="Diag_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>CanLibLoader/include/CanLibLoader.h</label>
+        <link refid="CanLibLoader_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>CanLibLoader/include/CanLibLoaderWin.h</label>
+        <link refid="CanLibLoaderWin_8h"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>CanLibLoader/src/CanLibLoaderLin.cpp</label>
+        <link refid="CanLibLoaderLin_8cpp"/>
+      </node>
+      <node id="2">
+        <label>CanLibLoader/include/CanLibLoaderLin.h</label>
+        <link refid="CanLibLoaderLin_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>CanLibLoader/src/CanLibLoaderWin.cpp</label>
+        <link refid="CanLibLoaderWin_8cpp"/>
+      </node>
+      <node id="8">
+        <label>Diagnostic/src/Diag.cpp</label>
+        <link refid="Diag_8cpp"/>
+      </node>
+      <node id="3">
+        <label>CanLibLoader/src/CanLibLoader.cpp</label>
+        <link refid="CanLibLoader_8cpp"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classCanModule_1_1CanLibLoader" prot="public">CanModule::CanLibLoader</innerclass>
+    <innernamespace refid="namespaceCanModule">CanModule</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"></codeline>
+<codeline lineno="24"><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;map&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;boost/thread/thread.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="CCanAccess_8h" kindref="compound">CCanAccess.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="ExportDefinition_8h" kindref="compound">ExportDefinition.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespaceCanModule" kindref="compound">CanModule</ref><sp/></highlight></codeline>
+<codeline lineno="33"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35" refid="classCanModule_1_1CanLibLoader" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classCanModule_1_1CanLibLoader" kindref="compound">CanLibLoader</ref><sp/><sp/>{</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//Empty<sp/>constructor</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCanModule_1_1CanLibLoader_1aa303c1dd64affa5c27f707e0306786a0" kindref="member">CanLibLoader</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>libName);</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//Will<sp/>cleanup<sp/>the<sp/>loaded<sp/>dynamic<sp/>library</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="classCanModule_1_1CanLibLoader_1aaf19503282f3fe164c434674721c4972" kindref="member">~CanLibLoader</ref>();</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="ExportDefinition_8h_1a7478c359eb321f7939044e70abfb4cca" kindref="member">SHARED_LIB_EXPORT_DEFN</ref><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="classCanModule_1_1CanLibLoader" kindref="compound">CanLibLoader</ref>*<sp/><ref refid="classCanModule_1_1CanLibLoader_1ab22f43105bfc9cab3c0749b83c867352" kindref="member">createInstance</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>libName);</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="ExportDefinition_8h_1a7478c359eb321f7939044e70abfb4cca" kindref="member">SHARED_LIB_EXPORT_DEFN</ref><sp/><ref refid="classCanModule_1_1CCanAccess" kindref="compound">CanModule::CCanAccess</ref><sp/>*<sp/><ref refid="classCanModule_1_1CanLibLoader_1aaac995d89efdcf2b673cbd3e678be55b" kindref="member">openCanBus</ref>(std::string<sp/>name,<sp/>std::string<sp/>parameters);</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="ExportDefinition_8h_1a7478c359eb321f7939044e70abfb4cca" kindref="member">SHARED_LIB_EXPORT_DEFN</ref><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classCanModule_1_1CanLibLoader_1acd7d3af103bb72d5bd18737333d682f4" kindref="member">closeCanBus</ref>(<ref refid="classCanModule_1_1CCanAccess" kindref="compound">CanModule::CCanAccess</ref><sp/>*cca);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>LogIt<sp/>handle</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53" refid="classCanModule_1_1CanLibLoader_1af891a85f28376052c3f4b22d97eb3ac2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>Log::LogComponentHandle<sp/><ref refid="classCanModule_1_1CanLibLoader_1af891a85f28376052c3f4b22d97eb3ac2" kindref="member">lh</ref>;</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55" refid="classCanModule_1_1CanLibLoader_1a6fdf0514c73c030acd7919cd04c7a89d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classCanModule_1_1CanLibLoader_1a6fdf0514c73c030acd7919cd04c7a89d" kindref="member">setLibName</ref>(<sp/>std::string<sp/>ln<sp/>){<sp/><ref refid="classCanModule_1_1CanLibLoader_1a63bf9755c345afe6286d6751337806d6" kindref="member">m_libName</ref><sp/>=<sp/>ln;<sp/>}</highlight></codeline>
+<codeline lineno="56" refid="classCanModule_1_1CanLibLoader_1a7b4d0043b9715fce19bca9bb4035df0a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/><ref refid="classCanModule_1_1CanLibLoader_1a7b4d0043b9715fce19bca9bb4035df0a" kindref="member">getLibName</ref>(){<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(<ref refid="classCanModule_1_1CanLibLoader_1a63bf9755c345afe6286d6751337806d6" kindref="member">m_libName</ref>);}</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//Load<sp/>a<sp/>dynamic<sp/>library.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classCanModule_1_1CanLibLoader_1a2443baffbe92cd107d09ea09e6cb7b28" kindref="member">dynamicallyLoadLib</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>libName)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//Uses<sp/>the<sp/>loaded<sp/>library<sp/>to<sp/>create<sp/>a<sp/>HAL<sp/>object<sp/>and<sp/>store<sp/>it<sp/>in<sp/>p_halInstance</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="classCanModule_1_1CCanAccess" kindref="compound">CCanAccess</ref>*<sp/><ref refid="classCanModule_1_1CanLibLoader_1a69dc0bf543d395f60bb8701339f99e29" kindref="member">createCanAccess</ref>()<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="66" refid="classCanModule_1_1CanLibLoader_1a63bf9755c345afe6286d6751337806d6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/><ref refid="classCanModule_1_1CanLibLoader_1a63bf9755c345afe6286d6751337806d6" kindref="member">m_libName</ref>;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="69"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="CanLibLoader/include/CanLibLoader.h"/>
+  </compounddef>
+</doxygen>

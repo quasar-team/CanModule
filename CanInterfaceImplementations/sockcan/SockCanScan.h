@@ -74,6 +74,7 @@ public:
 		return( stats.portStatus() | CANMODULE_STATUS_BP_SOCK );
 	};
 
+	virtual uint32_t getPortBitrate(){ return m_CanParameters.m_lBaudRate; };
 
 	/**
 	 * Returns socket handler

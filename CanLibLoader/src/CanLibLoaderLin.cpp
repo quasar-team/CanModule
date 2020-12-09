@@ -65,7 +65,7 @@ void CanLibLoaderLin::dynamicallyLoadLib(const std::string& libName)
 			throw std::runtime_error(msg.str());
 		}
 	}	
-	setLibName(libName);
+	setLibName(ss.str());
 }
 
 /**

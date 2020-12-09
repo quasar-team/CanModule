@@ -1,0 +1,162 @@
+\hypertarget{classCanModule_1_1CanLibLoaderLin}{}\doxysection{Can\+Module\+::Can\+Lib\+Loader\+Lin Class Reference}
+\label{classCanModule_1_1CanLibLoaderLin}\index{CanModule::CanLibLoaderLin@{CanModule::CanLibLoaderLin}}
+
+
+{\ttfamily \#include $<$Can\+Lib\+Loader\+Lin.\+h$>$}
+
+
+
+Inheritance diagram for Can\+Module\+::Can\+Lib\+Loader\+Lin\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=238pt]{classCanModule_1_1CanLibLoaderLin__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Can\+Module\+::Can\+Lib\+Loader\+Lin\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=238pt]{classCanModule_1_1CanLibLoaderLin__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classCanModule_1_1CanLibLoaderLin_a2704a1d43e18e97223848c28dc5dc6ce}{Can\+Lib\+Loader\+Lin}} (const std\+::string \&lib\+Name)
+\item 
+virtual \mbox{\hyperlink{classCanModule_1_1CanLibLoaderLin_a91636138f96d42a3a835c2a38bae3ec6}{$\sim$\+Can\+Lib\+Loader\+Lin}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{classCanModule_1_1CanLibLoaderLin_aaef852fe6e43d093f58529fab0b2e841}{dynamically\+Load\+Lib}} (const std\+::string \&lib\+Name)
+\item 
+virtual \mbox{\hyperlink{classCanModule_1_1CCanAccess}{C\+Can\+Access}} $\ast$ \mbox{\hyperlink{classCanModule_1_1CanLibLoaderLin_a7d222a82ab3f005ebed4927b299fce64}{create\+Can\+Access}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+void $\ast$ \mbox{\hyperlink{classCanModule_1_1CanLibLoaderLin_a590b2db4fcfa870e005c04b28de4fad6}{p\+\_\+dynamic\+Library}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 28 of file Can\+Lib\+Loader\+Lin.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classCanModule_1_1CanLibLoaderLin_a2704a1d43e18e97223848c28dc5dc6ce}\label{classCanModule_1_1CanLibLoaderLin_a2704a1d43e18e97223848c28dc5dc6ce}} 
+\index{CanModule::CanLibLoaderLin@{CanModule::CanLibLoaderLin}!CanLibLoaderLin@{CanLibLoaderLin}}
+\index{CanLibLoaderLin@{CanLibLoaderLin}!CanModule::CanLibLoaderLin@{CanModule::CanLibLoaderLin}}
+\doxysubsubsection{\texorpdfstring{CanLibLoaderLin()}{CanLibLoaderLin()}}
+{\footnotesize\ttfamily Can\+Module\+::\+Can\+Lib\+Loader\+Lin\+::\+Can\+Lib\+Loader\+Lin (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{lib\+Name }\end{DoxyParamCaption})}
+
+
+
+Definition at line 38 of file Can\+Lib\+Loader\+Lin.\+cpp.
+
+
+
+References dynamically\+Load\+Lib(), and Can\+Module\+::\+Can\+Lib\+Loader\+::lh.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classCanModule_1_1CanLibLoaderLin_a2704a1d43e18e97223848c28dc5dc6ce_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classCanModule_1_1CanLibLoaderLin_a91636138f96d42a3a835c2a38bae3ec6}\label{classCanModule_1_1CanLibLoaderLin_a91636138f96d42a3a835c2a38bae3ec6}} 
+\index{CanModule::CanLibLoaderLin@{CanModule::CanLibLoaderLin}!````~CanLibLoaderLin@{$\sim$CanLibLoaderLin}}
+\index{````~CanLibLoaderLin@{$\sim$CanLibLoaderLin}!CanModule::CanLibLoaderLin@{CanModule::CanLibLoaderLin}}
+\doxysubsubsection{\texorpdfstring{$\sim$CanLibLoaderLin()}{~CanLibLoaderLin()}}
+{\footnotesize\ttfamily Can\+Module\+::\+Can\+Lib\+Loader\+Lin\+::$\sim$\+Can\+Lib\+Loader\+Lin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line 46 of file Can\+Lib\+Loader\+Lin.\+cpp.
+
+
+
+References p\+\_\+dynamic\+Library.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classCanModule_1_1CanLibLoaderLin_a7d222a82ab3f005ebed4927b299fce64}\label{classCanModule_1_1CanLibLoaderLin_a7d222a82ab3f005ebed4927b299fce64}} 
+\index{CanModule::CanLibLoaderLin@{CanModule::CanLibLoaderLin}!createCanAccess@{createCanAccess}}
+\index{createCanAccess@{createCanAccess}!CanModule::CanLibLoaderLin@{CanModule::CanLibLoaderLin}}
+\doxysubsubsection{\texorpdfstring{createCanAccess()}{createCanAccess()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classCanModule_1_1CCanAccess}{C\+Can\+Access}} $\ast$ Can\+Module\+::\+Can\+Lib\+Loader\+Lin\+::create\+Can\+Access (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+Once the library is loaded, resolve the function get\+Hal\+Access, which will give us an instance of the wanted object\+: \char`\"{}access\char`\"{} One access instance corresponds to one C\+AN port (and whatever is needed on the computer side\+: ethernet, U\+SB, whatnot) 
+
+Implements \mbox{\hyperlink{classCanModule_1_1CanLibLoader_a69dc0bf543d395f60bb8701339f99e29}{Can\+Module\+::\+Can\+Lib\+Loader}}.
+
+
+
+Definition at line 77 of file Can\+Lib\+Loader\+Lin.\+cpp.
+
+
+
+References Can\+Module\+::\+Can\+Lib\+Loader\+::lh, and p\+\_\+dynamic\+Library.
+
+\mbox{\Hypertarget{classCanModule_1_1CanLibLoaderLin_aaef852fe6e43d093f58529fab0b2e841}\label{classCanModule_1_1CanLibLoaderLin_aaef852fe6e43d093f58529fab0b2e841}} 
+\index{CanModule::CanLibLoaderLin@{CanModule::CanLibLoaderLin}!dynamicallyLoadLib@{dynamicallyLoadLib}}
+\index{dynamicallyLoadLib@{dynamicallyLoadLib}!CanModule::CanLibLoaderLin@{CanModule::CanLibLoaderLin}}
+\doxysubsubsection{\texorpdfstring{dynamicallyLoadLib()}{dynamicallyLoadLib()}}
+{\footnotesize\ttfamily void Can\+Module\+::\+Can\+Lib\+Loader\+Lin\+::dynamically\+Load\+Lib (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{lib\+Name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classCanModule_1_1CanLibLoader_a2443baffbe92cd107d09ea09e6cb7b28}{Can\+Module\+::\+Can\+Lib\+Loader}}.
+
+
+
+Definition at line 50 of file Can\+Lib\+Loader\+Lin.\+cpp.
+
+
+
+References Can\+Module\+::\+Can\+Lib\+Loader\+::lh, p\+\_\+dynamic\+Library, and Can\+Module\+::\+Can\+Lib\+Loader\+::set\+Lib\+Name().
+
+
+
+Referenced by Can\+Lib\+Loader\+Lin().
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classCanModule_1_1CanLibLoaderLin_aaef852fe6e43d093f58529fab0b2e841_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classCanModule_1_1CanLibLoaderLin_a590b2db4fcfa870e005c04b28de4fad6}\label{classCanModule_1_1CanLibLoaderLin_a590b2db4fcfa870e005c04b28de4fad6}} 
+\index{CanModule::CanLibLoaderLin@{CanModule::CanLibLoaderLin}!p\_dynamicLibrary@{p\_dynamicLibrary}}
+\index{p\_dynamicLibrary@{p\_dynamicLibrary}!CanModule::CanLibLoaderLin@{CanModule::CanLibLoaderLin}}
+\doxysubsubsection{\texorpdfstring{p\_dynamicLibrary}{p\_dynamicLibrary}}
+{\footnotesize\ttfamily void$\ast$ Can\+Module\+::\+Can\+Lib\+Loader\+Lin\+::p\+\_\+dynamic\+Library\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 43 of file Can\+Lib\+Loader\+Lin.\+h.
+
+
+
+Referenced by create\+Can\+Access(), dynamically\+Load\+Lib(), and $\sim$\+Can\+Lib\+Loader\+Lin().
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Can\+Lib\+Loader/include/\mbox{\hyperlink{CanLibLoaderLin_8h}{Can\+Lib\+Loader\+Lin.\+h}}\item 
+Can\+Lib\+Loader/src/\mbox{\hyperlink{CanLibLoaderLin_8cpp}{Can\+Lib\+Loader\+Lin.\+cpp}}\end{DoxyCompactItemize}

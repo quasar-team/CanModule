@@ -1,0 +1,884 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="classPKCanScan" kind="class" language="C++" prot="public">
+    <compoundname>PKCanScan</compoundname>
+    <basecompoundref refid="classCanModule_1_1CCanAccess" prot="public" virt="non-virtual">CanModule::CCanAccess</basecompoundref>
+    <includes refid="pkcan_8h" local="no">pkcan.h</includes>
+      <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="classPKCanScan_1ade2df2a66357db34e6df07abb02ac4ac" prot="public" static="yes" mutable="no">
+        <type>std::map&lt; string, string &gt;</type>
+        <definition>std::map&lt; string, string &gt; PKCanScan::m_busMap</definition>
+        <argsstring></argsstring>
+        <name>m_busMap</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>© Copyright CERN, 2015. All rights not expressly granted are reserved.</para>
+<para><ref refid="AnaCanScan_8cpp" kindref="compound">AnaCanScan.cpp</ref></para>
+<para>Created on: Mar 17, 2015 Author: pnikiel, vfilimon, quasar team mludwig at cern dot ch</para>
+<para>This file is part of Quasar.</para>
+<para>Quasar is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public Licence as published by the Free Software Foundation, either version 3 of the Licence.</para>
+<para>Quasar is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public Licence for more details.</para>
+<para>You should have received a copy of the GNU Lesser General Public License along with Quasar. If not, see <ulink url="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</ulink>.</para>
+<para>PEAK bridge integration for windows </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/pkcan/pkcan.h" line="75" column="17" bodyfile="CanInterfaceImplementations/pkcan/pkcan.h" bodystart="75" bodyend="-1"/>
+        <referencedby refid="classPKCanScan_1a565d5200fe4c139796bd073c6296208f" compoundref="pkcan_8cpp" startline="209" endline="259">createBus</referencedby>
+        <referencedby refid="classPKCanScan_1af7d899c65e6abef105d82a89115fd59b" compoundref="pkcan_8cpp" startline="72" endline="94">stopBus</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classPKCanScan_1ae77567d34d33ec9576a7e4eebd0c1f09" prot="private" static="no" mutable="no">
+        <type>Log::LogComponentHandle</type>
+        <definition>Log::LogComponentHandle PKCanScan::m_logItHandlePk</definition>
+        <argsstring></argsstring>
+        <name>m_logItHandlePk</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/pkcan/pkcan.h" line="89" column="25" bodyfile="CanInterfaceImplementations/pkcan/pkcan.h" bodystart="89" bodyend="-1"/>
+        <referencedby refid="classPKCanScan_1a565d5200fe4c139796bd073c6296208f" compoundref="pkcan_8cpp" startline="209" endline="259">createBus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classPKCanScan_1a03eec54c44937d843f48b2b1a086b37b" prot="private" static="no" mutable="no">
+        <type><ref refid="classCanModule_1_1CanStatistics" kindref="compound">CanStatistics</ref></type>
+        <definition>CanStatistics PKCanScan::m_statistics</definition>
+        <argsstring></argsstring>
+        <name>m_statistics</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/pkcan/pkcan.h" line="96" column="15" bodyfile="CanInterfaceImplementations/pkcan/pkcan.h" bodystart="96" bodyend="-1"/>
+        <referencedby refid="classPKCanScan_1a45bd5feda5ccb009775c45bfabe41614" compoundref="pkcan_8cpp" startline="109" endline="184">CanScanControlThread</referencedby>
+        <referencedby refid="classPKCanScan_1a2ef38527fb5009c43487fccbbe4694ba" compoundref="pkcan_8cpp" startline="573" endline="578">getStatistics</referencedby>
+        <referencedby refid="classPKCanScan_1adfc8b4e20f4548295a99af69bf1888d5" compoundref="pkcan_8cpp" startline="50" endline="61">PKCanScan</referencedby>
+        <referencedby refid="classPKCanScan_1a48a2e9ba00dae1b1fe01f7b095430503" compoundref="pkcan_8cpp" startline="411" endline="492">sendMessage</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classPKCanScan_1a1c361b38cbc6016192fbcd9a6d81236c" prot="private" static="no" mutable="no">
+        <type>TPCANStatus</type>
+        <definition>TPCANStatus PKCanScan::m_busStatus</definition>
+        <argsstring></argsstring>
+        <name>m_busStatus</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/pkcan/pkcan.h" line="97" column="13" bodyfile="CanInterfaceImplementations/pkcan/pkcan.h" bodystart="97" bodyend="-1"/>
+        <referencedby refid="classPKCanScan_1a35ccc4082d56a736abb34d0c289c5a96" compoundref="pkcan_8cpp" startline="388" endline="404">sendErrorCode</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classPKCanScan_1abf46ef73d86a3ab7212e6484d35cd92b" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool PKCanScan::m_CanScanThreadRunEnableFlag</definition>
+        <argsstring></argsstring>
+        <name>m_CanScanThreadRunEnableFlag</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/pkcan/pkcan.h" line="98" column="6" bodyfile="CanInterfaceImplementations/pkcan/pkcan.h" bodystart="98" bodyend="-1"/>
+        <referencedby refid="classPKCanScan_1a45bd5feda5ccb009775c45bfabe41614" compoundref="pkcan_8cpp" startline="109" endline="184">CanScanControlThread</referencedby>
+        <referencedby refid="classPKCanScan_1af7d899c65e6abef105d82a89115fd59b" compoundref="pkcan_8cpp" startline="72" endline="94">stopBus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classPKCanScan_1a84e9c4874e065b79d5600c0a5f9f7877" prot="private" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int PKCanScan::m_baudRate</definition>
+        <argsstring></argsstring>
+        <name>m_baudRate</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/pkcan/pkcan.h" line="100" column="14" bodyfile="CanInterfaceImplementations/pkcan/pkcan.h" bodystart="100" bodyend="-1"/>
+        <referencedby refid="classPKCanScan_1a45bd5feda5ccb009775c45bfabe41614" compoundref="pkcan_8cpp" startline="109" endline="184">CanScanControlThread</referencedby>
+        <referencedby refid="classPKCanScan_1a6fe021ecfdde5af1e7a74668b9819bfb" compoundref="pkcan_8cpp" startline="266" endline="385">configureCanboard</referencedby>
+        <referencedby refid="classPKCanScan_1a2ef38527fb5009c43487fccbbe4694ba" compoundref="pkcan_8cpp" startline="573" endline="578">getStatistics</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classPKCanScan_1a4a881ec178b83b4a8937180d45738a2e" prot="private" static="no" mutable="no">
+        <type>string</type>
+        <definition>string PKCanScan::m_busName</definition>
+        <argsstring></argsstring>
+        <name>m_busName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/pkcan/pkcan.h" line="101" column="8" bodyfile="CanInterfaceImplementations/pkcan/pkcan.h" bodystart="101" bodyend="-1"/>
+        <referencedby refid="classPKCanScan_1a565d5200fe4c139796bd073c6296208f" compoundref="pkcan_8cpp" startline="209" endline="259">createBus</referencedby>
+        <referencedby refid="classPKCanScan_1a48a2e9ba00dae1b1fe01f7b095430503" compoundref="pkcan_8cpp" startline="411" endline="492">sendMessage</referencedby>
+        <referencedby refid="classPKCanScan_1af7d899c65e6abef105d82a89115fd59b" compoundref="pkcan_8cpp" startline="72" endline="94">stopBus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classPKCanScan_1aa12640926d5f9f2e72f728dc084ace80" prot="private" static="no" mutable="no">
+        <type>string</type>
+        <definition>string PKCanScan::m_busParameters</definition>
+        <argsstring></argsstring>
+        <name>m_busParameters</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/pkcan/pkcan.h" line="102" column="8" bodyfile="CanInterfaceImplementations/pkcan/pkcan.h" bodystart="102" bodyend="-1"/>
+        <referencedby refid="classPKCanScan_1a565d5200fe4c139796bd073c6296208f" compoundref="pkcan_8cpp" startline="209" endline="259">createBus</referencedby>
+        <referencedby refid="classPKCanScan_1a48a2e9ba00dae1b1fe01f7b095430503" compoundref="pkcan_8cpp" startline="411" endline="492">sendMessage</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classPKCanScan_1a4b662f651cf1bffd217aee603f9751a9" prot="private" static="no" mutable="no">
+        <type>TPCANHandle</type>
+        <definition>TPCANHandle PKCanScan::m_pkCanHandle</definition>
+        <argsstring></argsstring>
+        <name>m_pkCanHandle</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/pkcan/pkcan.h" line="104" column="15" bodyfile="CanInterfaceImplementations/pkcan/pkcan.h" bodystart="104" bodyend="-1"/>
+        <referencedby refid="classPKCanScan_1a45bd5feda5ccb009775c45bfabe41614" compoundref="pkcan_8cpp" startline="109" endline="184">CanScanControlThread</referencedby>
+        <referencedby refid="classPKCanScan_1a6fe021ecfdde5af1e7a74668b9819bfb" compoundref="pkcan_8cpp" startline="266" endline="385">configureCanboard</referencedby>
+        <referencedby refid="classPKCanScan_1a565d5200fe4c139796bd073c6296208f" compoundref="pkcan_8cpp" startline="209" endline="259">createBus</referencedby>
+        <referencedby refid="classPKCanScan_1aae31de6a82fcacc8ef3f581aff5305fc" compoundref="pkcan_8cpp" startline="100" endline="103">getPortStatus</referencedby>
+        <referencedby refid="classPKCanScan_1a35ccc4082d56a736abb34d0c289c5a96" compoundref="pkcan_8cpp" startline="388" endline="404">sendErrorCode</referencedby>
+        <referencedby refid="classPKCanScan_1a48a2e9ba00dae1b1fe01f7b095430503" compoundref="pkcan_8cpp" startline="411" endline="492">sendMessage</referencedby>
+        <referencedby refid="classPKCanScan_1af7e22b4a484de11ccaea060ad0adb47d" compoundref="pkcan_8cpp" startline="494" endline="501">sendRemoteRequest</referencedby>
+        <referencedby refid="classPKCanScan_1af7d899c65e6abef105d82a89115fd59b" compoundref="pkcan_8cpp" startline="72" endline="94">stopBus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classPKCanScan_1a169a32c5961996acbd55aa5c12118de0" prot="private" static="no" mutable="no">
+        <type>HANDLE</type>
+        <definition>HANDLE PKCanScan::m_hCanScanThread</definition>
+        <argsstring></argsstring>
+        <name>m_hCanScanThread</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/pkcan/pkcan.h" line="108" column="13" bodyfile="CanInterfaceImplementations/pkcan/pkcan.h" bodystart="108" bodyend="-1"/>
+        <referencedby refid="classPKCanScan_1a565d5200fe4c139796bd073c6296208f" compoundref="pkcan_8cpp" startline="209" endline="259">createBus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classPKCanScan_1a5ba2a765e250376fde32db88272339d6" prot="private" static="no" mutable="no">
+        <type><ref refid="AnaCanScan_8h_1ad342ac907eb044443153a22f964bf0af" kindref="member">DWORD</ref></type>
+        <definition>DWORD PKCanScan::m_idCanScanThread</definition>
+        <argsstring></argsstring>
+        <name>m_idCanScanThread</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/pkcan/pkcan.h" line="112" column="21" bodyfile="CanInterfaceImplementations/pkcan/pkcan.h" bodystart="112" bodyend="-1"/>
+        <referencedby refid="classPKCanScan_1a565d5200fe4c139796bd073c6296208f" compoundref="pkcan_8cpp" startline="209" endline="259">createBus</referencedby>
+        <referencedby refid="classPKCanScan_1af7d899c65e6abef105d82a89115fd59b" compoundref="pkcan_8cpp" startline="72" endline="94">stopBus</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classPKCanScan_1adfc8b4e20f4548295a99af69bf1888d5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>PKCanScan::PKCanScan</definition>
+        <argsstring>()</argsstring>
+        <name>PKCanScan</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/pkcan/pkcan.h" line="41" column="1" bodyfile="CanInterfaceImplementations/pkcan/pkcan.cpp" bodystart="50" bodyend="61"/>
+        <references refid="classCanModule_1_1CanStatistics_1a85e6c87ce5285884a0272088178bb8f6" compoundref="CanStatistics_8cpp" startline="44" endline="51">CanModule::CanStatistics::beginNewRun</references>
+        <references refid="classCanModule_1_1CCanAccess_1a686ba59e549d1fde3727ab1f88a8c463" compoundref="CCanAccess_8h" startline="474">CanModule::CCanAccess::m_failedSendCounter</references>
+        <references refid="classPKCanScan_1a03eec54c44937d843f48b2b1a086b37b" compoundref="pkcan_8h" startline="96">m_statistics</references>
+        <references refid="classCanModule_1_1CCanAccess_1a74e437526e45192804ca1cffc663d2e2" compoundref="CCanAccess_8h" startline="473">CanModule::CCanAccess::m_triggerCounter</references>
+        <references refid="classCanModule_1_1CanStatistics_1af3f15dedf80e67f1309946632d87198d" compoundref="CanStatistics_8h" startline="107" endline="113">CanModule::CanStatistics::setTimeSinceOpened</references>
+      </memberdef>
+      <memberdef kind="function" id="classPKCanScan_1aa323b8cf8e476c7dfec2719756f25962" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>PKCanScan::PKCanScan</definition>
+        <argsstring>(PKCanScan const &amp;other)=delete</argsstring>
+        <name>PKCanScan</name>
+        <param>
+          <type><ref refid="classPKCanScan" kindref="compound">PKCanScan</ref> const &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/pkcan/pkcan.h" line="42" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classPKCanScan_1a7a5e5fe4cb8b99c64c3908f3143a8f1c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classPKCanScan" kindref="compound">PKCanScan</ref> &amp;</type>
+        <definition>PKCanScan&amp; PKCanScan::operator=</definition>
+        <argsstring>(PKCanScan const &amp;other)=delete</argsstring>
+        <name>operator=</name>
+        <param>
+          <type><ref refid="classPKCanScan" kindref="compound">PKCanScan</ref> const &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/pkcan/pkcan.h" line="43" column="11"/>
+      </memberdef>
+      <memberdef kind="function" id="classPKCanScan_1a924778bdca171eb7f3f597dfe9f99fb4" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>PKCanScan::~PKCanScan</definition>
+        <argsstring>()</argsstring>
+        <name>~PKCanScan</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/pkcan/pkcan.h" line="44" column="9" bodyfile="CanInterfaceImplementations/pkcan/pkcan.cpp" bodystart="63" bodyend="67"/>
+        <references refid="pkcan_8cpp_1a73247195a8f4adaf8cc04e0ac302e045" compoundref="pkcan_8cpp" startline="37">MLOGPK</references>
+        <references refid="classPKCanScan_1af7d899c65e6abef105d82a89115fd59b" compoundref="pkcan_8cpp" startline="72" endline="94">stopBus</references>
+      </memberdef>
+      <memberdef kind="function" id="classPKCanScan_1a565d5200fe4c139796bd073c6296208f" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>int</type>
+        <definition>int PKCanScan::createBus</definition>
+        <argsstring>(const string name, const string parameters)</argsstring>
+        <name>createBus</name>
+        <reimplements refid="classCanModule_1_1CCanAccess_1a0eeee5c3d48f1102012d1483cbe6e64b">createBus</reimplements>
+        <param>
+          <type>const string</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>const string</type>
+          <declname>parameters</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Method that initialises a CAN bus channel for peak@windows (using PEAK Basic) All following methods called on the same object will be using this initialized channel. Only USB interfaces for PEAK modules, and only NON FD modules are supported for now.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>= 2 parameters separated by &quot;:&quot; like &quot;n0:n1&quot;<itemizedlist>
+<listitem><para>n0 = &quot;pk&quot; for peak@windows</para>
+</listitem><listitem><para>n1 = CAN port number on the module, can be prefixed with &quot;can&quot;: 0..N</para>
+</listitem><listitem><para>ex.: &quot;pk:can1&quot; speaks to port 1 (the second port) on peak module</para>
+</listitem><listitem><para>ex.: &quot;pk:1&quot; works as well</para>
+</listitem></itemizedlist>
+</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>parameters</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>one parameter: &quot;p0&quot;, positive integer<itemizedlist>
+<listitem><para>&quot;Unspecified&quot; (or empty): using defaults = &quot;125000&quot; // params missing</para>
+</listitem><listitem><para>p0: bitrate: 50000, 100000, 125000, 250000, 500000, 1000000 bit/s i.e. &quot;250000&quot;</para>
+</listitem></itemizedlist>
+</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>was the initialisation process successful: 0 = ok 1 = ok, bus exists already, we skip -1: not ok, problem configuring the board, try again -2: could not create the thread -3: sth else went wrong </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/pkcan/pkcan.h" line="46" column="13" bodyfile="CanInterfaceImplementations/pkcan/pkcan.cpp" bodystart="209" bodyend="259"/>
+        <references refid="classPKCanScan_1a45bd5feda5ccb009775c45bfabe41614" compoundref="pkcan_8cpp" startline="109" endline="184">CanScanControlThread</references>
+        <references refid="classPKCanScan_1a6fe021ecfdde5af1e7a74668b9819bfb" compoundref="pkcan_8cpp" startline="266" endline="385">configureCanboard</references>
+        <references refid="namespaceCanModule_1a78730a18f59663871883885f3914a2aa" compoundref="CCanAccess_8h" startline="50">CanModule::LogItComponentName</references>
+        <references refid="classPKCanScan_1ade2df2a66357db34e6df07abb02ac4ac" compoundref="pkcan_8h" startline="75">m_busMap</references>
+        <references refid="classPKCanScan_1a4a881ec178b83b4a8937180d45738a2e" compoundref="pkcan_8h" startline="101">m_busName</references>
+        <references refid="classPKCanScan_1aa12640926d5f9f2e72f728dc084ace80" compoundref="pkcan_8h" startline="102">m_busParameters</references>
+        <references refid="classPKCanScan_1a169a32c5961996acbd55aa5c12118de0" compoundref="pkcan_8h" startline="108">m_hCanScanThread</references>
+        <references refid="classPKCanScan_1a5ba2a765e250376fde32db88272339d6" compoundref="pkcan_8h" startline="112">m_idCanScanThread</references>
+        <references refid="classPKCanScan_1ae77567d34d33ec9576a7e4eebd0c1f09" compoundref="pkcan_8h" startline="89">m_logItHandlePk</references>
+        <references refid="classPKCanScan_1a4b662f651cf1bffd217aee603f9751a9" compoundref="pkcan_8h" startline="104">m_pkCanHandle</references>
+        <references refid="pkcan_8cpp_1a73247195a8f4adaf8cc04e0ac302e045" compoundref="pkcan_8cpp" startline="37">MLOGPK</references>
+        <references refid="pkcan_8cpp_1a11d79a171d802cdff9ec12d685d14d57" compoundref="pkcan_8cpp" startline="39">peakReconnectMutex</references>
+        <referencedby refid="classPKCanScan_1a48a2e9ba00dae1b1fe01f7b095430503" compoundref="pkcan_8cpp" startline="411" endline="492">sendMessage</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classPKCanScan_1a48a2e9ba00dae1b1fe01f7b095430503" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool PKCanScan::sendMessage</definition>
+        <argsstring>(short cobID, unsigned char len, unsigned char *message, bool rtr=false)</argsstring>
+        <name>sendMessage</name>
+        <reimplements refid="classCanModule_1_1CCanAccess_1aee42ab7fb9e50c02a1812202f7863d8c">sendMessage</reimplements>
+        <param>
+          <type>short</type>
+          <declname>cobID</declname>
+        </param>
+        <param>
+          <type>unsigned char</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>unsigned char *</type>
+          <declname>message</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>rtr</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>method to send a CAN message to the peak module. we use the standard API &quot;PCAN-Basic&quot; for this for windows and we talk only over USB to fixed bitrate modules. The flexible bitrate (FD) modules can be implemented later as well: for this we need more parameters to pass and a switch between CAN_Write and CAN_WriteFD. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/pkcan/pkcan.h" line="57" column="18" bodyfile="CanInterfaceImplementations/pkcan/pkcan.cpp" bodystart="411" bodyend="492"/>
+        <references refid="namespaceCanModule_1a2062089fa4fa87c8354295f2a8fe31a5a319ee2c9d887d55f6bc1941518a5ae76">CanModule::allBusesOnBridge</references>
+        <references refid="classPKCanScan_1a565d5200fe4c139796bd073c6296208f" compoundref="pkcan_8cpp" startline="209" endline="259">createBus</references>
+        <references refid="classPKCanScan_1a4a881ec178b83b4a8937180d45738a2e" compoundref="pkcan_8h" startline="101">m_busName</references>
+        <references refid="classPKCanScan_1aa12640926d5f9f2e72f728dc084ace80" compoundref="pkcan_8h" startline="102">m_busParameters</references>
+        <references refid="classCanModule_1_1CCanAccess_1a686ba59e549d1fde3727ab1f88a8c463" compoundref="CCanAccess_8h" startline="474">CanModule::CCanAccess::m_failedSendCounter</references>
+        <references refid="classPKCanScan_1a4b662f651cf1bffd217aee603f9751a9" compoundref="pkcan_8h" startline="104">m_pkCanHandle</references>
+        <references refid="classCanModule_1_1CCanAccess_1a6baf24c56eb715adf55a569d08b12c25" compoundref="CCanAccess_8h" startline="471">CanModule::CCanAccess::m_reconnectAction</references>
+        <references refid="classCanModule_1_1CCanAccess_1abfd40edc34a777a5ff4503a6e8a239d6" compoundref="CCanAccess_8h" startline="470">CanModule::CCanAccess::m_reconnectCondition</references>
+        <references refid="classPKCanScan_1a03eec54c44937d843f48b2b1a086b37b" compoundref="pkcan_8h" startline="96">m_statistics</references>
+        <references refid="classCanModule_1_1CCanAccess_1a74e437526e45192804ca1cffc663d2e2" compoundref="CCanAccess_8h" startline="473">CanModule::CCanAccess::m_triggerCounter</references>
+        <references refid="pkcan_8cpp_1a73247195a8f4adaf8cc04e0ac302e045" compoundref="pkcan_8cpp" startline="37">MLOGPK</references>
+        <references refid="namespaceCanModule_1a2f4fee79cc7ba53467c2538fe6b9adbbac7561db7a418dd39b2201dfe110ab4a4">CanModule::never</references>
+        <references refid="classCanModule_1_1CanStatistics_1a0265b75e9e2e16737950b6b5c5662f35" compoundref="CanStatistics_8cpp" startline="94" endline="99">CanModule::CanStatistics::onTransmit</references>
+        <references refid="classCanModule_1_1CCanAccess_1aa12f64e9e31bd491f39fc3169b1e5025" compoundref="CCanAccess_8h" startline="491" endline="498">CanModule::CCanAccess::reconnectActionString</references>
+        <references refid="classCanModule_1_1CCanAccess_1a9da88ce122d5de04a0235a4682a13dc0" compoundref="CCanAccess_8h" startline="479" endline="486">CanModule::CCanAccess::reconnectConditionString</references>
+        <references refid="classPKCanScan_1a35ccc4082d56a736abb34d0c289c5a96" compoundref="pkcan_8cpp" startline="388" endline="404">sendErrorCode</references>
+        <references refid="namespaceCanModule_1a2f4fee79cc7ba53467c2538fe6b9adbbae323a25a871808f9a0df9a72ce954585">CanModule::sendFail</references>
+        <references refid="namespaceCanModule_1a2062089fa4fa87c8354295f2a8fe31a5a5f768fefafa6db21eee26885afb6163d">CanModule::singleBus</references>
+        <references refid="classPKCanScan_1af7d899c65e6abef105d82a89115fd59b" compoundref="pkcan_8cpp" startline="72" endline="94">stopBus</references>
+      </memberdef>
+      <memberdef kind="function" id="classPKCanScan_1af7e22b4a484de11ccaea060ad0adb47d" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool PKCanScan::sendRemoteRequest</definition>
+        <argsstring>(short cobID)</argsstring>
+        <name>sendRemoteRequest</name>
+        <reimplements refid="classCanModule_1_1CCanAccess_1acfefbc9be2696b1388cf6df2bba00aa1">sendRemoteRequest</reimplements>
+        <param>
+          <type>short</type>
+          <declname>cobID</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Method that sends a remote request trough the can bus channel. If the method createBus was not called before this, sendMessage will fail, as there is no can bus channel to send the request trough. Similar to sendMessage, but it sends an special message reserved for requests. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>cobID</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Identifier that will be used for the request. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>: Was the initialisation process successful? </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/pkcan/pkcan.h" line="64" column="14" bodyfile="CanInterfaceImplementations/pkcan/pkcan.cpp" bodystart="494" bodyend="501"/>
+        <references refid="classPKCanScan_1a4b662f651cf1bffd217aee603f9751a9" compoundref="pkcan_8h" startline="104">m_pkCanHandle</references>
+        <references refid="classPKCanScan_1a35ccc4082d56a736abb34d0c289c5a96" compoundref="pkcan_8cpp" startline="388" endline="404">sendErrorCode</references>
+      </memberdef>
+      <memberdef kind="function" id="classPKCanScan_1a2ef38527fb5009c43487fccbbe4694ba" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void PKCanScan::getStatistics</definition>
+        <argsstring>(CanStatistics &amp;result)</argsstring>
+        <name>getStatistics</name>
+        <reimplements refid="classCanModule_1_1CCanAccess_1ad3182c83b4c5d7e6aef982c36e731507">getStatistics</reimplements>
+        <param>
+          <type><ref refid="classCanModule_1_1CanStatistics" kindref="compound">CanStatistics</ref> &amp;</type>
+          <declname>result</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/pkcan/pkcan.h" line="66" column="14" bodyfile="CanInterfaceImplementations/pkcan/pkcan.cpp" bodystart="573" bodyend="578"/>
+        <references refid="classCanModule_1_1CanStatistics_1a85e6c87ce5285884a0272088178bb8f6" compoundref="CanStatistics_8cpp" startline="44" endline="51">CanModule::CanStatistics::beginNewRun</references>
+        <references refid="classCanModule_1_1CanStatistics_1a8ec66bd11141579779f143362b70640e" compoundref="CanStatistics_8cpp" startline="74" endline="92">CanModule::CanStatistics::computeDerived</references>
+        <references refid="classPKCanScan_1a84e9c4874e065b79d5600c0a5f9f7877" compoundref="pkcan_8h" startline="100">m_baudRate</references>
+        <references refid="classPKCanScan_1a03eec54c44937d843f48b2b1a086b37b" compoundref="pkcan_8h" startline="96">m_statistics</references>
+      </memberdef>
+      <memberdef kind="function" id="classPKCanScan_1aae31de6a82fcacc8ef3f581aff5305fc" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t PKCanScan::getPortStatus</definition>
+        <argsstring>()</argsstring>
+        <name>getPortStatus</name>
+        <reimplements refid="classCanModule_1_1CCanAccess_1a33fe530d070cf35d096e967d543186a4">getPortStatus</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>PCANBasic.h:113 </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/pkcan/pkcan.h" line="67" column="18" bodyfile="CanInterfaceImplementations/pkcan/pkcan.cpp" bodystart="100" bodyend="103"/>
+        <references refid="CCanAccess_8h_1a3c0a761bfb180463b0185b27edd53af5" compoundref="CCanAccess_8h" startline="67">CANMODULE_STATUS_BP_PEAK</references>
+        <references refid="classPKCanScan_1a4b662f651cf1bffd217aee603f9751a9" compoundref="pkcan_8h" startline="104">m_pkCanHandle</references>
+      </memberdef>
+      <memberdef kind="function" id="classPKCanScan_1a0d76eac41bbcbff75bd690c3b7f289f6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>uint32_t</type>
+        <definition>virtual uint32_t PKCanScan::getPortBitrate</definition>
+        <argsstring>()</argsstring>
+        <name>getPortBitrate</name>
+        <reimplements refid="classCanModule_1_1CCanAccess_1aa8cb67096349fefc6e03aeb33e45ef81">getPortBitrate</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>returns the bitrate of that port [bits/sec] according to what <ref refid="namespaceCanModule" kindref="compound">CanModule</ref> buffers say. This is the setting used for setting up the hardware, after any default rules have been applied, but BEFORE any vendor specific encoding into obscure bitpatterns occurs. This happens at port opening and the bitrate can only be changed at that moment. So please call this method just after you have opened the port. But also since there is no hw interaction and it just returns a buffer, you may call it as often as you like. Default bitrate is always 125000bits/s if &quot;Unspecified&quot; </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/pkcan/pkcan.h" line="68" column="18" bodyfile="CanInterfaceImplementations/pkcan/pkcan.h" bodystart="68" bodyend="68"/>
+      </memberdef>
+      <memberdef kind="function" id="classPKCanScan_1a077b19a57357437f6c2e6ce00030a698" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool PKCanScan::getErrorMessage</definition>
+        <argsstring>(long error, char **message)</argsstring>
+        <name>getErrorMessage</name>
+        <param>
+          <type>long</type>
+          <declname>error</declname>
+        </param>
+        <param>
+          <type>char **</type>
+          <declname>message</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/pkcan/pkcan.h" line="73" column="6" bodyfile="CanInterfaceImplementations/pkcan/pkcan.cpp" bodystart="503" bodyend="510"/>
+        <referencedby refid="classPKCanScan_1a35ccc4082d56a736abb34d0c289c5a96" compoundref="pkcan_8cpp" startline="388" endline="404">sendErrorCode</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classPKCanScan_1a6c53d03956f54ac706a556be4dcbfe1a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Log::LogComponentHandle</type>
+        <definition>Log::LogComponentHandle PKCanScan::logItHandle</definition>
+        <argsstring>()</argsstring>
+        <name>logItHandle</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/pkcan/pkcan.h" line="76" column="25" bodyfile="CanInterfaceImplementations/pkcan/pkcan.h" bodystart="76" bodyend="76"/>
+      </memberdef>
+      <memberdef kind="function" id="classPKCanScan_1abbc20782e1ebbd9cb552a957a3196561" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void PKCanScan::setReconnectBehavior</definition>
+        <argsstring>(CanModule::ReconnectAutoCondition cond, CanModule::ReconnectAction action)</argsstring>
+        <name>setReconnectBehavior</name>
+        <reimplements refid="classCanModule_1_1CCanAccess_1ae1088edaf5444ff42ee094ae46240cc5">setReconnectBehavior</reimplements>
+        <param>
+          <type><ref refid="namespaceCanModule_1a2f4fee79cc7ba53467c2538fe6b9adbb" kindref="member">CanModule::ReconnectAutoCondition</ref></type>
+          <declname>cond</declname>
+        </param>
+        <param>
+          <type><ref refid="namespaceCanModule_1a2062089fa4fa87c8354295f2a8fe31a5" kindref="member">CanModule::ReconnectAction</ref></type>
+          <declname>action</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>configuring the reconnection behavior: a condition triggers an action. The implementation is implementation-specific because not all vendor APIs permit the same behavior: not all combinations are available for all vendors/implementations. The implemented reconnection behavior is standardized nevertheless: &quot;you get what you see&quot;. Foe each CanBus you have to choose one condition and one action. Condition detection and action execution are then automatic inside <ref refid="namespaceCanModule" kindref="compound">CanModule</ref>.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername><ref refid="namespaceCanModule_1a2f4fee79cc7ba53467c2538fe6b9adbb" kindref="member">CanModule::ReconnectAutoCondition</ref></parametername>
+</parameternamelist>
+<parameterdescription>
+<para>cond<itemizedlist>
+<listitem><para>sendFail (default): a reconnection is triggered automatically if a send on the canBus fails. The number of failed sends can be set (default is 10). The failed sending must be strictly consecutive, if there is a succeeded sending, the internal counting restarts.</para>
+</listitem><listitem><para>timeoutOnReception: the last time of a successful reception on a given channel can be monitored. If the last reception is older than 120 sec a reset is triggered automatically. This last successful reception time is calculated each time a send is invoked. The timeout is specified in seconds, default is 120sec.</para>
+</listitem><listitem><para>never: this condition is always false and therefore no automatic reconnection action will be triggered. You can still call the explicit method reconnect( &lt;action&gt; ) but it is up to the client (server) to decide when.</para>
+</listitem></itemizedlist>
+</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername><ref refid="namespaceCanModule_1a2062089fa4fa87c8354295f2a8fe31a5" kindref="member">CanModule::ReconnectAction</ref></parametername>
+</parameternamelist>
+<parameterdescription>
+<para>action<itemizedlist>
+<listitem><para>singleBus (default): a single connection (canbus, channel) is reset and reception handler is reconnected.</para>
+</listitem><listitem><para>wholeBridge if available, the whole bridge is reset, affecting all physical channels on that bridge. Only available for anagate. If a bridge is shared between multiple tasks, all channels across tasks are reset, affecting all tasks connected to that bridge. Evidently, a given channel must only be used by at most one task.</para>
+</listitem><listitem><para>hardReset: the bridge is reset in a &quot;hard&quot; way, i.e. firmware is rebooted (NOT reloaded or overwritten). Only available for anagate: the firmware of the bridge (ip) is reloaded using a special command of the anagate API which is not available through the common <ref refid="namespaceCanModule" kindref="compound">CanModule</ref> API, since it is vendor specific. This is a &quot;hard software reset&quot;, and it is not the same as just power-cycling the module. It takes ~15secs and &quot;is known to work nicely&quot;. </para>
+</listitem></itemizedlist>
+</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/pkcan/pkcan.h" line="77" column="14" bodyfile="CanInterfaceImplementations/pkcan/pkcan.h" bodystart="77" bodyend="80"/>
+      </memberdef>
+      <memberdef kind="function" id="classPKCanScan_1a5b908a0bc16dae74b88b6feed7eea272" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void PKCanScan::setReconnectReceptionTimeout</definition>
+        <argsstring>(unsigned int timeout)</argsstring>
+        <name>setReconnectReceptionTimeout</name>
+        <reimplements refid="classCanModule_1_1CCanAccess_1a3c902569c0712d165fc7e385e683dc95">setReconnectReceptionTimeout</reimplements>
+        <param>
+          <type>unsigned int</type>
+          <declname>timeout</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>set the timout interval for message reception, for the reconnection behaviour. Units is seconds, default is 120. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/pkcan/pkcan.h" line="81" column="14" bodyfile="CanInterfaceImplementations/pkcan/pkcan.h" bodystart="81" bodyend="81"/>
+      </memberdef>
+      <memberdef kind="function" id="classPKCanScan_1a3471105853a5036dd8a3f421c67de628" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void PKCanScan::setReconnectFailedSendCount</definition>
+        <argsstring>(unsigned int c)</argsstring>
+        <name>setReconnectFailedSendCount</name>
+        <reimplements refid="classCanModule_1_1CCanAccess_1a665620fe5924cf87db0589a353d3d148">setReconnectFailedSendCount</reimplements>
+        <param>
+          <type>unsigned int</type>
+          <declname>c</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>set the counter for failed consecutive sending attempts, for reconnection. default is 10. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/pkcan/pkcan.h" line="82" column="14" bodyfile="CanInterfaceImplementations/pkcan/pkcan.h" bodystart="82" bodyend="82"/>
+      </memberdef>
+      <memberdef kind="function" id="classPKCanScan_1a4ae1f1cfd3e566a903b79f2502fe8752" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type><ref refid="namespaceCanModule_1a2f4fee79cc7ba53467c2538fe6b9adbb" kindref="member">CanModule::ReconnectAutoCondition</ref></type>
+        <definition>virtual CanModule::ReconnectAutoCondition PKCanScan::getReconnectCondition</definition>
+        <argsstring>()</argsstring>
+        <name>getReconnectCondition</name>
+        <reimplements refid="classCanModule_1_1CCanAccess_1a003566cbcdf4ce8195853bd8049a8800">getReconnectCondition</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>read back the r.condition </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/pkcan/pkcan.h" line="83" column="43" bodyfile="CanInterfaceImplementations/pkcan/pkcan.h" bodystart="83" bodyend="83"/>
+        <referencedby refid="classPKCanScan_1a45bd5feda5ccb009775c45bfabe41614" compoundref="pkcan_8cpp" startline="109" endline="184">CanScanControlThread</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classPKCanScan_1a00c1fa5d1abd77601c46669df80b6fba" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type><ref refid="namespaceCanModule_1a2062089fa4fa87c8354295f2a8fe31a5" kindref="member">CanModule::ReconnectAction</ref></type>
+        <definition>virtual CanModule::ReconnectAction PKCanScan::getReconnectAction</definition>
+        <argsstring>()</argsstring>
+        <name>getReconnectAction</name>
+        <reimplements refid="classCanModule_1_1CCanAccess_1aaf2312ff9074ce7a4ec2e7d0a5b6fa16">getReconnectAction</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>read back the r.action </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/pkcan/pkcan.h" line="84" column="36" bodyfile="CanInterfaceImplementations/pkcan/pkcan.h" bodystart="84" bodyend="84"/>
+        <referencedby refid="classPKCanScan_1a45bd5feda5ccb009775c45bfabe41614" compoundref="pkcan_8cpp" startline="109" endline="184">CanScanControlThread</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classPKCanScan_1a53471be1a2b2b34afc091e90bfcd29fb" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>TPCANHandle</type>
+        <definition>TPCANHandle PKCanScan::getHandle</definition>
+        <argsstring>(const char *name)</argsstring>
+        <name>getHandle</name>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>This method returns a TPCANHandle (which is in fact a specific vendor defined hex value) as a function of a human readable string. The human readable string basically codes the intefrace type (USB, ISA, PCI...) and the CAN port (1..8) so that i.e. USB3-&gt;0x53 which means USB interface 3rd channel </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/pkcan/pkcan.h" line="88" column="13" bodyfile="CanInterfaceImplementations/pkcan/pkcan.cpp" bodystart="517" bodyend="571"/>
+        <referencedby refid="classPKCanScan_1a6fe021ecfdde5af1e7a74668b9819bfb" compoundref="pkcan_8cpp" startline="266" endline="385">configureCanboard</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classPKCanScan_1a35ccc4082d56a736abb34d0c289c5a96" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool PKCanScan::sendErrorCode</definition>
+        <argsstring>(long)</argsstring>
+        <name>sendErrorCode</name>
+        <param>
+          <type>long</type>
+          <defname>status</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/pkcan/pkcan.h" line="91" column="6" bodyfile="CanInterfaceImplementations/pkcan/pkcan.cpp" bodystart="388" bodyend="404"/>
+        <references refid="classCanModule_1_1CCanAccess_1a33fbd693f04b4f4e21cee20856c44866" compoundref="CCanAccess_8h" startline="307">CanModule::CCanAccess::canMessageError</references>
+        <references refid="namespaceCanModule_1a3ec3082d7d11a9c1641023cb3f53cbe5" compoundref="CanModuleUtils_8cpp" startline="44" endline="51">CanModule::convertTimepointToTimeval</references>
+        <references refid="namespaceCanModule_1a6d0711aac0a75de5d2bf6142997a814d" compoundref="CanModuleUtils_8cpp" startline="60" endline="74">CanModule::currentTimeTimeval</references>
+        <references refid="classPKCanScan_1a077b19a57357437f6c2e6ce00030a698" compoundref="pkcan_8cpp" startline="503" endline="510">getErrorMessage</references>
+        <references refid="classPKCanScan_1a1c361b38cbc6016192fbcd9a6d81236c" compoundref="pkcan_8h" startline="97">m_busStatus</references>
+        <references refid="classPKCanScan_1a4b662f651cf1bffd217aee603f9751a9" compoundref="pkcan_8h" startline="104">m_pkCanHandle</references>
+        <referencedby refid="classPKCanScan_1a45bd5feda5ccb009775c45bfabe41614" compoundref="pkcan_8cpp" startline="109" endline="184">CanScanControlThread</referencedby>
+        <referencedby refid="classPKCanScan_1a48a2e9ba00dae1b1fe01f7b095430503" compoundref="pkcan_8cpp" startline="411" endline="492">sendMessage</referencedby>
+        <referencedby refid="classPKCanScan_1af7e22b4a484de11ccaea060ad0adb47d" compoundref="pkcan_8cpp" startline="494" endline="501">sendRemoteRequest</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classPKCanScan_1a6fe021ecfdde5af1e7a74668b9819bfb" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool PKCanScan::configureCanboard</definition>
+        <argsstring>(const string name, const string parameters)</argsstring>
+        <name>configureCanboard</name>
+        <param>
+          <type>const string</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>const string</type>
+          <declname>parameters</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>method to configure peak modules, one channel at a time. We restrict this to USB interfaces and fixed datarate (not FD) modules If needed this can relatively easily be extended to other interfaces and FD mods as well. </para>
+        </detaileddescription>
+        <inbodydescription>
+<para>FD (flexible datarate) modules. we need to contruct (a complicated) bitrate string in this case, according to PEAK PCAN-Basic Documentation API manual p.82 two data rates, for nominal and data, can be defined. all these parameters have to be passed TPCANStatus tpcanStatus = CAN_InitializeFD(m_canObjHandler, m_baudRate); TPCANBitrateFD br = &quot;f_clock_mhz=20, nom_brp=5, nom_tseg1=2, nom_tseg2=1, nom_sjw=1&quot;; PCAN_BR_CLOCK_MHZ=20, PCAN_BR_NOM_BRP=5, PCAN_BR_DATA_TSEG1=2, PCAN_BR_DATA_TSEG2=1, PCAN_BR_NOM_SJW=1;</para>
+<para>fixed datarate modules (classical CAN), plug and play we try 10 times until success, the OS is a bit slow</para>
+<para>fixed data rate, non plug-and-play static TPCANStatus Initialize( TPCANHandle Channel, TPCANBaudrate Btr0Btr1, TPCANType HwType, UInt32 IOPort, UInt16 Interrupt);</para>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/pkcan/pkcan.h" line="105" column="6" bodyfile="CanInterfaceImplementations/pkcan/pkcan.cpp" bodystart="266" bodyend="385"/>
+        <references refid="classPKCanScan_1a53471be1a2b2b34afc091e90bfcd29fb" compoundref="pkcan_8cpp" startline="517" endline="571">getHandle</references>
+        <references refid="classPKCanScan_1a84e9c4874e065b79d5600c0a5f9f7877" compoundref="pkcan_8h" startline="100">m_baudRate</references>
+        <references refid="classCanModule_1_1CCanAccess_1a484a4f9dc352fe31b4baff0365095705" compoundref="CCanAccess_8h" startline="467">CanModule::CCanAccess::m_CanParameters</references>
+        <references refid="structCanModule_1_1CanParameters_1ac4e03899b26e33a3867ee1f0bce674b5" compoundref="CCanAccess_8h" startline="117">CanModule::CanParameters::m_iNumberOfDetectedParameters</references>
+        <references refid="structCanModule_1_1CanParameters_1a53ce17e16c2a818ffbc05904d9e56e11" compoundref="CCanAccess_8h" startline="112">CanModule::CanParameters::m_lBaudRate</references>
+        <references refid="classPKCanScan_1a4b662f651cf1bffd217aee603f9751a9" compoundref="pkcan_8h" startline="104">m_pkCanHandle</references>
+        <references refid="classCanModule_1_1CCanAccess_1a0eff18d10b7ee5d6f86b03898f38f7ca" compoundref="CCanAccess_8h" startline="466">CanModule::CCanAccess::m_sBusName</references>
+        <references refid="pkcan_8cpp_1a73247195a8f4adaf8cc04e0ac302e045" compoundref="pkcan_8cpp" startline="37">MLOGPK</references>
+        <references refid="classCanModule_1_1CCanAccess_1af26c9d102638fb96e5e1305f807d148f" compoundref="CCanAccess_8h" startline="342" endline="400">CanModule::CCanAccess::parseNameAndParameters</references>
+        <referencedby refid="classPKCanScan_1a565d5200fe4c139796bd073c6296208f" compoundref="pkcan_8cpp" startline="209" endline="259">createBus</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classPKCanScan_1af7d899c65e6abef105d82a89115fd59b" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PKCanScan::stopBus</definition>
+        <argsstring>(void)</argsstring>
+        <name>stopBus</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>notify the main thread to finish and delete the bus from the map of connections </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/pkcan/pkcan.h" line="106" column="6" bodyfile="CanInterfaceImplementations/pkcan/pkcan.cpp" bodystart="72" bodyend="94"/>
+        <references refid="classPKCanScan_1ade2df2a66357db34e6df07abb02ac4ac" compoundref="pkcan_8h" startline="75">m_busMap</references>
+        <references refid="classPKCanScan_1a4a881ec178b83b4a8937180d45738a2e" compoundref="pkcan_8h" startline="101">m_busName</references>
+        <references refid="classPKCanScan_1abf46ef73d86a3ab7212e6484d35cd92b" compoundref="pkcan_8h" startline="98">m_CanScanThreadRunEnableFlag</references>
+        <references refid="classPKCanScan_1a5ba2a765e250376fde32db88272339d6" compoundref="pkcan_8h" startline="112">m_idCanScanThread</references>
+        <references refid="classPKCanScan_1a4b662f651cf1bffd217aee603f9751a9" compoundref="pkcan_8h" startline="104">m_pkCanHandle</references>
+        <references refid="pkcan_8cpp_1a73247195a8f4adaf8cc04e0ac302e045" compoundref="pkcan_8cpp" startline="37">MLOGPK</references>
+        <references refid="pkcan_8cpp_1a11d79a171d802cdff9ec12d685d14d57" compoundref="pkcan_8cpp" startline="39">peakReconnectMutex</references>
+        <referencedby refid="classPKCanScan_1a48a2e9ba00dae1b1fe01f7b095430503" compoundref="pkcan_8cpp" startline="411" endline="492">sendMessage</referencedby>
+        <referencedby refid="classPKCanScan_1a924778bdca171eb7f3f597dfe9f99fb4" compoundref="pkcan_8cpp" startline="63" endline="67">~PKCanScan</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-static-func">
+      <memberdef kind="function" id="classPKCanScan_1a45bd5feda5ccb009775c45bfabe41614" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="AnaCanScan_8h_1ad342ac907eb044443153a22f964bf0af" kindref="member">DWORD</ref> <ref refid="STCanScan_8cpp_1a9aa60e1ead64be77ad551e745cbfd4d3" kindref="member">WINAPI</ref></type>
+        <definition>DWORD WINAPI PKCanScan::CanScanControlThread</definition>
+        <argsstring>(LPVOID pCanScan)</argsstring>
+        <name>CanScanControlThread</name>
+        <param>
+          <type>LPVOID</type>
+          <declname>pCanScan</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>thread to supervise port activity </para>
+        </detaileddescription>
+        <inbodydescription>
+<para>lets check the timeoutOnReception reconnect condition. If it is true, all we can do is to close/open the port again since the underlying hardware is hidden by socketcan abstraction. Like his we do not have to pollute the &quot;sendMessage&quot; like for anagate, and that is cleaner.</para>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/pkcan/pkcan.h" line="93" column="21" bodyfile="CanInterfaceImplementations/pkcan/pkcan.cpp" bodystart="109" bodyend="184"/>
+        <references refid="structCanMsgStruct_1a2e47a33e7bba46b05a8fff29433f047b" compoundref="CanMessage_8h" startline="29">CanMsgStruct::c_data</references>
+        <references refid="structCanMsgStruct_1a3e5add8ae9cdadfcf3f2255d375ec9b3" compoundref="CanMessage_8h" startline="27">CanMsgStruct::c_dlc</references>
+        <references refid="structCanMsgStruct_1acf3abc93beb936e5f9431ef6ec4568f3" compoundref="CanMessage_8h" startline="25">CanMsgStruct::c_ff</references>
+        <references refid="structCanMsgStruct_1a619515aef041e64b78e7e8c33989ddd0" compoundref="CanMessage_8h" startline="23">CanMsgStruct::c_id</references>
+        <references refid="structCanMsgStruct_1a06b9b3e9423f35edfb96df7b04828bba" compoundref="CanMessage_8h" startline="31">CanMsgStruct::c_time</references>
+        <references refid="classCanModule_1_1CCanAccess_1aa8e0e974863874b0e7bbcdb57084c241" compoundref="CCanAccess_8h" startline="305">CanModule::CCanAccess::canMessageCame</references>
+        <references refid="classPKCanScan_1a00c1fa5d1abd77601c46669df80b6fba" compoundref="pkcan_8h" startline="84" endline="84">getReconnectAction</references>
+        <references refid="classPKCanScan_1a4ae1f1cfd3e566a903b79f2502fe8752" compoundref="pkcan_8h" startline="83" endline="83">getReconnectCondition</references>
+        <references refid="classCanModule_1_1CCanAccess_1a79c236a0e2b3e3b183b1c85aab3f5b71" compoundref="CCanAccess_8h" startline="503" endline="513">CanModule::CCanAccess::hasTimeoutOnReception</references>
+        <references refid="classPKCanScan_1a84e9c4874e065b79d5600c0a5f9f7877" compoundref="pkcan_8h" startline="100">m_baudRate</references>
+        <references refid="classPKCanScan_1abf46ef73d86a3ab7212e6484d35cd92b" compoundref="pkcan_8h" startline="98">m_CanScanThreadRunEnableFlag</references>
+        <references refid="classPKCanScan_1a4b662f651cf1bffd217aee603f9751a9" compoundref="pkcan_8h" startline="104">m_pkCanHandle</references>
+        <references refid="classPKCanScan_1a03eec54c44937d843f48b2b1a086b37b" compoundref="pkcan_8h" startline="96">m_statistics</references>
+        <references refid="pkcan_8cpp_1a73247195a8f4adaf8cc04e0ac302e045" compoundref="pkcan_8cpp" startline="37">MLOGPK</references>
+        <references refid="classCanModule_1_1CanStatistics_1a82b38a2383bc0ad6b1d306e86b9ef5c6" compoundref="CanStatistics_8cpp" startline="101" endline="111">CanModule::CanStatistics::onReceive</references>
+        <references refid="classCanModule_1_1CCanAccess_1aa12f64e9e31bd491f39fc3169b1e5025" compoundref="CCanAccess_8h" startline="491" endline="498">CanModule::CCanAccess::reconnectActionString</references>
+        <references refid="classCanModule_1_1CCanAccess_1a9da88ce122d5de04a0235a4682a13dc0" compoundref="CCanAccess_8h" startline="479" endline="486">CanModule::CCanAccess::reconnectConditionString</references>
+        <references refid="classCanModule_1_1CCanAccess_1a067f50699c1ed4b6ee6732eb0078ed0a" compoundref="CCanAccess_8h" startline="518" endline="524">CanModule::CCanAccess::resetTimeoutOnReception</references>
+        <references refid="classPKCanScan_1a35ccc4082d56a736abb34d0c289c5a96" compoundref="pkcan_8cpp" startline="388" endline="404">sendErrorCode</references>
+        <references refid="classCanModule_1_1CanStatistics_1a99de404f1b24cee80edfaad7ad1f9499" compoundref="CanStatistics_8h" startline="115" endline="121">CanModule::CanStatistics::setTimeSinceReceived</references>
+        <references refid="namespaceCanModule_1a2062089fa4fa87c8354295f2a8fe31a5a5f768fefafa6db21eee26885afb6163d">CanModule::singleBus</references>
+        <references refid="namespaceCanModule_1a2f4fee79cc7ba53467c2538fe6b9adbbaba350cf15e5a1471109f17351afb401a">CanModule::timeoutOnReception</references>
+        <referencedby refid="classPKCanScan_1a565d5200fe4c139796bd073c6296208f" compoundref="pkcan_8cpp" startline="209" endline="259">createBus</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>CanModule::CCanAccess</label>
+        <link refid="classCanModule_1_1CCanAccess"/>
+      </node>
+      <node id="1">
+        <label>PKCanScan</label>
+        <link refid="classPKCanScan"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3">
+        <label>CanModule::CanParameters</label>
+        <link refid="structCanModule_1_1CanParameters"/>
+      </node>
+      <node id="4">
+        <label>CanModule::CanStatistics</label>
+        <link refid="classCanModule_1_1CanStatistics"/>
+        <childnode refid="5" relation="usage">
+          <edgelabel>m_internals</edgelabel>
+        </childnode>
+      </node>
+      <node id="5">
+        <label>CanModule::CanStatistics::Internals</label>
+        <link refid="classCanModule_1_1CanStatistics_1_1Internals"/>
+      </node>
+      <node id="2">
+        <label>CanModule::CCanAccess</label>
+        <link refid="classCanModule_1_1CCanAccess"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>m_CanParameters</edgelabel>
+        </childnode>
+      </node>
+      <node id="1">
+        <label>PKCanScan</label>
+        <link refid="classPKCanScan"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>m_statistics</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="CanInterfaceImplementations/pkcan/pkcan.h" line="39" column="1" bodyfile="CanInterfaceImplementations/pkcan/pkcan.h" bodystart="38" bodyend="113"/>
+    <listofallmembers>
+      <member refid="classCanModule_1_1CCanAccess_1aa8e0e974863874b0e7bbcdb57084c241" prot="public" virt="non-virtual"><scope>PKCanScan</scope><name>canMessageCame</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a33fbd693f04b4f4e21cee20856c44866" prot="public" virt="non-virtual"><scope>PKCanScan</scope><name>canMessageError</name></member>
+      <member refid="classPKCanScan_1a45bd5feda5ccb009775c45bfabe41614" prot="private" virt="non-virtual"><scope>PKCanScan</scope><name>CanScanControlThread</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a7c9b87d205b0ec265c972a3303cecda2" prot="public" virt="non-virtual"><scope>PKCanScan</scope><name>CCanAccess</name></member>
+      <member refid="classPKCanScan_1a6fe021ecfdde5af1e7a74668b9819bfb" prot="private" virt="non-virtual"><scope>PKCanScan</scope><name>configureCanboard</name></member>
+      <member refid="classPKCanScan_1a565d5200fe4c139796bd073c6296208f" prot="public" virt="virtual"><scope>PKCanScan</scope><name>createBus</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1ac3f5126ae36d642217425e21696d19ca" prot="public" virt="non-virtual"><scope>PKCanScan</scope><name>getBusName</name></member>
+      <member refid="classPKCanScan_1a077b19a57357437f6c2e6ce00030a698" prot="public" virt="non-virtual"><scope>PKCanScan</scope><name>getErrorMessage</name></member>
+      <member refid="classPKCanScan_1a53471be1a2b2b34afc091e90bfcd29fb" prot="private" virt="non-virtual"><scope>PKCanScan</scope><name>getHandle</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a8210a8161f1987973584b6dda5dc6d7d" prot="public" virt="non-virtual"><scope>PKCanScan</scope><name>getLogItInstance</name></member>
+      <member refid="classPKCanScan_1a0d76eac41bbcbff75bd690c3b7f289f6" prot="public" virt="virtual"><scope>PKCanScan</scope><name>getPortBitrate</name></member>
+      <member refid="classPKCanScan_1aae31de6a82fcacc8ef3f581aff5305fc" prot="public" virt="virtual"><scope>PKCanScan</scope><name>getPortStatus</name></member>
+      <member refid="classPKCanScan_1a00c1fa5d1abd77601c46669df80b6fba" prot="public" virt="virtual"><scope>PKCanScan</scope><name>getReconnectAction</name></member>
+      <member refid="classPKCanScan_1a4ae1f1cfd3e566a903b79f2502fe8752" prot="public" virt="virtual"><scope>PKCanScan</scope><name>getReconnectCondition</name></member>
+      <member refid="classPKCanScan_1a2ef38527fb5009c43487fccbbe4694ba" prot="public" virt="virtual"><scope>PKCanScan</scope><name>getStatistics</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a79c236a0e2b3e3b183b1c85aab3f5b71" prot="protected" virt="non-virtual"><scope>PKCanScan</scope><name>hasTimeoutOnReception</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1ab5a430fc27073d92c69659bda261b74d" prot="public" virt="non-virtual"><scope>PKCanScan</scope><name>initialiseLogging</name></member>
+      <member refid="classPKCanScan_1a6c53d03956f54ac706a556be4dcbfe1a" prot="public" virt="non-virtual"><scope>PKCanScan</scope><name>logItHandle</name></member>
+      <member refid="classPKCanScan_1a84e9c4874e065b79d5600c0a5f9f7877" prot="private" virt="non-virtual"><scope>PKCanScan</scope><name>m_baudRate</name></member>
+      <member refid="classPKCanScan_1ade2df2a66357db34e6df07abb02ac4ac" prot="public" virt="non-virtual"><scope>PKCanScan</scope><name>m_busMap</name></member>
+      <member refid="classPKCanScan_1a4a881ec178b83b4a8937180d45738a2e" prot="private" virt="non-virtual"><scope>PKCanScan</scope><name>m_busName</name></member>
+      <member refid="classPKCanScan_1aa12640926d5f9f2e72f728dc084ace80" prot="private" virt="non-virtual"><scope>PKCanScan</scope><name>m_busParameters</name></member>
+      <member refid="classPKCanScan_1a1c361b38cbc6016192fbcd9a6d81236c" prot="private" virt="non-virtual"><scope>PKCanScan</scope><name>m_busStatus</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a484a4f9dc352fe31b4baff0365095705" prot="protected" virt="non-virtual"><scope>PKCanScan</scope><name>m_CanParameters</name></member>
+      <member refid="classPKCanScan_1abf46ef73d86a3ab7212e6484d35cd92b" prot="private" virt="non-virtual"><scope>PKCanScan</scope><name>m_CanScanThreadRunEnableFlag</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1aab58c9d55e8430de64046e13100e4893" prot="private" virt="non-virtual"><scope>PKCanScan</scope><name>m_connectionIndex</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a6a9790a2842b40ced0ff98e1e171acbc" prot="private" virt="non-virtual"><scope>PKCanScan</scope><name>m_dreceived</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a686ba59e549d1fde3727ab1f88a8c463" prot="protected" virt="non-virtual"><scope>PKCanScan</scope><name>m_failedSendCounter</name></member>
+      <member refid="classPKCanScan_1a169a32c5961996acbd55aa5c12118de0" prot="private" virt="non-virtual"><scope>PKCanScan</scope><name>m_hCanScanThread</name></member>
+      <member refid="classPKCanScan_1a5ba2a765e250376fde32db88272339d6" prot="private" virt="non-virtual"><scope>PKCanScan</scope><name>m_idCanScanThread</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a782b2e9b52ebb49a14307e1f37440490" prot="private" virt="non-virtual"><scope>PKCanScan</scope><name>m_lh</name></member>
+      <member refid="classPKCanScan_1ae77567d34d33ec9576a7e4eebd0c1f09" prot="private" virt="non-virtual"><scope>PKCanScan</scope><name>m_logItHandlePk</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a2bb6325281679f955ab32fc18367a7b3" prot="private" virt="non-virtual"><scope>PKCanScan</scope><name>m_logItRemoteInstance</name></member>
+      <member refid="classPKCanScan_1a4b662f651cf1bffd217aee603f9751a9" prot="private" virt="non-virtual"><scope>PKCanScan</scope><name>m_pkCanHandle</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a6baf24c56eb715adf55a569d08b12c25" prot="protected" virt="non-virtual"><scope>PKCanScan</scope><name>m_reconnectAction</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1abfd40edc34a777a5ff4503a6e8a239d6" prot="protected" virt="non-virtual"><scope>PKCanScan</scope><name>m_reconnectCondition</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a0eff18d10b7ee5d6f86b03898f38f7ca" prot="protected" virt="non-virtual"><scope>PKCanScan</scope><name>m_sBusName</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1aebd1f5d34904ed64d20293d7c385e80c" prot="private" virt="non-virtual"><scope>PKCanScan</scope><name>m_signal_connection</name></member>
+      <member refid="classPKCanScan_1a03eec54c44937d843f48b2b1a086b37b" prot="private" virt="non-virtual"><scope>PKCanScan</scope><name>m_statistics</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1abd6b2ab3f6759bfc05c6dc70911eab50" prot="protected" virt="non-virtual"><scope>PKCanScan</scope><name>m_timeoutOnReception</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a74e437526e45192804ca1cffc663d2e2" prot="protected" virt="non-virtual"><scope>PKCanScan</scope><name>m_triggerCounter</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a7bb4a17c5b05e5b01f59d9d9a0728f8a" prot="private" virt="non-virtual"><scope>PKCanScan</scope><name>m_tz</name></member>
+      <member refid="classPKCanScan_1a7a5e5fe4cb8b99c64c3908f3143a8f1c" prot="public" virt="non-virtual"><scope>PKCanScan</scope><name>operator=</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1af26c9d102638fb96e5e1305f807d148f" prot="public" virt="non-virtual"><scope>PKCanScan</scope><name>parseNameAndParameters</name></member>
+      <member refid="classPKCanScan_1adfc8b4e20f4548295a99af69bf1888d5" prot="public" virt="non-virtual"><scope>PKCanScan</scope><name>PKCanScan</name></member>
+      <member refid="classPKCanScan_1aa323b8cf8e476c7dfec2719756f25962" prot="public" virt="non-virtual"><scope>PKCanScan</scope><name>PKCanScan</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1aa12f64e9e31bd491f39fc3169b1e5025" prot="protected" virt="non-virtual"><scope>PKCanScan</scope><name>reconnectActionString</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a9da88ce122d5de04a0235a4682a13dc0" prot="protected" virt="non-virtual"><scope>PKCanScan</scope><name>reconnectConditionString</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1afefee3a90966dd8a01ca471022a7a9cd" prot="protected" virt="non-virtual"><scope>PKCanScan</scope><name>resetTimeNow</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1a067f50699c1ed4b6ee6732eb0078ed0a" prot="protected" virt="non-virtual"><scope>PKCanScan</scope><name>resetTimeoutOnReception</name></member>
+      <member refid="classPKCanScan_1a35ccc4082d56a736abb34d0c289c5a96" prot="private" virt="non-virtual"><scope>PKCanScan</scope><name>sendErrorCode</name></member>
+      <member refid="classPKCanScan_1a48a2e9ba00dae1b1fe01f7b095430503" prot="public" virt="virtual"><scope>PKCanScan</scope><name>sendMessage</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1ad0360c49d00ec0ee92cfdd73c2e43935" prot="public" virt="virtual" ambiguityscope="CanModule::CCanAccess::"><scope>PKCanScan</scope><name>sendMessage</name></member>
+      <member refid="classPKCanScan_1af7e22b4a484de11ccaea060ad0adb47d" prot="public" virt="virtual"><scope>PKCanScan</scope><name>sendRemoteRequest</name></member>
+      <member refid="classPKCanScan_1abbc20782e1ebbd9cb552a957a3196561" prot="public" virt="virtual"><scope>PKCanScan</scope><name>setReconnectBehavior</name></member>
+      <member refid="classPKCanScan_1a3471105853a5036dd8a3f421c67de628" prot="public" virt="virtual"><scope>PKCanScan</scope><name>setReconnectFailedSendCount</name></member>
+      <member refid="classPKCanScan_1a5b908a0bc16dae74b88b6feed7eea272" prot="public" virt="virtual"><scope>PKCanScan</scope><name>setReconnectReceptionTimeout</name></member>
+      <member refid="classPKCanScan_1af7d899c65e6abef105d82a89115fd59b" prot="private" virt="non-virtual"><scope>PKCanScan</scope><name>stopBus</name></member>
+      <member refid="classCanModule_1_1CCanAccess_1ac96f1cce6beda4309cdfb6651d3ce547" prot="public" virt="virtual"><scope>PKCanScan</scope><name>~CCanAccess</name></member>
+      <member refid="classPKCanScan_1a924778bdca171eb7f3f597dfe9f99fb4" prot="public" virt="virtual"><scope>PKCanScan</scope><name>~PKCanScan</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

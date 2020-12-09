@@ -63,7 +63,7 @@ PKCanScan::PKCanScan():
 PKCanScan::~PKCanScan()
 {
 	stopBus();
-	MLOGPK(DBG,this) << "PL Can Scan component closed successfully";
+	MLOGPK(DBG,this) << __FUNCTION__ <<" closed successfully";
 }
 
 /**
@@ -82,15 +82,15 @@ void PKCanScan::stopBus ()
 		if (it != PKCanScan::m_busMap.end()) {
 			m_idCanScanThread = 0;
 			PKCanScan::m_busMap.erase ( it );
-			m_busName = "nobus";
 			MLOGPK(TRC,this) << " bus " << m_busName << " erased from map, OK";
+			m_busName = "nobus";
 		} else {
 			MLOGPK(DBG,this) << " bus " << m_busName << " does not exist";
 		}
 		peakReconnectMutex.unlock();
 	}
 	Sleep(2); // and wait a bit for the thread to die
-	MLOGPK(DBG,this) << "stopBus() finished";
+	MLOGPK(DBG,this) << __FUNCTION__ << " finished";
 }
 
 
@@ -177,7 +177,8 @@ DWORD WINAPI PKCanScan::CanScanControlThread(LPVOID pCanScan)
 			}
 		}
 	}
-	MLOGPK(TRC, pkCanScanPointer) << "exiting thread...";
+	MLOGPK(TRC, pkCanScanPointer) << "exiting thread...(in 2 secs)";
+	Sleep(2000);
 	ExitThread(0);
 	return 0;
 }
@@ -198,7 +199,12 @@ DWORD WINAPI PKCanScan::CanScanControlThread(LPVOID pCanScan)
  * 				* p0: bitrate: 50000, 100000, 125000, 250000, 500000, 1000000 bit/s
  *				  i.e. "250000"
  *
- * @return was the initialisation process successful?
+ * @return was the initialisation process successful:
+ * 0 = ok
+ * 1 = ok, bus exists already, we skip
+ * -1: not ok, problem configuring the board, try again
+ * -2: could not create the thread
+ * -3: sth else went wrong
  */
 int PKCanScan::createBus(const string name ,const string parameters )
 {
@@ -218,7 +224,7 @@ int PKCanScan::createBus(const string name ,const string parameters )
 
 	if ( !configureCanboard(name,parameters) ) {
 		MLOGPK( ERR, this ) << " name= " << name << " parameters= " << parameters << ", failed to configure CAN board";
-		return false;
+		return (-1);
 	}
 
 	bool skipMainThreadCreation = false;
@@ -237,16 +243,19 @@ int PKCanScan::createBus(const string name ,const string parameters )
 	}
 	if ( skipMainThreadCreation ){
 		MLOGPK(TRC, this) << "Re-using main thread m_idCanScanThread= " << m_idCanScanThread;
+		return (1);
 	}	else {
 		MLOGPK(TRC, this) << "creating  main thread m_idCanScanThread= " << m_idCanScanThread;
 		CAN_FilterMessages(m_pkCanHandle,0,0x7FF,PCAN_MESSAGE_STANDARD);
 		m_hCanScanThread = CreateThread(NULL, 0, CanScanControlThread, this, 0, &m_idCanScanThread);
 		if ( NULL == m_hCanScanThread ) {
 			DebugBreak();
-			return false;
+			return (-2);
+		} else {
+			return(0);
 		}
 	}
-	return true;
+	return (-3); // sth else went wrong since we did not return before
 }
 
 
@@ -328,7 +337,7 @@ bool PKCanScan::configureCanboard(const string name,const string parameters)
 	} else {
 		MLOGPK(DBG, this) << "Unspecified parameters, default values will be used.";
 	}
-	MLOGPK(DBG, this) << " m_baudRate= " << m_baudRate << std::endl;
+	MLOGPK(DBG, this) << " m_baudRate= 0x" << hex << m_baudRate << dec << std::endl;
 
 	/** FD (flexible datarate) modules.
 	 * we need to contruct (a complicated) bitrate string in this case, according to PEAK PCAN-Basic Documentation API manual p.82

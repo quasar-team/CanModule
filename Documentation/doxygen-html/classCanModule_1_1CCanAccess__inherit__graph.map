@@ -1,0 +1,8 @@
+<map id="CanModule::CCanAccess" name="CanModule::CCanAccess">
+<area shape="rect" id="node1" title=" " alt="" coords="247,5,429,32"/>
+<area shape="rect" id="node2" href="$classAnaCanScan.html" title=" " alt="" coords="5,80,108,107"/>
+<area shape="rect" id="node3" href="$classCSockCanScan.html" title=" " alt="" coords="132,80,251,107"/>
+<area shape="rect" id="node4" href="$classMockCanAccess.html" title=" " alt="" coords="275,80,401,107"/>
+<area shape="rect" id="node5" href="$classPKCanScan.html" title=" " alt="" coords="425,80,520,107"/>
+<area shape="rect" id="node6" href="$classSTCanScan.html" title=" " alt="" coords="545,80,638,107"/>
+</map>

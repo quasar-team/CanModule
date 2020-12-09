@@ -37,10 +37,10 @@ namespace CanModule
 
 // called by factory
 CanLibLoader::CanLibLoader(const std::string& libName)
-{
+		{
 	LogItInstance *logIt = LogItInstance::getInstance();
 	logIt->getComponentHandle( CanModule::LogItComponentName, lh );
-}
+		}
 
 CanLibLoader::~CanLibLoader() {}
 
@@ -54,21 +54,27 @@ CanLibLoader* CanLibLoader::createInstance(const std::string& libName)	{
 	return libPtr;
 }
 
+/**
+ * make a guess: it orders diet coke
+ */
 void CanLibLoader::closeCanBus(CCanAccess *cInter) {
 	LOG(Log::DBG, lh ) << __FUNCTION__<< " Canbus name to be deleted: " << cInter->getBusName();
 
-	Diag::instance().delete_maps( this, cInter );
+	Diag::delete_maps( this, cInter );
 
 	delete cInter; // dtor calls stopBus()
 }
 
+/**
+ * opens a can bus
+ */
 CCanAccess* CanLibLoader::openCanBus(string name, string parameters) {
 	LOG(Log::DBG, lh ) << __FUNCTION__ << " Creating CCanAccess: name= " << name << " parameters= " << parameters;
 	CCanAccess *tcca = createCanAccess();
 
 	if ( !tcca ){
 		LOG(Log::ERR, lh ) << __FUNCTION__ << " failed to create CCanAccess name= " << name << " parameters= " << parameters;
-		exit(-1);
+		throw std::runtime_error("CanLibLoader::openCanBus: createBus Problem when loading lib " + name );
 	} else {
 		LOG(Log::DBG, lh ) << __FUNCTION__ << " created CCanAccess name= " << name << " parameters= " << parameters;
 	}
@@ -85,25 +91,38 @@ CCanAccess* CanLibLoader::openCanBus(string name, string parameters) {
 	 * @param parameters: Different parameters used for the initialisation. For using the default parameters just set this to "Unspecified"
 	 *
 	 */
-	int c = tcca->createBus(name, parameters);
-	switch ( c ){
-	case 0:{
-		LOG(Log::DBG, lh ) << __FUNCTION__ << " OK: createBus Adding new CCanAccess to the map for: " << name;
-		Diag::instance().insert_maps( this, tcca, parameters );
-		return tcca;
-		break;
-	}
-	case 1:{
-		LOG(Log::DBG, lh ) << __FUNCTION__ << " OK: createBus Skipping existing CCanAccess to the map for: " << name;
-		// Diag::instance().insert_maps( this, tcca, parameters );
-		return tcca; // keep lib object, but only the already existing bus
-		break;
-	}
-	case -1:{
-		LOG(Log::ERR, lh ) << __FUNCTION__ << " createBus Problem opening canBus for: " << name;
-		throw std::runtime_error("CanLibLoader::openCanBus: createBus Problem when opening canBus. stop." );
-	break;
-	}
+
+	int c = -1;
+	while ( c != 0 ){
+		c = tcca->createBus(name, parameters);
+		LOG(Log::DBG, lh ) << __FUNCTION__ << " createBus returns= " << c;
+		switch ( c ){
+		case 0:{
+			LOG(Log::DBG, lh ) << __FUNCTION__ << " OK: createBus Adding new CCanAccess to the map for: " << name;
+			Diag::insert_maps( this, tcca, parameters );
+			return tcca;
+			break;
+		}
+		case 1:{
+			LOG(Log::DBG, lh ) << __FUNCTION__ << " OK: createBus Skipping existing CCanAccess to the map for: " << name;
+			// Diag::instance().insert_maps( this, tcca, parameters );
+			return tcca; // keep lib object, but only the already existing bus
+			break;
+		}
+		case -1:{
+			LOG(Log::WRN, lh ) << __FUNCTION__ << " createBus Problem opening canBus for: " << name;
+			//throw std::runtime_error("CanLibLoader::openCanBus: createBus Problem when opening canBus. stop." );
+			break;
+		}
+		default:{
+			LOG(Log::WRN, lh ) << __FUNCTION__ << " something else went wrong for: " << name;
+			break;
+		}
+		} // switch
+
+		LOG(Log::WRN, lh ) << __FUNCTION__ << " try again in a moment: " << name;
+		int us = 2000000;
+		boost::this_thread::sleep(boost::posix_time::microseconds( us ));
 	}
 	// never reached
 	return 0;
