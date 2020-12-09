@@ -9,6 +9,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
   means "anagate windows lib instanc0, port0, instance0". The following _X is always the 
   instance count.
 - added method getPortBitrate(), and updated standardApi documentation
+- cleaned up documentation, except the reconnection chapter
+- tests and verifications are still going on
 
 
 ## 2.0.0rc
