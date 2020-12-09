@@ -38,7 +38,7 @@ will use vcan (virtual can) instead under linux for USB/socketcan bridges. P has
 
 * The **access to a CAN port** is through:
 
-.. doxygenclass:: CanModule::CanBusAccess
+.. doxygenclass:: CanModule::CCanAccess
 	:project: CanModule
 	:members: openCanBus, closeCanBus
 
@@ -47,14 +47,17 @@ will use vcan (virtual can) instead under linux for USB/socketcan bridges. P has
 
 .. code-block:: c++
 
-	string libName = "sock";         // here: systec or peak through socketCan, linux
-	string port = "sock:can0";       // here: CAN port 0 via socket CAN, linux
-	string parameters = "Undefined"; // here: use defaults
+	string implementationName = "sock";   // here: systec or peak through socketCan, linux
+	string port = "sock:can0";            // here: CAN port 0 via socket CAN, linux
+	string parameters = "Unspecified";    // here: use defaults. see documentation for each implementation/vendor. same as ""
 	CanMessage cm;
-	CanModule::CanLibLoader *libloader = CanModule::CanLibLoader::createInstance( libName );
+	CanModule::CanLibLoader *libloader = CanModule::CanLibLoader::createInstance( implementationName );
 	cca = libloader->openCanBus( port, parameters );
 	cca->sendMessage( &cm );
 	cca->canMessageCame.connect( &onMessageRcvd ); // connect a reception handler 
+   unsigned int br = cca->getPortBitrate();       // make sure we know the bitrate as it was set
+   (... communicate...)
+   libLoader->closeCanBus( cca );
 	
 	
 * Only two strings, "port" and "parameters"
@@ -83,6 +86,14 @@ must be registered to treat received messages (boost slot connected to boost sig
 	   myObject->processReceivedMessage( message );
 	}
 	
+
+read back the port bitrate to be sure:
+
+.. doxygenclass:: CanModule::CCanAccess
+   :project: CanModule
+   :members: getPortBitrate
+
+
 
 * you can take a look at `CANX`_ for a full multithreaded example using CanModule (CERN, gitlab).
 Contact me for a simple code example.

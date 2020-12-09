@@ -58,6 +58,7 @@ public:
 	virtual void getStatistics( CanStatistics & result );
 	// unified status
 	virtual uint32_t getPortStatus();
+	virtual uint32_t getPortBitrate(){ return m_CanParameters.m_lBaudRate; };
 
 	Log::LogComponentHandle logItHandle(){ return m_logItHandleSt; }
 	virtual void setReconnectBehavior( CanModule::ReconnectAutoCondition cond, CanModule::ReconnectAction action ){

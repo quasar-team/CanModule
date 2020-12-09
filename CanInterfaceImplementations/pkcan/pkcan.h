@@ -65,6 +65,7 @@ public:
 	//Returns the instance of the CanStatistics object
 	virtual void getStatistics( CanStatistics & result );
 	virtual uint32_t getPortStatus();
+	virtual uint32_t getPortBitrate(){ return m_CanParameters.m_lBaudRate; };
 
 	/*
 	 * Converts Error code into a text message.

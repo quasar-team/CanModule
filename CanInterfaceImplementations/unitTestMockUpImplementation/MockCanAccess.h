@@ -56,6 +56,7 @@ public:
 	virtual CanModule::ReconnectAutoCondition getReconnectCondition() { return m_reconnectCondition; };
 	virtual CanModule::ReconnectAction getReconnectAction() { return m_reconnectAction; };
 	virtual uint32_t getPortStatus(){ return 0xbebecaca; };
+	virtual uint32_t getPortBitrate(){ return m_CanParameters.m_lBaudRate; };
 
 private:
 	//Instance of Can Statistics
