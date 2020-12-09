@@ -1,0 +1,224 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peak</title>
+    <link rel="stylesheet" href="../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="next" title="Reconnection OBSOLETE IS REWRITTEN CURRENTLY" href="../reconnection.html" />
+    <link rel="prev" title="AnaGate" href="anagate.html" /> 
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="../index.html">
+          <span>CanModule 2.0.0 documentation</span></a></h1>
+        <h2 class="heading"><span>Peak</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        «&#160;&#160;<a href="anagate.html">AnaGate</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="../reconnection.html">Reconnection OBSOLETE IS REWRITTEN CURRENTLY</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <div class="section" id="peak">
+<h1><a class="reference internal" href="#peak">Peak</a></h1>
+<p>All modules from vendor <a class="reference internal" href="#peak">Peak</a> are handled by class PKCanScan (windows) or CSockCanScan (linux) which
+both manage the modules through their underlying vendor specific API according to the OS.
+Both classes provide the standard generic CanModule API.
+Here the underlying vendor specific classes and the specific parameters are documented.</p>
+<p>The modules from the families PCAN USB and USB Pro are supported. For linux, also the flexible
+datarate (FD) types are supported. The FD types are not supported for windows presently, but they
+could be added in principle if requested.</p>
+<div class="section" id="the-connection">
+<h2>The connection</h2>
+<p>To connect to a specific port for I/O, and send CAN messages, the following methods are used.</p>
+<div class="section" id="windows">
+<h3>windows</h3>
+<p>the connection to a specific port for I/O is created by calling</p>
+<dl class="cpp class">
+<dt id="_CPPv49PKCanScan">
+<span id="_CPPv39PKCanScan"></span><span id="_CPPv29PKCanScan"></span><span id="PKCanScan"></span><span class="target" id="classPKCanScan"></span><em class="property">class </em><code class="sig-name descname">PKCanScan</code> : <em class="property">public</em> CanModule::<a class="reference internal" href="../canports.html#_CPPv4N9CanModule10CCanAccessE" title="CanModule::CCanAccess">CCanAccess</a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="cpp function">
+<dt id="_CPPv4N9PKCanScan9createBusEK6stringK6string">
+<span id="_CPPv3N9PKCanScan9createBusEK6stringK6string"></span><span id="_CPPv2N9PKCanScan9createBusEK6stringK6string"></span><span id="PKCanScan::createBus__stringC.stringC"></span><span class="target" id="classPKCanScan_1a565d5200fe4c139796bd073c6296208f"></span>int <code class="sig-name descname">createBus</code><span class="sig-paren">(</span><em class="property">const</em> string <em>name</em>, <em class="property">const</em> string <em>parameters</em><span class="sig-paren">)</span><br /></dt>
+<dd><p>Method that initialises a CAN bus channel for peak&#64;windows (using PEAK Basic) All following methods called on the same object will be using this initialized channel. Only USB interfaces for PEAK modules, and only NON FD modules are supported for now.</p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>was the initialisation process successful: 0 = ok 1 = ok, bus exists already, we skip -1: not ok, problem configuring the board, try again -2: could not create the thread -3: sth else went wrong </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>: = 2 parameters separated by “:” like “n0:n1”<ul>
+<li><p>n0 = “pk” for peak&#64;windows</p></li>
+<li><p>n1 = CAN port number on the module, can be prefixed with “can”: 0..N</p></li>
+<li><p>ex.: “pk:can1” speaks to port 1 (the second port) on peak module</p></li>
+<li><p>ex.: “pk:1” works as well</p></li>
+</ul>
+</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">parameters</span></code>: one parameter: “p0”, positive integer<ul>
+<li><p>”Unspecified” (or empty): using defaults = “125000” // params missing</p></li>
+<li><p>p0: bitrate: 50000, 100000, 125000, 250000, 500000, 1000000 bit/s i.e. “250000”</p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N9PKCanScan11sendMessageEshPhb">
+<span id="_CPPv3N9PKCanScan11sendMessageEshPhb"></span><span id="_CPPv2N9PKCanScan11sendMessageEshPhb"></span><span id="PKCanScan::sendMessage__short.unsigned-c.unsigned-cP.b"></span><span class="target" id="classPKCanScan_1a48a2e9ba00dae1b1fe01f7b095430503"></span>bool <code class="sig-name descname">sendMessage</code><span class="sig-paren">(</span>short <em>cobID</em>, unsigned char <em>len</em>, unsigned char *<em>message</em>, bool <em>rtr</em> = false<span class="sig-paren">)</span><br /></dt>
+<dd><p>method to send a CAN message to the peak module. we use the standard API “PCAN-Basic” for this for windows and we talk only over USB to fixed bitrate modules. The flexible bitrate (FD) modules can be implemented later as well: for this we need more parameters to pass and a switch between CAN_Write and CAN_WriteFD. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<p>and communication takes place through peak’s open-source PCAN-Basic windows library. Only “plug-and-play”
+modules with USB interface and fixed datarate (non-FD) are supported by CanModule for now. PEAK’s flexible datarate (FD)
+modules can be added later on (they need some different API-calls and more complex parameters), and also
+other interfaces like PCI are possible for windows.The implementation is based on the PCAN-Basic driver.</p>
+</div>
+<div class="section" id="linux">
+<h3>linux</h3>
+<p>The open-source socketcan interface is used on top of peak’s open source netdev driver. Both Peak’s
+fixed and flexible datarate are working, although the fixed modules are recommended for bus compatibility.
+Only modules with USB interface are supported.
+The peak driver source is freely available and it can be configured to build several
+types of drivers, where we use peak’s netdev driver only. See <a class="reference external" href="https://readthedocs.web.cern.ch/display/CANDev/CAN+development?src=sidebar">PeakDriver</a> for details on this.
+A PCAN-Basic driver is also available but the netdev driver is more performant and modern. The
+PCAN-Basic driver is used nevertheless for windows, and it offers better compatibility for all module
+families.</p>
+<p>Unfortunately the peak linux driver does NOT provide deterministic port numbering through socketcan. On a
+system with several PEAK bridges the port specification “sock:can0” is mapped to <strong>any</strong>
+of the existing peak bridges (and the electronics can burn because you don’t know which
+can-bus you are connected to !). In order to overcome this limitation for peak
+(it really is a design error in their driver) an extended port identifier must be used: “sock:can0:device1234”.</p>
+<p>CanModule then performs a udev system call and internally remaps the ports, so that “sock:can0:device1234”
+will correspond to the first port of device 1234. The internal mapping is deterministic since the devices
+can always be ordered ascending.
+In order to use the deviceID (“1234”) it has to be set persistently for each module, using the windows
+utility peakCan. Device ID numbers have to be unique in a system obviously. The assigning of port numbers
+is then done in ascending order: the first batch of ports is from the device with the lowest device ID,
+and so forth.</p>
+<p><strong>The rest of the calls are standardized again</strong>:</p>
+<dl class="cpp class">
+<dt id="_CPPv412CSockCanScan">
+<span id="_CPPv312CSockCanScan"></span><span id="_CPPv212CSockCanScan"></span><span id="CSockCanScan"></span><span class="target" id="classCSockCanScan"></span><em class="property">class </em><code class="sig-name descname">CSockCanScan</code> : <em class="property">public</em> CanModule::<a class="reference internal" href="../canports.html#_CPPv4N9CanModule10CCanAccessE" title="CanModule::CCanAccess">CCanAccess</a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="cpp function">
+<dt id="_CPPv4N12CSockCanScan9createBusEK6string6string">
+<span id="_CPPv3N12CSockCanScan9createBusEK6string6string"></span><span id="_CPPv2N12CSockCanScan9createBusEK6string6string"></span><span id="CSockCanScan::createBus__stringC.string"></span><span class="target" id="classCSockCanScan_1a879da2908384a8f154120bdd0c60c5aa"></span>int <code class="sig-name descname">createBus</code><span class="sig-paren">(</span><em class="property">const</em> string <em>name</em>, string <em>parameters</em><span class="sig-paren">)</span><br /></dt>
+<dd><p>Method that initializes a can bus channel. The following methods called upon the same object will be using this initialized channel.</p>
+<p><ul class="simple">
+<li><p>i.e. “250000”</p></li>
+</ul>
+<dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>: = 2 parameters separated by “:”, like “n0:n1”<ul>
+<li><p>n0 = “sock” for sockets linux, used by systec and peak</p></li>
+<li><p>n1 = CAN port number on the module, can be prefixed with “can”</p></li>
+<li><p>ex.: “sock:can1” speaks to port 1 on systec or peak module</p></li>
+<li><p>ex.: “sock:1” works as well</p></li>
+</ul>
+</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">parameters</span></code>: one parameter: “p0”, positive integer<ul>
+<li><p>”Unspecified” (or empty): using defaults = “125000” // params missing</p></li>
+<li><p>p0: bitrate: 50000, 100000, 125000, 250000, 500000, 1000000 bit/s, other values might be allowed by the module</p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+<p><p>dont create a main thread for the same bus twice: if it exists already, just configure the board again this protects agains having multiple threads if a given port ports is opened several times: protects against erro/unusual runtime. If the connection is closed, it’s main thread is stopped and joined, and the port is erased from the connection map. when the same port is opened again later on, a (new) main thread is created, and the connection is again added to the map. </p>
+<dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>Was the initialization process successful?</p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N12CSockCanScan11sendMessageEshPhb">
+<span id="_CPPv3N12CSockCanScan11sendMessageEshPhb"></span><span id="_CPPv2N12CSockCanScan11sendMessageEshPhb"></span><span id="CSockCanScan::sendMessage__short.unsigned-c.unsigned-cP.b"></span><span class="target" id="classCSockCanScan_1a485ec8621a98cdacad8e27433e09d919"></span>bool <code class="sig-name descname">sendMessage</code><span class="sig-paren">(</span>short <em>cobID</em>, unsigned char <em>len</em>, unsigned char *<em>message</em>, bool <em>rtr</em> = false<span class="sig-paren">)</span><br /></dt>
+<dd><p>Method that sends a message trough the can bus channel. If the method createBUS was not called before this, sendMessage will fail, as there is no can bus channel to send a message through.</p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>Was the initialisation process successful? </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">cobID</span></code>: Identifier that will be used for the message. </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">len</span></code>: Length of the message. If the message is bigger than 8 characters, it will be split into separate 8 characters messages. </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">message</span></code>: Message to be sent trough the can bus. </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rtr</span></code>: is the message a remote transmission request? </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<p>sockets are used normally, using linux’ built-in CAN protocols:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">mysock</span> <span class="o">=</span> <span class="n">socket</span><span class="p">(</span><span class="n">domain</span><span class="o">=</span><span class="n">PF_CAN</span><span class="p">,</span> <span class="n">type</span><span class="o">=</span><span class="n">SOCK_RAW</span><span class="p">,</span> <span class="n">protocol</span><span class="o">=</span><span class="n">CAN_RAW</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="api-example-windows">
+<h2>API example Windows</h2>
+<p>This is how the CanModule standard API is used for peak for windows.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">libloader</span> <span class="o">=</span> <span class="n">CanModule</span><span class="o">::</span><span class="n">CanLibLoader</span><span class="o">::</span><span class="n">createInstance</span><span class="p">(</span> <span class="s">&quot;pk&quot;</span> <span class="p">);</span> <span class="c1">// windows vendor libs</span>
+<span class="n">cca</span> <span class="o">=</span> <span class="n">libloader</span><span class="o">-&gt;</span><span class="n">openCanBus</span><span class="p">(</span> <span class="s">&quot;pk:can0&quot;</span><span class="p">,</span> <span class="s">&quot;250000&quot;</span> <span class="p">);</span> <span class="c1">// termination on frontpanel</span>
+<span class="n">CanMessage</span> <span class="n">cm</span><span class="p">;</span> <span class="c1">// empty</span>
+<span class="n">cca</span><span class="o">-&gt;</span><span class="n">sendMessage</span><span class="p">(</span> <span class="o">&amp;</span><span class="n">cm</span> <span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="api-example-linux">
+<h2>API example Linux</h2>
+<p>This is how the CanModule standard API is used for peak for linux, USING the EXTENDED PORT IDENTIFIER.
+(also see jira OPCUA-1735).</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">libloader</span> <span class="o">=</span> <span class="n">CanModule</span><span class="o">::</span><span class="n">CanLibLoader</span><span class="o">::</span><span class="n">createInstance</span><span class="p">(</span> <span class="s">&quot;sock&quot;</span> <span class="p">);</span> <span class="c1">// socketcan</span>
+<span class="n">cca</span> <span class="o">=</span> <span class="n">libloader</span><span class="o">-&gt;</span><span class="n">openCanBus</span><span class="p">(</span> <span class="s">&quot;pk:can0:device1234&quot;</span><span class="p">,</span> <span class="s">&quot;250000&quot;</span> <span class="p">);</span> <span class="c1">// termination on frontpanel</span>
+<span class="n">CanMessage</span> <span class="n">cm</span><span class="p">;</span> <span class="c1">// empty</span>
+<span class="n">cca</span><span class="o">-&gt;</span><span class="n">sendMessage</span><span class="p">(</span> <span class="o">&amp;</span><span class="n">cm</span> <span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        «&#160;&#160;<a href="anagate.html">AnaGate</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="../reconnection.html">Reconnection OBSOLETE IS REWRITTEN CURRENTLY</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, CERN, quasar-team, BE-ICS (Michael Ludwig).
+      Last updated on 09-Dec-2020 15:36:47.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.1.2.
+    </div>
+  </body>
+</html>

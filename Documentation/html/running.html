@@ -1,22 +1,21 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<html lang="en">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Running &#8212; CanModule 1.1.9.7 documentation</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Running &#8212; CanModule 2.0.0 documentation</title>
     <link rel="stylesheet" href="_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Reconnection" href="reconnection.html" />
+    <link rel="next" title="Support" href="support.html" />
     <link rel="prev" title="Building" href="building.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
@@ -26,12 +25,13 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="reconnection.html" title="Reconnection"
+          <a href="support.html" title="Support"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="building.html" title="Building"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">CanModule 1.1.9.7 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">CanModule 2.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Running</a></li> 
       </ul>
     </div>  
 
@@ -43,42 +43,42 @@
   <div class="section" id="running">
 <h1>Running<a class="headerlink" href="#running" title="Permalink to this headline">¶</a></h1>
 <p>The proper kernel modules, drivers and libraries for the vendors used through CanModule
-have to be present during runtime. Please also refer to <a class="reference external" href="https://edms.cern.ch/file/2089743/1/CanModuleStatus2019_v4.pptx">Status</a> for an overview over
-runtime conditions (april 2019).</p>
+have to be present during runtime obviously. You will need the <a class="reference external" href="https://gitlab.cern.ch/mludwig/canmodulevendorlibs">CanModuleVendorLibs</a> .</p>
 <div class="section" id="general-dependencies">
 <h2>general dependencies<a class="headerlink" href="#general-dependencies" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>CanModule.dll/.so</li>
-<li>LogIt (cloned from github during cmake)</li>
-<li>boost 1.64.0</li>
-<li>xerces 3.2 (xerces-c_3_2D.dll)</li>
+<li><p>CanModule.dll/.so</p></li>
+<li><p>LogIt (cloned from github during cmake)</p></li>
+<li><p>boost 1.73.0 or similar (depending on your build)</p></li>
+<li><p>xerces 3.2 (xerces-c_3_2D.dll)</p></li>
 </ul>
 </div>
 <div class="section" id="anagate">
 <h2>Anagate<a class="headerlink" href="#anagate" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>libancan.dll/.so  (standard API)</li>
-<li>linux: libAPIRelease64.so, libCANDLLRelease64.so, libAnaGateExtRelease.so, libAnaGateRelease.so</li>
-<li>windows: ANAGATECAN64.dll</li>
+<li><p>libancan.dll/.so  (standard API)</p></li>
+<li><p>linux: libAPIRelease64.so, libCANDLLRelease64.so, libAnaGateExtRelease.so, libAnaGateRelease.so</p></li>
+<li><p>windows: ANAGATECAN64.dll</p></li>
 </ul>
 </div>
 <div class="section" id="systec">
 <h2>Systec<a class="headerlink" href="#systec" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>linux: libsockcan.so (standard API), driver kernel module systec_can.ko and dependent modules</li>
-<li>windows: libstcan.dll (standard API), USBCAN64.dll</li>
+<li><p>linux: libsockcan.so (standard API), driver kernel module systec_can.ko and dependent modules, libsocketcan.so</p></li>
+<li><p>windows: libstcan.dll (standard API), USBCAN64.dll</p></li>
 </ul>
 </div>
 <div class="section" id="peak">
 <h2>Peak<a class="headerlink" href="#peak" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>linux: libsockcan.so (standard API), driver kernel module pcan.ko and dependent modules</li>
-<li>windows: libpkcan.dll (standard API), PKCANBASIC.dll</li>
+<li><p>linux: libsockcan.so (standard API), driver kernel module pcan.ko and dependent modules, libsocketcan.so</p></li>
+<li><p>windows: libpkcan.dll (standard API), PKCANBASIC.dll</p></li>
 </ul>
 </div>
 </div>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
@@ -87,12 +87,14 @@ runtime conditions (april 2019).</p>
 <h3><a href="index.html">Table of Contents</a></h3>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="downloading.html">Downloading</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="objective.html">Objective</a></li>
 <li class="toctree-l1"><a class="reference internal" href="standardApi.html">Standard API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="canports.html">CAN ports</a></li>
+<li class="toctree-l1"><a class="reference internal" href="classestracing.html">Details on classes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="vendors/systec.html">SysTec</a></li>
 <li class="toctree-l1"><a class="reference internal" href="vendors/anagate.html">AnaGate</a></li>
 <li class="toctree-l1"><a class="reference internal" href="vendors/peak.html">Peak</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reconnection.html">Reconnection OBSOLETE IS REWRITTEN CURRENTLY</a></li>
 <li class="toctree-l1"><a class="reference internal" href="logging.html">Logging</a></li>
 <li class="toctree-l1"><a class="reference internal" href="building.html">Building</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Running</a><ul>
@@ -102,7 +104,6 @@ runtime conditions (april 2019).</p>
 <li class="toctree-l2"><a class="reference internal" href="#peak">Peak</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="reconnection.html">Reconnection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="support.html">Support</a></li>
 </ul>
 
@@ -114,17 +115,15 @@ runtime conditions (april 2019).</p>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -136,18 +135,19 @@ runtime conditions (april 2019).</p>
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="reconnection.html" title="Reconnection"
+          <a href="support.html" title="Support"
              >next</a> |</li>
         <li class="right" >
           <a href="building.html" title="Building"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">CanModule 1.1.9.7 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">CanModule 2.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Running</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2019, CERN, BE-ICS (Michael Ludwig).
-      Last updated on 07-Aug-2020 08:37:24.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
+        &#169; Copyright 2020, CERN, quasar-team, BE-ICS (Michael Ludwig).
+      Last updated on 09-Dec-2020 15:31:53.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.1.2.
     </div>
   </body>
 </html>

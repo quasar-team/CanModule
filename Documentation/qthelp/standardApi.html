@@ -1,0 +1,111 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Standard API</title>
+    <link rel="stylesheet" href="_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="next" title="CAN ports" href="canports.html" />
+    <link rel="prev" title="Objective" href="objective.html" /> 
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="index.html">
+          <span>CanModule 2.0.0 documentation</span></a></h1>
+        <h2 class="heading"><span>Standard API</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        «&#160;&#160;<a href="objective.html">Objective</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="canports.html">CAN ports</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <div class="section" id="standard-api">
+<h1>Standard API</h1>
+<p>The user API <strong>hides all implementation/vendor specific details</strong> across implementations (vendors X OSes).</p>
+<div class="section" id="example-snippet">
+<h2>example snippet</h2>
+<p>This is how to choose an implementation and open one port:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">string</span> <span class="n">implementationName</span> <span class="o">=</span> <span class="s">&quot;sock&quot;</span><span class="p">;</span>   <span class="c1">// here: systec or peak through socketCan, linux</span>
+<span class="n">string</span> <span class="n">port</span> <span class="o">=</span> <span class="s">&quot;sock:can0&quot;</span><span class="p">;</span>            <span class="c1">// here: CAN port 0 via socket CAN, linux</span>
+<span class="n">string</span> <span class="n">parameters</span> <span class="o">=</span> <span class="s">&quot;Unspecified&quot;</span><span class="p">;</span>    <span class="c1">// here: use defaults. see documentation for each implementation/vendor. same as &quot;&quot;</span>
+<span class="n">CanMessage</span> <span class="n">cm</span><span class="p">;</span>
+<span class="n">CanModule</span><span class="o">::</span><span class="n">CanLibLoader</span> <span class="o">*</span><span class="n">libloader</span> <span class="o">=</span> <span class="n">CanModule</span><span class="o">::</span><span class="n">CanLibLoader</span><span class="o">::</span><span class="n">createInstance</span><span class="p">(</span> <span class="n">implementationName</span> <span class="p">);</span>
+<span class="n">cca</span> <span class="o">=</span> <span class="n">libloader</span><span class="o">-&gt;</span><span class="n">openCanBus</span><span class="p">(</span> <span class="n">port</span><span class="p">,</span> <span class="n">parameters</span> <span class="p">);</span>
+
+<span class="n">cca</span><span class="o">-&gt;</span><span class="n">setReconnectBehavior</span><span class="p">(</span> <span class="n">CanModule</span><span class="o">::</span><span class="n">ReconnectAutoCondition</span><span class="o">::</span><span class="n">sendFail</span><span class="p">,</span> <span class="n">CanModule</span><span class="o">::</span><span class="n">ReconnectAction</span><span class="o">::</span><span class="n">singleBus</span> <span class="p">);</span>
+<span class="n">cca</span><span class="o">-&gt;</span><span class="n">canMessageCame</span><span class="p">.</span><span class="n">connect</span><span class="p">(</span> <span class="o">&amp;</span><span class="n">onMessageRcvd</span> <span class="p">);</span> <span class="c1">// connect a reception handler</span>
+<span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">br</span> <span class="o">=</span> <span class="n">cca</span><span class="o">-&gt;</span><span class="n">getPortBitrate</span><span class="p">();</span>       <span class="c1">// make sure we know the bitrate as it was set</span>
+
+<span class="n">cca</span><span class="o">-&gt;</span><span class="n">sendMessage</span><span class="p">(</span> <span class="o">&amp;</span><span class="n">cm</span> <span class="p">);</span>
+
+<span class="n">CanStatistics</span> <span class="n">stats</span><span class="p">;</span>
+<span class="n">cca</span><span class="o">-&gt;</span><span class="n">getStatistics</span><span class="p">(</span> <span class="n">stats</span> <span class="p">);</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span>
+      <span class="o">&lt;&lt;</span> <span class="s">&quot; timeSinceOpened= &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">stats</span><span class="p">.</span><span class="n">timeSinceOpened</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; ms&quot;</span>
+      <span class="o">&lt;&lt;</span> <span class="s">&quot; timeSinceReceived= &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">stats</span><span class="p">.</span><span class="n">timeSinceReceived</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; ms&quot;</span>
+      <span class="o">&lt;&lt;</span> <span class="s">&quot; timeSinceTransmitted= &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">stats</span><span class="p">.</span><span class="n">timeSinceTransmitted</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; ms&quot;</span>
+      <span class="o">&lt;&lt;</span> <span class="s">&quot; stats portStatus= 0x&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">hex</span> <span class="o">&lt;&lt;</span> <span class="n">stats</span><span class="p">.</span><span class="n">portStatus</span><span class="p">()</span>
+      <span class="o">&lt;&lt;</span> <span class="s">&quot; unified port status= 0x&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">hex</span> <span class="o">&lt;&lt;</span> <span class="n">cca</span><span class="o">-&gt;</span><span class="n">getPortStatus</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">dec</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+<span class="p">(...</span> <span class="n">communicate</span><span class="p">...)</span>
+
+<span class="n">libLoader</span><span class="o">-&gt;</span><span class="n">closeCanBus</span><span class="p">(</span> <span class="n">cca</span> <span class="p">);</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Only two strings, “port” and “parameters”, have to defined to communicate with a CAN port for a module from a vendor.</p></li>
+<li><p>a connection handler method must be registered to treat received messages (boost slot connected to boost signal)</p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// connection.h</span>
+<span class="k">class</span> <span class="nc">CONNECTION</span> <span class="p">{</span>
+   <span class="p">(...)</span>
+   <span class="k">public</span><span class="o">:</span>
+      <span class="k">static</span> <span class="kt">void</span> <span class="n">onMessageRcvd</span><span class="p">(</span><span class="k">const</span> <span class="n">CanMsgStruct</span><span class="cm">/*&amp;*/</span> <span class="n">message</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// connection.cpp</span>
+<span class="cm">/* static */</span> <span class="kt">void</span> <span class="n">CONNECTION</span><span class="o">::</span><span class="n">onMessageRcvd</span><span class="p">(</span><span class="k">const</span> <span class="n">CanMsgStruct</span><span class="cm">/*&amp;*/</span> <span class="n">message</span><span class="p">){</span>
+   <span class="n">MYCLASS</span> <span class="o">*</span><span class="n">myObject</span> <span class="o">=</span> <span class="n">MYCLASS</span><span class="o">::</span><span class="n">getMyObject</span><span class="p">(</span> <span class="p">...</span> <span class="p">);</span>
+   <span class="n">myObject</span><span class="o">-&gt;</span><span class="n">processReceivedMessage</span><span class="p">(</span> <span class="n">message</span> <span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>you can take a look at <a href="#id1"><span class="problematic" id="id2">`CANX`_</span></a> for a full multithreaded example using CanModule (CERN, gitlab).</p></li>
+</ul>
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        «&#160;&#160;<a href="objective.html">Objective</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="canports.html">CAN ports</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, CERN, quasar-team, BE-ICS (Michael Ludwig).
+      Last updated on 09-Dec-2020 15:36:47.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.1.2.
+    </div>
+  </body>
+</html>

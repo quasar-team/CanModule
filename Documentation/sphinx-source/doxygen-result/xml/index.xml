@@ -1,0 +1,542 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.8.17">
+  <compound refid="classAnaCanScan" kind="class"><name>AnaCanScan</name>
+    <member refid="classAnaCanScan_1a2ef4dd0b4c07b341597382688b8a2964" kind="variable"><name>m_canPortNumber</name></member>
+    <member refid="classAnaCanScan_1a501c8cb87a6e4a11b526840f052ec028" kind="variable"><name>m_canIPAddress</name></member>
+    <member refid="classAnaCanScan_1ae2d7c7a9b314adffbde6eafac5a3607e" kind="variable"><name>m_baudRate</name></member>
+    <member refid="classAnaCanScan_1a140c655eb7afe156add0edbd93ca2789" kind="variable"><name>m_idCanScanThread</name></member>
+    <member refid="classAnaCanScan_1adea6b9e3f699ae412a8fc532a3eb9a48" kind="variable"><name>m_canCloseDevice</name></member>
+    <member refid="classAnaCanScan_1ad515df0b16ec1a2877282f54c0733a98" kind="variable"><name>m_busName</name></member>
+    <member refid="classAnaCanScan_1a84c4a44bd26c3e3f21288f3abeba8326" kind="variable"><name>m_busParameters</name></member>
+    <member refid="classAnaCanScan_1a581830a4a70cee6b31e3e895d669a9be" kind="variable"><name>m_UcanHandle</name></member>
+    <member refid="classAnaCanScan_1a862310267c2415fa9afb401402fa7b57" kind="variable"><name>m_statistics</name></member>
+    <member refid="classAnaCanScan_1a2ef809f84d976b6f453049a7298760fe" kind="variable"><name>m_timeout</name></member>
+    <member refid="classAnaCanScan_1a39ab4f1c865bef7349992abd4d91da1d" kind="variable"><name>st_logItHandleAnagate</name></member>
+    <member refid="classAnaCanScan_1a71e415a2fec462b991777ca38a9797cc" kind="variable"><name>st_canHandleMap</name></member>
+    <member refid="classAnaCanScan_1a3ff66979e02a0904488365ec412fc994" kind="variable"><name>m_reconnectInProgress_map</name></member>
+    <member refid="classAnaCanScan_1af6c27ae08034c5da64a54de29e2e875e" kind="function"><name>AnaCanScan</name></member>
+    <member refid="classAnaCanScan_1af05ec5dfd6ac56764c6db8e721648b75" kind="function"><name>AnaCanScan</name></member>
+    <member refid="classAnaCanScan_1acf15b51af8c83b38115f83b343eaf2d6" kind="function"><name>operator=</name></member>
+    <member refid="classAnaCanScan_1a2c8256b5096aa1351fbd9f3f2f717180" kind="function"><name>~AnaCanScan</name></member>
+    <member refid="classAnaCanScan_1a92f73e718c24985f247e5522486aace9" kind="function"><name>createBus</name></member>
+    <member refid="classAnaCanScan_1ad45666454318c891d7acd9fe16ae4c49" kind="function"><name>sendMessage</name></member>
+    <member refid="classAnaCanScan_1a75c1a41d3e8ed31b39e2813596358472" kind="function"><name>sendMessage</name></member>
+    <member refid="classAnaCanScan_1a345abb2f9712275425f4af8eb98cbd38" kind="function"><name>sendRemoteRequest</name></member>
+    <member refid="classAnaCanScan_1ad4576bc409a954c888a6fd7f06ca697f" kind="function"><name>getStatistics</name></member>
+    <member refid="classAnaCanScan_1a7ba68ea800d7a6837b6bc808d473323d" kind="function"><name>statisticsOnRecieve</name></member>
+    <member refid="classAnaCanScan_1af9a44b6ac914643225e2e61ca7a52f4c" kind="function"><name>callbackOnRecieve</name></member>
+    <member refid="classAnaCanScan_1a7cbad1b8b5c44282c86bfcfda5464b8f" kind="function"><name>setConnectWaitTime</name></member>
+    <member refid="classAnaCanScan_1a4c115df4a8755c0fd70030ae457af24c" kind="function"><name>getPortStatus</name></member>
+    <member refid="classAnaCanScan_1a8618662dac4627418ed9c69442f51714" kind="function"><name>getPortBitrate</name></member>
+    <member refid="classAnaCanScan_1a0b9879988a65b60c9f9abc7c88ce6993" kind="function"><name>setReconnectBehavior</name></member>
+    <member refid="classAnaCanScan_1a6b617410ab9dcbb9c89302cc2ffd78c0" kind="function"><name>setReconnectReceptionTimeout</name></member>
+    <member refid="classAnaCanScan_1ae986496d224081758e5bd2eca0b343c5" kind="function"><name>setReconnectFailedSendCount</name></member>
+    <member refid="classAnaCanScan_1a74073d663dd44148033b3d6d15428ea9" kind="function"><name>getReconnectCondition</name></member>
+    <member refid="classAnaCanScan_1a6ad398dd6aec952c19165899abd48b8a" kind="function"><name>getReconnectAction</name></member>
+    <member refid="classAnaCanScan_1ad4a01934370aa2e9ee72bd31406e2752" kind="function"><name>canMessageToString</name></member>
+    <member refid="classAnaCanScan_1a9ebdd69b0b5f2e43b152fde44dfbd543" kind="function"><name>showAnaCanScanObjectMap</name></member>
+    <member refid="classAnaCanScan_1abf8809be00bdc2f39344ec72cf66514c" kind="function"><name>reconnectAllPorts</name></member>
+    <member refid="classAnaCanScan_1a3e2635663ebdfac68591d6a0577fa951" kind="function"><name>addCanHandleOfPortIp</name></member>
+    <member refid="classAnaCanScan_1a1b62497ac5f0edcf9895c9f8cfad6b50" kind="function"><name>deleteCanHandleOfPortIp</name></member>
+    <member refid="classAnaCanScan_1a7bf29c3cb20f59bca41d581e4d8c9c04" kind="function"><name>getCanHandleOfPortIp</name></member>
+    <member refid="classAnaCanScan_1a04a0124990e52b55b8c1046709ccb2d9" kind="function"><name>setIpReconnectInProgress</name></member>
+    <member refid="classAnaCanScan_1afeaf22bfd209035e9ad9ac3111c6ba65" kind="function"><name>isIpReconnectInProgress</name></member>
+    <member refid="classAnaCanScan_1aedcf208c8b79a297650bb2790884a79d" kind="function"><name>reconnectThisPort</name></member>
+    <member refid="classAnaCanScan_1aaa001b34e6ee0a27295239f951b7b879" kind="function"><name>sendErrorCode</name></member>
+    <member refid="classAnaCanScan_1a23bc4d0b7c2fbb29cc6ec513d060d56e" kind="function"><name>ipAdress</name></member>
+    <member refid="classAnaCanScan_1aa7198f11bf94e97b26855fecdbcc85ed" kind="function"><name>canPortNumber</name></member>
+    <member refid="classAnaCanScan_1a9ce965955bb5eba734ed36b81945cb74" kind="function"><name>handle</name></member>
+    <member refid="classAnaCanScan_1ad917f9cda15bbf9dd9abe6417be5a5eb" kind="function"><name>configureCanBoard</name></member>
+    <member refid="classAnaCanScan_1a428d6c62f3a2d6b4297898593961696b" kind="function"><name>connectReceptionHandler</name></member>
+    <member refid="classAnaCanScan_1ad94121f1933d50cafa52d625ee435f6c" kind="function"><name>openCanPort</name></member>
+    <member refid="classAnaCanScan_1af1deaf420c98dcdc4687f481fd4d9a08" kind="function"><name>reconnect</name></member>
+    <member refid="classAnaCanScan_1a6eec29a421ec4af879143379833ec676" kind="function"><name>errorCodeToString</name></member>
+    <member refid="classAnaCanScan_1a4631538bddfbe61637ea5ed0071b780f" kind="function"><name>stopBus</name></member>
+    <member refid="classAnaCanScan_1ae7ab2706bb4cd5e02409db38e73dbb3e" kind="function"><name>eraseReceptionHandlerFromMap</name></member>
+  </compound>
+  <compound refid="structAnaCanScan_1_1ANAGATE__PORTDEF__t" kind="struct"><name>AnaCanScan::ANAGATE_PORTDEF_t</name>
+    <member refid="structAnaCanScan_1_1ANAGATE__PORTDEF__t_1a3bd14d317f470ae619d41105908436a0" kind="variable"><name>port</name></member>
+    <member refid="structAnaCanScan_1_1ANAGATE__PORTDEF__t_1a6ad8dd52dfbbfe170f3c5e0f4e20a49d" kind="variable"><name>ip</name></member>
+  </compound>
+  <compound refid="classCanModule_1_1CanLibLoader" kind="class"><name>CanModule::CanLibLoader</name>
+    <member refid="classCanModule_1_1CanLibLoader_1af891a85f28376052c3f4b22d97eb3ac2" kind="variable"><name>lh</name></member>
+    <member refid="classCanModule_1_1CanLibLoader_1a63bf9755c345afe6286d6751337806d6" kind="variable"><name>m_libName</name></member>
+    <member refid="classCanModule_1_1CanLibLoader_1aa303c1dd64affa5c27f707e0306786a0" kind="function"><name>CanLibLoader</name></member>
+    <member refid="classCanModule_1_1CanLibLoader_1a2443baffbe92cd107d09ea09e6cb7b28" kind="function"><name>dynamicallyLoadLib</name></member>
+    <member refid="classCanModule_1_1CanLibLoader_1a69dc0bf543d395f60bb8701339f99e29" kind="function"><name>createCanAccess</name></member>
+    <member refid="classCanModule_1_1CanLibLoader_1aaf19503282f3fe164c434674721c4972" kind="function"><name>~CanLibLoader</name></member>
+    <member refid="classCanModule_1_1CanLibLoader_1aaac995d89efdcf2b673cbd3e678be55b" kind="function"><name>openCanBus</name></member>
+    <member refid="classCanModule_1_1CanLibLoader_1acd7d3af103bb72d5bd18737333d682f4" kind="function"><name>closeCanBus</name></member>
+    <member refid="classCanModule_1_1CanLibLoader_1a6fdf0514c73c030acd7919cd04c7a89d" kind="function"><name>setLibName</name></member>
+    <member refid="classCanModule_1_1CanLibLoader_1a7b4d0043b9715fce19bca9bb4035df0a" kind="function"><name>getLibName</name></member>
+    <member refid="classCanModule_1_1CanLibLoader_1ab22f43105bfc9cab3c0749b83c867352" kind="function"><name>createInstance</name></member>
+  </compound>
+  <compound refid="classCanModule_1_1CanLibLoaderLin" kind="class"><name>CanModule::CanLibLoaderLin</name>
+    <member refid="classCanModule_1_1CanLibLoaderLin_1a590b2db4fcfa870e005c04b28de4fad6" kind="variable"><name>p_dynamicLibrary</name></member>
+    <member refid="classCanModule_1_1CanLibLoaderLin_1a2704a1d43e18e97223848c28dc5dc6ce" kind="function"><name>CanLibLoaderLin</name></member>
+    <member refid="classCanModule_1_1CanLibLoaderLin_1a91636138f96d42a3a835c2a38bae3ec6" kind="function"><name>~CanLibLoaderLin</name></member>
+    <member refid="classCanModule_1_1CanLibLoaderLin_1aaef852fe6e43d093f58529fab0b2e841" kind="function"><name>dynamicallyLoadLib</name></member>
+    <member refid="classCanModule_1_1CanLibLoaderLin_1a7d222a82ab3f005ebed4927b299fce64" kind="function"><name>createCanAccess</name></member>
+  </compound>
+  <compound refid="classCanModule_1_1CanLibLoaderWin" kind="class"><name>CanModule::CanLibLoaderWin</name>
+    <member refid="classCanModule_1_1CanLibLoaderWin_1a76d6eda73211a94f68dca4cb637394e8" kind="variable"><name>m_pDynamicLibrary</name></member>
+    <member refid="classCanModule_1_1CanLibLoaderWin_1ab8df128060b2e76465da474e4fdc8ad5" kind="function"><name>ErrorExit</name></member>
+    <member refid="classCanModule_1_1CanLibLoaderWin_1a52236485330327832d4a282ea370df54" kind="function"><name>CanLibLoaderWin</name></member>
+    <member refid="classCanModule_1_1CanLibLoaderWin_1a39da78f1fde4fef2b6b17107e6767962" kind="function"><name>~CanLibLoaderWin</name></member>
+    <member refid="classCanModule_1_1CanLibLoaderWin_1a8206b2ad7d352ecb8e119b55d2069bc0" kind="function"><name>dynamicallyLoadLib</name></member>
+    <member refid="classCanModule_1_1CanLibLoaderWin_1adcc42606c727f4ca010ad08719d88a18" kind="function"><name>createCanAccess</name></member>
+  </compound>
+  <compound refid="classCanModule_1_1CanModuleUtils" kind="class"><name>CanModule::CanModuleUtils</name>
+    <member refid="classCanModule_1_1CanModuleUtils_1a535734490dee7c5c0ff0f51cb3875289" kind="function"><name>toString</name></member>
+    <member refid="classCanModule_1_1CanModuleUtils_1aeb2a2ee933f230f2c82cca7e45c7b6ad" kind="function"><name>toHexString</name></member>
+    <member refid="classCanModule_1_1CanModuleUtils_1a9c8d0ca5020cf386c9c4b689e5ef365d" kind="function"><name>fromHexString</name></member>
+  </compound>
+  <compound refid="structCanMsgStruct" kind="struct"><name>CanMsgStruct</name>
+    <member refid="structCanMsgStruct_1a619515aef041e64b78e7e8c33989ddd0" kind="variable"><name>c_id</name></member>
+    <member refid="structCanMsgStruct_1acf3abc93beb936e5f9431ef6ec4568f3" kind="variable"><name>c_ff</name></member>
+    <member refid="structCanMsgStruct_1a3e5add8ae9cdadfcf3f2255d375ec9b3" kind="variable"><name>c_dlc</name></member>
+    <member refid="structCanMsgStruct_1a2e47a33e7bba46b05a8fff29433f047b" kind="variable"><name>c_data</name></member>
+    <member refid="structCanMsgStruct_1a06b9b3e9423f35edfb96df7b04828bba" kind="variable"><name>c_time</name></member>
+    <member refid="structCanMsgStruct_1ad4a78c27262604bacb5720d8633f71c6" kind="variable"><name>c_rtr</name></member>
+  </compound>
+  <compound refid="structCanModule_1_1CanParameters" kind="struct"><name>CanModule::CanParameters</name>
+    <member refid="structCanModule_1_1CanParameters_1a53ce17e16c2a818ffbc05904d9e56e11" kind="variable"><name>m_lBaudRate</name></member>
+    <member refid="structCanModule_1_1CanParameters_1a6dcce5899a28a07c35042c2005fbac03" kind="variable"><name>m_iOperationMode</name></member>
+    <member refid="structCanModule_1_1CanParameters_1ac15d1cfe926f508a2788dab50aed992b" kind="variable"><name>m_iTermination</name></member>
+    <member refid="structCanModule_1_1CanParameters_1a3481b638a47d3a832c6fad761973c9de" kind="variable"><name>m_iHighSpeed</name></member>
+    <member refid="structCanModule_1_1CanParameters_1a0f3653eda77900c9d2450793bd285c29" kind="variable"><name>m_iTimeStamp</name></member>
+    <member refid="structCanModule_1_1CanParameters_1ac4e03899b26e33a3867ee1f0bce674b5" kind="variable"><name>m_iNumberOfDetectedParameters</name></member>
+    <member refid="structCanModule_1_1CanParameters_1a8668831351aaaa0446c75c58073bf357" kind="variable"><name>m_dontReconfigure</name></member>
+    <member refid="structCanModule_1_1CanParameters_1ac364dcf7b4d16af59776d931097010bc" kind="function"><name>CanParameters</name></member>
+    <member refid="structCanModule_1_1CanParameters_1ae3c938ac282acae4e49487cbb8a61133" kind="function"><name>scanParameters</name></member>
+  </compound>
+  <compound refid="classCanModule_1_1CanStatistics" kind="class"><name>CanModule::CanStatistics</name>
+    <member refid="classCanModule_1_1CanStatistics_1aced131fd672bf71b5672117527973253" kind="variable"><name>m_totalTransmitted</name></member>
+    <member refid="classCanModule_1_1CanStatistics_1af5d82367032c4a509d99cdc72b6a7e45" kind="variable"><name>m_totalReceived</name></member>
+    <member refid="classCanModule_1_1CanStatistics_1a4b94f562f6ce5e9057fdae5c24391963" kind="variable"><name>m_transmitted</name></member>
+    <member refid="classCanModule_1_1CanStatistics_1a3cf24ff7fd90d286139fb75a00e146da" kind="variable"><name>m_received</name></member>
+    <member refid="classCanModule_1_1CanStatistics_1a7369a4ae5832050532e99e77831e155c" kind="variable"><name>m_transmittedOctets</name></member>
+    <member refid="classCanModule_1_1CanStatistics_1ace6767d68ba9dca0c0e7f129f33e365c" kind="variable"><name>m_receivedOctets</name></member>
+    <member refid="classCanModule_1_1CanStatistics_1a1150219cfa2865cda60aa3439afc1e69" kind="variable"><name>m_dopen</name></member>
+    <member refid="classCanModule_1_1CanStatistics_1a866146b0fe84bd99460b871b3ebfc593" kind="variable"><name>m_tz</name></member>
+    <member refid="classCanModule_1_1CanStatistics_1afdbcb5fe15fce9f515edc00722d08f93" kind="variable"><name>m_portStatus</name></member>
+    <member refid="classCanModule_1_1CanStatistics_1a83faba43ea2a404e400b681b246f134c" kind="variable"><name>m_internals</name></member>
+    <member refid="classCanModule_1_1CanStatistics_1a8fc1e60237d7ad02bb4648dbef96f3ec" kind="function"><name>CanStatistics</name></member>
+    <member refid="classCanModule_1_1CanStatistics_1a85e6c87ce5285884a0272088178bb8f6" kind="function"><name>beginNewRun</name></member>
+    <member refid="classCanModule_1_1CanStatistics_1a8ec66bd11141579779f143362b70640e" kind="function"><name>computeDerived</name></member>
+    <member refid="classCanModule_1_1CanStatistics_1a0265b75e9e2e16737950b6b5c5662f35" kind="function"><name>onTransmit</name></member>
+    <member refid="classCanModule_1_1CanStatistics_1a82b38a2383bc0ad6b1d306e86b9ef5c6" kind="function"><name>onReceive</name></member>
+    <member refid="classCanModule_1_1CanStatistics_1a62ee3d5dd02a649066747cb2e2339b9d" kind="function"><name>totalTransmitted</name></member>
+    <member refid="classCanModule_1_1CanStatistics_1a5a06575683a46d25b4a1cc7d6859938b" kind="function"><name>totalReceived</name></member>
+    <member refid="classCanModule_1_1CanStatistics_1ad8a95eeeea9fe50c9fe5465b3bde95d9" kind="function"><name>txRate</name></member>
+    <member refid="classCanModule_1_1CanStatistics_1a732233caca87cf1532c9f2869d442d68" kind="function"><name>rxRate</name></member>
+    <member refid="classCanModule_1_1CanStatistics_1a761bffce2db7f24a9dcbc439a95c1e65" kind="function"><name>busLoad</name></member>
+    <member refid="classCanModule_1_1CanStatistics_1a44da075145ae6dd716bcb9432e254ce7" kind="function"><name>timeSinceReceived</name></member>
+    <member refid="classCanModule_1_1CanStatistics_1a82bf9c9ca0e1578dbd962ee3d2e05fa6" kind="function"><name>timeSinceTransmitted</name></member>
+    <member refid="classCanModule_1_1CanStatistics_1a08d5c282de626e89ebf508291d1bde33" kind="function"><name>timeSinceOpened</name></member>
+    <member refid="classCanModule_1_1CanStatistics_1af3f15dedf80e67f1309946632d87198d" kind="function"><name>setTimeSinceOpened</name></member>
+    <member refid="classCanModule_1_1CanStatistics_1a99de404f1b24cee80edfaad7ad1f9499" kind="function"><name>setTimeSinceReceived</name></member>
+    <member refid="classCanModule_1_1CanStatistics_1afe8d43dfb65ee2675ceac1dc84f7eb1a" kind="function"><name>setTimeSinceTransmitted</name></member>
+    <member refid="classCanModule_1_1CanStatistics_1a98dfe419c521921afc6cf48e502f8e9d" kind="function"><name>portStatus</name></member>
+    <member refid="classCanModule_1_1CanStatistics_1a2caa2a77674b36ce4bcf6d4e9423e36f" kind="function"><name>setPortStatus</name></member>
+    <member refid="classCanModule_1_1CanStatistics_1a3e65a8d28a3eeed8b05cdb69e419c445" kind="function"><name>encodeCanModuleStatus</name></member>
+    <member refid="classCanModule_1_1CanStatistics_1ab6755445a7f30386b532514bcf4f2cd3" kind="function"><name>operator=</name></member>
+  </compound>
+  <compound refid="classCanModule_1_1CCanAccess" kind="class"><name>CanModule::CCanAccess</name>
+    <member refid="classCanModule_1_1CCanAccess_1aa8e0e974863874b0e7bbcdb57084c241" kind="variable"><name>canMessageCame</name></member>
+    <member refid="classCanModule_1_1CCanAccess_1a33fbd693f04b4f4e21cee20856c44866" kind="variable"><name>canMessageError</name></member>
+    <member refid="classCanModule_1_1CCanAccess_1a0eff18d10b7ee5d6f86b03898f38f7ca" kind="variable"><name>m_sBusName</name></member>
+    <member refid="classCanModule_1_1CCanAccess_1a484a4f9dc352fe31b4baff0365095705" kind="variable"><name>m_CanParameters</name></member>
+    <member refid="classCanModule_1_1CCanAccess_1abfd40edc34a777a5ff4503a6e8a239d6" kind="variable"><name>m_reconnectCondition</name></member>
+    <member refid="classCanModule_1_1CCanAccess_1a6baf24c56eb715adf55a569d08b12c25" kind="variable"><name>m_reconnectAction</name></member>
+    <member refid="classCanModule_1_1CCanAccess_1abd6b2ab3f6759bfc05c6dc70911eab50" kind="variable"><name>m_timeoutOnReception</name></member>
+    <member refid="classCanModule_1_1CCanAccess_1a74e437526e45192804ca1cffc663d2e2" kind="variable"><name>m_triggerCounter</name></member>
+    <member refid="classCanModule_1_1CCanAccess_1a686ba59e549d1fde3727ab1f88a8c463" kind="variable"><name>m_failedSendCounter</name></member>
+    <member refid="classCanModule_1_1CCanAccess_1aebd1f5d34904ed64d20293d7c385e80c" kind="variable"><name>m_signal_connection</name></member>
+    <member refid="classCanModule_1_1CCanAccess_1aab58c9d55e8430de64046e13100e4893" kind="variable"><name>m_connectionIndex</name></member>
+    <member refid="classCanModule_1_1CCanAccess_1a782b2e9b52ebb49a14307e1f37440490" kind="variable"><name>m_lh</name></member>
+    <member refid="classCanModule_1_1CCanAccess_1a2bb6325281679f955ab32fc18367a7b3" kind="variable"><name>m_logItRemoteInstance</name></member>
+    <member refid="classCanModule_1_1CCanAccess_1a6a9790a2842b40ced0ff98e1e171acbc" kind="variable"><name>m_dreceived</name></member>
+    <member refid="classCanModule_1_1CCanAccess_1a7bb4a17c5b05e5b01f59d9d9a0728f8a" kind="variable"><name>m_tz</name></member>
+    <member refid="classCanModule_1_1CCanAccess_1a7c9b87d205b0ec265c972a3303cecda2" kind="function"><name>CCanAccess</name></member>
+    <member refid="classCanModule_1_1CCanAccess_1acfefbc9be2696b1388cf6df2bba00aa1" kind="function"><name>sendRemoteRequest</name></member>
+    <member refid="classCanModule_1_1CCanAccess_1a0eeee5c3d48f1102012d1483cbe6e64b" kind="function"><name>createBus</name></member>
+    <member refid="classCanModule_1_1CCanAccess_1aee42ab7fb9e50c02a1812202f7863d8c" kind="function"><name>sendMessage</name></member>
+    <member refid="classCanModule_1_1CCanAccess_1ad0360c49d00ec0ee92cfdd73c2e43935" kind="function"><name>sendMessage</name></member>
+    <member refid="classCanModule_1_1CCanAccess_1ac3f5126ae36d642217425e21696d19ca" kind="function"><name>getBusName</name></member>
+    <member refid="classCanModule_1_1CCanAccess_1a33fe530d070cf35d096e967d543186a4" kind="function"><name>getPortStatus</name></member>
+    <member refid="classCanModule_1_1CCanAccess_1aa8cb67096349fefc6e03aeb33e45ef81" kind="function"><name>getPortBitrate</name></member>
+    <member refid="classCanModule_1_1CCanAccess_1ac96f1cce6beda4309cdfb6651d3ce547" kind="function"><name>~CCanAccess</name></member>
+    <member refid="classCanModule_1_1CCanAccess_1ad3182c83b4c5d7e6aef982c36e731507" kind="function"><name>getStatistics</name></member>
+    <member refid="classCanModule_1_1CCanAccess_1ab5a430fc27073d92c69659bda261b74d" kind="function"><name>initialiseLogging</name></member>
+    <member refid="classCanModule_1_1CCanAccess_1a8210a8161f1987973584b6dda5dc6d7d" kind="function"><name>getLogItInstance</name></member>
+    <member refid="classCanModule_1_1CCanAccess_1af26c9d102638fb96e5e1305f807d148f" kind="function"><name>parseNameAndParameters</name></member>
+    <member refid="classCanModule_1_1CCanAccess_1ae1088edaf5444ff42ee094ae46240cc5" kind="function"><name>setReconnectBehavior</name></member>
+    <member refid="classCanModule_1_1CCanAccess_1a3c902569c0712d165fc7e385e683dc95" kind="function"><name>setReconnectReceptionTimeout</name></member>
+    <member refid="classCanModule_1_1CCanAccess_1a665620fe5924cf87db0589a353d3d148" kind="function"><name>setReconnectFailedSendCount</name></member>
+    <member refid="classCanModule_1_1CCanAccess_1a003566cbcdf4ce8195853bd8049a8800" kind="function"><name>getReconnectCondition</name></member>
+    <member refid="classCanModule_1_1CCanAccess_1aaf2312ff9074ce7a4ec2e7d0a5b6fa16" kind="function"><name>getReconnectAction</name></member>
+    <member refid="classCanModule_1_1CCanAccess_1a9da88ce122d5de04a0235a4682a13dc0" kind="function"><name>reconnectConditionString</name></member>
+    <member refid="classCanModule_1_1CCanAccess_1aa12f64e9e31bd491f39fc3169b1e5025" kind="function"><name>reconnectActionString</name></member>
+    <member refid="classCanModule_1_1CCanAccess_1a79c236a0e2b3e3b183b1c85aab3f5b71" kind="function"><name>hasTimeoutOnReception</name></member>
+    <member refid="classCanModule_1_1CCanAccess_1a067f50699c1ed4b6ee6732eb0078ed0a" kind="function"><name>resetTimeoutOnReception</name></member>
+    <member refid="classCanModule_1_1CCanAccess_1afefee3a90966dd8a01ca471022a7a9cd" kind="function"><name>resetTimeNow</name></member>
+  </compound>
+  <compound refid="structCanModule_1_1Diag_1_1CONNECTION__DIAG__t" kind="struct"><name>CanModule::Diag::CONNECTION_DIAG_t</name>
+    <member refid="structCanModule_1_1Diag_1_1CONNECTION__DIAG__t_1aa5b85c2aa4300d4cd8da18e8b8e32be1" kind="variable"><name>bus</name></member>
+    <member refid="structCanModule_1_1Diag_1_1CONNECTION__DIAG__t_1a94f9b3b1352605e99904352667c013c5" kind="variable"><name>lib</name></member>
+    <member refid="structCanModule_1_1Diag_1_1CONNECTION__DIAG__t_1a2bd7ac2df6af5b06078aa0329db9fd7b" kind="variable"><name>parameter</name></member>
+  </compound>
+  <compound refid="classCSockCanScan" kind="class"><name>CSockCanScan</name>
+    <member refid="classCSockCanScan_1a596ffa46b85d51c580757cab52baead9" kind="variable"><name>m_busMap</name></member>
+    <member refid="classCSockCanScan_1a718ca5a81cc7741192b7d8762b338fdd" kind="variable"><name>m_CanScanThreadRunEnableFlag</name></member>
+    <member refid="classCSockCanScan_1a0020e3c0b07bf14fd3ef9c7d58660869" kind="variable"><name>m_sock</name></member>
+    <member refid="classCSockCanScan_1afe0c7cc23de0ac2d758a07bec4c2e2c8" kind="variable"><name>m_statistics</name></member>
+    <member refid="classCSockCanScan_1ac8e3a91f049a53fb88f6400b5caaf817" kind="variable"><name>m_hCanScanThread</name></member>
+    <member refid="classCSockCanScan_1a91967ed6bf717bcfc5fae356725819bf" kind="variable"><name>m_idCanScanThread</name></member>
+    <member refid="classCSockCanScan_1a01a0096926dc8236ae11077deb5e02a2" kind="variable"><name>m_errorCode</name></member>
+    <member refid="classCSockCanScan_1a1810bdcb6beda833752d4ddb83efde7f" kind="variable"><name>m_channelName</name></member>
+    <member refid="classCSockCanScan_1a47b82a55c47a74e0918378baf82dd45a" kind="variable"><name>m_busName</name></member>
+    <member refid="classCSockCanScan_1aa3406fed8265f9b21ae0b5de89bc3ce2" kind="variable"><name>m_logItHandleSock</name></member>
+    <member refid="classCSockCanScan_1abfb8f5e3726f9675a63f48648afae178" kind="function"><name>CSockCanScan</name></member>
+    <member refid="classCSockCanScan_1a7442798d8f943f85ca710f6f829c9efd" kind="function"><name>CSockCanScan</name></member>
+    <member refid="classCSockCanScan_1afb0a16ec4e702d79d5fe5dfcabfefbdb" kind="function"><name>operator=</name></member>
+    <member refid="classCSockCanScan_1a243f91e993fcc96ddd5308c1425a130c" kind="function"><name>~CSockCanScan</name></member>
+    <member refid="classCSockCanScan_1a4999204ff7166ee992a89b30a118af06" kind="function"><name>sendRemoteRequest</name></member>
+    <member refid="classCSockCanScan_1a879da2908384a8f154120bdd0c60c5aa" kind="function"><name>createBus</name></member>
+    <member refid="classCSockCanScan_1a485ec8621a98cdacad8e27433e09d919" kind="function"><name>sendMessage</name></member>
+    <member refid="classCSockCanScan_1a38110f02c2d12fa9b620ba5ff438a960" kind="function"><name>getStatistics</name></member>
+    <member refid="classCSockCanScan_1ad1caa327a98bc30012d2c5010a98cb05" kind="function"><name>getPortStatus</name></member>
+    <member refid="classCSockCanScan_1ad3404f38a5681bae4c0bbb6054a8ebaf" kind="function"><name>getPortBitrate</name></member>
+    <member refid="classCSockCanScan_1a5120fe6852dd4942e89fc23c3e09b20d" kind="function"><name>getHandler</name></member>
+    <member refid="classCSockCanScan_1a81829633cb836d4a229b4267be2768d2" kind="function"><name>logItHandle</name></member>
+    <member refid="classCSockCanScan_1ab806e1738ba9778c038150f51968839d" kind="function"><name>setReconnectBehavior</name></member>
+    <member refid="classCSockCanScan_1afad122d886579de793f2b7b49e5c6d5f" kind="function"><name>setReconnectReceptionTimeout</name></member>
+    <member refid="classCSockCanScan_1aceab51e91b2c698211e5d563e4449c91" kind="function"><name>setReconnectFailedSendCount</name></member>
+    <member refid="classCSockCanScan_1aa8cb4c89fe3a13bb787c4085f1e994e3" kind="function"><name>getReconnectCondition</name></member>
+    <member refid="classCSockCanScan_1a03594b2fff9c61f37a5f68df2cfec05c" kind="function"><name>getReconnectAction</name></member>
+    <member refid="classCSockCanScan_1ace6f7aa52fe582af6de098895fc91b83" kind="function"><name>emptyCanFrame</name></member>
+    <member refid="classCSockCanScan_1a114206337d501fc78a55d2e3d1f4a22b" kind="function"><name>stopBus</name></member>
+    <member refid="classCSockCanScan_1a623057580187ecb241adf143c64d711c" kind="function"><name>updateInitialError</name></member>
+    <member refid="classCSockCanScan_1a512733f202345e5940460f84539c979a" kind="function"><name>sendErrorMessage</name></member>
+    <member refid="classCSockCanScan_1a4b5f7591bfd27b8770bfb9ac9e406f66" kind="function"><name>clearErrorMessage</name></member>
+    <member refid="classCSockCanScan_1a8bb8fcdb24b2b917258d027e6a468bae" kind="function"><name>configureCanBoard</name></member>
+    <member refid="classCSockCanScan_1aaed83a57ee1b70fff48a1a5ca9655fe6" kind="function"><name>updateBusStatus</name></member>
+    <member refid="classCSockCanScan_1a203a51239f8efc013d4b9df36f271317" kind="function"><name>openCanPort</name></member>
+    <member refid="classCSockCanScan_1a177453d85f24c6b12b84468ac812cf5c" kind="function"><name>errorFrameToString</name></member>
+    <member refid="classCSockCanScan_1a9ac2e2d3f63449865e22c69a60faf53d" kind="function"><name>CanScanControlThread</name></member>
+  </compound>
+  <compound refid="classCanModule_1_1Diag" kind="class"><name>CanModule::Diag</name>
+    <member refid="classCanModule_1_1Diag_1a71e31de7bd89a83e624d15a7a4e7a0c9" kind="variable"><name>CanLibLoader_icount</name></member>
+    <member refid="classCanModule_1_1Diag_1a1f42c5f2717eb1f36f4f85bb93c5a338" kind="variable"><name>CanAccess_icount</name></member>
+    <member refid="classCanModule_1_1Diag_1acbdf0ac17a375b59f6fb0f41c6fdf22a" kind="variable"><name>lh</name></member>
+    <member refid="classCanModule_1_1Diag_1a1f761ca050e1c4f3da1f219218c541c9" kind="variable"><name>port_map</name></member>
+    <member refid="classCanModule_1_1Diag_1a2fb2c9c6a0cd7ad1acd2e505ebde3beb" kind="variable"><name>lib_map</name></member>
+    <member refid="classCanModule_1_1Diag_1aca8bc6fe0248257cbc526f9485c287cb" kind="variable"><name>parameter_map</name></member>
+    <member refid="classCanModule_1_1Diag_1addd2c4afbe8b21115f487085f3226e8d" kind="function"><name>insert_maps</name></member>
+    <member refid="classCanModule_1_1Diag_1aa79c20827b6e33fa35d4106d9aa479b8" kind="function"><name>delete_maps</name></member>
+    <member refid="classCanModule_1_1Diag_1afcea76f7b51b8fa0996b7574abc03c46" kind="function"><name>get_connections</name></member>
+    <member refid="classCanModule_1_1Diag_1a282a54b7181d085ba0abccca8fcb0874" kind="function"><name>Diag</name></member>
+    <member refid="classCanModule_1_1Diag_1a2725bd2ef8f986c94a0f025ac6b95240" kind="function"><name>~Diag</name></member>
+  </compound>
+  <compound refid="classexeccommand__ns_1_1ExecCommand_1_1Displayer" kind="class"><name>execcommand_ns::ExecCommand::Displayer</name>
+    <member refid="classexeccommand__ns_1_1ExecCommand_1_1Displayer_1abb2774f1c0aa2b6c4e77447f8b657dfa" kind="variable"><name>m_os</name></member>
+    <member refid="classexeccommand__ns_1_1ExecCommand_1_1Displayer_1a7aa30b72cba32d984c840662b0ebfdc5" kind="function"><name>Displayer</name></member>
+    <member refid="classexeccommand__ns_1_1ExecCommand_1_1Displayer_1ae52f92efedfe0568f9685f28369fc1b6" kind="function"><name>operator()</name></member>
+  </compound>
+  <compound refid="classexeccommand__ns_1_1ExecCommand" kind="class"><name>execcommand_ns::ExecCommand</name>
+    <member refid="classexeccommand__ns_1_1ExecCommand_1a845d6035374fe25c0c68bea83f64f4b5" kind="typedef"><name>CmdResults</name></member>
+    <member refid="classexeccommand__ns_1_1ExecCommand_1a557d1e18086d1b3edbe91ed2e84c7d73" kind="variable"><name>m_results</name></member>
+    <member refid="classexeccommand__ns_1_1ExecCommand_1aeedf8d30a7dd147e72af0395e15e3463" kind="function"><name>ExecCommand</name></member>
+    <member refid="classexeccommand__ns_1_1ExecCommand_1aa85d0c7383bce43ba756006b64505d23" kind="function"><name>getResults</name></member>
+    <member refid="classexeccommand__ns_1_1ExecCommand_1a9451655efca44adb63da51f6ddcd3ba7" kind="friend"><name>operator&lt;&lt;</name></member>
+  </compound>
+  <compound refid="classCanModule_1_1CanStatistics_1_1Internals" kind="class"><name>CanModule::CanStatistics::Internals</name>
+    <member refid="classCanModule_1_1CanStatistics_1_1Internals_1a344b6c86e9644f8cee1946f08d0d0d2a" kind="variable"><name>m_transmittedPerSec</name></member>
+    <member refid="classCanModule_1_1CanStatistics_1_1Internals_1ad6a0884d188d724c4d43ae06ed4ecc1a" kind="variable"><name>m_receivedPerSec</name></member>
+    <member refid="classCanModule_1_1CanStatistics_1_1Internals_1acee7cde0976a6c9957ec00446e7a3589" kind="variable"><name>m_busLoad</name></member>
+    <member refid="classCanModule_1_1CanStatistics_1_1Internals_1a2aa4f058776d0ccc832479225bc23428" kind="variable"><name>m_observationStart</name></member>
+    <member refid="classCanModule_1_1CanStatistics_1_1Internals_1a6fa5715f28aee4207af35058a708fc22" kind="variable"><name>m_state</name></member>
+  </compound>
+  <compound refid="classMockCanAccess" kind="class"><name>MockCanAccess</name>
+    <member refid="classMockCanAccess_1ae581d0d291f4717be3887ff63ebca063" kind="variable"><name>m_statistics</name></member>
+    <member refid="classMockCanAccess_1aa8c1a3282b1ec8a2295faaac6c067824" kind="variable"><name>m_baudRate</name></member>
+    <member refid="classMockCanAccess_1a29a88ae9112fba3f4176091425d8bc9d" kind="variable"><name>st_CCanAccess_icount</name></member>
+    <member refid="classMockCanAccess_1a5a5c76c0d3ba4276e98f56f81f8116a3" kind="function"><name>MockCanAccess</name></member>
+    <member refid="classMockCanAccess_1a87261ff4a42e3b4d0f02939e7adc39d3" kind="function"><name>~MockCanAccess</name></member>
+    <member refid="classMockCanAccess_1abd2f1e23104ec8dd5dde7bebce78efc8" kind="function"><name>MockCanAccess</name></member>
+    <member refid="classMockCanAccess_1a20469d64d4d207c793140d46f61ad874" kind="function"><name>operator=</name></member>
+    <member refid="classMockCanAccess_1aa0b0694c0fa6409136eaa213fe129e61" kind="function"><name>createBus</name></member>
+    <member refid="classMockCanAccess_1a584734691bc9d4d49c5ccb795ab5d526" kind="function"><name>sendRemoteRequest</name></member>
+    <member refid="classMockCanAccess_1a95856b7b3ac143d7c5bd7bd807c06fd5" kind="function"><name>sendMessage</name></member>
+    <member refid="classMockCanAccess_1a73d7565174206d2c58f81040a6438541" kind="function"><name>getStatistics</name></member>
+    <member refid="classMockCanAccess_1a33b2dab953237d0e302eaa82d08a923b" kind="function"><name>initialiseLogging</name></member>
+    <member refid="classMockCanAccess_1a76b9aba43928afc77b9ef25f0289d0a7" kind="function"><name>setReconnectBehavior</name></member>
+    <member refid="classMockCanAccess_1ac626da0d02537e59c9d4bf9c631cec1b" kind="function"><name>setReconnectReceptionTimeout</name></member>
+    <member refid="classMockCanAccess_1abfb4be10500a4960b163433b5c06d22f" kind="function"><name>setReconnectFailedSendCount</name></member>
+    <member refid="classMockCanAccess_1ac34bb818b8f9dbc5d3c9f44cdf4cf9dd" kind="function"><name>getReconnectCondition</name></member>
+    <member refid="classMockCanAccess_1a489f003ba0c428037c5530f475c7c2f6" kind="function"><name>getReconnectAction</name></member>
+    <member refid="classMockCanAccess_1a24e126b0ab5c70464a05ffa7286b91e1" kind="function"><name>getPortStatus</name></member>
+    <member refid="classMockCanAccess_1a198bd6f880c8b12c9aa98584b1c30097" kind="function"><name>getPortBitrate</name></member>
+    <member refid="classMockCanAccess_1aa7b4edb24afec475727619a3f2e1f444" kind="function"><name>getCanMessageDataAsString</name></member>
+  </compound>
+  <compound refid="structudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1_1PEAK__device__t" kind="struct"><name>udevanalyserforpeak_ns::UdevAnalyserForPeak::PEAK_device_t</name>
+    <member refid="structudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1_1PEAK__device__t_1aefdb41c5f4c5d5f097143f5a2801e0d8" kind="variable"><name>link</name></member>
+    <member refid="structudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1_1PEAK__device__t_1aef8fb355e35084f8719b89b7815c998f" kind="variable"><name>localCanPort</name></member>
+    <member refid="structudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1_1PEAK__device__t_1a8772a7ff45b2b0c303fc9df95b810299" kind="variable"><name>systemDeviceIndex</name></member>
+    <member refid="structudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1_1PEAK__device__t_1ad38c81f9ab8101e037fec4ceadb99681" kind="variable"><name>peakDriverNumber</name></member>
+    <member refid="structudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1_1PEAK__device__t_1ac29ee824c7e4d8441a815af4c0523f6a" kind="variable"><name>deviceID</name></member>
+    <member refid="structudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1_1PEAK__device__t_1a10aab83a9d849599afb6ffcb75670e6b" kind="variable"><name>socketNumber</name></member>
+  </compound>
+  <compound refid="classPKCanScan" kind="class"><name>PKCanScan</name>
+    <member refid="classPKCanScan_1ade2df2a66357db34e6df07abb02ac4ac" kind="variable"><name>m_busMap</name></member>
+    <member refid="classPKCanScan_1ae77567d34d33ec9576a7e4eebd0c1f09" kind="variable"><name>m_logItHandlePk</name></member>
+    <member refid="classPKCanScan_1a03eec54c44937d843f48b2b1a086b37b" kind="variable"><name>m_statistics</name></member>
+    <member refid="classPKCanScan_1a1c361b38cbc6016192fbcd9a6d81236c" kind="variable"><name>m_busStatus</name></member>
+    <member refid="classPKCanScan_1abf46ef73d86a3ab7212e6484d35cd92b" kind="variable"><name>m_CanScanThreadRunEnableFlag</name></member>
+    <member refid="classPKCanScan_1a84e9c4874e065b79d5600c0a5f9f7877" kind="variable"><name>m_baudRate</name></member>
+    <member refid="classPKCanScan_1a4a881ec178b83b4a8937180d45738a2e" kind="variable"><name>m_busName</name></member>
+    <member refid="classPKCanScan_1aa12640926d5f9f2e72f728dc084ace80" kind="variable"><name>m_busParameters</name></member>
+    <member refid="classPKCanScan_1a4b662f651cf1bffd217aee603f9751a9" kind="variable"><name>m_pkCanHandle</name></member>
+    <member refid="classPKCanScan_1a169a32c5961996acbd55aa5c12118de0" kind="variable"><name>m_hCanScanThread</name></member>
+    <member refid="classPKCanScan_1a5ba2a765e250376fde32db88272339d6" kind="variable"><name>m_idCanScanThread</name></member>
+    <member refid="classPKCanScan_1adfc8b4e20f4548295a99af69bf1888d5" kind="function"><name>PKCanScan</name></member>
+    <member refid="classPKCanScan_1aa323b8cf8e476c7dfec2719756f25962" kind="function"><name>PKCanScan</name></member>
+    <member refid="classPKCanScan_1a7a5e5fe4cb8b99c64c3908f3143a8f1c" kind="function"><name>operator=</name></member>
+    <member refid="classPKCanScan_1a924778bdca171eb7f3f597dfe9f99fb4" kind="function"><name>~PKCanScan</name></member>
+    <member refid="classPKCanScan_1a565d5200fe4c139796bd073c6296208f" kind="function"><name>createBus</name></member>
+    <member refid="classPKCanScan_1a48a2e9ba00dae1b1fe01f7b095430503" kind="function"><name>sendMessage</name></member>
+    <member refid="classPKCanScan_1af7e22b4a484de11ccaea060ad0adb47d" kind="function"><name>sendRemoteRequest</name></member>
+    <member refid="classPKCanScan_1a2ef38527fb5009c43487fccbbe4694ba" kind="function"><name>getStatistics</name></member>
+    <member refid="classPKCanScan_1aae31de6a82fcacc8ef3f581aff5305fc" kind="function"><name>getPortStatus</name></member>
+    <member refid="classPKCanScan_1a0d76eac41bbcbff75bd690c3b7f289f6" kind="function"><name>getPortBitrate</name></member>
+    <member refid="classPKCanScan_1a077b19a57357437f6c2e6ce00030a698" kind="function"><name>getErrorMessage</name></member>
+    <member refid="classPKCanScan_1a6c53d03956f54ac706a556be4dcbfe1a" kind="function"><name>logItHandle</name></member>
+    <member refid="classPKCanScan_1abbc20782e1ebbd9cb552a957a3196561" kind="function"><name>setReconnectBehavior</name></member>
+    <member refid="classPKCanScan_1a5b908a0bc16dae74b88b6feed7eea272" kind="function"><name>setReconnectReceptionTimeout</name></member>
+    <member refid="classPKCanScan_1a3471105853a5036dd8a3f421c67de628" kind="function"><name>setReconnectFailedSendCount</name></member>
+    <member refid="classPKCanScan_1a4ae1f1cfd3e566a903b79f2502fe8752" kind="function"><name>getReconnectCondition</name></member>
+    <member refid="classPKCanScan_1a00c1fa5d1abd77601c46669df80b6fba" kind="function"><name>getReconnectAction</name></member>
+    <member refid="classPKCanScan_1a53471be1a2b2b34afc091e90bfcd29fb" kind="function"><name>getHandle</name></member>
+    <member refid="classPKCanScan_1a35ccc4082d56a736abb34d0c289c5a96" kind="function"><name>sendErrorCode</name></member>
+    <member refid="classPKCanScan_1a6fe021ecfdde5af1e7a74668b9819bfb" kind="function"><name>configureCanboard</name></member>
+    <member refid="classPKCanScan_1af7d899c65e6abef105d82a89115fd59b" kind="function"><name>stopBus</name></member>
+    <member refid="classPKCanScan_1a45bd5feda5ccb009775c45bfabe41614" kind="function"><name>CanScanControlThread</name></member>
+  </compound>
+  <compound refid="classSTCanScan" kind="class"><name>STCanScan</name>
+    <member refid="classSTCanScan_1a38531e0fcde0f184eb968a01fb5984c9" kind="variable"><name>m_moduleNumber</name></member>
+    <member refid="classSTCanScan_1ac5e311e695c1a3c810f82b0c21ee3618" kind="variable"><name>m_channelNumber</name></member>
+    <member refid="classSTCanScan_1a8d6dd7c1cbf4a97607909086da6361e1" kind="variable"><name>m_canHandleNumber</name></member>
+    <member refid="classSTCanScan_1add94dcac99b3ba3a17cb3708fd0cd20d" kind="variable"><name>m_UcanHandle</name></member>
+    <member refid="classSTCanScan_1a93abd76cf68726a0bfa4b9d3982ec9aa" kind="variable"><name>m_statistics</name></member>
+    <member refid="classSTCanScan_1add0582f666b4f0a5883311a284a0e9c4" kind="variable"><name>m_baudRate</name></member>
+    <member refid="classSTCanScan_1acf5dfe6c253afa4e08e883f8177e2eb3" kind="variable"><name>m_logItHandleSt</name></member>
+    <member refid="classSTCanScan_1aa1c2f27f78da63fc7d1f542f818b9624" kind="variable"><name>m_busStatus</name></member>
+    <member refid="classSTCanScan_1abd418113d56ef882bb12cd7473d031e1" kind="variable"><name>m_CanScanThreadShutdownFlag</name></member>
+    <member refid="classSTCanScan_1a2a57272e12f97f245e6f204347782bc0" kind="variable"><name>m_hCanScanThread</name></member>
+    <member refid="classSTCanScan_1a8ae65fcef31d4bb84aa5bb8978973f86" kind="variable"><name>m_idCanScanThread</name></member>
+    <member refid="classSTCanScan_1ac3f6c36fec9666c086da47f241f75dba" kind="variable"><name>s_canHandleArray</name></member>
+    <member refid="classSTCanScan_1a310439aeb8688c29fb3fe8faa4a9e198" kind="variable"><name>s_isCanHandleInUseArray</name></member>
+    <member refid="classSTCanScan_1a75fcb8ff51d82d362edb1dd31125fb10" kind="function"><name>STCanScan</name></member>
+    <member refid="classSTCanScan_1a335aaec2300f2b9c31fd0f268014f24d" kind="function"><name>STCanScan</name></member>
+    <member refid="classSTCanScan_1a7c2d148e988e8b7e9df6b4ab0ed2dda1" kind="function"><name>operator=</name></member>
+    <member refid="classSTCanScan_1a2f3398dc992ebd90002c179305c55d54" kind="function"><name>~STCanScan</name></member>
+    <member refid="classSTCanScan_1a28ac80d789b6d4d2bb11526bfaede69e" kind="function"><name>createBus</name></member>
+    <member refid="classSTCanScan_1a45f0ec011022bf58a23e8370bac7f829" kind="function"><name>sendMessage</name></member>
+    <member refid="classSTCanScan_1a2c1de002fa7ace90ef95af00f824c8e4" kind="function"><name>sendRemoteRequest</name></member>
+    <member refid="classSTCanScan_1a4810249805b660c4e914247acbdf45d2" kind="function"><name>getStatistics</name></member>
+    <member refid="classSTCanScan_1a27eabd471d3bb8154dfadb677c66e1d5" kind="function"><name>getPortStatus</name></member>
+    <member refid="classSTCanScan_1a91743fa3da0804c3bf55e40c8c8da9b6" kind="function"><name>getPortBitrate</name></member>
+    <member refid="classSTCanScan_1ab9c50de0ed0386a7826c6bbabafc4117" kind="function"><name>logItHandle</name></member>
+    <member refid="classSTCanScan_1a17bfbbb7ad6c03fc1ec9ef5f6fed0d3f" kind="function"><name>setReconnectBehavior</name></member>
+    <member refid="classSTCanScan_1adca4386c1a008644c27f1d8e7c395272" kind="function"><name>setReconnectReceptionTimeout</name></member>
+    <member refid="classSTCanScan_1a2525cc89387ee92ce7e62be414d3c83e" kind="function"><name>setReconnectFailedSendCount</name></member>
+    <member refid="classSTCanScan_1a01b70015904374f482647fbfb1806b08" kind="function"><name>getReconnectCondition</name></member>
+    <member refid="classSTCanScan_1a471b6a8617a57b974cb71a2dc540d370" kind="function"><name>getReconnectAction</name></member>
+    <member refid="classSTCanScan_1a43454c0bc20eb764cbb4ef3dd5e52cc9" kind="function"><name>sendErrorCode</name></member>
+    <member refid="classSTCanScan_1a8e147c77933e11e9983f4d4e22830b21" kind="function"><name>configureCanBoard</name></member>
+    <member refid="classSTCanScan_1a5f74df7e9615929365b33c08e709e918" kind="function"><name>openCanPort</name></member>
+    <member refid="classSTCanScan_1a9a4da7b1dd74e81e8066894a1a8c051e" kind="function"><name>errorCodeToString</name></member>
+    <member refid="classSTCanScan_1aab42375da764eb0d50dee318cd790646" kind="function"><name>CanScanControlThread</name></member>
+    <member refid="classSTCanScan_1af6cf11abff5d1b39b35ceff9ae857270" kind="function"><name>createInitializationParameters</name></member>
+    <member refid="classSTCanScan_1ae29a23d161c115f173cbdb3a807c895e" kind="function"><name>setCanHandleInUse</name></member>
+    <member refid="classSTCanScan_1a2f2a9aaa3ce2c653a4e1152eb8497493" kind="function"><name>isCanHandleInUse</name></member>
+    <member refid="classSTCanScan_1a50f89ce5fc0b2961937dc8a4b86081f8" kind="function"><name>setCanHandle</name></member>
+    <member refid="classSTCanScan_1a29b4c3c8f29e45f808fbb7528e4593aa" kind="function"><name>getCanHandle</name></member>
+    <member refid="classSTCanScan_1a50337fe307a73461cce620c6cb6b8fe9" kind="function"><name>reconnectAllPorts</name></member>
+  </compound>
+  <compound refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak" kind="class"><name>udevanalyserforpeak_ns::UdevAnalyserForPeak</name>
+    <member refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1a75bf7ffe8139a10addd49083a6a7ac79" kind="variable"><name>m_instance_ptr</name></member>
+    <member refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1a1305c736fdc28c62cfa29144e25d7f3a" kind="variable"><name>m_peak_v</name></member>
+    <member refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1aacad8fc930990cc6d0d47de472022acb" kind="variable"><name>m_logItHandleSock</name></member>
+    <member refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1a0f9f020e963d202faff7a1a114713219" kind="function"><name>getInstance</name></member>
+    <member refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1a7edf6a8b32f9728aacf570a7704e560f" kind="function"><name>peakExtendedIdentifierToSocketCanDevice</name></member>
+    <member refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1a982db3210deb3a9483508f473af4262c" kind="function"><name>showMap</name></member>
+    <member refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1aaf0bf3ac85c7b39a34b8c9430f99f88c" kind="function"><name>UdevAnalyserForPeak</name></member>
+    <member refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1abe2bdf74d2a78b21447fb24b2956d66c" kind="function"><name>UdevAnalyserForPeak</name></member>
+    <member refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1a9120a53396820347617a1a4eba992a97" kind="function"><name>~UdevAnalyserForPeak</name></member>
+    <member refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1acd46c5ec27ddad48e2f32ab65b2ac2be" kind="function"><name>m_createUdevPortMap</name></member>
+    <member refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1aa4c7f266427a299185aa8999d63b381a" kind="function"><name>m_peakDeviceId</name></member>
+    <member refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1a398b71235631eac545a05eb0d03acfcd" kind="function"><name>m_peakSystemDeviceIndex</name></member>
+    <member refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1a0570a23bb2eb7f57930ff4eb8cf7fbaf" kind="function"><name>m_peakLocalCanPort</name></member>
+    <member refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1a591ea665dcb445268404b113473092a1" kind="function"><name>m_peakDriverNumber</name></member>
+    <member refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1a64bc86c641b444e6d6ccfc80d565b74f" kind="function"><name>m_peakDeviceIdFromSystemDeviceIndex</name></member>
+    <member refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1a2b522c5a1624c408d0f1854fba53b066" kind="function"><name>m_peakStructCompare</name></member>
+  </compound>
+  <compound refid="namespaceCanModule" kind="namespace"><name>CanModule</name>
+    <member refid="namespaceCanModule_1a2f4fee79cc7ba53467c2538fe6b9adbb" kind="enum"><name>ReconnectAutoCondition</name></member>
+    <member refid="namespaceCanModule_1a2f4fee79cc7ba53467c2538fe6b9adbbae323a25a871808f9a0df9a72ce954585" kind="enumvalue"><name>sendFail</name></member>
+    <member refid="namespaceCanModule_1a2f4fee79cc7ba53467c2538fe6b9adbbaba350cf15e5a1471109f17351afb401a" kind="enumvalue"><name>timeoutOnReception</name></member>
+    <member refid="namespaceCanModule_1a2f4fee79cc7ba53467c2538fe6b9adbbac7561db7a418dd39b2201dfe110ab4a4" kind="enumvalue"><name>never</name></member>
+    <member refid="namespaceCanModule_1a2062089fa4fa87c8354295f2a8fe31a5" kind="enum"><name>ReconnectAction</name></member>
+    <member refid="namespaceCanModule_1a2062089fa4fa87c8354295f2a8fe31a5a5f768fefafa6db21eee26885afb6163d" kind="enumvalue"><name>singleBus</name></member>
+    <member refid="namespaceCanModule_1a2062089fa4fa87c8354295f2a8fe31a5a319ee2c9d887d55f6bc1941518a5ae76" kind="enumvalue"><name>allBusesOnBridge</name></member>
+    <member refid="namespaceCanModule_1a2062089fa4fa87c8354295f2a8fe31a5a74fa07b834c8e10084ece32c00d9bbbc" kind="enumvalue"><name>hardReset</name></member>
+    <member refid="namespaceCanModule_1aca5babab77e506364d8fb87f20767c3f" kind="typedef"><name>f_canAccess</name></member>
+    <member refid="namespaceCanModule_1a78730a18f59663871883885f3914a2aa" kind="variable"><name>LogItComponentName</name></member>
+    <member refid="namespaceCanModule_1a30152f28b688b7faa77e56732989f4de" kind="variable"><name>mtx</name></member>
+    <member refid="namespaceCanModule_1a3ec3082d7d11a9c1641023cb3f53cbe5" kind="function"><name>convertTimepointToTimeval</name></member>
+    <member refid="namespaceCanModule_1ac10ba397acc9fd9a69de54836bc6ca4a" kind="function"><name>convertTimevalToTimepoint</name></member>
+    <member refid="namespaceCanModule_1a6c0c413c22df9260df29bf5706d7940c" kind="function"><name>CanModulesubtractTimeval</name></member>
+    <member refid="namespaceCanModule_1a6d0711aac0a75de5d2bf6142997a814d" kind="function"><name>currentTimeTimeval</name></member>
+    <member refid="namespaceCanModule_1a6cae4be8d395b496f5f602a5f9714ae1" kind="function"><name>CanModuleerrnoToString</name></member>
+    <member refid="namespaceCanModule_1aca09a34a617d28f8b35699e7933d2599" kind="function"><name>version</name></member>
+    <member refid="namespaceCanModule_1adcce5b3c80f29fba526b9c976746b146" kind="function"><name>__declspec</name></member>
+  </compound>
+  <compound refid="namespaceexeccommand__ns" kind="namespace"><name>execcommand_ns</name>
+  </compound>
+  <compound refid="namespacestd" kind="namespace"><name>std</name>
+  </compound>
+  <compound refid="namespacestd_1_1chrono" kind="namespace"><name>std::chrono</name>
+  </compound>
+  <compound refid="namespaceudevanalyserforpeak__ns" kind="namespace"><name>udevanalyserforpeak_ns</name>
+  </compound>
+  <compound refid="CanMessage_8h" kind="file"><name>CanMessage.h</name>
+    <member refid="CanMessage_8h_1ab1aeab76298263f21dfde5bbdacaf46f" kind="typedef"><name>CanMessage</name></member>
+  </compound>
+  <compound refid="CanModuleUtils_8h" kind="file"><name>CanModuleUtils.h</name>
+  </compound>
+  <compound refid="CanStatistics_8h" kind="file"><name>CanStatistics.h</name>
+    <member refid="CanStatistics_8h_1adbba0f726fc66d7100916c683b7568ae" kind="define"><name>GCC_VERSION</name></member>
+  </compound>
+  <compound refid="CCanAccess_8h" kind="file"><name>CCanAccess.h</name>
+    <member refid="CCanAccess_8h_1ab5f1e478bce31c034108ce1e0113a7d8" kind="define"><name>CanModule_VERSION</name></member>
+    <member refid="CCanAccess_8h_1ad506d1f216984abc94d5a65f33053626" kind="define"><name>MLOG</name></member>
+    <member refid="CCanAccess_8h_1a6d0995692dcb6d1be30395a18d7683ba" kind="define"><name>CANMODULE_STATUS_BP_SOCK</name></member>
+    <member refid="CCanAccess_8h_1a1f1789533d0f909368bb51596939ef5b" kind="define"><name>CANMODULE_STATUS_BP_ANAGATE</name></member>
+    <member refid="CCanAccess_8h_1a3c0a761bfb180463b0185b27edd53af5" kind="define"><name>CANMODULE_STATUS_BP_PEAK</name></member>
+    <member refid="CCanAccess_8h_1af9d1d0a4353efec30879f97d7caebb76" kind="define"><name>CANMODULE_STATUS_BP_SYSTEC</name></member>
+  </compound>
+  <compound refid="ExportDefinition_8h" kind="file"><name>ExportDefinition.h</name>
+    <member refid="ExportDefinition_8h_1a7478c359eb321f7939044e70abfb4cca" kind="define"><name>SHARED_LIB_EXPORT_DEFN</name></member>
+  </compound>
+  <compound refid="VERSION_8h" kind="file"><name>VERSION.h</name>
+  </compound>
+  <compound refid="CanModuleUtils_8cpp" kind="file"><name>CanModuleUtils.cpp</name>
+  </compound>
+  <compound refid="CanStatistics_8cpp" kind="file"><name>CanStatistics.cpp</name>
+  </compound>
+  <compound refid="CCanAccess_8cpp" kind="file"><name>CCanAccess.cpp</name>
+  </compound>
+  <compound refid="AnaCanScan_8cpp" kind="file"><name>AnaCanScan.cpp</name>
+    <member refid="AnaCanScan_8cpp_1a07e042970e18b919d409eb09524d625c" kind="define"><name>DLLEXPORTFLAG</name></member>
+    <member refid="AnaCanScan_8cpp_1a9aa60e1ead64be77ad551e745cbfd4d3" kind="define"><name>WINAPI</name></member>
+    <member refid="AnaCanScan_8cpp_1ac34d62b5ffd4e8e1c3ece118f3f58485" kind="define"><name>MLOGANA</name></member>
+    <member refid="AnaCanScan_8cpp_1a123d03be0edb10af2357fadbbcc7d1e0" kind="variable"><name>anagateReconnectMutex</name></member>
+    <member refid="AnaCanScan_8cpp_1a348494361939b368693ef24a71f3d9bc" kind="variable"><name>g_AnaCanScanObjectMap</name></member>
+    <member refid="AnaCanScan_8cpp_1ae930092b65c48c86b99b5da2178b4692" kind="function"><name>getCanBusAccess</name></member>
+    <member refid="AnaCanScan_8cpp_1ad5698349874e3653b879b5de27311594" kind="function"><name>InternalCallback</name></member>
+  </compound>
+  <compound refid="AnaCanScan_8h" kind="file"><name>AnaCanScan.h</name>
+    <member refid="AnaCanScan_8h_1ad342ac907eb044443153a22f964bf0af" kind="typedef"><name>DWORD</name></member>
+  </compound>
+  <compound refid="pkcan_8cpp" kind="file"><name>pkcan.cpp</name>
+    <member refid="pkcan_8cpp_1a73247195a8f4adaf8cc04e0ac302e045" kind="define"><name>MLOGPK</name></member>
+    <member refid="pkcan_8cpp_1a11d79a171d802cdff9ec12d685d14d57" kind="variable"><name>peakReconnectMutex</name></member>
+    <member refid="pkcan_8cpp_1a0ec23bcfb114109a7d87fb033501f29b" kind="variable"><name>initLibarary</name></member>
+    <member refid="pkcan_8cpp_1a720081fb383c8d118471780c998a8b2e" kind="function"><name>__declspec</name></member>
+  </compound>
+  <compound refid="pkcan_8h" kind="file"><name>pkcan.h</name>
+  </compound>
+  <compound refid="ExecCommand_8cpp" kind="file"><name>ExecCommand.cpp</name>
+  </compound>
+  <compound refid="ExecCommand_8h" kind="file"><name>ExecCommand.h</name>
+  </compound>
+  <compound refid="SockCanScan_8cpp" kind="file"><name>SockCanScan.cpp</name>
+    <member refid="SockCanScan_8cpp_1a9dfd6d593fee1bb51ed35186b0bbb328" kind="define"><name>MLOGSOCK</name></member>
+    <member refid="SockCanScan_8cpp_1a080327294794f326cb96d4e0604d835d" kind="variable"><name>sockReconnectMutex</name></member>
+    <member refid="SockCanScan_8cpp_1a7126885c692bab5fba08fd9700e6a886" kind="function"><name>getCanBusAccess</name></member>
+    <member refid="SockCanScan_8cpp_1a244d0d65d27d30b6118c5f30d2d72579" kind="function"><name>canFrameToString</name></member>
+  </compound>
+  <compound refid="SockCanScan_8h" kind="file"><name>SockCanScan.h</name>
+  </compound>
+  <compound refid="UdevAnalyserForPeak_8cpp" kind="file"><name>UdevAnalyserForPeak.cpp</name>
+  </compound>
+  <compound refid="UdevAnalyserForPeak_8h" kind="file"><name>UdevAnalyserForPeak.h</name>
+  </compound>
+  <compound refid="STCanScan_8cpp" kind="file"><name>STCanScan.cpp</name>
+    <member refid="STCanScan_8cpp_1a08d6d35b7f83e326a37caa39473e6ebe" kind="define"><name>MLOGST</name></member>
+    <member refid="STCanScan_8cpp_1a07e042970e18b919d409eb09524d625c" kind="define"><name>DLLEXPORTFLAG</name></member>
+    <member refid="STCanScan_8cpp_1a9aa60e1ead64be77ad551e745cbfd4d3" kind="define"><name>WINAPI</name></member>
+    <member refid="STCanScan_8cpp_1ae930092b65c48c86b99b5da2178b4692" kind="function"><name>getCanBusAccess</name></member>
+  </compound>
+  <compound refid="STCanScan_8h" kind="file"><name>STCanScan.h</name>
+  </compound>
+  <compound refid="MockCanAccess_8cpp" kind="file"><name>MockCanAccess.cpp</name>
+    <member refid="MockCanAccess_8cpp_1a07e042970e18b919d409eb09524d625c" kind="define"><name>DLLEXPORTFLAG</name></member>
+    <member refid="MockCanAccess_8cpp_1af5a524932d22bba66db40b8d5d33409d" kind="function"><name>getCanBusAccess</name></member>
+  </compound>
+  <compound refid="MockCanAccess_8h" kind="file"><name>MockCanAccess.h</name>
+    <member refid="MockCanAccess_8h_1af8ac2352c89d82a9696dc9dc29ba8b77" kind="define"><name>CAN_ECHO_MSG</name></member>
+    <member refid="MockCanAccess_8h_1ad342ac907eb044443153a22f964bf0af" kind="typedef"><name>DWORD</name></member>
+  </compound>
+  <compound refid="CanLibLoader_8h" kind="file"><name>CanLibLoader.h</name>
+  </compound>
+  <compound refid="CanLibLoaderLin_8h" kind="file"><name>CanLibLoaderLin.h</name>
+  </compound>
+  <compound refid="CanLibLoaderWin_8h" kind="file"><name>CanLibLoaderWin.h</name>
+    <member refid="CanLibLoaderWin_8h_1a8d9ac41ded5e14e0ced0dc41b3fb5258" kind="define"><name>_WINSOCKAPI_</name></member>
+  </compound>
+  <compound refid="CanLibLoader_8cpp" kind="file"><name>CanLibLoader.cpp</name>
+  </compound>
+  <compound refid="CanLibLoaderLin_8cpp" kind="file"><name>CanLibLoaderLin.cpp</name>
+  </compound>
+  <compound refid="CanLibLoaderWin_8cpp" kind="file"><name>CanLibLoaderWin.cpp</name>
+  </compound>
+  <compound refid="Diag_8h" kind="file"><name>Diag.h</name>
+  </compound>
+  <compound refid="Diag_8cpp" kind="file"><name>Diag.cpp</name>
+  </compound>
+  <compound refid="todo" kind="page"><name>todo</name>
+  </compound>
+  <compound refid="dir_0dffaf26f41c2932de490572fa27ee8a" kind="dir"><name>CanInterfaceImplementations/anagate</name>
+  </compound>
+  <compound refid="dir_1f0e3058fad0934718aa0fd5f744cca0" kind="dir"><name>CanInterface</name>
+  </compound>
+  <compound refid="dir_d8737b42f3d78efd22b75182e570f151" kind="dir"><name>CanInterfaceImplementations</name>
+  </compound>
+  <compound refid="dir_9c47e0b3b9d011e29e21289b959af4df" kind="dir"><name>CanLibLoader</name>
+  </compound>
+  <compound refid="dir_00a67c2d395442b12f2c8899a8f35818" kind="dir"><name>Diagnostic</name>
+  </compound>
+  <compound refid="dir_156b6c9c97209fb6dfbd18b16f86aa71" kind="dir"><name>CanInterface/include</name>
+  </compound>
+  <compound refid="dir_b034d01916588ae63fc26e3cce46892f" kind="dir"><name>CanLibLoader/include</name>
+  </compound>
+  <compound refid="dir_0b3df24efd404e60dc41856b4efe9768" kind="dir"><name>Diagnostic/include</name>
+  </compound>
+  <compound refid="dir_98c1fbc2c2efdc411aa492ed06069e68" kind="dir"><name>CanInterfaceImplementations/pkcan</name>
+  </compound>
+  <compound refid="dir_e44444f76afb844dc91bf47cccc5fe2e" kind="dir"><name>CanInterfaceImplementations/sockcan</name>
+  </compound>
+  <compound refid="dir_7f63a5d4fc8928a69cd9ea5d47f1a05a" kind="dir"><name>CanInterface/src</name>
+  </compound>
+  <compound refid="dir_2e83d6e96ab12f42878c7327cbce5a5b" kind="dir"><name>Diagnostic/src</name>
+  </compound>
+  <compound refid="dir_e4a558f8c8fab0d141aa83d8a8b84cc9" kind="dir"><name>CanLibLoader/src</name>
+  </compound>
+  <compound refid="dir_94f0822595a0619afdc56c8990f893f4" kind="dir"><name>CanInterfaceImplementations/systec</name>
+  </compound>
+  <compound refid="dir_556c8bdd0f2926b3feb153961b5ea58c" kind="dir"><name>CanInterfaceImplementations/unitTestMockUpImplementation</name>
+  </compound>
+</doxygenindex>

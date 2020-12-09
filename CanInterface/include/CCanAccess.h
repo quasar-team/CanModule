@@ -235,7 +235,7 @@ public:
 	 * * 5 = NOT_INITIALIZED
 	 * * b3...b27: unused
 	 * * I translate this into a simple bitpattern which is a counter :
-	 * 000 (for OK), 001, 010, 011, 100, 101
+	 * 000(does not occur), 001, 010, 011, 100, 101. Actually 011 means OK therefore. great.
 	 *
 	 * @param peak (windows): see PCANBasic.h:113
 	 * * #define PCAN_ERROR_OK                0x00000U  // No error

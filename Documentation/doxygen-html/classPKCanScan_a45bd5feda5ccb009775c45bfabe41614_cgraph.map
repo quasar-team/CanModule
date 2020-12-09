@@ -1,0 +1,15 @@
+<map id="PKCanScan::CanScanControlThread" name="PKCanScan::CanScanControlThread">
+<area shape="rect" id="node1" title=" " alt="" coords="5,238,211,279"/>
+<area shape="rect" id="node2" href="$classPKCanScan.html#a00c1fa5d1abd77601c46669df80b6fba" title=" " alt="" coords="269,5,501,32"/>
+<area shape="rect" id="node3" href="$classPKCanScan.html#a4ae1f1cfd3e566a903b79f2502fe8752" title=" " alt="" coords="259,56,512,83"/>
+<area shape="rect" id="node4" href="$classCanModule_1_1CCanAccess.html#a79c236a0e2b3e3b183b1c85aab3f5b71" title=" " alt="" coords="290,107,481,149"/>
+<area shape="rect" id="node5" href="$classCanModule_1_1CanStatistics.html#a82b38a2383bc0ad6b1d306e86b9ef5c6" title="dataLength is the user data size (DLC field)" alt="" coords="291,173,479,214"/>
+<area shape="rect" id="node6" href="$classCanModule_1_1CCanAccess.html#aa12f64e9e31bd491f39fc3169b1e5025" title=" " alt="" coords="294,238,477,279"/>
+<area shape="rect" id="node7" href="$classCanModule_1_1CCanAccess.html#a9da88ce122d5de04a0235a4682a13dc0" title=" " alt="" coords="288,303,483,345"/>
+<area shape="rect" id="node8" href="$classCanModule_1_1CCanAccess.html#a067f50699c1ed4b6ee6732eb0078ed0a" title=" " alt="" coords="285,369,485,410"/>
+<area shape="rect" id="node9" href="$classPKCanScan.html#a35ccc4082d56a736abb34d0c289c5a96" title=" " alt="" coords="287,435,484,461"/>
+<area shape="rect" id="node13" href="$classCanModule_1_1CanStatistics.html#a99de404f1b24cee80edfaad7ad1f9499" title=" " alt="" coords="291,486,479,527"/>
+<area shape="rect" id="node10" href="$namespaceCanModule.html#a3ec3082d7d11a9c1641023cb3f53cbe5" title=" " alt="" coords="568,369,787,410"/>
+<area shape="rect" id="node11" href="$namespaceCanModule.html#a6d0711aac0a75de5d2bf6142997a814d" title=" " alt="" coords="560,435,795,461"/>
+<area shape="rect" id="node12" href="$classPKCanScan.html#a077b19a57357437f6c2e6ce00030a698" title=" " alt="" coords="571,485,783,512"/>
+</map>

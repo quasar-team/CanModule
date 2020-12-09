@@ -3,15 +3,14 @@ Running
 =======
 
 The proper kernel modules, drivers and libraries for the vendors used through CanModule 
-have to be present during runtime. Please also refer to `Status`_ for an overview over 
-runtime conditions (april 2019).
+have to be present during runtime obviously. You will need the `CanModuleVendorLibs`_ .
 
 
 general dependencies
 --------------------
 * CanModule.dll/.so
 * LogIt (cloned from github during cmake)
-* boost 1.64.0
+* boost 1.73.0 or similar (depending on your build)
 * xerces 3.2 (xerces-c_3_2D.dll)
 
 Anagate
@@ -22,16 +21,15 @@ Anagate
 
 Systec
 ------
-* linux: libsockcan.so (standard API), driver kernel module systec_can.ko and dependent modules
+* linux: libsockcan.so (standard API), driver kernel module systec_can.ko and dependent modules, libsocketcan.so
 * windows: libstcan.dll (standard API), USBCAN64.dll
 
 Peak
 ----
-* linux: libsockcan.so (standard API), driver kernel module pcan.ko and dependent modules
+* linux: libsockcan.so (standard API), driver kernel module pcan.ko and dependent modules, libsocketcan.so
 * windows: libpkcan.dll (standard API), PKCANBASIC.dll
 
 
-
-.. _Status: https://edms.cern.ch/file/2089743/1/CanModuleStatus2019_v4.pptx
+.. _CanModuleVendorLibs: https://gitlab.cern.ch/mludwig/canmodulevendorlibs
   
   

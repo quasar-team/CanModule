@@ -70,6 +70,7 @@ void Diag::insert_maps( CanLibLoader *lib, CCanAccess *acc, std::string params )
 }
 
 /**
+ * gives back a vector filled with connection details, mostly timestamp related
  * the maps are only used as rvalues in a reentrant method: fine without mutex
  */
 vector<Diag::CONNECTION_DIAG_t> Diag::get_connections(){

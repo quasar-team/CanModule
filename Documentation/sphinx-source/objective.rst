@@ -1,6 +1,6 @@
-==========
+=========
 Objective
-==========
+=========
 
 **CanModule** is a software abstraction layer, written in C++, to simplify integration
 of CAN bridges from different vendors into cmake (C++) projects needing CAN connectivity
@@ -37,20 +37,15 @@ and ethernet (Anagate) bridges**. Flexible datarate bridges (PEAK FD) and other 
 Integration into projects
 -------------------------
 
-In order to use CanModule in your  project/server/code there are two ways 
+CanModule is distributed by source, coming with cmake toolchains for the implementations and OS:
+clone from `CanModuleGithub`_ and integrate it into a cmake build chain.
 
-* by source-clone from `CanModuleGitlab`_ and integrated into a cmake build chain.
-* binaries to copy for other build chains are available CERN-wide from `NexusCan`_ .  
-
-
-
-
+CanModule is a quasar module, but can also be used stand-alone.
 
 .. _AnaGate: http://www.anagate.de/en/products/can-ethernet-gateways.htm
 .. _SysTec: https://www.systec-electronic.com/
 .. _Peak: https://www.peak-system.com/
 
-.. _CanModuleGitlab: https://github.com/quasar-team/CanModule.git
-.. _NexusCan: https://repository.cern.ch/nexus/content/repositories/cern-can/
+.. _CanModuleGithub: https://github.com/quasar-team/CanModule.git
 
 

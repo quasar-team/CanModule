@@ -1,0 +1,144 @@
+\hypertarget{CCanAccess_8h}{}\doxysection{Can\+Interface/include/\+C\+Can\+Access.h File Reference}
+\label{CCanAccess_8h}\index{CanInterface/include/CCanAccess.h@{CanInterface/include/CCanAccess.h}}
+{\ttfamily \#include $<$sys/time.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}boost/bind/bind.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}boost/signals2.\+hpp\char`\"{}}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include \char`\"{}Can\+Message.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Can\+Statistics.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}V\+E\+R\+S\+I\+O\+N.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$Log\+It.\+h$>$}\newline
+Include dependency graph for C\+Can\+Access.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{CCanAccess_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{CCanAccess_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structCanModule_1_1CanParameters}{Can\+Module\+::\+Can\+Parameters}}
+\item 
+class \mbox{\hyperlink{classCanModule_1_1CCanAccess}{Can\+Module\+::\+C\+Can\+Access}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespaceCanModule}{Can\+Module}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{CCanAccess_8h_ab5f1e478bce31c034108ce1e0113a7d8}{Can\+Module\+\_\+\+V\+E\+R\+S\+I\+ON}}~\char`\"{}2.\+0.\+3\char`\"{}
+\item 
+\#define \mbox{\hyperlink{CCanAccess_8h_ad506d1f216984abc94d5a65f33053626}{M\+L\+OG}}(L\+E\+V\+EL,  T\+H\+IS)~L\+OG(Log\+::\+L\+E\+V\+EL) $<$$<$ \+\_\+\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+\_\+ $<$$<$ \char`\"{} \char`\"{} $<$$<$ \mbox{\hyperlink{namespaceCanModule_a78730a18f59663871883885f3914a2aa}{Can\+Module\+::\+Log\+It\+Component\+Name}} $<$$<$ \char`\"{} bus= \char`\"{} $<$$<$ T\+H\+IS-\/$>$get\+Bus\+Name() $<$$<$ \char`\"{} \char`\"{}
+\item 
+\#define \mbox{\hyperlink{CCanAccess_8h_a6d0995692dcb6d1be30395a18d7683ba}{C\+A\+N\+M\+O\+D\+U\+L\+E\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+B\+P\+\_\+\+S\+O\+CK}}~(0x1$<$$<$28)
+\item 
+\#define \mbox{\hyperlink{CCanAccess_8h_a1f1789533d0f909368bb51596939ef5b}{C\+A\+N\+M\+O\+D\+U\+L\+E\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+B\+P\+\_\+\+A\+N\+A\+G\+A\+TE}}~(0x2$<$$<$28)
+\item 
+\#define \mbox{\hyperlink{CCanAccess_8h_a3c0a761bfb180463b0185b27edd53af5}{C\+A\+N\+M\+O\+D\+U\+L\+E\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+B\+P\+\_\+\+P\+E\+AK}}~(0x3$<$$<$28)
+\item 
+\#define \mbox{\hyperlink{CCanAccess_8h_af9d1d0a4353efec30879f97d7caebb76}{C\+A\+N\+M\+O\+D\+U\+L\+E\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+B\+P\+\_\+\+S\+Y\+S\+T\+EC}}~(0x4$<$$<$28)
+\end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{namespaceCanModule_a2f4fee79cc7ba53467c2538fe6b9adbb}{Can\+Module\+::\+Reconnect\+Auto\+Condition}} \{ \mbox{\hyperlink{namespaceCanModule_a2f4fee79cc7ba53467c2538fe6b9adbbae323a25a871808f9a0df9a72ce954585}{Can\+Module\+::\+Reconnect\+Auto\+Condition\+::send\+Fail}} =0, 
+\mbox{\hyperlink{namespaceCanModule_a2f4fee79cc7ba53467c2538fe6b9adbbaba350cf15e5a1471109f17351afb401a}{Can\+Module\+::\+Reconnect\+Auto\+Condition\+::timeout\+On\+Reception}}, 
+\mbox{\hyperlink{namespaceCanModule_a2f4fee79cc7ba53467c2538fe6b9adbbac7561db7a418dd39b2201dfe110ab4a4}{Can\+Module\+::\+Reconnect\+Auto\+Condition\+::never}}
+ \}
+\item 
+enum \mbox{\hyperlink{namespaceCanModule_a2062089fa4fa87c8354295f2a8fe31a5}{Can\+Module\+::\+Reconnect\+Action}} \{ \mbox{\hyperlink{namespaceCanModule_a2062089fa4fa87c8354295f2a8fe31a5a5f768fefafa6db21eee26885afb6163d}{Can\+Module\+::\+Reconnect\+Action\+::single\+Bus}} =0, 
+\mbox{\hyperlink{namespaceCanModule_a2062089fa4fa87c8354295f2a8fe31a5a319ee2c9d887d55f6bc1941518a5ae76}{Can\+Module\+::\+Reconnect\+Action\+::all\+Buses\+On\+Bridge}}, 
+\mbox{\hyperlink{namespaceCanModule_a2062089fa4fa87c8354295f2a8fe31a5a74fa07b834c8e10084ece32c00d9bbbc}{Can\+Module\+::\+Reconnect\+Action\+::hard\+Reset}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const std\+::string \mbox{\hyperlink{namespaceCanModule_a78730a18f59663871883885f3914a2aa}{Can\+Module\+::\+Log\+It\+Component\+Name}} = \char`\"{}Can\+Module\char`\"{}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{CCanAccess_8h_a1f1789533d0f909368bb51596939ef5b}\label{CCanAccess_8h_a1f1789533d0f909368bb51596939ef5b}} 
+\index{CCanAccess.h@{CCanAccess.h}!CANMODULE\_STATUS\_BP\_ANAGATE@{CANMODULE\_STATUS\_BP\_ANAGATE}}
+\index{CANMODULE\_STATUS\_BP\_ANAGATE@{CANMODULE\_STATUS\_BP\_ANAGATE}!CCanAccess.h@{CCanAccess.h}}
+\doxysubsubsection{\texorpdfstring{CANMODULE\_STATUS\_BP\_ANAGATE}{CANMODULE\_STATUS\_BP\_ANAGATE}}
+{\footnotesize\ttfamily \#define C\+A\+N\+M\+O\+D\+U\+L\+E\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+B\+P\+\_\+\+A\+N\+A\+G\+A\+TE~(0x2$<$$<$28)}
+
+implementation specific counter (high nibble of status bitpattern)
+\begin{DoxyItemize}
+\item 0x2$<$$<$28 = anagate (linux, windows) 
+\end{DoxyItemize}
+
+Definition at line 62 of file C\+Can\+Access.\+h.
+
+\mbox{\Hypertarget{CCanAccess_8h_a3c0a761bfb180463b0185b27edd53af5}\label{CCanAccess_8h_a3c0a761bfb180463b0185b27edd53af5}} 
+\index{CCanAccess.h@{CCanAccess.h}!CANMODULE\_STATUS\_BP\_PEAK@{CANMODULE\_STATUS\_BP\_PEAK}}
+\index{CANMODULE\_STATUS\_BP\_PEAK@{CANMODULE\_STATUS\_BP\_PEAK}!CCanAccess.h@{CCanAccess.h}}
+\doxysubsubsection{\texorpdfstring{CANMODULE\_STATUS\_BP\_PEAK}{CANMODULE\_STATUS\_BP\_PEAK}}
+{\footnotesize\ttfamily \#define C\+A\+N\+M\+O\+D\+U\+L\+E\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+B\+P\+\_\+\+P\+E\+AK~(0x3$<$$<$28)}
+
+implementation specific counter (high nibble of status bitpattern)
+\begin{DoxyItemize}
+\item 0x3$<$$<$28 = peak (windows) 
+\end{DoxyItemize}
+
+Definition at line 67 of file C\+Can\+Access.\+h.
+
+\mbox{\Hypertarget{CCanAccess_8h_a6d0995692dcb6d1be30395a18d7683ba}\label{CCanAccess_8h_a6d0995692dcb6d1be30395a18d7683ba}} 
+\index{CCanAccess.h@{CCanAccess.h}!CANMODULE\_STATUS\_BP\_SOCK@{CANMODULE\_STATUS\_BP\_SOCK}}
+\index{CANMODULE\_STATUS\_BP\_SOCK@{CANMODULE\_STATUS\_BP\_SOCK}!CCanAccess.h@{CCanAccess.h}}
+\doxysubsubsection{\texorpdfstring{CANMODULE\_STATUS\_BP\_SOCK}{CANMODULE\_STATUS\_BP\_SOCK}}
+{\footnotesize\ttfamily \#define C\+A\+N\+M\+O\+D\+U\+L\+E\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+B\+P\+\_\+\+S\+O\+CK~(0x1$<$$<$28)}
+
+implementation specific counter (high nibble of status bitpattern)
+\begin{DoxyItemize}
+\item 0x1$<$$<$28 = sock (linux) 
+\end{DoxyItemize}
+
+Definition at line 57 of file C\+Can\+Access.\+h.
+
+\mbox{\Hypertarget{CCanAccess_8h_af9d1d0a4353efec30879f97d7caebb76}\label{CCanAccess_8h_af9d1d0a4353efec30879f97d7caebb76}} 
+\index{CCanAccess.h@{CCanAccess.h}!CANMODULE\_STATUS\_BP\_SYSTEC@{CANMODULE\_STATUS\_BP\_SYSTEC}}
+\index{CANMODULE\_STATUS\_BP\_SYSTEC@{CANMODULE\_STATUS\_BP\_SYSTEC}!CCanAccess.h@{CCanAccess.h}}
+\doxysubsubsection{\texorpdfstring{CANMODULE\_STATUS\_BP\_SYSTEC}{CANMODULE\_STATUS\_BP\_SYSTEC}}
+{\footnotesize\ttfamily \#define C\+A\+N\+M\+O\+D\+U\+L\+E\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+B\+P\+\_\+\+S\+Y\+S\+T\+EC~(0x4$<$$<$28)}
+
+implementation specific counter (high nibble of status bitpattern)
+\begin{DoxyItemize}
+\item 0x4$<$$<$28 = systec (windows) 
+\end{DoxyItemize}
+
+Definition at line 72 of file C\+Can\+Access.\+h.
+
+\mbox{\Hypertarget{CCanAccess_8h_ab5f1e478bce31c034108ce1e0113a7d8}\label{CCanAccess_8h_ab5f1e478bce31c034108ce1e0113a7d8}} 
+\index{CCanAccess.h@{CCanAccess.h}!CanModule\_VERSION@{CanModule\_VERSION}}
+\index{CanModule\_VERSION@{CanModule\_VERSION}!CCanAccess.h@{CCanAccess.h}}
+\doxysubsubsection{\texorpdfstring{CanModule\_VERSION}{CanModule\_VERSION}}
+{\footnotesize\ttfamily \#define Can\+Module\+\_\+\+V\+E\+R\+S\+I\+ON~\char`\"{}2.\+0.\+3\char`\"{}}
+
+
+
+Definition at line 2 of file V\+E\+R\+S\+I\+O\+N.\+h.
+
+\mbox{\Hypertarget{CCanAccess_8h_ad506d1f216984abc94d5a65f33053626}\label{CCanAccess_8h_ad506d1f216984abc94d5a65f33053626}} 
+\index{CCanAccess.h@{CCanAccess.h}!MLOG@{MLOG}}
+\index{MLOG@{MLOG}!CCanAccess.h@{CCanAccess.h}}
+\doxysubsubsection{\texorpdfstring{MLOG}{MLOG}}
+{\footnotesize\ttfamily \#define M\+L\+OG(\begin{DoxyParamCaption}\item[{}]{L\+E\+V\+EL,  }\item[{}]{T\+H\+IS }\end{DoxyParamCaption})~L\+OG(Log\+::\+L\+E\+V\+EL) $<$$<$ \+\_\+\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+\_\+ $<$$<$ \char`\"{} \char`\"{} $<$$<$ \mbox{\hyperlink{namespaceCanModule_a78730a18f59663871883885f3914a2aa}{Can\+Module\+::\+Log\+It\+Component\+Name}} $<$$<$ \char`\"{} bus= \char`\"{} $<$$<$ T\+H\+IS-\/$>$get\+Bus\+Name() $<$$<$ \char`\"{} \char`\"{}}
+
+
+
+Definition at line 51 of file C\+Can\+Access.\+h.
+

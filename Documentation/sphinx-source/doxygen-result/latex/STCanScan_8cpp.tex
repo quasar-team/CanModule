@@ -1,0 +1,75 @@
+\hypertarget{STCanScan_8cpp}{}\doxysection{Can\+Interface\+Implementations/systec/\+S\+T\+Can\+Scan.cpp File Reference}
+\label{STCanScan_8cpp}\index{CanInterfaceImplementations/systec/STCanScan.cpp@{CanInterfaceImplementations/systec/STCanScan.cpp}}
+{\ttfamily \#include \char`\"{}S\+T\+Can\+Scan.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$time.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}Can\+Module\+Utils.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$Log\+It.\+h$>$}\newline
+{\ttfamily \#include $<$sys/time.\+h$>$}\newline
+Include dependency graph for S\+T\+Can\+Scan.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{STCanScan_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{STCanScan_8cpp_a08d6d35b7f83e326a37caa39473e6ebe}{M\+L\+O\+G\+ST}}(L\+E\+V\+EL,  T\+H\+IS)~L\+OG(Log\+::\+L\+E\+V\+EL, T\+H\+IS-\/$>$log\+It\+Handle()) $<$$<$ \+\_\+\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+\_\+ $<$$<$ \char`\"{} \char`\"{} $<$$<$ \char`\"{} systec bus= \char`\"{} $<$$<$ T\+H\+IS-\/$>$get\+Bus\+Name() $<$$<$ \char`\"{} \char`\"{}
+\item 
+\#define \mbox{\hyperlink{STCanScan_8cpp_a07e042970e18b919d409eb09524d625c}{D\+L\+L\+E\+X\+P\+O\+R\+T\+F\+L\+AG}}
+\item 
+\#define \mbox{\hyperlink{STCanScan_8cpp_a9aa60e1ead64be77ad551e745cbfd4d3}{W\+I\+N\+A\+PI}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{MockCanAccess_8cpp_a07e042970e18b919d409eb09524d625c}{D\+L\+L\+E\+X\+P\+O\+R\+T\+F\+L\+AG}} \mbox{\hyperlink{classCanModule_1_1CCanAccess}{C\+Can\+Access}} $\ast$ \mbox{\hyperlink{STCanScan_8cpp_ae930092b65c48c86b99b5da2178b4692}{get\+Can\+Bus\+Access}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{STCanScan_8cpp_a07e042970e18b919d409eb09524d625c}\label{STCanScan_8cpp_a07e042970e18b919d409eb09524d625c}} 
+\index{STCanScan.cpp@{STCanScan.cpp}!DLLEXPORTFLAG@{DLLEXPORTFLAG}}
+\index{DLLEXPORTFLAG@{DLLEXPORTFLAG}!STCanScan.cpp@{STCanScan.cpp}}
+\doxysubsubsection{\texorpdfstring{DLLEXPORTFLAG}{DLLEXPORTFLAG}}
+{\footnotesize\ttfamily \#define D\+L\+L\+E\+X\+P\+O\+R\+T\+F\+L\+AG}
+
+
+
+Definition at line 47 of file S\+T\+Can\+Scan.\+cpp.
+
+\mbox{\Hypertarget{STCanScan_8cpp_a08d6d35b7f83e326a37caa39473e6ebe}\label{STCanScan_8cpp_a08d6d35b7f83e326a37caa39473e6ebe}} 
+\index{STCanScan.cpp@{STCanScan.cpp}!MLOGST@{MLOGST}}
+\index{MLOGST@{MLOGST}!STCanScan.cpp@{STCanScan.cpp}}
+\doxysubsubsection{\texorpdfstring{MLOGST}{MLOGST}}
+{\footnotesize\ttfamily \#define M\+L\+O\+G\+ST(\begin{DoxyParamCaption}\item[{}]{L\+E\+V\+EL,  }\item[{}]{T\+H\+IS }\end{DoxyParamCaption})~L\+OG(Log\+::\+L\+E\+V\+EL, T\+H\+IS-\/$>$log\+It\+Handle()) $<$$<$ \+\_\+\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+\_\+ $<$$<$ \char`\"{} \char`\"{} $<$$<$ \char`\"{} systec bus= \char`\"{} $<$$<$ T\+H\+IS-\/$>$get\+Bus\+Name() $<$$<$ \char`\"{} \char`\"{}}
+
+
+
+Definition at line 37 of file S\+T\+Can\+Scan.\+cpp.
+
+\mbox{\Hypertarget{STCanScan_8cpp_a9aa60e1ead64be77ad551e745cbfd4d3}\label{STCanScan_8cpp_a9aa60e1ead64be77ad551e745cbfd4d3}} 
+\index{STCanScan.cpp@{STCanScan.cpp}!WINAPI@{WINAPI}}
+\index{WINAPI@{WINAPI}!STCanScan.cpp@{STCanScan.cpp}}
+\doxysubsubsection{\texorpdfstring{WINAPI}{WINAPI}}
+{\footnotesize\ttfamily \#define W\+I\+N\+A\+PI}
+
+
+
+Definition at line 48 of file S\+T\+Can\+Scan.\+cpp.
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{STCanScan_8cpp_ae930092b65c48c86b99b5da2178b4692}\label{STCanScan_8cpp_ae930092b65c48c86b99b5da2178b4692}} 
+\index{STCanScan.cpp@{STCanScan.cpp}!getCanBusAccess@{getCanBusAccess}}
+\index{getCanBusAccess@{getCanBusAccess}!STCanScan.cpp@{STCanScan.cpp}}
+\doxysubsubsection{\texorpdfstring{getCanBusAccess()}{getCanBusAccess()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{MockCanAccess_8cpp_a07e042970e18b919d409eb09524d625c}{D\+L\+L\+E\+X\+P\+O\+R\+T\+F\+L\+AG}} \mbox{\hyperlink{classCanModule_1_1CCanAccess}{C\+Can\+Access}}$\ast$ get\+Can\+Bus\+Access (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 52 of file S\+T\+Can\+Scan.\+cpp.
+

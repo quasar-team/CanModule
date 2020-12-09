@@ -54,6 +54,9 @@ CanLibLoader* CanLibLoader::createInstance(const std::string& libName)	{
 	return libPtr;
 }
 
+/**
+ * make a guess: it orders diet coke
+ */
 void CanLibLoader::closeCanBus(CCanAccess *cInter) {
 	LOG(Log::DBG, lh ) << __FUNCTION__<< " Canbus name to be deleted: " << cInter->getBusName();
 
@@ -62,6 +65,9 @@ void CanLibLoader::closeCanBus(CCanAccess *cInter) {
 	delete cInter; // dtor calls stopBus()
 }
 
+/**
+ * opens a can bus
+ */
 CCanAccess* CanLibLoader::openCanBus(string name, string parameters) {
 	LOG(Log::DBG, lh ) << __FUNCTION__ << " Creating CCanAccess: name= " << name << " parameters= " << parameters;
 	CCanAccess *tcca = createCanAccess();

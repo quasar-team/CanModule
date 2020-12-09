@@ -1,0 +1,84 @@
+\hypertarget{SockCanScan_8cpp}{}\doxysection{Can\+Interface\+Implementations/sockcan/\+Sock\+Can\+Scan.cpp File Reference}
+\label{SockCanScan_8cpp}\index{CanInterfaceImplementations/sockcan/SockCanScan.cpp@{CanInterfaceImplementations/sockcan/SockCanScan.cpp}}
+{\ttfamily \#include \char`\"{}Sock\+Can\+Scan.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Udev\+Analyser\+For\+Peak.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$time.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$sys/time.\+h$>$}\newline
+{\ttfamily \#include $<$sys/types.\+h$>$}\newline
+{\ttfamily \#include $<$sys/stat.\+h$>$}\newline
+{\ttfamily \#include $<$sys/socket.\+h$>$}\newline
+{\ttfamily \#include $<$linux/sockios.\+h$>$}\newline
+{\ttfamily \#include $<$sys/ioctl.\+h$>$}\newline
+{\ttfamily \#include $<$sys/uio.\+h$>$}\newline
+{\ttfamily \#include $<$net/if.\+h$>$}\newline
+{\ttfamily \#include $<$linux/can.\+h$>$}\newline
+{\ttfamily \#include $<$linux/can/raw.\+h$>$}\newline
+{\ttfamily \#include $<$linux/can/error.\+h$>$}\newline
+{\ttfamily \#include $<$Can\+Module\+Utils.\+h$>$}\newline
+{\ttfamily \#include $<$Log\+It.\+h$>$}\newline
+Include dependency graph for Sock\+Can\+Scan.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{SockCanScan_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{SockCanScan_8cpp_a9dfd6d593fee1bb51ed35186b0bbb328}{M\+L\+O\+G\+S\+O\+CK}}(L\+E\+V\+EL,  T\+H\+IS)~L\+OG(Log\+::\+L\+E\+V\+EL, T\+H\+IS-\/$>$log\+It\+Handle()) $<$$<$ \+\_\+\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+\_\+ $<$$<$ \char`\"{} sock bus= \char`\"{} $<$$<$ T\+H\+IS-\/$>$get\+Bus\+Name() $<$$<$ \char`\"{} \char`\"{}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classCanModule_1_1CCanAccess}{C\+Can\+Access}} $\ast$ \mbox{\hyperlink{SockCanScan_8cpp_a7126885c692bab5fba08fd9700e6a886}{get\+Can\+Bus\+Access}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+boost\+::mutex \mbox{\hyperlink{SockCanScan_8cpp_a080327294794f326cb96d4e0604d835d}{sock\+Reconnect\+Mutex}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{SockCanScan_8cpp_a9dfd6d593fee1bb51ed35186b0bbb328}\label{SockCanScan_8cpp_a9dfd6d593fee1bb51ed35186b0bbb328}} 
+\index{SockCanScan.cpp@{SockCanScan.cpp}!MLOGSOCK@{MLOGSOCK}}
+\index{MLOGSOCK@{MLOGSOCK}!SockCanScan.cpp@{SockCanScan.cpp}}
+\doxysubsubsection{\texorpdfstring{MLOGSOCK}{MLOGSOCK}}
+{\footnotesize\ttfamily \#define M\+L\+O\+G\+S\+O\+CK(\begin{DoxyParamCaption}\item[{}]{L\+E\+V\+EL,  }\item[{}]{T\+H\+IS }\end{DoxyParamCaption})~L\+OG(Log\+::\+L\+E\+V\+EL, T\+H\+IS-\/$>$log\+It\+Handle()) $<$$<$ \+\_\+\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+\_\+ $<$$<$ \char`\"{} sock bus= \char`\"{} $<$$<$ T\+H\+IS-\/$>$get\+Bus\+Name() $<$$<$ \char`\"{} \char`\"{}}
+
+
+
+Definition at line 51 of file Sock\+Can\+Scan.\+cpp.
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{SockCanScan_8cpp_a7126885c692bab5fba08fd9700e6a886}\label{SockCanScan_8cpp_a7126885c692bab5fba08fd9700e6a886}} 
+\index{SockCanScan.cpp@{SockCanScan.cpp}!getCanBusAccess@{getCanBusAccess}}
+\index{getCanBusAccess@{getCanBusAccess}!SockCanScan.cpp@{SockCanScan.cpp}}
+\doxysubsubsection{\texorpdfstring{getCanBusAccess()}{getCanBusAccess()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classCanModule_1_1CCanAccess}{C\+Can\+Access}}$\ast$ get\+Can\+Bus\+Access (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+This function creates an instance of this class and returns it. It will be loaded trough the dll to access the rest of the code. 
+
+Definition at line 59 of file Sock\+Can\+Scan.\+cpp.
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{SockCanScan_8cpp_a080327294794f326cb96d4e0604d835d}\label{SockCanScan_8cpp_a080327294794f326cb96d4e0604d835d}} 
+\index{SockCanScan.cpp@{SockCanScan.cpp}!sockReconnectMutex@{sockReconnectMutex}}
+\index{sockReconnectMutex@{sockReconnectMutex}!SockCanScan.cpp@{SockCanScan.cpp}}
+\doxysubsubsection{\texorpdfstring{sockReconnectMutex}{sockReconnectMutex}}
+{\footnotesize\ttfamily boost\+::mutex sock\+Reconnect\+Mutex}
+
+
+
+Definition at line 49 of file Sock\+Can\+Scan.\+cpp.
+
+
+
+Referenced by C\+Sock\+Can\+Scan\+::create\+Bus(), and C\+Sock\+Can\+Scan\+::stop\+Bus().
+

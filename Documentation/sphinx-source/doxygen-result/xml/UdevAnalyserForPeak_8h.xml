@@ -1,0 +1,127 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="UdevAnalyserForPeak_8h" kind="file" language="C++">
+    <compoundname>UdevAnalyserForPeak.h</compoundname>
+    <includes local="no">string</includes>
+    <includes local="no">vector</includes>
+    <includes local="no">LogIt.h</includes>
+    <includedby refid="SockCanScan_8cpp" local="yes">CanInterfaceImplementations/sockcan/SockCanScan.cpp</includedby>
+    <includedby refid="UdevAnalyserForPeak_8cpp" local="yes">CanInterfaceImplementations/sockcan/UdevAnalyserForPeak.cpp</includedby>
+    <incdepgraph>
+      <node id="4">
+        <label>LogIt.h</label>
+      </node>
+      <node id="2">
+        <label>string</label>
+      </node>
+      <node id="3">
+        <label>vector</label>
+      </node>
+      <node id="1">
+        <label>CanInterfaceImplementations/sockcan/UdevAnalyserForPeak.h</label>
+        <link refid="UdevAnalyserForPeak_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1">
+        <label>CanInterfaceImplementations/sockcan/UdevAnalyserForPeak.h</label>
+        <link refid="UdevAnalyserForPeak_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>CanInterfaceImplementations/sockcan/UdevAnalyserForPeak.cpp</label>
+        <link refid="UdevAnalyserForPeak_8cpp"/>
+      </node>
+      <node id="2">
+        <label>CanInterfaceImplementations/sockcan/SockCanScan.cpp</label>
+        <link refid="SockCanScan_8cpp"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak" prot="public">udevanalyserforpeak_ns::UdevAnalyserForPeak</innerclass>
+    <innerclass refid="structudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1_1PEAK__device__t" prot="public">udevanalyserforpeak_ns::UdevAnalyserForPeak::PEAK_device_t</innerclass>
+    <innernamespace refid="namespaceudevanalyserforpeak__ns">udevanalyserforpeak_ns</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/>*<sp/>UdevAnalyserForPeak.h</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*<sp/><sp/>Created<sp/>on:<sp/>Mar<sp/>12,<sp/>2020</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>Author:<sp/>mludwig</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>CANMODULE_CANINTERFACEIMPLEMENTATIONS_SOCKCAN_UDEVANALYSERFORPEAK_H_</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CANMODULE_CANINTERFACEIMPLEMENTATIONS_SOCKCAN_UDEVANALYSERFORPEAK_H_</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;vector&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;LogIt.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespaceudevanalyserforpeak__ns" kindref="compound">udevanalyserforpeak_ns</ref><sp/>{</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19" refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak" kindref="compound">UdevAnalyserForPeak</ref><sp/>{</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="21" refid="structudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1_1PEAK__device__t" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="22" refid="structudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1_1PEAK__device__t_1aefdb41c5f4c5d5f097143f5a2801e0d8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::string<sp/><ref refid="structudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1_1PEAK__device__t_1aefdb41c5f4c5d5f097143f5a2801e0d8" kindref="member">link</ref>;</highlight></codeline>
+<codeline lineno="23" refid="structudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1_1PEAK__device__t_1aef8fb355e35084f8719b89b7815c998f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1_1PEAK__device__t_1aef8fb355e35084f8719b89b7815c998f" kindref="member">localCanPort</ref>;<sp/></highlight><highlight class="comment">//<sp/>local:<sp/>i.e.<sp/>can0,<sp/>can1</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24" refid="structudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1_1PEAK__device__t_1a8772a7ff45b2b0c303fc9df95b810299" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1_1PEAK__device__t_1a8772a7ff45b2b0c303fc9df95b810299" kindref="member">systemDeviceIndex</ref>;<sp/></highlight><highlight class="comment">//<sp/>global:<sp/>i.e.<sp/>pcan-usb_pro_fd/0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25" refid="structudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1_1PEAK__device__t_1ad38c81f9ab8101e037fec4ceadb99681" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1_1PEAK__device__t_1ad38c81f9ab8101e037fec4ceadb99681" kindref="member">peakDriverNumber</ref>;<sp/></highlight><highlight class="comment">//<sp/>global:<sp/>i.e.<sp/>pcan33</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26" refid="structudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1_1PEAK__device__t_1ac29ee824c7e4d8441a815af4c0523f6a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1_1PEAK__device__t_1ac29ee824c7e4d8441a815af4c0523f6a" kindref="member">deviceID</ref>;<sp/></highlight><highlight class="comment">//<sp/>global,<sp/>must<sp/>be<sp/>unique<sp/>(serial#),<sp/>i.e.<sp/>devid=9054,<sp/>-1<sp/>if<sp/>not<sp/>found<sp/>for<sp/>secondary<sp/>ports</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27" refid="structudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1_1PEAK__device__t_1a10aab83a9d849599afb6ffcb75670e6b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1_1PEAK__device__t_1a10aab83a9d849599afb6ffcb75670e6b" kindref="member">socketNumber</ref>;</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/><ref refid="structudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1_1PEAK__device__t" kindref="compound">PEAK_device_t</ref>;</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34" refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1a0f9f020e963d202faff7a1a114713219" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak" kindref="compound">UdevAnalyserForPeak</ref>*<sp/><ref refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1a0f9f020e963d202faff7a1a114713219" kindref="member">getInstance</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<sp/>!<ref refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1a75bf7ffe8139a10addd49083a6a7ac79" kindref="member">m_instance_ptr</ref><sp/>)<sp/>{</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//std::cout<sp/>&lt;&lt;<sp/>&quot;creating<sp/>singleton<sp/>for<sp/>UdevAnalyserForPeak<sp/>class&quot;<sp/>&lt;&lt;<sp/>std::endl;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1a75bf7ffe8139a10addd49083a6a7ac79" kindref="member">m_instance_ptr</ref><sp/>=<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/><ref refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1aaf0bf3ac85c7b39a34b8c9430f99f88c" kindref="member">UdevAnalyserForPeak</ref>;</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//std::cout<sp/>&lt;&lt;<sp/>&quot;reusing<sp/>existing<sp/>singleton<sp/>for<sp/>UdevAnalyserForPeak<sp/>class&quot;<sp/>&lt;&lt;<sp/>std::endl;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1a75bf7ffe8139a10addd49083a6a7ac79" kindref="member">m_instance_ptr</ref>;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>std::string<sp/><ref refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1a7edf6a8b32f9728aacf570a7704e560f" kindref="member">peakExtendedIdentifierToSocketCanDevice</ref>(<sp/>std::string<sp/>portId<sp/>);</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1a982db3210deb3a9483508f473af4262c" kindref="member">showMap</ref>();</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>singleton,<sp/>allocated<sp/>at<sp/>compile<sp/>time,<sp/>static.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49" refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1a75bf7ffe8139a10addd49083a6a7ac79" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak" kindref="compound">UdevAnalyserForPeak</ref><sp/>*<ref refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1a75bf7ffe8139a10addd49083a6a7ac79" kindref="member">m_instance_ptr</ref>;</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1aaf0bf3ac85c7b39a34b8c9430f99f88c" kindref="member">UdevAnalyserForPeak</ref>();<sp/></highlight><highlight class="comment">//<sp/>private<sp/>constructor<sp/>singleton</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1aaf0bf3ac85c7b39a34b8c9430f99f88c" kindref="member">UdevAnalyserForPeak</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak" kindref="compound">UdevAnalyserForPeak</ref>&amp;);<sp/></highlight><highlight class="comment">//<sp/>no<sp/>copy</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52" refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1a9120a53396820347617a1a4eba992a97" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1a9120a53396820347617a1a4eba992a97" kindref="member">~UdevAnalyserForPeak</ref>(){};</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>std::vector&lt;PEAK_device_t&gt;<sp/><ref refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1a1305c736fdc28c62cfa29144e25d7f3a" kindref="member">m_peak_v</ref>;</highlight></codeline>
+<codeline lineno="55" refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1aacad8fc930990cc6d0d47de472022acb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>Log::LogComponentHandle<sp/><ref refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1aacad8fc930990cc6d0d47de472022acb" kindref="member">m_logItHandleSock</ref>;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1acd46c5ec27ddad48e2f32ab65b2ac2be" kindref="member">m_createUdevPortMap</ref>();<sp/></highlight><highlight class="comment">//<sp/>udev<sp/>calls<sp/>in<sp/>constructor</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1aa4c7f266427a299185aa8999d63b381a" kindref="member">m_peakDeviceId</ref>(<sp/>std::string<sp/>s<sp/>);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1a398b71235631eac545a05eb0d03acfcd" kindref="member">m_peakSystemDeviceIndex</ref>(<sp/>std::string<sp/>s<sp/>);</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1a0570a23bb2eb7f57930ff4eb8cf7fbaf" kindref="member">m_peakLocalCanPort</ref>(<sp/>std::string<sp/>s<sp/>);</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1a591ea665dcb445268404b113473092a1" kindref="member">m_peakDriverNumber</ref>(<sp/>std::string<sp/>s<sp/>);</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1a64bc86c641b444e6d6ccfc80d565b74f" kindref="member">m_peakDeviceIdFromSystemDeviceIndex</ref>(<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>sd<sp/>);</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1a2b522c5a1624c408d0f1854fba53b066" kindref="member">m_peakStructCompare</ref>(<sp/><ref refid="structudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1_1PEAK__device__t" kindref="compound">PEAK_device_t</ref><sp/>peak1,<sp/><ref refid="structudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1_1PEAK__device__t" kindref="compound">PEAK_device_t</ref><sp/>peak2<sp/>);<sp/></highlight><highlight class="comment">//<sp/>sort<sp/>method</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal">}<sp/></highlight><highlight class="comment">/*<sp/>namespace<sp/>udevanalyserforpeak_ns<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>CANMODULE_CANINTERFACEIMPLEMENTATIONS_SOCKCAN_UDEVANALYSERFORPEAK_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="CanInterfaceImplementations/sockcan/UdevAnalyserForPeak.h"/>
+  </compounddef>
+</doxygen>

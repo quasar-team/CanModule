@@ -41,6 +41,9 @@ protected:
 public:
 	//Will cleanup the loaded dynamic library
 	virtual ~CanLibLoader();
+	/**
+	 * creates an instance
+	 */
 	SHARED_LIB_EXPORT_DEFN static CanLibLoader* createInstance(const std::string& libName);
 
 	SHARED_LIB_EXPORT_DEFN CanModule::CCanAccess * openCanBus(std::string name, std::string parameters);

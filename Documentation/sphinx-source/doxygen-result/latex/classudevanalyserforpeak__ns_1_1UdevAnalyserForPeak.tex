@@ -1,0 +1,363 @@
+\hypertarget{classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak}{}\doxysection{udevanalyserforpeak\+\_\+ns\+::Udev\+Analyser\+For\+Peak Class Reference}
+\label{classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak}\index{udevanalyserforpeak\_ns::UdevAnalyserForPeak@{udevanalyserforpeak\_ns::UdevAnalyserForPeak}}
+
+
+{\ttfamily \#include $<$Udev\+Analyser\+For\+Peak.\+h$>$}
+
+
+
+Collaboration diagram for udevanalyserforpeak\+\_\+ns\+::Udev\+Analyser\+For\+Peak\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=323pt]{classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1_1PEAK__device__t}{P\+E\+A\+K\+\_\+device\+\_\+t}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak}{Udev\+Analyser\+For\+Peak}} $\ast$ \mbox{\hyperlink{classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_a0f9f020e963d202faff7a1a114713219}{get\+Instance}} ()
+\item 
+static std\+::string \mbox{\hyperlink{classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_a7edf6a8b32f9728aacf570a7704e560f}{peak\+Extended\+Identifier\+To\+Socket\+Can\+Device}} (std\+::string port\+Id)
+\item 
+static void \mbox{\hyperlink{classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_a982db3210deb3a9483508f473af4262c}{show\+Map}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_aaf0bf3ac85c7b39a34b8c9430f99f88c}{Udev\+Analyser\+For\+Peak}} ()
+\item 
+\mbox{\hyperlink{classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_abe2bdf74d2a78b21447fb24b2956d66c}{Udev\+Analyser\+For\+Peak}} (const \mbox{\hyperlink{classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak}{Udev\+Analyser\+For\+Peak}} \&)
+\item 
+virtual \mbox{\hyperlink{classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_a9120a53396820347617a1a4eba992a97}{$\sim$\+Udev\+Analyser\+For\+Peak}} ()
+\item 
+void \mbox{\hyperlink{classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_acd46c5ec27ddad48e2f32ab65b2ac2be}{m\+\_\+create\+Udev\+Port\+Map}} ()
+\item 
+unsigned int \mbox{\hyperlink{classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_aa4c7f266427a299185aa8999d63b381a}{m\+\_\+peak\+Device\+Id}} (std\+::string s)
+\item 
+unsigned int \mbox{\hyperlink{classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_a398b71235631eac545a05eb0d03acfcd}{m\+\_\+peak\+System\+Device\+Index}} (std\+::string s)
+\item 
+unsigned int \mbox{\hyperlink{classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_a0570a23bb2eb7f57930ff4eb8cf7fbaf}{m\+\_\+peak\+Local\+Can\+Port}} (std\+::string s)
+\item 
+unsigned int \mbox{\hyperlink{classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_a591ea665dcb445268404b113473092a1}{m\+\_\+peak\+Driver\+Number}} (std\+::string s)
+\item 
+unsigned int \mbox{\hyperlink{classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_a64bc86c641b444e6d6ccfc80d565b74f}{m\+\_\+peak\+Device\+Id\+From\+System\+Device\+Index}} (unsigned int sd)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static bool \mbox{\hyperlink{classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_a2b522c5a1624c408d0f1854fba53b066}{m\+\_\+peak\+Struct\+Compare}} (\mbox{\hyperlink{structudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1_1PEAK__device__t}{P\+E\+A\+K\+\_\+device\+\_\+t}} peak1, \mbox{\hyperlink{structudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1_1PEAK__device__t}{P\+E\+A\+K\+\_\+device\+\_\+t}} peak2)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak}{Udev\+Analyser\+For\+Peak}} $\ast$ \mbox{\hyperlink{classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_a75bf7ffe8139a10addd49083a6a7ac79}{m\+\_\+instance\+\_\+ptr}} = 0
+\item 
+static std\+::vector$<$ \mbox{\hyperlink{structudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1_1PEAK__device__t}{P\+E\+A\+K\+\_\+device\+\_\+t}} $>$ \mbox{\hyperlink{classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_a1305c736fdc28c62cfa29144e25d7f3a}{m\+\_\+peak\+\_\+v}}
+\item 
+static Log\+::\+Log\+Component\+Handle \mbox{\hyperlink{classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_aacad8fc930990cc6d0d47de472022acb}{m\+\_\+log\+It\+Handle\+Sock}} = 0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 19 of file Udev\+Analyser\+For\+Peak.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_aaf0bf3ac85c7b39a34b8c9430f99f88c}\label{classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_aaf0bf3ac85c7b39a34b8c9430f99f88c}} 
+\index{udevanalyserforpeak\_ns::UdevAnalyserForPeak@{udevanalyserforpeak\_ns::UdevAnalyserForPeak}!UdevAnalyserForPeak@{UdevAnalyserForPeak}}
+\index{UdevAnalyserForPeak@{UdevAnalyserForPeak}!udevanalyserforpeak\_ns::UdevAnalyserForPeak@{udevanalyserforpeak\_ns::UdevAnalyserForPeak}}
+\doxysubsubsection{\texorpdfstring{UdevAnalyserForPeak()}{UdevAnalyserForPeak()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily udevanalyserforpeak\+\_\+ns\+::\+Udev\+Analyser\+For\+Peak\+::\+Udev\+Analyser\+For\+Peak (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 23 of file Udev\+Analyser\+For\+Peak.\+cpp.
+
+
+
+References Can\+Module\+::\+Log\+It\+Component\+Name, m\+\_\+create\+Udev\+Port\+Map(), and m\+\_\+log\+It\+Handle\+Sock.
+
+
+
+Referenced by get\+Instance().
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_aaf0bf3ac85c7b39a34b8c9430f99f88c_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_abe2bdf74d2a78b21447fb24b2956d66c}\label{classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_abe2bdf74d2a78b21447fb24b2956d66c}} 
+\index{udevanalyserforpeak\_ns::UdevAnalyserForPeak@{udevanalyserforpeak\_ns::UdevAnalyserForPeak}!UdevAnalyserForPeak@{UdevAnalyserForPeak}}
+\index{UdevAnalyserForPeak@{UdevAnalyserForPeak}!udevanalyserforpeak\_ns::UdevAnalyserForPeak@{udevanalyserforpeak\_ns::UdevAnalyserForPeak}}
+\doxysubsubsection{\texorpdfstring{UdevAnalyserForPeak()}{UdevAnalyserForPeak()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily udevanalyserforpeak\+\_\+ns\+::\+Udev\+Analyser\+For\+Peak\+::\+Udev\+Analyser\+For\+Peak (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak}{Udev\+Analyser\+For\+Peak}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_a9120a53396820347617a1a4eba992a97}\label{classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_a9120a53396820347617a1a4eba992a97}} 
+\index{udevanalyserforpeak\_ns::UdevAnalyserForPeak@{udevanalyserforpeak\_ns::UdevAnalyserForPeak}!````~UdevAnalyserForPeak@{$\sim$UdevAnalyserForPeak}}
+\index{````~UdevAnalyserForPeak@{$\sim$UdevAnalyserForPeak}!udevanalyserforpeak\_ns::UdevAnalyserForPeak@{udevanalyserforpeak\_ns::UdevAnalyserForPeak}}
+\doxysubsubsection{\texorpdfstring{$\sim$UdevAnalyserForPeak()}{~UdevAnalyserForPeak()}}
+{\footnotesize\ttfamily virtual udevanalyserforpeak\+\_\+ns\+::\+Udev\+Analyser\+For\+Peak\+::$\sim$\+Udev\+Analyser\+For\+Peak (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}, {\ttfamily [virtual]}}
+
+
+
+Definition at line 52 of file Udev\+Analyser\+For\+Peak.\+h.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_a0f9f020e963d202faff7a1a114713219}\label{classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_a0f9f020e963d202faff7a1a114713219}} 
+\index{udevanalyserforpeak\_ns::UdevAnalyserForPeak@{udevanalyserforpeak\_ns::UdevAnalyserForPeak}!getInstance@{getInstance}}
+\index{getInstance@{getInstance}!udevanalyserforpeak\_ns::UdevAnalyserForPeak@{udevanalyserforpeak\_ns::UdevAnalyserForPeak}}
+\doxysubsubsection{\texorpdfstring{getInstance()}{getInstance()}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak}{Udev\+Analyser\+For\+Peak}}$\ast$ udevanalyserforpeak\+\_\+ns\+::\+Udev\+Analyser\+For\+Peak\+::get\+Instance (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+factory providing one singleton todo\+: use fancy threadsafe S\+T\+A\+T\+IC method 
+
+Definition at line 34 of file Udev\+Analyser\+For\+Peak.\+h.
+
+
+
+References m\+\_\+instance\+\_\+ptr, and Udev\+Analyser\+For\+Peak().
+
+
+
+Referenced by peak\+Extended\+Identifier\+To\+Socket\+Can\+Device().
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_a0f9f020e963d202faff7a1a114713219_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_acd46c5ec27ddad48e2f32ab65b2ac2be}\label{classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_acd46c5ec27ddad48e2f32ab65b2ac2be}} 
+\index{udevanalyserforpeak\_ns::UdevAnalyserForPeak@{udevanalyserforpeak\_ns::UdevAnalyserForPeak}!m\_createUdevPortMap@{m\_createUdevPortMap}}
+\index{m\_createUdevPortMap@{m\_createUdevPortMap}!udevanalyserforpeak\_ns::UdevAnalyserForPeak@{udevanalyserforpeak\_ns::UdevAnalyserForPeak}}
+\doxysubsubsection{\texorpdfstring{m\_createUdevPortMap()}{m\_createUdevPortMap()}}
+{\footnotesize\ttfamily void udevanalyserforpeak\+\_\+ns\+::\+Udev\+Analyser\+For\+Peak\+::m\+\_\+create\+Udev\+Port\+Map (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+this is where we do the udev call and construct a local-\/global port map which is system wide\+: need to scan for all pcan device links now, build the map from results1\+: pcan-\/usb\+\_\+pro\+\_\+fd/0/can0 pcan-\/usb\+\_\+pro\+\_\+fd/devid=9054 pcan32 pcanusbpfd32 pcan-\/usb\+\_\+pro\+\_\+fd/1/can0 pcan-\/usb\+\_\+pro\+\_\+fd/devid=8910 pcan34 pcanusbpfd34
+
+and result2\+: pcan-\/usb\+\_\+pro\+\_\+fd/0/can1 pcan33 pcanusbpfd33 pcan-\/usb\+\_\+pro\+\_\+fd/1/can1 pcan35 pcanusbpfd35
+
+now we have to sort this with key=peak\+Driver\+Number, since that is what socketcan does when assigning the socketcan devices
+
+Definition at line 143 of file Udev\+Analyser\+For\+Peak.\+cpp.
+
+
+
+References udevanalyserforpeak\+\_\+ns\+::\+Udev\+Analyser\+For\+Peak\+::\+P\+E\+A\+K\+\_\+device\+\_\+t\+::device\+ID, execcommand\+\_\+ns\+::\+Exec\+Command\+::get\+Results(), udevanalyserforpeak\+\_\+ns\+::\+Udev\+Analyser\+For\+Peak\+::\+P\+E\+A\+K\+\_\+device\+\_\+t\+::link, udevanalyserforpeak\+\_\+ns\+::\+Udev\+Analyser\+For\+Peak\+::\+P\+E\+A\+K\+\_\+device\+\_\+t\+::local\+Can\+Port, m\+\_\+log\+It\+Handle\+Sock, m\+\_\+peak\+\_\+v, m\+\_\+peak\+Device\+Id(), m\+\_\+peak\+Device\+Id\+From\+System\+Device\+Index(), m\+\_\+peak\+Driver\+Number(), m\+\_\+peak\+Local\+Can\+Port(), m\+\_\+peak\+Struct\+Compare(), m\+\_\+peak\+System\+Device\+Index(), udevanalyserforpeak\+\_\+ns\+::\+Udev\+Analyser\+For\+Peak\+::\+P\+E\+A\+K\+\_\+device\+\_\+t\+::peak\+Driver\+Number, and udevanalyserforpeak\+\_\+ns\+::\+Udev\+Analyser\+For\+Peak\+::\+P\+E\+A\+K\+\_\+device\+\_\+t\+::system\+Device\+Index.
+
+
+
+Referenced by Udev\+Analyser\+For\+Peak().
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_acd46c5ec27ddad48e2f32ab65b2ac2be_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_aa4c7f266427a299185aa8999d63b381a}\label{classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_aa4c7f266427a299185aa8999d63b381a}} 
+\index{udevanalyserforpeak\_ns::UdevAnalyserForPeak@{udevanalyserforpeak\_ns::UdevAnalyserForPeak}!m\_peakDeviceId@{m\_peakDeviceId}}
+\index{m\_peakDeviceId@{m\_peakDeviceId}!udevanalyserforpeak\_ns::UdevAnalyserForPeak@{udevanalyserforpeak\_ns::UdevAnalyserForPeak}}
+\doxysubsubsection{\texorpdfstring{m\_peakDeviceId()}{m\_peakDeviceId()}}
+{\footnotesize\ttfamily unsigned int udevanalyserforpeak\+\_\+ns\+::\+Udev\+Analyser\+For\+Peak\+::m\+\_\+peak\+Device\+Id (\begin{DoxyParamCaption}\item[{std\+::string}]{s }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+get the devids of the devices \char`\"{}9054\char`\"{} pcan-\/usb\+\_\+pro\+\_\+fd/0/can0 pcan-\/usb\+\_\+pro\+\_\+fd/devid=9054 pcan32 pcanusbpfd32 
+
+Definition at line 260 of file Udev\+Analyser\+For\+Peak.\+cpp.
+
+
+
+Referenced by m\+\_\+create\+Udev\+Port\+Map().
+
+\mbox{\Hypertarget{classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_a64bc86c641b444e6d6ccfc80d565b74f}\label{classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_a64bc86c641b444e6d6ccfc80d565b74f}} 
+\index{udevanalyserforpeak\_ns::UdevAnalyserForPeak@{udevanalyserforpeak\_ns::UdevAnalyserForPeak}!m\_peakDeviceIdFromSystemDeviceIndex@{m\_peakDeviceIdFromSystemDeviceIndex}}
+\index{m\_peakDeviceIdFromSystemDeviceIndex@{m\_peakDeviceIdFromSystemDeviceIndex}!udevanalyserforpeak\_ns::UdevAnalyserForPeak@{udevanalyserforpeak\_ns::UdevAnalyserForPeak}}
+\doxysubsubsection{\texorpdfstring{m\_peakDeviceIdFromSystemDeviceIndex()}{m\_peakDeviceIdFromSystemDeviceIndex()}}
+{\footnotesize\ttfamily unsigned int udevanalyserforpeak\+\_\+ns\+::\+Udev\+Analyser\+For\+Peak\+::m\+\_\+peak\+Device\+Id\+From\+System\+Device\+Index (\begin{DoxyParamCaption}\item[{unsigned int}]{sd }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+get the device\+ID from the system driver number 
+
+Definition at line 218 of file Udev\+Analyser\+For\+Peak.\+cpp.
+
+
+
+References m\+\_\+peak\+\_\+v.
+
+
+
+Referenced by m\+\_\+create\+Udev\+Port\+Map().
+
+\mbox{\Hypertarget{classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_a591ea665dcb445268404b113473092a1}\label{classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_a591ea665dcb445268404b113473092a1}} 
+\index{udevanalyserforpeak\_ns::UdevAnalyserForPeak@{udevanalyserforpeak\_ns::UdevAnalyserForPeak}!m\_peakDriverNumber@{m\_peakDriverNumber}}
+\index{m\_peakDriverNumber@{m\_peakDriverNumber}!udevanalyserforpeak\_ns::UdevAnalyserForPeak@{udevanalyserforpeak\_ns::UdevAnalyserForPeak}}
+\doxysubsubsection{\texorpdfstring{m\_peakDriverNumber()}{m\_peakDriverNumber()}}
+{\footnotesize\ttfamily unsigned int udevanalyserforpeak\+\_\+ns\+::\+Udev\+Analyser\+For\+Peak\+::m\+\_\+peak\+Driver\+Number (\begin{DoxyParamCaption}\item[{std\+::string}]{s }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+get the local socket nb of the devices\+: \char`\"{}32\char`\"{} pcan-\/usb\+\_\+pro\+\_\+fd/0/can0 pcan-\/usb\+\_\+pro\+\_\+fd/devid=9054 pcan32 pcanusbpfd32 
+
+Definition at line 230 of file Udev\+Analyser\+For\+Peak.\+cpp.
+
+
+
+Referenced by m\+\_\+create\+Udev\+Port\+Map().
+
+\mbox{\Hypertarget{classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_a0570a23bb2eb7f57930ff4eb8cf7fbaf}\label{classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_a0570a23bb2eb7f57930ff4eb8cf7fbaf}} 
+\index{udevanalyserforpeak\_ns::UdevAnalyserForPeak@{udevanalyserforpeak\_ns::UdevAnalyserForPeak}!m\_peakLocalCanPort@{m\_peakLocalCanPort}}
+\index{m\_peakLocalCanPort@{m\_peakLocalCanPort}!udevanalyserforpeak\_ns::UdevAnalyserForPeak@{udevanalyserforpeak\_ns::UdevAnalyserForPeak}}
+\doxysubsubsection{\texorpdfstring{m\_peakLocalCanPort()}{m\_peakLocalCanPort()}}
+{\footnotesize\ttfamily unsigned int udevanalyserforpeak\+\_\+ns\+::\+Udev\+Analyser\+For\+Peak\+::m\+\_\+peak\+Local\+Can\+Port (\begin{DoxyParamCaption}\item[{std\+::string}]{s }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+get the local can port of the devices\+: the \char`\"{}0\char`\"{} of \char`\"{}can0\char`\"{} pcan-\/usb\+\_\+pro\+\_\+fd/0/can0 pcan-\/usb\+\_\+pro\+\_\+fd/devid=9054 pcan32 pcanusbpfd32 
+
+Definition at line 246 of file Udev\+Analyser\+For\+Peak.\+cpp.
+
+
+
+Referenced by m\+\_\+create\+Udev\+Port\+Map().
+
+\mbox{\Hypertarget{classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_a2b522c5a1624c408d0f1854fba53b066}\label{classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_a2b522c5a1624c408d0f1854fba53b066}} 
+\index{udevanalyserforpeak\_ns::UdevAnalyserForPeak@{udevanalyserforpeak\_ns::UdevAnalyserForPeak}!m\_peakStructCompare@{m\_peakStructCompare}}
+\index{m\_peakStructCompare@{m\_peakStructCompare}!udevanalyserforpeak\_ns::UdevAnalyserForPeak@{udevanalyserforpeak\_ns::UdevAnalyserForPeak}}
+\doxysubsubsection{\texorpdfstring{m\_peakStructCompare()}{m\_peakStructCompare()}}
+{\footnotesize\ttfamily bool udevanalyserforpeak\+\_\+ns\+::\+Udev\+Analyser\+For\+Peak\+::m\+\_\+peak\+Struct\+Compare (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1_1PEAK__device__t}{P\+E\+A\+K\+\_\+device\+\_\+t}}}]{peak1,  }\item[{\mbox{\hyperlink{structudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1_1PEAK__device__t}{P\+E\+A\+K\+\_\+device\+\_\+t}}}]{peak2 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+compares structs peak1 and peak2 and returns T\+R\+UE if the peak1-\/$>$peak\+Driver\+Number is S\+M\+A\+L\+L\+ER than peak2-\/$>$peak\+Driver\+Number . 
+
+Definition at line 135 of file Udev\+Analyser\+For\+Peak.\+cpp.
+
+
+
+References udevanalyserforpeak\+\_\+ns\+::\+Udev\+Analyser\+For\+Peak\+::\+P\+E\+A\+K\+\_\+device\+\_\+t\+::peak\+Driver\+Number.
+
+
+
+Referenced by m\+\_\+create\+Udev\+Port\+Map().
+
+\mbox{\Hypertarget{classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_a398b71235631eac545a05eb0d03acfcd}\label{classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_a398b71235631eac545a05eb0d03acfcd}} 
+\index{udevanalyserforpeak\_ns::UdevAnalyserForPeak@{udevanalyserforpeak\_ns::UdevAnalyserForPeak}!m\_peakSystemDeviceIndex@{m\_peakSystemDeviceIndex}}
+\index{m\_peakSystemDeviceIndex@{m\_peakSystemDeviceIndex}!udevanalyserforpeak\_ns::UdevAnalyserForPeak@{udevanalyserforpeak\_ns::UdevAnalyserForPeak}}
+\doxysubsubsection{\texorpdfstring{m\_peakSystemDeviceIndex()}{m\_peakSystemDeviceIndex()}}
+{\footnotesize\ttfamily unsigned int udevanalyserforpeak\+\_\+ns\+::\+Udev\+Analyser\+For\+Peak\+::m\+\_\+peak\+System\+Device\+Index (\begin{DoxyParamCaption}\item[{std\+::string}]{s }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+get the global device index \char`\"{}0\char`\"{} pcan-\/usb\+\_\+pro\+\_\+fd/0/can0 pcan-\/usb\+\_\+pro\+\_\+fd/devid=9054 pcan32 pcanusbpfd32 
+
+Definition at line 272 of file Udev\+Analyser\+For\+Peak.\+cpp.
+
+
+
+Referenced by m\+\_\+create\+Udev\+Port\+Map().
+
+\mbox{\Hypertarget{classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_a7edf6a8b32f9728aacf570a7704e560f}\label{classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_a7edf6a8b32f9728aacf570a7704e560f}} 
+\index{udevanalyserforpeak\_ns::UdevAnalyserForPeak@{udevanalyserforpeak\_ns::UdevAnalyserForPeak}!peakExtendedIdentifierToSocketCanDevice@{peakExtendedIdentifierToSocketCanDevice}}
+\index{peakExtendedIdentifierToSocketCanDevice@{peakExtendedIdentifierToSocketCanDevice}!udevanalyserforpeak\_ns::UdevAnalyserForPeak@{udevanalyserforpeak\_ns::UdevAnalyserForPeak}}
+\doxysubsubsection{\texorpdfstring{peakExtendedIdentifierToSocketCanDevice()}{peakExtendedIdentifierToSocketCanDevice()}}
+{\footnotesize\ttfamily std\+::string udevanalyserforpeak\+\_\+ns\+::\+Udev\+Analyser\+For\+Peak\+::peak\+Extended\+Identifier\+To\+Socket\+Can\+Device (\begin{DoxyParamCaption}\item[{std\+::string}]{ext\+Port\+Id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+convert a P\+E\+AK extended port\+Identifier to a socketcan device, i.\+e. \char`\"{}sock\+:can0\+:device123456\char`\"{} -\/$>$ \char`\"{}can2\char`\"{}\hypertarget{classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_autotoc_md0}{}\doxysubsubsection{meaning}\label{classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_autotoc_md0}
+input\+: \mbox{\hyperlink{structudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1_1PEAK__device__t_aef8fb355e35084f8719b89b7815c998f}{P\+E\+A\+K\+\_\+device\+\_\+t.\+local\+Can\+Port}} = 0 \mbox{\hyperlink{structudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1_1PEAK__device__t_ac29ee824c7e4d8441a815af4c0523f6a}{P\+E\+A\+K\+\_\+device\+\_\+t.\+device\+ID}} = 123456
+
+returns\+: \char`\"{}can2\char`\"{}
+
+This means that the P\+E\+AK can bridge with device\+ID 123456 is currently the second device in the socketcan sequence, and that we talk to the first port (locally \char`\"{}can0\char`\"{}) of that device. Since the first device has (obviously) 2 can ports (globally \char`\"{}can0\char`\"{}, \char`\"{}can1\char`\"{}) we end up with globally \char`\"{}can2\char`\"{} which is the next in the sequence. Why do we need this? With peak bridges the socketcan device sequence depends on the U\+SB plugin events and is therefore not deterministic. Strictly speaking on has no guarantee that \char`\"{}can2\char`\"{} \mbox{[}second bridge, first port\mbox{]} talks to the same electronics on every day, on monday it might also talk to the firs device. This stems from the fact that the peak driver does N\+OT publish the device ID under linux, therefore the udev system can\textquotesingle{}t pick it up to provide deterministic mapping either. The fix is (1) stamp a unique device\+ID into the bridge using peak tools under windows. this value is persistent and will survive a reboot. (2) under linux, use an extended peak port identifier \+: \char`\"{}sock\+:can0\+:device123456\char`\"{}. \mbox{\hyperlink{namespaceCanModule}{Can\+Module}} remaps ports under the hood for you (3) under windows, use the brief port identifier \char`\"{}sock\+:can2\char`\"{} as before. If you use an extended port identifier the world will explode. But you can\textquotesingle{}t, anyway, since socketcan is linux only. The peak driver for windows is better\+: it (seems to) take care of the device ID properly, B\+UT D\+O\+NT A\+SK ME for that crap... 
+
+Definition at line 67 of file Udev\+Analyser\+For\+Peak.\+cpp.
+
+
+
+References get\+Instance(), m\+\_\+log\+It\+Handle\+Sock, and m\+\_\+peak\+\_\+v.
+
+
+
+Referenced by C\+Sock\+Can\+Scan\+::configure\+Can\+Board().
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_a7edf6a8b32f9728aacf570a7704e560f_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_a982db3210deb3a9483508f473af4262c}\label{classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_a982db3210deb3a9483508f473af4262c}} 
+\index{udevanalyserforpeak\_ns::UdevAnalyserForPeak@{udevanalyserforpeak\_ns::UdevAnalyserForPeak}!showMap@{showMap}}
+\index{showMap@{showMap}!udevanalyserforpeak\_ns::UdevAnalyserForPeak@{udevanalyserforpeak\_ns::UdevAnalyserForPeak}}
+\doxysubsubsection{\texorpdfstring{showMap()}{showMap()}}
+{\footnotesize\ttfamily void udevanalyserforpeak\+\_\+ns\+::\+Udev\+Analyser\+For\+Peak\+::show\+Map (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 118 of file Udev\+Analyser\+For\+Peak.\+cpp.
+
+
+
+References m\+\_\+log\+It\+Handle\+Sock, and m\+\_\+peak\+\_\+v.
+
+
+
+Referenced by C\+Sock\+Can\+Scan\+::configure\+Can\+Board().
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_a75bf7ffe8139a10addd49083a6a7ac79}\label{classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_a75bf7ffe8139a10addd49083a6a7ac79}} 
+\index{udevanalyserforpeak\_ns::UdevAnalyserForPeak@{udevanalyserforpeak\_ns::UdevAnalyserForPeak}!m\_instance\_ptr@{m\_instance\_ptr}}
+\index{m\_instance\_ptr@{m\_instance\_ptr}!udevanalyserforpeak\_ns::UdevAnalyserForPeak@{udevanalyserforpeak\_ns::UdevAnalyserForPeak}}
+\doxysubsubsection{\texorpdfstring{m\_instance\_ptr}{m\_instance\_ptr}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak}{Udev\+Analyser\+For\+Peak}} $\ast$ udevanalyserforpeak\+\_\+ns\+::\+Udev\+Analyser\+For\+Peak\+::m\+\_\+instance\+\_\+ptr = 0\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+Definition at line 49 of file Udev\+Analyser\+For\+Peak.\+h.
+
+
+
+Referenced by get\+Instance().
+
+\mbox{\Hypertarget{classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_aacad8fc930990cc6d0d47de472022acb}\label{classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_aacad8fc930990cc6d0d47de472022acb}} 
+\index{udevanalyserforpeak\_ns::UdevAnalyserForPeak@{udevanalyserforpeak\_ns::UdevAnalyserForPeak}!m\_logItHandleSock@{m\_logItHandleSock}}
+\index{m\_logItHandleSock@{m\_logItHandleSock}!udevanalyserforpeak\_ns::UdevAnalyserForPeak@{udevanalyserforpeak\_ns::UdevAnalyserForPeak}}
+\doxysubsubsection{\texorpdfstring{m\_logItHandleSock}{m\_logItHandleSock}}
+{\footnotesize\ttfamily Log\+::\+Log\+Component\+Handle udevanalyserforpeak\+\_\+ns\+::\+Udev\+Analyser\+For\+Peak\+::m\+\_\+log\+It\+Handle\+Sock = 0\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+Definition at line 55 of file Udev\+Analyser\+For\+Peak.\+h.
+
+
+
+Referenced by m\+\_\+create\+Udev\+Port\+Map(), peak\+Extended\+Identifier\+To\+Socket\+Can\+Device(), show\+Map(), and Udev\+Analyser\+For\+Peak().
+
+\mbox{\Hypertarget{classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_a1305c736fdc28c62cfa29144e25d7f3a}\label{classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_a1305c736fdc28c62cfa29144e25d7f3a}} 
+\index{udevanalyserforpeak\_ns::UdevAnalyserForPeak@{udevanalyserforpeak\_ns::UdevAnalyserForPeak}!m\_peak\_v@{m\_peak\_v}}
+\index{m\_peak\_v@{m\_peak\_v}!udevanalyserforpeak\_ns::UdevAnalyserForPeak@{udevanalyserforpeak\_ns::UdevAnalyserForPeak}}
+\doxysubsubsection{\texorpdfstring{m\_peak\_v}{m\_peak\_v}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{structudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1_1PEAK__device__t}{Udev\+Analyser\+For\+Peak\+::\+P\+E\+A\+K\+\_\+device\+\_\+t}} $>$ udevanalyserforpeak\+\_\+ns\+::\+Udev\+Analyser\+For\+Peak\+::m\+\_\+peak\+\_\+v\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+Definition at line 52 of file Udev\+Analyser\+For\+Peak.\+h.
+
+
+
+Referenced by m\+\_\+create\+Udev\+Port\+Map(), m\+\_\+peak\+Device\+Id\+From\+System\+Device\+Index(), peak\+Extended\+Identifier\+To\+Socket\+Can\+Device(), and show\+Map().
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Can\+Interface\+Implementations/sockcan/\mbox{\hyperlink{UdevAnalyserForPeak_8h}{Udev\+Analyser\+For\+Peak.\+h}}\item 
+Can\+Interface\+Implementations/sockcan/\mbox{\hyperlink{UdevAnalyserForPeak_8cpp}{Udev\+Analyser\+For\+Peak.\+cpp}}\end{DoxyCompactItemize}

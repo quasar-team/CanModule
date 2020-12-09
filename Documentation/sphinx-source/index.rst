@@ -7,15 +7,14 @@ CanModule reference documentation
    :maxdepth: 3
 
    downloading
-   quickstart
    objective
    standardApi
+   canports
+   classestracing
    vendors/systec
    vendors/anagate
    vendors/peak
-   statusbp
    reconnection   
-   reconnectionmatrix
    multitasking
    specialistNotes
    logging

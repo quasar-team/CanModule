@@ -1,23 +1,22 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<html lang="en">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>SysTec &#8212; CanModule 1.1.9.7 documentation</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SysTec &#8212; CanModule 2.0.0 documentation</title>
     <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="AnaGate" href="anagate.html" />
-    <link rel="prev" title="Standard API" href="../standardApi.html" /> 
+    <link rel="prev" title="Details on classes" href="../classestracing.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -29,9 +28,10 @@
           <a href="anagate.html" title="AnaGate"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="../standardApi.html" title="Standard API"
+          <a href="../classestracing.html" title="Details on classes"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">CanModule 1.1.9.7 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">CanModule 2.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">SysTec</a></li> 
       </ul>
     </div>  
 
@@ -52,19 +52,125 @@ Here the underlying vendor specific classes and the specific parameters are docu
 <div class="section" id="windows">
 <h3>windows<a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h3>
 <p>The connection to a specific port for I/O is created by calling</p>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">doxygenclass: Cannot find file: /home/mludwig/projects/CanModule/CanModule-master/Documentation/sphinx-source/doxygen-result/xml/index.xml</p>
+<dl class="cpp class">
+<dt id="_CPPv49STCanScan">
+<span id="_CPPv39STCanScan"></span><span id="_CPPv29STCanScan"></span><span id="STCanScan"></span><span class="target" id="classSTCanScan"></span><em class="property">class </em><code class="sig-name descname">STCanScan</code> : <em class="property">public</em> CanModule::<a class="reference internal" href="../canports.html#_CPPv4N9CanModule10CCanAccessE" title="CanModule::CCanAccess">CCanAccess</a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="cpp function">
+<dt id="_CPPv4N9STCanScan9createBusEK6stringK6string">
+<span id="_CPPv3N9STCanScan9createBusEK6stringK6string"></span><span id="_CPPv2N9STCanScan9createBusEK6stringK6string"></span><span id="STCanScan::createBus__stringC.stringC"></span><span class="target" id="classSTCanScan_1a28ac80d789b6d4d2bb11526bfaede69e"></span>int <code class="sig-name descname">createBus</code><span class="sig-paren">(</span><em class="property">const</em> string <em>name</em>, <em class="property">const</em> string <em>parameters</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N9STCanScan9createBusEK6stringK6string" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Method that initialises a CAN bus channel for systec&#64;windows. All following methods called on the same object will be using this initialized channel.</p>
+<p><p>===note from Piotr=== in the Windows implementation of Systec (hardware component: st): to define the interface naming as canX, where X is a non-negative number note: the SysTec driver for windows expects addressing in terms of module number and channel (e.g. 0:0 is can0, 1:0 is can2, 1:1 is can3, etc) so can0 should open a SysTec interface 0:0 matching “can0” on the box, can1 should open a SysTec interface 0:1 matching “can1” on the box, etc.</p>
+<dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>was the initialisation process successful?</p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>: = 2 parameters separated by “:” like “n0:n1”<ul>
+<li><p>n0 = “st” for systec&#64;windows</p></li>
+<li><p>n1 = CAN port number on the module, can be prefixed with “can”</p></li>
+<li><p>ex.: “st:can1” speaks to port 1 on systec module at the ip</p></li>
+<li><p>ex.: “st:1” works as well</p></li>
+</ul>
+</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">parameters</span></code>: one parameter: “p0”, positive integers<ul>
+<li><p>”Unspecified” (or empty): using defaults = “125000” // params missing</p></li>
+<li><p>p0: bitrate: 50000, 100000, 125000, 250000, 500000, 1000000 bit/s i.e. “250000”</p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+<p>returns: 0 = OK, bus created -1 = not ok, board init failed -2 = not ok, thread creation failed</p>
+<p>no implemented: 1=OK, bus creation skipped since it exists already </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N9STCanScan11sendMessageEshPhb">
+<span id="_CPPv3N9STCanScan11sendMessageEshPhb"></span><span id="_CPPv2N9STCanScan11sendMessageEshPhb"></span><span id="STCanScan::sendMessage__short.unsigned-c.unsigned-cP.b"></span><span class="target" id="classSTCanScan_1a45f0ec011022bf58a23e8370bac7f829"></span>bool <code class="sig-name descname">sendMessage</code><span class="sig-paren">(</span>short <em>cobID</em>, unsigned char <em>len</em>, unsigned char *<em>message</em>, bool <em>rtr</em> = false<span class="sig-paren">)</span><br /></dt>
+<dd><p>Method that sends a message trough the can bus channel. If the method createBUS was not called before this, sendMessage will fail, as there is no can bus channel to send a message through.</p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>Was the sending process successful? </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">cobID</span></code>: Identifier that will be used for the message. </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">len</span></code>: Length of the message. If the message is bigger than 8 characters, it will be split into separate 8 characters messages. </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">message</span></code>: Message to be sent trough the can bus. </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rtr</span></code>: is the message a remote transmission request? </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
 </div>
+</dd></dl>
+
 <p>and communication takes place through systec’s closed-source windows library.</p>
 </div>
 <div class="section" id="linux">
 <h3>linux<a class="headerlink" href="#linux" title="Permalink to this headline">¶</a></h3>
 <p>The open-source socketcan interface is used on top of systec’s open source driver:</p>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">doxygenclass: Cannot find file: /home/mludwig/projects/CanModule/CanModule-master/Documentation/sphinx-source/doxygen-result/xml/index.xml</p>
+<dl class="cpp class">
+<dt id="_CPPv412CSockCanScan">
+<span id="_CPPv312CSockCanScan"></span><span id="_CPPv212CSockCanScan"></span><span id="CSockCanScan"></span><span class="target" id="classCSockCanScan"></span><em class="property">class </em><code class="sig-name descname">CSockCanScan</code> : <em class="property">public</em> CanModule::<a class="reference internal" href="../canports.html#_CPPv4N9CanModule10CCanAccessE" title="CanModule::CCanAccess">CCanAccess</a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="cpp function">
+<dt id="_CPPv4N12CSockCanScan9createBusEK6string6string">
+<span id="_CPPv3N12CSockCanScan9createBusEK6string6string"></span><span id="_CPPv2N12CSockCanScan9createBusEK6string6string"></span><span id="CSockCanScan::createBus__stringC.string"></span><span class="target" id="classCSockCanScan_1a879da2908384a8f154120bdd0c60c5aa"></span>int <code class="sig-name descname">createBus</code><span class="sig-paren">(</span><em class="property">const</em> string <em>name</em>, string <em>parameters</em><span class="sig-paren">)</span><br /></dt>
+<dd><p>Method that initializes a can bus channel. The following methods called upon the same object will be using this initialized channel.</p>
+<p><ul class="simple">
+<li><p>i.e. “250000”</p></li>
+</ul>
+<dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>: = 2 parameters separated by “:”, like “n0:n1”<ul>
+<li><p>n0 = “sock” for sockets linux, used by systec and peak</p></li>
+<li><p>n1 = CAN port number on the module, can be prefixed with “can”</p></li>
+<li><p>ex.: “sock:can1” speaks to port 1 on systec or peak module</p></li>
+<li><p>ex.: “sock:1” works as well</p></li>
+</ul>
+</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">parameters</span></code>: one parameter: “p0”, positive integer<ul>
+<li><p>”Unspecified” (or empty): using defaults = “125000” // params missing</p></li>
+<li><p>p0: bitrate: 50000, 100000, 125000, 250000, 500000, 1000000 bit/s, other values might be allowed by the module</p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+<p><p>dont create a main thread for the same bus twice: if it exists already, just configure the board again this protects agains having multiple threads if a given port ports is opened several times: protects against erro/unusual runtime. If the connection is closed, it’s main thread is stopped and joined, and the port is erased from the connection map. when the same port is opened again later on, a (new) main thread is created, and the connection is again added to the map. </p>
+<dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>Was the initialization process successful?</p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N12CSockCanScan11sendMessageEshPhb">
+<span id="_CPPv3N12CSockCanScan11sendMessageEshPhb"></span><span id="_CPPv2N12CSockCanScan11sendMessageEshPhb"></span><span id="CSockCanScan::sendMessage__short.unsigned-c.unsigned-cP.b"></span><span class="target" id="classCSockCanScan_1a485ec8621a98cdacad8e27433e09d919"></span>bool <code class="sig-name descname">sendMessage</code><span class="sig-paren">(</span>short <em>cobID</em>, unsigned char <em>len</em>, unsigned char *<em>message</em>, bool <em>rtr</em> = false<span class="sig-paren">)</span><br /></dt>
+<dd><p>Method that sends a message trough the can bus channel. If the method createBUS was not called before this, sendMessage will fail, as there is no can bus channel to send a message through.</p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>Was the initialisation process successful? </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">cobID</span></code>: Identifier that will be used for the message. </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">len</span></code>: Length of the message. If the message is bigger than 8 characters, it will be split into separate 8 characters messages. </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">message</span></code>: Message to be sent trough the can bus. </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rtr</span></code>: is the message a remote transmission request? </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
 </div>
+</dd></dl>
+
 <p>sockets are used normally, using linux’ built-in CAN protocols:</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">mysock</span> <span class="o">=</span> <span class="n">socket</span><span class="p">(</span><span class="n">domain</span><span class="o">=</span><span class="n">PF_CAN</span><span class="p">,</span> <span class="n">type</span><span class="o">=</span><span class="n">SOCK_RAW</span><span class="p">,</span> <span class="n">protocol</span><span class="o">=</span><span class="n">CAN_RAW</span><span class="p">)</span>
 </pre></div>
@@ -84,6 +190,7 @@ Here the underlying vendor specific classes and the specific parameters are docu
 </div>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
@@ -92,9 +199,10 @@ Here the underlying vendor specific classes and the specific parameters are docu
 <h3><a href="../index.html">Table of Contents</a></h3>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../downloading.html">Downloading</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../objective.html">Objective</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../standardApi.html">Standard API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../canports.html">CAN ports</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../classestracing.html">Details on classes</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">SysTec</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#the-connection">The connection</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#windows">windows</a></li>
@@ -106,10 +214,10 @@ Here the underlying vendor specific classes and the specific parameters are docu
 </li>
 <li class="toctree-l1"><a class="reference internal" href="anagate.html">AnaGate</a></li>
 <li class="toctree-l1"><a class="reference internal" href="peak.html">Peak</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reconnection.html">Reconnection OBSOLETE IS REWRITTEN CURRENTLY</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../logging.html">Logging</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../building.html">Building</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../running.html">Running</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../reconnection.html">Reconnection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../support.html">Support</a></li>
 </ul>
 
@@ -121,17 +229,15 @@ Here the underlying vendor specific classes and the specific parameters are docu
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -146,15 +252,16 @@ Here the underlying vendor specific classes and the specific parameters are docu
           <a href="anagate.html" title="AnaGate"
              >next</a> |</li>
         <li class="right" >
-          <a href="../standardApi.html" title="Standard API"
+          <a href="../classestracing.html" title="Details on classes"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">CanModule 1.1.9.7 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">CanModule 2.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">SysTec</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2019, CERN, BE-ICS (Michael Ludwig).
-      Last updated on 07-Aug-2020 08:37:24.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
+        &#169; Copyright 2020, CERN, quasar-team, BE-ICS (Michael Ludwig).
+      Last updated on 09-Dec-2020 15:36:43.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.1.2.
     </div>
   </body>
 </html>
