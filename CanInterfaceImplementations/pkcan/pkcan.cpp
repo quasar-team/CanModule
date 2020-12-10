@@ -291,7 +291,7 @@ bool PKCanScan::configureCanboard(const string name,const string parameters)
 	m_pkCanHandle = getHandle( humanReadableCode.c_str() );
 	MLOGPK( DBG, this ) << "PEAK handle for vectorString[1]= " << vectorString[1]
 	      << " is code= 0x" <<hex <<  m_pkCanHandle << dec
-		  << " human readable code= " << humanReadableCode << std::endl;
+		  << " human readable code= " << humanReadableCode;
 
 
 	if (strcmp(parameters.c_str(), "Unspecified") != 0)
