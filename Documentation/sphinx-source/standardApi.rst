@@ -60,7 +60,8 @@ This is how to choose an implementation and open one port:
       myObject->processReceivedMessage( message );
    }
    
-
+* both the library object **libloader** and the port objet(s) **cca** must exist during runtime, since the **libloader**
+  is needed at the end to close the **cca** .
 * you can take a look at `CANX`_ for a full multithreaded example using CanModule (CERN, gitlab).
 
    
