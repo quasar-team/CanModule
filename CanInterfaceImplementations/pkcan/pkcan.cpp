@@ -267,6 +267,7 @@ bool PKCanScan::configureCanboard(const string name,const string parameters)
 {
 	m_sBusName = name;
 	m_baudRate = PCAN_BAUD_125K;
+	m_CanParameters.m_lBaudRate = 125000;
 
 	// for FD modules
 	//unsigned int parametersTseg1 = 0;
@@ -279,7 +280,7 @@ bool PKCanScan::configureCanboard(const string name,const string parameters)
 	//Process the parameters
 	vector<string> vectorString;
 	vectorString = parseNameAndParameters(name, parameters);
-	MLOGPK(DBG, this) << " calling getHandle vectorString[1]= " << vectorString[1] << std::endl;
+	MLOGPK(DBG, this) << " calling getHandle vectorString[1]= " << vectorString[1];
 
 	// peak guys start counting from 1, we start counting from 0. ugh.
 	int ich = atoi(vectorString[1].c_str());
@@ -302,7 +303,6 @@ bool PKCanScan::configureCanboard(const string name,const string parameters)
 		//Process the baudRate if needed
 		if (m_CanParameters.m_iNumberOfDetectedParameters == 1)
 		{
-			MLOGPK(DBG, this) << " m_CanParameters.m_lBaudRate= " << m_CanParameters.m_lBaudRate << std::endl;
 			switch (m_CanParameters.m_lBaudRate)
 			{
 			case 50000:
@@ -338,6 +338,7 @@ bool PKCanScan::configureCanboard(const string name,const string parameters)
 		MLOGPK(DBG, this) << "Unspecified parameters, default values will be used.";
 	}
 	MLOGPK(DBG, this) << " m_baudRate= 0x" << hex << m_baudRate << dec;
+	MLOGPK(DBG, this) << " m_CanParameters.m_lBaudRate= " << m_CanParameters.m_lBaudRate << std::endl;
 
 	/** FD (flexible datarate) modules.
 	 * we need to contruct (a complicated) bitrate string in this case, according to PEAK PCAN-Basic Documentation API manual p.82
