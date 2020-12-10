@@ -338,7 +338,7 @@ bool PKCanScan::configureCanboard(const string name,const string parameters)
 		MLOGPK(DBG, this) << "Unspecified parameters, default values will be used.";
 	}
 	MLOGPK(DBG, this) << " m_baudRate= 0x" << hex << m_baudRate << dec;
-	MLOGPK(DBG, this) << " m_CanParameters.m_lBaudRate= " << m_CanParameters.m_lBaudRate << std::endl;
+	MLOGPK(DBG, this) << " m_CanParameters.m_lBaudRate= " << m_CanParameters.m_lBaudRate;
 
 	/** FD (flexible datarate) modules.
 	 * we need to contruct (a complicated) bitrate string in this case, according to PEAK PCAN-Basic Documentation API manual p.82

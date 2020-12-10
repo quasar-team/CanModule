@@ -269,6 +269,7 @@ int STCanScan::configureCanBoard(const string name,const string parameters)
 	} else 	{
 		MLOGST(DBG, this) << "Unspecified parameters, default values will be used.";
 	}
+	m_CanParameters.m_lBaudRate = baudRate;
 	m_baudRate = baudRate;
 	return openCanPort( createInitializationParameters( m_baudRate ) );
 }
