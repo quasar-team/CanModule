@@ -486,6 +486,8 @@ bool PKCanScan::sendMessage(short cobID, unsigned char len, unsigned char *messa
 			return sendErrorCode(tpcanStatus);
 		}
 		m_statistics.onTransmit( tpcanMessage.LEN );
+		m_statistics.setTimeSinceTransmitted();
+
 		message = message + lengthToBeSent;
 	}
 	while (lengthOfUnsentData > 8);

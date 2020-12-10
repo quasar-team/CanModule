@@ -666,7 +666,7 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 	} else {
 		m_statistics.onTransmit(messageLengthToBeProcessed);
 		m_statistics.setTimeSinceTransmitted();
-		m_triggerCounter = 10;
+		// m_triggerCounter = 10; shoud not be hardcoded
 	}
 	return sendErrorCode(anaCallReturn);
 }
