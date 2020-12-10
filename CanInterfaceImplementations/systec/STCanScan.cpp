@@ -235,9 +235,14 @@ int STCanScan::createBus(const string name,const string parameters)
 	return (0);
 }
 
+/**
+ * configures systec @ windows board
+ * only G1/G2 boards
+ */
 int STCanScan::configureCanBoard(const string name,const string parameters)
 {
 	long baudRate = USBCAN_BAUD_125kBit;
+	m_CanParameters.m_lBaudRate = 125000;
 
 	vector<string> stringVector;
 	stringVector = parseNameAndParameters(name, parameters);
@@ -260,7 +265,10 @@ int STCanScan::configureCanBoard(const string name,const string parameters)
 			case 250000: baudRate = USBCAN_BAUD_250kBit; break;
 			case 500000: baudRate = USBCAN_BAUD_500kBit; break;
 			case 1000000: baudRate = USBCAN_BAUD_1MBit; break;
-			default: baudRate = m_CanParameters.m_lBaudRate;
+			default: {
+				baudRate = USBCAN_BAUD_125kBit;
+				MLOGST(WRN, this) << "baud rate illegal, taking default 125000 [" << baudRate << "]";
+			}
 			}
 		} else {
 			MLOGST(ERR, this) << "parsing parameters: this syntax is incorrect: [" << parameters << "]";
@@ -269,9 +277,36 @@ int STCanScan::configureCanBoard(const string name,const string parameters)
 	} else 	{
 		MLOGST(DBG, this) << "Unspecified parameters, default values will be used.";
 	}
-	m_CanParameters.m_lBaudRate = baudRate;
 	m_baudRate = baudRate;
+	m_CanParameters.m_lBaudRate = vendorBaudRate2UserBaudRate( baudRate );
 	return openCanPort( createInitializationParameters( m_baudRate ) );
+}
+
+/**
+ * unfortunately it is necessary to convert the vendor baudrate back to the human readable user baudrate
+ * for statistics.
+ * we use presently ONLY G1/G2 boards (see usbcan.h)
+ */
+unsigned int STCanScan::vendorBaudRate2UserBaudRate( unsigned int vb ){
+	switch (vb) {
+	// G1, G2 boards
+	case USBCAN_BAUD_50kBit: return( 50000 ); break;
+	case USBCAN_BAUD_100kBit: return( 100000 ); break;
+	case USBCAN_BAUD_125kBit: return( 125000 ); break;
+	case USBCAN_BAUD_250kBit: return( 250000 ); break;
+	case USBCAN_BAUD_500kBit: return( 500000 ); break;
+	case USBCAN_BAUD_1MBit: return( 1000000 ); break;
+
+	// G3 boards
+	// case USBCAN_BAUDEX_10kBit: return( 10000 ); break;
+	// ...
+
+	// whatnot other boards...
+	default: {
+		MLOGST(ERR, this) << __FUNCTION__ << " vendor baud rate illegal for G1/G2 boards [" << vb << "]";
+		return(0);
+	}
+	} // switch
 }
 
 /**
@@ -328,7 +363,6 @@ int STCanScan::openCanPort(tUcanInitCanParam initializationParameters)
  * table20 says for USB status:
  * 0x2000: module/usb got reset because of polling failure per second
  * 0x4000: module/usb got reset because watchdog was not triggered
- *
  */
 uint32_t STCanScan::getPortStatus(){
 	uint32_t stat2 = 0;
@@ -357,7 +391,8 @@ bool STCanScan::sendErrorCode(long status)
  * hard reset the bridge and reconnect all ports and handlers: windows
  */
 /* static */ int STCanScan::reconnectAllPorts( tUcanHandle h ){
-	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " hard reset not yet implemented, but could maybe be done";
+	MLOGST(WRN,this) << __FUNCTION__ << " hard reset not yet implemented";
+	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " hard reset not yet implemented";
 #if 0
 	/// have to call these two API methods
 	BYTE ret0 = ::UcanDeinitHardware ( m_UcanHandle );
@@ -369,7 +404,7 @@ bool STCanScan::sendErrorCode(long status)
 	}
 
 	/**
-	 * and now reconnect all ports, but n order to do that we need to keep thrack of them globally.
+	 * and now reconnect all ports, but n order to do that we need to keep track of them globally.
 	 * That is a risky thing to do under windows, and takes some careful programming.
 	 * Since I am not sure this is really needed at this point I skip it for now.
 	 */
