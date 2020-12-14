@@ -93,6 +93,7 @@ AnaCanScan::AnaCanScan():
 AnaCanScan::~AnaCanScan()
 {
 	stopBus();
+	MLOGANA(DBG,this) << __FUNCTION__ <<" closed successfully";
 }
 
 void AnaCanScan::stopBus ()
