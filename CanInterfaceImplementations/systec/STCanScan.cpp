@@ -168,7 +168,7 @@ STCanScan::~STCanScan()
 	m_CanScanThreadShutdownFlag = false;
 	DWORD result = WaitForSingleObject(m_hCanScanThread, INFINITE); 	//Shut down can scan thread
 	::UcanDeinitCanEx (m_UcanHandle,(BYTE)m_channelNumber);
-	MLOGST(DBG,this) << "ST Can Scan component closed successfully";
+	MLOGST(DBG,this) << __FUNCTION__ <<" closed successfully";
 }
 
 /**
