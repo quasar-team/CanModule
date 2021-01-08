@@ -323,11 +323,13 @@ int STCanScan::openCanPort(tUcanInitCanParam initializationParameters)
 	// check if USB-CANmodul already is initialized
 	if (isCanHandleInUse(m_moduleNumber)) {
 		canModuleHandle = getCanHandle(m_moduleNumber); //if it is, we get the handle
+		MLOGST(WRN,this) << "trying to open a can port which is in use, reuse handle, skipping UCanDeinitHardware";
 	} else {
 		//Otherwise we create it.
+		MLOGST(TRC,this) << "init can port";
 		systecCallReturn = ::UcanInitHardwareEx(&canModuleHandle, m_moduleNumber, 0, 0);
 		if (systecCallReturn != USBCAN_SUCCESSFUL ) 	{
-			MLOGST(ERR,this) << "UcanInitHardwareEx, return code = [ 0x" << hex << systecCallReturn << dec << "]";
+			MLOGST(ERR,this) << "UcanInitHardwareEx, return code = [ 0x" << hex << (int) systecCallReturn << dec << "]";
 			::UcanDeinitHardware(canModuleHandle);
 			return -1;
 		}
@@ -336,7 +338,7 @@ int STCanScan::openCanPort(tUcanInitCanParam initializationParameters)
 	setCanHandleInUse(m_moduleNumber,true);
 	systecCallReturn = ::UcanInitCanEx2(canModuleHandle, m_channelNumber, &initializationParameters);
 	if ( systecCallReturn != USBCAN_SUCCESSFUL )	{
-		MLOGST(ERR,this) << "UcanInitCanEx2, return code = [ 0x" << hex << systecCallReturn << dec << "]";
+		MLOGST(ERR,this) << "UcanInitCanEx2, return code = [ 0x" << hex << (int) systecCallReturn << dec << "]";
 		::UcanDeinitCanEx(canModuleHandle, m_channelNumber);
 		return -1;
 	}
@@ -491,6 +493,7 @@ bool STCanScan::sendMessage(short cobID, unsigned char len, unsigned char *messa
 						<< reconnectConditionString(m_reconnectCondition)
 						<< " triggered action " << (int) m_reconnectAction
 						<< reconnectActionString(m_reconnectAction);
+				closeCanPort();
 				openCanPort( createInitializationParameters( m_baudRate ));
 				MLOGST(TRC, this) << "reconnect one CAN port  m_UcanHandle= " << m_UcanHandle;
 				m_triggerCounter = m_failedSendCounter;
