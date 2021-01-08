@@ -493,7 +493,6 @@ bool STCanScan::sendMessage(short cobID, unsigned char len, unsigned char *messa
 						<< reconnectConditionString(m_reconnectCondition)
 						<< " triggered action " << (int) m_reconnectAction
 						<< reconnectActionString(m_reconnectAction);
-				closeCanPort();
 				openCanPort( createInitializationParameters( m_baudRate ));
 				MLOGST(TRC, this) << "reconnect one CAN port  m_UcanHandle= " << m_UcanHandle;
 				m_triggerCounter = m_failedSendCounter;
