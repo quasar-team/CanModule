@@ -327,7 +327,7 @@ int STCanScan::openCanPort(tUcanInitCanParam initializationParameters)
 		//Otherwise we create it.
 		systecCallReturn = ::UcanInitHardwareEx(&canModuleHandle, m_moduleNumber, 0, 0);
 		if (systecCallReturn != USBCAN_SUCCESSFUL ) 	{
-			MLOGST(ERR,this) << "UcanInitHardwareEx, return code = " << systecCallReturn;
+			MLOGST(ERR,this) << "UcanInitHardwareEx, return code = [ 0x" << hex << systecCallReturn << dec << "]";
 			::UcanDeinitHardware(canModuleHandle);
 			return -1;
 		}
@@ -336,7 +336,7 @@ int STCanScan::openCanPort(tUcanInitCanParam initializationParameters)
 	setCanHandleInUse(m_moduleNumber,true);
 	systecCallReturn = ::UcanInitCanEx2(canModuleHandle, m_channelNumber, &initializationParameters);
 	if ( systecCallReturn != USBCAN_SUCCESSFUL )	{
-		MLOGST(ERR,this) << "UcanInitCanEx2, return code = [" << systecCallReturn << "]";
+		MLOGST(ERR,this) << "UcanInitCanEx2, return code = [ 0x" << hex << systecCallReturn << dec << "]";
 		::UcanDeinitCanEx(canModuleHandle, m_channelNumber);
 		return -1;
 	}
