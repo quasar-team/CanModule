@@ -469,6 +469,9 @@ bool STCanScan::sendMessage(short cobID, unsigned char len, unsigned char *messa
 		}
 		}
 
+		MLOGST(TRC, this) << " triggerCounter= " << m_triggerCounter;
+
+
 		switch ( m_reconnectAction ){
 		case CanModule::ReconnectAction::allBusesOnBridge: {
 			if ( m_triggerCounter <= 0 ){
@@ -483,11 +486,11 @@ bool STCanScan::sendMessage(short cobID, unsigned char len, unsigned char *messa
 			break;
 		}
 		case CanModule::ReconnectAction::singleBus: {
-			MLOGST(INF, this) << " reconnect condition " << (int) m_reconnectCondition
-					<< reconnectConditionString(m_reconnectCondition)
-					<< " triggered action " << (int) m_reconnectAction
-					<< reconnectActionString(m_reconnectAction);
 			if ( m_triggerCounter <= 0 ){
+				MLOGST(INF, this) << " reconnect condition " << (int) m_reconnectCondition
+						<< reconnectConditionString(m_reconnectCondition)
+						<< " triggered action " << (int) m_reconnectAction
+						<< reconnectActionString(m_reconnectAction);
 				openCanPort( createInitializationParameters( m_baudRate ));
 				MLOGST(TRC, this) << "reconnect one CAN port  m_UcanHandle= " << m_UcanHandle;
 				m_triggerCounter = m_failedSendCounter;
