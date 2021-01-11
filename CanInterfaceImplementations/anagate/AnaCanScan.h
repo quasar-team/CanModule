@@ -37,6 +37,7 @@
 #include "tchar.h"
 #include "Winsock2.h"
 #include "windows.h"
+#include "AnaGate.h"
 
 #else
 
