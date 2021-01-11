@@ -29,6 +29,7 @@
 #include "CanStatistics.h"
 #include "CCanAccess.h"
 #include "CanMessage.h"
+#include "AnaGateErrors.h"
 
 #ifdef _WIN32
 
@@ -37,13 +38,11 @@
 #include "tchar.h"
 #include "Winsock2.h"
 #include "windows.h"
-#include "AnaGate.h"
 
 #else
 
 #include "AnaGateDLL.h"
 #include "AnaGateDllCan.h"
-#include "AnaGate.h"
 
 typedef unsigned long DWORD;
 #endif

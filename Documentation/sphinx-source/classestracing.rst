@@ -44,3 +44,4 @@ tracing connections
 .. doxygenclass:: CanModule::Diag 
    :project: CanModule
    :members: get_connections
+   

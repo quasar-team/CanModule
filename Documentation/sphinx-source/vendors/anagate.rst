@@ -10,34 +10,30 @@ We support Anagate CAN-ethernet gateways: uno, duo, quattro, and the X2, X4 and 
 Since these modules communicate to the host computer only via ethernet, at the fundamental level only classical 
 tcp/ip ethernet is needed. Nevertheless the specific contents of the IP frames are wrapped up in an Anagate API for convenience, which is linked
 into the user code as a library. There are therefore no implementation differences between Linux and Windows.    
-Here the underlying vendor specific classes and the specific parameters are documented.
 
 The downside of Anagate CAN-ethernet modules is of course that the latency of the network has to be added to the bridge latency. 
 
-The connection
---------------
-
-To connect to a specific port for I/O, and send CAN messages, the following methods are used.
+status
+------
+status information is propagated through the unified status.
 
 .. doxygenclass:: AnaCanScan 
-	:project: CanModule
-	:members: createBus, sendMessage
+   :project: CanModule
+   :members: getPortStatus
 
-		
-standard CanModule API example
-------------------------------
+errors
+------
+Errors and problems are available through two mechanisms:
 
-This is how the CanModule standard API is used for anagate. The code is identical for linux and windows.
+* LogIt. This reports runtime errors detected by CanModule: 
+  set the LogIt trace level to TRC and grep for "anagate", for component "CanModule"
+   
+* vendor and hardware specific errors are available through connection of
+  an error handler (to a boost signal carrying the error message, see standard API).
+  The messages and error codes originate from the vendor api/implementation and are
+  reported as is without further processing. Messages are taken from the vendor's API
+  documentation if available.
 
-.. code-block:: c++
-
- libloader = CanModule::CanLibLoader::createInstance( "an" );
- cca = libloader->openCanBus( "an:can0:137.138.12.99", "250000 0 1" ); // termination, ISEG controllers, p3, p4, p5 defaults
- CanMessage cm; // empty
- cca->sendMessage( &cm );
- 
- 
- 
- 
-
-
+.. doxygenclass:: AnaCanScan 
+   :project: CanModule
+   :members: ana_canGetErrorText
