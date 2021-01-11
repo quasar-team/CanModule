@@ -505,7 +505,7 @@ bool PKCanScan::sendRemoteRequest(short cobID)
 
 bool PKCanScan::getErrorMessage(long error, char **message)
 {
-	char tmp[300];
+	char tmp[512];
 	CAN_GetErrorText((TPCANStatus)error,0, tmp);
 	*message = new char[strlen(tmp)+1];
 	strcpy(*message,tmp);

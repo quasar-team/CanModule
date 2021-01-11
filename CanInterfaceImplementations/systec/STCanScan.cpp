@@ -689,13 +689,11 @@ std::string STcanGetErrorText( long errCode ){
 /**
  * convert the systec status word into a human readable message
  */
-bool STCanScan::errorCodeToString(long error, char message[])//TODO: Fix this method, this doesn't do anything!!
+bool STCanScan::errorCodeToString(long error, char message[])
 {
-	char tmp[300] = "st@windows: Error";
-	STcanGetErrorText((canStatus)error, tmp, sizeof(tmp));
-	message = new char[strlen(tmp)+1];
-	// message[0] = 0;
-	strcpy(message,tmp);
+	std::string ss = STcanGetErrorText((canStatus)error, tmp, sizeof(tmp));
+	message = new char[512];
+	strcpy(message,ss.c_str());
 	return true;
 }
 

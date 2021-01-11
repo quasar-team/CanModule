@@ -178,6 +178,7 @@ private:
 	bool errorCodeToString(long error, char message[]);
 	void stopBus( void );
 	void eraseReceptionHandlerFromMap( AnaInt32 h );
+	std::string ana_canGetErrorText( long errorCode );
 
 };
 

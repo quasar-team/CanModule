@@ -1061,17 +1061,42 @@ bool AnaCanScan::sendRemoteRequest(short cobID)
 }
 
 /**
+ * give back the error message fro the code, from appendixA
+ */
+std::string AnaCanScan::ana_canGetErrorText( long errorCode ){
+	switch( errorCode ){
+	case ERR_NONE: return("No errors");
+	case ERR_OPEN_MAX_CONN: return("Open failed, maximal count of connections reached.");
+	case ERR_OP_CMD_FAILED: return("Command failed with unknown failure");
+	case ERR_TCPIP_SOCKET: return("Socket error in TCP/IP layer occured.");
+	case ERR_TCPIP_NOTCONNECTED: return("Connection to TCP/IP partner can't\
+			established or is disconnected.");
+	case ERR_TCPIP_TIMEOUT: return("No answer received from TCP/IP\
+            partner within the defined timeout");
+	case ERR_TCPIP_CALLNOTALLOWED: return("Command is not allowed at this time.");
+	case ERR_TCPIP_NOT_INITIALIZED: return("TCP/IP-Stack can't be initialized.");
+	case ERR_INVALID_CRC: return("AnaGate TCP/IP telegram has incorrect checksum (CRC).");
+	case ERR_INVALID_CONF: return("AnaGate TCP/IP telegram wasn't\
+            receipted from partner.");
+	case ERR_INVALID_CONF_DATA: return("AnaGate TCP/IP telegram wasn't\
+            receipted correct from partner.");
+	case ERR_INVALID_DEVICE_HANDLE: return("Invalid device handle");
+	case ERR_INVALID_DEVICE_TYPE: return("Function can't be executed on this\
+			device handle, as she is assigned\
+			to another device type of AnaGate series.");
+	}
+}
+
+/**
  * Provides textual representation of an error code.
  * error return from module
- * \todo: Fix AnaCanScan::errorCodeToString method, this doesn't do anything!!
  */
 bool AnaCanScan::errorCodeToString(long error, char message[])
 {
 	char tmp[300] = "Error";
-	// canGetErrorText((canStatus)error, tmp, sizeof(tmp));
-	// *message = new char[strlen(tmp)+1];
-	//    message[0] = 0;
-	strcpy(message,tmp);
+	std::string ss = ana_canGetErrorText((canStatus)error, tmp, sizeof(tmp));
+	message = new char[512];
+	strcpy(message, ss.c_str());
 	return true;
 }
 
