@@ -1065,23 +1065,23 @@ bool AnaCanScan::sendRemoteRequest(short cobID)
  */
 std::string AnaCanScan::ana_canGetErrorText( long errorCode ){
 	switch( errorCode ){
-	case ERR_NONE: return("No errors");
-	case ERR_OPEN_MAX_CONN: return("Open failed, maximal count of connections reached.");
-	case ERR_OP_CMD_FAILED: return("Command failed with unknown failure");
-	case ERR_TCPIP_SOCKET: return("Socket error in TCP/IP layer occured.");
-	case ERR_TCPIP_NOTCONNECTED: return("Connection to TCP/IP partner can't\
+	case ANA_ERR_NONE: return("No errors");
+	case ANA_ERR_OPEN_MAX_CONN: return("Open failed, maximal count of connections reached.");
+	case ANA_ERR_OP_CMD_FAILED: return("Command failed with unknown failure");
+	case ANA_ERR_TCPIP_SOCKET: return("Socket error in TCP/IP layer occured.");
+	case ANA_ERR_TCPIP_NOTCONNECTED: return("Connection to TCP/IP partner can't\
 			established or is disconnected.");
-	case ERR_TCPIP_TIMEOUT: return("No answer received from TCP/IP\
+	case ANA_ERR_TCPIP_TIMEOUT: return("No answer received from TCP/IP\
             partner within the defined timeout");
-	case ERR_TCPIP_CALLNOTALLOWED: return("Command is not allowed at this time.");
-	case ERR_TCPIP_NOT_INITIALIZED: return("TCP/IP-Stack can't be initialized.");
-	case ERR_INVALID_CRC: return("AnaGate TCP/IP telegram has incorrect checksum (CRC).");
-	case ERR_INVALID_CONF: return("AnaGate TCP/IP telegram wasn't\
+	case ANA_ERR_TCPIP_CALLNOTALLOWED: return("Command is not allowed at this time.");
+	case ANA_ERR_TCPIP_NOT_INITIALIZED: return("TCP/IP-Stack can't be initialized.");
+	case ANA_ERR_INVALID_CRC: return("AnaGate TCP/IP telegram has incorrect checksum (CRC).");
+	case ANA_ERR_INVALID_CONF: return("AnaGate TCP/IP telegram wasn't\
             receipted from partner.");
-	case ERR_INVALID_CONF_DATA: return("AnaGate TCP/IP telegram wasn't\
+	case ANA_ERR_INVALID_CONF_DATA: return("AnaGate TCP/IP telegram wasn't\
             receipted correct from partner.");
-	case ERR_INVALID_DEVICE_HANDLE: return("Invalid device handle");
-	case ERR_INVALID_DEVICE_TYPE: return("Function can't be executed on this\
+	case ANA_ERR_INVALID_DEVICE_HANDLE: return("Invalid device handle");
+	case ANA_ERR_INVALID_DEVICE_TYPE: return("Function can't be executed on this\
 			device handle, as she is assigned\
 			to another device type of AnaGate series.");
 	}
