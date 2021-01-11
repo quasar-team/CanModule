@@ -393,8 +393,7 @@ bool STCanScan::sendErrorCode(long status)
  * hard reset the bridge and reconnect all ports and handlers: windows
  */
 /* static */ int STCanScan::reconnectAllPorts( tUcanHandle h ){
-	MLOGST(WRN,this) << __FUNCTION__ << " hard reset not yet implemented";
-	// std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " hard reset not yet implemented";
+	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " hard reset not yet implemented";
 #if 0
 	/// have to call these two API methods
 	BYTE ret0 = ::UcanDeinitHardware ( m_UcanHandle );
