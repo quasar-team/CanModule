@@ -42,6 +42,7 @@
 
 #include "AnaGateDLL.h"
 #include "AnaGateDllCan.h"
+#include "AnaGate.h"
 
 typedef unsigned long DWORD;
 #endif
