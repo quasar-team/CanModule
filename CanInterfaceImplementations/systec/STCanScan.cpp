@@ -543,11 +543,6 @@ std::string STcanGetErrorText( long errCode ){
 	number. If this module has already been initialized by its own or by\
 	another application, this error code is returned.");
 
-	case USBCAN_ERR_HWINUSE: return("This error code returns if the firmware version of the USB-CANmodul is\
-	not compatible to the software version of the DLL. In this case, install\
-	the latest driver for the USB-CANmodul. Furthermore make sure that\
-	the latest firmware version is programmed to the USB-CANmodul.");
-
 	case USBCAN_ERR_ILLVERSION: return("This error code returns if the firmware version of the USB-CANmodul is\
 	not compatible to the software version of the DLL. In this case, install\
 	the latest driver for the USB-CANmodul. Furthermore make sure that\

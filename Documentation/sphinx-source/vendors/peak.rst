@@ -43,6 +43,9 @@ utility peakCan. Device ID numbers have to be unique in a system obviously. The 
 is then done in ascending order: the first batch of ports is from the device with the lowest device ID, 
 and so forth.
 
+.. doxygenclass:: udevanalyserforpeak_ns::UdevAnalyserForPeak 
+   :project: CanModule
+   :members: 
 
 status
 ------
