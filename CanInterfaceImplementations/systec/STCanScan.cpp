@@ -393,8 +393,8 @@ bool STCanScan::sendErrorCode(long status)
  * hard reset the bridge and reconnect all ports and handlers: windows
  */
 /* static */ int STCanScan::reconnectAllPorts( tUcanHandle h ){
-	//MLOGST(WRN,this) << __FUNCTION__ << " hard reset not yet implemented";
-	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " hard reset not yet implemented";
+	MLOGST(WRN,this) << __FUNCTION__ << " hard reset not yet implemented";
+	// std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " hard reset not yet implemented";
 #if 0
 	/// have to call these two API methods
 	BYTE ret0 = ::UcanDeinitHardware ( m_UcanHandle );
@@ -406,9 +406,10 @@ bool STCanScan::sendErrorCode(long status)
 	}
 
 	/**
-	 * and now reconnect all ports, but n order to do that we need to keep track of them globally.
-	 * That is a risky thing to do under windows, and takes some careful programming.
-	 * Since I am not sure this is really needed at this point I skip it for now.
+	 * and now reconnect all ports and their reception handlers, but in order to do that we need
+	 * to keep track of them globally.
+	 * That is a risky thing to do under windows, since I am not sure this is really needed at
+	 * this point I skip it for now.
 	 */
 #endif
 	return(0);
@@ -471,9 +472,6 @@ bool STCanScan::sendMessage(short cobID, unsigned char len, unsigned char *messa
 		}
 		}
 
-		MLOGST(TRC, this) << " triggerCounter= " << m_triggerCounter;
-
-
 		switch ( m_reconnectAction ){
 		case CanModule::ReconnectAction::allBusesOnBridge: {
 			if ( m_triggerCounter <= 0 ){
@@ -494,7 +492,7 @@ bool STCanScan::sendMessage(short cobID, unsigned char len, unsigned char *messa
 						<< " triggered action " << (int) m_reconnectAction
 						<< reconnectActionString(m_reconnectAction);
 				openCanPort( createInitializationParameters( m_baudRate ));
-				MLOGST(TRC, this) << "reconnect one CAN port  m_UcanHandle= " << m_UcanHandle;
+				MLOGST(TRC, this) << "reconnect one CAN port  m_UcanHandle= " << (int) m_UcanHandle;
 				m_triggerCounter = m_failedSendCounter;
 			}
 			break;
@@ -522,12 +520,182 @@ bool STCanScan::sendRemoteRequest(short cobID)
 	return sendErrorCode(Status);
 }
 
+/**
+ * error text specific to STcan according to table24
+ * I am just copying the whole descriptions from the doc, verbatim, wtf.
+ * you get some shakespeare from it.
+ */
+std::string STcanGetErrorText( long errCode ){
+	switch( errCode ){
+	case USBCAN_SUCCESSFUL: return("success");
+
+	case USBCAN_ERR_RESOURCE: return ("This error code returns if one resource could not be generated. In this\
+	case the term resource means memory and handles provided by the	Windows OS");
+
+	case USBCAN_ERR_MAXMODULES: return("An application has tried to open more than 64 USB-CANmodul devices.\
+	The standard version of the DLL only supports up to 64 USB-CANmodul\
+	devices at the same time. This error also appears if several applications\
+	try to access more than 64 USB-CANmodul devices. For example,\
+	application 1 has opened 60 modules, application 2 has opened 4\
+	modules and application 3 wants to open a module. Application 3\
+	receives this error code.");
+
+	case USBCAN_ERR_HWINUSE: return("An application tries to initialize an USB-CANmodul with the given device\
+	number. If this module has already been initialized by its own or by\
+	another application, this error code is returned.");
+
+	case USBCAN_ERR_HWINUSE: return("This error code returns if the firmware version of the USB-CANmodul is\
+	not compatible to the software version of the DLL. In this case, install\
+	the latest driver for the USB-CANmodul. Furthermore make sure that\
+	the latest firmware version is programmed to the USB-CANmodul.");
+
+	case USBCAN_ERR_ILLVERSION: return("This error code returns if the firmware version of the USB-CANmodul is\
+	not compatible to the software version of the DLL. In this case, install\
+	the latest driver for the USB-CANmodul. Furthermore make sure that\
+	the latest firmware version is programmed to the USB-CANmodul.");
+
+	case USBCAN_ERR_ILLHW: return("This error code returns if an USB-CANmodul with the given device\
+	number is not found. If the function UcanInitHardware() or\
+	UcanInitHardwareEx() has been called with the device number\
+	USBCAN_ANY_MODULE, and the error code appears, it indicates that\
+	no module is connected to the PC or all connected modules are already\
+	in use.");
+
+	case USBCAN_ERR_ILLHANDLE: return("This error code returns if a function received an incorrect USBCAN\
+	handle. The function first checks which USB-CANmodul is related to this\
+	handle. This error occurs if no device belongs this handle.");
+
+	case USBCAN_ERR_ILLPARAM: return("This error code returns if a wrong parameter is passed to the function.\
+	For example, the value NULL has been passed to a pointer variable\
+	instead of a valid address.");
+
+	case USBCAN_ERR_BUSY: return("This error code occurs if several threads are accessing an\
+	USB-CANmodul within a single application. After the other threads have\
+	finished their tasks, the function may be called again.");
+
+	case USBCAN_ERR_TIMEOUT: return("This error code occurs if the function transmits a command to the\
+	USB-CANmodul but no reply is returned. To solve this problem, close\
+	the application, disconnect the USB-CANmodul, and connect it again.");
+
+	case USBCAN_ERR_IOFAILED: return("This error code occurs if the communication to the kernel driver was\
+	interrupted. This happens, for example, if the USB-CANmodul is\
+	disconnected during transferring data or commands to the\
+	USB-CANmodul.");
+
+	case USBCAN_ERR_DLL_TXFULL: return("The function UcanWriteCanMsg() or UcanWriteCanMsgEx() first checks\
+	if the transmit buffer within the DLL has enough capacity to store new\
+	CAN messages. If the buffer is full, this error code returns. The CAN\
+	message passed to these functions will not be written into the transmit\
+	buffer in order to protect other CAN messages against overwriting. The\
+	size of the transmit buffer is configurable (refer to function\
+	UcanInitCanEx() and structure tUcanInitCanParam).");
+
+	case USBCAN_ERR_MAXINSTANCES: return("A maximum amount of 64 applications are able to have access to the\
+	DLL. If more applications attempting to access to the DLL, this error\
+	code is returned. In this case, it is not possible to use an\
+	USB-CANmodul by this application.");
+
+	case USBCAN_ERR_CANNOTINIT: return("This error code returns if an application tries to call an API function\
+	which only can be called in software state CAN_INIT but the current\
+	software is still in state HW_INIT. Refer to section 4.3.1 and Table 11 for\
+	detailed information.");
+
+	case USBCAN_ERR_DISCONNECT: return("This error code occurs if an API function was called for an\
+	USB-CANmodul that was plugged-off from the computer recently.");
+
+	case USBCAN_ERR_ILLCHANNEL: return("This error code is returned if an extended function of the DLL is called\
+	with parameter bChannel_p = USBCAN_CHANNEL_CH1, but a single-channel USB-CANmodul was used.");
+
+	case USBCAN_ERR_ILLHWTYPE: return("This error code occurs if an extended function of the DLL was called for\
+	a hardware which does not support the feature.");
+
+	case USBCAN_ERRCMD_NOTEQU: return("This error code occurs during communication between the PC and an\
+	USB-CANmodul. The PC sends a command to the USB-CANmodul,\
+	then the module executes the command and returns a response to the\
+	PC. This error code returns if the reply does not correspond to the command.");
+
+	case USBCAN_ERRCMD_REGTST: return("The software tests the CAN controller on the USB-CANmodul when the\
+	CAN interface is initialized. Several registers of the CAN controller are\
+	checked. This error code returns if an error appears during this register test.");
+
+	case USBCAN_ERRCMD_ILLCMD: return("This error code returns if the USB-CANmodul receives a non-defined\
+	command. This error represents a version conflict between the firmware in the USB-CANmodul and the DLL.");
+
+	case USBCAN_ERRCMD_EEPROM: return("The USB-CANmodul has a built-in EEPROM. This EEPROM contains\
+	several configurations, e.g. the device number and the serial number. If\
+	an error occurs while reading these values, this error code is returned.");
+
+	case USBCAN_ERRCMD_ILLBDR: return("The USB-CANmodul has been initialized with an invalid baud rate (refer\
+	to section 4.3.4).");
+
+	case USBCAN_ERRCMD_NOTINIT: return("It was tried to access a CAN-channel of a multi-channel\
+	USB-CANmodul that was not initialized.");
+
+	case USBCAN_ERRCMD_ALREADYINIT: return("The accessed CAN-channel of a multi-channel USB-CANmodul was\
+	already initialized");
+
+	case USBCAN_ERRCMD_ILLSUBCMD: return("An internal error occurred within the DLL. In this case an unknown sub-\
+	command was called instead of a main command (e.g. for the cyclic CAN message-feature).");
+
+	case USBCAN_ERRCMD_ILLIDX: return("An internal error occurred within the DLL. In this case an invalid index\
+	for a list was delivered to the firmware (e.g. for the cyclic CAN message-feature).");
+
+	case USBCAN_ERRCMD_RUNNING: return("The caller tries to define a new list of cyclic CAN messages but this\
+	feature was already started. For defining a new list, it is necessary to stop the feature beforehand.");
+
+	case USBCAN_WARN_NODATA: return("If the function UcanReadCanMsg() or UcanReadCanMsgEx() returns\
+	with this warning, it is an indication that the receive buffer contains no CAN messages.");
+
+	case USBCAN_WARN_SYS_RXOVERRUN: return("This is returned by UcanReadCanMsg() or UcanReadCanMsgEx() if the\
+	receive buffer within the kernel driver runs over. The function\
+	nevertheless returns a valid CAN message. It also indicates that at least\
+	one CAN message are lost. However, it does not indicate the position of the lost CAN messages.");
+
+	case USBCAN_WARN_DLL_RXOVERRUN: return("The DLL automatically requests CAN messages from the\
+	USB-CANmodul and stores the messages into a buffer of the DLL. If\
+	more CAN messages are received than the DLL buffer size allows, this\
+	error code returns and CAN messages are lost. However, it does not\
+	indicate the position of the lost CAN messages. The size of the receive\
+	buffer is configurable (refer to function UcanInitCanEx() and structure\
+	tUcanInitCanParam).");
+
+	case USBCAN_WARN_FW_TXOVERRUN: return("This warning is returned by function UcanWriteCanMsg() or\
+	UcanWriteCanMsgEx() if flag USBCAN_CANERR_QXMTFULL is set in\
+	the CAN driver status. However, the transmit CAN message could be\
+	stored to the DLL transmit buffer. This warning indicates that at least\
+	one transmit CAN message got lost in the device firmware layer. This\
+	warning does not indicate the position of the lost CAN message.");
+
+	case USBCAN_WARN_FW_RXOVERRUN: return("This warning is returned by function UcanWriteCanMsg() or\
+	UcanWriteCanMsgEx() if flag USBCAN_CANERR_QOVERRUN or flag\
+	USBCAN_CANERR_OVERRUN are set in the CAN driver status. The\
+	function has returned with a valid CAN message. This warning indicates\
+	that at least one received CAN message got lost in the firmware layer.\
+	This warning does not indicate the position of the lost CAN message.");
+
+	case USBCAN_WARN_NULL_PTR: return("This warning is returned by functions UcanInitHwConnectControl() or\
+	UcanInitHwConnectControlEx() if a NULL pointer was passed as callback function address.");
+
+	case USBCAN_WARN_TXLIMIT: return("This warning is returned by the function UcanWriteCanMsgEx() if it was\
+	called to transmit more than one CAN message, but a part of them\
+	could not be stored to the transmit buffer within the DLL (because the\
+	buffer is full). The returned variable addressed by the parameter\
+	pdwCount_p indicates the number of CAN messages which are stored\
+	successfully to the transmit buffer.");
+
+	default: return("unknown error code");
+	}
+}
+
+/**
+ * convert the systec status word into a human readable message
+ */
 bool STCanScan::errorCodeToString(long error, char message[])//TODO: Fix this method, this doesn't do anything!!
 {
-	char tmp[300] = "Error";
-	// canGetErrorText((canStatus)error, tmp, sizeof(tmp));
-	//	message = new char[strlen(tmp)+1];
-	message[0] = 0;
+	char tmp[300] = "st@windows: Error";
+	STcanGetErrorText((canStatus)error, tmp, sizeof(tmp));
+	message = new char[strlen(tmp)+1];
+	// message[0] = 0;
 	strcpy(message,tmp);
 	return true;
 }

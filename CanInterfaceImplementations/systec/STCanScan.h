@@ -107,6 +107,7 @@ private:
 
 	static int reconnectAllPorts( tUcanHandle h );
 	unsigned int vendorBaudRate2UserBaudRate( unsigned int vb );
+	std::string STcanGetErrorText( long errror );
 
 
 };
