@@ -686,7 +686,7 @@ std::string STcanGetErrorText( long errCode ){
  */
 bool STCanScan::errorCodeToString(long error, char message[])
 {
-	std::string ss = STcanGetErrorText((canStatus)error, tmp, sizeof(tmp));
+	std::string ss = STcanGetErrorText( error );
 	message = new char[512];
 	strcpy(message,ss.c_str());
 	return true;
