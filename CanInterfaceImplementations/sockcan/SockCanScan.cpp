@@ -349,6 +349,7 @@ void* CSockCanScan::CanScanControlThread(void *p_voidSockCanScan)
 CSockCanScan::~CSockCanScan()
 {
 	stopBus();
+	MLOGSOCK(DBG,this) << __FUNCTION__ <<" closed successfully";
 }
 
 int CSockCanScan::configureCanBoard(const string name,const string parameters)

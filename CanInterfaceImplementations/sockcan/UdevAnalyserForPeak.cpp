@@ -216,7 +216,6 @@ void UdevAnalyserForPeak::m_createUdevPortMap( void ){
  * get the deviceID from the system driver number
  */
 unsigned int UdevAnalyserForPeak::m_peakDeviceIdFromSystemDeviceIndex( unsigned int sd ){
-	std::vector<PEAK_device_t>::iterator it = m_peak_v.begin();
 	for ( std::vector<PEAK_device_t>::iterator it = m_peak_v.begin(); it <= m_peak_v.end(); it++ ){
 		if ( it->systemDeviceIndex == sd ) return( it->deviceID );
 	}

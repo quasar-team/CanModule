@@ -267,6 +267,7 @@ bool PKCanScan::configureCanboard(const string name,const string parameters)
 {
 	m_sBusName = name;
 	m_baudRate = PCAN_BAUD_125K;
+	m_CanParameters.m_lBaudRate = 125000;
 
 	// for FD modules
 	//unsigned int parametersTseg1 = 0;
@@ -279,7 +280,7 @@ bool PKCanScan::configureCanboard(const string name,const string parameters)
 	//Process the parameters
 	vector<string> vectorString;
 	vectorString = parseNameAndParameters(name, parameters);
-	MLOGPK(DBG, this) << " calling getHandle vectorString[1]= " << vectorString[1] << std::endl;
+	MLOGPK(DBG, this) << " calling getHandle vectorString[1]= " << vectorString[1];
 
 	// peak guys start counting from 1, we start counting from 0. ugh.
 	int ich = atoi(vectorString[1].c_str());
@@ -291,7 +292,7 @@ bool PKCanScan::configureCanboard(const string name,const string parameters)
 	m_pkCanHandle = getHandle( humanReadableCode.c_str() );
 	MLOGPK( DBG, this ) << "PEAK handle for vectorString[1]= " << vectorString[1]
 	      << " is code= 0x" <<hex <<  m_pkCanHandle << dec
-		  << " human readable code= " << humanReadableCode << std::endl;
+		  << " human readable code= " << humanReadableCode;
 
 
 	if (strcmp(parameters.c_str(), "Unspecified") != 0)
@@ -302,7 +303,6 @@ bool PKCanScan::configureCanboard(const string name,const string parameters)
 		//Process the baudRate if needed
 		if (m_CanParameters.m_iNumberOfDetectedParameters == 1)
 		{
-			MLOGPK(DBG, this) << " m_CanParameters.m_lBaudRate= " << m_CanParameters.m_lBaudRate << std::endl;
 			switch (m_CanParameters.m_lBaudRate)
 			{
 			case 50000:
@@ -337,7 +337,8 @@ bool PKCanScan::configureCanboard(const string name,const string parameters)
 	} else {
 		MLOGPK(DBG, this) << "Unspecified parameters, default values will be used.";
 	}
-	MLOGPK(DBG, this) << " m_baudRate= 0x" << hex << m_baudRate << dec << std::endl;
+	MLOGPK(DBG, this) << " m_baudRate= 0x" << hex << m_baudRate << dec;
+	MLOGPK(DBG, this) << " m_CanParameters.m_lBaudRate= " << m_CanParameters.m_lBaudRate;
 
 	/** FD (flexible datarate) modules.
 	 * we need to contruct (a complicated) bitrate string in this case, according to PEAK PCAN-Basic Documentation API manual p.82
@@ -485,6 +486,8 @@ bool PKCanScan::sendMessage(short cobID, unsigned char len, unsigned char *messa
 			return sendErrorCode(tpcanStatus);
 		}
 		m_statistics.onTransmit( tpcanMessage.LEN );
+		m_statistics.setTimeSinceTransmitted();
+
 		message = message + lengthToBeSent;
 	}
 	while (lengthOfUnsentData > 8);
@@ -502,7 +505,7 @@ bool PKCanScan::sendRemoteRequest(short cobID)
 
 bool PKCanScan::getErrorMessage(long error, char **message)
 {
-	char tmp[300];
+	char tmp[512];
 	CAN_GetErrorText((TPCANStatus)error,0, tmp);
 	*message = new char[strlen(tmp)+1];
 	strcpy(*message,tmp);

@@ -106,6 +106,8 @@ private:
 	static bool s_isCanHandleInUseArray[256];
 
 	static int reconnectAllPorts( tUcanHandle h );
+	unsigned int vendorBaudRate2UserBaudRate( unsigned int vb );
+	std::string STcanGetErrorText( long errCode );
 
 
 };
