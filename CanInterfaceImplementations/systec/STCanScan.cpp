@@ -524,7 +524,7 @@ bool STCanScan::sendRemoteRequest(short cobID)
  * I am just copying the whole descriptions from the doc, verbatim, wtf.
  * you get some shakespeare from it.
  */
-std::string STcanGetErrorText( long errCode ){
+std::string STCanScan::STcanGetErrorText( long errCode ){
 	switch( errCode ){
 	case USBCAN_SUCCESSFUL: return("success");
 
