@@ -1093,8 +1093,7 @@ std::string AnaCanScan::ana_canGetErrorText( long errorCode ){
  */
 bool AnaCanScan::errorCodeToString(long error, char message[])
 {
-	char tmp[300] = "Error";
-	std::string ss = ana_canGetErrorText((canStatus)error, tmp, sizeof(tmp));
+	std::string ss = ana_canGetErrorText( error );
 	message = new char[512];
 	strcpy(message, ss.c_str());
 	return true;
