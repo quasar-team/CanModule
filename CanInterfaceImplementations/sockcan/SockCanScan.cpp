@@ -99,7 +99,9 @@ static std::string canFrameToString(const struct can_frame &f)
  */
 void* CSockCanScan::CanScanControlThread(void *p_voidSockCanScan)
 {
+#if 0
 	pthread_t _tid = pthread_self();
+#endif
 
 	//Message given by the socket.
 	struct can_frame  socketMessage;
@@ -343,7 +345,9 @@ void* CSockCanScan::CanScanControlThread(void *p_voidSockCanScan)
 		} // select showed timeout
 	} // while ( p_sockCanScan->m_CanScanThreadRunEnableFlag )
 	MLOGSOCK(INF,p_sockCanScan) << "main loop of SockCanScan terminated." << " tid= " << _tid;
+#if 0
 	pthread_exit(NULL);
+#endif
 }
 
 CSockCanScan::~CSockCanScan()
@@ -760,7 +764,9 @@ int CSockCanScan::createBus(const string name, const string parameters)
 		return -1;
 	}
 	MLOGSOCK(TRC,this) << "Created bus with parameters [" << parameters << "], starting main loop";
+#if 0
 	m_idCanScanThread =	pthread_create(&m_hCanScanThread,NULL,&CanScanControlThread, (void *)this);
+#endif
 	MLOGSOCK(TRC,this) << "created main thread m_idCanScanThread= " << m_idCanScanThread;
 	return( 0 );
 }
@@ -873,7 +879,9 @@ bool CSockCanScan::stopBus ()
 		sockReconnectMutex.lock();
 		std::map<string, string>::iterator it = CSockCanScan::m_busMap.find( m_busName );
 		if (it != CSockCanScan::m_busMap.end()) {
+#if 0
 			pthread_join( m_hCanScanThread, 0 );
+#endif
 			m_idCanScanThread = 0;
 			CSockCanScan::m_busMap.erase ( it );
 			m_busName = "nobus";

@@ -113,7 +113,11 @@ private:
 
 	int m_sock;                 //Socket handler
 	CanStatistics m_statistics;// Instance of Can Statistics
+#if 0
 	pthread_t m_hCanScanThread;	// Handle for the CAN update scan manager thread.
+#endif
+
+
 	int m_idCanScanThread; // Thread ID for the CAN update scan manager thread.
 	int m_errorCode; // As up-to-date as possible state of the interface.
 	std::string m_channelName;
