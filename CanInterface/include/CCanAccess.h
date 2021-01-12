@@ -106,7 +106,7 @@ SHARED_LIB_EXPORT_DEFN enum class ReconnectAutoCondition { sendFail=0, timeoutOn
  * 	@param hardReset:
  * 		the whole bridge receives some kind of "hard reset via software", only available for anagate (firmware reboot).
  */
-SHARED_LIB_EXPORT_DEFN enum class ReconnectAction { singleBus=0, allBusesOnBridge, hardReset };
+SHARED_LIB_EXPORT_DEFN enum class ReconnectAction { singleBus=0, allBusesOnBridge };
 
 struct CanParameters {
 	long m_lBaudRate;
@@ -428,13 +428,7 @@ public:
 	 * 			if available, the whole bridge is reset, affecting all physical channels on that bridge. Only available for anagate.
 	 * 			If a bridge is shared between multiple tasks, all channels across tasks are reset, affecting all tasks connected to
 	 * 			that bridge. Evidently, a given channel must only be used by at most one task.
-	 *
-	 * 		* hardReset:
-	 * 			the bridge is reset in a "hard" way, i.e. firmware is rebooted (NOT reloaded or overwritten). Only available for anagate:
-	 * 			the firmware of the bridge (ip) is reloaded using a special command of the anagate API which is not available through
-	 * 			the common CanModule API, since it is vendor specific. This is a "hard software reset", and it is not the same as just
-	 * 			power-cycling the module. It takes ~15secs and "is known to work nicely".
-	 */
+	 * 				 */
 	virtual void setReconnectBehavior( CanModule::ReconnectAutoCondition cond, CanModule::ReconnectAction action ) = 0;
 
 	/**
@@ -492,7 +486,6 @@ protected:
 		switch (c) {
 		case ReconnectAction::allBusesOnBridge: return(" allBusesOnBridge");
 		case ReconnectAction::singleBus: return(" singleBus");
-		case ReconnectAction::hardReset: return(" hardReset");
 		}
 		return(" unknown action");
 	}

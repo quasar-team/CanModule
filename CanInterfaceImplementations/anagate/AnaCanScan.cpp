@@ -622,52 +622,10 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 			break;
 		}
 
-		case CanModule::ReconnectAction::hardReset: {
-			// presently it crashes the anagate lib when closing the port. Maybe I am doing something not quite right and it can be fixed,
-			// but for now lets have it disabled.
-			MLOGANA(WRN, this) << "hardReset is not yet implemented";
-#if 0
-			AnaInt32 timeout = 10000; // 10secs
-			MLOGANA(INF, this) << " reconnect condition " << (int) m_reconnectCondition
-					<< reconnectConditionString(m_reconnectCondition)
-					<< " triggered action " << (int) m_reconnectAction
-					<< reconnectActionString(m_reconnectAction);
-			MLOGANA(WRN, this) << "this is a HARD reset of the anagate bridge, firmware is rebooted, then all ports reconnected, ip= " << m_canIPAddress;
-
-			AnaInt32 anaRet = CANRestart( m_canIPAddress.c_str(), timeout );
-			switch( anaRet ){
-			case 0x0:{
-				MLOGANA(INF, this) << "CANRestart OK";
-				break;
-			}
-			case 0x20000:{
-				MLOGANA(INF, this) << "CANRestart: EERR_TCPIP_SOCKE: Socket  error  occurred  in  TCP/IP layer.";
-				break;
-			}
-			case 0x30000:{
-				MLOGANA(INF, this) << "CANRestart: ERR_TCPIP_NOTCONNECTED: Connection to TCP/IP partner can't be established or is disconnected.";
-				break;
-			}
-			default:{
-				MLOGANA(INF, this) << "CANRestart: 0x" << std::hex << anaRet << std::dec << " other error";
-				break;
-			}
-			}
-			anaRet = AnaCanScan::reconnectAllPorts( m_canIPAddress );
-			while ( anaRet < 0 ){
-				MLOGANA(WRN, this) << "failed to reconnect all module CAN ports once, keep on trying to reconnect. ip= " << m_canIPAddress;
-				anaRet = AnaCanScan::reconnectAllPorts( m_canIPAddress );
-			}
-			showAnaCanScanObjectMap();
-#endif
-			break;
-		}
-
 		} // switch
 	} else {
 		m_statistics.onTransmit(messageLengthToBeProcessed);
 		m_statistics.setTimeSinceTransmitted();
-		// m_triggerCounter = 10; shoud not be hardcoded
 	}
 	return sendErrorCode(anaCallReturn);
 }
@@ -1085,6 +1043,7 @@ std::string AnaCanScan::ana_canGetErrorText( long errorCode ){
 			device handle, as she is assigned\
 			to another device type of AnaGate series.");
 	}
+	return("unknown error code");
 }
 
 /**

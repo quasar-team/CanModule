@@ -2,6 +2,14 @@
 All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+
+## 2.0.6
+- with CANX 2.0.6
+- documentation updated
+- lost of little fixes and bug corrections
+- proper vendor-related error signals now, for all implementations
+
+
 ## 2.0.4
 - added an infinite retry if init open port fails. works very well for anagate
 - took out some debugging leftovers
