@@ -118,13 +118,7 @@ private:
 
 	int m_sock;                 //Socket handler
 	CanStatistics m_statistics;// Instance of Can Statistics
-#if 0
-	pthread_t m_hCanScanThread;	// Handle for the CAN update scan manager thread.
-	int m_idCanScanThread; // Thread ID for the CAN update scan manager thread.
-#endif
 	std::thread *m_hCanScanThread;	// ptr thread object, not a thread
-	std::thread::id m_idCanScanThread; // Thread ID for the CAN update scan manager thread.
-
 	int m_errorCode; // As up-to-date as possible state of the interface.
 	std::string m_channelName;
 	std::string m_busName;
@@ -159,11 +153,10 @@ private:
 	 */
 	int openCanPort();
 
-//public:
 	/**
 	 * The main control thread function for the CAN update scan manager.
 	 */
-	void CanScanControlThread(void *);
+	static void CanScanControlThread(void *);
 
 
 };
