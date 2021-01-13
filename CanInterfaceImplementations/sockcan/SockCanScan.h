@@ -24,10 +24,6 @@
 #ifndef SOCKCANSCAN_H_
 #define SOCKCANSCAN_H_
 
-#if 0
-#include <pthread.h>
-#endif
-
 #include <thread>
 #include <string>
 
