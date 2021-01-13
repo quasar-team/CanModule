@@ -24,12 +24,17 @@
 #ifndef SOCKCANSCAN_H_
 #define SOCKCANSCAN_H_
 
+#if 0
 #include <pthread.h>
-#include <unistd.h>
+#endif
+
+#include <thread>
 #include <string>
+
+#include <unistd.h>
 #include <sys/socket.h>
 #include <linux/can.h>
-#include <boost/thread/thread.hpp>
+#include <boost/thread/thread.hpp> // for cross platform sleep
 
 
 #include "CCanAccess.h"
@@ -115,10 +120,11 @@ private:
 	CanStatistics m_statistics;// Instance of Can Statistics
 #if 0
 	pthread_t m_hCanScanThread;	// Handle for the CAN update scan manager thread.
-#endif
-
-
 	int m_idCanScanThread; // Thread ID for the CAN update scan manager thread.
+#endif
+	std::thread *m_hCanScanThread;	// ptr thread object, not a thread
+	std::thread::id m_idCanScanThread; // Thread ID for the CAN update scan manager thread.
+
 	int m_errorCode; // As up-to-date as possible state of the interface.
 	std::string m_channelName;
 	std::string m_busName;
@@ -153,10 +159,11 @@ private:
 	 */
 	int openCanPort();
 
+//public:
 	/**
 	 * The main control thread function for the CAN update scan manager.
 	 */
-	static void* CanScanControlThread(void *);
+	void CanScanControlThread(void *);
 
 
 };
