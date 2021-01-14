@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['hardreset_620',['hardReset',['../namespaceCanModule.html#a2062089fa4fa87c8354295f2a8fe31a5a74fa07b834c8e10084ece32c00d9bbbc',1,'CanModule']]]
+  ['never_643',['never',['../namespaceCanModule.html#a2f4fee79cc7ba53467c2538fe6b9adbbac7561db7a418dd39b2201dfe110ab4a4',1,'CanModule']]]
 ];

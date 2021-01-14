@@ -37,7 +37,6 @@ if( (NOT DEFINED ANAGATE_LIB_PATH) OR (NOT DEFINED ANAGATE_HEADERS) OR (NOT DEFI
 		SET( ANAGATE_HEADERS "C:/3rdPartySoftware/AnaGateCAN/win64/vc8/include")
 		SET( ANAGATE_LIB_PATH "C:/3rdPartySoftware/AnaGateCAN/win64/vc8/Release")
 		SET( ANAGATE_LIB_FILE "C:/3rdPartySoftware/AnaGateCAN/win64/vc8/Release/AnaGateCanDll64.lib")
-		# for 32BIT, use toolchain override
 	else()
 		SET ( ANAGATE_HEADERS "/opt/3rdPartySoftware/Anagate/CAN/anagate-api-2.13/linux64/gcc4_6/include" )
 		SET ( ANAGATE_HEADERS "/opt/3rdPartySoftware/Anagate/CAN/anagate-api-2.13/linux64/gcc4_6/include" )

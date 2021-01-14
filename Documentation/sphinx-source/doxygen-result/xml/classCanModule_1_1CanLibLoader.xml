@@ -21,12 +21,12 @@
         <referencedby refid="classCanModule_1_1CanLibLoader_1aa303c1dd64affa5c27f707e0306786a0" compoundref="CanLibLoader_8cpp" startline="39" endline="43">CanLibLoader</referencedby>
         <referencedby refid="classCanModule_1_1CanLibLoaderLin_1a2704a1d43e18e97223848c28dc5dc6ce" compoundref="CanLibLoaderLin_8cpp" startline="38" endline="45">CanModule::CanLibLoaderLin::CanLibLoaderLin</referencedby>
         <referencedby refid="classCanModule_1_1CanLibLoaderWin_1a52236485330327832d4a282ea370df54" compoundref="CanLibLoaderWin_8cpp" startline="69" endline="74">CanModule::CanLibLoaderWin::CanLibLoaderWin</referencedby>
-        <referencedby refid="classCanModule_1_1CanLibLoader_1acd7d3af103bb72d5bd18737333d682f4" compoundref="CanLibLoader_8cpp" startline="60" endline="66">closeCanBus</referencedby>
+        <referencedby refid="classCanModule_1_1CanLibLoader_1acd7d3af103bb72d5bd18737333d682f4" compoundref="CanLibLoader_8cpp" startline="60" endline="65">closeCanBus</referencedby>
         <referencedby refid="classCanModule_1_1CanLibLoaderLin_1a7d222a82ab3f005ebed4927b299fce64" compoundref="CanLibLoaderLin_8cpp" startline="77" endline="95">CanModule::CanLibLoaderLin::createCanAccess</referencedby>
         <referencedby refid="classCanModule_1_1CanLibLoaderWin_1adcc42606c727f4ca010ad08719d88a18" compoundref="CanLibLoaderWin_8cpp" startline="121" endline="137">CanModule::CanLibLoaderWin::createCanAccess</referencedby>
         <referencedby refid="classCanModule_1_1CanLibLoaderLin_1aaef852fe6e43d093f58529fab0b2e841" compoundref="CanLibLoaderLin_8cpp" startline="50" endline="69">CanModule::CanLibLoaderLin::dynamicallyLoadLib</referencedby>
         <referencedby refid="classCanModule_1_1CanLibLoaderWin_1a8206b2ad7d352ecb8e119b55d2069bc0" compoundref="CanLibLoaderWin_8cpp" startline="88" endline="113">CanModule::CanLibLoaderWin::dynamicallyLoadLib</referencedby>
-        <referencedby refid="classCanModule_1_1CanLibLoader_1aaac995d89efdcf2b673cbd3e678be55b" compoundref="CanLibLoader_8cpp" startline="71" endline="129">openCanBus</referencedby>
+        <referencedby refid="classCanModule_1_1CanLibLoader_1aaac995d89efdcf2b673cbd3e678be55b" compoundref="CanLibLoader_8cpp" startline="70" endline="128">openCanBus</referencedby>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-attrib">
@@ -99,7 +99,7 @@
         <inbodydescription>
         </inbodydescription>
         <location file="CanLibLoader/include/CanLibLoader.h" line="63" column="20"/>
-        <referencedby refid="classCanModule_1_1CanLibLoader_1aaac995d89efdcf2b673cbd3e678be55b" compoundref="CanLibLoader_8cpp" startline="71" endline="129">openCanBus</referencedby>
+        <referencedby refid="classCanModule_1_1CanLibLoader_1aaac995d89efdcf2b673cbd3e678be55b" compoundref="CanLibLoader_8cpp" startline="70" endline="128">openCanBus</referencedby>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -154,7 +154,7 @@
 </parameterlist>
 </para>
         </inbodydescription>
-        <location file="CanLibLoader/include/CanLibLoader.h" line="49" column="47" bodyfile="CanLibLoader/src/CanLibLoader.cpp" bodystart="71" bodyend="129"/>
+        <location file="CanLibLoader/include/CanLibLoader.h" line="49" column="47" bodyfile="CanLibLoader/src/CanLibLoader.cpp" bodystart="70" bodyend="128"/>
         <references refid="classCanModule_1_1CCanAccess_1a0eeee5c3d48f1102012d1483cbe6e64b">CanModule::CCanAccess::createBus</references>
         <references refid="classCanModule_1_1CanLibLoader_1a69dc0bf543d395f60bb8701339f99e29">createCanAccess</references>
         <references refid="classCanModule_1_1CCanAccess_1ab5a430fc27073d92c69659bda261b74d" compoundref="CCanAccess_8h" startline="321" endline="326">CanModule::CCanAccess::initialiseLogging</references>
@@ -178,7 +178,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CanLibLoader/include/CanLibLoader.h" line="50" column="28" bodyfile="CanLibLoader/src/CanLibLoader.cpp" bodystart="60" bodyend="66"/>
+        <location file="CanLibLoader/include/CanLibLoader.h" line="50" column="28" bodyfile="CanLibLoader/src/CanLibLoader.cpp" bodystart="60" bodyend="65"/>
         <references refid="classCanModule_1_1Diag_1aa79c20827b6e33fa35d4106d9aa479b8" compoundref="Diag_8cpp" startline="27" endline="37">CanModule::Diag::delete_maps</references>
         <references refid="classCanModule_1_1CCanAccess_1ac3f5126ae36d642217425e21696d19ca" compoundref="CCanAccess_8h" startline="204" endline="204">CanModule::CCanAccess::getBusName</references>
         <references refid="classCanModule_1_1CanLibLoader_1af891a85f28376052c3f4b22d97eb3ac2" compoundref="CanLibLoader_8h" startline="53">lh</references>

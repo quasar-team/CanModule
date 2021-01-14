@@ -88,13 +88,6 @@
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="namespaceCanModule_1a2062089fa4fa87c8354295f2a8fe31a5a74fa07b834c8e10084ece32c00d9bbbc" prot="public">
-          <name>hardReset</name>
-          <briefdescription>
-          </briefdescription>
-          <detaileddescription>
-          </detaileddescription>
-        </enumvalue>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -162,10 +155,10 @@
         <referencedby refid="classCanModule_1_1CanLibLoader_1aa303c1dd64affa5c27f707e0306786a0" compoundref="CanLibLoader_8cpp" startline="39" endline="43">CanModule::CanLibLoader::CanLibLoader</referencedby>
         <referencedby refid="classPKCanScan_1a565d5200fe4c139796bd073c6296208f" compoundref="pkcan_8cpp" startline="209" endline="259">PKCanScan::createBus</referencedby>
         <referencedby refid="classSTCanScan_1a28ac80d789b6d4d2bb11526bfaede69e" compoundref="STCanScan_8cpp" startline="208" endline="236">STCanScan::createBus</referencedby>
-        <referencedby refid="classCSockCanScan_1a879da2908384a8f154120bdd0c60c5aa" compoundref="SockCanScan_8cpp" startline="725" endline="765">CSockCanScan::createBus</referencedby>
-        <referencedby refid="classAnaCanScan_1a92f73e718c24985f247e5522486aace9" compoundref="AnaCanScan_8cpp" startline="244" endline="270">AnaCanScan::createBus</referencedby>
+        <referencedby refid="classCSockCanScan_1a879da2908384a8f154120bdd0c60c5aa" compoundref="SockCanScan_8cpp" startline="756" endline="800">CSockCanScan::createBus</referencedby>
+        <referencedby refid="classAnaCanScan_1a92f73e718c24985f247e5522486aace9" compoundref="AnaCanScan_8cpp" startline="245" endline="271">AnaCanScan::createBus</referencedby>
         <referencedby refid="classCanModule_1_1Diag_1a282a54b7181d085ba0abccca8fcb0874" compoundref="Diag_8cpp" startline="21" endline="25">CanModule::Diag::Diag</referencedby>
-        <referencedby refid="classCanModule_1_1CanLibLoader_1aaac995d89efdcf2b673cbd3e678be55b" compoundref="CanLibLoader_8cpp" startline="71" endline="129">CanModule::CanLibLoader::openCanBus</referencedby>
+        <referencedby refid="classCanModule_1_1CanLibLoader_1aaac995d89efdcf2b673cbd3e678be55b" compoundref="CanLibLoader_8cpp" startline="70" endline="128">CanModule::CanLibLoader::openCanBus</referencedby>
         <referencedby refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1aaf0bf3ac85c7b39a34b8c9430f99f88c" compoundref="UdevAnalyserForPeak_8cpp" startline="23" endline="34">udevanalyserforpeak_ns::UdevAnalyserForPeak::UdevAnalyserForPeak</referencedby>
       </memberdef>
       <memberdef kind="variable" id="namespaceCanModule_1a30152f28b688b7faa77e56732989f4de" prot="public" static="no" mutable="no">
@@ -202,9 +195,9 @@
         </inbodydescription>
         <location file="CanInterface/src/CanModuleUtils.cpp" line="44" column="9" bodyfile="CanInterface/src/CanModuleUtils.cpp" bodystart="44" bodyend="51" declfile="CanInterface/include/CanModuleUtils.h" declline="75" declcolumn="9"/>
         <referencedby refid="classSTCanScan_1aab42375da764eb0d50dee318cd790646" compoundref="STCanScan_8cpp" startline="95" endline="164">STCanScan::CanScanControlThread</referencedby>
-        <referencedby refid="AnaCanScan_8cpp_1ad5698349874e3653b879b5de27311594" compoundref="AnaCanScan_8cpp" startline="154" endline="178">InternalCallback</referencedby>
-        <referencedby refid="classSTCanScan_1a43454c0bc20eb764cbb4ef3dd5e52cc9" compoundref="STCanScan_8cpp" startline="340" endline="353">STCanScan::sendErrorCode</referencedby>
-        <referencedby refid="classPKCanScan_1a35ccc4082d56a736abb34d0c289c5a96" compoundref="pkcan_8cpp" startline="388" endline="404">PKCanScan::sendErrorCode</referencedby>
+        <referencedby refid="AnaCanScan_8cpp_1ad5698349874e3653b879b5de27311594" compoundref="AnaCanScan_8cpp" startline="155" endline="179">InternalCallback</referencedby>
+        <referencedby refid="classSTCanScan_1a43454c0bc20eb764cbb4ef3dd5e52cc9" compoundref="STCanScan_8cpp" startline="377" endline="390">STCanScan::sendErrorCode</referencedby>
+        <referencedby refid="classPKCanScan_1a35ccc4082d56a736abb34d0c289c5a96" compoundref="pkcan_8cpp" startline="389" endline="405">PKCanScan::sendErrorCode</referencedby>
       </memberdef>
       <memberdef kind="function" id="namespaceCanModule_1ac10ba397acc9fd9a69de54836bc6ca4a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::chrono::system_clock::time_point</type>
@@ -257,9 +250,9 @@
         </inbodydescription>
         <location file="CanInterface/src/CanModuleUtils.cpp" line="60" column="39" bodyfile="CanInterface/src/CanModuleUtils.cpp" bodystart="60" bodyend="74" declfile="CanInterface/include/CanModuleUtils.h" declline="78" declcolumn="39"/>
         <referencedby refid="classSTCanScan_1aab42375da764eb0d50dee318cd790646" compoundref="STCanScan_8cpp" startline="95" endline="164">STCanScan::CanScanControlThread</referencedby>
-        <referencedby refid="AnaCanScan_8cpp_1ad5698349874e3653b879b5de27311594" compoundref="AnaCanScan_8cpp" startline="154" endline="178">InternalCallback</referencedby>
-        <referencedby refid="classSTCanScan_1a43454c0bc20eb764cbb4ef3dd5e52cc9" compoundref="STCanScan_8cpp" startline="340" endline="353">STCanScan::sendErrorCode</referencedby>
-        <referencedby refid="classPKCanScan_1a35ccc4082d56a736abb34d0c289c5a96" compoundref="pkcan_8cpp" startline="388" endline="404">PKCanScan::sendErrorCode</referencedby>
+        <referencedby refid="AnaCanScan_8cpp_1ad5698349874e3653b879b5de27311594" compoundref="AnaCanScan_8cpp" startline="155" endline="179">InternalCallback</referencedby>
+        <referencedby refid="classSTCanScan_1a43454c0bc20eb764cbb4ef3dd5e52cc9" compoundref="STCanScan_8cpp" startline="377" endline="390">STCanScan::sendErrorCode</referencedby>
+        <referencedby refid="classPKCanScan_1a35ccc4082d56a736abb34d0c289c5a96" compoundref="pkcan_8cpp" startline="389" endline="405">PKCanScan::sendErrorCode</referencedby>
       </memberdef>
       <memberdef kind="function" id="namespaceCanModule_1a6cae4be8d395b496f5f602a5f9714ae1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::string</type>
@@ -273,8 +266,8 @@
         <inbodydescription>
         </inbodydescription>
         <location file="CanInterface/src/CanModuleUtils.cpp" line="32" column="13" bodyfile="CanInterface/src/CanModuleUtils.cpp" bodystart="32" bodyend="42" declfile="CanInterface/include/CanModuleUtils.h" declline="81" declcolumn="13"/>
-        <referencedby refid="classCSockCanScan_1a203a51239f8efc013d4b9df36f271317" compoundref="SockCanScan_8cpp" startline="395" endline="469">CSockCanScan::openCanPort</referencedby>
-        <referencedby refid="classCSockCanScan_1a4999204ff7166ee992a89b30a118af06" compoundref="SockCanScan_8cpp" startline="661" endline="700">CSockCanScan::sendRemoteRequest</referencedby>
+        <referencedby refid="classCSockCanScan_1a203a51239f8efc013d4b9df36f271317" compoundref="SockCanScan_8cpp" startline="401" endline="475">CSockCanScan::openCanPort</referencedby>
+        <referencedby refid="classCSockCanScan_1a4999204ff7166ee992a89b30a118af06" compoundref="SockCanScan_8cpp" startline="667" endline="706">CSockCanScan::sendRemoteRequest</referencedby>
       </memberdef>
       <memberdef kind="function" id="namespaceCanModule_1aca09a34a617d28f8b35699e7933d2599" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::string</type>

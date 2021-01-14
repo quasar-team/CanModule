@@ -73,8 +73,8 @@
 
 
 \title{CanModule Developer Documentation}
-\date{December 09, 2020}
-\release{2.0.0}
+\date{January 14, 2021}
+\release{2.0.6}
 \author{Michael Ludwig}
 \newcommand{\sphinxlogo}{\vbox{}}
 \renewcommand{\releasename}{Release}
@@ -212,6 +212,9 @@ This is how to choose an implementation and open one port:
 
 \PYG{n}{cca}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZgt{}}\PYG{n}{setReconnectBehavior}\PYG{p}{(} \PYG{n}{CanModule}\PYG{o}{:}\PYG{o}{:}\PYG{n}{ReconnectAutoCondition}\PYG{o}{:}\PYG{o}{:}\PYG{n}{sendFail}\PYG{p}{,} \PYG{n}{CanModule}\PYG{o}{:}\PYG{o}{:}\PYG{n}{ReconnectAction}\PYG{o}{:}\PYG{o}{:}\PYG{n}{singleBus} \PYG{p}{)}\PYG{p}{;}
 \PYG{n}{cca}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZgt{}}\PYG{n}{canMessageCame}\PYG{p}{.}\PYG{n}{connect}\PYG{p}{(} \PYG{o}{\PYGZam{}}\PYG{n}{onMessageRcvd} \PYG{p}{)}\PYG{p}{;} \PYG{c+c1}{// connect a reception handler}
+\PYG{n}{cca}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZgt{}}\PYG{n}{canMessageError}\PYG{p}{.}\PYG{n}{connect}\PYG{p}{(} \PYG{o}{\PYGZam{}}\PYG{n}{errorHandler} \PYG{p}{)}\PYG{p}{;} \PYG{c+c1}{// connect an error handler}
+
+
 \PYG{k+kt}{unsigned} \PYG{k+kt}{int} \PYG{n}{br} \PYG{o}{=} \PYG{n}{cca}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZgt{}}\PYG{n}{getPortBitrate}\PYG{p}{(}\PYG{p}{)}\PYG{p}{;}       \PYG{c+c1}{// make sure we know the bitrate as it was set}
 
 \PYG{n}{cca}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZgt{}}\PYG{n}{sendMessage}\PYG{p}{(} \PYG{o}{\PYGZam{}}\PYG{n}{cm} \PYG{p}{)}\PYG{p}{;}
@@ -240,7 +243,7 @@ a connection handler method must be registered to treat received messages (boost
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{c+c1}{// connection.h}
-\PYG{k}{class} \PYG{n+nc}{CONNECTION} \PYG{p}{\PYGZob{}}
+\PYG{k}{class} \PYG{n+nc}{MYCLASS} \PYG{p}{\PYGZob{}}
    \PYG{p}{(}\PYG{p}{.}\PYG{p}{.}\PYG{p}{.}\PYG{p}{)}
    \PYG{k}{public}\PYG{o}{:}
       \PYG{k}{static} \PYG{k+kt}{void} \PYG{n}{onMessageRcvd}\PYG{p}{(}\PYG{k}{const} \PYG{n}{CanMsgStruct}\PYG{c+cm}{/*\PYGZam{}*/} \PYG{n}{message}\PYG{p}{)}\PYG{p}{;}
@@ -249,12 +252,24 @@ a connection handler method must be registered to treat received messages (boost
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{c+c1}{// connection.cpp}
-\PYG{c+cm}{/* static */} \PYG{k+kt}{void} \PYG{n}{CONNECTION}\PYG{o}{:}\PYG{o}{:}\PYG{n}{onMessageRcvd}\PYG{p}{(}\PYG{k}{const} \PYG{n}{CanMsgStruct}\PYG{c+cm}{/*\PYGZam{}*/} \PYG{n}{message}\PYG{p}{)}\PYG{p}{\PYGZob{}}
+\PYG{c+cm}{/* static */} \PYG{k+kt}{void} \PYG{n}{MYCLASS}\PYG{o}{:}\PYG{o}{:}\PYG{n}{onMessageRcvd}\PYG{p}{(}\PYG{k}{const} \PYG{n}{CanMsgStruct}\PYG{c+cm}{/*\PYGZam{}*/} \PYG{n}{message}\PYG{p}{)}\PYG{p}{\PYGZob{}}
    \PYG{n}{MYCLASS} \PYG{o}{*}\PYG{n}{myObject} \PYG{o}{=} \PYG{n}{MYCLASS}\PYG{o}{:}\PYG{o}{:}\PYG{n}{getMyObject}\PYG{p}{(} \PYG{p}{.}\PYG{p}{.}\PYG{p}{.} \PYG{p}{)}\PYG{p}{;}
    \PYG{n}{myObject}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZgt{}}\PYG{n}{processReceivedMessage}\PYG{p}{(} \PYG{n}{message} \PYG{p}{)}\PYG{p}{;}
 \PYG{p}{\PYGZcb{}}
 \end{sphinxVerbatim}
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{// errorHandler.cpp}
+\PYG{c+cm}{/* static */} \PYG{k+kt}{void} \PYG{n}{MYCLASS}\PYG{o}{:}\PYG{o}{:}\PYG{n}{errorHandler}\PYG{p}{(}\PYG{k}{const} \PYG{k+kt}{int}\PYG{p}{,} \PYG{k}{const} \PYG{k+kt}{char}\PYG{o}{*} \PYG{n}{msg}\PYG{p}{,} \PYG{n}{timeval}\PYG{c+cm}{/*\PYGZam{}*/}\PYG{p}{)}\PYG{p}{\PYGZob{}}
+\PYG{n}{std}\PYG{o}{:}\PYG{o}{:}\PYG{n}{cout} \PYG{o}{\PYGZlt{}}\PYG{o}{\PYGZlt{}} \PYG{n}{\PYGZus{}\PYGZus{}FILE\PYGZus{}\PYGZus{}} \PYG{o}{\PYGZlt{}}\PYG{o}{\PYGZlt{}} \PYG{l+s}{\PYGZdq{}}\PYG{l+s}{ }\PYG{l+s}{\PYGZdq{}} \PYG{o}{\PYGZlt{}}\PYG{o}{\PYGZlt{}} \PYG{n}{\PYGZus{}\PYGZus{}LINE\PYGZus{}\PYGZus{}} \PYG{o}{\PYGZlt{}}\PYG{o}{\PYGZlt{}} \PYG{l+s}{\PYGZdq{}}\PYG{l+s}{ }\PYG{l+s}{\PYGZdq{}} \PYG{o}{\PYGZlt{}}\PYG{o}{\PYGZlt{}} \PYG{n}{\PYGZus{}\PYGZus{}FUNCTION\PYGZus{}\PYGZus{}}
+      \PYG{o}{\PYGZlt{}}\PYG{o}{\PYGZlt{}} \PYG{l+s}{\PYGZdq{}}\PYG{l+s}{ }\PYG{l+s}{\PYGZdq{}} \PYG{o}{\PYGZlt{}}\PYG{o}{\PYGZlt{}} \PYG{n}{msg} \PYG{o}{\PYGZlt{}}\PYG{o}{\PYGZlt{}} \PYG{n}{std}\PYG{o}{:}\PYG{o}{:}\PYG{n}{endl}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+\end{sphinxVerbatim}
 \begin{itemize}
+\item {} 
+both the library object \sphinxstylestrong{libloader} and the port objet(s) \sphinxstylestrong{cca} must exist during runtime, since the \sphinxstylestrong{libloader}
+is needed at the end to close the \sphinxstylestrong{cca} .
+
 \item {} 
 you can take a look at {\color{red}\bfseries{}\textasciigrave{}CANX\textasciigrave{}\_} for a full multithreaded example using CanModule (CERN, gitlab).
 
@@ -272,7 +287,7 @@ you can take a look at {\color{red}\bfseries{}\textasciigrave{}CANX\textasciigra
 \pysigstartmultiline
 \pysigline{\phantomsection\label{\detokenize{canports:classCanModule_1_1CCanAccess}}\sphinxbfcode{\sphinxupquote{class }}\sphinxcode{\sphinxupquote{CanModule\sphinxcode{\sphinxupquote{::}}}}\sphinxbfcode{\sphinxupquote{CCanAccess}}}%
 \pysigstopmultiline
-Subclassed by {\hyperref[\detokenize{vendors/anagate:classAnaCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{AnaCanScan}}}}, {\hyperref[\detokenize{vendors/systec:classCSockCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{CSockCanScan}}}}, MockCanAccess, {\hyperref[\detokenize{vendors/peak:classPKCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{PKCanScan}}}}, {\hyperref[\detokenize{vendors/systec:classSTCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{STCanScan}}}}
+Subclassed by {\hyperref[\detokenize{classestracing:classAnaCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{AnaCanScan}}}}, {\hyperref[\detokenize{classestracing:classCSockCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{CSockCanScan}}}}, MockCanAccess, {\hyperref[\detokenize{vendors/peak:classPKCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{PKCanScan}}}}, {\hyperref[\detokenize{classestracing:classSTCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{STCanScan}}}}
 \subsubsection*{Public Functions}
 \index{CanModule::CCanAccess::getPortBitrate (C++ function)@\spxentry{CanModule::CCanAccess::getPortBitrate}\spxextra{C++ function}}
 
@@ -310,7 +325,7 @@ a 32\sphinxhyphen{}bit pattern, with
 \pysigstartmultiline
 \pysigline{\phantomsection\label{\detokenize{canports:classCanModule_1_1CCanAccess}}\sphinxbfcode{\sphinxupquote{class }}\sphinxcode{\sphinxupquote{CanModule\sphinxcode{\sphinxupquote{::}}}}\sphinxbfcode{\sphinxupquote{CCanAccess}}}%
 \pysigstopmultiline
-Subclassed by {\hyperref[\detokenize{vendors/anagate:classAnaCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{AnaCanScan}}}}, {\hyperref[\detokenize{vendors/systec:classCSockCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{CSockCanScan}}}}, MockCanAccess, {\hyperref[\detokenize{vendors/peak:classPKCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{PKCanScan}}}}, {\hyperref[\detokenize{vendors/systec:classSTCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{STCanScan}}}}
+Subclassed by {\hyperref[\detokenize{classestracing:classAnaCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{AnaCanScan}}}}, {\hyperref[\detokenize{classestracing:classCSockCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{CSockCanScan}}}}, MockCanAccess, {\hyperref[\detokenize{vendors/peak:classPKCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{PKCanScan}}}}, {\hyperref[\detokenize{classestracing:classSTCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{STCanScan}}}}
 \subsubsection*{Public Functions}
 \index{CanModule::CCanAccess::getPortStatus (C++ function)@\spxentry{CanModule::CCanAccess::getPortStatus}\spxextra{C++ function}}
 
@@ -590,7 +605,7 @@ The \sphinxstylestrong{access to a CAN port} is through:
 \pysigstartmultiline
 \pysigline{\phantomsection\label{\detokenize{canports:classCanModule_1_1CCanAccess}}\sphinxbfcode{\sphinxupquote{class }}\sphinxbfcode{\sphinxupquote{CCanAccess}}}%
 \pysigstopmultiline
-Subclassed by {\hyperref[\detokenize{vendors/anagate:classAnaCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{AnaCanScan}}}}, {\hyperref[\detokenize{vendors/systec:classCSockCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{CSockCanScan}}}}, MockCanAccess, {\hyperref[\detokenize{vendors/peak:classPKCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{PKCanScan}}}}, {\hyperref[\detokenize{vendors/systec:classSTCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{STCanScan}}}}
+Subclassed by {\hyperref[\detokenize{classestracing:classAnaCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{AnaCanScan}}}}, {\hyperref[\detokenize{classestracing:classCSockCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{CSockCanScan}}}}, MockCanAccess, {\hyperref[\detokenize{vendors/peak:classPKCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{PKCanScan}}}}, {\hyperref[\detokenize{classestracing:classSTCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{STCanScan}}}}
 
 \end{fulllineitems}
 
@@ -643,7 +658,7 @@ Connection/access details to the \sphinxstylestrong{different implementations/ve
 \pysigstartmultiline
 \pysigline{\phantomsection\label{\detokenize{classestracing:classCanModule_1_1CCanAccess}}\sphinxbfcode{\sphinxupquote{class }}\sphinxbfcode{\sphinxupquote{CCanAccess}}}%
 \pysigstopmultiline
-Subclassed by {\hyperref[\detokenize{vendors/anagate:classAnaCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{AnaCanScan}}}}, {\hyperref[\detokenize{vendors/systec:classCSockCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{CSockCanScan}}}}, MockCanAccess, {\hyperref[\detokenize{vendors/peak:classPKCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{PKCanScan}}}}, {\hyperref[\detokenize{vendors/systec:classSTCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{STCanScan}}}}
+Subclassed by {\hyperref[\detokenize{classestracing:classAnaCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{AnaCanScan}}}}, {\hyperref[\detokenize{classestracing:classCSockCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{CSockCanScan}}}}, MockCanAccess, {\hyperref[\detokenize{vendors/peak:classPKCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{PKCanScan}}}}, {\hyperref[\detokenize{classestracing:classSTCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{STCanScan}}}}
 
 \end{fulllineitems}
 
@@ -893,14 +908,10 @@ Here the underlying vendor specific classes and the specific parameters are docu
 SysTec modules USB\sphinxhyphen{}CAN bridges are supported: sysWORXX 1,2,8,16
 
 
-\section{The connection}
-\label{\detokenize{vendors/systec:the-connection}}
-To connect to a specific port for I/O, and send CAN messages, the following methods are used.
-
-
-\subsection{windows}
-\label{\detokenize{vendors/systec:windows}}
-The connection to a specific port for I/O is created by calling
+\section{status}
+\label{\detokenize{vendors/systec:status}}
+status information is propagated through the unified status.
+For windows:
 \index{STCanScan (C++ class)@\spxentry{STCanScan}\spxextra{C++ class}}
 
 \begin{fulllineitems}
@@ -908,91 +919,16 @@ The connection to a specific port for I/O is created by calling
 \pysigstartmultiline
 \pysigline{\phantomsection\label{\detokenize{vendors/systec:classSTCanScan}}\sphinxbfcode{\sphinxupquote{class }}\sphinxbfcode{\sphinxupquote{STCanScan}} : \sphinxbfcode{\sphinxupquote{public}} CanModule::{\hyperref[\detokenize{canports:_CPPv4N9CanModule10CCanAccessE}]{\sphinxcrossref{CCanAccess}}}}%
 \pysigstopmultiline~\subsubsection*{Public Functions}
-\index{STCanScan::createBus (C++ function)@\spxentry{STCanScan::createBus}\spxextra{C++ function}}
+\index{STCanScan::getPortStatus (C++ function)@\spxentry{STCanScan::getPortStatus}\spxextra{C++ function}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{vendors/systec:_CPPv4N9STCanScan9createBusEK6stringK6string}}%
+\phantomsection\label{\detokenize{vendors/systec:_CPPv4N9STCanScan13getPortStatusEv}}%
 \pysigstartmultiline
-\pysiglinewithargsret{\phantomsection\label{\detokenize{vendors/systec:classSTCanScan_1a28ac80d789b6d4d2bb11526bfaede69e}}int \sphinxbfcode{\sphinxupquote{createBus}}}{\sphinxbfcode{\sphinxupquote{const}} string \sphinxstyleemphasis{name}, \sphinxbfcode{\sphinxupquote{const}} string \sphinxstyleemphasis{parameters}}{}%
+\pysiglinewithargsret{\phantomsection\label{\detokenize{vendors/systec:classSTCanScan_1a27eabd471d3bb8154dfadb677c66e1d5}}uint32\_t \sphinxbfcode{\sphinxupquote{getPortStatus}}}{}{}%
 \pysigstopmultiline
-Method that initialises a CAN bus channel for systec@windows. All following methods called on the same object will be using this initialized channel.
+get CAN port and USB status, code it into an int \textgreater{} 200 (for windows@systec). use the API directly table19 says for CAN status: 0x0: no error 0x1: tx overrun 0x2: rx overrun 0x4: error limit1 exceeded: warning limit 0x8: error limit2 exceeded: error passive 0x10: can controller is off 0x40: rx buffer overrun 0x80: tx buffer overrun 0x400: transmit timeout, message dropped
 
-
-===note from Piotr=== in the Windows implementation of Systec (hardware component: st): to define the interface naming as canX, where X is a non\sphinxhyphen{}negative number note: the SysTec driver for windows expects addressing in terms of module number and channel (e.g. 0:0 is can0, 1:0 is can2, 1:1 is can3, etc) so can0 should open a SysTec interface 0:0 matching “can0” on the box, can1 should open a SysTec interface 0:1 matching “can1” on the box, etc.
-\begin{description}
-\item[{\sphinxstylestrong{Return}}] \leavevmode
-was the initialisation process successful?
-
-\item[{\sphinxstylestrong{Parameters}}] \leavevmode\begin{itemize}
-\item {} 
-\sphinxcode{\sphinxupquote{name}}: = 2 parameters separated by “:” like “n0:n1”\begin{itemize}
-\item {} 
-n0 = “st” for systec@windows
-
-\item {} 
-n1 = CAN port number on the module, can be prefixed with “can”
-
-\item {} 
-ex.: “st:can1” speaks to port 1 on systec module at the ip
-
-\item {} 
-ex.: “st:1” works as well
-
-\end{itemize}
-
-
-\item {} 
-\sphinxcode{\sphinxupquote{parameters}}: one parameter: “p0”, positive integers\begin{itemize}
-\item {} 
-”Unspecified” (or empty): using defaults = “125000” // params missing
-
-\item {} 
-p0: bitrate: 50000, 100000, 125000, 250000, 500000, 1000000 bit/s i.e. “250000”
-
-\end{itemize}
-
-
-\end{itemize}
-
-\end{description}
-
-
-returns: 0 = OK, bus created \sphinxhyphen{}1 = not ok, board init failed \sphinxhyphen{}2 = not ok, thread creation failed
-
-no implemented: 1=OK, bus creation skipped since it exists already 
-
-\end{fulllineitems}
-
-\index{STCanScan::sendMessage (C++ function)@\spxentry{STCanScan::sendMessage}\spxextra{C++ function}}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{vendors/systec:_CPPv4N9STCanScan11sendMessageEshPhb}}%
-\pysigstartmultiline
-\pysiglinewithargsret{\phantomsection\label{\detokenize{vendors/systec:classSTCanScan_1a45f0ec011022bf58a23e8370bac7f829}}bool \sphinxbfcode{\sphinxupquote{sendMessage}}}{short \sphinxstyleemphasis{cobID}, unsigned char \sphinxstyleemphasis{len}, unsigned char *\sphinxstyleemphasis{message}, bool \sphinxstyleemphasis{rtr} = false}{}%
-\pysigstopmultiline
-Method that sends a message trough the can bus channel. If the method createBUS was not called before this, sendMessage will fail, as there is no can bus channel to send a message through.
-
-\begin{description}
-\item[{\sphinxstylestrong{Return}}] \leavevmode
-Was the sending process successful? 
-
-\item[{\sphinxstylestrong{Parameters}}] \leavevmode\begin{itemize}
-\item {} 
-\sphinxcode{\sphinxupquote{cobID}}: Identifier that will be used for the message. 
-
-\item {} 
-\sphinxcode{\sphinxupquote{len}}: Length of the message. If the message is bigger than 8 characters, it will be split into separate 8 characters messages. 
-
-\item {} 
-\sphinxcode{\sphinxupquote{message}}: Message to be sent trough the can bus. 
-
-\item {} 
-\sphinxcode{\sphinxupquote{rtr}}: is the message a remote transmission request? 
-
-\end{itemize}
-
-\end{description}
-
+table20 says for USB status: 0x2000: module/usb got reset because of polling failure per second 0x4000: module/usb got reset because watchdog was not triggered 
 
 \end{fulllineitems}
 
@@ -1000,109 +936,51 @@ Was the sending process successful?
 \end{fulllineitems}
 
 
-and communication takes place through systec’s closed\sphinxhyphen{}source windows library.
+for linux:
+.. doxygenclass:: CSockCanScan
+\begin{quote}
+\begin{quote}\begin{description}
+\item[{project}] \leavevmode
+CanModule
+
+\item[{members}] \leavevmode
+getPortStatus
+
+\end{description}\end{quote}
+\end{quote}
 
 
-\subsection{linux}
-\label{\detokenize{vendors/systec:linux}}
-The open\sphinxhyphen{}source socketcan interface is used on top of systec’s open source driver:
-\index{CSockCanScan (C++ class)@\spxentry{CSockCanScan}\spxextra{C++ class}}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{vendors/systec:_CPPv412CSockCanScan}}%
-\pysigstartmultiline
-\pysigline{\phantomsection\label{\detokenize{vendors/systec:classCSockCanScan}}\sphinxbfcode{\sphinxupquote{class }}\sphinxbfcode{\sphinxupquote{CSockCanScan}} : \sphinxbfcode{\sphinxupquote{public}} CanModule::{\hyperref[\detokenize{canports:_CPPv4N9CanModule10CCanAccessE}]{\sphinxcrossref{CCanAccess}}}}%
-\pysigstopmultiline~\subsubsection*{Public Functions}
-\index{CSockCanScan::createBus (C++ function)@\spxentry{CSockCanScan::createBus}\spxextra{C++ function}}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{vendors/systec:_CPPv4N12CSockCanScan9createBusEK6string6string}}%
-\pysigstartmultiline
-\pysiglinewithargsret{\phantomsection\label{\detokenize{vendors/systec:classCSockCanScan_1a879da2908384a8f154120bdd0c60c5aa}}int \sphinxbfcode{\sphinxupquote{createBus}}}{\sphinxbfcode{\sphinxupquote{const}} string \sphinxstyleemphasis{name}, string \sphinxstyleemphasis{parameters}}{}%
-\pysigstopmultiline
-Method that initializes a can bus channel. The following methods called upon the same object will be using this initialized channel.
-
+\section{errors}
+\label{\detokenize{vendors/systec:errors}}
+Errors and problems are available through two mechanisms:
 \begin{itemize}
 \item {} 
-i.e. “250000”
-
-\end{itemize}
-\begin{description}
-\item[{\sphinxstylestrong{Parameters}}] \leavevmode\begin{itemize}
-\item {} 
-\sphinxcode{\sphinxupquote{name}}: = 2 parameters separated by “:”, like “n0:n1”\begin{itemize}
-\item {} 
-n0 = “sock” for sockets linux, used by systec and peak
-
-\item {} 
-n1 = CAN port number on the module, can be prefixed with “can”
-
-\item {} 
-ex.: “sock:can1” speaks to port 1 on systec or peak module
-
-\item {} 
-ex.: “sock:1” works as well
+LogIt. This reports runtime errors detected by CanModule:
+set the LogIt trace level to TRC and grep for “systec”, for component “CanModule”
 
 \end{itemize}
 
+\sphinxstylestrong{windows}
+* vendor and hardware specific errors are available through connection of
+\begin{quote}
 
-\item {} 
-\sphinxcode{\sphinxupquote{parameters}}: one parameter: “p0”, positive integer\begin{itemize}
-\item {} 
-”Unspecified” (or empty): using defaults = “125000” // params missing
-
-\item {} 
-p0: bitrate: 50000, 100000, 125000, 250000, 500000, 1000000 bit/s, other values might be allowed by the module
-
-\end{itemize}
-
-
-\end{itemize}
-
-\end{description}
-
-
-
-dont create a main thread for the same bus twice: if it exists already, just configure the board again this protects agains having multiple threads if a given port ports is opened several times: protects against erro/unusual runtime. If the connection is closed, it’s main thread is stopped and joined, and the port is erased from the connection map. when the same port is opened again later on, a (new) main thread is created, and the connection is again added to the map. 
-\begin{description}
-\item[{\sphinxstylestrong{Return}}] \leavevmode
-Was the initialization process successful?
-
-\end{description}
-
-
-\end{fulllineitems}
-
-\index{CSockCanScan::sendMessage (C++ function)@\spxentry{CSockCanScan::sendMessage}\spxextra{C++ function}}
+an error handler (to a boost signal carrying the error message, see standard API).
+\end{quote}
+\index{STCanScan (C++ class)@\spxentry{STCanScan}\spxextra{C++ class}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{vendors/systec:_CPPv4N12CSockCanScan11sendMessageEshPhb}}%
+\phantomsection\label{\detokenize{vendors/systec:_CPPv49STCanScan}}%
 \pysigstartmultiline
-\pysiglinewithargsret{\phantomsection\label{\detokenize{vendors/systec:classCSockCanScan_1a485ec8621a98cdacad8e27433e09d919}}bool \sphinxbfcode{\sphinxupquote{sendMessage}}}{short \sphinxstyleemphasis{cobID}, unsigned char \sphinxstyleemphasis{len}, unsigned char *\sphinxstyleemphasis{message}, bool \sphinxstyleemphasis{rtr} = false}{}%
+\pysigline{\phantomsection\label{\detokenize{vendors/systec:classSTCanScan}}\sphinxbfcode{\sphinxupquote{class }}\sphinxbfcode{\sphinxupquote{STCanScan}} : \sphinxbfcode{\sphinxupquote{public}} CanModule::{\hyperref[\detokenize{canports:_CPPv4N9CanModule10CCanAccessE}]{\sphinxcrossref{CCanAccess}}}}%
+\pysigstopmultiline~\subsubsection*{Private Functions}
+\index{STCanScan::STcanGetErrorText (C++ function)@\spxentry{STCanScan::STcanGetErrorText}\spxextra{C++ function}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{vendors/systec:_CPPv4N9STCanScan17STcanGetErrorTextEl}}%
+\pysigstartmultiline
+\pysiglinewithargsret{\phantomsection\label{\detokenize{vendors/systec:classSTCanScan_1a794110572725db6b7c153104ee1330b3}}std::string \sphinxbfcode{\sphinxupquote{STcanGetErrorText}}}{long \sphinxstyleemphasis{errCode}}{}%
 \pysigstopmultiline
-Method that sends a message trough the can bus channel. If the method createBUS was not called before this, sendMessage will fail, as there is no can bus channel to send a message through.
-
-\begin{description}
-\item[{\sphinxstylestrong{Return}}] \leavevmode
-Was the initialisation process successful? 
-
-\item[{\sphinxstylestrong{Parameters}}] \leavevmode\begin{itemize}
-\item {} 
-\sphinxcode{\sphinxupquote{cobID}}: Identifier that will be used for the message. 
-
-\item {} 
-\sphinxcode{\sphinxupquote{len}}: Length of the message. If the message is bigger than 8 characters, it will be split into separate 8 characters messages. 
-
-\item {} 
-\sphinxcode{\sphinxupquote{message}}: Message to be sent trough the can bus. 
-
-\item {} 
-\sphinxcode{\sphinxupquote{rtr}}: is the message a remote transmission request? 
-
-\end{itemize}
-
-\end{description}
-
+error text specific to STcan according to table24 I am just copying the whole descriptions from the doc, verbatim, wtf. you get some shakespeare from it. 
 
 \end{fulllineitems}
 
@@ -1110,23 +988,8 @@ Was the initialisation process successful?
 \end{fulllineitems}
 
 
-sockets are used normally, using linux’ built\sphinxhyphen{}in CAN protocols:
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-\PYG{n}{mysock} \PYG{o}{=} \PYG{n}{socket}\PYG{p}{(}\PYG{n}{domain}\PYG{o}{=}\PYG{n}{PF\PYGZus{}CAN}\PYG{p}{,} \PYG{n}{type}\PYG{o}{=}\PYG{n}{SOCK\PYGZus{}RAW}\PYG{p}{,} \PYG{n}{protocol}\PYG{o}{=}\PYG{n}{CAN\PYGZus{}RAW}\PYG{p}{)}
-\end{sphinxVerbatim}
-
-
-\section{standard CanModule API example}
-\label{\detokenize{vendors/systec:standard-canmodule-api-example}}
-This is how the CanModule standard API is used for systec for linux.
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-\PYG{n}{libloader} \PYG{o}{=} \PYG{n}{CanModule}\PYG{o}{:}\PYG{o}{:}\PYG{n}{CanLibLoader}\PYG{o}{:}\PYG{o}{:}\PYG{n}{createInstance}\PYG{p}{(} \PYG{l+s}{\PYGZdq{}}\PYG{l+s}{sock}\PYG{l+s}{\PYGZdq{}} \PYG{p}{)}\PYG{p}{;} \PYG{c+c1}{// linux, use \PYGZdq{}st\PYGZdq{} for windows}
-\PYG{n}{cca} \PYG{o}{=} \PYG{n}{libloader}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZgt{}}\PYG{n}{openCanBus}\PYG{p}{(} \PYG{l+s}{\PYGZdq{}}\PYG{l+s}{sock:can0}\PYG{l+s}{\PYGZdq{}}\PYG{p}{,} \PYG{l+s}{\PYGZdq{}}\PYG{l+s}{250000}\PYG{l+s}{\PYGZdq{}} \PYG{p}{)}\PYG{p}{;} \PYG{c+c1}{// termination on frontpanel}
-\PYG{n}{CanMessage} \PYG{n}{cm}\PYG{p}{;} \PYG{c+c1}{// empty}
-\PYG{n}{cca}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZgt{}}\PYG{n}{sendMessage}\PYG{p}{(} \PYG{o}{\PYGZam{}}\PYG{n}{cm} \PYG{p}{)}\PYG{p}{;}
-\end{sphinxVerbatim}
+\sphinxstylestrong{linux}
+* the error message from the ioctl call is returned, unfortunately it is rather unspecific.
 
 
 \chapter{AnaGate}
@@ -1139,14 +1002,13 @@ We support Anagate CAN\sphinxhyphen{}ethernet gateways: uno, duo, quattro, and t
 Since these modules communicate to the host computer only via ethernet, at the fundamental level only classical
 tcp/ip ethernet is needed. Nevertheless the specific contents of the IP frames are wrapped up in an Anagate API for convenience, which is linked
 into the user code as a library. There are therefore no implementation differences between Linux and Windows.
-Here the underlying vendor specific classes and the specific parameters are documented.
 
 The downside of Anagate CAN\sphinxhyphen{}ethernet modules is of course that the latency of the network has to be added to the bridge latency.
 
 
-\section{The connection}
-\label{\detokenize{vendors/anagate:the-connection}}
-To connect to a specific port for I/O, and send CAN messages, the following methods are used.
+\section{status}
+\label{\detokenize{vendors/anagate:status}}
+status information is propagated through the unified status.
 \index{AnaCanScan (C++ class)@\spxentry{AnaCanScan}\spxextra{C++ class}}
 
 \begin{fulllineitems}
@@ -1154,99 +1016,61 @@ To connect to a specific port for I/O, and send CAN messages, the following meth
 \pysigstartmultiline
 \pysigline{\phantomsection\label{\detokenize{vendors/anagate:classAnaCanScan}}\sphinxbfcode{\sphinxupquote{class }}\sphinxbfcode{\sphinxupquote{AnaCanScan}} : \sphinxbfcode{\sphinxupquote{public}} CanModule::{\hyperref[\detokenize{canports:_CPPv4N9CanModule10CCanAccessE}]{\sphinxcrossref{CCanAccess}}}}%
 \pysigstopmultiline~\subsubsection*{Public Functions}
-\index{AnaCanScan::createBus (C++ function)@\spxentry{AnaCanScan::createBus}\spxextra{C++ function}}
+\index{AnaCanScan::getPortStatus (C++ function)@\spxentry{AnaCanScan::getPortStatus}\spxextra{C++ function}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{vendors/anagate:_CPPv4N10AnaCanScan9createBusEK6stringK6string}}%
+\phantomsection\label{\detokenize{vendors/anagate:_CPPv4N10AnaCanScan13getPortStatusEv}}%
 \pysigstartmultiline
-\pysiglinewithargsret{\phantomsection\label{\detokenize{vendors/anagate:classAnaCanScan_1a92f73e718c24985f247e5522486aace9}}int \sphinxbfcode{\sphinxupquote{createBus}}}{\sphinxbfcode{\sphinxupquote{const}} string \sphinxstyleemphasis{name}, \sphinxbfcode{\sphinxupquote{const}} string \sphinxstyleemphasis{parameters}}{}%
+\pysiglinewithargsret{\phantomsection\label{\detokenize{vendors/anagate:classAnaCanScan_1a4c115df4a8755c0fd70030ae457af24c}}uint32\_t \sphinxbfcode{\sphinxupquote{getPortStatus}}}{}{}%
 \pysigstopmultiline
-Method that initialises a CAN bus channel for anagate. All following methods called on the same object will be using this initialized channel.
+CANCanDeviceConnectState , translate from counter 1 = DISCONNECTED : 2 = CONNECTING : 3 = CONNECTED 4 = DISCONNECTING 5 = NOT\_INITIALIZED b3…b27: unused
 
-\begin{description}
-\item[{\sphinxstylestrong{Return}}] \leavevmode
-0: new bus, OK, add it please 1: existing bus, OK, do not add \sphinxhyphen{}1: error 
+into simple bitpattern (counter) 0, 10, 11, 100, 101 
 
-\item[{\sphinxstylestrong{Parameters}}] \leavevmode\begin{itemize}
-\item {} 
-\sphinxcode{\sphinxupquote{name}}: 3 parameters separated by “:” like “n0:n1:n2” n0 = “an” for anagate n1 = port number on the module, 0=A, 1=B, etc etc n2 = ip number ex.: “an:can1:137.138.12.99” speaks to port B (=1) on anagate module at the ip ex.: “an:1:137.138.12.99” works as well
-
-\item {} 
-\sphinxcode{\sphinxupquote{parameters}}: up to 5 parameters separated by whitespaces : “p0 p1 p2 p3 p4” in THAT order, positive integers\begin{itemize}
-\item {} 
-”Unspecified” (or empty): using defaults = “125000 0 0 0 0” // all params missing
-
-\item {} 
-p0: bitrate: 10000, 20000, 50000, 62000, 100000, 125000, 250000, 500000, 800000, 1000000 bit/s
-
-\item {} 
-p1: operatingMode: 0=default mode, values 1 (loop back) and 2 (listen) are not supported by CanModule
-
-\item {} 
-p2: termination: 0=not terminated (default), 1=terminated (120 Ohm for CAN bus)
-
-\item {} 
-p3: highSpeed: 0=deactivated (default), 1=activated. If activated, confirmation and filtering of CAN traffic are switched off for baud rates \textgreater{} 125000 this flag is needed, and it is set automatically for you if you forgot it (WRN)
-
-\item {} 
-p4: TimeStamp: 0=deactivated (default), 1=activated. If activated, a timestamp is added to the CAN frame. Not all modules support this. i.e. “250000 0 1 0 0” (see anagate manual for more details)
-
-\end{itemize}
-
-
-\end{itemize}
-
-\end{description}
+\end{fulllineitems}
 
 
 \end{fulllineitems}
 
-\index{AnaCanScan::sendMessage (C++ function)@\spxentry{AnaCanScan::sendMessage}\spxextra{C++ function}}
+
+
+\section{errors}
+\label{\detokenize{vendors/anagate:errors}}
+Errors and problems are available through two mechanisms:
+\begin{itemize}
+\item {} 
+LogIt. This reports runtime errors detected by CanModule:
+set the LogIt trace level to TRC and grep for “anagate”, for component “CanModule”
+
+\item {} 
+vendor and hardware specific errors are available through connection of
+an error handler (to a boost signal carrying the error message, see standard API).
+The messages and error codes originate from the vendor api/implementation and are
+reported as is without further processing. Messages are taken from the vendor’s API
+documentation if available.
+
+\end{itemize}
+\index{AnaCanScan (C++ class)@\spxentry{AnaCanScan}\spxextra{C++ class}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{vendors/anagate:_CPPv4N10AnaCanScan11sendMessageEshPhb}}%
+\phantomsection\label{\detokenize{vendors/anagate:_CPPv410AnaCanScan}}%
 \pysigstartmultiline
-\pysiglinewithargsret{\phantomsection\label{\detokenize{vendors/anagate:classAnaCanScan_1ad45666454318c891d7acd9fe16ae4c49}}bool \sphinxbfcode{\sphinxupquote{sendMessage}}}{short \sphinxstyleemphasis{cobID}, unsigned char \sphinxstyleemphasis{len}, unsigned char *\sphinxstyleemphasis{message}, bool \sphinxstyleemphasis{rtr} = false}{}%
+\pysigline{\phantomsection\label{\detokenize{vendors/anagate:classAnaCanScan}}\sphinxbfcode{\sphinxupquote{class }}\sphinxbfcode{\sphinxupquote{AnaCanScan}} : \sphinxbfcode{\sphinxupquote{public}} CanModule::{\hyperref[\detokenize{canports:_CPPv4N9CanModule10CCanAccessE}]{\sphinxcrossref{CCanAccess}}}}%
+\pysigstopmultiline~\subsubsection*{Private Functions}
+\index{AnaCanScan::ana\_canGetErrorText (C++ function)@\spxentry{AnaCanScan::ana\_canGetErrorText}\spxextra{C++ function}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{vendors/anagate:_CPPv4N10AnaCanScan19ana_canGetErrorTextEl}}%
+\pysigstartmultiline
+\pysiglinewithargsret{\phantomsection\label{\detokenize{vendors/anagate:classAnaCanScan_1a1425dfc20e08b545fcdf49415ac15ec9}}std::string \sphinxbfcode{\sphinxupquote{ana\_canGetErrorText}}}{long \sphinxstyleemphasis{errorCode}}{}%
 \pysigstopmultiline
-send a CAN message frame (8 byte) for anagate Method that sends a message through the can bus channel. If the method createBus was not called before this, sendMessage will fail, as there is no can bus channel to send a message trough. \begin{description}
-\item[{\sphinxstylestrong{Return}}] \leavevmode
-Was the sending process successful? 
-
-\item[{\sphinxstylestrong{Parameters}}] \leavevmode\begin{itemize}
-\item {} 
-\sphinxcode{\sphinxupquote{cobID}}: Identifier that will be used for the message. 
-
-\item {} 
-\sphinxcode{\sphinxupquote{len}}: Length of the message. If the message is bigger than 8 characters, it will be split into separate 8 characters messages. 
-
-\item {} 
-\sphinxcode{\sphinxupquote{message}}: Message to be sent trough the can bus. 
-
-\item {} 
-\sphinxcode{\sphinxupquote{rtr}}: is the message a remote transmission request? 
-
-\end{itemize}
-
-\end{description}
-
+give back the error message fro the code, from appendixA 
 
 \end{fulllineitems}
 
 
 \end{fulllineitems}
 
-
-
-\section{standard CanModule API example}
-\label{\detokenize{vendors/anagate:standard-canmodule-api-example}}
-This is how the CanModule standard API is used for anagate. The code is identical for linux and windows.
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-\PYG{n}{libloader} \PYG{o}{=} \PYG{n}{CanModule}\PYG{o}{:}\PYG{o}{:}\PYG{n}{CanLibLoader}\PYG{o}{:}\PYG{o}{:}\PYG{n}{createInstance}\PYG{p}{(} \PYG{l+s}{\PYGZdq{}}\PYG{l+s}{an}\PYG{l+s}{\PYGZdq{}} \PYG{p}{)}\PYG{p}{;}
-\PYG{n}{cca} \PYG{o}{=} \PYG{n}{libloader}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZgt{}}\PYG{n}{openCanBus}\PYG{p}{(} \PYG{l+s}{\PYGZdq{}}\PYG{l+s}{an:can0:137.138.12.99}\PYG{l+s}{\PYGZdq{}}\PYG{p}{,} \PYG{l+s}{\PYGZdq{}}\PYG{l+s}{250000 0 1}\PYG{l+s}{\PYGZdq{}} \PYG{p}{)}\PYG{p}{;} \PYG{c+c1}{// termination, ISEG controllers, p3, p4, p5 defaults}
-\PYG{n}{CanMessage} \PYG{n}{cm}\PYG{p}{;} \PYG{c+c1}{// empty}
-\PYG{n}{cca}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZgt{}}\PYG{n}{sendMessage}\PYG{p}{(} \PYG{o}{\PYGZam{}}\PYG{n}{cm} \PYG{p}{)}\PYG{p}{;}
-\end{sphinxVerbatim}
 
 
 \chapter{Peak}
@@ -1254,99 +1078,21 @@ This is how the CanModule standard API is used for anagate. The code is identica
 All modules from vendor {\hyperref[\detokenize{vendors/peak:peak}]{\sphinxcrossref{Peak}}} are handled by class PKCanScan (windows) or CSockCanScan (linux) which
 both manage the modules through their underlying vendor specific API according to the OS.
 Both classes provide the standard generic CanModule API.
-Here the underlying vendor specific classes and the specific parameters are documented.
 
 The modules from the families PCAN USB and USB Pro are supported. For linux, also the flexible
-datarate (FD) types are supported. The FD types are not supported for windows presently, but they
+datarate (FD) module types are supported, but without FD functionality. This FD functionality
 could be added in principle if requested.
 
 
-\section{The connection}
-\label{\detokenize{vendors/peak:the-connection}}
-To connect to a specific port for I/O, and send CAN messages, the following methods are used.
-
-
-\subsection{windows}
+\section{windows}
 \label{\detokenize{vendors/peak:windows}}
-the connection to a specific port for I/O is created by calling
-\index{PKCanScan (C++ class)@\spxentry{PKCanScan}\spxextra{C++ class}}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{vendors/peak:_CPPv49PKCanScan}}%
-\pysigstartmultiline
-\pysigline{\phantomsection\label{\detokenize{vendors/peak:classPKCanScan}}\sphinxbfcode{\sphinxupquote{class }}\sphinxbfcode{\sphinxupquote{PKCanScan}} : \sphinxbfcode{\sphinxupquote{public}} CanModule::{\hyperref[\detokenize{canports:_CPPv4N9CanModule10CCanAccessE}]{\sphinxcrossref{CCanAccess}}}}%
-\pysigstopmultiline~\subsubsection*{Public Functions}
-\index{PKCanScan::createBus (C++ function)@\spxentry{PKCanScan::createBus}\spxextra{C++ function}}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{vendors/peak:_CPPv4N9PKCanScan9createBusEK6stringK6string}}%
-\pysigstartmultiline
-\pysiglinewithargsret{\phantomsection\label{\detokenize{vendors/peak:classPKCanScan_1a565d5200fe4c139796bd073c6296208f}}int \sphinxbfcode{\sphinxupquote{createBus}}}{\sphinxbfcode{\sphinxupquote{const}} string \sphinxstyleemphasis{name}, \sphinxbfcode{\sphinxupquote{const}} string \sphinxstyleemphasis{parameters}}{}%
-\pysigstopmultiline
-Method that initialises a CAN bus channel for peak@windows (using PEAK Basic) All following methods called on the same object will be using this initialized channel. Only USB interfaces for PEAK modules, and only NON FD modules are supported for now.
-
-\begin{description}
-\item[{\sphinxstylestrong{Return}}] \leavevmode
-was the initialisation process successful: 0 = ok 1 = ok, bus exists already, we skip \sphinxhyphen{}1: not ok, problem configuring the board, try again \sphinxhyphen{}2: could not create the thread \sphinxhyphen{}3: sth else went wrong 
-
-\item[{\sphinxstylestrong{Parameters}}] \leavevmode\begin{itemize}
-\item {} 
-\sphinxcode{\sphinxupquote{name}}: = 2 parameters separated by “:” like “n0:n1”\begin{itemize}
-\item {} 
-n0 = “pk” for peak@windows
-
-\item {} 
-n1 = CAN port number on the module, can be prefixed with “can”: 0..N
-
-\item {} 
-ex.: “pk:can1” speaks to port 1 (the second port) on peak module
-
-\item {} 
-ex.: “pk:1” works as well
-
-\end{itemize}
-
-
-\item {} 
-\sphinxcode{\sphinxupquote{parameters}}: one parameter: “p0”, positive integer\begin{itemize}
-\item {} 
-”Unspecified” (or empty): using defaults = “125000” // params missing
-
-\item {} 
-p0: bitrate: 50000, 100000, 125000, 250000, 500000, 1000000 bit/s i.e. “250000”
-
-\end{itemize}
-
-
-\end{itemize}
-
-\end{description}
-
-
-\end{fulllineitems}
-
-\index{PKCanScan::sendMessage (C++ function)@\spxentry{PKCanScan::sendMessage}\spxextra{C++ function}}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{vendors/peak:_CPPv4N9PKCanScan11sendMessageEshPhb}}%
-\pysigstartmultiline
-\pysiglinewithargsret{\phantomsection\label{\detokenize{vendors/peak:classPKCanScan_1a48a2e9ba00dae1b1fe01f7b095430503}}bool \sphinxbfcode{\sphinxupquote{sendMessage}}}{short \sphinxstyleemphasis{cobID}, unsigned char \sphinxstyleemphasis{len}, unsigned char *\sphinxstyleemphasis{message}, bool \sphinxstyleemphasis{rtr} = false}{}%
-\pysigstopmultiline
-method to send a CAN message to the peak module. we use the standard API “PCAN\sphinxhyphen{}Basic” for this for windows and we talk only over USB to fixed bitrate modules. The flexible bitrate (FD) modules can be implemented later as well: for this we need more parameters to pass and a switch between CAN\_Write and CAN\_WriteFD. 
-
-\end{fulllineitems}
-
-
-\end{fulllineitems}
-
-
-and communication takes place through peak’s open\sphinxhyphen{}source PCAN\sphinxhyphen{}Basic windows library. Only “plug\sphinxhyphen{}and\sphinxhyphen{}play”
-modules with USB interface and fixed datarate (non\sphinxhyphen{}FD) are supported by CanModule for now. PEAK’s flexible datarate (FD)
-modules can be added later on (they need some different API\sphinxhyphen{}calls and more complex parameters), and also
+The communication takes place through peak’s open\sphinxhyphen{}source PCAN\sphinxhyphen{}Basic windows library. Only “plug\sphinxhyphen{}and\sphinxhyphen{}play”
+modules with USB interface and fixed datarate (non\sphinxhyphen{}FD) are supported by CanModule for now. PEAK’s
+flexible datarate (FD) modules can be added later on (they need some different API\sphinxhyphen{}calls and more complex parameters), and also
 other interfaces like PCI are possible for windows.The implementation is based on the PCAN\sphinxhyphen{}Basic driver.
 
 
-\subsection{linux}
+\section{linux}
 \label{\detokenize{vendors/peak:linux}}
 The open\sphinxhyphen{}source socketcan interface is used on top of peak’s open source netdev driver. Both Peak’s
 fixed and flexible datarate are working, although the fixed modules are recommended for bus compatibility.
@@ -1370,142 +1116,111 @@ In order to use the deviceID (“1234”) it has to be set persistently for each
 utility peakCan. Device ID numbers have to be unique in a system obviously. The assigning of port numbers
 is then done in ascending order: the first batch of ports is from the device with the lowest device ID,
 and so forth.
-
-\sphinxstylestrong{The rest of the calls are standardized again}:
-\index{CSockCanScan (C++ class)@\spxentry{CSockCanScan}\spxextra{C++ class}}
+\index{udevanalyserforpeak\_ns::UdevAnalyserForPeak (C++ class)@\spxentry{udevanalyserforpeak\_ns::UdevAnalyserForPeak}\spxextra{C++ class}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{vendors/peak:_CPPv412CSockCanScan}}%
+\phantomsection\label{\detokenize{vendors/peak:_CPPv4N22udevanalyserforpeak_ns19UdevAnalyserForPeakE}}%
 \pysigstartmultiline
-\pysigline{\phantomsection\label{\detokenize{vendors/peak:classCSockCanScan}}\sphinxbfcode{\sphinxupquote{class }}\sphinxbfcode{\sphinxupquote{CSockCanScan}} : \sphinxbfcode{\sphinxupquote{public}} CanModule::{\hyperref[\detokenize{canports:_CPPv4N9CanModule10CCanAccessE}]{\sphinxcrossref{CCanAccess}}}}%
-\pysigstopmultiline~\subsubsection*{Public Functions}
-\index{CSockCanScan::createBus (C++ function)@\spxentry{CSockCanScan::createBus}\spxextra{C++ function}}
+\pysigline{\phantomsection\label{\detokenize{vendors/peak:classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak}}\sphinxbfcode{\sphinxupquote{class }}\sphinxcode{\sphinxupquote{udevanalyserforpeak\_ns\sphinxcode{\sphinxupquote{::}}}}\sphinxbfcode{\sphinxupquote{UdevAnalyserForPeak}}}%
+\pysigstopmultiline~\subsubsection*{Public Static Functions}
+\index{udevanalyserforpeak\_ns::UdevAnalyserForPeak::getInstance (C++ function)@\spxentry{udevanalyserforpeak\_ns::UdevAnalyserForPeak::getInstance}\spxextra{C++ function}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{vendors/peak:_CPPv4N12CSockCanScan9createBusEK6string6string}}%
+\phantomsection\label{\detokenize{vendors/peak:_CPPv4N22udevanalyserforpeak_ns19UdevAnalyserForPeak11getInstanceEv}}%
 \pysigstartmultiline
-\pysiglinewithargsret{\phantomsection\label{\detokenize{vendors/peak:classCSockCanScan_1a879da2908384a8f154120bdd0c60c5aa}}int \sphinxbfcode{\sphinxupquote{createBus}}}{\sphinxbfcode{\sphinxupquote{const}} string \sphinxstyleemphasis{name}, string \sphinxstyleemphasis{parameters}}{}%
+\pysiglinewithargsret{\phantomsection\label{\detokenize{vendors/peak:classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1a0f9f020e963d202faff7a1a114713219}}{\hyperref[\detokenize{vendors/peak:_CPPv4N22udevanalyserforpeak_ns19UdevAnalyserForPeakE}]{\sphinxcrossref{UdevAnalyserForPeak}}} *\sphinxbfcode{\sphinxupquote{getInstance}}}{}{}%
 \pysigstopmultiline
-Method that initializes a can bus channel. The following methods called upon the same object will be using this initialized channel.
+factory providing one singleton todo: use fancy threadsafe STATIC method 
 
+\end{fulllineitems}
+
+\index{udevanalyserforpeak\_ns::UdevAnalyserForPeak::peakExtendedIdentifierToSocketCanDevice (C++ function)@\spxentry{udevanalyserforpeak\_ns::UdevAnalyserForPeak::peakExtendedIdentifierToSocketCanDevice}\spxextra{C++ function}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{vendors/peak:_CPPv4N22udevanalyserforpeak_ns19UdevAnalyserForPeak39peakExtendedIdentifierToSocketCanDeviceENSt6stringE}}%
+\pysigstartmultiline
+\pysiglinewithargsret{\phantomsection\label{\detokenize{vendors/peak:classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1a7edf6a8b32f9728aacf570a7704e560f}}std::string \sphinxbfcode{\sphinxupquote{peakExtendedIdentifierToSocketCanDevice}}}{std::string \sphinxstyleemphasis{portId}}{}%
+\pysigstopmultiline
+convert a PEAK extended portIdentifier to a socketcan device, i.e. “sock:can0:device123456” \sphinxhyphen{}\textgreater{} “can2”
+
+\end{fulllineitems}
+
+\index{udevanalyserforpeak\_ns::UdevAnalyserForPeak::PEAK\_device\_t (C++ struct)@\spxentry{udevanalyserforpeak\_ns::UdevAnalyserForPeak::PEAK\_device\_t}\spxextra{C++ struct}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{vendors/peak:_CPPv4N22udevanalyserforpeak_ns19UdevAnalyserForPeak13PEAK_device_tE}}%
+\pysigstartmultiline
+\pysigline{\phantomsection\label{\detokenize{vendors/peak:structudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1_1PEAK__device__t}}\sphinxbfcode{\sphinxupquote{struct }}\sphinxbfcode{\sphinxupquote{PEAK\_device\_t}}}%
+\pysigstopmultiline
+\end{fulllineitems}
+
+
+\end{fulllineitems}
+
+
+
+\subsection{status}
+\label{\detokenize{vendors/peak:status}}
+status information is propagated through the unified status.
+For windows:
+\index{PKCanScan (C++ class)@\spxentry{PKCanScan}\spxextra{C++ class}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{vendors/peak:_CPPv49PKCanScan}}%
+\pysigstartmultiline
+\pysigline{\phantomsection\label{\detokenize{vendors/peak:classPKCanScan}}\sphinxbfcode{\sphinxupquote{class }}\sphinxbfcode{\sphinxupquote{PKCanScan}} : \sphinxbfcode{\sphinxupquote{public}} CanModule::{\hyperref[\detokenize{canports:_CPPv4N9CanModule10CCanAccessE}]{\sphinxcrossref{CCanAccess}}}}%
+\pysigstopmultiline~\subsubsection*{Public Functions}
+\index{PKCanScan::getPortStatus (C++ function)@\spxentry{PKCanScan::getPortStatus}\spxextra{C++ function}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{vendors/peak:_CPPv4N9PKCanScan13getPortStatusEv}}%
+\pysigstartmultiline
+\pysiglinewithargsret{\phantomsection\label{\detokenize{vendors/peak:classPKCanScan_1aae31de6a82fcacc8ef3f581aff5305fc}}uint32\_t \sphinxbfcode{\sphinxupquote{getPortStatus}}}{}{}%
+\pysigstopmultiline
+PCANBasic.h:113 
+
+\end{fulllineitems}
+
+
+\end{fulllineitems}
+
+
+for linux:
+.. doxygenclass:: CSockCanScan
+\begin{quote}
+\begin{quote}\begin{description}
+\item[{project}] \leavevmode
+CanModule
+
+\item[{members}] \leavevmode
+getPortStatus
+
+\end{description}\end{quote}
+\end{quote}
+
+
+\subsection{errors}
+\label{\detokenize{vendors/peak:errors}}
+Errors and problems are available through two mechanisms:
 \begin{itemize}
 \item {} 
-i.e. “250000”
-
-\end{itemize}
-\begin{description}
-\item[{\sphinxstylestrong{Parameters}}] \leavevmode\begin{itemize}
-\item {} 
-\sphinxcode{\sphinxupquote{name}}: = 2 parameters separated by “:”, like “n0:n1”\begin{itemize}
-\item {} 
-n0 = “sock” for sockets linux, used by systec and peak
-
-\item {} 
-n1 = CAN port number on the module, can be prefixed with “can”
-
-\item {} 
-ex.: “sock:can1” speaks to port 1 on systec or peak module
-
-\item {} 
-ex.: “sock:1” works as well
+LogIt. This reports runtime errors detected by CanModule:
+set the LogIt trace level to TRC and grep for “peak”, for component “CanModule”
 
 \end{itemize}
 
+\sphinxstylestrong{windows}
+* vendor and hardware specific errors are available through connection of
+\begin{quote}
 
-\item {} 
-\sphinxcode{\sphinxupquote{parameters}}: one parameter: “p0”, positive integer\begin{itemize}
-\item {} 
-”Unspecified” (or empty): using defaults = “125000” // params missing
+an error handler (to a boost signal carrying the error message, see standard API).
+The messages and error codes originate from the vendor api/implementation and are
+reported as is without further processing. Messages are taken from the vendor’s API
+documentation if available. Peak relies on a vendor provided method: CAN\_GetErrorText.
+\end{quote}
 
-\item {} 
-p0: bitrate: 50000, 100000, 125000, 250000, 500000, 1000000 bit/s, other values might be allowed by the module
-
-\end{itemize}
-
-
-\end{itemize}
-
-\end{description}
-
-
-
-dont create a main thread for the same bus twice: if it exists already, just configure the board again this protects agains having multiple threads if a given port ports is opened several times: protects against erro/unusual runtime. If the connection is closed, it’s main thread is stopped and joined, and the port is erased from the connection map. when the same port is opened again later on, a (new) main thread is created, and the connection is again added to the map. 
-\begin{description}
-\item[{\sphinxstylestrong{Return}}] \leavevmode
-Was the initialization process successful?
-
-\end{description}
-
-
-\end{fulllineitems}
-
-\index{CSockCanScan::sendMessage (C++ function)@\spxentry{CSockCanScan::sendMessage}\spxextra{C++ function}}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{vendors/peak:_CPPv4N12CSockCanScan11sendMessageEshPhb}}%
-\pysigstartmultiline
-\pysiglinewithargsret{\phantomsection\label{\detokenize{vendors/peak:classCSockCanScan_1a485ec8621a98cdacad8e27433e09d919}}bool \sphinxbfcode{\sphinxupquote{sendMessage}}}{short \sphinxstyleemphasis{cobID}, unsigned char \sphinxstyleemphasis{len}, unsigned char *\sphinxstyleemphasis{message}, bool \sphinxstyleemphasis{rtr} = false}{}%
-\pysigstopmultiline
-Method that sends a message trough the can bus channel. If the method createBUS was not called before this, sendMessage will fail, as there is no can bus channel to send a message through.
-
-\begin{description}
-\item[{\sphinxstylestrong{Return}}] \leavevmode
-Was the initialisation process successful? 
-
-\item[{\sphinxstylestrong{Parameters}}] \leavevmode\begin{itemize}
-\item {} 
-\sphinxcode{\sphinxupquote{cobID}}: Identifier that will be used for the message. 
-
-\item {} 
-\sphinxcode{\sphinxupquote{len}}: Length of the message. If the message is bigger than 8 characters, it will be split into separate 8 characters messages. 
-
-\item {} 
-\sphinxcode{\sphinxupquote{message}}: Message to be sent trough the can bus. 
-
-\item {} 
-\sphinxcode{\sphinxupquote{rtr}}: is the message a remote transmission request? 
-
-\end{itemize}
-
-\end{description}
-
-
-\end{fulllineitems}
-
-
-\end{fulllineitems}
-
-
-sockets are used normally, using linux’ built\sphinxhyphen{}in CAN protocols:
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-\PYG{n}{mysock} \PYG{o}{=} \PYG{n}{socket}\PYG{p}{(}\PYG{n}{domain}\PYG{o}{=}\PYG{n}{PF\PYGZus{}CAN}\PYG{p}{,} \PYG{n}{type}\PYG{o}{=}\PYG{n}{SOCK\PYGZus{}RAW}\PYG{p}{,} \PYG{n}{protocol}\PYG{o}{=}\PYG{n}{CAN\PYGZus{}RAW}\PYG{p}{)}
-\end{sphinxVerbatim}
-
-
-\section{API example Windows}
-\label{\detokenize{vendors/peak:api-example-windows}}
-This is how the CanModule standard API is used for peak for windows.
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-\PYG{n}{libloader} \PYG{o}{=} \PYG{n}{CanModule}\PYG{o}{:}\PYG{o}{:}\PYG{n}{CanLibLoader}\PYG{o}{:}\PYG{o}{:}\PYG{n}{createInstance}\PYG{p}{(} \PYG{l+s}{\PYGZdq{}}\PYG{l+s}{pk}\PYG{l+s}{\PYGZdq{}} \PYG{p}{)}\PYG{p}{;} \PYG{c+c1}{// windows vendor libs}
-\PYG{n}{cca} \PYG{o}{=} \PYG{n}{libloader}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZgt{}}\PYG{n}{openCanBus}\PYG{p}{(} \PYG{l+s}{\PYGZdq{}}\PYG{l+s}{pk:can0}\PYG{l+s}{\PYGZdq{}}\PYG{p}{,} \PYG{l+s}{\PYGZdq{}}\PYG{l+s}{250000}\PYG{l+s}{\PYGZdq{}} \PYG{p}{)}\PYG{p}{;} \PYG{c+c1}{// termination on frontpanel}
-\PYG{n}{CanMessage} \PYG{n}{cm}\PYG{p}{;} \PYG{c+c1}{// empty}
-\PYG{n}{cca}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZgt{}}\PYG{n}{sendMessage}\PYG{p}{(} \PYG{o}{\PYGZam{}}\PYG{n}{cm} \PYG{p}{)}\PYG{p}{;}
-\end{sphinxVerbatim}
-
-
-\section{API example Linux}
-\label{\detokenize{vendors/peak:api-example-linux}}
-This is how the CanModule standard API is used for peak for linux, USING the EXTENDED PORT IDENTIFIER.
-(also see jira OPCUA\sphinxhyphen{}1735).
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-\PYG{n}{libloader} \PYG{o}{=} \PYG{n}{CanModule}\PYG{o}{:}\PYG{o}{:}\PYG{n}{CanLibLoader}\PYG{o}{:}\PYG{o}{:}\PYG{n}{createInstance}\PYG{p}{(} \PYG{l+s}{\PYGZdq{}}\PYG{l+s}{sock}\PYG{l+s}{\PYGZdq{}} \PYG{p}{)}\PYG{p}{;} \PYG{c+c1}{// socketcan}
-\PYG{n}{cca} \PYG{o}{=} \PYG{n}{libloader}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZgt{}}\PYG{n}{openCanBus}\PYG{p}{(} \PYG{l+s}{\PYGZdq{}}\PYG{l+s}{pk:can0:device1234}\PYG{l+s}{\PYGZdq{}}\PYG{p}{,} \PYG{l+s}{\PYGZdq{}}\PYG{l+s}{250000}\PYG{l+s}{\PYGZdq{}} \PYG{p}{)}\PYG{p}{;} \PYG{c+c1}{// termination on frontpanel}
-\PYG{n}{CanMessage} \PYG{n}{cm}\PYG{p}{;} \PYG{c+c1}{// empty}
-\PYG{n}{cca}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZgt{}}\PYG{n}{sendMessage}\PYG{p}{(} \PYG{o}{\PYGZam{}}\PYG{n}{cm} \PYG{p}{)}\PYG{p}{;}
-\end{sphinxVerbatim}
+\sphinxstylestrong{linux}
+* the error message from the ioctl call is returned, unfortunately it is rather unspecific.
 
 
 \chapter{Reconnection OBSOLETE IS REWRITTEN CURRENTLY}

@@ -17,7 +17,8 @@
 {\ttfamily \#include $<$linux/can/error.\+h$>$}\newline
 {\ttfamily \#include $<$Can\+Module\+Utils.\+h$>$}\newline
 {\ttfamily \#include $<$Log\+It.\+h$>$}\newline
-Include dependency graph for Sock\+Can\+Scan.\+cpp\+:\nopagebreak
+Include dependency graph for Sock\+Can\+Scan.\+cpp\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -33,6 +34,10 @@ Include dependency graph for Sock\+Can\+Scan.\+cpp\+:\nopagebreak
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{classCanModule_1_1CCanAccess}{C\+Can\+Access}} $\ast$ \mbox{\hyperlink{SockCanScan_8cpp_a7126885c692bab5fba08fd9700e6a886}{get\+Can\+Bus\+Access}} ()
+\item 
+void \mbox{\hyperlink{SockCanScan_8cpp_ab85356f782f86b4f9882ab007a4363c4}{test\+Thread}} ()
+\item 
+void \mbox{\hyperlink{SockCanScan_8cpp_a1ff03dbfb54bd09b1d1d521060639cc7}{test\+Thread2}} (void $\ast$p\+\_\+void\+Sock\+Can\+Scan)
 \end{DoxyCompactItemize}
 \doxysubsection*{Variables}
 \begin{DoxyCompactItemize}
@@ -64,6 +69,26 @@ Definition at line 51 of file Sock\+Can\+Scan.\+cpp.
 This function creates an instance of this class and returns it. It will be loaded trough the dll to access the rest of the code. 
 
 Definition at line 59 of file Sock\+Can\+Scan.\+cpp.
+
+\mbox{\Hypertarget{SockCanScan_8cpp_ab85356f782f86b4f9882ab007a4363c4}\label{SockCanScan_8cpp_ab85356f782f86b4f9882ab007a4363c4}} 
+\index{SockCanScan.cpp@{SockCanScan.cpp}!testThread@{testThread}}
+\index{testThread@{testThread}!SockCanScan.cpp@{SockCanScan.cpp}}
+\doxysubsubsection{\texorpdfstring{testThread()}{testThread()}}
+{\footnotesize\ttfamily void test\+Thread (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 708 of file Sock\+Can\+Scan.\+cpp.
+
+\mbox{\Hypertarget{SockCanScan_8cpp_a1ff03dbfb54bd09b1d1d521060639cc7}\label{SockCanScan_8cpp_a1ff03dbfb54bd09b1d1d521060639cc7}} 
+\index{SockCanScan.cpp@{SockCanScan.cpp}!testThread2@{testThread2}}
+\index{testThread2@{testThread2}!SockCanScan.cpp@{SockCanScan.cpp}}
+\doxysubsubsection{\texorpdfstring{testThread2()}{testThread2()}}
+{\footnotesize\ttfamily void test\+Thread2 (\begin{DoxyParamCaption}\item[{void $\ast$}]{p\+\_\+void\+Sock\+Can\+Scan }\end{DoxyParamCaption})}
+
+
+
+Definition at line 720 of file Sock\+Can\+Scan.\+cpp.
 
 
 

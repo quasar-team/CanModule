@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## 2.0.7
+- OPCUA-1691: replaced pthreads with std::thread C++11. Call non-static private member method on embedding object,
+  as this is the best option to profit from inheritance (which is deeply rooted into CanModule, unfortunately)
+- doc rerun up to date 
 
 ## 2.0.6
 - with CANX 2.0.6

@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Standard API &#8212; CanModule 2.0.0 documentation</title>
+    <title>Standard API &#8212; CanModule 2.0.6 documentation</title>
     <link rel="stylesheet" href="_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -30,7 +30,7 @@
         <li class="right" >
           <a href="objective.html" title="Objective"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">CanModule 2.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">CanModule 2.0.6 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Standard API</a></li> 
       </ul>
     </div>  
@@ -55,6 +55,9 @@
 
 <span class="n">cca</span><span class="o">-&gt;</span><span class="n">setReconnectBehavior</span><span class="p">(</span> <span class="n">CanModule</span><span class="o">::</span><span class="n">ReconnectAutoCondition</span><span class="o">::</span><span class="n">sendFail</span><span class="p">,</span> <span class="n">CanModule</span><span class="o">::</span><span class="n">ReconnectAction</span><span class="o">::</span><span class="n">singleBus</span> <span class="p">);</span>
 <span class="n">cca</span><span class="o">-&gt;</span><span class="n">canMessageCame</span><span class="p">.</span><span class="n">connect</span><span class="p">(</span> <span class="o">&amp;</span><span class="n">onMessageRcvd</span> <span class="p">);</span> <span class="c1">// connect a reception handler</span>
+<span class="n">cca</span><span class="o">-&gt;</span><span class="n">canMessageError</span><span class="p">.</span><span class="n">connect</span><span class="p">(</span> <span class="o">&amp;</span><span class="n">errorHandler</span> <span class="p">);</span> <span class="c1">// connect an error handler</span>
+
+
 <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">br</span> <span class="o">=</span> <span class="n">cca</span><span class="o">-&gt;</span><span class="n">getPortBitrate</span><span class="p">();</span>       <span class="c1">// make sure we know the bitrate as it was set</span>
 
 <span class="n">cca</span><span class="o">-&gt;</span><span class="n">sendMessage</span><span class="p">(</span> <span class="o">&amp;</span><span class="n">cm</span> <span class="p">);</span>
@@ -78,7 +81,7 @@
 <li><p>a connection handler method must be registered to treat received messages (boost slot connected to boost signal)</p></li>
 </ul>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// connection.h</span>
-<span class="k">class</span> <span class="nc">CONNECTION</span> <span class="p">{</span>
+<span class="k">class</span> <span class="nc">MYCLASS</span> <span class="p">{</span>
    <span class="p">(...)</span>
    <span class="k">public</span><span class="o">:</span>
       <span class="k">static</span> <span class="kt">void</span> <span class="n">onMessageRcvd</span><span class="p">(</span><span class="k">const</span> <span class="n">CanMsgStruct</span><span class="cm">/*&amp;*/</span> <span class="n">message</span><span class="p">);</span>
@@ -86,13 +89,22 @@
 </pre></div>
 </div>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// connection.cpp</span>
-<span class="cm">/* static */</span> <span class="kt">void</span> <span class="n">CONNECTION</span><span class="o">::</span><span class="n">onMessageRcvd</span><span class="p">(</span><span class="k">const</span> <span class="n">CanMsgStruct</span><span class="cm">/*&amp;*/</span> <span class="n">message</span><span class="p">){</span>
+<span class="cm">/* static */</span> <span class="kt">void</span> <span class="n">MYCLASS</span><span class="o">::</span><span class="n">onMessageRcvd</span><span class="p">(</span><span class="k">const</span> <span class="n">CanMsgStruct</span><span class="cm">/*&amp;*/</span> <span class="n">message</span><span class="p">){</span>
    <span class="n">MYCLASS</span> <span class="o">*</span><span class="n">myObject</span> <span class="o">=</span> <span class="n">MYCLASS</span><span class="o">::</span><span class="n">getMyObject</span><span class="p">(</span> <span class="p">...</span> <span class="p">);</span>
    <span class="n">myObject</span><span class="o">-&gt;</span><span class="n">processReceivedMessage</span><span class="p">(</span> <span class="n">message</span> <span class="p">);</span>
 <span class="p">}</span>
 </pre></div>
 </div>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// errorHandler.cpp</span>
+<span class="cm">/* static */</span> <span class="kt">void</span> <span class="n">MYCLASS</span><span class="o">::</span><span class="n">errorHandler</span><span class="p">(</span><span class="k">const</span> <span class="kt">int</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">msg</span><span class="p">,</span> <span class="n">timeval</span><span class="cm">/*&amp;*/</span><span class="p">){</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">__FILE__</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">__LINE__</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">__FUNCTION__</span>
+      <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">msg</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 <ul class="simple">
+<li><p>both the library object <strong>libloader</strong> and the port objet(s) <strong>cca</strong> must exist during runtime, since the <strong>libloader</strong>
+is needed at the end to close the <strong>cca</strong> .</p></li>
 <li><p>you can take a look at <a href="#id1"><span class="problematic" id="id2">`CANX`_</span></a> for a full multithreaded example using CanModule (CERN, gitlab).</p></li>
 </ul>
 </div>
@@ -118,7 +130,7 @@
 <li class="toctree-l1"><a class="reference internal" href="vendors/systec.html">SysTec</a></li>
 <li class="toctree-l1"><a class="reference internal" href="vendors/anagate.html">AnaGate</a></li>
 <li class="toctree-l1"><a class="reference internal" href="vendors/peak.html">Peak</a></li>
-<li class="toctree-l1"><a class="reference internal" href="reconnection.html">Reconnection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reconnection.html">Reconnection OBSOLETE IS REWRITTEN CURRENTLY</a></li>
 <li class="toctree-l1"><a class="reference internal" href="logging.html">Logging</a></li>
 <li class="toctree-l1"><a class="reference internal" href="building.html">Building</a></li>
 <li class="toctree-l1"><a class="reference internal" href="running.html">Running</a></li>
@@ -158,13 +170,13 @@
         <li class="right" >
           <a href="objective.html" title="Objective"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">CanModule 2.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">CanModule 2.0.6 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Standard API</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2020, CERN, quasar-team, BE-ICS (Michael Ludwig).
-      Last updated on 09-Dec-2020 15:21:48.
+      Last updated on 14-Jan-2021 14:02:12.
       Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.1.2.
     </div>
   </body>

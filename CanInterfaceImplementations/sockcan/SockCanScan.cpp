@@ -65,9 +65,8 @@ extern "C" CCanAccess *getCanBusAccess()
 CSockCanScan::CSockCanScan() :
 							m_CanScanThreadRunEnableFlag(false),
 							m_sock(0),
-							m_hCanScanThread(0),
-							m_idCanScanThread(0),
 							m_errorCode(-1),
+							m_hCanScanThread( NULL ),
 							m_busName("nobus"),
 							m_logItHandleSock(0)
 {
@@ -97,17 +96,24 @@ static std::string canFrameToString(const struct can_frame &f)
  * select call on that socket/object. The select runs with 1Hz, and if
  * there is nothing to receive it should timeout.
  */
-void* CSockCanScan::CanScanControlThread(void *p_voidSockCanScan)
+void CSockCanScan::CanScanControlThread()
 {
-	pthread_t _tid = pthread_self();
-
-	//Message given by the socket.
 	struct can_frame  socketMessage;
-	CSockCanScan *p_sockCanScan = static_cast<CSockCanScan *>(p_voidSockCanScan);
+	CSockCanScan *p_sockCanScan = this;
+	// convenience, not really needed as we call the thread as
+	// non-static private member on the object
 
+	std::string _tid;
+	{
+		std::stringstream ss;
+		ss << this_thread::get_id();
+		_tid = ss.str();
+	}
 	MLOGSOCK(TRC, p_sockCanScan) << "created main loop tid= " << _tid;
+
 	p_sockCanScan->m_CanScanThreadRunEnableFlag = true;
 	int sock = p_sockCanScan->m_sock;
+	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " sock= " << sock << std::endl;
 
 	{
 		// discard first read
@@ -118,7 +124,11 @@ void* CSockCanScan::CanScanControlThread(void *p_voidSockCanScan)
 		timeval timeout;
 		timeout.tv_sec = 1;
 		timeout.tv_usec = 0;
-		MLOGSOCK(INF,p_sockCanScan) << "waiting for first reception on socket " << sock;
+
+		// MLOGSOCK(INF,p_sockCanScan) << "waiting for first reception on socket " << sock;
+		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << std::endl;
+
+
 		int selectResult = select( sock+1, &set, 0, &set, &timeout );
 		if ( selectResult > 0 ) {
 			int numberOfReadBytes = read(sock, &socketMessage, sizeof(can_frame));
@@ -158,8 +168,7 @@ void* CSockCanScan::CanScanControlThread(void *p_voidSockCanScan)
 				tim.tv_sec = 1;
 				tim.tv_nsec = 0;
 				if(nanosleep(&tim , &tim2) < 0 ) {
-					MLOGSOCK(ERR,p_sockCanScan) << "Waiting 1s failed (nanosleep)"
-							<< " tid= " << _tid;
+					MLOGSOCK(ERR,p_sockCanScan) << "Waiting 1s failed (nanosleep) tid= " << _tid;
 				}
 			}
 			continue;
@@ -196,7 +205,6 @@ void* CSockCanScan::CanScanControlThread(void *p_voidSockCanScan)
 			int numberOfReadBytes = read(sock, &socketMessage, sizeof(can_frame));
 			MLOGSOCK(DBG,p_sockCanScan) << "read(): " << canFrameToString(socketMessage) << " tid= " << _tid;
 			MLOGSOCK(DBG,p_sockCanScan) << "got numberOfReadBytes= " << numberOfReadBytes << " tid= " << _tid;;
-
 			if (numberOfReadBytes < 0) {
 				MLOGSOCK(ERR,p_sockCanScan) << "read() error: " << CanModuleerrnoToString()<< " tid= " << _tid;;
 				timeval now;
@@ -221,8 +229,6 @@ void* CSockCanScan::CanScanControlThread(void *p_voidSockCanScan)
 						MLOGSOCK(INF,p_sockCanScan) << "Closing socket."<< " tid= " << _tid;
 						if (close(sock) < 0) {
 							MLOGSOCK(ERR,p_sockCanScan) << "Socket close error!"<< " tid= " << _tid;
-							// Stopping bus.";
-							// p_sockCanScan->stopBus();
 						} else {
 							sock = -1;
 						}
@@ -270,7 +276,7 @@ void* CSockCanScan::CanScanControlThread(void *p_voidSockCanScan)
 
 				/* With this mechanism we only set the portError */
 				p_sockCanScan->m_errorCode = socketMessage.can_id & ~CAN_ERR_FLAG;
-				std::string description = errorFrameToString( socketMessage );
+				std::string description = CSockCanScan::errorFrameToString( socketMessage );
 				timeval c_time;
 				int ioctlReturn1 = ioctl(sock, SIOCGSTAMP, &c_time); //TODO: Return code is not even checked
 				MLOGSOCK(ERR, p_sockCanScan) << "SocketCAN ioctl return: [" << ioctlReturn1
@@ -343,7 +349,6 @@ void* CSockCanScan::CanScanControlThread(void *p_voidSockCanScan)
 		} // select showed timeout
 	} // while ( p_sockCanScan->m_CanScanThreadRunEnableFlag )
 	MLOGSOCK(INF,p_sockCanScan) << "main loop of SockCanScan terminated." << " tid= " << _tid;
-	pthread_exit(NULL);
 }
 
 CSockCanScan::~CSockCanScan()
@@ -700,6 +705,31 @@ bool CSockCanScan::sendRemoteRequest(short cobID)
 	return true;
 }
 
+void testThread(){
+	while(true){
+		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << std::endl;
+
+		struct timespec tim, tim2;
+		tim.tv_sec = 1;
+		tim.tv_nsec = 0;
+		if(nanosleep(&tim , &tim2) < 0 ) {
+			std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << "nanosleep failed" << std::endl;;
+		}
+	}
+}
+void testThread2(void *p_voidSockCanScan){
+	while(true){
+		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << std::endl;
+
+		struct timespec tim, tim2;
+		tim.tv_sec = 1;
+		tim.tv_nsec = 0;
+		if(nanosleep(&tim , &tim2) < 0 ) {
+			std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << "nanosleep failed" << std::endl;;
+		}
+	}
+}
+
 /**
  * Method that initializes a can bus channel. The following methods called upon the same
  * object will be using this initialized channel.
@@ -760,8 +790,12 @@ int CSockCanScan::createBus(const string name, const string parameters)
 		return -1;
 	}
 	MLOGSOCK(TRC,this) << "Created bus with parameters [" << parameters << "], starting main loop";
-	m_idCanScanThread =	pthread_create(&m_hCanScanThread,NULL,&CanScanControlThread, (void *)this);
-	MLOGSOCK(TRC,this) << "created main thread m_idCanScanThread= " << m_idCanScanThread;
+
+	// start a thread on a private non-static member function. We don't need any arguments since
+	// the thread is run on the object anyway.
+	// m_hCanScanThread = new std::thread( &CSockCanScan::CanScanControlThread, this, "test" );
+	m_hCanScanThread = new std::thread( &CSockCanScan::CanScanControlThread, this);
+	MLOGSOCK(TRC,this) << "created main thread m_idCanScanThread";
 	return( 0 );
 }
 
@@ -862,28 +896,23 @@ void CSockCanScan::sendErrorMessage(const char *mess)
 /**
  * notify the main thread to finish and delete the bus from the map of connections
  */
-bool CSockCanScan::stopBus ()
+void CSockCanScan::stopBus ()
 {
-	MLOGSOCK(DBG,this) << __FUNCTION__ << " m_busName= " <<  m_busName;
+	MLOGSOCK(DBG,this) << __FUNCTION__ << " m_busName= " <<  m_busName << " try joining thread...";
 	// notify the thread that it should finish.
 	m_CanScanThreadRunEnableFlag = false;
-	MLOGSOCK(DBG,this) << " try joining threads...";
-
 	{
 		sockReconnectMutex.lock();
 		std::map<string, string>::iterator it = CSockCanScan::m_busMap.find( m_busName );
 		if (it != CSockCanScan::m_busMap.end()) {
-			pthread_join( m_hCanScanThread, 0 );
-			m_idCanScanThread = 0;
+			m_hCanScanThread->join();
 			CSockCanScan::m_busMap.erase ( it );
 			m_busName = "nobus";
 		} else {
-			MLOGSOCK(DBG,this) << " not joining threads... bus does not exist";
+			MLOGSOCK(DBG,this) << "bus is already closed & thread finished, skipping";
 		}
 		sockReconnectMutex.unlock();
 	}
-	MLOGSOCK(DBG,this) << "stopBus() finished";
-	return true;
 }
 
 void CSockCanScan::getStatistics( CanStatistics & result )

@@ -67,6 +67,10 @@ int \mbox{\hyperlink{classSTCanScan_a8e147c77933e11e9983f4d4e22830b21}{configure
 int \mbox{\hyperlink{classSTCanScan_a5f74df7e9615929365b33c08e709e918}{open\+Can\+Port}} (t\+Ucan\+Init\+Can\+Param initialization\+Parameters)
 \item 
 bool \mbox{\hyperlink{classSTCanScan_a9a4da7b1dd74e81e8066894a1a8c051e}{error\+Code\+To\+String}} (long error, char message\mbox{[}$\,$\mbox{]})
+\item 
+unsigned int \mbox{\hyperlink{classSTCanScan_aa57c48594c8a70a0331f07fb4ad208fd}{vendor\+Baud\+Rate2\+User\+Baud\+Rate}} (unsigned int vb)
+\item 
+std\+::string \mbox{\hyperlink{classSTCanScan_a794110572725db6b7c153104ee1330b3}{S\+Tcan\+Get\+Error\+Text}} (long err\+Code)
 \end{DoxyCompactItemize}
 \doxysubsection*{Static Private Member Functions}
 \begin{DoxyCompactItemize}
@@ -190,7 +194,8 @@ References Can\+Msg\+Struct\+::c\+\_\+data, Can\+Msg\+Struct\+::c\+\_\+dlc, Can\
 
 Referenced by create\+Bus().
 
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -203,19 +208,20 @@ Here is the call graph for this function\+:\nopagebreak
 \doxysubsubsection{\texorpdfstring{configureCanBoard()}{configureCanBoard()}}
 {\footnotesize\ttfamily int S\+T\+Can\+Scan\+::configure\+Can\+Board (\begin{DoxyParamCaption}\item[{const string}]{name,  }\item[{const string}]{parameters }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
+configures systec @ windows board only G1/\+G2 boards 
+
+Definition at line 242 of file S\+T\+Can\+Scan.\+cpp.
 
 
-Definition at line 238 of file S\+T\+Can\+Scan.\+cpp.
 
-
-
-References create\+Initialization\+Parameters(), m\+\_\+baud\+Rate, m\+\_\+can\+Handle\+Number, Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+\+Can\+Parameters, m\+\_\+channel\+Number, Can\+Module\+::\+Can\+Parameters\+::m\+\_\+i\+Number\+Of\+Detected\+Parameters, Can\+Module\+::\+Can\+Parameters\+::m\+\_\+l\+Baud\+Rate, m\+\_\+module\+Number, M\+L\+O\+G\+ST, open\+Can\+Port(), and Can\+Module\+::\+C\+Can\+Access\+::parse\+Name\+And\+Parameters().
+References create\+Initialization\+Parameters(), m\+\_\+baud\+Rate, m\+\_\+can\+Handle\+Number, Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+\+Can\+Parameters, m\+\_\+channel\+Number, Can\+Module\+::\+Can\+Parameters\+::m\+\_\+i\+Number\+Of\+Detected\+Parameters, Can\+Module\+::\+Can\+Parameters\+::m\+\_\+l\+Baud\+Rate, m\+\_\+module\+Number, M\+L\+O\+G\+ST, open\+Can\+Port(), Can\+Module\+::\+C\+Can\+Access\+::parse\+Name\+And\+Parameters(), and vendor\+Baud\+Rate2\+User\+Baud\+Rate().
 
 
 
 Referenced by create\+Bus().
 
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -266,7 +272,8 @@ Definition at line 208 of file S\+T\+Can\+Scan.\+cpp.
 
 References Can\+Scan\+Control\+Thread(), configure\+Can\+Board(), Can\+Module\+::\+Log\+It\+Component\+Name, m\+\_\+h\+Can\+Scan\+Thread, m\+\_\+id\+Can\+Scan\+Thread, m\+\_\+log\+It\+Handle\+St, Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+s\+Bus\+Name, and M\+L\+O\+G\+ST.
 
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -293,14 +300,26 @@ Referenced by Can\+Scan\+Control\+Thread(), configure\+Can\+Board(), and send\+M
 \doxysubsubsection{\texorpdfstring{errorCodeToString()}{errorCodeToString()}}
 {\footnotesize\ttfamily bool S\+T\+Can\+Scan\+::error\+Code\+To\+String (\begin{DoxyParamCaption}\item[{long}]{error,  }\item[{char}]{message\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
+convert the systec status word into a human readable message 
+
+Definition at line 687 of file S\+T\+Can\+Scan.\+cpp.
 
 
-Definition at line 484 of file S\+T\+Can\+Scan.\+cpp.
+
+References S\+Tcan\+Get\+Error\+Text().
 
 
 
 Referenced by send\+Error\+Code().
 
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classSTCanScan_a9a4da7b1dd74e81e8066894a1a8c051e_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classSTCanScan_a29b4c3c8f29e45f808fbb7528e4593aa}\label{classSTCanScan_a29b4c3c8f29e45f808fbb7528e4593aa}} 
 \index{STCanScan@{STCanScan}!getCanHandle@{getCanHandle}}
 \index{getCanHandle@{getCanHandle}!STCanScan@{STCanScan}}
@@ -343,7 +362,7 @@ Implements \mbox{\hyperlink{classCanModule_1_1CCanAccess_a33fe530d070cf35d096e96
 
 
 
-Definition at line 332 of file S\+T\+Can\+Scan.\+cpp.
+Definition at line 369 of file S\+T\+Can\+Scan.\+cpp.
 
 
 
@@ -397,7 +416,7 @@ Implements \mbox{\hyperlink{classCanModule_1_1CCanAccess_ad3182c83b4c5d7e6aef982
 
 
 
-Definition at line 494 of file S\+T\+Can\+Scan.\+cpp.
+Definition at line 695 of file S\+T\+Can\+Scan.\+cpp.
 
 
 
@@ -447,7 +466,7 @@ less than zero in case of error, otherwise success
 \end{DoxyReturn}
 
 
-Definition at line 282 of file S\+T\+Can\+Scan.\+cpp.
+Definition at line 318 of file S\+T\+Can\+Scan.\+cpp.
 
 
 
@@ -478,7 +497,7 @@ Here is the call graph for this function\+:\nopagebreak
 
 hard reset the bridge and reconnect all ports and handlers\+: windows 
 
-Definition at line 358 of file S\+T\+Can\+Scan.\+cpp.
+Definition at line 395 of file S\+T\+Can\+Scan.\+cpp.
 
 
 
@@ -496,7 +515,7 @@ Referenced by send\+Message().
 
 
 
-Definition at line 340 of file S\+T\+Can\+Scan.\+cpp.
+Definition at line 377 of file S\+T\+Can\+Scan.\+cpp.
 
 
 
@@ -506,7 +525,8 @@ References Can\+Module\+::\+C\+Can\+Access\+::can\+Message\+Error, Can\+Module\+
 
 Referenced by Can\+Scan\+Control\+Thread(), send\+Message(), and send\+Remote\+Request().
 
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -541,13 +561,14 @@ Implements \mbox{\hyperlink{classCanModule_1_1CCanAccess_aee42ab7fb9e50c02a18122
 
 
 
-Definition at line 390 of file S\+T\+Can\+Scan.\+cpp.
+Definition at line 428 of file S\+T\+Can\+Scan.\+cpp.
 
 
 
 References Can\+Module\+::all\+Buses\+On\+Bridge, create\+Initialization\+Parameters(), m\+\_\+baud\+Rate, m\+\_\+channel\+Number, Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+failed\+Send\+Counter, Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+reconnect\+Action, Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+reconnect\+Condition, m\+\_\+statistics, Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+trigger\+Counter, m\+\_\+\+Ucan\+Handle, M\+L\+O\+G\+ST, Can\+Module\+::never, Can\+Module\+::\+Can\+Statistics\+::on\+Transmit(), open\+Can\+Port(), Can\+Module\+::\+C\+Can\+Access\+::reconnect\+Action\+String(), reconnect\+All\+Ports(), Can\+Module\+::\+C\+Can\+Access\+::reconnect\+Condition\+String(), send\+Error\+Code(), Can\+Module\+::send\+Fail, Can\+Module\+::\+Can\+Statistics\+::set\+Time\+Since\+Transmitted(), and Can\+Module\+::single\+Bus.
 
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -574,13 +595,14 @@ Implements \mbox{\hyperlink{classCanModule_1_1CCanAccess_acfefbc9be2696b1388cf6d
 
 
 
-Definition at line 472 of file S\+T\+Can\+Scan.\+cpp.
+Definition at line 510 of file S\+T\+Can\+Scan.\+cpp.
 
 
 
 References m\+\_\+channel\+Number, m\+\_\+\+Ucan\+Handle, and send\+Error\+Code().
 
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -635,8 +657,7 @@ configuring the reconnection behavior\+: a condition triggers an action. The imp
 {\em \mbox{\hyperlink{namespaceCanModule_a2062089fa4fa87c8354295f2a8fe31a5}{Can\+Module\+::\+Reconnect\+Action}}} & action
 \begin{DoxyItemize}
 \item single\+Bus (default)\+: a single connection (canbus, channel) is reset and reception handler is reconnected.
-\item whole\+Bridge if available, the whole bridge is reset, affecting all physical channels on that bridge. Only available for anagate. If a bridge is shared between multiple tasks, all channels across tasks are reset, affecting all tasks connected to that bridge. Evidently, a given channel must only be used by at most one task.
-\item hard\+Reset\+: the bridge is reset in a \char`\"{}hard\char`\"{} way, i.\+e. firmware is rebooted (N\+OT reloaded or overwritten). Only available for anagate\+: the firmware of the bridge (ip) is reloaded using a special command of the anagate A\+PI which is not available through the common \mbox{\hyperlink{namespaceCanModule}{Can\+Module}} A\+PI, since it is vendor specific. This is a \char`\"{}hard software reset\char`\"{}, and it is not the same as just power-\/cycling the module. It takes $\sim$15secs and \char`\"{}is known to work nicely\char`\"{}. 
+\item whole\+Bridge if available, the whole bridge is reset, affecting all physical channels on that bridge. Only available for anagate. If a bridge is shared between multiple tasks, all channels across tasks are reset, affecting all tasks connected to that bridge. Evidently, a given channel must only be used by at most one task. 
 \end{DoxyItemize}\\
 \hline
 \end{DoxyParams}
@@ -675,6 +696,38 @@ Implements \mbox{\hyperlink{classCanModule_1_1CCanAccess_a3c902569c0712d165fc7e3
 
 
 Definition at line 68 of file S\+T\+Can\+Scan.\+h.
+
+\mbox{\Hypertarget{classSTCanScan_a794110572725db6b7c153104ee1330b3}\label{classSTCanScan_a794110572725db6b7c153104ee1330b3}} 
+\index{STCanScan@{STCanScan}!STcanGetErrorText@{STcanGetErrorText}}
+\index{STcanGetErrorText@{STcanGetErrorText}!STCanScan@{STCanScan}}
+\doxysubsubsection{\texorpdfstring{STcanGetErrorText()}{STcanGetErrorText()}}
+{\footnotesize\ttfamily std\+::string S\+T\+Can\+Scan\+::\+S\+Tcan\+Get\+Error\+Text (\begin{DoxyParamCaption}\item[{long}]{err\+Code }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+error text specific to S\+Tcan according to table24 I am just copying the whole descriptions from the doc, verbatim, wtf. you get some shakespeare from it. 
+
+Definition at line 527 of file S\+T\+Can\+Scan.\+cpp.
+
+
+
+Referenced by error\+Code\+To\+String().
+
+\mbox{\Hypertarget{classSTCanScan_aa57c48594c8a70a0331f07fb4ad208fd}\label{classSTCanScan_aa57c48594c8a70a0331f07fb4ad208fd}} 
+\index{STCanScan@{STCanScan}!vendorBaudRate2UserBaudRate@{vendorBaudRate2UserBaudRate}}
+\index{vendorBaudRate2UserBaudRate@{vendorBaudRate2UserBaudRate}!STCanScan@{STCanScan}}
+\doxysubsubsection{\texorpdfstring{vendorBaudRate2UserBaudRate()}{vendorBaudRate2UserBaudRate()}}
+{\footnotesize\ttfamily unsigned int S\+T\+Can\+Scan\+::vendor\+Baud\+Rate2\+User\+Baud\+Rate (\begin{DoxyParamCaption}\item[{unsigned int}]{vb }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+unfortunately it is necessary to convert the vendor baudrate back to the human readable user baudrate for statistics. we use presently O\+N\+LY G1/\+G2 boards (see usbcan.\+h) 
+
+Definition at line 290 of file S\+T\+Can\+Scan.\+cpp.
+
+
+
+References M\+L\+O\+G\+ST.
+
+
+
+Referenced by configure\+Can\+Board().
 
 
 

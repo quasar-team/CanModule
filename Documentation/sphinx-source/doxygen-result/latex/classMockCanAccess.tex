@@ -446,8 +446,7 @@ configuring the reconnection behavior\+: a condition triggers an action. The imp
 {\em \mbox{\hyperlink{namespaceCanModule_a2062089fa4fa87c8354295f2a8fe31a5}{Can\+Module\+::\+Reconnect\+Action}}} & action
 \begin{DoxyItemize}
 \item single\+Bus (default)\+: a single connection (canbus, channel) is reset and reception handler is reconnected.
-\item whole\+Bridge if available, the whole bridge is reset, affecting all physical channels on that bridge. Only available for anagate. If a bridge is shared between multiple tasks, all channels across tasks are reset, affecting all tasks connected to that bridge. Evidently, a given channel must only be used by at most one task.
-\item hard\+Reset\+: the bridge is reset in a \char`\"{}hard\char`\"{} way, i.\+e. firmware is rebooted (N\+OT reloaded or overwritten). Only available for anagate\+: the firmware of the bridge (ip) is reloaded using a special command of the anagate A\+PI which is not available through the common \mbox{\hyperlink{namespaceCanModule}{Can\+Module}} A\+PI, since it is vendor specific. This is a \char`\"{}hard software reset\char`\"{}, and it is not the same as just power-\/cycling the module. It takes $\sim$15secs and \char`\"{}is known to work nicely\char`\"{}. 
+\item whole\+Bridge if available, the whole bridge is reset, affecting all physical channels on that bridge. Only available for anagate. If a bridge is shared between multiple tasks, all channels across tasks are reset, affecting all tasks connected to that bridge. Evidently, a given channel must only be used by at most one task. 
 \end{DoxyItemize}\\
 \hline
 \end{DoxyParams}

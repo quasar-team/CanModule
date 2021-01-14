@@ -240,7 +240,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="MockCanAccess_8cpp_source.html#l00030">30</a> of file <a class="el" href="MockCanAccess_8cpp_source.html">MockCanAccess.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="CanStatistics_8cpp_source.html#l00044">CanModule::CanStatistics::beginNewRun()</a>, <a class="el" href="CCanAccess_8h_source.html#l00474">CanModule::CCanAccess::m_failedSendCounter</a>, <a class="el" href="MockCanAccess_8h_source.html#l00059">m_statistics</a>, <a class="el" href="CCanAccess_8h_source.html#l00473">CanModule::CCanAccess::m_triggerCounter</a>, and <a class="el" href="CanStatistics_8h_source.html#l00107">CanModule::CanStatistics::setTimeSinceOpened()</a>.</p>
+<p class="reference">References <a class="el" href="CanStatistics_8cpp_source.html#l00044">CanModule::CanStatistics::beginNewRun()</a>, <a class="el" href="CCanAccess_8h_source.html#l00468">CanModule::CCanAccess::m_failedSendCounter</a>, <a class="el" href="MockCanAccess_8h_source.html#l00059">m_statistics</a>, <a class="el" href="CCanAccess_8h_source.html#l00467">CanModule::CCanAccess::m_triggerCounter</a>, and <a class="el" href="CanStatistics_8h_source.html#l00107">CanModule::CanStatistics::setTimeSinceOpened()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -564,7 +564,7 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="MockCanAccess_8h_source.html#l00057">57</a> of file <a class="el" href="MockCanAccess_8h_source.html">MockCanAccess.h</a>.</p>
 
-<p class="reference">References <a class="el" href="CCanAccess_8h_source.html#l00471">CanModule::CCanAccess::m_reconnectAction</a>.</p>
+<p class="reference">References <a class="el" href="CCanAccess_8h_source.html#l00465">CanModule::CCanAccess::m_reconnectAction</a>.</p>
 
 </div>
 </div>
@@ -596,7 +596,7 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="MockCanAccess_8h_source.html#l00056">56</a> of file <a class="el" href="MockCanAccess_8h_source.html">MockCanAccess.h</a>.</p>
 
-<p class="reference">References <a class="el" href="CCanAccess_8h_source.html#l00470">CanModule::CCanAccess::m_reconnectCondition</a>.</p>
+<p class="reference">References <a class="el" href="CCanAccess_8h_source.html#l00464">CanModule::CCanAccess::m_reconnectCondition</a>.</p>
 
 </div>
 </div>
@@ -861,8 +861,7 @@ Here is the call graph for this function:</div>
 </td></tr>
     <tr><td class="paramname"><a class="el" href="namespaceCanModule.html#a2062089fa4fa87c8354295f2a8fe31a5">CanModule::ReconnectAction</a></td><td>action<ul>
 <li>singleBus (default): a single connection (canbus, channel) is reset and reception handler is reconnected.</li>
-<li>wholeBridge if available, the whole bridge is reset, affecting all physical channels on that bridge. Only available for anagate. If a bridge is shared between multiple tasks, all channels across tasks are reset, affecting all tasks connected to that bridge. Evidently, a given channel must only be used by at most one task.</li>
-<li>hardReset: the bridge is reset in a "hard" way, i.e. firmware is rebooted (NOT reloaded or overwritten). Only available for anagate: the firmware of the bridge (ip) is reloaded using a special command of the anagate API which is not available through the common <a class="el" href="namespaceCanModule.html">CanModule</a> API, since it is vendor specific. This is a "hard software reset", and it is not the same as just power-cycling the module. It takes ~15secs and "is known to work nicely". </li>
+<li>wholeBridge if available, the whole bridge is reset, affecting all physical channels on that bridge. Only available for anagate. If a bridge is shared between multiple tasks, all channels across tasks are reset, affecting all tasks connected to that bridge. Evidently, a given channel must only be used by at most one task. </li>
 </ul>
 </td></tr>
   </table>
@@ -904,7 +903,7 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="MockCanAccess_8h_source.html#l00055">55</a> of file <a class="el" href="MockCanAccess_8h_source.html">MockCanAccess.h</a>.</p>
 
-<p class="reference">References <a class="el" href="CCanAccess_8h_source.html#l00474">CanModule::CCanAccess::m_failedSendCounter</a>, and <a class="el" href="CCanAccess_8h_source.html#l00473">CanModule::CCanAccess::m_triggerCounter</a>.</p>
+<p class="reference">References <a class="el" href="CCanAccess_8h_source.html#l00468">CanModule::CCanAccess::m_failedSendCounter</a>, and <a class="el" href="CCanAccess_8h_source.html#l00467">CanModule::CCanAccess::m_triggerCounter</a>.</p>
 
 </div>
 </div>
@@ -937,7 +936,7 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="MockCanAccess_8h_source.html#l00054">54</a> of file <a class="el" href="MockCanAccess_8h_source.html">MockCanAccess.h</a>.</p>
 
-<p class="reference">References <a class="el" href="CCanAccess_8h_source.html#l00472">CanModule::CCanAccess::m_timeoutOnReception</a>.</p>
+<p class="reference">References <a class="el" href="CCanAccess_8h_source.html#l00466">CanModule::CCanAccess::m_timeoutOnReception</a>.</p>
 
 </div>
 </div>

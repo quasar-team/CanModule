@@ -24,12 +24,13 @@
 #ifndef SOCKCANSCAN_H_
 #define SOCKCANSCAN_H_
 
-#include <pthread.h>
-#include <unistd.h>
+#include <thread>
 #include <string>
+
+#include <unistd.h>
 #include <sys/socket.h>
 #include <linux/can.h>
-#include <boost/thread/thread.hpp>
+#include <boost/thread/thread.hpp> // mutex
 
 
 #include "CCanAccess.h"
@@ -108,24 +109,25 @@ public:
 	virtual CanModule::ReconnectAutoCondition getReconnectCondition() { return m_reconnectCondition; };
 	virtual CanModule::ReconnectAction getReconnectAction() { return m_reconnectAction; };
 
-private:
-	volatile bool m_CanScanThreadRunEnableFlag; //Flag for running/shutting down the CanScan thread
 
-	int m_sock;                 //Socket handler
-	CanStatistics m_statistics;// Instance of Can Statistics
-	pthread_t m_hCanScanThread;	// Handle for the CAN update scan manager thread.
-	int m_idCanScanThread; // Thread ID for the CAN update scan manager thread.
+private:
+	volatile atomic_bool m_CanScanThreadRunEnableFlag; //Flag for running/shutting down the
+	// CanScan thread, with compiler optimization switched off for more code safety
+	atomic_int m_sock;
+
 	int m_errorCode; // As up-to-date as possible state of the interface.
+
+	CanStatistics m_statistics;
+	std::thread *m_hCanScanThread;	// ptr thread object, needed for join. allocate thread with new(..)
 	std::string m_channelName;
 	std::string m_busName;
-
 	Log::LogComponentHandle m_logItHandleSock;
 
 
 	/**
-	 * Closeup method that will be called from the destructor.
+	 * stop the supervisor thread using the flag and close the socket.
 	 */
-	bool stopBus ();
+	void stopBus ();
 
 	/**
 	 * Report an error when opening a can port
@@ -150,11 +152,11 @@ private:
 	int openCanPort();
 
 	/**
-	 * The main control thread function for the CAN update scan manager.
+	 * The main control thread function for the CAN update scan manager:
+	 * a private non-static method, which is called on the object (this)
+	 * following std::thread C++11 ways.
 	 */
-	static void* CanScanControlThread(void *);
-
-
+	void CanScanControlThread();
 };
 
 

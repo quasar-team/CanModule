@@ -66,9 +66,9 @@
         </inbodydescription>
         <location file="CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.h" line="35" column="1" bodyfile="CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.cpp" bodystart="30" bodyend="36"/>
         <references refid="classCanModule_1_1CanStatistics_1a85e6c87ce5285884a0272088178bb8f6" compoundref="CanStatistics_8cpp" startline="44" endline="51">CanModule::CanStatistics::beginNewRun</references>
-        <references refid="classCanModule_1_1CCanAccess_1a686ba59e549d1fde3727ab1f88a8c463" compoundref="CCanAccess_8h" startline="474">CanModule::CCanAccess::m_failedSendCounter</references>
+        <references refid="classCanModule_1_1CCanAccess_1a686ba59e549d1fde3727ab1f88a8c463" compoundref="CCanAccess_8h" startline="468">CanModule::CCanAccess::m_failedSendCounter</references>
         <references refid="classMockCanAccess_1ae581d0d291f4717be3887ff63ebca063" compoundref="MockCanAccess_8h" startline="59">m_statistics</references>
-        <references refid="classCanModule_1_1CCanAccess_1a74e437526e45192804ca1cffc663d2e2" compoundref="CCanAccess_8h" startline="473">CanModule::CCanAccess::m_triggerCounter</references>
+        <references refid="classCanModule_1_1CCanAccess_1a74e437526e45192804ca1cffc663d2e2" compoundref="CCanAccess_8h" startline="467">CanModule::CCanAccess::m_triggerCounter</references>
         <references refid="classCanModule_1_1CanStatistics_1af3f15dedf80e67f1309946632d87198d" compoundref="CanStatistics_8h" startline="107" endline="113">CanModule::CanStatistics::setTimeSinceOpened</references>
       </memberdef>
       <memberdef kind="function" id="classMockCanAccess_1a87261ff4a42e3b4d0f02939e7adc39d3" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
@@ -344,8 +344,7 @@
 <parameterdescription>
 <para>action<itemizedlist>
 <listitem><para>singleBus (default): a single connection (canbus, channel) is reset and reception handler is reconnected.</para>
-</listitem><listitem><para>wholeBridge if available, the whole bridge is reset, affecting all physical channels on that bridge. Only available for anagate. If a bridge is shared between multiple tasks, all channels across tasks are reset, affecting all tasks connected to that bridge. Evidently, a given channel must only be used by at most one task.</para>
-</listitem><listitem><para>hardReset: the bridge is reset in a &quot;hard&quot; way, i.e. firmware is rebooted (NOT reloaded or overwritten). Only available for anagate: the firmware of the bridge (ip) is reloaded using a special command of the anagate API which is not available through the common <ref refid="namespaceCanModule" kindref="compound">CanModule</ref> API, since it is vendor specific. This is a &quot;hard software reset&quot;, and it is not the same as just power-cycling the module. It takes ~15secs and &quot;is known to work nicely&quot;. </para>
+</listitem><listitem><para>wholeBridge if available, the whole bridge is reset, affecting all physical channels on that bridge. Only available for anagate. If a bridge is shared between multiple tasks, all channels across tasks are reset, affecting all tasks connected to that bridge. Evidently, a given channel must only be used by at most one task. </para>
 </listitem></itemizedlist>
 </para>
 </parameterdescription>
@@ -375,7 +374,7 @@
         <inbodydescription>
         </inbodydescription>
         <location file="CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.h" line="54" column="14" bodyfile="CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.h" bodystart="54" bodyend="54"/>
-        <references refid="classCanModule_1_1CCanAccess_1abd6b2ab3f6759bfc05c6dc70911eab50" compoundref="CCanAccess_8h" startline="472">CanModule::CCanAccess::m_timeoutOnReception</references>
+        <references refid="classCanModule_1_1CCanAccess_1abd6b2ab3f6759bfc05c6dc70911eab50" compoundref="CCanAccess_8h" startline="466">CanModule::CCanAccess::m_timeoutOnReception</references>
       </memberdef>
       <memberdef kind="function" id="classMockCanAccess_1abfb4be10500a4960b163433b5c06d22f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
         <type>void</type>
@@ -395,8 +394,8 @@
         <inbodydescription>
         </inbodydescription>
         <location file="CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.h" line="55" column="14" bodyfile="CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.h" bodystart="55" bodyend="55"/>
-        <references refid="classCanModule_1_1CCanAccess_1a686ba59e549d1fde3727ab1f88a8c463" compoundref="CCanAccess_8h" startline="474">CanModule::CCanAccess::m_failedSendCounter</references>
-        <references refid="classCanModule_1_1CCanAccess_1a74e437526e45192804ca1cffc663d2e2" compoundref="CCanAccess_8h" startline="473">CanModule::CCanAccess::m_triggerCounter</references>
+        <references refid="classCanModule_1_1CCanAccess_1a686ba59e549d1fde3727ab1f88a8c463" compoundref="CCanAccess_8h" startline="468">CanModule::CCanAccess::m_failedSendCounter</references>
+        <references refid="classCanModule_1_1CCanAccess_1a74e437526e45192804ca1cffc663d2e2" compoundref="CCanAccess_8h" startline="467">CanModule::CCanAccess::m_triggerCounter</references>
       </memberdef>
       <memberdef kind="function" id="classMockCanAccess_1ac34bb818b8f9dbc5d3c9f44cdf4cf9dd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
         <type><ref refid="namespaceCanModule_1a2f4fee79cc7ba53467c2538fe6b9adbb" kindref="member">CanModule::ReconnectAutoCondition</ref></type>
@@ -412,7 +411,7 @@
         <inbodydescription>
         </inbodydescription>
         <location file="CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.h" line="56" column="43" bodyfile="CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.h" bodystart="56" bodyend="56"/>
-        <references refid="classCanModule_1_1CCanAccess_1abfd40edc34a777a5ff4503a6e8a239d6" compoundref="CCanAccess_8h" startline="470">CanModule::CCanAccess::m_reconnectCondition</references>
+        <references refid="classCanModule_1_1CCanAccess_1abfd40edc34a777a5ff4503a6e8a239d6" compoundref="CCanAccess_8h" startline="464">CanModule::CCanAccess::m_reconnectCondition</references>
       </memberdef>
       <memberdef kind="function" id="classMockCanAccess_1a489f003ba0c428037c5530f475c7c2f6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
         <type><ref refid="namespaceCanModule_1a2062089fa4fa87c8354295f2a8fe31a5" kindref="member">CanModule::ReconnectAction</ref></type>
@@ -428,7 +427,7 @@
         <inbodydescription>
         </inbodydescription>
         <location file="CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.h" line="57" column="36" bodyfile="CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.h" bodystart="57" bodyend="57"/>
-        <references refid="classCanModule_1_1CCanAccess_1a6baf24c56eb715adf55a569d08b12c25" compoundref="CCanAccess_8h" startline="471">CanModule::CCanAccess::m_reconnectAction</references>
+        <references refid="classCanModule_1_1CCanAccess_1a6baf24c56eb715adf55a569d08b12c25" compoundref="CCanAccess_8h" startline="465">CanModule::CCanAccess::m_reconnectAction</references>
       </memberdef>
       <memberdef kind="function" id="classMockCanAccess_1a24e126b0ab5c70464a05ffa7286b91e1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
         <type>uint32_t</type>

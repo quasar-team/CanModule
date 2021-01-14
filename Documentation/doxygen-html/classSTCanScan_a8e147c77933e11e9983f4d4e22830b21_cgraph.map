@@ -1,8 +1,9 @@
 <map id="STCanScan::configureCanBoard" name="STCanScan::configureCanBoard">
-<area shape="rect" id="node1" title=" " alt="" coords="5,132,229,159"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,161,229,188"/>
 <area shape="rect" id="node2" href="$classSTCanScan.html#af6cf11abff5d1b39b35ceff9ae857270" title=" " alt="" coords="277,66,500,107"/>
 <area shape="rect" id="node3" href="$classSTCanScan.html#a5f74df7e9615929365b33c08e709e918" title=" " alt="" coords="297,132,481,159"/>
-<area shape="rect" id="node9" href="$classCanModule_1_1CCanAccess.html#af26c9d102638fb96e5e1305f807d148f" title=" " alt="" coords="287,215,491,257"/>
+<area shape="rect" id="node9" href="$classCanModule_1_1CCanAccess.html#af26c9d102638fb96e5e1305f807d148f" title=" " alt="" coords="287,183,491,225"/>
+<area shape="rect" id="node11" href="$classSTCanScan.html#aa57c48594c8a70a0331f07fb4ad208fd" title=" " alt="" coords="280,249,497,290"/>
 <area shape="rect" id="node4" href="$classSTCanScan.html#a29b4c3c8f29e45f808fbb7528e4593aa" title=" " alt="" coords="566,5,759,32"/>
 <area shape="rect" id="node5" href="$classSTCanScan.html#a2f2a9aaa3ce2c653a4e1152eb8497493" title=" " alt="" coords="553,56,773,83"/>
 <area shape="rect" id="node6" href="$classSTCanScan.html#a50f89ce5fc0b2961937dc8a4b86081f8" title=" " alt="" coords="567,107,759,133"/>

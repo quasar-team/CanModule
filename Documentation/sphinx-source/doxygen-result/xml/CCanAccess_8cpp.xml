@@ -22,8 +22,18 @@
         <childnode refid="11" relation="include">
         </childnode>
       </node>
+      <node id="10">
+        <label>ExportDefinition.h</label>
+        <link refid="ExportDefinition_8h"/>
+      </node>
       <node id="5">
         <label>boost/signals2.hpp</label>
+      </node>
+      <node id="7">
+        <label>CanMessage.h</label>
+        <link refid="CanMessage_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
       </node>
       <node id="6">
         <label>string</label>
@@ -31,11 +41,9 @@
       <node id="4">
         <label>boost/bind/bind.hpp</label>
       </node>
-      <node id="1">
-        <label>CanInterface/src/CCanAccess.cpp</label>
-        <link refid="CCanAccess_8cpp"/>
-        <childnode refid="2" relation="include">
-        </childnode>
+      <node id="12">
+        <label>VERSION.h</label>
+        <link refid="VERSION_8h"/>
       </node>
       <node id="2">
         <label>CCanAccess.h</label>
@@ -57,25 +65,17 @@
         <childnode refid="13" relation="include">
         </childnode>
       </node>
-      <node id="12">
-        <label>VERSION.h</label>
-        <link refid="VERSION_8h"/>
-      </node>
-      <node id="10">
-        <label>ExportDefinition.h</label>
-        <link refid="ExportDefinition_8h"/>
-      </node>
       <node id="3">
         <label>sys/time.h</label>
       </node>
-      <node id="7">
-        <label>CanMessage.h</label>
-        <link refid="CanMessage_8h"/>
-        <childnode refid="3" relation="include">
-        </childnode>
-      </node>
       <node id="11">
         <label>chrono</label>
+      </node>
+      <node id="1">
+        <label>CanInterface/src/CCanAccess.cpp</label>
+        <link refid="CCanAccess_8cpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
       </node>
     </incdepgraph>
     <briefdescription>

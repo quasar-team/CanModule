@@ -6,6 +6,20 @@
     <includes refid="CanStatistics_8h" local="yes">CanStatistics.h</includes>
     <includes local="no">iostream</includes>
     <incdepgraph>
+      <node id="2">
+        <label>CanModuleUtils.h</label>
+        <link refid="CanModuleUtils_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
       <node id="9">
         <label>stdatomic.h</label>
       </node>
@@ -21,11 +35,27 @@
         <childnode refid="7" relation="include">
         </childnode>
       </node>
+      <node id="10">
+        <label>ExportDefinition.h</label>
+        <link refid="ExportDefinition_8h"/>
+      </node>
       <node id="5">
         <label>stdexcept</label>
       </node>
       <node id="6">
         <label>string</label>
+      </node>
+      <node id="4">
+        <label>sstream</label>
+      </node>
+      <node id="3">
+        <label>sys/time.h</label>
+      </node>
+      <node id="11">
+        <label>iostream</label>
+      </node>
+      <node id="7">
+        <label>chrono</label>
       </node>
       <node id="1">
         <label>CanInterface/src/CanStatistics.cpp</label>
@@ -36,36 +66,6 @@
         </childnode>
         <childnode refid="11" relation="include">
         </childnode>
-      </node>
-      <node id="4">
-        <label>sstream</label>
-      </node>
-      <node id="10">
-        <label>ExportDefinition.h</label>
-        <link refid="ExportDefinition_8h"/>
-      </node>
-      <node id="2">
-        <label>CanModuleUtils.h</label>
-        <link refid="CanModuleUtils_8h"/>
-        <childnode refid="3" relation="include">
-        </childnode>
-        <childnode refid="4" relation="include">
-        </childnode>
-        <childnode refid="5" relation="include">
-        </childnode>
-        <childnode refid="6" relation="include">
-        </childnode>
-        <childnode refid="7" relation="include">
-        </childnode>
-      </node>
-      <node id="3">
-        <label>sys/time.h</label>
-      </node>
-      <node id="11">
-        <label>iostream</label>
-      </node>
-      <node id="7">
-        <label>chrono</label>
       </node>
     </incdepgraph>
     <innernamespace refid="namespaceCanModule">CanModule</innernamespace>
