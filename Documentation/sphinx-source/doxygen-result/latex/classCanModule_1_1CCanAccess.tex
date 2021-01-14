@@ -364,7 +364,7 @@ Implemented in \mbox{\hyperlink{classAnaCanScan_ad4576bc409a954c888a6fd7f06ca697
 
 compared to the last received message, are we in timeout? 
 
-Definition at line 503 of file C\+Can\+Access.\+h.
+Definition at line 496 of file C\+Can\+Access.\+h.
 
 
 
@@ -429,11 +429,11 @@ Here is the call graph for this function\+:\nopagebreak
 
 just translate the ugly r.\+action enum into a user-\/friendly string for convenience and logging. 
 
-Definition at line 491 of file C\+Can\+Access.\+h.
+Definition at line 485 of file C\+Can\+Access.\+h.
 
 
 
-References Can\+Module\+::all\+Buses\+On\+Bridge, Can\+Module\+::hard\+Reset, and Can\+Module\+::single\+Bus.
+References Can\+Module\+::all\+Buses\+On\+Bridge, and Can\+Module\+::single\+Bus.
 
 
 
@@ -447,7 +447,7 @@ Referenced by S\+T\+Can\+Scan\+::\+Can\+Scan\+Control\+Thread(), P\+K\+Can\+Scan
 
 just translate the ugly r.\+condition enum into a user-\/friendly string for convenience and logging. 
 
-Definition at line 479 of file C\+Can\+Access.\+h.
+Definition at line 473 of file C\+Can\+Access.\+h.
 
 
 
@@ -465,7 +465,7 @@ Referenced by S\+T\+Can\+Scan\+::\+Can\+Scan\+Control\+Thread(), P\+K\+Can\+Scan
 
 
 
-Definition at line 525 of file C\+Can\+Access.\+h.
+Definition at line 518 of file C\+Can\+Access.\+h.
 
 
 
@@ -483,7 +483,7 @@ Referenced by C\+Can\+Access().
 
 reset the internal reconnection timeout counter 
 
-Definition at line 518 of file C\+Can\+Access.\+h.
+Definition at line 511 of file C\+Can\+Access.\+h.
 
 
 
@@ -584,8 +584,7 @@ configuring the reconnection behavior\+: a condition triggers an action. The imp
 {\em \mbox{\hyperlink{namespaceCanModule_a2062089fa4fa87c8354295f2a8fe31a5}{Can\+Module\+::\+Reconnect\+Action}}} & action
 \begin{DoxyItemize}
 \item single\+Bus (default)\+: a single connection (canbus, channel) is reset and reception handler is reconnected.
-\item whole\+Bridge if available, the whole bridge is reset, affecting all physical channels on that bridge. Only available for anagate. If a bridge is shared between multiple tasks, all channels across tasks are reset, affecting all tasks connected to that bridge. Evidently, a given channel must only be used by at most one task.
-\item hard\+Reset\+: the bridge is reset in a \char`\"{}hard\char`\"{} way, i.\+e. firmware is rebooted (N\+OT reloaded or overwritten). Only available for anagate\+: the firmware of the bridge (ip) is reloaded using a special command of the anagate A\+PI which is not available through the common \mbox{\hyperlink{namespaceCanModule}{Can\+Module}} A\+PI, since it is vendor specific. This is a \char`\"{}hard software reset\char`\"{}, and it is not the same as just power-\/cycling the module. It takes $\sim$15secs and \char`\"{}is known to work nicely\char`\"{}. 
+\item whole\+Bridge if available, the whole bridge is reset, affecting all physical channels on that bridge. Only available for anagate. If a bridge is shared between multiple tasks, all channels across tasks are reset, affecting all tasks connected to that bridge. Evidently, a given channel must only be used by at most one task. 
 \end{DoxyItemize}\\
 \hline
 \end{DoxyParams}
@@ -652,7 +651,7 @@ Referenced by C\+Sock\+Can\+Scan\+::clear\+Error\+Message(), S\+T\+Can\+Scan\+::
 
 
 
-Definition at line 467 of file C\+Can\+Access.\+h.
+Definition at line 461 of file C\+Can\+Access.\+h.
 
 
 
@@ -666,7 +665,7 @@ Referenced by S\+T\+Can\+Scan\+::configure\+Can\+Board(), P\+K\+Can\+Scan\+::con
 
 
 
-Definition at line 535 of file C\+Can\+Access.\+h.
+Definition at line 528 of file C\+Can\+Access.\+h.
 
 \mbox{\Hypertarget{classCanModule_1_1CCanAccess_a6a9790a2842b40ced0ff98e1e171acbc}\label{classCanModule_1_1CCanAccess_a6a9790a2842b40ced0ff98e1e171acbc}} 
 \index{CanModule::CCanAccess@{CanModule::CCanAccess}!m\_dreceived@{m\_dreceived}}
@@ -676,7 +675,7 @@ Definition at line 535 of file C\+Can\+Access.\+h.
 
 
 
-Definition at line 542 of file C\+Can\+Access.\+h.
+Definition at line 535 of file C\+Can\+Access.\+h.
 
 
 
@@ -690,7 +689,7 @@ Referenced by has\+Timeout\+On\+Reception(), and reset\+Timeout\+On\+Reception()
 
 
 
-Definition at line 474 of file C\+Can\+Access.\+h.
+Definition at line 468 of file C\+Can\+Access.\+h.
 
 
 
@@ -704,7 +703,7 @@ Referenced by Ana\+Can\+Scan\+::\+Ana\+Can\+Scan(), C\+Sock\+Can\+Scan\+::\+C\+S
 
 
 
-Definition at line 536 of file C\+Can\+Access.\+h.
+Definition at line 529 of file C\+Can\+Access.\+h.
 
 
 
@@ -718,7 +717,7 @@ Referenced by parse\+Name\+And\+Parameters().
 
 
 
-Definition at line 537 of file C\+Can\+Access.\+h.
+Definition at line 530 of file C\+Can\+Access.\+h.
 
 
 
@@ -732,7 +731,7 @@ Referenced by get\+Log\+It\+Instance(), and initialise\+Logging().
 
 
 
-Definition at line 471 of file C\+Can\+Access.\+h.
+Definition at line 465 of file C\+Can\+Access.\+h.
 
 
 
@@ -746,7 +745,7 @@ Referenced by Mock\+Can\+Access\+::get\+Reconnect\+Action(), S\+T\+Can\+Scan\+::
 
 
 
-Definition at line 470 of file C\+Can\+Access.\+h.
+Definition at line 464 of file C\+Can\+Access.\+h.
 
 
 
@@ -760,7 +759,7 @@ Referenced by Ana\+Can\+Scan\+::callback\+On\+Recieve(), Mock\+Can\+Access\+::ge
 
 
 
-Definition at line 466 of file C\+Can\+Access.\+h.
+Definition at line 460 of file C\+Can\+Access.\+h.
 
 
 
@@ -774,7 +773,7 @@ Referenced by P\+K\+Can\+Scan\+::configure\+Canboard(), S\+T\+Can\+Scan\+::creat
 
 
 
-Definition at line 534 of file C\+Can\+Access.\+h.
+Definition at line 527 of file C\+Can\+Access.\+h.
 
 \mbox{\Hypertarget{classCanModule_1_1CCanAccess_abd6b2ab3f6759bfc05c6dc70911eab50}\label{classCanModule_1_1CCanAccess_abd6b2ab3f6759bfc05c6dc70911eab50}} 
 \index{CanModule::CCanAccess@{CanModule::CCanAccess}!m\_timeoutOnReception@{m\_timeoutOnReception}}
@@ -784,7 +783,7 @@ Definition at line 534 of file C\+Can\+Access.\+h.
 
 
 
-Definition at line 472 of file C\+Can\+Access.\+h.
+Definition at line 466 of file C\+Can\+Access.\+h.
 
 
 
@@ -798,7 +797,7 @@ Referenced by has\+Timeout\+On\+Reception(), and Mock\+Can\+Access\+::set\+Recon
 
 
 
-Definition at line 473 of file C\+Can\+Access.\+h.
+Definition at line 467 of file C\+Can\+Access.\+h.
 
 
 
@@ -812,7 +811,7 @@ Referenced by Ana\+Can\+Scan\+::\+Ana\+Can\+Scan(), C\+Sock\+Can\+Scan\+::\+C\+S
 
 
 
-Definition at line 543 of file C\+Can\+Access.\+h.
+Definition at line 536 of file C\+Can\+Access.\+h.
 
 
 

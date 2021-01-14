@@ -174,11 +174,13 @@ $(document).ready(function(){initNavTree('STCanScan_8h_source.html',''); initRes
 <div class="line"><a name="l00106"></a><span class="lineno"><a class="line" href="classSTCanScan.html#a310439aeb8688c29fb3fe8faa4a9e198">  106</a></span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> s_isCanHandleInUseArray[256];</div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">int</span> reconnectAllPorts( tUcanHandle h );</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;};</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> vendorBaudRate2UserBaudRate( <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> vb );</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    std::string STcanGetErrorText( <span class="keywordtype">long</span> errCode );</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;};</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160; </div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="preprocessor">#endif</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="aAnaCanScan_8cpp_html_a9aa60e1ead64be77ad551e745cbfd4d3"><div class="ttname"><a href="AnaCanScan_8cpp.html#a9aa60e1ead64be77ad551e745cbfd4d3">WINAPI</a></div><div class="ttdeci">#define WINAPI</div><div class="ttdef"><b>Definition:</b> <a href="AnaCanScan_8cpp_source.html#l00048">AnaCanScan.cpp:48</a></div></div>
@@ -193,7 +195,7 @@ $(document).ready(function(){initNavTree('STCanScan_8h_source.html',''); initRes
 <div class="ttc" id="aclassSTCanScan_html_a8d6dd7c1cbf4a97607909086da6361e1"><div class="ttname"><a href="classSTCanScan.html#a8d6dd7c1cbf4a97607909086da6361e1">STCanScan::m_canHandleNumber</a></div><div class="ttdeci">int m_canHandleNumber</div><div class="ttdef"><b>Definition:</b> <a href="STCanScan_8h_source.html#l00077">STCanScan.h:77</a></div></div>
 <div class="ttc" id="aclassSTCanScan_html"><div class="ttname"><a href="classSTCanScan.html">STCanScan</a></div><div class="ttdef"><b>Definition:</b> <a href="STCanScan_8h_source.html#l00039">STCanScan.h:39</a></div></div>
 <div class="ttc" id="aclassSTCanScan_html_a8ae65fcef31d4bb84aa5bb8978973f86"><div class="ttname"><a href="classSTCanScan.html#a8ae65fcef31d4bb84aa5bb8978973f86">STCanScan::m_idCanScanThread</a></div><div class="ttdeci">DWORD m_idCanScanThread</div><div class="ttdef"><b>Definition:</b> <a href="STCanScan_8h_source.html#l00089">STCanScan.h:89</a></div></div>
-<div class="ttc" id="aAnaCanScan_8h_html_ad342ac907eb044443153a22f964bf0af"><div class="ttname"><a href="AnaCanScan_8h.html#ad342ac907eb044443153a22f964bf0af">DWORD</a></div><div class="ttdeci">unsigned long DWORD</div><div class="ttdef"><b>Definition:</b> <a href="AnaCanScan_8h_source.html#l00046">AnaCanScan.h:46</a></div></div>
+<div class="ttc" id="aAnaCanScan_8h_html_ad342ac907eb044443153a22f964bf0af"><div class="ttname"><a href="AnaCanScan_8h.html#ad342ac907eb044443153a22f964bf0af">DWORD</a></div><div class="ttdeci">unsigned long DWORD</div><div class="ttdef"><b>Definition:</b> <a href="AnaCanScan_8h_source.html#l00045">AnaCanScan.h:45</a></div></div>
 <div class="ttc" id="aclassSTCanScan_html_ac5e311e695c1a3c810f82b0c21ee3618"><div class="ttname"><a href="classSTCanScan.html#ac5e311e695c1a3c810f82b0c21ee3618">STCanScan::m_channelNumber</a></div><div class="ttdeci">int m_channelNumber</div><div class="ttdef"><b>Definition:</b> <a href="STCanScan_8h_source.html#l00076">STCanScan.h:76</a></div></div>
 <div class="ttc" id="aclassSTCanScan_html_a50f89ce5fc0b2961937dc8a4b86081f8"><div class="ttname"><a href="classSTCanScan.html#a50f89ce5fc0b2961937dc8a4b86081f8">STCanScan::setCanHandle</a></div><div class="ttdeci">static void setCanHandle(int n, tUcanHandle tU)</div><div class="ttdef"><b>Definition:</b> <a href="STCanScan_8h_source.html#l00102">STCanScan.h:102</a></div></div>
 <div class="ttc" id="aclassCanModule_1_1CCanAccess_html"><div class="ttname"><a href="classCanModule_1_1CCanAccess.html">CanModule::CCanAccess</a></div><div class="ttdef"><b>Definition:</b> <a href="CCanAccess_8h_source.html#l00137">CCanAccess.h:137</a></div></div>

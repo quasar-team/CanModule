@@ -17,9 +17,6 @@
       <node id="17">
         <label>LogIt.h</label>
       </node>
-      <node id="4">
-        <label>windows.h</label>
-      </node>
       <node id="6">
         <label>CanStatistics.h</label>
         <link refid="CanStatistics_8h"/>
@@ -31,6 +28,16 @@
         </childnode>
         <childnode refid="10" relation="include">
         </childnode>
+      </node>
+      <node id="4">
+        <label>windows.h</label>
+      </node>
+      <node id="9">
+        <label>ExportDefinition.h</label>
+        <link refid="ExportDefinition_8h"/>
+      </node>
+      <node id="14">
+        <label>boost/signals2.hpp</label>
       </node>
       <node id="1">
         <label>CanInterfaceImplementations/systec/STCanScan.h</label>
@@ -50,8 +57,11 @@
         <childnode refid="12" relation="include">
         </childnode>
       </node>
-      <node id="14">
-        <label>boost/signals2.hpp</label>
+      <node id="15">
+        <label>CanMessage.h</label>
+        <link refid="CanMessage_8h"/>
+        <childnode refid="8" relation="include">
+        </childnode>
       </node>
       <node id="5">
         <label>string</label>
@@ -61,6 +71,10 @@
       </node>
       <node id="3">
         <label>Winsock2.h</label>
+      </node>
+      <node id="16">
+        <label>VERSION.h</label>
+        <link refid="VERSION_8h"/>
       </node>
       <node id="12">
         <label>CCanAccess.h</label>
@@ -82,22 +96,8 @@
         <childnode refid="17" relation="include">
         </childnode>
       </node>
-      <node id="16">
-        <label>VERSION.h</label>
-        <link refid="VERSION_8h"/>
-      </node>
-      <node id="9">
-        <label>ExportDefinition.h</label>
-        <link refid="ExportDefinition_8h"/>
-      </node>
       <node id="8">
         <label>sys/time.h</label>
-      </node>
-      <node id="15">
-        <label>CanMessage.h</label>
-        <link refid="CanMessage_8h"/>
-        <childnode refid="8" relation="include">
-        </childnode>
       </node>
       <node id="2">
         <label>tchar.h</label>
@@ -110,15 +110,15 @@
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="2">
-        <label>CanInterfaceImplementations/systec/STCanScan.cpp</label>
-        <link refid="STCanScan_8cpp"/>
-      </node>
       <node id="1">
         <label>CanInterfaceImplementations/systec/STCanScan.h</label>
         <link refid="STCanScan_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+      </node>
+      <node id="2">
+        <label>CanInterfaceImplementations/systec/STCanScan.cpp</label>
+        <link refid="STCanScan_8cpp"/>
       </node>
     </invincdepgraph>
     <innerclass refid="classSTCanScan" prot="public">STCanScan</innerclass>
@@ -214,11 +214,13 @@
 <codeline lineno="106" refid="classSTCanScan_1a310439aeb8688c29fb3fe8faa4a9e198" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>s_isCanHandleInUseArray[256];</highlight></codeline>
 <codeline lineno="107"><highlight class="normal"></highlight></codeline>
 <codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>reconnectAllPorts(<sp/>tUcanHandle<sp/>h<sp/>);</highlight></codeline>
-<codeline lineno="109"><highlight class="normal"></highlight></codeline>
-<codeline lineno="110"><highlight class="normal"></highlight></codeline>
-<codeline lineno="111"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>vendorBaudRate2UserBaudRate(<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>vb<sp/>);</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>STcanGetErrorText(<sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/>errCode<sp/>);</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight></codeline>
 <codeline lineno="112"><highlight class="normal"></highlight></codeline>
-<codeline lineno="113"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="113"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
     </programlisting>
     <location file="CanInterfaceImplementations/systec/STCanScan.h"/>
   </compounddef>

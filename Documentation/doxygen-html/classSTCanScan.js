@@ -20,6 +20,8 @@ var classSTCanScan =
     [ "setReconnectBehavior", "classSTCanScan.html#a17bfbbb7ad6c03fc1ec9ef5f6fed0d3f", null ],
     [ "setReconnectFailedSendCount", "classSTCanScan.html#a2525cc89387ee92ce7e62be414d3c83e", null ],
     [ "setReconnectReceptionTimeout", "classSTCanScan.html#adca4386c1a008644c27f1d8e7c395272", null ],
+    [ "STcanGetErrorText", "classSTCanScan.html#a794110572725db6b7c153104ee1330b3", null ],
+    [ "vendorBaudRate2UserBaudRate", "classSTCanScan.html#aa57c48594c8a70a0331f07fb4ad208fd", null ],
     [ "m_baudRate", "classSTCanScan.html#add0582f666b4f0a5883311a284a0e9c4", null ],
     [ "m_busStatus", "classSTCanScan.html#aa1c2f27f78da63fc7d1f542f818b9624", null ],
     [ "m_canHandleNumber", "classSTCanScan.html#a8d6dd7c1cbf4a97607909086da6361e1", null ],

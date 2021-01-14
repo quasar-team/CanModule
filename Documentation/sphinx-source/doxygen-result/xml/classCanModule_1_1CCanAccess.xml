@@ -21,7 +21,7 @@
         <inbodydescription>
         </inbodydescription>
         <location file="CanInterface/include/CCanAccess.h" line="305" column="25" bodyfile="CanInterface/include/CCanAccess.h" bodystart="305" bodyend="-1"/>
-        <referencedby refid="classAnaCanScan_1af9a44b6ac914643225e2e61ca7a52f4c" compoundref="AnaCanScan_8cpp" startline="209" endline="215">AnaCanScan::callbackOnRecieve</referencedby>
+        <referencedby refid="classAnaCanScan_1af9a44b6ac914643225e2e61ca7a52f4c" compoundref="AnaCanScan_8cpp" startline="210" endline="216">AnaCanScan::callbackOnRecieve</referencedby>
         <referencedby refid="classSTCanScan_1aab42375da764eb0d50dee318cd790646" compoundref="STCanScan_8cpp" startline="95" endline="164">STCanScan::CanScanControlThread</referencedby>
         <referencedby refid="classPKCanScan_1a45bd5feda5ccb009775c45bfabe41614" compoundref="pkcan_8cpp" startline="109" endline="184">PKCanScan::CanScanControlThread</referencedby>
         <referencedby refid="classMockCanAccess_1a95856b7b3ac143d7c5bd7bd807c06fd5" compoundref="MockCanAccess_8cpp" startline="57" endline="71">MockCanAccess::sendMessage</referencedby>
@@ -38,12 +38,12 @@
         <inbodydescription>
         </inbodydescription>
         <location file="CanInterface/include/CCanAccess.h" line="316" column="25" bodyfile="CanInterface/include/CCanAccess.h" bodystart="307" bodyend="-1"/>
-        <referencedby refid="classCSockCanScan_1a4b5f7591bfd27b8770bfb9ac9e406f66" compoundref="SockCanScan_8cpp" startline="844" endline="851">CSockCanScan::clearErrorMessage</referencedby>
-        <referencedby refid="classSTCanScan_1a43454c0bc20eb764cbb4ef3dd5e52cc9" compoundref="STCanScan_8cpp" startline="340" endline="353">STCanScan::sendErrorCode</referencedby>
-        <referencedby refid="classPKCanScan_1a35ccc4082d56a736abb34d0c289c5a96" compoundref="pkcan_8cpp" startline="388" endline="404">PKCanScan::sendErrorCode</referencedby>
-        <referencedby refid="classAnaCanScan_1aaa001b34e6ee0a27295239f951b7b879" compoundref="AnaCanScan_8cpp" startline="487" endline="504">AnaCanScan::sendErrorCode</referencedby>
-        <referencedby refid="classCSockCanScan_1a512733f202345e5940460f84539c979a" compoundref="SockCanScan_8cpp" startline="853" endline="859">CSockCanScan::sendErrorMessage</referencedby>
-        <referencedby refid="classCSockCanScan_1a623057580187ecb241adf143c64d711c" compoundref="SockCanScan_8cpp" startline="897" endline="906">CSockCanScan::updateInitialError</referencedby>
+        <referencedby refid="classCSockCanScan_1a4b5f7591bfd27b8770bfb9ac9e406f66" compoundref="SockCanScan_8cpp" startline="879" endline="886">CSockCanScan::clearErrorMessage</referencedby>
+        <referencedby refid="classSTCanScan_1a43454c0bc20eb764cbb4ef3dd5e52cc9" compoundref="STCanScan_8cpp" startline="377" endline="390">STCanScan::sendErrorCode</referencedby>
+        <referencedby refid="classPKCanScan_1a35ccc4082d56a736abb34d0c289c5a96" compoundref="pkcan_8cpp" startline="389" endline="405">PKCanScan::sendErrorCode</referencedby>
+        <referencedby refid="classAnaCanScan_1aaa001b34e6ee0a27295239f951b7b879" compoundref="AnaCanScan_8cpp" startline="488" endline="505">AnaCanScan::sendErrorCode</referencedby>
+        <referencedby refid="classCSockCanScan_1a512733f202345e5940460f84539c979a" compoundref="SockCanScan_8cpp" startline="888" endline="894">CSockCanScan::sendErrorMessage</referencedby>
+        <referencedby refid="classCSockCanScan_1a623057580187ecb241adf143c64d711c" compoundref="SockCanScan_8cpp" startline="927" endline="936">CSockCanScan::updateInitialError</referencedby>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-attrib">
@@ -58,8 +58,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CanInterface/include/CCanAccess.h" line="466" column="8" bodyfile="CanInterface/include/CCanAccess.h" bodystart="466" bodyend="-1"/>
-        <referencedby refid="classPKCanScan_1a6fe021ecfdde5af1e7a74668b9819bfb" compoundref="pkcan_8cpp" startline="266" endline="385">PKCanScan::configureCanboard</referencedby>
+        <location file="CanInterface/include/CCanAccess.h" line="460" column="8" bodyfile="CanInterface/include/CCanAccess.h" bodystart="460" bodyend="-1"/>
+        <referencedby refid="classPKCanScan_1a6fe021ecfdde5af1e7a74668b9819bfb" compoundref="pkcan_8cpp" startline="266" endline="386">PKCanScan::configureCanboard</referencedby>
         <referencedby refid="classSTCanScan_1a28ac80d789b6d4d2bb11526bfaede69e" compoundref="STCanScan_8cpp" startline="208" endline="236">STCanScan::createBus</referencedby>
         <referencedby refid="classCanModule_1_1CCanAccess_1ac3f5126ae36d642217425e21696d19ca" compoundref="CCanAccess_8h" startline="204" endline="204">getBusName</referencedby>
         <referencedby refid="classCanModule_1_1CCanAccess_1af26c9d102638fb96e5e1305f807d148f" compoundref="CCanAccess_8h" startline="342" endline="400">parseNameAndParameters</referencedby>
@@ -75,14 +75,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CanInterface/include/CCanAccess.h" line="467" column="15" bodyfile="CanInterface/include/CCanAccess.h" bodystart="467" bodyend="-1"/>
-        <referencedby refid="classSTCanScan_1a8e147c77933e11e9983f4d4e22830b21" compoundref="STCanScan_8cpp" startline="238" endline="274">STCanScan::configureCanBoard</referencedby>
-        <referencedby refid="classPKCanScan_1a6fe021ecfdde5af1e7a74668b9819bfb" compoundref="pkcan_8cpp" startline="266" endline="385">PKCanScan::configureCanboard</referencedby>
-        <referencedby refid="classAnaCanScan_1ad917f9cda15bbf9dd9abe6417be5a5eb" compoundref="AnaCanScan_8cpp" startline="277" endline="341">AnaCanScan::configureCanBoard</referencedby>
-        <referencedby refid="classAnaCanScan_1a428d6c62f3a2d6b4297898593961696b" compoundref="AnaCanScan_8cpp" startline="865" endline="911">AnaCanScan::connectReceptionHandler</referencedby>
-        <referencedby refid="classCSockCanScan_1a38110f02c2d12fa9b620ba5ff438a960" compoundref="SockCanScan_8cpp" startline="888" endline="895">CSockCanScan::getStatistics</referencedby>
-        <referencedby refid="classCSockCanScan_1a203a51239f8efc013d4b9df36f271317" compoundref="SockCanScan_8cpp" startline="395" endline="469">CSockCanScan::openCanPort</referencedby>
-        <referencedby refid="classAnaCanScan_1ad94121f1933d50cafa52d625ee435f6c" compoundref="AnaCanScan_8cpp" startline="412" endline="482">AnaCanScan::openCanPort</referencedby>
+        <location file="CanInterface/include/CCanAccess.h" line="461" column="15" bodyfile="CanInterface/include/CCanAccess.h" bodystart="461" bodyend="-1"/>
+        <referencedby refid="classSTCanScan_1a8e147c77933e11e9983f4d4e22830b21" compoundref="STCanScan_8cpp" startline="242" endline="283">STCanScan::configureCanBoard</referencedby>
+        <referencedby refid="classPKCanScan_1a6fe021ecfdde5af1e7a74668b9819bfb" compoundref="pkcan_8cpp" startline="266" endline="386">PKCanScan::configureCanboard</referencedby>
+        <referencedby refid="classAnaCanScan_1ad917f9cda15bbf9dd9abe6417be5a5eb" compoundref="AnaCanScan_8cpp" startline="278" endline="342">AnaCanScan::configureCanBoard</referencedby>
+        <referencedby refid="classAnaCanScan_1a428d6c62f3a2d6b4297898593961696b" compoundref="AnaCanScan_8cpp" startline="824" endline="870">AnaCanScan::connectReceptionHandler</referencedby>
+        <referencedby refid="classCSockCanScan_1a38110f02c2d12fa9b620ba5ff438a960" compoundref="SockCanScan_8cpp" startline="918" endline="925">CSockCanScan::getStatistics</referencedby>
+        <referencedby refid="classCSockCanScan_1a203a51239f8efc013d4b9df36f271317" compoundref="SockCanScan_8cpp" startline="401" endline="475">CSockCanScan::openCanPort</referencedby>
+        <referencedby refid="classAnaCanScan_1ad94121f1933d50cafa52d625ee435f6c" compoundref="AnaCanScan_8cpp" startline="413" endline="483">AnaCanScan::openCanPort</referencedby>
         <referencedby refid="classCanModule_1_1CCanAccess_1af26c9d102638fb96e5e1305f807d148f" compoundref="CCanAccess_8h" startline="342" endline="400">parseNameAndParameters</referencedby>
       </memberdef>
       <memberdef kind="variable" id="classCanModule_1_1CCanAccess_1abfd40edc34a777a5ff4503a6e8a239d6" prot="protected" static="no" mutable="no">
@@ -96,12 +96,12 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CanInterface/include/CCanAccess.h" line="470" column="39" bodyfile="CanInterface/include/CCanAccess.h" bodystart="470" bodyend="-1"/>
-        <referencedby refid="classAnaCanScan_1af9a44b6ac914643225e2e61ca7a52f4c" compoundref="AnaCanScan_8cpp" startline="209" endline="215">AnaCanScan::callbackOnRecieve</referencedby>
+        <location file="CanInterface/include/CCanAccess.h" line="464" column="39" bodyfile="CanInterface/include/CCanAccess.h" bodystart="464" bodyend="-1"/>
+        <referencedby refid="classAnaCanScan_1af9a44b6ac914643225e2e61ca7a52f4c" compoundref="AnaCanScan_8cpp" startline="210" endline="216">AnaCanScan::callbackOnRecieve</referencedby>
         <referencedby refid="classMockCanAccess_1ac34bb818b8f9dbc5d3c9f44cdf4cf9dd" compoundref="MockCanAccess_8h" startline="56" endline="56">MockCanAccess::getReconnectCondition</referencedby>
-        <referencedby refid="classSTCanScan_1a45f0ec011022bf58a23e8370bac7f829" compoundref="STCanScan_8cpp" startline="390" endline="470">STCanScan::sendMessage</referencedby>
-        <referencedby refid="classPKCanScan_1a48a2e9ba00dae1b1fe01f7b095430503" compoundref="pkcan_8cpp" startline="411" endline="492">PKCanScan::sendMessage</referencedby>
-        <referencedby refid="classAnaCanScan_1ad45666454318c891d7acd9fe16ae4c49" compoundref="AnaCanScan_8cpp" startline="516" endline="672">AnaCanScan::sendMessage</referencedby>
+        <referencedby refid="classSTCanScan_1a45f0ec011022bf58a23e8370bac7f829" compoundref="STCanScan_8cpp" startline="428" endline="508">STCanScan::sendMessage</referencedby>
+        <referencedby refid="classPKCanScan_1a48a2e9ba00dae1b1fe01f7b095430503" compoundref="pkcan_8cpp" startline="412" endline="495">PKCanScan::sendMessage</referencedby>
+        <referencedby refid="classAnaCanScan_1ad45666454318c891d7acd9fe16ae4c49" compoundref="AnaCanScan_8cpp" startline="517" endline="631">AnaCanScan::sendMessage</referencedby>
       </memberdef>
       <memberdef kind="variable" id="classCanModule_1_1CCanAccess_1a6baf24c56eb715adf55a569d08b12c25" prot="protected" static="no" mutable="no">
         <type><ref refid="namespaceCanModule_1a2062089fa4fa87c8354295f2a8fe31a5" kindref="member">CanModule::ReconnectAction</ref></type>
@@ -114,11 +114,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CanInterface/include/CCanAccess.h" line="471" column="32" bodyfile="CanInterface/include/CCanAccess.h" bodystart="471" bodyend="-1"/>
+        <location file="CanInterface/include/CCanAccess.h" line="465" column="32" bodyfile="CanInterface/include/CCanAccess.h" bodystart="465" bodyend="-1"/>
         <referencedby refid="classMockCanAccess_1a489f003ba0c428037c5530f475c7c2f6" compoundref="MockCanAccess_8h" startline="57" endline="57">MockCanAccess::getReconnectAction</referencedby>
-        <referencedby refid="classSTCanScan_1a45f0ec011022bf58a23e8370bac7f829" compoundref="STCanScan_8cpp" startline="390" endline="470">STCanScan::sendMessage</referencedby>
-        <referencedby refid="classPKCanScan_1a48a2e9ba00dae1b1fe01f7b095430503" compoundref="pkcan_8cpp" startline="411" endline="492">PKCanScan::sendMessage</referencedby>
-        <referencedby refid="classAnaCanScan_1ad45666454318c891d7acd9fe16ae4c49" compoundref="AnaCanScan_8cpp" startline="516" endline="672">AnaCanScan::sendMessage</referencedby>
+        <referencedby refid="classSTCanScan_1a45f0ec011022bf58a23e8370bac7f829" compoundref="STCanScan_8cpp" startline="428" endline="508">STCanScan::sendMessage</referencedby>
+        <referencedby refid="classPKCanScan_1a48a2e9ba00dae1b1fe01f7b095430503" compoundref="pkcan_8cpp" startline="412" endline="495">PKCanScan::sendMessage</referencedby>
+        <referencedby refid="classAnaCanScan_1ad45666454318c891d7acd9fe16ae4c49" compoundref="AnaCanScan_8cpp" startline="517" endline="631">AnaCanScan::sendMessage</referencedby>
       </memberdef>
       <memberdef kind="variable" id="classCanModule_1_1CCanAccess_1abd6b2ab3f6759bfc05c6dc70911eab50" prot="protected" static="no" mutable="no">
         <type>unsigned int</type>
@@ -131,8 +131,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CanInterface/include/CCanAccess.h" line="472" column="14" bodyfile="CanInterface/include/CCanAccess.h" bodystart="472" bodyend="-1"/>
-        <referencedby refid="classCanModule_1_1CCanAccess_1a79c236a0e2b3e3b183b1c85aab3f5b71" compoundref="CCanAccess_8h" startline="503" endline="513">hasTimeoutOnReception</referencedby>
+        <location file="CanInterface/include/CCanAccess.h" line="466" column="14" bodyfile="CanInterface/include/CCanAccess.h" bodystart="466" bodyend="-1"/>
+        <referencedby refid="classCanModule_1_1CCanAccess_1a79c236a0e2b3e3b183b1c85aab3f5b71" compoundref="CCanAccess_8h" startline="496" endline="506">hasTimeoutOnReception</referencedby>
         <referencedby refid="classMockCanAccess_1ac626da0d02537e59c9d4bf9c631cec1b" compoundref="MockCanAccess_8h" startline="54" endline="54">MockCanAccess::setReconnectReceptionTimeout</referencedby>
       </memberdef>
       <memberdef kind="variable" id="classCanModule_1_1CCanAccess_1a74e437526e45192804ca1cffc663d2e2" prot="protected" static="no" mutable="no">
@@ -146,14 +146,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CanInterface/include/CCanAccess.h" line="473" column="5" bodyfile="CanInterface/include/CCanAccess.h" bodystart="473" bodyend="-1"/>
+        <location file="CanInterface/include/CCanAccess.h" line="467" column="5" bodyfile="CanInterface/include/CCanAccess.h" bodystart="467" bodyend="-1"/>
         <referencedby refid="classAnaCanScan_1af6c27ae08034c5da64a54de29e2e875e" compoundref="AnaCanScan_8cpp" startline="74" endline="88">AnaCanScan::AnaCanScan</referencedby>
-        <referencedby refid="classCSockCanScan_1abfb8f5e3726f9675a63f48648afae178" compoundref="SockCanScan_8cpp" startline="65" endline="77">CSockCanScan::CSockCanScan</referencedby>
+        <referencedby refid="classCSockCanScan_1abfb8f5e3726f9675a63f48648afae178" compoundref="SockCanScan_8cpp" startline="65" endline="76">CSockCanScan::CSockCanScan</referencedby>
         <referencedby refid="classMockCanAccess_1a5a5c76c0d3ba4276e98f56f81f8116a3" compoundref="MockCanAccess_8cpp" startline="30" endline="36">MockCanAccess::MockCanAccess</referencedby>
         <referencedby refid="classPKCanScan_1adfc8b4e20f4548295a99af69bf1888d5" compoundref="pkcan_8cpp" startline="50" endline="61">PKCanScan::PKCanScan</referencedby>
-        <referencedby refid="classSTCanScan_1a45f0ec011022bf58a23e8370bac7f829" compoundref="STCanScan_8cpp" startline="390" endline="470">STCanScan::sendMessage</referencedby>
-        <referencedby refid="classPKCanScan_1a48a2e9ba00dae1b1fe01f7b095430503" compoundref="pkcan_8cpp" startline="411" endline="492">PKCanScan::sendMessage</referencedby>
-        <referencedby refid="classAnaCanScan_1ad45666454318c891d7acd9fe16ae4c49" compoundref="AnaCanScan_8cpp" startline="516" endline="672">AnaCanScan::sendMessage</referencedby>
+        <referencedby refid="classSTCanScan_1a45f0ec011022bf58a23e8370bac7f829" compoundref="STCanScan_8cpp" startline="428" endline="508">STCanScan::sendMessage</referencedby>
+        <referencedby refid="classPKCanScan_1a48a2e9ba00dae1b1fe01f7b095430503" compoundref="pkcan_8cpp" startline="412" endline="495">PKCanScan::sendMessage</referencedby>
+        <referencedby refid="classAnaCanScan_1ad45666454318c891d7acd9fe16ae4c49" compoundref="AnaCanScan_8cpp" startline="517" endline="631">AnaCanScan::sendMessage</referencedby>
         <referencedby refid="classMockCanAccess_1abfb4be10500a4960b163433b5c06d22f" compoundref="MockCanAccess_8h" startline="55" endline="55">MockCanAccess::setReconnectFailedSendCount</referencedby>
         <referencedby refid="classSTCanScan_1a75fcb8ff51d82d362edb1dd31125fb10" compoundref="STCanScan_8cpp" startline="58" endline="71">STCanScan::STCanScan</referencedby>
       </memberdef>
@@ -168,14 +168,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CanInterface/include/CCanAccess.h" line="474" column="14" bodyfile="CanInterface/include/CCanAccess.h" bodystart="474" bodyend="-1"/>
+        <location file="CanInterface/include/CCanAccess.h" line="468" column="14" bodyfile="CanInterface/include/CCanAccess.h" bodystart="468" bodyend="-1"/>
         <referencedby refid="classAnaCanScan_1af6c27ae08034c5da64a54de29e2e875e" compoundref="AnaCanScan_8cpp" startline="74" endline="88">AnaCanScan::AnaCanScan</referencedby>
-        <referencedby refid="classCSockCanScan_1abfb8f5e3726f9675a63f48648afae178" compoundref="SockCanScan_8cpp" startline="65" endline="77">CSockCanScan::CSockCanScan</referencedby>
+        <referencedby refid="classCSockCanScan_1abfb8f5e3726f9675a63f48648afae178" compoundref="SockCanScan_8cpp" startline="65" endline="76">CSockCanScan::CSockCanScan</referencedby>
         <referencedby refid="classMockCanAccess_1a5a5c76c0d3ba4276e98f56f81f8116a3" compoundref="MockCanAccess_8cpp" startline="30" endline="36">MockCanAccess::MockCanAccess</referencedby>
         <referencedby refid="classPKCanScan_1adfc8b4e20f4548295a99af69bf1888d5" compoundref="pkcan_8cpp" startline="50" endline="61">PKCanScan::PKCanScan</referencedby>
-        <referencedby refid="classSTCanScan_1a45f0ec011022bf58a23e8370bac7f829" compoundref="STCanScan_8cpp" startline="390" endline="470">STCanScan::sendMessage</referencedby>
-        <referencedby refid="classPKCanScan_1a48a2e9ba00dae1b1fe01f7b095430503" compoundref="pkcan_8cpp" startline="411" endline="492">PKCanScan::sendMessage</referencedby>
-        <referencedby refid="classAnaCanScan_1ad45666454318c891d7acd9fe16ae4c49" compoundref="AnaCanScan_8cpp" startline="516" endline="672">AnaCanScan::sendMessage</referencedby>
+        <referencedby refid="classSTCanScan_1a45f0ec011022bf58a23e8370bac7f829" compoundref="STCanScan_8cpp" startline="428" endline="508">STCanScan::sendMessage</referencedby>
+        <referencedby refid="classPKCanScan_1a48a2e9ba00dae1b1fe01f7b095430503" compoundref="pkcan_8cpp" startline="412" endline="495">PKCanScan::sendMessage</referencedby>
+        <referencedby refid="classAnaCanScan_1ad45666454318c891d7acd9fe16ae4c49" compoundref="AnaCanScan_8cpp" startline="517" endline="631">AnaCanScan::sendMessage</referencedby>
         <referencedby refid="classMockCanAccess_1abfb4be10500a4960b163433b5c06d22f" compoundref="MockCanAccess_8h" startline="55" endline="55">MockCanAccess::setReconnectFailedSendCount</referencedby>
         <referencedby refid="classSTCanScan_1a75fcb8ff51d82d362edb1dd31125fb10" compoundref="STCanScan_8cpp" startline="58" endline="71">STCanScan::STCanScan</referencedby>
       </memberdef>
@@ -192,7 +192,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CanInterface/include/CCanAccess.h" line="534" column="29" bodyfile="CanInterface/include/CCanAccess.h" bodystart="534" bodyend="-1"/>
+        <location file="CanInterface/include/CCanAccess.h" line="527" column="29" bodyfile="CanInterface/include/CCanAccess.h" bodystart="527" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classCanModule_1_1CCanAccess_1aab58c9d55e8430de64046e13100e4893" prot="private" static="no" mutable="no">
         <type>int</type>
@@ -205,7 +205,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CanInterface/include/CCanAccess.h" line="535" column="5" bodyfile="CanInterface/include/CCanAccess.h" bodystart="535" bodyend="-1"/>
+        <location file="CanInterface/include/CCanAccess.h" line="528" column="5" bodyfile="CanInterface/include/CCanAccess.h" bodystart="528" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classCanModule_1_1CCanAccess_1a782b2e9b52ebb49a14307e1f37440490" prot="private" static="no" mutable="no">
         <type>Log::LogComponentHandle</type>
@@ -218,7 +218,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CanInterface/include/CCanAccess.h" line="536" column="25" bodyfile="CanInterface/include/CCanAccess.h" bodystart="536" bodyend="-1"/>
+        <location file="CanInterface/include/CCanAccess.h" line="529" column="25" bodyfile="CanInterface/include/CCanAccess.h" bodystart="529" bodyend="-1"/>
         <referencedby refid="classCanModule_1_1CCanAccess_1af26c9d102638fb96e5e1305f807d148f" compoundref="CCanAccess_8h" startline="342" endline="400">parseNameAndParameters</referencedby>
       </memberdef>
       <memberdef kind="variable" id="classCanModule_1_1CCanAccess_1a2bb6325281679f955ab32fc18367a7b3" prot="private" static="no" mutable="no">
@@ -232,7 +232,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CanInterface/include/CCanAccess.h" line="537" column="15" bodyfile="CanInterface/include/CCanAccess.h" bodystart="537" bodyend="-1"/>
+        <location file="CanInterface/include/CCanAccess.h" line="530" column="15" bodyfile="CanInterface/include/CCanAccess.h" bodystart="530" bodyend="-1"/>
         <referencedby refid="classCanModule_1_1CCanAccess_1a8210a8161f1987973584b6dda5dc6d7d" compoundref="CCanAccess_8h" startline="332" endline="335">getLogItInstance</referencedby>
         <referencedby refid="classCanModule_1_1CCanAccess_1ab5a430fc27073d92c69659bda261b74d" compoundref="CCanAccess_8h" startline="321" endline="326">initialiseLogging</referencedby>
       </memberdef>
@@ -247,9 +247,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CanInterface/include/CCanAccess.h" line="537" column="15" bodyfile="CanInterface/include/CCanAccess.h" bodystart="542" bodyend="-1"/>
-        <referencedby refid="classCanModule_1_1CCanAccess_1a79c236a0e2b3e3b183b1c85aab3f5b71" compoundref="CCanAccess_8h" startline="503" endline="513">hasTimeoutOnReception</referencedby>
-        <referencedby refid="classCanModule_1_1CCanAccess_1a067f50699c1ed4b6ee6732eb0078ed0a" compoundref="CCanAccess_8h" startline="518" endline="524">resetTimeoutOnReception</referencedby>
+        <location file="CanInterface/include/CCanAccess.h" line="530" column="15" bodyfile="CanInterface/include/CCanAccess.h" bodystart="535" bodyend="-1"/>
+        <referencedby refid="classCanModule_1_1CCanAccess_1a79c236a0e2b3e3b183b1c85aab3f5b71" compoundref="CCanAccess_8h" startline="496" endline="506">hasTimeoutOnReception</referencedby>
+        <referencedby refid="classCanModule_1_1CCanAccess_1a067f50699c1ed4b6ee6732eb0078ed0a" compoundref="CCanAccess_8h" startline="511" endline="517">resetTimeoutOnReception</referencedby>
       </memberdef>
       <memberdef kind="variable" id="classCanModule_1_1CCanAccess_1a7bb4a17c5b05e5b01f59d9d9a0728f8a" prot="private" static="no" mutable="no">
         <type>struct timezone</type>
@@ -262,10 +262,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CanInterface/include/CCanAccess.h" line="537" column="15" bodyfile="CanInterface/include/CCanAccess.h" bodystart="543" bodyend="-1"/>
-        <referencedby refid="classCanModule_1_1CCanAccess_1a79c236a0e2b3e3b183b1c85aab3f5b71" compoundref="CCanAccess_8h" startline="503" endline="513">hasTimeoutOnReception</referencedby>
-        <referencedby refid="classCanModule_1_1CCanAccess_1afefee3a90966dd8a01ca471022a7a9cd" compoundref="CCanAccess_8h" startline="525" endline="531">resetTimeNow</referencedby>
-        <referencedby refid="classCanModule_1_1CCanAccess_1a067f50699c1ed4b6ee6732eb0078ed0a" compoundref="CCanAccess_8h" startline="518" endline="524">resetTimeoutOnReception</referencedby>
+        <location file="CanInterface/include/CCanAccess.h" line="530" column="15" bodyfile="CanInterface/include/CCanAccess.h" bodystart="536" bodyend="-1"/>
+        <referencedby refid="classCanModule_1_1CCanAccess_1a79c236a0e2b3e3b183b1c85aab3f5b71" compoundref="CCanAccess_8h" startline="496" endline="506">hasTimeoutOnReception</referencedby>
+        <referencedby refid="classCanModule_1_1CCanAccess_1afefee3a90966dd8a01ca471022a7a9cd" compoundref="CCanAccess_8h" startline="518" endline="524">resetTimeNow</referencedby>
+        <referencedby refid="classCanModule_1_1CCanAccess_1a067f50699c1ed4b6ee6732eb0078ed0a" compoundref="CCanAccess_8h" startline="511" endline="517">resetTimeoutOnReception</referencedby>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -281,8 +281,8 @@
         <inbodydescription>
         </inbodydescription>
         <location file="CanInterface/include/CCanAccess.h" line="142" column="1" bodyfile="CanInterface/include/CCanAccess.h" bodystart="142" bodyend="155"/>
-        <references refid="classCanModule_1_1CCanAccess_1afefee3a90966dd8a01ca471022a7a9cd" compoundref="CCanAccess_8h" startline="525" endline="531">resetTimeNow</references>
-        <references refid="classCanModule_1_1CCanAccess_1a067f50699c1ed4b6ee6732eb0078ed0a" compoundref="CCanAccess_8h" startline="518" endline="524">resetTimeoutOnReception</references>
+        <references refid="classCanModule_1_1CCanAccess_1afefee3a90966dd8a01ca471022a7a9cd" compoundref="CCanAccess_8h" startline="518" endline="524">resetTimeNow</references>
+        <references refid="classCanModule_1_1CCanAccess_1a067f50699c1ed4b6ee6732eb0078ed0a" compoundref="CCanAccess_8h" startline="511" endline="517">resetTimeoutOnReception</references>
         <references refid="namespaceCanModule_1a2f4fee79cc7ba53467c2538fe6b9adbbae323a25a871808f9a0df9a72ce954585">CanModule::sendFail</references>
         <references refid="namespaceCanModule_1a2062089fa4fa87c8354295f2a8fe31a5a5f768fefafa6db21eee26885afb6163d">CanModule::singleBus</references>
       </memberdef>
@@ -366,7 +366,7 @@
         <inbodydescription>
         </inbodydescription>
         <location file="CanInterface/include/CCanAccess.h" line="181" column="13"/>
-        <referencedby refid="classCanModule_1_1CanLibLoader_1aaac995d89efdcf2b673cbd3e678be55b" compoundref="CanLibLoader_8cpp" startline="71" endline="129">CanModule::CanLibLoader::openCanBus</referencedby>
+        <referencedby refid="classCanModule_1_1CanLibLoader_1aaac995d89efdcf2b673cbd3e678be55b" compoundref="CanLibLoader_8cpp" startline="70" endline="128">CanModule::CanLibLoader::openCanBus</referencedby>
       </memberdef>
       <memberdef kind="function" id="classCanModule_1_1CCanAccess_1aee42ab7fb9e50c02a1812202f7863d8c" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
         <type>bool</type>
@@ -476,8 +476,8 @@
         <inbodydescription>
         </inbodydescription>
         <location file="CanInterface/include/CCanAccess.h" line="204" column="13" bodyfile="CanInterface/include/CCanAccess.h" bodystart="204" bodyend="204"/>
-        <references refid="classCanModule_1_1CCanAccess_1a0eff18d10b7ee5d6f86b03898f38f7ca" compoundref="CCanAccess_8h" startline="466">m_sBusName</references>
-        <referencedby refid="classCanModule_1_1CanLibLoader_1acd7d3af103bb72d5bd18737333d682f4" compoundref="CanLibLoader_8cpp" startline="60" endline="66">CanModule::CanLibLoader::closeCanBus</referencedby>
+        <references refid="classCanModule_1_1CCanAccess_1a0eff18d10b7ee5d6f86b03898f38f7ca" compoundref="CCanAccess_8h" startline="460">m_sBusName</references>
+        <referencedby refid="classCanModule_1_1CanLibLoader_1acd7d3af103bb72d5bd18737333d682f4" compoundref="CanLibLoader_8cpp" startline="60" endline="65">CanModule::CanLibLoader::closeCanBus</referencedby>
         <referencedby refid="classCanModule_1_1Diag_1aa79c20827b6e33fa35d4106d9aa479b8" compoundref="Diag_8cpp" startline="27" endline="37">CanModule::Diag::delete_maps</referencedby>
         <referencedby refid="classCanModule_1_1Diag_1addd2c4afbe8b21115f487085f3226e8d" compoundref="Diag_8cpp" startline="46" endline="70">CanModule::Diag::insert_maps</referencedby>
       </memberdef>
@@ -677,8 +677,8 @@
         <inbodydescription>
         </inbodydescription>
         <location file="CanInterface/include/CCanAccess.h" line="321" column="13" bodyfile="CanInterface/include/CCanAccess.h" bodystart="321" bodyend="326"/>
-        <references refid="classCanModule_1_1CCanAccess_1a2bb6325281679f955ab32fc18367a7b3" compoundref="CCanAccess_8h" startline="537">m_logItRemoteInstance</references>
-        <referencedby refid="classCanModule_1_1CanLibLoader_1aaac995d89efdcf2b673cbd3e678be55b" compoundref="CanLibLoader_8cpp" startline="71" endline="129">CanModule::CanLibLoader::openCanBus</referencedby>
+        <references refid="classCanModule_1_1CCanAccess_1a2bb6325281679f955ab32fc18367a7b3" compoundref="CCanAccess_8h" startline="530">m_logItRemoteInstance</references>
+        <referencedby refid="classCanModule_1_1CanLibLoader_1aaac995d89efdcf2b673cbd3e678be55b" compoundref="CanLibLoader_8cpp" startline="70" endline="128">CanModule::CanLibLoader::openCanBus</referencedby>
       </memberdef>
       <memberdef kind="function" id="classCanModule_1_1CCanAccess_1a8210a8161f1987973584b6dda5dc6d7d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>LogItInstance *</type>
@@ -693,7 +693,7 @@
         <inbodydescription>
         </inbodydescription>
         <location file="CanInterface/include/CCanAccess.h" line="332" column="15" bodyfile="CanInterface/include/CCanAccess.h" bodystart="332" bodyend="335"/>
-        <references refid="classCanModule_1_1CCanAccess_1a2bb6325281679f955ab32fc18367a7b3" compoundref="CCanAccess_8h" startline="537">m_logItRemoteInstance</references>
+        <references refid="classCanModule_1_1CCanAccess_1a2bb6325281679f955ab32fc18367a7b3" compoundref="CCanAccess_8h" startline="530">m_logItRemoteInstance</references>
       </memberdef>
       <memberdef kind="function" id="classCanModule_1_1CCanAccess_1af26c9d102638fb96e5e1305f807d148f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>vector&lt; string &gt;</type>
@@ -718,14 +718,14 @@
 <para>if you specify only an integer portnumber we default to &quot;can&quot; if you specify &quot;:can&quot; we stay with &quot;can&quot; if you specify &quot;:vcan&quot; we stay with &quot;vcan&quot; if you specify anything else which contains a string and an integer, we use can if you specify anything else which contains a string containing &quot;:vcan&quot; and an integer, we use vcan so basically you have the freedom to call your devices as you want. Maybe this is too much freedom.</para>
         </inbodydescription>
         <location file="CanInterface/include/CCanAccess.h" line="342" column="15" bodyfile="CanInterface/include/CCanAccess.h" bodystart="342" bodyend="400"/>
-        <references refid="classCanModule_1_1CCanAccess_1a484a4f9dc352fe31b4baff0365095705" compoundref="CCanAccess_8h" startline="467">m_CanParameters</references>
-        <references refid="classCanModule_1_1CCanAccess_1a782b2e9b52ebb49a14307e1f37440490" compoundref="CCanAccess_8h" startline="536">m_lh</references>
-        <references refid="classCanModule_1_1CCanAccess_1a0eff18d10b7ee5d6f86b03898f38f7ca" compoundref="CCanAccess_8h" startline="466">m_sBusName</references>
+        <references refid="classCanModule_1_1CCanAccess_1a484a4f9dc352fe31b4baff0365095705" compoundref="CCanAccess_8h" startline="461">m_CanParameters</references>
+        <references refid="classCanModule_1_1CCanAccess_1a782b2e9b52ebb49a14307e1f37440490" compoundref="CCanAccess_8h" startline="529">m_lh</references>
+        <references refid="classCanModule_1_1CCanAccess_1a0eff18d10b7ee5d6f86b03898f38f7ca" compoundref="CCanAccess_8h" startline="460">m_sBusName</references>
         <references refid="structCanModule_1_1CanParameters_1ae3c938ac282acae4e49487cbb8a61133" compoundref="CCanAccess_8h" startline="122" endline="134">CanModule::CanParameters::scanParameters</references>
-        <referencedby refid="classSTCanScan_1a8e147c77933e11e9983f4d4e22830b21" compoundref="STCanScan_8cpp" startline="238" endline="274">STCanScan::configureCanBoard</referencedby>
-        <referencedby refid="classPKCanScan_1a6fe021ecfdde5af1e7a74668b9819bfb" compoundref="pkcan_8cpp" startline="266" endline="385">PKCanScan::configureCanboard</referencedby>
-        <referencedby refid="classCSockCanScan_1a8bb8fcdb24b2b917258d027e6a468bae" compoundref="SockCanScan_8cpp" startline="354" endline="389">CSockCanScan::configureCanBoard</referencedby>
-        <referencedby refid="classAnaCanScan_1ad917f9cda15bbf9dd9abe6417be5a5eb" compoundref="AnaCanScan_8cpp" startline="277" endline="341">AnaCanScan::configureCanBoard</referencedby>
+        <referencedby refid="classSTCanScan_1a8e147c77933e11e9983f4d4e22830b21" compoundref="STCanScan_8cpp" startline="242" endline="283">STCanScan::configureCanBoard</referencedby>
+        <referencedby refid="classPKCanScan_1a6fe021ecfdde5af1e7a74668b9819bfb" compoundref="pkcan_8cpp" startline="266" endline="386">PKCanScan::configureCanboard</referencedby>
+        <referencedby refid="classCSockCanScan_1a8bb8fcdb24b2b917258d027e6a468bae" compoundref="SockCanScan_8cpp" startline="360" endline="395">CSockCanScan::configureCanBoard</referencedby>
+        <referencedby refid="classAnaCanScan_1ad917f9cda15bbf9dd9abe6417be5a5eb" compoundref="AnaCanScan_8cpp" startline="278" endline="342">AnaCanScan::configureCanBoard</referencedby>
       </memberdef>
       <memberdef kind="function" id="classCanModule_1_1CCanAccess_1ae1088edaf5444ff42ee094ae46240cc5" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
         <type>void</type>
@@ -769,8 +769,7 @@
 <parameterdescription>
 <para>action<itemizedlist>
 <listitem><para>singleBus (default): a single connection (canbus, channel) is reset and reception handler is reconnected.</para>
-</listitem><listitem><para>wholeBridge if available, the whole bridge is reset, affecting all physical channels on that bridge. Only available for anagate. If a bridge is shared between multiple tasks, all channels across tasks are reset, affecting all tasks connected to that bridge. Evidently, a given channel must only be used by at most one task.</para>
-</listitem><listitem><para>hardReset: the bridge is reset in a &quot;hard&quot; way, i.e. firmware is rebooted (NOT reloaded or overwritten). Only available for anagate: the firmware of the bridge (ip) is reloaded using a special command of the anagate API which is not available through the common <ref refid="namespaceCanModule" kindref="compound">CanModule</ref> API, since it is vendor specific. This is a &quot;hard software reset&quot;, and it is not the same as just power-cycling the module. It takes ~15secs and &quot;is known to work nicely&quot;. </para>
+</listitem><listitem><para>wholeBridge if available, the whole bridge is reset, affecting all physical channels on that bridge. Only available for anagate. If a bridge is shared between multiple tasks, all channels across tasks are reset, affecting all tasks connected to that bridge. Evidently, a given channel must only be used by at most one task. </para>
 </listitem></itemizedlist>
 </para>
 </parameterdescription>
@@ -780,7 +779,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CanInterface/include/CCanAccess.h" line="438" column="14"/>
+        <location file="CanInterface/include/CCanAccess.h" line="432" column="14"/>
       </memberdef>
       <memberdef kind="function" id="classCanModule_1_1CCanAccess_1a3c902569c0712d165fc7e385e683dc95" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
         <type>void</type>
@@ -803,7 +802,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CanInterface/include/CCanAccess.h" line="443" column="14"/>
+        <location file="CanInterface/include/CCanAccess.h" line="437" column="14"/>
       </memberdef>
       <memberdef kind="function" id="classCanModule_1_1CCanAccess_1a665620fe5924cf87db0589a353d3d148" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
         <type>void</type>
@@ -826,7 +825,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CanInterface/include/CCanAccess.h" line="448" column="14"/>
+        <location file="CanInterface/include/CCanAccess.h" line="442" column="14"/>
       </memberdef>
       <memberdef kind="function" id="classCanModule_1_1CCanAccess_1a003566cbcdf4ce8195853bd8049a8800" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
         <type><ref refid="namespaceCanModule_1a2f4fee79cc7ba53467c2538fe6b9adbb" kindref="member">CanModule::ReconnectAutoCondition</ref></type>
@@ -845,7 +844,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CanInterface/include/CCanAccess.h" line="454" column="43"/>
+        <location file="CanInterface/include/CCanAccess.h" line="448" column="43"/>
       </memberdef>
       <memberdef kind="function" id="classCanModule_1_1CCanAccess_1aaf2312ff9074ce7a4ec2e7d0a5b6fa16" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
         <type><ref refid="namespaceCanModule_1a2062089fa4fa87c8354295f2a8fe31a5" kindref="member">CanModule::ReconnectAction</ref></type>
@@ -864,7 +863,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CanInterface/include/CCanAccess.h" line="459" column="36"/>
+        <location file="CanInterface/include/CCanAccess.h" line="453" column="36"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-static-func">
@@ -884,15 +883,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CanInterface/include/CCanAccess.h" line="479" column="20" bodyfile="CanInterface/include/CCanAccess.h" bodystart="479" bodyend="486"/>
+        <location file="CanInterface/include/CCanAccess.h" line="473" column="20" bodyfile="CanInterface/include/CCanAccess.h" bodystart="473" bodyend="480"/>
         <references refid="namespaceCanModule_1a2f4fee79cc7ba53467c2538fe6b9adbbac7561db7a418dd39b2201dfe110ab4a4">CanModule::never</references>
         <references refid="namespaceCanModule_1a2f4fee79cc7ba53467c2538fe6b9adbbae323a25a871808f9a0df9a72ce954585">CanModule::sendFail</references>
         <references refid="namespaceCanModule_1a2f4fee79cc7ba53467c2538fe6b9adbbaba350cf15e5a1471109f17351afb401a">CanModule::timeoutOnReception</references>
         <referencedby refid="classSTCanScan_1aab42375da764eb0d50dee318cd790646" compoundref="STCanScan_8cpp" startline="95" endline="164">STCanScan::CanScanControlThread</referencedby>
         <referencedby refid="classPKCanScan_1a45bd5feda5ccb009775c45bfabe41614" compoundref="pkcan_8cpp" startline="109" endline="184">PKCanScan::CanScanControlThread</referencedby>
-        <referencedby refid="classSTCanScan_1a45f0ec011022bf58a23e8370bac7f829" compoundref="STCanScan_8cpp" startline="390" endline="470">STCanScan::sendMessage</referencedby>
-        <referencedby refid="classPKCanScan_1a48a2e9ba00dae1b1fe01f7b095430503" compoundref="pkcan_8cpp" startline="411" endline="492">PKCanScan::sendMessage</referencedby>
-        <referencedby refid="classAnaCanScan_1ad45666454318c891d7acd9fe16ae4c49" compoundref="AnaCanScan_8cpp" startline="516" endline="672">AnaCanScan::sendMessage</referencedby>
+        <referencedby refid="classSTCanScan_1a45f0ec011022bf58a23e8370bac7f829" compoundref="STCanScan_8cpp" startline="428" endline="508">STCanScan::sendMessage</referencedby>
+        <referencedby refid="classPKCanScan_1a48a2e9ba00dae1b1fe01f7b095430503" compoundref="pkcan_8cpp" startline="412" endline="495">PKCanScan::sendMessage</referencedby>
+        <referencedby refid="classAnaCanScan_1ad45666454318c891d7acd9fe16ae4c49" compoundref="AnaCanScan_8cpp" startline="517" endline="631">AnaCanScan::sendMessage</referencedby>
       </memberdef>
       <memberdef kind="function" id="classCanModule_1_1CCanAccess_1aa12f64e9e31bd491f39fc3169b1e5025" prot="protected" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>std::string</type>
@@ -910,15 +909,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CanInterface/include/CCanAccess.h" line="491" column="20" bodyfile="CanInterface/include/CCanAccess.h" bodystart="491" bodyend="498"/>
+        <location file="CanInterface/include/CCanAccess.h" line="485" column="20" bodyfile="CanInterface/include/CCanAccess.h" bodystart="485" bodyend="491"/>
         <references refid="namespaceCanModule_1a2062089fa4fa87c8354295f2a8fe31a5a319ee2c9d887d55f6bc1941518a5ae76">CanModule::allBusesOnBridge</references>
-        <references refid="namespaceCanModule_1a2062089fa4fa87c8354295f2a8fe31a5a74fa07b834c8e10084ece32c00d9bbbc">CanModule::hardReset</references>
         <references refid="namespaceCanModule_1a2062089fa4fa87c8354295f2a8fe31a5a5f768fefafa6db21eee26885afb6163d">CanModule::singleBus</references>
         <referencedby refid="classSTCanScan_1aab42375da764eb0d50dee318cd790646" compoundref="STCanScan_8cpp" startline="95" endline="164">STCanScan::CanScanControlThread</referencedby>
         <referencedby refid="classPKCanScan_1a45bd5feda5ccb009775c45bfabe41614" compoundref="pkcan_8cpp" startline="109" endline="184">PKCanScan::CanScanControlThread</referencedby>
-        <referencedby refid="classSTCanScan_1a45f0ec011022bf58a23e8370bac7f829" compoundref="STCanScan_8cpp" startline="390" endline="470">STCanScan::sendMessage</referencedby>
-        <referencedby refid="classPKCanScan_1a48a2e9ba00dae1b1fe01f7b095430503" compoundref="pkcan_8cpp" startline="411" endline="492">PKCanScan::sendMessage</referencedby>
-        <referencedby refid="classAnaCanScan_1ad45666454318c891d7acd9fe16ae4c49" compoundref="AnaCanScan_8cpp" startline="516" endline="672">AnaCanScan::sendMessage</referencedby>
+        <referencedby refid="classSTCanScan_1a45f0ec011022bf58a23e8370bac7f829" compoundref="STCanScan_8cpp" startline="428" endline="508">STCanScan::sendMessage</referencedby>
+        <referencedby refid="classPKCanScan_1a48a2e9ba00dae1b1fe01f7b095430503" compoundref="pkcan_8cpp" startline="412" endline="495">PKCanScan::sendMessage</referencedby>
+        <referencedby refid="classAnaCanScan_1ad45666454318c891d7acd9fe16ae4c49" compoundref="AnaCanScan_8cpp" startline="517" endline="631">AnaCanScan::sendMessage</referencedby>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-func">
@@ -934,13 +932,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CanInterface/include/CCanAccess.h" line="503" column="6" bodyfile="CanInterface/include/CCanAccess.h" bodystart="503" bodyend="513"/>
-        <references refid="classCanModule_1_1CCanAccess_1a6a9790a2842b40ced0ff98e1e171acbc" compoundref="CCanAccess_8h" startline="542">m_dreceived</references>
-        <references refid="classCanModule_1_1CCanAccess_1abd6b2ab3f6759bfc05c6dc70911eab50" compoundref="CCanAccess_8h" startline="472">m_timeoutOnReception</references>
-        <references refid="classCanModule_1_1CCanAccess_1a7bb4a17c5b05e5b01f59d9d9a0728f8a" compoundref="CCanAccess_8h" startline="543">m_tz</references>
+        <location file="CanInterface/include/CCanAccess.h" line="496" column="6" bodyfile="CanInterface/include/CCanAccess.h" bodystart="496" bodyend="506"/>
+        <references refid="classCanModule_1_1CCanAccess_1a6a9790a2842b40ced0ff98e1e171acbc" compoundref="CCanAccess_8h" startline="535">m_dreceived</references>
+        <references refid="classCanModule_1_1CCanAccess_1abd6b2ab3f6759bfc05c6dc70911eab50" compoundref="CCanAccess_8h" startline="466">m_timeoutOnReception</references>
+        <references refid="classCanModule_1_1CCanAccess_1a7bb4a17c5b05e5b01f59d9d9a0728f8a" compoundref="CCanAccess_8h" startline="536">m_tz</references>
         <referencedby refid="classSTCanScan_1aab42375da764eb0d50dee318cd790646" compoundref="STCanScan_8cpp" startline="95" endline="164">STCanScan::CanScanControlThread</referencedby>
         <referencedby refid="classPKCanScan_1a45bd5feda5ccb009775c45bfabe41614" compoundref="pkcan_8cpp" startline="109" endline="184">PKCanScan::CanScanControlThread</referencedby>
-        <referencedby refid="classAnaCanScan_1ad45666454318c891d7acd9fe16ae4c49" compoundref="AnaCanScan_8cpp" startline="516" endline="672">AnaCanScan::sendMessage</referencedby>
+        <referencedby refid="classAnaCanScan_1ad45666454318c891d7acd9fe16ae4c49" compoundref="AnaCanScan_8cpp" startline="517" endline="631">AnaCanScan::sendMessage</referencedby>
       </memberdef>
       <memberdef kind="function" id="classCanModule_1_1CCanAccess_1a067f50699c1ed4b6ee6732eb0078ed0a" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -954,14 +952,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CanInterface/include/CCanAccess.h" line="518" column="6" bodyfile="CanInterface/include/CCanAccess.h" bodystart="518" bodyend="524"/>
-        <references refid="classCanModule_1_1CCanAccess_1a6a9790a2842b40ced0ff98e1e171acbc" compoundref="CCanAccess_8h" startline="542">m_dreceived</references>
-        <references refid="classCanModule_1_1CCanAccess_1a7bb4a17c5b05e5b01f59d9d9a0728f8a" compoundref="CCanAccess_8h" startline="543">m_tz</references>
-        <referencedby refid="classAnaCanScan_1af9a44b6ac914643225e2e61ca7a52f4c" compoundref="AnaCanScan_8cpp" startline="209" endline="215">AnaCanScan::callbackOnRecieve</referencedby>
+        <location file="CanInterface/include/CCanAccess.h" line="511" column="6" bodyfile="CanInterface/include/CCanAccess.h" bodystart="511" bodyend="517"/>
+        <references refid="classCanModule_1_1CCanAccess_1a6a9790a2842b40ced0ff98e1e171acbc" compoundref="CCanAccess_8h" startline="535">m_dreceived</references>
+        <references refid="classCanModule_1_1CCanAccess_1a7bb4a17c5b05e5b01f59d9d9a0728f8a" compoundref="CCanAccess_8h" startline="536">m_tz</references>
+        <referencedby refid="classAnaCanScan_1af9a44b6ac914643225e2e61ca7a52f4c" compoundref="AnaCanScan_8cpp" startline="210" endline="216">AnaCanScan::callbackOnRecieve</referencedby>
         <referencedby refid="classSTCanScan_1aab42375da764eb0d50dee318cd790646" compoundref="STCanScan_8cpp" startline="95" endline="164">STCanScan::CanScanControlThread</referencedby>
         <referencedby refid="classPKCanScan_1a45bd5feda5ccb009775c45bfabe41614" compoundref="pkcan_8cpp" startline="109" endline="184">PKCanScan::CanScanControlThread</referencedby>
         <referencedby refid="classCanModule_1_1CCanAccess_1a7c9b87d205b0ec265c972a3303cecda2" compoundref="CCanAccess_8h" startline="142" endline="155">CCanAccess</referencedby>
-        <referencedby refid="classAnaCanScan_1ad45666454318c891d7acd9fe16ae4c49" compoundref="AnaCanScan_8cpp" startline="516" endline="672">AnaCanScan::sendMessage</referencedby>
+        <referencedby refid="classAnaCanScan_1ad45666454318c891d7acd9fe16ae4c49" compoundref="AnaCanScan_8cpp" startline="517" endline="631">AnaCanScan::sendMessage</referencedby>
       </memberdef>
       <memberdef kind="function" id="classCanModule_1_1CCanAccess_1afefee3a90966dd8a01ca471022a7a9cd" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -974,8 +972,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CanInterface/include/CCanAccess.h" line="525" column="6" bodyfile="CanInterface/include/CCanAccess.h" bodystart="525" bodyend="531"/>
-        <references refid="classCanModule_1_1CCanAccess_1a7bb4a17c5b05e5b01f59d9d9a0728f8a" compoundref="CCanAccess_8h" startline="543">m_tz</references>
+        <location file="CanInterface/include/CCanAccess.h" line="518" column="6" bodyfile="CanInterface/include/CCanAccess.h" bodystart="518" bodyend="524"/>
+        <references refid="classCanModule_1_1CCanAccess_1a7bb4a17c5b05e5b01f59d9d9a0728f8a" compoundref="CCanAccess_8h" startline="536">m_tz</references>
         <referencedby refid="classCanModule_1_1CCanAccess_1a7c9b87d205b0ec265c972a3303cecda2" compoundref="CCanAccess_8h" startline="142" endline="155">CCanAccess</referencedby>
       </memberdef>
       </sectiondef>
@@ -1032,7 +1030,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="CanInterface/include/CCanAccess.h" line="138" column="1" bodyfile="CanInterface/include/CCanAccess.h" bodystart="137" bodyend="546"/>
+    <location file="CanInterface/include/CCanAccess.h" line="138" column="1" bodyfile="CanInterface/include/CCanAccess.h" bodystart="137" bodyend="539"/>
     <listofallmembers>
       <member refid="classCanModule_1_1CCanAccess_1aa8e0e974863874b0e7bbcdb57084c241" prot="public" virt="non-virtual"><scope>CanModule::CCanAccess</scope><name>canMessageCame</name></member>
       <member refid="classCanModule_1_1CCanAccess_1a33fbd693f04b4f4e21cee20856c44866" prot="public" virt="non-virtual"><scope>CanModule::CCanAccess</scope><name>canMessageError</name></member>

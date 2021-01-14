@@ -22,45 +22,21 @@
         <childnode refid="16" relation="include">
         </childnode>
       </node>
+      <node id="15">
+        <label>ExportDefinition.h</label>
+        <link refid="ExportDefinition_8h"/>
+      </node>
       <node id="11">
         <label>boost/signals2.hpp</label>
       </node>
-      <node id="2">
-        <label>Diag.h</label>
-        <link refid="Diag_8h"/>
-        <childnode refid="3" relation="include">
-        </childnode>
-        <childnode refid="4" relation="include">
-        </childnode>
-        <childnode refid="5" relation="include">
-        </childnode>
-        <childnode refid="6" relation="include">
-        </childnode>
-        <childnode refid="7" relation="include">
-        </childnode>
-        <childnode refid="8" relation="include">
-        </childnode>
-        <childnode refid="9" relation="include">
-        </childnode>
-        <childnode refid="18" relation="include">
-        </childnode>
-      </node>
-      <node id="18">
-        <label>CanLibLoader.h</label>
-        <link refid="CanLibLoader_8h"/>
-        <childnode refid="5" relation="include">
-        </childnode>
-        <childnode refid="4" relation="include">
-        </childnode>
-        <childnode refid="19" relation="include">
-        </childnode>
-        <childnode refid="9" relation="include">
-        </childnode>
-        <childnode refid="15" relation="include">
-        </childnode>
-      </node>
       <node id="19">
         <label>boost/thread/thread.hpp</label>
+      </node>
+      <node id="12">
+        <label>CanMessage.h</label>
+        <link refid="CanMessage_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
       </node>
       <node id="5">
         <label>string</label>
@@ -68,8 +44,18 @@
       <node id="4">
         <label>map</label>
       </node>
+      <node id="1">
+        <label>Diagnostic/src/Diag.cpp</label>
+        <link refid="Diag_8cpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
       <node id="10">
         <label>boost/bind/bind.hpp</label>
+      </node>
+      <node id="17">
+        <label>VERSION.h</label>
+        <link refid="VERSION_8h"/>
       </node>
       <node id="9">
         <label>CCanAccess.h</label>
@@ -91,13 +77,19 @@
         <childnode refid="8" relation="include">
         </childnode>
       </node>
-      <node id="17">
-        <label>VERSION.h</label>
-        <link refid="VERSION_8h"/>
-      </node>
-      <node id="15">
-        <label>ExportDefinition.h</label>
-        <link refid="ExportDefinition_8h"/>
+      <node id="18">
+        <label>CanLibLoader.h</label>
+        <link refid="CanLibLoader_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
       </node>
       <node id="3">
         <label>sys/time.h</label>
@@ -105,22 +97,30 @@
       <node id="6">
         <label>iostream</label>
       </node>
-      <node id="12">
-        <label>CanMessage.h</label>
-        <link refid="CanMessage_8h"/>
-        <childnode refid="3" relation="include">
-        </childnode>
-      </node>
       <node id="7">
         <label>mutex</label>
       </node>
       <node id="16">
         <label>chrono</label>
       </node>
-      <node id="1">
-        <label>Diagnostic/src/Diag.cpp</label>
-        <link refid="Diag_8cpp"/>
-        <childnode refid="2" relation="include">
+      <node id="2">
+        <label>Diag.h</label>
+        <link refid="Diag_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
         </childnode>
       </node>
     </incdepgraph>

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['winapi_641',['WINAPI',['../AnaCanScan_8cpp.html#a9aa60e1ead64be77ad551e745cbfd4d3',1,'WINAPI():&#160;AnaCanScan.cpp'],['../STCanScan_8cpp.html#a9aa60e1ead64be77ad551e745cbfd4d3',1,'WINAPI():&#160;STCanScan.cpp']]]
+  ['shared_5flib_5fexport_5fdefn_675',['SHARED_LIB_EXPORT_DEFN',['../ExportDefinition_8h.html#a7478c359eb321f7939044e70abfb4cca',1,'ExportDefinition.h']]]
 ];

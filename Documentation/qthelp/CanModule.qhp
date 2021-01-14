@@ -2,15 +2,15 @@
 <QtHelpProject version="1.0">
     <namespace>canmodule</namespace>
     <virtualFolder>doc</virtualFolder>
-    <customFilter name="CanModule 2.0.0">
+    <customFilter name="CanModule 2.0.6">
         <filterAttribute>CanModule</filterAttribute>
-        <filterAttribute>2.0.0</filterAttribute>
+        <filterAttribute>2.0.6</filterAttribute>
     </customFilter>
     <filterSection>
         <filterAttribute>CanModule</filterAttribute>
-        <filterAttribute>2.0.0</filterAttribute>
+        <filterAttribute>2.0.6</filterAttribute>
         <toc>
-            <section title="CanModule 2.0.0 documentation" ref="index.html">
+            <section title="CanModule 2.0.6 documentation" ref="index.html">
                 <section title="Downloading" ref="downloading.html">
                     <section title="sources" ref="downloading.html#sources"/>
                     <section title="runtime dependencies" ref="downloading.html#runtime-dependencies"/>
@@ -32,23 +32,19 @@
                     <section title="tracing connections" ref="classestracing.html#tracing-connections"/>
                 </section>
                 <section title="SysTec" ref="vendors/systec.html">
-                    <section title="The connection" ref="vendors/systec.html#the-connection">
-                        <section title="windows" ref="vendors/systec.html#windows"/>
-                        <section title="linux" ref="vendors/systec.html#linux"/>
-                    </section>
-                    <section title="standard CanModule API example" ref="vendors/systec.html#standard-canmodule-api-example"/>
+                    <section title="status" ref="vendors/systec.html#status"/>
+                    <section title="errors" ref="vendors/systec.html#errors"/>
                 </section>
                 <section title="AnaGate" ref="vendors/anagate.html">
-                    <section title="The connection" ref="vendors/anagate.html#the-connection"/>
-                    <section title="standard CanModule API example" ref="vendors/anagate.html#standard-canmodule-api-example"/>
+                    <section title="status" ref="vendors/anagate.html#status"/>
+                    <section title="errors" ref="vendors/anagate.html#errors"/>
                 </section>
                 <section title="Peak" ref="vendors/peak.html">
-                    <section title="The connection" ref="vendors/peak.html#the-connection">
-                        <section title="windows" ref="vendors/peak.html#windows"/>
-                        <section title="linux" ref="vendors/peak.html#linux"/>
+                    <section title="windows" ref="vendors/peak.html#windows"/>
+                    <section title="linux" ref="vendors/peak.html#linux">
+                        <section title="status" ref="vendors/peak.html#status"/>
+                        <section title="errors" ref="vendors/peak.html#errors"/>
                     </section>
-                    <section title="API example Windows" ref="vendors/peak.html#api-example-windows"/>
-                    <section title="API example Linux" ref="vendors/peak.html#api-example-linux"/>
                 </section>
                 <section title="Reconnection OBSOLETE IS REWRITTEN CURRENTLY" ref="reconnection.html">
                     <section title="anagate" ref="reconnection.html#anagate"/>
@@ -79,10 +75,11 @@
         <keywords>
             <keyword name="AnaCanScan (C++ class)" ref="classestracing.html#_CPPv410AnaCanScan"/>
             <keyword name="AnaCanScan (C++ class)" ref="vendors/anagate.html#_CPPv410AnaCanScan"/>
-            <keyword name="AnaCanScan::createBus (C++ function)" ref="vendors/anagate.html#_CPPv4N10AnaCanScan9createBusEK6stringK6string"/>
+            <keyword name="AnaCanScan (C++ class)" ref="vendors/anagate.html#_CPPv410AnaCanScan"/>
+            <keyword name="AnaCanScan::ana_canGetErrorText (C++ function)" ref="vendors/anagate.html#_CPPv4N10AnaCanScan19ana_canGetErrorTextEl"/>
             <keyword name="AnaCanScan::getPortStatus (C++ function)" ref="classestracing.html#_CPPv4N10AnaCanScan13getPortStatusEv"/>
+            <keyword name="AnaCanScan::getPortStatus (C++ function)" ref="vendors/anagate.html#_CPPv4N10AnaCanScan13getPortStatusEv"/>
             <keyword name="AnaCanScan::sendMessage (C++ function)" ref="classestracing.html#_CPPv4N10AnaCanScan11sendMessageEshPhb"/>
-            <keyword name="AnaCanScan::sendMessage (C++ function)" ref="vendors/anagate.html#_CPPv4N10AnaCanScan11sendMessageEshPhb"/>
             <keyword name="CanModule::CanLibLoader (C++ class)" ref="classestracing.html#_CPPv4N9CanModule12CanLibLoaderE"/>
             <keyword name="CanModule::CanLibLoaderLin (C++ class)" ref="classestracing.html#_CPPv4N9CanModule15CanLibLoaderLinE"/>
             <keyword name="CanModule::CanLibLoaderWin (C++ class)" ref="classestracing.html#_CPPv4N9CanModule15CanLibLoaderWinE"/>
@@ -95,26 +92,24 @@
             <keyword name="CanModule::Diag (C++ class)" ref="classestracing.html#_CPPv4N9CanModule4DiagE"/>
             <keyword name="CanModule::Diag::get_connections (C++ function)" ref="classestracing.html#_CPPv4N9CanModule4Diag15get_connectionsEv"/>
             <keyword name="CSockCanScan (C++ class)" ref="classestracing.html#_CPPv412CSockCanScan"/>
-            <keyword name="CSockCanScan (C++ class)" ref="vendors/peak.html#_CPPv412CSockCanScan"/>
-            <keyword name="CSockCanScan (C++ class)" ref="vendors/systec.html#_CPPv412CSockCanScan"/>
-            <keyword name="CSockCanScan::createBus (C++ function)" ref="vendors/peak.html#_CPPv4N12CSockCanScan9createBusEK6string6string"/>
-            <keyword name="CSockCanScan::createBus (C++ function)" ref="vendors/systec.html#_CPPv4N12CSockCanScan9createBusEK6string6string"/>
             <keyword name="CSockCanScan::getPortStatus (C++ function)" ref="classestracing.html#_CPPv4N12CSockCanScan13getPortStatusEv"/>
             <keyword name="CSockCanScan::sendMessage (C++ function)" ref="classestracing.html#_CPPv4N12CSockCanScan11sendMessageEshPhb"/>
-            <keyword name="CSockCanScan::sendMessage (C++ function)" ref="vendors/peak.html#_CPPv4N12CSockCanScan11sendMessageEshPhb"/>
-            <keyword name="CSockCanScan::sendMessage (C++ function)" ref="vendors/systec.html#_CPPv4N12CSockCanScan11sendMessageEshPhb"/>
             <keyword name="PKCanScan (C++ class)" ref="classestracing.html#_CPPv49PKCanScan"/>
             <keyword name="PKCanScan (C++ class)" ref="vendors/peak.html#_CPPv49PKCanScan"/>
-            <keyword name="PKCanScan::createBus (C++ function)" ref="vendors/peak.html#_CPPv4N9PKCanScan9createBusEK6stringK6string"/>
             <keyword name="PKCanScan::getPortStatus (C++ function)" ref="classestracing.html#_CPPv4N9PKCanScan13getPortStatusEv"/>
+            <keyword name="PKCanScan::getPortStatus (C++ function)" ref="vendors/peak.html#_CPPv4N9PKCanScan13getPortStatusEv"/>
             <keyword name="PKCanScan::sendMessage (C++ function)" ref="classestracing.html#_CPPv4N9PKCanScan11sendMessageEshPhb"/>
-            <keyword name="PKCanScan::sendMessage (C++ function)" ref="vendors/peak.html#_CPPv4N9PKCanScan11sendMessageEshPhb"/>
             <keyword name="STCanScan (C++ class)" ref="classestracing.html#_CPPv49STCanScan"/>
             <keyword name="STCanScan (C++ class)" ref="vendors/systec.html#_CPPv49STCanScan"/>
-            <keyword name="STCanScan::createBus (C++ function)" ref="vendors/systec.html#_CPPv4N9STCanScan9createBusEK6stringK6string"/>
+            <keyword name="STCanScan (C++ class)" ref="vendors/systec.html#_CPPv49STCanScan"/>
             <keyword name="STCanScan::getPortStatus (C++ function)" ref="classestracing.html#_CPPv4N9STCanScan13getPortStatusEv"/>
+            <keyword name="STCanScan::getPortStatus (C++ function)" ref="vendors/systec.html#_CPPv4N9STCanScan13getPortStatusEv"/>
             <keyword name="STCanScan::sendMessage (C++ function)" ref="classestracing.html#_CPPv4N9STCanScan11sendMessageEshPhb"/>
-            <keyword name="STCanScan::sendMessage (C++ function)" ref="vendors/systec.html#_CPPv4N9STCanScan11sendMessageEshPhb"/>
+            <keyword name="STCanScan::STcanGetErrorText (C++ function)" ref="vendors/systec.html#_CPPv4N9STCanScan17STcanGetErrorTextEl"/>
+            <keyword name="udevanalyserforpeak_ns::UdevAnalyserForPeak (C++ class)" ref="vendors/peak.html#_CPPv4N22udevanalyserforpeak_ns19UdevAnalyserForPeakE"/>
+            <keyword name="udevanalyserforpeak_ns::UdevAnalyserForPeak::getInstance (C++ function)" ref="vendors/peak.html#_CPPv4N22udevanalyserforpeak_ns19UdevAnalyserForPeak11getInstanceEv"/>
+            <keyword name="udevanalyserforpeak_ns::UdevAnalyserForPeak::PEAK_device_t (C++ struct)" ref="vendors/peak.html#_CPPv4N22udevanalyserforpeak_ns19UdevAnalyserForPeak13PEAK_device_tE"/>
+            <keyword name="udevanalyserforpeak_ns::UdevAnalyserForPeak::peakExtendedIdentifierToSocketCanDevice (C++ function)" ref="vendors/peak.html#_CPPv4N22udevanalyserforpeak_ns19UdevAnalyserForPeak39peakExtendedIdentifierToSocketCanDeviceENSt6stringE"/>
         </keywords>
         <files>
             <file>building.html</file>

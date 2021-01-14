@@ -4,6 +4,7 @@ var classAnaCanScan =
     [ "AnaCanScan", "classAnaCanScan.html#af6c27ae08034c5da64a54de29e2e875e", null ],
     [ "AnaCanScan", "classAnaCanScan.html#af05ec5dfd6ac56764c6db8e721648b75", null ],
     [ "~AnaCanScan", "classAnaCanScan.html#a2c8256b5096aa1351fbd9f3f2f717180", null ],
+    [ "ana_canGetErrorText", "classAnaCanScan.html#a1425dfc20e08b545fcdf49415ac15ec9", null ],
     [ "callbackOnRecieve", "classAnaCanScan.html#af9a44b6ac914643225e2e61ca7a52f4c", null ],
     [ "canPortNumber", "classAnaCanScan.html#aa7198f11bf94e97b26855fecdbcc85ed", null ],
     [ "configureCanBoard", "classAnaCanScan.html#ad917f9cda15bbf9dd9abe6417be5a5eb", null ],

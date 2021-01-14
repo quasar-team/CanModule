@@ -137,7 +137,7 @@
         <references refid="namespaceCanModule_1a30152f28b688b7faa77e56732989f4de" compoundref="Diag_8cpp" startline="19">CanModule::mtx</references>
         <references refid="classCanModule_1_1Diag_1aca8bc6fe0248257cbc526f9485c287cb" compoundref="Diag_8h" startline="51">parameter_map</references>
         <references refid="classCanModule_1_1Diag_1a1f761ca050e1c4f3da1f219218c541c9" compoundref="Diag_8h" startline="49">port_map</references>
-        <referencedby refid="classCanModule_1_1CanLibLoader_1aaac995d89efdcf2b673cbd3e678be55b" compoundref="CanLibLoader_8cpp" startline="71" endline="129">CanModule::CanLibLoader::openCanBus</referencedby>
+        <referencedby refid="classCanModule_1_1CanLibLoader_1aaac995d89efdcf2b673cbd3e678be55b" compoundref="CanLibLoader_8cpp" startline="70" endline="128">CanModule::CanLibLoader::openCanBus</referencedby>
       </memberdef>
       <memberdef kind="function" id="classCanModule_1_1Diag_1aa79c20827b6e33fa35d4106d9aa479b8" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -167,7 +167,7 @@
         <references refid="namespaceCanModule_1a30152f28b688b7faa77e56732989f4de" compoundref="Diag_8cpp" startline="19">CanModule::mtx</references>
         <references refid="classCanModule_1_1Diag_1aca8bc6fe0248257cbc526f9485c287cb" compoundref="Diag_8h" startline="51">parameter_map</references>
         <references refid="classCanModule_1_1Diag_1a1f761ca050e1c4f3da1f219218c541c9" compoundref="Diag_8h" startline="49">port_map</references>
-        <referencedby refid="classCanModule_1_1CanLibLoader_1acd7d3af103bb72d5bd18737333d682f4" compoundref="CanLibLoader_8cpp" startline="60" endline="66">CanModule::CanLibLoader::closeCanBus</referencedby>
+        <referencedby refid="classCanModule_1_1CanLibLoader_1acd7d3af103bb72d5bd18737333d682f4" compoundref="CanLibLoader_8cpp" startline="60" endline="65">CanModule::CanLibLoader::closeCanBus</referencedby>
       </memberdef>
       <memberdef kind="function" id="classCanModule_1_1Diag_1afcea76f7b51b8fa0996b7574abc03c46" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>vector&lt; <ref refid="structCanModule_1_1Diag_1_1CONNECTION__DIAG__t" kindref="compound">Diag::CONNECTION_DIAG_t</ref> &gt;</type>

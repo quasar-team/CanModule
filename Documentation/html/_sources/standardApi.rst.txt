@@ -21,6 +21,9 @@ This is how to choose an implementation and open one port:
    
    cca->setReconnectBehavior( CanModule::ReconnectAutoCondition::sendFail, CanModule::ReconnectAction::singleBus );
    cca->canMessageCame.connect( &onMessageRcvd ); // connect a reception handler 
+   cca->canMessageError.connect( &errorHandler ); // connect an error handler
+   
+   
    unsigned int br = cca->getPortBitrate();       // make sure we know the bitrate as it was set
   
    cca->sendMessage( &cm );
@@ -45,7 +48,7 @@ This is how to choose an implementation and open one port:
 .. code-block:: c++
 
    // connection.h
-   class CONNECTION {
+   class MYCLASS {
       (...)
       public: 
          static void onMessageRcvd(const CanMsgStruct/*&*/ message); 
@@ -55,12 +58,25 @@ This is how to choose an implementation and open one port:
 .. code-block:: c++
 
    // connection.cpp
-   /* static */ void CONNECTION::onMessageRcvd(const CanMsgStruct/*&*/ message){
+   /* static */ void MYCLASS::onMessageRcvd(const CanMsgStruct/*&*/ message){
       MYCLASS *myObject = MYCLASS::getMyObject( ... );
       myObject->processReceivedMessage( message );
    }
+
+
+.. code-block:: c++
+
+   // errorHandler.cpp
+   /* static */ void MYCLASS::errorHandler(const int, const char* msg, timeval/*&*/){
+   std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
+         << " " << msg << std::endl;
+   }
+ 
    
 
+   
+* both the library object **libloader** and the port objet(s) **cca** must exist during runtime, since the **libloader**
+  is needed at the end to close the **cca** .
 * you can take a look at `CANX`_ for a full multithreaded example using CanModule (CERN, gitlab).
 
    

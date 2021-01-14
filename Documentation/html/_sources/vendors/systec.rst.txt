@@ -8,47 +8,36 @@ Here the underlying vendor specific classes and the specific parameters are docu
 
 SysTec modules USB-CAN bridges are supported: sysWORXX 1,2,8,16
 
-The connection 
---------------
+status
+------
+status information is propagated through the unified status.
+For windows:
 
-To connect to a specific port for I/O, and send CAN messages, the following methods are used.
+.. doxygenclass:: STCanScan 
+   :project: CanModule
+   :members: getPortStatus
 
-windows
-^^^^^^^
-
-The connection to a specific port for I/O is created by calling
-
-.. doxygenclass:: STCanScan
-	:project: CanModule
-	:members: createBus, sendMessage
-
-and communication takes place through systec's closed-source windows library.
-	
-linux
-^^^^^
-
-The open-source socketcan interface is used on top of systec's open source driver:
-
+for linux:
 .. doxygenclass:: CSockCanScan 
-	:project: CanModule
-	:members: createBus, sendMessage
+   :project: CanModule
+   :members: getPortStatus
 
+errors
+------
+Errors and problems are available through two mechanisms:
 
-sockets are used normally, using linux' built-in CAN protocols:
+* LogIt. This reports runtime errors detected by CanModule: 
+  set the LogIt trace level to TRC and grep for "systec", for component "CanModule"
+   
+   
+**windows**
+* vendor and hardware specific errors are available through connection of
+  an error handler (to a boost signal carrying the error message, see standard API).
+  
+.. doxygenclass:: STCanScan 
+   :project: CanModule
+   :members: STcanGetErrorText
 
-.. code-block:: c++ 
+**linux**
+* the error message from the ioctl call is returned, unfortunately it is rather unspecific.
 
- mysock = socket(domain=PF_CAN, type=SOCK_RAW, protocol=CAN_RAW)
-	
-
-standard CanModule API example
-------------------------------
-
-This is how the CanModule standard API is used for systec for linux.
-
-.. code-block:: c++
-
- libloader = CanModule::CanLibLoader::createInstance( "sock" ); // linux, use "st" for windows
- cca = libloader->openCanBus( "sock:can0", "250000" ); // termination on frontpanel
- CanMessage cm; // empty
- cca->sendMessage( &cm );

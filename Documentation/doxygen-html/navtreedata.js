@@ -23,7 +23,6 @@ for the JavaScript code in this file
 var NAVTREE =
 [
   [ "CanModule", "index.html", [
-    [ "Todo List", "todo.html", null ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
       [ "Namespace Members", "namespacemembers.html", [
@@ -62,8 +61,8 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "AnaCanScan_8cpp.html",
-"classCanModule_1_1CanStatistics.html#a08d5c282de626e89ebf508291d1bde33",
-"structCanMsgStruct.html#ad4a78c27262604bacb5720d8633f71c6"
+"classCanModule_1_1CanLibLoader.html#af891a85f28376052c3f4b22d97eb3ac2",
+"structAnaCanScan_1_1ANAGATE__PORTDEF__t.html#a6ad8dd52dfbbfe170f3c5e0f4e20a49d"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

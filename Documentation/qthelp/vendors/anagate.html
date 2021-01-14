@@ -13,7 +13,7 @@
     <link rel="prev" title="SysTec" href="systec.html" /> 
   </head><body>
       <div class="header" role="banner"><h1 class="heading"><a href="../index.html">
-          <span>CanModule 2.0.0 documentation</span></a></h1>
+          <span>CanModule 2.0.6 documentation</span></a></h1>
         <h2 class="heading"><span>AnaGate</span></h2>
       </div>
       <div class="topnav" role="navigation" aria-label="top navigation">
@@ -37,71 +37,53 @@ the standard generic CanModule API.</p>
 <p>We support Anagate CAN-ethernet gateways: uno, duo, quattro, and the X2, X4 and X8.</p>
 <p>Since these modules communicate to the host computer only via ethernet, at the fundamental level only classical
 tcp/ip ethernet is needed. Nevertheless the specific contents of the IP frames are wrapped up in an Anagate API for convenience, which is linked
-into the user code as a library. There are therefore no implementation differences between Linux and Windows.
-Here the underlying vendor specific classes and the specific parameters are documented.</p>
+into the user code as a library. There are therefore no implementation differences between Linux and Windows.</p>
 <p>The downside of Anagate CAN-ethernet modules is of course that the latency of the network has to be added to the bridge latency.</p>
-<div class="section" id="the-connection">
-<h2>The connection</h2>
-<p>To connect to a specific port for I/O, and send CAN messages, the following methods are used.</p>
+<div class="section" id="status">
+<h2>status</h2>
+<p>status information is propagated through the unified status.</p>
 <dl class="cpp class">
 <dt id="_CPPv410AnaCanScan">
 <span id="_CPPv310AnaCanScan"></span><span id="_CPPv210AnaCanScan"></span><span id="AnaCanScan"></span><span class="target" id="classAnaCanScan"></span><em class="property">class </em><code class="sig-name descname">AnaCanScan</code> : <em class="property">public</em> CanModule::<a class="reference internal" href="../canports.html#_CPPv4N9CanModule10CCanAccessE" title="CanModule::CCanAccess">CCanAccess</a><br /></dt>
 <dd><div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Public Functions</p>
 <dl class="cpp function">
-<dt id="_CPPv4N10AnaCanScan9createBusEK6stringK6string">
-<span id="_CPPv3N10AnaCanScan9createBusEK6stringK6string"></span><span id="_CPPv2N10AnaCanScan9createBusEK6stringK6string"></span><span id="AnaCanScan::createBus__stringC.stringC"></span><span class="target" id="classAnaCanScan_1a92f73e718c24985f247e5522486aace9"></span>int <code class="sig-name descname">createBus</code><span class="sig-paren">(</span><em class="property">const</em> string <em>name</em>, <em class="property">const</em> string <em>parameters</em><span class="sig-paren">)</span><br /></dt>
-<dd><p>Method that initialises a CAN bus channel for anagate. All following methods called on the same object will be using this initialized channel.</p>
-<p><dl class="simple">
-<dt><strong>Return</strong></dt><dd><p>0: new bus, OK, add it please 1: existing bus, OK, do not add -1: error </p>
-</dd>
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>: 3 parameters separated by “:” like “n0:n1:n2” n0 = “an” for anagate n1 = port number on the module, 0=A, 1=B, etc etc n2 = ip number ex.: “an:can1:137.138.12.99” speaks to port B (=1) on anagate module at the ip ex.: “an:1:137.138.12.99” works as well</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">parameters</span></code>: up to 5 parameters separated by whitespaces : “p0 p1 p2 p3 p4” in THAT order, positive integers<ul>
-<li><p>”Unspecified” (or empty): using defaults = “125000 0 0 0 0” // all params missing</p></li>
-<li><p>p0: bitrate: 10000, 20000, 50000, 62000, 100000, 125000, 250000, 500000, 800000, 1000000 bit/s</p></li>
-<li><p>p1: operatingMode: 0=default mode, values 1 (loop back) and 2 (listen) are not supported by CanModule</p></li>
-<li><p>p2: termination: 0=not terminated (default), 1=terminated (120 Ohm for CAN bus)</p></li>
-<li><p>p3: highSpeed: 0=deactivated (default), 1=activated. If activated, confirmation and filtering of CAN traffic are switched off for baud rates &gt; 125000 this flag is needed, and it is set automatically for you if you forgot it (WRN)</p></li>
-<li><p>p4: TimeStamp: 0=deactivated (default), 1=activated. If activated, a timestamp is added to the CAN frame. Not all modules support this. i.e. “250000 0 1 0 0” (see anagate manual for more details)</p></li>
-</ul>
-</p></li>
-</ul>
-</dd>
-</dl>
-</p>
+<dt id="_CPPv4N10AnaCanScan13getPortStatusEv">
+<span id="_CPPv3N10AnaCanScan13getPortStatusEv"></span><span id="_CPPv2N10AnaCanScan13getPortStatusEv"></span><span id="AnaCanScan::getPortStatus"></span><span class="target" id="classAnaCanScan_1a4c115df4a8755c0fd70030ae457af24c"></span>uint32_t <code class="sig-name descname">getPortStatus</code><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd><p>CANCanDeviceConnectState , translate from counter 1 = DISCONNECTED : 2 = CONNECTING : 3 = CONNECTED 4 = DISCONNECTING 5 = NOT_INITIALIZED b3…b27: unused</p>
+<p>into simple bitpattern (counter) 0, 10, 11, 100, 101 </p>
 </dd></dl>
 
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="errors">
+<h2>errors</h2>
+<p>Errors and problems are available through two mechanisms:</p>
+<ul class="simple">
+<li><p>LogIt. This reports runtime errors detected by CanModule:
+set the LogIt trace level to TRC and grep for “anagate”, for component “CanModule”</p></li>
+<li><p>vendor and hardware specific errors are available through connection of
+an error handler (to a boost signal carrying the error message, see standard API).
+The messages and error codes originate from the vendor api/implementation and are
+reported as is without further processing. Messages are taken from the vendor’s API
+documentation if available.</p></li>
+</ul>
+<dl class="cpp class">
+<dt id="_CPPv410AnaCanScan">
+<span id="_CPPv310AnaCanScan"></span><span id="_CPPv210AnaCanScan"></span><span class="target" id="classAnaCanScan"></span><em class="property">class </em><code class="sig-name descname">AnaCanScan</code> : <em class="property">public</em> CanModule::<a class="reference internal" href="../canports.html#_CPPv4N9CanModule10CCanAccessE" title="CanModule::CCanAccess">CCanAccess</a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Private Functions</p>
 <dl class="cpp function">
-<dt id="_CPPv4N10AnaCanScan11sendMessageEshPhb">
-<span id="_CPPv3N10AnaCanScan11sendMessageEshPhb"></span><span id="_CPPv2N10AnaCanScan11sendMessageEshPhb"></span><span id="AnaCanScan::sendMessage__short.unsigned-c.unsigned-cP.b"></span><span class="target" id="classAnaCanScan_1ad45666454318c891d7acd9fe16ae4c49"></span>bool <code class="sig-name descname">sendMessage</code><span class="sig-paren">(</span>short <em>cobID</em>, unsigned char <em>len</em>, unsigned char *<em>message</em>, bool <em>rtr</em> = false<span class="sig-paren">)</span><br /></dt>
-<dd><p>send a CAN message frame (8 byte) for anagate Method that sends a message through the can bus channel. If the method createBus was not called before this, sendMessage will fail, as there is no can bus channel to send a message trough. <dl class="simple">
-<dt><strong>Return</strong></dt><dd><p>Was the sending process successful? </p>
-</dd>
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">cobID</span></code>: Identifier that will be used for the message. </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">len</span></code>: Length of the message. If the message is bigger than 8 characters, it will be split into separate 8 characters messages. </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">message</span></code>: Message to be sent trough the can bus. </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">rtr</span></code>: is the message a remote transmission request? </p></li>
-</ul>
-</dd>
-</dl>
-</p>
+<dt id="_CPPv4N10AnaCanScan19ana_canGetErrorTextEl">
+<span id="_CPPv3N10AnaCanScan19ana_canGetErrorTextEl"></span><span id="_CPPv2N10AnaCanScan19ana_canGetErrorTextEl"></span><span id="AnaCanScan::ana_canGetErrorText__l"></span><span class="target" id="classAnaCanScan_1a1425dfc20e08b545fcdf49415ac15ec9"></span>std::string <code class="sig-name descname">ana_canGetErrorText</code><span class="sig-paren">(</span>long <em>errorCode</em><span class="sig-paren">)</span><br /></dt>
+<dd><p>give back the error message fro the code, from appendixA </p>
 </dd></dl>
 
 </div>
 </dd></dl>
 
-</div>
-<div class="section" id="standard-canmodule-api-example">
-<h2>standard CanModule API example</h2>
-<p>This is how the CanModule standard API is used for anagate. The code is identical for linux and windows.</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">libloader</span> <span class="o">=</span> <span class="n">CanModule</span><span class="o">::</span><span class="n">CanLibLoader</span><span class="o">::</span><span class="n">createInstance</span><span class="p">(</span> <span class="s">&quot;an&quot;</span> <span class="p">);</span>
-<span class="n">cca</span> <span class="o">=</span> <span class="n">libloader</span><span class="o">-&gt;</span><span class="n">openCanBus</span><span class="p">(</span> <span class="s">&quot;an:can0:137.138.12.99&quot;</span><span class="p">,</span> <span class="s">&quot;250000 0 1&quot;</span> <span class="p">);</span> <span class="c1">// termination, ISEG controllers, p3, p4, p5 defaults</span>
-<span class="n">CanMessage</span> <span class="n">cm</span><span class="p">;</span> <span class="c1">// empty</span>
-<span class="n">cca</span><span class="o">-&gt;</span><span class="n">sendMessage</span><span class="p">(</span> <span class="o">&amp;</span><span class="n">cm</span> <span class="p">);</span>
-</pre></div>
-</div>
 </div>
 </div>
 
@@ -121,7 +103,7 @@ Here the underlying vendor specific classes and the specific parameters are docu
 
     <div class="footer" role="contentinfo">
         &#169; Copyright 2020, CERN, quasar-team, BE-ICS (Michael Ludwig).
-      Last updated on 09-Dec-2020 15:36:47.
+      Last updated on 14-Jan-2021 14:02:15.
       Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.1.2.
     </div>
   </body>

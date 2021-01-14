@@ -4,6 +4,7 @@
     <compoundname>CanInterfaceImplementations/anagate</compoundname>
     <innerfile refid="AnaCanScan_8cpp">AnaCanScan.cpp</innerfile>
     <innerfile refid="AnaCanScan_8h">AnaCanScan.h</innerfile>
+    <innerfile refid="AnaGateErrors_8h">AnaGateErrors.h</innerfile>
     <briefdescription>
     </briefdescription>
     <detaileddescription>

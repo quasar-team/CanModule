@@ -278,7 +278,7 @@ Here is the call graph for this function\+:\nopagebreak
 
 
 
-Definition at line 503 of file pkcan.\+cpp.
+Definition at line 506 of file pkcan.\+cpp.
 
 
 
@@ -292,7 +292,7 @@ Referenced by send\+Error\+Code().
 
 This method returns a T\+P\+C\+A\+N\+Handle (which is in fact a specific vendor defined hex value) as a function of a human readable string. The human readable string basically codes the intefrace type (U\+SB, I\+SA, P\+CI...) and the C\+AN port (1..8) so that i.\+e. U\+S\+B3-\/$>$0x53 which means U\+SB interface 3rd channel 
 
-Definition at line 517 of file pkcan.\+cpp.
+Definition at line 520 of file pkcan.\+cpp.
 
 
 
@@ -378,7 +378,7 @@ Implements \mbox{\hyperlink{classCanModule_1_1CCanAccess_ad3182c83b4c5d7e6aef982
 
 
 
-Definition at line 573 of file pkcan.\+cpp.
+Definition at line 576 of file pkcan.\+cpp.
 
 
 
@@ -415,7 +415,7 @@ Definition at line 76 of file pkcan.\+h.
 
 
 
-Definition at line 388 of file pkcan.\+cpp.
+Definition at line 389 of file pkcan.\+cpp.
 
 
 
@@ -444,13 +444,14 @@ Implements \mbox{\hyperlink{classCanModule_1_1CCanAccess_aee42ab7fb9e50c02a18122
 
 
 
-Definition at line 411 of file pkcan.\+cpp.
+Definition at line 412 of file pkcan.\+cpp.
 
 
 
-References Can\+Module\+::all\+Buses\+On\+Bridge, create\+Bus(), m\+\_\+bus\+Name, m\+\_\+bus\+Parameters, Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+failed\+Send\+Counter, m\+\_\+pk\+Can\+Handle, Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+reconnect\+Action, Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+reconnect\+Condition, m\+\_\+statistics, Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+trigger\+Counter, M\+L\+O\+G\+PK, Can\+Module\+::never, Can\+Module\+::\+Can\+Statistics\+::on\+Transmit(), Can\+Module\+::\+C\+Can\+Access\+::reconnect\+Action\+String(), Can\+Module\+::\+C\+Can\+Access\+::reconnect\+Condition\+String(), send\+Error\+Code(), Can\+Module\+::send\+Fail, Can\+Module\+::single\+Bus, and stop\+Bus().
+References Can\+Module\+::all\+Buses\+On\+Bridge, create\+Bus(), m\+\_\+bus\+Name, m\+\_\+bus\+Parameters, Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+failed\+Send\+Counter, m\+\_\+pk\+Can\+Handle, Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+reconnect\+Action, Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+reconnect\+Condition, m\+\_\+statistics, Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+trigger\+Counter, M\+L\+O\+G\+PK, Can\+Module\+::never, Can\+Module\+::\+Can\+Statistics\+::on\+Transmit(), Can\+Module\+::\+C\+Can\+Access\+::reconnect\+Action\+String(), Can\+Module\+::\+C\+Can\+Access\+::reconnect\+Condition\+String(), send\+Error\+Code(), Can\+Module\+::send\+Fail, Can\+Module\+::\+Can\+Statistics\+::set\+Time\+Since\+Transmitted(), Can\+Module\+::single\+Bus, and stop\+Bus().
 
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -477,7 +478,7 @@ Implements \mbox{\hyperlink{classCanModule_1_1CCanAccess_acfefbc9be2696b1388cf6d
 
 
 
-Definition at line 494 of file pkcan.\+cpp.
+Definition at line 497 of file pkcan.\+cpp.
 
 
 
@@ -510,8 +511,7 @@ configuring the reconnection behavior\+: a condition triggers an action. The imp
 {\em \mbox{\hyperlink{namespaceCanModule_a2062089fa4fa87c8354295f2a8fe31a5}{Can\+Module\+::\+Reconnect\+Action}}} & action
 \begin{DoxyItemize}
 \item single\+Bus (default)\+: a single connection (canbus, channel) is reset and reception handler is reconnected.
-\item whole\+Bridge if available, the whole bridge is reset, affecting all physical channels on that bridge. Only available for anagate. If a bridge is shared between multiple tasks, all channels across tasks are reset, affecting all tasks connected to that bridge. Evidently, a given channel must only be used by at most one task.
-\item hard\+Reset\+: the bridge is reset in a \char`\"{}hard\char`\"{} way, i.\+e. firmware is rebooted (N\+OT reloaded or overwritten). Only available for anagate\+: the firmware of the bridge (ip) is reloaded using a special command of the anagate A\+PI which is not available through the common \mbox{\hyperlink{namespaceCanModule}{Can\+Module}} A\+PI, since it is vendor specific. This is a \char`\"{}hard software reset\char`\"{}, and it is not the same as just power-\/cycling the module. It takes $\sim$15secs and \char`\"{}is known to work nicely\char`\"{}. 
+\item whole\+Bridge if available, the whole bridge is reset, affecting all physical channels on that bridge. Only available for anagate. If a bridge is shared between multiple tasks, all channels across tasks are reset, affecting all tasks connected to that bridge. Evidently, a given channel must only be used by at most one task. 
 \end{DoxyItemize}\\
 \hline
 \end{DoxyParams}

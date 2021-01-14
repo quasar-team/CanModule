@@ -1,8 +1,4 @@
 var searchData=
 [
-  ['mlog_635',['MLOG',['../CCanAccess_8h.html#ad506d1f216984abc94d5a65f33053626',1,'CCanAccess.h']]],
-  ['mlogana_636',['MLOGANA',['../AnaCanScan_8cpp.html#ac34d62b5ffd4e8e1c3ece118f3f58485',1,'AnaCanScan.cpp']]],
-  ['mlogpk_637',['MLOGPK',['../pkcan_8cpp.html#a73247195a8f4adaf8cc04e0ac302e045',1,'pkcan.cpp']]],
-  ['mlogsock_638',['MLOGSOCK',['../SockCanScan_8cpp.html#a9dfd6d593fee1bb51ed35186b0bbb328',1,'SockCanScan.cpp']]],
-  ['mlogst_639',['MLOGST',['../STCanScan_8cpp.html#a08d6d35b7f83e326a37caa39473e6ebe',1,'STCanScan.cpp']]]
+  ['gcc_5fversion_669',['GCC_VERSION',['../CanStatistics_8h.html#adbba0f726fc66d7100916c683b7568ae',1,'CanStatistics.h']]]
 ];

@@ -210,6 +210,8 @@ Private Member Functions</h2></td></tr>
 <tr class="separator:a4631538bddfbe61637ea5ed0071b780f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae7ab2706bb4cd5e02409db38e73dbb3e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAnaCanScan.html#ae7ab2706bb4cd5e02409db38e73dbb3e">eraseReceptionHandlerFromMap</a> (AnaInt32 h)</td></tr>
 <tr class="separator:ae7ab2706bb4cd5e02409db38e73dbb3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1425dfc20e08b545fcdf49415ac15ec9"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAnaCanScan.html#a1425dfc20e08b545fcdf49415ac15ec9">ana_canGetErrorText</a> (long errorCode)</td></tr>
+<tr class="separator:a1425dfc20e08b545fcdf49415ac15ec9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-methods"></a>
 Static Private Member Functions</h2></td></tr>
@@ -297,7 +299,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="AnaCanScan_8h_source.html#l00056">56</a> of file <a class="el" href="AnaCanScan_8h_source.html">AnaCanScan.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="AnaCanScan_8h_source.html#l00055">55</a> of file <a class="el" href="AnaCanScan_8h_source.html">AnaCanScan.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="af6c27ae08034c5da64a54de29e2e875e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af6c27ae08034c5da64a54de29e2e875e">&#9670;&nbsp;</a></span>AnaCanScan() <span class="overload">[1/2]</span></h2>
@@ -316,7 +318,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="AnaCanScan_8cpp_source.html#l00074">74</a> of file <a class="el" href="AnaCanScan_8cpp_source.html">AnaCanScan.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="CanStatistics_8cpp_source.html#l00044">CanModule::CanStatistics::beginNewRun()</a>, <a class="el" href="CCanAccess_8h_source.html#l00474">CanModule::CCanAccess::m_failedSendCounter</a>, <a class="el" href="AnaCanScan_8h_source.html#l00117">m_statistics</a>, <a class="el" href="CCanAccess_8h_source.html#l00473">CanModule::CCanAccess::m_triggerCounter</a>, and <a class="el" href="CanStatistics_8h_source.html#l00107">CanModule::CanStatistics::setTimeSinceOpened()</a>.</p>
+<p class="reference">References <a class="el" href="CanStatistics_8cpp_source.html#l00044">CanModule::CanStatistics::beginNewRun()</a>, <a class="el" href="CCanAccess_8h_source.html#l00468">CanModule::CCanAccess::m_failedSendCounter</a>, <a class="el" href="AnaCanScan_8h_source.html#l00116">m_statistics</a>, <a class="el" href="CCanAccess_8h_source.html#l00467">CanModule::CCanAccess::m_triggerCounter</a>, and <a class="el" href="CanStatistics_8h_source.html#l00107">CanModule::CanStatistics::setTimeSinceOpened()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -382,7 +384,7 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="AnaCanScan_8cpp_source.html#l00093">93</a> of file <a class="el" href="AnaCanScan_8cpp_source.html">AnaCanScan.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="AnaCanScan_8cpp_source.html#l00098">stopBus()</a>.</p>
+<p class="reference">References <a class="el" href="AnaCanScan_8cpp_source.html#l00072">MLOGANA</a>, and <a class="el" href="AnaCanScan_8cpp_source.html#l00099">stopBus()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -441,11 +443,11 @@ Here is the call graph for this function:</div>
 <p>add a can handle into the map if it does not yet exist</p>
 <p>add a new map entry to handle-&gt;{port, ip} map todo: mutex protect, work on copy </p>
 
-<p class="definition">Definition at line <a class="el" href="AnaCanScan_8cpp_source.html#l00346">346</a> of file <a class="el" href="AnaCanScan_8cpp_source.html">AnaCanScan.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="AnaCanScan_8cpp_source.html#l00347">347</a> of file <a class="el" href="AnaCanScan_8cpp_source.html">AnaCanScan.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="AnaCanScan_8h_source.html#l00173">handle()</a>, <a class="el" href="AnaCanScan_8h_source.html#l00141">AnaCanScan::ANAGATE_PORTDEF_t::ip</a>, <a class="el" href="AnaCanScan_8h_source.html#l00140">AnaCanScan::ANAGATE_PORTDEF_t::port</a>, <a class="el" href="AnaCanScan_8h_source.html#l00143">st_canHandleMap</a>, and <a class="el" href="AnaCanScan_8h_source.html#l00130">st_logItHandleAnagate</a>.</p>
+<p class="reference">References <a class="el" href="AnaCanScan_8h_source.html#l00172">handle()</a>, <a class="el" href="AnaCanScan_8h_source.html#l00140">AnaCanScan::ANAGATE_PORTDEF_t::ip</a>, <a class="el" href="AnaCanScan_8h_source.html#l00139">AnaCanScan::ANAGATE_PORTDEF_t::port</a>, <a class="el" href="AnaCanScan_8h_source.html#l00142">st_canHandleMap</a>, and <a class="el" href="AnaCanScan_8h_source.html#l00129">st_logItHandleAnagate</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00412">openCanPort()</a>, and <a class="el" href="AnaCanScan_8cpp_source.html#l00935">reconnect()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00413">openCanPort()</a>, and <a class="el" href="AnaCanScan_8cpp_source.html#l00894">reconnect()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -455,6 +457,39 @@ Here is the call graph for this function:</div>
 <area shape="rect" href="classAnaCanScan.html#a9ce965955bb5eba734ed36b81945cb74" title=" " alt="" coords="260,13,415,39"/>
 </map>
 </div>
+
+</div>
+</div>
+<a id="a1425dfc20e08b545fcdf49415ac15ec9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1425dfc20e08b545fcdf49415ac15ec9">&#9670;&nbsp;</a></span>ana_canGetErrorText()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string AnaCanScan::ana_canGetErrorText </td>
+          <td>(</td>
+          <td class="paramtype">long&#160;</td>
+          <td class="paramname"><em>errorCode</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>give back the error message fro the code, from appendixA </p>
+
+<p class="definition">Definition at line <a class="el" href="AnaCanScan_8cpp_source.html#l01024">1024</a> of file <a class="el" href="AnaCanScan_8cpp_source.html">AnaCanScan.cpp</a>.</p>
+
+<p class="reference">References <a class="el" href="AnaGateErrors_8h_source.html#l00015">ANA_ERR_INVALID_CONF</a>, <a class="el" href="AnaGateErrors_8h_source.html#l00016">ANA_ERR_INVALID_CONF_DATA</a>, <a class="el" href="AnaGateErrors_8h_source.html#l00014">ANA_ERR_INVALID_CRC</a>, <a class="el" href="AnaGateErrors_8h_source.html#l00017">ANA_ERR_INVALID_DEVICE_HANDLE</a>, <a class="el" href="AnaGateErrors_8h_source.html#l00018">ANA_ERR_INVALID_DEVICE_TYPE</a>, <a class="el" href="AnaGateErrors_8h_source.html#l00006">ANA_ERR_NONE</a>, <a class="el" href="AnaGateErrors_8h_source.html#l00008">ANA_ERR_OP_CMD_FAILED</a>, <a class="el" href="AnaGateErrors_8h_source.html#l00007">ANA_ERR_OPEN_MAX_CONN</a>, <a class="el" href="AnaGateErrors_8h_source.html#l00012">ANA_ERR_TCPIP_CALLNOTALLOWED</a>, <a class="el" href="AnaGateErrors_8h_source.html#l00013">ANA_ERR_TCPIP_NOT_INITIALIZED</a>, <a class="el" href="AnaGateErrors_8h_source.html#l00010">ANA_ERR_TCPIP_NOTCONNECTED</a>, <a class="el" href="AnaGateErrors_8h_source.html#l00009">ANA_ERR_TCPIP_SOCKET</a>, and <a class="el" href="AnaGateErrors_8h_source.html#l00011">ANA_ERR_TCPIP_TIMEOUT</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l01053">errorCodeToString()</a>.</p>
 
 </div>
 </div>
@@ -475,9 +510,9 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>callback API: sends a boost signal with payload </p>
 
-<p class="definition">Definition at line <a class="el" href="AnaCanScan_8cpp_source.html#l00209">209</a> of file <a class="el" href="AnaCanScan_8cpp_source.html">AnaCanScan.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="AnaCanScan_8cpp_source.html#l00210">210</a> of file <a class="el" href="AnaCanScan_8cpp_source.html">AnaCanScan.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="CCanAccess_8h_source.html#l00305">CanModule::CCanAccess::canMessageCame</a>, <a class="el" href="CCanAccess_8h_source.html#l00470">CanModule::CCanAccess::m_reconnectCondition</a>, and <a class="el" href="CCanAccess_8h_source.html#l00518">CanModule::CCanAccess::resetTimeoutOnReception()</a>.</p>
+<p class="reference">References <a class="el" href="CCanAccess_8h_source.html#l00305">CanModule::CCanAccess::canMessageCame</a>, <a class="el" href="CCanAccess_8h_source.html#l00464">CanModule::CCanAccess::m_reconnectCondition</a>, and <a class="el" href="CCanAccess_8h_source.html#l00511">CanModule::CCanAccess::resetTimeoutOnReception()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -515,11 +550,11 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>return a human readabale CAN message </p>
 
-<p class="definition">Definition at line <a class="el" href="AnaCanScan_8cpp_source.html#l00183">183</a> of file <a class="el" href="AnaCanScan_8cpp_source.html">AnaCanScan.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="AnaCanScan_8cpp_source.html#l00184">184</a> of file <a class="el" href="AnaCanScan_8cpp_source.html">AnaCanScan.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="CanMessage_8h_source.html#l00029">CanMsgStruct::c_data</a>, <a class="el" href="CanMessage_8h_source.html#l00027">CanMsgStruct::c_dlc</a>, <a class="el" href="CanMessage_8h_source.html#l00023">CanMsgStruct::c_id</a>, and <a class="el" href="CanMessage_8h_source.html#l00033">CanMsgStruct::c_rtr</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00154">InternalCallback()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00155">InternalCallback()</a>.</p>
 
 </div>
 </div>
@@ -546,7 +581,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="AnaCanScan_8h_source.html#l00172">172</a> of file <a class="el" href="AnaCanScan_8h_source.html">AnaCanScan.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="AnaCanScan_8h_source.html#l00171">171</a> of file <a class="el" href="AnaCanScan_8h_source.html">AnaCanScan.h</a>.</p>
 
 </div>
 </div>
@@ -585,11 +620,11 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>decode the name, parameter and return the port of the configured module like "an:0:128.141.159.194" </p>
 
-<p class="definition">Definition at line <a class="el" href="AnaCanScan_8cpp_source.html#l00277">277</a> of file <a class="el" href="AnaCanScan_8cpp_source.html">AnaCanScan.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="AnaCanScan_8cpp_source.html#l00278">278</a> of file <a class="el" href="AnaCanScan_8cpp_source.html">AnaCanScan.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="AnaCanScan_8h_source.html#l00111">m_baudRate</a>, <a class="el" href="AnaCanScan_8h_source.html#l00110">m_canIPAddress</a>, <a class="el" href="CCanAccess_8h_source.html#l00467">CanModule::CCanAccess::m_CanParameters</a>, <a class="el" href="AnaCanScan_8h_source.html#l00104">m_canPortNumber</a>, <a class="el" href="CCanAccess_8h_source.html#l00115">CanModule::CanParameters::m_iHighSpeed</a>, <a class="el" href="CCanAccess_8h_source.html#l00117">CanModule::CanParameters::m_iNumberOfDetectedParameters</a>, <a class="el" href="CCanAccess_8h_source.html#l00113">CanModule::CanParameters::m_iOperationMode</a>, <a class="el" href="CCanAccess_8h_source.html#l00114">CanModule::CanParameters::m_iTermination</a>, <a class="el" href="CCanAccess_8h_source.html#l00116">CanModule::CanParameters::m_iTimeStamp</a>, <a class="el" href="CCanAccess_8h_source.html#l00112">CanModule::CanParameters::m_lBaudRate</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00072">MLOGANA</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00412">openCanPort()</a>, and <a class="el" href="CCanAccess_8h_source.html#l00342">CanModule::CCanAccess::parseNameAndParameters()</a>.</p>
+<p class="reference">References <a class="el" href="AnaCanScan_8h_source.html#l00110">m_baudRate</a>, <a class="el" href="AnaCanScan_8h_source.html#l00109">m_canIPAddress</a>, <a class="el" href="CCanAccess_8h_source.html#l00461">CanModule::CCanAccess::m_CanParameters</a>, <a class="el" href="AnaCanScan_8h_source.html#l00103">m_canPortNumber</a>, <a class="el" href="CCanAccess_8h_source.html#l00115">CanModule::CanParameters::m_iHighSpeed</a>, <a class="el" href="CCanAccess_8h_source.html#l00117">CanModule::CanParameters::m_iNumberOfDetectedParameters</a>, <a class="el" href="CCanAccess_8h_source.html#l00113">CanModule::CanParameters::m_iOperationMode</a>, <a class="el" href="CCanAccess_8h_source.html#l00114">CanModule::CanParameters::m_iTermination</a>, <a class="el" href="CCanAccess_8h_source.html#l00116">CanModule::CanParameters::m_iTimeStamp</a>, <a class="el" href="CCanAccess_8h_source.html#l00112">CanModule::CanParameters::m_lBaudRate</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00072">MLOGANA</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00413">openCanPort()</a>, and <a class="el" href="CCanAccess_8h_source.html#l00342">CanModule::CCanAccess::parseNameAndParameters()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00244">createBus()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00245">createBus()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -635,11 +670,11 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>connect the reception handler and only AFTER that register the handle in the global obj. map, since reception is asynchron. Finally, in the caller, the stale handle is deleted from the map. </p>
 
-<p class="definition">Definition at line <a class="el" href="AnaCanScan_8cpp_source.html#l00865">865</a> of file <a class="el" href="AnaCanScan_8cpp_source.html">AnaCanScan.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="AnaCanScan_8cpp_source.html#l00824">824</a> of file <a class="el" href="AnaCanScan_8cpp_source.html">AnaCanScan.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="AnaCanScan_8cpp_source.html#l00070">g_AnaCanScanObjectMap</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00154">InternalCallback()</a>, <a class="el" href="AnaCanScan_8h_source.html#l00110">m_canIPAddress</a>, <a class="el" href="CCanAccess_8h_source.html#l00467">CanModule::CCanAccess::m_CanParameters</a>, <a class="el" href="AnaCanScan_8h_source.html#l00104">m_canPortNumber</a>, <a class="el" href="CCanAccess_8h_source.html#l00115">CanModule::CanParameters::m_iHighSpeed</a>, <a class="el" href="CCanAccess_8h_source.html#l00113">CanModule::CanParameters::m_iOperationMode</a>, <a class="el" href="CCanAccess_8h_source.html#l00114">CanModule::CanParameters::m_iTermination</a>, <a class="el" href="CCanAccess_8h_source.html#l00116">CanModule::CanParameters::m_iTimeStamp</a>, <a class="el" href="CCanAccess_8h_source.html#l00112">CanModule::CanParameters::m_lBaudRate</a>, <a class="el" href="AnaCanScan_8h_source.html#l00116">m_UcanHandle</a>, and <a class="el" href="AnaCanScan_8cpp_source.html#l00072">MLOGANA</a>.</p>
+<p class="reference">References <a class="el" href="AnaCanScan_8cpp_source.html#l00070">g_AnaCanScanObjectMap</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00155">InternalCallback()</a>, <a class="el" href="AnaCanScan_8h_source.html#l00109">m_canIPAddress</a>, <a class="el" href="CCanAccess_8h_source.html#l00461">CanModule::CCanAccess::m_CanParameters</a>, <a class="el" href="AnaCanScan_8h_source.html#l00103">m_canPortNumber</a>, <a class="el" href="CCanAccess_8h_source.html#l00115">CanModule::CanParameters::m_iHighSpeed</a>, <a class="el" href="CCanAccess_8h_source.html#l00113">CanModule::CanParameters::m_iOperationMode</a>, <a class="el" href="CCanAccess_8h_source.html#l00114">CanModule::CanParameters::m_iTermination</a>, <a class="el" href="CCanAccess_8h_source.html#l00116">CanModule::CanParameters::m_iTimeStamp</a>, <a class="el" href="CCanAccess_8h_source.html#l00112">CanModule::CanParameters::m_lBaudRate</a>, <a class="el" href="AnaCanScan_8h_source.html#l00115">m_UcanHandle</a>, and <a class="el" href="AnaCanScan_8cpp_source.html#l00072">MLOGANA</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00695">reconnectThisPort()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00654">reconnectThisPort()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -708,9 +743,9 @@ Here is the call graph for this function:</div>
 
 <p>Implements <a class="el" href="classCanModule_1_1CCanAccess.html#a0eeee5c3d48f1102012d1483cbe6e64b">CanModule::CCanAccess</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="AnaCanScan_8cpp_source.html#l00244">244</a> of file <a class="el" href="AnaCanScan_8cpp_source.html">AnaCanScan.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="AnaCanScan_8cpp_source.html#l00245">245</a> of file <a class="el" href="AnaCanScan_8cpp_source.html">AnaCanScan.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="AnaCanScan_8cpp_source.html#l00277">configureCanBoard()</a>, <a class="el" href="CCanAccess_8h_source.html#l00050">CanModule::LogItComponentName</a>, <a class="el" href="AnaCanScan_8h_source.html#l00114">m_busName</a>, <a class="el" href="AnaCanScan_8h_source.html#l00115">m_busParameters</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00072">MLOGANA</a>, and <a class="el" href="AnaCanScan_8h_source.html#l00130">st_logItHandleAnagate</a>.</p>
+<p class="reference">References <a class="el" href="AnaCanScan_8cpp_source.html#l00278">configureCanBoard()</a>, <a class="el" href="CCanAccess_8h_source.html#l00050">CanModule::LogItComponentName</a>, <a class="el" href="AnaCanScan_8h_source.html#l00113">m_busName</a>, <a class="el" href="AnaCanScan_8h_source.html#l00114">m_busParameters</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00072">MLOGANA</a>, and <a class="el" href="AnaCanScan_8h_source.html#l00129">st_logItHandleAnagate</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -769,11 +804,11 @@ Here is the call graph for this function:</div>
 <p>add a can handle into the map if it does not yet exist</p>
 <p>find and erase a map entry handle-&gt;{port, ip} todo: mutex protect, work on copy </p>
 
-<p class="definition">Definition at line <a class="el" href="AnaCanScan_8cpp_source.html#l00364">364</a> of file <a class="el" href="AnaCanScan_8cpp_source.html">AnaCanScan.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="AnaCanScan_8cpp_source.html#l00365">365</a> of file <a class="el" href="AnaCanScan_8cpp_source.html">AnaCanScan.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="AnaCanScan_8h_source.html#l00173">handle()</a>, <a class="el" href="AnaCanScan_8h_source.html#l00141">AnaCanScan::ANAGATE_PORTDEF_t::ip</a>, <a class="el" href="AnaCanScan_8h_source.html#l00140">AnaCanScan::ANAGATE_PORTDEF_t::port</a>, <a class="el" href="AnaCanScan_8h_source.html#l00143">st_canHandleMap</a>, and <a class="el" href="AnaCanScan_8h_source.html#l00130">st_logItHandleAnagate</a>.</p>
+<p class="reference">References <a class="el" href="AnaCanScan_8h_source.html#l00172">handle()</a>, <a class="el" href="AnaCanScan_8h_source.html#l00140">AnaCanScan::ANAGATE_PORTDEF_t::ip</a>, <a class="el" href="AnaCanScan_8h_source.html#l00139">AnaCanScan::ANAGATE_PORTDEF_t::port</a>, <a class="el" href="AnaCanScan_8h_source.html#l00142">st_canHandleMap</a>, and <a class="el" href="AnaCanScan_8h_source.html#l00129">st_logItHandleAnagate</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00935">reconnect()</a>, and <a class="el" href="AnaCanScan_8cpp_source.html#l00098">stopBus()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00894">reconnect()</a>, and <a class="el" href="AnaCanScan_8cpp_source.html#l00099">stopBus()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -811,11 +846,11 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>todo: protect with mutex, work on copy </p>
 
-<p class="definition">Definition at line <a class="el" href="AnaCanScan_8cpp_source.html#l00916">916</a> of file <a class="el" href="AnaCanScan_8cpp_source.html">AnaCanScan.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="AnaCanScan_8cpp_source.html#l00875">875</a> of file <a class="el" href="AnaCanScan_8cpp_source.html">AnaCanScan.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="AnaCanScan_8cpp_source.html#l00070">g_AnaCanScanObjectMap</a>, <a class="el" href="AnaCanScan_8h_source.html#l00114">m_busName</a>, and <a class="el" href="AnaCanScan_8cpp_source.html#l00072">MLOGANA</a>.</p>
+<p class="reference">References <a class="el" href="AnaCanScan_8cpp_source.html#l00070">g_AnaCanScanObjectMap</a>, <a class="el" href="AnaCanScan_8h_source.html#l00113">m_busName</a>, and <a class="el" href="AnaCanScan_8cpp_source.html#l00072">MLOGANA</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00098">stopBus()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00099">stopBus()</a>.</p>
 
 </div>
 </div>
@@ -852,11 +887,22 @@ Here is the call graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Provides textual representation of an error code. error return from module </p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Todo:</a></b></dt><dd>: Fix <a class="el" href="classAnaCanScan.html#a6eec29a421ec4af879143379833ec676">AnaCanScan::errorCodeToString</a> method, this doesn't do anything!! </dd></dl>
+<p>Provides textual representation of an error code. error return from module </p>
 
-<p class="definition">Definition at line <a class="el" href="AnaCanScan_8cpp_source.html#l01067">1067</a> of file <a class="el" href="AnaCanScan_8cpp_source.html">AnaCanScan.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="AnaCanScan_8cpp_source.html#l01053">1053</a> of file <a class="el" href="AnaCanScan_8cpp_source.html">AnaCanScan.cpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00487">sendErrorCode()</a>.</p>
+<p class="reference">References <a class="el" href="AnaCanScan_8cpp_source.html#l01024">ana_canGetErrorText()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00488">sendErrorCode()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classAnaCanScan_a6eec29a421ec4af879143379833ec676_cgraph.png" border="0" usemap="#classAnaCanScan_a6eec29a421ec4af879143379833ec676_cgraph" alt=""/></div>
+<map name="classAnaCanScan_a6eec29a421ec4af879143379833ec676_cgraph" id="classAnaCanScan_a6eec29a421ec4af879143379833ec676_cgraph">
+<area shape="rect" title=" " alt="" coords="5,5,232,32"/>
+<area shape="rect" href="classAnaCanScan.html#a1425dfc20e08b545fcdf49415ac15ec9" title=" " alt="" coords="280,5,527,32"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -896,11 +942,11 @@ Here is the call graph for this function:</div>
 <p>find the handle from port, ip we have to search through the whole map to know</p>
 <p>given the {port, ip} we search through the map and return the handle if it exists, otherwise -1 </p>
 
-<p class="definition">Definition at line <a class="el" href="AnaCanScan_8cpp_source.html#l00389">389</a> of file <a class="el" href="AnaCanScan_8cpp_source.html">AnaCanScan.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="AnaCanScan_8cpp_source.html#l00390">390</a> of file <a class="el" href="AnaCanScan_8cpp_source.html">AnaCanScan.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="AnaCanScan_8h_source.html#l00143">st_canHandleMap</a>, and <a class="el" href="AnaCanScan_8h_source.html#l00130">st_logItHandleAnagate</a>.</p>
+<p class="reference">References <a class="el" href="AnaCanScan_8h_source.html#l00142">st_canHandleMap</a>, and <a class="el" href="AnaCanScan_8h_source.html#l00129">st_logItHandleAnagate</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00412">openCanPort()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00413">openCanPort()</a>.</p>
 
 </div>
 </div>
@@ -930,7 +976,7 @@ Here is the call graph for this function:</div>
 
 <p>Implements <a class="el" href="classCanModule_1_1CCanAccess.html#aa8cb67096349fefc6e03aeb33e45ef81">CanModule::CCanAccess</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="AnaCanScan_8h_source.html#l00095">95</a> of file <a class="el" href="AnaCanScan_8h_source.html">AnaCanScan.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="AnaCanScan_8h_source.html#l00094">94</a> of file <a class="el" href="AnaCanScan_8h_source.html">AnaCanScan.h</a>.</p>
 
 </div>
 </div>
@@ -961,7 +1007,7 @@ Here is the call graph for this function:</div>
 
 <p>Implements <a class="el" href="classCanModule_1_1CCanAccess.html#a33fe530d070cf35d096e967d543186a4">CanModule::CCanAccess</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="AnaCanScan_8h_source.html#l00091">91</a> of file <a class="el" href="AnaCanScan_8h_source.html">AnaCanScan.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="AnaCanScan_8h_source.html#l00090">90</a> of file <a class="el" href="AnaCanScan_8h_source.html">AnaCanScan.h</a>.</p>
 
 <p class="reference">References <a class="el" href="CCanAccess_8h_source.html#l00062">CANMODULE_STATUS_BP_ANAGATE</a>.</p>
 
@@ -993,7 +1039,7 @@ Here is the call graph for this function:</div>
 
 <p>Implements <a class="el" href="classCanModule_1_1CCanAccess.html#aaf2312ff9074ce7a4ec2e7d0a5b6fa16">CanModule::CCanAccess</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="AnaCanScan_8h_source.html#l00104">104</a> of file <a class="el" href="AnaCanScan_8h_source.html">AnaCanScan.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="AnaCanScan_8h_source.html#l00103">103</a> of file <a class="el" href="AnaCanScan_8h_source.html">AnaCanScan.h</a>.</p>
 
 </div>
 </div>
@@ -1023,7 +1069,7 @@ Here is the call graph for this function:</div>
 
 <p>Implements <a class="el" href="classCanModule_1_1CCanAccess.html#a003566cbcdf4ce8195853bd8049a8800">CanModule::CCanAccess</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="AnaCanScan_8h_source.html#l00103">103</a> of file <a class="el" href="AnaCanScan_8h_source.html">AnaCanScan.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="AnaCanScan_8h_source.html#l00102">102</a> of file <a class="el" href="AnaCanScan_8h_source.html">AnaCanScan.h</a>.</p>
 
 </div>
 </div>
@@ -1053,9 +1099,9 @@ Here is the call graph for this function:</div>
 
 <p>Implements <a class="el" href="classCanModule_1_1CCanAccess.html#ad3182c83b4c5d7e6aef982c36e731507">CanModule::CCanAccess</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="AnaCanScan_8cpp_source.html#l01077">1077</a> of file <a class="el" href="AnaCanScan_8cpp_source.html">AnaCanScan.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="AnaCanScan_8cpp_source.html#l01061">1061</a> of file <a class="el" href="AnaCanScan_8cpp_source.html">AnaCanScan.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="CanStatistics_8cpp_source.html#l00044">CanModule::CanStatistics::beginNewRun()</a>, <a class="el" href="CanStatistics_8cpp_source.html#l00074">CanModule::CanStatistics::computeDerived()</a>, <a class="el" href="AnaCanScan_8h_source.html#l00111">m_baudRate</a>, and <a class="el" href="AnaCanScan_8h_source.html#l00117">m_statistics</a>.</p>
+<p class="reference">References <a class="el" href="CanStatistics_8cpp_source.html#l00044">CanModule::CanStatistics::beginNewRun()</a>, <a class="el" href="CanStatistics_8cpp_source.html#l00074">CanModule::CanStatistics::computeDerived()</a>, <a class="el" href="AnaCanScan_8h_source.html#l00110">m_baudRate</a>, and <a class="el" href="AnaCanScan_8h_source.html#l00116">m_statistics</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1092,9 +1138,9 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="AnaCanScan_8h_source.html#l00173">173</a> of file <a class="el" href="AnaCanScan_8h_source.html">AnaCanScan.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="AnaCanScan_8h_source.html#l00172">172</a> of file <a class="el" href="AnaCanScan_8h_source.html">AnaCanScan.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00346">addCanHandleOfPortIp()</a>, and <a class="el" href="AnaCanScan_8cpp_source.html#l00364">deleteCanHandleOfPortIp()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00347">addCanHandleOfPortIp()</a>, and <a class="el" href="AnaCanScan_8cpp_source.html#l00365">deleteCanHandleOfPortIp()</a>.</p>
 
 </div>
 </div>
@@ -1121,7 +1167,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="AnaCanScan_8h_source.html#l00171">171</a> of file <a class="el" href="AnaCanScan_8h_source.html">AnaCanScan.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="AnaCanScan_8h_source.html#l00170">170</a> of file <a class="el" href="AnaCanScan_8h_source.html">AnaCanScan.h</a>.</p>
 
 </div>
 </div>
@@ -1150,11 +1196,11 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>checks if a reconnection is already in progress for the bridge at that IP. Several ports can (and will) fail at the same time, but the bridge should be reset only once, and not again for each port. </p>
 
-<p class="definition">Definition at line <a class="el" href="AnaCanScan_8cpp_source.html#l00130">130</a> of file <a class="el" href="AnaCanScan_8cpp_source.html">AnaCanScan.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="AnaCanScan_8cpp_source.html#l00131">131</a> of file <a class="el" href="AnaCanScan_8cpp_source.html">AnaCanScan.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="AnaCanScan_8h_source.html#l00166">m_reconnectInProgress_map</a>.</p>
+<p class="reference">References <a class="el" href="AnaCanScan_8h_source.html#l00165">m_reconnectInProgress_map</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00748">reconnectAllPorts()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00707">reconnectAllPorts()</a>.</p>
 
 </div>
 </div>
@@ -1184,11 +1230,11 @@ Here is the call graph for this function:</div>
 <p>communicate with the hardware using the CanOpen interface: open anagate port, attach reply handler. No message queuing. CANSetMaxSizePerQueue not called==default==0 </p>
 <p>check if that anagate bridge (ip) is already initialized, if not we create it.</p>
 
-<p class="definition">Definition at line <a class="el" href="AnaCanScan_8cpp_source.html#l00412">412</a> of file <a class="el" href="AnaCanScan_8cpp_source.html">AnaCanScan.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="AnaCanScan_8cpp_source.html#l00413">413</a> of file <a class="el" href="AnaCanScan_8cpp_source.html">AnaCanScan.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="AnaCanScan_8cpp_source.html#l00346">addCanHandleOfPortIp()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00070">g_AnaCanScanObjectMap</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00389">getCanHandleOfPortIp()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00154">InternalCallback()</a>, <a class="el" href="AnaCanScan_8h_source.html#l00110">m_canIPAddress</a>, <a class="el" href="CCanAccess_8h_source.html#l00467">CanModule::CCanAccess::m_CanParameters</a>, <a class="el" href="AnaCanScan_8h_source.html#l00104">m_canPortNumber</a>, <a class="el" href="CCanAccess_8h_source.html#l00115">CanModule::CanParameters::m_iHighSpeed</a>, <a class="el" href="CCanAccess_8h_source.html#l00113">CanModule::CanParameters::m_iOperationMode</a>, <a class="el" href="CCanAccess_8h_source.html#l00114">CanModule::CanParameters::m_iTermination</a>, <a class="el" href="CCanAccess_8h_source.html#l00116">CanModule::CanParameters::m_iTimeStamp</a>, <a class="el" href="CCanAccess_8h_source.html#l00112">CanModule::CanParameters::m_lBaudRate</a>, <a class="el" href="AnaCanScan_8h_source.html#l00118">m_timeout</a>, <a class="el" href="AnaCanScan_8h_source.html#l00116">m_UcanHandle</a>, and <a class="el" href="AnaCanScan_8cpp_source.html#l00072">MLOGANA</a>.</p>
+<p class="reference">References <a class="el" href="AnaCanScan_8cpp_source.html#l00347">addCanHandleOfPortIp()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00070">g_AnaCanScanObjectMap</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00390">getCanHandleOfPortIp()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00155">InternalCallback()</a>, <a class="el" href="AnaCanScan_8h_source.html#l00109">m_canIPAddress</a>, <a class="el" href="CCanAccess_8h_source.html#l00461">CanModule::CCanAccess::m_CanParameters</a>, <a class="el" href="AnaCanScan_8h_source.html#l00103">m_canPortNumber</a>, <a class="el" href="CCanAccess_8h_source.html#l00115">CanModule::CanParameters::m_iHighSpeed</a>, <a class="el" href="CCanAccess_8h_source.html#l00113">CanModule::CanParameters::m_iOperationMode</a>, <a class="el" href="CCanAccess_8h_source.html#l00114">CanModule::CanParameters::m_iTermination</a>, <a class="el" href="CCanAccess_8h_source.html#l00116">CanModule::CanParameters::m_iTimeStamp</a>, <a class="el" href="CCanAccess_8h_source.html#l00112">CanModule::CanParameters::m_lBaudRate</a>, <a class="el" href="AnaCanScan_8h_source.html#l00117">m_timeout</a>, <a class="el" href="AnaCanScan_8h_source.html#l00115">m_UcanHandle</a>, and <a class="el" href="AnaCanScan_8cpp_source.html#l00072">MLOGANA</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00277">configureCanBoard()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00278">configureCanBoard()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1258,11 +1304,11 @@ Here is the call graph for this function:</div>
 <p>we try to reconnect one port after a power loss, and we should do this for all ports returns: 0 = OK -1 = could not CANOpenDevice device -2 = could not connect callback CANSetCallbackEx -3 = device was found open, tried to close but did not succeed (maybe you should just try sending again) </p>
 <p>• 1 = DISCONNECTED : The connection to the AnaGate is disconnected. • 2 = CONNECTING : The connection is connecting. • 3 = CONNECTED : The connection is established. • 4 = DISCONNECTING : The connection is disonnecting. • 5 = NOT_INITIALIZED : The network protocol is not successfully initialized.</p>
 
-<p class="definition">Definition at line <a class="el" href="AnaCanScan_8cpp_source.html#l00935">935</a> of file <a class="el" href="AnaCanScan_8cpp_source.html">AnaCanScan.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="AnaCanScan_8cpp_source.html#l00894">894</a> of file <a class="el" href="AnaCanScan_8cpp_source.html">AnaCanScan.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="AnaCanScan_8cpp_source.html#l00346">addCanHandleOfPortIp()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00364">deleteCanHandleOfPortIp()</a>, <a class="el" href="AnaCanScan_8h_source.html#l00113">m_canCloseDevice</a>, <a class="el" href="AnaCanScan_8h_source.html#l00110">m_canIPAddress</a>, <a class="el" href="AnaCanScan_8h_source.html#l00104">m_canPortNumber</a>, <a class="el" href="AnaCanScan_8h_source.html#l00118">m_timeout</a>, <a class="el" href="AnaCanScan_8h_source.html#l00116">m_UcanHandle</a>, and <a class="el" href="AnaCanScan_8cpp_source.html#l00072">MLOGANA</a>.</p>
+<p class="reference">References <a class="el" href="AnaCanScan_8cpp_source.html#l00347">addCanHandleOfPortIp()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00365">deleteCanHandleOfPortIp()</a>, <a class="el" href="AnaCanScan_8h_source.html#l00112">m_canCloseDevice</a>, <a class="el" href="AnaCanScan_8h_source.html#l00109">m_canIPAddress</a>, <a class="el" href="AnaCanScan_8h_source.html#l00103">m_canPortNumber</a>, <a class="el" href="AnaCanScan_8h_source.html#l00117">m_timeout</a>, <a class="el" href="AnaCanScan_8h_source.html#l00115">m_UcanHandle</a>, and <a class="el" href="AnaCanScan_8cpp_source.html#l00072">MLOGANA</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00695">reconnectThisPort()</a>, and <a class="el" href="AnaCanScan_8cpp_source.html#l01031">setConnectWaitTime()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00654">reconnectThisPort()</a>, and <a class="el" href="AnaCanScan_8cpp_source.html#l00990">setConnectWaitTime()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1303,11 +1349,11 @@ Here is the call graph for this function:</div>
 <p>reconnects all opened ports of a given ip address=one module. We have one object per CAN port, so i.e. for an anagate duo (ports A and B) we have two objects with the same IP but with port 0 and 1.So we will have to scan over all objects there because we do not know how many CANports a given anagate bridge has. We also allow globally only one ongoing reconnect to one ip at a time. Theoretically we could have a separate reconnection thread per ip, but that looks like overcomplicating the code and the issue. If several anagate modules fail they will all reconnect one after the other. That is OK since if all of these modules loose power and reboot at the same moment they will also be ready at roughly the same moment for reconnect. That means that we have to wait for the first ip to reconnect for a while but then all other ips will reconnect rather quickly in the most likely case. returns: 0 = OK -1 = cant open / reconnect CAN ports +1 = ignore, since another thread is doing the reconnect already </p>
 <p>delete the map elements where the key is different from the handle, since we reassigned handles in the living objects like: g_AnaCanScanPointerMap[ m_UcanHandle ] = this;</p>
 
-<p class="definition">Definition at line <a class="el" href="AnaCanScan_8cpp_source.html#l00748">748</a> of file <a class="el" href="AnaCanScan_8cpp_source.html">AnaCanScan.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="AnaCanScan_8cpp_source.html#l00707">707</a> of file <a class="el" href="AnaCanScan_8cpp_source.html">AnaCanScan.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="AnaCanScan_8cpp_source.html#l00056">anagateReconnectMutex</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00070">g_AnaCanScanObjectMap</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00130">isIpReconnectInProgress()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00109">setIpReconnectInProgress()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00677">showAnaCanScanObjectMap()</a>, and <a class="el" href="AnaCanScan_8h_source.html#l00130">st_logItHandleAnagate</a>.</p>
+<p class="reference">References <a class="el" href="AnaCanScan_8cpp_source.html#l00056">anagateReconnectMutex</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00070">g_AnaCanScanObjectMap</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00131">isIpReconnectInProgress()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00110">setIpReconnectInProgress()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00636">showAnaCanScanObjectMap()</a>, and <a class="el" href="AnaCanScan_8h_source.html#l00129">st_logItHandleAnagate</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00516">sendMessage()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00517">sendMessage()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1347,11 +1393,11 @@ Here is the call graph for this function:</div>
 <p>only reconnect this object's port and make dure the callback map entry is updated as well </p>
 <p>delete the map elements where the key is different from the handle, since we reassigned handles in the living objects like: g_AnaCanScanPointerMap[ m_UcanHandle ] = this;</p>
 
-<p class="definition">Definition at line <a class="el" href="AnaCanScan_8cpp_source.html#l00695">695</a> of file <a class="el" href="AnaCanScan_8cpp_source.html">AnaCanScan.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="AnaCanScan_8cpp_source.html#l00654">654</a> of file <a class="el" href="AnaCanScan_8cpp_source.html">AnaCanScan.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="AnaCanScan_8cpp_source.html#l00865">connectReceptionHandler()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00070">g_AnaCanScanObjectMap</a>, <a class="el" href="AnaCanScan_8h_source.html#l00110">m_canIPAddress</a>, <a class="el" href="AnaCanScan_8h_source.html#l00104">m_canPortNumber</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00072">MLOGANA</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00935">reconnect()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00677">showAnaCanScanObjectMap()</a>, and <a class="el" href="AnaCanScan_8h_source.html#l00130">st_logItHandleAnagate</a>.</p>
+<p class="reference">References <a class="el" href="AnaCanScan_8cpp_source.html#l00824">connectReceptionHandler()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00070">g_AnaCanScanObjectMap</a>, <a class="el" href="AnaCanScan_8h_source.html#l00109">m_canIPAddress</a>, <a class="el" href="AnaCanScan_8h_source.html#l00103">m_canPortNumber</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00072">MLOGANA</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00894">reconnect()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00636">showAnaCanScanObjectMap()</a>, and <a class="el" href="AnaCanScan_8h_source.html#l00129">st_logItHandleAnagate</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00516">sendMessage()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00517">sendMessage()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1398,11 +1444,11 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>if sending had a problem invoke the error handler with a message </p>
 
-<p class="definition">Definition at line <a class="el" href="AnaCanScan_8cpp_source.html#l00487">487</a> of file <a class="el" href="AnaCanScan_8cpp_source.html">AnaCanScan.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="AnaCanScan_8cpp_source.html#l00488">488</a> of file <a class="el" href="AnaCanScan_8cpp_source.html">AnaCanScan.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="CCanAccess_8h_source.html#l00307">CanModule::CCanAccess::canMessageError</a>, and <a class="el" href="AnaCanScan_8cpp_source.html#l01067">errorCodeToString()</a>.</p>
+<p class="reference">References <a class="el" href="CCanAccess_8h_source.html#l00307">CanModule::CCanAccess::canMessageError</a>, and <a class="el" href="AnaCanScan_8cpp_source.html#l01053">errorCodeToString()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00516">sendMessage()</a>, and <a class="el" href="AnaCanScan_8cpp_source.html#l01050">sendRemoteRequest()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00517">sendMessage()</a>, and <a class="el" href="AnaCanScan_8cpp_source.html#l01009">sendRemoteRequest()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1410,6 +1456,7 @@ Here is the call graph for this function:</div>
 <map name="classAnaCanScan_aaa001b34e6ee0a27295239f951b7b879_cgraph" id="classAnaCanScan_aaa001b34e6ee0a27295239f951b7b879_cgraph">
 <area shape="rect" title=" " alt="" coords="5,5,212,32"/>
 <area shape="rect" href="classAnaCanScan.html#a6eec29a421ec4af879143379833ec676" title=" " alt="" coords="260,5,487,32"/>
+<area shape="rect" href="classAnaCanScan.html#a1425dfc20e08b545fcdf49415ac15ec9" title=" " alt="" coords="535,5,781,32"/>
 </map>
 </div>
 
@@ -1441,9 +1488,9 @@ Here is the call graph for this function:</div>
 
 <p>Reimplemented from <a class="el" href="classCanModule_1_1CCanAccess.html#ad0360c49d00ec0ee92cfdd73c2e43935">CanModule::CCanAccess</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="AnaCanScan_8cpp_source.html#l01038">1038</a> of file <a class="el" href="AnaCanScan_8cpp_source.html">AnaCanScan.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="AnaCanScan_8cpp_source.html#l00997">997</a> of file <a class="el" href="AnaCanScan_8cpp_source.html">AnaCanScan.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="CanMessage_8h_source.html#l00029">CanMsgStruct::c_data</a>, <a class="el" href="CanMessage_8h_source.html#l00027">CanMsgStruct::c_dlc</a>, <a class="el" href="CanMessage_8h_source.html#l00023">CanMsgStruct::c_id</a>, <a class="el" href="CanMessage_8h_source.html#l00033">CanMsgStruct::c_rtr</a>, and <a class="el" href="AnaCanScan_8cpp_source.html#l00516">sendMessage()</a>.</p>
+<p class="reference">References <a class="el" href="CanMessage_8h_source.html#l00029">CanMsgStruct::c_data</a>, <a class="el" href="CanMessage_8h_source.html#l00027">CanMsgStruct::c_dlc</a>, <a class="el" href="CanMessage_8h_source.html#l00023">CanMsgStruct::c_id</a>, <a class="el" href="CanMessage_8h_source.html#l00033">CanMsgStruct::c_rtr</a>, and <a class="el" href="AnaCanScan_8cpp_source.html#l00517">sendMessage()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1455,24 +1502,25 @@ Here is the call graph for this function:</div>
 <area shape="rect" href="classCanModule_1_1CanStatistics.html#a0265b75e9e2e16737950b6b5c5662f35" title="dataLength is the user data size (DLC field)" alt="" coords="521,71,709,112"/>
 <area shape="rect" href="classCanModule_1_1CCanAccess.html#aa12f64e9e31bd491f39fc3169b1e5025" title=" " alt="" coords="524,136,707,177"/>
 <area shape="rect" href="classAnaCanScan.html#abf8809be00bdc2f39344ec72cf66514c" title=" " alt="" coords="519,201,711,243"/>
-<area shape="rect" href="classAnaCanScan.html#a9ebdd69b0b5f2e43b152fde44dfbd543" title=" " alt="" coords="777,267,1004,308"/>
+<area shape="rect" href="classAnaCanScan.html#a9ebdd69b0b5f2e43b152fde44dfbd543" title=" " alt="" coords="777,264,1004,305"/>
 <area shape="rect" href="classCanModule_1_1CCanAccess.html#a9da88ce122d5de04a0235a4682a13dc0" title=" " alt="" coords="518,319,713,360"/>
 <area shape="rect" href="classAnaCanScan.html#aedcf208c8b79a297650bb2790884a79d" title=" " alt="" coords="501,385,729,411"/>
 <area shape="rect" href="classCanModule_1_1CCanAccess.html#a067f50699c1ed4b6ee6732eb0078ed0a" title=" " alt="" coords="515,436,715,477"/>
 <area shape="rect" href="classAnaCanScan.html#aaa001b34e6ee0a27295239f951b7b879" title=" " alt="" coords="512,502,719,529"/>
 <area shape="rect" href="classCanModule_1_1CanStatistics.html#afe8d43dfb65ee2675ceac1dc84f7eb1a" title=" " alt="" coords="518,553,713,595"/>
-<area shape="rect" href="classAnaCanScan.html#afeaf22bfd209035e9ad9ac3111c6ba65" title=" " alt="" coords="789,136,992,177"/>
-<area shape="rect" href="classAnaCanScan.html#a04a0124990e52b55b8c1046709ccb2d9" title=" " alt="" coords="785,201,996,243"/>
-<area shape="rect" href="classAnaCanScan.html#a428d6c62f3a2d6b4297898593961696b" title=" " alt="" coords="777,355,1004,396"/>
-<area shape="rect" href="classAnaCanScan.html#af1deaf420c98dcdc4687f481fd4d9a08" title=" " alt="" coords="803,421,978,447"/>
-<area shape="rect" href="AnaCanScan_8cpp.html#ad5698349874e3653b879b5de27311594" title=" " alt="" coords="1099,362,1227,389"/>
-<area shape="rect" href="classAnaCanScan.html#ad4a01934370aa2e9ee72bd31406e2752" title=" " alt="" coords="1337,289,1543,331"/>
-<area shape="rect" href="namespaceCanModule.html#a3ec3082d7d11a9c1641023cb3f53cbe5" title=" " alt="" coords="1331,355,1549,396"/>
-<area shape="rect" href="namespaceCanModule.html#a6d0711aac0a75de5d2bf6142997a814d" title=" " alt="" coords="1323,421,1557,447"/>
-<area shape="rect" href="classAnaCanScan.html#a3e2635663ebdfac68591d6a0577fa951" title=" " alt="" coords="1060,413,1267,455"/>
-<area shape="rect" href="classAnaCanScan.html#a1b62497ac5f0edcf9895c9f8cfad6b50" title=" " alt="" coords="1052,479,1275,520"/>
-<area shape="rect" href="classAnaCanScan.html#a9ce965955bb5eba734ed36b81945cb74" title=" " alt="" coords="1363,478,1517,505"/>
-<area shape="rect" href="classAnaCanScan.html#a6eec29a421ec4af879143379833ec676" title=" " alt="" coords="777,502,1004,529"/>
+<area shape="rect" href="classAnaCanScan.html#afeaf22bfd209035e9ad9ac3111c6ba65" title=" " alt="" coords="789,133,992,175"/>
+<area shape="rect" href="classAnaCanScan.html#a04a0124990e52b55b8c1046709ccb2d9" title=" " alt="" coords="785,199,996,240"/>
+<area shape="rect" href="classAnaCanScan.html#a428d6c62f3a2d6b4297898593961696b" title=" " alt="" coords="777,329,1004,371"/>
+<area shape="rect" href="classAnaCanScan.html#af1deaf420c98dcdc4687f481fd4d9a08" title=" " alt="" coords="803,395,978,422"/>
+<area shape="rect" href="AnaCanScan_8cpp.html#ad5698349874e3653b879b5de27311594" title=" " alt="" coords="1111,334,1239,361"/>
+<area shape="rect" href="classAnaCanScan.html#ad4a01934370aa2e9ee72bd31406e2752" title=" " alt="" coords="1361,261,1567,303"/>
+<area shape="rect" href="namespaceCanModule.html#a3ec3082d7d11a9c1641023cb3f53cbe5" title=" " alt="" coords="1355,327,1573,368"/>
+<area shape="rect" href="namespaceCanModule.html#a6d0711aac0a75de5d2bf6142997a814d" title=" " alt="" coords="1347,393,1581,419"/>
+<area shape="rect" href="classAnaCanScan.html#a3e2635663ebdfac68591d6a0577fa951" title=" " alt="" coords="1072,385,1279,427"/>
+<area shape="rect" href="classAnaCanScan.html#a1b62497ac5f0edcf9895c9f8cfad6b50" title=" " alt="" coords="1064,451,1287,492"/>
+<area shape="rect" href="classAnaCanScan.html#a9ce965955bb5eba734ed36b81945cb74" title=" " alt="" coords="1387,450,1541,477"/>
+<area shape="rect" href="classAnaCanScan.html#a6eec29a421ec4af879143379833ec676" title=" " alt="" coords="777,507,1004,534"/>
+<area shape="rect" href="classAnaCanScan.html#a1425dfc20e08b545fcdf49415ac15ec9" title=" " alt="" coords="1052,517,1299,543"/>
 </map>
 </div>
 
@@ -1540,11 +1588,11 @@ Here is the call graph for this function:</div>
 
 <p>Implements <a class="el" href="classCanModule_1_1CCanAccess.html#aee42ab7fb9e50c02a1812202f7863d8c">CanModule::CCanAccess</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="AnaCanScan_8cpp_source.html#l00516">516</a> of file <a class="el" href="AnaCanScan_8cpp_source.html">AnaCanScan.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="AnaCanScan_8cpp_source.html#l00517">517</a> of file <a class="el" href="AnaCanScan_8cpp_source.html">AnaCanScan.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="namespaceCanModule.html#a2062089fa4fa87c8354295f2a8fe31a5a319ee2c9d887d55f6bc1941518a5ae76">CanModule::allBusesOnBridge</a>, <a class="el" href="namespaceCanModule.html#a2062089fa4fa87c8354295f2a8fe31a5a74fa07b834c8e10084ece32c00d9bbbc">CanModule::hardReset</a>, <a class="el" href="CCanAccess_8h_source.html#l00503">CanModule::CCanAccess::hasTimeoutOnReception()</a>, <a class="el" href="AnaCanScan_8h_source.html#l00113">m_canCloseDevice</a>, <a class="el" href="AnaCanScan_8h_source.html#l00110">m_canIPAddress</a>, <a class="el" href="AnaCanScan_8h_source.html#l00104">m_canPortNumber</a>, <a class="el" href="CCanAccess_8h_source.html#l00474">CanModule::CCanAccess::m_failedSendCounter</a>, <a class="el" href="CCanAccess_8h_source.html#l00471">CanModule::CCanAccess::m_reconnectAction</a>, <a class="el" href="CCanAccess_8h_source.html#l00470">CanModule::CCanAccess::m_reconnectCondition</a>, <a class="el" href="AnaCanScan_8h_source.html#l00117">m_statistics</a>, <a class="el" href="CCanAccess_8h_source.html#l00473">CanModule::CCanAccess::m_triggerCounter</a>, <a class="el" href="AnaCanScan_8h_source.html#l00116">m_UcanHandle</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00072">MLOGANA</a>, <a class="el" href="namespaceCanModule.html#a2f4fee79cc7ba53467c2538fe6b9adbbac7561db7a418dd39b2201dfe110ab4a4">CanModule::never</a>, <a class="el" href="CanStatistics_8cpp_source.html#l00094">CanModule::CanStatistics::onTransmit()</a>, <a class="el" href="CCanAccess_8h_source.html#l00491">CanModule::CCanAccess::reconnectActionString()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00748">reconnectAllPorts()</a>, <a class="el" href="CCanAccess_8h_source.html#l00479">CanModule::CCanAccess::reconnectConditionString()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00695">reconnectThisPort()</a>, <a class="el" href="CCanAccess_8h_source.html#l00518">CanModule::CCanAccess::resetTimeoutOnReception()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00487">sendErrorCode()</a>, <a class="el" href="namespaceCanModule.html#a2f4fee79cc7ba53467c2538fe6b9adbbae323a25a871808f9a0df9a72ce954585">CanModule::sendFail</a>, <a class="el" href="CanStatistics_8h_source.html#l00123">CanModule::CanStatistics::setTimeSinceTransmitted()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00677">showAnaCanScanObjectMap()</a>, <a class="el" href="namespaceCanModule.html#a2062089fa4fa87c8354295f2a8fe31a5a5f768fefafa6db21eee26885afb6163d">CanModule::singleBus</a>, and <a class="el" href="namespaceCanModule.html#a2f4fee79cc7ba53467c2538fe6b9adbbaba350cf15e5a1471109f17351afb401a">CanModule::timeoutOnReception</a>.</p>
+<p class="reference">References <a class="el" href="namespaceCanModule.html#a2062089fa4fa87c8354295f2a8fe31a5a319ee2c9d887d55f6bc1941518a5ae76">CanModule::allBusesOnBridge</a>, <a class="el" href="CCanAccess_8h_source.html#l00496">CanModule::CCanAccess::hasTimeoutOnReception()</a>, <a class="el" href="AnaCanScan_8h_source.html#l00112">m_canCloseDevice</a>, <a class="el" href="AnaCanScan_8h_source.html#l00109">m_canIPAddress</a>, <a class="el" href="AnaCanScan_8h_source.html#l00103">m_canPortNumber</a>, <a class="el" href="CCanAccess_8h_source.html#l00468">CanModule::CCanAccess::m_failedSendCounter</a>, <a class="el" href="CCanAccess_8h_source.html#l00465">CanModule::CCanAccess::m_reconnectAction</a>, <a class="el" href="CCanAccess_8h_source.html#l00464">CanModule::CCanAccess::m_reconnectCondition</a>, <a class="el" href="AnaCanScan_8h_source.html#l00116">m_statistics</a>, <a class="el" href="CCanAccess_8h_source.html#l00467">CanModule::CCanAccess::m_triggerCounter</a>, <a class="el" href="AnaCanScan_8h_source.html#l00115">m_UcanHandle</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00072">MLOGANA</a>, <a class="el" href="namespaceCanModule.html#a2f4fee79cc7ba53467c2538fe6b9adbbac7561db7a418dd39b2201dfe110ab4a4">CanModule::never</a>, <a class="el" href="CanStatistics_8cpp_source.html#l00094">CanModule::CanStatistics::onTransmit()</a>, <a class="el" href="CCanAccess_8h_source.html#l00485">CanModule::CCanAccess::reconnectActionString()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00707">reconnectAllPorts()</a>, <a class="el" href="CCanAccess_8h_source.html#l00473">CanModule::CCanAccess::reconnectConditionString()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00654">reconnectThisPort()</a>, <a class="el" href="CCanAccess_8h_source.html#l00511">CanModule::CCanAccess::resetTimeoutOnReception()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00488">sendErrorCode()</a>, <a class="el" href="namespaceCanModule.html#a2f4fee79cc7ba53467c2538fe6b9adbbae323a25a871808f9a0df9a72ce954585">CanModule::sendFail</a>, <a class="el" href="CanStatistics_8h_source.html#l00123">CanModule::CanStatistics::setTimeSinceTransmitted()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00636">showAnaCanScanObjectMap()</a>, <a class="el" href="namespaceCanModule.html#a2062089fa4fa87c8354295f2a8fe31a5a5f768fefafa6db21eee26885afb6163d">CanModule::singleBus</a>, and <a class="el" href="namespaceCanModule.html#a2f4fee79cc7ba53467c2538fe6b9adbbaba350cf15e5a1471109f17351afb401a">CanModule::timeoutOnReception</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l01038">sendMessage()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00997">sendMessage()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1555,24 +1603,25 @@ Here is the call graph for this function:</div>
 <area shape="rect" href="classCanModule_1_1CanStatistics.html#a0265b75e9e2e16737950b6b5c5662f35" title="dataLength is the user data size (DLC field)" alt="" coords="273,71,461,112"/>
 <area shape="rect" href="classCanModule_1_1CCanAccess.html#aa12f64e9e31bd491f39fc3169b1e5025" title=" " alt="" coords="276,136,459,177"/>
 <area shape="rect" href="classAnaCanScan.html#abf8809be00bdc2f39344ec72cf66514c" title=" " alt="" coords="271,201,463,243"/>
-<area shape="rect" href="classAnaCanScan.html#a9ebdd69b0b5f2e43b152fde44dfbd543" title=" " alt="" coords="529,267,756,308"/>
+<area shape="rect" href="classAnaCanScan.html#a9ebdd69b0b5f2e43b152fde44dfbd543" title=" " alt="" coords="529,264,756,305"/>
 <area shape="rect" href="classCanModule_1_1CCanAccess.html#a9da88ce122d5de04a0235a4682a13dc0" title=" " alt="" coords="270,319,465,360"/>
 <area shape="rect" href="classAnaCanScan.html#aedcf208c8b79a297650bb2790884a79d" title=" " alt="" coords="253,385,481,411"/>
 <area shape="rect" href="classCanModule_1_1CCanAccess.html#a067f50699c1ed4b6ee6732eb0078ed0a" title=" " alt="" coords="267,436,467,477"/>
 <area shape="rect" href="classAnaCanScan.html#aaa001b34e6ee0a27295239f951b7b879" title=" " alt="" coords="264,502,471,529"/>
 <area shape="rect" href="classCanModule_1_1CanStatistics.html#afe8d43dfb65ee2675ceac1dc84f7eb1a" title=" " alt="" coords="270,553,465,595"/>
-<area shape="rect" href="classAnaCanScan.html#afeaf22bfd209035e9ad9ac3111c6ba65" title=" " alt="" coords="541,136,744,177"/>
-<area shape="rect" href="classAnaCanScan.html#a04a0124990e52b55b8c1046709ccb2d9" title=" " alt="" coords="537,201,748,243"/>
-<area shape="rect" href="classAnaCanScan.html#a428d6c62f3a2d6b4297898593961696b" title=" " alt="" coords="529,355,756,396"/>
-<area shape="rect" href="classAnaCanScan.html#af1deaf420c98dcdc4687f481fd4d9a08" title=" " alt="" coords="555,421,730,447"/>
-<area shape="rect" href="AnaCanScan_8cpp.html#ad5698349874e3653b879b5de27311594" title=" " alt="" coords="851,362,979,389"/>
-<area shape="rect" href="classAnaCanScan.html#ad4a01934370aa2e9ee72bd31406e2752" title=" " alt="" coords="1089,289,1295,331"/>
-<area shape="rect" href="namespaceCanModule.html#a3ec3082d7d11a9c1641023cb3f53cbe5" title=" " alt="" coords="1083,355,1301,396"/>
-<area shape="rect" href="namespaceCanModule.html#a6d0711aac0a75de5d2bf6142997a814d" title=" " alt="" coords="1075,421,1309,447"/>
-<area shape="rect" href="classAnaCanScan.html#a3e2635663ebdfac68591d6a0577fa951" title=" " alt="" coords="812,413,1019,455"/>
-<area shape="rect" href="classAnaCanScan.html#a1b62497ac5f0edcf9895c9f8cfad6b50" title=" " alt="" coords="804,479,1027,520"/>
-<area shape="rect" href="classAnaCanScan.html#a9ce965955bb5eba734ed36b81945cb74" title=" " alt="" coords="1115,478,1269,505"/>
-<area shape="rect" href="classAnaCanScan.html#a6eec29a421ec4af879143379833ec676" title=" " alt="" coords="529,502,756,529"/>
+<area shape="rect" href="classAnaCanScan.html#afeaf22bfd209035e9ad9ac3111c6ba65" title=" " alt="" coords="541,133,744,175"/>
+<area shape="rect" href="classAnaCanScan.html#a04a0124990e52b55b8c1046709ccb2d9" title=" " alt="" coords="537,199,748,240"/>
+<area shape="rect" href="classAnaCanScan.html#a428d6c62f3a2d6b4297898593961696b" title=" " alt="" coords="529,329,756,371"/>
+<area shape="rect" href="classAnaCanScan.html#af1deaf420c98dcdc4687f481fd4d9a08" title=" " alt="" coords="555,395,730,422"/>
+<area shape="rect" href="AnaCanScan_8cpp.html#ad5698349874e3653b879b5de27311594" title=" " alt="" coords="863,334,991,361"/>
+<area shape="rect" href="classAnaCanScan.html#ad4a01934370aa2e9ee72bd31406e2752" title=" " alt="" coords="1113,261,1319,303"/>
+<area shape="rect" href="namespaceCanModule.html#a3ec3082d7d11a9c1641023cb3f53cbe5" title=" " alt="" coords="1107,327,1325,368"/>
+<area shape="rect" href="namespaceCanModule.html#a6d0711aac0a75de5d2bf6142997a814d" title=" " alt="" coords="1099,393,1333,419"/>
+<area shape="rect" href="classAnaCanScan.html#a3e2635663ebdfac68591d6a0577fa951" title=" " alt="" coords="824,385,1031,427"/>
+<area shape="rect" href="classAnaCanScan.html#a1b62497ac5f0edcf9895c9f8cfad6b50" title=" " alt="" coords="816,451,1039,492"/>
+<area shape="rect" href="classAnaCanScan.html#a9ce965955bb5eba734ed36b81945cb74" title=" " alt="" coords="1139,450,1293,477"/>
+<area shape="rect" href="classAnaCanScan.html#a6eec29a421ec4af879143379833ec676" title=" " alt="" coords="529,507,756,534"/>
+<area shape="rect" href="classAnaCanScan.html#a1425dfc20e08b545fcdf49415ac15ec9" title=" " alt="" coords="804,517,1051,543"/>
 </map>
 </div>
 
@@ -1611,9 +1660,9 @@ Here is the call graph for this function:</div>
 
 <p>Implements <a class="el" href="classCanModule_1_1CCanAccess.html#acfefbc9be2696b1388cf6df2bba00aa1">CanModule::CCanAccess</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="AnaCanScan_8cpp_source.html#l01050">1050</a> of file <a class="el" href="AnaCanScan_8cpp_source.html">AnaCanScan.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="AnaCanScan_8cpp_source.html#l01009">1009</a> of file <a class="el" href="AnaCanScan_8cpp_source.html">AnaCanScan.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="AnaCanScan_8h_source.html#l00116">m_UcanHandle</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00072">MLOGANA</a>, and <a class="el" href="AnaCanScan_8cpp_source.html#l00487">sendErrorCode()</a>.</p>
+<p class="reference">References <a class="el" href="AnaCanScan_8h_source.html#l00115">m_UcanHandle</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00072">MLOGANA</a>, and <a class="el" href="AnaCanScan_8cpp_source.html#l00488">sendErrorCode()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1622,6 +1671,7 @@ Here is the call graph for this function:</div>
 <area shape="rect" title=" " alt="" coords="5,5,252,32"/>
 <area shape="rect" href="classAnaCanScan.html#aaa001b34e6ee0a27295239f951b7b879" title=" " alt="" coords="300,5,507,32"/>
 <area shape="rect" href="classAnaCanScan.html#a6eec29a421ec4af879143379833ec676" title=" " alt="" coords="555,5,781,32"/>
+<area shape="rect" href="classAnaCanScan.html#a1425dfc20e08b545fcdf49415ac15ec9" title=" " alt="" coords="829,5,1076,32"/>
 </map>
 </div>
 
@@ -1644,9 +1694,9 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>set a connection specific timeout value. Global timeout is 6000, set by CanOpenDevice In order to make this specific timeout apply we have to reconnect </p>
 
-<p class="definition">Definition at line <a class="el" href="AnaCanScan_8cpp_source.html#l01031">1031</a> of file <a class="el" href="AnaCanScan_8cpp_source.html">AnaCanScan.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="AnaCanScan_8cpp_source.html#l00990">990</a> of file <a class="el" href="AnaCanScan_8cpp_source.html">AnaCanScan.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="AnaCanScan_8h_source.html#l00118">m_timeout</a>, <a class="el" href="AnaCanScan_8h_source.html#l00116">m_UcanHandle</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00072">MLOGANA</a>, and <a class="el" href="AnaCanScan_8cpp_source.html#l00935">reconnect()</a>.</p>
+<p class="reference">References <a class="el" href="AnaCanScan_8h_source.html#l00117">m_timeout</a>, <a class="el" href="AnaCanScan_8h_source.html#l00115">m_UcanHandle</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00072">MLOGANA</a>, and <a class="el" href="AnaCanScan_8cpp_source.html#l00894">reconnect()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1696,11 +1746,11 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="AnaCanScan_8cpp_source.html#l00109">109</a> of file <a class="el" href="AnaCanScan_8cpp_source.html">AnaCanScan.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="AnaCanScan_8cpp_source.html#l00110">110</a> of file <a class="el" href="AnaCanScan_8cpp_source.html">AnaCanScan.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="AnaCanScan_8h_source.html#l00166">m_reconnectInProgress_map</a>.</p>
+<p class="reference">References <a class="el" href="AnaCanScan_8h_source.html#l00165">m_reconnectInProgress_map</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00748">reconnectAllPorts()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00707">reconnectAllPorts()</a>.</p>
 
 </div>
 </div>
@@ -1748,8 +1798,7 @@ Here is the call graph for this function:</div>
 </td></tr>
     <tr><td class="paramname"><a class="el" href="namespaceCanModule.html#a2062089fa4fa87c8354295f2a8fe31a5">CanModule::ReconnectAction</a></td><td>action<ul>
 <li>singleBus (default): a single connection (canbus, channel) is reset and reception handler is reconnected.</li>
-<li>wholeBridge if available, the whole bridge is reset, affecting all physical channels on that bridge. Only available for anagate. If a bridge is shared between multiple tasks, all channels across tasks are reset, affecting all tasks connected to that bridge. Evidently, a given channel must only be used by at most one task.</li>
-<li>hardReset: the bridge is reset in a "hard" way, i.e. firmware is rebooted (NOT reloaded or overwritten). Only available for anagate: the firmware of the bridge (ip) is reloaded using a special command of the anagate API which is not available through the common <a class="el" href="namespaceCanModule.html">CanModule</a> API, since it is vendor specific. This is a "hard software reset", and it is not the same as just power-cycling the module. It takes ~15secs and "is known to work nicely". </li>
+<li>wholeBridge if available, the whole bridge is reset, affecting all physical channels on that bridge. Only available for anagate. If a bridge is shared between multiple tasks, all channels across tasks are reset, affecting all tasks connected to that bridge. Evidently, a given channel must only be used by at most one task. </li>
 </ul>
 </td></tr>
   </table>
@@ -1758,7 +1807,7 @@ Here is the call graph for this function:</div>
 
 <p>Implements <a class="el" href="classCanModule_1_1CCanAccess.html#ae1088edaf5444ff42ee094ae46240cc5">CanModule::CCanAccess</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="AnaCanScan_8h_source.html#l00097">97</a> of file <a class="el" href="AnaCanScan_8h_source.html">AnaCanScan.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="AnaCanScan_8h_source.html#l00096">96</a> of file <a class="el" href="AnaCanScan_8h_source.html">AnaCanScan.h</a>.</p>
 
 </div>
 </div>
@@ -1789,7 +1838,7 @@ Here is the call graph for this function:</div>
 
 <p>Implements <a class="el" href="classCanModule_1_1CCanAccess.html#a665620fe5924cf87db0589a353d3d148">CanModule::CCanAccess</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="AnaCanScan_8h_source.html#l00102">102</a> of file <a class="el" href="AnaCanScan_8h_source.html">AnaCanScan.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="AnaCanScan_8h_source.html#l00101">101</a> of file <a class="el" href="AnaCanScan_8h_source.html">AnaCanScan.h</a>.</p>
 
 </div>
 </div>
@@ -1820,7 +1869,7 @@ Here is the call graph for this function:</div>
 
 <p>Implements <a class="el" href="classCanModule_1_1CCanAccess.html#a3c902569c0712d165fc7e385e683dc95">CanModule::CCanAccess</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="AnaCanScan_8h_source.html#l00101">101</a> of file <a class="el" href="AnaCanScan_8h_source.html">AnaCanScan.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="AnaCanScan_8h_source.html#l00100">100</a> of file <a class="el" href="AnaCanScan_8h_source.html">AnaCanScan.h</a>.</p>
 
 </div>
 </div>
@@ -1848,11 +1897,11 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>display the handle-&gt;object map, and using the object, show more details </p>
 
-<p class="definition">Definition at line <a class="el" href="AnaCanScan_8cpp_source.html#l00677">677</a> of file <a class="el" href="AnaCanScan_8cpp_source.html">AnaCanScan.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="AnaCanScan_8cpp_source.html#l00636">636</a> of file <a class="el" href="AnaCanScan_8cpp_source.html">AnaCanScan.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="AnaCanScan_8cpp_source.html#l00070">g_AnaCanScanObjectMap</a>, and <a class="el" href="AnaCanScan_8h_source.html#l00130">st_logItHandleAnagate</a>.</p>
+<p class="reference">References <a class="el" href="AnaCanScan_8cpp_source.html#l00070">g_AnaCanScanObjectMap</a>, and <a class="el" href="AnaCanScan_8h_source.html#l00129">st_logItHandleAnagate</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00748">reconnectAllPorts()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00695">reconnectThisPort()</a>, and <a class="el" href="AnaCanScan_8cpp_source.html#l00516">sendMessage()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00707">reconnectAllPorts()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00654">reconnectThisPort()</a>, and <a class="el" href="AnaCanScan_8cpp_source.html#l00517">sendMessage()</a>.</p>
 
 </div>
 </div>
@@ -1873,9 +1922,9 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>update statistics API </p>
 
-<p class="definition">Definition at line <a class="el" href="AnaCanScan_8cpp_source.html#l00200">200</a> of file <a class="el" href="AnaCanScan_8cpp_source.html">AnaCanScan.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="AnaCanScan_8cpp_source.html#l00201">201</a> of file <a class="el" href="AnaCanScan_8cpp_source.html">AnaCanScan.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="AnaCanScan_8h_source.html#l00117">m_statistics</a>, <a class="el" href="CanStatistics_8cpp_source.html#l00101">CanModule::CanStatistics::onReceive()</a>, and <a class="el" href="CanStatistics_8h_source.html#l00115">CanModule::CanStatistics::setTimeSinceReceived()</a>.</p>
+<p class="reference">References <a class="el" href="AnaCanScan_8h_source.html#l00116">m_statistics</a>, <a class="el" href="CanStatistics_8cpp_source.html#l00101">CanModule::CanStatistics::onReceive()</a>, and <a class="el" href="CanStatistics_8h_source.html#l00115">CanModule::CanStatistics::setTimeSinceReceived()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1913,9 +1962,9 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="AnaCanScan_8cpp_source.html#l00098">98</a> of file <a class="el" href="AnaCanScan_8cpp_source.html">AnaCanScan.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="AnaCanScan_8cpp_source.html#l00099">99</a> of file <a class="el" href="AnaCanScan_8cpp_source.html">AnaCanScan.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="AnaCanScan_8cpp_source.html#l00364">deleteCanHandleOfPortIp()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00916">eraseReceptionHandlerFromMap()</a>, <a class="el" href="AnaCanScan_8h_source.html#l00114">m_busName</a>, <a class="el" href="AnaCanScan_8h_source.html#l00110">m_canIPAddress</a>, <a class="el" href="AnaCanScan_8h_source.html#l00104">m_canPortNumber</a>, <a class="el" href="AnaCanScan_8h_source.html#l00116">m_UcanHandle</a>, and <a class="el" href="AnaCanScan_8cpp_source.html#l00072">MLOGANA</a>.</p>
+<p class="reference">References <a class="el" href="AnaCanScan_8cpp_source.html#l00365">deleteCanHandleOfPortIp()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00875">eraseReceptionHandlerFromMap()</a>, <a class="el" href="AnaCanScan_8h_source.html#l00113">m_busName</a>, <a class="el" href="AnaCanScan_8h_source.html#l00109">m_canIPAddress</a>, <a class="el" href="AnaCanScan_8h_source.html#l00103">m_canPortNumber</a>, <a class="el" href="AnaCanScan_8h_source.html#l00115">m_UcanHandle</a>, and <a class="el" href="AnaCanScan_8cpp_source.html#l00072">MLOGANA</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00093">~AnaCanScan()</a>.</p>
 <div class="dynheader">
@@ -1953,9 +2002,9 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="AnaCanScan_8h_source.html#l00111">111</a> of file <a class="el" href="AnaCanScan_8h_source.html">AnaCanScan.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="AnaCanScan_8h_source.html#l00110">110</a> of file <a class="el" href="AnaCanScan_8h_source.html">AnaCanScan.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00277">configureCanBoard()</a>, and <a class="el" href="AnaCanScan_8cpp_source.html#l01077">getStatistics()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00278">configureCanBoard()</a>, and <a class="el" href="AnaCanScan_8cpp_source.html#l01061">getStatistics()</a>.</p>
 
 </div>
 </div>
@@ -1979,9 +2028,9 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="AnaCanScan_8h_source.html#l00114">114</a> of file <a class="el" href="AnaCanScan_8h_source.html">AnaCanScan.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="AnaCanScan_8h_source.html#l00113">113</a> of file <a class="el" href="AnaCanScan_8h_source.html">AnaCanScan.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00244">createBus()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00916">eraseReceptionHandlerFromMap()</a>, and <a class="el" href="AnaCanScan_8cpp_source.html#l00098">stopBus()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00245">createBus()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00875">eraseReceptionHandlerFromMap()</a>, and <a class="el" href="AnaCanScan_8cpp_source.html#l00099">stopBus()</a>.</p>
 
 </div>
 </div>
@@ -2005,9 +2054,9 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="AnaCanScan_8h_source.html#l00115">115</a> of file <a class="el" href="AnaCanScan_8h_source.html">AnaCanScan.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="AnaCanScan_8h_source.html#l00114">114</a> of file <a class="el" href="AnaCanScan_8h_source.html">AnaCanScan.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00244">createBus()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00245">createBus()</a>.</p>
 
 </div>
 </div>
@@ -2031,9 +2080,9 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="AnaCanScan_8h_source.html#l00113">113</a> of file <a class="el" href="AnaCanScan_8h_source.html">AnaCanScan.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="AnaCanScan_8h_source.html#l00112">112</a> of file <a class="el" href="AnaCanScan_8h_source.html">AnaCanScan.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00935">reconnect()</a>, and <a class="el" href="AnaCanScan_8cpp_source.html#l00516">sendMessage()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00894">reconnect()</a>, and <a class="el" href="AnaCanScan_8cpp_source.html#l00517">sendMessage()</a>.</p>
 
 </div>
 </div>
@@ -2057,9 +2106,9 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="AnaCanScan_8h_source.html#l00110">110</a> of file <a class="el" href="AnaCanScan_8h_source.html">AnaCanScan.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="AnaCanScan_8h_source.html#l00109">109</a> of file <a class="el" href="AnaCanScan_8h_source.html">AnaCanScan.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00277">configureCanBoard()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00865">connectReceptionHandler()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00412">openCanPort()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00935">reconnect()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00695">reconnectThisPort()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00516">sendMessage()</a>, and <a class="el" href="AnaCanScan_8cpp_source.html#l00098">stopBus()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00278">configureCanBoard()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00824">connectReceptionHandler()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00413">openCanPort()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00894">reconnect()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00654">reconnectThisPort()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00517">sendMessage()</a>, and <a class="el" href="AnaCanScan_8cpp_source.html#l00099">stopBus()</a>.</p>
 
 </div>
 </div>
@@ -2083,9 +2132,9 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="AnaCanScan_8h_source.html#l00104">104</a> of file <a class="el" href="AnaCanScan_8h_source.html">AnaCanScan.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="AnaCanScan_8h_source.html#l00103">103</a> of file <a class="el" href="AnaCanScan_8h_source.html">AnaCanScan.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00277">configureCanBoard()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00865">connectReceptionHandler()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00412">openCanPort()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00935">reconnect()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00695">reconnectThisPort()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00516">sendMessage()</a>, and <a class="el" href="AnaCanScan_8cpp_source.html#l00098">stopBus()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00278">configureCanBoard()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00824">connectReceptionHandler()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00413">openCanPort()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00894">reconnect()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00654">reconnectThisPort()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00517">sendMessage()</a>, and <a class="el" href="AnaCanScan_8cpp_source.html#l00099">stopBus()</a>.</p>
 
 </div>
 </div>
@@ -2109,7 +2158,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="AnaCanScan_8h_source.html#l00112">112</a> of file <a class="el" href="AnaCanScan_8h_source.html">AnaCanScan.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="AnaCanScan_8h_source.html#l00111">111</a> of file <a class="el" href="AnaCanScan_8h_source.html">AnaCanScan.h</a>.</p>
 
 </div>
 </div>
@@ -2133,9 +2182,9 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="AnaCanScan_8h_source.html#l00166">166</a> of file <a class="el" href="AnaCanScan_8h_source.html">AnaCanScan.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="AnaCanScan_8h_source.html#l00165">165</a> of file <a class="el" href="AnaCanScan_8h_source.html">AnaCanScan.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00130">isIpReconnectInProgress()</a>, and <a class="el" href="AnaCanScan_8cpp_source.html#l00109">setIpReconnectInProgress()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00131">isIpReconnectInProgress()</a>, and <a class="el" href="AnaCanScan_8cpp_source.html#l00110">setIpReconnectInProgress()</a>.</p>
 
 </div>
 </div>
@@ -2159,9 +2208,9 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="AnaCanScan_8h_source.html#l00117">117</a> of file <a class="el" href="AnaCanScan_8h_source.html">AnaCanScan.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="AnaCanScan_8h_source.html#l00116">116</a> of file <a class="el" href="AnaCanScan_8h_source.html">AnaCanScan.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00074">AnaCanScan()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l01077">getStatistics()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00516">sendMessage()</a>, and <a class="el" href="AnaCanScan_8cpp_source.html#l00200">statisticsOnRecieve()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00074">AnaCanScan()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l01061">getStatistics()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00517">sendMessage()</a>, and <a class="el" href="AnaCanScan_8cpp_source.html#l00201">statisticsOnRecieve()</a>.</p>
 
 </div>
 </div>
@@ -2185,9 +2234,9 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="AnaCanScan_8h_source.html#l00118">118</a> of file <a class="el" href="AnaCanScan_8h_source.html">AnaCanScan.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="AnaCanScan_8h_source.html#l00117">117</a> of file <a class="el" href="AnaCanScan_8h_source.html">AnaCanScan.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00412">openCanPort()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00935">reconnect()</a>, and <a class="el" href="AnaCanScan_8cpp_source.html#l01031">setConnectWaitTime()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00413">openCanPort()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00894">reconnect()</a>, and <a class="el" href="AnaCanScan_8cpp_source.html#l00990">setConnectWaitTime()</a>.</p>
 
 </div>
 </div>
@@ -2211,9 +2260,9 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="AnaCanScan_8h_source.html#l00116">116</a> of file <a class="el" href="AnaCanScan_8h_source.html">AnaCanScan.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="AnaCanScan_8h_source.html#l00115">115</a> of file <a class="el" href="AnaCanScan_8h_source.html">AnaCanScan.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00865">connectReceptionHandler()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00412">openCanPort()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00935">reconnect()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00516">sendMessage()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l01050">sendRemoteRequest()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l01031">setConnectWaitTime()</a>, and <a class="el" href="AnaCanScan_8cpp_source.html#l00098">stopBus()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00824">connectReceptionHandler()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00413">openCanPort()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00894">reconnect()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00517">sendMessage()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l01009">sendRemoteRequest()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00990">setConnectWaitTime()</a>, and <a class="el" href="AnaCanScan_8cpp_source.html#l00099">stopBus()</a>.</p>
 
 </div>
 </div>
@@ -2237,9 +2286,9 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="AnaCanScan_8h_source.html#l00143">143</a> of file <a class="el" href="AnaCanScan_8h_source.html">AnaCanScan.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="AnaCanScan_8h_source.html#l00142">142</a> of file <a class="el" href="AnaCanScan_8h_source.html">AnaCanScan.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00346">addCanHandleOfPortIp()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00364">deleteCanHandleOfPortIp()</a>, and <a class="el" href="AnaCanScan_8cpp_source.html#l00389">getCanHandleOfPortIp()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00347">addCanHandleOfPortIp()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00365">deleteCanHandleOfPortIp()</a>, and <a class="el" href="AnaCanScan_8cpp_source.html#l00390">getCanHandleOfPortIp()</a>.</p>
 
 </div>
 </div>
@@ -2264,9 +2313,9 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>we would like to keep logging from a few static methods as well, since one IP number corresponds to many ports and some class-level management is going on for the connect-reconnect behavior. We definitely need these to be static. So since we need the logit handle static there is no point in having it also private. At least the cross-thread references to the handler are within this class only. It is all re-entrant code, and the handler does not change during runtime any more, so no mutex protection for now. </p>
 
-<p class="definition">Definition at line <a class="el" href="AnaCanScan_8h_source.html#l00130">130</a> of file <a class="el" href="AnaCanScan_8h_source.html">AnaCanScan.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="AnaCanScan_8h_source.html#l00129">129</a> of file <a class="el" href="AnaCanScan_8h_source.html">AnaCanScan.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00346">addCanHandleOfPortIp()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00244">createBus()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00364">deleteCanHandleOfPortIp()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00389">getCanHandleOfPortIp()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00748">reconnectAllPorts()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00695">reconnectThisPort()</a>, and <a class="el" href="AnaCanScan_8cpp_source.html#l00677">showAnaCanScanObjectMap()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00347">addCanHandleOfPortIp()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00245">createBus()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00365">deleteCanHandleOfPortIp()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00390">getCanHandleOfPortIp()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00707">reconnectAllPorts()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00654">reconnectThisPort()</a>, and <a class="el" href="AnaCanScan_8cpp_source.html#l00636">showAnaCanScanObjectMap()</a>.</p>
 
 </div>
 </div>

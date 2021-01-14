@@ -14,9 +14,6 @@
       <node id="5">
         <label>LogIt.h</label>
       </node>
-      <node id="11">
-        <label>bits/stdc++.h</label>
-      </node>
       <node id="17">
         <label>CanStatistics.h</label>
         <link refid="CanStatistics_8h"/>
@@ -29,11 +26,37 @@
         <childnode refid="20" relation="include">
         </childnode>
       </node>
+      <node id="11">
+        <label>bits/stdc++.h</label>
+      </node>
+      <node id="19">
+        <label>ExportDefinition.h</label>
+        <link refid="ExportDefinition_8h"/>
+      </node>
       <node id="15">
         <label>boost/signals2.hpp</label>
       </node>
       <node id="8">
         <label>stdexcept</label>
+      </node>
+      <node id="16">
+        <label>CanMessage.h</label>
+        <link refid="CanMessage_8h"/>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>string</label>
+      </node>
+      <node id="2">
+        <label>UdevAnalyserForPeak.h</label>
+        <link refid="UdevAnalyserForPeak_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
       </node>
       <node id="6">
         <label>ExecCommand.h</label>
@@ -51,11 +74,15 @@
         <childnode refid="10" relation="include">
         </childnode>
       </node>
-      <node id="3">
-        <label>string</label>
-      </node>
       <node id="14">
         <label>boost/bind/bind.hpp</label>
+      </node>
+      <node id="4">
+        <label>vector</label>
+      </node>
+      <node id="21">
+        <label>VERSION.h</label>
+        <link refid="VERSION_8h"/>
       </node>
       <node id="12">
         <label>CCanAccess.h</label>
@@ -77,29 +104,14 @@
         <childnode refid="5" relation="include">
         </childnode>
       </node>
-      <node id="21">
-        <label>VERSION.h</label>
-        <link refid="VERSION_8h"/>
-      </node>
-      <node id="4">
-        <label>vector</label>
-      </node>
-      <node id="2">
-        <label>UdevAnalyserForPeak.h</label>
-        <link refid="UdevAnalyserForPeak_8h"/>
-        <childnode refid="3" relation="include">
-        </childnode>
-        <childnode refid="4" relation="include">
-        </childnode>
-        <childnode refid="5" relation="include">
-        </childnode>
-      </node>
       <node id="9">
         <label>sstream</label>
       </node>
-      <node id="19">
-        <label>ExportDefinition.h</label>
-        <link refid="ExportDefinition_8h"/>
+      <node id="13">
+        <label>sys/time.h</label>
+      </node>
+      <node id="10">
+        <label>iostream</label>
       </node>
       <node id="1">
         <label>CanInterfaceImplementations/sockcan/UdevAnalyserForPeak.cpp</label>
@@ -113,18 +125,6 @@
         <childnode refid="12" relation="include">
         </childnode>
         <childnode refid="5" relation="include">
-        </childnode>
-      </node>
-      <node id="13">
-        <label>sys/time.h</label>
-      </node>
-      <node id="10">
-        <label>iostream</label>
-      </node>
-      <node id="16">
-        <label>CanMessage.h</label>
-        <link refid="CanMessage_8h"/>
-        <childnode refid="13" relation="include">
         </childnode>
       </node>
       <node id="20">
@@ -304,54 +304,53 @@
 <codeline lineno="213"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="214"><highlight class="normal"></highlight></codeline>
 <codeline lineno="218" refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1a64bc86c641b444e6d6ccfc80d565b74f" refkind="member"><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1a64bc86c641b444e6d6ccfc80d565b74f" kindref="member">UdevAnalyserForPeak::m_peakDeviceIdFromSystemDeviceIndex</ref>(<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>sd<sp/>){</highlight></codeline>
-<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;PEAK_device_t&gt;::iterator<sp/>it<sp/>=<sp/><ref refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1a1305c736fdc28c62cfa29144e25d7f3a" kindref="member">m_peak_v</ref>.begin();</highlight></codeline>
-<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(<sp/>std::vector&lt;PEAK_device_t&gt;::iterator<sp/>it<sp/>=<sp/><ref refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1a1305c736fdc28c62cfa29144e25d7f3a" kindref="member">m_peak_v</ref>.begin();<sp/>it<sp/>&lt;=<sp/><ref refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1a1305c736fdc28c62cfa29144e25d7f3a" kindref="member">m_peak_v</ref>.end();<sp/>it++<sp/>){</highlight></codeline>
-<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<sp/>it-&gt;systemDeviceIndex<sp/>==<sp/>sd<sp/>)<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">(<sp/>it-&gt;deviceID<sp/>);</highlight></codeline>
-<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">(-1);<sp/></highlight><highlight class="comment">//<sp/>not<sp/>found</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="224"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="225"><highlight class="normal"></highlight></codeline>
-<codeline lineno="230" refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1a591ea665dcb445268404b113473092a1" refkind="member"><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1a591ea665dcb445268404b113473092a1" kindref="member">UdevAnalyserForPeak::m_peakDriverNumber</ref>(<sp/>std::string<sp/>s<sp/>){</highlight></codeline>
-<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>pos1<sp/>=<sp/>s.find(<sp/></highlight><highlight class="stringliteral">&quot;devid=&quot;</highlight><highlight class="normal"><sp/>)<sp/>+<sp/>6;</highlight></codeline>
-<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>sub1<sp/>=<sp/>s.substr(<sp/>pos1,<sp/>std::string::npos<sp/>);</highlight></codeline>
-<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/>std::cout<sp/>&lt;&lt;<sp/>__FILE__<sp/>&lt;&lt;<sp/>&quot;<sp/>&quot;<sp/>&lt;&lt;<sp/>__LINE__<sp/>&lt;&lt;<sp/>&quot;<sp/>sub1=<sp/>&quot;<sp/>&lt;&lt;<sp/>sub1<sp/>&lt;&lt;<sp/>std::endl;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>pos2<sp/>=<sp/>sub1.find(<sp/></highlight><highlight class="stringliteral">&quot;<sp/>pcan&quot;</highlight><highlight class="normal"><sp/>)<sp/>+<sp/>5;</highlight></codeline>
-<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>sub2<sp/>=<sp/>sub1.substr(<sp/>pos2,<sp/>std::string::npos<sp/>);</highlight></codeline>
-<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/>std::cout<sp/>&lt;&lt;<sp/>__FILE__<sp/>&lt;&lt;<sp/>&quot;<sp/>&quot;<sp/>&lt;&lt;<sp/>__LINE__<sp/>&lt;&lt;<sp/>&quot;<sp/>sub2=<sp/>&quot;<sp/>&lt;&lt;<sp/>sub2<sp/>&lt;&lt;<sp/>std::endl;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>sub3<sp/>=<sp/>sub2.substr(<sp/>0,<sp/>sub2.find(</highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal">)<sp/>);</highlight></codeline>
-<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/>std::cout<sp/>&lt;&lt;<sp/>__FILE__<sp/>&lt;&lt;<sp/>&quot;<sp/>&quot;<sp/>&lt;&lt;<sp/>__LINE__<sp/>&lt;&lt;<sp/>&quot;<sp/>sub3=<sp/>&quot;<sp/>&lt;&lt;<sp/>sub3<sp/>&lt;&lt;<sp/>std::endl;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">(<sp/>std::stoi(<sp/>sub3<sp/>));</highlight></codeline>
-<codeline lineno="240"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="241"><highlight class="normal"></highlight></codeline>
-<codeline lineno="246" refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1a0570a23bb2eb7f57930ff4eb8cf7fbaf" refkind="member"><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1a0570a23bb2eb7f57930ff4eb8cf7fbaf" kindref="member">UdevAnalyserForPeak::m_peakLocalCanPort</ref>(<sp/>std::string<sp/>s<sp/>){</highlight></codeline>
-<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>pos1<sp/>=<sp/>s.find(<sp/></highlight><highlight class="stringliteral">&quot;/&quot;</highlight><highlight class="normal"><sp/>)<sp/>+<sp/>1;</highlight></codeline>
-<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>sub1<sp/>=<sp/>s.substr(<sp/>pos1,<sp/>std::string::npos<sp/>);</highlight></codeline>
-<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>pos2<sp/>=<sp/>sub1.find(<sp/></highlight><highlight class="stringliteral">&quot;/&quot;</highlight><highlight class="normal"><sp/>)<sp/>+<sp/>1;</highlight></codeline>
-<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>sub2<sp/>=<sp/>sub1.substr(<sp/>pos2,<sp/>sub1.find(</highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal">)<sp/>-<sp/>2<sp/>);</highlight></codeline>
-<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>sub3<sp/>=<sp/>sub2.substr(<sp/>3,<sp/>std::string::npos<sp/>);</highlight></codeline>
-<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//std::cout<sp/>&lt;&lt;<sp/>__FILE__<sp/>&lt;&lt;<sp/>&quot;<sp/>&quot;<sp/>&lt;&lt;<sp/>__LINE__<sp/>&lt;&lt;<sp/>&quot;<sp/>sub3=<sp/>&quot;<sp/>&lt;&lt;<sp/>sub3<sp/>&lt;&lt;<sp/>std::endl;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">(<sp/>std::stoi(<sp/>sub3<sp/>));</highlight></codeline>
-<codeline lineno="254"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="255"><highlight class="normal"></highlight></codeline>
-<codeline lineno="260" refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1aa4c7f266427a299185aa8999d63b381a" refkind="member"><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1aa4c7f266427a299185aa8999d63b381a" kindref="member">UdevAnalyserForPeak::m_peakDeviceId</ref>(<sp/>std::string<sp/>s<sp/>){</highlight></codeline>
-<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>devid<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;devid=&quot;</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>pos1<sp/>=<sp/>s.find(<sp/>devid<sp/>)<sp/>+<sp/>std::string(<sp/>devid<sp/>).length();</highlight></codeline>
-<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>sub1<sp/>=<sp/>s.substr(<sp/>pos1,<sp/>std::string::npos<sp/>);</highlight></codeline>
-<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>sub2<sp/>=<sp/>sub1.substr(<sp/>0,<sp/>sub1.find(</highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal">)<sp/>);</highlight></codeline>
-<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">(<sp/>std::stoi(<sp/>sub2<sp/>));</highlight></codeline>
-<codeline lineno="266"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="267"><highlight class="normal"></highlight></codeline>
-<codeline lineno="272" refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1a398b71235631eac545a05eb0d03acfcd" refkind="member"><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1a398b71235631eac545a05eb0d03acfcd" kindref="member">UdevAnalyserForPeak::m_peakSystemDeviceIndex</ref>(<sp/>std::string<sp/>s<sp/>){</highlight></codeline>
-<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>pos1<sp/>=<sp/>s.find(<sp/></highlight><highlight class="stringliteral">&quot;/&quot;</highlight><highlight class="normal"><sp/>)<sp/>+<sp/>1;</highlight></codeline>
-<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>sub1<sp/>=<sp/>s.substr(<sp/>pos1,<sp/>std::string::npos<sp/>);</highlight></codeline>
-<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>sub2<sp/>=<sp/>sub1.substr(<sp/>0,<sp/>sub1.find(</highlight><highlight class="stringliteral">&quot;/&quot;</highlight><highlight class="normal">)<sp/>);</highlight></codeline>
-<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">(<sp/>std::stoi(<sp/>sub2<sp/>));</highlight></codeline>
-<codeline lineno="277"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(<sp/>std::vector&lt;PEAK_device_t&gt;::iterator<sp/>it<sp/>=<sp/><ref refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1a1305c736fdc28c62cfa29144e25d7f3a" kindref="member">m_peak_v</ref>.begin();<sp/>it<sp/>&lt;=<sp/><ref refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1a1305c736fdc28c62cfa29144e25d7f3a" kindref="member">m_peak_v</ref>.end();<sp/>it++<sp/>){</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<sp/>it-&gt;systemDeviceIndex<sp/>==<sp/>sd<sp/>)<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">(<sp/>it-&gt;deviceID<sp/>);</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">(-1);<sp/></highlight><highlight class="comment">//<sp/>not<sp/>found</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="223"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"></highlight></codeline>
+<codeline lineno="229" refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1a591ea665dcb445268404b113473092a1" refkind="member"><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1a591ea665dcb445268404b113473092a1" kindref="member">UdevAnalyserForPeak::m_peakDriverNumber</ref>(<sp/>std::string<sp/>s<sp/>){</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>pos1<sp/>=<sp/>s.find(<sp/></highlight><highlight class="stringliteral">&quot;devid=&quot;</highlight><highlight class="normal"><sp/>)<sp/>+<sp/>6;</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>sub1<sp/>=<sp/>s.substr(<sp/>pos1,<sp/>std::string::npos<sp/>);</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/>std::cout<sp/>&lt;&lt;<sp/>__FILE__<sp/>&lt;&lt;<sp/>&quot;<sp/>&quot;<sp/>&lt;&lt;<sp/>__LINE__<sp/>&lt;&lt;<sp/>&quot;<sp/>sub1=<sp/>&quot;<sp/>&lt;&lt;<sp/>sub1<sp/>&lt;&lt;<sp/>std::endl;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>pos2<sp/>=<sp/>sub1.find(<sp/></highlight><highlight class="stringliteral">&quot;<sp/>pcan&quot;</highlight><highlight class="normal"><sp/>)<sp/>+<sp/>5;</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>sub2<sp/>=<sp/>sub1.substr(<sp/>pos2,<sp/>std::string::npos<sp/>);</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/>std::cout<sp/>&lt;&lt;<sp/>__FILE__<sp/>&lt;&lt;<sp/>&quot;<sp/>&quot;<sp/>&lt;&lt;<sp/>__LINE__<sp/>&lt;&lt;<sp/>&quot;<sp/>sub2=<sp/>&quot;<sp/>&lt;&lt;<sp/>sub2<sp/>&lt;&lt;<sp/>std::endl;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>sub3<sp/>=<sp/>sub2.substr(<sp/>0,<sp/>sub2.find(</highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal">)<sp/>);</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/>std::cout<sp/>&lt;&lt;<sp/>__FILE__<sp/>&lt;&lt;<sp/>&quot;<sp/>&quot;<sp/>&lt;&lt;<sp/>__LINE__<sp/>&lt;&lt;<sp/>&quot;<sp/>sub3=<sp/>&quot;<sp/>&lt;&lt;<sp/>sub3<sp/>&lt;&lt;<sp/>std::endl;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">(<sp/>std::stoi(<sp/>sub3<sp/>));</highlight></codeline>
+<codeline lineno="239"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"></highlight></codeline>
+<codeline lineno="245" refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1a0570a23bb2eb7f57930ff4eb8cf7fbaf" refkind="member"><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1a0570a23bb2eb7f57930ff4eb8cf7fbaf" kindref="member">UdevAnalyserForPeak::m_peakLocalCanPort</ref>(<sp/>std::string<sp/>s<sp/>){</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>pos1<sp/>=<sp/>s.find(<sp/></highlight><highlight class="stringliteral">&quot;/&quot;</highlight><highlight class="normal"><sp/>)<sp/>+<sp/>1;</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>sub1<sp/>=<sp/>s.substr(<sp/>pos1,<sp/>std::string::npos<sp/>);</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>pos2<sp/>=<sp/>sub1.find(<sp/></highlight><highlight class="stringliteral">&quot;/&quot;</highlight><highlight class="normal"><sp/>)<sp/>+<sp/>1;</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>sub2<sp/>=<sp/>sub1.substr(<sp/>pos2,<sp/>sub1.find(</highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal">)<sp/>-<sp/>2<sp/>);</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>sub3<sp/>=<sp/>sub2.substr(<sp/>3,<sp/>std::string::npos<sp/>);</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//std::cout<sp/>&lt;&lt;<sp/>__FILE__<sp/>&lt;&lt;<sp/>&quot;<sp/>&quot;<sp/>&lt;&lt;<sp/>__LINE__<sp/>&lt;&lt;<sp/>&quot;<sp/>sub3=<sp/>&quot;<sp/>&lt;&lt;<sp/>sub3<sp/>&lt;&lt;<sp/>std::endl;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">(<sp/>std::stoi(<sp/>sub3<sp/>));</highlight></codeline>
+<codeline lineno="253"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"></highlight></codeline>
+<codeline lineno="259" refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1aa4c7f266427a299185aa8999d63b381a" refkind="member"><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1aa4c7f266427a299185aa8999d63b381a" kindref="member">UdevAnalyserForPeak::m_peakDeviceId</ref>(<sp/>std::string<sp/>s<sp/>){</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>devid<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;devid=&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>pos1<sp/>=<sp/>s.find(<sp/>devid<sp/>)<sp/>+<sp/>std::string(<sp/>devid<sp/>).length();</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>sub1<sp/>=<sp/>s.substr(<sp/>pos1,<sp/>std::string::npos<sp/>);</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>sub2<sp/>=<sp/>sub1.substr(<sp/>0,<sp/>sub1.find(</highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal">)<sp/>);</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">(<sp/>std::stoi(<sp/>sub2<sp/>));</highlight></codeline>
+<codeline lineno="265"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"></highlight></codeline>
+<codeline lineno="271" refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1a398b71235631eac545a05eb0d03acfcd" refkind="member"><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1a398b71235631eac545a05eb0d03acfcd" kindref="member">UdevAnalyserForPeak::m_peakSystemDeviceIndex</ref>(<sp/>std::string<sp/>s<sp/>){</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>pos1<sp/>=<sp/>s.find(<sp/></highlight><highlight class="stringliteral">&quot;/&quot;</highlight><highlight class="normal"><sp/>)<sp/>+<sp/>1;</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>sub1<sp/>=<sp/>s.substr(<sp/>pos1,<sp/>std::string::npos<sp/>);</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>sub2<sp/>=<sp/>sub1.substr(<sp/>0,<sp/>sub1.find(</highlight><highlight class="stringliteral">&quot;/&quot;</highlight><highlight class="normal">)<sp/>);</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">(<sp/>std::stoi(<sp/>sub2<sp/>));</highlight></codeline>
+<codeline lineno="276"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"></highlight></codeline>
 <codeline lineno="278"><highlight class="normal"></highlight></codeline>
-<codeline lineno="279"><highlight class="normal"></highlight></codeline>
-<codeline lineno="280"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>udevanalyserforpeak_ns</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="279"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>udevanalyserforpeak_ns</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="280"><highlight class="normal"></highlight></codeline>
 <codeline lineno="281"><highlight class="normal"></highlight></codeline>
-<codeline lineno="282"><highlight class="normal"></highlight></codeline>
     </programlisting>
     <location file="CanInterfaceImplementations/sockcan/UdevAnalyserForPeak.cpp"/>
   </compounddef>

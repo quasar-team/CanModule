@@ -10,8 +10,7 @@ var CCanAccess_8h =
     [ "MLOG", "CCanAccess_8h.html#ad506d1f216984abc94d5a65f33053626", null ],
     [ "ReconnectAction", "CCanAccess_8h.html#a2062089fa4fa87c8354295f2a8fe31a5", [
       [ "singleBus", "CCanAccess_8h.html#a2062089fa4fa87c8354295f2a8fe31a5a5f768fefafa6db21eee26885afb6163d", null ],
-      [ "allBusesOnBridge", "CCanAccess_8h.html#a2062089fa4fa87c8354295f2a8fe31a5a319ee2c9d887d55f6bc1941518a5ae76", null ],
-      [ "hardReset", "CCanAccess_8h.html#a2062089fa4fa87c8354295f2a8fe31a5a74fa07b834c8e10084ece32c00d9bbbc", null ]
+      [ "allBusesOnBridge", "CCanAccess_8h.html#a2062089fa4fa87c8354295f2a8fe31a5a319ee2c9d887d55f6bc1941518a5ae76", null ]
     ] ],
     [ "ReconnectAutoCondition", "CCanAccess_8h.html#a2f4fee79cc7ba53467c2538fe6b9adbb", [
       [ "sendFail", "CCanAccess_8h.html#a2f4fee79cc7ba53467c2538fe6b9adbbae323a25a871808f9a0df9a72ce954585", null ],
