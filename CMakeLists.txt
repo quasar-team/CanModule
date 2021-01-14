@@ -24,7 +24,6 @@ file(WRITE CanInterface/include/VERSION.h "// VERSION.h - do not edit\n#define C
 
 # specify -DCANMODULE_AS_STATIC_AS_POSSIBLE for cmake to switch the CanLibLoaderLin lib names accordingly
 # so that the "as-static-as-possible" shared libs are used by CanModule
-UNSET ( __STDC_NO_THREADS__ )
 set (CMAKE_CXX_STANDARD 11)
 
 IF (WIN32)
