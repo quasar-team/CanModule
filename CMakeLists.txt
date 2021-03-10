@@ -108,8 +108,8 @@ SET( SRCS
 		CanInterface/include/CanStatistics.h 
 		CanInterface/src/CanModuleUtils.cpp
 		CanInterface/include/CanModuleUtils.h
-	#	CanInterface/src/CanBusAccess.cpp
-	#	CanInterface/include/CanBusAccess.h
+		CanInterface/src/CanBusAccess.cpp
+		CanInterface/include/CanBusAccess.h
 		CanInterface/include/CanMessage.h
 		CanInterface/src/CCanAccess.cpp
 		CanInterface/include/CCanAccess.h
