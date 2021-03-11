@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+### 2.0.8
+- adding CanModule (filimonov) wrapper again to solve https://its.cern.ch/jira/browse/OPCUA-2098
+  CanInterface/CanBusAccess.cpp/h added
+- testing wrapper accordingly
+
+
 ## 2.0.7
 - OPCUA-1691: replaced pthreads with std::thread C++11. Call non-static private member method on embedding object,
   as this is the best option to profit from inheritance (which is deeply rooted into CanModule, unfortunately)
