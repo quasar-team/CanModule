@@ -769,7 +769,7 @@ int CSockCanScan::createBus(const string name, const string parameters)
 		if (it == CSockCanScan::m_busMap.end()) {
 			CSockCanScan::m_busMap.insert ( std::pair<string, string>(name, parameters) );
 			m_busName = name;
-			MLOGSOCK(ERR,this) << "added to busMap: [" << name << "] with parameters [" << parameters << "]";
+			MLOGSOCK(TRC,this) << "added to busMap: [" << name << "] with parameters [" << parameters << "]";
 		} else {
 			skip = true;
 		}
