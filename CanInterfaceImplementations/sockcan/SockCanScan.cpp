@@ -784,6 +784,14 @@ int CSockCanScan::createBus(const string name, const string parameters)
 	m_sock = configureCanBoard(name,parameters);
 	if (m_sock < 0) {
 		MLOGSOCK(ERR,this) << "Could not create bus [" << name << "] with parameters [" << parameters << "]";
+		// take it out from the map again
+		std::map<string, string>::iterator it = CSockCanScan::m_busMap.find( name );
+		if (it != CSockCanScan::m_busMap.end()) {
+			CSockCanScan::m_busMap.erase ( it );
+			m_busName = "";
+			MLOGSOCK(TRC,this) << "removed from busMap: [" << name << "] with parameters [" << parameters << "]";
+		}
+
 		return -1;
 	}
 	MLOGSOCK(TRC,this) << "Created bus with parameters [" << parameters << "], starting main loop";
