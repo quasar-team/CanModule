@@ -113,8 +113,6 @@ void CSockCanScan::CanScanControlThread()
 
 	p_sockCanScan->m_CanScanThreadRunEnableFlag = true;
 	int sock = p_sockCanScan->m_sock;
-	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " sock= " << sock << std::endl;
-
 	{
 		// discard first read
 		fd_set set;
@@ -125,9 +123,7 @@ void CSockCanScan::CanScanControlThread()
 		timeout.tv_sec = 1;
 		timeout.tv_usec = 0;
 
-		// MLOGSOCK(INF,p_sockCanScan) << "waiting for first reception on socket " << sock;
-		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << std::endl;
-
+		MLOGSOCK(INF,p_sockCanScan) << "waiting for first reception on socket " << sock;
 
 		int selectResult = select( sock+1, &set, 0, &set, &timeout );
 		if ( selectResult > 0 ) {
