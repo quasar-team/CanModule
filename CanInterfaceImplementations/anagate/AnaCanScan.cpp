@@ -661,7 +661,7 @@ AnaInt32 AnaCanScan::reconnectThisPort(){
 		//	std::chrono::milliseconds ms(5000);
 		//	std::this_thread::sleep_for ( ms );
 		// }
-		ms_sleep( 5000 );
+		CanModule::ms_sleep( 5000 );
 		//{
 			//int us = 5000000;
 			//boost::this_thread::sleep(boost::posix_time::microseconds( us ));

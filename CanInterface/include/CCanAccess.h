@@ -57,7 +57,7 @@ const std::string LogItComponentName = "CanModule";
 
 void ms_sleep( int ms ){
 	std::chrono::milliseconds delay( ms );
-	boost::this_thread::sleep(boost::posix_time::microseconds( delay ));
+	std::this_thread::sleep_for( delay );
 }
 
 /**
