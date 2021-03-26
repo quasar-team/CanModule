@@ -25,24 +25,24 @@
 #ifndef CCANACCESS_H_
 #define CCANACCESS_H_
 
-#ifdef _WIN32
-#include <time.h>
-#else
-#include <sys/time.h>
-#endif
+//#ifdef _WIN32
+//#include <time.h>
+//#else
+//#include <sys/time.h>
+//#endif
 
 #include <chrono>
 #include <thread>
-
-
-#include "boost/bind/bind.hpp"
-#include "boost/signals2.hpp"
 #include <string>
+
+#include <boost/bind/bind.hpp>
+#include <boost/signals2.hpp>
+
+#include <LogIt.h>
+
 #include "CanMessage.h"
 #include "CanStatistics.h"
 #include "VERSION.h"
-#include <LogIt.h>
-
 
 
 /*
