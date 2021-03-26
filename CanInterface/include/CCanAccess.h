@@ -55,7 +55,7 @@ namespace CanModule
 const std::string LogItComponentName = "CanModule";
 #define MLOG(LEVEL,THIS) LOG(Log::LEVEL) << __FUNCTION__ << " " << CanModule::LogItComponentName << " bus= " << THIS->getBusName() << " "
 
-void ms_sleep( int ms ){
+static void ms_sleep( int ms ){
 	std::chrono::milliseconds delay( ms );
 	std::this_thread::sleep_for( delay );
 }
