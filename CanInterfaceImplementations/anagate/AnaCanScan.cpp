@@ -658,12 +658,12 @@ AnaInt32 AnaCanScan::reconnectThisPort(){
 		MLOGANA(WRN, this) << "failed to reconnect CAN port " << m_canPortNumber
 				<< " ip= " << m_canIPAddress << ",  try again";
 		{
-		int ms = 5000;
-		std::this_thread::sleep_for ( ms );
+			std::chrono::milliseconds ms(5000);
+			std::this_thread::sleep_for ( ms );
 		}
 		{
-		int us = 5000000;
-		boost::this_thread::sleep(boost::posix_time::microseconds( us ));
+			int us = 5000000;
+			boost::this_thread::sleep(boost::posix_time::microseconds( us ));
 		}
 		anaCallReturn0 = reconnect();
 	}
