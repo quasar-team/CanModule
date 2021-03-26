@@ -110,7 +110,15 @@ CCanAccess* CanLibLoader::openCanBus(string name, string parameters) {
 		}
 		case -1:{
 			LOG(Log::WRN, lh ) << __FUNCTION__ << " createBus Problem opening canBus for: " << name;
-			//throw std::runtime_error("CanLibLoader::openCanBus: createBus Problem when opening canBus. stop." );
+			/** we could do 3 things here:
+			* 1. throw an exception and stop everything
+			*   throw std::runtime_error("CanLibLoader::openCanBus: createBus Problem when opening canBus. stop." );
+			* 2. try again looping
+			*   this would go on forever if the bus does not come up
+			* 3. ignore the bus
+			*   what do we return in this case ... null... but that is dangerous, and maybe not what we want.
+			*/
+			// return NULL;
 			break;
 		}
 		default:{
@@ -120,8 +128,7 @@ CCanAccess* CanLibLoader::openCanBus(string name, string parameters) {
 		} // switch
 
 		LOG(Log::WRN, lh ) << __FUNCTION__ << " try again in a moment: " << name;
-		int us = 2000000;
-		boost::this_thread::sleep(boost::posix_time::microseconds( us ));
+		CanModule::ms_sleep( 2000 );
 	}
 	// never reached
 	return 0;

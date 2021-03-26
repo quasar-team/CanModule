@@ -657,8 +657,7 @@ AnaInt32 AnaCanScan::reconnectThisPort(){
 	while ( anaCallReturn0 < 0 ){
 		MLOGANA(WRN, this) << "failed to reconnect CAN port " << m_canPortNumber
 				<< " ip= " << m_canIPAddress << ",  try again";
-		int us = 5000000;
-		boost::this_thread::sleep(boost::posix_time::microseconds( us ));
+		CanModule::ms_sleep( 5000 );
 		anaCallReturn0 = reconnect();
 	}
 	showAnaCanScanObjectMap();
@@ -713,8 +712,7 @@ AnaInt32 AnaCanScan::reconnectThisPort(){
 			LOG(Log::WRN, AnaCanScan::st_logItHandleAnagate ) << "reconnecting all ports for ip= " << ip
 					<< " is already in progress, skipping.";
 
-			int us = 10000000;
-			boost::this_thread::sleep(boost::posix_time::microseconds( us ));
+			CanModule::ms_sleep( 10000 );
 			anagateReconnectMutex.unlock();
 
 			return(1);
@@ -758,8 +756,8 @@ AnaInt32 AnaCanScan::reconnectThisPort(){
 	if ( reconnectFailed ) {
 		LOG(Log::WRN, AnaCanScan::st_logItHandleAnagate ) << " Problem reconnecting CAN ports for ip= " << ip
 				<< " last ret= " << ret << ". Just abandoning and trying again in 10 secs, module might not be ready yet.";
-		int us = 10000000;
-		boost::this_thread::sleep(boost::posix_time::microseconds( us ));
+
+		CanModule::ms_sleep( 10000 );
 
 		AnaCanScan::setIpReconnectInProgress( ip, false );
 		LOG(Log::TRC, AnaCanScan::st_logItHandleAnagate ) << "reconnecting all ports for ip= " << ip
@@ -811,8 +809,7 @@ AnaInt32 AnaCanScan::reconnectThisPort(){
 	AnaCanScan::showAnaCanScanObjectMap();
 
 	// be easy on the switch
-	int us = 100000;
-	boost::this_thread::sleep(boost::posix_time::microseconds( us ));
+	CanModule::ms_sleep( 100 );
 	return( anaRet );
 }
 
@@ -894,8 +891,9 @@ void AnaCanScan::eraseReceptionHandlerFromMap( AnaInt32 h ){
 int AnaCanScan::reconnect(){
 	AnaInt32 anaCallReturn;
 	AnaInt32 canModuleHandle;
+
 	// we are not too fast. sleep to wait for network and don't hammer the switch
-	int us = 100000;
+	CanModule::ms_sleep( 100 );
 
 	MLOGANA(WRN, this) << "try to reconnect ip= " << m_canIPAddress
 			<< " m_canPortNumber= " << m_canPortNumber
@@ -978,7 +976,7 @@ int AnaCanScan::reconnect(){
 		break;
 	}
 	}
-	boost::this_thread::sleep(boost::posix_time::microseconds( us ));
+	CanModule::ms_sleep( 100 );
 	return( 0 ); // OK
 }
 

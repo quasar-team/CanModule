@@ -25,19 +25,24 @@
 #ifndef CCANACCESS_H_
 #define CCANACCESS_H_
 
-#ifdef _WIN32
-#include <time.h>
-#else
-#include <sys/time.h>
-#endif
-#include "boost/bind/bind.hpp"
-#include "boost/signals2.hpp"
+//#ifdef _WIN32
+//#include <time.h>
+//#else
+//#include <sys/time.h>
+//#endif
+
+#include <chrono>
+#include <thread>
 #include <string>
+
+#include <boost/bind/bind.hpp>
+#include <boost/signals2.hpp>
+
+#include <LogIt.h>
+
 #include "CanMessage.h"
 #include "CanStatistics.h"
 #include "VERSION.h"
-#include <LogIt.h>
-
 
 
 /*
@@ -49,6 +54,11 @@ namespace CanModule
 
 const std::string LogItComponentName = "CanModule";
 #define MLOG(LEVEL,THIS) LOG(Log::LEVEL) << __FUNCTION__ << " " << CanModule::LogItComponentName << " bus= " << THIS->getBusName() << " "
+
+inline static void ms_sleep( int ms ){
+	std::chrono::milliseconds delay( ms );
+	std::this_thread::sleep_for( delay );
+}
 
 /**
  * implementation specific counter (high nibble of status bitpattern)

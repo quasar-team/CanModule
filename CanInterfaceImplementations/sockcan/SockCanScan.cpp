@@ -113,8 +113,6 @@ void CSockCanScan::CanScanControlThread()
 
 	p_sockCanScan->m_CanScanThreadRunEnableFlag = true;
 	int sock = p_sockCanScan->m_sock;
-	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " sock= " << sock << std::endl;
-
 	{
 		// discard first read
 		fd_set set;
@@ -125,9 +123,7 @@ void CSockCanScan::CanScanControlThread()
 		timeout.tv_sec = 1;
 		timeout.tv_usec = 0;
 
-		// MLOGSOCK(INF,p_sockCanScan) << "waiting for first reception on socket " << sock;
-		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << std::endl;
-
+		MLOGSOCK(INF,p_sockCanScan) << "waiting for first reception on socket " << sock;
 
 		int selectResult = select( sock+1, &set, 0, &set, &timeout );
 		if ( selectResult > 0 ) {
@@ -773,6 +769,7 @@ int CSockCanScan::createBus(const string name, const string parameters)
 		if (it == CSockCanScan::m_busMap.end()) {
 			CSockCanScan::m_busMap.insert ( std::pair<string, string>(name, parameters) );
 			m_busName = name;
+			MLOGSOCK(TRC,this) << "added to busMap: [" << name << "] with parameters [" << parameters << "]";
 		} else {
 			skip = true;
 		}
@@ -787,6 +784,14 @@ int CSockCanScan::createBus(const string name, const string parameters)
 	m_sock = configureCanBoard(name,parameters);
 	if (m_sock < 0) {
 		MLOGSOCK(ERR,this) << "Could not create bus [" << name << "] with parameters [" << parameters << "]";
+		// take it out from the map again
+		std::map<string, string>::iterator it = CSockCanScan::m_busMap.find( name );
+		if (it != CSockCanScan::m_busMap.end()) {
+			CSockCanScan::m_busMap.erase ( it );
+			m_busName = "";
+			MLOGSOCK(TRC,this) << "removed from busMap: [" << name << "] with parameters [" << parameters << "]";
+		}
+
 		return -1;
 	}
 	MLOGSOCK(TRC,this) << "Created bus with parameters [" << parameters << "], starting main loop";

@@ -2,6 +2,15 @@
 All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+### 2.0.9
+- took out some remaining debugging lines
+- corrected version to 2.0.9 (showed 2.0.7, was forgotten)
+- sock@cc7: remove buses from bus map if config board has failed at init. Then retry until
+  bus creating & config succeeds (forever). The intended behavior is
+  that we loop around until the bus becomes available. In a multithreaded OPCUA server all the successful
+  buses can be used in the meantime. When the broken busses become available the threads get unblocked.
+- replaced boost sleep with C++ sleep everywhere to reduce dependencies
+
 ### 2.0.8
 - adding CanModule (filimonov) wrapper again to solve https://its.cern.ch/jira/browse/OPCUA-2098
   CanInterface/CanBusAccess.cpp/h added
