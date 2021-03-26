@@ -26,8 +26,6 @@
 
 
 #include <string>
-#include <chrono>
-#include <thread>
 
 #include "CanStatistics.h"
 #include "CCanAccess.h"
