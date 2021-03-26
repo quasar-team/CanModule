@@ -59,10 +59,6 @@ inline static void ms_sleep( int ms ){
 	std::chrono::milliseconds delay( ms );
 	std::this_thread::sleep_for( delay );
 }
-inline static void us_sleep( int us ){
-	std::chrono::microseconds delay( us );
-	std::this_thread::sleep_for( delay );
-}
 
 /**
  * implementation specific counter (high nibble of status bitpattern)
