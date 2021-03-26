@@ -8,7 +8,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 - sock@cc7: remove buses from bus map if config board has failed, 
   then retry from scratch, including config board. The intended behavior is
   that we loop around until the bus becomes available.
-
+- replaced boost sleep with C++ sleep everywhere to reduce dependencies
 
 ### 2.0.8
 - adding CanModule (filimonov) wrapper again to solve https://its.cern.ch/jira/browse/OPCUA-2098

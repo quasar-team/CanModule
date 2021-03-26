@@ -891,8 +891,9 @@ void AnaCanScan::eraseReceptionHandlerFromMap( AnaInt32 h ){
 int AnaCanScan::reconnect(){
 	AnaInt32 anaCallReturn;
 	AnaInt32 canModuleHandle;
+
 	// we are not too fast. sleep to wait for network and don't hammer the switch
-	int us = 100000;
+	CanModule::ms_sleep( 100 );
 
 	MLOGANA(WRN, this) << "try to reconnect ip= " << m_canIPAddress
 			<< " m_canPortNumber= " << m_canPortNumber
