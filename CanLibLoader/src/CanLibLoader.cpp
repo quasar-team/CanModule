@@ -120,8 +120,7 @@ CCanAccess* CanLibLoader::openCanBus(string name, string parameters) {
 		} // switch
 
 		LOG(Log::WRN, lh ) << __FUNCTION__ << " try again in a moment: " << name;
-		int us = 2000000;
-		boost::this_thread::sleep(boost::posix_time::microseconds( us ));
+		CanModule::ms_sleep( 2000 );
 	}
 	// never reached
 	return 0;

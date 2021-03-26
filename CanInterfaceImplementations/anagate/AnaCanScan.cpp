@@ -657,15 +657,7 @@ AnaInt32 AnaCanScan::reconnectThisPort(){
 	while ( anaCallReturn0 < 0 ){
 		MLOGANA(WRN, this) << "failed to reconnect CAN port " << m_canPortNumber
 				<< " ip= " << m_canIPAddress << ",  try again";
-	//	{
-		//	std::chrono::milliseconds ms(5000);
-		//	std::this_thread::sleep_for ( ms );
-		// }
 		CanModule::ms_sleep( 5000 );
-		//{
-			//int us = 5000000;
-			//boost::this_thread::sleep(boost::posix_time::microseconds( us ));
-		//}
 		anaCallReturn0 = reconnect();
 	}
 	showAnaCanScanObjectMap();
@@ -720,8 +712,7 @@ AnaInt32 AnaCanScan::reconnectThisPort(){
 			LOG(Log::WRN, AnaCanScan::st_logItHandleAnagate ) << "reconnecting all ports for ip= " << ip
 					<< " is already in progress, skipping.";
 
-			int us = 10000000;
-			boost::this_thread::sleep(boost::posix_time::microseconds( us ));
+			CanModule::ms_sleep( 10000 );
 			anagateReconnectMutex.unlock();
 
 			return(1);
@@ -765,8 +756,8 @@ AnaInt32 AnaCanScan::reconnectThisPort(){
 	if ( reconnectFailed ) {
 		LOG(Log::WRN, AnaCanScan::st_logItHandleAnagate ) << " Problem reconnecting CAN ports for ip= " << ip
 				<< " last ret= " << ret << ". Just abandoning and trying again in 10 secs, module might not be ready yet.";
-		int us = 10000000;
-		boost::this_thread::sleep(boost::posix_time::microseconds( us ));
+
+		CanModule::ms_sleep( 10000 );
 
 		AnaCanScan::setIpReconnectInProgress( ip, false );
 		LOG(Log::TRC, AnaCanScan::st_logItHandleAnagate ) << "reconnecting all ports for ip= " << ip
@@ -818,8 +809,7 @@ AnaInt32 AnaCanScan::reconnectThisPort(){
 	AnaCanScan::showAnaCanScanObjectMap();
 
 	// be easy on the switch
-	int us = 100000;
-	boost::this_thread::sleep(boost::posix_time::microseconds( us ));
+	CanModule::ms_sleep( 100 );
 	return( anaRet );
 }
 
@@ -985,7 +975,7 @@ int AnaCanScan::reconnect(){
 		break;
 	}
 	}
-	boost::this_thread::sleep(boost::posix_time::microseconds( us ));
+	CanModule::ms_sleep( 100 );
 	return( 0 ); // OK
 }
 
