@@ -109,16 +109,17 @@ CCanAccess* CanLibLoader::openCanBus(string name, string parameters) {
 			break;
 		}
 		case -1:{
-			LOG(Log::WRN, lh ) << __FUNCTION__ << " createBus Problem opening canBus for: " << name;
+			LOG(Log::ERR, lh ) << __FUNCTION__ << " Problem opening canBus for: " << name << " : returning NULL";
 			/** we could do 3 things here:
 			* 1. throw an exception and stop everything
 			*   throw std::runtime_error("CanLibLoader::openCanBus: createBus Problem when opening canBus. stop." );
 			* 2. try again looping
 			*   this would go on forever if the bus does not come up
-			* 3. ignore the bus
-			*   what do we return in this case ... null... but that is dangerous, and maybe not what we want.
+			* 3. ignore the bus and return 0
+			*   we return NULL in this case and the client has to check the pointer of course
+			*   we decided to do that 6.april.2021 quasar meeting, related to https://its.cern.ch/jira/browse/OPCUA-2248
 			*/
-			// return NULL;
+			return NULL;
 			break;
 		}
 		default:{
