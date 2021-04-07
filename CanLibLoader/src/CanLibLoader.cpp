@@ -90,10 +90,7 @@ CCanAccess* CanLibLoader::openCanBus(string name, string parameters) {
 	 * @param parameters: Different parameters used for the initialisation. For using the default parameters just set this to "Unspecified"
 	 *
 	 */
-
-	int c = -1;
-
-	c = tcca->createBus(name, parameters);
+	int c = tcca->createBus(name, parameters);
 	LOG(Log::DBG, lh ) << __FUNCTION__ << " createBus returns= " << c;
 	switch ( c ){
 	case 0:{
@@ -104,7 +101,6 @@ CCanAccess* CanLibLoader::openCanBus(string name, string parameters) {
 	}
 	case 1:{
 		LOG(Log::DBG, lh ) << __FUNCTION__ << " OK: createBus Skipping existing CCanAccess to the map for: " << name;
-		// Diag::instance().insert_maps( this, tcca, parameters );
 		return tcca; // keep lib object, but only the already existing bus
 		break;
 	}
@@ -123,14 +119,13 @@ CCanAccess* CanLibLoader::openCanBus(string name, string parameters) {
 		break;
 	}
 	default:{
-		LOG(Log::WRN, lh ) << __FUNCTION__ << " something else went wrong for: " << name << " try again";
+		LOG(Log::WRN, lh ) << __FUNCTION__ << " something else went wrong for: " << name << " : returning NULL";
+		return NULL;
 		break;
 	}
 	} // switch
 
-	LOG(Log::WRN, lh ) << __FUNCTION__ << " try again in a moment: " << name;
-	CanModule::ms_sleep( 2000 );
 	// never reached
-	return 0;
+	return NULL;
 }
 }
