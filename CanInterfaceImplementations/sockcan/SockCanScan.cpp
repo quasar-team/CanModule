@@ -701,30 +701,7 @@ bool CSockCanScan::sendRemoteRequest(short cobID)
 	return true;
 }
 
-void testThread(){
-	while(true){
-		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << std::endl;
 
-		struct timespec tim, tim2;
-		tim.tv_sec = 1;
-		tim.tv_nsec = 0;
-		if(nanosleep(&tim , &tim2) < 0 ) {
-			std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << "nanosleep failed" << std::endl;;
-		}
-	}
-}
-void testThread2(void *p_voidSockCanScan){
-	while(true){
-		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << std::endl;
-
-		struct timespec tim, tim2;
-		tim.tv_sec = 1;
-		tim.tv_nsec = 0;
-		if(nanosleep(&tim , &tim2) < 0 ) {
-			std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << "nanosleep failed" << std::endl;;
-		}
-	}
-}
 
 /**
  * Method that initializes a can bus channel. The following methods called upon the same
