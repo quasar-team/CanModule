@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+
+### rogue master addition branch networkDebugging
+- added two methods to anagate to set the timeout
+
 ### 2.0.10
 - return cca == NULL if first init is unsuccessful.
   client needs to check pointer, according to https://its.cern.ch/jira/browse/OPCUA-2248
