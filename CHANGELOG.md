@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+### 2.0.10
+- return cca == NULL if first init is unsuccessful.
+  client needs to check pointer, according to https://its.cern.ch/jira/browse/OPCUA-2248
+- once a port is running, it reconnects as usual (no change)
+
+
 ### 2.0.9
 - took out some remaining debugging lines
 - corrected version to 2.0.9 (showed 2.0.7, was forgotten)

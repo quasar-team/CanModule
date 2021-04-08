@@ -90,47 +90,42 @@ CCanAccess* CanLibLoader::openCanBus(string name, string parameters) {
 	 * @param parameters: Different parameters used for the initialisation. For using the default parameters just set this to "Unspecified"
 	 *
 	 */
-
-	int c = -1;
-	while ( c != 0 ){
-		c = tcca->createBus(name, parameters);
-		LOG(Log::DBG, lh ) << __FUNCTION__ << " createBus returns= " << c;
-		switch ( c ){
-		case 0:{
-			LOG(Log::DBG, lh ) << __FUNCTION__ << " OK: createBus Adding new CCanAccess to the map for: " << name;
-			Diag::insert_maps( this, tcca, parameters );
-			return tcca;
-			break;
-		}
-		case 1:{
-			LOG(Log::DBG, lh ) << __FUNCTION__ << " OK: createBus Skipping existing CCanAccess to the map for: " << name;
-			// Diag::instance().insert_maps( this, tcca, parameters );
-			return tcca; // keep lib object, but only the already existing bus
-			break;
-		}
-		case -1:{
-			LOG(Log::WRN, lh ) << __FUNCTION__ << " createBus Problem opening canBus for: " << name;
-			/** we could do 3 things here:
-			* 1. throw an exception and stop everything
-			*   throw std::runtime_error("CanLibLoader::openCanBus: createBus Problem when opening canBus. stop." );
-			* 2. try again looping
-			*   this would go on forever if the bus does not come up
-			* 3. ignore the bus
-			*   what do we return in this case ... null... but that is dangerous, and maybe not what we want.
-			*/
-			// return NULL;
-			break;
-		}
-		default:{
-			LOG(Log::WRN, lh ) << __FUNCTION__ << " something else went wrong for: " << name;
-			break;
-		}
-		} // switch
-
-		LOG(Log::WRN, lh ) << __FUNCTION__ << " try again in a moment: " << name;
-		CanModule::ms_sleep( 2000 );
+	int c = tcca->createBus(name, parameters);
+	LOG(Log::DBG, lh ) << __FUNCTION__ << " createBus returns= " << c;
+	switch ( c ){
+	case 0:{
+		LOG(Log::DBG, lh ) << __FUNCTION__ << " OK: createBus Adding new CCanAccess to the map for: " << name;
+		Diag::insert_maps( this, tcca, parameters );
+		return tcca;
+		break;
 	}
+	case 1:{
+		LOG(Log::DBG, lh ) << __FUNCTION__ << " OK: createBus Skipping existing CCanAccess to the map for: " << name;
+		return tcca; // keep lib object, but only the already existing bus
+		break;
+	}
+	case -1:{
+		LOG(Log::ERR, lh ) << __FUNCTION__ << " Problem opening canBus for: " << name << " : returning NULL";
+		/** we could do 3 things here:
+		 * 1. throw an exception and stop everything
+		 *   throw std::runtime_error("CanLibLoader::openCanBus: createBus Problem when opening canBus. stop." );
+		 * 2. try again looping
+		 *   this would go on forever if the bus does not come up
+		 * 3. ignore the bus and return 0
+		 *   we return NULL in this case and the client has to check the pointer of course
+		 *   we decided to do that 6.april.2021 quasar meeting, related to https://its.cern.ch/jira/browse/OPCUA-2248
+		 */
+		return NULL;
+		break;
+	}
+	default:{
+		LOG(Log::WRN, lh ) << __FUNCTION__ << " something else went wrong for: " << name << " : returning NULL";
+		return NULL;
+		break;
+	}
+	} // switch
+
 	// never reached
-	return 0;
+	return NULL;
 }
 }
