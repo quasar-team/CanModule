@@ -2,6 +2,13 @@
 All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+### 2.0.11 [4.JUNE.2021]
+- fixing OPPCUA-2335: suppress the destructor call in CanLibLoader::closeCanBus(..)
+- fix return type from constructor in Mock lib, so that the object gets created
+- key-safeguards in Diag::delete_maps
+
+
+
 ### 2.0.10
 - return cca == NULL if first init is unsuccessful.
   client needs to check pointer, according to https://its.cern.ch/jira/browse/OPCUA-2248
