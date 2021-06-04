@@ -29,14 +29,17 @@ namespace CanModule
 
 void CanBusAccess::closeCanBus(CCanAccess *cInter)
 {
-	CanLibLoader *dlcan;
-	map<string, CanLibLoader *>::iterator itcomponent;
-	string bus = cInter->getBusName();
-	string nameComponent = bus.substr(0, bus.find_first_of(':'));
+	LOG(Log::INF) << __FUNCTION__ ;
+	if ( cInter != 0 ){
+		CanLibLoader *dlcan;
+		map<string, CanLibLoader *>::iterator itcomponent;
+		string bus = cInter->getBusName();
+		string nameComponent = bus.substr(0, bus.find_first_of(':'));
 
-	itcomponent = m_Component.find(nameComponent);
-	dlcan = (*itcomponent).second;
-	dlcan->closeCanBus(cInter);
+		itcomponent = m_Component.find(nameComponent);
+		dlcan = (*itcomponent).second;
+		dlcan->closeCanBus(cInter);
+	}
 }
 
 CCanAccess* CanBusAccess::openCanBus(string name, string parameters)

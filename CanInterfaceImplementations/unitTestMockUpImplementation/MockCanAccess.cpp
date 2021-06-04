@@ -43,7 +43,7 @@ MockCanAccess::~MockCanAccess()
 int MockCanAccess::createBus(const string name, const string parameters)
 {	
 	LOG(Log::INF) << __FUNCTION__ << " called with name [" << name << "] parameters [" << parameters << "]";
-	return 1;
+	return 0;
 }
 
 

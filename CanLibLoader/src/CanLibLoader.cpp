@@ -59,9 +59,10 @@ CanLibLoader* CanLibLoader::createInstance(const std::string& libName)	{
  */
 void CanLibLoader::closeCanBus(CCanAccess *cInter) {
 	LOG(Log::DBG, lh ) << __FUNCTION__<< " Canbus name to be deleted: " << cInter->getBusName();
+
 	Diag::delete_maps( this, cInter );
 
-	delete cInter; // dtor calls stopBus()
+	// delete cInter; // dtor calls stopBus()
 }
 
 /**
