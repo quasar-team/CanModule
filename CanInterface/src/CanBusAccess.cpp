@@ -36,7 +36,7 @@ void CanBusAccess::closeCanBus(CCanAccess *cInter)
 		string bus = cInter->getBusName();
 		string nameComponent = bus.substr(0, bus.find_first_of(':'));
 
-		itcomponent = m_Component.find(nameComponent);
+		itcomponent = m_libLoader_map.find(nameComponent);
 		dlcan = (*itcomponent).second;
 		dlcan->closeCanBus(cInter);
 	}
@@ -49,20 +49,20 @@ CCanAccess* CanBusAccess::openCanBus(string name, string parameters)
 	CanLibLoader *dlcan = 0;
 	string nameComponent;
 
-	it = m_ScanManagers.find(name);
-	if (!(it == m_ScanManagers.end())) {
+	it = m_canAccess_map.find(name);
+	if (!(it == m_canAccess_map.end())) {
 		return (*it).second;
 	}
 
 	nameComponent = name.substr(0, name.find_first_of(':'));
-	itcomponent = m_Component.find(nameComponent);
+	itcomponent = m_libLoader_map.find(nameComponent);
 
-	if (!(itcomponent == m_Component.end())) {
+	if (!(itcomponent == m_libLoader_map.end())) {
 		dlcan = (*itcomponent).second;
 	} else {
 		dlcan = CanLibLoader::createInstance((char *)nameComponent.c_str());
 		if (dlcan != 0)
-			m_Component.insert(map<string, CanLibLoader *>::value_type(nameComponent, dlcan));
+			m_libLoader_map.insert(map<string, CanLibLoader *>::value_type(nameComponent, dlcan));
 		else return 0;
 	}
 	CCanAccess *tcca = dlcan->openCanBus(name, parameters);
