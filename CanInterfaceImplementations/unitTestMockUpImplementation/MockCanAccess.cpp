@@ -42,6 +42,7 @@ void MockCanAccess::stopBus (){
 MockCanAccess::~MockCanAccess()
 {
 	LOG(Log::DBG) << "Destroying MockCanAccess object";
+	stopBus ();
 }
 
 int MockCanAccess::createBus(const string name, const string parameters)
