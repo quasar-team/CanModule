@@ -35,6 +35,10 @@ MockCanAccess::MockCanAccess()
 	m_triggerCounter = m_failedSendCounter;
 }
 
+void MockCanAccess::stopBus (){
+	LOG(Log::TRC) << __FUNCTION__;
+}
+
 MockCanAccess::~MockCanAccess()
 {
 	LOG(Log::DBG) << "Destroying MockCanAccess object";
