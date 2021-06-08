@@ -462,8 +462,10 @@ public:
 	 */
 	virtual CanModule::ReconnectAction getReconnectAction() = 0;
 
-
-
+	/**
+	 *  force implementation
+	 */
+	virtual void stopBus() = 0;
 
 protected:
 
