@@ -547,10 +547,10 @@ void CSockCanScan::updateBusStatus(){
 bool CSockCanScan::sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr)
 {
 
-	// we should skip this isf the port is "closed" already
-	if ( m_CanScanThreadRunEnableFlag == false ){
-		MLOGSOCK(DBG,this) << __FUNCTION__ << " bus is already closed, sendin refused";
-		return false;;
+	// we should skip this if the port is "closed" already
+	if ( !m_CanScanThreadRunEnableFlag ){
+		MLOGSOCK(TRC,this) << __FUNCTION__ << " bus is already closed, sending refused";
+		return false;
 	}
 
 	bool ret = true;
