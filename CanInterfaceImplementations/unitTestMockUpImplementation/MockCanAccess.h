@@ -58,6 +58,9 @@ public:
 	virtual uint32_t getPortStatus(){ return 0xbebecaca; };
 	virtual uint32_t getPortBitrate(){ return m_CanParameters.m_lBaudRate; };
 
+
+	void stopBus ();
+
 private:
 	//Instance of Can Statistics
 	CanModule::CanStatistics m_statistics;
