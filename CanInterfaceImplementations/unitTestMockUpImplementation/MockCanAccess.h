@@ -59,7 +59,7 @@ public:
 	virtual uint32_t getPortBitrate(){ return m_CanParameters.m_lBaudRate; };
 
 
-	void stopBus ();
+	virtual void stopBus ();
 
 private:
 	//Instance of Can Statistics
