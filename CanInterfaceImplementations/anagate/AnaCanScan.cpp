@@ -522,8 +522,8 @@ bool AnaCanScan::sendErrorCode(AnaInt32 status)
 bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr)
 {
 
-	if ( m_canCloseDevice || !m_busStopped ){
-		MLOGANA(WRN,this) << __FUNCTION__ << " bus is closed, skipping";
+	if ( m_canCloseDevice || m_busStopped ){
+		MLOGANA(WRN,this) << __FUNCTION__ << " bus is closed, skipping [ closed= " << m_canCloseDevice << " stopped= " << m_busStopped << "]";
 		return( false );
 	}
 	MLOGANA(DBG,this) << "Sending message: [" << ( message == 0  ? "" : (const char *) message) << "], cobID: [" << cobID << "], Message Length: [" << static_cast<int>(len) << "]";
