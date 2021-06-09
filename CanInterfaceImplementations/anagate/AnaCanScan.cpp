@@ -80,7 +80,8 @@ AnaCanScan::AnaCanScan():
 								m_busName(""),
 								m_busParameters(""),
 								m_UcanHandle(0),
-								m_timeout ( 12000 )
+								m_timeout ( 12000 ),
+								m_busStopped( false )
 {
 	m_statistics.setTimeSinceOpened();
 	m_statistics.beginNewRun();
@@ -104,6 +105,7 @@ void AnaCanScan::stopBus ()
 
 	deleteCanHandleOfPortIp( m_canPortNumber, m_canIPAddress );
 	eraseReceptionHandlerFromMap( m_UcanHandle );
+	m_busStopped = true;
 }
 
 
@@ -267,6 +269,7 @@ int AnaCanScan::createBus(const string name,const string parameters)
 		return -1;
 	}
 	MLOGANA(DBG,this) << " OK, Bus created with name= " << name << " parameters= " << parameters;
+	m_busStopped = false;
 	return 0;
 }
 
@@ -519,7 +522,7 @@ bool AnaCanScan::sendErrorCode(AnaInt32 status)
 bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr)
 {
 
-	if ( m_canCloseDevice ){
+	if ( m_canCloseDevice || !m_busStopped ){
 		MLOGANA(WRN,this) << __FUNCTION__ << " bus is closed, skipping";
 		return( false );
 	}
