@@ -422,7 +422,7 @@ int AnaCanScan::openCanPort()
 	if ( canModuleHandle < 0 ){
 		MLOGANA(DBG, this) << "calling CANOpenDevice with port= " << m_canPortNumber << " ip= " << m_canIPAddress
 				<< " canModuleHandle= " << canModuleHandle
-				<< " m_timeout= " << m_timeout";
+				<< " m_timeout= " << m_timeout;
 		anaCallReturn = CANOpenDevice(&canModuleHandle, FALSE, TRUE, m_canPortNumber, m_canIPAddress.c_str(), m_timeout);
 		if (anaCallReturn != 0) {
 			// fill out initialisation struct
