@@ -426,7 +426,7 @@ int AnaCanScan::openCanPort()
 		anaCallReturn = CANOpenDevice(&canModuleHandle, FALSE, TRUE, m_canPortNumber, m_canIPAddress.c_str(), m_timeout);
 		if (anaCallReturn != 0) {
 			// fill out initialisation struct
-			MLOGANA(ERR,this) << "Error in CANOpenDevice, return code = [" << anaCallReturn << "]";
+			MLOGANA(ERR,this) << "Error in CANOpenDevice, return code = [0x" << hex << anaCallReturn << dec << "]";
 			return -1;
 		}
 	} else {
