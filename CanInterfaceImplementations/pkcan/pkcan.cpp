@@ -71,7 +71,7 @@ PKCanScan::~PKCanScan()
  */
 void PKCanScan::stopBus ()
 {
-	MLOGPK(Log::TRC) << __FUNCTION__;
+	MLOGPK(TRC, this) << __FUNCTION__;
 
 	m_CanScanThreadRunEnableFlag = false;
 	MLOGPK(TRC, this) << " try finishing thread...calling CAN_Uninitialize";
