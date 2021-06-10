@@ -6,6 +6,23 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 - fixing OPPCUA-2335: suppress the destructor call in CanLibLoader::closeCanBus(..)
 - fix return type from constructor in Mock lib, so that the object gets created
 - key-safeguards in Diag::delete_maps
+- concept stopped bus:
+  - cca->stopBus()
+  - public method of the bus gets called by lib->closeCanBus()
+  - can call cca->stopBus() as well directly
+  - calls vendor specific methods to close the CAN bus
+  - erases reception handler
+  - deletes bus from bus map 
+  - sets flag to prevent send
+  - does not call object dtors, does not stop thread  
+- concept closed bus:
+  - lib->closeCanBus()
+  - lib maps entry is deleted
+  - calls stopBus()
+- dtors for objects are called when 
+  - object goes out of scope
+  - explicit "delete cca" call on the (bus-) object
+
 
 
 
