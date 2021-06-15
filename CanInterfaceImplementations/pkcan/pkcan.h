@@ -83,6 +83,7 @@ public:
 	virtual CanModule::ReconnectAutoCondition getReconnectCondition() { return m_reconnectCondition; };
 	virtual CanModule::ReconnectAction getReconnectAction() { return m_reconnectAction; };
 
+	virtual void stopBus();
 private:
 
 	TPCANHandle getHandle(const char *name);
@@ -103,7 +104,7 @@ private:
 
    	TPCANHandle	m_pkCanHandle;
 	bool configureCanboard(const string name,const string parameters);
-	void stopBus ( void );
+	// void stopBus ( void );
 
 	HANDLE      m_hCanScanThread;
 	//	HANDLE		m_ReadEvent;

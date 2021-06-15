@@ -25,14 +25,30 @@ Diag::Diag()
 };
 
 void Diag::delete_maps(CanLibLoader *lib, CCanAccess *acc ){
+
 	std::string c0 = lib->getLibName() + "_" + std::to_string( CanLibLoader_icount );
 	std::string c1 = acc->getBusName() + "_" + std::to_string( CanAccess_icount );
 	std::string key = c0 + ":" + c1;
 
 	mtx.lock();
-	port_map.erase( key );
-	lib_map.erase( key );
-	parameter_map.erase( key );
+	{
+		std::map<std::string, CCanAccess *>::iterator it = port_map.find( key );
+		if ( it != port_map.end() )
+			port_map.erase( key );
+	}
+
+	{
+		std::map<std::string, CanLibLoader *>::iterator it = lib_map.find( key );
+		if ( it != lib_map.end() )
+			lib_map.erase( key );
+	}
+
+	{
+		std::map<std::string, std::string>::iterator it = parameter_map.find( key );
+		if ( it != parameter_map.end() )
+			parameter_map.erase( key );
+	}
+
 	mtx.unlock();
 }
 

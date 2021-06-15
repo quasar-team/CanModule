@@ -37,10 +37,10 @@ namespace CanModule
 
 // called by factory
 CanLibLoader::CanLibLoader(const std::string& libName)
-		{
+{
 	LogItInstance *logIt = LogItInstance::getInstance();
 	logIt->getComponentHandle( CanModule::LogItComponentName, lh );
-		}
+}
 
 CanLibLoader::~CanLibLoader() {}
 
@@ -55,13 +55,15 @@ CanLibLoader* CanLibLoader::createInstance(const std::string& libName)	{
 }
 
 /**
- * make a guess: it orders diet coke
+ * close a CAN bus
  */
 void CanLibLoader::closeCanBus(CCanAccess *cInter) {
-	LOG(Log::DBG, lh ) << __FUNCTION__<< " Canbus name to be deleted: " << cInter->getBusName();
-	Diag::delete_maps( this, cInter );
-
-	delete cInter; // dtor calls stopBus()
+	LOG(Log::TRC, lh ) << __FUNCTION__;
+	if ( cInter ) {
+		LOG(Log::DBG, lh ) << __FUNCTION__<< " CanBus name to be deleted: " << cInter->getBusName();
+		Diag::delete_maps( this, cInter );
+		cInter->stopBus(); // call each specific stopBus, but dtors are left until objects are out of scope
+	}
 }
 
 /**

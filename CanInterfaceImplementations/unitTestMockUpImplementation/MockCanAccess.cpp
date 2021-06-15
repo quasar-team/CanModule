@@ -35,15 +35,21 @@ MockCanAccess::MockCanAccess()
 	m_triggerCounter = m_failedSendCounter;
 }
 
+void MockCanAccess::stopBus (){
+	LOG(Log::TRC) << __FUNCTION__ << " implementation specific (doing nothing in this case)";
+}
+
 MockCanAccess::~MockCanAccess()
 {
-	LOG(Log::DBG) << "Destroying MockCanAccess object";
+	LOG(Log::DBG) << __FUNCTION__ << " dtor called, calling stopBus()";
+	stopBus ();
 }
 
 int MockCanAccess::createBus(const string name, const string parameters)
 {	
-	LOG(Log::INF) << __FUNCTION__ << " called with name [" << name << "] parameters [" << parameters << "]";
-	return 1;
+	LOG(Log::INF) << __FUNCTION__ << " name [" << name << "] parameters [" << parameters << "]";
+	m_sBusName = name;
+	return 0;
 }
 
 

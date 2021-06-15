@@ -103,6 +103,7 @@ public:
 	virtual CanModule::ReconnectAutoCondition getReconnectCondition() { return m_reconnectCondition; };
 	virtual CanModule::ReconnectAction getReconnectAction() { return m_reconnectAction; };
 
+	virtual void stopBus( void );
 
 private:
 
@@ -116,6 +117,7 @@ private:
 	AnaInt32 m_UcanHandle; //Instance of the can handle
 	CanStatistics m_statistics; //Instance of Can Statistics
     AnaInt32 m_timeout; 		// connect_wait time
+    bool m_busStopped;
 
 
     /**
@@ -176,7 +178,7 @@ private:
 	int openCanPort();
 	int reconnect();
 	bool errorCodeToString(long error, char message[]);
-	void stopBus( void );
+	//void stopBus( void );
 	void eraseReceptionHandlerFromMap( AnaInt32 h );
 	std::string ana_canGetErrorText( long errorCode );
 

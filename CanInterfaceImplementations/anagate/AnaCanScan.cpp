@@ -80,7 +80,8 @@ AnaCanScan::AnaCanScan():
 								m_busName(""),
 								m_busParameters(""),
 								m_UcanHandle(0),
-								m_timeout ( 12000 )
+								m_timeout ( 12000 ),
+								m_busStopped( false )
 {
 	m_statistics.setTimeSinceOpened();
 	m_statistics.beginNewRun();
@@ -98,12 +99,14 @@ AnaCanScan::~AnaCanScan()
 
 void AnaCanScan::stopBus ()
 {
-	MLOGANA(TRC,this) << __FUNCTION__ << " m_busName= " <<  m_busName << " m_canPortNumber= " << m_canPortNumber;
-	CANSetCallback(m_UcanHandle, 0);
-	CANCloseDevice(m_UcanHandle);
-
-	deleteCanHandleOfPortIp( m_canPortNumber, m_canIPAddress );
-	eraseReceptionHandlerFromMap( m_UcanHandle );
+	if (!m_busStopped){
+		MLOGANA(TRC,this) << __FUNCTION__ << " stopping anagate m_busName= " <<  m_busName << " m_canPortNumber= " << m_canPortNumber;
+		CANSetCallback(m_UcanHandle, 0);
+		CANCloseDevice(m_UcanHandle);
+		deleteCanHandleOfPortIp( m_canPortNumber, m_canIPAddress );
+		eraseReceptionHandlerFromMap( m_UcanHandle );
+	}
+	m_busStopped = true;
 }
 
 
@@ -267,6 +270,7 @@ int AnaCanScan::createBus(const string name,const string parameters)
 		return -1;
 	}
 	MLOGANA(DBG,this) << " OK, Bus created with name= " << name << " parameters= " << parameters;
+	m_busStopped = false;
 	return 0;
 }
 
@@ -420,11 +424,13 @@ int AnaCanScan::openCanPort()
 	 */
 	canModuleHandle = getCanHandleOfPortIp(m_canPortNumber, m_canIPAddress );
 	if ( canModuleHandle < 0 ){
-		MLOGANA(DBG, this) << "calling CANOpenDevice with port= " << m_canPortNumber << " ip= " << m_canIPAddress;
+		MLOGANA(DBG, this) << "calling CANOpenDevice with port= " << m_canPortNumber << " ip= " << m_canIPAddress
+				<< " canModuleHandle= " << canModuleHandle
+				<< " m_timeout= " << m_timeout;
 		anaCallReturn = CANOpenDevice(&canModuleHandle, FALSE, TRUE, m_canPortNumber, m_canIPAddress.c_str(), m_timeout);
 		if (anaCallReturn != 0) {
 			// fill out initialisation struct
-			MLOGANA(ERR,this) << "Error in CANOpenDevice, return code = [" << anaCallReturn << "]";
+			MLOGANA(ERR,this) << "Error in CANOpenDevice, return code = [0x" << hex << anaCallReturn << dec << "]";
 			return -1;
 		}
 	} else {
@@ -516,6 +522,11 @@ bool AnaCanScan::sendErrorCode(AnaInt32 status)
  */
 bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr)
 {
+
+	if ( m_canCloseDevice || m_busStopped ){
+		MLOGANA(WRN,this) << __FUNCTION__ << " bus is closed, skipping [ closed= " << m_canCloseDevice << " stopped= " << m_busStopped << "]";
+		return( false );
+	}
 	MLOGANA(DBG,this) << "Sending message: [" << ( message == 0  ? "" : (const char *) message) << "], cobID: [" << cobID << "], Message Length: [" << static_cast<int>(len) << "]";
 	AnaInt32 anaCallReturn = 0;
 	unsigned char *messageToBeSent[8];

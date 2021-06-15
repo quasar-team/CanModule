@@ -546,6 +546,13 @@ void CSockCanScan::updateBusStatus(){
  */
 bool CSockCanScan::sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr)
 {
+
+	// we should skip this if the port is "closed" already
+	if ( !m_CanScanThreadRunEnableFlag ){
+		MLOGSOCK(TRC,this) << __FUNCTION__ << " bus is already closed, sending refused";
+		return false;
+	}
+
 	bool ret = true;
 	int messageLengthToBeProcessed;
 	struct can_frame canFrame = CSockCanScan::emptyCanFrame();
@@ -880,6 +887,10 @@ void CSockCanScan::sendErrorMessage(const char *mess)
  */
 void CSockCanScan::stopBus ()
 {
+	if ( m_CanScanThreadRunEnableFlag == false ){
+		MLOGSOCK(DBG,this) << "bus is already closed & thread finished, skipping";
+		return;
+	}
 	MLOGSOCK(DBG,this) << __FUNCTION__ << " m_busName= " <<  m_busName << " try joining thread...";
 	// notify the thread that it should finish.
 	m_CanScanThreadRunEnableFlag = false;
@@ -891,7 +902,7 @@ void CSockCanScan::stopBus ()
 			CSockCanScan::m_busMap.erase ( it );
 			m_busName = "nobus";
 		} else {
-			MLOGSOCK(DBG,this) << "bus is already closed & thread finished, skipping";
+			MLOGSOCK(DBG,this) << "bus not found in map, is already closed & thread finished, skipping";
 		}
 		sockReconnectMutex.unlock();
 	}

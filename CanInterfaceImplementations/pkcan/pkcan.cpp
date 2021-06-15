@@ -62,8 +62,8 @@ PKCanScan::PKCanScan():
 
 PKCanScan::~PKCanScan()
 {
+	MLOGPK(DBG,this) << __FUNCTION__ <<" specific destructor calling stopBus()";
 	stopBus();
-	MLOGPK(DBG,this) << __FUNCTION__ <<" closed successfully";
 }
 
 /**
@@ -71,6 +71,8 @@ PKCanScan::~PKCanScan()
  */
 void PKCanScan::stopBus ()
 {
+	MLOGPK(TRC, this) << __FUNCTION__;
+
 	m_CanScanThreadRunEnableFlag = false;
 	MLOGPK(TRC, this) << " try finishing thread...calling CAN_Uninitialize";
 	TPCANStatus tpcanStatus = CAN_Uninitialize(m_pkCanHandle);
