@@ -70,9 +70,7 @@ public:
 	virtual CanModule::ReconnectAutoCondition getReconnectCondition() { return m_reconnectCondition; };
 	virtual CanModule::ReconnectAction getReconnectAction() { return m_reconnectAction; };
 
-	virtual void stopBus(){
-		MLOGST(Log::TRC) << __FUNCTION__ << " (doing nothing)";
-	};
+	virtual void stopBus();
 
 private:
 

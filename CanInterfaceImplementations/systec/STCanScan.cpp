@@ -55,6 +55,11 @@ extern "C" DLLEXPORTFLAG CCanAccess *getCanBusAccess()
 	return canAccess;
 }
 
+void STCanScan::stopBus(){
+	MLOGST(Log::TRC) << __FUNCTION__ << " (doing nothing)";
+};
+
+
 STCanScan::STCanScan():
 				m_CanScanThreadShutdownFlag(true),
 				m_moduleNumber(0),
