@@ -71,7 +71,7 @@ public:
 	virtual CanModule::ReconnectAction getReconnectAction() { return m_reconnectAction; };
 
 	virtual void stopBus(){
-		MLOGST(Log::TRC) << __FUNCTION__;
+		MLOGST(Log::TRC) << __FUNCTION__ << " (doing nothing)";
 	};
 
 private:

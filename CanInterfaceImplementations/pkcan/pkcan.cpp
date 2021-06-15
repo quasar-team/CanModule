@@ -62,8 +62,8 @@ PKCanScan::PKCanScan():
 
 PKCanScan::~PKCanScan()
 {
+	MLOGPK(DBG,this) << __FUNCTION__ <<" specific destructor calling stopBus()";
 	stopBus();
-	MLOGPK(DBG,this) << __FUNCTION__ <<" closed successfully";
 }
 
 /**

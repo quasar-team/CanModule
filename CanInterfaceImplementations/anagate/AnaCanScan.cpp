@@ -99,12 +99,13 @@ AnaCanScan::~AnaCanScan()
 
 void AnaCanScan::stopBus ()
 {
-	MLOGANA(TRC,this) << __FUNCTION__ << " m_busName= " <<  m_busName << " m_canPortNumber= " << m_canPortNumber;
-	CANSetCallback(m_UcanHandle, 0);
-	CANCloseDevice(m_UcanHandle);
-
-	deleteCanHandleOfPortIp( m_canPortNumber, m_canIPAddress );
-	eraseReceptionHandlerFromMap( m_UcanHandle );
+	if (!m_busStopped){
+		MLOGANA(TRC,this) << __FUNCTION__ << " stopping anagate m_busName= " <<  m_busName << " m_canPortNumber= " << m_canPortNumber;
+		CANSetCallback(m_UcanHandle, 0);
+		CANCloseDevice(m_UcanHandle);
+		deleteCanHandleOfPortIp( m_canPortNumber, m_canIPAddress );
+		eraseReceptionHandlerFromMap( m_UcanHandle );
+	}
 	m_busStopped = true;
 }
 
