@@ -41,13 +41,13 @@ void MockCanAccess::stopBus (){
 
 MockCanAccess::~MockCanAccess()
 {
-	LOG(Log::DBG) << "Destroying MockCanAccess object";
+	LOG(Log::DBG) << __FUNCTION__ << " dtor called, calling stopBus()";
 	stopBus ();
 }
 
 int MockCanAccess::createBus(const string name, const string parameters)
 {	
-	LOG(Log::INF) << __FUNCTION__ << " called with name [" << name << "] parameters [" << parameters << "]";
+	LOG(Log::INF) << __FUNCTION__ << " name [" << name << "] parameters [" << parameters << "]";
 	return 0;
 }
 
