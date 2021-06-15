@@ -36,7 +36,7 @@ MockCanAccess::MockCanAccess()
 }
 
 void MockCanAccess::stopBus (){
-	LOG(Log::TRC) << __FUNCTION__;
+	LOG(Log::TRC) << __FUNCTION__ << " implementation specific (doing nothing in this case)";
 }
 
 MockCanAccess::~MockCanAccess()
