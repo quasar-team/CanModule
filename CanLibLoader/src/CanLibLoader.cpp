@@ -37,10 +37,10 @@ namespace CanModule
 
 // called by factory
 CanLibLoader::CanLibLoader(const std::string& libName)
-		{
+{
 	LogItInstance *logIt = LogItInstance::getInstance();
 	logIt->getComponentHandle( CanModule::LogItComponentName, lh );
-		}
+}
 
 CanLibLoader::~CanLibLoader() {}
 

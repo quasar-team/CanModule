@@ -48,6 +48,7 @@ MockCanAccess::~MockCanAccess()
 int MockCanAccess::createBus(const string name, const string parameters)
 {	
 	LOG(Log::INF) << __FUNCTION__ << " name [" << name << "] parameters [" << parameters << "]";
+	m_sBusName = name;
 	return 0;
 }
 
