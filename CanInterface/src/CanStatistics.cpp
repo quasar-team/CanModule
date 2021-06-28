@@ -74,9 +74,14 @@ namespace CanModule
 	void CanStatistics::computeDerived(unsigned int baudRate)
 	{
 		system_clock::time_point tnom = system_clock::now(); 
+		const std::chrono::time_point<std::chrono::system_clock> now =
+		        std::chrono::system_clock::now();
 
 		auto nDiff = tnom - m_internals.m_observationStart;
 		auto period = duration_cast<seconds>(nDiff).count();
+
+		std::cout<< __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " period= "
+				<< (long int) period << std::endl;
 
 		m_internals.m_transmittedPerSec = (period != 0 ? float(m_transmitted / period) : 0);
 		m_internals.m_receivedPerSec = (period != 0 ? float(m_received / period) : 0);
