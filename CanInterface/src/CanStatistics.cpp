@@ -81,7 +81,7 @@ namespace CanModule
 		auto period = duration_cast<seconds>(nDiff).count();
 
 		std::cout<< __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " period= "
-				<< (long int) period << std::endl;
+				<< period << std::endl;
 
 		m_internals.m_transmittedPerSec = (period != 0 ? float(m_transmitted / period) : 0);
 		m_internals.m_receivedPerSec = (period != 0 ? float(m_received / period) : 0);
