@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+### 2.0.12 [15.june.2021]
+- take out include <boost/thread/thread.hpp> dependency for windows
+
 ### 2.0.11 [4.JUNE.2021]
 - fixing OPPCUA-2335: suppress the destructor call in CanLibLoader::closeCanBus(..)
 - fix return type from constructor in Mock lib, so that the object gets created
