@@ -69,7 +69,6 @@ public:
 	virtual void setReconnectFailedSendCount( unsigned int c ){ m_failedSendCounter = m_triggerCounter = c;	}
 	virtual CanModule::ReconnectAutoCondition getReconnectCondition() { return m_reconnectCondition; };
 	virtual CanModule::ReconnectAction getReconnectAction() { return m_reconnectAction; };
-
 	virtual void stopBus();
 
 private:
