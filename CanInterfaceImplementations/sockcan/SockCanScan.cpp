@@ -47,7 +47,7 @@
 #include <LogIt.h>
 
 /* static */ std::map<string, string> CSockCanScan::m_busMap;
-std:mutex sockReconnectMutex; // protect m_busMap
+std::mutex sockReconnectMutex; // protect m_busMap
 
 #define MLOGSOCK(LEVEL,THIS) LOG(Log::LEVEL, THIS->logItHandle()) << __FUNCTION__ << " sock bus= " << THIS->getBusName() << " "
 
