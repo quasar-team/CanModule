@@ -47,7 +47,7 @@
 #include <LogIt.h>
 
 /* static */ std::map<string, string> CSockCanScan::m_busMap;
-std:mutex sockReconnectMutex; // protect m_busMap
+std::mutex sockReconnectMutex; // protect m_busMap
 
 #define MLOGSOCK(LEVEL,THIS) LOG(Log::LEVEL, THIS->logItHandle()) << __FUNCTION__ << " sock bus= " << THIS->getBusName() << " "
 
@@ -114,6 +114,8 @@ void CSockCanScan::CanScanControlThread()
 
 	p_sockCanScan->m_CanScanThreadRunEnableFlag = true;
 	int sock = p_sockCanScan->m_sock;
+	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " sock= " << sock << std::endl;
+
 	{
 		// discard first read
 		fd_set set;
@@ -124,7 +126,9 @@ void CSockCanScan::CanScanControlThread()
 		timeout.tv_sec = 1;
 		timeout.tv_usec = 0;
 
-		MLOGSOCK(INF,p_sockCanScan) << "waiting for first reception on socket " << sock;
+		// MLOGSOCK(INF,p_sockCanScan) << "waiting for first reception on socket " << sock;
+		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << std::endl;
+
 
 		int selectResult = select( sock+1, &set, 0, &set, &timeout );
 		if ( selectResult > 0 ) {
@@ -547,13 +551,6 @@ void CSockCanScan::updateBusStatus(){
  */
 bool CSockCanScan::sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr)
 {
-
-	// we should skip this if the port is "closed" already
-	if ( !m_CanScanThreadRunEnableFlag ){
-		MLOGSOCK(TRC,this) << __FUNCTION__ << " bus is already closed, sending refused";
-		return false;
-	}
-
 	bool ret = true;
 	int messageLengthToBeProcessed;
 	struct can_frame canFrame = CSockCanScan::emptyCanFrame();
@@ -709,7 +706,30 @@ bool CSockCanScan::sendRemoteRequest(short cobID)
 	return true;
 }
 
+void testThread(){
+	while(true){
+		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << std::endl;
 
+		struct timespec tim, tim2;
+		tim.tv_sec = 1;
+		tim.tv_nsec = 0;
+		if(nanosleep(&tim , &tim2) < 0 ) {
+			std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << "nanosleep failed" << std::endl;;
+		}
+	}
+}
+void testThread2(void *p_voidSockCanScan){
+	while(true){
+		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << std::endl;
+
+		struct timespec tim, tim2;
+		tim.tv_sec = 1;
+		tim.tv_nsec = 0;
+		if(nanosleep(&tim , &tim2) < 0 ) {
+			std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << "nanosleep failed" << std::endl;;
+		}
+	}
+}
 
 /**
  * Method that initializes a can bus channel. The following methods called upon the same
@@ -749,14 +769,11 @@ int CSockCanScan::createBus(const string name, const string parameters)
 	// protect against creating the same bus twice
 	bool skip = false;
 	{
-
-		std::lock_guard<std::mutex> busMapScopedLock( sockReconnectMutex );
-
+		std::lock_guard<std::mutex> busMapScopedLock(sockReconnectMutex);
 		std::map<string, string>::iterator it = CSockCanScan::m_busMap.find( name );
 		if (it == CSockCanScan::m_busMap.end()) {
 			CSockCanScan::m_busMap.insert ( std::pair<string, string>(name, parameters) );
 			m_busName = name;
-			MLOGSOCK(TRC,this) << "added to busMap: [" << name << "] with parameters [" << parameters << "]";
 		} else {
 			skip = true;
 		}
@@ -770,14 +787,6 @@ int CSockCanScan::createBus(const string name, const string parameters)
 	m_sock = configureCanBoard(name,parameters);
 	if (m_sock < 0) {
 		MLOGSOCK(ERR,this) << "Could not create bus [" << name << "] with parameters [" << parameters << "]";
-		// take it out from the map again
-		std::map<string, string>::iterator it = CSockCanScan::m_busMap.find( name );
-		if (it != CSockCanScan::m_busMap.end()) {
-			CSockCanScan::m_busMap.erase ( it );
-			m_busName = "";
-			MLOGSOCK(TRC,this) << "removed from busMap: [" << name << "] with parameters [" << parameters << "]";
-		}
-
 		return -1;
 	}
 	MLOGSOCK(TRC,this) << "Created bus with parameters [" << parameters << "], starting main loop";
@@ -889,23 +898,18 @@ void CSockCanScan::sendErrorMessage(const char *mess)
  */
 void CSockCanScan::stopBus ()
 {
-	if ( m_CanScanThreadRunEnableFlag == false ){
-		MLOGSOCK(DBG,this) << "bus is already closed & thread finished, skipping";
-		return;
-	}
 	MLOGSOCK(DBG,this) << __FUNCTION__ << " m_busName= " <<  m_busName << " try joining thread...";
 	// notify the thread that it should finish.
 	m_CanScanThreadRunEnableFlag = false;
 	{
-		std::lock_guard<std::mutex> busMapScopedLock( sockReconnectMutex );
-
+		std::lock_guard<std::mutex> busMapScopedLock(sockReconnectMutex);
 		std::map<string, string>::iterator it = CSockCanScan::m_busMap.find( m_busName );
 		if (it != CSockCanScan::m_busMap.end()) {
 			m_hCanScanThread->join();
 			CSockCanScan::m_busMap.erase ( it );
 			m_busName = "nobus";
 		} else {
-			MLOGSOCK(DBG,this) << "bus not found in map, is already closed & thread finished, skipping";
+			MLOGSOCK(DBG,this) << "bus is already closed & thread finished, skipping";
 		}
 	}
 }
