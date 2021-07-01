@@ -70,13 +70,9 @@ public:
 
 	void statisticsOnRecieve(int);
 	void callbackOnRecieve(CanMessage&);
-	void setConnectWaitTime( int timeout_ms );
+	void setTimeoutAndReconnect( int timeout_ms );
 
 	static std::string canMessageToString(CanMessage &f);
-
-	// for network debugging
-	void setTimeout( int t ){ m_timeout = t; }
-	int getTimeout(){ return( m_timeout );}
 
 	/**
 	 * CANCanDeviceConnectState , translate from counter
