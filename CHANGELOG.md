@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+
+### 2.0.13 [ 1.july.2021 ]
+- use std::mutex and scoped lock for sock instead of boost. Does not change much anyway. see
+  OPCUA-2331 https://its.cern.ch/jira/browse/OPCUA-2331
+
+
 ### 2.0.12 [15.june.2021]
 - take out include <boost/thread/thread.hpp> dependency for windows
 

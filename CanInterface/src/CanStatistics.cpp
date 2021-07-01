@@ -74,9 +74,6 @@ namespace CanModule
 	void CanStatistics::computeDerived(unsigned int baudRate)
 	{
 		system_clock::time_point tnom = system_clock::now(); 
-		//const std::chrono::time_point<std::chrono::system_clock> now =
-		//        std::chrono::system_clock::now();
-
 		auto nDiff = tnom - m_internals.m_observationStart;
 		auto period = duration_cast<seconds>(nDiff).count();
 
