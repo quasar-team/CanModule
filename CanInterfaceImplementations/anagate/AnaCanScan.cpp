@@ -991,6 +991,7 @@ int AnaCanScan::reconnect(){
 	return( 0 ); // OK
 }
 
+#if 0
 /**
  * set a connection specific timeout value.
  * Global timeout is 6000, set by CanOpenDevice
@@ -1001,7 +1002,7 @@ void AnaCanScan::setTimeoutAndReconnect( int timeout_ms ){
 	MLOGANA(WRN,this) << "reconnect CANOpenDevice m_UcanHandle= " << m_UcanHandle << " to apply new timeout= " << m_timeout;
 	reconnect();
 }
-
+#endif
 
 bool AnaCanScan::sendMessage(CanMessage *canm)
 {
