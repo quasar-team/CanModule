@@ -338,13 +338,16 @@ int AnaCanScan::configureCanBoard(const string name,const string parameters)
 		m_CanParameters.m_iTermination = 1 ;// ENS-26903: default is terminated
 		m_CanParameters.m_iHighSpeed = 0;
 		m_CanParameters.m_iTimeStamp = 0;
+		m_CanParameters.m_iSyncMode = 0;
+		m_CanParameters.m_iTimeout = 12000; // CANT-44: can be set
 	}
 	MLOGANA(TRC, this) << "m_lBaudRate= " << m_CanParameters.m_lBaudRate;
 	MLOGANA(TRC, this) << "m_iOperationMode= " << m_CanParameters.m_iOperationMode;
 	MLOGANA(TRC, this) << "m_iTermination= " << m_CanParameters.m_iTermination;
 	MLOGANA(TRC, this) << "m_iHighSpeed= " << m_CanParameters.m_iHighSpeed;
 	MLOGANA(TRC, this) << "m_iTimeStamp= " << m_CanParameters.m_iTimeStamp;
-	//MLOGANA(TRC, this) << "m_iTimeStamp= " << m_CanParameters.m_iSyncMode;
+	MLOGANA(TRC, this) << "m_iSyncMode= " << m_CanParameters.m_iSyncMode;
+	MLOGANA(TRC, this) << "m_iTimeout= " << m_CanParameters.m_iTimeout;
 	return openCanPort();
 }
 /**
