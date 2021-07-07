@@ -303,11 +303,11 @@ int AnaCanScan::configureCanBoard(const string name,const string parameters)
 	}
 	MLOGANA(TRC, this) << "(cleaned up) canPortNumber= " << m_canPortNumber << " ip= " << m_canIPAddress;
 
-	// handle up to 5 parameter, assume defaults if needed
+	// handle up to 7 parameter, assume defaults if needed
 	m_baudRate = 125000L;
 
 	if (strcmp(parameters.c_str(), "Unspecified") != 0) {
-		MLOGANA(TRC, this) << "m_CanParameters.m_iNumberOfDetectedParameters" << m_CanParameters.m_iNumberOfDetectedParameters;
+		MLOGANA(TRC, this) << "m_CanParameters.m_iNumberOfDetectedParameters " << m_CanParameters.m_iNumberOfDetectedParameters;
 		if ( m_CanParameters.m_iNumberOfDetectedParameters >= 1 )	{
 			m_baudRate = m_CanParameters.m_lBaudRate; // just for the statistics
 
@@ -320,12 +320,14 @@ int AnaCanScan::configureCanBoard(const string name,const string parameters)
 			// or by decoding. They are always used.
 		} else {
 			MLOGANA(ERR, this) << "Error while parsing parameters: this syntax is incorrect: [" << parameters << "]";
-			MLOGANA(ERR, this) << "you need up to 5 numbers separated by whitespaces, i.e. \"125000 0 1 0 0\" \"p0 p1 p2 p3 p4\"";
+			MLOGANA(ERR, this) << "you need up to 7 numbers separated by whitespaces, i.e. \"125000 0 1 0 0\" \"p0 p1 p2 p3 p4\"";
 			MLOGANA(ERR, this) << "  p0 = baud rate, 125000 or whatever the module supports";
 			MLOGANA(ERR, this) << "  p1 = operation mode";
 			MLOGANA(ERR, this) << "  p2 = termination";
 			MLOGANA(ERR, this) << "  p3 = high speed";
 			MLOGANA(ERR, this) << "  p4 = time stamp";
+			MLOGANA(ERR, this) << "  p5 = sync mode";
+			MLOGANA(ERR, this) << "  p6 = timeout/ms";
 			return -1;
 		}
 	} else	{
@@ -342,6 +344,7 @@ int AnaCanScan::configureCanBoard(const string name,const string parameters)
 	MLOGANA(TRC, this) << "m_iTermination= " << m_CanParameters.m_iTermination;
 	MLOGANA(TRC, this) << "m_iHighSpeed= " << m_CanParameters.m_iHighSpeed;
 	MLOGANA(TRC, this) << "m_iTimeStamp= " << m_CanParameters.m_iTimeStamp;
+	//MLOGANA(TRC, this) << "m_iTimeStamp= " << m_CanParameters.m_iSyncMode;
 	return openCanPort();
 }
 /**
