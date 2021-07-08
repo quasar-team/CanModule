@@ -316,11 +316,15 @@ int AnaCanScan::configureCanBoard(const string name,const string parameters)
 				m_CanParameters.m_iHighSpeed = 1;
 			}
 
+			if ( m_CanParameters.m_iNumberOfDetectedParameters >= 7 )	{
+				m_timeout = m_CanParameters.m_iTimeout; // here we set it: CANT-44
+			}
+
 			// any other parameters are already set, either to 0 by init,
 			// or by decoding. They are always used.
 		} else {
 			MLOGANA(ERR, this) << "Error while parsing parameters: this syntax is incorrect: [" << parameters << "]";
-			MLOGANA(ERR, this) << "you need up to 7 numbers separated by whitespaces, i.e. \"125000 0 1 0 0\" \"p0 p1 p2 p3 p4\"";
+			MLOGANA(ERR, this) << "you need up to 7 numbers separated by whitespaces, i.e. \"125000 0 1 0 0 0 6000\" \"p0 p1 p2 p3 p4 p5 p6\"";
 			MLOGANA(ERR, this) << "  p0 = baud rate, 125000 or whatever the module supports";
 			MLOGANA(ERR, this) << "  p1 = operation mode";
 			MLOGANA(ERR, this) << "  p2 = termination";
@@ -331,7 +335,7 @@ int AnaCanScan::configureCanBoard(const string name,const string parameters)
 			return -1;
 		}
 	} else	{
-		// Unspecified: we use defaults "125000 0 1 0 0"
+		// Unspecified: we use defaults "125000 0 1 0 0 0 6000"
 		MLOGANA(INF, this) << "Unspecified parameters, default values (termination=1) will be used.";
 		m_CanParameters.m_lBaudRate = 125000;
 		m_CanParameters.m_iOperationMode = 0;
@@ -341,14 +345,13 @@ int AnaCanScan::configureCanBoard(const string name,const string parameters)
 		m_CanParameters.m_iSyncMode = 0;
 		m_CanParameters.m_iTimeout = 6000; // CANT-44: can be set
 	}
-	MLOGANA(TRC, this) << "m_lBaudRate= " << m_CanParameters.m_lBaudRate;
-	MLOGANA(TRC, this) << "m_iOperationMode= " << m_CanParameters.m_iOperationMode;
-	MLOGANA(TRC, this) << "m_iTermination= " << m_CanParameters.m_iTermination;
-	MLOGANA(TRC, this) << "m_iHighSpeed= " << m_CanParameters.m_iHighSpeed;
-	MLOGANA(TRC, this) << "m_iTimeStamp= " << m_CanParameters.m_iTimeStamp;
-	MLOGANA(TRC, this) << "m_iSyncMode= " << m_CanParameters.m_iSyncMode;
-	MLOGANA(TRC, this) << "m_iTimeout= " << m_CanParameters.m_iTimeout;
-	m_timeout = m_CanParameters.m_iTimeout;
+	MLOGANA(TRC, this) << __FUNCTION__ << " m_lBaudRate= " << m_CanParameters.m_lBaudRate;
+	MLOGANA(TRC, this) << __FUNCTION__ << " m_iOperationMode= " << m_CanParameters.m_iOperationMode;
+	MLOGANA(TRC, this) << __FUNCTION__ << " m_iTermination= " << m_CanParameters.m_iTermination;
+	MLOGANA(TRC, this) << __FUNCTION__ << " m_iHighSpeed= " << m_CanParameters.m_iHighSpeed;
+	MLOGANA(TRC, this) << __FUNCTION__ << " m_iTimeStamp= " << m_CanParameters.m_iTimeStamp;
+	MLOGANA(TRC, this) << __FUNCTION__ << " m_iSyncMode= " << m_CanParameters.m_iSyncMode;
+	MLOGANA(TRC, this) << __FUNCTION__ << " m_iTimeout= " << m_CanParameters.m_iTimeout;
 	return openCanPort();
 }
 /**
