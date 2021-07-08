@@ -80,7 +80,7 @@ AnaCanScan::AnaCanScan():
 								m_busName(""),
 								m_busParameters(""),
 								m_UcanHandle(0),
-								m_timeout ( 12000 ),
+								m_timeout ( 6000 ),
 								m_busStopped( false )
 {
 	m_statistics.setTimeSinceOpened();
@@ -303,11 +303,11 @@ int AnaCanScan::configureCanBoard(const string name,const string parameters)
 	}
 	MLOGANA(TRC, this) << "(cleaned up) canPortNumber= " << m_canPortNumber << " ip= " << m_canIPAddress;
 
-	// handle up to 5 parameter, assume defaults if needed
+	// handle up to 7 parameter, assume defaults if needed
 	m_baudRate = 125000L;
 
 	if (strcmp(parameters.c_str(), "Unspecified") != 0) {
-		MLOGANA(TRC, this) << "m_CanParameters.m_iNumberOfDetectedParameters" << m_CanParameters.m_iNumberOfDetectedParameters;
+		MLOGANA(TRC, this) << "m_CanParameters.m_iNumberOfDetectedParameters " << m_CanParameters.m_iNumberOfDetectedParameters;
 		if ( m_CanParameters.m_iNumberOfDetectedParameters >= 1 )	{
 			m_baudRate = m_CanParameters.m_lBaudRate; // just for the statistics
 
@@ -316,32 +316,43 @@ int AnaCanScan::configureCanBoard(const string name,const string parameters)
 				m_CanParameters.m_iHighSpeed = 1;
 			}
 
+			if ( m_CanParameters.m_iNumberOfDetectedParameters >= 7 )	{
+				m_timeout = m_CanParameters.m_iTimeout; // here we set it: CANT-44
+				MLOGANA(TRC, this) << "anagate: picked up from 7th parameter: m_timeout= " << m_timeout;
+			}
+
 			// any other parameters are already set, either to 0 by init,
 			// or by decoding. They are always used.
 		} else {
 			MLOGANA(ERR, this) << "Error while parsing parameters: this syntax is incorrect: [" << parameters << "]";
-			MLOGANA(ERR, this) << "you need up to 5 numbers separated by whitespaces, i.e. \"125000 0 1 0 0\" \"p0 p1 p2 p3 p4\"";
+			MLOGANA(ERR, this) << "you need up to 7 numbers separated by whitespaces, i.e. \"125000 0 1 0 0 0 6000\" \"p0 p1 p2 p3 p4 p5 p6\"";
 			MLOGANA(ERR, this) << "  p0 = baud rate, 125000 or whatever the module supports";
 			MLOGANA(ERR, this) << "  p1 = operation mode";
 			MLOGANA(ERR, this) << "  p2 = termination";
 			MLOGANA(ERR, this) << "  p3 = high speed";
 			MLOGANA(ERR, this) << "  p4 = time stamp";
+			MLOGANA(ERR, this) << "  p5 = sync mode";
+			MLOGANA(ERR, this) << "  p6 = timeout/ms";
 			return -1;
 		}
 	} else	{
-		// Unspecified: we use defaults "125000 0 1 0 0"
+		// Unspecified: we use defaults "125000 0 1 0 0 0 6000"
 		MLOGANA(INF, this) << "Unspecified parameters, default values (termination=1) will be used.";
 		m_CanParameters.m_lBaudRate = 125000;
 		m_CanParameters.m_iOperationMode = 0;
 		m_CanParameters.m_iTermination = 1 ;// ENS-26903: default is terminated
 		m_CanParameters.m_iHighSpeed = 0;
 		m_CanParameters.m_iTimeStamp = 0;
+		m_CanParameters.m_iSyncMode = 0;
+		m_CanParameters.m_iTimeout = 6000; // CANT-44: can be set
 	}
-	MLOGANA(TRC, this) << "m_lBaudRate= " << m_CanParameters.m_lBaudRate;
-	MLOGANA(TRC, this) << "m_iOperationMode= " << m_CanParameters.m_iOperationMode;
-	MLOGANA(TRC, this) << "m_iTermination= " << m_CanParameters.m_iTermination;
-	MLOGANA(TRC, this) << "m_iHighSpeed= " << m_CanParameters.m_iHighSpeed;
-	MLOGANA(TRC, this) << "m_iTimeStamp= " << m_CanParameters.m_iTimeStamp;
+	MLOGANA(TRC, this) << __FUNCTION__ << " m_lBaudRate= " << m_CanParameters.m_lBaudRate;
+	MLOGANA(TRC, this) << __FUNCTION__ << " m_iOperationMode= " << m_CanParameters.m_iOperationMode;
+	MLOGANA(TRC, this) << __FUNCTION__ << " m_iTermination= " << m_CanParameters.m_iTermination;
+	MLOGANA(TRC, this) << __FUNCTION__ << " m_iHighSpeed= " << m_CanParameters.m_iHighSpeed;
+	MLOGANA(TRC, this) << __FUNCTION__ << " m_iTimeStamp= " << m_CanParameters.m_iTimeStamp;
+	MLOGANA(TRC, this) << __FUNCTION__ << " m_iSyncMode= " << m_CanParameters.m_iSyncMode;
+	MLOGANA(TRC, this) << __FUNCTION__ << " m_iTimeout= " << m_CanParameters.m_iTimeout;
 	return openCanPort();
 }
 /**
@@ -991,17 +1002,18 @@ int AnaCanScan::reconnect(){
 	return( 0 ); // OK
 }
 
+#if 0
 /**
  * set a connection specific timeout value.
  * Global timeout is 6000, set by CanOpenDevice
  * In order to make this specific timeout apply we have to reconnect
  */
-void AnaCanScan::setConnectWaitTime( int timeout_ms ){
+void AnaCanScan::setTimeoutAndReconnect( int timeout_ms ){
 	m_timeout = timeout_ms;
 	MLOGANA(WRN,this) << "reconnect CANOpenDevice m_UcanHandle= " << m_UcanHandle << " to apply new timeout= " << m_timeout;
 	reconnect();
 }
-
+#endif
 
 bool AnaCanScan::sendMessage(CanMessage *canm)
 {

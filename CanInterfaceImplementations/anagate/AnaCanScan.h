@@ -70,10 +70,8 @@ public:
 
 	void statisticsOnRecieve(int);
 	void callbackOnRecieve(CanMessage&);
-	void setConnectWaitTime( int timeout_ms );
 
 	static std::string canMessageToString(CanMessage &f);
-
 
 	/**
 	 * CANCanDeviceConnectState , translate from counter

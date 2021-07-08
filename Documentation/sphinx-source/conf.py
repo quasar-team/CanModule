@@ -16,9 +16,9 @@ master_doc = 'index'
 project = u'CanModule'
 copyright = u'2020, CERN, quasar-team, BE-ICS (Michael Ludwig)'
 # The short X.Y version.
-version = '2.0.6'
+version = '2.0.13'
 # The full version, including alpha/beta/rc tags.
-release = '2.0.6'
+release = '2.0.13'
 language = 'en'
 today_fmt = '%B %d, %Y'
 exclude_patterns = []

@@ -31,6 +31,7 @@
 #include <sys/socket.h>
 #include <linux/can.h>
 
+
 #include "CCanAccess.h"
 #include "CanStatistics.h"
 #include "libsocketcan.h"
@@ -107,7 +108,6 @@ public:
 	virtual CanModule::ReconnectAutoCondition getReconnectCondition() { return m_reconnectCondition; };
 	virtual CanModule::ReconnectAction getReconnectAction() { return m_reconnectAction; };
 
-	virtual void stopBus ();
 
 private:
 	volatile atomic_bool m_CanScanThreadRunEnableFlag; //Flag for running/shutting down the
@@ -126,7 +126,7 @@ private:
 	/**
 	 * stop the supervisor thread using the flag and close the socket.
 	 */
-	//void stopBus ();
+	void stopBus ();
 
 	/**
 	 * Report an error when opening a can port
