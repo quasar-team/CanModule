@@ -318,6 +318,7 @@ int AnaCanScan::configureCanBoard(const string name,const string parameters)
 
 			if ( m_CanParameters.m_iNumberOfDetectedParameters >= 7 )	{
 				m_timeout = m_CanParameters.m_iTimeout; // here we set it: CANT-44
+				MLOGANA(TRC, this) << "anagate: picked up from 7th parameter: m_timeout= " << m_timeout;
 			}
 
 			// any other parameters are already set, either to 0 by init,
