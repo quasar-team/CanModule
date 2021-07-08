@@ -80,7 +80,7 @@ AnaCanScan::AnaCanScan():
 								m_busName(""),
 								m_busParameters(""),
 								m_UcanHandle(0),
-								m_timeout ( 12000 ),
+								m_timeout ( 6000 ),
 								m_busStopped( false )
 {
 	m_statistics.setTimeSinceOpened();

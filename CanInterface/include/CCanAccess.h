@@ -131,7 +131,7 @@ struct CanParameters {
 	bool m_dontReconfigure;
 	CanParameters() : m_lBaudRate(0), m_iOperationMode(0), m_iTermination(0),
 			m_iHighSpeed(1), m_iTimeStamp(0),
-			m_iSyncMode(0), m_iTimeout(12000),
+			m_iSyncMode(0), m_iTimeout(6000),
 			m_iNumberOfDetectedParameters(), m_dontReconfigure(false) {}
 
 	void scanParameters(string parameters)
