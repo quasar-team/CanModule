@@ -339,7 +339,7 @@ int AnaCanScan::configureCanBoard(const string name,const string parameters)
 		m_CanParameters.m_iHighSpeed = 0;
 		m_CanParameters.m_iTimeStamp = 0;
 		m_CanParameters.m_iSyncMode = 0;
-		m_CanParameters.m_iTimeout = 12000; // CANT-44: can be set
+		m_CanParameters.m_iTimeout = 6000; // CANT-44: can be set
 	}
 	MLOGANA(TRC, this) << "m_lBaudRate= " << m_CanParameters.m_lBaudRate;
 	MLOGANA(TRC, this) << "m_iOperationMode= " << m_CanParameters.m_iOperationMode;
@@ -348,6 +348,7 @@ int AnaCanScan::configureCanBoard(const string name,const string parameters)
 	MLOGANA(TRC, this) << "m_iTimeStamp= " << m_CanParameters.m_iTimeStamp;
 	MLOGANA(TRC, this) << "m_iSyncMode= " << m_CanParameters.m_iSyncMode;
 	MLOGANA(TRC, this) << "m_iTimeout= " << m_CanParameters.m_iTimeout;
+	m_timeout = m_CanParameters.m_iTimeout;
 	return openCanPort();
 }
 /**
