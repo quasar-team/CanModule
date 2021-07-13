@@ -411,6 +411,9 @@ public:
 		}
 		m_CanParameters.scanParameters(parameters);
 		LOG(Log::TRC, m_lh) << __FUNCTION__ << " stringVector size= " << stringVector.size();
+		for(const auto& value: stringVector) {
+			LOG(Log::TRC, m_lh) << __FUNCTION__ << " " << value;
+		}
 		return stringVector;
 	}
 
