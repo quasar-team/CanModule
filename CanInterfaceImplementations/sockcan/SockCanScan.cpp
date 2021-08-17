@@ -554,6 +554,11 @@ bool CSockCanScan::sendMessage(short cobID, unsigned char len, unsigned char *me
 		return false;
 	}
 
+	if ( cobID < 0 || cobID > 2047 ){
+		MLOGSOCK(WRN,this) << __FUNCTION__ << " CAN ID outside 11bit (standard) range detected. Truncating ID. This message will likely be lost on the CAN Bus. Extended CAN is not supported.";
+		cobID = cobID & 0x7FF;
+	}
+
 	bool ret = true;
 	int messageLengthToBeProcessed;
 	struct can_frame canFrame = CSockCanScan::emptyCanFrame();
