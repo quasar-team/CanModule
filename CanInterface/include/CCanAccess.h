@@ -212,7 +212,7 @@ public:
 	{
 		if ( canm->c_id < 0 || canm->c_id > 2047 ){
 			LOG(Log::WRN, m_lh) << __FUNCTION__ << " CAN ID outside 11 bit (standard) range detected. Truncating ID. This message will likely be lost on the CAN Bus. Extended CAN is not supported.";
-			c_id = c_id & 0x7FF;
+			canm->c_id = canm->c_id & 0x7FF;
 		}
 		return sendMessage(short(canm->c_id), canm->c_dlc, canm->c_data, canm->c_rtr);
 	}
