@@ -1,0 +1,38 @@
+# CI/CD for CanModule: trigger the qa and generate the documentation
+# we do not build any libs or binaries, since this is cross platform anyway 
+# and we distribute the sources only
+#
+stages:
+  - documentation
+  - ics-fd-qa
+ 
+
+# include QA
+include:
+  - project: 'jcopfw/qa/ics-fd-qa'
+    file: 'noKobe-qa.yml'
+
+variables:
+  RELEASE_BUILD_DIR: /release-build
+  URL: "$CI_PROJECT_URL/~/jobs/$CI_JOB_ID/artifacts/download"
+
+
+# create a sphinx/doxygen/breathe documentation on the specific code
+# use sphinx-docker image ubuntu
+# not yet integrated into qa (branch doc)
+documentation:
+   stage: documentation
+   image: $CI_REGISTRY/mludwig/docker:ubuntu2004.ics-fd-qa.20may2021
+   tags:
+     - docker
+   script:
+     - cd $CI_PROJECT_DIR/Documentation && ./documentation.sh
+   allow_failure: true
+   artifacts:
+     name: documentation
+     paths:
+       - "$CI_PROJECT_DIR/Documentation/html/"
+       - "$CI_PROJECT_DIR/Documentation/pdf/"
+       - "$CI_PROJECT_DIR/Documentation/latex/"
+       - "$CI_PROJECT_DIR/Documentation/doxygen-html/"
+
