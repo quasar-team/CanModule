@@ -10,8 +10,11 @@ Development documentation (usage, support) (https://readthedocs.web.cern.ch/disp
 master v1.1.1: works for anagate, systec and peak bridges, includes a CWrapper. tested in the lab. 
 
 # where is the doc
-developers documentation is in subdirectory:
+- developers documentation is in subdirectory:
 Documentation/sphinx-result/index.html
+- or can be picked up from the master artifact at:
+https://gitlab.cern.ch/mludwig/canmodule-mirror/-/pipelines (job: documentation, unzip, html tree etc)
+
 
 
 # CanModule
