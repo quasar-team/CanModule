@@ -419,6 +419,8 @@ int CSockCanScan::openCanPort()
 			MLOGSOCK(ERR,this) << "Error while can_do_start(): " << CanModuleerrnoToString();
 			return -1;
 		}
+	} else {
+		MLOGSOCK(INF,this) << "did NOT reconfigure (stop, set bitrate, start) the CAN port";
 	}
 
 	m_sock = socket(PF_CAN, SOCK_RAW, CAN_RAW);
@@ -553,6 +555,7 @@ bool CSockCanScan::sendMessage(short cobID, unsigned char len, unsigned char *me
 		MLOGSOCK(TRC,this) << __FUNCTION__ << " bus is already closed, sending refused";
 		return false;
 	}
+
 
 	bool ret = true;
 	int messageLengthToBeProcessed;
