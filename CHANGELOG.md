@@ -3,9 +3,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 
-### 2.0.14 [17.aug.2021]
+### 2.0.14 [28.octg.2021]
 - OPCUA-2452: standard CAN ID have 11bits, the API permits sending int16_t as IDs, with sign. Add a check that 0<ID<2048 and issue a WRN.
   Extended CAN messages are not supported, we stay with 8 bytes data.
+- CANT-44: add a timeout parameter for anagate as 7th parameter
+
 
 ### 2.0.13 [ 1.july.2021 ]
 - use std::mutex and scoped lock for sock instead of boost. Does not change much anyway. see
