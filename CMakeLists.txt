@@ -20,7 +20,7 @@
 cmake_minimum_required(VERSION 3.0)
 project( CanModule LANGUAGES C CXX  VERSION 2.0.14  ) # sets PROJECT_VERSION etc etc
 message(STATUS " [${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CanModule version= ${PROJECT_VERSION}" )
-file(WRITE CanInterface/include/VERSION.h "// VERSION.h - do not edit\n#define CanModule_VERSION \"${PROJECT_VERSION}\"" )
+# file(WRITE CanInterface/include/VERSION.h "// VERSION.h - do not edit\n#define CanModule_VERSION \"${PROJECT_VERSION}\"" )
 
 # specify -DCANMODULE_AS_STATIC_AS_POSSIBLE for cmake to switch the CanLibLoaderLin lib names accordingly
 # so that the "as-static-as-possible" shared libs are used by CanModule
@@ -77,12 +77,12 @@ endfunction()
 option(STANDALONE_BUILD "Build ${PROJECT_NAME} as a stand-alone library (rather than a quasar optional module)" OFF )
 message(STATUS "STANDALONE_BUILD [${STANDALONE_BUILD}]")
 
-#
+
 # How does the stand-alone open62541-compat build want to use LogIt? Possible options:
 # - Source
 # - External shared
 # - External static.
-#
+
 set(LOGIT_BUILD_OPTION "LOGIT_AS_INT_SRC" CACHE STRING "LogIt is a mandatory dependency of CanModule. Inclusion options LOGIT_AS_INT_SRC, LOGIT_AS_EXT_SHARED, LOGIT_AS_EXT_STATIC")
 set_property(CACHE LOGIT_BUILD_OPTION PROPERTY STRINGS LOGIT_AS_INT_SRC LOGIT_AS_EXT_SHARED LOGIT_AS_EXT_STATIC)
 message(STATUS "LogIt build option LOGIT_BUILD_OPTION [${LOGIT_BUILD_OPTION}]")
@@ -113,6 +113,9 @@ SET( SRCS
 		CanInterface/include/CanMessage.h
 		CanInterface/src/CCanAccess.cpp
 		CanInterface/include/CCanAccess.h
+		CanInterfaceImplementations/sockcan/SockCanScan.cpp
+		CanInterfaceImplementations/sockcan/UdevAnalyserForPeak.cpp
+		CanInterface/src/CanMessage.cpp
 		${CAN_LIBRARY_GETTIMEOFDAY}
 		${CAN_LIBRARY_GETTIMEOFDAY_HEADER}		
 )

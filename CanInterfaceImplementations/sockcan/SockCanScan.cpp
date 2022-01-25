@@ -178,21 +178,21 @@ void CSockCanScan::CanScanControlThread()
 		 * Now select result >=0 so it was either nothing received (timeout) or something received
 		 */
 		if ( p_sockCanScan->m_errorCode ) {
-			/** The preceding call took either 'timeout' time, or there is frame received --
-			 * perfect time to attempt to clean error frame.
-			 */
-			int status_socketcan = -1;
-			int ret = can_get_state( p_sockCanScan->m_channelName.c_str(), &status_socketcan);
-			if (ret != 0) {
-				MLOGSOCK(ERR,p_sockCanScan) << "can_get_state failed, " << " tid= " << _tid;
-			} else {
-				if (status_socketcan == 0) {
-					p_sockCanScan->m_errorCode = 0;
-					timeval t;
-					gettimeofday( &t, 0 );
-					p_sockCanScan->canMessageError( p_sockCanScan->m_errorCode, "CAN port is recovered", t );
-				}
-			}
+			// /** The preceding call took either 'timeout' time, or there is frame received --
+			//  * perfect time to attempt to clean error frame.
+			//  */
+			// int status_socketcan = -1;
+			// int ret = can_get_state( p_sockCanScan->m_channelName.c_str(), &status_socketcan);
+			// if (ret != 0) {
+			// 	MLOGSOCK(ERR,p_sockCanScan) << "can_get_state failed, " << " tid= " << _tid;
+			// } else {
+			// 	if (status_socketcan == 0) {
+			// 		p_sockCanScan->m_errorCode = 0;
+			// 		timeval t;
+			// 		gettimeofday( &t, 0 );
+			// 		p_sockCanScan->canMessageError( p_sockCanScan->m_errorCode, "CAN port is recovered", t );
+			// 	}
+			// }
 		}
 
 		/**

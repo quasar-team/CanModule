@@ -8,6 +8,8 @@
 #ifndef CANMESSAGE_H_
 #define CANMESSAGE_H_
 
+#include <string>
+
 #ifdef _WIN32
 #include <Winsock2.h>
 #else
@@ -43,6 +45,8 @@ public:
 			for (int i=0; i<8; i++)
 				c_data[i] = 0;
 		}
+	
+	std::string toString() const;
 #endif //Be careful when using this struct from C
 
 } CanMessage;
