@@ -109,6 +109,8 @@ public:
 
 	virtual void stopBus ();
 
+		void updateInitialError () ;
+
 private:
 	volatile atomic_bool m_CanScanThreadRunEnableFlag; //Flag for running/shutting down the
 	// CanScan thread, with compiler optimization switched off for more code safety
@@ -128,10 +130,7 @@ private:
 	 */
 	//void stopBus ();
 
-	/**
-	 * Report an error when opening a can port
-	 */
-	void updateInitialError () ;
+
 
 	/**
 	 * Transforms an error frame into an error message (string format)

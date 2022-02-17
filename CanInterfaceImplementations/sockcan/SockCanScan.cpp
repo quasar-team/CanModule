@@ -291,11 +291,11 @@ void CSockCanScan::CanScanControlThread()
 			CanMessage canMessage;
 			canMessage.c_rtr = socketMessage.can_id & CAN_RTR_FLAG;
 
-			// remote flag: ignore frame
-			if (canMessage.c_rtr) {
-				MLOGSOCK(TRC, p_sockCanScan) << " Got a remote CAN message, skipping"<< " tid= " << _tid;
-				continue;
-			}
+			// // remote flag: ignore frame
+			// if (canMessage.c_rtr) {
+			// 	MLOGSOCK(TRC, p_sockCanScan) << " Got a remote CAN message, skipping"<< " tid= " << _tid;
+			// 	continue;
+			// }
 
 			/**
 			 * reformat and buffer the message from the socket.
