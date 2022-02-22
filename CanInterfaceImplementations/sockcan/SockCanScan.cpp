@@ -291,11 +291,19 @@ void CSockCanScan::CanScanControlThread()
 			CanMessage canMessage;
 			canMessage.c_rtr = socketMessage.can_id & CAN_RTR_FLAG;
 
+			/**
+			 * OPCUA-2607. Lets just stop filtering them out. This is only done here
+			 * anyway, all other vendor implementations don't care.
+			 */
+#if 0
 			// remote flag: ignore frame
 			if (canMessage.c_rtr) {
 				MLOGSOCK(TRC, p_sockCanScan) << " Got a remote CAN message, skipping"<< " tid= " << _tid;
 				continue;
 			}
+#else
+			MLOGSOCK(TRC, p_sockCanScan) << " Got a remote CAN message "<< " tid= " << _tid;
+#endif
 
 			/**
 			 * reformat and buffer the message from the socket.
