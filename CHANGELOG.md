@@ -2,12 +2,15 @@
 All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
-### 2.0.15 [21.feb.2022]
-- OPCUA-2604: reconnection behavior with firewall, does this behave as expected?
-- OPCUA-2607: unblock RTR CAN messages, need an option
-- OPCUA-2614: extended messages, need an option
-- OPCUA-2584: rx/tx counting in the handler
+### in progress
+- OPCUA-2604: reconnection behavior with firewall, sendMessage should not block. also fix the
+    documentation about reconnection behavior.
+- OPCUA-2614: extended messages, do we need an option ? 
+- OPCUA-2584: rx/tx counting in the handler, for now, to improve err reporting already
 
+### 2.0.15 [22.feb.2022]
+- OPCUA-2607: unblock RTR CAN messages, suppressed 3 lines of code for "sock", so that
+  all vendors behave in the same way. Remote messages are not suppressed any more at reception.
 
 ### 2.0.14 [28.oct.2021]
 - OPCUA-2452: standard CAN ID have 11bits, the API permits sending int16_t as IDs, with sign. Add a check that 0<ID<2048 and issue a WRN.
