@@ -35,6 +35,9 @@
 #include <thread>
 #include <string>
 
+#include <mutex>
+#include <condition_variable>
+
 #include <boost/bind/bind.hpp>
 #include <boost/signals2.hpp>
 
@@ -160,7 +163,7 @@ public:
 		m_timeoutOnReception( 120 ),
 		m_triggerCounter( 10 ),
 		m_failedSendCounter( 10 ),
-		m_connectionIndex(0),
+		//m_connectionIndex(0), // seems unused
 		m_lh(0),
 		m_logItRemoteInstance( NULL )
 {
@@ -490,6 +493,9 @@ protected:
 	unsigned int m_timeoutOnReception;
 	int m_triggerCounter;
 	unsigned int m_failedSendCounter;
+	// trigger the reconnection thread using a mutex and a condition variable, no predicate
+	std::mutex reconnection_mtx;
+	std::condition_variable reconnection_cv;
 
 	/**
 	 * just translate the ugly r.condition enum into a user-friendly string for convenience and logging.
@@ -548,8 +554,8 @@ protected:
 	}
 
 private:
-	boost::signals2::connection m_signal_connection;
-	int m_connectionIndex;
+	//boost::signals2::connection m_signal_connection; // seems unused
+	//int m_connectionIndex; // seems unused
 	Log::LogComponentHandle m_lh; // s_lh ?!? problem with windows w.t.f.
 	LogItInstance* m_logItRemoteInstance;
 

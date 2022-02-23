@@ -26,6 +26,9 @@
 
 #include <thread>
 #include <string>
+// #include <mutex>
+// #include <condition_variable>
+
 
 #include <unistd.h>
 #include <sys/socket.h>
@@ -118,9 +121,15 @@ private:
 
 	CanStatistics m_statistics;
 	std::thread *m_hCanScanThread;	// ptr thread object, needed for join. allocate thread with new(..)
+	std::thread *m_hCanReconnectionThread;	// ptr thread object, needed for join. allocate thread with new(..)
 	std::string m_channelName;
 	std::string m_busName;
 	Log::LogComponentHandle m_logItHandleSock;
+
+	// trigger the reconnection thread using a mutex and a condition variable, no predicate
+	// in protected section of superclass
+	//std::mutex reconnection_mtx;
+	//std::condition_variable reconnection_cv;
 
 
 	/**
@@ -156,6 +165,12 @@ private:
 	 * following std::thread C++11 ways.
 	 */
 	void CanScanControlThread();
+
+	/**
+	 * reconnection behavior thread, always up
+	 */
+	void CanReconnectionThread();
+
 };
 
 
