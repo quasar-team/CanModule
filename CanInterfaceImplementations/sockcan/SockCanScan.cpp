@@ -400,9 +400,9 @@ void CSockCanScan::CanReconnectionThread()
 		}
 	}
 #endif
-	// wait first time for init
+	// need some sync to the main thread to be sure it is up and the sock is created: wait first time for init
 	std::unique_lock<std::mutex> lk(reconnection_mtx);
-	reconnection_cv.wait( lk, []{ return true;});
+	reconnection_cv.wait( lk );
 
 
 	CSockCanScan *p_thisObj = this;
@@ -449,7 +449,7 @@ void CSockCanScan::CanReconnectionThread()
 		// wait
 		MLOGSOCK(TRC, p_thisObj) << "waiting reconnection thread tid= " << _tid;
 		std::unique_lock<std::mutex> lk(reconnection_mtx);
-		reconnection_cv.wait( lk ); /// no predicate
+		reconnection_cv.wait( lk );
 
 		MLOGSOCK(TRC, p_thisObj)
 			<< "reconnect condition " << (int) rcond
@@ -459,6 +459,37 @@ void CSockCanScan::CanReconnectionThread()
 			<< " is checked";
 
 
+		switch ( rcond ){
+		case CanModule::ReconnectAutoCondition::timeoutOnReception: {
+			if ( ract == CanModule::ReconnectAction::singleBus ){
+				MLOGSOCK(INF, p_thisObj) << " reconnect condition " << (int) rcond
+						<< p_thisObj->reconnectConditionString(rcond)
+						<< " triggered action " << (int) ract
+						<< p_thisObj->reconnectActionString(ract);
+				p_thisObj->resetTimeoutOnReception();  // renew timeout while reconnect is in progress
+				close( sock );
+				sock = p_thisObj->openCanPort();
+				MLOGSOCK(TRC, p_thisObj) << "reconnect one CAN port  sock= " << sock;
+			} /** else
+			{
+							MLOGSOCK(INF, p_thisObj) << "reconnect action " << (int) ract
+									<< p_thisObj->reconnectActionString(ract)
+									<< " is not implemented for sock";
+						}
+			 */
+			break;
+		}
+		case CanModule::ReconnectAutoCondition::sendFail: {
+			break;
+		}
+		// do nothing
+		case CanModule::ReconnectAutoCondition::never: {
+			break;
+		}
+
+
+		} // switch
+#if 0
 		if ( rcond == CanModule::ReconnectAutoCondition::timeoutOnReception && p_thisObj->hasTimeoutOnReception()) {
 			if ( ract == CanModule::ReconnectAction::singleBus ){
 				MLOGSOCK(INF, p_thisObj) << " reconnect condition " << (int) rcond
@@ -475,7 +506,7 @@ void CSockCanScan::CanReconnectionThread()
 						<< " is not implemented for sock";
 			}
 		}  // reconnect condition
-
+#endif
 
 		lk.unlock();
 	} // while
