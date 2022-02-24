@@ -3,10 +3,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### in progress
-- OPCUA-2604: reconnection behavior with firewall, sendMessage should not block. also fix the
-    documentation about reconnection behavior.
+
 - OPCUA-2614: extended messages, do we need an option ? 
 - OPCUA-2584: rx/tx counting in the handler, for now, to improve err reporting already
+
+### 2.0.16 [23.feb.2022]
+- reconnection documentation updated and improved
+- OPCUA-2604: reconnection behavior with firewall, sendMessage should not block. also fix the
+    documentation about reconnection behavior.
 
 ### 2.0.15 [22.feb.2022]
 - OPCUA-2607: unblock RTR CAN messages, suppressed 3 lines of code for "sock", so that
