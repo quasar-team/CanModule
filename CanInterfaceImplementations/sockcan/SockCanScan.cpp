@@ -24,7 +24,10 @@
 #include "SockCanScan.h"
 #include "UdevAnalyserForPeak.h"
 
+#include <thread>
 #include <mutex>
+#include <condition_variable>
+
 #include <time.h>
 #include <string.h>
 #include <sys/time.h>
@@ -47,11 +50,9 @@
 #include <LogIt.h>
 
 /* static */ std::map<string, string> CSockCanScan::m_busMap;
-std::mutex sockReconnectMutex; // protect m_busMap
+std::mutex sockReconnectMutex; // protect global m_busMap
 
 #define MLOGSOCK(LEVEL,THIS) LOG(Log::LEVEL, THIS->logItHandle()) << __FUNCTION__ << " sock bus= " << THIS->getBusName() << " "
-
-
 
 /**
  * This function creates an instance of this class and returns it.
@@ -68,6 +69,8 @@ CSockCanScan::CSockCanScan() :
 							m_sock(0),
 							m_errorCode(-1),
 							m_hCanScanThread( NULL ),
+							m_hCanReconnectionThread( NULL ),
+							m_reconnectTrigger( false ),
 							m_busName("nobus"),
 							m_logItHandleSock(0)
 {
@@ -139,7 +142,8 @@ void CSockCanScan::CanScanControlThread()
 	int statusCountdown = 10;
 
 	// unblock init of reconnection thread
-	reconnection_cv.notify_one();
+	MLOGSOCK(TRC,p_sockCanScan) << "init reconnection thread " << p_sockCanScan->getBusName();
+	triggerReconnectionThread();
 
 	while ( p_sockCanScan->m_CanScanThreadRunEnableFlag ) {
 		fd_set set;
@@ -346,7 +350,8 @@ void CSockCanScan::CanScanControlThread()
 			 *     1 = reconnect in progress
 			 *     2 = reconnect has failed finally
 			 */
-			reconnection_cv.notify_one();
+			MLOGSOCK(TRC,p_sockCanScan) << "trigger reconnection thread " << p_sockCanScan->getBusName();
+			triggerReconnectionThread();
 
 #if 0
 			/**
@@ -382,68 +387,54 @@ void CSockCanScan::CanScanControlThread()
 /**
  * thread managing the reconnection behavior. The behavior settings can not change during runtime.
  * This thread is init after the main thread (cond variable sync).
+ *
+ * https://en.cppreference.com/w/cpp/thread/condition_variable/wait
  */
 void CSockCanScan::CanReconnectionThread()
 {
-	// need some sync to the main thread to be sure it is up and the sock is created: wait first time for init
-	std::unique_lock<std::mutex> lk(reconnection_mtx);
-	reconnection_cv.wait( lk );
-
-
-	CSockCanScan *p_thisObj = this;
-	// convenience, not really needed as we call the thread as
-	// non-static private member on the object
-	int sock = p_thisObj->m_sock;
-
 	std::string _tid;
 	{
 		std::stringstream ss;
 		ss << this_thread::get_id();
 		_tid = ss.str();
 	}
-	MLOGSOCK(TRC, p_thisObj) << "created reconnection thread tid= " << _tid;
+	MLOGSOCK(TRC, this ) << "created reconnection thread tid= " << _tid;
+
+	// need some sync to the main thread to be sure it is up and the sock is created: wait first time for init
+	std::unique_lock<std::mutex> lk(m_reconnection_mtx);
+	while  ( m_reconnectTrigger == false ) m_reconnection_cv.wait( lk );
+
+	int sock = m_sock;
+
 
 	/**
 	 * lets check the timeoutOnReception reconnect condition. If it is true, all we can do is to
 	 * close/open the socket again since the underlying hardware is hidden by socketcan abstraction.
 	 * Like his we do not have to pollute the "sendMessage" like for anagate, and that is cleaner.
 	 */
-	CanModule::ReconnectAutoCondition rcond = p_thisObj->getReconnectCondition();
-	CanModule::ReconnectAction ract = p_thisObj->getReconnectAction();
+	CanModule::ReconnectAutoCondition rcond = getReconnectCondition();
+	CanModule::ReconnectAction ract = getReconnectAction();
 
-	lk.unlock();
-	MLOGSOCK(TRC, p_thisObj) << "entering loop reconnection thread tid= " << _tid;
-
+	MLOGSOCK(TRC, this) << "initialized reconnection thread tid= " << _tid << ", entering loop";
 	while ( true ) {
 
 		// wait for sync: need a condition sync to step that thread once: a "trigger".
-		MLOGSOCK(TRC, p_thisObj) << "waiting reconnection thread tid= " << _tid;
-		std::unique_lock<std::mutex> lk(reconnection_mtx);
-		reconnection_cv.wait( lk );
+		MLOGSOCK(TRC, this) << "waiting reconnection thread tid= " << _tid;
+		std::unique_lock<std::mutex> lk( m_reconnection_mtx);
+		while  ( m_reconnectTrigger == false ) m_reconnection_cv.wait( lk );
 
-		MLOGSOCK(TRC, p_thisObj)
+		MLOGSOCK(TRC, this)
+			<< " reconnection thread tid= " << _tid
 			<< "reconnect condition " << (int) rcond
-			<< p_thisObj->reconnectConditionString(rcond)
+			<< reconnectConditionString(rcond)
 			<< "reconnect action " << (int) ract
-			<< p_thisObj->reconnectActionString(ract)
+			<< reconnectActionString(ract)
 			<< " is checked";
 
 		switch ( rcond ){
-		// do nothing
+		// check the condition, there is nothing to do here. action is further down
+		// todo: test this
 		case CanModule::ReconnectAutoCondition::timeoutOnReception: {
-#if 0
-			if ( ract == CanModule::ReconnectAction::singleBus && p_thisObj->hasTimeoutOnReception()){
-				MLOGSOCK(INF, p_thisObj) << " reconnect condition " << (int) rcond
-						<< p_thisObj->reconnectConditionString(rcond)
-						<< " triggered action " << (int) ract
-						<< p_thisObj->reconnectActionString(ract);
-				p_thisObj->resetTimeoutOnReception();  // renew timeout while reconnect is in progress
-				close( sock );
-				sock = p_thisObj->openCanPort();
-				MLOGSOCK(TRC, p_thisObj) << "reconnect one CAN port  sock= " << sock;
-			}
-			// CanModule::ReconnectAction::allBusesOnBridge is not implemented for sock
-#endif
 			break;
 		}
 		case CanModule::ReconnectAutoCondition::sendFail: {
@@ -488,20 +479,20 @@ void CSockCanScan::CanReconnectionThread()
 				}
 
 				// reception timeout
-			} else if ( p_thisObj->hasTimeoutOnReception()){
-				MLOGSOCK(INF, p_thisObj) << " reconnect condition " << (int) rcond
-						<< p_thisObj->reconnectConditionString(rcond)
+			} else if ( hasTimeoutOnReception()){
+				MLOGSOCK(INF, this) << " reconnect condition " << (int) rcond
+						<< CSockCanScan::reconnectConditionString(rcond)
 						<< " triggered action " << (int) ract
-						<< p_thisObj->reconnectActionString(ract);
-				p_thisObj->resetTimeoutOnReception();  // renew timeout while reconnect is in progress
+						<< CSockCanScan::reconnectActionString(ract);
+				resetTimeoutOnReception();  // renew timeout while reconnect is in progress
 				close( sock );
-				sock = p_thisObj->openCanPort();
-				MLOGSOCK(TRC, p_thisObj) << "reconnect one CAN port  sock= " << sock;
+				sock = openCanPort();
+				MLOGSOCK(TRC, this) << "reconnect one CAN port  sock= " << sock;
 			}
-			// CanModule::ReconnectAction::allBusesOnBridge is not implemented for sock
 
 			break;
 		}
+
 		default: {
 			/**
 			 * socketcan abstracts away the notion of a "module", and that is the point. Various plugin-orders
@@ -512,7 +503,7 @@ void CSockCanScan::CanReconnectionThread()
 			 * it is not worth it. Use a PDU if you want to reset your systec16. For peak the notion
 			 * of "module" is already difficult through socketcan (udev calls needed to identify the modules) and
 			 * peak bridges get their power over USB. So in fact testing peak means "rebooting" unless you want
-			 * to unplug the USB. Therefore "allBusesOnBridge" as reconnect action is not available.
+			 * to unplug the USB. Therefore "allBusesOnBridge" as reconnect action is not available for sock.
 			 *
 			 * CanModule::ReconnectAction::allBusesOnBridge is not implemented for sock
 			 */
@@ -522,8 +513,6 @@ void CSockCanScan::CanReconnectionThread()
 			break;
 		}
 		} // switch
-
-		lk.unlock();
 	} // while
 }
 
@@ -779,7 +768,7 @@ bool CSockCanScan::sendMessage(short cobID, unsigned char len, unsigned char *me
 		}
 
 		// trigger the reconnection thread once since there was a send fail
-		reconnection_cv.notify_one();
+		m_reconnection_cv.notify_one();
 
 		// return immediately, non blocking
 		ret = false;

@@ -25,10 +25,10 @@
 #define SOCKCANSCAN_H_
 
 #include <thread>
-#include <string>
-// #include <mutex>
-// #include <condition_variable>
+#include <mutex>
+#include <condition_variable>
 
+#include <string>
 
 #include <unistd.h>
 #include <sys/socket.h>
@@ -122,15 +122,22 @@ private:
 	CanStatistics m_statistics;
 	std::thread *m_hCanScanThread;	// ptr thread object, needed for join. allocate thread with new(..)
 	std::thread *m_hCanReconnectionThread;	// ptr thread object, needed for join. allocate thread with new(..)
+	bool m_reconnectTrigger;
 	std::string m_channelName;
 	std::string m_busName;
 	Log::LogComponentHandle m_logItHandleSock;
 
-	// trigger the reconnection thread using a mutex and a condition variable, no predicate
-	// in protected section of superclass
-	//std::mutex reconnection_mtx;
-	//std::condition_variable reconnection_cv;
 
+	// trigger the reconnection thread using a mutex and a condition variable, no predicate
+	// should go into protected section of superclass
+	std::mutex m_reconnection_mtx;
+	std::condition_variable m_reconnection_cv;
+
+	void triggerReconnectionThread(){
+		std::cout << "==> trigger reconnection thread " << getBusName() << std::endl;
+		m_reconnectTrigger = true;
+		m_reconnection_cv.notify_one();
+	}
 
 	/**
 	 * stop the supervisor thread using the flag and close the socket.
