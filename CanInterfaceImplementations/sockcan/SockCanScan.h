@@ -120,23 +120,32 @@ private:
 	int m_errorCode; // As up-to-date as possible state of the interface.
 
 	CanStatistics m_statistics;
-	std::thread *m_hCanScanThread;	// ptr thread object, needed for join. allocate thread with new(..)
-	std::thread *m_hCanReconnectionThread;	// ptr thread object, needed for join. allocate thread with new(..)
-	bool m_reconnectTrigger;
+	std::thread *m_hCanScanThread;
 	std::string m_channelName;
 	std::string m_busName;
 	Log::LogComponentHandle m_logItHandleSock;
 
 
-	// trigger the reconnection thread using a mutex and a condition variable, no predicate
-	// should go into protected section of superclass
+	// trigger the reconnection thread using a mutex and a condition variable with predicate
+	// might go into protected section of superclass to be available for all vendors
+	std::thread *m_hCanReconnectionThread;
+	bool m_reconnectTrigger;
 	std::mutex m_reconnection_mtx;
 	std::condition_variable m_reconnection_cv;
 
+
+	// non blocking
 	void triggerReconnectionThread(){
 		std::cout << "==> trigger reconnection thread " << getBusName() << std::endl;
 		m_reconnectTrigger = true;
 		m_reconnection_cv.notify_one();
+	}
+
+	// blocking
+	void waitForReconnectionThreadTrigger(){
+		std::unique_lock<std::mutex> lk(m_reconnection_mtx);
+		while  ( m_reconnectTrigger == false ) m_reconnection_cv.wait( lk );
+		m_reconnectTrigger = false;
 	}
 
 	/**

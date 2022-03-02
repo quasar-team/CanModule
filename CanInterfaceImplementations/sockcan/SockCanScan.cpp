@@ -69,10 +69,10 @@ CSockCanScan::CSockCanScan() :
 							m_sock(0),
 							m_errorCode(-1),
 							m_hCanScanThread( NULL ),
-							m_hCanReconnectionThread( NULL ),
-							m_reconnectTrigger( false ),
 							m_busName("nobus"),
-							m_logItHandleSock(0)
+							m_logItHandleSock(0),
+							m_hCanReconnectionThread( NULL ),
+							m_reconnectTrigger( false )
 {
 	m_statistics.setTimeSinceOpened();
 	m_statistics.beginNewRun();
@@ -331,7 +331,7 @@ void CSockCanScan::CanScanControlThread()
 
 		} else {
 			/**
-			 * the select got nothing to read, this was just a timeout.
+			 * the select got nothing to read, this was just a timeout, all is fine. Unless the reconnect timeout has something to do.
 			 */
 			MLOGSOCK(DBG,p_sockCanScan) << "listening on " << p_sockCanScan->getBusName()
 									<< " socket= " << p_sockCanScan->m_sock << " (got nothing)"<< " tid= " << _tid;
@@ -353,32 +353,6 @@ void CSockCanScan::CanScanControlThread()
 			MLOGSOCK(TRC,p_sockCanScan) << "trigger reconnection thread " << p_sockCanScan->getBusName();
 			triggerReconnectionThread();
 
-#if 0
-			/**
-			 * lets check the timeoutOnReception reconnect condition. If it is true, all we can do is to
-			 * close/open the socket again since the underlying hardware is hidden by socketcan abstraction.
-			 * Like his we do not have to pollute the "sendMessage" like for anagate, and that is cleaner.
-			 */
-			CanModule::ReconnectAutoCondition rcond = p_sockCanScan->getReconnectCondition();
-			CanModule::ReconnectAction ract = p_sockCanScan->getReconnectAction();
-			if ( rcond == CanModule::ReconnectAutoCondition::timeoutOnReception && p_sockCanScan->hasTimeoutOnReception()) {
-				if ( ract == CanModule::ReconnectAction::singleBus ){
-					MLOGSOCK(INF, p_sockCanScan) << " reconnect condition " << (int) rcond
-							<< p_sockCanScan->reconnectConditionString(rcond)
-							<< " triggered action " << (int) ract
-							<< p_sockCanScan->reconnectActionString(ract);
-					p_sockCanScan->resetTimeoutOnReception();  // renew timeout while reconnect is in progress
-					close( sock );
-					sock = p_sockCanScan->openCanPort();
-					MLOGSOCK(TRC, p_sockCanScan) << "reconnect one CAN port  sock= " << sock;
-				} else {
-					MLOGSOCK(INF, p_sockCanScan) << "reconnect action " << (int) ract
-							<< p_sockCanScan->reconnectActionString(ract)
-							<< " is not implemented for sock";
-				}
-			}  // reconnect condition
-
-#endif
 		} // select showed timeout
 	} // while ( p_sockCanScan->m_CanScanThreadRunEnableFlag )
 	MLOGSOCK(INF,p_sockCanScan) << "main loop of SockCanScan terminated." << " tid= " << _tid;
@@ -401,8 +375,14 @@ void CSockCanScan::CanReconnectionThread()
 	MLOGSOCK(TRC, this ) << "created reconnection thread tid= " << _tid;
 
 	// need some sync to the main thread to be sure it is up and the sock is created: wait first time for init
-	std::unique_lock<std::mutex> lk(m_reconnection_mtx);
-	while  ( m_reconnectTrigger == false ) m_reconnection_cv.wait( lk );
+#if 0
+	{
+		std::unique_lock<std::mutex> lk(m_reconnection_mtx);
+		while  ( m_reconnectTrigger == false ) m_reconnection_cv.wait( lk );
+		m_reconnectTrigger = false;
+	}
+#endif
+	waitForReconnectionThreadTrigger();
 
 	int sock = m_sock;
 
@@ -420,15 +400,18 @@ void CSockCanScan::CanReconnectionThread()
 
 		// wait for sync: need a condition sync to step that thread once: a "trigger".
 		MLOGSOCK(TRC, this) << "waiting reconnection thread tid= " << _tid;
-		std::unique_lock<std::mutex> lk( m_reconnection_mtx);
-		while  ( m_reconnectTrigger == false ) m_reconnection_cv.wait( lk );
-
+		 waitForReconnectionThreadTrigger();
+#if 0
+		{
+			std::unique_lock<std::mutex> lk( m_reconnection_mtx);
+			while  ( m_reconnectTrigger == false ) m_reconnection_cv.wait( lk );
+			m_reconnectTrigger = false;
+		}
+#endif
 		MLOGSOCK(TRC, this)
 			<< " reconnection thread tid= " << _tid
-			<< "reconnect condition " << (int) rcond
-			<< reconnectConditionString(rcond)
-			<< "reconnect action " << (int) ract
-			<< reconnectActionString(ract)
+			<< " condition "<< reconnectConditionString(rcond)
+			<< " action " << reconnectActionString(ract)
 			<< " is checked";
 
 		switch ( rcond ){
@@ -443,7 +426,7 @@ void CSockCanScan::CanReconnectionThread()
 			m_triggerCounter--;
 			break;
 		}
-		// do nothing but reset counter
+		// do nothing but keep counter resetted
 		case CanModule::ReconnectAutoCondition::never:
 		default:{
 			m_triggerCounter = m_failedSendCounter;
@@ -488,8 +471,9 @@ void CSockCanScan::CanReconnectionThread()
 				close( sock );
 				sock = openCanPort();
 				MLOGSOCK(TRC, this) << "reconnect one CAN port  sock= " << sock;
+			} else {
+				MLOGSOCK(TRC, this) << "no reconnect action on singleBus needed.";
 			}
-
 			break;
 		}
 
@@ -509,7 +493,7 @@ void CSockCanScan::CanReconnectionThread()
 			 */
 			MLOGSOCK(WRN, this) << "reconnection action "
 					<< (int) m_reconnectAction << reconnectActionString( m_reconnectAction )
-					<< " is not available for the socketcan/linux implementation.";
+					<< " is not available for the socketcan/linux implementation. Check your config & see documentation. No action.";
 			break;
 		}
 		} // switch
