@@ -589,9 +589,9 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 			break;
 		}
 		case CanModule::ReconnectAutoCondition::sendFail: {
+			m_triggerCounter--;
 			MLOGANA(TRC, this) << " sendFail detected, decreasing countdown  triggerCounter= " << m_triggerCounter
 					<< " failedSendCounter= " << m_failedSendCounter;
-			m_triggerCounter--;
 			break;
 		}
 		case CanModule::ReconnectAutoCondition::never:

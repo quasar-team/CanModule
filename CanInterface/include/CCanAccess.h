@@ -392,7 +392,8 @@ public:
 		if ( foundPortNumber != std::string::npos ) {
 			name.erase( foundSeperator + 1, foundPortNumber - foundSeperator - 1 );
 		} else {
-			throw std::runtime_error("could not decode port number (need an integer, i.e. can0)");
+			std::string rerr = "could not decode port number (need an integer somewhere, i.e. can0 or 0) in name= " + name;
+			throw std::runtime_error( rerr );
 		}
 
 		// for socketcan, have to prefix "can" or "vcan" to port number
