@@ -40,12 +40,20 @@ both sending and receiving reestablish without manual intervention (and without 
 Nevertheless, the client (~OPCUAserver) can choose to implement it's own strategy: for this
 the reconnection behavior can be simply switched off completely.
 
+The reconnection behavior is implemented in such a way to provide also a NON BLOCKING senMessage() method.
+The whole reconnection code is run in a seperate thread for each bus, and that thread is always alive. It gets
+triggered each time there is a sending problem detected, and each time there has been no reception for more than 1 second.
+The reconnection thread then decides, according to it's configuration, if there is something to do (condition=it checks 
+counters and timeouts) and what to do (action=reset single bus or whole board or nothing).  
 
 
 anagate ("an")
 ==============
 
-The anagate modules are identified by their IP address. 
+The anagate modules are identified by one or several IP addresses, depending on the module variant.
+
+anagate modules with ONE ip number only
+---------------------------------------
 
 Sending messages are buffered for ~20secs, and the reconnection 
 takes at least ~20sec, so it takes ~1 minute to reestablish communication. All received CAN frames 
@@ -67,6 +75,17 @@ they are difficult to fix.
 
 Nevertheless, if enough time is allowed for the firmware to be fully up (30secs) the reconnection 
 works beautifully, for single ports and also for the whole module.
+
+multi-ip anagate modules (some 2022 and later)
+----------------------------------------------
+
+Concerning the reconnection behavior such modules are treated as submodules per-ip, meaning that a sub-module with one ip
+behaves like a single-ip anagate (see above). We have 1_ip<->4_CAN modules, and 1-ip<->8_CAN.
+It is technically possible to reset a whole anagate by reloading
+it's firmware, or by power cycling, but CanModule **does not** use the correspongding API calls. Keep it simple and safe.
+If you want to software-shoot-down-and-reload-firmware a whole module nevertheless 
+(and not just power cycle it using a PDU or similar) then I might have some non-CanModule code for you if 
+you are brave - but that is not supported for now.
 
 
 peak
