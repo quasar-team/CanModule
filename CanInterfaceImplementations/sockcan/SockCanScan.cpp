@@ -70,9 +70,7 @@ CSockCanScan::CSockCanScan() :
 							m_errorCode(-1),
 							m_hCanScanThread( NULL ),
 							m_busName("nobus"),
-							m_logItHandleSock(0),
-							m_hCanReconnectionThread( NULL ),
-							m_reconnectTrigger( false )
+							m_logItHandleSock(0)
 {
 	m_statistics.setTimeSinceOpened();
 	m_statistics.beginNewRun();
@@ -343,16 +341,16 @@ void CSockCanScan::CanScanControlThread()
 			 * message timeout also here. For cleanliness, lets use that extra reconnection thread nevertheless here.
 			 *
 			 * that reconnection thread is always up and it depends on  three private variables:
-			 *  the socket, the ReconnectAutoCondition and the ReconnectAction.
+			 *  the socket, the ReconnectAutoCondition and the ReconnectAction. It is done in a pretty stupid way
+			 *  so that is is fast, for all vendors: you just trigger it whenever and it checks itself what to do.
 			 *
 			 * Tt returns a status (per method) :
 			 *     0 = OK, nothing to do
 			 *     1 = reconnect in progress
 			 *     2 = reconnect has failed finally
 			 */
-			MLOGSOCK(TRC,p_sockCanScan) << "trigger reconnection thread " << p_sockCanScan->getBusName();
+			MLOGSOCK(TRC,p_sockCanScan) << "trigger reconnection thread to check reception timeout" << p_sockCanScan->getBusName();
 			triggerReconnectionThread();
-
 		} // select showed timeout
 	} // while ( p_sockCanScan->m_CanScanThreadRunEnableFlag )
 	MLOGSOCK(INF,p_sockCanScan) << "main loop of SockCanScan terminated." << " tid= " << _tid;
@@ -419,7 +417,8 @@ void CSockCanScan::CanReconnectionThread()
 			break;
 		}
 		case CanModule::ReconnectAutoCondition::sendFail: {
-			MLOGSOCK(WRN, this) << " detected a sendFail, triggerCounter= " << m_triggerCounter
+			MLOGSOCK(WRN, this) << " reconnection thread tid= " << _tid
+					<< " condition sendFail, decreasing triggerCounter= " << m_triggerCounter
 					<< " failedSendCounter= " << m_failedSendCounter;
 			m_triggerCounter--;
 			break;
@@ -473,7 +472,7 @@ void CSockCanScan::CanReconnectionThread()
 				sock = openCanPort();
 				MLOGSOCK(TRC, this) << "reconnect one CAN port  sock= " << sock;
 			} else {
-				MLOGSOCK(TRC, this) << "no reconnect action on singleBus needed.";
+				MLOGSOCK(TRC, this) << " reconnection thread tid= " << _tid << " no reconnect action on singleBus needed.";
 			}
 			break;
 		}

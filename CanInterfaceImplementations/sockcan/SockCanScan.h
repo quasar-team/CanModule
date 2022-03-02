@@ -125,15 +125,7 @@ private:
 	std::string m_busName;
 	Log::LogComponentHandle m_logItHandleSock;
 
-
-	// trigger the reconnection thread using a mutex and a condition variable with predicate
-	// might go into protected section of superclass to be available for all vendors
-	std::thread *m_hCanReconnectionThread;
-	bool m_reconnectTrigger;
-	std::mutex m_reconnection_mtx;
-	std::condition_variable m_reconnection_cv;
-
-
+#if 0
 	// non blocking
 	void triggerReconnectionThread(){
 		// std::cout << "==> trigger reconnection thread " << getBusName() << std::endl;
@@ -147,7 +139,7 @@ private:
 		while  ( !m_reconnectTrigger ) m_reconnection_cv.wait( lk );
 		m_reconnectTrigger = false;
 	}
-
+#endif
 	/**
 	 * stop the supervisor thread using the flag and close the socket.
 	 */
