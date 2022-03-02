@@ -415,8 +415,6 @@ void CSockCanScan::CanReconnectionThread()
 			<< " is checked";
 
 		switch ( rcond ){
-		// check the condition, there is nothing to do here. action is further down
-		// todo: test this
 		case CanModule::ReconnectAutoCondition::timeoutOnReception: {
 			break;
 		}
@@ -439,7 +437,7 @@ void CSockCanScan::CanReconnectionThread()
 		switch ( m_reconnectAction ){
 		case CanModule::ReconnectAction::singleBus: {
 
-			// sending failed N times
+			// sending failed N times ...
 			if ( m_triggerCounter <= 0 ){
 				MLOGSOCK(INF, this) << " reconnect condition " << (int) m_reconnectCondition
 						<< reconnectConditionString(m_reconnectCondition)
@@ -461,7 +459,10 @@ void CSockCanScan::CanReconnectionThread()
 					}
 				}
 
-				// reception timeout
+				/**
+				 * ... or the reception timed out: we did not receive anything on the bus for a certain time (not: count).
+				 * That is a somewhat dangerous condition but it can be extremely useful if you know what you do.
+				 */
 			} else if ( hasTimeoutOnReception()){
 				MLOGSOCK(INF, this) << " reconnect condition " << (int) rcond
 						<< CSockCanScan::reconnectConditionString(rcond)

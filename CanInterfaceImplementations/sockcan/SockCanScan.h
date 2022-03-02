@@ -136,7 +136,7 @@ private:
 
 	// non blocking
 	void triggerReconnectionThread(){
-		std::cout << "==> trigger reconnection thread " << getBusName() << std::endl;
+		// std::cout << "==> trigger reconnection thread " << getBusName() << std::endl;
 		m_reconnectTrigger = true;
 		m_reconnection_cv.notify_one();
 	}
@@ -144,7 +144,7 @@ private:
 	// blocking
 	void waitForReconnectionThreadTrigger(){
 		std::unique_lock<std::mutex> lk(m_reconnection_mtx);
-		while  ( m_reconnectTrigger == false ) m_reconnection_cv.wait( lk );
+		while  ( !m_reconnectTrigger ) m_reconnection_cv.wait( lk );
 		m_reconnectTrigger = false;
 	}
 
