@@ -65,7 +65,7 @@ The whole reconnection can take up to 60 secs until all buffers are cleared, so 
  
 WARNING: the Anagate modules tend to firmware-crash if too many CAN bus software close/open are 
 executed too quickly, making a power-cycle of the module necessary. A delay of 7 seconds 
-between a close and a (re-)open per module is a good idea to avoid 
+between a close and a (re-)open per module is a good idea in order to avoid 
 "firmware-crashing" of the anagate module (CanModule does not impose such a delay).
 This crash occurs independently from the connection timeout. 
 
