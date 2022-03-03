@@ -77,6 +77,7 @@ CSockCanScan::CSockCanScan() :
 	m_failedSendCountdown = m_maxFailedSendCount;
 }
 
+
 static std::string canFrameToString(const struct can_frame &f)
 {
 	std::string result;
@@ -91,6 +92,7 @@ static std::string canFrameToString(const struct can_frame &f)
 
 	return result;
 }
+
 
 /**
  * reading from socket, and supervising thread for monitoring the sockets/CAN buses.
@@ -308,7 +310,7 @@ void CSockCanScan::CanScanControlThread()
 				continue;
 			}
 #else
-			MLOGSOCK(TRC, p_sockCanScan) << " Got a remote CAN message "<< " tid= " << _tid;
+			// MLOGSOCK(TRC, p_sockCanScan) << " Got a remote CAN message "<< " tid= " << _tid;
 #endif
 
 			/**
