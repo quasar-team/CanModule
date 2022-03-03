@@ -111,8 +111,12 @@ systec
 
 linux/cc7 ("sock")
 ------------------
-A power loss or a connection loss will trigger a reconnection. For linux, where socketcan is used,
-this works in the same way as for peak. Single port close/open is fully supported and works under 
+A power loss or a connection loss will trigger a reconnection. This is tested on a systec16
+by disconnectiing the USB or by power cycle. For linux, where socketcan is used,
+this works in the same way as for peak. 
+
+- spoiler: does not work any more in 2022. me*de.
+Single port close/open is fully supported and works under 
 cc7 and also windows without limitations. If the sequence is too fast some messages will be lost, but the 
 module recuperates correctly in the following. Port numbering is preserved.  
 

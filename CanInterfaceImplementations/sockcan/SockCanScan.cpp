@@ -391,33 +391,35 @@ void CSockCanScan::CanReconnectionThread()
 			<< " reconnection thread tid= " << _tid
 			<< " condition "<< reconnectConditionString(rcond)
 			<< " action " << reconnectActionString(ract)
-			<< " is checked";
+			<< " is checked, m_failedSendCountdown= "
+			<< m_failedSendCountdown;
 
 
 		/**
 		 * we get triggered all the time, essentially with reception timeouts, but also sometimes with a send fail.
-		 * the triggering is identical, no parameters are transmitted.
+		 * we need to manage the conditions since the triggering is identical, no parameters are transmitted.
 		 */
 		switch ( rcond ){
 		case CanModule::ReconnectAutoCondition::timeoutOnReception: {
+			resetSendFailedCountdown();
 			break;
 		}
 		case CanModule::ReconnectAutoCondition::sendFail: {
-			// m_failedSendCountdown--;
+			resetTimeoutOnReception();
 			break;
 		}
 		// do nothing but keep counter and timeout resetted
 		case CanModule::ReconnectAutoCondition::never:
 		default:{
-			// m_failedSendCountdown = m_maxFailedSendCount;
 			resetSendFailedCountdown();
 			resetTimeoutOnReception();
 			break;
 		}
 		} // switch
 
-
 		// single bus reset if (send) countdown or the (receive) timeout says so
+		// the close/open bus unfortunately does not fix it for a systec16 any more, even though
+		// that used to work in 2020. me*de...
 		switch ( m_reconnectAction ){
 		case CanModule::ReconnectAction::singleBus: {
 
@@ -427,32 +429,9 @@ void CSockCanScan::CanReconnectionThread()
 						<< " triggered action " << reconnectActionString(m_reconnectAction);
 				MLOGSOCK(TRC, this) << " reconnect calling close/open CanPort() for " << this->getBusName();
 				close( m_sock );
-
-				{
-					struct timespec tim, tim2;
-					tim.tv_sec = 1;
-					tim.tv_nsec = 0;
-					if(nanosleep(&tim , &tim2) < 0 ) {
-						MLOGSOCK(ERR,this) << " reconnect Waiting 1s failed (nanosleep)";
-					}
-				}
-
 				int return0 = openCanPort();
 				MLOGSOCK(TRC, this) << "reconnect openCanPort() ret= " << return0;
 				resetSendFailedCountdown();
-				//m_failedSendCountdown = m_maxFailedSendCount;
-
-#if 0
-				{
-					MLOGSOCK(WRN,this) << " reconnect write error ENOBUFS: waiting a jiffy [100ms]...";
-					struct timespec tim, tim2;
-					tim.tv_sec = 0;
-					tim.tv_nsec = 100000;
-					if(nanosleep(&tim , &tim2) < 0 ) {
-						MLOGSOCK(ERR,this) << " reconnect Waiting 100ms failed (nanosleep)";
-					}
-				}
-#endif
 
 				/**
 				 * ... or the reception timed out: we did not receive anything on the bus for a certain time (not: count).
@@ -752,6 +731,7 @@ bool CSockCanScan::sendMessage(short cobID, unsigned char len, unsigned char *me
 		MLOGSOCK(WRN,this) << "sendMessage fail detected ( bytes [" << numberOfWrittenBytes
 				<< "] written). Trigger reconnection thread and return (no block).";
 
+#if 0
 		// decrease the countdown
 		switch( m_reconnectCondition ){
 		case CanModule::ReconnectAutoCondition::sendFail: {
@@ -764,7 +744,8 @@ bool CSockCanScan::sendMessage(short cobID, unsigned char len, unsigned char *me
 			break;
 		}
 		}
-
+#endif
+		decreaseSendFailedCountdown();
 		triggerReconnectionThread();
 
 		// return immediately, non blocking
