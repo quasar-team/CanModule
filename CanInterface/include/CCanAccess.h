@@ -425,6 +425,21 @@ public:
 		return stringVector;
 	}
 
+	// non blocking
+	void triggerReconnectionThread(){
+		// std::cout << "==> trigger reconnection thread " << getBusName() << std::endl;
+		m_reconnectTrigger = true;
+		m_reconnection_cv.notify_one();
+	}
+
+	// blocking
+	void waitForReconnectionThreadTrigger(){
+		std::unique_lock<std::mutex> lk(m_reconnection_mtx);
+		while  ( !m_reconnectTrigger ) m_reconnection_cv.wait( lk );
+		m_reconnectTrigger = false;
+	}
+
+
 	/**
 	 * configuring the reconnection behavior: a condition triggers an action. The implementation is implementation-specific
 	 * because not all vendor APIs permit the same behavior: not all combinations are available for all vendors/implementations.
@@ -494,9 +509,13 @@ protected:
 	unsigned int m_timeoutOnReception;
 	int m_triggerCounter;
 	unsigned int m_failedSendCounter;
-	// trigger the reconnection thread using a mutex and a condition variable, no predicate
-	std::mutex reconnection_mtx;
-	std::condition_variable reconnection_cv;
+
+	// trigger the reconnection thread using a mutex and a condition variable, predicate
+	bool m_reconnectTrigger;
+	std::thread *m_hCanReconnectionThread;
+	std::mutex m_reconnection_mtx;
+	std::condition_variable m_reconnection_cv;
+
 
 	/**
 	 * just translate the ugly r.condition enum into a user-friendly string for convenience and logging.

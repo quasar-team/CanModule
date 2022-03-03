@@ -126,6 +126,12 @@ private:
 	Log::LogComponentHandle m_logItHandleSock;
 
 #if 0
+	bool m_reconnectTrigger;
+	std::thread *m_hCanReconnectionThread;
+	std::mutex m_reconnection_mtx;
+	std::condition_variable m_reconnection_cv;
+
+
 	// non blocking
 	void triggerReconnectionThread(){
 		// std::cout << "==> trigger reconnection thread " << getBusName() << std::endl;
@@ -140,6 +146,8 @@ private:
 		m_reconnectTrigger = false;
 	}
 #endif
+
+
 	/**
 	 * stop the supervisor thread using the flag and close the socket.
 	 */
