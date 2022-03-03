@@ -57,7 +57,7 @@ PKCanScan::PKCanScan():
 {
 	m_statistics.setTimeSinceOpened();
 	m_statistics.beginNewRun();
-	m_triggerCounter = m_failedSendCounter;
+	m_failedSendCountdown = m_maxFailedSendCount;
 }
 
 PKCanScan::~PKCanScan()
@@ -442,27 +442,27 @@ bool PKCanScan::sendMessage(short cobID, unsigned char len, unsigned char *messa
 			// here we should see if we need to reconnect
 			switch( m_reconnectCondition ){
 			case CanModule::ReconnectAutoCondition::sendFail: {
-				MLOGPK(WRN, this) << " detected a sendFail, triggerCounter= " << m_triggerCounter
-						<< " failedSendCounter= " << m_failedSendCounter;
-				m_triggerCounter--;
+				MLOGPK(WRN, this) << " detected a sendFail, triggerCounter= " << m_failedSendCountdown
+						<< " failedSendCounter= " << m_maxFailedSendCount;
+				m_failedSendCountdown--;
 				break;
 			}
 			case CanModule::ReconnectAutoCondition::never:
 			default:{
-				m_triggerCounter = m_failedSendCounter;
+				m_failedSendCountdown = m_maxFailedSendCount;
 				break;
 			}
 			}
 
 			switch ( m_reconnectAction ){
 			case CanModule::ReconnectAction::allBusesOnBridge: {
-				if ( m_triggerCounter <= 0 ){
+				if ( m_failedSendCountdown <= 0 ){
 					MLOGPK(INF, this) << " reconnect condition " << (int) m_reconnectCondition
 							<< reconnectConditionString(m_reconnectCondition)
 							<< " triggered action " << (int) m_reconnectAction
 							<< reconnectActionString(m_reconnectAction)
 							<< " not yet implemented";
-					m_triggerCounter = m_failedSendCounter;
+					m_failedSendCountdown = m_maxFailedSendCount;
 				}
 				break;
 			}
@@ -471,11 +471,11 @@ bool PKCanScan::sendMessage(short cobID, unsigned char len, unsigned char *messa
 						<< reconnectConditionString(m_reconnectCondition)
 						<< " triggered action " << (int) m_reconnectAction
 						<< reconnectActionString(m_reconnectAction);
-				if ( m_triggerCounter <= 0 ){
+				if ( m_failedSendCountdown <= 0 ){
 					stopBus();
 					createBus(m_busName, m_busParameters );
 					MLOGPK(TRC, this) << "reconnect one CAN port  m_pkCanHandle= " << m_pkCanHandle;
-					m_triggerCounter = m_failedSendCounter;
+					m_failedSendCountdown = m_maxFailedSendCount;
 				}
 				break;
 			}

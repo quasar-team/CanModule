@@ -104,8 +104,8 @@ public:
 	};
 	virtual void setReconnectReceptionTimeout( unsigned int timeout ){ 	m_timeoutOnReception = timeout;	};
 	virtual void setReconnectFailedSendCount( unsigned int c ){
-		m_failedSendCounter = m_triggerCounter = c;
-		std::cout << __FILE__ << " " << __LINE__ << " m_triggerCounter= " << m_triggerCounter << std::endl;
+		m_maxFailedSendCount = m_failedSendCountdown = c;
+		std::cout << __FILE__ << " " << __LINE__ << " m_triggerCounter= " << m_failedSendCountdown << std::endl;
 	}
 	virtual CanModule::ReconnectAutoCondition getReconnectCondition() { return m_reconnectCondition; };
 	virtual CanModule::ReconnectAction getReconnectAction() { return m_reconnectAction; };
@@ -124,29 +124,6 @@ private:
 	std::string m_channelName;
 	std::string m_busName;
 	Log::LogComponentHandle m_logItHandleSock;
-
-#if 0
-	bool m_reconnectTrigger;
-	std::thread *m_hCanReconnectionThread;
-	std::mutex m_reconnection_mtx;
-	std::condition_variable m_reconnection_cv;
-
-
-	// non blocking
-	void triggerReconnectionThread(){
-		// std::cout << "==> trigger reconnection thread " << getBusName() << std::endl;
-		m_reconnectTrigger = true;
-		m_reconnection_cv.notify_one();
-	}
-
-	// blocking
-	void waitForReconnectionThreadTrigger(){
-		std::unique_lock<std::mutex> lk(m_reconnection_mtx);
-		while  ( !m_reconnectTrigger ) m_reconnection_cv.wait( lk );
-		m_reconnectTrigger = false;
-	}
-#endif
-
 
 	/**
 	 * stop the supervisor thread using the flag and close the socket.

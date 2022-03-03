@@ -161,8 +161,8 @@ public:
 		m_reconnectCondition( CanModule::ReconnectAutoCondition::sendFail ),
 		m_reconnectAction( CanModule::ReconnectAction::singleBus ),
 		m_timeoutOnReception( 120 ),
-		m_triggerCounter( 10 ),
-		m_failedSendCounter( 10 ),
+		m_failedSendCountdown( 10 ),
+		m_maxFailedSendCount( 10 ),
 		//m_connectionIndex(0), // seems unused
 		m_lh(0),
 		m_logItRemoteInstance( NULL )
@@ -507,8 +507,8 @@ protected:
     CanModule::ReconnectAutoCondition m_reconnectCondition;
     CanModule::ReconnectAction m_reconnectAction;
 	unsigned int m_timeoutOnReception;
-	int m_triggerCounter;
-	unsigned int m_failedSendCounter;
+	int m_failedSendCountdown;
+	unsigned int m_maxFailedSendCount;
 
 	// trigger the reconnection thread using a mutex and a condition variable, predicate
 	bool m_reconnectTrigger;

@@ -85,7 +85,7 @@ AnaCanScan::AnaCanScan():
 {
 	m_statistics.setTimeSinceOpened();
 	m_statistics.beginNewRun();
-	m_triggerCounter = m_failedSendCounter;
+	m_failedSendCountdown = m_maxFailedSendCount;
 }
 
 /**
@@ -585,25 +585,25 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 		switch( m_reconnectCondition ){
 		case CanModule::ReconnectAutoCondition::timeoutOnReception:{
 			resetTimeoutOnReception();  // renew timeout while reconnect is in progress
-			m_triggerCounter = 0;
+			m_failedSendCountdown = 0;
 			break;
 		}
 		case CanModule::ReconnectAutoCondition::sendFail: {
-			m_triggerCounter--;
-			MLOGANA(TRC, this) << " sendFail detected, decreasing countdown  triggerCounter= " << m_triggerCounter
-					<< " failedSendCounter= " << m_failedSendCounter;
+			m_failedSendCountdown--;
+			MLOGANA(TRC, this) << " sendFail detected, decreasing countdown  triggerCounter= " << m_failedSendCountdown
+					<< " failedSendCounter= " << m_maxFailedSendCount;
 			break;
 		}
 		case CanModule::ReconnectAutoCondition::never:
 		default:{
-			m_triggerCounter = m_failedSendCounter;
+			m_failedSendCountdown = m_maxFailedSendCount;
 			break;
 		}
 		}
 
 		switch ( m_reconnectAction ){
 		case CanModule::ReconnectAction::allBusesOnBridge: {
-			if ( m_triggerCounter <= 0 ){
+			if ( m_failedSendCountdown <= 0 ){
 				MLOGANA(INF, this) << " reconnect condition " << (int) m_reconnectCondition
 						<< reconnectConditionString(m_reconnectCondition)
 						<< " triggered action " << (int) m_reconnectAction
@@ -632,7 +632,7 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 					<< reconnectConditionString(m_reconnectCondition)
 					<< " triggered action " << (int) m_reconnectAction
 					<< reconnectActionString(m_reconnectAction);
-			if ( m_triggerCounter <= 0 ){
+			if ( m_failedSendCountdown <= 0 ){
 
 				/**
 				 * something failed miserably. we only reconnect a single bus

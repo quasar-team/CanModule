@@ -74,7 +74,7 @@ CSockCanScan::CSockCanScan() :
 {
 	m_statistics.setTimeSinceOpened();
 	m_statistics.beginNewRun();
-	m_triggerCounter = m_failedSendCounter;
+	m_failedSendCountdown = m_maxFailedSendCount;
 }
 
 static std::string canFrameToString(const struct can_frame &f)
@@ -343,11 +343,6 @@ void CSockCanScan::CanScanControlThread()
 			 * that reconnection thread is always up and it depends on  three private variables:
 			 *  the socket, the ReconnectAutoCondition and the ReconnectAction. It is done in a pretty stupid way
 			 *  so that is is fast, for all vendors: you just trigger it whenever and it checks itself what to do.
-			 *
-			 * Tt returns a status (per method) :
-			 *     0 = OK, nothing to do
-			 *     1 = reconnect in progress
-			 *     2 = reconnect has failed finally
 			 */
 			MLOGSOCK(TRC,p_sockCanScan) << "trigger reconnection thread to check reception timeout" << p_sockCanScan->getBusName();
 			triggerReconnectionThread();
@@ -373,13 +368,6 @@ void CSockCanScan::CanReconnectionThread()
 	MLOGSOCK(TRC, this ) << "created reconnection thread tid= " << _tid;
 
 	// need some sync to the main thread to be sure it is up and the sock is created: wait first time for init
-#if 0
-	{
-		std::unique_lock<std::mutex> lk(m_reconnection_mtx);
-		while  ( m_reconnectTrigger == false ) m_reconnection_cv.wait( lk );
-		m_reconnectTrigger = false;
-	}
-#endif
 	waitForReconnectionThreadTrigger();
 
 	int sock = m_sock;
@@ -398,14 +386,7 @@ void CSockCanScan::CanReconnectionThread()
 
 		// wait for sync: need a condition sync to step that thread once: a "trigger".
 		MLOGSOCK(TRC, this) << "waiting reconnection thread tid= " << _tid;
-		 waitForReconnectionThreadTrigger();
-#if 0
-		{
-			std::unique_lock<std::mutex> lk( m_reconnection_mtx);
-			while  ( m_reconnectTrigger == false ) m_reconnection_cv.wait( lk );
-			m_reconnectTrigger = false;
-		}
-#endif
+		waitForReconnectionThreadTrigger();
 		MLOGSOCK(TRC, this)
 			<< " reconnection thread tid= " << _tid
 			<< " condition "<< reconnectConditionString(rcond)
@@ -417,16 +398,16 @@ void CSockCanScan::CanReconnectionThread()
 			break;
 		}
 		case CanModule::ReconnectAutoCondition::sendFail: {
+			m_failedSendCountdown--;
 			MLOGSOCK(WRN, this) << " reconnection thread tid= " << _tid
-					<< " condition sendFail, decreasing triggerCounter= " << m_triggerCounter
-					<< " failedSendCounter= " << m_failedSendCounter;
-			m_triggerCounter--;
+					<< " condition sendFail, decreasing triggerCounter= " << m_failedSendCountdown
+					<< " failedSendCounter= " << m_maxFailedSendCount;
 			break;
 		}
 		// do nothing but keep counter resetted
 		case CanModule::ReconnectAutoCondition::never:
 		default:{
-			m_triggerCounter = m_failedSendCounter;
+			m_failedSendCountdown = m_maxFailedSendCount;
 			break;
 		}
 		} // switch
@@ -437,26 +418,36 @@ void CSockCanScan::CanReconnectionThread()
 		case CanModule::ReconnectAction::singleBus: {
 
 			// sending failed N times ...
-			if ( m_triggerCounter <= 0 ){
-				MLOGSOCK(INF, this) << " reconnect condition " << (int) m_reconnectCondition
-						<< reconnectConditionString(m_reconnectCondition)
-						<< " triggered action " << (int) m_reconnectAction
-						<< reconnectActionString(m_reconnectAction);
+			if ( m_failedSendCountdown <= 0 ){
+				MLOGSOCK(INF, this) << " reconnect condition " << reconnectConditionString(m_reconnectCondition)
+						<< " triggered action " << reconnectActionString(m_reconnectAction);
+				MLOGSOCK(TRC, this) << " reconnect calling close/open CanPort() for " << this->getBusName();
 				close( m_sock );
-				MLOGSOCK(TRC, this) << "calling openCanPort() for " << this->getBusName();
-				int return0 = openCanPort();
-				MLOGSOCK(TRC, this) << "reconnect one CAN port  ret= " << return0;
-				m_triggerCounter = m_failedSendCounter;
-				MLOGSOCK(TRC, this) << "set internal triggerCounter= " << m_triggerCounter;
+
 				{
-					MLOGSOCK(WRN,this) << "write error ENOBUFS: waiting a jiffy [100ms]...";
+					struct timespec tim, tim2;
+					tim.tv_sec = 1;
+					tim.tv_nsec = 0;
+					if(nanosleep(&tim , &tim2) < 0 ) {
+						MLOGSOCK(ERR,this) << " reconnect Waiting 1s failed (nanosleep)";
+					}
+				}
+
+				int return0 = openCanPort();
+				MLOGSOCK(TRC, this) << "reconnect openCanPort() ret= " << return0;
+				m_failedSendCountdown = m_maxFailedSendCount;
+				MLOGSOCK(TRC, this) << " reconnect reset internal triggerCounter= " << m_failedSendCountdown;
+#if 0
+				{
+					MLOGSOCK(WRN,this) << " reconnect write error ENOBUFS: waiting a jiffy [100ms]...";
 					struct timespec tim, tim2;
 					tim.tv_sec = 0;
 					tim.tv_nsec = 100000;
 					if(nanosleep(&tim , &tim2) < 0 ) {
-						MLOGSOCK(ERR,this) << "Waiting 100ms failed (nanosleep)";
+						MLOGSOCK(ERR,this) << " reconnect Waiting 100ms failed (nanosleep)";
 					}
 				}
+#endif
 
 				/**
 				 * ... or the reception timed out: we did not receive anything on the bus for a certain time (not: count).
@@ -751,8 +742,11 @@ bool CSockCanScan::sendMessage(short cobID, unsigned char len, unsigned char *me
 			ret = false;
 		}
 
-		// trigger the reconnection thread once since there was a send fail
-		m_reconnection_cv.notify_one();
+		// trigger the reconnection thread once since there was a send fail. If this repeats N times successively, the
+		// m_triggerCounter == 0 and the reconnection thread will do sth.
+		MLOGSOCK(WRN,this) << "sendMessage fail detected ( bytes [" << numberOfWrittenBytes
+				<< "] written). Trigger reconnection thread and return (no block).";
+		triggerReconnectionThread();
 
 		// return immediately, non blocking
 		ret = false;
@@ -761,14 +755,14 @@ bool CSockCanScan::sendMessage(short cobID, unsigned char len, unsigned char *me
 		// check the reconnect condition
 		switch( m_reconnectCondition ){
 		case CanModule::ReconnectAutoCondition::sendFail: {
-			MLOGSOCK(WRN, this) << " detected a sendFail, triggerCounter= " << m_triggerCounter
-					<< " failedSendCounter= " << m_failedSendCounter;
-			m_triggerCounter--;
+			MLOGSOCK(WRN, this) << " detected a sendFail, triggerCounter= " << m_failedSendCountdown
+					<< " failedSendCounter= " << m_maxFailedSendCount;
+			m_failedSendCountdown--;
 			break;
 		}
 		case CanModule::ReconnectAutoCondition::never:
 		default:{
-			m_triggerCounter = m_failedSendCounter;
+			m_failedSendCountdown = m_maxFailedSendCount;
 			break;
 		}
 		}
@@ -776,7 +770,7 @@ bool CSockCanScan::sendMessage(short cobID, unsigned char len, unsigned char *me
 		// do the reconnect action if triggerCounter says so
 		switch ( m_reconnectAction ){
 		case CanModule::ReconnectAction::singleBus: {
-			if ( m_triggerCounter <= 0 ){
+			if ( m_failedSendCountdown <= 0 ){
 				MLOGSOCK(INF, this) << " reconnect condition " << (int) m_reconnectCondition
 						<< reconnectConditionString(m_reconnectCondition)
 						<< " triggered action " << (int) m_reconnectAction
@@ -785,8 +779,8 @@ bool CSockCanScan::sendMessage(short cobID, unsigned char len, unsigned char *me
 				MLOGSOCK(TRC, this) << "calling openCanPort() for " << this->getBusName();
 				int return0 = openCanPort();
 				MLOGSOCK(TRC, this) << "reconnect one CAN port  ret= " << return0;
-				m_triggerCounter = m_failedSendCounter;
-				MLOGSOCK(TRC, this) << "set internal triggerCounter= " << m_triggerCounter;
+				m_failedSendCountdown = m_maxFailedSendCount;
+				MLOGSOCK(TRC, this) << "set internal triggerCounter= " << m_failedSendCountdown;
 				{
 					MLOGSOCK(WRN,this) << "write error ENOBUFS: waiting a jiffy [100ms]...";
 					struct timespec tim, tim2;
@@ -823,7 +817,9 @@ bool CSockCanScan::sendMessage(short cobID, unsigned char len, unsigned char *me
 		// no error
 		m_statistics.onTransmit( canFrame.can_dlc );
 		m_statistics.setTimeSinceTransmitted();
-		m_triggerCounter = m_failedSendCounter;
+
+		// reset
+		m_failedSendCountdown = m_maxFailedSendCount;
 	}
 	return ( ret );
 }
