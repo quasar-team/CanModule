@@ -344,7 +344,7 @@ void CSockCanScan::CanScanControlThread()
 			 *  the socket, the ReconnectAutoCondition and the ReconnectAction. It is done in a pretty stupid way
 			 *  so that is is fast, for all vendors: you just trigger it whenever and it checks itself what to do.
 			 */
-			MLOGSOCK(TRC,p_sockCanScan) << "trigger reconnection thread to check reception timeout" << p_sockCanScan->getBusName();
+			MLOGSOCK(DBG,p_sockCanScan) << "trigger reconnection thread to check reception timeout " << p_sockCanScan->getBusName();
 			triggerReconnectionThread();
 		} // select showed timeout
 	} // while ( p_sockCanScan->m_CanScanThreadRunEnableFlag )
@@ -393,27 +393,31 @@ void CSockCanScan::CanReconnectionThread()
 			<< " action " << reconnectActionString(ract)
 			<< " is checked";
 
+
+		/**
+		 * we get triggered all the time, essentially with reception timeouts, but also sometimes with a send fail.
+		 * the triggering is identical, no parameters are transmitted.
+		 */
 		switch ( rcond ){
 		case CanModule::ReconnectAutoCondition::timeoutOnReception: {
 			break;
 		}
 		case CanModule::ReconnectAutoCondition::sendFail: {
-			m_failedSendCountdown--;
-			MLOGSOCK(WRN, this) << " reconnection thread tid= " << _tid
-					<< " condition sendFail, decreasing triggerCounter= " << m_failedSendCountdown
-					<< " failedSendCounter= " << m_maxFailedSendCount;
+			// m_failedSendCountdown--;
 			break;
 		}
-		// do nothing but keep counter resetted
+		// do nothing but keep counter and timeout resetted
 		case CanModule::ReconnectAutoCondition::never:
 		default:{
-			m_failedSendCountdown = m_maxFailedSendCount;
+			// m_failedSendCountdown = m_maxFailedSendCount;
+			resetSendFailedCountdown();
+			resetTimeoutOnReception();
 			break;
 		}
 		} // switch
 
 
-		// do the reconnect action if (send)triggerCounter or the (receive)timeout says so
+		// single bus reset if (send) countdown or the (receive) timeout says so
 		switch ( m_reconnectAction ){
 		case CanModule::ReconnectAction::singleBus: {
 
@@ -435,8 +439,9 @@ void CSockCanScan::CanReconnectionThread()
 
 				int return0 = openCanPort();
 				MLOGSOCK(TRC, this) << "reconnect openCanPort() ret= " << return0;
-				m_failedSendCountdown = m_maxFailedSendCount;
-				MLOGSOCK(TRC, this) << " reconnect reset internal triggerCounter= " << m_failedSendCountdown;
+				resetSendFailedCountdown();
+				//m_failedSendCountdown = m_maxFailedSendCount;
+
 #if 0
 				{
 					MLOGSOCK(WRN,this) << " reconnect write error ENOBUFS: waiting a jiffy [100ms]...";
@@ -746,27 +751,26 @@ bool CSockCanScan::sendMessage(short cobID, unsigned char len, unsigned char *me
 		// m_triggerCounter == 0 and the reconnection thread will do sth.
 		MLOGSOCK(WRN,this) << "sendMessage fail detected ( bytes [" << numberOfWrittenBytes
 				<< "] written). Trigger reconnection thread and return (no block).";
+
+		// decrease the countdown
+		switch( m_reconnectCondition ){
+		case CanModule::ReconnectAutoCondition::sendFail: {
+			MLOGSOCK(WRN, this) << " detected a sendFail, m_failedSendCountdown= " << m_failedSendCountdown
+					<< " m_maxFailedSendCount= " << m_maxFailedSendCount;
+			decreaseSendFailedCountdown();
+			break;
+		}
+		default:{
+			break;
+		}
+		}
+
 		triggerReconnectionThread();
 
 		// return immediately, non blocking
 		ret = false;
 
 #if 0
-		// check the reconnect condition
-		switch( m_reconnectCondition ){
-		case CanModule::ReconnectAutoCondition::sendFail: {
-			MLOGSOCK(WRN, this) << " detected a sendFail, triggerCounter= " << m_failedSendCountdown
-					<< " failedSendCounter= " << m_maxFailedSendCount;
-			m_failedSendCountdown--;
-			break;
-		}
-		case CanModule::ReconnectAutoCondition::never:
-		default:{
-			m_failedSendCountdown = m_maxFailedSendCount;
-			break;
-		}
-		}
-
 		// do the reconnect action if triggerCounter says so
 		switch ( m_reconnectAction ){
 		case CanModule::ReconnectAction::singleBus: {
@@ -819,7 +823,8 @@ bool CSockCanScan::sendMessage(short cobID, unsigned char len, unsigned char *me
 		m_statistics.setTimeSinceTransmitted();
 
 		// reset
-		m_failedSendCountdown = m_maxFailedSendCount;
+		resetSendFailedCountdown();
+		// m_failedSendCountdown = m_maxFailedSendCount;
 	}
 	return ( ret );
 }
