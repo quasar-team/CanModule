@@ -435,8 +435,8 @@ void CSockCanScan::CanReconnectionThread()
 
 			// sending failed N times ...
 			if ( m_failedSendCountdown <= 0 ){
-				MLOGSOCK(INF, this) << " reconnect condition " << reconnectConditionString(m_reconnectCondition)
-						<< " triggered action " << reconnectActionString(m_reconnectAction);
+				MLOGSOCK(INF, this) << " reconnect condition " << CCanAccess::reconnectConditionString(m_reconnectCondition)
+						<< " triggered action " << CCanAccess::reconnectActionString(m_reconnectAction);
 				MLOGSOCK(TRC, this) << " reconnect calling close/open CanPort() for " << this->getBusName();
 				close( m_sock );
 				int return0 = openCanPort();
@@ -449,9 +449,9 @@ void CSockCanScan::CanReconnectionThread()
 				 */
 			} else if ( hasTimeoutOnReception()){
 				MLOGSOCK(INF, this) << " reconnect condition " << (int) rcond
-						<< CSockCanScan::reconnectConditionString(rcond)
+						<< CCanAccess::reconnectConditionString(rcond)
 						<< " triggered action " << (int) ract
-						<< CSockCanScan::reconnectActionString(ract);
+						<< CCanAccess::reconnectActionString(ract);
 				resetTimeoutOnReception();  // renew timeout while reconnect is in progress
 				close( sock );
 				sock = openCanPort();

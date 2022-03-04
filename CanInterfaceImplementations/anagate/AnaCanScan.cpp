@@ -26,13 +26,17 @@
 
 #include "AnaCanScan.h"
 
+#include <thread>
+#include <mutex>
+#include <condition_variable>
+
 #include <time.h>
 #include <string.h>
 #include <map>
 #include <LogIt.h>
 #include <sstream>
 #include <iostream>
-#include <boost/thread/thread.hpp>
+// #include <boost/thread/thread.hpp>
 
 #include "CanModuleUtils.h"
 
@@ -53,7 +57,8 @@
 using namespace CanModule;
 using namespace std;
 
-boost::mutex anagateReconnectMutex;
+//boost::mutex anagateReconnectMutex;
+std::recursive_mutex anagateReconnectMutex;
 
 /* static */ std::map<int, AnaCanScan::ANAGATE_PORTDEF_t> AnaCanScan::st_canHandleMap; // map handles to  {ports, ip}
 /* static */ Log::LogComponentHandle AnaCanScan::st_logItHandleAnagate = 0;
@@ -72,20 +77,25 @@ std::map<AnaInt32, AnaCanScan*> g_AnaCanScanObjectMap; // map handles to objects
 #define MLOGANA(LEVEL,THIS) LOG(Log::LEVEL, AnaCanScan::st_logItHandleAnagate) << __FUNCTION__ << " " << " anagate bus= " << THIS->getBusName() << " "
 
 AnaCanScan::AnaCanScan():
-								m_canPortNumber(0),
-								m_canIPAddress( (char *) string("192.168.1.2").c_str()),
-								m_baudRate(0),
-								m_idCanScanThread(0),
-								m_canCloseDevice(false),
-								m_busName(""),
-								m_busParameters(""),
-								m_UcanHandle(0),
-								m_timeout ( 6000 ),
-								m_busStopped( false )
+	m_canPortNumber(0),
+	m_canIPAddress( (char *) string("192.168.1.2").c_str()),
+	m_baudRate(0),
+	m_idCanScanThread(0),
+	m_canCloseDevice(false),
+	m_busName(""),
+	m_busParameters(""),
+	m_UcanHandle(0),
+	m_timeout ( 6000 ),
+	m_busStopped( false )
 {
 	m_statistics.setTimeSinceOpened();
 	m_statistics.beginNewRun();
 	m_failedSendCountdown = m_maxFailedSendCount;
+
+	/**
+	 * start a reconnection thread
+	 */
+	m_hCanReconnectionThread = new std::thread( &AnaCanScan::CanReconnectionThread, this);
 }
 
 /**
@@ -562,6 +572,10 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 	if ( m_reconnectCondition == CanModule::ReconnectAutoCondition::timeoutOnReception && hasTimeoutOnReception()) {
 		MLOGANA(WRN, this) << " m_canPortNumber= " << m_canPortNumber << " skipping send, detected "
 				<< reconnectConditionString(m_reconnectCondition);
+
+		//xxx
+		//send a reconnection thread trigger
+
 		anaCallReturn = 99; // make sure we trigger the action, even while skipping the send
 	} else {
 
@@ -577,11 +591,17 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 	}
 
 	if (anaCallReturn != 0) {
-		MLOGANA(ERR, this) << "There was a problem when sending a message with CANWrite or a reconnect condition: 0x"
+		MLOGANA(ERR, this) << "There was a problem when sending/receiving timeout with CANWrite or a reconnect condition: 0x"
 				<< hex << anaCallReturn << dec
 				<< " ip= " << m_canIPAddress;
 		m_canCloseDevice = false;
 
+		//xxx
+		//send a reconnection thread trigger
+
+
+		//this code goes into the thread, check details
+#if 0
 		switch( m_reconnectCondition ){
 		case CanModule::ReconnectAutoCondition::timeoutOnReception:{
 			resetTimeoutOnReception();  // renew timeout while reconnect is in progress
@@ -645,10 +665,17 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 		}
 
 		} // switch
+
+		//code goes into the reconnection thread up to here
+	#endif
+
 	} else {
 		m_statistics.onTransmit(messageLengthToBeProcessed);
 		m_statistics.setTimeSinceTransmitted();
 	}
+
+
+
 	return sendErrorCode(anaCallReturn);
 }
 
@@ -727,16 +754,14 @@ AnaInt32 AnaCanScan::reconnectThisPort(){
  */
 /* static */ AnaInt32 AnaCanScan::reconnectAllPorts( string ip ){
 
-	// protect against several calls on the same ip. We need a mutex to force serialize this.
+	// protect against several calls on the same ip, recursive_mutex needed
 	{
 		anagateReconnectMutex.lock();
 		if ( AnaCanScan::isIpReconnectInProgress( ip ) ) {
 			LOG(Log::WRN, AnaCanScan::st_logItHandleAnagate ) << "reconnecting all ports for ip= " << ip
 					<< " is already in progress, skipping.";
-
 			CanModule::ms_sleep( 10000 );
 			anagateReconnectMutex.unlock();
-
 			return(1);
 		}
 		AnaCanScan::setIpReconnectInProgress( ip, true );
@@ -1086,5 +1111,160 @@ void AnaCanScan::getStatistics( CanStatistics & result )
 	m_statistics.beginNewRun();
 }
 
+/**
+ * Reconnection thread managing the reconnection behavior, per port. The behavior settings can not change during runtime.
+ * This thread is initialized after the main thread is up, and then listens on its cond.var as a trigger.
+ * Triggers occur in two contexts: sending and receiving problems.
+ * If there is a sending problem which lasts for a while (usually) the reconnection thread will be also triggered for each failed sending:
+ * the thread will be "hammered" by triggers. ince the reconnection takes some time, many triggers will be lost. That is in fact a desired behavior.
+ *
+ * The parameters are all atomics for increased thread-safety, even though the documentation about the predicate is unclear on that point. Since
+ * atomics just provide a "sequential memory layout" for the variables to prevent race conditions they are good to use for this but the code still has to be threadsafe
+ * and reentrant... ;-) Doesn't eat anything anyway on that small scale with scalars only.
+ *
+ * https://en.cppreference.com/w/cpp/thread/condition_variable/wait
+ */
+void AnaCanScan::CanReconnectionThread()
+{
+	std::string _tid;
+	{
+		std::stringstream ss;
+		ss << this_thread::get_id();
+		_tid = ss.str();
+	}
+	MLOGANA(TRC, this ) << "created reconnection thread tid= " << _tid;
+
+	// need some sync to the main thread to be sure it is up and the sock is created: wait first time for init
+	waitForReconnectionThreadTrigger();
+
+	//int sock = m_sock;
+
+
+	/**
+	 * lets check the timeoutOnReception reconnect condition. If it is true, all we can do is to
+	 * close/open the socket again since the underlying hardware is hidden by socketcan abstraction.
+	 * Like his we do not have to pollute the "sendMessage" like for anagate, and that is cleaner.
+	 */
+	CanModule::ReconnectAutoCondition rcond = getReconnectCondition();
+	CanModule::ReconnectAction ract = getReconnectAction();
+
+	MLOGANA(TRC, this) << "initialized reconnection thread tid= " << _tid << ", entering loop";
+	while ( true ) {
+
+		// wait for sync: need a condition sync to step that thread once: a "trigger".
+		MLOGANA(TRC, this) << "waiting reconnection thread tid= " << _tid;
+		waitForReconnectionThreadTrigger();
+		MLOGANA(TRC, this)
+			<< " reconnection thread tid= " << _tid
+			<< " condition "<< reconnectConditionString(rcond)
+			<< " action " << reconnectActionString(ract)
+			<< " is checked, m_failedSendCountdown= "
+			<< m_failedSendCountdown;
+
+
+		/**
+		 * we get triggered all the time, essentially with reception timeouts, but also sometimes with a send fail.
+		 * we need to manage the conditions since the triggering is identical, no parameters are transmitted, the
+		 * predicate is just a boolean to keep it simple.
+		 */
+		switch ( rcond ){
+		case CanModule::ReconnectAutoCondition::timeoutOnReception: {
+			resetSendFailedCountdown();
+			break;
+		}
+		case CanModule::ReconnectAutoCondition::sendFail: {
+			resetTimeoutOnReception();
+			break;
+		}
+		// do nothing but keep counter and timeout resetted
+		case CanModule::ReconnectAutoCondition::never:
+		default:{
+			resetSendFailedCountdown();
+			resetTimeoutOnReception();
+			break;
+		}
+		} // switch
+
+		// single bus reset if (send) countdown or the (receive) timeout says so
+		// the close/open bus unfortunately does not fix it for a systec16 any more, even though
+		// that used to work in 2020. me*de...
+		switch ( m_reconnectAction ){
+		case CanModule::ReconnectAction::singleBus: {
+
+			// sending failed N times ...
+			if ( m_failedSendCountdown <= 0 ){
+				MLOGANA(INF, this) << " reconnect condition " << reconnectConditionString(m_reconnectCondition)
+						<< " triggered action " << reconnectActionString(m_reconnectAction);
+				MLOGANA(TRC, this) << " reconnect calling close/open CanPort() for " << this->getBusName();
+
+				AnaInt32 ret = reconnectThisPort();
+				MLOGANA(TRC, this) << "reconnect reconnectThisPort() ret= " << ret;
+
+				resetSendFailedCountdown();
+
+				/**
+				 * ... or the reception timed out: we did not receive anything on the bus for a certain time (not: count).
+				 * That is a somewhat dangerous condition but it can be extremely useful if you know what you do.
+				 */
+			} else if ( hasTimeoutOnReception()){
+				MLOGANA(INF, this) << " reconnect condition " << (int) rcond
+						<< CCanAccess::reconnectConditionString(rcond)
+						<< " triggered action " << (int) ract
+						<< CCanAccess::reconnectActionString(ract);
+				resetTimeoutOnReception();  // renew timeout while reconnect is in progress
+				AnaInt32 ret = reconnectThisPort();
+				MLOGANA(TRC, this) << "reconnect reconnectThisPort() ret= " << ret;
+
+#if 0
+				close( sock );
+				sock = openCanPort();
+				MLOGANA(TRC, this) << "reconnect one CAN port  sock= " << sock;
+#endif
+			} else {
+				MLOGANA(TRC, this) << " reconnection thread tid= " << _tid << " no reconnect action on singleBus needed.";
+			}
+			break;
+		}
+
+		/**
+		 * anagate (physical) modules can have more than one ethernet RJ45. we treat each ip address as "one bridge" in this context
+		 *
+		 * CanModule::ReconnectAction::allBusesOnBridge
+		 */
+		case CanModule::ReconnectAction::allBusesOnBridge: {
+			std::string ip = ipAdress();
+
+			// sending failed N times ...
+			if ( m_failedSendCountdown <= 0 ){
+
+				MLOGANA(INF, this) << " reconnect condition " << reconnectConditionString(m_reconnectCondition)
+								<< " triggered action " << reconnectActionString(m_reconnectAction);
+				MLOGANA(TRC, this) << " reconnect all ports of ip=  " << ip << this->getBusName();
+
+				AnaCanScan::reconnectAllPorts( ip );
+			} else if ( hasTimeoutOnReception()){
+
+				// if there is a timeout on ANY of the receiving CAN buses of that bridge the WHOL bridge will get reset. haha, handle with care. You
+				// can afford this if you want all connected CAN ports to reconnect if one fails, and you do not need to care about any unconnected ports.
+				MLOGANA(INF, this) << " reconnect condition " << (int) rcond
+						<< CCanAccess::reconnectConditionString(rcond)
+						<< " triggered action " << (int) ract
+						<< CCanAccess::reconnectActionString(ract);
+				resetTimeoutOnReception();  // renew timeout while reconnect is in progress
+				AnaCanScan::reconnectAllPorts( ip );
+				MLOGANA(TRC, this) << " reconnect all ports of ip=  " << ip << this->getBusName();
+			}
+			break;
+		}
+		default: {
+			// we have a runtime bug
+			MLOGANA(ERR, this) << "reconnection action "
+					<< (int) m_reconnectAction << reconnectActionString( m_reconnectAction )
+					<< " unknown. Check your config & see documentation. No action.";
+			break;
+		}
+		} // switch
+	} // while
+}
 
 

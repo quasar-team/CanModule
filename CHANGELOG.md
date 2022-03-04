@@ -11,6 +11,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 - reconnection documentation updated and improved
 - OPCUA-2604: reconnection behavior with firewall, sendMessage should not block. also fix the
     documentation about reconnection behavior.
+    boost::mutex for anagate is replaced with std::mutex
+    boost::signals are kept for anagate
 
 ### 2.0.15 [22.feb.2022]
 - OPCUA-2607: unblock RTR CAN messages, suppressed 3 lines of code for "sock", so that

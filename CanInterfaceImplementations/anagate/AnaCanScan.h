@@ -52,7 +52,9 @@ typedef unsigned long DWORD;
  */
 using namespace CanModule;
 
-
+/**
+ * one CAN port on an anagate bridge, an anagate bridge is an ip number. There are (physical) bridges with several ip numbers: we treat them separated.
+ */
 class AnaCanScan: public CanModule::CCanAccess
 {
 
@@ -167,8 +169,14 @@ private:
 	static void setIpReconnectInProgress( string ip, bool flag );
 	static bool isIpReconnectInProgress( string ip );
 
+	/**
+	 * reconnection behavior thread, always up
+	 */
+	void CanReconnectionThread();
+
+
 	bool sendErrorCode(AnaInt32);
-	string ipAdress(){ return(m_canIPAddress );}
+	std::string ipAdress(){ return(m_canIPAddress );}
 	int canPortNumber(){ return(m_canPortNumber);}
 	int handle(){ return(m_UcanHandle);}
 	int configureCanBoard(const string name,const string parameters);
