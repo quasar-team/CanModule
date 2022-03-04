@@ -6,22 +6,12 @@
 
 
 
-Inheritance diagram for S\+T\+Can\+Scan\+:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=217pt]{classSTCanScan__inherit__graph}
-\end{center}
-\end{figure}
+Inheritance diagram for S\+T\+Can\+Scan\+:
+% FIG 0
 
 
-Collaboration diagram for S\+T\+Can\+Scan\+:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{classSTCanScan__coll__graph}
-\end{center}
-\end{figure}
+Collaboration diagram for S\+T\+Can\+Scan\+:
+% FIG 1
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -56,6 +46,8 @@ virtual void \mbox{\hyperlink{classSTCanScan_a2525cc89387ee92ce7e62be414d3c83e}{
 virtual \mbox{\hyperlink{namespaceCanModule_a2f4fee79cc7ba53467c2538fe6b9adbb}{Can\+Module\+::\+Reconnect\+Auto\+Condition}} \mbox{\hyperlink{classSTCanScan_a01b70015904374f482647fbfb1806b08}{get\+Reconnect\+Condition}} ()
 \item 
 virtual \mbox{\hyperlink{namespaceCanModule_a2062089fa4fa87c8354295f2a8fe31a5}{Can\+Module\+::\+Reconnect\+Action}} \mbox{\hyperlink{classSTCanScan_a471b6a8617a57b974cb71a2dc540d370}{get\+Reconnect\+Action}} ()
+\item 
+virtual void \mbox{\hyperlink{classSTCanScan_ae88b966c3c318eca384385c5a85cf2d7}{stop\+Bus}} ()
 \end{DoxyCompactItemize}
 \doxysubsection*{Private Member Functions}
 \begin{DoxyCompactItemize}
@@ -140,19 +132,14 @@ Definition at line 39 of file S\+T\+Can\+Scan.\+h.
 
 
 
-Definition at line 58 of file S\+T\+Can\+Scan.\+cpp.
+Definition at line 61 of file S\+T\+Can\+Scan.\+cpp.
 
 
 
-References Can\+Module\+::\+Can\+Statistics\+::begin\+New\+Run(), Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+failed\+Send\+Counter, m\+\_\+statistics, Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+trigger\+Counter, and Can\+Module\+::\+Can\+Statistics\+::set\+Time\+Since\+Opened().
+References Can\+Module\+::\+Can\+Statistics\+::begin\+New\+Run(), Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+failed\+Send\+Countdown, Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+max\+Failed\+Send\+Count, m\+\_\+statistics, and Can\+Module\+::\+Can\+Statistics\+::set\+Time\+Since\+Opened().
 
-Here is the call graph for this function\+:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{classSTCanScan_a75fcb8ff51d82d362edb1dd31125fb10_cgraph}
-\end{center}
-\end{figure}
+Here is the call graph for this function\+:
+% FIG 2
 \mbox{\Hypertarget{classSTCanScan_a335aaec2300f2b9c31fd0f268014f24d}\label{classSTCanScan_a335aaec2300f2b9c31fd0f268014f24d}} 
 \index{STCanScan@{STCanScan}!STCanScan@{STCanScan}}
 \index{STCanScan@{STCanScan}!STCanScan@{STCanScan}}
@@ -167,7 +154,7 @@ Here is the call graph for this function\+:\nopagebreak
 
 
 
-Definition at line 166 of file S\+T\+Can\+Scan.\+cpp.
+Definition at line 169 of file S\+T\+Can\+Scan.\+cpp.
 
 
 
@@ -184,7 +171,7 @@ References m\+\_\+\+Can\+Scan\+Thread\+Shutdown\+Flag, m\+\_\+channel\+Number, m
 
 thread to supervise port activity lets check the timeout\+On\+Reception reconnect condition. If it is true, all we can do is to close/open the port again since the underlying hardware is hidden by socketcan abstraction. Like his we do not have to pollute the \char`\"{}send\+Message\char`\"{} like for anagate, and that is cleaner.
 
-Definition at line 95 of file S\+T\+Can\+Scan.\+cpp.
+Definition at line 98 of file S\+T\+Can\+Scan.\+cpp.
 
 
 
@@ -195,13 +182,7 @@ References Can\+Msg\+Struct\+::c\+\_\+data, Can\+Msg\+Struct\+::c\+\_\+dlc, Can\
 Referenced by create\+Bus().
 
 Here is the call graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{classSTCanScan_aab42375da764eb0d50dee318cd790646_cgraph}
-\end{center}
-\end{figure}
+% FIG 3
 \mbox{\Hypertarget{classSTCanScan_a8e147c77933e11e9983f4d4e22830b21}\label{classSTCanScan_a8e147c77933e11e9983f4d4e22830b21}} 
 \index{STCanScan@{STCanScan}!configureCanBoard@{configureCanBoard}}
 \index{configureCanBoard@{configureCanBoard}!STCanScan@{STCanScan}}
@@ -210,7 +191,7 @@ Here is the call graph for this function\+:
 
 configures systec @ windows board only G1/\+G2 boards 
 
-Definition at line 242 of file S\+T\+Can\+Scan.\+cpp.
+Definition at line 245 of file S\+T\+Can\+Scan.\+cpp.
 
 
 
@@ -221,13 +202,7 @@ References create\+Initialization\+Parameters(), m\+\_\+baud\+Rate, m\+\_\+can\+
 Referenced by create\+Bus().
 
 Here is the call graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{classSTCanScan_a8e147c77933e11e9983f4d4e22830b21_cgraph}
-\end{center}
-\end{figure}
+% FIG 4
 \mbox{\Hypertarget{classSTCanScan_a28ac80d789b6d4d2bb11526bfaede69e}\label{classSTCanScan_a28ac80d789b6d4d2bb11526bfaede69e}} 
 \index{STCanScan@{STCanScan}!createBus@{createBus}}
 \index{createBus@{createBus}!STCanScan@{STCanScan}}
@@ -266,20 +241,14 @@ Implements \mbox{\hyperlink{classCanModule_1_1CCanAccess_a0eeee5c3d48f1102012d14
 
 
 
-Definition at line 208 of file S\+T\+Can\+Scan.\+cpp.
+Definition at line 211 of file S\+T\+Can\+Scan.\+cpp.
 
 
 
 References Can\+Scan\+Control\+Thread(), configure\+Can\+Board(), Can\+Module\+::\+Log\+It\+Component\+Name, m\+\_\+h\+Can\+Scan\+Thread, m\+\_\+id\+Can\+Scan\+Thread, m\+\_\+log\+It\+Handle\+St, Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+s\+Bus\+Name, and M\+L\+O\+G\+ST.
 
 Here is the call graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{classSTCanScan_a28ac80d789b6d4d2bb11526bfaede69e_cgraph}
-\end{center}
-\end{figure}
+% FIG 5
 \mbox{\Hypertarget{classSTCanScan_af6cf11abff5d1b39b35ceff9ae857270}\label{classSTCanScan_af6cf11abff5d1b39b35ceff9ae857270}} 
 \index{STCanScan@{STCanScan}!createInitializationParameters@{createInitializationParameters}}
 \index{createInitializationParameters@{createInitializationParameters}!STCanScan@{STCanScan}}
@@ -288,7 +257,7 @@ Here is the call graph for this function\+:
 
 We create and fill initialization\+Parameters, to pass it to open\+Can\+Port 
 
-Definition at line 75 of file S\+T\+Can\+Scan.\+cpp.
+Definition at line 78 of file S\+T\+Can\+Scan.\+cpp.
 
 
 
@@ -302,7 +271,7 @@ Referenced by Can\+Scan\+Control\+Thread(), configure\+Can\+Board(), and send\+M
 
 convert the systec status word into a human readable message 
 
-Definition at line 687 of file S\+T\+Can\+Scan.\+cpp.
+Definition at line 690 of file S\+T\+Can\+Scan.\+cpp.
 
 
 
@@ -313,13 +282,7 @@ References S\+Tcan\+Get\+Error\+Text().
 Referenced by send\+Error\+Code().
 
 Here is the call graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{classSTCanScan_a9a4da7b1dd74e81e8066894a1a8c051e_cgraph}
-\end{center}
-\end{figure}
+% FIG 6
 \mbox{\Hypertarget{classSTCanScan_a29b4c3c8f29e45f808fbb7528e4593aa}\label{classSTCanScan_a29b4c3c8f29e45f808fbb7528e4593aa}} 
 \index{STCanScan@{STCanScan}!getCanHandle@{getCanHandle}}
 \index{getCanHandle@{getCanHandle}!STCanScan@{STCanScan}}
@@ -328,7 +291,7 @@ Here is the call graph for this function\+:
 
 
 
-Definition at line 103 of file S\+T\+Can\+Scan.\+h.
+Definition at line 104 of file S\+T\+Can\+Scan.\+h.
 
 
 
@@ -362,7 +325,7 @@ Implements \mbox{\hyperlink{classCanModule_1_1CCanAccess_a33fe530d070cf35d096e96
 
 
 
-Definition at line 369 of file S\+T\+Can\+Scan.\+cpp.
+Definition at line 372 of file S\+T\+Can\+Scan.\+cpp.
 
 
 
@@ -416,19 +379,14 @@ Implements \mbox{\hyperlink{classCanModule_1_1CCanAccess_ad3182c83b4c5d7e6aef982
 
 
 
-Definition at line 695 of file S\+T\+Can\+Scan.\+cpp.
+Definition at line 698 of file S\+T\+Can\+Scan.\+cpp.
 
 
 
 References Can\+Module\+::\+Can\+Statistics\+::begin\+New\+Run(), Can\+Module\+::\+Can\+Statistics\+::compute\+Derived(), m\+\_\+baud\+Rate, and m\+\_\+statistics.
 
-Here is the call graph for this function\+:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{classSTCanScan_a4810249805b660c4e914247acbdf45d2_cgraph}
-\end{center}
-\end{figure}
+Here is the call graph for this function\+:
+% FIG 7
 \mbox{\Hypertarget{classSTCanScan_a2f2a9aaa3ce2c653a4e1152eb8497493}\label{classSTCanScan_a2f2a9aaa3ce2c653a4e1152eb8497493}} 
 \index{STCanScan@{STCanScan}!isCanHandleInUse@{isCanHandleInUse}}
 \index{isCanHandleInUse@{isCanHandleInUse}!STCanScan@{STCanScan}}
@@ -437,7 +395,7 @@ Here is the call graph for this function\+:\nopagebreak
 
 
 
-Definition at line 101 of file S\+T\+Can\+Scan.\+h.
+Definition at line 102 of file S\+T\+Can\+Scan.\+h.
 
 
 
@@ -466,7 +424,7 @@ less than zero in case of error, otherwise success
 \end{DoxyReturn}
 
 
-Definition at line 318 of file S\+T\+Can\+Scan.\+cpp.
+Definition at line 321 of file S\+T\+Can\+Scan.\+cpp.
 
 
 
@@ -476,13 +434,8 @@ References get\+Can\+Handle(), is\+Can\+Handle\+In\+Use(), m\+\_\+channel\+Numbe
 
 Referenced by Can\+Scan\+Control\+Thread(), configure\+Can\+Board(), and send\+Message().
 
-Here is the call graph for this function\+:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{classSTCanScan_a5f74df7e9615929365b33c08e709e918_cgraph}
-\end{center}
-\end{figure}
+Here is the call graph for this function\+:
+% FIG 8
 \mbox{\Hypertarget{classSTCanScan_a7c2d148e988e8b7e9df6b4ab0ed2dda1}\label{classSTCanScan_a7c2d148e988e8b7e9df6b4ab0ed2dda1}} 
 \index{STCanScan@{STCanScan}!operator=@{operator=}}
 \index{operator=@{operator=}!STCanScan@{STCanScan}}
@@ -497,7 +450,7 @@ Here is the call graph for this function\+:\nopagebreak
 
 hard reset the bridge and reconnect all ports and handlers\+: windows 
 
-Definition at line 395 of file S\+T\+Can\+Scan.\+cpp.
+Definition at line 398 of file S\+T\+Can\+Scan.\+cpp.
 
 
 
@@ -515,7 +468,7 @@ Referenced by send\+Message().
 
 
 
-Definition at line 377 of file S\+T\+Can\+Scan.\+cpp.
+Definition at line 380 of file S\+T\+Can\+Scan.\+cpp.
 
 
 
@@ -526,13 +479,7 @@ References Can\+Module\+::\+C\+Can\+Access\+::can\+Message\+Error, Can\+Module\+
 Referenced by Can\+Scan\+Control\+Thread(), send\+Message(), and send\+Remote\+Request().
 
 Here is the call graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{classSTCanScan_a43454c0bc20eb764cbb4ef3dd5e52cc9_cgraph}
-\end{center}
-\end{figure}
+% FIG 9
 \mbox{\Hypertarget{classSTCanScan_a45f0ec011022bf58a23e8370bac7f829}\label{classSTCanScan_a45f0ec011022bf58a23e8370bac7f829}} 
 \index{STCanScan@{STCanScan}!sendMessage@{sendMessage}}
 \index{sendMessage@{sendMessage}!STCanScan@{STCanScan}}
@@ -561,20 +508,14 @@ Implements \mbox{\hyperlink{classCanModule_1_1CCanAccess_aee42ab7fb9e50c02a18122
 
 
 
-Definition at line 428 of file S\+T\+Can\+Scan.\+cpp.
+Definition at line 431 of file S\+T\+Can\+Scan.\+cpp.
 
 
 
-References Can\+Module\+::all\+Buses\+On\+Bridge, create\+Initialization\+Parameters(), m\+\_\+baud\+Rate, m\+\_\+channel\+Number, Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+failed\+Send\+Counter, Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+reconnect\+Action, Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+reconnect\+Condition, m\+\_\+statistics, Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+trigger\+Counter, m\+\_\+\+Ucan\+Handle, M\+L\+O\+G\+ST, Can\+Module\+::never, Can\+Module\+::\+Can\+Statistics\+::on\+Transmit(), open\+Can\+Port(), Can\+Module\+::\+C\+Can\+Access\+::reconnect\+Action\+String(), reconnect\+All\+Ports(), Can\+Module\+::\+C\+Can\+Access\+::reconnect\+Condition\+String(), send\+Error\+Code(), Can\+Module\+::send\+Fail, Can\+Module\+::\+Can\+Statistics\+::set\+Time\+Since\+Transmitted(), and Can\+Module\+::single\+Bus.
+References Can\+Module\+::all\+Buses\+On\+Bridge, create\+Initialization\+Parameters(), m\+\_\+baud\+Rate, m\+\_\+channel\+Number, Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+failed\+Send\+Countdown, Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+max\+Failed\+Send\+Count, Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+reconnect\+Action, Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+reconnect\+Condition, m\+\_\+statistics, m\+\_\+\+Ucan\+Handle, M\+L\+O\+G\+ST, Can\+Module\+::never, Can\+Module\+::\+Can\+Statistics\+::on\+Transmit(), open\+Can\+Port(), Can\+Module\+::\+C\+Can\+Access\+::reconnect\+Action\+String(), reconnect\+All\+Ports(), Can\+Module\+::\+C\+Can\+Access\+::reconnect\+Condition\+String(), send\+Error\+Code(), Can\+Module\+::send\+Fail, Can\+Module\+::\+Can\+Statistics\+::set\+Time\+Since\+Transmitted(), and Can\+Module\+::single\+Bus.
 
 Here is the call graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{classSTCanScan_a45f0ec011022bf58a23e8370bac7f829_cgraph}
-\end{center}
-\end{figure}
+% FIG 10
 \mbox{\Hypertarget{classSTCanScan_a2c1de002fa7ace90ef95af00f824c8e4}\label{classSTCanScan_a2c1de002fa7ace90ef95af00f824c8e4}} 
 \index{STCanScan@{STCanScan}!sendRemoteRequest@{sendRemoteRequest}}
 \index{sendRemoteRequest@{sendRemoteRequest}!STCanScan@{STCanScan}}
@@ -595,20 +536,14 @@ Implements \mbox{\hyperlink{classCanModule_1_1CCanAccess_acfefbc9be2696b1388cf6d
 
 
 
-Definition at line 510 of file S\+T\+Can\+Scan.\+cpp.
+Definition at line 513 of file S\+T\+Can\+Scan.\+cpp.
 
 
 
 References m\+\_\+channel\+Number, m\+\_\+\+Ucan\+Handle, and send\+Error\+Code().
 
 Here is the call graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{classSTCanScan_a2c1de002fa7ace90ef95af00f824c8e4_cgraph}
-\end{center}
-\end{figure}
+% FIG 11
 \mbox{\Hypertarget{classSTCanScan_a50f89ce5fc0b2961937dc8a4b86081f8}\label{classSTCanScan_a50f89ce5fc0b2961937dc8a4b86081f8}} 
 \index{STCanScan@{STCanScan}!setCanHandle@{setCanHandle}}
 \index{setCanHandle@{setCanHandle}!STCanScan@{STCanScan}}
@@ -617,7 +552,7 @@ Here is the call graph for this function\+:
 
 
 
-Definition at line 102 of file S\+T\+Can\+Scan.\+h.
+Definition at line 103 of file S\+T\+Can\+Scan.\+h.
 
 
 
@@ -631,7 +566,7 @@ Referenced by open\+Can\+Port().
 
 
 
-Definition at line 100 of file S\+T\+Can\+Scan.\+h.
+Definition at line 101 of file S\+T\+Can\+Scan.\+h.
 
 
 
@@ -705,11 +640,25 @@ Definition at line 68 of file S\+T\+Can\+Scan.\+h.
 
 error text specific to S\+Tcan according to table24 I am just copying the whole descriptions from the doc, verbatim, wtf. you get some shakespeare from it. 
 
-Definition at line 527 of file S\+T\+Can\+Scan.\+cpp.
+Definition at line 530 of file S\+T\+Can\+Scan.\+cpp.
 
 
 
 Referenced by error\+Code\+To\+String().
+
+\mbox{\Hypertarget{classSTCanScan_ae88b966c3c318eca384385c5a85cf2d7}\label{classSTCanScan_ae88b966c3c318eca384385c5a85cf2d7}} 
+\index{STCanScan@{STCanScan}!stopBus@{stopBus}}
+\index{stopBus@{stopBus}!STCanScan@{STCanScan}}
+\doxysubsubsection{\texorpdfstring{stopBus()}{stopBus()}}
+{\footnotesize\ttfamily void S\+T\+Can\+Scan\+::stop\+Bus (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+force implementation 
+
+Implements \mbox{\hyperlink{classCanModule_1_1CCanAccess_a3fabe88b8e21638afd5d9886bb9c4aeb}{Can\+Module\+::\+C\+Can\+Access}}.
+
+
+
+Definition at line 58 of file S\+T\+Can\+Scan.\+cpp.
 
 \mbox{\Hypertarget{classSTCanScan_aa57c48594c8a70a0331f07fb4ad208fd}\label{classSTCanScan_aa57c48594c8a70a0331f07fb4ad208fd}} 
 \index{STCanScan@{STCanScan}!vendorBaudRate2UserBaudRate@{vendorBaudRate2UserBaudRate}}
@@ -719,7 +668,7 @@ Referenced by error\+Code\+To\+String().
 
 unfortunately it is necessary to convert the vendor baudrate back to the human readable user baudrate for statistics. we use presently O\+N\+LY G1/\+G2 boards (see usbcan.\+h) 
 
-Definition at line 290 of file S\+T\+Can\+Scan.\+cpp.
+Definition at line 293 of file S\+T\+Can\+Scan.\+cpp.
 
 
 
@@ -740,7 +689,7 @@ Referenced by configure\+Can\+Board().
 
 
 
-Definition at line 80 of file S\+T\+Can\+Scan.\+h.
+Definition at line 81 of file S\+T\+Can\+Scan.\+h.
 
 
 
@@ -754,7 +703,7 @@ Referenced by Can\+Scan\+Control\+Thread(), configure\+Can\+Board(), get\+Statis
 
 
 
-Definition at line 84 of file S\+T\+Can\+Scan.\+h.
+Definition at line 85 of file S\+T\+Can\+Scan.\+h.
 
 
 
@@ -768,7 +717,7 @@ Referenced by send\+Error\+Code().
 
 
 
-Definition at line 77 of file S\+T\+Can\+Scan.\+h.
+Definition at line 78 of file S\+T\+Can\+Scan.\+h.
 
 
 
@@ -782,7 +731,7 @@ Referenced by configure\+Can\+Board().
 
 
 
-Definition at line 85 of file S\+T\+Can\+Scan.\+h.
+Definition at line 86 of file S\+T\+Can\+Scan.\+h.
 
 
 
@@ -796,7 +745,7 @@ Referenced by Can\+Scan\+Control\+Thread(), and $\sim$\+S\+T\+Can\+Scan().
 
 
 
-Definition at line 76 of file S\+T\+Can\+Scan.\+h.
+Definition at line 77 of file S\+T\+Can\+Scan.\+h.
 
 
 
@@ -810,7 +759,7 @@ Referenced by Can\+Scan\+Control\+Thread(), configure\+Can\+Board(), open\+Can\+
 
 
 
-Definition at line 87 of file S\+T\+Can\+Scan.\+h.
+Definition at line 88 of file S\+T\+Can\+Scan.\+h.
 
 
 
@@ -824,7 +773,7 @@ Referenced by create\+Bus(), and $\sim$\+S\+T\+Can\+Scan().
 
 
 
-Definition at line 89 of file S\+T\+Can\+Scan.\+h.
+Definition at line 90 of file S\+T\+Can\+Scan.\+h.
 
 
 
@@ -838,7 +787,7 @@ Referenced by create\+Bus().
 
 
 
-Definition at line 81 of file S\+T\+Can\+Scan.\+h.
+Definition at line 82 of file S\+T\+Can\+Scan.\+h.
 
 
 
@@ -852,7 +801,7 @@ Referenced by create\+Bus().
 
 
 
-Definition at line 71 of file S\+T\+Can\+Scan.\+h.
+Definition at line 76 of file S\+T\+Can\+Scan.\+h.
 
 
 
@@ -866,7 +815,7 @@ Referenced by Can\+Scan\+Control\+Thread(), configure\+Can\+Board(), open\+Can\+
 
 
 
-Definition at line 79 of file S\+T\+Can\+Scan.\+h.
+Definition at line 80 of file S\+T\+Can\+Scan.\+h.
 
 
 
@@ -880,7 +829,7 @@ Referenced by Can\+Scan\+Control\+Thread(), get\+Statistics(), open\+Can\+Port()
 
 
 
-Definition at line 78 of file S\+T\+Can\+Scan.\+h.
+Definition at line 79 of file S\+T\+Can\+Scan.\+h.
 
 
 
@@ -894,7 +843,7 @@ Referenced by Can\+Scan\+Control\+Thread(), get\+Port\+Status(), open\+Can\+Port
 
 
 
-Definition at line 105 of file S\+T\+Can\+Scan.\+h.
+Definition at line 106 of file S\+T\+Can\+Scan.\+h.
 
 \mbox{\Hypertarget{classSTCanScan_a310439aeb8688c29fb3fe8faa4a9e198}\label{classSTCanScan_a310439aeb8688c29fb3fe8faa4a9e198}} 
 \index{STCanScan@{STCanScan}!s\_isCanHandleInUseArray@{s\_isCanHandleInUseArray}}
@@ -920,7 +869,7 @@ Quasar is distributed in the hope that it will be useful, but W\+I\+T\+H\+O\+UT 
 
 You should have received a copy of the G\+NU Lesser General Public License along with Quasar. If not, see \href{http://www.gnu.org/licenses/}{\texttt{ http\+://www.\+gnu.\+org/licenses/}}. 
 
-Definition at line 106 of file S\+T\+Can\+Scan.\+h.
+Definition at line 107 of file S\+T\+Can\+Scan.\+h.
 
 
 

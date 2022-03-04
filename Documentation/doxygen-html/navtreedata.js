@@ -61,8 +61,8 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "AnaCanScan_8cpp.html",
-"classCanModule_1_1CanLibLoader.html#af891a85f28376052c3f4b22d97eb3ac2",
-"structAnaCanScan_1_1ANAGATE__PORTDEF__t.html#a6ad8dd52dfbbfe170f3c5e0f4e20a49d"
+"classCanModule_1_1CanBusAccess.html#a30200d7e59055a516aceeba6c2bb534e",
+"namespaceexeccommand__ns.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

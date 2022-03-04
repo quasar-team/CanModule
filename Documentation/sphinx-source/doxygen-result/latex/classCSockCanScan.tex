@@ -6,22 +6,12 @@
 
 
 
-Inheritance diagram for C\+Sock\+Can\+Scan\+:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=217pt]{classCSockCanScan__inherit__graph}
-\end{center}
-\end{figure}
+Inheritance diagram for C\+Sock\+Can\+Scan\+:
+% FIG 0
 
 
-Collaboration diagram for C\+Sock\+Can\+Scan\+:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{classCSockCanScan__coll__graph}
-\end{center}
-\end{figure}
+Collaboration diagram for C\+Sock\+Can\+Scan\+:
+% FIG 1
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -58,6 +48,8 @@ virtual void \mbox{\hyperlink{classCSockCanScan_aceab51e91b2c698211e5d563e4449c9
 virtual \mbox{\hyperlink{namespaceCanModule_a2f4fee79cc7ba53467c2538fe6b9adbb}{Can\+Module\+::\+Reconnect\+Auto\+Condition}} \mbox{\hyperlink{classCSockCanScan_aa8cb4c89fe3a13bb787c4085f1e994e3}{get\+Reconnect\+Condition}} ()
 \item 
 virtual \mbox{\hyperlink{namespaceCanModule_a2062089fa4fa87c8354295f2a8fe31a5}{Can\+Module\+::\+Reconnect\+Action}} \mbox{\hyperlink{classCSockCanScan_a03594b2fff9c61f37a5f68df2cfec05c}{get\+Reconnect\+Action}} ()
+\item 
+virtual void \mbox{\hyperlink{classCSockCanScan_a7be2c075520b1cbf4baa4eb7d728fd2d}{stop\+Bus}} ()
 \end{DoxyCompactItemize}
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
@@ -72,8 +64,6 @@ static std\+::map$<$ string, string $>$ \mbox{\hyperlink{classCSockCanScan_a596f
 \doxysubsection*{Private Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \mbox{\hyperlink{classCSockCanScan_a7be2c075520b1cbf4baa4eb7d728fd2d}{stop\+Bus}} ()
-\item 
 void \mbox{\hyperlink{classCSockCanScan_a623057580187ecb241adf143c64d711c}{update\+Initial\+Error}} ()
 \item 
 void \mbox{\hyperlink{classCSockCanScan_a512733f202345e5940460f84539c979a}{send\+Error\+Message}} (const char $\ast$)
@@ -87,6 +77,8 @@ void \mbox{\hyperlink{classCSockCanScan_aaed83a57ee1b70fff48a1a5ca9655fe6}{updat
 int \mbox{\hyperlink{classCSockCanScan_a203a51239f8efc013d4b9df36f271317}{open\+Can\+Port}} ()
 \item 
 void \mbox{\hyperlink{classCSockCanScan_a2a97f7fca98e6d599bdb42da64796ad8}{Can\+Scan\+Control\+Thread}} ()
+\item 
+void \mbox{\hyperlink{classCSockCanScan_a808488b6793afea6cc8466c3a12a088c}{Can\+Reconnection\+Thread}} ()
 \end{DoxyCompactItemize}
 \doxysubsection*{Static Private Member Functions}
 \begin{DoxyCompactItemize}
@@ -118,7 +110,7 @@ Log\+::\+Log\+Component\+Handle \mbox{\hyperlink{classCSockCanScan_aa3406fed8265
 \doxysubsection{Detailed Description}
 
 
-Definition at line 45 of file Sock\+Can\+Scan.\+h.
+Definition at line 46 of file Sock\+Can\+Scan.\+h.
 
 
 
@@ -131,19 +123,14 @@ Definition at line 45 of file Sock\+Can\+Scan.\+h.
 
 
 
-Definition at line 65 of file Sock\+Can\+Scan.\+cpp.
+Definition at line 67 of file Sock\+Can\+Scan.\+cpp.
 
 
 
-References Can\+Module\+::\+Can\+Statistics\+::begin\+New\+Run(), Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+failed\+Send\+Counter, m\+\_\+statistics, Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+trigger\+Counter, and Can\+Module\+::\+Can\+Statistics\+::set\+Time\+Since\+Opened().
+References Can\+Module\+::\+Can\+Statistics\+::begin\+New\+Run(), Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+failed\+Send\+Countdown, Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+max\+Failed\+Send\+Count, m\+\_\+statistics, and Can\+Module\+::\+Can\+Statistics\+::set\+Time\+Since\+Opened().
 
-Here is the call graph for this function\+:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{classCSockCanScan_abfb8f5e3726f9675a63f48648afae178_cgraph}
-\end{center}
-\end{figure}
+Here is the call graph for this function\+:
+% FIG 2
 \mbox{\Hypertarget{classCSockCanScan_a7442798d8f943f85ca710f6f829c9efd}\label{classCSockCanScan_a7442798d8f943f85ca710f6f829c9efd}} 
 \index{CSockCanScan@{CSockCanScan}!CSockCanScan@{CSockCanScan}}
 \index{CSockCanScan@{CSockCanScan}!CSockCanScan@{CSockCanScan}}
@@ -158,23 +145,51 @@ Here is the call graph for this function\+:\nopagebreak
 
 
 
-Definition at line 354 of file Sock\+Can\+Scan.\+cpp.
+Definition at line 488 of file Sock\+Can\+Scan.\+cpp.
 
 
 
 References M\+L\+O\+G\+S\+O\+CK, and stop\+Bus().
 
 Here is the call graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{classCSockCanScan_a243f91e993fcc96ddd5308c1425a130c_cgraph}
-\end{center}
-\end{figure}
+% FIG 3
 
 
 \doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classCSockCanScan_a808488b6793afea6cc8466c3a12a088c}\label{classCSockCanScan_a808488b6793afea6cc8466c3a12a088c}} 
+\index{CSockCanScan@{CSockCanScan}!CanReconnectionThread@{CanReconnectionThread}}
+\index{CanReconnectionThread@{CanReconnectionThread}!CSockCanScan@{CSockCanScan}}
+\doxysubsubsection{\texorpdfstring{CanReconnectionThread()}{CanReconnectionThread()}}
+{\footnotesize\ttfamily void C\+Sock\+Can\+Scan\+::\+Can\+Reconnection\+Thread (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+reconnection behavior thread, always up
+
+Reconnection thread managing the reconnection behavior, per port. The behavior settings can not change during runtime. This thread is initialized after the main thread is up, and then listens on its cond.\+var as a trigger. Triggers occur in two contexts\+: sending and receiving problems. If there is a sending problem which lasts for a while (usually) the reconnection thread will be also triggered for each failed sending\+: the thread will be \char`\"{}hammered\char`\"{} by triggers. ince the reconnection takes some time, many triggers will be lost. That is in fact a desired behavior.
+
+The parameters are all atomics for increased thread-\/safety, even though the documentation about the predicate is unclear on that point. Since atomics just provide a \char`\"{}sequential memory layout\char`\"{} for the variables to prevent race conditions they are good to use for this but the code still has to be threadsafe and reentrant... ;-\/) Doesn\textquotesingle{}t eat anything anyway on that small scale with scalars only.
+
+\href{https://en.cppreference.com/w/cpp/thread/condition_variable/wait}{\texttt{ https\+://en.\+cppreference.\+com/w/cpp/thread/condition\+\_\+variable/wait}} lets check the timeout\+On\+Reception reconnect condition. If it is true, all we can do is to close/open the socket again since the underlying hardware is hidden by socketcan abstraction. Like his we do not have to pollute the \char`\"{}send\+Message\char`\"{} like for anagate, and that is cleaner.
+
+we get triggered all the time, essentially with reception timeouts, but also sometimes with a send fail. we need to manage the conditions since the triggering is identical, no parameters are transmitted, the predicate is just a boolean to keep it simple.
+
+... or the reception timed out\+: we did not receive anything on the bus for a certain time (not\+: count). That is a somewhat dangerous condition but it can be extremely useful if you know what you do.
+
+socketcan abstracts away the notion of a \char`\"{}module\char`\"{}, and that is the point. Various plugin-\/orders should lead to the same device mapping nevertheless. But then we can\textquotesingle{}t refer to a module and reset all of it\textquotesingle{}s channels easily in linux. Unless we make a big effort and keep track of which port is on which module, for peak\+: more udev calls, for systec\+: we need to read the module serial number or similar. Maybe there is an elegant way out, but I think it is not worth it. Use a P\+DU if you want to reset your systec16. For peak the notion of \char`\"{}module\char`\"{} is already difficult through socketcan (udev calls needed to identify the modules) and peak bridges get their power over U\+SB. So in fact testing peak means \char`\"{}rebooting\char`\"{} unless you want to unplug the U\+SB. Therefore \char`\"{}all\+Buses\+On\+Bridge\char`\"{} as reconnect action is not available for sock.
+
+\mbox{\hyperlink{namespaceCanModule_a2062089fa4fa87c8354295f2a8fe31a5a319ee2c9d887d55f6bc1941518a5ae76}{Can\+Module\+::\+Reconnect\+Action\+::all\+Buses\+On\+Bridge}} is not implemented for sock
+
+Definition at line 369 of file Sock\+Can\+Scan.\+cpp.
+
+
+
+References Can\+Module\+::\+C\+Can\+Access\+::get\+Bus\+Name(), get\+Reconnect\+Action(), get\+Reconnect\+Condition(), Can\+Module\+::\+C\+Can\+Access\+::has\+Timeout\+On\+Reception(), Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+failed\+Send\+Countdown, Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+reconnect\+Action, Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+reconnect\+Condition, m\+\_\+sock, M\+L\+O\+G\+S\+O\+CK, Can\+Module\+::never, open\+Can\+Port(), Can\+Module\+::\+C\+Can\+Access\+::reconnect\+Action\+String(), Can\+Module\+::\+C\+Can\+Access\+::reconnect\+Condition\+String(), Can\+Module\+::\+C\+Can\+Access\+::reset\+Send\+Failed\+Countdown(), Can\+Module\+::\+C\+Can\+Access\+::reset\+Timeout\+On\+Reception(), Can\+Module\+::send\+Fail, Can\+Module\+::single\+Bus, Can\+Module\+::timeout\+On\+Reception, and Can\+Module\+::\+C\+Can\+Access\+::wait\+For\+Reconnection\+Thread\+Trigger().
+
+
+
+Referenced by create\+Bus().
+
+Here is the call graph for this function\+:
+% FIG 4
 \mbox{\Hypertarget{classCSockCanScan_a2a97f7fca98e6d599bdb42da64796ad8}\label{classCSockCanScan_a2a97f7fca98e6d599bdb42da64796ad8}} 
 \index{CSockCanScan@{CSockCanScan}!CanScanControlThread@{CanScanControlThread}}
 \index{CanScanControlThread@{CanScanControlThread}!CSockCanScan@{CSockCanScan}}
@@ -197,13 +212,17 @@ if we have an open socket again, and we can read number\+Of\+Read\+Bytes $>$=0 w
 
 we have a C\+AN message, error free, lets digest it
 
+O\+P\+C\+U\+A-\/2607. Lets just stop filtering them out. This is only done here anyway, all other vendor implementations don\textquotesingle{}t care.
+
 reformat and buffer the message from the socket. this actually should exclude more bits
 
-the select got nothing to read, this was just a timeout.
+the select got nothing to read, this was just a timeout, all is fine. Unless the reconnect timeout has something to do.
 
-lets check the timeout\+On\+Reception reconnect condition. If it is true, all we can do is to close/open the socket again since the underlying hardware is hidden by socketcan abstraction. Like his we do not have to pollute the \char`\"{}send\+Message\char`\"{} like for anagate, and that is cleaner.
+the reconnect behavior happens in an extra thread so that the send\+Message becomes non blocking. This is the reception of the message part, and strictly speaking we could do the reconnection due to reception message timeout also here. For cleanliness, lets use that extra reconnection thread nevertheless here.
 
-Definition at line 99 of file Sock\+Can\+Scan.\+cpp.
+that reconnection thread is always up and it depends on three private variables\+: the socket, the Reconnect\+Auto\+Condition and the Reconnect\+Action. It is done in a pretty stupid way so that is is fast, for all vendors\+: you just trigger it whenever and it checks itself what to do.
+
+Definition at line 103 of file Sock\+Can\+Scan.\+cpp.
 
 
 
@@ -221,7 +240,7 @@ Referenced by create\+Bus().
 
 
 
-Definition at line 879 of file Sock\+Can\+Scan.\+cpp.
+Definition at line 1037 of file Sock\+Can\+Scan.\+cpp.
 
 
 
@@ -243,7 +262,7 @@ In order to distinguish between systec (where it works) and peak bridges we use 
 
 now, we manipulate the lname to reflect the absolute port which we found out. We do the rewiring at initialisation, like this we don\textquotesingle{}t care anymore during runtime.
 
-Definition at line 360 of file Sock\+Can\+Scan.\+cpp.
+Definition at line 494 of file Sock\+Can\+Scan.\+cpp.
 
 
 
@@ -253,13 +272,8 @@ References m\+\_\+channel\+Name, m\+\_\+log\+It\+Handle\+Sock, M\+L\+O\+G\+S\+O\
 
 Referenced by create\+Bus().
 
-Here is the call graph for this function\+:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{classCSockCanScan_a8bb8fcdb24b2b917258d027e6a468bae_cgraph}
-\end{center}
-\end{figure}
+Here is the call graph for this function\+:
+% FIG 5
 \mbox{\Hypertarget{classCSockCanScan_a879da2908384a8f154120bdd0c60c5aa}\label{classCSockCanScan_a879da2908384a8f154120bdd0c60c5aa}} 
 \index{CSockCanScan@{CSockCanScan}!createBus@{createBus}}
 \index{createBus@{createBus}!CSockCanScan@{CSockCanScan}}
@@ -293,26 +307,20 @@ Method that initializes a can bus channel. The following methods called upon the
 \begin{DoxyReturn}{Returns}
 Was the initialization process successful?
 \end{DoxyReturn}
-dont create a main thread for the same bus twice\+: if it exists already, just configure the board again this protects agains having multiple threads if a given port ports is opened several times\+: protects against erro/unusual runtime. If the connection is closed, it\textquotesingle{}s main thread is stopped and joined, and the port is erased from the connection map. when the same port is opened again later on, a (new) main thread is created, and the connection is again added to the map. 
+dont create a main thread for the same bus twice\+: if it exists already, just configure the board again this protects agains having multiple threads if a given port ports is opened several times\+: protects against erro/unusual runtime. If the connection is closed, it\textquotesingle{}s main thread is stopped and joined, and the port is erased from the connection map. when the same port is opened again later on, a (new) main thread is created, and the connection is again added to the map. start a reconnection thread
 
 Implements \mbox{\hyperlink{classCanModule_1_1CCanAccess_a0eeee5c3d48f1102012d1483cbe6e64b}{Can\+Module\+::\+C\+Can\+Access}}.
 
 
 
-Definition at line 756 of file Sock\+Can\+Scan.\+cpp.
+Definition at line 897 of file Sock\+Can\+Scan.\+cpp.
 
 
 
-References Can\+Scan\+Control\+Thread(), configure\+Can\+Board(), Can\+Module\+::\+Log\+It\+Component\+Name, m\+\_\+bus\+Map, m\+\_\+bus\+Name, m\+\_\+\+Can\+Scan\+Thread\+Run\+Enable\+Flag, m\+\_\+h\+Can\+Scan\+Thread, m\+\_\+log\+It\+Handle\+Sock, m\+\_\+sock, M\+L\+O\+G\+S\+O\+CK, and sock\+Reconnect\+Mutex.
+References Can\+Reconnection\+Thread(), Can\+Scan\+Control\+Thread(), configure\+Can\+Board(), Can\+Module\+::\+Log\+It\+Component\+Name, m\+\_\+bus\+Map, m\+\_\+bus\+Name, m\+\_\+\+Can\+Scan\+Thread\+Run\+Enable\+Flag, Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+h\+Can\+Reconnection\+Thread, m\+\_\+h\+Can\+Scan\+Thread, m\+\_\+log\+It\+Handle\+Sock, m\+\_\+sock, M\+L\+O\+G\+S\+O\+CK, and sock\+Reconnect\+Mutex.
 
 Here is the call graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{classCSockCanScan_a879da2908384a8f154120bdd0c60c5aa_cgraph}
-\end{center}
-\end{figure}
+% FIG 6
 \mbox{\Hypertarget{classCSockCanScan_ace6f7aa52fe582af6de098895fc91b83}\label{classCSockCanScan_ace6f7aa52fe582af6de098895fc91b83}} 
 \index{CSockCanScan@{CSockCanScan}!emptyCanFrame@{emptyCanFrame}}
 \index{emptyCanFrame@{emptyCanFrame}!CSockCanScan@{CSockCanScan}}
@@ -321,7 +329,7 @@ Here is the call graph for this function\+:
 
 produce and empty can frame 
 
-Definition at line 88 of file Sock\+Can\+Scan.\+h.
+Definition at line 89 of file Sock\+Can\+Scan.\+h.
 
 
 
@@ -335,7 +343,7 @@ Referenced by send\+Message().
 
 Transforms an error frame into an error message (string format) 
 
-Definition at line 805 of file Sock\+Can\+Scan.\+cpp.
+Definition at line 963 of file Sock\+Can\+Scan.\+cpp.
 
 \mbox{\Hypertarget{classCSockCanScan_a5120fe6852dd4942e89fc23c3e09b20d}\label{classCSockCanScan_a5120fe6852dd4942e89fc23c3e09b20d}} 
 \index{CSockCanScan@{CSockCanScan}!getHandler@{getHandler}}
@@ -345,7 +353,7 @@ Definition at line 805 of file Sock\+Can\+Scan.\+cpp.
 
 Returns socket handler 
 
-Definition at line 83 of file Sock\+Can\+Scan.\+h.
+Definition at line 84 of file Sock\+Can\+Scan.\+h.
 
 \mbox{\Hypertarget{classCSockCanScan_ad3404f38a5681bae4c0bbb6054a8ebaf}\label{classCSockCanScan_ad3404f38a5681bae4c0bbb6054a8ebaf}} 
 \index{CSockCanScan@{CSockCanScan}!getPortBitrate@{getPortBitrate}}
@@ -359,7 +367,7 @@ Implements \mbox{\hyperlink{classCanModule_1_1CCanAccess_aa8cb67096349fefc6e03ae
 
 
 
-Definition at line 78 of file Sock\+Can\+Scan.\+h.
+Definition at line 79 of file Sock\+Can\+Scan.\+h.
 
 \mbox{\Hypertarget{classCSockCanScan_ad1caa327a98bc30012d2c5010a98cb05}\label{classCSockCanScan_ad1caa327a98bc30012d2c5010a98cb05}} 
 \index{CSockCanScan@{CSockCanScan}!getPortStatus@{getPortStatus}}
@@ -373,19 +381,14 @@ Implements \mbox{\hyperlink{classCanModule_1_1CCanAccess_a33fe530d070cf35d096e96
 
 
 
-Definition at line 72 of file Sock\+Can\+Scan.\+h.
+Definition at line 73 of file Sock\+Can\+Scan.\+h.
 
 
 
 References C\+A\+N\+M\+O\+D\+U\+L\+E\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+B\+P\+\_\+\+S\+O\+CK, and Can\+Module\+::\+Can\+Statistics\+::port\+Status().
 
-Here is the call graph for this function\+:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{classCSockCanScan_ad1caa327a98bc30012d2c5010a98cb05_cgraph}
-\end{center}
-\end{figure}
+Here is the call graph for this function\+:
+% FIG 7
 \mbox{\Hypertarget{classCSockCanScan_a03594b2fff9c61f37a5f68df2cfec05c}\label{classCSockCanScan_a03594b2fff9c61f37a5f68df2cfec05c}} 
 \index{CSockCanScan@{CSockCanScan}!getReconnectAction@{getReconnectAction}}
 \index{getReconnectAction@{getReconnectAction}!CSockCanScan@{CSockCanScan}}
@@ -398,7 +401,11 @@ Implements \mbox{\hyperlink{classCanModule_1_1CCanAccess_aaf2312ff9074ce7a4ec2e7
 
 
 
-Definition at line 110 of file Sock\+Can\+Scan.\+h.
+Definition at line 111 of file Sock\+Can\+Scan.\+h.
+
+
+
+Referenced by Can\+Reconnection\+Thread().
 
 \mbox{\Hypertarget{classCSockCanScan_aa8cb4c89fe3a13bb787c4085f1e994e3}\label{classCSockCanScan_aa8cb4c89fe3a13bb787c4085f1e994e3}} 
 \index{CSockCanScan@{CSockCanScan}!getReconnectCondition@{getReconnectCondition}}
@@ -412,7 +419,11 @@ Implements \mbox{\hyperlink{classCanModule_1_1CCanAccess_a003566cbcdf4ce8195853b
 
 
 
-Definition at line 109 of file Sock\+Can\+Scan.\+h.
+Definition at line 110 of file Sock\+Can\+Scan.\+h.
+
+
+
+Referenced by Can\+Reconnection\+Thread().
 
 \mbox{\Hypertarget{classCSockCanScan_a38110f02c2d12fa9b620ba5ff438a960}\label{classCSockCanScan_a38110f02c2d12fa9b620ba5ff438a960}} 
 \index{CSockCanScan@{CSockCanScan}!getStatistics@{getStatistics}}
@@ -426,19 +437,14 @@ Implements \mbox{\hyperlink{classCanModule_1_1CCanAccess_ad3182c83b4c5d7e6aef982
 
 
 
-Definition at line 918 of file Sock\+Can\+Scan.\+cpp.
+Definition at line 1080 of file Sock\+Can\+Scan.\+cpp.
 
 
 
 References Can\+Module\+::\+Can\+Statistics\+::begin\+New\+Run(), Can\+Module\+::\+Can\+Statistics\+::compute\+Derived(), Can\+Module\+::\+Can\+Statistics\+::encode\+Can\+Module\+Status(), Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+\+Can\+Parameters, Can\+Module\+::\+Can\+Parameters\+::m\+\_\+l\+Baud\+Rate, and m\+\_\+statistics.
 
-Here is the call graph for this function\+:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{classCSockCanScan_a38110f02c2d12fa9b620ba5ff438a960_cgraph}
-\end{center}
-\end{figure}
+Here is the call graph for this function\+:
+% FIG 8
 \mbox{\Hypertarget{classCSockCanScan_a81829633cb836d4a229b4267be2768d2}\label{classCSockCanScan_a81829633cb836d4a229b4267be2768d2}} 
 \index{CSockCanScan@{CSockCanScan}!logItHandle@{logItHandle}}
 \index{logItHandle@{logItHandle}!CSockCanScan@{CSockCanScan}}
@@ -447,7 +453,7 @@ Here is the call graph for this function\+:\nopagebreak
 
 
 
-Definition at line 98 of file Sock\+Can\+Scan.\+h.
+Definition at line 99 of file Sock\+Can\+Scan.\+h.
 
 \mbox{\Hypertarget{classCSockCanScan_a203a51239f8efc013d4b9df36f271317}\label{classCSockCanScan_a203a51239f8efc013d4b9df36f271317}} 
 \index{CSockCanScan@{CSockCanScan}!openCanPort@{openCanPort}}
@@ -462,7 +468,7 @@ less than zero in case of error, otherwise success
 \end{DoxyReturn}
 stop, set bitrate, start a C\+AN port, open a socket for it, set the socket to C\+AN, bind it and check any errors 
 
-Definition at line 401 of file Sock\+Can\+Scan.\+cpp.
+Definition at line 535 of file Sock\+Can\+Scan.\+cpp.
 
 
 
@@ -470,15 +476,10 @@ References Can\+Module\+::\+Can\+Moduleerrno\+To\+String(), Can\+Module\+::\+C\+
 
 
 
-Referenced by configure\+Can\+Board().
+Referenced by Can\+Reconnection\+Thread(), and configure\+Can\+Board().
 
-Here is the call graph for this function\+:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{classCSockCanScan_a203a51239f8efc013d4b9df36f271317_cgraph}
-\end{center}
-\end{figure}
+Here is the call graph for this function\+:
+% FIG 9
 \mbox{\Hypertarget{classCSockCanScan_afb0a16ec4e702d79d5fe5dfcabfefbdb}\label{classCSockCanScan_afb0a16ec4e702d79d5fe5dfcabfefbdb}} 
 \index{CSockCanScan@{CSockCanScan}!operator=@{operator=}}
 \index{operator=@{operator=}!CSockCanScan@{CSockCanScan}}
@@ -493,7 +494,7 @@ Here is the call graph for this function\+:\nopagebreak
 
 
 
-Definition at line 888 of file Sock\+Can\+Scan.\+cpp.
+Definition at line 1046 of file Sock\+Can\+Scan.\+cpp.
 
 
 
@@ -519,27 +520,24 @@ Method that sends a message trough the can bus channel. If the method create\+B\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-Was the initialisation process successful? 
+Was the initialisation process successful?
 \end{DoxyReturn}
-socketcan abstracts away the notion of a \char`\"{}module\char`\"{}, and that is the point. Various plugin-\/orders should lead to the same device mapping nevertheless. But then we can\textquotesingle{}t refer to a module and reset all of it\textquotesingle{}s channels easily in linux. Unless we make a big effort and keep track of which port is on which module, for peak\+: more udev calls, for systec\+: we need to read the module serial number or similar. Maybe there is an elegant way out, but I think it is not worth it. Use a P\+DU if you want to reset your systec16. For peak the notion of \char`\"{}module\char`\"{} is already difficult through socketcan (udev calls needed to identify the modules) and peak bridges get their power over U\+SB. So in fact testing peak means \char`\"{}rebooting\char`\"{} unless you want to unplug the U\+SB. Therefore \char`\"{}all\+Buses\+On\+Bridge\char`\"{} as reconnect action is not available.
+O\+P\+C\+U\+A-\/2604\+: send\+Message must be non blocking. The reconnection behavior therefore must be managed in a separate thread.
+
+returns\+: true for success, otherwise false 
 
 Implements \mbox{\hyperlink{classCanModule_1_1CCanAccess_aee42ab7fb9e50c02a1812202f7863d8c}{Can\+Module\+::\+C\+Can\+Access}}.
 
 
 
-Definition at line 551 of file Sock\+Can\+Scan.\+cpp.
+Definition at line 691 of file Sock\+Can\+Scan.\+cpp.
 
 
 
-References empty\+Can\+Frame(), m\+\_\+sock, and M\+L\+O\+G\+S\+O\+CK.
+References empty\+Can\+Frame(), m\+\_\+\+Can\+Scan\+Thread\+Run\+Enable\+Flag, m\+\_\+sock, and M\+L\+O\+G\+S\+O\+CK.
 
-Here is the call graph for this function\+:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{classCSockCanScan_a485ec8621a98cdacad8e27433e09d919_cgraph}
-\end{center}
-\end{figure}
+Here is the call graph for this function\+:
+% FIG 10
 \mbox{\Hypertarget{classCSockCanScan_a4999204ff7166ee992a89b30a118af06}\label{classCSockCanScan_a4999204ff7166ee992a89b30a118af06}} 
 \index{CSockCanScan@{CSockCanScan}!sendRemoteRequest@{sendRemoteRequest}}
 \index{sendRemoteRequest@{sendRemoteRequest}!CSockCanScan@{CSockCanScan}}
@@ -560,19 +558,14 @@ Implements \mbox{\hyperlink{classCanModule_1_1CCanAccess_acfefbc9be2696b1388cf6d
 
 
 
-Definition at line 667 of file Sock\+Can\+Scan.\+cpp.
+Definition at line 831 of file Sock\+Can\+Scan.\+cpp.
 
 
 
 References Can\+Module\+::\+Can\+Moduleerrno\+To\+String(), m\+\_\+sock, m\+\_\+statistics, M\+L\+O\+G\+S\+O\+CK, and Can\+Module\+::\+Can\+Statistics\+::set\+Time\+Since\+Received().
 
-Here is the call graph for this function\+:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{classCSockCanScan_a4999204ff7166ee992a89b30a118af06_cgraph}
-\end{center}
-\end{figure}
+Here is the call graph for this function\+:
+% FIG 11
 \mbox{\Hypertarget{classCSockCanScan_ab806e1738ba9778c038150f51968839d}\label{classCSockCanScan_ab806e1738ba9778c038150f51968839d}} 
 \index{CSockCanScan@{CSockCanScan}!setReconnectBehavior@{setReconnectBehavior}}
 \index{setReconnectBehavior@{setReconnectBehavior}!CSockCanScan@{CSockCanScan}}
@@ -603,7 +596,7 @@ Implements \mbox{\hyperlink{classCanModule_1_1CCanAccess_ae1088edaf5444ff42ee094
 
 
 
-Definition at line 100 of file Sock\+Can\+Scan.\+h.
+Definition at line 101 of file Sock\+Can\+Scan.\+h.
 
 \mbox{\Hypertarget{classCSockCanScan_aceab51e91b2c698211e5d563e4449c91}\label{classCSockCanScan_aceab51e91b2c698211e5d563e4449c91}} 
 \index{CSockCanScan@{CSockCanScan}!setReconnectFailedSendCount@{setReconnectFailedSendCount}}
@@ -617,7 +610,7 @@ Implements \mbox{\hyperlink{classCanModule_1_1CCanAccess_a665620fe5924cf87db0589
 
 
 
-Definition at line 105 of file Sock\+Can\+Scan.\+h.
+Definition at line 106 of file Sock\+Can\+Scan.\+h.
 
 \mbox{\Hypertarget{classCSockCanScan_afad122d886579de793f2b7b49e5c6d5f}\label{classCSockCanScan_afad122d886579de793f2b7b49e5c6d5f}} 
 \index{CSockCanScan@{CSockCanScan}!setReconnectReceptionTimeout@{setReconnectReceptionTimeout}}
@@ -631,19 +624,21 @@ Implements \mbox{\hyperlink{classCanModule_1_1CCanAccess_a3c902569c0712d165fc7e3
 
 
 
-Definition at line 104 of file Sock\+Can\+Scan.\+h.
+Definition at line 105 of file Sock\+Can\+Scan.\+h.
 
 \mbox{\Hypertarget{classCSockCanScan_a7be2c075520b1cbf4baa4eb7d728fd2d}\label{classCSockCanScan_a7be2c075520b1cbf4baa4eb7d728fd2d}} 
 \index{CSockCanScan@{CSockCanScan}!stopBus@{stopBus}}
 \index{stopBus@{stopBus}!CSockCanScan@{CSockCanScan}}
 \doxysubsubsection{\texorpdfstring{stopBus()}{stopBus()}}
-{\footnotesize\ttfamily void C\+Sock\+Can\+Scan\+::stop\+Bus (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
-
-stop the supervisor thread using the flag and close the socket.
+{\footnotesize\ttfamily void C\+Sock\+Can\+Scan\+::stop\+Bus (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
 
 notify the main thread to finish and delete the bus from the map of connections 
 
-Definition at line 899 of file Sock\+Can\+Scan.\+cpp.
+Implements \mbox{\hyperlink{classCanModule_1_1CCanAccess_a3fabe88b8e21638afd5d9886bb9c4aeb}{Can\+Module\+::\+C\+Can\+Access}}.
+
+
+
+Definition at line 1057 of file Sock\+Can\+Scan.\+cpp.
 
 
 
@@ -667,28 +662,23 @@ std\+::string \mbox{\hyperlink{classCSockCanScan_a177453d85f24c6b12b84468ac812cf
 
 int can\+\_\+get\+\_\+restart\+\_\+ms(const char $\ast$name, \+\_\+\+\_\+u32 $\ast$restart\+\_\+ms); int can\+\_\+get\+\_\+bittiming(const char $\ast$name, struct can\+\_\+bittiming $\ast$bt); int can\+\_\+get\+\_\+ctrlmode(const char $\ast$name, struct can\+\_\+ctrlmode $\ast$cm); int can\+\_\+get\+\_\+state(const char $\ast$name, int $\ast$state); int can\+\_\+get\+\_\+clock(const char $\ast$name, struct can\+\_\+clock $\ast$clock); int can\+\_\+get\+\_\+bittiming\+\_\+const(const char $\ast$name, struct can\+\_\+bittiming\+\_\+const $\ast$btc); int can\+\_\+get\+\_\+berr\+\_\+counter(const char $\ast$name, struct can\+\_\+berr\+\_\+counter $\ast$bc); int can\+\_\+get\+\_\+device\+\_\+stats(const char $\ast$name, struct can\+\_\+device\+\_\+stats $\ast$cds); 
 
-Definition at line 497 of file Sock\+Can\+Scan.\+cpp.
+Definition at line 633 of file Sock\+Can\+Scan.\+cpp.
 
 
 
 References m\+\_\+channel\+Name, m\+\_\+statistics, and Can\+Module\+::\+Can\+Statistics\+::set\+Port\+Status().
 
-Here is the call graph for this function\+:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{classCSockCanScan_aaed83a57ee1b70fff48a1a5ca9655fe6_cgraph}
-\end{center}
-\end{figure}
+Here is the call graph for this function\+:
+% FIG 12
 \mbox{\Hypertarget{classCSockCanScan_a623057580187ecb241adf143c64d711c}\label{classCSockCanScan_a623057580187ecb241adf143c64d711c}} 
 \index{CSockCanScan@{CSockCanScan}!updateInitialError@{updateInitialError}}
 \index{updateInitialError@{updateInitialError}!CSockCanScan@{CSockCanScan}}
 \doxysubsubsection{\texorpdfstring{updateInitialError()}{updateInitialError()}}
 {\footnotesize\ttfamily void C\+Sock\+Can\+Scan\+::update\+Initial\+Error (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
-Report an error when opening a can port 
+stop the supervisor thread using the flag and close the socket. Report an error when opening a can port 
 
-Definition at line 927 of file Sock\+Can\+Scan.\+cpp.
+Definition at line 1089 of file Sock\+Can\+Scan.\+cpp.
 
 
 
@@ -698,13 +688,8 @@ References Can\+Module\+::\+C\+Can\+Access\+::can\+Message\+Error, clear\+Error\
 
 Referenced by open\+Can\+Port().
 
-Here is the call graph for this function\+:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{classCSockCanScan_a623057580187ecb241adf143c64d711c_cgraph}
-\end{center}
-\end{figure}
+Here is the call graph for this function\+:
+% FIG 13
 
 
 \doxysubsection{Member Data Documentation}
@@ -728,7 +713,7 @@ Quasar is distributed in the hope that it will be useful, but W\+I\+T\+H\+O\+UT 
 
 You should have received a copy of the G\+NU Lesser General Public License along with Quasar. If not, see \href{http://www.gnu.org/licenses/}{\texttt{ http\+://www.\+gnu.\+org/licenses/}}. 
 
-Definition at line 97 of file Sock\+Can\+Scan.\+h.
+Definition at line 98 of file Sock\+Can\+Scan.\+h.
 
 
 
@@ -742,7 +727,7 @@ Referenced by create\+Bus(), and stop\+Bus().
 
 
 
-Definition at line 123 of file Sock\+Can\+Scan.\+h.
+Definition at line 125 of file Sock\+Can\+Scan.\+h.
 
 
 
@@ -756,11 +741,11 @@ Referenced by create\+Bus(), and stop\+Bus().
 
 
 
-Definition at line 110 of file Sock\+Can\+Scan.\+h.
+Definition at line 116 of file Sock\+Can\+Scan.\+h.
 
 
 
-Referenced by create\+Bus(), and stop\+Bus().
+Referenced by create\+Bus(), send\+Message(), and stop\+Bus().
 
 \mbox{\Hypertarget{classCSockCanScan_a1810bdcb6beda833752d4ddb83efde7f}\label{classCSockCanScan_a1810bdcb6beda833752d4ddb83efde7f}} 
 \index{CSockCanScan@{CSockCanScan}!m\_channelName@{m\_channelName}}
@@ -770,7 +755,7 @@ Referenced by create\+Bus(), and stop\+Bus().
 
 
 
-Definition at line 122 of file Sock\+Can\+Scan.\+h.
+Definition at line 124 of file Sock\+Can\+Scan.\+h.
 
 
 
@@ -784,7 +769,7 @@ Referenced by configure\+Can\+Board(), open\+Can\+Port(), and update\+Bus\+Statu
 
 
 
-Definition at line 118 of file Sock\+Can\+Scan.\+h.
+Definition at line 120 of file Sock\+Can\+Scan.\+h.
 
 
 
@@ -798,7 +783,7 @@ Referenced by open\+Can\+Port(), and update\+Initial\+Error().
 
 
 
-Definition at line 121 of file Sock\+Can\+Scan.\+h.
+Definition at line 123 of file Sock\+Can\+Scan.\+h.
 
 
 
@@ -812,7 +797,7 @@ Referenced by create\+Bus(), and stop\+Bus().
 
 
 
-Definition at line 124 of file Sock\+Can\+Scan.\+h.
+Definition at line 126 of file Sock\+Can\+Scan.\+h.
 
 
 
@@ -826,11 +811,11 @@ Referenced by configure\+Can\+Board(), and create\+Bus().
 
 
 
-Definition at line 116 of file Sock\+Can\+Scan.\+h.
+Definition at line 118 of file Sock\+Can\+Scan.\+h.
 
 
 
-Referenced by clear\+Error\+Message(), create\+Bus(), open\+Can\+Port(), send\+Error\+Message(), send\+Message(), and send\+Remote\+Request().
+Referenced by Can\+Reconnection\+Thread(), clear\+Error\+Message(), create\+Bus(), open\+Can\+Port(), send\+Error\+Message(), send\+Message(), and send\+Remote\+Request().
 
 \mbox{\Hypertarget{classCSockCanScan_afe0c7cc23de0ac2d758a07bec4c2e2c8}\label{classCSockCanScan_afe0c7cc23de0ac2d758a07bec4c2e2c8}} 
 \index{CSockCanScan@{CSockCanScan}!m\_statistics@{m\_statistics}}
@@ -840,7 +825,7 @@ Referenced by clear\+Error\+Message(), create\+Bus(), open\+Can\+Port(), send\+E
 
 
 
-Definition at line 120 of file Sock\+Can\+Scan.\+h.
+Definition at line 122 of file Sock\+Can\+Scan.\+h.
 
 
 

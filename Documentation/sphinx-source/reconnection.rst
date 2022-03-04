@@ -9,9 +9,11 @@ need to care about vendor details for that.
 
 The reconnection behavior must be configured at startup, and can not be changed during CanModule runtime
  (a library reload can be made to get a new instance of CanModule which can be re-configured). 
+
 It specifies:
 
 - a reconnection condition, depending on send or receive faults or timeouts
+
 
 .. doxygenclass:: CanModule::CCanAccess 
    :project: CanModule
@@ -132,6 +134,9 @@ For production systems using a supervisor script checking the network interfaces
 .. doxygenclass:: CSockCanScan  
    :project: CanModule
    :members: CanReconnectionThread
+   :private-members: 
+   :no-link:
+   
 
 
 windows ("systec")

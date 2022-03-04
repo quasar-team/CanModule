@@ -4,16 +4,17 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>AnaGate</title>
-    <link rel="stylesheet" href="../_static/haiku.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/haiku.css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="next" title="Peak" href="peak.html" />
     <link rel="prev" title="SysTec" href="systec.html" /> 
   </head><body>
       <div class="header" role="banner"><h1 class="heading"><a href="../index.html">
-          <span>CanModule 2.0.6 documentation</span></a></h1>
+          <span>CanModule 2.0.16 documentation</span></a></h1>
         <h2 class="heading"><span>AnaGate</span></h2>
       </div>
       <div class="topnav" role="navigation" aria-label="top navigation">
@@ -30,7 +31,7 @@
       <div class="content" role="main">
         
         
-  <div class="section" id="anagate">
+  <section id="anagate">
 <h1><a class="reference internal" href="#anagate">AnaGate</a></h1>
 <p>All modules from vendor <a class="reference internal" href="#anagate">AnaGate</a> are handled by class AnaCanScan which manages the modules through their underlying vendor specific API and provides
 the standard generic CanModule API.</p>
@@ -39,17 +40,17 @@ the standard generic CanModule API.</p>
 tcp/ip ethernet is needed. Nevertheless the specific contents of the IP frames are wrapped up in an Anagate API for convenience, which is linked
 into the user code as a library. There are therefore no implementation differences between Linux and Windows.</p>
 <p>The downside of Anagate CAN-ethernet modules is of course that the latency of the network has to be added to the bridge latency.</p>
-<div class="section" id="status">
+<section id="status">
 <h2>status</h2>
 <p>status information is propagated through the unified status.</p>
 <dl class="cpp class">
-<dt id="_CPPv410AnaCanScan">
-<span id="_CPPv310AnaCanScan"></span><span id="_CPPv210AnaCanScan"></span><span id="AnaCanScan"></span><span class="target" id="classAnaCanScan"></span><em class="property">class </em><code class="sig-name descname">AnaCanScan</code> : <em class="property">public</em> CanModule::<a class="reference internal" href="../canports.html#_CPPv4N9CanModule10CCanAccessE" title="CanModule::CCanAccess">CCanAccess</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv410AnaCanScan">
+<span id="_CPPv310AnaCanScan"></span><span id="_CPPv210AnaCanScan"></span><span id="AnaCanScan"></span><span class="target" id="classAnaCanScan"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">AnaCanScan</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">CanModule</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../canports.html#_CPPv4N9CanModule10CCanAccessE" title="CanModule::CCanAccess"><span class="n"><span class="pre">CCanAccess</span></span></a><br /></dt>
 <dd><div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
-<dt id="_CPPv4N10AnaCanScan13getPortStatusEv">
-<span id="_CPPv3N10AnaCanScan13getPortStatusEv"></span><span id="_CPPv2N10AnaCanScan13getPortStatusEv"></span><span id="AnaCanScan::getPortStatus"></span><span class="target" id="classAnaCanScan_1a4c115df4a8755c0fd70030ae457af24c"></span>uint32_t <code class="sig-name descname">getPortStatus</code><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N10AnaCanScan13getPortStatusEv">
+<span id="_CPPv3N10AnaCanScan13getPortStatusEv"></span><span id="_CPPv2N10AnaCanScan13getPortStatusEv"></span><span id="AnaCanScan::getPortStatus"></span><span class="target" id="classAnaCanScan_1a4c115df4a8755c0fd70030ae457af24c"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getPortStatus</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
 <dd><p>CANCanDeviceConnectState , translate from counter 1 = DISCONNECTED : 2 = CONNECTING : 3 = CONNECTED 4 = DISCONNECTING 5 = NOT_INITIALIZED b3…b27: unused</p>
 <p>into simple bitpattern (counter) 0, 10, 11, 100, 101 </p>
 </dd></dl>
@@ -57,8 +58,8 @@ into the user code as a library. There are therefore no implementation differenc
 </div>
 </dd></dl>
 
-</div>
-<div class="section" id="errors">
+</section>
+<section id="errors">
 <h2>errors</h2>
 <p>Errors and problems are available through two mechanisms:</p>
 <ul class="simple">
@@ -71,21 +72,21 @@ reported as is without further processing. Messages are taken from the vendor’
 documentation if available.</p></li>
 </ul>
 <dl class="cpp class">
-<dt id="_CPPv410AnaCanScan">
-<span id="_CPPv310AnaCanScan"></span><span id="_CPPv210AnaCanScan"></span><span class="target" id="classAnaCanScan"></span><em class="property">class </em><code class="sig-name descname">AnaCanScan</code> : <em class="property">public</em> CanModule::<a class="reference internal" href="../canports.html#_CPPv4N9CanModule10CCanAccessE" title="CanModule::CCanAccess">CCanAccess</a><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="target" id="classAnaCanScan"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">AnaCanScan</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">CanModule</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../canports.html#_CPPv4N9CanModule10CCanAccessE" title="CanModule::CCanAccess"><span class="n"><span class="pre">CCanAccess</span></span></a><br /></dt>
 <dd><div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Private Functions</p>
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-private-functions">Private Functions</p>
 <dl class="cpp function">
-<dt id="_CPPv4N10AnaCanScan19ana_canGetErrorTextEl">
-<span id="_CPPv3N10AnaCanScan19ana_canGetErrorTextEl"></span><span id="_CPPv2N10AnaCanScan19ana_canGetErrorTextEl"></span><span id="AnaCanScan::ana_canGetErrorText__l"></span><span class="target" id="classAnaCanScan_1a1425dfc20e08b545fcdf49415ac15ec9"></span>std::string <code class="sig-name descname">ana_canGetErrorText</code><span class="sig-paren">(</span>long <em>errorCode</em><span class="sig-paren">)</span><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N10AnaCanScan19ana_canGetErrorTextEl">
+<span id="_CPPv3N10AnaCanScan19ana_canGetErrorTextEl"></span><span id="_CPPv2N10AnaCanScan19ana_canGetErrorTextEl"></span><span id="AnaCanScan::ana_canGetErrorText__l"></span><span class="target" id="classAnaCanScan_1a1425dfc20e08b545fcdf49415ac15ec9"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ana_canGetErrorText</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">errorCode</span></span><span class="sig-paren">)</span><br /></dt>
 <dd><p>give back the error message fro the code, from appendixA </p>
 </dd></dl>
 
 </div>
 </dd></dl>
 
-</div>
-</div>
+</section>
+</section>
 
 
       </div>
@@ -103,8 +104,8 @@ documentation if available.</p></li>
 
     <div class="footer" role="contentinfo">
         &#169; Copyright 2020, CERN, quasar-team, BE-ICS (Michael Ludwig).
-      Last updated on 14-Jan-2021 14:02:15.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.1.2.
+      Last updated on 04-Mar-2022 16:37:37.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
     </div>
   </body>
 </html>

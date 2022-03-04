@@ -93,6 +93,9 @@ $(document).ready(function(){initNavTree('SockCanScan_8cpp.html',''); initResiza
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="SockCanScan_8h_source.html">SockCanScan.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="UdevAnalyserForPeak_8h_source.html">UdevAnalyserForPeak.h</a>&quot;</code><br />
+<code>#include &lt;thread&gt;</code><br />
+<code>#include &lt;mutex&gt;</code><br />
+<code>#include &lt;condition_variable&gt;</code><br />
 <code>#include &lt;time.h&gt;</code><br />
 <code>#include &lt;string.h&gt;</code><br />
 <code>#include &lt;sys/time.h&gt;</code><br />
@@ -112,43 +115,7 @@ $(document).ready(function(){initNavTree('SockCanScan_8cpp.html',''); initResiza
 Include dependency graph for SockCanScan.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="SockCanScan_8cpp__incl.png" border="0" usemap="#CanInterfaceImplementations_2sockcan_2SockCanScan_8cpp" alt=""/></div>
-<map name="CanInterfaceImplementations_2sockcan_2SockCanScan_8cpp" id="CanInterfaceImplementations_2sockcan_2SockCanScan_8cpp">
-<area shape="rect" title=" " alt="" coords="1539,5,1755,47"/>
-<area shape="rect" href="SockCanScan_8h.html" title=" " alt="" coords="1006,95,1127,121"/>
-<area shape="rect" title=" " alt="" coords="1279,169,1382,196"/>
-<area shape="rect" title=" " alt="" coords="1407,169,1500,196"/>
-<area shape="rect" title=" " alt="" coords="712,319,803,345"/>
-<area shape="rect" title=" " alt="" coords="488,244,555,271"/>
-<area shape="rect" href="UdevAnalyserForPeak_8h.html" title=" " alt="" coords="258,169,435,196"/>
-<area shape="rect" title=" " alt="" coords="1523,95,1587,121"/>
-<area shape="rect" title=" " alt="" coords="1611,95,1682,121"/>
-<area shape="rect" title=" " alt="" coords="1707,95,1803,121"/>
-<area shape="rect" title=" " alt="" coords="1827,95,1912,121"/>
-<area shape="rect" title=" " alt="" coords="1937,95,2055,121"/>
-<area shape="rect" title=" " alt="" coords="2080,95,2168,121"/>
-<area shape="rect" title=" " alt="" coords="2192,95,2272,121"/>
-<area shape="rect" title=" " alt="" coords="2296,95,2363,121"/>
-<area shape="rect" title=" " alt="" coords="2387,95,2507,121"/>
-<area shape="rect" title=" " alt="" coords="2531,95,2658,121"/>
-<area shape="rect" href="CanModuleUtils_8h.html" title=" " alt="" coords="97,169,234,196"/>
-<area shape="rect" title=" " alt="" coords="1092,169,1156,196"/>
-<area shape="rect" title=" " alt="" coords="405,244,464,271"/>
-<area shape="rect" title=" " alt="" coords="1180,169,1255,196"/>
-<area shape="rect" title=" " alt="" coords="612,169,791,196"/>
-<area shape="rect" href="CCanAccess_8h.html" title=" " alt="" coords="815,169,929,196"/>
-<area shape="rect" href="CanStatistics_8h.html" title=" " alt="" coords="579,244,698,271"/>
-<area shape="rect" title=" " alt="" coords="953,169,1068,196"/>
-<area shape="rect" title=" " alt="" coords="890,244,1041,271"/>
-<area shape="rect" title=" " alt="" coords="1065,244,1209,271"/>
-<area shape="rect" href="CanMessage_8h.html" title=" " alt="" coords="1233,244,1351,271"/>
-<area shape="rect" href="VERSION_8h.html" title=" " alt="" coords="774,244,866,271"/>
-<area shape="rect" title=" " alt="" coords="589,319,688,345"/>
-<area shape="rect" href="ExportDefinition_8h.html" title=" " alt="" coords="427,319,565,345"/>
-<area shape="rect" title=" " alt="" coords="211,319,277,345"/>
-<area shape="rect" title=" " alt="" coords="318,244,381,271"/>
-<area shape="rect" title=" " alt="" coords="5,244,80,271"/>
-<area shape="rect" title=" " alt="" coords="155,244,242,271"/>
-</map>
+<!-- MAP 0 -->
 </div>
 </div>
 <p><a href="SockCanScan_8cpp_source.html">Go to the source code of this file.</a></p>
@@ -162,15 +129,11 @@ Macros</h2></td></tr>
 Functions</h2></td></tr>
 <tr class="memitem:a7126885c692bab5fba08fd9700e6a886"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classCanModule_1_1CCanAccess.html">CCanAccess</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="SockCanScan_8cpp.html#a7126885c692bab5fba08fd9700e6a886">getCanBusAccess</a> ()</td></tr>
 <tr class="separator:a7126885c692bab5fba08fd9700e6a886"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab85356f782f86b4f9882ab007a4363c4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="SockCanScan_8cpp.html#ab85356f782f86b4f9882ab007a4363c4">testThread</a> ()</td></tr>
-<tr class="separator:ab85356f782f86b4f9882ab007a4363c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1ff03dbfb54bd09b1d1d521060639cc7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="SockCanScan_8cpp.html#a1ff03dbfb54bd09b1d1d521060639cc7">testThread2</a> (void *p_voidSockCanScan)</td></tr>
-<tr class="separator:a1ff03dbfb54bd09b1d1d521060639cc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a080327294794f326cb96d4e0604d835d"><td class="memItemLeft" align="right" valign="top">boost::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="SockCanScan_8cpp.html#a080327294794f326cb96d4e0604d835d">sockReconnectMutex</a></td></tr>
-<tr class="separator:a080327294794f326cb96d4e0604d835d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa80325536abdfd912084dd4f35e83adb"><td class="memItemLeft" align="right" valign="top">std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="SockCanScan_8cpp.html#aa80325536abdfd912084dd4f35e83adb">sockReconnectMutex</a></td></tr>
+<tr class="separator:aa80325536abdfd912084dd4f35e83adb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a9dfd6d593fee1bb51ed35186b0bbb328"></a>
@@ -199,7 +162,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="SockCanScan_8cpp_source.html#l00051">51</a> of file <a class="el" href="SockCanScan_8cpp_source.html">SockCanScan.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SockCanScan_8cpp_source.html#l00055">55</a> of file <a class="el" href="SockCanScan_8cpp_source.html">SockCanScan.cpp</a>.</p>
 
 </div>
 </div>
@@ -220,65 +183,26 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>This function creates an instance of this class and returns it. It will be loaded trough the dll to access the rest of the code. </p>
 
-<p class="definition">Definition at line <a class="el" href="SockCanScan_8cpp_source.html#l00059">59</a> of file <a class="el" href="SockCanScan_8cpp_source.html">SockCanScan.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ab85356f782f86b4f9882ab007a4363c4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab85356f782f86b4f9882ab007a4363c4">&#9670;&nbsp;</a></span>testThread()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void testThread </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="SockCanScan_8cpp_source.html#l00708">708</a> of file <a class="el" href="SockCanScan_8cpp_source.html">SockCanScan.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a1ff03dbfb54bd09b1d1d521060639cc7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1ff03dbfb54bd09b1d1d521060639cc7">&#9670;&nbsp;</a></span>testThread2()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void testThread2 </td>
-          <td>(</td>
-          <td class="paramtype">void *&#160;</td>
-          <td class="paramname"><em>p_voidSockCanScan</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="SockCanScan_8cpp_source.html#l00720">720</a> of file <a class="el" href="SockCanScan_8cpp_source.html">SockCanScan.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SockCanScan_8cpp_source.html#l00061">61</a> of file <a class="el" href="SockCanScan_8cpp_source.html">SockCanScan.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Variable Documentation</h2>
-<a id="a080327294794f326cb96d4e0604d835d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a080327294794f326cb96d4e0604d835d">&#9670;&nbsp;</a></span>sockReconnectMutex</h2>
+<a id="aa80325536abdfd912084dd4f35e83adb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa80325536abdfd912084dd4f35e83adb">&#9670;&nbsp;</a></span>sockReconnectMutex</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">boost::mutex sockReconnectMutex</td>
+          <td class="memname">std::mutex sockReconnectMutex</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="SockCanScan_8cpp_source.html#l00049">49</a> of file <a class="el" href="SockCanScan_8cpp_source.html">SockCanScan.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SockCanScan_8cpp_source.html#l00053">53</a> of file <a class="el" href="SockCanScan_8cpp_source.html">SockCanScan.cpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="SockCanScan_8cpp_source.html#l00756">CSockCanScan::createBus()</a>, and <a class="el" href="SockCanScan_8cpp_source.html#l00899">CSockCanScan::stopBus()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="SockCanScan_8cpp_source.html#l00897">CSockCanScan::createBus()</a>, and <a class="el" href="SockCanScan_8cpp_source.html#l01057">CSockCanScan::stopBus()</a>.</p>
 
 </div>
 </div>

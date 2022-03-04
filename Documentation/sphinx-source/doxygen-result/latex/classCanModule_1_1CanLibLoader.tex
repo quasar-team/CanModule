@@ -6,13 +6,8 @@
 
 
 
-Inheritance diagram for Can\+Module\+::Can\+Lib\+Loader\+:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{classCanModule_1_1CanLibLoader__inherit__graph}
-\end{center}
-\end{figure}
+Inheritance diagram for Can\+Module\+::Can\+Lib\+Loader\+:
+% FIG 0
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -93,21 +88,20 @@ Definition at line 45 of file Can\+Lib\+Loader.\+cpp.
 \doxysubsubsection{\texorpdfstring{closeCanBus()}{closeCanBus()}}
 {\footnotesize\ttfamily void Can\+Module\+::\+Can\+Lib\+Loader\+::close\+Can\+Bus (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classCanModule_1_1CCanAccess}{Can\+Module\+::\+C\+Can\+Access}} $\ast$}]{cca }\end{DoxyParamCaption})}
 
-make a guess\+: it orders diet coke 
+close a C\+AN bus 
 
 Definition at line 60 of file Can\+Lib\+Loader.\+cpp.
 
 
 
-References Can\+Module\+::\+Diag\+::delete\+\_\+maps(), Can\+Module\+::\+C\+Can\+Access\+::get\+Bus\+Name(), and lh.
+References Can\+Module\+::\+Diag\+::delete\+\_\+maps(), Can\+Module\+::\+C\+Can\+Access\+::get\+Bus\+Name(), lh, and Can\+Module\+::\+C\+Can\+Access\+::stop\+Bus().
 
-Here is the call graph for this function\+:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{classCanModule_1_1CanLibLoader_acd7d3af103bb72d5bd18737333d682f4_cgraph}
-\end{center}
-\end{figure}
+
+
+Referenced by Can\+Module\+::\+Can\+Bus\+Access\+::close\+Can\+Bus().
+
+Here is the call graph for this function\+:
+% FIG 1
 \mbox{\Hypertarget{classCanModule_1_1CanLibLoader_a69dc0bf543d395f60bb8701339f99e29}\label{classCanModule_1_1CanLibLoader_a69dc0bf543d395f60bb8701339f99e29}} 
 \index{CanModule::CanLibLoader@{CanModule::CanLibLoader}!createCanAccess@{createCanAccess}}
 \index{createCanAccess@{createCanAccess}!CanModule::CanLibLoader@{CanModule::CanLibLoader}}
@@ -131,6 +125,10 @@ Referenced by open\+Can\+Bus().
 creates an instance 
 
 Definition at line 47 of file Can\+Lib\+Loader.\+cpp.
+
+
+
+Referenced by Can\+Module\+::\+Can\+Bus\+Access\+::open\+Can\+Bus().
 
 \mbox{\Hypertarget{classCanModule_1_1CanLibLoader_a2443baffbe92cd107d09ea09e6cb7b28}\label{classCanModule_1_1CanLibLoader_a2443baffbe92cd107d09ea09e6cb7b28}} 
 \index{CanModule::CanLibLoader@{CanModule::CanLibLoader}!dynamicallyLoadLib@{dynamicallyLoadLib}}
@@ -173,21 +171,25 @@ opens a can bus
 {\em parameters} & Different parameters used for the initialisation. For using the default parameters just set this to \char`\"{}\+Unspecified\char`\"{}\\
 \hline
 \end{DoxyParams}
+we could do 3 things here\+:
+\begin{DoxyEnumerate}
+\item throw an exception and stop everything throw std\+::runtime\+\_\+error(\char`\"{}\+Can\+Lib\+Loader\+::open\+Can\+Bus\+: create\+Bus Problem when opening can\+Bus. stop.\char`\"{} );
+\item try again looping this would go on forever if the bus does not come up
+\item ignore the bus and return 0 we return N\+U\+LL in this case and the client has to check the pointer of course we decided to do that 6.\+april.\+2021 quasar meeting, related to \href{https://its.cern.ch/jira/browse/OPCUA-2248}{\texttt{ https\+://its.\+cern.\+ch/jira/browse/\+O\+P\+C\+U\+A-\/2248}}
+\end{DoxyEnumerate}
 
-
-Definition at line 70 of file Can\+Lib\+Loader.\+cpp.
+Definition at line 72 of file Can\+Lib\+Loader.\+cpp.
 
 
 
 References Can\+Module\+::\+C\+Can\+Access\+::create\+Bus(), create\+Can\+Access(), Can\+Module\+::\+C\+Can\+Access\+::initialise\+Logging(), Can\+Module\+::\+Diag\+::insert\+\_\+maps(), lh, and Can\+Module\+::\+Log\+It\+Component\+Name.
 
-Here is the call graph for this function\+:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{classCanModule_1_1CanLibLoader_aaac995d89efdcf2b673cbd3e678be55b_cgraph}
-\end{center}
-\end{figure}
+
+
+Referenced by Can\+Module\+::\+Can\+Bus\+Access\+::open\+Can\+Bus().
+
+Here is the call graph for this function\+:
+% FIG 2
 \mbox{\Hypertarget{classCanModule_1_1CanLibLoader_a6fdf0514c73c030acd7919cd04c7a89d}\label{classCanModule_1_1CanLibLoader_a6fdf0514c73c030acd7919cd04c7a89d}} 
 \index{CanModule::CanLibLoader@{CanModule::CanLibLoader}!setLibName@{setLibName}}
 \index{setLibName@{setLibName}!CanModule::CanLibLoader@{CanModule::CanLibLoader}}

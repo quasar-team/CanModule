@@ -1,0 +1,11 @@
+digraph "CanInterfaceImplementations/pkcan" {
+  compound=true
+  node [ fontsize="10", fontname="Helvetica"];
+  edge [ labelfontsize="10", labelfontname="Helvetica"];
+  subgraph clusterdir_d8737b42f3d78efd22b75182e570f151 {
+    graph [ bgcolor="#ddddee", pencolor="black", label="CanInterfaceImplementations" fontname="Helvetica", fontsize="10", URL="dir_d8737b42f3d78efd22b75182e570f151.html"]
+  dir_98c1fbc2c2efdc411aa492ed06069e68 [shape=box, label="pkcan", style="filled", fillcolor="#eeeeff", pencolor="black", URL="dir_98c1fbc2c2efdc411aa492ed06069e68.html"];
+  }
+  dir_1f0e3058fad0934718aa0fd5f744cca0 [shape=box label="CanInterface" fillcolor="white" style="filled" color="red" URL="dir_1f0e3058fad0934718aa0fd5f744cca0.html"];
+  dir_98c1fbc2c2efdc411aa492ed06069e68->dir_1f0e3058fad0934718aa0fd5f744cca0 [headlabel="3", labeldistance=1.5 headhref="dir_000005_000000.html"];
+}

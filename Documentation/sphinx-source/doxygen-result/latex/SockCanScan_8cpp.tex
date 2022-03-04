@@ -2,6 +2,9 @@
 \label{SockCanScan_8cpp}\index{CanInterfaceImplementations/sockcan/SockCanScan.cpp@{CanInterfaceImplementations/sockcan/SockCanScan.cpp}}
 {\ttfamily \#include \char`\"{}Sock\+Can\+Scan.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}Udev\+Analyser\+For\+Peak.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$thread$>$}\newline
+{\ttfamily \#include $<$mutex$>$}\newline
+{\ttfamily \#include $<$condition\+\_\+variable$>$}\newline
 {\ttfamily \#include $<$time.\+h$>$}\newline
 {\ttfamily \#include $<$string.\+h$>$}\newline
 {\ttfamily \#include $<$sys/time.\+h$>$}\newline
@@ -18,13 +21,7 @@
 {\ttfamily \#include $<$Can\+Module\+Utils.\+h$>$}\newline
 {\ttfamily \#include $<$Log\+It.\+h$>$}\newline
 Include dependency graph for Sock\+Can\+Scan.\+cpp\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{SockCanScan_8cpp__incl}
-\end{center}
-\end{figure}
+% FIG 0
 \doxysubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
@@ -34,15 +31,11 @@ Include dependency graph for Sock\+Can\+Scan.\+cpp\+:
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{classCanModule_1_1CCanAccess}{C\+Can\+Access}} $\ast$ \mbox{\hyperlink{SockCanScan_8cpp_a7126885c692bab5fba08fd9700e6a886}{get\+Can\+Bus\+Access}} ()
-\item 
-void \mbox{\hyperlink{SockCanScan_8cpp_ab85356f782f86b4f9882ab007a4363c4}{test\+Thread}} ()
-\item 
-void \mbox{\hyperlink{SockCanScan_8cpp_a1ff03dbfb54bd09b1d1d521060639cc7}{test\+Thread2}} (void $\ast$p\+\_\+void\+Sock\+Can\+Scan)
 \end{DoxyCompactItemize}
 \doxysubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
-boost\+::mutex \mbox{\hyperlink{SockCanScan_8cpp_a080327294794f326cb96d4e0604d835d}{sock\+Reconnect\+Mutex}}
+std\+::mutex \mbox{\hyperlink{SockCanScan_8cpp_aa80325536abdfd912084dd4f35e83adb}{sock\+Reconnect\+Mutex}}
 \end{DoxyCompactItemize}
 
 
@@ -55,7 +48,7 @@ boost\+::mutex \mbox{\hyperlink{SockCanScan_8cpp_a080327294794f326cb96d4e0604d83
 
 
 
-Definition at line 51 of file Sock\+Can\+Scan.\+cpp.
+Definition at line 55 of file Sock\+Can\+Scan.\+cpp.
 
 
 
@@ -68,40 +61,20 @@ Definition at line 51 of file Sock\+Can\+Scan.\+cpp.
 
 This function creates an instance of this class and returns it. It will be loaded trough the dll to access the rest of the code. 
 
-Definition at line 59 of file Sock\+Can\+Scan.\+cpp.
-
-\mbox{\Hypertarget{SockCanScan_8cpp_ab85356f782f86b4f9882ab007a4363c4}\label{SockCanScan_8cpp_ab85356f782f86b4f9882ab007a4363c4}} 
-\index{SockCanScan.cpp@{SockCanScan.cpp}!testThread@{testThread}}
-\index{testThread@{testThread}!SockCanScan.cpp@{SockCanScan.cpp}}
-\doxysubsubsection{\texorpdfstring{testThread()}{testThread()}}
-{\footnotesize\ttfamily void test\+Thread (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
-
-
-
-Definition at line 708 of file Sock\+Can\+Scan.\+cpp.
-
-\mbox{\Hypertarget{SockCanScan_8cpp_a1ff03dbfb54bd09b1d1d521060639cc7}\label{SockCanScan_8cpp_a1ff03dbfb54bd09b1d1d521060639cc7}} 
-\index{SockCanScan.cpp@{SockCanScan.cpp}!testThread2@{testThread2}}
-\index{testThread2@{testThread2}!SockCanScan.cpp@{SockCanScan.cpp}}
-\doxysubsubsection{\texorpdfstring{testThread2()}{testThread2()}}
-{\footnotesize\ttfamily void test\+Thread2 (\begin{DoxyParamCaption}\item[{void $\ast$}]{p\+\_\+void\+Sock\+Can\+Scan }\end{DoxyParamCaption})}
-
-
-
-Definition at line 720 of file Sock\+Can\+Scan.\+cpp.
+Definition at line 61 of file Sock\+Can\+Scan.\+cpp.
 
 
 
 \doxysubsection{Variable Documentation}
-\mbox{\Hypertarget{SockCanScan_8cpp_a080327294794f326cb96d4e0604d835d}\label{SockCanScan_8cpp_a080327294794f326cb96d4e0604d835d}} 
+\mbox{\Hypertarget{SockCanScan_8cpp_aa80325536abdfd912084dd4f35e83adb}\label{SockCanScan_8cpp_aa80325536abdfd912084dd4f35e83adb}} 
 \index{SockCanScan.cpp@{SockCanScan.cpp}!sockReconnectMutex@{sockReconnectMutex}}
 \index{sockReconnectMutex@{sockReconnectMutex}!SockCanScan.cpp@{SockCanScan.cpp}}
 \doxysubsubsection{\texorpdfstring{sockReconnectMutex}{sockReconnectMutex}}
-{\footnotesize\ttfamily boost\+::mutex sock\+Reconnect\+Mutex}
+{\footnotesize\ttfamily std\+::mutex sock\+Reconnect\+Mutex}
 
 
 
-Definition at line 49 of file Sock\+Can\+Scan.\+cpp.
+Definition at line 53 of file Sock\+Can\+Scan.\+cpp.
 
 
 

@@ -14,6 +14,12 @@
     <includedby refid="SockCanScan_8cpp" local="no">CanInterfaceImplementations/sockcan/SockCanScan.cpp</includedby>
     <includedby refid="STCanScan_8cpp" local="yes">CanInterfaceImplementations/systec/STCanScan.cpp</includedby>
     <incdepgraph>
+      <node id="4">
+        <label>stdexcept</label>
+      </node>
+      <node id="5">
+        <label>string</label>
+      </node>
       <node id="1">
         <label>CanInterface/include/CanModuleUtils.h</label>
         <link refid="CanModuleUtils_8h"/>
@@ -27,12 +33,6 @@
         </childnode>
         <childnode refid="6" relation="include">
         </childnode>
-      </node>
-      <node id="4">
-        <label>stdexcept</label>
-      </node>
-      <node id="5">
-        <label>string</label>
       </node>
       <node id="3">
         <label>sstream</label>
@@ -61,21 +61,9 @@
         <childnode refid="7" relation="include">
         </childnode>
       </node>
-      <node id="2">
-        <label>CanInterface/src/CanModuleUtils.cpp</label>
-        <link refid="CanModuleUtils_8cpp"/>
-      </node>
       <node id="4">
         <label>CanInterfaceImplementations/anagate/AnaCanScan.cpp</label>
         <link refid="AnaCanScan_8cpp"/>
-      </node>
-      <node id="7">
-        <label>CanInterfaceImplementations/systec/STCanScan.cpp</label>
-        <link refid="STCanScan_8cpp"/>
-      </node>
-      <node id="5">
-        <label>CanInterfaceImplementations/pkcan/pkcan.cpp</label>
-        <link refid="pkcan_8cpp"/>
       </node>
       <node id="6">
         <label>CanInterfaceImplementations/sockcan/SockCanScan.cpp</label>
@@ -84,6 +72,18 @@
       <node id="3">
         <label>CanInterface/src/CanStatistics.cpp</label>
         <link refid="CanStatistics_8cpp"/>
+      </node>
+      <node id="2">
+        <label>CanInterface/src/CanModuleUtils.cpp</label>
+        <link refid="CanModuleUtils_8cpp"/>
+      </node>
+      <node id="7">
+        <label>CanInterfaceImplementations/systec/STCanScan.cpp</label>
+        <link refid="STCanScan_8cpp"/>
+      </node>
+      <node id="5">
+        <label>CanInterfaceImplementations/pkcan/pkcan.cpp</label>
+        <link refid="pkcan_8cpp"/>
       </node>
     </invincdepgraph>
     <innerclass refid="classCanModule_1_1CanModuleUtils" prot="public">CanModule::CanModuleUtils</innerclass>
@@ -107,7 +107,7 @@
 <codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;chrono&gt;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="35"><highlight class="normal"></highlight></codeline>
-<codeline lineno="36" refid="namespaceCanModule" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespaceCanModule" kindref="compound">CanModule</ref></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespaceCanModule" kindref="compound">CanModule</ref></highlight></codeline>
 <codeline lineno="37"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="38" refid="classCanModule_1_1CanModuleUtils" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classCanModule_1_1CanModuleUtils" kindref="compound">CanModuleUtils</ref></highlight></codeline>
 <codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>

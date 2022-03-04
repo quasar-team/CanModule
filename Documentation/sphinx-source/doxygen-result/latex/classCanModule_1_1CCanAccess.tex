@@ -6,22 +6,12 @@
 
 
 
-Inheritance diagram for Can\+Module\+::C\+Can\+Access\+:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{classCanModule_1_1CCanAccess__inherit__graph}
-\end{center}
-\end{figure}
+Inheritance diagram for Can\+Module\+::C\+Can\+Access\+:
+% FIG 0
 
 
-Collaboration diagram for Can\+Module\+::C\+Can\+Access\+:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=249pt]{classCanModule_1_1CCanAccess__coll__graph}
-\end{center}
-\end{figure}
+Collaboration diagram for Can\+Module\+::C\+Can\+Access\+:
+% FIG 1
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -51,6 +41,14 @@ Log\+It\+Instance $\ast$ \mbox{\hyperlink{classCanModule_1_1CCanAccess_a8210a816
 \item 
 vector$<$ string $>$ \mbox{\hyperlink{classCanModule_1_1CCanAccess_af26c9d102638fb96e5e1305f807d148f}{parse\+Name\+And\+Parameters}} (string name, string parameters)
 \item 
+void \mbox{\hyperlink{classCanModule_1_1CCanAccess_a16e43f90cd984b9ea72028c0f8dfe784}{trigger\+Reconnection\+Thread}} ()
+\item 
+void \mbox{\hyperlink{classCanModule_1_1CCanAccess_ad8afab7f9acc769c53574edec695065b}{wait\+For\+Reconnection\+Thread\+Trigger}} ()
+\item 
+void \mbox{\hyperlink{classCanModule_1_1CCanAccess_a24494114ec0dc237b63fb321ba4d084e}{decrease\+Send\+Failed\+Countdown}} ()
+\item 
+void \mbox{\hyperlink{classCanModule_1_1CCanAccess_aad13b5ad34547cbe6cad4e8369557bed}{reset\+Send\+Failed\+Countdown}} ()
+\item 
 virtual void \mbox{\hyperlink{classCanModule_1_1CCanAccess_ae1088edaf5444ff42ee094ae46240cc5}{set\+Reconnect\+Behavior}} (\mbox{\hyperlink{namespaceCanModule_a2f4fee79cc7ba53467c2538fe6b9adbb}{Can\+Module\+::\+Reconnect\+Auto\+Condition}} cond, \mbox{\hyperlink{namespaceCanModule_a2062089fa4fa87c8354295f2a8fe31a5}{Can\+Module\+::\+Reconnect\+Action}} action)=0
 \item 
 virtual void \mbox{\hyperlink{classCanModule_1_1CCanAccess_a3c902569c0712d165fc7e385e683dc95}{set\+Reconnect\+Reception\+Timeout}} (unsigned int timeout)=0
@@ -60,6 +58,8 @@ virtual void \mbox{\hyperlink{classCanModule_1_1CCanAccess_a665620fe5924cf87db05
 virtual \mbox{\hyperlink{namespaceCanModule_a2f4fee79cc7ba53467c2538fe6b9adbb}{Can\+Module\+::\+Reconnect\+Auto\+Condition}} \mbox{\hyperlink{classCanModule_1_1CCanAccess_a003566cbcdf4ce8195853bd8049a8800}{get\+Reconnect\+Condition}} ()=0
 \item 
 virtual \mbox{\hyperlink{namespaceCanModule_a2062089fa4fa87c8354295f2a8fe31a5}{Can\+Module\+::\+Reconnect\+Action}} \mbox{\hyperlink{classCanModule_1_1CCanAccess_aaf2312ff9074ce7a4ec2e7d0a5b6fa16}{get\+Reconnect\+Action}} ()=0
+\item 
+virtual void \mbox{\hyperlink{classCanModule_1_1CCanAccess_a3fabe88b8e21638afd5d9886bb9c4aeb}{stop\+Bus}} ()=0
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
@@ -95,18 +95,22 @@ string \mbox{\hyperlink{classCanModule_1_1CCanAccess_a0eff18d10b7ee5d6f86b03898f
 \item 
 \mbox{\hyperlink{namespaceCanModule_a2062089fa4fa87c8354295f2a8fe31a5}{Can\+Module\+::\+Reconnect\+Action}} \mbox{\hyperlink{classCanModule_1_1CCanAccess_a6baf24c56eb715adf55a569d08b12c25}{m\+\_\+reconnect\+Action}}
 \item 
-unsigned int \mbox{\hyperlink{classCanModule_1_1CCanAccess_abd6b2ab3f6759bfc05c6dc70911eab50}{m\+\_\+timeout\+On\+Reception}}
+atomic\+\_\+uint \mbox{\hyperlink{classCanModule_1_1CCanAccess_a4ddc9691fd9d42bcc7cb14ceae24da82}{m\+\_\+timeout\+On\+Reception}}
 \item 
-int \mbox{\hyperlink{classCanModule_1_1CCanAccess_a74e437526e45192804ca1cffc663d2e2}{m\+\_\+trigger\+Counter}}
+atomic\+\_\+int \mbox{\hyperlink{classCanModule_1_1CCanAccess_a921748fa6f0da92c7afef60f41007a3e}{m\+\_\+failed\+Send\+Countdown}}
 \item 
-unsigned int \mbox{\hyperlink{classCanModule_1_1CCanAccess_a686ba59e549d1fde3727ab1f88a8c463}{m\+\_\+failed\+Send\+Counter}}
+atomic\+\_\+uint \mbox{\hyperlink{classCanModule_1_1CCanAccess_a7853071979a549dc701dc06124bf1366}{m\+\_\+max\+Failed\+Send\+Count}}
+\item 
+std\+::thread $\ast$ \mbox{\hyperlink{classCanModule_1_1CCanAccess_a41af60558bdb3b738f39560755864333}{m\+\_\+h\+Can\+Reconnection\+Thread}}
+\item 
+atomic\+\_\+bool \mbox{\hyperlink{classCanModule_1_1CCanAccess_ab8dd2b137cebaa0764c406db6061bbc7}{m\+\_\+reconnect\+Trigger}}
+\item 
+std\+::mutex \mbox{\hyperlink{classCanModule_1_1CCanAccess_a08cc164e3baaf95fedeb50198a7fa799}{m\+\_\+reconnection\+\_\+mtx}}
+\item 
+std\+::condition\+\_\+variable \mbox{\hyperlink{classCanModule_1_1CCanAccess_a9edb8bed739db66c1a6a8b3489ce79a2}{m\+\_\+reconnection\+\_\+cv}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Private Attributes}
 \begin{DoxyCompactItemize}
-\item 
-boost\+::signals2\+::connection \mbox{\hyperlink{classCanModule_1_1CCanAccess_aebd1f5d34904ed64d20293d7c385e80c}{m\+\_\+signal\+\_\+connection}}
-\item 
-int \mbox{\hyperlink{classCanModule_1_1CCanAccess_aab58c9d55e8430de64046e13100e4893}{m\+\_\+connection\+Index}}
 \item 
 Log\+::\+Log\+Component\+Handle \mbox{\hyperlink{classCanModule_1_1CCanAccess_a782b2e9b52ebb49a14307e1f37440490}{m\+\_\+lh}}
 \item 
@@ -121,7 +125,7 @@ struct timezone \mbox{\hyperlink{classCanModule_1_1CCanAccess_a7bb4a17c5b05e5b01
 \doxysubsection{Detailed Description}
 
 
-Definition at line 137 of file C\+Can\+Access.\+h.
+Definition at line 156 of file C\+Can\+Access.\+h.
 
 
 
@@ -134,19 +138,14 @@ Definition at line 137 of file C\+Can\+Access.\+h.
 
 
 
-Definition at line 142 of file C\+Can\+Access.\+h.
+Definition at line 161 of file C\+Can\+Access.\+h.
 
 
 
 References reset\+Time\+Now(), reset\+Timeout\+On\+Reception(), Can\+Module\+::send\+Fail, and Can\+Module\+::single\+Bus.
 
-Here is the call graph for this function\+:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{classCanModule_1_1CCanAccess_a7c9b87d205b0ec265c972a3303cecda2_cgraph}
-\end{center}
-\end{figure}
+Here is the call graph for this function\+:
+% FIG 2
 \mbox{\Hypertarget{classCanModule_1_1CCanAccess_ac96f1cce6beda4309cdfb6651d3ce547}\label{classCanModule_1_1CCanAccess_ac96f1cce6beda4309cdfb6651d3ce547}} 
 \index{CanModule::CCanAccess@{CanModule::CCanAccess}!````~CCanAccess@{$\sim$CCanAccess}}
 \index{````~CCanAccess@{$\sim$CCanAccess}!CanModule::CCanAccess@{CanModule::CCanAccess}}
@@ -155,7 +154,7 @@ Here is the call graph for this function\+:\nopagebreak
 
 
 
-Definition at line 307 of file C\+Can\+Access.\+h.
+Definition at line 330 of file C\+Can\+Access.\+h.
 
 
 
@@ -186,6 +185,20 @@ Implemented in \mbox{\hyperlink{classCSockCanScan_a879da2908384a8f154120bdd0c60c
 
 Referenced by Can\+Module\+::\+Can\+Lib\+Loader\+::open\+Can\+Bus().
 
+\mbox{\Hypertarget{classCanModule_1_1CCanAccess_a24494114ec0dc237b63fb321ba4d084e}\label{classCanModule_1_1CCanAccess_a24494114ec0dc237b63fb321ba4d084e}} 
+\index{CanModule::CCanAccess@{CanModule::CCanAccess}!decreaseSendFailedCountdown@{decreaseSendFailedCountdown}}
+\index{decreaseSendFailedCountdown@{decreaseSendFailedCountdown}!CanModule::CCanAccess@{CanModule::CCanAccess}}
+\doxysubsubsection{\texorpdfstring{decreaseSendFailedCountdown()}{decreaseSendFailedCountdown()}}
+{\footnotesize\ttfamily void Can\+Module\+::\+C\+Can\+Access\+::decrease\+Send\+Failed\+Countdown (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 443 of file C\+Can\+Access.\+h.
+
+
+
+References m\+\_\+failed\+Send\+Countdown.
+
 \mbox{\Hypertarget{classCanModule_1_1CCanAccess_ac3f5126ae36d642217425e21696d19ca}\label{classCanModule_1_1CCanAccess_ac3f5126ae36d642217425e21696d19ca}} 
 \index{CanModule::CCanAccess@{CanModule::CCanAccess}!getBusName@{getBusName}}
 \index{getBusName@{getBusName}!CanModule::CCanAccess@{CanModule::CCanAccess}}
@@ -194,7 +207,7 @@ Referenced by Can\+Module\+::\+Can\+Lib\+Loader\+::open\+Can\+Bus().
 
 Returns the can bus name 
 
-Definition at line 204 of file C\+Can\+Access.\+h.
+Definition at line 227 of file C\+Can\+Access.\+h.
 
 
 
@@ -202,7 +215,7 @@ References m\+\_\+s\+Bus\+Name.
 
 
 
-Referenced by Can\+Module\+::\+Can\+Lib\+Loader\+::close\+Can\+Bus(), Can\+Module\+::\+Diag\+::delete\+\_\+maps(), and Can\+Module\+::\+Diag\+::insert\+\_\+maps().
+Referenced by C\+Sock\+Can\+Scan\+::\+Can\+Reconnection\+Thread(), Can\+Module\+::\+Can\+Bus\+Access\+::close\+Can\+Bus(), Can\+Module\+::\+Can\+Lib\+Loader\+::close\+Can\+Bus(), Can\+Module\+::\+Diag\+::delete\+\_\+maps(), and Can\+Module\+::\+Diag\+::insert\+\_\+maps().
 
 \mbox{\Hypertarget{classCanModule_1_1CCanAccess_a8210a8161f1987973584b6dda5dc6d7d}\label{classCanModule_1_1CCanAccess_a8210a8161f1987973584b6dda5dc6d7d}} 
 \index{CanModule::CCanAccess@{CanModule::CCanAccess}!getLogItInstance@{getLogItInstance}}
@@ -212,7 +225,7 @@ Referenced by Can\+Module\+::\+Can\+Lib\+Loader\+::close\+Can\+Bus(), Can\+Modul
 
 the Log\+It instance is N\+OT shared by inheritance in windows, the instance has to be passed explicitly from the parent 
 
-Definition at line 332 of file C\+Can\+Access.\+h.
+Definition at line 355 of file C\+Can\+Access.\+h.
 
 
 
@@ -354,7 +367,7 @@ Implemented in \mbox{\hyperlink{classCSockCanScan_aa8cb4c89fe3a13bb787c4085f1e99
 
 
 
-Implemented in \mbox{\hyperlink{classAnaCanScan_ad4576bc409a954c888a6fd7f06ca697f}{Ana\+Can\+Scan}}, \mbox{\hyperlink{classPKCanScan_a2ef38527fb5009c43487fccbbe4694ba}{P\+K\+Can\+Scan}}, \mbox{\hyperlink{classSTCanScan_a4810249805b660c4e914247acbdf45d2}{S\+T\+Can\+Scan}}, \mbox{\hyperlink{classCSockCanScan_a38110f02c2d12fa9b620ba5ff438a960}{C\+Sock\+Can\+Scan}}, and \mbox{\hyperlink{classMockCanAccess_a73d7565174206d2c58f81040a6438541}{Mock\+Can\+Access}}.
+Implemented in \mbox{\hyperlink{classAnaCanScan_ad4576bc409a954c888a6fd7f06ca697f}{Ana\+Can\+Scan}}, \mbox{\hyperlink{classPKCanScan_a2ef38527fb5009c43487fccbbe4694ba}{P\+K\+Can\+Scan}}, \mbox{\hyperlink{classCSockCanScan_a38110f02c2d12fa9b620ba5ff438a960}{C\+Sock\+Can\+Scan}}, \mbox{\hyperlink{classSTCanScan_a4810249805b660c4e914247acbdf45d2}{S\+T\+Can\+Scan}}, and \mbox{\hyperlink{classMockCanAccess_a73d7565174206d2c58f81040a6438541}{Mock\+Can\+Access}}.
 
 \mbox{\Hypertarget{classCanModule_1_1CCanAccess_a79c236a0e2b3e3b183b1c85aab3f5b71}\label{classCanModule_1_1CCanAccess_a79c236a0e2b3e3b183b1c85aab3f5b71}} 
 \index{CanModule::CCanAccess@{CanModule::CCanAccess}!hasTimeoutOnReception@{hasTimeoutOnReception}}
@@ -364,7 +377,7 @@ Implemented in \mbox{\hyperlink{classAnaCanScan_ad4576bc409a954c888a6fd7f06ca697
 
 compared to the last received message, are we in timeout? 
 
-Definition at line 496 of file C\+Can\+Access.\+h.
+Definition at line 555 of file C\+Can\+Access.\+h.
 
 
 
@@ -372,7 +385,7 @@ References m\+\_\+dreceived, m\+\_\+timeout\+On\+Reception, and m\+\_\+tz.
 
 
 
-Referenced by S\+T\+Can\+Scan\+::\+Can\+Scan\+Control\+Thread(), P\+K\+Can\+Scan\+::\+Can\+Scan\+Control\+Thread(), and Ana\+Can\+Scan\+::send\+Message().
+Referenced by C\+Sock\+Can\+Scan\+::\+Can\+Reconnection\+Thread(), S\+T\+Can\+Scan\+::\+Can\+Scan\+Control\+Thread(), P\+K\+Can\+Scan\+::\+Can\+Scan\+Control\+Thread(), and Ana\+Can\+Scan\+::send\+Message().
 
 \mbox{\Hypertarget{classCanModule_1_1CCanAccess_ab5a430fc27073d92c69659bda261b74d}\label{classCanModule_1_1CCanAccess_ab5a430fc27073d92c69659bda261b74d}} 
 \index{CanModule::CCanAccess@{CanModule::CCanAccess}!initialiseLogging@{initialiseLogging}}
@@ -382,7 +395,7 @@ Referenced by S\+T\+Can\+Scan\+::\+Can\+Scan\+Control\+Thread(), P\+K\+Can\+Scan
 
 
 
-Definition at line 321 of file C\+Can\+Access.\+h.
+Definition at line 344 of file C\+Can\+Access.\+h.
 
 
 
@@ -404,7 +417,7 @@ care for different syntax\+: \char`\"{}sock\+:0\char`\"{} =$>$ sock\+:can0 \char
 
 if you specify only an integer portnumber we default to \char`\"{}can\char`\"{} if you specify \char`\"{}\+:can\char`\"{} we stay with \char`\"{}can\char`\"{} if you specify \char`\"{}\+:vcan\char`\"{} we stay with \char`\"{}vcan\char`\"{} if you specify anything else which contains a string and an integer, we use can if you specify anything else which contains a string containing \char`\"{}\+:vcan\char`\"{} and an integer, we use vcan so basically you have the freedom to call your devices as you want. Maybe this is too much freedom.
 
-Definition at line 342 of file C\+Can\+Access.\+h.
+Definition at line 365 of file C\+Can\+Access.\+h.
 
 
 
@@ -414,13 +427,8 @@ References m\+\_\+\+Can\+Parameters, m\+\_\+lh, m\+\_\+s\+Bus\+Name, and Can\+Mo
 
 Referenced by S\+T\+Can\+Scan\+::configure\+Can\+Board(), P\+K\+Can\+Scan\+::configure\+Canboard(), C\+Sock\+Can\+Scan\+::configure\+Can\+Board(), and Ana\+Can\+Scan\+::configure\+Can\+Board().
 
-Here is the call graph for this function\+:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{classCanModule_1_1CCanAccess_af26c9d102638fb96e5e1305f807d148f_cgraph}
-\end{center}
-\end{figure}
+Here is the call graph for this function\+:
+% FIG 3
 \mbox{\Hypertarget{classCanModule_1_1CCanAccess_aa12f64e9e31bd491f39fc3169b1e5025}\label{classCanModule_1_1CCanAccess_aa12f64e9e31bd491f39fc3169b1e5025}} 
 \index{CanModule::CCanAccess@{CanModule::CCanAccess}!reconnectActionString@{reconnectActionString}}
 \index{reconnectActionString@{reconnectActionString}!CanModule::CCanAccess@{CanModule::CCanAccess}}
@@ -429,7 +437,7 @@ Here is the call graph for this function\+:\nopagebreak
 
 just translate the ugly r.\+action enum into a user-\/friendly string for convenience and logging. 
 
-Definition at line 485 of file C\+Can\+Access.\+h.
+Definition at line 544 of file C\+Can\+Access.\+h.
 
 
 
@@ -437,7 +445,7 @@ References Can\+Module\+::all\+Buses\+On\+Bridge, and Can\+Module\+::single\+Bus
 
 
 
-Referenced by S\+T\+Can\+Scan\+::\+Can\+Scan\+Control\+Thread(), P\+K\+Can\+Scan\+::\+Can\+Scan\+Control\+Thread(), S\+T\+Can\+Scan\+::send\+Message(), P\+K\+Can\+Scan\+::send\+Message(), and Ana\+Can\+Scan\+::send\+Message().
+Referenced by C\+Sock\+Can\+Scan\+::\+Can\+Reconnection\+Thread(), S\+T\+Can\+Scan\+::\+Can\+Scan\+Control\+Thread(), P\+K\+Can\+Scan\+::\+Can\+Scan\+Control\+Thread(), S\+T\+Can\+Scan\+::send\+Message(), P\+K\+Can\+Scan\+::send\+Message(), and Ana\+Can\+Scan\+::send\+Message().
 
 \mbox{\Hypertarget{classCanModule_1_1CCanAccess_a9da88ce122d5de04a0235a4682a13dc0}\label{classCanModule_1_1CCanAccess_a9da88ce122d5de04a0235a4682a13dc0}} 
 \index{CanModule::CCanAccess@{CanModule::CCanAccess}!reconnectConditionString@{reconnectConditionString}}
@@ -447,7 +455,7 @@ Referenced by S\+T\+Can\+Scan\+::\+Can\+Scan\+Control\+Thread(), P\+K\+Can\+Scan
 
 just translate the ugly r.\+condition enum into a user-\/friendly string for convenience and logging. 
 
-Definition at line 473 of file C\+Can\+Access.\+h.
+Definition at line 532 of file C\+Can\+Access.\+h.
 
 
 
@@ -455,7 +463,25 @@ References Can\+Module\+::never, Can\+Module\+::send\+Fail, and Can\+Module\+::t
 
 
 
-Referenced by S\+T\+Can\+Scan\+::\+Can\+Scan\+Control\+Thread(), P\+K\+Can\+Scan\+::\+Can\+Scan\+Control\+Thread(), S\+T\+Can\+Scan\+::send\+Message(), P\+K\+Can\+Scan\+::send\+Message(), and Ana\+Can\+Scan\+::send\+Message().
+Referenced by C\+Sock\+Can\+Scan\+::\+Can\+Reconnection\+Thread(), S\+T\+Can\+Scan\+::\+Can\+Scan\+Control\+Thread(), P\+K\+Can\+Scan\+::\+Can\+Scan\+Control\+Thread(), S\+T\+Can\+Scan\+::send\+Message(), P\+K\+Can\+Scan\+::send\+Message(), and Ana\+Can\+Scan\+::send\+Message().
+
+\mbox{\Hypertarget{classCanModule_1_1CCanAccess_aad13b5ad34547cbe6cad4e8369557bed}\label{classCanModule_1_1CCanAccess_aad13b5ad34547cbe6cad4e8369557bed}} 
+\index{CanModule::CCanAccess@{CanModule::CCanAccess}!resetSendFailedCountdown@{resetSendFailedCountdown}}
+\index{resetSendFailedCountdown@{resetSendFailedCountdown}!CanModule::CCanAccess@{CanModule::CCanAccess}}
+\doxysubsubsection{\texorpdfstring{resetSendFailedCountdown()}{resetSendFailedCountdown()}}
+{\footnotesize\ttfamily void Can\+Module\+::\+C\+Can\+Access\+::reset\+Send\+Failed\+Countdown (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 447 of file C\+Can\+Access.\+h.
+
+
+
+References m\+\_\+failed\+Send\+Countdown, m\+\_\+lh, and m\+\_\+max\+Failed\+Send\+Count.
+
+
+
+Referenced by C\+Sock\+Can\+Scan\+::\+Can\+Reconnection\+Thread().
 
 \mbox{\Hypertarget{classCanModule_1_1CCanAccess_afefee3a90966dd8a01ca471022a7a9cd}\label{classCanModule_1_1CCanAccess_afefee3a90966dd8a01ca471022a7a9cd}} 
 \index{CanModule::CCanAccess@{CanModule::CCanAccess}!resetTimeNow@{resetTimeNow}}
@@ -465,7 +491,7 @@ Referenced by S\+T\+Can\+Scan\+::\+Can\+Scan\+Control\+Thread(), P\+K\+Can\+Scan
 
 
 
-Definition at line 518 of file C\+Can\+Access.\+h.
+Definition at line 577 of file C\+Can\+Access.\+h.
 
 
 
@@ -483,7 +509,7 @@ Referenced by C\+Can\+Access().
 
 reset the internal reconnection timeout counter 
 
-Definition at line 511 of file C\+Can\+Access.\+h.
+Definition at line 570 of file C\+Can\+Access.\+h.
 
 
 
@@ -491,7 +517,7 @@ References m\+\_\+dreceived, and m\+\_\+tz.
 
 
 
-Referenced by Ana\+Can\+Scan\+::callback\+On\+Recieve(), S\+T\+Can\+Scan\+::\+Can\+Scan\+Control\+Thread(), P\+K\+Can\+Scan\+::\+Can\+Scan\+Control\+Thread(), C\+Can\+Access(), and Ana\+Can\+Scan\+::send\+Message().
+Referenced by Ana\+Can\+Scan\+::callback\+On\+Recieve(), C\+Sock\+Can\+Scan\+::\+Can\+Reconnection\+Thread(), S\+T\+Can\+Scan\+::\+Can\+Scan\+Control\+Thread(), P\+K\+Can\+Scan\+::\+Can\+Scan\+Control\+Thread(), C\+Can\+Access(), and Ana\+Can\+Scan\+::send\+Message().
 
 \mbox{\Hypertarget{classCanModule_1_1CCanAccess_ad0360c49d00ec0ee92cfdd73c2e43935}\label{classCanModule_1_1CCanAccess_ad0360c49d00ec0ee92cfdd73c2e43935}} 
 \index{CanModule::CCanAccess@{CanModule::CCanAccess}!sendMessage@{sendMessage}}
@@ -505,19 +531,14 @@ Reimplemented in \mbox{\hyperlink{classAnaCanScan_a75c1a41d3e8ed31b39e2813596358
 
 
 
-Definition at line 196 of file C\+Can\+Access.\+h.
+Definition at line 215 of file C\+Can\+Access.\+h.
 
 
 
-References Can\+Msg\+Struct\+::c\+\_\+data, Can\+Msg\+Struct\+::c\+\_\+dlc, Can\+Msg\+Struct\+::c\+\_\+id, Can\+Msg\+Struct\+::c\+\_\+rtr, and send\+Message().
+References Can\+Msg\+Struct\+::c\+\_\+data, Can\+Msg\+Struct\+::c\+\_\+dlc, Can\+Msg\+Struct\+::c\+\_\+id, Can\+Msg\+Struct\+::c\+\_\+rtr, m\+\_\+lh, and send\+Message().
 
-Here is the call graph for this function\+:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{classCanModule_1_1CCanAccess_ad0360c49d00ec0ee92cfdd73c2e43935_cgraph}
-\end{center}
-\end{figure}
+Here is the call graph for this function\+:
+% FIG 4
 \mbox{\Hypertarget{classCanModule_1_1CCanAccess_aee42ab7fb9e50c02a1812202f7863d8c}\label{classCanModule_1_1CCanAccess_aee42ab7fb9e50c02a1812202f7863d8c}} 
 \index{CanModule::CCanAccess@{CanModule::CCanAccess}!sendMessage@{sendMessage}}
 \index{sendMessage@{sendMessage}!CanModule::CCanAccess@{CanModule::CCanAccess}}
@@ -612,6 +633,52 @@ set the timout interval for message reception, for the reconnection behaviour. U
 
 Implemented in \mbox{\hyperlink{classCSockCanScan_afad122d886579de793f2b7b49e5c6d5f}{C\+Sock\+Can\+Scan}}, \mbox{\hyperlink{classAnaCanScan_a6b617410ab9dcbb9c89302cc2ffd78c0}{Ana\+Can\+Scan}}, \mbox{\hyperlink{classPKCanScan_a5b908a0bc16dae74b88b6feed7eea272}{P\+K\+Can\+Scan}}, \mbox{\hyperlink{classSTCanScan_adca4386c1a008644c27f1d8e7c395272}{S\+T\+Can\+Scan}}, and \mbox{\hyperlink{classMockCanAccess_ac626da0d02537e59c9d4bf9c631cec1b}{Mock\+Can\+Access}}.
 
+\mbox{\Hypertarget{classCanModule_1_1CCanAccess_a3fabe88b8e21638afd5d9886bb9c4aeb}\label{classCanModule_1_1CCanAccess_a3fabe88b8e21638afd5d9886bb9c4aeb}} 
+\index{CanModule::CCanAccess@{CanModule::CCanAccess}!stopBus@{stopBus}}
+\index{stopBus@{stopBus}!CanModule::CCanAccess@{CanModule::CCanAccess}}
+\doxysubsubsection{\texorpdfstring{stopBus()}{stopBus()}}
+{\footnotesize\ttfamily virtual void Can\+Module\+::\+C\+Can\+Access\+::stop\+Bus (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+force implementation 
+
+Implemented in \mbox{\hyperlink{classAnaCanScan_a4631538bddfbe61637ea5ed0071b780f}{Ana\+Can\+Scan}}, \mbox{\hyperlink{classCSockCanScan_a7be2c075520b1cbf4baa4eb7d728fd2d}{C\+Sock\+Can\+Scan}}, \mbox{\hyperlink{classPKCanScan_a6e90d6dabc2e7a9f445bcff291a566f5}{P\+K\+Can\+Scan}}, \mbox{\hyperlink{classSTCanScan_ae88b966c3c318eca384385c5a85cf2d7}{S\+T\+Can\+Scan}}, and \mbox{\hyperlink{classMockCanAccess_ae9738cfb2774d75ead6dda2bd47922b9}{Mock\+Can\+Access}}.
+
+
+
+Referenced by Can\+Module\+::\+Can\+Lib\+Loader\+::close\+Can\+Bus().
+
+\mbox{\Hypertarget{classCanModule_1_1CCanAccess_a16e43f90cd984b9ea72028c0f8dfe784}\label{classCanModule_1_1CCanAccess_a16e43f90cd984b9ea72028c0f8dfe784}} 
+\index{CanModule::CCanAccess@{CanModule::CCanAccess}!triggerReconnectionThread@{triggerReconnectionThread}}
+\index{triggerReconnectionThread@{triggerReconnectionThread}!CanModule::CCanAccess@{CanModule::CCanAccess}}
+\doxysubsubsection{\texorpdfstring{triggerReconnectionThread()}{triggerReconnectionThread()}}
+{\footnotesize\ttfamily void Can\+Module\+::\+C\+Can\+Access\+::trigger\+Reconnection\+Thread (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 430 of file C\+Can\+Access.\+h.
+
+
+
+References m\+\_\+reconnection\+\_\+cv, and m\+\_\+reconnect\+Trigger.
+
+\mbox{\Hypertarget{classCanModule_1_1CCanAccess_ad8afab7f9acc769c53574edec695065b}\label{classCanModule_1_1CCanAccess_ad8afab7f9acc769c53574edec695065b}} 
+\index{CanModule::CCanAccess@{CanModule::CCanAccess}!waitForReconnectionThreadTrigger@{waitForReconnectionThreadTrigger}}
+\index{waitForReconnectionThreadTrigger@{waitForReconnectionThreadTrigger}!CanModule::CCanAccess@{CanModule::CCanAccess}}
+\doxysubsubsection{\texorpdfstring{waitForReconnectionThreadTrigger()}{waitForReconnectionThreadTrigger()}}
+{\footnotesize\ttfamily void Can\+Module\+::\+C\+Can\+Access\+::wait\+For\+Reconnection\+Thread\+Trigger (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 437 of file C\+Can\+Access.\+h.
+
+
+
+References m\+\_\+reconnection\+\_\+cv, m\+\_\+reconnection\+\_\+mtx, and m\+\_\+reconnect\+Trigger.
+
+
+
+Referenced by C\+Sock\+Can\+Scan\+::\+Can\+Reconnection\+Thread().
+
 
 
 \doxysubsection{Member Data Documentation}
@@ -623,7 +690,7 @@ Implemented in \mbox{\hyperlink{classCSockCanScan_afad122d886579de793f2b7b49e5c6
 
 
 
-Definition at line 305 of file C\+Can\+Access.\+h.
+Definition at line 328 of file C\+Can\+Access.\+h.
 
 
 
@@ -637,7 +704,7 @@ Referenced by Ana\+Can\+Scan\+::callback\+On\+Recieve(), S\+T\+Can\+Scan\+::\+Ca
 
 
 
-Definition at line 307 of file C\+Can\+Access.\+h.
+Definition at line 330 of file C\+Can\+Access.\+h.
 
 
 
@@ -651,21 +718,11 @@ Referenced by C\+Sock\+Can\+Scan\+::clear\+Error\+Message(), S\+T\+Can\+Scan\+::
 
 
 
-Definition at line 461 of file C\+Can\+Access.\+h.
+Definition at line 515 of file C\+Can\+Access.\+h.
 
 
 
-Referenced by S\+T\+Can\+Scan\+::configure\+Can\+Board(), P\+K\+Can\+Scan\+::configure\+Canboard(), Ana\+Can\+Scan\+::configure\+Can\+Board(), Ana\+Can\+Scan\+::connect\+Reception\+Handler(), C\+Sock\+Can\+Scan\+::get\+Statistics(), C\+Sock\+Can\+Scan\+::open\+Can\+Port(), Ana\+Can\+Scan\+::open\+Can\+Port(), and parse\+Name\+And\+Parameters().
-
-\mbox{\Hypertarget{classCanModule_1_1CCanAccess_aab58c9d55e8430de64046e13100e4893}\label{classCanModule_1_1CCanAccess_aab58c9d55e8430de64046e13100e4893}} 
-\index{CanModule::CCanAccess@{CanModule::CCanAccess}!m\_connectionIndex@{m\_connectionIndex}}
-\index{m\_connectionIndex@{m\_connectionIndex}!CanModule::CCanAccess@{CanModule::CCanAccess}}
-\doxysubsubsection{\texorpdfstring{m\_connectionIndex}{m\_connectionIndex}}
-{\footnotesize\ttfamily int Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+connection\+Index\hspace{0.3cm}{\ttfamily [private]}}
-
-
-
-Definition at line 528 of file C\+Can\+Access.\+h.
+Referenced by S\+T\+Can\+Scan\+::configure\+Can\+Board(), P\+K\+Can\+Scan\+::configure\+Canboard(), Ana\+Can\+Scan\+::configure\+Can\+Board(), Ana\+Can\+Scan\+::connect\+Reception\+Handler(), Mock\+Can\+Access\+::get\+Port\+Bitrate(), C\+Sock\+Can\+Scan\+::get\+Statistics(), C\+Sock\+Can\+Scan\+::open\+Can\+Port(), Ana\+Can\+Scan\+::open\+Can\+Port(), and parse\+Name\+And\+Parameters().
 
 \mbox{\Hypertarget{classCanModule_1_1CCanAccess_a6a9790a2842b40ced0ff98e1e171acbc}\label{classCanModule_1_1CCanAccess_a6a9790a2842b40ced0ff98e1e171acbc}} 
 \index{CanModule::CCanAccess@{CanModule::CCanAccess}!m\_dreceived@{m\_dreceived}}
@@ -675,25 +732,39 @@ Definition at line 528 of file C\+Can\+Access.\+h.
 
 
 
-Definition at line 535 of file C\+Can\+Access.\+h.
+Definition at line 594 of file C\+Can\+Access.\+h.
 
 
 
 Referenced by has\+Timeout\+On\+Reception(), and reset\+Timeout\+On\+Reception().
 
-\mbox{\Hypertarget{classCanModule_1_1CCanAccess_a686ba59e549d1fde3727ab1f88a8c463}\label{classCanModule_1_1CCanAccess_a686ba59e549d1fde3727ab1f88a8c463}} 
-\index{CanModule::CCanAccess@{CanModule::CCanAccess}!m\_failedSendCounter@{m\_failedSendCounter}}
-\index{m\_failedSendCounter@{m\_failedSendCounter}!CanModule::CCanAccess@{CanModule::CCanAccess}}
-\doxysubsubsection{\texorpdfstring{m\_failedSendCounter}{m\_failedSendCounter}}
-{\footnotesize\ttfamily unsigned int Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+failed\+Send\+Counter\hspace{0.3cm}{\ttfamily [protected]}}
+\mbox{\Hypertarget{classCanModule_1_1CCanAccess_a921748fa6f0da92c7afef60f41007a3e}\label{classCanModule_1_1CCanAccess_a921748fa6f0da92c7afef60f41007a3e}} 
+\index{CanModule::CCanAccess@{CanModule::CCanAccess}!m\_failedSendCountdown@{m\_failedSendCountdown}}
+\index{m\_failedSendCountdown@{m\_failedSendCountdown}!CanModule::CCanAccess@{CanModule::CCanAccess}}
+\doxysubsubsection{\texorpdfstring{m\_failedSendCountdown}{m\_failedSendCountdown}}
+{\footnotesize\ttfamily atomic\+\_\+int Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+failed\+Send\+Countdown\hspace{0.3cm}{\ttfamily [protected]}}
 
 
 
-Definition at line 468 of file C\+Can\+Access.\+h.
+Definition at line 521 of file C\+Can\+Access.\+h.
 
 
 
-Referenced by Ana\+Can\+Scan\+::\+Ana\+Can\+Scan(), C\+Sock\+Can\+Scan\+::\+C\+Sock\+Can\+Scan(), Mock\+Can\+Access\+::\+Mock\+Can\+Access(), P\+K\+Can\+Scan\+::\+P\+K\+Can\+Scan(), S\+T\+Can\+Scan\+::send\+Message(), P\+K\+Can\+Scan\+::send\+Message(), Ana\+Can\+Scan\+::send\+Message(), Mock\+Can\+Access\+::set\+Reconnect\+Failed\+Send\+Count(), and S\+T\+Can\+Scan\+::\+S\+T\+Can\+Scan().
+Referenced by Ana\+Can\+Scan\+::\+Ana\+Can\+Scan(), C\+Sock\+Can\+Scan\+::\+Can\+Reconnection\+Thread(), C\+Sock\+Can\+Scan\+::\+C\+Sock\+Can\+Scan(), decrease\+Send\+Failed\+Countdown(), Mock\+Can\+Access\+::\+Mock\+Can\+Access(), P\+K\+Can\+Scan\+::\+P\+K\+Can\+Scan(), reset\+Send\+Failed\+Countdown(), S\+T\+Can\+Scan\+::send\+Message(), P\+K\+Can\+Scan\+::send\+Message(), Ana\+Can\+Scan\+::send\+Message(), Mock\+Can\+Access\+::set\+Reconnect\+Failed\+Send\+Count(), and S\+T\+Can\+Scan\+::\+S\+T\+Can\+Scan().
+
+\mbox{\Hypertarget{classCanModule_1_1CCanAccess_a41af60558bdb3b738f39560755864333}\label{classCanModule_1_1CCanAccess_a41af60558bdb3b738f39560755864333}} 
+\index{CanModule::CCanAccess@{CanModule::CCanAccess}!m\_hCanReconnectionThread@{m\_hCanReconnectionThread}}
+\index{m\_hCanReconnectionThread@{m\_hCanReconnectionThread}!CanModule::CCanAccess@{CanModule::CCanAccess}}
+\doxysubsubsection{\texorpdfstring{m\_hCanReconnectionThread}{m\_hCanReconnectionThread}}
+{\footnotesize\ttfamily std\+::thread$\ast$ Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+h\+Can\+Reconnection\+Thread\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 523 of file C\+Can\+Access.\+h.
+
+
+
+Referenced by C\+Sock\+Can\+Scan\+::create\+Bus().
 
 \mbox{\Hypertarget{classCanModule_1_1CCanAccess_a782b2e9b52ebb49a14307e1f37440490}\label{classCanModule_1_1CCanAccess_a782b2e9b52ebb49a14307e1f37440490}} 
 \index{CanModule::CCanAccess@{CanModule::CCanAccess}!m\_lh@{m\_lh}}
@@ -703,11 +774,11 @@ Referenced by Ana\+Can\+Scan\+::\+Ana\+Can\+Scan(), C\+Sock\+Can\+Scan\+::\+C\+S
 
 
 
-Definition at line 529 of file C\+Can\+Access.\+h.
+Definition at line 588 of file C\+Can\+Access.\+h.
 
 
 
-Referenced by parse\+Name\+And\+Parameters().
+Referenced by parse\+Name\+And\+Parameters(), reset\+Send\+Failed\+Countdown(), and send\+Message().
 
 \mbox{\Hypertarget{classCanModule_1_1CCanAccess_a2bb6325281679f955ab32fc18367a7b3}\label{classCanModule_1_1CCanAccess_a2bb6325281679f955ab32fc18367a7b3}} 
 \index{CanModule::CCanAccess@{CanModule::CCanAccess}!m\_logItRemoteInstance@{m\_logItRemoteInstance}}
@@ -717,11 +788,25 @@ Referenced by parse\+Name\+And\+Parameters().
 
 
 
-Definition at line 530 of file C\+Can\+Access.\+h.
+Definition at line 589 of file C\+Can\+Access.\+h.
 
 
 
 Referenced by get\+Log\+It\+Instance(), and initialise\+Logging().
+
+\mbox{\Hypertarget{classCanModule_1_1CCanAccess_a7853071979a549dc701dc06124bf1366}\label{classCanModule_1_1CCanAccess_a7853071979a549dc701dc06124bf1366}} 
+\index{CanModule::CCanAccess@{CanModule::CCanAccess}!m\_maxFailedSendCount@{m\_maxFailedSendCount}}
+\index{m\_maxFailedSendCount@{m\_maxFailedSendCount}!CanModule::CCanAccess@{CanModule::CCanAccess}}
+\doxysubsubsection{\texorpdfstring{m\_maxFailedSendCount}{m\_maxFailedSendCount}}
+{\footnotesize\ttfamily atomic\+\_\+uint Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+max\+Failed\+Send\+Count\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 522 of file C\+Can\+Access.\+h.
+
+
+
+Referenced by Ana\+Can\+Scan\+::\+Ana\+Can\+Scan(), C\+Sock\+Can\+Scan\+::\+C\+Sock\+Can\+Scan(), Mock\+Can\+Access\+::\+Mock\+Can\+Access(), P\+K\+Can\+Scan\+::\+P\+K\+Can\+Scan(), reset\+Send\+Failed\+Countdown(), S\+T\+Can\+Scan\+::send\+Message(), P\+K\+Can\+Scan\+::send\+Message(), Ana\+Can\+Scan\+::send\+Message(), Mock\+Can\+Access\+::set\+Reconnect\+Failed\+Send\+Count(), and S\+T\+Can\+Scan\+::\+S\+T\+Can\+Scan().
 
 \mbox{\Hypertarget{classCanModule_1_1CCanAccess_a6baf24c56eb715adf55a569d08b12c25}\label{classCanModule_1_1CCanAccess_a6baf24c56eb715adf55a569d08b12c25}} 
 \index{CanModule::CCanAccess@{CanModule::CCanAccess}!m\_reconnectAction@{m\_reconnectAction}}
@@ -731,11 +816,11 @@ Referenced by get\+Log\+It\+Instance(), and initialise\+Logging().
 
 
 
-Definition at line 465 of file C\+Can\+Access.\+h.
+Definition at line 519 of file C\+Can\+Access.\+h.
 
 
 
-Referenced by Mock\+Can\+Access\+::get\+Reconnect\+Action(), S\+T\+Can\+Scan\+::send\+Message(), P\+K\+Can\+Scan\+::send\+Message(), and Ana\+Can\+Scan\+::send\+Message().
+Referenced by C\+Sock\+Can\+Scan\+::\+Can\+Reconnection\+Thread(), Mock\+Can\+Access\+::get\+Reconnect\+Action(), S\+T\+Can\+Scan\+::send\+Message(), P\+K\+Can\+Scan\+::send\+Message(), and Ana\+Can\+Scan\+::send\+Message().
 
 \mbox{\Hypertarget{classCanModule_1_1CCanAccess_abfd40edc34a777a5ff4503a6e8a239d6}\label{classCanModule_1_1CCanAccess_abfd40edc34a777a5ff4503a6e8a239d6}} 
 \index{CanModule::CCanAccess@{CanModule::CCanAccess}!m\_reconnectCondition@{m\_reconnectCondition}}
@@ -745,11 +830,53 @@ Referenced by Mock\+Can\+Access\+::get\+Reconnect\+Action(), S\+T\+Can\+Scan\+::
 
 
 
-Definition at line 464 of file C\+Can\+Access.\+h.
+Definition at line 518 of file C\+Can\+Access.\+h.
 
 
 
-Referenced by Ana\+Can\+Scan\+::callback\+On\+Recieve(), Mock\+Can\+Access\+::get\+Reconnect\+Condition(), S\+T\+Can\+Scan\+::send\+Message(), P\+K\+Can\+Scan\+::send\+Message(), and Ana\+Can\+Scan\+::send\+Message().
+Referenced by Ana\+Can\+Scan\+::callback\+On\+Recieve(), C\+Sock\+Can\+Scan\+::\+Can\+Reconnection\+Thread(), Mock\+Can\+Access\+::get\+Reconnect\+Condition(), S\+T\+Can\+Scan\+::send\+Message(), P\+K\+Can\+Scan\+::send\+Message(), and Ana\+Can\+Scan\+::send\+Message().
+
+\mbox{\Hypertarget{classCanModule_1_1CCanAccess_a9edb8bed739db66c1a6a8b3489ce79a2}\label{classCanModule_1_1CCanAccess_a9edb8bed739db66c1a6a8b3489ce79a2}} 
+\index{CanModule::CCanAccess@{CanModule::CCanAccess}!m\_reconnection\_cv@{m\_reconnection\_cv}}
+\index{m\_reconnection\_cv@{m\_reconnection\_cv}!CanModule::CCanAccess@{CanModule::CCanAccess}}
+\doxysubsubsection{\texorpdfstring{m\_reconnection\_cv}{m\_reconnection\_cv}}
+{\footnotesize\ttfamily std\+::condition\+\_\+variable Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+reconnection\+\_\+cv\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 526 of file C\+Can\+Access.\+h.
+
+
+
+Referenced by trigger\+Reconnection\+Thread(), and wait\+For\+Reconnection\+Thread\+Trigger().
+
+\mbox{\Hypertarget{classCanModule_1_1CCanAccess_a08cc164e3baaf95fedeb50198a7fa799}\label{classCanModule_1_1CCanAccess_a08cc164e3baaf95fedeb50198a7fa799}} 
+\index{CanModule::CCanAccess@{CanModule::CCanAccess}!m\_reconnection\_mtx@{m\_reconnection\_mtx}}
+\index{m\_reconnection\_mtx@{m\_reconnection\_mtx}!CanModule::CCanAccess@{CanModule::CCanAccess}}
+\doxysubsubsection{\texorpdfstring{m\_reconnection\_mtx}{m\_reconnection\_mtx}}
+{\footnotesize\ttfamily std\+::mutex Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+reconnection\+\_\+mtx\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 525 of file C\+Can\+Access.\+h.
+
+
+
+Referenced by wait\+For\+Reconnection\+Thread\+Trigger().
+
+\mbox{\Hypertarget{classCanModule_1_1CCanAccess_ab8dd2b137cebaa0764c406db6061bbc7}\label{classCanModule_1_1CCanAccess_ab8dd2b137cebaa0764c406db6061bbc7}} 
+\index{CanModule::CCanAccess@{CanModule::CCanAccess}!m\_reconnectTrigger@{m\_reconnectTrigger}}
+\index{m\_reconnectTrigger@{m\_reconnectTrigger}!CanModule::CCanAccess@{CanModule::CCanAccess}}
+\doxysubsubsection{\texorpdfstring{m\_reconnectTrigger}{m\_reconnectTrigger}}
+{\footnotesize\ttfamily atomic\+\_\+bool Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+reconnect\+Trigger\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 524 of file C\+Can\+Access.\+h.
+
+
+
+Referenced by trigger\+Reconnection\+Thread(), and wait\+For\+Reconnection\+Thread\+Trigger().
 
 \mbox{\Hypertarget{classCanModule_1_1CCanAccess_a0eff18d10b7ee5d6f86b03898f38f7ca}\label{classCanModule_1_1CCanAccess_a0eff18d10b7ee5d6f86b03898f38f7ca}} 
 \index{CanModule::CCanAccess@{CanModule::CCanAccess}!m\_sBusName@{m\_sBusName}}
@@ -759,49 +886,25 @@ Referenced by Ana\+Can\+Scan\+::callback\+On\+Recieve(), Mock\+Can\+Access\+::ge
 
 
 
-Definition at line 460 of file C\+Can\+Access.\+h.
+Definition at line 514 of file C\+Can\+Access.\+h.
 
 
 
-Referenced by P\+K\+Can\+Scan\+::configure\+Canboard(), S\+T\+Can\+Scan\+::create\+Bus(), get\+Bus\+Name(), and parse\+Name\+And\+Parameters().
+Referenced by P\+K\+Can\+Scan\+::configure\+Canboard(), Mock\+Can\+Access\+::create\+Bus(), S\+T\+Can\+Scan\+::create\+Bus(), get\+Bus\+Name(), and parse\+Name\+And\+Parameters().
 
-\mbox{\Hypertarget{classCanModule_1_1CCanAccess_aebd1f5d34904ed64d20293d7c385e80c}\label{classCanModule_1_1CCanAccess_aebd1f5d34904ed64d20293d7c385e80c}} 
-\index{CanModule::CCanAccess@{CanModule::CCanAccess}!m\_signal\_connection@{m\_signal\_connection}}
-\index{m\_signal\_connection@{m\_signal\_connection}!CanModule::CCanAccess@{CanModule::CCanAccess}}
-\doxysubsubsection{\texorpdfstring{m\_signal\_connection}{m\_signal\_connection}}
-{\footnotesize\ttfamily boost\+::signals2\+::connection Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+signal\+\_\+connection\hspace{0.3cm}{\ttfamily [private]}}
-
-
-
-Definition at line 527 of file C\+Can\+Access.\+h.
-
-\mbox{\Hypertarget{classCanModule_1_1CCanAccess_abd6b2ab3f6759bfc05c6dc70911eab50}\label{classCanModule_1_1CCanAccess_abd6b2ab3f6759bfc05c6dc70911eab50}} 
+\mbox{\Hypertarget{classCanModule_1_1CCanAccess_a4ddc9691fd9d42bcc7cb14ceae24da82}\label{classCanModule_1_1CCanAccess_a4ddc9691fd9d42bcc7cb14ceae24da82}} 
 \index{CanModule::CCanAccess@{CanModule::CCanAccess}!m\_timeoutOnReception@{m\_timeoutOnReception}}
 \index{m\_timeoutOnReception@{m\_timeoutOnReception}!CanModule::CCanAccess@{CanModule::CCanAccess}}
 \doxysubsubsection{\texorpdfstring{m\_timeoutOnReception}{m\_timeoutOnReception}}
-{\footnotesize\ttfamily unsigned int Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+timeout\+On\+Reception\hspace{0.3cm}{\ttfamily [protected]}}
+{\footnotesize\ttfamily atomic\+\_\+uint Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+timeout\+On\+Reception\hspace{0.3cm}{\ttfamily [protected]}}
 
 
 
-Definition at line 466 of file C\+Can\+Access.\+h.
+Definition at line 520 of file C\+Can\+Access.\+h.
 
 
 
 Referenced by has\+Timeout\+On\+Reception(), and Mock\+Can\+Access\+::set\+Reconnect\+Reception\+Timeout().
-
-\mbox{\Hypertarget{classCanModule_1_1CCanAccess_a74e437526e45192804ca1cffc663d2e2}\label{classCanModule_1_1CCanAccess_a74e437526e45192804ca1cffc663d2e2}} 
-\index{CanModule::CCanAccess@{CanModule::CCanAccess}!m\_triggerCounter@{m\_triggerCounter}}
-\index{m\_triggerCounter@{m\_triggerCounter}!CanModule::CCanAccess@{CanModule::CCanAccess}}
-\doxysubsubsection{\texorpdfstring{m\_triggerCounter}{m\_triggerCounter}}
-{\footnotesize\ttfamily int Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+trigger\+Counter\hspace{0.3cm}{\ttfamily [protected]}}
-
-
-
-Definition at line 467 of file C\+Can\+Access.\+h.
-
-
-
-Referenced by Ana\+Can\+Scan\+::\+Ana\+Can\+Scan(), C\+Sock\+Can\+Scan\+::\+C\+Sock\+Can\+Scan(), Mock\+Can\+Access\+::\+Mock\+Can\+Access(), P\+K\+Can\+Scan\+::\+P\+K\+Can\+Scan(), S\+T\+Can\+Scan\+::send\+Message(), P\+K\+Can\+Scan\+::send\+Message(), Ana\+Can\+Scan\+::send\+Message(), Mock\+Can\+Access\+::set\+Reconnect\+Failed\+Send\+Count(), and S\+T\+Can\+Scan\+::\+S\+T\+Can\+Scan().
 
 \mbox{\Hypertarget{classCanModule_1_1CCanAccess_a7bb4a17c5b05e5b01f59d9d9a0728f8a}\label{classCanModule_1_1CCanAccess_a7bb4a17c5b05e5b01f59d9d9a0728f8a}} 
 \index{CanModule::CCanAccess@{CanModule::CCanAccess}!m\_tz@{m\_tz}}
@@ -811,7 +914,7 @@ Referenced by Ana\+Can\+Scan\+::\+Ana\+Can\+Scan(), C\+Sock\+Can\+Scan\+::\+C\+S
 
 
 
-Definition at line 536 of file C\+Can\+Access.\+h.
+Definition at line 595 of file C\+Can\+Access.\+h.
 
 
 

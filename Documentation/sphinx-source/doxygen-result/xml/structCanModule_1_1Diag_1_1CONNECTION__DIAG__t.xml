@@ -16,7 +16,7 @@
         <inbodydescription>
         </inbodydescription>
         <location file="Diagnostic/include/Diag.h" line="37" column="13" bodyfile="Diagnostic/include/Diag.h" bodystart="37" bodyend="-1"/>
-        <referencedby refid="classCanModule_1_1Diag_1afcea76f7b51b8fa0996b7574abc03c46" compoundref="Diag_8cpp" startline="76" endline="87">CanModule::Diag::get_connections</referencedby>
+        <referencedby refid="classCanModule_1_1Diag_1afcea76f7b51b8fa0996b7574abc03c46" compoundref="Diag_8cpp" startline="92" endline="103">CanModule::Diag::get_connections</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structCanModule_1_1Diag_1_1CONNECTION__DIAG__t_1a94f9b3b1352605e99904352667c013c5" prot="public" static="no" mutable="no">
         <type>std::string</type>
@@ -30,7 +30,7 @@
         <inbodydescription>
         </inbodydescription>
         <location file="Diagnostic/include/Diag.h" line="38" column="13" bodyfile="Diagnostic/include/Diag.h" bodystart="38" bodyend="-1"/>
-        <referencedby refid="classCanModule_1_1Diag_1afcea76f7b51b8fa0996b7574abc03c46" compoundref="Diag_8cpp" startline="76" endline="87">CanModule::Diag::get_connections</referencedby>
+        <referencedby refid="classCanModule_1_1Diag_1afcea76f7b51b8fa0996b7574abc03c46" compoundref="Diag_8cpp" startline="92" endline="103">CanModule::Diag::get_connections</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structCanModule_1_1Diag_1_1CONNECTION__DIAG__t_1a2bd7ac2df6af5b06078aa0329db9fd7b" prot="public" static="no" mutable="no">
         <type>std::string</type>
@@ -44,7 +44,7 @@
         <inbodydescription>
         </inbodydescription>
         <location file="Diagnostic/include/Diag.h" line="39" column="13" bodyfile="Diagnostic/include/Diag.h" bodystart="39" bodyend="-1"/>
-        <referencedby refid="classCanModule_1_1Diag_1afcea76f7b51b8fa0996b7574abc03c46" compoundref="Diag_8cpp" startline="76" endline="87">CanModule::Diag::get_connections</referencedby>
+        <referencedby refid="classCanModule_1_1Diag_1afcea76f7b51b8fa0996b7574abc03c46" compoundref="Diag_8cpp" startline="92" endline="103">CanModule::Diag::get_connections</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>

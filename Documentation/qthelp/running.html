@@ -4,16 +4,17 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Running</title>
-    <link rel="stylesheet" href="_static/haiku.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/haiku.css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="next" title="Support" href="support.html" />
     <link rel="prev" title="Building" href="building.html" /> 
   </head><body>
       <div class="header" role="banner"><h1 class="heading"><a href="index.html">
-          <span>CanModule 2.0.6 documentation</span></a></h1>
+          <span>CanModule 2.0.16 documentation</span></a></h1>
         <h2 class="heading"><span>Running</span></h2>
       </div>
       <div class="topnav" role="navigation" aria-label="top navigation">
@@ -30,11 +31,11 @@
       <div class="content" role="main">
         
         
-  <div class="section" id="running">
+  <section id="running">
 <h1>Running</h1>
 <p>The proper kernel modules, drivers and libraries for the vendors used through CanModule
 have to be present during runtime obviously. You will need the <a class="reference external" href="https://gitlab.cern.ch/mludwig/canmodulevendorlibs">CanModuleVendorLibs</a> .</p>
-<div class="section" id="general-dependencies">
+<section id="general-dependencies">
 <h2>general dependencies</h2>
 <ul class="simple">
 <li><p>CanModule.dll/.so</p></li>
@@ -42,30 +43,30 @@ have to be present during runtime obviously. You will need the <a class="referen
 <li><p>boost 1.73.0 or similar (depending on your build)</p></li>
 <li><p>xerces 3.2 (xerces-c_3_2D.dll)</p></li>
 </ul>
-</div>
-<div class="section" id="anagate">
+</section>
+<section id="anagate">
 <h2>Anagate</h2>
 <ul class="simple">
 <li><p>libancan.dll/.so  (standard API)</p></li>
 <li><p>linux: libAPIRelease64.so, libCANDLLRelease64.so, libAnaGateExtRelease.so, libAnaGateRelease.so</p></li>
 <li><p>windows: ANAGATECAN64.dll</p></li>
 </ul>
-</div>
-<div class="section" id="systec">
+</section>
+<section id="systec">
 <h2>Systec</h2>
 <ul class="simple">
 <li><p>linux: libsockcan.so (standard API), driver kernel module systec_can.ko and dependent modules, libsocketcan.so</p></li>
 <li><p>windows: libstcan.dll (standard API), USBCAN64.dll</p></li>
 </ul>
-</div>
-<div class="section" id="peak">
+</section>
+<section id="peak">
 <h2>Peak</h2>
 <ul class="simple">
 <li><p>linux: libsockcan.so (standard API), driver kernel module pcan.ko and dependent modules, libsocketcan.so</p></li>
 <li><p>windows: libpkcan.dll (standard API), PKCANBASIC.dll</p></li>
 </ul>
-</div>
-</div>
+</section>
+</section>
 
 
       </div>
@@ -83,8 +84,8 @@ have to be present during runtime obviously. You will need the <a class="referen
 
     <div class="footer" role="contentinfo">
         &#169; Copyright 2020, CERN, quasar-team, BE-ICS (Michael Ludwig).
-      Last updated on 14-Jan-2021 14:02:15.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.1.2.
+      Last updated on 04-Mar-2022 16:37:37.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
     </div>
   </body>
 </html>

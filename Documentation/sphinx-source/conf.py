@@ -37,7 +37,9 @@ exclude_patterns = []
 pygments_style = 'sphinx'
 qthelp_basename = breathe_default_project
 qthelp_theme = 'haiku'
-html_theme = 'nature'
+#html_theme = 'nature'
+html_theme = 'agogo'
+
 html_theme_options = {}
 html_last_updated_fmt = '%d-%b-%Y %H:%M:%S'
 html_sidebars = {

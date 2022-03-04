@@ -1,6 +1,7 @@
 var hierarchy =
 [
     [ "AnaCanScan::ANAGATE_PORTDEF_t", "structAnaCanScan_1_1ANAGATE__PORTDEF__t.html", null ],
+    [ "CanModule::CanBusAccess", "classCanModule_1_1CanBusAccess.html", null ],
     [ "CanModule::CanLibLoader", "classCanModule_1_1CanLibLoader.html", [
       [ "CanModule::CanLibLoaderLin", "classCanModule_1_1CanLibLoaderLin.html", null ],
       [ "CanModule::CanLibLoaderWin", "classCanModule_1_1CanLibLoaderWin.html", null ]

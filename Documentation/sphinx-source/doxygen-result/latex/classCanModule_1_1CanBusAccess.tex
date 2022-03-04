@@ -1,0 +1,129 @@
+\hypertarget{classCanModule_1_1CanBusAccess}{}\doxysection{Can\+Module\+::Can\+Bus\+Access Class Reference}
+\label{classCanModule_1_1CanBusAccess}\index{CanModule::CanBusAccess@{CanModule::CanBusAccess}}
+
+
+{\ttfamily \#include $<$Can\+Bus\+Access.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classCanModule_1_1CanBusAccess_ae5a45c09970e0b078d5f057c424476db}{Can\+Bus\+Access}} ()
+\item 
+\mbox{\hyperlink{classCanModule_1_1CCanAccess}{C\+Can\+Access}} $\ast$ \mbox{\hyperlink{classCanModule_1_1CanBusAccess_a487bdb65dc69be65d67721b63e38324b}{open\+Can\+Bus}} (string name, string parameters)
+\item 
+void \mbox{\hyperlink{classCanModule_1_1CanBusAccess_a30200d7e59055a516aceeba6c2bb534e}{close\+Can\+Bus}} (\mbox{\hyperlink{classCanModule_1_1CCanAccess}{C\+Can\+Access}} $\ast$cca)
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{classCanModule_1_1CanBusAccess_a9313dcfc946663a5a78ff6c1119fcf64}{is\+Can\+Port\+Open}} (string pn)
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+map$<$ string, \mbox{\hyperlink{classCanModule_1_1CanLibLoader}{Can\+Lib\+Loader}} $\ast$ $>$ \mbox{\hyperlink{classCanModule_1_1CanBusAccess_ab176a257849ee165a9ff41ad6e4222c6}{m\+\_\+lib\+Loader\+\_\+map}}
+\item 
+map$<$ string, \mbox{\hyperlink{classCanModule_1_1CCanAccess}{C\+Can\+Access}} $\ast$ $>$ \mbox{\hyperlink{classCanModule_1_1CanBusAccess_a72f3cde5eb8a7fab358f5c00e5d53487}{m\+\_\+can\+Access\+\_\+map}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{classCanModule_1_1CanBusAccess}{Can\+Bus\+Access}} class ensure a connection to can hardware. it can create the connection to different hardware at same time the syntax of the name is \char`\"{}name of component\+:name of the channel\char`\"{} 
+
+Definition at line 42 of file Can\+Bus\+Access.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classCanModule_1_1CanBusAccess_ae5a45c09970e0b078d5f057c424476db}\label{classCanModule_1_1CanBusAccess_ae5a45c09970e0b078d5f057c424476db}} 
+\index{CanModule::CanBusAccess@{CanModule::CanBusAccess}!CanBusAccess@{CanBusAccess}}
+\index{CanBusAccess@{CanBusAccess}!CanModule::CanBusAccess@{CanModule::CanBusAccess}}
+\doxysubsubsection{\texorpdfstring{CanBusAccess()}{CanBusAccess()}}
+{\footnotesize\ttfamily Can\+Module\+::\+Can\+Bus\+Access\+::\+Can\+Bus\+Access (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 45 of file Can\+Bus\+Access.\+h.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classCanModule_1_1CanBusAccess_a30200d7e59055a516aceeba6c2bb534e}\label{classCanModule_1_1CanBusAccess_a30200d7e59055a516aceeba6c2bb534e}} 
+\index{CanModule::CanBusAccess@{CanModule::CanBusAccess}!closeCanBus@{closeCanBus}}
+\index{closeCanBus@{closeCanBus}!CanModule::CanBusAccess@{CanModule::CanBusAccess}}
+\doxysubsubsection{\texorpdfstring{closeCanBus()}{closeCanBus()}}
+{\footnotesize\ttfamily void Can\+Module\+::\+Can\+Bus\+Access\+::close\+Can\+Bus (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classCanModule_1_1CCanAccess}{C\+Can\+Access}} $\ast$}]{cca }\end{DoxyParamCaption})}
+
+
+
+Definition at line 30 of file Can\+Bus\+Access.\+cpp.
+
+
+
+References Can\+Module\+::\+Can\+Lib\+Loader\+::close\+Can\+Bus(), Can\+Module\+::\+C\+Can\+Access\+::get\+Bus\+Name(), and m\+\_\+lib\+Loader\+\_\+map.
+
+Here is the call graph for this function\+:
+% FIG 0
+\mbox{\Hypertarget{classCanModule_1_1CanBusAccess_a9313dcfc946663a5a78ff6c1119fcf64}\label{classCanModule_1_1CanBusAccess_a9313dcfc946663a5a78ff6c1119fcf64}} 
+\index{CanModule::CanBusAccess@{CanModule::CanBusAccess}!isCanPortOpen@{isCanPortOpen}}
+\index{isCanPortOpen@{isCanPortOpen}!CanModule::CanBusAccess@{CanModule::CanBusAccess}}
+\doxysubsubsection{\texorpdfstring{isCanPortOpen()}{isCanPortOpen()}}
+{\footnotesize\ttfamily bool Can\+Module\+::\+Can\+Bus\+Access\+::is\+Can\+Port\+Open (\begin{DoxyParamCaption}\item[{string}]{pn }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Definition at line 50 of file Can\+Bus\+Access.\+h.
+
+\mbox{\Hypertarget{classCanModule_1_1CanBusAccess_a487bdb65dc69be65d67721b63e38324b}\label{classCanModule_1_1CanBusAccess_a487bdb65dc69be65d67721b63e38324b}} 
+\index{CanModule::CanBusAccess@{CanModule::CanBusAccess}!openCanBus@{openCanBus}}
+\index{openCanBus@{openCanBus}!CanModule::CanBusAccess@{CanModule::CanBusAccess}}
+\doxysubsubsection{\texorpdfstring{openCanBus()}{openCanBus()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classCanModule_1_1CCanAccess}{C\+Can\+Access}} $\ast$ Can\+Module\+::\+Can\+Bus\+Access\+::open\+Can\+Bus (\begin{DoxyParamCaption}\item[{string}]{name,  }\item[{string}]{parameters }\end{DoxyParamCaption})}
+
+
+
+Definition at line 45 of file Can\+Bus\+Access.\+cpp.
+
+
+
+References Can\+Module\+::\+Can\+Lib\+Loader\+::create\+Instance(), m\+\_\+can\+Access\+\_\+map, m\+\_\+lib\+Loader\+\_\+map, and Can\+Module\+::\+Can\+Lib\+Loader\+::open\+Can\+Bus().
+
+Here is the call graph for this function\+:
+% FIG 1
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classCanModule_1_1CanBusAccess_a72f3cde5eb8a7fab358f5c00e5d53487}\label{classCanModule_1_1CanBusAccess_a72f3cde5eb8a7fab358f5c00e5d53487}} 
+\index{CanModule::CanBusAccess@{CanModule::CanBusAccess}!m\_canAccess\_map@{m\_canAccess\_map}}
+\index{m\_canAccess\_map@{m\_canAccess\_map}!CanModule::CanBusAccess@{CanModule::CanBusAccess}}
+\doxysubsubsection{\texorpdfstring{m\_canAccess\_map}{m\_canAccess\_map}}
+{\footnotesize\ttfamily map$<$string, \mbox{\hyperlink{classCanModule_1_1CCanAccess}{C\+Can\+Access}} $\ast$$>$ Can\+Module\+::\+Can\+Bus\+Access\+::m\+\_\+can\+Access\+\_\+map\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 52 of file Can\+Bus\+Access.\+h.
+
+
+
+Referenced by open\+Can\+Bus().
+
+\mbox{\Hypertarget{classCanModule_1_1CanBusAccess_ab176a257849ee165a9ff41ad6e4222c6}\label{classCanModule_1_1CanBusAccess_ab176a257849ee165a9ff41ad6e4222c6}} 
+\index{CanModule::CanBusAccess@{CanModule::CanBusAccess}!m\_libLoader\_map@{m\_libLoader\_map}}
+\index{m\_libLoader\_map@{m\_libLoader\_map}!CanModule::CanBusAccess@{CanModule::CanBusAccess}}
+\doxysubsubsection{\texorpdfstring{m\_libLoader\_map}{m\_libLoader\_map}}
+{\footnotesize\ttfamily map$<$string, \mbox{\hyperlink{classCanModule_1_1CanLibLoader}{Can\+Lib\+Loader}} $\ast$$>$ Can\+Module\+::\+Can\+Bus\+Access\+::m\+\_\+lib\+Loader\+\_\+map\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 51 of file Can\+Bus\+Access.\+h.
+
+
+
+Referenced by close\+Can\+Bus(), and open\+Can\+Bus().
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Can\+Interface/include/\mbox{\hyperlink{CanBusAccess_8h}{Can\+Bus\+Access.\+h}}\item 
+Can\+Interface/src/\mbox{\hyperlink{CanBusAccess_8cpp}{Can\+Bus\+Access.\+cpp}}\end{DoxyCompactItemize}

@@ -4,63 +4,64 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CAN ports &#8212; CanModule 2.0.6 documentation</title>
-    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>CAN ports &#8212; CanModule 2.0.16 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/agogo.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Details on classes" href="classestracing.html" />
     <link rel="prev" title="Standard API" href="standardApi.html" /> 
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="classestracing.html" title="Details on classes"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
+    <div class="header-wrapper" role="banner">
+      <div class="header">
+        <div class="headertitle"><a
+          href="index.html">CanModule 2.0.16 documentation</a></div>
+        <div class="rel" role="navigation" aria-label="related navigation">
           <a href="standardApi.html" title="Standard API"
-             accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">CanModule 2.0.6 documentation</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">CAN ports</a></li> 
-      </ul>
-    </div>  
+             accesskey="P">previous</a> |
+          <a href="classestracing.html" title="Details on classes"
+             accesskey="N">next</a> |
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a>
+        </div>
+       </div>
+    </div>
 
-    <div class="document">
+    <div class="content-wrapper">
+      <div class="content">
+        <div class="document">
+            
       <div class="documentwrapper">
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="can-ports">
+  <section id="can-ports">
 <h1>CAN ports<a class="headerlink" href="#can-ports" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="port-bit-rate-and-statistics">
+<section id="port-bit-rate-and-statistics">
 <h2>port bit rate and statistics<a class="headerlink" href="#port-bit-rate-and-statistics" title="Permalink to this headline">¶</a></h2>
 <dl class="cpp class">
-<dt id="_CPPv4N9CanModule10CCanAccessE">
-<span id="_CPPv3N9CanModule10CCanAccessE"></span><span id="_CPPv2N9CanModule10CCanAccessE"></span><span id="CanModule::CCanAccess"></span><span class="target" id="classCanModule_1_1CCanAccess"></span><em class="property">class </em><code class="sig-prename descclassname">CanModule<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">CCanAccess</code><a class="headerlink" href="#_CPPv4N9CanModule10CCanAccessE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Subclassed by <a class="reference internal" href="classestracing.html#classAnaCanScan"><span class="std std-ref">AnaCanScan</span></a>, <a class="reference internal" href="classestracing.html#classCSockCanScan"><span class="std std-ref">CSockCanScan</span></a>, MockCanAccess, <a class="reference internal" href="vendors/peak.html#classPKCanScan"><span class="std std-ref">PKCanScan</span></a>, <a class="reference internal" href="classestracing.html#classSTCanScan"><span class="std std-ref">STCanScan</span></a></p>
+<dt class="sig sig-object cpp" id="_CPPv4N9CanModule10CCanAccessE">
+<span id="_CPPv3N9CanModule10CCanAccessE"></span><span id="_CPPv2N9CanModule10CCanAccessE"></span><span id="CanModule::CCanAccess"></span><span class="target" id="classCanModule_1_1CCanAccess"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">CanModule</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">CCanAccess</span></span></span><a class="headerlink" href="#_CPPv4N9CanModule10CCanAccessE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Subclassed by <a class="reference internal" href="classestracing.html#classAnaCanScan"><span class="std std-ref">AnaCanScan</span></a>, <a class="reference internal" href="vendors/systec.html#classCSockCanScan"><span class="std std-ref">CSockCanScan</span></a>, MockCanAccess, <a class="reference internal" href="vendors/peak.html#classPKCanScan"><span class="std std-ref">PKCanScan</span></a>, <a class="reference internal" href="classestracing.html#classSTCanScan"><span class="std std-ref">STCanScan</span></a></p>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
-<dt id="_CPPv4N9CanModule10CCanAccess14getPortBitrateEv">
-<span id="_CPPv3N9CanModule10CCanAccess14getPortBitrateEv"></span><span id="_CPPv2N9CanModule10CCanAccess14getPortBitrateEv"></span><span id="CanModule::CCanAccess::getPortBitrate"></span><span class="target" id="classCanModule_1_1CCanAccess_1aa8cb67096349fefc6e03aeb33e45ef81"></span>uint32_t <code class="sig-name descname">getPortBitrate</code><span class="sig-paren">(</span><span class="sig-paren">)</span> = 0<a class="headerlink" href="#_CPPv4N9CanModule10CCanAccess14getPortBitrateEv" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N9CanModule10CCanAccess14getPortBitrateEv">
+<span id="_CPPv3N9CanModule10CCanAccess14getPortBitrateEv"></span><span id="_CPPv2N9CanModule10CCanAccess14getPortBitrateEv"></span><span id="CanModule::CCanAccess::getPortBitrate"></span><span class="target" id="classCanModule_1_1CCanAccess_1aa8cb67096349fefc6e03aeb33e45ef81"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getPortBitrate</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N9CanModule10CCanAccess14getPortBitrateEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>returns the bitrate of that port [bits/sec] according to what CanModule buffers say. This is the setting used for setting up the hardware, after any default rules have been applied, but BEFORE any vendor specific encoding into obscure bitpatterns occurs. This happens at port opening and the bitrate can only be changed at that moment. So please call this method just after you have opened the port. But also since there is no hw interaction and it just returns a buffer, you may call it as often as you like. Default bitrate is always 125000bits/s if “Unspecified” </p>
 </dd></dl>
 
 </div>
 </dd></dl>
 
-</div>
-<div class="section" id="port-unified-status">
+</section>
+<section id="port-unified-status">
 <h2>port unified status<a class="headerlink" href="#port-unified-status" title="Permalink to this headline">¶</a></h2>
 <blockquote>
 <div><p>a 32-bit pattern, with</p>
@@ -70,14 +71,14 @@
 </ul>
 </div></blockquote>
 <dl class="cpp class">
-<dt id="_CPPv4N9CanModule10CCanAccessE">
-<span id="_CPPv3N9CanModule10CCanAccessE"></span><span id="_CPPv2N9CanModule10CCanAccessE"></span><span class="target" id="classCanModule_1_1CCanAccess"></span><em class="property">class </em><code class="sig-prename descclassname">CanModule<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">CCanAccess</code><br /></dt>
-<dd><p>Subclassed by <a class="reference internal" href="classestracing.html#classAnaCanScan"><span class="std std-ref">AnaCanScan</span></a>, <a class="reference internal" href="classestracing.html#classCSockCanScan"><span class="std std-ref">CSockCanScan</span></a>, MockCanAccess, <a class="reference internal" href="vendors/peak.html#classPKCanScan"><span class="std std-ref">PKCanScan</span></a>, <a class="reference internal" href="classestracing.html#classSTCanScan"><span class="std std-ref">STCanScan</span></a></p>
+<dt class="sig sig-object cpp">
+<span class="target" id="classCanModule_1_1CCanAccess"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">CanModule</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">CCanAccess</span></span></span><br /></dt>
+<dd><p>Subclassed by <a class="reference internal" href="classestracing.html#classAnaCanScan"><span class="std std-ref">AnaCanScan</span></a>, <a class="reference internal" href="vendors/systec.html#classCSockCanScan"><span class="std std-ref">CSockCanScan</span></a>, MockCanAccess, <a class="reference internal" href="vendors/peak.html#classPKCanScan"><span class="std std-ref">PKCanScan</span></a>, <a class="reference internal" href="classestracing.html#classSTCanScan"><span class="std std-ref">STCanScan</span></a></p>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
-<dt id="_CPPv4N9CanModule10CCanAccess13getPortStatusEv">
-<span id="_CPPv3N9CanModule10CCanAccess13getPortStatusEv"></span><span id="_CPPv2N9CanModule10CCanAccess13getPortStatusEv"></span><span id="CanModule::CCanAccess::getPortStatus"></span><span class="target" id="classCanModule_1_1CCanAccess_1a33fe530d070cf35d096e967d543186a4"></span>uint32_t <code class="sig-name descname">getPortStatus</code><span class="sig-paren">(</span><span class="sig-paren">)</span> = 0<a class="headerlink" href="#_CPPv4N9CanModule10CCanAccess13getPortStatusEv" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N9CanModule10CCanAccess13getPortStatusEv">
+<span id="_CPPv3N9CanModule10CCanAccess13getPortStatusEv"></span><span id="_CPPv2N9CanModule10CCanAccess13getPortStatusEv"></span><span id="CanModule::CCanAccess::getPortStatus"></span><span class="target" id="classCanModule_1_1CCanAccess_1a33fe530d070cf35d096e967d543186a4"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getPortStatus</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N9CanModule10CCanAccess13getPortStatusEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>according to vendor and OS, acquire bus status, and return one uint32_t bitpattern which has the same rules for all vendors. In fact the status for vendors is too different to be abstracted into a common bitpattern.</p>
 <p>the <strong>implementation</strong> occupies the highest nibble, and it is a counter (see CANMODULE_STATUS_BP_SOCK etc)<ul class="simple">
 <li><p>0x1&lt;&lt;28 = sock (linux)</p></li>
@@ -88,9 +89,10 @@
 </ul>
 </p>
 <p>the **specific status** occupies bits b0..b27, and it is a (composed) implementation specific bitpattern</p>
-<p><dl class="simple">
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">sock</span></code>: (linux): [ see can_netlink.h enum can_state ]<ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sock</strong> – (linux): [ see can_netlink.h enum can_state ]<ul>
 <li><p>b0: 0x1 = CAN_STATE_ERROR_ACTIVE : RX/TX error count &lt; 96</p></li>
 <li><p>b1: 0x2 = CAN_STATE_ERROR_WARNING : RX/TX error count &lt; 128</p></li>
 <li><p>b2: 0x4 = CAN_STATE_ERROR_PASSIVE : RX/TX error count &lt; 256</p></li>
@@ -100,7 +102,7 @@
 <li><p>b6…b27 unused</p></li>
 </ul>
 </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">anagate</span></code>: (linux, windows): [ see CANDeviceConnectState ] CANCanDeviceConnectState , translate from counter (0 does not exists, thank you anagate)<ul>
+<li><p><strong>anagate</strong> – (linux, windows): [ see CANDeviceConnectState ] CANCanDeviceConnectState , translate from counter (0 does not exists, thank you anagate)<ul>
 <li><p>1 = DISCONNECTED :</p></li>
 <li><p>2 = CONNECTING :</p></li>
 <li><p>3 = CONNECTED</p></li>
@@ -110,7 +112,7 @@
 <li><p>I translate this into a simple bitpattern which is a counter : 000(does not occur), 001, 010, 011, 100, 101. Actually 011 means OK therefore. great.</p></li>
 </ul>
 </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">peak</span></code>: (windows): see PCANBasic.h:113<ul>
+<li><p><strong>peak</strong> – (windows): see PCANBasic.h:113<ul>
 <li><p>#define PCAN_ERROR_OK 0x00000U // No error</p></li>
 <li><p>#define PCAN_ERROR_XMTFULL 0x00001U // Transmit buffer in CAN controller is full</p></li>
 <li><p>#define PCAN_ERROR_OVERRUN 0x00002U // CAN controller was read too late</p></li>
@@ -141,7 +143,7 @@
 <li><p>#define PCAN_ERROR_ILLOPERATION 0x8000000U // Invalid operation [Value was changed from 0x80000 to 0x8000000]</p></li>
 </ul>
 </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">systec</span></code>: (windows): [ see UcanGetStatus table19 (for CAN) and table20 (for USB) ]. This is a combination of socketcan bits and usb bits<ul>
+<li><p><strong>systec</strong> – (windows): [ see UcanGetStatus table19 (for CAN) and table20 (for USB) ]. This is a combination of socketcan bits and usb bits<ul>
 <li><p>b0: 0x1: tx overrun</p></li>
 <li><p>b1: 0x2: rx overrun</p></li>
 <li><p>b2: 0x4: error limit1 exceeded: warning limit</p></li>
@@ -161,14 +163,13 @@
 </ul>
 </dd>
 </dl>
-</p>
 </dd></dl>
 
 </div>
 </dd></dl>
 
-</div>
-<div class="section" id="syntax-for-port-names">
+</section>
+<section id="syntax-for-port-names">
 <h2>syntax for port names<a class="headerlink" href="#syntax-for-port-names" title="Permalink to this headline">¶</a></h2>
 <p>CAN ports are specified by the user with an integer number 0..N.
 Vendors and implementations tend to handle that differently, but CanModule tries to provide a
@@ -192,23 +193,24 @@ the implementations.</p>
 <li><p>The <strong>access to a CAN port</strong> is through:</p></li>
 </ul>
 <dl class="cpp class">
-<dt id="_CPPv4N9CanModule10CCanAccessE">
-<span id="_CPPv3N9CanModule10CCanAccessE"></span><span class="target" id="classCanModule_1_1CCanAccess"></span><em class="property">class </em><code class="sig-name descname">CCanAccess</code><br /></dt>
-<dd><p>Subclassed by <a class="reference internal" href="classestracing.html#classAnaCanScan"><span class="std std-ref">AnaCanScan</span></a>, <a class="reference internal" href="classestracing.html#classCSockCanScan"><span class="std std-ref">CSockCanScan</span></a>, MockCanAccess, <a class="reference internal" href="vendors/peak.html#classPKCanScan"><span class="std std-ref">PKCanScan</span></a>, <a class="reference internal" href="classestracing.html#classSTCanScan"><span class="std std-ref">STCanScan</span></a></p>
+<dt class="sig sig-object cpp">
+<span class="target" id="classCanModule_1_1CCanAccess"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CCanAccess</span></span></span><br /></dt>
+<dd><p>Subclassed by <a class="reference internal" href="classestracing.html#classAnaCanScan"><span class="std std-ref">AnaCanScan</span></a>, <a class="reference internal" href="vendors/systec.html#classCSockCanScan"><span class="std std-ref">CSockCanScan</span></a>, MockCanAccess, <a class="reference internal" href="vendors/peak.html#classPKCanScan"><span class="std std-ref">PKCanScan</span></a>, <a class="reference internal" href="classestracing.html#classSTCanScan"><span class="std std-ref">STCanScan</span></a></p>
 </dd></dl>
 
-</div>
-</div>
+</section>
+</section>
 
 
             <div class="clearer"></div>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-<h3><a href="index.html">Table of Contents</a></h3>
-<ul class="current">
+        </div>
+        <div class="sidebar">
+          
+          <h3>Table of Contents</h3>
+          <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="downloading.html">Downloading</a></li>
 <li class="toctree-l1"><a class="reference internal" href="objective.html">Objective</a></li>
 <li class="toctree-l1"><a class="reference internal" href="standardApi.html">Standard API</a></li>
@@ -222,54 +224,55 @@ the implementations.</p>
 <li class="toctree-l1"><a class="reference internal" href="vendors/systec.html">SysTec</a></li>
 <li class="toctree-l1"><a class="reference internal" href="vendors/anagate.html">AnaGate</a></li>
 <li class="toctree-l1"><a class="reference internal" href="vendors/peak.html">Peak</a></li>
-<li class="toctree-l1"><a class="reference internal" href="reconnection.html">Reconnection OBSOLETE IS REWRITTEN CURRENTLY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reconnection.html">Reconnection Behavior</a></li>
 <li class="toctree-l1"><a class="reference internal" href="logging.html">Logging</a></li>
 <li class="toctree-l1"><a class="reference internal" href="building.html">Building</a></li>
 <li class="toctree-l1"><a class="reference internal" href="running.html">Running</a></li>
 <li class="toctree-l1"><a class="reference internal" href="support.html">Support</a></li>
 </ul>
 
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="_sources/canports.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
-      <input type="submit" value="Go" />
-    </form>
-    </div>
-</div>
-<script>$('#searchbox').show(0);</script>
+          <div role="search">
+            <h3 style="margin-top: 1.5em;">Search</h3>
+            <form class="search" action="search.html" method="get">
+                <input type="text" name="q" />
+                <input type="submit" value="Go" />
+            </form>
+          </div>
+
         </div>
+        <div class="clearer"></div>
       </div>
-      <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="classestracing.html" title="Details on classes"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="standardApi.html" title="Standard API"
-             >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">CanModule 2.0.6 documentation</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">CAN ports</a></li> 
-      </ul>
-    </div>
+
+    <div class="footer-wrapper">
+      <div class="footer">
+        <div class="left">
+          <div role="navigation" aria-label="related navigaton">
+            <a href="standardApi.html" title="Standard API"
+              >previous</a> |
+            <a href="classestracing.html" title="Details on classes"
+              >next</a> |
+            <a href="genindex.html" title="General Index"
+              >index</a>
+          </div>
+          <div role="note" aria-label="source link">
+              <br/>
+              <a href="_sources/canports.rst.txt"
+                rel="nofollow">Show Source</a>
+          </div>
+        </div>
+
+        <div class="right">
+          
     <div class="footer" role="contentinfo">
         &#169; Copyright 2020, CERN, quasar-team, BE-ICS (Michael Ludwig).
-      Last updated on 14-Jan-2021 14:02:12.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.1.2.
+      Last updated on 04-Mar-2022 16:37:25.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
     </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
   </body>
 </html>

@@ -1,0 +1,15 @@
+digraph "CanInterface" {
+  compound=true
+  node [ fontsize="10", fontname="Helvetica"];
+  edge [ labelfontsize="10", labelfontname="Helvetica"];
+  subgraph clusterdir_1f0e3058fad0934718aa0fd5f744cca0 {
+    graph [ bgcolor="#eeeeff", pencolor="black", label="" URL="dir_1f0e3058fad0934718aa0fd5f744cca0.html"];
+    dir_1f0e3058fad0934718aa0fd5f744cca0 [shape=plaintext label="CanInterface"];
+    dir_156b6c9c97209fb6dfbd18b16f86aa71 [shape=box label="include" color="black" fillcolor="white" style="filled" URL="dir_156b6c9c97209fb6dfbd18b16f86aa71.html"];
+    dir_7f63a5d4fc8928a69cd9ea5d47f1a05a [shape=box label="src" color="black" fillcolor="white" style="filled" URL="dir_7f63a5d4fc8928a69cd9ea5d47f1a05a.html"];
+  }
+  dir_9c47e0b3b9d011e29e21289b959af4df [shape=box label="CanLibLoader" fillcolor="white" style="filled" color="red" URL="dir_9c47e0b3b9d011e29e21289b959af4df.html"];
+  dir_156b6c9c97209fb6dfbd18b16f86aa71->dir_9c47e0b3b9d011e29e21289b959af4df [headlabel="1", labeldistance=1.5 headhref="dir_000001_000009.html"];
+  dir_7f63a5d4fc8928a69cd9ea5d47f1a05a->dir_156b6c9c97209fb6dfbd18b16f86aa71 [headlabel="5", labeldistance=1.5 headhref="dir_000002_000001.html"];
+  dir_9c47e0b3b9d011e29e21289b959af4df->dir_156b6c9c97209fb6dfbd18b16f86aa71 [headlabel="2", labeldistance=1.5 headhref="dir_000009_000001.html"];
+}

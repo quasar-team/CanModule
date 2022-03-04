@@ -100,22 +100,13 @@ $(document).ready(function(){initNavTree('classSTCanScan.html',''); initResizabl
 Inheritance diagram for STCanScan:</div>
 <div class="dyncontent">
 <div class="center"><img src="classSTCanScan__inherit__graph.png" border="0" usemap="#STCanScan_inherit__map" alt="Inheritance graph"/></div>
-<map name="STCanScan_inherit__map" id="STCanScan_inherit__map">
-<area shape="rect" title=" " alt="" coords="50,80,143,107"/>
-<area shape="rect" href="classCanModule_1_1CCanAccess.html" title=" " alt="" coords="5,5,188,32"/>
-</map>
+<!-- MAP 0 -->
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
 Collaboration diagram for STCanScan:</div>
 <div class="dyncontent">
 <div class="center"><img src="classSTCanScan__coll__graph.png" border="0" usemap="#STCanScan_coll__map" alt="Collaboration graph"/></div>
-<map name="STCanScan_coll__map" id="STCanScan_coll__map">
-<area shape="rect" title=" " alt="" coords="167,199,260,225"/>
-<area shape="rect" href="classCanModule_1_1CCanAccess.html" title=" " alt="" coords="18,109,201,136"/>
-<area shape="rect" href="structCanModule_1_1CanParameters.html" title=" " alt="" coords="5,13,208,39"/>
-<area shape="rect" href="classCanModule_1_1CanStatistics.html" title=" " alt="" coords="230,109,418,136"/>
-<area shape="rect" href="classCanModule_1_1CanStatistics_1_1Internals.html" title="Following is encapsulated as a class, to provide sane copying in assignment operator." alt="" coords="233,5,421,47"/>
-</map>
+<!-- MAP 1 -->
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -152,6 +143,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a01b70015904374f482647fbfb1806b08"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a471b6a8617a57b974cb71a2dc540d370"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespaceCanModule.html#a2062089fa4fa87c8354295f2a8fe31a5">CanModule::ReconnectAction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSTCanScan.html#a471b6a8617a57b974cb71a2dc540d370">getReconnectAction</a> ()</td></tr>
 <tr class="separator:a471b6a8617a57b974cb71a2dc540d370"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae88b966c3c318eca384385c5a85cf2d7"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSTCanScan.html#ae88b966c3c318eca384385c5a85cf2d7">stopBus</a> ()</td></tr>
+<tr class="separator:ae88b966c3c318eca384385c5a85cf2d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classCanModule_1_1CCanAccess"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classCanModule_1_1CCanAccess')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classCanModule_1_1CCanAccess.html">CanModule::CCanAccess</a></td></tr>
 <tr class="memitem:a7c9b87d205b0ec265c972a3303cecda2 inherit pub_methods_classCanModule_1_1CCanAccess"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCanModule_1_1CCanAccess.html#a7c9b87d205b0ec265c972a3303cecda2">CCanAccess</a> ()</td></tr>
 <tr class="separator:a7c9b87d205b0ec265c972a3303cecda2 inherit pub_methods_classCanModule_1_1CCanAccess"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -167,6 +160,14 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a8210a8161f1987973584b6dda5dc6d7d inherit pub_methods_classCanModule_1_1CCanAccess"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af26c9d102638fb96e5e1305f807d148f inherit pub_methods_classCanModule_1_1CCanAccess"><td class="memItemLeft" align="right" valign="top">vector&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCanModule_1_1CCanAccess.html#af26c9d102638fb96e5e1305f807d148f">parseNameAndParameters</a> (string name, string parameters)</td></tr>
 <tr class="separator:af26c9d102638fb96e5e1305f807d148f inherit pub_methods_classCanModule_1_1CCanAccess"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a16e43f90cd984b9ea72028c0f8dfe784 inherit pub_methods_classCanModule_1_1CCanAccess"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCanModule_1_1CCanAccess.html#a16e43f90cd984b9ea72028c0f8dfe784">triggerReconnectionThread</a> ()</td></tr>
+<tr class="separator:a16e43f90cd984b9ea72028c0f8dfe784 inherit pub_methods_classCanModule_1_1CCanAccess"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8afab7f9acc769c53574edec695065b inherit pub_methods_classCanModule_1_1CCanAccess"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCanModule_1_1CCanAccess.html#ad8afab7f9acc769c53574edec695065b">waitForReconnectionThreadTrigger</a> ()</td></tr>
+<tr class="separator:ad8afab7f9acc769c53574edec695065b inherit pub_methods_classCanModule_1_1CCanAccess"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24494114ec0dc237b63fb321ba4d084e inherit pub_methods_classCanModule_1_1CCanAccess"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCanModule_1_1CCanAccess.html#a24494114ec0dc237b63fb321ba4d084e">decreaseSendFailedCountdown</a> ()</td></tr>
+<tr class="separator:a24494114ec0dc237b63fb321ba4d084e inherit pub_methods_classCanModule_1_1CCanAccess"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad13b5ad34547cbe6cad4e8369557bed inherit pub_methods_classCanModule_1_1CCanAccess"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCanModule_1_1CCanAccess.html#aad13b5ad34547cbe6cad4e8369557bed">resetSendFailedCountdown</a> ()</td></tr>
+<tr class="separator:aad13b5ad34547cbe6cad4e8369557bed inherit pub_methods_classCanModule_1_1CCanAccess"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
@@ -261,12 +262,20 @@ Additional Inherited Members</h2></td></tr>
 <tr class="separator:abfd40edc34a777a5ff4503a6e8a239d6 inherit pro_attribs_classCanModule_1_1CCanAccess"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6baf24c56eb715adf55a569d08b12c25 inherit pro_attribs_classCanModule_1_1CCanAccess"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceCanModule.html#a2062089fa4fa87c8354295f2a8fe31a5">CanModule::ReconnectAction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCanModule_1_1CCanAccess.html#a6baf24c56eb715adf55a569d08b12c25">m_reconnectAction</a></td></tr>
 <tr class="separator:a6baf24c56eb715adf55a569d08b12c25 inherit pro_attribs_classCanModule_1_1CCanAccess"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abd6b2ab3f6759bfc05c6dc70911eab50 inherit pro_attribs_classCanModule_1_1CCanAccess"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCanModule_1_1CCanAccess.html#abd6b2ab3f6759bfc05c6dc70911eab50">m_timeoutOnReception</a></td></tr>
-<tr class="separator:abd6b2ab3f6759bfc05c6dc70911eab50 inherit pro_attribs_classCanModule_1_1CCanAccess"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a74e437526e45192804ca1cffc663d2e2 inherit pro_attribs_classCanModule_1_1CCanAccess"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCanModule_1_1CCanAccess.html#a74e437526e45192804ca1cffc663d2e2">m_triggerCounter</a></td></tr>
-<tr class="separator:a74e437526e45192804ca1cffc663d2e2 inherit pro_attribs_classCanModule_1_1CCanAccess"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a686ba59e549d1fde3727ab1f88a8c463 inherit pro_attribs_classCanModule_1_1CCanAccess"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCanModule_1_1CCanAccess.html#a686ba59e549d1fde3727ab1f88a8c463">m_failedSendCounter</a></td></tr>
-<tr class="separator:a686ba59e549d1fde3727ab1f88a8c463 inherit pro_attribs_classCanModule_1_1CCanAccess"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ddc9691fd9d42bcc7cb14ceae24da82 inherit pro_attribs_classCanModule_1_1CCanAccess"><td class="memItemLeft" align="right" valign="top">atomic_uint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCanModule_1_1CCanAccess.html#a4ddc9691fd9d42bcc7cb14ceae24da82">m_timeoutOnReception</a></td></tr>
+<tr class="separator:a4ddc9691fd9d42bcc7cb14ceae24da82 inherit pro_attribs_classCanModule_1_1CCanAccess"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a921748fa6f0da92c7afef60f41007a3e inherit pro_attribs_classCanModule_1_1CCanAccess"><td class="memItemLeft" align="right" valign="top">atomic_int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCanModule_1_1CCanAccess.html#a921748fa6f0da92c7afef60f41007a3e">m_failedSendCountdown</a></td></tr>
+<tr class="separator:a921748fa6f0da92c7afef60f41007a3e inherit pro_attribs_classCanModule_1_1CCanAccess"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7853071979a549dc701dc06124bf1366 inherit pro_attribs_classCanModule_1_1CCanAccess"><td class="memItemLeft" align="right" valign="top">atomic_uint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCanModule_1_1CCanAccess.html#a7853071979a549dc701dc06124bf1366">m_maxFailedSendCount</a></td></tr>
+<tr class="separator:a7853071979a549dc701dc06124bf1366 inherit pro_attribs_classCanModule_1_1CCanAccess"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41af60558bdb3b738f39560755864333 inherit pro_attribs_classCanModule_1_1CCanAccess"><td class="memItemLeft" align="right" valign="top">std::thread *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCanModule_1_1CCanAccess.html#a41af60558bdb3b738f39560755864333">m_hCanReconnectionThread</a></td></tr>
+<tr class="separator:a41af60558bdb3b738f39560755864333 inherit pro_attribs_classCanModule_1_1CCanAccess"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8dd2b137cebaa0764c406db6061bbc7 inherit pro_attribs_classCanModule_1_1CCanAccess"><td class="memItemLeft" align="right" valign="top">atomic_bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCanModule_1_1CCanAccess.html#ab8dd2b137cebaa0764c406db6061bbc7">m_reconnectTrigger</a></td></tr>
+<tr class="separator:ab8dd2b137cebaa0764c406db6061bbc7 inherit pro_attribs_classCanModule_1_1CCanAccess"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08cc164e3baaf95fedeb50198a7fa799 inherit pro_attribs_classCanModule_1_1CCanAccess"><td class="memItemLeft" align="right" valign="top">std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCanModule_1_1CCanAccess.html#a08cc164e3baaf95fedeb50198a7fa799">m_reconnection_mtx</a></td></tr>
+<tr class="separator:a08cc164e3baaf95fedeb50198a7fa799 inherit pro_attribs_classCanModule_1_1CCanAccess"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9edb8bed739db66c1a6a8b3489ce79a2 inherit pro_attribs_classCanModule_1_1CCanAccess"><td class="memItemLeft" align="right" valign="top">std::condition_variable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCanModule_1_1CCanAccess.html#a9edb8bed739db66c1a6a8b3489ce79a2">m_reconnection_cv</a></td></tr>
+<tr class="separator:a9edb8bed739db66c1a6a8b3489ce79a2 inherit pro_attribs_classCanModule_1_1CCanAccess"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
@@ -287,18 +296,14 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="STCanScan_8cpp_source.html#l00058">58</a> of file <a class="el" href="STCanScan_8cpp_source.html">STCanScan.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="STCanScan_8cpp_source.html#l00061">61</a> of file <a class="el" href="STCanScan_8cpp_source.html">STCanScan.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="CanStatistics_8cpp_source.html#l00044">CanModule::CanStatistics::beginNewRun()</a>, <a class="el" href="CCanAccess_8h_source.html#l00468">CanModule::CCanAccess::m_failedSendCounter</a>, <a class="el" href="STCanScan_8h_source.html#l00079">m_statistics</a>, <a class="el" href="CCanAccess_8h_source.html#l00467">CanModule::CCanAccess::m_triggerCounter</a>, and <a class="el" href="CanStatistics_8h_source.html#l00107">CanModule::CanStatistics::setTimeSinceOpened()</a>.</p>
+<p class="reference">References <a class="el" href="CanStatistics_8cpp_source.html#l00044">CanModule::CanStatistics::beginNewRun()</a>, <a class="el" href="CCanAccess_8h_source.html#l00521">CanModule::CCanAccess::m_failedSendCountdown</a>, <a class="el" href="CCanAccess_8h_source.html#l00522">CanModule::CCanAccess::m_maxFailedSendCount</a>, <a class="el" href="STCanScan_8h_source.html#l00080">m_statistics</a>, and <a class="el" href="CanStatistics_8h_source.html#l00107">CanModule::CanStatistics::setTimeSinceOpened()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classSTCanScan_a75fcb8ff51d82d362edb1dd31125fb10_cgraph.png" border="0" usemap="#classSTCanScan_a75fcb8ff51d82d362edb1dd31125fb10_cgraph" alt=""/></div>
-<map name="classSTCanScan_a75fcb8ff51d82d362edb1dd31125fb10_cgraph" id="classSTCanScan_a75fcb8ff51d82d362edb1dd31125fb10_cgraph">
-<area shape="rect" title=" " alt="" coords="5,46,177,73"/>
-<area shape="rect" href="classCanModule_1_1CanStatistics.html#a85e6c87ce5285884a0272088178bb8f6" title=" " alt="" coords="225,5,413,47"/>
-<area shape="rect" href="classCanModule_1_1CanStatistics.html#af3f15dedf80e67f1309946632d87198d" title=" " alt="" coords="225,71,413,112"/>
-</map>
+<!-- MAP 2 -->
 </div>
 
 </div>
@@ -352,9 +357,9 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="STCanScan_8cpp_source.html#l00166">166</a> of file <a class="el" href="STCanScan_8cpp_source.html">STCanScan.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="STCanScan_8cpp_source.html#l00169">169</a> of file <a class="el" href="STCanScan_8cpp_source.html">STCanScan.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="STCanScan_8h_source.html#l00085">m_CanScanThreadShutdownFlag</a>, <a class="el" href="STCanScan_8h_source.html#l00076">m_channelNumber</a>, <a class="el" href="STCanScan_8h_source.html#l00087">m_hCanScanThread</a>, <a class="el" href="STCanScan_8h_source.html#l00078">m_UcanHandle</a>, and <a class="el" href="STCanScan_8cpp_source.html#l00037">MLOGST</a>.</p>
+<p class="reference">References <a class="el" href="STCanScan_8h_source.html#l00086">m_CanScanThreadShutdownFlag</a>, <a class="el" href="STCanScan_8h_source.html#l00077">m_channelNumber</a>, <a class="el" href="STCanScan_8h_source.html#l00088">m_hCanScanThread</a>, <a class="el" href="STCanScan_8h_source.html#l00079">m_UcanHandle</a>, and <a class="el" href="STCanScan_8cpp_source.html#l00037">MLOGST</a>.</p>
 
 </div>
 </div>
@@ -385,38 +390,16 @@ Here is the call graph for this function:</div>
 <p>thread to supervise port activity </p>
 <p>lets check the timeoutOnReception reconnect condition. If it is true, all we can do is to close/open the port again since the underlying hardware is hidden by socketcan abstraction. Like his we do not have to pollute the "sendMessage" like for anagate, and that is cleaner.</p>
 
-<p class="definition">Definition at line <a class="el" href="STCanScan_8cpp_source.html#l00095">95</a> of file <a class="el" href="STCanScan_8cpp_source.html">STCanScan.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="STCanScan_8cpp_source.html#l00098">98</a> of file <a class="el" href="STCanScan_8cpp_source.html">STCanScan.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="CanMessage_8h_source.html#l00029">CanMsgStruct::c_data</a>, <a class="el" href="CanMessage_8h_source.html#l00027">CanMsgStruct::c_dlc</a>, <a class="el" href="CanMessage_8h_source.html#l00025">CanMsgStruct::c_ff</a>, <a class="el" href="CanMessage_8h_source.html#l00023">CanMsgStruct::c_id</a>, <a class="el" href="CanMessage_8h_source.html#l00031">CanMsgStruct::c_time</a>, <a class="el" href="CCanAccess_8h_source.html#l00305">CanModule::CCanAccess::canMessageCame</a>, <a class="el" href="CanModuleUtils_8cpp_source.html#l00044">CanModule::convertTimepointToTimeval()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00075">createInitializationParameters()</a>, <a class="el" href="CanModuleUtils_8cpp_source.html#l00060">CanModule::currentTimeTimeval()</a>, <a class="el" href="STCanScan_8h_source.html#l00071">getReconnectAction()</a>, <a class="el" href="STCanScan_8h_source.html#l00070">getReconnectCondition()</a>, <a class="el" href="CCanAccess_8h_source.html#l00496">CanModule::CCanAccess::hasTimeoutOnReception()</a>, <a class="el" href="STCanScan_8h_source.html#l00080">m_baudRate</a>, <a class="el" href="STCanScan_8h_source.html#l00085">m_CanScanThreadShutdownFlag</a>, <a class="el" href="STCanScan_8h_source.html#l00076">m_channelNumber</a>, <a class="el" href="STCanScan_8h_source.html#l00071">m_moduleNumber</a>, <a class="el" href="STCanScan_8h_source.html#l00079">m_statistics</a>, <a class="el" href="STCanScan_8h_source.html#l00078">m_UcanHandle</a>, <a class="el" href="STCanScan_8cpp_source.html#l00037">MLOGST</a>, <a class="el" href="CanStatistics_8cpp_source.html#l00101">CanModule::CanStatistics::onReceive()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00318">openCanPort()</a>, <a class="el" href="CCanAccess_8h_source.html#l00485">CanModule::CCanAccess::reconnectActionString()</a>, <a class="el" href="CCanAccess_8h_source.html#l00473">CanModule::CCanAccess::reconnectConditionString()</a>, <a class="el" href="CCanAccess_8h_source.html#l00511">CanModule::CCanAccess::resetTimeoutOnReception()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00377">sendErrorCode()</a>, <a class="el" href="STCanScan_8h_source.html#l00100">setCanHandleInUse()</a>, <a class="el" href="CanStatistics_8h_source.html#l00115">CanModule::CanStatistics::setTimeSinceReceived()</a>, <a class="el" href="namespaceCanModule.html#a2062089fa4fa87c8354295f2a8fe31a5a5f768fefafa6db21eee26885afb6163d">CanModule::singleBus</a>, and <a class="el" href="namespaceCanModule.html#a2f4fee79cc7ba53467c2538fe6b9adbbaba350cf15e5a1471109f17351afb401a">CanModule::timeoutOnReception</a>.</p>
+<p class="reference">References <a class="el" href="CanMessage_8h_source.html#l00029">CanMsgStruct::c_data</a>, <a class="el" href="CanMessage_8h_source.html#l00027">CanMsgStruct::c_dlc</a>, <a class="el" href="CanMessage_8h_source.html#l00025">CanMsgStruct::c_ff</a>, <a class="el" href="CanMessage_8h_source.html#l00023">CanMsgStruct::c_id</a>, <a class="el" href="CanMessage_8h_source.html#l00031">CanMsgStruct::c_time</a>, <a class="el" href="CCanAccess_8h_source.html#l00328">CanModule::CCanAccess::canMessageCame</a>, <a class="el" href="CanModuleUtils_8cpp_source.html#l00044">CanModule::convertTimepointToTimeval()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00078">createInitializationParameters()</a>, <a class="el" href="CanModuleUtils_8cpp_source.html#l00060">CanModule::currentTimeTimeval()</a>, <a class="el" href="STCanScan_8h_source.html#l00071">getReconnectAction()</a>, <a class="el" href="STCanScan_8h_source.html#l00070">getReconnectCondition()</a>, <a class="el" href="CCanAccess_8h_source.html#l00555">CanModule::CCanAccess::hasTimeoutOnReception()</a>, <a class="el" href="STCanScan_8h_source.html#l00081">m_baudRate</a>, <a class="el" href="STCanScan_8h_source.html#l00086">m_CanScanThreadShutdownFlag</a>, <a class="el" href="STCanScan_8h_source.html#l00077">m_channelNumber</a>, <a class="el" href="STCanScan_8h_source.html#l00076">m_moduleNumber</a>, <a class="el" href="STCanScan_8h_source.html#l00080">m_statistics</a>, <a class="el" href="STCanScan_8h_source.html#l00079">m_UcanHandle</a>, <a class="el" href="STCanScan_8cpp_source.html#l00037">MLOGST</a>, <a class="el" href="CanStatistics_8cpp_source.html#l00100">CanModule::CanStatistics::onReceive()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00321">openCanPort()</a>, <a class="el" href="CCanAccess_8h_source.html#l00544">CanModule::CCanAccess::reconnectActionString()</a>, <a class="el" href="CCanAccess_8h_source.html#l00532">CanModule::CCanAccess::reconnectConditionString()</a>, <a class="el" href="CCanAccess_8h_source.html#l00570">CanModule::CCanAccess::resetTimeoutOnReception()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00380">sendErrorCode()</a>, <a class="el" href="STCanScan_8h_source.html#l00101">setCanHandleInUse()</a>, <a class="el" href="CanStatistics_8h_source.html#l00115">CanModule::CanStatistics::setTimeSinceReceived()</a>, <a class="el" href="namespaceCanModule.html#a2062089fa4fa87c8354295f2a8fe31a5a5f768fefafa6db21eee26885afb6163d">CanModule::singleBus</a>, and <a class="el" href="namespaceCanModule.html#a2f4fee79cc7ba53467c2538fe6b9adbbaba350cf15e5a1471109f17351afb401a">CanModule::timeoutOnReception</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="STCanScan_8cpp_source.html#l00208">createBus()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="STCanScan_8cpp_source.html#l00211">createBus()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classSTCanScan_aab42375da764eb0d50dee318cd790646_cgraph.png" border="0" usemap="#classSTCanScan_aab42375da764eb0d50dee318cd790646_cgraph" alt=""/></div>
-<map name="classSTCanScan_aab42375da764eb0d50dee318cd790646_cgraph" id="classSTCanScan_aab42375da764eb0d50dee318cd790646_cgraph">
-<area shape="rect" title=" " alt="" coords="5,379,209,420"/>
-<area shape="rect" href="namespaceCanModule.html#a3ec3082d7d11a9c1641023cb3f53cbe5" title=" " alt="" coords="565,10,784,51"/>
-<area shape="rect" href="classSTCanScan.html#af6cf11abff5d1b39b35ceff9ae857270" title=" " alt="" coords="272,178,495,219"/>
-<area shape="rect" href="namespaceCanModule.html#a6d0711aac0a75de5d2bf6142997a814d" title=" " alt="" coords="557,126,792,153"/>
-<area shape="rect" href="classSTCanScan.html#a471b6a8617a57b974cb71a2dc540d370" title=" " alt="" coords="268,244,499,270"/>
-<area shape="rect" href="classSTCanScan.html#a01b70015904374f482647fbfb1806b08" title=" " alt="" coords="257,294,509,321"/>
-<area shape="rect" href="classCanModule_1_1CCanAccess.html#a79c236a0e2b3e3b183b1c85aab3f5b71" title=" " alt="" coords="288,346,479,387"/>
-<area shape="rect" href="classCanModule_1_1CanStatistics.html#a82b38a2383bc0ad6b1d306e86b9ef5c6" title="dataLength is the user data size (DLC field)" alt="" coords="289,411,477,452"/>
-<area shape="rect" href="classSTCanScan.html#a5f74df7e9615929365b33c08e709e918" title=" " alt="" coords="291,477,475,504"/>
-<area shape="rect" href="classSTCanScan.html#ae29a23d161c115f173cbdb3a807c895e" title=" " alt="" coords="560,565,789,592"/>
-<area shape="rect" href="classCanModule_1_1CCanAccess.html#aa12f64e9e31bd491f39fc3169b1e5025" title=" " alt="" coords="292,579,475,620"/>
-<area shape="rect" href="classCanModule_1_1CCanAccess.html#a9da88ce122d5de04a0235a4682a13dc0" title=" " alt="" coords="286,644,481,686"/>
-<area shape="rect" href="classCanModule_1_1CCanAccess.html#a067f50699c1ed4b6ee6732eb0078ed0a" title=" " alt="" coords="283,710,483,751"/>
-<area shape="rect" href="classSTCanScan.html#a43454c0bc20eb764cbb4ef3dd5e52cc9" title=" " alt="" coords="285,76,481,102"/>
-<area shape="rect" href="classCanModule_1_1CanStatistics.html#a99de404f1b24cee80edfaad7ad1f9499" title=" " alt="" coords="289,775,477,816"/>
-<area shape="rect" href="classSTCanScan.html#a29b4c3c8f29e45f808fbb7528e4593aa" title=" " alt="" coords="578,346,771,373"/>
-<area shape="rect" href="classSTCanScan.html#a2f2a9aaa3ce2c653a4e1152eb8497493" title=" " alt="" coords="565,397,785,424"/>
-<area shape="rect" href="classSTCanScan.html#a50f89ce5fc0b2961937dc8a4b86081f8" title=" " alt="" coords="579,448,771,474"/>
-<area shape="rect" href="classCanModule_1_1CanStatistics.html#af3f15dedf80e67f1309946632d87198d" title=" " alt="" coords="581,499,769,540"/>
-<area shape="rect" href="classSTCanScan.html#a9a4da7b1dd74e81e8066894a1a8c051e" title=" " alt="" coords="566,76,783,102"/>
-<area shape="rect" href="classSTCanScan.html#a794110572725db6b7c153104ee1330b3" title=" " alt="" coords="840,76,1059,102"/>
-</map>
+<!-- MAP 3 -->
 </div>
 
 </div>
@@ -456,28 +439,16 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>configures systec @ windows board only G1/G2 boards </p>
 
-<p class="definition">Definition at line <a class="el" href="STCanScan_8cpp_source.html#l00242">242</a> of file <a class="el" href="STCanScan_8cpp_source.html">STCanScan.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="STCanScan_8cpp_source.html#l00245">245</a> of file <a class="el" href="STCanScan_8cpp_source.html">STCanScan.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="STCanScan_8cpp_source.html#l00075">createInitializationParameters()</a>, <a class="el" href="STCanScan_8h_source.html#l00080">m_baudRate</a>, <a class="el" href="STCanScan_8h_source.html#l00077">m_canHandleNumber</a>, <a class="el" href="CCanAccess_8h_source.html#l00461">CanModule::CCanAccess::m_CanParameters</a>, <a class="el" href="STCanScan_8h_source.html#l00076">m_channelNumber</a>, <a class="el" href="CCanAccess_8h_source.html#l00117">CanModule::CanParameters::m_iNumberOfDetectedParameters</a>, <a class="el" href="CCanAccess_8h_source.html#l00112">CanModule::CanParameters::m_lBaudRate</a>, <a class="el" href="STCanScan_8h_source.html#l00071">m_moduleNumber</a>, <a class="el" href="STCanScan_8cpp_source.html#l00037">MLOGST</a>, <a class="el" href="STCanScan_8cpp_source.html#l00318">openCanPort()</a>, <a class="el" href="CCanAccess_8h_source.html#l00342">CanModule::CCanAccess::parseNameAndParameters()</a>, and <a class="el" href="STCanScan_8cpp_source.html#l00290">vendorBaudRate2UserBaudRate()</a>.</p>
+<p class="reference">References <a class="el" href="STCanScan_8cpp_source.html#l00078">createInitializationParameters()</a>, <a class="el" href="STCanScan_8h_source.html#l00081">m_baudRate</a>, <a class="el" href="STCanScan_8h_source.html#l00078">m_canHandleNumber</a>, <a class="el" href="CCanAccess_8h_source.html#l00515">CanModule::CCanAccess::m_CanParameters</a>, <a class="el" href="STCanScan_8h_source.html#l00077">m_channelNumber</a>, <a class="el" href="CCanAccess_8h_source.html#l00134">CanModule::CanParameters::m_iNumberOfDetectedParameters</a>, <a class="el" href="CCanAccess_8h_source.html#l00126">CanModule::CanParameters::m_lBaudRate</a>, <a class="el" href="STCanScan_8h_source.html#l00076">m_moduleNumber</a>, <a class="el" href="STCanScan_8cpp_source.html#l00037">MLOGST</a>, <a class="el" href="STCanScan_8cpp_source.html#l00321">openCanPort()</a>, <a class="el" href="CCanAccess_8h_source.html#l00365">CanModule::CCanAccess::parseNameAndParameters()</a>, and <a class="el" href="STCanScan_8cpp_source.html#l00293">vendorBaudRate2UserBaudRate()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="STCanScan_8cpp_source.html#l00208">createBus()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="STCanScan_8cpp_source.html#l00211">createBus()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classSTCanScan_a8e147c77933e11e9983f4d4e22830b21_cgraph.png" border="0" usemap="#classSTCanScan_a8e147c77933e11e9983f4d4e22830b21_cgraph" alt=""/></div>
-<map name="classSTCanScan_a8e147c77933e11e9983f4d4e22830b21_cgraph" id="classSTCanScan_a8e147c77933e11e9983f4d4e22830b21_cgraph">
-<area shape="rect" title=" " alt="" coords="5,161,229,188"/>
-<area shape="rect" href="classSTCanScan.html#af6cf11abff5d1b39b35ceff9ae857270" title=" " alt="" coords="277,66,500,107"/>
-<area shape="rect" href="classSTCanScan.html#a5f74df7e9615929365b33c08e709e918" title=" " alt="" coords="297,132,481,159"/>
-<area shape="rect" href="classCanModule_1_1CCanAccess.html#af26c9d102638fb96e5e1305f807d148f" title=" " alt="" coords="287,183,491,225"/>
-<area shape="rect" href="classSTCanScan.html#aa57c48594c8a70a0331f07fb4ad208fd" title=" " alt="" coords="280,249,497,290"/>
-<area shape="rect" href="classSTCanScan.html#a29b4c3c8f29e45f808fbb7528e4593aa" title=" " alt="" coords="566,5,759,32"/>
-<area shape="rect" href="classSTCanScan.html#a2f2a9aaa3ce2c653a4e1152eb8497493" title=" " alt="" coords="553,56,773,83"/>
-<area shape="rect" href="classSTCanScan.html#a50f89ce5fc0b2961937dc8a4b86081f8" title=" " alt="" coords="567,107,759,133"/>
-<area shape="rect" href="classSTCanScan.html#ae29a23d161c115f173cbdb3a807c895e" title=" " alt="" coords="548,157,777,184"/>
-<area shape="rect" href="classCanModule_1_1CanStatistics.html#af3f15dedf80e67f1309946632d87198d" title=" " alt="" coords="569,209,757,250"/>
-<area shape="rect" href="structCanModule_1_1CanParameters.html#ae3c938ac282acae4e49487cbb8a61133" title=" " alt="" coords="561,274,764,315"/>
-</map>
+<!-- MAP 4 -->
 </div>
 
 </div>
@@ -540,41 +511,14 @@ Here is the call graph for this function:</div>
 
 <p>Implements <a class="el" href="classCanModule_1_1CCanAccess.html#a0eeee5c3d48f1102012d1483cbe6e64b">CanModule::CCanAccess</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="STCanScan_8cpp_source.html#l00208">208</a> of file <a class="el" href="STCanScan_8cpp_source.html">STCanScan.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="STCanScan_8cpp_source.html#l00211">211</a> of file <a class="el" href="STCanScan_8cpp_source.html">STCanScan.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="STCanScan_8cpp_source.html#l00095">CanScanControlThread()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00242">configureCanBoard()</a>, <a class="el" href="CCanAccess_8h_source.html#l00050">CanModule::LogItComponentName</a>, <a class="el" href="STCanScan_8h_source.html#l00087">m_hCanScanThread</a>, <a class="el" href="STCanScan_8h_source.html#l00089">m_idCanScanThread</a>, <a class="el" href="STCanScan_8h_source.html#l00081">m_logItHandleSt</a>, <a class="el" href="CCanAccess_8h_source.html#l00460">CanModule::CCanAccess::m_sBusName</a>, and <a class="el" href="STCanScan_8cpp_source.html#l00037">MLOGST</a>.</p>
+<p class="reference">References <a class="el" href="STCanScan_8cpp_source.html#l00098">CanScanControlThread()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00245">configureCanBoard()</a>, <a class="el" href="CCanAccess_8h_source.html#l00059">CanModule::LogItComponentName</a>, <a class="el" href="STCanScan_8h_source.html#l00088">m_hCanScanThread</a>, <a class="el" href="STCanScan_8h_source.html#l00090">m_idCanScanThread</a>, <a class="el" href="STCanScan_8h_source.html#l00082">m_logItHandleSt</a>, <a class="el" href="CCanAccess_8h_source.html#l00514">CanModule::CCanAccess::m_sBusName</a>, and <a class="el" href="STCanScan_8cpp_source.html#l00037">MLOGST</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classSTCanScan_a28ac80d789b6d4d2bb11526bfaede69e_cgraph.png" border="0" usemap="#classSTCanScan_a28ac80d789b6d4d2bb11526bfaede69e_cgraph" alt=""/></div>
-<map name="classSTCanScan_a28ac80d789b6d4d2bb11526bfaede69e_cgraph" id="classSTCanScan_a28ac80d789b6d4d2bb11526bfaede69e_cgraph">
-<area shape="rect" title=" " alt="" coords="5,323,172,350"/>
-<area shape="rect" href="classSTCanScan.html#aab42375da764eb0d50dee318cd790646" title=" " alt="" coords="230,495,434,536"/>
-<area shape="rect" href="classSTCanScan.html#a8e147c77933e11e9983f4d4e22830b21" title=" " alt="" coords="220,143,444,170"/>
-<area shape="rect" href="namespaceCanModule.html#a3ec3082d7d11a9c1641023cb3f53cbe5" title=" " alt="" coords="800,903,1019,944"/>
-<area shape="rect" href="classSTCanScan.html#af6cf11abff5d1b39b35ceff9ae857270" title=" " alt="" coords="507,136,729,177"/>
-<area shape="rect" href="namespaceCanModule.html#a6d0711aac0a75de5d2bf6142997a814d" title=" " alt="" coords="792,801,1027,827"/>
-<area shape="rect" href="classSTCanScan.html#a471b6a8617a57b974cb71a2dc540d370" title=" " alt="" coords="503,502,733,529"/>
-<area shape="rect" href="classSTCanScan.html#a01b70015904374f482647fbfb1806b08" title=" " alt="" coords="492,553,744,579"/>
-<area shape="rect" href="classCanModule_1_1CCanAccess.html#a79c236a0e2b3e3b183b1c85aab3f5b71" title=" " alt="" coords="523,604,713,645"/>
-<area shape="rect" href="classCanModule_1_1CanStatistics.html#a82b38a2383bc0ad6b1d306e86b9ef5c6" title="dataLength is the user data size (DLC field)" alt="" coords="524,669,712,711"/>
-<area shape="rect" href="classSTCanScan.html#a5f74df7e9615929365b33c08e709e918" title=" " alt="" coords="526,202,710,229"/>
-<area shape="rect" href="classSTCanScan.html#ae29a23d161c115f173cbdb3a807c895e" title=" " alt="" coords="795,315,1024,342"/>
-<area shape="rect" href="classCanModule_1_1CCanAccess.html#aa12f64e9e31bd491f39fc3169b1e5025" title=" " alt="" coords="527,735,709,776"/>
-<area shape="rect" href="classCanModule_1_1CCanAccess.html#a9da88ce122d5de04a0235a4682a13dc0" title=" " alt="" coords="521,253,715,295"/>
-<area shape="rect" href="classCanModule_1_1CCanAccess.html#a067f50699c1ed4b6ee6732eb0078ed0a" title=" " alt="" coords="518,371,718,412"/>
-<area shape="rect" href="classSTCanScan.html#a43454c0bc20eb764cbb4ef3dd5e52cc9" title=" " alt="" coords="520,851,716,878"/>
-<area shape="rect" href="classCanModule_1_1CanStatistics.html#a99de404f1b24cee80edfaad7ad1f9499" title=" " alt="" coords="524,436,712,477"/>
-<area shape="rect" href="classSTCanScan.html#a29b4c3c8f29e45f808fbb7528e4593aa" title=" " alt="" coords="813,210,1006,237"/>
-<area shape="rect" href="classSTCanScan.html#a2f2a9aaa3ce2c653a4e1152eb8497493" title=" " alt="" coords="799,261,1019,287"/>
-<area shape="rect" href="classSTCanScan.html#a50f89ce5fc0b2961937dc8a4b86081f8" title=" " alt="" coords="813,93,1005,119"/>
-<area shape="rect" href="classCanModule_1_1CanStatistics.html#af3f15dedf80e67f1309946632d87198d" title=" " alt="" coords="815,144,1003,185"/>
-<area shape="rect" href="classSTCanScan.html#a9a4da7b1dd74e81e8066894a1a8c051e" title=" " alt="" coords="801,851,1018,878"/>
-<area shape="rect" href="classSTCanScan.html#a794110572725db6b7c153104ee1330b3" title=" " alt="" coords="1075,851,1293,878"/>
-<area shape="rect" href="classCanModule_1_1CCanAccess.html#af26c9d102638fb96e5e1305f807d148f" title=" " alt="" coords="516,5,720,47"/>
-<area shape="rect" href="classSTCanScan.html#aa57c48594c8a70a0331f07fb4ad208fd" title=" " alt="" coords="509,71,727,112"/>
-<area shape="rect" href="structCanModule_1_1CanParameters.html#ae3c938ac282acae4e49487cbb8a61133" title=" " alt="" coords="808,5,1011,47"/>
-</map>
+<!-- MAP 5 -->
 </div>
 
 </div>
@@ -604,9 +548,9 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>We create and fill initializationParameters, to pass it to openCanPort </p>
 
-<p class="definition">Definition at line <a class="el" href="STCanScan_8cpp_source.html#l00075">75</a> of file <a class="el" href="STCanScan_8cpp_source.html">STCanScan.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="STCanScan_8cpp_source.html#l00078">78</a> of file <a class="el" href="STCanScan_8cpp_source.html">STCanScan.cpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="STCanScan_8cpp_source.html#l00095">CanScanControlThread()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00242">configureCanBoard()</a>, and <a class="el" href="STCanScan_8cpp_source.html#l00428">sendMessage()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="STCanScan_8cpp_source.html#l00098">CanScanControlThread()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00245">configureCanBoard()</a>, and <a class="el" href="STCanScan_8cpp_source.html#l00431">sendMessage()</a>.</p>
 
 </div>
 </div>
@@ -645,19 +589,16 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>convert the systec status word into a human readable message </p>
 
-<p class="definition">Definition at line <a class="el" href="STCanScan_8cpp_source.html#l00687">687</a> of file <a class="el" href="STCanScan_8cpp_source.html">STCanScan.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="STCanScan_8cpp_source.html#l00690">690</a> of file <a class="el" href="STCanScan_8cpp_source.html">STCanScan.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="STCanScan_8cpp_source.html#l00527">STcanGetErrorText()</a>.</p>
+<p class="reference">References <a class="el" href="STCanScan_8cpp_source.html#l00530">STcanGetErrorText()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="STCanScan_8cpp_source.html#l00377">sendErrorCode()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="STCanScan_8cpp_source.html#l00380">sendErrorCode()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classSTCanScan_a9a4da7b1dd74e81e8066894a1a8c051e_cgraph.png" border="0" usemap="#classSTCanScan_a9a4da7b1dd74e81e8066894a1a8c051e_cgraph" alt=""/></div>
-<map name="classSTCanScan_a9a4da7b1dd74e81e8066894a1a8c051e_cgraph" id="classSTCanScan_a9a4da7b1dd74e81e8066894a1a8c051e_cgraph">
-<area shape="rect" title=" " alt="" coords="5,5,223,32"/>
-<area shape="rect" href="classSTCanScan.html#a794110572725db6b7c153104ee1330b3" title=" " alt="" coords="271,5,489,32"/>
-</map>
+<!-- MAP 6 -->
 </div>
 
 </div>
@@ -686,9 +627,9 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="STCanScan_8h_source.html#l00103">103</a> of file <a class="el" href="STCanScan_8h_source.html">STCanScan.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="STCanScan_8h_source.html#l00104">104</a> of file <a class="el" href="STCanScan_8h_source.html">STCanScan.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="STCanScan_8cpp_source.html#l00318">openCanPort()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="STCanScan_8cpp_source.html#l00321">openCanPort()</a>.</p>
 
 </div>
 </div>
@@ -749,9 +690,9 @@ Here is the call graph for this function:</div>
 
 <p>Implements <a class="el" href="classCanModule_1_1CCanAccess.html#a33fe530d070cf35d096e967d543186a4">CanModule::CCanAccess</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="STCanScan_8cpp_source.html#l00369">369</a> of file <a class="el" href="STCanScan_8cpp_source.html">STCanScan.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="STCanScan_8cpp_source.html#l00372">372</a> of file <a class="el" href="STCanScan_8cpp_source.html">STCanScan.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="CCanAccess_8h_source.html#l00072">CANMODULE_STATUS_BP_SYSTEC</a>, and <a class="el" href="STCanScan_8h_source.html#l00078">m_UcanHandle</a>.</p>
+<p class="reference">References <a class="el" href="CCanAccess_8h_source.html#l00086">CANMODULE_STATUS_BP_SYSTEC</a>, and <a class="el" href="STCanScan_8h_source.html#l00079">m_UcanHandle</a>.</p>
 
 </div>
 </div>
@@ -783,7 +724,7 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="STCanScan_8h_source.html#l00071">71</a> of file <a class="el" href="STCanScan_8h_source.html">STCanScan.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="STCanScan_8cpp_source.html#l00095">CanScanControlThread()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="STCanScan_8cpp_source.html#l00098">CanScanControlThread()</a>.</p>
 
 </div>
 </div>
@@ -815,7 +756,7 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="STCanScan_8h_source.html#l00070">70</a> of file <a class="el" href="STCanScan_8h_source.html">STCanScan.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="STCanScan_8cpp_source.html#l00095">CanScanControlThread()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="STCanScan_8cpp_source.html#l00098">CanScanControlThread()</a>.</p>
 
 </div>
 </div>
@@ -845,18 +786,14 @@ Here is the call graph for this function:</div>
 
 <p>Implements <a class="el" href="classCanModule_1_1CCanAccess.html#ad3182c83b4c5d7e6aef982c36e731507">CanModule::CCanAccess</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="STCanScan_8cpp_source.html#l00695">695</a> of file <a class="el" href="STCanScan_8cpp_source.html">STCanScan.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="STCanScan_8cpp_source.html#l00698">698</a> of file <a class="el" href="STCanScan_8cpp_source.html">STCanScan.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="CanStatistics_8cpp_source.html#l00044">CanModule::CanStatistics::beginNewRun()</a>, <a class="el" href="CanStatistics_8cpp_source.html#l00074">CanModule::CanStatistics::computeDerived()</a>, <a class="el" href="STCanScan_8h_source.html#l00080">m_baudRate</a>, and <a class="el" href="STCanScan_8h_source.html#l00079">m_statistics</a>.</p>
+<p class="reference">References <a class="el" href="CanStatistics_8cpp_source.html#l00044">CanModule::CanStatistics::beginNewRun()</a>, <a class="el" href="CanStatistics_8cpp_source.html#l00074">CanModule::CanStatistics::computeDerived()</a>, <a class="el" href="STCanScan_8h_source.html#l00081">m_baudRate</a>, and <a class="el" href="STCanScan_8h_source.html#l00080">m_statistics</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classSTCanScan_a4810249805b660c4e914247acbdf45d2_cgraph.png" border="0" usemap="#classSTCanScan_a4810249805b660c4e914247acbdf45d2_cgraph" alt=""/></div>
-<map name="classSTCanScan_a4810249805b660c4e914247acbdf45d2_cgraph" id="classSTCanScan_a4810249805b660c4e914247acbdf45d2_cgraph">
-<area shape="rect" title=" " alt="" coords="5,46,188,73"/>
-<area shape="rect" href="classCanModule_1_1CanStatistics.html#a85e6c87ce5285884a0272088178bb8f6" title=" " alt="" coords="236,5,424,47"/>
-<area shape="rect" href="classCanModule_1_1CanStatistics.html#a8ec66bd11141579779f143362b70640e" title=" " alt="" coords="236,71,424,112"/>
-</map>
+<!-- MAP 7 -->
 </div>
 
 </div>
@@ -885,9 +822,9 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="STCanScan_8h_source.html#l00101">101</a> of file <a class="el" href="STCanScan_8h_source.html">STCanScan.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="STCanScan_8h_source.html#l00102">102</a> of file <a class="el" href="STCanScan_8h_source.html">STCanScan.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="STCanScan_8cpp_source.html#l00318">openCanPort()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="STCanScan_8cpp_source.html#l00321">openCanPort()</a>.</p>
 
 </div>
 </div>
@@ -944,23 +881,16 @@ Here is the call graph for this function:</div>
 <p>Obtains a Systec canport and opens it. The name of the port and parameters should have been specified by preceding call to configureCanboard()</p>
 <dl class="section return"><dt>Returns</dt><dd>less than zero in case of error, otherwise success </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="STCanScan_8cpp_source.html#l00318">318</a> of file <a class="el" href="STCanScan_8cpp_source.html">STCanScan.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="STCanScan_8cpp_source.html#l00321">321</a> of file <a class="el" href="STCanScan_8cpp_source.html">STCanScan.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="STCanScan_8h_source.html#l00103">getCanHandle()</a>, <a class="el" href="STCanScan_8h_source.html#l00101">isCanHandleInUse()</a>, <a class="el" href="STCanScan_8h_source.html#l00076">m_channelNumber</a>, <a class="el" href="STCanScan_8h_source.html#l00071">m_moduleNumber</a>, <a class="el" href="STCanScan_8h_source.html#l00079">m_statistics</a>, <a class="el" href="STCanScan_8h_source.html#l00078">m_UcanHandle</a>, <a class="el" href="STCanScan_8cpp_source.html#l00037">MLOGST</a>, <a class="el" href="STCanScan_8h_source.html#l00102">setCanHandle()</a>, <a class="el" href="STCanScan_8h_source.html#l00100">setCanHandleInUse()</a>, and <a class="el" href="CanStatistics_8h_source.html#l00107">CanModule::CanStatistics::setTimeSinceOpened()</a>.</p>
+<p class="reference">References <a class="el" href="STCanScan_8h_source.html#l00104">getCanHandle()</a>, <a class="el" href="STCanScan_8h_source.html#l00102">isCanHandleInUse()</a>, <a class="el" href="STCanScan_8h_source.html#l00077">m_channelNumber</a>, <a class="el" href="STCanScan_8h_source.html#l00076">m_moduleNumber</a>, <a class="el" href="STCanScan_8h_source.html#l00080">m_statistics</a>, <a class="el" href="STCanScan_8h_source.html#l00079">m_UcanHandle</a>, <a class="el" href="STCanScan_8cpp_source.html#l00037">MLOGST</a>, <a class="el" href="STCanScan_8h_source.html#l00103">setCanHandle()</a>, <a class="el" href="STCanScan_8h_source.html#l00101">setCanHandleInUse()</a>, and <a class="el" href="CanStatistics_8h_source.html#l00107">CanModule::CanStatistics::setTimeSinceOpened()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="STCanScan_8cpp_source.html#l00095">CanScanControlThread()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00242">configureCanBoard()</a>, and <a class="el" href="STCanScan_8cpp_source.html#l00428">sendMessage()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="STCanScan_8cpp_source.html#l00098">CanScanControlThread()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00245">configureCanBoard()</a>, and <a class="el" href="STCanScan_8cpp_source.html#l00431">sendMessage()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classSTCanScan_a5f74df7e9615929365b33c08e709e918_cgraph.png" border="0" usemap="#classSTCanScan_a5f74df7e9615929365b33c08e709e918_cgraph" alt=""/></div>
-<map name="classSTCanScan_a5f74df7e9615929365b33c08e709e918_cgraph" id="classSTCanScan_a5f74df7e9615929365b33c08e709e918_cgraph">
-<area shape="rect" title=" " alt="" coords="5,107,189,133"/>
-<area shape="rect" href="classSTCanScan.html#a29b4c3c8f29e45f808fbb7528e4593aa" title=" " alt="" coords="255,5,449,32"/>
-<area shape="rect" href="classSTCanScan.html#a2f2a9aaa3ce2c653a4e1152eb8497493" title=" " alt="" coords="242,56,462,83"/>
-<area shape="rect" href="classSTCanScan.html#a50f89ce5fc0b2961937dc8a4b86081f8" title=" " alt="" coords="256,107,448,133"/>
-<area shape="rect" href="classSTCanScan.html#ae29a23d161c115f173cbdb3a807c895e" title=" " alt="" coords="237,157,467,184"/>
-<area shape="rect" href="classCanModule_1_1CanStatistics.html#af3f15dedf80e67f1309946632d87198d" title=" " alt="" coords="258,209,446,250"/>
-</map>
+<!-- MAP 8 -->
 </div>
 
 </div>
@@ -1016,11 +946,11 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>hard reset the bridge and reconnect all ports and handlers: windows </p>
 
-<p class="definition">Definition at line <a class="el" href="STCanScan_8cpp_source.html#l00395">395</a> of file <a class="el" href="STCanScan_8cpp_source.html">STCanScan.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="STCanScan_8cpp_source.html#l00398">398</a> of file <a class="el" href="STCanScan_8cpp_source.html">STCanScan.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="STCanScan_8h_source.html#l00071">m_moduleNumber</a>, and <a class="el" href="STCanScan_8h_source.html#l00078">m_UcanHandle</a>.</p>
+<p class="reference">References <a class="el" href="STCanScan_8h_source.html#l00076">m_moduleNumber</a>, and <a class="el" href="STCanScan_8h_source.html#l00079">m_UcanHandle</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="STCanScan_8cpp_source.html#l00428">sendMessage()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="STCanScan_8cpp_source.html#l00431">sendMessage()</a>.</p>
 
 </div>
 </div>
@@ -1048,22 +978,16 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="STCanScan_8cpp_source.html#l00377">377</a> of file <a class="el" href="STCanScan_8cpp_source.html">STCanScan.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="STCanScan_8cpp_source.html#l00380">380</a> of file <a class="el" href="STCanScan_8cpp_source.html">STCanScan.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="CCanAccess_8h_source.html#l00307">CanModule::CCanAccess::canMessageError</a>, <a class="el" href="CanModuleUtils_8cpp_source.html#l00044">CanModule::convertTimepointToTimeval()</a>, <a class="el" href="CanModuleUtils_8cpp_source.html#l00060">CanModule::currentTimeTimeval()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00687">errorCodeToString()</a>, and <a class="el" href="STCanScan_8h_source.html#l00084">m_busStatus</a>.</p>
+<p class="reference">References <a class="el" href="CCanAccess_8h_source.html#l00330">CanModule::CCanAccess::canMessageError</a>, <a class="el" href="CanModuleUtils_8cpp_source.html#l00044">CanModule::convertTimepointToTimeval()</a>, <a class="el" href="CanModuleUtils_8cpp_source.html#l00060">CanModule::currentTimeTimeval()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00690">errorCodeToString()</a>, and <a class="el" href="STCanScan_8h_source.html#l00085">m_busStatus</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="STCanScan_8cpp_source.html#l00095">CanScanControlThread()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00428">sendMessage()</a>, and <a class="el" href="STCanScan_8cpp_source.html#l00510">sendRemoteRequest()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="STCanScan_8cpp_source.html#l00098">CanScanControlThread()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00431">sendMessage()</a>, and <a class="el" href="STCanScan_8cpp_source.html#l00513">sendRemoteRequest()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classSTCanScan_a43454c0bc20eb764cbb4ef3dd5e52cc9_cgraph.png" border="0" usemap="#classSTCanScan_a43454c0bc20eb764cbb4ef3dd5e52cc9_cgraph" alt=""/></div>
-<map name="classSTCanScan_a43454c0bc20eb764cbb4ef3dd5e52cc9_cgraph" id="classSTCanScan_a43454c0bc20eb764cbb4ef3dd5e52cc9_cgraph">
-<area shape="rect" title=" " alt="" coords="5,71,201,98"/>
-<area shape="rect" href="namespaceCanModule.html#a3ec3082d7d11a9c1641023cb3f53cbe5" title=" " alt="" coords="257,5,476,47"/>
-<area shape="rect" href="namespaceCanModule.html#a6d0711aac0a75de5d2bf6142997a814d" title=" " alt="" coords="249,71,484,98"/>
-<area shape="rect" href="classSTCanScan.html#a9a4da7b1dd74e81e8066894a1a8c051e" title=" " alt="" coords="258,122,475,149"/>
-<area shape="rect" href="classSTCanScan.html#a794110572725db6b7c153104ee1330b3" title=" " alt="" coords="532,122,751,149"/>
-</map>
+<!-- MAP 9 -->
 </div>
 
 </div>
@@ -1127,33 +1051,14 @@ Here is the call graph for this function:</div>
 
 <p>Implements <a class="el" href="classCanModule_1_1CCanAccess.html#aee42ab7fb9e50c02a1812202f7863d8c">CanModule::CCanAccess</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="STCanScan_8cpp_source.html#l00428">428</a> of file <a class="el" href="STCanScan_8cpp_source.html">STCanScan.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="STCanScan_8cpp_source.html#l00431">431</a> of file <a class="el" href="STCanScan_8cpp_source.html">STCanScan.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="namespaceCanModule.html#a2062089fa4fa87c8354295f2a8fe31a5a319ee2c9d887d55f6bc1941518a5ae76">CanModule::allBusesOnBridge</a>, <a class="el" href="STCanScan_8cpp_source.html#l00075">createInitializationParameters()</a>, <a class="el" href="STCanScan_8h_source.html#l00080">m_baudRate</a>, <a class="el" href="STCanScan_8h_source.html#l00076">m_channelNumber</a>, <a class="el" href="CCanAccess_8h_source.html#l00468">CanModule::CCanAccess::m_failedSendCounter</a>, <a class="el" href="CCanAccess_8h_source.html#l00465">CanModule::CCanAccess::m_reconnectAction</a>, <a class="el" href="CCanAccess_8h_source.html#l00464">CanModule::CCanAccess::m_reconnectCondition</a>, <a class="el" href="STCanScan_8h_source.html#l00079">m_statistics</a>, <a class="el" href="CCanAccess_8h_source.html#l00467">CanModule::CCanAccess::m_triggerCounter</a>, <a class="el" href="STCanScan_8h_source.html#l00078">m_UcanHandle</a>, <a class="el" href="STCanScan_8cpp_source.html#l00037">MLOGST</a>, <a class="el" href="namespaceCanModule.html#a2f4fee79cc7ba53467c2538fe6b9adbbac7561db7a418dd39b2201dfe110ab4a4">CanModule::never</a>, <a class="el" href="CanStatistics_8cpp_source.html#l00094">CanModule::CanStatistics::onTransmit()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00318">openCanPort()</a>, <a class="el" href="CCanAccess_8h_source.html#l00485">CanModule::CCanAccess::reconnectActionString()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00395">reconnectAllPorts()</a>, <a class="el" href="CCanAccess_8h_source.html#l00473">CanModule::CCanAccess::reconnectConditionString()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00377">sendErrorCode()</a>, <a class="el" href="namespaceCanModule.html#a2f4fee79cc7ba53467c2538fe6b9adbbae323a25a871808f9a0df9a72ce954585">CanModule::sendFail</a>, <a class="el" href="CanStatistics_8h_source.html#l00123">CanModule::CanStatistics::setTimeSinceTransmitted()</a>, and <a class="el" href="namespaceCanModule.html#a2062089fa4fa87c8354295f2a8fe31a5a5f768fefafa6db21eee26885afb6163d">CanModule::singleBus</a>.</p>
+<p class="reference">References <a class="el" href="namespaceCanModule.html#a2062089fa4fa87c8354295f2a8fe31a5a319ee2c9d887d55f6bc1941518a5ae76">CanModule::allBusesOnBridge</a>, <a class="el" href="STCanScan_8cpp_source.html#l00078">createInitializationParameters()</a>, <a class="el" href="STCanScan_8h_source.html#l00081">m_baudRate</a>, <a class="el" href="STCanScan_8h_source.html#l00077">m_channelNumber</a>, <a class="el" href="CCanAccess_8h_source.html#l00521">CanModule::CCanAccess::m_failedSendCountdown</a>, <a class="el" href="CCanAccess_8h_source.html#l00522">CanModule::CCanAccess::m_maxFailedSendCount</a>, <a class="el" href="CCanAccess_8h_source.html#l00519">CanModule::CCanAccess::m_reconnectAction</a>, <a class="el" href="CCanAccess_8h_source.html#l00518">CanModule::CCanAccess::m_reconnectCondition</a>, <a class="el" href="STCanScan_8h_source.html#l00080">m_statistics</a>, <a class="el" href="STCanScan_8h_source.html#l00079">m_UcanHandle</a>, <a class="el" href="STCanScan_8cpp_source.html#l00037">MLOGST</a>, <a class="el" href="namespaceCanModule.html#a2f4fee79cc7ba53467c2538fe6b9adbbac7561db7a418dd39b2201dfe110ab4a4">CanModule::never</a>, <a class="el" href="CanStatistics_8cpp_source.html#l00093">CanModule::CanStatistics::onTransmit()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00321">openCanPort()</a>, <a class="el" href="CCanAccess_8h_source.html#l00544">CanModule::CCanAccess::reconnectActionString()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00398">reconnectAllPorts()</a>, <a class="el" href="CCanAccess_8h_source.html#l00532">CanModule::CCanAccess::reconnectConditionString()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00380">sendErrorCode()</a>, <a class="el" href="namespaceCanModule.html#a2f4fee79cc7ba53467c2538fe6b9adbbae323a25a871808f9a0df9a72ce954585">CanModule::sendFail</a>, <a class="el" href="CanStatistics_8h_source.html#l00123">CanModule::CanStatistics::setTimeSinceTransmitted()</a>, and <a class="el" href="namespaceCanModule.html#a2062089fa4fa87c8354295f2a8fe31a5a5f768fefafa6db21eee26885afb6163d">CanModule::singleBus</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classSTCanScan_a45f0ec011022bf58a23e8370bac7f829_cgraph.png" border="0" usemap="#classSTCanScan_a45f0ec011022bf58a23e8370bac7f829_cgraph" alt=""/></div>
-<map name="classSTCanScan_a45f0ec011022bf58a23e8370bac7f829_cgraph" id="classSTCanScan_a45f0ec011022bf58a23e8370bac7f829_cgraph">
-<area shape="rect" title=" " alt="" coords="5,225,196,251"/>
-<area shape="rect" href="classSTCanScan.html#af6cf11abff5d1b39b35ceff9ae857270" title=" " alt="" coords="244,5,467,47"/>
-<area shape="rect" href="classCanModule_1_1CanStatistics.html#a0265b75e9e2e16737950b6b5c5662f35" title="dataLength is the user data size (DLC field)" alt="" coords="261,71,449,112"/>
-<area shape="rect" href="classSTCanScan.html#a5f74df7e9615929365b33c08e709e918" title=" " alt="" coords="263,137,447,163"/>
-<area shape="rect" href="classCanModule_1_1CCanAccess.html#aa12f64e9e31bd491f39fc3169b1e5025" title=" " alt="" coords="264,188,447,229"/>
-<area shape="rect" href="classSTCanScan.html#a50337fe307a73461cce620c6cb6b8fe9" title=" " alt="" coords="248,254,463,281"/>
-<area shape="rect" href="classCanModule_1_1CCanAccess.html#a9da88ce122d5de04a0235a4682a13dc0" title=" " alt="" coords="258,305,453,347"/>
-<area shape="rect" href="classSTCanScan.html#a43454c0bc20eb764cbb4ef3dd5e52cc9" title=" " alt="" coords="257,371,453,398"/>
-<area shape="rect" href="classCanModule_1_1CanStatistics.html#afe8d43dfb65ee2675ceac1dc84f7eb1a" title=" " alt="" coords="258,423,453,464"/>
-<area shape="rect" href="classSTCanScan.html#a29b4c3c8f29e45f808fbb7528e4593aa" title=" " alt="" coords="535,35,729,62"/>
-<area shape="rect" href="classSTCanScan.html#a2f2a9aaa3ce2c653a4e1152eb8497493" title=" " alt="" coords="522,86,742,113"/>
-<area shape="rect" href="classSTCanScan.html#a50f89ce5fc0b2961937dc8a4b86081f8" title=" " alt="" coords="536,137,728,163"/>
-<area shape="rect" href="classSTCanScan.html#ae29a23d161c115f173cbdb3a807c895e" title=" " alt="" coords="517,187,747,214"/>
-<area shape="rect" href="classCanModule_1_1CanStatistics.html#af3f15dedf80e67f1309946632d87198d" title=" " alt="" coords="538,239,726,280"/>
-<area shape="rect" href="namespaceCanModule.html#a3ec3082d7d11a9c1641023cb3f53cbe5" title=" " alt="" coords="523,305,741,347"/>
-<area shape="rect" href="namespaceCanModule.html#a6d0711aac0a75de5d2bf6142997a814d" title=" " alt="" coords="515,371,749,398"/>
-<area shape="rect" href="classSTCanScan.html#a9a4da7b1dd74e81e8066894a1a8c051e" title=" " alt="" coords="523,422,741,449"/>
-<area shape="rect" href="classSTCanScan.html#a794110572725db6b7c153104ee1330b3" title=" " alt="" coords="797,422,1016,449"/>
-</map>
+<!-- MAP 10 -->
 </div>
 
 </div>
@@ -1191,21 +1096,14 @@ Here is the call graph for this function:</div>
 
 <p>Implements <a class="el" href="classCanModule_1_1CCanAccess.html#acfefbc9be2696b1388cf6df2bba00aa1">CanModule::CCanAccess</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="STCanScan_8cpp_source.html#l00510">510</a> of file <a class="el" href="STCanScan_8cpp_source.html">STCanScan.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="STCanScan_8cpp_source.html#l00513">513</a> of file <a class="el" href="STCanScan_8cpp_source.html">STCanScan.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="STCanScan_8h_source.html#l00076">m_channelNumber</a>, <a class="el" href="STCanScan_8h_source.html#l00078">m_UcanHandle</a>, and <a class="el" href="STCanScan_8cpp_source.html#l00377">sendErrorCode()</a>.</p>
+<p class="reference">References <a class="el" href="STCanScan_8h_source.html#l00077">m_channelNumber</a>, <a class="el" href="STCanScan_8h_source.html#l00079">m_UcanHandle</a>, and <a class="el" href="STCanScan_8cpp_source.html#l00380">sendErrorCode()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classSTCanScan_a2c1de002fa7ace90ef95af00f824c8e4_cgraph.png" border="0" usemap="#classSTCanScan_a2c1de002fa7ace90ef95af00f824c8e4_cgraph" alt=""/></div>
-<map name="classSTCanScan_a2c1de002fa7ace90ef95af00f824c8e4_cgraph" id="classSTCanScan_a2c1de002fa7ace90ef95af00f824c8e4_cgraph">
-<area shape="rect" title=" " alt="" coords="5,71,241,98"/>
-<area shape="rect" href="classSTCanScan.html#a43454c0bc20eb764cbb4ef3dd5e52cc9" title=" " alt="" coords="289,71,485,98"/>
-<area shape="rect" href="namespaceCanModule.html#a3ec3082d7d11a9c1641023cb3f53cbe5" title=" " alt="" coords="541,5,760,47"/>
-<area shape="rect" href="namespaceCanModule.html#a6d0711aac0a75de5d2bf6142997a814d" title=" " alt="" coords="533,71,768,98"/>
-<area shape="rect" href="classSTCanScan.html#a9a4da7b1dd74e81e8066894a1a8c051e" title=" " alt="" coords="542,122,759,149"/>
-<area shape="rect" href="classSTCanScan.html#a794110572725db6b7c153104ee1330b3" title=" " alt="" coords="816,122,1035,149"/>
-</map>
+<!-- MAP 11 -->
 </div>
 
 </div>
@@ -1244,9 +1142,9 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="STCanScan_8h_source.html#l00102">102</a> of file <a class="el" href="STCanScan_8h_source.html">STCanScan.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="STCanScan_8h_source.html#l00103">103</a> of file <a class="el" href="STCanScan_8h_source.html">STCanScan.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="STCanScan_8cpp_source.html#l00318">openCanPort()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="STCanScan_8cpp_source.html#l00321">openCanPort()</a>.</p>
 
 </div>
 </div>
@@ -1284,9 +1182,9 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="STCanScan_8h_source.html#l00100">100</a> of file <a class="el" href="STCanScan_8h_source.html">STCanScan.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="STCanScan_8h_source.html#l00101">101</a> of file <a class="el" href="STCanScan_8h_source.html">STCanScan.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="STCanScan_8cpp_source.html#l00095">CanScanControlThread()</a>, and <a class="el" href="STCanScan_8cpp_source.html#l00318">openCanPort()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="STCanScan_8cpp_source.html#l00098">CanScanControlThread()</a>, and <a class="el" href="STCanScan_8cpp_source.html#l00321">openCanPort()</a>.</p>
 
 </div>
 </div>
@@ -1434,9 +1332,39 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>error text specific to STcan according to table24 I am just copying the whole descriptions from the doc, verbatim, wtf. you get some shakespeare from it. </p>
 
-<p class="definition">Definition at line <a class="el" href="STCanScan_8cpp_source.html#l00527">527</a> of file <a class="el" href="STCanScan_8cpp_source.html">STCanScan.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="STCanScan_8cpp_source.html#l00530">530</a> of file <a class="el" href="STCanScan_8cpp_source.html">STCanScan.cpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="STCanScan_8cpp_source.html#l00687">errorCodeToString()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="STCanScan_8cpp_source.html#l00690">errorCodeToString()</a>.</p>
+
+</div>
+</div>
+<a id="ae88b966c3c318eca384385c5a85cf2d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae88b966c3c318eca384385c5a85cf2d7">&#9670;&nbsp;</a></span>stopBus()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void STCanScan::stopBus </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>force implementation </p>
+
+<p>Implements <a class="el" href="classCanModule_1_1CCanAccess.html#a3fabe88b8e21638afd5d9886bb9c4aeb">CanModule::CCanAccess</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="STCanScan_8cpp_source.html#l00058">58</a> of file <a class="el" href="STCanScan_8cpp_source.html">STCanScan.cpp</a>.</p>
 
 </div>
 </div>
@@ -1465,11 +1393,11 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>unfortunately it is necessary to convert the vendor baudrate back to the human readable user baudrate for statistics. we use presently ONLY G1/G2 boards (see usbcan.h) </p>
 
-<p class="definition">Definition at line <a class="el" href="STCanScan_8cpp_source.html#l00290">290</a> of file <a class="el" href="STCanScan_8cpp_source.html">STCanScan.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="STCanScan_8cpp_source.html#l00293">293</a> of file <a class="el" href="STCanScan_8cpp_source.html">STCanScan.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="STCanScan_8cpp_source.html#l00037">MLOGST</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="STCanScan_8cpp_source.html#l00242">configureCanBoard()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="STCanScan_8cpp_source.html#l00245">configureCanBoard()</a>.</p>
 
 </div>
 </div>
@@ -1494,9 +1422,9 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="STCanScan_8h_source.html#l00080">80</a> of file <a class="el" href="STCanScan_8h_source.html">STCanScan.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="STCanScan_8h_source.html#l00081">81</a> of file <a class="el" href="STCanScan_8h_source.html">STCanScan.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="STCanScan_8cpp_source.html#l00095">CanScanControlThread()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00242">configureCanBoard()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00695">getStatistics()</a>, and <a class="el" href="STCanScan_8cpp_source.html#l00428">sendMessage()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="STCanScan_8cpp_source.html#l00098">CanScanControlThread()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00245">configureCanBoard()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00698">getStatistics()</a>, and <a class="el" href="STCanScan_8cpp_source.html#l00431">sendMessage()</a>.</p>
 
 </div>
 </div>
@@ -1520,9 +1448,9 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="STCanScan_8h_source.html#l00084">84</a> of file <a class="el" href="STCanScan_8h_source.html">STCanScan.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="STCanScan_8h_source.html#l00085">85</a> of file <a class="el" href="STCanScan_8h_source.html">STCanScan.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="STCanScan_8cpp_source.html#l00377">sendErrorCode()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="STCanScan_8cpp_source.html#l00380">sendErrorCode()</a>.</p>
 
 </div>
 </div>
@@ -1546,9 +1474,9 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="STCanScan_8h_source.html#l00077">77</a> of file <a class="el" href="STCanScan_8h_source.html">STCanScan.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="STCanScan_8h_source.html#l00078">78</a> of file <a class="el" href="STCanScan_8h_source.html">STCanScan.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="STCanScan_8cpp_source.html#l00242">configureCanBoard()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="STCanScan_8cpp_source.html#l00245">configureCanBoard()</a>.</p>
 
 </div>
 </div>
@@ -1572,9 +1500,9 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="STCanScan_8h_source.html#l00085">85</a> of file <a class="el" href="STCanScan_8h_source.html">STCanScan.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="STCanScan_8h_source.html#l00086">86</a> of file <a class="el" href="STCanScan_8h_source.html">STCanScan.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="STCanScan_8cpp_source.html#l00095">CanScanControlThread()</a>, and <a class="el" href="STCanScan_8cpp_source.html#l00166">~STCanScan()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="STCanScan_8cpp_source.html#l00098">CanScanControlThread()</a>, and <a class="el" href="STCanScan_8cpp_source.html#l00169">~STCanScan()</a>.</p>
 
 </div>
 </div>
@@ -1598,9 +1526,9 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="STCanScan_8h_source.html#l00076">76</a> of file <a class="el" href="STCanScan_8h_source.html">STCanScan.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="STCanScan_8h_source.html#l00077">77</a> of file <a class="el" href="STCanScan_8h_source.html">STCanScan.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="STCanScan_8cpp_source.html#l00095">CanScanControlThread()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00242">configureCanBoard()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00318">openCanPort()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00428">sendMessage()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00510">sendRemoteRequest()</a>, and <a class="el" href="STCanScan_8cpp_source.html#l00166">~STCanScan()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="STCanScan_8cpp_source.html#l00098">CanScanControlThread()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00245">configureCanBoard()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00321">openCanPort()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00431">sendMessage()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00513">sendRemoteRequest()</a>, and <a class="el" href="STCanScan_8cpp_source.html#l00169">~STCanScan()</a>.</p>
 
 </div>
 </div>
@@ -1624,9 +1552,9 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="STCanScan_8h_source.html#l00087">87</a> of file <a class="el" href="STCanScan_8h_source.html">STCanScan.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="STCanScan_8h_source.html#l00088">88</a> of file <a class="el" href="STCanScan_8h_source.html">STCanScan.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="STCanScan_8cpp_source.html#l00208">createBus()</a>, and <a class="el" href="STCanScan_8cpp_source.html#l00166">~STCanScan()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="STCanScan_8cpp_source.html#l00211">createBus()</a>, and <a class="el" href="STCanScan_8cpp_source.html#l00169">~STCanScan()</a>.</p>
 
 </div>
 </div>
@@ -1650,9 +1578,9 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="STCanScan_8h_source.html#l00089">89</a> of file <a class="el" href="STCanScan_8h_source.html">STCanScan.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="STCanScan_8h_source.html#l00090">90</a> of file <a class="el" href="STCanScan_8h_source.html">STCanScan.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="STCanScan_8cpp_source.html#l00208">createBus()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="STCanScan_8cpp_source.html#l00211">createBus()</a>.</p>
 
 </div>
 </div>
@@ -1676,9 +1604,9 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="STCanScan_8h_source.html#l00081">81</a> of file <a class="el" href="STCanScan_8h_source.html">STCanScan.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="STCanScan_8h_source.html#l00082">82</a> of file <a class="el" href="STCanScan_8h_source.html">STCanScan.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="STCanScan_8cpp_source.html#l00208">createBus()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="STCanScan_8cpp_source.html#l00211">createBus()</a>.</p>
 
 </div>
 </div>
@@ -1702,9 +1630,9 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="STCanScan_8h_source.html#l00071">71</a> of file <a class="el" href="STCanScan_8h_source.html">STCanScan.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="STCanScan_8h_source.html#l00076">76</a> of file <a class="el" href="STCanScan_8h_source.html">STCanScan.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="STCanScan_8cpp_source.html#l00095">CanScanControlThread()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00242">configureCanBoard()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00318">openCanPort()</a>, and <a class="el" href="STCanScan_8cpp_source.html#l00395">reconnectAllPorts()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="STCanScan_8cpp_source.html#l00098">CanScanControlThread()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00245">configureCanBoard()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00321">openCanPort()</a>, and <a class="el" href="STCanScan_8cpp_source.html#l00398">reconnectAllPorts()</a>.</p>
 
 </div>
 </div>
@@ -1728,9 +1656,9 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="STCanScan_8h_source.html#l00079">79</a> of file <a class="el" href="STCanScan_8h_source.html">STCanScan.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="STCanScan_8h_source.html#l00080">80</a> of file <a class="el" href="STCanScan_8h_source.html">STCanScan.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="STCanScan_8cpp_source.html#l00095">CanScanControlThread()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00695">getStatistics()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00318">openCanPort()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00428">sendMessage()</a>, and <a class="el" href="STCanScan_8cpp_source.html#l00058">STCanScan()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="STCanScan_8cpp_source.html#l00098">CanScanControlThread()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00698">getStatistics()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00321">openCanPort()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00431">sendMessage()</a>, and <a class="el" href="STCanScan_8cpp_source.html#l00061">STCanScan()</a>.</p>
 
 </div>
 </div>
@@ -1754,9 +1682,9 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="STCanScan_8h_source.html#l00078">78</a> of file <a class="el" href="STCanScan_8h_source.html">STCanScan.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="STCanScan_8h_source.html#l00079">79</a> of file <a class="el" href="STCanScan_8h_source.html">STCanScan.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="STCanScan_8cpp_source.html#l00095">CanScanControlThread()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00369">getPortStatus()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00318">openCanPort()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00395">reconnectAllPorts()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00428">sendMessage()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00510">sendRemoteRequest()</a>, and <a class="el" href="STCanScan_8cpp_source.html#l00166">~STCanScan()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="STCanScan_8cpp_source.html#l00098">CanScanControlThread()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00372">getPortStatus()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00321">openCanPort()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00398">reconnectAllPorts()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00431">sendMessage()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00513">sendRemoteRequest()</a>, and <a class="el" href="STCanScan_8cpp_source.html#l00169">~STCanScan()</a>.</p>
 
 </div>
 </div>
@@ -1780,7 +1708,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="STCanScan_8h_source.html#l00105">105</a> of file <a class="el" href="STCanScan_8h_source.html">STCanScan.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="STCanScan_8h_source.html#l00106">106</a> of file <a class="el" href="STCanScan_8h_source.html">STCanScan.h</a>.</p>
 
 </div>
 </div>
@@ -1813,7 +1741,7 @@ Here is the call graph for this function:</div>
 <p>Quasar is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public Licence for more details.</p>
 <p>You should have received a copy of the GNU Lesser General Public License along with Quasar. If not, see <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="STCanScan_8h_source.html#l00106">106</a> of file <a class="el" href="STCanScan_8h_source.html">STCanScan.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="STCanScan_8h_source.html#l00107">107</a> of file <a class="el" href="STCanScan_8h_source.html">STCanScan.h</a>.</p>
 
 </div>
 </div>
