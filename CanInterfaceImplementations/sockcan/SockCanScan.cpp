@@ -354,8 +354,15 @@ void CSockCanScan::CanScanControlThread()
 }
 
 /**
- * thread managing the reconnection behavior. The behavior settings can not change during runtime.
- * This thread is init after the main thread (cond variable sync).
+ * Reconnection thread managing the reconnection behavior, per port. The behavior settings can not change during runtime.
+ * This thread is initialized after the main thread is up, and then listens on its cond.var as a trigger.
+ * Triggers occur in two contexts: sending and receiving problems.
+ * If there is a sending problem which lasts for a while (usually) the reconnection thread will be also triggered for each failed sending:
+ * the thread will be "hammered" by triggers. ince the reconnection takes some time, many triggers will be lost. That is in fact a desired behavior.
+ *
+ * The parameters are all atomics for increased thread-safety, even though the documentation about the predicate is unclear on that point. Since
+ * atomics just provide a "sequential memory layout" for the variables to prevent race conditions they are good to use for this but the code still has to be threadsafe
+ * and reentrant... ;-) Doesn't eat anything anyway on that small scale with scalars only.
  *
  * https://en.cppreference.com/w/cpp/thread/condition_variable/wait
  */
@@ -399,7 +406,8 @@ void CSockCanScan::CanReconnectionThread()
 
 		/**
 		 * we get triggered all the time, essentially with reception timeouts, but also sometimes with a send fail.
-		 * we need to manage the conditions since the triggering is identical, no parameters are transmitted.
+		 * we need to manage the conditions since the triggering is identical, no parameters are transmitted, the
+		 * predicate is just a boolean to keep it simple.
 		 */
 		switch ( rcond ){
 		case CanModule::ReconnectAutoCondition::timeoutOnReception: {

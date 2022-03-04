@@ -22,7 +22,10 @@ It specifies:
 .. doxygenclass:: CanModule::CCanAccess 
    :project: CanModule
    :members: ReconnectAction
-   
+ 
+ 
+- the reconnection thread is triggered each time a sending or receiving problem is detected. The vendor-specific behavior is implemented in that thread,
+therefore these threads are private vendor specific, but with standardised trigger behavior.  
 
 The defaults, which are valid for all vendors, are:
 
@@ -50,7 +53,8 @@ counters and timeouts) and what to do (action=reset single bus or whole board or
 anagate ("an")
 ==============
 
-The anagate modules are identified by one or several IP addresses, depending on the module variant.
+The anagate modules are identified by one or several IP addresses, depending on the module variant. 
+The supported anagates are OS independent since they are eth-CAN bridges.
 
 anagate modules with ONE ip number only
 ---------------------------------------
@@ -81,6 +85,7 @@ multi-ip anagate modules (some 2022 and later)
 
 Concerning the reconnection behavior such modules are treated as submodules per-ip, meaning that a sub-module with one ip
 behaves like a single-ip anagate (see above). We have 1_ip<->4_CAN modules, and 1-ip<->8_CAN.
+
 It is technically possible to reset a whole anagate by reloading
 it's firmware, or by power cycling, but CanModule **does not** use the correspongding API calls. Keep it simple and safe.
 If you want to software-shoot-down-and-reload-firmware a whole module nevertheless 
@@ -111,14 +116,23 @@ systec
 
 linux/cc7 ("sock")
 ------------------
-A power loss or a connection loss will trigger a reconnection. This is tested on a systec16
-by disconnectiing the USB or by power cycle. For linux, where socketcan is used,
-this works in the same way as for peak. 
+A USB connection or power loss/recover will trigger a reconnection. 
 
-- spoiler: does not work any more in 2022. me*de.
-Single port close/open is fully supported and works under 
-cc7 and also windows without limitations. If the sequence is too fast some messages will be lost, but the 
-module recuperates correctly in the following. Port numbering is preserved.  
+- This is tested on a systec16 by disconnectiing the USB.  
+- It is highly recommended to compile and install the systec driver for the target kernel version. Other versions might insert without error but 
+will have various problems later during runtime.
+- Single port close/open is fully supported and works. If the sequence is too fast some messages will be lost, but the 
+module recuperates correctly in the following. Port numbering is preserved.
+- whole module reconnect is not supported due to the socketcan abstraction, which abstracts the concept od a "module" away.
+
+In the case of a power loss and recovery, the driver should be automatically inserted again (dmesg | grep systec), but the network
+interfaces need to be re-activated (i.e. ifconfig can0 down; ip link set can0 type can bitrate 125000; ifconfig can0 up) on the OS level.
+For production systems using a supervisor script checking the network interfaces, and bringing them up again, is recommended.
+
+
+.. doxygenclass:: CanModule::CSockCanScan 
+   :project: CanModule
+   :members: CanReconnectionThread
 
 
 windows ("systec")
