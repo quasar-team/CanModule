@@ -129,8 +129,7 @@ In the case of a power loss and recovery, the driver should be automatically ins
 interfaces need to be re-activated (i.e. ifconfig can0 down; ip link set can0 type can bitrate 125000; ifconfig can0 up) on the OS level.
 For production systems using a supervisor script checking the network interfaces, and bringing them up again, is recommended.
 
-
-.. doxygenclass:: CanModule::CSockCanScan 
+.. doxygenclass:: CSockCanScan  
    :project: CanModule
    :members: CanReconnectionThread
 
