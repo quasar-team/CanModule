@@ -724,73 +724,10 @@ bool CSockCanScan::sendMessage(short cobID, unsigned char len, unsigned char *me
 		MLOGSOCK(WRN,this) << "sendMessage fail detected ( bytes [" << numberOfWrittenBytes
 				<< "] written). Trigger reconnection thread and return (no block).";
 
-#if 0
-		// decrease the countdown
-		switch( m_reconnectCondition ){
-		case CanModule::ReconnectAutoCondition::sendFail: {
-			MLOGSOCK(WRN, this) << " detected a sendFail, m_failedSendCountdown= " << m_failedSendCountdown
-					<< " m_maxFailedSendCount= " << m_maxFailedSendCount;
-			decreaseSendFailedCountdown();
-			break;
-		}
-		default:{
-			break;
-		}
-		}
-#endif
 		decreaseSendFailedCountdown();
 		triggerReconnectionThread();
-
 		// return immediately, non blocking
 		ret = false;
-
-#if 0
-		// do the reconnect action if triggerCounter says so
-		switch ( m_reconnectAction ){
-		case CanModule::ReconnectAction::singleBus: {
-			if ( m_failedSendCountdown <= 0 ){
-				MLOGSOCK(INF, this) << " reconnect condition " << (int) m_reconnectCondition
-						<< reconnectConditionString(m_reconnectCondition)
-						<< " triggered action " << (int) m_reconnectAction
-						<< reconnectActionString(m_reconnectAction);
-				close( m_sock );
-				MLOGSOCK(TRC, this) << "calling openCanPort() for " << this->getBusName();
-				int return0 = openCanPort();
-				MLOGSOCK(TRC, this) << "reconnect one CAN port  ret= " << return0;
-				m_failedSendCountdown = m_maxFailedSendCount;
-				MLOGSOCK(TRC, this) << "set internal triggerCounter= " << m_failedSendCountdown;
-				{
-					MLOGSOCK(WRN,this) << "write error ENOBUFS: waiting a jiffy [100ms]...";
-					struct timespec tim, tim2;
-					tim.tv_sec = 0;
-					tim.tv_nsec = 100000;
-					if(nanosleep(&tim , &tim2) < 0 ) {
-						MLOGSOCK(ERR,this) << "Waiting 100ms failed (nanosleep)";
-					}
-				}
-			}
-			break;
-		}
-		default: {
-			/**
-			 * socketcan abstracts away the notion of a "module", and that is the point. Various plugin-orders
-			 * should lead to the same device mapping nevertheless. But then we can't
-			 * refer to a module and reset all of it's channels easily in linux. Unless we make a big effort and keep
-			 * track of which port is on which module, for peak: more udev calls, for systec: we need
-			 * to read the module serial number or similar. Maybe there is an elegant way out, but I think
-			 * it is not worth it. Use a PDU if you want to reset your systec16. For peak the notion
-			 * of "module" is already difficult through socketcan (udev calls needed to identify the modules) and
-			 * peak bridges get their power over USB. So in fact testing peak means "rebooting" unless you want
-			 * to unplug the USB. Therefore "allBusesOnBridge" as reconnect action is not available.
-			 */
-			MLOGSOCK(WRN, this) << "reconnection action "
-					<< (int) m_reconnectAction << reconnectActionString( m_reconnectAction )
-					<< " is not available for the socketcan/linux implementation.";
-			break;
-		}
-		} // switch
-
-#endif
 	} else {
 		// no error
 		m_statistics.onTransmit( canFrame.can_dlc );

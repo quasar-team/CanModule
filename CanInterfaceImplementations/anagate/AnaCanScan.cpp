@@ -529,7 +529,7 @@ bool AnaCanScan::sendErrorCode(AnaInt32 status)
 	}
 	return true;
 }
-//#if 0
+
 /* static */ std::string AnaCanScan::canMessage2ToString(short cobID, unsigned char len, unsigned char *message, bool rtr)
 {
 	std::string result = "";
@@ -540,10 +540,9 @@ bool AnaCanScan::sendErrorCode(AnaInt32 status)
 
 	for (int i=0; i< len; i++)
 		result+= CanModuleUtils::toHexString((unsigned int) message[i], 2, '0')+" ";
-	result += "]]";
+	result += "]";
 	return result;
 }
-//#endif
 
 
 /**
@@ -565,7 +564,6 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 	}
 
 	// /* static */ std::string AnaCanScan::canMessageToString(CanMessage &f)
-
 	// MLOGANA(DBG,this) << "Sending message: [" << ( message == 0  ? "" : (const char *) message) << "], cobID: [" << cobID << "], Message Length: [" << static_cast<int>(len) << "]";
 
 	MLOGANA(DBG,this) << "Sending message: [" << AnaCanScan::canMessage2ToString(cobID, len, message, rtr) << "]";
@@ -580,7 +578,7 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 	//If there is more than 8 characters to process, we process 8 of them in this iteration of the loop
 	if (len > 8) {
 		messageLengthToBeProcessed = 8;
-		MLOGANA(DBG, this) << "The length is more than 8 bytes, ignoring overhead, no extended CAN msg yet " << len;
+		MLOGANA(DBG, this) << "The length is more than 8 bytes, ignoring overhead " << len;
 	} else {
 		messageLengthToBeProcessed = len;
 	}
@@ -618,6 +616,7 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 				<< hex << anaCallReturn << dec
 				<< " ip= " << m_canIPAddress;
 		m_canCloseDevice = false;
+		decreaseSendFailedCountdown();
 
 		//send a reconnection thread trigger
 		MLOGANA(DBG, this) << "trigger reconnection thread since a send failed " << getBusName();
@@ -1148,7 +1147,7 @@ void AnaCanScan::CanReconnectionThread()
 										<< " triggered action " << reconnectActionString(m_reconnectAction);
 
 			AnaInt32 ret = reconnectThisPort();
-			MLOGANA(TRC, this) << "reconnect one CAN port ip= " << m_canIPAddress << " ret= " << ret;
+			MLOGANA(INF, this) << "reconnected one CAN port ip= " << m_canIPAddress << " ret= " << ret;
 			showAnaCanScanObjectMap();
 			break;
 		}
