@@ -379,9 +379,6 @@ void CSockCanScan::CanReconnectionThread()
 	// need some sync to the main thread to be sure it is up and the sock is created: wait first time for init
 	waitForReconnectionThreadTrigger();
 
-	int sock = m_sock;
-
-
 	/**
 	 * lets check the timeoutOnReception reconnect condition. If it is true, all we can do is to
 	 * close/open the socket again since the underlying hardware is hidden by socketcan abstraction.
@@ -405,60 +402,46 @@ void CSockCanScan::CanReconnectionThread()
 
 
 		/**
-		 * we get triggered all the time, essentially with reception timeouts, but also sometimes with a send fail.
-		 * we need to manage the conditions since the triggering is identical, no parameters are transmitted, the
-		 * predicate is just a boolean to keep it simple.
+		 * just manage the conditions, and continue/skip if there is nothing to do
 		 */
 		switch ( rcond ){
 		case CanModule::ReconnectAutoCondition::timeoutOnReception: {
 			resetSendFailedCountdown();
+			if ( !hasTimeoutOnReception() ){
+				continue;                  // do nothing
+			} else {
+				resetTimeoutOnReception(); // do the action
+			}
 			break;
 		}
 		case CanModule::ReconnectAutoCondition::sendFail: {
 			resetTimeoutOnReception();
-			break;
+			if (m_failedSendCountdown > 0) {
+				continue;                   // do nothing
+			} else {
+				resetSendFailedCountdown(); // do the action
+			}
+		break;
 		}
 		// do nothing but keep counter and timeout resetted
 		case CanModule::ReconnectAutoCondition::never:
 		default:{
 			resetSendFailedCountdown();
 			resetTimeoutOnReception();
+			continue;// do nothing
 			break;
 		}
 		} // switch
 
 		// single bus reset if (send) countdown or the (receive) timeout says so
-		// the close/open bus unfortunately does not fix it for a systec16 any more, even though
-		// that used to work in 2020. me*de...
 		switch ( m_reconnectAction ){
 		case CanModule::ReconnectAction::singleBus: {
 
-			// sending failed N times ...
-			if ( m_failedSendCountdown <= 0 ){
-				MLOGSOCK(INF, this) << " reconnect condition " << CCanAccess::reconnectConditionString(m_reconnectCondition)
-						<< " triggered action " << CCanAccess::reconnectActionString(m_reconnectAction);
-				MLOGSOCK(TRC, this) << " reconnect calling close/open CanPort() for " << this->getBusName();
-				close( m_sock );
-				int return0 = openCanPort();
-				MLOGSOCK(TRC, this) << "reconnect openCanPort() ret= " << return0;
-				resetSendFailedCountdown();
-
-				/**
-				 * ... or the reception timed out: we did not receive anything on the bus for a certain time (not: count).
-				 * That is a somewhat dangerous condition but it can be extremely useful if you know what you do.
-				 */
-			} else if ( hasTimeoutOnReception()){
-				MLOGSOCK(INF, this) << " reconnect condition " << (int) rcond
-						<< CCanAccess::reconnectConditionString(rcond)
-						<< " triggered action " << (int) ract
-						<< CCanAccess::reconnectActionString(ract);
-				resetTimeoutOnReception();  // renew timeout while reconnect is in progress
-				close( sock );
-				sock = openCanPort();
-				MLOGSOCK(TRC, this) << "reconnect one CAN port  sock= " << sock;
-			} else {
-				MLOGSOCK(TRC, this) << " reconnection thread tid= " << _tid << " no reconnect action on singleBus needed.";
-			}
+			MLOGSOCK(INF, this) << " reconnect condition " << CCanAccess::reconnectConditionString(m_reconnectCondition)
+								<< " triggered action " << CCanAccess::reconnectActionString(m_reconnectAction);
+			close( m_sock );
+			int return0 = openCanPort();
+			MLOGSOCK(TRC, this) << "reconnect openCanPort() ret= " << return0;
 			break;
 		}
 

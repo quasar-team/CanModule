@@ -568,15 +568,18 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 	/**
 	 * before sending the message we check if the reception timeout has not been overrun. Because this
 	 * would entail some reconnection action, and in that case we skip the send on that bus.
+	 * we invoke the thread only if the timeout has already occurred, and so we do not need to check the timeout in
+	 * the thread anymore.
 	 */
-	if ( m_reconnectCondition == CanModule::ReconnectAutoCondition::timeoutOnReception && hasTimeoutOnReception()) {
+	if ( getReconnectCondition() == CanModule::ReconnectAutoCondition::timeoutOnReception && hasTimeoutOnReception()) {
 		MLOGANA(WRN, this) << " m_canPortNumber= " << m_canPortNumber << " skipping send, detected "
 				<< reconnectConditionString(m_reconnectCondition);
 
-		//xxx
 		//send a reconnection thread trigger
+		MLOGANA(DBG, this) << "trigger reconnection thread to check reception timeout " << getBusName();
+		triggerReconnectionThread();
 
-		anaCallReturn = 99; // make sure we trigger the action, even while skipping the send
+		// anaCallReturn = 99; // make sure we trigger the action, even while skipping the send
 	} else {
 
 		/**
@@ -596,86 +599,13 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 				<< " ip= " << m_canIPAddress;
 		m_canCloseDevice = false;
 
-		//xxx
 		//send a reconnection thread trigger
-
-
-		//this code goes into the thread, check details
-#if 0
-		switch( m_reconnectCondition ){
-		case CanModule::ReconnectAutoCondition::timeoutOnReception:{
-			resetTimeoutOnReception();  // renew timeout while reconnect is in progress
-			m_failedSendCountdown = 0;
-			break;
-		}
-		case CanModule::ReconnectAutoCondition::sendFail: {
-			m_failedSendCountdown--;
-			MLOGANA(TRC, this) << " sendFail detected, decreasing countdown  triggerCounter= " << m_failedSendCountdown
-					<< " failedSendCounter= " << m_maxFailedSendCount;
-			break;
-		}
-		case CanModule::ReconnectAutoCondition::never:
-		default:{
-			m_failedSendCountdown = m_maxFailedSendCount;
-			break;
-		}
-		}
-
-		switch ( m_reconnectAction ){
-		case CanModule::ReconnectAction::allBusesOnBridge: {
-			if ( m_failedSendCountdown <= 0 ){
-				MLOGANA(INF, this) << " reconnect condition " << (int) m_reconnectCondition
-						<< reconnectConditionString(m_reconnectCondition)
-						<< " triggered action " << (int) m_reconnectAction
-						<< reconnectActionString(m_reconnectAction);
-
-				/**
-				 * something failed miserably.
-				 * we are pessimistic and assume that the whole module (=ip) with all open ports has lost
-				 * power. Anyway, per-port resetting will not work. Therefore we try to reconnect all used ports of this ip.
-				 * This is a bit brute, but it will work, so you do not have to go down the tunnel.
-				 * Nevertheless we should limit our efforts to this module=ip only and not reconnect all other modules
-				 * managed by this task.
-				 * we also avoid reconnecting all ports of an ip several times (for each failed send on any port)
-				 */
-				AnaInt32 anaCallReturn0 = AnaCanScan::reconnectAllPorts( m_canIPAddress );
-				while ( anaCallReturn0 < 0 ){
-					MLOGANA(WRN, this) << "failed to reconnect all module CAN ports once, keep on trying to reconnect. ip= " << m_canIPAddress;
-					anaCallReturn0 = AnaCanScan::reconnectAllPorts( m_canIPAddress );
-				}
-				showAnaCanScanObjectMap();
-			}
-			break;
-		}
-		case CanModule::ReconnectAction::singleBus: {
-			MLOGANA(INF, this) << " reconnect condition " << (int) m_reconnectCondition
-					<< reconnectConditionString(m_reconnectCondition)
-					<< " triggered action " << (int) m_reconnectAction
-					<< reconnectActionString(m_reconnectAction);
-			if ( m_failedSendCountdown <= 0 ){
-
-				/**
-				 * something failed miserably. we only reconnect a single bus
-				 */
-				AnaInt32 anaCallReturn0 = reconnectThisPort();
-				MLOGANA(TRC, this) << "reconnect one CAN port ip= " << m_canIPAddress << " ret= " << anaCallReturn0;
-				showAnaCanScanObjectMap();
-			}
-			break;
-		}
-
-		} // switch
-
-		//code goes into the reconnection thread up to here
-	#endif
-
+		MLOGANA(DBG, this) << "trigger reconnection thread since a send failed " << getBusName();
+		triggerReconnectionThread();
 	} else {
 		m_statistics.onTransmit(messageLengthToBeProcessed);
 		m_statistics.setTimeSinceTransmitted();
 	}
-
-
-
 	return sendErrorCode(anaCallReturn);
 }
 
@@ -1029,6 +959,9 @@ int AnaCanScan::reconnect(){
 
 #if 0
 /**
+ *
+ * testing/debugging stuff. keep it in for the moment
+ *
  * set a connection specific timeout value.
  * Global timeout is 6000, set by CanOpenDevice
  * In order to make this specific timeout apply we have to reconnect
@@ -1145,9 +1078,6 @@ void AnaCanScan::CanReconnectionThread()
 	 * close/open the socket again since the underlying hardware is hidden by socketcan abstraction.
 	 * Like his we do not have to pollute the "sendMessage" like for anagate, and that is cleaner.
 	 */
-	CanModule::ReconnectAutoCondition rcond = getReconnectCondition();
-	CanModule::ReconnectAction ract = getReconnectAction();
-
 	MLOGANA(TRC, this) << "initialized reconnection thread tid= " << _tid << ", entering loop";
 	while ( true ) {
 
@@ -1156,24 +1086,28 @@ void AnaCanScan::CanReconnectionThread()
 		waitForReconnectionThreadTrigger();
 		MLOGANA(TRC, this)
 			<< " reconnection thread tid= " << _tid
-			<< " condition "<< reconnectConditionString(rcond)
-			<< " action " << reconnectActionString(ract)
+			<< " condition "<< reconnectConditionString(getReconnectCondition() )
+			<< " action " << reconnectActionString(getReconnectAction())
 			<< " is checked, m_failedSendCountdown= "
 			<< m_failedSendCountdown;
 
 
 		/**
-		 * we get triggered all the time, essentially with reception timeouts, but also sometimes with a send fail.
-		 * we need to manage the conditions since the triggering is identical, no parameters are transmitted, the
-		 * predicate is just a boolean to keep it simple.
+		 * just manage the conditions, and continue/skip if there is nothing to do
 		 */
-		switch ( rcond ){
+		switch ( getReconnectCondition() ){
+		// the timeout is already checked before the send
 		case CanModule::ReconnectAutoCondition::timeoutOnReception: {
-			resetSendFailedCountdown();
+			resetSendFailedCountdown(); // do the action
 			break;
 		}
 		case CanModule::ReconnectAutoCondition::sendFail: {
 			resetTimeoutOnReception();
+			if (m_failedSendCountdown > 0) {
+				continue;// do nothing
+			} else {
+				resetSendFailedCountdown(); // do the action
+			}
 			break;
 		}
 		// do nothing but keep counter and timeout resetted
@@ -1181,48 +1115,21 @@ void AnaCanScan::CanReconnectionThread()
 		default:{
 			resetSendFailedCountdown();
 			resetTimeoutOnReception();
+			continue;// do nothing
 			break;
 		}
 		} // switch
 
-		// single bus reset if (send) countdown or the (receive) timeout says so
-		// the close/open bus unfortunately does not fix it for a systec16 any more, even though
-		// that used to work in 2020. me*de...
-		switch ( m_reconnectAction ){
+		// single bus reset if (send) countdown or the (receive) timeout says so. reception timeout is already checked for anagate
+		// to avoid lots of useless triggers at each send message.
+		switch ( getReconnectAction() ){
 		case CanModule::ReconnectAction::singleBus: {
+			MLOGANA(INF, this) << " reconnect condition " << reconnectConditionString(m_reconnectCondition)
+										<< " triggered action " << reconnectActionString(m_reconnectAction);
 
-			// sending failed N times ...
-			if ( m_failedSendCountdown <= 0 ){
-				MLOGANA(INF, this) << " reconnect condition " << reconnectConditionString(m_reconnectCondition)
-						<< " triggered action " << reconnectActionString(m_reconnectAction);
-				MLOGANA(TRC, this) << " reconnect calling close/open CanPort() for " << this->getBusName();
-
-				AnaInt32 ret = reconnectThisPort();
-				MLOGANA(TRC, this) << "reconnect reconnectThisPort() ret= " << ret;
-
-				resetSendFailedCountdown();
-
-				/**
-				 * ... or the reception timed out: we did not receive anything on the bus for a certain time (not: count).
-				 * That is a somewhat dangerous condition but it can be extremely useful if you know what you do.
-				 */
-			} else if ( hasTimeoutOnReception()){
-				MLOGANA(INF, this) << " reconnect condition " << (int) rcond
-						<< CCanAccess::reconnectConditionString(rcond)
-						<< " triggered action " << (int) ract
-						<< CCanAccess::reconnectActionString(ract);
-				resetTimeoutOnReception();  // renew timeout while reconnect is in progress
-				AnaInt32 ret = reconnectThisPort();
-				MLOGANA(TRC, this) << "reconnect reconnectThisPort() ret= " << ret;
-
-#if 0
-				close( sock );
-				sock = openCanPort();
-				MLOGANA(TRC, this) << "reconnect one CAN port  sock= " << sock;
-#endif
-			} else {
-				MLOGANA(TRC, this) << " reconnection thread tid= " << _tid << " no reconnect action on singleBus needed.";
-			}
+			AnaInt32 ret = reconnectThisPort();
+			MLOGANA(TRC, this) << "reconnect one CAN port ip= " << m_canIPAddress << " ret= " << ret;
+			showAnaCanScanObjectMap();
 			break;
 		}
 
@@ -1233,27 +1140,10 @@ void AnaCanScan::CanReconnectionThread()
 		 */
 		case CanModule::ReconnectAction::allBusesOnBridge: {
 			std::string ip = ipAdress();
-
-			// sending failed N times ...
-			if ( m_failedSendCountdown <= 0 ){
-
-				MLOGANA(INF, this) << " reconnect condition " << reconnectConditionString(m_reconnectCondition)
-								<< " triggered action " << reconnectActionString(m_reconnectAction);
-				MLOGANA(TRC, this) << " reconnect all ports of ip=  " << ip << this->getBusName();
-
-				AnaCanScan::reconnectAllPorts( ip );
-			} else if ( hasTimeoutOnReception()){
-
-				// if there is a timeout on ANY of the receiving CAN buses of that bridge the WHOL bridge will get reset. haha, handle with care. You
-				// can afford this if you want all connected CAN ports to reconnect if one fails, and you do not need to care about any unconnected ports.
-				MLOGANA(INF, this) << " reconnect condition " << (int) rcond
-						<< CCanAccess::reconnectConditionString(rcond)
-						<< " triggered action " << (int) ract
-						<< CCanAccess::reconnectActionString(ract);
-				resetTimeoutOnReception();  // renew timeout while reconnect is in progress
-				AnaCanScan::reconnectAllPorts( ip );
-				MLOGANA(TRC, this) << " reconnect all ports of ip=  " << ip << this->getBusName();
-			}
+			MLOGANA(INF, this) << " reconnect condition " << reconnectConditionString(m_reconnectCondition)
+										<< " triggered action " << reconnectActionString(m_reconnectAction);
+			AnaCanScan::reconnectAllPorts( ip );
+			MLOGANA(TRC, this) << " reconnect all ports of ip=  " << ip << this->getBusName();
 			break;
 		}
 		default: {
