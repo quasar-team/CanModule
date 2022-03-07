@@ -74,6 +74,7 @@ public:
 	void callbackOnRecieve(CanMessage&);
 
 	static std::string canMessageToString(CanMessage &f);
+	static  std::string canMessage2ToString(short cobID, unsigned char len, unsigned char *message, bool rtr);
 
 	/**
 	 * CANCanDeviceConnectState , translate from counter

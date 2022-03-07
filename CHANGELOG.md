@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
     documentation about reconnection behavior.
     boost::mutex for anagate is replaced with std::mutex
     boost::signals are kept for anagate
+- improved the message logging for anagate, is is now in hex characters and gives no unreadable chars any more (which mess up the terminal)
 
 ### 2.0.15 [22.feb.2022]
 - OPCUA-2607: unblock RTR CAN messages, suppressed 3 lines of code for "sock", so that

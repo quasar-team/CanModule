@@ -84,7 +84,7 @@ public:
 	int getHandler() { return m_sock; }
 
 	/**
-	 * produce and empty can frame
+	 * produce an empty can frame
 	 */
 	static can_frame emptyCanFrame( void ){
 		can_frame f;

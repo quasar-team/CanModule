@@ -36,7 +36,6 @@
 #include <LogIt.h>
 #include <sstream>
 #include <iostream>
-// #include <boost/thread/thread.hpp>
 
 #include "CanModuleUtils.h"
 
@@ -530,6 +529,22 @@ bool AnaCanScan::sendErrorCode(AnaInt32 status)
 	}
 	return true;
 }
+//#if 0
+/* static */ std::string AnaCanScan::canMessage2ToString(short cobID, unsigned char len, unsigned char *message, bool rtr)
+{
+	std::string result = "";
+	result =  "[id=0x"+CanModuleUtils::toHexString(cobID, 3, '0')+" ";
+	if ( rtr )
+		result += "RTR ";
+	result+="dlc= " + CanModuleUtils::toHexString( len ) + " (hex) data= ";
+
+	for (int i=0; i< len; i++)
+		result+= CanModuleUtils::toHexString((unsigned int) message[i], 2, '0')+" ";
+	result += "]]";
+	return result;
+}
+//#endif
+
 
 /**
  * send a CAN message frame (8 byte) for anagate
@@ -548,7 +563,12 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 		MLOGANA(WRN,this) << __FUNCTION__ << " bus is closed, skipping [ closed= " << m_canCloseDevice << " stopped= " << m_busStopped << "]";
 		return( false );
 	}
-	MLOGANA(DBG,this) << "Sending message: [" << ( message == 0  ? "" : (const char *) message) << "], cobID: [" << cobID << "], Message Length: [" << static_cast<int>(len) << "]";
+
+	// /* static */ std::string AnaCanScan::canMessageToString(CanMessage &f)
+
+	// MLOGANA(DBG,this) << "Sending message: [" << ( message == 0  ? "" : (const char *) message) << "], cobID: [" << cobID << "], Message Length: [" << static_cast<int>(len) << "]";
+
+	MLOGANA(DBG,this) << "Sending message: [" << AnaCanScan::canMessage2ToString(cobID, len, message, rtr) << "]";
 	AnaInt32 anaCallReturn = 0;
 	unsigned char *messageToBeSent[8];
 	AnaInt32 flags = 0x0;
