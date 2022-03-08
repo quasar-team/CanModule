@@ -45,7 +45,7 @@ both sending and receiving reestablish without manual intervention (and without 
 Nevertheless, the client (~OPCUAserver) can choose to implement it's own strategy: for this
 the reconnection behavior can be simply switched off completely.
 
-The reconnection behavior is implemented in such a way to provide also a NON BLOCKING senMessage() method.
+The reconnection behavior is implemented in such a way to provide also a NON BLOCKING sendMessage() method.
 The whole reconnection code is run in a seperate thread for each bus, and that thread is always alive. It gets
 triggered each time there is a sending problem detected, and each time there has been no reception for more than 1 second.
 The reconnection thread then decides, according to it's configuration, if there is something to do (condition=it checks 
