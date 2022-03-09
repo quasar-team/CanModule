@@ -364,9 +364,9 @@ int AnaCanScan::configureCanBoard(const string name,const string parameters)
 	MLOGANA(TRC, this) << __FUNCTION__ << " m_iTimeout= " << m_CanParameters.m_iTimeout;
 	return openCanPort();
 }
+
 /**
- * add a new map entry to handle->{port, ip} map
- * todo: mutex protect, work on copy
+ * add a can handle into the map if it does not yet exist
  */
 /* static */ void AnaCanScan::addCanHandleOfPortIp(AnaInt32 handle, int port, std::string ip) {
 	std::map<AnaInt32, ANAGATE_PORTDEF_t>::iterator it = st_canHandleMap.find( handle );
@@ -407,9 +407,9 @@ int AnaCanScan::configureCanBoard(const string name,const string parameters)
 	}
 }
 
-
 /**
- * given the {port, ip} we search through the map and return the handle if it exists, otherwise -1
+ * find the handle from port, ip
+ * we have to search through the whole map to know
  */
 /* static */ AnaInt32 AnaCanScan::getCanHandleOfPortIp(int port, std::string ip) {
 
@@ -512,7 +512,7 @@ int AnaCanScan::openCanPort()
  * if sending had a problem invoke the error handler with a message.
  * Ultimately, this sends a boost::signal to a connected boost::slot in the client's code.
  */
-bool AnaCanScan::sendErrorCode(AnaInt32 status)
+bool AnaCanScan::sendAnErrorMessage(AnaInt32 status)
 {
 	char errorMessage[120];
 	timeval ftTimeStamp; 
@@ -626,7 +626,7 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 		m_statistics.onTransmit(messageLengthToBeProcessed);
 		m_statistics.setTimeSinceTransmitted();
 	}
-	return sendErrorCode(anaCallReturn);
+	return sendAnErrorMessage(anaCallReturn);
 }
 
 /**
@@ -1014,7 +1014,7 @@ bool AnaCanScan::sendRemoteRequest(short cobID)
 	if (anaCallReturn != 0) {
 		MLOGANA(ERR,this) << "There was a problem when sending a message with CANWrite";
 	}
-	return sendErrorCode(anaCallReturn);
+	return sendAnErrorMessage(anaCallReturn);
 }
 
 /**

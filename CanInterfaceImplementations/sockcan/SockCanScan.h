@@ -114,9 +114,9 @@ public:
 
 private:
 	volatile atomic_bool m_CanScanThreadRunEnableFlag; //Flag for running/shutting down the
-	// CanScan thread, with compiler optimization switched off for more code safety
-	atomic_int m_sock;
 
+	// socket: CanScan thread, with compiler mem optimization switched off (~atomic) for more code safety
+	atomic_int m_sock;
 	int m_errorCode; // As up-to-date as possible state of the interface.
 
 	CanStatistics m_statistics;
@@ -125,44 +125,16 @@ private:
 	std::string m_busName;
 	Log::LogComponentHandle m_logItHandleSock;
 
-	/**
-	 * stop the supervisor thread using the flag and close the socket.
-	 */
-	//void stopBus ();
-
-	/**
-	 * Report an error when opening a can port
-	 */
 	void updateInitialError () ;
-
-	/**
-	 * Transforms an error frame into an error message (string format)
-	 */
 	static std::string errorFrameToString (const struct can_frame &f);
 
 	void sendErrorMessage(const char  *);
 	void clearErrorMessage();
 	int configureCanBoard(const string name,const string parameters);
 	void updateBusStatus();
-
-	/** Obtains a SocketCAN socket and opens it.
-	 *  The name of the port and parameters should have been specified by preceding call to configureCanboard()
-	 *
-	 *  @returns less than zero in case of error, otherwise success
-	 */
 	int openCanPort();
-
-	/**
-	 * The main control thread function for the CAN update scan manager:
-	 * a private non-static method, which is called on the object (this)
-	 * following std::thread C++11 ways.
-	 */
-	void CanScanControlThread();
-
-	/**
-	 * reconnection behavior thread, always up
-	 */
-	void CanReconnectionThread();
+	void CanScanControlThread(); // not static, private is enough in C11
+	void CanReconnectionThread();// not static, private is enough in C11
 
 };
 

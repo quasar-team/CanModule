@@ -95,6 +95,11 @@ static std::string canFrameToString(const struct can_frame &f)
 
 
 /**
+ *
+ * The main control thread function for the CAN update scan manager:
+ * a private non-static method, which is called on the object (this)
+ * following std::thread C++11 ways.
+ *
  * reading from socket, and supervising thread for monitoring the sockets/CAN buses.
  * It takes an object reference (cast) and listens with a
  * select call on that socket/object. The select runs with 1Hz, and if
@@ -530,6 +535,11 @@ int CSockCanScan::configureCanBoard(const string name,const string parameters)
 }
 
 /**
+ * Obtains a SocketCAN socket and opens it.
+ *  The name of the port and parameters should have been specified by preceding call to configureCanboard()
+ *
+ *  @returns less than zero in case of error, otherwise success
+
  * stop, set bitrate, start a CAN port, open a socket for it, set the socket to CAN,
  * bind it and check any errors
  */
@@ -895,7 +905,8 @@ int CSockCanScan::createBus(const string name, const string parameters)
 	return( 0 );
 }
 
-/*
+/**
+ * Transforms an error frame into an error message (string format):
  * Provides textual representation of SocketCAN error.
  */
 std::string CSockCanScan::errorFrameToString(const struct can_frame &canFrame)
@@ -1038,6 +1049,9 @@ void CSockCanScan::getStatistics( CanStatistics & result )
 	m_statistics.beginNewRun();
 }
 
+/**
+ * Report an error when opening a can port
+ */
 void CSockCanScan::updateInitialError ()
 {
 	if (m_errorCode == 0) {
