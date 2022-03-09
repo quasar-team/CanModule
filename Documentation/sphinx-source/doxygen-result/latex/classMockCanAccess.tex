@@ -6,22 +6,12 @@
 
 
 
-Inheritance diagram for Mock\+Can\+Access\+:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=217pt]{classMockCanAccess__inherit__graph}
-\end{center}
-\end{figure}
+Inheritance diagram for Mock\+Can\+Access\+:
+% FIG 0
 
 
-Collaboration diagram for Mock\+Can\+Access\+:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{classMockCanAccess__coll__graph}
-\end{center}
-\end{figure}
+Collaboration diagram for Mock\+Can\+Access\+:
+% FIG 1
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -56,6 +46,8 @@ virtual \mbox{\hyperlink{namespaceCanModule_a2062089fa4fa87c8354295f2a8fe31a5}{C
 virtual uint32\+\_\+t \mbox{\hyperlink{classMockCanAccess_a24e126b0ab5c70464a05ffa7286b91e1}{get\+Port\+Status}} ()
 \item 
 virtual uint32\+\_\+t \mbox{\hyperlink{classMockCanAccess_a198bd6f880c8b12c9aa98584b1c30097}{get\+Port\+Bitrate}} ()
+\item 
+virtual void \mbox{\hyperlink{classMockCanAccess_ae9738cfb2774d75ead6dda2bd47922b9}{stop\+Bus}} ()
 \end{DoxyCompactItemize}
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
@@ -97,15 +89,10 @@ Definition at line 30 of file Mock\+Can\+Access.\+cpp.
 
 
 
-References Can\+Module\+::\+Can\+Statistics\+::begin\+New\+Run(), Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+failed\+Send\+Counter, m\+\_\+statistics, Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+trigger\+Counter, and Can\+Module\+::\+Can\+Statistics\+::set\+Time\+Since\+Opened().
+References Can\+Module\+::\+Can\+Statistics\+::begin\+New\+Run(), Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+failed\+Send\+Countdown, Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+max\+Failed\+Send\+Count, m\+\_\+statistics, and Can\+Module\+::\+Can\+Statistics\+::set\+Time\+Since\+Opened().
 
-Here is the call graph for this function\+:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{classMockCanAccess_a5a5c76c0d3ba4276e98f56f81f8116a3_cgraph}
-\end{center}
-\end{figure}
+Here is the call graph for this function\+:
+% FIG 2
 \mbox{\Hypertarget{classMockCanAccess_a87261ff4a42e3b4d0f02939e7adc39d3}\label{classMockCanAccess_a87261ff4a42e3b4d0f02939e7adc39d3}} 
 \index{MockCanAccess@{MockCanAccess}!````~MockCanAccess@{$\sim$MockCanAccess}}
 \index{````~MockCanAccess@{$\sim$MockCanAccess}!MockCanAccess@{MockCanAccess}}
@@ -114,8 +101,14 @@ Here is the call graph for this function\+:\nopagebreak
 
 
 
-Definition at line 38 of file Mock\+Can\+Access.\+cpp.
+Definition at line 42 of file Mock\+Can\+Access.\+cpp.
 
+
+
+References stop\+Bus().
+
+Here is the call graph for this function\+:
+% FIG 3
 \mbox{\Hypertarget{classMockCanAccess_abd2f1e23104ec8dd5dde7bebce78efc8}\label{classMockCanAccess_abd2f1e23104ec8dd5dde7bebce78efc8}} 
 \index{MockCanAccess@{MockCanAccess}!MockCanAccess@{MockCanAccess}}
 \index{MockCanAccess@{MockCanAccess}!MockCanAccess@{MockCanAccess}}
@@ -149,7 +142,11 @@ Implements \mbox{\hyperlink{classCanModule_1_1CCanAccess_a0eeee5c3d48f1102012d14
 
 
 
-Definition at line 43 of file Mock\+Can\+Access.\+cpp.
+Definition at line 48 of file Mock\+Can\+Access.\+cpp.
+
+
+
+References Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+s\+Bus\+Name.
 
 \mbox{\Hypertarget{classMockCanAccess_aa7b4edb24afec475727619a3f2e1f444}\label{classMockCanAccess_aa7b4edb24afec475727619a3f2e1f444}} 
 \index{MockCanAccess@{MockCanAccess}!getCanMessageDataAsString@{getCanMessageDataAsString}}
@@ -159,7 +156,7 @@ Definition at line 43 of file Mock\+Can\+Access.\+cpp.
 
 
 
-Definition at line 80 of file Mock\+Can\+Access.\+cpp.
+Definition at line 86 of file Mock\+Can\+Access.\+cpp.
 
 \mbox{\Hypertarget{classMockCanAccess_a198bd6f880c8b12c9aa98584b1c30097}\label{classMockCanAccess_a198bd6f880c8b12c9aa98584b1c30097}} 
 \index{MockCanAccess@{MockCanAccess}!getPortBitrate@{getPortBitrate}}
@@ -174,6 +171,10 @@ Implements \mbox{\hyperlink{classCanModule_1_1CCanAccess_aa8cb67096349fefc6e03ae
 
 
 Definition at line 59 of file Mock\+Can\+Access.\+h.
+
+
+
+References Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+\+Can\+Parameters, and Can\+Module\+::\+Can\+Parameters\+::m\+\_\+l\+Baud\+Rate.
 
 \mbox{\Hypertarget{classMockCanAccess_a24e126b0ab5c70464a05ffa7286b91e1}\label{classMockCanAccess_a24e126b0ab5c70464a05ffa7286b91e1}} 
 \index{MockCanAccess@{MockCanAccess}!getPortStatus@{getPortStatus}}
@@ -325,19 +326,14 @@ Implements \mbox{\hyperlink{classCanModule_1_1CCanAccess_ad3182c83b4c5d7e6aef982
 
 
 
-Definition at line 73 of file Mock\+Can\+Access.\+cpp.
+Definition at line 79 of file Mock\+Can\+Access.\+cpp.
 
 
 
 References Can\+Module\+::\+Can\+Statistics\+::begin\+New\+Run(), Can\+Module\+::\+Can\+Statistics\+::compute\+Derived(), m\+\_\+baud\+Rate, and m\+\_\+statistics.
 
-Here is the call graph for this function\+:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{classMockCanAccess_a73d7565174206d2c58f81040a6438541_cgraph}
-\end{center}
-\end{figure}
+Here is the call graph for this function\+:
+% FIG 4
 \mbox{\Hypertarget{classMockCanAccess_a33b2dab953237d0e302eaa82d08a923b}\label{classMockCanAccess_a33b2dab953237d0e302eaa82d08a923b}} 
 \index{MockCanAccess@{MockCanAccess}!initialiseLogging@{initialiseLogging}}
 \index{initialiseLogging@{initialiseLogging}!MockCanAccess@{MockCanAccess}}
@@ -346,7 +342,7 @@ Here is the call graph for this function\+:\nopagebreak
 
 
 
-Definition at line 85 of file Mock\+Can\+Access.\+cpp.
+Definition at line 91 of file Mock\+Can\+Access.\+cpp.
 
 \mbox{\Hypertarget{classMockCanAccess_a20469d64d4d207c793140d46f61ad874}\label{classMockCanAccess_a20469d64d4d207c793140d46f61ad874}} 
 \index{MockCanAccess@{MockCanAccess}!operator=@{operator=}}
@@ -380,19 +376,14 @@ Implements \mbox{\hyperlink{classCanModule_1_1CCanAccess_aee42ab7fb9e50c02a18122
 
 
 
-Definition at line 57 of file Mock\+Can\+Access.\+cpp.
+Definition at line 63 of file Mock\+Can\+Access.\+cpp.
 
 
 
 References Can\+Msg\+Struct\+::c\+\_\+data, Can\+Msg\+Struct\+::c\+\_\+dlc, Can\+Msg\+Struct\+::c\+\_\+id, C\+A\+N\+\_\+\+E\+C\+H\+O\+\_\+\+M\+SG, Can\+Module\+::\+C\+Can\+Access\+::can\+Message\+Came, m\+\_\+statistics, and Can\+Module\+::\+Can\+Statistics\+::on\+Transmit().
 
-Here is the call graph for this function\+:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{classMockCanAccess_a95856b7b3ac143d7c5bd7bd807c06fd5_cgraph}
-\end{center}
-\end{figure}
+Here is the call graph for this function\+:
+% FIG 5
 \mbox{\Hypertarget{classMockCanAccess_a584734691bc9d4d49c5ccb795ab5d526}\label{classMockCanAccess_a584734691bc9d4d49c5ccb795ab5d526}} 
 \index{MockCanAccess@{MockCanAccess}!sendRemoteRequest@{sendRemoteRequest}}
 \index{sendRemoteRequest@{sendRemoteRequest}!MockCanAccess@{MockCanAccess}}
@@ -413,19 +404,14 @@ Implements \mbox{\hyperlink{classCanModule_1_1CCanAccess_acfefbc9be2696b1388cf6d
 
 
 
-Definition at line 50 of file Mock\+Can\+Access.\+cpp.
+Definition at line 56 of file Mock\+Can\+Access.\+cpp.
 
 
 
 References m\+\_\+statistics, and Can\+Module\+::\+Can\+Statistics\+::on\+Transmit().
 
-Here is the call graph for this function\+:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{classMockCanAccess_a584734691bc9d4d49c5ccb795ab5d526_cgraph}
-\end{center}
-\end{figure}
+Here is the call graph for this function\+:
+% FIG 6
 \mbox{\Hypertarget{classMockCanAccess_a76b9aba43928afc77b9ef25f0289d0a7}\label{classMockCanAccess_a76b9aba43928afc77b9ef25f0289d0a7}} 
 \index{MockCanAccess@{MockCanAccess}!setReconnectBehavior@{setReconnectBehavior}}
 \index{setReconnectBehavior@{setReconnectBehavior}!MockCanAccess@{MockCanAccess}}
@@ -474,7 +460,7 @@ Definition at line 55 of file Mock\+Can\+Access.\+h.
 
 
 
-References Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+failed\+Send\+Counter, and Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+trigger\+Counter.
+References Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+failed\+Send\+Countdown, and Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+max\+Failed\+Send\+Count.
 
 \mbox{\Hypertarget{classMockCanAccess_ac626da0d02537e59c9d4bf9c631cec1b}\label{classMockCanAccess_ac626da0d02537e59c9d4bf9c631cec1b}} 
 \index{MockCanAccess@{MockCanAccess}!setReconnectReceptionTimeout@{setReconnectReceptionTimeout}}
@@ -494,6 +480,24 @@ Definition at line 54 of file Mock\+Can\+Access.\+h.
 
 References Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+timeout\+On\+Reception.
 
+\mbox{\Hypertarget{classMockCanAccess_ae9738cfb2774d75ead6dda2bd47922b9}\label{classMockCanAccess_ae9738cfb2774d75ead6dda2bd47922b9}} 
+\index{MockCanAccess@{MockCanAccess}!stopBus@{stopBus}}
+\index{stopBus@{stopBus}!MockCanAccess@{MockCanAccess}}
+\doxysubsubsection{\texorpdfstring{stopBus()}{stopBus()}}
+{\footnotesize\ttfamily void Mock\+Can\+Access\+::stop\+Bus (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+force implementation 
+
+Implements \mbox{\hyperlink{classCanModule_1_1CCanAccess_a3fabe88b8e21638afd5d9886bb9c4aeb}{Can\+Module\+::\+C\+Can\+Access}}.
+
+
+
+Definition at line 38 of file Mock\+Can\+Access.\+cpp.
+
+
+
+Referenced by $\sim$\+Mock\+Can\+Access().
+
 
 
 \doxysubsection{Member Data Documentation}
@@ -505,7 +509,7 @@ References Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+timeout\+On\+Reception.
 
 
 
-Definition at line 66 of file Mock\+Can\+Access.\+h.
+Definition at line 69 of file Mock\+Can\+Access.\+h.
 
 
 
@@ -519,7 +523,7 @@ Referenced by get\+Statistics().
 
 
 
-Definition at line 59 of file Mock\+Can\+Access.\+h.
+Definition at line 66 of file Mock\+Can\+Access.\+h.
 
 
 
@@ -533,7 +537,7 @@ Referenced by get\+Statistics(), Mock\+Can\+Access(), send\+Message(), and send\
 
 
 
-Definition at line 68 of file Mock\+Can\+Access.\+h.
+Definition at line 71 of file Mock\+Can\+Access.\+h.
 
 
 

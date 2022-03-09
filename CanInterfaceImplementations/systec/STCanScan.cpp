@@ -70,7 +70,7 @@ STCanScan::STCanScan():
 {
 	m_statistics.setTimeSinceOpened();
 	m_statistics.beginNewRun();
-	m_triggerCounter = m_failedSendCounter;
+	m_failedSendCountdown = m_maxFailedSendCount;
 }
 /**
  * We create and fill initializationParameters, to pass it to openCanPort
@@ -462,40 +462,40 @@ bool STCanScan::sendMessage(short cobID, unsigned char len, unsigned char *messa
 
 		switch( m_reconnectCondition ){
 		case CanModule::ReconnectAutoCondition::sendFail: {
-			MLOGST(WRN, this) << " detected a sendFail, triggerCounter= " << m_triggerCounter
-					<< " failedSendCounter= " << m_failedSendCounter;
-			m_triggerCounter--;
+			MLOGST(WRN, this) << " detected a sendFail, triggerCounter= " << m_failedSendCountdown
+					<< " failedSendCounter= " << m_maxFailedSendCount;
+			m_failedSendCountdown--;
 			break;
 		}
 		case CanModule::ReconnectAutoCondition::never:
 		default:{
-			m_triggerCounter = m_failedSendCounter;
+			m_failedSendCountdown = m_maxFailedSendCount;
 			break;
 		}
 		}
 
 		switch ( m_reconnectAction ){
 		case CanModule::ReconnectAction::allBusesOnBridge: {
-			if ( m_triggerCounter <= 0 ){
+			if ( m_failedSendCountdown <= 0 ){
 				MLOGST(INF, this) << " reconnect condition " << (int) m_reconnectCondition
 						<< reconnectConditionString(m_reconnectCondition)
 						<< " triggered action " << (int) m_reconnectAction
 						<< reconnectActionString(m_reconnectAction);
 
 				STCanScan::reconnectAllPorts( m_UcanHandle );
-				m_triggerCounter = m_failedSendCounter;
+				m_failedSendCountdown = m_maxFailedSendCount;
 			}
 			break;
 		}
 		case CanModule::ReconnectAction::singleBus: {
-			if ( m_triggerCounter <= 0 ){
+			if ( m_failedSendCountdown <= 0 ){
 				MLOGST(INF, this) << " reconnect condition " << (int) m_reconnectCondition
 						<< reconnectConditionString(m_reconnectCondition)
 						<< " triggered action " << (int) m_reconnectAction
 						<< reconnectActionString(m_reconnectAction);
 				openCanPort( createInitializationParameters( m_baudRate ));
 				MLOGST(TRC, this) << "reconnect one CAN port  m_UcanHandle= " << (int) m_UcanHandle;
-				m_triggerCounter = m_failedSendCounter;
+				m_failedSendCountdown = m_maxFailedSendCount;
 			}
 			break;
 		}

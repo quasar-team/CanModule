@@ -16,6 +16,7 @@ var classMockCanAccess =
     [ "setReconnectBehavior", "classMockCanAccess.html#a76b9aba43928afc77b9ef25f0289d0a7", null ],
     [ "setReconnectFailedSendCount", "classMockCanAccess.html#abfb4be10500a4960b163433b5c06d22f", null ],
     [ "setReconnectReceptionTimeout", "classMockCanAccess.html#ac626da0d02537e59c9d4bf9c631cec1b", null ],
+    [ "stopBus", "classMockCanAccess.html#ae9738cfb2774d75ead6dda2bd47922b9", null ],
     [ "m_baudRate", "classMockCanAccess.html#aa8c1a3282b1ec8a2295faaac6c067824", null ],
     [ "m_statistics", "classMockCanAccess.html#ae581d0d291f4717be3887ff63ebca063", null ]
 ];

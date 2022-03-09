@@ -10,15 +10,15 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="3">
-        <label>CanInterfaceImplementations/anagate/AnaCanScan.cpp</label>
-        <link refid="AnaCanScan_8cpp"/>
-      </node>
       <node id="2">
         <label>CanInterfaceImplementations/anagate/AnaCanScan.h</label>
         <link refid="AnaCanScan_8h"/>
         <childnode refid="3" relation="include">
         </childnode>
+      </node>
+      <node id="3">
+        <label>CanInterfaceImplementations/anagate/AnaCanScan.cpp</label>
+        <link refid="AnaCanScan_8cpp"/>
       </node>
     </invincdepgraph>
       <sectiondef kind="define">

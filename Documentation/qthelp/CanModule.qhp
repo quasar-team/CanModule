@@ -2,15 +2,15 @@
 <QtHelpProject version="1.0">
     <namespace>canmodule</namespace>
     <virtualFolder>doc</virtualFolder>
-    <customFilter name="CanModule 2.0.6">
+    <customFilter name="CanModule 2.0.16">
         <filterAttribute>CanModule</filterAttribute>
-        <filterAttribute>2.0.6</filterAttribute>
+        <filterAttribute>2.0.16</filterAttribute>
     </customFilter>
     <filterSection>
         <filterAttribute>CanModule</filterAttribute>
-        <filterAttribute>2.0.6</filterAttribute>
+        <filterAttribute>2.0.16</filterAttribute>
         <toc>
-            <section title="CanModule 2.0.6 documentation" ref="index.html">
+            <section title="CanModule 2.0.16 documentation" ref="index.html">
                 <section title="Downloading" ref="downloading.html">
                     <section title="sources" ref="downloading.html#sources"/>
                     <section title="runtime dependencies" ref="downloading.html#runtime-dependencies"/>
@@ -46,15 +46,18 @@
                         <section title="errors" ref="vendors/peak.html#errors"/>
                     </section>
                 </section>
-                <section title="Reconnection OBSOLETE IS REWRITTEN CURRENTLY" ref="reconnection.html">
-                    <section title="anagate" ref="reconnection.html#anagate"/>
+                <section title="Reconnection Behavior" ref="reconnection.html">
+                    <section title="anagate (“an”)" ref="reconnection.html#anagate-an">
+                        <section title="anagate modules with ONE ip number only" ref="reconnection.html#anagate-modules-with-one-ip-number-only"/>
+                        <section title="multi-ip anagate modules (some 2022 and later)" ref="reconnection.html#multi-ip-anagate-modules-some-2022-and-later"/>
+                    </section>
                     <section title="peak" ref="reconnection.html#peak">
-                        <section title="linux/cc7" ref="reconnection.html#linux-cc7"/>
-                        <section title="windows" ref="reconnection.html#windows"/>
+                        <section title="linux/cc7 (&#8220;sock&#8221;)" ref="reconnection.html#linux-cc7-sock"/>
+                        <section title="windows (&#8220;peak&#8221;)" ref="reconnection.html#windows-peak"/>
                     </section>
                     <section title="systec" ref="reconnection.html#systec">
-                        <section title="linux/cc7" ref="reconnection.html#id1"/>
-                        <section title="windows" ref="reconnection.html#id2"/>
+                        <section title="linux/cc7 (&#8220;sock&#8221;)" ref="reconnection.html#id1"/>
+                        <section title="windows (&#8220;systec&#8221;)" ref="reconnection.html#windows-systec"/>
                     </section>
                 </section>
                 <section title="Logging" ref="logging.html"/>
@@ -87,12 +90,16 @@
             <keyword name="CanModule::CCanAccess (C++ class)" ref="canports.html#_CPPv4N9CanModule10CCanAccessE"/>
             <keyword name="CanModule::CCanAccess (C++ class)" ref="canports.html#_CPPv4N9CanModule10CCanAccessE"/>
             <keyword name="CanModule::CCanAccess (C++ class)" ref="classestracing.html#_CPPv4N9CanModule10CCanAccessE"/>
+            <keyword name="CanModule::CCanAccess (C++ class)" ref="reconnection.html#_CPPv4N9CanModule10CCanAccessE"/>
+            <keyword name="CanModule::CCanAccess (C++ class)" ref="reconnection.html#_CPPv4N9CanModule10CCanAccessE"/>
             <keyword name="CanModule::CCanAccess::getPortBitrate (C++ function)" ref="canports.html#_CPPv4N9CanModule10CCanAccess14getPortBitrateEv"/>
             <keyword name="CanModule::CCanAccess::getPortStatus (C++ function)" ref="canports.html#_CPPv4N9CanModule10CCanAccess13getPortStatusEv"/>
             <keyword name="CanModule::Diag (C++ class)" ref="classestracing.html#_CPPv4N9CanModule4DiagE"/>
             <keyword name="CanModule::Diag::get_connections (C++ function)" ref="classestracing.html#_CPPv4N9CanModule4Diag15get_connectionsEv"/>
             <keyword name="CSockCanScan (C++ class)" ref="classestracing.html#_CPPv412CSockCanScan"/>
+            <keyword name="CSockCanScan (C++ class)" ref="vendors/systec.html#_CPPv412CSockCanScan"/>
             <keyword name="CSockCanScan::getPortStatus (C++ function)" ref="classestracing.html#_CPPv4N12CSockCanScan13getPortStatusEv"/>
+            <keyword name="CSockCanScan::getPortStatus (C++ function)" ref="vendors/systec.html#_CPPv4N12CSockCanScan13getPortStatusEv"/>
             <keyword name="CSockCanScan::sendMessage (C++ function)" ref="classestracing.html#_CPPv4N12CSockCanScan11sendMessageEshPhb"/>
             <keyword name="PKCanScan (C++ class)" ref="classestracing.html#_CPPv49PKCanScan"/>
             <keyword name="PKCanScan (C++ class)" ref="vendors/peak.html#_CPPv49PKCanScan"/>

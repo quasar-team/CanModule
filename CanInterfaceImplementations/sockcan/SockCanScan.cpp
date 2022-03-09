@@ -24,7 +24,10 @@
 #include "SockCanScan.h"
 #include "UdevAnalyserForPeak.h"
 
+#include <thread>
 #include <mutex>
+#include <condition_variable>
+
 #include <time.h>
 #include <string.h>
 #include <sys/time.h>
@@ -47,11 +50,9 @@
 #include <LogIt.h>
 
 /* static */ std::map<string, string> CSockCanScan::m_busMap;
-std::mutex sockReconnectMutex; // protect m_busMap
+std::mutex sockReconnectMutex; // protect global m_busMap
 
 #define MLOGSOCK(LEVEL,THIS) LOG(Log::LEVEL, THIS->logItHandle()) << __FUNCTION__ << " sock bus= " << THIS->getBusName() << " "
-
-
 
 /**
  * This function creates an instance of this class and returns it.
@@ -73,8 +74,9 @@ CSockCanScan::CSockCanScan() :
 {
 	m_statistics.setTimeSinceOpened();
 	m_statistics.beginNewRun();
-	m_triggerCounter = m_failedSendCounter;
+	m_failedSendCountdown = m_maxFailedSendCount;
 }
+
 
 static std::string canFrameToString(const struct can_frame &f)
 {
@@ -91,7 +93,13 @@ static std::string canFrameToString(const struct can_frame &f)
 	return result;
 }
 
+
 /**
+ *
+ * The main control thread function for the CAN update scan manager:
+ * a private non-static method, which is called on the object (this)
+ * following std::thread C++11 ways.
+ *
  * reading from socket, and supervising thread for monitoring the sockets/CAN buses.
  * It takes an object reference (cast) and listens with a
  * select call on that socket/object. The select runs with 1Hz, and if
@@ -137,6 +145,11 @@ void CSockCanScan::CanScanControlThread()
 
 	MLOGSOCK(TRC,p_sockCanScan) << "main loop of SockCanScan starting, tid= " << _tid;
 	int statusCountdown = 10;
+
+	// unblock init of reconnection thread
+	MLOGSOCK(TRC,p_sockCanScan) << "init reconnection thread " << p_sockCanScan->getBusName();
+	triggerReconnectionThread();
+
 	while ( p_sockCanScan->m_CanScanThreadRunEnableFlag ) {
 		fd_set set;
 		FD_ZERO( &set );
@@ -202,6 +215,8 @@ void CSockCanScan::CanScanControlThread()
 			int numberOfReadBytes = read(sock, &socketMessage, sizeof(can_frame));
 			MLOGSOCK(DBG,p_sockCanScan) << "read(): " << canFrameToString(socketMessage) << " tid= " << _tid;
 			MLOGSOCK(DBG,p_sockCanScan) << "got numberOfReadBytes= " << numberOfReadBytes << " tid= " << _tid;;
+
+			// got an error from the socket
 			if (numberOfReadBytes < 0) {
 				MLOGSOCK(ERR,p_sockCanScan) << "read() error: " << CanModuleerrnoToString()<< " tid= " << _tid;;
 				timeval now;
@@ -210,7 +225,7 @@ void CSockCanScan::CanScanControlThread()
 				p_sockCanScan->m_errorCode = -1;
 
 
-				// try close/opening on faults while port is active
+				// try close/opening on faults while port is active. This was a system error
 				do {
 					MLOGSOCK(INF,p_sockCanScan) << "Waiting 10000ms."<< " tid= " << _tid;
 					{
@@ -241,15 +256,15 @@ void CSockCanScan::CanScanControlThread()
 						MLOGSOCK(INF,p_sockCanScan) << " tid= " << _tid << " Now port will be reopened.";
 						if ((sock = p_sockCanScan->openCanPort()) < 0) {
 							MLOGSOCK(ERR,p_sockCanScan) << " tid= " << _tid << "openCanPort() failed.";
-						} //else {
-						// MLOGSOCK(INF,p_sockCanScan) << " tid= " << _tid << "Port reopened.";
-						//}
+						} else {
+						 MLOGSOCK(INF,p_sockCanScan) << " tid= " << _tid << "Port reopened.";
+						}
 
 						// the reception handler is still connected to it's signal, by the calling task
 
-					} //else {
-					// MLOGSOCK(INF,p_sockCanScan) << " tid= " << _tid << "Leaving Port closed, not needed any more.";
-					//}
+					} else {
+					 MLOGSOCK(INF,p_sockCanScan) << " tid= " << _tid << "Leaving Port closed, thread and port needed any more.";
+					}
 				} // do...while ... we still have an error
 				while ( p_sockCanScan->m_CanScanThreadRunEnableFlag && sock < 0 );
 
@@ -261,7 +276,7 @@ void CSockCanScan::CanScanControlThread()
 				continue;
 			}
 
-
+			// got something, but wrong length and therefore obviously wrong data
 			if (numberOfReadBytes <(int) sizeof(struct can_frame)) {
 				MLOGSOCK( WRN, p_sockCanScan ) << p_sockCanScan->m_channelName.c_str() << " incomplete frame received, numberOfReadBytes=[" << numberOfReadBytes << "]";
 
@@ -269,13 +284,21 @@ void CSockCanScan::CanScanControlThread()
 				continue;
 			}
 
+			// detected a CAN error
 			if (socketMessage.can_id & CAN_ERR_FLAG) {
 
-				/* With this mechanism we only set the portError */
+				// we retrieve the timestamp and report the CAN port
 				p_sockCanScan->m_errorCode = socketMessage.can_id & ~CAN_ERR_FLAG;
 				std::string description = CSockCanScan::errorFrameToString( socketMessage );
 				timeval c_time;
-				int ioctlReturn1 = ioctl(sock, SIOCGSTAMP, &c_time); //TODO: Return code is not even checked
+				int ioctlReturn1 = ioctl(sock, SIOCGSTAMP, &c_time);
+				if ( ioctlReturn1 ){
+					MLOGSOCK(ERR, p_sockCanScan) << "SocketCAN "
+							<< p_sockCanScan->getBusName()
+							<< " got an error, ioctl timestamp from socket failed as well, setting local time"
+							<< " ioctlReturn1 = " << ioctlReturn1;
+					gettimeofday( &c_time, NULL );
+				}
 				MLOGSOCK(ERR, p_sockCanScan) << "SocketCAN ioctl return: [" << ioctlReturn1
 						<< " error frame: [" << description
 						<< "], original: [" << canFrameToString(socketMessage) << "]";
@@ -292,7 +315,7 @@ void CSockCanScan::CanScanControlThread()
 			canMessage.c_rtr = socketMessage.can_id & CAN_RTR_FLAG;
 
 			/**
-			 * OPCUA-2607. Lets just stop filtering them out. This is only done here
+			 * OPCUA-2607. Lets just stop filtering RTR out. This is only done here
 			 * anyway, all other vendor implementations don't care.
 			 */
 #if 0
@@ -302,7 +325,7 @@ void CSockCanScan::CanScanControlThread()
 				continue;
 			}
 #else
-			MLOGSOCK(TRC, p_sockCanScan) << " Got a remote CAN message "<< " tid= " << _tid;
+			// MLOGSOCK(TRC, p_sockCanScan) << " Got a remote CAN message "<< " tid= " << _tid;
 #endif
 
 			/**
@@ -310,7 +333,15 @@ void CSockCanScan::CanScanControlThread()
 			 * this actually should exclude more bits
 			 */
 			canMessage.c_id = socketMessage.can_id & ~CAN_RTR_FLAG;
-			int ioctlReturn2 = ioctl(sock,SIOCGSTAMP,&canMessage.c_time);   //TODO: Return code is not even checked, yeah, but...
+			int ioctlReturn2 = ioctl(sock,SIOCGSTAMP,&canMessage.c_time);
+			if ( ioctlReturn2 ){
+				MLOGSOCK(ERR, p_sockCanScan) << "SocketCAN "
+						<< p_sockCanScan->getBusName()
+						<< " ioctl timestamp from socket failed, setting local time"
+						<< " ioctlReturn2 = " << ioctlReturn2;
+				gettimeofday( &canMessage.c_time, NULL );
+			}
+
 			MLOGSOCK(TRC, p_sockCanScan) << " SocketCAN ioctl SIOCGSTAMP return: [" << ioctlReturn2 << "]" << " tid= " << _tid;
 			canMessage.c_dlc = socketMessage.can_dlc;
 			memcpy(&canMessage.c_data[0],&socketMessage.data[0],8);
@@ -323,37 +354,141 @@ void CSockCanScan::CanScanControlThread()
 
 		} else {
 			/**
-			 * the select got nothing to read, this was just a timeout.
+			 * the select got nothing to read, this was just a timeout, all is fine. Unless the reconnect timeout has something to do.
 			 */
 			MLOGSOCK(DBG,p_sockCanScan) << "listening on " << p_sockCanScan->getBusName()
 									<< " socket= " << p_sockCanScan->m_sock << " (got nothing)"<< " tid= " << _tid;
 
+
 			/**
-			 * lets check the timeoutOnReception reconnect condition. If it is true, all we can do is to
-			 * close/open the socket again since the underlying hardware is hidden by socketcan abstraction.
-			 * Like his we do not have to pollute the "sendMessage" like for anagate, and that is cleaner.
+			 * the reconnect behavior happens in an extra thread so that the sendMessage becomes non blocking. This is
+			 * the reception of the message part, and strictly speaking we could do the reconnection due to reception
+			 * message timeout also here.
+			 *
+			 * That is NOT the same as the "select" timeout, of course.
+			 *
+			 * For cleanliness, lets use that extra reconnection thread nevertheless here.
 			 */
-			CanModule::ReconnectAutoCondition rcond = p_sockCanScan->getReconnectCondition();
-			CanModule::ReconnectAction ract = p_sockCanScan->getReconnectAction();
-			if ( rcond == CanModule::ReconnectAutoCondition::timeoutOnReception && p_sockCanScan->hasTimeoutOnReception()) {
-				if ( ract == CanModule::ReconnectAction::singleBus ){
-					MLOGSOCK(INF, p_sockCanScan) << " reconnect condition " << (int) rcond
-							<< p_sockCanScan->reconnectConditionString(rcond)
-							<< " triggered action " << (int) ract
-							<< p_sockCanScan->reconnectActionString(ract);
-					p_sockCanScan->resetTimeoutOnReception();  // renew timeout while reconnect is in progress
-					close( sock );
-					sock = p_sockCanScan->openCanPort();
-					MLOGSOCK(TRC, p_sockCanScan) << "reconnect one CAN port  sock= " << sock;
-				} else {
-					MLOGSOCK(INF, p_sockCanScan) << "reconnect action " << (int) ract
-							<< p_sockCanScan->reconnectActionString(ract)
-							<< " is not implemented for sock";
-				}
-			}  // reconnect condition
-		} // select showed timeout
+			MLOGSOCK(DBG,p_sockCanScan) << "trigger reconnection thread to check reception timeout " << p_sockCanScan->getBusName();
+			triggerReconnectionThread();
+		} // else..select showed timeout
 	} // while ( p_sockCanScan->m_CanScanThreadRunEnableFlag )
 	MLOGSOCK(INF,p_sockCanScan) << "main loop of SockCanScan terminated." << " tid= " << _tid;
+}
+
+/**
+ * Reconnection thread managing the reconnection behavior, per port. The behavior settings can not change during runtime.
+ * This thread is initialized after the main thread is up, and then listens on its cond.var as a trigger.
+ * Triggers occur in two contexts: sending and receiving problems.
+ * If there is a sending problem which lasts for a while (usually) the reconnection thread will be also triggered for each failed sending:
+ * the thread will be "hammered" by triggers. ince the reconnection takes some time, many triggers will be lost. That is in fact a desired behavior.
+ *
+ * The parameters are all atomics for increased thread-safety, even though the documentation about the predicate is unclear on that point. Since
+ * atomics just provide a "sequential memory layout" for the variables to prevent race conditions they are good to use for this but the code still has to be threadsafe
+ * and reentrant... ;-) Doesn't eat anything anyway on that small scale with scalars only.
+ *
+ * https://en.cppreference.com/w/cpp/thread/condition_variable/wait
+ */
+void CSockCanScan::CanReconnectionThread()
+{
+	std::string _tid;
+	{
+		std::stringstream ss;
+		ss << this_thread::get_id();
+		_tid = ss.str();
+	}
+	MLOGSOCK(TRC, this ) << "created reconnection thread tid= " << _tid;
+
+	// need some sync to the main thread to be sure it is up and the sock is created: wait first time for init
+	waitForReconnectionThreadTrigger();
+
+	/**
+	 * lets check the timeoutOnReception reconnect condition. If it is true, all we can do is to
+	 * close/open the socket again since the underlying hardware is hidden by socketcan abstraction.
+	 * Like his we do not have to pollute the "sendMessage" like for anagate, and that is cleaner.
+	 */
+	CanModule::ReconnectAutoCondition rcond = getReconnectCondition();
+	CanModule::ReconnectAction ract = getReconnectAction();
+
+	MLOGSOCK(TRC, this) << "initialized reconnection thread tid= " << _tid << ", entering loop";
+	while ( true ) {
+
+		// wait for sync: need a condition sync to step that thread once: a "trigger".
+		MLOGSOCK(TRC, this) << "waiting reconnection thread tid= " << _tid;
+		waitForReconnectionThreadTrigger();
+		MLOGSOCK(TRC, this)
+			<< " reconnection thread tid= " << _tid
+			<< " condition "<< reconnectConditionString(rcond)
+			<< " action " << reconnectActionString(ract)
+			<< " is checked, m_failedSendCountdown= "
+			<< m_failedSendCountdown;
+
+
+		/**
+		 * just manage the conditions, and continue/skip if there is nothing to do
+		 */
+		switch ( rcond ){
+		case CanModule::ReconnectAutoCondition::timeoutOnReception: {
+			resetSendFailedCountdown();
+			if ( !hasTimeoutOnReception() ){
+				continue;                  // do nothing
+			} else {
+				resetTimeoutOnReception(); // do the action
+			}
+			break;
+		}
+		case CanModule::ReconnectAutoCondition::sendFail: {
+			resetTimeoutOnReception();
+			if (m_failedSendCountdown > 0) {
+				continue;                   // do nothing
+			} else {
+				resetSendFailedCountdown(); // do the action
+			}
+		break;
+		}
+		// do nothing but keep counter and timeout resetted
+		case CanModule::ReconnectAutoCondition::never:
+		default:{
+			resetSendFailedCountdown();
+			resetTimeoutOnReception();
+			continue;// do nothing
+			break;
+		}
+		} // switch
+
+		// single bus reset if (send) countdown or the (receive) timeout says so
+		switch ( m_reconnectAction ){
+		case CanModule::ReconnectAction::singleBus: {
+
+			MLOGSOCK(INF, this) << " reconnect condition " << CCanAccess::reconnectConditionString(m_reconnectCondition)
+								<< " triggered action " << CCanAccess::reconnectActionString(m_reconnectAction);
+			close( m_sock );
+			int return0 = openCanPort();
+			MLOGSOCK(TRC, this) << "reconnect openCanPort() ret= " << return0;
+			break;
+		}
+
+		default: {
+			/**
+			 * socketcan abstracts away the notion of a "module", and that is the point. Various plugin-orders
+			 * should lead to the same device mapping nevertheless. But then we can't
+			 * refer to a module and reset all of it's channels easily in linux. Unless we make a big effort and keep
+			 * track of which port is on which module, for peak: more udev calls, for systec: we need
+			 * to read the module serial number or similar. Maybe there is an elegant way out, but I think
+			 * it is not worth it. Use a PDU if you want to reset your systec16. For peak the notion
+			 * of "module" is already difficult through socketcan (udev calls needed to identify the modules) and
+			 * peak bridges get their power over USB. So in fact testing peak means "rebooting" unless you want
+			 * to unplug the USB. Therefore "allBusesOnBridge" as reconnect action is not available for sock.
+			 *
+			 * CanModule::ReconnectAction::allBusesOnBridge is not implemented for sock
+			 */
+			MLOGSOCK(WRN, this) << "reconnection action "
+					<< (int) m_reconnectAction << reconnectActionString( m_reconnectAction )
+					<< " is not available for the socketcan/linux implementation. Check your config & see documentation. No action.";
+			break;
+		}
+		} // switch
+	} // while
 }
 
 CSockCanScan::~CSockCanScan()
@@ -400,6 +535,11 @@ int CSockCanScan::configureCanBoard(const string name,const string parameters)
 }
 
 /**
+ * Obtains a SocketCAN socket and opens it.
+ *  The name of the port and parameters should have been specified by preceding call to configureCanboard()
+ *
+ *  @returns less than zero in case of error, otherwise success
+
  * stop, set bitrate, start a CAN port, open a socket for it, set the socket to CAN,
  * bind it and check any errors
  */
@@ -554,6 +694,10 @@ void CSockCanScan::updateBusStatus(){
  * @param message Message to be sent trough the can bus.
  * @param rtr is the message a remote transmission request?
  * @return Was the initialisation process successful?
+ *
+ * OPCUA-2604: sendMessage must be non blocking. The reconnection behavior therefore must be managed in a separate thread.
+ *
+ * returns: true for success, otherwise false
  */
 bool CSockCanScan::sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr)
 {
@@ -603,70 +747,23 @@ bool CSockCanScan::sendMessage(short cobID, unsigned char len, unsigned char *me
 			ret = false;
 		}
 
-		// check the reconnect condition
-		switch( m_reconnectCondition ){
-		case CanModule::ReconnectAutoCondition::sendFail: {
-			MLOGSOCK(WRN, this) << " detected a sendFail, triggerCounter= " << m_triggerCounter
-					<< " failedSendCounter= " << m_failedSendCounter;
-			m_triggerCounter--;
-			break;
-		}
-		case CanModule::ReconnectAutoCondition::never:
-		default:{
-			m_triggerCounter = m_failedSendCounter;
-			break;
-		}
-		}
+		// trigger the reconnection thread once since there was a send fail. If this repeats N times successively, the
+		// m_triggerCounter == 0 and the reconnection thread will do sth.
+		MLOGSOCK(WRN,this) << "sendMessage fail detected ( bytes [" << numberOfWrittenBytes
+				<< "] written). Trigger reconnection thread and return (no block).";
 
-		// do the reconnect action if triggerCounter says so
-		switch ( m_reconnectAction ){
-		case CanModule::ReconnectAction::singleBus: {
-			if ( m_triggerCounter <= 0 ){
-				MLOGSOCK(INF, this) << " reconnect condition " << (int) m_reconnectCondition
-						<< reconnectConditionString(m_reconnectCondition)
-						<< " triggered action " << (int) m_reconnectAction
-						<< reconnectActionString(m_reconnectAction);
-				close( m_sock );
-				MLOGSOCK(TRC, this) << "calling openCanPort() for " << this->getBusName();
-				int return0 = openCanPort();
-				MLOGSOCK(TRC, this) << "reconnect one CAN port  ret= " << return0;
-				m_triggerCounter = m_failedSendCounter;
-				MLOGSOCK(TRC, this) << "set internal triggerCounter= " << m_triggerCounter;
-				{
-					MLOGSOCK(WRN,this) << "write error ENOBUFS: waiting a jiffy [100ms]...";
-					struct timespec tim, tim2;
-					tim.tv_sec = 0;
-					tim.tv_nsec = 100000;
-					if(nanosleep(&tim , &tim2) < 0 ) {
-						MLOGSOCK(ERR,this) << "Waiting 100ms failed (nanosleep)";
-					}
-				}
-			}
-			break;
-		}
-		default: {
-			/**
-			 * socketcan abstracts away the notion of a "module", and that is the point. Various plugin-orders
-			 * should lead to the same device mapping nevertheless. But then we can't
-			 * refer to a module and reset all of it's channels easily in linux. Unless we make a big effort and keep
-			 * track of which port is on which module, for peak: more udev calls, for systec: we need
-			 * to read the module serial number or similar. Maybe there is an elegant way out, but I think
-			 * it is not worth it. Use a PDU if you want to reset your systec16. For peak the notion
-			 * of "module" is already difficult through socketcan (udev calls needed to identify the modules) and
-			 * peak bridges get their power over USB. So in fact testing peak means "rebooting" unless you want
-			 * to unplug the USB. Therefore "allBusesOnBridge" as reconnect action is not available.
-			 */
-			MLOGSOCK(WRN, this) << "reconnection action "
-					<< (int) m_reconnectAction << reconnectActionString( m_reconnectAction )
-					<< " is not available for the socketcan/linux implementation.";
-			break;
-		}
-		} // switch
+		decreaseSendFailedCountdown();
+		triggerReconnectionThread();
+		// return immediately, non blocking
+		ret = false;
 	} else {
 		// no error
 		m_statistics.onTransmit( canFrame.can_dlc );
 		m_statistics.setTimeSinceTransmitted();
-		m_triggerCounter = m_failedSendCounter;
+
+		// reset
+		resetSendFailedCountdown();
+		// m_failedSendCountdown = m_maxFailedSendCount;
 	}
 	return ( ret );
 }
@@ -798,10 +895,18 @@ int CSockCanScan::createBus(const string name, const string parameters)
 	// m_hCanScanThread = new std::thread( &CSockCanScan::CanScanControlThread, this, "test" );
 	m_hCanScanThread = new std::thread( &CSockCanScan::CanScanControlThread, this);
 	MLOGSOCK(TRC,this) << "created main thread m_idCanScanThread";
+
+	/**
+	 * start a reconnection thread
+	 */
+	m_hCanReconnectionThread = new std::thread( &CSockCanScan::CanReconnectionThread, this);
+
+
 	return( 0 );
 }
 
-/*
+/**
+ * Transforms an error frame into an error message (string format):
  * Provides textual representation of SocketCAN error.
  */
 std::string CSockCanScan::errorFrameToString(const struct can_frame &canFrame)
@@ -883,6 +988,13 @@ void CSockCanScan::clearErrorMessage()
 	string errorMessage = "";
 	timeval c_time;
 	int ioctlReturn = ioctl(m_sock, SIOCGSTAMP, &c_time);//TODO: Return code is not checked
+	if ( ioctlReturn ){
+		MLOGSOCK(ERR, this) << "SocketCAN "
+				<< getBusName()
+				<< " ioctl timestamp from socket failed, setting local time"
+				<< " ioctlReturn = " << ioctlReturn;
+		gettimeofday( &c_time, NULL );
+	}
 	MLOGSOCK(TRC,this) << "ioctlReturn= " << ioctlReturn;
 	canMessageError(0, errorMessage.c_str(), c_time);
 }
@@ -891,6 +1003,13 @@ void CSockCanScan::sendErrorMessage(const char *mess)
 {
 	timeval c_time;
 	int ioctlReturn = ioctl(m_sock,SIOCGSTAMP,&c_time);//TODO: Return code is not checked
+	if ( ioctlReturn ){
+		MLOGSOCK(ERR, this) << "SocketCAN "
+				<< getBusName()
+				<< " ioctl timestamp from socket failed, setting local time"
+				<< " ioctlReturn = " << ioctlReturn;
+		gettimeofday( &c_time, NULL );
+	}
 	MLOGSOCK(TRC,this) << "ioctlReturn= " << ioctlReturn;
 	canMessageError(-1,mess,c_time);
 }
@@ -930,6 +1049,9 @@ void CSockCanScan::getStatistics( CanStatistics & result )
 	m_statistics.beginNewRun();
 }
 
+/**
+ * Report an error when opening a can port
+ */
 void CSockCanScan::updateInitialError ()
 {
 	if (m_errorCode == 0) {

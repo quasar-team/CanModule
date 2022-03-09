@@ -6,22 +6,12 @@
 
 
 
-Inheritance diagram for P\+K\+Can\+Scan\+:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=217pt]{classPKCanScan__inherit__graph}
-\end{center}
-\end{figure}
+Inheritance diagram for P\+K\+Can\+Scan\+:
+% FIG 0
 
 
-Collaboration diagram for P\+K\+Can\+Scan\+:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{classPKCanScan__coll__graph}
-\end{center}
-\end{figure}
+Collaboration diagram for P\+K\+Can\+Scan\+:
+% FIG 1
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -58,6 +48,8 @@ virtual void \mbox{\hyperlink{classPKCanScan_a3471105853a5036dd8a3f421c67de628}{
 virtual \mbox{\hyperlink{namespaceCanModule_a2f4fee79cc7ba53467c2538fe6b9adbb}{Can\+Module\+::\+Reconnect\+Auto\+Condition}} \mbox{\hyperlink{classPKCanScan_a4ae1f1cfd3e566a903b79f2502fe8752}{get\+Reconnect\+Condition}} ()
 \item 
 virtual \mbox{\hyperlink{namespaceCanModule_a2062089fa4fa87c8354295f2a8fe31a5}{Can\+Module\+::\+Reconnect\+Action}} \mbox{\hyperlink{classPKCanScan_a00c1fa5d1abd77601c46669df80b6fba}{get\+Reconnect\+Action}} ()
+\item 
+virtual void \mbox{\hyperlink{classPKCanScan_a6e90d6dabc2e7a9f445bcff291a566f5}{stop\+Bus}} ()
 \end{DoxyCompactItemize}
 \doxysubsection*{Static Public Attributes}
 \begin{DoxyCompactItemize}
@@ -72,8 +64,6 @@ T\+P\+C\+A\+N\+Handle \mbox{\hyperlink{classPKCanScan_a53471be1a2b2b34afc091e90b
 bool \mbox{\hyperlink{classPKCanScan_a35ccc4082d56a736abb34d0c289c5a96}{send\+Error\+Code}} (long)
 \item 
 bool \mbox{\hyperlink{classPKCanScan_a6fe021ecfdde5af1e7a74668b9819bfb}{configure\+Canboard}} (const string name, const string parameters)
-\item 
-void \mbox{\hyperlink{classPKCanScan_af7d899c65e6abef105d82a89115fd59b}{stop\+Bus}} (void)
 \end{DoxyCompactItemize}
 \doxysubsection*{Static Private Member Functions}
 \begin{DoxyCompactItemize}
@@ -126,15 +116,10 @@ Definition at line 50 of file pkcan.\+cpp.
 
 
 
-References Can\+Module\+::\+Can\+Statistics\+::begin\+New\+Run(), Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+failed\+Send\+Counter, m\+\_\+statistics, Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+trigger\+Counter, and Can\+Module\+::\+Can\+Statistics\+::set\+Time\+Since\+Opened().
+References Can\+Module\+::\+Can\+Statistics\+::begin\+New\+Run(), Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+failed\+Send\+Countdown, Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+max\+Failed\+Send\+Count, m\+\_\+statistics, and Can\+Module\+::\+Can\+Statistics\+::set\+Time\+Since\+Opened().
 
-Here is the call graph for this function\+:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{classPKCanScan_adfc8b4e20f4548295a99af69bf1888d5_cgraph}
-\end{center}
-\end{figure}
+Here is the call graph for this function\+:
+% FIG 2
 \mbox{\Hypertarget{classPKCanScan_aa323b8cf8e476c7dfec2719756f25962}\label{classPKCanScan_aa323b8cf8e476c7dfec2719756f25962}} 
 \index{PKCanScan@{PKCanScan}!PKCanScan@{PKCanScan}}
 \index{PKCanScan@{PKCanScan}!PKCanScan@{PKCanScan}}
@@ -155,13 +140,8 @@ Definition at line 63 of file pkcan.\+cpp.
 
 References M\+L\+O\+G\+PK, and stop\+Bus().
 
-Here is the call graph for this function\+:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{classPKCanScan_a924778bdca171eb7f3f597dfe9f99fb4_cgraph}
-\end{center}
-\end{figure}
+Here is the call graph for this function\+:
+% FIG 3
 
 
 \doxysubsection{Member Function Documentation}
@@ -173,7 +153,7 @@ Here is the call graph for this function\+:\nopagebreak
 
 thread to supervise port activity lets check the timeout\+On\+Reception reconnect condition. If it is true, all we can do is to close/open the port again since the underlying hardware is hidden by socketcan abstraction. Like his we do not have to pollute the \char`\"{}send\+Message\char`\"{} like for anagate, and that is cleaner.
 
-Definition at line 109 of file pkcan.\+cpp.
+Definition at line 111 of file pkcan.\+cpp.
 
 
 
@@ -183,13 +163,8 @@ References Can\+Msg\+Struct\+::c\+\_\+data, Can\+Msg\+Struct\+::c\+\_\+dlc, Can\
 
 Referenced by create\+Bus().
 
-Here is the call graph for this function\+:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{classPKCanScan_a45bd5feda5ccb009775c45bfabe41614_cgraph}
-\end{center}
-\end{figure}
+Here is the call graph for this function\+:
+% FIG 4
 \mbox{\Hypertarget{classPKCanScan_a6fe021ecfdde5af1e7a74668b9819bfb}\label{classPKCanScan_a6fe021ecfdde5af1e7a74668b9819bfb}} 
 \index{PKCanScan@{PKCanScan}!configureCanboard@{configureCanboard}}
 \index{configureCanboard@{configureCanboard}!PKCanScan@{PKCanScan}}
@@ -202,7 +177,7 @@ fixed datarate modules (classical C\+AN), plug and play we try 10 times until su
 
 fixed data rate, non plug-\/and-\/play static T\+P\+C\+A\+N\+Status Initialize( T\+P\+C\+A\+N\+Handle Channel, T\+P\+C\+A\+N\+Baudrate Btr0\+Btr1, T\+P\+C\+A\+N\+Type Hw\+Type, U\+Int32 I\+O\+Port, U\+Int16 Interrupt);
 
-Definition at line 266 of file pkcan.\+cpp.
+Definition at line 268 of file pkcan.\+cpp.
 
 
 
@@ -212,13 +187,8 @@ References get\+Handle(), m\+\_\+baud\+Rate, Can\+Module\+::\+C\+Can\+Access\+::
 
 Referenced by create\+Bus().
 
-Here is the call graph for this function\+:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{classPKCanScan_a6fe021ecfdde5af1e7a74668b9819bfb_cgraph}
-\end{center}
-\end{figure}
+Here is the call graph for this function\+:
+% FIG 5
 \mbox{\Hypertarget{classPKCanScan_a565d5200fe4c139796bd073c6296208f}\label{classPKCanScan_a565d5200fe4c139796bd073c6296208f}} 
 \index{PKCanScan@{PKCanScan}!createBus@{createBus}}
 \index{createBus@{createBus}!PKCanScan@{PKCanScan}}
@@ -253,7 +223,7 @@ Implements \mbox{\hyperlink{classCanModule_1_1CCanAccess_a0eeee5c3d48f1102012d14
 
 
 
-Definition at line 209 of file pkcan.\+cpp.
+Definition at line 211 of file pkcan.\+cpp.
 
 
 
@@ -263,13 +233,8 @@ References Can\+Scan\+Control\+Thread(), configure\+Canboard(), Can\+Module\+::\
 
 Referenced by send\+Message().
 
-Here is the call graph for this function\+:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{classPKCanScan_a565d5200fe4c139796bd073c6296208f_cgraph}
-\end{center}
-\end{figure}
+Here is the call graph for this function\+:
+% FIG 6
 \mbox{\Hypertarget{classPKCanScan_a077b19a57357437f6c2e6ce00030a698}\label{classPKCanScan_a077b19a57357437f6c2e6ce00030a698}} 
 \index{PKCanScan@{PKCanScan}!getErrorMessage@{getErrorMessage}}
 \index{getErrorMessage@{getErrorMessage}!PKCanScan@{PKCanScan}}
@@ -278,7 +243,7 @@ Here is the call graph for this function\+:\nopagebreak
 
 
 
-Definition at line 506 of file pkcan.\+cpp.
+Definition at line 508 of file pkcan.\+cpp.
 
 
 
@@ -292,7 +257,7 @@ Referenced by send\+Error\+Code().
 
 This method returns a T\+P\+C\+A\+N\+Handle (which is in fact a specific vendor defined hex value) as a function of a human readable string. The human readable string basically codes the intefrace type (U\+SB, I\+SA, P\+CI...) and the C\+AN port (1..8) so that i.\+e. U\+S\+B3-\/$>$0x53 which means U\+SB interface 3rd channel 
 
-Definition at line 520 of file pkcan.\+cpp.
+Definition at line 522 of file pkcan.\+cpp.
 
 
 
@@ -324,7 +289,7 @@ Implements \mbox{\hyperlink{classCanModule_1_1CCanAccess_a33fe530d070cf35d096e96
 
 
 
-Definition at line 100 of file pkcan.\+cpp.
+Definition at line 102 of file pkcan.\+cpp.
 
 
 
@@ -378,19 +343,14 @@ Implements \mbox{\hyperlink{classCanModule_1_1CCanAccess_ad3182c83b4c5d7e6aef982
 
 
 
-Definition at line 576 of file pkcan.\+cpp.
+Definition at line 578 of file pkcan.\+cpp.
 
 
 
 References Can\+Module\+::\+Can\+Statistics\+::begin\+New\+Run(), Can\+Module\+::\+Can\+Statistics\+::compute\+Derived(), m\+\_\+baud\+Rate, and m\+\_\+statistics.
 
-Here is the call graph for this function\+:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{classPKCanScan_a2ef38527fb5009c43487fccbbe4694ba_cgraph}
-\end{center}
-\end{figure}
+Here is the call graph for this function\+:
+% FIG 7
 \mbox{\Hypertarget{classPKCanScan_a6c53d03956f54ac706a556be4dcbfe1a}\label{classPKCanScan_a6c53d03956f54ac706a556be4dcbfe1a}} 
 \index{PKCanScan@{PKCanScan}!logItHandle@{logItHandle}}
 \index{logItHandle@{logItHandle}!PKCanScan@{PKCanScan}}
@@ -415,7 +375,7 @@ Definition at line 76 of file pkcan.\+h.
 
 
 
-Definition at line 389 of file pkcan.\+cpp.
+Definition at line 391 of file pkcan.\+cpp.
 
 
 
@@ -425,13 +385,8 @@ References Can\+Module\+::\+C\+Can\+Access\+::can\+Message\+Error, Can\+Module\+
 
 Referenced by Can\+Scan\+Control\+Thread(), send\+Message(), and send\+Remote\+Request().
 
-Here is the call graph for this function\+:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{classPKCanScan_a35ccc4082d56a736abb34d0c289c5a96_cgraph}
-\end{center}
-\end{figure}
+Here is the call graph for this function\+:
+% FIG 8
 \mbox{\Hypertarget{classPKCanScan_a48a2e9ba00dae1b1fe01f7b095430503}\label{classPKCanScan_a48a2e9ba00dae1b1fe01f7b095430503}} 
 \index{PKCanScan@{PKCanScan}!sendMessage@{sendMessage}}
 \index{sendMessage@{sendMessage}!PKCanScan@{PKCanScan}}
@@ -444,20 +399,14 @@ Implements \mbox{\hyperlink{classCanModule_1_1CCanAccess_aee42ab7fb9e50c02a18122
 
 
 
-Definition at line 412 of file pkcan.\+cpp.
+Definition at line 414 of file pkcan.\+cpp.
 
 
 
-References Can\+Module\+::all\+Buses\+On\+Bridge, create\+Bus(), m\+\_\+bus\+Name, m\+\_\+bus\+Parameters, Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+failed\+Send\+Counter, m\+\_\+pk\+Can\+Handle, Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+reconnect\+Action, Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+reconnect\+Condition, m\+\_\+statistics, Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+trigger\+Counter, M\+L\+O\+G\+PK, Can\+Module\+::never, Can\+Module\+::\+Can\+Statistics\+::on\+Transmit(), Can\+Module\+::\+C\+Can\+Access\+::reconnect\+Action\+String(), Can\+Module\+::\+C\+Can\+Access\+::reconnect\+Condition\+String(), send\+Error\+Code(), Can\+Module\+::send\+Fail, Can\+Module\+::\+Can\+Statistics\+::set\+Time\+Since\+Transmitted(), Can\+Module\+::single\+Bus, and stop\+Bus().
+References Can\+Module\+::all\+Buses\+On\+Bridge, create\+Bus(), m\+\_\+bus\+Name, m\+\_\+bus\+Parameters, Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+failed\+Send\+Countdown, Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+max\+Failed\+Send\+Count, m\+\_\+pk\+Can\+Handle, Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+reconnect\+Action, Can\+Module\+::\+C\+Can\+Access\+::m\+\_\+reconnect\+Condition, m\+\_\+statistics, M\+L\+O\+G\+PK, Can\+Module\+::never, Can\+Module\+::\+Can\+Statistics\+::on\+Transmit(), Can\+Module\+::\+C\+Can\+Access\+::reconnect\+Action\+String(), Can\+Module\+::\+C\+Can\+Access\+::reconnect\+Condition\+String(), send\+Error\+Code(), Can\+Module\+::send\+Fail, Can\+Module\+::\+Can\+Statistics\+::set\+Time\+Since\+Transmitted(), Can\+Module\+::single\+Bus, and stop\+Bus().
 
 Here is the call graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{classPKCanScan_a48a2e9ba00dae1b1fe01f7b095430503_cgraph}
-\end{center}
-\end{figure}
+% FIG 9
 \mbox{\Hypertarget{classPKCanScan_af7e22b4a484de11ccaea060ad0adb47d}\label{classPKCanScan_af7e22b4a484de11ccaea060ad0adb47d}} 
 \index{PKCanScan@{PKCanScan}!sendRemoteRequest@{sendRemoteRequest}}
 \index{sendRemoteRequest@{sendRemoteRequest}!PKCanScan@{PKCanScan}}
@@ -478,19 +427,14 @@ Implements \mbox{\hyperlink{classCanModule_1_1CCanAccess_acfefbc9be2696b1388cf6d
 
 
 
-Definition at line 497 of file pkcan.\+cpp.
+Definition at line 499 of file pkcan.\+cpp.
 
 
 
 References m\+\_\+pk\+Can\+Handle, and send\+Error\+Code().
 
-Here is the call graph for this function\+:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{classPKCanScan_af7e22b4a484de11ccaea060ad0adb47d_cgraph}
-\end{center}
-\end{figure}
+Here is the call graph for this function\+:
+% FIG 10
 \mbox{\Hypertarget{classPKCanScan_abbc20782e1ebbd9cb552a957a3196561}\label{classPKCanScan_abbc20782e1ebbd9cb552a957a3196561}} 
 \index{PKCanScan@{PKCanScan}!setReconnectBehavior@{setReconnectBehavior}}
 \index{setReconnectBehavior@{setReconnectBehavior}!PKCanScan@{PKCanScan}}
@@ -551,13 +495,17 @@ Implements \mbox{\hyperlink{classCanModule_1_1CCanAccess_a3c902569c0712d165fc7e3
 
 Definition at line 81 of file pkcan.\+h.
 
-\mbox{\Hypertarget{classPKCanScan_af7d899c65e6abef105d82a89115fd59b}\label{classPKCanScan_af7d899c65e6abef105d82a89115fd59b}} 
+\mbox{\Hypertarget{classPKCanScan_a6e90d6dabc2e7a9f445bcff291a566f5}\label{classPKCanScan_a6e90d6dabc2e7a9f445bcff291a566f5}} 
 \index{PKCanScan@{PKCanScan}!stopBus@{stopBus}}
 \index{stopBus@{stopBus}!PKCanScan@{PKCanScan}}
 \doxysubsubsection{\texorpdfstring{stopBus()}{stopBus()}}
-{\footnotesize\ttfamily void P\+K\+Can\+Scan\+::stop\+Bus (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+{\footnotesize\ttfamily void P\+K\+Can\+Scan\+::stop\+Bus (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
 
 notify the main thread to finish and delete the bus from the map of connections 
+
+Implements \mbox{\hyperlink{classCanModule_1_1CCanAccess_a3fabe88b8e21638afd5d9886bb9c4aeb}{Can\+Module\+::\+C\+Can\+Access}}.
+
+
 
 Definition at line 72 of file pkcan.\+cpp.
 
@@ -580,7 +528,7 @@ Referenced by send\+Message(), and $\sim$\+P\+K\+Can\+Scan().
 
 
 
-Definition at line 100 of file pkcan.\+h.
+Definition at line 101 of file pkcan.\+h.
 
 
 
@@ -622,7 +570,7 @@ Referenced by create\+Bus(), and stop\+Bus().
 
 
 
-Definition at line 101 of file pkcan.\+h.
+Definition at line 102 of file pkcan.\+h.
 
 
 
@@ -636,7 +584,7 @@ Referenced by create\+Bus(), send\+Message(), and stop\+Bus().
 
 
 
-Definition at line 102 of file pkcan.\+h.
+Definition at line 103 of file pkcan.\+h.
 
 
 
@@ -650,7 +598,7 @@ Referenced by create\+Bus(), and send\+Message().
 
 
 
-Definition at line 97 of file pkcan.\+h.
+Definition at line 98 of file pkcan.\+h.
 
 
 
@@ -664,7 +612,7 @@ Referenced by send\+Error\+Code().
 
 
 
-Definition at line 98 of file pkcan.\+h.
+Definition at line 99 of file pkcan.\+h.
 
 
 
@@ -678,7 +626,7 @@ Referenced by Can\+Scan\+Control\+Thread(), and stop\+Bus().
 
 
 
-Definition at line 108 of file pkcan.\+h.
+Definition at line 109 of file pkcan.\+h.
 
 
 
@@ -692,7 +640,7 @@ Referenced by create\+Bus().
 
 
 
-Definition at line 112 of file pkcan.\+h.
+Definition at line 113 of file pkcan.\+h.
 
 
 
@@ -706,7 +654,7 @@ Referenced by create\+Bus(), and stop\+Bus().
 
 
 
-Definition at line 89 of file pkcan.\+h.
+Definition at line 90 of file pkcan.\+h.
 
 
 
@@ -720,7 +668,7 @@ Referenced by create\+Bus().
 
 
 
-Definition at line 104 of file pkcan.\+h.
+Definition at line 105 of file pkcan.\+h.
 
 
 
@@ -734,7 +682,7 @@ Referenced by Can\+Scan\+Control\+Thread(), configure\+Canboard(), create\+Bus()
 
 
 
-Definition at line 96 of file pkcan.\+h.
+Definition at line 97 of file pkcan.\+h.
 
 
 

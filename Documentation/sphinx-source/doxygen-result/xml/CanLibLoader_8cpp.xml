@@ -9,42 +9,66 @@
     <includes refid="CanLibLoaderLin_8h" local="yes">CanLibLoaderLin.h</includes>
     <includes refid="Diag_8h" local="no">Diag.h</includes>
     <incdepgraph>
-      <node id="12">
+      <node id="8">
+        <label>atomic</label>
+      </node>
+      <node id="17">
         <label>stdatomic.h</label>
       </node>
-      <node id="16">
+      <node id="13">
         <label>LogIt.h</label>
       </node>
-      <node id="11">
+      <node id="16">
         <label>CanStatistics.h</label>
         <link refid="CanStatistics_8h"/>
-        <childnode refid="12" relation="include">
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>CanMessage.h</label>
+        <link refid="CanMessage_8h"/>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>CCanAccess.h</label>
+        <link refid="CCanAccess_8h"/>
+        <childnode refid="6" relation="include">
         </childnode>
         <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
         </childnode>
         <childnode refid="13" relation="include">
         </childnode>
         <childnode refid="14" relation="include">
         </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
       </node>
-      <node id="13">
-        <label>ExportDefinition.h</label>
-        <link refid="ExportDefinition_8h"/>
-      </node>
-      <node id="9">
+      <node id="12">
         <label>boost/signals2.hpp</label>
       </node>
-      <node id="17">
+      <node id="20">
         <label>stdexcept</label>
-      </node>
-      <node id="5">
-        <label>boost/thread/thread.hpp</label>
-      </node>
-      <node id="10">
-        <label>CanMessage.h</label>
-        <link refid="CanMessage_8h"/>
-        <childnode refid="7" relation="include">
-        </childnode>
       </node>
       <node id="3">
         <label>string</label>
@@ -52,38 +76,76 @@
       <node id="4">
         <label>map</label>
       </node>
-      <node id="8">
+      <node id="11">
         <label>boost/bind/bind.hpp</label>
       </node>
-      <node id="18">
+      <node id="10">
+        <label>condition_variable</label>
+      </node>
+      <node id="22">
+        <label>Diag.h</label>
+        <link refid="Diag_8h"/>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>CanLibLoader/src/CanLibLoader.cpp</label>
+        <link refid="CanLibLoader_8cpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>sys/time.h</label>
+      </node>
+      <node id="23">
+        <label>iostream</label>
+      </node>
+      <node id="9">
+        <label>mutex</label>
+      </node>
+      <node id="6">
+        <label>chrono</label>
+      </node>
+      <node id="7">
+        <label>thread</label>
+      </node>
+      <node id="21">
         <label>CanLibLoaderLin.h</label>
         <link refid="CanLibLoaderLin_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="15">
+      <node id="18">
+        <label>ExportDefinition.h</label>
+        <link refid="ExportDefinition_8h"/>
+      </node>
+      <node id="19">
         <label>VERSION.h</label>
         <link refid="VERSION_8h"/>
-      </node>
-      <node id="6">
-        <label>CCanAccess.h</label>
-        <link refid="CCanAccess_8h"/>
-        <childnode refid="7" relation="include">
-        </childnode>
-        <childnode refid="8" relation="include">
-        </childnode>
-        <childnode refid="9" relation="include">
-        </childnode>
-        <childnode refid="3" relation="include">
-        </childnode>
-        <childnode refid="10" relation="include">
-        </childnode>
-        <childnode refid="11" relation="include">
-        </childnode>
-        <childnode refid="15" relation="include">
-        </childnode>
-        <childnode refid="16" relation="include">
-        </childnode>
       </node>
       <node id="2">
         <label>CanLibLoader.h</label>
@@ -94,57 +156,7 @@
         </childnode>
         <childnode refid="5" relation="include">
         </childnode>
-        <childnode refid="6" relation="include">
-        </childnode>
-        <childnode refid="13" relation="include">
-        </childnode>
-      </node>
-      <node id="7">
-        <label>sys/time.h</label>
-      </node>
-      <node id="20">
-        <label>iostream</label>
-      </node>
-      <node id="1">
-        <label>CanLibLoader/src/CanLibLoader.cpp</label>
-        <link refid="CanLibLoader_8cpp"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-        <childnode refid="16" relation="include">
-        </childnode>
-        <childnode refid="3" relation="include">
-        </childnode>
-        <childnode refid="17" relation="include">
-        </childnode>
         <childnode refid="18" relation="include">
-        </childnode>
-        <childnode refid="19" relation="include">
-        </childnode>
-      </node>
-      <node id="21">
-        <label>mutex</label>
-      </node>
-      <node id="14">
-        <label>chrono</label>
-      </node>
-      <node id="19">
-        <label>Diag.h</label>
-        <link refid="Diag_8h"/>
-        <childnode refid="7" relation="include">
-        </childnode>
-        <childnode refid="4" relation="include">
-        </childnode>
-        <childnode refid="3" relation="include">
-        </childnode>
-        <childnode refid="20" relation="include">
-        </childnode>
-        <childnode refid="21" relation="include">
-        </childnode>
-        <childnode refid="16" relation="include">
-        </childnode>
-        <childnode refid="6" relation="include">
-        </childnode>
-        <childnode refid="2" relation="include">
         </childnode>
       </node>
     </incdepgraph>
@@ -172,10 +184,10 @@
 <codeline lineno="37"><highlight class="normal"></highlight></codeline>
 <codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">//<sp/>called<sp/>by<sp/>factory</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="39" refid="classCanModule_1_1CanLibLoader_1aa303c1dd64affa5c27f707e0306786a0" refkind="member"><highlight class="normal"><ref refid="classCanModule_1_1CanLibLoader_1aa303c1dd64affa5c27f707e0306786a0" kindref="member">CanLibLoader::CanLibLoader</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>libName)</highlight></codeline>
-<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="40"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/>LogItInstance<sp/>*logIt<sp/>=<sp/>LogItInstance::getInstance();</highlight></codeline>
 <codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/>logIt-&gt;getComponentHandle(<sp/><ref refid="namespaceCanModule_1a78730a18f59663871883885f3914a2aa" kindref="member">CanModule::LogItComponentName</ref>,<sp/><ref refid="classCanModule_1_1CanLibLoader_1af891a85f28376052c3f4b22d97eb3ac2" kindref="member">lh</ref><sp/>);</highlight></codeline>
-<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="43"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="44"><highlight class="normal"></highlight></codeline>
 <codeline lineno="45" refid="classCanModule_1_1CanLibLoader_1aaf19503282f3fe164c434674721c4972" refkind="member"><highlight class="normal"><ref refid="classCanModule_1_1CanLibLoader_1aaf19503282f3fe164c434674721c4972" kindref="member">CanLibLoader::~CanLibLoader</ref>()<sp/>{}</highlight></codeline>
 <codeline lineno="46"><highlight class="normal"></highlight></codeline>
@@ -190,65 +202,61 @@
 <codeline lineno="55"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="56"><highlight class="normal"></highlight></codeline>
 <codeline lineno="60" refid="classCanModule_1_1CanLibLoader_1acd7d3af103bb72d5bd18737333d682f4" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classCanModule_1_1CanLibLoader_1acd7d3af103bb72d5bd18737333d682f4" kindref="member">CanLibLoader::closeCanBus</ref>(<ref refid="classCanModule_1_1CCanAccess" kindref="compound">CCanAccess</ref><sp/>*cInter)<sp/>{</highlight></codeline>
-<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/>LOG(Log::DBG,<sp/><ref refid="classCanModule_1_1CanLibLoader_1af891a85f28376052c3f4b22d97eb3ac2" kindref="member">lh</ref><sp/>)<sp/>&lt;&lt;<sp/>__FUNCTION__&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>Canbus<sp/>name<sp/>to<sp/>be<sp/>deleted:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>cInter-&gt;<ref refid="classCanModule_1_1CCanAccess_1ac3f5126ae36d642217425e21696d19ca" kindref="member">getBusName</ref>();</highlight></codeline>
-<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCanModule_1_1Diag_1aa79c20827b6e33fa35d4106d9aa479b8" kindref="member">Diag::delete_maps</ref>(<sp/></highlight><highlight class="keyword">this</highlight><highlight class="normal">,<sp/>cInter<sp/>);</highlight></codeline>
-<codeline lineno="63"><highlight class="normal"></highlight></codeline>
-<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal"><sp/>cInter;<sp/></highlight><highlight class="comment">//<sp/>dtor<sp/>calls<sp/>stopBus()</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="65"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="66"><highlight class="normal"></highlight></codeline>
-<codeline lineno="70" refid="classCanModule_1_1CanLibLoader_1aaac995d89efdcf2b673cbd3e678be55b" refkind="member"><highlight class="normal"><ref refid="classCanModule_1_1CCanAccess" kindref="compound">CCanAccess</ref>*<sp/><ref refid="classCanModule_1_1CanLibLoader_1aaac995d89efdcf2b673cbd3e678be55b" kindref="member">CanLibLoader::openCanBus</ref>(</highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/>name,<sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/>parameters)<sp/>{</highlight></codeline>
-<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/>LOG(Log::DBG,<sp/><ref refid="classCanModule_1_1CanLibLoader_1af891a85f28376052c3f4b22d97eb3ac2" kindref="member">lh</ref><sp/>)<sp/>&lt;&lt;<sp/>__FUNCTION__<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>Creating<sp/>CCanAccess:<sp/>name=<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>name<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>parameters=<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>parameters;</highlight></codeline>
-<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCanModule_1_1CCanAccess" kindref="compound">CCanAccess</ref><sp/>*tcca<sp/>=<sp/><ref refid="classCanModule_1_1CanLibLoader_1a69dc0bf543d395f60bb8701339f99e29" kindref="member">createCanAccess</ref>();</highlight></codeline>
-<codeline lineno="73"><highlight class="normal"></highlight></codeline>
-<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<sp/>!tcca<sp/>){</highlight></codeline>
-<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOG(Log::ERR,<sp/><ref refid="classCanModule_1_1CanLibLoader_1af891a85f28376052c3f4b22d97eb3ac2" kindref="member">lh</ref><sp/>)<sp/>&lt;&lt;<sp/>__FUNCTION__<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>failed<sp/>to<sp/>create<sp/>CCanAccess<sp/>name=<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>name<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>parameters=<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>parameters;</highlight></codeline>
-<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>std::runtime_error(</highlight><highlight class="stringliteral">&quot;CanLibLoader::openCanBus:<sp/>createBus<sp/>Problem<sp/>when<sp/>loading<sp/>lib<sp/>&quot;</highlight><highlight class="normal"><sp/>+<sp/>name<sp/>);</highlight></codeline>
-<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOG(Log::DBG,<sp/><ref refid="classCanModule_1_1CanLibLoader_1af891a85f28376052c3f4b22d97eb3ac2" kindref="member">lh</ref><sp/>)<sp/>&lt;&lt;<sp/>__FUNCTION__<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>created<sp/>CCanAccess<sp/>name=<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>name<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>parameters=<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>parameters;</highlight></codeline>
-<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="80"><highlight class="normal"></highlight></codeline>
-<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//The<sp/>Logit<sp/>instance<sp/>of<sp/>the<sp/>executable<sp/>is<sp/>handled<sp/>to<sp/>the<sp/>DLL<sp/>at<sp/>this<sp/>point,<sp/>so<sp/>the<sp/>instance<sp/>is<sp/>shared.</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/>LogItInstance<sp/>*logInstance<sp/>=<sp/>LogItInstance::getInstance()<sp/>;</highlight></codeline>
-<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/>tcca-&gt;<ref refid="classCanModule_1_1CCanAccess_1ab5a430fc27073d92c69659bda261b74d" kindref="member">initialiseLogging</ref>(<sp/>logInstance<sp/>);</highlight></codeline>
-<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/>logInstance-&gt;registerLoggingComponent(<sp/><ref refid="namespaceCanModule_1a78730a18f59663871883885f3914a2aa" kindref="member">CanModule::LogItComponentName</ref>,<sp/>Log::TRC<sp/>);</highlight></codeline>
-<codeline lineno="85"><highlight class="normal"></highlight></codeline>
-<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/>LOG(Log::DBG,<sp/><ref refid="classCanModule_1_1CanLibLoader_1af891a85f28376052c3f4b22d97eb3ac2" kindref="member">lh</ref><sp/>)<sp/>&lt;&lt;<sp/>__FUNCTION__<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>calling<sp/>createBus.<sp/>name=<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>name<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>parameters=<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>parameters;</highlight></codeline>
-<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>c<sp/>=<sp/>-1;</highlight></codeline>
-<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(<sp/>c<sp/>!=<sp/>0<sp/>){</highlight></codeline>
-<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>c<sp/>=<sp/>tcca-&gt;<ref refid="classCanModule_1_1CCanAccess_1a0eeee5c3d48f1102012d1483cbe6e64b" kindref="member">createBus</ref>(name,<sp/>parameters);</highlight></codeline>
-<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOG(Log::DBG,<sp/><ref refid="classCanModule_1_1CanLibLoader_1af891a85f28376052c3f4b22d97eb3ac2" kindref="member">lh</ref><sp/>)<sp/>&lt;&lt;<sp/>__FUNCTION__<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>createBus<sp/>returns=<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>c;</highlight></codeline>
-<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(<sp/>c<sp/>){</highlight></codeline>
-<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>0:{</highlight></codeline>
-<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOG(Log::DBG,<sp/><ref refid="classCanModule_1_1CanLibLoader_1af891a85f28376052c3f4b22d97eb3ac2" kindref="member">lh</ref><sp/>)<sp/>&lt;&lt;<sp/>__FUNCTION__<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>OK:<sp/>createBus<sp/>Adding<sp/>new<sp/>CCanAccess<sp/>to<sp/>the<sp/>map<sp/>for:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>name;</highlight></codeline>
-<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCanModule_1_1Diag_1addd2c4afbe8b21115f487085f3226e8d" kindref="member">Diag::insert_maps</ref>(<sp/></highlight><highlight class="keyword">this</highlight><highlight class="normal">,<sp/>tcca,<sp/>parameters<sp/>);</highlight></codeline>
-<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>tcca;</highlight></codeline>
-<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>1:{</highlight></codeline>
-<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOG(Log::DBG,<sp/><ref refid="classCanModule_1_1CanLibLoader_1af891a85f28376052c3f4b22d97eb3ac2" kindref="member">lh</ref><sp/>)<sp/>&lt;&lt;<sp/>__FUNCTION__<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>OK:<sp/>createBus<sp/>Skipping<sp/>existing<sp/>CCanAccess<sp/>to<sp/>the<sp/>map<sp/>for:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>name;</highlight></codeline>
-<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Diag::instance().insert_maps(<sp/>this,<sp/>tcca,<sp/>parameters<sp/>);</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>tcca;<sp/></highlight><highlight class="comment">//<sp/>keep<sp/>lib<sp/>object,<sp/>but<sp/>only<sp/>the<sp/>already<sp/>existing<sp/>bus</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>-1:{</highlight></codeline>
-<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOG(Log::WRN,<sp/><ref refid="classCanModule_1_1CanLibLoader_1af891a85f28376052c3f4b22d97eb3ac2" kindref="member">lh</ref><sp/>)<sp/>&lt;&lt;<sp/>__FUNCTION__<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>createBus<sp/>Problem<sp/>opening<sp/>canBus<sp/>for:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>name;</highlight></codeline>
-<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//throw<sp/>std::runtime_error(&quot;CanLibLoader::openCanBus:<sp/>createBus<sp/>Problem<sp/>when<sp/>opening<sp/>canBus.<sp/>stop.&quot;<sp/>);</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:{</highlight></codeline>
-<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOG(Log::WRN,<sp/><ref refid="classCanModule_1_1CanLibLoader_1af891a85f28376052c3f4b22d97eb3ac2" kindref="member">lh</ref><sp/>)<sp/>&lt;&lt;<sp/>__FUNCTION__<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>something<sp/>else<sp/>went<sp/>wrong<sp/>for:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>name;</highlight></codeline>
-<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="comment">//<sp/>switch</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="121"><highlight class="normal"></highlight></codeline>
-<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOG(Log::WRN,<sp/><ref refid="classCanModule_1_1CanLibLoader_1af891a85f28376052c3f4b22d97eb3ac2" kindref="member">lh</ref><sp/>)<sp/>&lt;&lt;<sp/>__FUNCTION__<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>try<sp/>again<sp/>in<sp/>a<sp/>moment:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>name;</highlight></codeline>
-<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>us<sp/>=<sp/>2000000;</highlight></codeline>
-<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>boost::this_thread::sleep(boost::posix_time::microseconds(<sp/>us<sp/>));</highlight></codeline>
-<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>never<sp/>reached</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
-<codeline lineno="128"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="129"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/>LOG(Log::TRC,<sp/><ref refid="classCanModule_1_1CanLibLoader_1af891a85f28376052c3f4b22d97eb3ac2" kindref="member">lh</ref><sp/>)<sp/>&lt;&lt;<sp/>__FUNCTION__;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<sp/>cInter<sp/>)<sp/>{</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOG(Log::DBG,<sp/><ref refid="classCanModule_1_1CanLibLoader_1af891a85f28376052c3f4b22d97eb3ac2" kindref="member">lh</ref><sp/>)<sp/>&lt;&lt;<sp/>__FUNCTION__&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>CanBus<sp/>name<sp/>to<sp/>be<sp/>deleted:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>cInter-&gt;<ref refid="classCanModule_1_1CCanAccess_1ac3f5126ae36d642217425e21696d19ca" kindref="member">getBusName</ref>();</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCanModule_1_1Diag_1aa79c20827b6e33fa35d4106d9aa479b8" kindref="member">Diag::delete_maps</ref>(<sp/></highlight><highlight class="keyword">this</highlight><highlight class="normal">,<sp/>cInter<sp/>);</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cInter-&gt;<ref refid="classCanModule_1_1CCanAccess_1a3fabe88b8e21638afd5d9886bb9c4aeb" kindref="member">stopBus</ref>();<sp/></highlight><highlight class="comment">//<sp/>call<sp/>each<sp/>specific<sp/>stopBus,<sp/>but<sp/>dtors<sp/>are<sp/>left<sp/>until<sp/>objects<sp/>are<sp/>out<sp/>of<sp/>scope</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="67"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72" refid="classCanModule_1_1CanLibLoader_1aaac995d89efdcf2b673cbd3e678be55b" refkind="member"><highlight class="normal"><ref refid="classCanModule_1_1CCanAccess" kindref="compound">CCanAccess</ref>*<sp/><ref refid="classCanModule_1_1CanLibLoader_1aaac995d89efdcf2b673cbd3e678be55b" kindref="member">CanLibLoader::openCanBus</ref>(</highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/>name,<sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/>parameters)<sp/>{</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/>LOG(Log::DBG,<sp/><ref refid="classCanModule_1_1CanLibLoader_1af891a85f28376052c3f4b22d97eb3ac2" kindref="member">lh</ref><sp/>)<sp/>&lt;&lt;<sp/>__FUNCTION__<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>Creating<sp/>CCanAccess:<sp/>name=<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>name<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>parameters=<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>parameters;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCanModule_1_1CCanAccess" kindref="compound">CCanAccess</ref><sp/>*tcca<sp/>=<sp/><ref refid="classCanModule_1_1CanLibLoader_1a69dc0bf543d395f60bb8701339f99e29" kindref="member">createCanAccess</ref>();</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<sp/>!tcca<sp/>){</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOG(Log::ERR,<sp/><ref refid="classCanModule_1_1CanLibLoader_1af891a85f28376052c3f4b22d97eb3ac2" kindref="member">lh</ref><sp/>)<sp/>&lt;&lt;<sp/>__FUNCTION__<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>failed<sp/>to<sp/>create<sp/>CCanAccess<sp/>name=<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>name<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>parameters=<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>parameters;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>std::runtime_error(</highlight><highlight class="stringliteral">&quot;CanLibLoader::openCanBus:<sp/>createBus<sp/>Problem<sp/>when<sp/>loading<sp/>lib<sp/>&quot;</highlight><highlight class="normal"><sp/>+<sp/>name<sp/>);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOG(Log::DBG,<sp/><ref refid="classCanModule_1_1CanLibLoader_1af891a85f28376052c3f4b22d97eb3ac2" kindref="member">lh</ref><sp/>)<sp/>&lt;&lt;<sp/>__FUNCTION__<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>created<sp/>CCanAccess<sp/>name=<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>name<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>parameters=<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>parameters;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//The<sp/>Logit<sp/>instance<sp/>of<sp/>the<sp/>executable<sp/>is<sp/>handled<sp/>to<sp/>the<sp/>DLL<sp/>at<sp/>this<sp/>point,<sp/>so<sp/>the<sp/>instance<sp/>is<sp/>shared.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/>LogItInstance<sp/>*logInstance<sp/>=<sp/>LogItInstance::getInstance()<sp/>;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/>tcca-&gt;<ref refid="classCanModule_1_1CCanAccess_1ab5a430fc27073d92c69659bda261b74d" kindref="member">initialiseLogging</ref>(<sp/>logInstance<sp/>);</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/>logInstance-&gt;registerLoggingComponent(<sp/><ref refid="namespaceCanModule_1a78730a18f59663871883885f3914a2aa" kindref="member">CanModule::LogItComponentName</ref>,<sp/>Log::TRC<sp/>);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/>LOG(Log::DBG,<sp/><ref refid="classCanModule_1_1CanLibLoader_1af891a85f28376052c3f4b22d97eb3ac2" kindref="member">lh</ref><sp/>)<sp/>&lt;&lt;<sp/>__FUNCTION__<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>calling<sp/>createBus.<sp/>name=<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>name<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>parameters=<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>parameters;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>c<sp/>=<sp/>tcca-&gt;<ref refid="classCanModule_1_1CCanAccess_1a0eeee5c3d48f1102012d1483cbe6e64b" kindref="member">createBus</ref>(name,<sp/>parameters);</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/>LOG(Log::DBG,<sp/><ref refid="classCanModule_1_1CanLibLoader_1af891a85f28376052c3f4b22d97eb3ac2" kindref="member">lh</ref><sp/>)<sp/>&lt;&lt;<sp/>__FUNCTION__<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>createBus<sp/>returns=<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>c;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(<sp/>c<sp/>){</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>0:{</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOG(Log::DBG,<sp/><ref refid="classCanModule_1_1CanLibLoader_1af891a85f28376052c3f4b22d97eb3ac2" kindref="member">lh</ref><sp/>)<sp/>&lt;&lt;<sp/>__FUNCTION__<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>OK:<sp/>createBus<sp/>Adding<sp/>new<sp/>CCanAccess<sp/>to<sp/>the<sp/>map<sp/>for:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>name;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCanModule_1_1Diag_1addd2c4afbe8b21115f487085f3226e8d" kindref="member">Diag::insert_maps</ref>(<sp/></highlight><highlight class="keyword">this</highlight><highlight class="normal">,<sp/>tcca,<sp/>parameters<sp/>);</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>tcca;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>1:{</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOG(Log::DBG,<sp/><ref refid="classCanModule_1_1CanLibLoader_1af891a85f28376052c3f4b22d97eb3ac2" kindref="member">lh</ref><sp/>)<sp/>&lt;&lt;<sp/>__FUNCTION__<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>OK:<sp/>createBus<sp/>Skipping<sp/>existing<sp/>CCanAccess<sp/>to<sp/>the<sp/>map<sp/>for:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>name;</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>tcca;<sp/></highlight><highlight class="comment">//<sp/>keep<sp/>lib<sp/>object,<sp/>but<sp/>only<sp/>the<sp/>already<sp/>existing<sp/>bus</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>-1:{</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOG(Log::ERR,<sp/><ref refid="classCanModule_1_1CanLibLoader_1af891a85f28376052c3f4b22d97eb3ac2" kindref="member">lh</ref><sp/>)<sp/>&lt;&lt;<sp/>__FUNCTION__<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>Problem<sp/>opening<sp/>canBus<sp/>for:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>name<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>:<sp/>returning<sp/>NULL&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>NULL;</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:{</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOG(Log::WRN,<sp/><ref refid="classCanModule_1_1CanLibLoader_1af891a85f28376052c3f4b22d97eb3ac2" kindref="member">lh</ref><sp/>)<sp/>&lt;&lt;<sp/>__FUNCTION__<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>something<sp/>else<sp/>went<sp/>wrong<sp/>for:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>name<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>:<sp/>returning<sp/>NULL&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>NULL;</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="comment">//<sp/>switch</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>never<sp/>reached</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>NULL;</highlight></codeline>
+<codeline lineno="132"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="133"><highlight class="normal">}</highlight></codeline>
     </programlisting>
     <location file="CanLibLoader/src/CanLibLoader.cpp"/>
   </compounddef>

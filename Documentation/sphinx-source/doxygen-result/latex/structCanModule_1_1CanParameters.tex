@@ -24,6 +24,10 @@ unsigned int \mbox{\hyperlink{structCanModule_1_1CanParameters_a3481b638a47d3a83
 \item 
 unsigned int \mbox{\hyperlink{structCanModule_1_1CanParameters_a0f3653eda77900c9d2450793bd285c29}{m\+\_\+i\+Time\+Stamp}}
 \item 
+unsigned int \mbox{\hyperlink{structCanModule_1_1CanParameters_ac17a318a7e3883005733c66010c04604}{m\+\_\+i\+Sync\+Mode}}
+\item 
+unsigned int \mbox{\hyperlink{structCanModule_1_1CanParameters_aae2aa9f136d9bcc78ce596aaee286f3f}{m\+\_\+i\+Timeout}}
+\item 
 int \mbox{\hyperlink{structCanModule_1_1CanParameters_ac4e03899b26e33a3867ee1f0bce674b5}{m\+\_\+i\+Number\+Of\+Detected\+Parameters}}
 \item 
 bool \mbox{\hyperlink{structCanModule_1_1CanParameters_a8668831351aaaa0446c75c58073bf357}{m\+\_\+dont\+Reconfigure}}
@@ -33,7 +37,7 @@ bool \mbox{\hyperlink{structCanModule_1_1CanParameters_a8668831351aaaa0446c75c58
 \doxysubsection{Detailed Description}
 
 
-Definition at line 111 of file C\+Can\+Access.\+h.
+Definition at line 125 of file C\+Can\+Access.\+h.
 
 
 
@@ -46,7 +50,7 @@ Definition at line 111 of file C\+Can\+Access.\+h.
 
 
 
-Definition at line 119 of file C\+Can\+Access.\+h.
+Definition at line 136 of file C\+Can\+Access.\+h.
 
 
 
@@ -59,11 +63,11 @@ Definition at line 119 of file C\+Can\+Access.\+h.
 
 
 
-Definition at line 122 of file C\+Can\+Access.\+h.
+Definition at line 141 of file C\+Can\+Access.\+h.
 
 
 
-References m\+\_\+dont\+Reconfigure, m\+\_\+i\+High\+Speed, m\+\_\+i\+Number\+Of\+Detected\+Parameters, m\+\_\+i\+Operation\+Mode, m\+\_\+i\+Termination, m\+\_\+i\+Time\+Stamp, and m\+\_\+l\+Baud\+Rate.
+References m\+\_\+dont\+Reconfigure, m\+\_\+i\+High\+Speed, m\+\_\+i\+Number\+Of\+Detected\+Parameters, m\+\_\+i\+Operation\+Mode, m\+\_\+i\+Sync\+Mode, m\+\_\+i\+Termination, m\+\_\+i\+Timeout, m\+\_\+i\+Time\+Stamp, and m\+\_\+l\+Baud\+Rate.
 
 
 
@@ -80,7 +84,7 @@ Referenced by Can\+Module\+::\+C\+Can\+Access\+::parse\+Name\+And\+Parameters().
 
 
 
-Definition at line 118 of file C\+Can\+Access.\+h.
+Definition at line 135 of file C\+Can\+Access.\+h.
 
 
 
@@ -94,7 +98,7 @@ Referenced by C\+Sock\+Can\+Scan\+::open\+Can\+Port(), and scan\+Parameters().
 
 
 
-Definition at line 115 of file C\+Can\+Access.\+h.
+Definition at line 129 of file C\+Can\+Access.\+h.
 
 
 
@@ -108,7 +112,7 @@ Referenced by Ana\+Can\+Scan\+::configure\+Can\+Board(), Ana\+Can\+Scan\+::conne
 
 
 
-Definition at line 117 of file C\+Can\+Access.\+h.
+Definition at line 134 of file C\+Can\+Access.\+h.
 
 
 
@@ -122,11 +126,25 @@ Referenced by S\+T\+Can\+Scan\+::configure\+Can\+Board(), P\+K\+Can\+Scan\+::con
 
 
 
-Definition at line 113 of file C\+Can\+Access.\+h.
+Definition at line 127 of file C\+Can\+Access.\+h.
 
 
 
 Referenced by Ana\+Can\+Scan\+::configure\+Can\+Board(), Ana\+Can\+Scan\+::connect\+Reception\+Handler(), Ana\+Can\+Scan\+::open\+Can\+Port(), and scan\+Parameters().
+
+\mbox{\Hypertarget{structCanModule_1_1CanParameters_ac17a318a7e3883005733c66010c04604}\label{structCanModule_1_1CanParameters_ac17a318a7e3883005733c66010c04604}} 
+\index{CanModule::CanParameters@{CanModule::CanParameters}!m\_iSyncMode@{m\_iSyncMode}}
+\index{m\_iSyncMode@{m\_iSyncMode}!CanModule::CanParameters@{CanModule::CanParameters}}
+\doxysubsubsection{\texorpdfstring{m\_iSyncMode}{m\_iSyncMode}}
+{\footnotesize\ttfamily unsigned int Can\+Module\+::\+Can\+Parameters\+::m\+\_\+i\+Sync\+Mode}
+
+
+
+Definition at line 131 of file C\+Can\+Access.\+h.
+
+
+
+Referenced by Ana\+Can\+Scan\+::configure\+Can\+Board(), and scan\+Parameters().
 
 \mbox{\Hypertarget{structCanModule_1_1CanParameters_ac15d1cfe926f508a2788dab50aed992b}\label{structCanModule_1_1CanParameters_ac15d1cfe926f508a2788dab50aed992b}} 
 \index{CanModule::CanParameters@{CanModule::CanParameters}!m\_iTermination@{m\_iTermination}}
@@ -136,11 +154,25 @@ Referenced by Ana\+Can\+Scan\+::configure\+Can\+Board(), Ana\+Can\+Scan\+::conne
 
 
 
-Definition at line 114 of file C\+Can\+Access.\+h.
+Definition at line 128 of file C\+Can\+Access.\+h.
 
 
 
 Referenced by Ana\+Can\+Scan\+::configure\+Can\+Board(), Ana\+Can\+Scan\+::connect\+Reception\+Handler(), Ana\+Can\+Scan\+::open\+Can\+Port(), and scan\+Parameters().
+
+\mbox{\Hypertarget{structCanModule_1_1CanParameters_aae2aa9f136d9bcc78ce596aaee286f3f}\label{structCanModule_1_1CanParameters_aae2aa9f136d9bcc78ce596aaee286f3f}} 
+\index{CanModule::CanParameters@{CanModule::CanParameters}!m\_iTimeout@{m\_iTimeout}}
+\index{m\_iTimeout@{m\_iTimeout}!CanModule::CanParameters@{CanModule::CanParameters}}
+\doxysubsubsection{\texorpdfstring{m\_iTimeout}{m\_iTimeout}}
+{\footnotesize\ttfamily unsigned int Can\+Module\+::\+Can\+Parameters\+::m\+\_\+i\+Timeout}
+
+
+
+Definition at line 132 of file C\+Can\+Access.\+h.
+
+
+
+Referenced by Ana\+Can\+Scan\+::configure\+Can\+Board(), and scan\+Parameters().
 
 \mbox{\Hypertarget{structCanModule_1_1CanParameters_a0f3653eda77900c9d2450793bd285c29}\label{structCanModule_1_1CanParameters_a0f3653eda77900c9d2450793bd285c29}} 
 \index{CanModule::CanParameters@{CanModule::CanParameters}!m\_iTimeStamp@{m\_iTimeStamp}}
@@ -150,7 +182,7 @@ Referenced by Ana\+Can\+Scan\+::configure\+Can\+Board(), Ana\+Can\+Scan\+::conne
 
 
 
-Definition at line 116 of file C\+Can\+Access.\+h.
+Definition at line 130 of file C\+Can\+Access.\+h.
 
 
 
@@ -164,11 +196,11 @@ Referenced by Ana\+Can\+Scan\+::configure\+Can\+Board(), Ana\+Can\+Scan\+::conne
 
 
 
-Definition at line 112 of file C\+Can\+Access.\+h.
+Definition at line 126 of file C\+Can\+Access.\+h.
 
 
 
-Referenced by S\+T\+Can\+Scan\+::configure\+Can\+Board(), P\+K\+Can\+Scan\+::configure\+Canboard(), Ana\+Can\+Scan\+::configure\+Can\+Board(), Ana\+Can\+Scan\+::connect\+Reception\+Handler(), C\+Sock\+Can\+Scan\+::get\+Statistics(), C\+Sock\+Can\+Scan\+::open\+Can\+Port(), Ana\+Can\+Scan\+::open\+Can\+Port(), and scan\+Parameters().
+Referenced by S\+T\+Can\+Scan\+::configure\+Can\+Board(), P\+K\+Can\+Scan\+::configure\+Canboard(), Ana\+Can\+Scan\+::configure\+Can\+Board(), Ana\+Can\+Scan\+::connect\+Reception\+Handler(), Mock\+Can\+Access\+::get\+Port\+Bitrate(), C\+Sock\+Can\+Scan\+::get\+Statistics(), C\+Sock\+Can\+Scan\+::open\+Can\+Port(), Ana\+Can\+Scan\+::open\+Can\+Port(), and scan\+Parameters().
 
 
 

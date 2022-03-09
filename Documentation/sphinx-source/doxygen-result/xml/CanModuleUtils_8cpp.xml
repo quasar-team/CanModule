@@ -7,6 +7,15 @@
     <includes local="no">string.h</includes>
     <includes local="no">chrono</includes>
     <incdepgraph>
+      <node id="8">
+        <label>errno.h</label>
+      </node>
+      <node id="5">
+        <label>stdexcept</label>
+      </node>
+      <node id="6">
+        <label>string</label>
+      </node>
       <node id="2">
         <label>CanModuleUtils.h</label>
         <link refid="CanModuleUtils_8h"/>
@@ -21,11 +30,8 @@
         <childnode refid="7" relation="include">
         </childnode>
       </node>
-      <node id="8">
-        <label>errno.h</label>
-      </node>
-      <node id="5">
-        <label>stdexcept</label>
+      <node id="9">
+        <label>string.h</label>
       </node>
       <node id="1">
         <label>CanInterface/src/CanModuleUtils.cpp</label>
@@ -38,12 +44,6 @@
         </childnode>
         <childnode refid="7" relation="include">
         </childnode>
-      </node>
-      <node id="6">
-        <label>string</label>
-      </node>
-      <node id="9">
-        <label>string.h</label>
       </node>
       <node id="4">
         <label>sstream</label>

@@ -7,45 +7,69 @@
     <includes refid="CanLibLoader_8h" local="yes">CanLibLoader.h</includes>
     <includedby refid="CanLibLoaderWin_8cpp" local="yes">CanLibLoader/src/CanLibLoaderWin.cpp</includedby>
     <incdepgraph>
-      <node id="14">
+      <node id="10">
+        <label>atomic</label>
+      </node>
+      <node id="19">
         <label>stdatomic.h</label>
       </node>
-      <node id="18">
+      <node id="15">
         <label>LogIt.h</label>
       </node>
-      <node id="13">
+      <node id="2">
+        <label>windows.h</label>
+      </node>
+      <node id="18">
         <label>CanStatistics.h</label>
         <link refid="CanStatistics_8h"/>
-        <childnode refid="14" relation="include">
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>CanMessage.h</label>
+        <link refid="CanMessage_8h"/>
+        <childnode refid="17" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>CCanAccess.h</label>
+        <link refid="CCanAccess_8h"/>
+        <childnode refid="8" relation="include">
         </childnode>
         <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
         </childnode>
         <childnode refid="15" relation="include">
         </childnode>
         <childnode refid="16" relation="include">
         </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
       </node>
-      <node id="2">
-        <label>windows.h</label>
-      </node>
-      <node id="15">
-        <label>ExportDefinition.h</label>
-        <link refid="ExportDefinition_8h"/>
-      </node>
-      <node id="11">
+      <node id="14">
         <label>boost/signals2.hpp</label>
       </node>
       <node id="3">
         <label>strsafe.h</label>
-      </node>
-      <node id="7">
-        <label>boost/thread/thread.hpp</label>
-      </node>
-      <node id="12">
-        <label>CanMessage.h</label>
-        <link refid="CanMessage_8h"/>
-        <childnode refid="9" relation="include">
-        </childnode>
       </node>
       <node id="5">
         <label>string</label>
@@ -53,8 +77,11 @@
       <node id="6">
         <label>map</label>
       </node>
-      <node id="10">
+      <node id="13">
         <label>boost/bind/bind.hpp</label>
+      </node>
+      <node id="12">
+        <label>condition_variable</label>
       </node>
       <node id="1">
         <label>CanLibLoader/include/CanLibLoaderWin.h</label>
@@ -67,28 +94,24 @@
         </childnode>
       </node>
       <node id="17">
-        <label>VERSION.h</label>
-        <link refid="VERSION_8h"/>
+        <label>sys/time.h</label>
+      </node>
+      <node id="11">
+        <label>mutex</label>
       </node>
       <node id="8">
-        <label>CCanAccess.h</label>
-        <link refid="CCanAccess_8h"/>
-        <childnode refid="9" relation="include">
-        </childnode>
-        <childnode refid="10" relation="include">
-        </childnode>
-        <childnode refid="11" relation="include">
-        </childnode>
-        <childnode refid="5" relation="include">
-        </childnode>
-        <childnode refid="12" relation="include">
-        </childnode>
-        <childnode refid="13" relation="include">
-        </childnode>
-        <childnode refid="17" relation="include">
-        </childnode>
-        <childnode refid="18" relation="include">
-        </childnode>
+        <label>chrono</label>
+      </node>
+      <node id="9">
+        <label>thread</label>
+      </node>
+      <node id="20">
+        <label>ExportDefinition.h</label>
+        <link refid="ExportDefinition_8h"/>
+      </node>
+      <node id="21">
+        <label>VERSION.h</label>
+        <link refid="VERSION_8h"/>
       </node>
       <node id="4">
         <label>CanLibLoader.h</label>
@@ -99,16 +122,8 @@
         </childnode>
         <childnode refid="7" relation="include">
         </childnode>
-        <childnode refid="8" relation="include">
+        <childnode refid="20" relation="include">
         </childnode>
-        <childnode refid="15" relation="include">
-        </childnode>
-      </node>
-      <node id="9">
-        <label>sys/time.h</label>
-      </node>
-      <node id="16">
-        <label>chrono</label>
       </node>
     </incdepgraph>
     <invincdepgraph>

@@ -29,6 +29,10 @@
       </node>
     </incdepgraph>
     <invincdepgraph>
+      <node id="3">
+        <label>CanInterfaceImplementations/sockcan/UdevAnalyserForPeak.cpp</label>
+        <link refid="UdevAnalyserForPeak_8cpp"/>
+      </node>
       <node id="1">
         <label>CanInterfaceImplementations/sockcan/UdevAnalyserForPeak.h</label>
         <link refid="UdevAnalyserForPeak_8h"/>
@@ -40,10 +44,6 @@
       <node id="2">
         <label>CanInterfaceImplementations/sockcan/SockCanScan.cpp</label>
         <link refid="SockCanScan_8cpp"/>
-      </node>
-      <node id="3">
-        <label>CanInterfaceImplementations/sockcan/UdevAnalyserForPeak.cpp</label>
-        <link refid="UdevAnalyserForPeak_8cpp"/>
       </node>
     </invincdepgraph>
     <innerclass refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak" prot="public">udevanalyserforpeak_ns::UdevAnalyserForPeak</innerclass>

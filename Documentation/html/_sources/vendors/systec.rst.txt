@@ -18,6 +18,7 @@ For windows:
    :members: getPortStatus
 
 for linux:
+
 .. doxygenclass:: CSockCanScan 
    :project: CanModule
    :members: getPortStatus

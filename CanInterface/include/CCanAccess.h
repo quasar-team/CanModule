@@ -34,6 +34,10 @@
 #include <chrono>
 #include <thread>
 #include <string>
+#include <atomic>
+
+#include <mutex>
+#include <condition_variable>
 
 #include <boost/bind/bind.hpp>
 #include <boost/signals2.hpp>
@@ -158,9 +162,9 @@ public:
 		m_reconnectCondition( CanModule::ReconnectAutoCondition::sendFail ),
 		m_reconnectAction( CanModule::ReconnectAction::singleBus ),
 		m_timeoutOnReception( 120 ),
-		m_triggerCounter( 10 ),
-		m_failedSendCounter( 10 ),
-		m_connectionIndex(0),
+		m_failedSendCountdown( 10 ),
+		m_maxFailedSendCount( 10 ),
+		//m_connectionIndex(0), // seems unused
 		m_lh(0),
 		m_logItRemoteInstance( NULL )
 {
@@ -389,7 +393,8 @@ public:
 		if ( foundPortNumber != std::string::npos ) {
 			name.erase( foundSeperator + 1, foundPortNumber - foundSeperator - 1 );
 		} else {
-			throw std::runtime_error("could not decode port number (need an integer, i.e. can0)");
+			std::string rerr = "could not decode port number (need an integer somewhere, i.e. can0 or 0) in name= " + name;
+			throw std::runtime_error( rerr );
 		}
 
 		// for socketcan, have to prefix "can" or "vcan" to port number
@@ -420,6 +425,31 @@ public:
 		}
 		return stringVector;
 	}
+
+	// non blocking
+	void triggerReconnectionThread(){
+		// std::cout << "==> trigger reconnection thread " << getBusName() << std::endl;
+		m_reconnectTrigger = true;
+		m_reconnection_cv.notify_one();
+	}
+
+	// blocking
+	void waitForReconnectionThreadTrigger(){
+		std::unique_lock<std::mutex> lk(m_reconnection_mtx);
+		while  ( !m_reconnectTrigger ) m_reconnection_cv.wait( lk );
+		m_reconnectTrigger = false;
+	}
+
+	void decreaseSendFailedCountdown(){
+		m_failedSendCountdown--;
+	}
+
+	void resetSendFailedCountdown(){
+		m_failedSendCountdown = m_maxFailedSendCount;
+		LOG(Log::TRC, m_lh) << __FUNCTION__ << " reset internal m_failedSendCountdown= " << m_failedSendCountdown;
+	}
+
+
 
 	/**
 	 * configuring the reconnection behavior: a condition triggers an action. The implementation is implementation-specific
@@ -484,12 +514,17 @@ protected:
 	string m_sBusName;
 	CanParameters m_CanParameters;
 
-	// reconnection
+	// reconnection, reconnection thread triggering
     CanModule::ReconnectAutoCondition m_reconnectCondition;
     CanModule::ReconnectAction m_reconnectAction;
-	unsigned int m_timeoutOnReception;
-	int m_triggerCounter;
-	unsigned int m_failedSendCounter;
+	atomic_uint m_timeoutOnReception;
+	atomic_int m_failedSendCountdown;
+	atomic_uint m_maxFailedSendCount;
+	std::thread *m_hCanReconnectionThread;     // ptr thread, it's a private method of the class (virtual)
+	atomic_bool m_reconnectTrigger;            // trigger stuff: predicate of the condition var
+	std::mutex m_reconnection_mtx;             // trigger stuff
+	std::condition_variable m_reconnection_cv; // trigger stuff
+
 
 	/**
 	 * just translate the ugly r.condition enum into a user-friendly string for convenience and logging.
@@ -548,8 +583,8 @@ protected:
 	}
 
 private:
-	boost::signals2::connection m_signal_connection;
-	int m_connectionIndex;
+	//boost::signals2::connection m_signal_connection; // seems unused
+	//int m_connectionIndex; // seems unused
 	Log::LogComponentHandle m_lh; // s_lh ?!? problem with windows w.t.f.
 	LogItInstance* m_logItRemoteInstance;
 

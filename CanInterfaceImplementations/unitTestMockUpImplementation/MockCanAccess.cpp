@@ -32,7 +32,7 @@ MockCanAccess::MockCanAccess()
 {
 	m_statistics.setTimeSinceOpened();
 	m_statistics.beginNewRun();
-	m_triggerCounter = m_failedSendCounter;
+	m_failedSendCountdown = m_maxFailedSendCount;
 }
 
 void MockCanAccess::stopBus (){

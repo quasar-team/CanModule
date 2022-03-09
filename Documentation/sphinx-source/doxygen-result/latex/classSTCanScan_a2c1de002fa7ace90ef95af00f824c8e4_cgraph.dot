@@ -1,0 +1,18 @@
+digraph "STCanScan::sendRemoteRequest"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="STCanScan::sendRemoteRequest",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="STCanScan::sendErrorCode",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classSTCanScan.html#a43454c0bc20eb764cbb4ef3dd5e52cc9",tooltip=" "];
+  Node2 -> Node3 [color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="CanModule::convertTimepoint\lToTimeval",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$namespaceCanModule.html#a3ec3082d7d11a9c1641023cb3f53cbe5",tooltip=" "];
+  Node2 -> Node4 [color="midnightblue",fontsize="10",style="solid"];
+  Node4 [label="CanModule::currentTimeTimeval",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$namespaceCanModule.html#a6d0711aac0a75de5d2bf6142997a814d",tooltip=" "];
+  Node2 -> Node5 [color="midnightblue",fontsize="10",style="solid"];
+  Node5 [label="STCanScan::errorCodeToString",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classSTCanScan.html#a9a4da7b1dd74e81e8066894a1a8c051e",tooltip=" "];
+  Node5 -> Node6 [color="midnightblue",fontsize="10",style="solid"];
+  Node6 [label="STCanScan::STcanGetErrorText",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classSTCanScan.html#a794110572725db6b7c153104ee1330b3",tooltip=" "];
+}

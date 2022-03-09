@@ -25,6 +25,9 @@
 #define SOCKCANSCAN_H_
 
 #include <thread>
+#include <mutex>
+#include <condition_variable>
+
 #include <string>
 
 #include <unistd.h>
@@ -81,7 +84,7 @@ public:
 	int getHandler() { return m_sock; }
 
 	/**
-	 * produce and empty can frame
+	 * produce an empty can frame
 	 */
 	static can_frame emptyCanFrame( void ){
 		can_frame f;
@@ -101,8 +104,8 @@ public:
 	};
 	virtual void setReconnectReceptionTimeout( unsigned int timeout ){ 	m_timeoutOnReception = timeout;	};
 	virtual void setReconnectFailedSendCount( unsigned int c ){
-		m_failedSendCounter = m_triggerCounter = c;
-		std::cout << __FILE__ << " " << __LINE__ << " m_triggerCounter= " << m_triggerCounter << std::endl;
+		m_maxFailedSendCount = m_failedSendCountdown = c;
+		std::cout << __FILE__ << " " << __LINE__ << " m_triggerCounter= " << m_failedSendCountdown << std::endl;
 	}
 	virtual CanModule::ReconnectAutoCondition getReconnectCondition() { return m_reconnectCondition; };
 	virtual CanModule::ReconnectAction getReconnectAction() { return m_reconnectAction; };
@@ -111,51 +114,28 @@ public:
 
 private:
 	volatile atomic_bool m_CanScanThreadRunEnableFlag; //Flag for running/shutting down the
-	// CanScan thread, with compiler optimization switched off for more code safety
-	atomic_int m_sock;
 
+	// socket: CanScan thread, with compiler mem optimization switched off (~atomic) for more code safety
+	atomic_int m_sock;
 	int m_errorCode; // As up-to-date as possible state of the interface.
 
 	CanStatistics m_statistics;
-	std::thread *m_hCanScanThread;	// ptr thread object, needed for join. allocate thread with new(..)
+	std::thread *m_hCanScanThread;
 	std::string m_channelName;
 	std::string m_busName;
 	Log::LogComponentHandle m_logItHandleSock;
 
-
-	/**
-	 * stop the supervisor thread using the flag and close the socket.
-	 */
-	//void stopBus ();
-
-	/**
-	 * Report an error when opening a can port
-	 */
 	void updateInitialError () ;
-
-	/**
-	 * Transforms an error frame into an error message (string format)
-	 */
 	static std::string errorFrameToString (const struct can_frame &f);
 
 	void sendErrorMessage(const char  *);
 	void clearErrorMessage();
 	int configureCanBoard(const string name,const string parameters);
 	void updateBusStatus();
-
-	/** Obtains a SocketCAN socket and opens it.
-	 *  The name of the port and parameters should have been specified by preceding call to configureCanboard()
-	 *
-	 *  @returns less than zero in case of error, otherwise success
-	 */
 	int openCanPort();
+	void CanScanControlThread(); // not static, private is enough in C11
+	void CanReconnectionThread();// not static, private is enough in C11
 
-	/**
-	 * The main control thread function for the CAN update scan manager:
-	 * a private non-static method, which is called on the object (this)
-	 * following std::thread C++11 ways.
-	 */
-	void CanScanControlThread();
 };
 
 

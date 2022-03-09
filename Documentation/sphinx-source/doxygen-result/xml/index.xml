@@ -11,6 +11,7 @@
     <member refid="classAnaCanScan_1a581830a4a70cee6b31e3e895d669a9be" kind="variable"><name>m_UcanHandle</name></member>
     <member refid="classAnaCanScan_1a862310267c2415fa9afb401402fa7b57" kind="variable"><name>m_statistics</name></member>
     <member refid="classAnaCanScan_1a2ef809f84d976b6f453049a7298760fe" kind="variable"><name>m_timeout</name></member>
+    <member refid="classAnaCanScan_1a9777d181ff5f28da363907ecb50ebc90" kind="variable"><name>m_busStopped</name></member>
     <member refid="classAnaCanScan_1a39ab4f1c865bef7349992abd4d91da1d" kind="variable"><name>st_logItHandleAnagate</name></member>
     <member refid="classAnaCanScan_1a71e415a2fec462b991777ca38a9797cc" kind="variable"><name>st_canHandleMap</name></member>
     <member refid="classAnaCanScan_1a3ff66979e02a0904488365ec412fc994" kind="variable"><name>m_reconnectInProgress_map</name></member>
@@ -25,7 +26,6 @@
     <member refid="classAnaCanScan_1ad4576bc409a954c888a6fd7f06ca697f" kind="function"><name>getStatistics</name></member>
     <member refid="classAnaCanScan_1a7ba68ea800d7a6837b6bc808d473323d" kind="function"><name>statisticsOnRecieve</name></member>
     <member refid="classAnaCanScan_1af9a44b6ac914643225e2e61ca7a52f4c" kind="function"><name>callbackOnRecieve</name></member>
-    <member refid="classAnaCanScan_1a7cbad1b8b5c44282c86bfcfda5464b8f" kind="function"><name>setConnectWaitTime</name></member>
     <member refid="classAnaCanScan_1a4c115df4a8755c0fd70030ae457af24c" kind="function"><name>getPortStatus</name></member>
     <member refid="classAnaCanScan_1a8618662dac4627418ed9c69442f51714" kind="function"><name>getPortBitrate</name></member>
     <member refid="classAnaCanScan_1a0b9879988a65b60c9f9abc7c88ce6993" kind="function"><name>setReconnectBehavior</name></member>
@@ -33,6 +33,7 @@
     <member refid="classAnaCanScan_1ae986496d224081758e5bd2eca0b343c5" kind="function"><name>setReconnectFailedSendCount</name></member>
     <member refid="classAnaCanScan_1a74073d663dd44148033b3d6d15428ea9" kind="function"><name>getReconnectCondition</name></member>
     <member refid="classAnaCanScan_1a6ad398dd6aec952c19165899abd48b8a" kind="function"><name>getReconnectAction</name></member>
+    <member refid="classAnaCanScan_1a4631538bddfbe61637ea5ed0071b780f" kind="function"><name>stopBus</name></member>
     <member refid="classAnaCanScan_1ad4a01934370aa2e9ee72bd31406e2752" kind="function"><name>canMessageToString</name></member>
     <member refid="classAnaCanScan_1a9ebdd69b0b5f2e43b152fde44dfbd543" kind="function"><name>showAnaCanScanObjectMap</name></member>
     <member refid="classAnaCanScan_1abf8809be00bdc2f39344ec72cf66514c" kind="function"><name>reconnectAllPorts</name></member>
@@ -51,13 +52,20 @@
     <member refid="classAnaCanScan_1ad94121f1933d50cafa52d625ee435f6c" kind="function"><name>openCanPort</name></member>
     <member refid="classAnaCanScan_1af1deaf420c98dcdc4687f481fd4d9a08" kind="function"><name>reconnect</name></member>
     <member refid="classAnaCanScan_1a6eec29a421ec4af879143379833ec676" kind="function"><name>errorCodeToString</name></member>
-    <member refid="classAnaCanScan_1a4631538bddfbe61637ea5ed0071b780f" kind="function"><name>stopBus</name></member>
     <member refid="classAnaCanScan_1ae7ab2706bb4cd5e02409db38e73dbb3e" kind="function"><name>eraseReceptionHandlerFromMap</name></member>
     <member refid="classAnaCanScan_1a1425dfc20e08b545fcdf49415ac15ec9" kind="function"><name>ana_canGetErrorText</name></member>
   </compound>
   <compound refid="structAnaCanScan_1_1ANAGATE__PORTDEF__t" kind="struct"><name>AnaCanScan::ANAGATE_PORTDEF_t</name>
     <member refid="structAnaCanScan_1_1ANAGATE__PORTDEF__t_1a3bd14d317f470ae619d41105908436a0" kind="variable"><name>port</name></member>
     <member refid="structAnaCanScan_1_1ANAGATE__PORTDEF__t_1a6ad8dd52dfbbfe170f3c5e0f4e20a49d" kind="variable"><name>ip</name></member>
+  </compound>
+  <compound refid="classCanModule_1_1CanBusAccess" kind="class"><name>CanModule::CanBusAccess</name>
+    <member refid="classCanModule_1_1CanBusAccess_1ab176a257849ee165a9ff41ad6e4222c6" kind="variable"><name>m_libLoader_map</name></member>
+    <member refid="classCanModule_1_1CanBusAccess_1a72f3cde5eb8a7fab358f5c00e5d53487" kind="variable"><name>m_canAccess_map</name></member>
+    <member refid="classCanModule_1_1CanBusAccess_1ae5a45c09970e0b078d5f057c424476db" kind="function"><name>CanBusAccess</name></member>
+    <member refid="classCanModule_1_1CanBusAccess_1a487bdb65dc69be65d67721b63e38324b" kind="function"><name>openCanBus</name></member>
+    <member refid="classCanModule_1_1CanBusAccess_1a30200d7e59055a516aceeba6c2bb534e" kind="function"><name>closeCanBus</name></member>
+    <member refid="classCanModule_1_1CanBusAccess_1a9313dcfc946663a5a78ff6c1119fcf64" kind="function"><name>isCanPortOpen</name></member>
   </compound>
   <compound refid="classCanModule_1_1CanLibLoader" kind="class"><name>CanModule::CanLibLoader</name>
     <member refid="classCanModule_1_1CanLibLoader_1af891a85f28376052c3f4b22d97eb3ac2" kind="variable"><name>lh</name></member>
@@ -106,6 +114,8 @@
     <member refid="structCanModule_1_1CanParameters_1ac15d1cfe926f508a2788dab50aed992b" kind="variable"><name>m_iTermination</name></member>
     <member refid="structCanModule_1_1CanParameters_1a3481b638a47d3a832c6fad761973c9de" kind="variable"><name>m_iHighSpeed</name></member>
     <member refid="structCanModule_1_1CanParameters_1a0f3653eda77900c9d2450793bd285c29" kind="variable"><name>m_iTimeStamp</name></member>
+    <member refid="structCanModule_1_1CanParameters_1ac17a318a7e3883005733c66010c04604" kind="variable"><name>m_iSyncMode</name></member>
+    <member refid="structCanModule_1_1CanParameters_1aae2aa9f136d9bcc78ce596aaee286f3f" kind="variable"><name>m_iTimeout</name></member>
     <member refid="structCanModule_1_1CanParameters_1ac4e03899b26e33a3867ee1f0bce674b5" kind="variable"><name>m_iNumberOfDetectedParameters</name></member>
     <member refid="structCanModule_1_1CanParameters_1a8668831351aaaa0446c75c58073bf357" kind="variable"><name>m_dontReconfigure</name></member>
     <member refid="structCanModule_1_1CanParameters_1ac364dcf7b4d16af59776d931097010bc" kind="function"><name>CanParameters</name></member>
@@ -150,11 +160,13 @@
     <member refid="classCanModule_1_1CCanAccess_1a484a4f9dc352fe31b4baff0365095705" kind="variable"><name>m_CanParameters</name></member>
     <member refid="classCanModule_1_1CCanAccess_1abfd40edc34a777a5ff4503a6e8a239d6" kind="variable"><name>m_reconnectCondition</name></member>
     <member refid="classCanModule_1_1CCanAccess_1a6baf24c56eb715adf55a569d08b12c25" kind="variable"><name>m_reconnectAction</name></member>
-    <member refid="classCanModule_1_1CCanAccess_1abd6b2ab3f6759bfc05c6dc70911eab50" kind="variable"><name>m_timeoutOnReception</name></member>
-    <member refid="classCanModule_1_1CCanAccess_1a74e437526e45192804ca1cffc663d2e2" kind="variable"><name>m_triggerCounter</name></member>
-    <member refid="classCanModule_1_1CCanAccess_1a686ba59e549d1fde3727ab1f88a8c463" kind="variable"><name>m_failedSendCounter</name></member>
-    <member refid="classCanModule_1_1CCanAccess_1aebd1f5d34904ed64d20293d7c385e80c" kind="variable"><name>m_signal_connection</name></member>
-    <member refid="classCanModule_1_1CCanAccess_1aab58c9d55e8430de64046e13100e4893" kind="variable"><name>m_connectionIndex</name></member>
+    <member refid="classCanModule_1_1CCanAccess_1a4ddc9691fd9d42bcc7cb14ceae24da82" kind="variable"><name>m_timeoutOnReception</name></member>
+    <member refid="classCanModule_1_1CCanAccess_1a921748fa6f0da92c7afef60f41007a3e" kind="variable"><name>m_failedSendCountdown</name></member>
+    <member refid="classCanModule_1_1CCanAccess_1a7853071979a549dc701dc06124bf1366" kind="variable"><name>m_maxFailedSendCount</name></member>
+    <member refid="classCanModule_1_1CCanAccess_1a41af60558bdb3b738f39560755864333" kind="variable"><name>m_hCanReconnectionThread</name></member>
+    <member refid="classCanModule_1_1CCanAccess_1ab8dd2b137cebaa0764c406db6061bbc7" kind="variable"><name>m_reconnectTrigger</name></member>
+    <member refid="classCanModule_1_1CCanAccess_1a08cc164e3baaf95fedeb50198a7fa799" kind="variable"><name>m_reconnection_mtx</name></member>
+    <member refid="classCanModule_1_1CCanAccess_1a9edb8bed739db66c1a6a8b3489ce79a2" kind="variable"><name>m_reconnection_cv</name></member>
     <member refid="classCanModule_1_1CCanAccess_1a782b2e9b52ebb49a14307e1f37440490" kind="variable"><name>m_lh</name></member>
     <member refid="classCanModule_1_1CCanAccess_1a2bb6325281679f955ab32fc18367a7b3" kind="variable"><name>m_logItRemoteInstance</name></member>
     <member refid="classCanModule_1_1CCanAccess_1a6a9790a2842b40ced0ff98e1e171acbc" kind="variable"><name>m_dreceived</name></member>
@@ -172,11 +184,16 @@
     <member refid="classCanModule_1_1CCanAccess_1ab5a430fc27073d92c69659bda261b74d" kind="function"><name>initialiseLogging</name></member>
     <member refid="classCanModule_1_1CCanAccess_1a8210a8161f1987973584b6dda5dc6d7d" kind="function"><name>getLogItInstance</name></member>
     <member refid="classCanModule_1_1CCanAccess_1af26c9d102638fb96e5e1305f807d148f" kind="function"><name>parseNameAndParameters</name></member>
+    <member refid="classCanModule_1_1CCanAccess_1a16e43f90cd984b9ea72028c0f8dfe784" kind="function"><name>triggerReconnectionThread</name></member>
+    <member refid="classCanModule_1_1CCanAccess_1ad8afab7f9acc769c53574edec695065b" kind="function"><name>waitForReconnectionThreadTrigger</name></member>
+    <member refid="classCanModule_1_1CCanAccess_1a24494114ec0dc237b63fb321ba4d084e" kind="function"><name>decreaseSendFailedCountdown</name></member>
+    <member refid="classCanModule_1_1CCanAccess_1aad13b5ad34547cbe6cad4e8369557bed" kind="function"><name>resetSendFailedCountdown</name></member>
     <member refid="classCanModule_1_1CCanAccess_1ae1088edaf5444ff42ee094ae46240cc5" kind="function"><name>setReconnectBehavior</name></member>
     <member refid="classCanModule_1_1CCanAccess_1a3c902569c0712d165fc7e385e683dc95" kind="function"><name>setReconnectReceptionTimeout</name></member>
     <member refid="classCanModule_1_1CCanAccess_1a665620fe5924cf87db0589a353d3d148" kind="function"><name>setReconnectFailedSendCount</name></member>
     <member refid="classCanModule_1_1CCanAccess_1a003566cbcdf4ce8195853bd8049a8800" kind="function"><name>getReconnectCondition</name></member>
     <member refid="classCanModule_1_1CCanAccess_1aaf2312ff9074ce7a4ec2e7d0a5b6fa16" kind="function"><name>getReconnectAction</name></member>
+    <member refid="classCanModule_1_1CCanAccess_1a3fabe88b8e21638afd5d9886bb9c4aeb" kind="function"><name>stopBus</name></member>
     <member refid="classCanModule_1_1CCanAccess_1a9da88ce122d5de04a0235a4682a13dc0" kind="function"><name>reconnectConditionString</name></member>
     <member refid="classCanModule_1_1CCanAccess_1aa12f64e9e31bd491f39fc3169b1e5025" kind="function"><name>reconnectActionString</name></member>
     <member refid="classCanModule_1_1CCanAccess_1a79c236a0e2b3e3b183b1c85aab3f5b71" kind="function"><name>hasTimeoutOnReception</name></member>
@@ -215,8 +232,8 @@
     <member refid="classCSockCanScan_1aceab51e91b2c698211e5d563e4449c91" kind="function"><name>setReconnectFailedSendCount</name></member>
     <member refid="classCSockCanScan_1aa8cb4c89fe3a13bb787c4085f1e994e3" kind="function"><name>getReconnectCondition</name></member>
     <member refid="classCSockCanScan_1a03594b2fff9c61f37a5f68df2cfec05c" kind="function"><name>getReconnectAction</name></member>
-    <member refid="classCSockCanScan_1ace6f7aa52fe582af6de098895fc91b83" kind="function"><name>emptyCanFrame</name></member>
     <member refid="classCSockCanScan_1a7be2c075520b1cbf4baa4eb7d728fd2d" kind="function"><name>stopBus</name></member>
+    <member refid="classCSockCanScan_1ace6f7aa52fe582af6de098895fc91b83" kind="function"><name>emptyCanFrame</name></member>
     <member refid="classCSockCanScan_1a623057580187ecb241adf143c64d711c" kind="function"><name>updateInitialError</name></member>
     <member refid="classCSockCanScan_1a512733f202345e5940460f84539c979a" kind="function"><name>sendErrorMessage</name></member>
     <member refid="classCSockCanScan_1a4b5f7591bfd27b8770bfb9ac9e406f66" kind="function"><name>clearErrorMessage</name></member>
@@ -224,6 +241,7 @@
     <member refid="classCSockCanScan_1aaed83a57ee1b70fff48a1a5ca9655fe6" kind="function"><name>updateBusStatus</name></member>
     <member refid="classCSockCanScan_1a203a51239f8efc013d4b9df36f271317" kind="function"><name>openCanPort</name></member>
     <member refid="classCSockCanScan_1a2a97f7fca98e6d599bdb42da64796ad8" kind="function"><name>CanScanControlThread</name></member>
+    <member refid="classCSockCanScan_1a808488b6793afea6cc8466c3a12a088c" kind="function"><name>CanReconnectionThread</name></member>
     <member refid="classCSockCanScan_1a177453d85f24c6b12b84468ac812cf5c" kind="function"><name>errorFrameToString</name></member>
   </compound>
   <compound refid="classCanModule_1_1Diag" kind="class"><name>CanModule::Diag</name>
@@ -278,6 +296,7 @@
     <member refid="classMockCanAccess_1a489f003ba0c428037c5530f475c7c2f6" kind="function"><name>getReconnectAction</name></member>
     <member refid="classMockCanAccess_1a24e126b0ab5c70464a05ffa7286b91e1" kind="function"><name>getPortStatus</name></member>
     <member refid="classMockCanAccess_1a198bd6f880c8b12c9aa98584b1c30097" kind="function"><name>getPortBitrate</name></member>
+    <member refid="classMockCanAccess_1ae9738cfb2774d75ead6dda2bd47922b9" kind="function"><name>stopBus</name></member>
     <member refid="classMockCanAccess_1aa7b4edb24afec475727619a3f2e1f444" kind="function"><name>getCanMessageDataAsString</name></member>
   </compound>
   <compound refid="structudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1_1PEAK__device__t" kind="struct"><name>udevanalyserforpeak_ns::UdevAnalyserForPeak::PEAK_device_t</name>
@@ -317,10 +336,10 @@
     <member refid="classPKCanScan_1a3471105853a5036dd8a3f421c67de628" kind="function"><name>setReconnectFailedSendCount</name></member>
     <member refid="classPKCanScan_1a4ae1f1cfd3e566a903b79f2502fe8752" kind="function"><name>getReconnectCondition</name></member>
     <member refid="classPKCanScan_1a00c1fa5d1abd77601c46669df80b6fba" kind="function"><name>getReconnectAction</name></member>
+    <member refid="classPKCanScan_1a6e90d6dabc2e7a9f445bcff291a566f5" kind="function"><name>stopBus</name></member>
     <member refid="classPKCanScan_1a53471be1a2b2b34afc091e90bfcd29fb" kind="function"><name>getHandle</name></member>
     <member refid="classPKCanScan_1a35ccc4082d56a736abb34d0c289c5a96" kind="function"><name>sendErrorCode</name></member>
     <member refid="classPKCanScan_1a6fe021ecfdde5af1e7a74668b9819bfb" kind="function"><name>configureCanboard</name></member>
-    <member refid="classPKCanScan_1af7d899c65e6abef105d82a89115fd59b" kind="function"><name>stopBus</name></member>
     <member refid="classPKCanScan_1a45bd5feda5ccb009775c45bfabe41614" kind="function"><name>CanScanControlThread</name></member>
   </compound>
   <compound refid="classSTCanScan" kind="class"><name>STCanScan</name>
@@ -353,6 +372,7 @@
     <member refid="classSTCanScan_1a2525cc89387ee92ce7e62be414d3c83e" kind="function"><name>setReconnectFailedSendCount</name></member>
     <member refid="classSTCanScan_1a01b70015904374f482647fbfb1806b08" kind="function"><name>getReconnectCondition</name></member>
     <member refid="classSTCanScan_1a471b6a8617a57b974cb71a2dc540d370" kind="function"><name>getReconnectAction</name></member>
+    <member refid="classSTCanScan_1ae88b966c3c318eca384385c5a85cf2d7" kind="function"><name>stopBus</name></member>
     <member refid="classSTCanScan_1a43454c0bc20eb764cbb4ef3dd5e52cc9" kind="function"><name>sendErrorCode</name></member>
     <member refid="classSTCanScan_1a8e147c77933e11e9983f4d4e22830b21" kind="function"><name>configureCanBoard</name></member>
     <member refid="classSTCanScan_1a5f74df7e9615929365b33c08e709e918" kind="function"><name>openCanPort</name></member>
@@ -401,6 +421,7 @@
     <member refid="namespaceCanModule_1a6c0c413c22df9260df29bf5706d7940c" kind="function"><name>CanModulesubtractTimeval</name></member>
     <member refid="namespaceCanModule_1a6d0711aac0a75de5d2bf6142997a814d" kind="function"><name>currentTimeTimeval</name></member>
     <member refid="namespaceCanModule_1a6cae4be8d395b496f5f602a5f9714ae1" kind="function"><name>CanModuleerrnoToString</name></member>
+    <member refid="namespaceCanModule_1a8dc188d2dd2a214a3163f4aef5e017c9" kind="function"><name>ms_sleep</name></member>
     <member refid="namespaceCanModule_1aca09a34a617d28f8b35699e7933d2599" kind="function"><name>version</name></member>
     <member refid="namespaceCanModule_1adcce5b3c80f29fba526b9c976746b146" kind="function"><name>__declspec</name></member>
   </compound>
@@ -412,6 +433,8 @@
   </compound>
   <compound refid="namespaceudevanalyserforpeak__ns" kind="namespace"><name>udevanalyserforpeak_ns</name>
   </compound>
+  <compound refid="CanBusAccess_8h" kind="file"><name>CanBusAccess.h</name>
+  </compound>
   <compound refid="CanMessage_8h" kind="file"><name>CanMessage.h</name>
     <member refid="CanMessage_8h_1ab1aeab76298263f21dfde5bbdacaf46f" kind="typedef"><name>CanMessage</name></member>
   </compound>
@@ -421,7 +444,6 @@
     <member refid="CanStatistics_8h_1adbba0f726fc66d7100916c683b7568ae" kind="define"><name>GCC_VERSION</name></member>
   </compound>
   <compound refid="CCanAccess_8h" kind="file"><name>CCanAccess.h</name>
-    <member refid="CCanAccess_8h_1ab5f1e478bce31c034108ce1e0113a7d8" kind="define"><name>CanModule_VERSION</name></member>
     <member refid="CCanAccess_8h_1ad506d1f216984abc94d5a65f33053626" kind="define"><name>MLOG</name></member>
     <member refid="CCanAccess_8h_1a6d0995692dcb6d1be30395a18d7683ba" kind="define"><name>CANMODULE_STATUS_BP_SOCK</name></member>
     <member refid="CCanAccess_8h_1a1f1789533d0f909368bb51596939ef5b" kind="define"><name>CANMODULE_STATUS_BP_ANAGATE</name></member>
@@ -432,6 +454,8 @@
     <member refid="ExportDefinition_8h_1a7478c359eb321f7939044e70abfb4cca" kind="define"><name>SHARED_LIB_EXPORT_DEFN</name></member>
   </compound>
   <compound refid="VERSION_8h" kind="file"><name>VERSION.h</name>
+  </compound>
+  <compound refid="CanBusAccess_8cpp" kind="file"><name>CanBusAccess.cpp</name>
   </compound>
   <compound refid="CanModuleUtils_8cpp" kind="file"><name>CanModuleUtils.cpp</name>
   </compound>
@@ -480,11 +504,9 @@
   </compound>
   <compound refid="SockCanScan_8cpp" kind="file"><name>SockCanScan.cpp</name>
     <member refid="SockCanScan_8cpp_1a9dfd6d593fee1bb51ed35186b0bbb328" kind="define"><name>MLOGSOCK</name></member>
-    <member refid="SockCanScan_8cpp_1a080327294794f326cb96d4e0604d835d" kind="variable"><name>sockReconnectMutex</name></member>
+    <member refid="SockCanScan_8cpp_1aa80325536abdfd912084dd4f35e83adb" kind="variable"><name>sockReconnectMutex</name></member>
     <member refid="SockCanScan_8cpp_1a7126885c692bab5fba08fd9700e6a886" kind="function"><name>getCanBusAccess</name></member>
     <member refid="SockCanScan_8cpp_1a244d0d65d27d30b6118c5f30d2d72579" kind="function"><name>canFrameToString</name></member>
-    <member refid="SockCanScan_8cpp_1ab85356f782f86b4f9882ab007a4363c4" kind="function"><name>testThread</name></member>
-    <member refid="SockCanScan_8cpp_1a1ff03dbfb54bd09b1d1d521060639cc7" kind="function"><name>testThread2</name></member>
   </compound>
   <compound refid="SockCanScan_8h" kind="file"><name>SockCanScan.h</name>
   </compound>

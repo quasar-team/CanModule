@@ -14,8 +14,7 @@ The dependencies are:
 * if general vendor builds are off you will build ONLY mockup. Using the toolchain:
    * SET( CANMODULE_BUILD_VENDORS "OFF") or UNSET( CANMODULE_BUILD_VENDORS ) or <nothing>
    * default is therefore "OFF" if you do nothing
-* if you need the general vendor builds, and usually that is the case, then you need to 
-  switch them on explicitly in the toolchain:
+* if you need the general vendor builds, and usually that is the case, then you need to switch them on explicitly in the toolchain:
    * SET( CANMODULE_BUILD_VENDORS "ON")
 * you can switch off selected vendor builds which you do not need using the toolchain:
    * SET(CANMODULE_BUILD_SYSTEC "OFF")
@@ -114,7 +113,7 @@ shared and static linking
 
 CanModule uses all shared libraries, and also loads shared libraries during runtime for each connection
 object and vendor. Nevertheless some shared libraries with reduced dependencies can be built in
-some cases for linux: they have suffix *-static.so .
+some cases for linux: they have suffix -static.so .
 If the vendor APIs come in the form of relocateable static libraries/archives (-fPIC), then they
 can sometimes be integrated as static into the CanModule specific vendor shared lib.
 
@@ -132,6 +131,9 @@ If you want to use the "reduced dependencies" versions then the env var CANMODUL
 has to be set **during runtime** as well.
 
 * boost_1_74_0 (or such) has to be built to provide both shared and static libs:
+
+.. code-block:: c++
+
 cd ./boost/boost_1_7XX_0
 ./bootstrap.sh 
 ./b2 -j 7 link=static,shared threading=multi define=BOOST_DISABLE_WIN32 cxxflags="-fPIC"

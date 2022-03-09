@@ -5,7 +5,14 @@
     <briefdescription>
     </briefdescription>
     <detaileddescription>
+<para>© Copyright CERN, 2015. All rights not expressly granted are reserved.</para>
+<para><ref refid="CanBusAccess_8h" kindref="compound">CanBusAccess.h</ref></para>
+<para>Created on: Oct 22, 2014 Author: Piotr Nikiel <ulink url="mailto:piotr@nikiel.info">piotr@nikiel.info</ulink>, quasar team</para>
+<para>This file is part of Quasar.</para>
+<para>Quasar is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public Licence as published by the Free Software Foundation, either version 3 of the Licence.</para>
+<para>Quasar is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public Licence for more details.</para>
+<para>You should have received a copy of the GNU Lesser General Public License along with Quasar. If not, see <ulink url="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</ulink>. </para>
     </detaileddescription>
-    <location file="CanInterface/include/CanStatistics.h" line="46" column="1"/>
+    <location file="CanInterface/include/CanBusAccess.h" line="33" column="1"/>
   </compounddef>
 </doxygen>

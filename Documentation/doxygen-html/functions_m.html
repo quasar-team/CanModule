@@ -112,6 +112,12 @@ $(document).ready(function(){initNavTree('functions_m.html',''); initResizable()
 : <a class="el" href="classPKCanScan.html#a1c361b38cbc6016192fbcd9a6d81236c">PKCanScan</a>
 , <a class="el" href="classSTCanScan.html#aa1c2f27f78da63fc7d1f542f818b9624">STCanScan</a>
 </li>
+<li>m_busStopped
+: <a class="el" href="classAnaCanScan.html#a9777d181ff5f28da363907ecb50ebc90">AnaCanScan</a>
+</li>
+<li>m_canAccess_map
+: <a class="el" href="classCanModule_1_1CanBusAccess.html#a72f3cde5eb8a7fab358f5c00e5d53487">CanModule::CanBusAccess</a>
+</li>
 <li>m_canCloseDevice
 : <a class="el" href="classAnaCanScan.html#adea6b9e3f699ae412a8fc532a3eb9a48">AnaCanScan</a>
 </li>
@@ -140,9 +146,6 @@ $(document).ready(function(){initNavTree('functions_m.html',''); initResizable()
 <li>m_channelNumber
 : <a class="el" href="classSTCanScan.html#ac5e311e695c1a3c810f82b0c21ee3618">STCanScan</a>
 </li>
-<li>m_connectionIndex
-: <a class="el" href="classCanModule_1_1CCanAccess.html#aab58c9d55e8430de64046e13100e4893">CanModule::CCanAccess</a>
-</li>
 <li>m_createUdevPortMap()
 : <a class="el" href="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak.html#acd46c5ec27ddad48e2f32ab65b2ac2be">udevanalyserforpeak_ns::UdevAnalyserForPeak</a>
 </li>
@@ -158,8 +161,11 @@ $(document).ready(function(){initNavTree('functions_m.html',''); initResizable()
 <li>m_errorCode
 : <a class="el" href="classCSockCanScan.html#a01a0096926dc8236ae11077deb5e02a2">CSockCanScan</a>
 </li>
-<li>m_failedSendCounter
-: <a class="el" href="classCanModule_1_1CCanAccess.html#a686ba59e549d1fde3727ab1f88a8c463">CanModule::CCanAccess</a>
+<li>m_failedSendCountdown
+: <a class="el" href="classCanModule_1_1CCanAccess.html#a921748fa6f0da92c7afef60f41007a3e">CanModule::CCanAccess</a>
+</li>
+<li>m_hCanReconnectionThread
+: <a class="el" href="classCanModule_1_1CCanAccess.html#a41af60558bdb3b738f39560755864333">CanModule::CCanAccess</a>
 </li>
 <li>m_hCanScanThread
 : <a class="el" href="classCSockCanScan.html#a344d3a2b2d61a0adbc364e980af7c740">CSockCanScan</a>
@@ -186,8 +192,14 @@ $(document).ready(function(){initNavTree('functions_m.html',''); initResizable()
 <li>m_iOperationMode
 : <a class="el" href="structCanModule_1_1CanParameters.html#a6dcce5899a28a07c35042c2005fbac03">CanModule::CanParameters</a>
 </li>
+<li>m_iSyncMode
+: <a class="el" href="structCanModule_1_1CanParameters.html#ac17a318a7e3883005733c66010c04604">CanModule::CanParameters</a>
+</li>
 <li>m_iTermination
 : <a class="el" href="structCanModule_1_1CanParameters.html#ac15d1cfe926f508a2788dab50aed992b">CanModule::CanParameters</a>
+</li>
+<li>m_iTimeout
+: <a class="el" href="structCanModule_1_1CanParameters.html#aae2aa9f136d9bcc78ce596aaee286f3f">CanModule::CanParameters</a>
 </li>
 <li>m_iTimeStamp
 : <a class="el" href="structCanModule_1_1CanParameters.html#a0f3653eda77900c9d2450793bd285c29">CanModule::CanParameters</a>
@@ -197,6 +209,9 @@ $(document).ready(function(){initNavTree('functions_m.html',''); initResizable()
 </li>
 <li>m_lh
 : <a class="el" href="classCanModule_1_1CCanAccess.html#a782b2e9b52ebb49a14307e1f37440490">CanModule::CCanAccess</a>
+</li>
+<li>m_libLoader_map
+: <a class="el" href="classCanModule_1_1CanBusAccess.html#ab176a257849ee165a9ff41ad6e4222c6">CanModule::CanBusAccess</a>
 </li>
 <li>m_libName
 : <a class="el" href="classCanModule_1_1CanLibLoader.html#a63bf9755c345afe6286d6751337806d6">CanModule::CanLibLoader</a>
@@ -213,6 +228,9 @@ $(document).ready(function(){initNavTree('functions_m.html',''); initResizable()
 </li>
 <li>m_logItRemoteInstance
 : <a class="el" href="classCanModule_1_1CCanAccess.html#a2bb6325281679f955ab32fc18367a7b3">CanModule::CCanAccess</a>
+</li>
+<li>m_maxFailedSendCount
+: <a class="el" href="classCanModule_1_1CCanAccess.html#a7853071979a549dc701dc06124bf1366">CanModule::CCanAccess</a>
 </li>
 <li>m_moduleNumber
 : <a class="el" href="classSTCanScan.html#a38531e0fcde0f184eb968a01fb5984c9">STCanScan</a>
@@ -271,14 +289,20 @@ $(document).ready(function(){initNavTree('functions_m.html',''); initResizable()
 <li>m_reconnectInProgress_map
 : <a class="el" href="classAnaCanScan.html#a3ff66979e02a0904488365ec412fc994">AnaCanScan</a>
 </li>
+<li>m_reconnection_cv
+: <a class="el" href="classCanModule_1_1CCanAccess.html#a9edb8bed739db66c1a6a8b3489ce79a2">CanModule::CCanAccess</a>
+</li>
+<li>m_reconnection_mtx
+: <a class="el" href="classCanModule_1_1CCanAccess.html#a08cc164e3baaf95fedeb50198a7fa799">CanModule::CCanAccess</a>
+</li>
+<li>m_reconnectTrigger
+: <a class="el" href="classCanModule_1_1CCanAccess.html#ab8dd2b137cebaa0764c406db6061bbc7">CanModule::CCanAccess</a>
+</li>
 <li>m_results
 : <a class="el" href="classexeccommand__ns_1_1ExecCommand.html#a557d1e18086d1b3edbe91ed2e84c7d73">execcommand_ns::ExecCommand</a>
 </li>
 <li>m_sBusName
 : <a class="el" href="classCanModule_1_1CCanAccess.html#a0eff18d10b7ee5d6f86b03898f38f7ca">CanModule::CCanAccess</a>
-</li>
-<li>m_signal_connection
-: <a class="el" href="classCanModule_1_1CCanAccess.html#aebd1f5d34904ed64d20293d7c385e80c">CanModule::CCanAccess</a>
 </li>
 <li>m_sock
 : <a class="el" href="classCSockCanScan.html#aff132a17957a6e0c93ee76be0c2cdc88">CSockCanScan</a>
@@ -297,7 +321,7 @@ $(document).ready(function(){initNavTree('functions_m.html',''); initResizable()
 : <a class="el" href="classAnaCanScan.html#a2ef809f84d976b6f453049a7298760fe">AnaCanScan</a>
 </li>
 <li>m_timeoutOnReception
-: <a class="el" href="classCanModule_1_1CCanAccess.html#abd6b2ab3f6759bfc05c6dc70911eab50">CanModule::CCanAccess</a>
+: <a class="el" href="classCanModule_1_1CCanAccess.html#a4ddc9691fd9d42bcc7cb14ceae24da82">CanModule::CCanAccess</a>
 </li>
 <li>m_totalReceived
 : <a class="el" href="classCanModule_1_1CanStatistics.html#af5d82367032c4a509d99cdc72b6a7e45">CanModule::CanStatistics</a>
@@ -313,9 +337,6 @@ $(document).ready(function(){initNavTree('functions_m.html',''); initResizable()
 </li>
 <li>m_transmittedPerSec
 : <a class="el" href="classCanModule_1_1CanStatistics_1_1Internals.html#a344b6c86e9644f8cee1946f08d0d0d2a">CanModule::CanStatistics::Internals</a>
-</li>
-<li>m_triggerCounter
-: <a class="el" href="classCanModule_1_1CCanAccess.html#a74e437526e45192804ca1cffc663d2e2">CanModule::CCanAccess</a>
 </li>
 <li>m_tz
 : <a class="el" href="classCanModule_1_1CanStatistics.html#a866146b0fe84bd99460b871b3ebfc593">CanModule::CanStatistics</a>

@@ -4,16 +4,17 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Peak</title>
-    <link rel="stylesheet" href="../_static/haiku.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/haiku.css" />
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="next" title="Reconnection OBSOLETE IS REWRITTEN CURRENTLY" href="../reconnection.html" />
+    <link rel="next" title="Reconnection Behavior" href="../reconnection.html" />
     <link rel="prev" title="AnaGate" href="anagate.html" /> 
   </head><body>
       <div class="header" role="banner"><h1 class="heading"><a href="../index.html">
-          <span>CanModule 2.0.6 documentation</span></a></h1>
+          <span>CanModule 2.0.16 documentation</span></a></h1>
         <h2 class="heading"><span>Peak</span></h2>
       </div>
       <div class="topnav" role="navigation" aria-label="top navigation">
@@ -23,14 +24,14 @@
         &#160;&#160;::&#160;&#160;
         <a class="uplink" href="../index.html">Contents</a>
         &#160;&#160;::&#160;&#160;
-        <a href="../reconnection.html">Reconnection OBSOLETE IS REWRITTEN CURRENTLY</a>&#160;&#160;»
+        <a href="../reconnection.html">Reconnection Behavior</a>&#160;&#160;»
         </p>
 
       </div>
       <div class="content" role="main">
         
         
-  <div class="section" id="peak">
+  <section id="peak">
 <h1><a class="reference internal" href="#peak">Peak</a></h1>
 <p>All modules from vendor <a class="reference internal" href="#peak">Peak</a> are handled by class PKCanScan (windows) or CSockCanScan (linux) which
 both manage the modules through their underlying vendor specific API according to the OS.
@@ -38,14 +39,14 @@ Both classes provide the standard generic CanModule API.</p>
 <p>The modules from the families PCAN USB and USB Pro are supported. For linux, also the flexible
 datarate (FD) module types are supported, but without FD functionality. This FD functionality
 could be added in principle if requested.</p>
-<div class="section" id="windows">
+<section id="windows">
 <h2>windows</h2>
 <p>The communication takes place through peak’s open-source PCAN-Basic windows library. Only “plug-and-play”
 modules with USB interface and fixed datarate (non-FD) are supported by CanModule for now. PEAK’s
 flexible datarate (FD) modules can be added later on (they need some different API-calls and more complex parameters), and also
 other interfaces like PCI are possible for windows.The implementation is based on the PCAN-Basic driver.</p>
-</div>
-<div class="section" id="linux">
+</section>
+<section id="linux">
 <h2>linux</h2>
 <p>The open-source socketcan interface is used on top of peak’s open source netdev driver. Both Peak’s
 fixed and flexible datarate are working, although the fixed modules are recommended for bus compatibility.
@@ -68,42 +69,42 @@ utility peakCan. Device ID numbers have to be unique in a system obviously. The 
 is then done in ascending order: the first batch of ports is from the device with the lowest device ID,
 and so forth.</p>
 <dl class="cpp class">
-<dt id="_CPPv4N22udevanalyserforpeak_ns19UdevAnalyserForPeakE">
-<span id="_CPPv3N22udevanalyserforpeak_ns19UdevAnalyserForPeakE"></span><span id="_CPPv2N22udevanalyserforpeak_ns19UdevAnalyserForPeakE"></span><span id="udevanalyserforpeak_ns::UdevAnalyserForPeak"></span><span class="target" id="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak"></span><em class="property">class </em><code class="sig-prename descclassname">udevanalyserforpeak_ns<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">UdevAnalyserForPeak</code><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N22udevanalyserforpeak_ns19UdevAnalyserForPeakE">
+<span id="_CPPv3N22udevanalyserforpeak_ns19UdevAnalyserForPeakE"></span><span id="_CPPv2N22udevanalyserforpeak_ns19UdevAnalyserForPeakE"></span><span id="udevanalyserforpeak_ns::UdevAnalyserForPeak"></span><span class="target" id="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">udevanalyserforpeak_ns</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">UdevAnalyserForPeak</span></span></span><br /></dt>
 <dd><div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Public Static Functions</p>
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-functions">Public Static Functions</p>
 <dl class="cpp function">
-<dt id="_CPPv4N22udevanalyserforpeak_ns19UdevAnalyserForPeak11getInstanceEv">
-<span id="_CPPv3N22udevanalyserforpeak_ns19UdevAnalyserForPeak11getInstanceEv"></span><span id="_CPPv2N22udevanalyserforpeak_ns19UdevAnalyserForPeak11getInstanceEv"></span><span id="udevanalyserforpeak_ns::UdevAnalyserForPeak::getInstance"></span><span class="target" id="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1a0f9f020e963d202faff7a1a114713219"></span><a class="reference internal" href="#_CPPv4N22udevanalyserforpeak_ns19UdevAnalyserForPeakE" title="udevanalyserforpeak_ns::UdevAnalyserForPeak">UdevAnalyserForPeak</a> *<code class="sig-name descname">getInstance</code><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N22udevanalyserforpeak_ns19UdevAnalyserForPeak11getInstanceEv">
+<span id="_CPPv3N22udevanalyserforpeak_ns19UdevAnalyserForPeak11getInstanceEv"></span><span id="_CPPv2N22udevanalyserforpeak_ns19UdevAnalyserForPeak11getInstanceEv"></span><span id="udevanalyserforpeak_ns::UdevAnalyserForPeak::getInstance"></span><span class="target" id="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1a0f9f020e963d202faff7a1a114713219"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N22udevanalyserforpeak_ns19UdevAnalyserForPeakE" title="udevanalyserforpeak_ns::UdevAnalyserForPeak"><span class="n"><span class="pre">UdevAnalyserForPeak</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">getInstance</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
 <dd><p>factory providing one singleton todo: use fancy threadsafe STATIC method </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N22udevanalyserforpeak_ns19UdevAnalyserForPeak39peakExtendedIdentifierToSocketCanDeviceENSt6stringE">
-<span id="_CPPv3N22udevanalyserforpeak_ns19UdevAnalyserForPeak39peakExtendedIdentifierToSocketCanDeviceENSt6stringE"></span><span id="_CPPv2N22udevanalyserforpeak_ns19UdevAnalyserForPeak39peakExtendedIdentifierToSocketCanDeviceENSt6stringE"></span><span id="udevanalyserforpeak_ns::UdevAnalyserForPeak::peakExtendedIdentifierToSocketCanDevice__ss"></span><span class="target" id="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1a7edf6a8b32f9728aacf570a7704e560f"></span>std::string <code class="sig-name descname">peakExtendedIdentifierToSocketCanDevice</code><span class="sig-paren">(</span>std::string <em>portId</em><span class="sig-paren">)</span><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N22udevanalyserforpeak_ns19UdevAnalyserForPeak39peakExtendedIdentifierToSocketCanDeviceENSt6stringE">
+<span id="_CPPv3N22udevanalyserforpeak_ns19UdevAnalyserForPeak39peakExtendedIdentifierToSocketCanDeviceENSt6stringE"></span><span id="_CPPv2N22udevanalyserforpeak_ns19UdevAnalyserForPeak39peakExtendedIdentifierToSocketCanDeviceENSt6stringE"></span><span id="udevanalyserforpeak_ns::UdevAnalyserForPeak::peakExtendedIdentifierToSocketCanDevice__ss"></span><span class="target" id="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1a7edf6a8b32f9728aacf570a7704e560f"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">peakExtendedIdentifierToSocketCanDevice</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">portId</span></span><span class="sig-paren">)</span><br /></dt>
 <dd><p>convert a PEAK extended portIdentifier to a socketcan device, i.e. “sock:can0:device123456” -&gt; “can2”</p>
 </dd></dl>
 
 </div>
 <dl class="cpp struct">
-<dt id="_CPPv4N22udevanalyserforpeak_ns19UdevAnalyserForPeak13PEAK_device_tE">
-<span id="_CPPv3N22udevanalyserforpeak_ns19UdevAnalyserForPeak13PEAK_device_tE"></span><span id="_CPPv2N22udevanalyserforpeak_ns19UdevAnalyserForPeak13PEAK_device_tE"></span><span id="udevanalyserforpeak_ns::UdevAnalyserForPeak::PEAK_device_t"></span><span class="target" id="structudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1_1PEAK__device__t"></span><em class="property">struct </em><code class="sig-name descname">PEAK_device_t</code><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N22udevanalyserforpeak_ns19UdevAnalyserForPeak13PEAK_device_tE">
+<span id="_CPPv3N22udevanalyserforpeak_ns19UdevAnalyserForPeak13PEAK_device_tE"></span><span id="_CPPv2N22udevanalyserforpeak_ns19UdevAnalyserForPeak13PEAK_device_tE"></span><span id="udevanalyserforpeak_ns::UdevAnalyserForPeak::PEAK_device_t"></span><span class="target" id="structudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1_1PEAK__device__t"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PEAK_device_t</span></span></span><br /></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-<div class="section" id="status">
+<section id="status">
 <h3>status</h3>
 <p>status information is propagated through the unified status.
 For windows:</p>
 <dl class="cpp class">
-<dt id="_CPPv49PKCanScan">
-<span id="_CPPv39PKCanScan"></span><span id="_CPPv29PKCanScan"></span><span id="PKCanScan"></span><span class="target" id="classPKCanScan"></span><em class="property">class </em><code class="sig-name descname">PKCanScan</code> : <em class="property">public</em> CanModule::<a class="reference internal" href="../canports.html#_CPPv4N9CanModule10CCanAccessE" title="CanModule::CCanAccess">CCanAccess</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv49PKCanScan">
+<span id="_CPPv39PKCanScan"></span><span id="_CPPv29PKCanScan"></span><span id="PKCanScan"></span><span class="target" id="classPKCanScan"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PKCanScan</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">CanModule</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../canports.html#_CPPv4N9CanModule10CCanAccessE" title="CanModule::CCanAccess"><span class="n"><span class="pre">CCanAccess</span></span></a><br /></dt>
 <dd><div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
-<dt id="_CPPv4N9PKCanScan13getPortStatusEv">
-<span id="_CPPv3N9PKCanScan13getPortStatusEv"></span><span id="_CPPv2N9PKCanScan13getPortStatusEv"></span><span id="PKCanScan::getPortStatus"></span><span class="target" id="classPKCanScan_1aae31de6a82fcacc8ef3f581aff5305fc"></span>uint32_t <code class="sig-name descname">getPortStatus</code><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N9PKCanScan13getPortStatusEv">
+<span id="_CPPv3N9PKCanScan13getPortStatusEv"></span><span id="_CPPv2N9PKCanScan13getPortStatusEv"></span><span id="PKCanScan::getPortStatus"></span><span class="target" id="classPKCanScan_1aae31de6a82fcacc8ef3f581aff5305fc"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getPortStatus</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
 <dd><p>PCANBasic.h:113 </p>
 </dd></dl>
 
@@ -122,8 +123,8 @@ For windows:</p>
 </dd>
 </dl>
 </div></blockquote>
-</div>
-<div class="section" id="errors">
+</section>
+<section id="errors">
 <h3>errors</h3>
 <p>Errors and problems are available through two mechanisms:</p>
 <ul class="simple">
@@ -140,9 +141,9 @@ documentation if available. Peak relies on a vendor provided method: CAN_GetErro
 </div></blockquote>
 <p><strong>linux</strong>
 * the error message from the ioctl call is returned, unfortunately it is rather unspecific.</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
       </div>
@@ -153,15 +154,15 @@ documentation if available. Peak relies on a vendor provided method: CAN_GetErro
         &#160;&#160;::&#160;&#160;
         <a class="uplink" href="../index.html">Contents</a>
         &#160;&#160;::&#160;&#160;
-        <a href="../reconnection.html">Reconnection OBSOLETE IS REWRITTEN CURRENTLY</a>&#160;&#160;»
+        <a href="../reconnection.html">Reconnection Behavior</a>&#160;&#160;»
         </p>
 
       </div>
 
     <div class="footer" role="contentinfo">
         &#169; Copyright 2020, CERN, quasar-team, BE-ICS (Michael Ludwig).
-      Last updated on 14-Jan-2021 14:02:15.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.1.2.
+      Last updated on 04-Mar-2022 16:37:37.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
     </div>
   </body>
 </html>

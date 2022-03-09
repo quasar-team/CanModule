@@ -20,7 +20,7 @@ var classPKCanScan =
     [ "setReconnectBehavior", "classPKCanScan.html#abbc20782e1ebbd9cb552a957a3196561", null ],
     [ "setReconnectFailedSendCount", "classPKCanScan.html#a3471105853a5036dd8a3f421c67de628", null ],
     [ "setReconnectReceptionTimeout", "classPKCanScan.html#a5b908a0bc16dae74b88b6feed7eea272", null ],
-    [ "stopBus", "classPKCanScan.html#af7d899c65e6abef105d82a89115fd59b", null ],
+    [ "stopBus", "classPKCanScan.html#a6e90d6dabc2e7a9f445bcff291a566f5", null ],
     [ "m_baudRate", "classPKCanScan.html#a84e9c4874e065b79d5600c0a5f9f7877", null ],
     [ "m_busName", "classPKCanScan.html#a4a881ec178b83b4a8937180d45738a2e", null ],
     [ "m_busParameters", "classPKCanScan.html#aa12640926d5f9f2e72f728dc084ace80", null ],

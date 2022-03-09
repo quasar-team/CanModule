@@ -165,7 +165,7 @@ Private Member Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="Diag_8cpp_source.html#l00021">21</a> of file <a class="el" href="Diag_8cpp_source.html">Diag.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="Diag_8h_source.html#l00048">lh</a>, and <a class="el" href="CCanAccess_8h_source.html#l00050">CanModule::LogItComponentName</a>.</p>
+<p class="reference">References <a class="el" href="Diag_8h_source.html#l00048">lh</a>, and <a class="el" href="CCanAccess_8h_source.html#l00059">CanModule::LogItComponentName</a>.</p>
 
 </div>
 </div>
@@ -233,18 +233,14 @@ Private Member Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="Diag_8cpp_source.html#l00027">27</a> of file <a class="el" href="Diag_8cpp_source.html">Diag.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="Diag_8h_source.html#l00047">CanAccess_icount</a>, <a class="el" href="Diag_8h_source.html#l00046">CanLibLoader_icount</a>, <a class="el" href="CCanAccess_8h_source.html#l00204">CanModule::CCanAccess::getBusName()</a>, <a class="el" href="CanLibLoader_8h_source.html#l00056">CanModule::CanLibLoader::getLibName()</a>, <a class="el" href="Diag_8h_source.html#l00050">lib_map</a>, <a class="el" href="Diag_8cpp_source.html#l00019">CanModule::mtx</a>, <a class="el" href="Diag_8h_source.html#l00051">parameter_map</a>, and <a class="el" href="Diag_8h_source.html#l00049">port_map</a>.</p>
+<p class="reference">References <a class="el" href="Diag_8h_source.html#l00047">CanAccess_icount</a>, <a class="el" href="Diag_8h_source.html#l00046">CanLibLoader_icount</a>, <a class="el" href="CCanAccess_8h_source.html#l00227">CanModule::CCanAccess::getBusName()</a>, <a class="el" href="CanLibLoader_8h_source.html#l00056">CanModule::CanLibLoader::getLibName()</a>, <a class="el" href="Diag_8h_source.html#l00050">lib_map</a>, <a class="el" href="Diag_8cpp_source.html#l00019">CanModule::mtx</a>, <a class="el" href="Diag_8h_source.html#l00051">parameter_map</a>, and <a class="el" href="Diag_8h_source.html#l00049">port_map</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="CanLibLoader_8cpp_source.html#l00060">CanModule::CanLibLoader::closeCanBus()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classCanModule_1_1Diag_aa79c20827b6e33fa35d4106d9aa479b8_cgraph.png" border="0" usemap="#classCanModule_1_1Diag_aa79c20827b6e33fa35d4106d9aa479b8_cgraph" alt=""/></div>
-<map name="classCanModule_1_1Diag_aa79c20827b6e33fa35d4106d9aa479b8_cgraph" id="classCanModule_1_1Diag_aa79c20827b6e33fa35d4106d9aa479b8_cgraph">
-<area shape="rect" title=" " alt="" coords="5,46,231,73"/>
-<area shape="rect" href="classCanModule_1_1CCanAccess.html#ac3f5126ae36d642217425e21696d19ca" title=" " alt="" coords="283,5,465,47"/>
-<area shape="rect" href="classCanModule_1_1CanLibLoader.html#a7b4d0043b9715fce19bca9bb4035df0a" title=" " alt="" coords="279,71,469,112"/>
-</map>
+<!-- MAP 0 -->
 </div>
 
 </div>
@@ -273,7 +269,7 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>gives back a vector filled with connection details, mostly timestamp related the maps are only used as rvalues in a reentrant method: fine without mutex </p>
 
-<p class="definition">Definition at line <a class="el" href="Diag_8cpp_source.html#l00076">76</a> of file <a class="el" href="Diag_8cpp_source.html">Diag.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Diag_8cpp_source.html#l00092">92</a> of file <a class="el" href="Diag_8cpp_source.html">Diag.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="Diag_8h_source.html#l00037">CanModule::Diag::CONNECTION_DIAG_t::bus</a>, <a class="el" href="Diag_8h_source.html#l00038">CanModule::Diag::CONNECTION_DIAG_t::lib</a>, <a class="el" href="Diag_8h_source.html#l00050">lib_map</a>, <a class="el" href="Diag_8h_source.html#l00039">CanModule::Diag::CONNECTION_DIAG_t::parameter</a>, <a class="el" href="Diag_8h_source.html#l00051">parameter_map</a>, and <a class="el" href="Diag_8h_source.html#l00049">port_map</a>.</p>
 
@@ -320,20 +316,16 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>insert the two objects into the tracing maps and define a common key the key looks like this: libname_CanLibLoader_icount:busname_CanAccess_icount i.e. an_1:can2_0 [ anagate lib instance 1, bus can2 instance 0 ] sock_0:can2_4 [ sock instance 0, bus can2 instance 4 ] </p>
 
-<p class="definition">Definition at line <a class="el" href="Diag_8cpp_source.html#l00046">46</a> of file <a class="el" href="Diag_8cpp_source.html">Diag.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Diag_8cpp_source.html#l00062">62</a> of file <a class="el" href="Diag_8cpp_source.html">Diag.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="Diag_8h_source.html#l00047">CanAccess_icount</a>, <a class="el" href="Diag_8h_source.html#l00046">CanLibLoader_icount</a>, <a class="el" href="CCanAccess_8h_source.html#l00204">CanModule::CCanAccess::getBusName()</a>, <a class="el" href="CanLibLoader_8h_source.html#l00056">CanModule::CanLibLoader::getLibName()</a>, <a class="el" href="Diag_8h_source.html#l00048">lh</a>, <a class="el" href="Diag_8h_source.html#l00050">lib_map</a>, <a class="el" href="Diag_8cpp_source.html#l00019">CanModule::mtx</a>, <a class="el" href="Diag_8h_source.html#l00051">parameter_map</a>, and <a class="el" href="Diag_8h_source.html#l00049">port_map</a>.</p>
+<p class="reference">References <a class="el" href="Diag_8h_source.html#l00047">CanAccess_icount</a>, <a class="el" href="Diag_8h_source.html#l00046">CanLibLoader_icount</a>, <a class="el" href="CCanAccess_8h_source.html#l00227">CanModule::CCanAccess::getBusName()</a>, <a class="el" href="CanLibLoader_8h_source.html#l00056">CanModule::CanLibLoader::getLibName()</a>, <a class="el" href="Diag_8h_source.html#l00048">lh</a>, <a class="el" href="Diag_8h_source.html#l00050">lib_map</a>, <a class="el" href="Diag_8cpp_source.html#l00019">CanModule::mtx</a>, <a class="el" href="Diag_8h_source.html#l00051">parameter_map</a>, and <a class="el" href="Diag_8h_source.html#l00049">port_map</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="CanLibLoader_8cpp_source.html#l00070">CanModule::CanLibLoader::openCanBus()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="CanLibLoader_8cpp_source.html#l00072">CanModule::CanLibLoader::openCanBus()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classCanModule_1_1Diag_addd2c4afbe8b21115f487085f3226e8d_cgraph.png" border="0" usemap="#classCanModule_1_1Diag_addd2c4afbe8b21115f487085f3226e8d_cgraph" alt=""/></div>
-<map name="classCanModule_1_1Diag_addd2c4afbe8b21115f487085f3226e8d_cgraph" id="classCanModule_1_1Diag_addd2c4afbe8b21115f487085f3226e8d_cgraph">
-<area shape="rect" title=" " alt="" coords="5,46,227,73"/>
-<area shape="rect" href="classCanModule_1_1CCanAccess.html#ac3f5126ae36d642217425e21696d19ca" title=" " alt="" coords="279,5,461,47"/>
-<area shape="rect" href="classCanModule_1_1CanLibLoader.html#a7b4d0043b9715fce19bca9bb4035df0a" title=" " alt="" coords="275,71,465,112"/>
-</map>
+<!-- MAP 1 -->
 </div>
 
 </div>
@@ -361,7 +353,7 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="Diag_8h_source.html#l00047">47</a> of file <a class="el" href="Diag_8h_source.html">Diag.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="Diag_8cpp_source.html#l00027">delete_maps()</a>, and <a class="el" href="Diag_8cpp_source.html#l00046">insert_maps()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="Diag_8cpp_source.html#l00027">delete_maps()</a>, and <a class="el" href="Diag_8cpp_source.html#l00062">insert_maps()</a>.</p>
 
 </div>
 </div>
@@ -387,7 +379,7 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="Diag_8h_source.html#l00046">46</a> of file <a class="el" href="Diag_8h_source.html">Diag.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="Diag_8cpp_source.html#l00027">delete_maps()</a>, and <a class="el" href="Diag_8cpp_source.html#l00046">insert_maps()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="Diag_8cpp_source.html#l00027">delete_maps()</a>, and <a class="el" href="Diag_8cpp_source.html#l00062">insert_maps()</a>.</p>
 
 </div>
 </div>
@@ -413,7 +405,7 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="Diag_8h_source.html#l00048">48</a> of file <a class="el" href="Diag_8h_source.html">Diag.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="Diag_8cpp_source.html#l00021">Diag()</a>, and <a class="el" href="Diag_8cpp_source.html#l00046">insert_maps()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="Diag_8cpp_source.html#l00021">Diag()</a>, and <a class="el" href="Diag_8cpp_source.html#l00062">insert_maps()</a>.</p>
 
 </div>
 </div>
@@ -439,7 +431,7 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="Diag_8h_source.html#l00050">50</a> of file <a class="el" href="Diag_8h_source.html">Diag.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="Diag_8cpp_source.html#l00027">delete_maps()</a>, <a class="el" href="Diag_8cpp_source.html#l00076">get_connections()</a>, and <a class="el" href="Diag_8cpp_source.html#l00046">insert_maps()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="Diag_8cpp_source.html#l00027">delete_maps()</a>, <a class="el" href="Diag_8cpp_source.html#l00092">get_connections()</a>, and <a class="el" href="Diag_8cpp_source.html#l00062">insert_maps()</a>.</p>
 
 </div>
 </div>
@@ -465,7 +457,7 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="Diag_8h_source.html#l00051">51</a> of file <a class="el" href="Diag_8h_source.html">Diag.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="Diag_8cpp_source.html#l00027">delete_maps()</a>, <a class="el" href="Diag_8cpp_source.html#l00076">get_connections()</a>, and <a class="el" href="Diag_8cpp_source.html#l00046">insert_maps()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="Diag_8cpp_source.html#l00027">delete_maps()</a>, <a class="el" href="Diag_8cpp_source.html#l00092">get_connections()</a>, and <a class="el" href="Diag_8cpp_source.html#l00062">insert_maps()</a>.</p>
 
 </div>
 </div>
@@ -491,7 +483,7 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="Diag_8h_source.html#l00049">49</a> of file <a class="el" href="Diag_8h_source.html">Diag.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="Diag_8cpp_source.html#l00027">delete_maps()</a>, <a class="el" href="Diag_8cpp_source.html#l00076">get_connections()</a>, and <a class="el" href="Diag_8cpp_source.html#l00046">insert_maps()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="Diag_8cpp_source.html#l00027">delete_maps()</a>, <a class="el" href="Diag_8cpp_source.html#l00092">get_connections()</a>, and <a class="el" href="Diag_8cpp_source.html#l00062">insert_maps()</a>.</p>
 
 </div>
 </div>

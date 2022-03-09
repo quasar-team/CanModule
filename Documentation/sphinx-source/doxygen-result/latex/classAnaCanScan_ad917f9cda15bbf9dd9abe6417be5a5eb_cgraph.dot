@@ -1,0 +1,28 @@
+digraph "AnaCanScan::configureCanBoard"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="AnaCanScan::configureCan\lBoard",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="AnaCanScan::openCanPort",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classAnaCanScan.html#ad94121f1933d50cafa52d625ee435f6c",tooltip=" "];
+  Node2 -> Node3 [color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="AnaCanScan::addCanHandle\lOfPortIp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classAnaCanScan.html#a3e2635663ebdfac68591d6a0577fa951",tooltip=" "];
+  Node3 -> Node4 [color="midnightblue",fontsize="10",style="solid"];
+  Node4 [label="AnaCanScan::handle",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classAnaCanScan.html#a9ce965955bb5eba734ed36b81945cb74",tooltip=" "];
+  Node2 -> Node5 [color="midnightblue",fontsize="10",style="solid"];
+  Node5 [label="AnaCanScan::getCanHandle\lOfPortIp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classAnaCanScan.html#a7bf29c3cb20f59bca41d581e4d8c9c04",tooltip=" "];
+  Node2 -> Node6 [color="midnightblue",fontsize="10",style="solid"];
+  Node6 [label="InternalCallback",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$AnaCanScan_8cpp.html#ad5698349874e3653b879b5de27311594",tooltip=" "];
+  Node6 -> Node7 [color="midnightblue",fontsize="10",style="solid"];
+  Node7 [label="AnaCanScan::canMessageTo\lString",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classAnaCanScan.html#ad4a01934370aa2e9ee72bd31406e2752",tooltip=" "];
+  Node6 -> Node8 [color="midnightblue",fontsize="10",style="solid"];
+  Node8 [label="CanModule::convertTimepoint\lToTimeval",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$namespaceCanModule.html#a3ec3082d7d11a9c1641023cb3f53cbe5",tooltip=" "];
+  Node6 -> Node9 [color="midnightblue",fontsize="10",style="solid"];
+  Node9 [label="CanModule::currentTimeTimeval",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$namespaceCanModule.html#a6d0711aac0a75de5d2bf6142997a814d",tooltip=" "];
+  Node1 -> Node10 [color="midnightblue",fontsize="10",style="solid"];
+  Node10 [label="CanModule::CCanAccess\l::parseNameAndParameters",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classCanModule_1_1CCanAccess.html#af26c9d102638fb96e5e1305f807d148f",tooltip=" "];
+  Node10 -> Node11 [color="midnightblue",fontsize="10",style="solid"];
+  Node11 [label="CanModule::CanParameters\l::scanParameters",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structCanModule_1_1CanParameters.html#ae3c938ac282acae4e49487cbb8a61133",tooltip=" "];
+}

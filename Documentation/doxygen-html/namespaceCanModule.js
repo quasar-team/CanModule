@@ -1,5 +1,6 @@
 var namespaceCanModule =
 [
+    [ "CanBusAccess", "classCanModule_1_1CanBusAccess.html", "classCanModule_1_1CanBusAccess" ],
     [ "CanLibLoader", "classCanModule_1_1CanLibLoader.html", "classCanModule_1_1CanLibLoader" ],
     [ "CanLibLoaderLin", "classCanModule_1_1CanLibLoaderLin.html", "classCanModule_1_1CanLibLoaderLin" ],
     [ "CanLibLoaderWin", "classCanModule_1_1CanLibLoaderWin.html", "classCanModule_1_1CanLibLoaderWin" ],

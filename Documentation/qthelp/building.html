@@ -4,16 +4,17 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Building</title>
-    <link rel="stylesheet" href="_static/haiku.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/haiku.css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="next" title="Running" href="running.html" />
     <link rel="prev" title="Logging" href="logging.html" /> 
   </head><body>
       <div class="header" role="banner"><h1 class="heading"><a href="index.html">
-          <span>CanModule 2.0.6 documentation</span></a></h1>
+          <span>CanModule 2.0.16 documentation</span></a></h1>
         <h2 class="heading"><span>Building</span></h2>
       </div>
       <div class="topnav" role="navigation" aria-label="top navigation">
@@ -30,11 +31,11 @@
       <div class="content" role="main">
         
         
-  <div class="section" id="building">
+  <section id="building">
 <h1>Building</h1>
 <p>We use <a class="reference external" href="https://cmake.org/">cmake</a> 3.0 or higher for multi-OS building.
 The dependencies are:</p>
-<ul>
+<ul class="simple">
 <li><p><a class="reference external" href="http://xerces.apache.org/xerces-c/">xerces</a>-c</p></li>
 <li><p><a class="reference external" href="https://www.boost.org/">boost</a> (1.64.0 or later preferred, but any version &gt;=1.59.0 should work)</p></li>
 <li><p><a class="reference external" href="https://gitlab.cern.ch/mludwig/CAN_libsocketcan">socketcan</a> libs (CC7, ubuntu) (not to be confused with the CanModule sockcan.so lib!).
@@ -42,23 +43,22 @@ They can also be found in various places for open software.</p></li>
 <li><p>dependencies for CanModule: LogIt (sources to github pulled in by cmake)</p></li>
 <li><p>vendor libs (to be installed on your build/target machine)</p></li>
 <li><dl class="simple">
-<dt>if general vendor builds are off you will build ONLY mockup. Using the toolchain:</dt><dd><ul class="simple">
+<dt>if general vendor builds are off you will build ONLY mockup. Using the toolchain:</dt><dd><ul>
 <li><p>SET( CANMODULE_BUILD_VENDORS “OFF”) or UNSET( CANMODULE_BUILD_VENDORS ) or &lt;nothing&gt;</p></li>
 <li><p>default is therefore “OFF” if you do nothing</p></li>
 </ul>
 </dd>
 </dl>
 </li>
-<li><p>if you need the general vendor builds, and usually that is the case, then you need to
-switch them on explicitly in the toolchain:</p>
-<blockquote>
-<div><ul class="simple">
+<li><dl class="simple">
+<dt>if you need the general vendor builds, and usually that is the case, then you need to switch them on explicitly in the toolchain:</dt><dd><ul>
 <li><p>SET( CANMODULE_BUILD_VENDORS “ON”)</p></li>
 </ul>
-</div></blockquote>
+</dd>
+</dl>
 </li>
 <li><dl class="simple">
-<dt>you can switch off selected vendor builds which you do not need using the toolchain:</dt><dd><ul class="simple">
+<dt>you can switch off selected vendor builds which you do not need using the toolchain:</dt><dd><ul>
 <li><p>SET(CANMODULE_BUILD_SYSTEC “OFF”)</p></li>
 <li><p>SET(CANMODULE_BUILD_ANAGATE “OFF”)</p></li>
 <li><p>SET(CANMODULE_BUILD_PEAK “OFF”)</p></li>
@@ -146,15 +146,15 @@ endif()
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cmake</span> <span class="o">-</span><span class="n">DCMAKE_TOOLCHAIN_FILE</span><span class="o">=</span><span class="n">toolchain</span><span class="o">.</span><span class="n">cmake</span>
 </pre></div>
 </div>
-<div class="section" id="shared-and-static-linking">
+<section id="shared-and-static-linking">
 <h2>shared and static linking</h2>
 <p>CanModule uses all shared libraries, and also loads shared libraries during runtime for each connection
 object and vendor. Nevertheless some shared libraries with reduced dependencies can be built in
-some cases for linux: they have suffix <a href="#id1"><span class="problematic" id="id2">*</span></a>-static.so .
+some cases for linux: they have suffix -static.so .
 If the vendor APIs come in the form of relocateable static libraries/archives (-fPIC), then they
 can sometimes be integrated as static into the CanModule specific vendor shared lib.</p>
 <p><strong>Linux (CC7, ubuntu):</strong>
-if the environment variable CANMODULE_AS_STATIC_AS_POSSIBLE=1 is set during building the <a href="#id3"><span class="problematic" id="id4">*</span></a>-static
+if the environment variable CANMODULE_AS_STATIC_AS_POSSIBLE=1 is set during building the <a href="#id1"><span class="problematic" id="id2">*</span></a>-static
 libs are produced with boost and other specific dependencies integrated as possible:</p>
 <ul class="simple">
 <li><p>ancan-static.so</p></li>
@@ -168,12 +168,15 @@ has to be set <strong>during runtime</strong> as well.</p>
 <ul class="simple">
 <li><p>boost_1_74_0 (or such) has to be built to provide both shared and static libs:</p></li>
 </ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
 <p>cd ./boost/boost_1_7XX_0
 ./bootstrap.sh
 ./b2 -j 7 link=static,shared threading=multi define=BOOST_DISABLE_WIN32 cxxflags=”-fPIC”</p>
 <p><strong>Windows</strong></p>
 <p>No reduced dependencies libs are available at this point.</p>
-<div class="section" id="qa-and-documentation">
+<section id="qa-and-documentation">
 <h3>QA and documentation</h3>
 <p>Local gitlab runners are used for the ics-fd-qa and documentation integration into the CI/CD. Therefore the <a class="reference external" href="https://github.com/quasar-team/CanModule.git">githubCanModule</a>
 repo is mirrored into <a class="reference external" href="https://gitlab.cern.ch/mludwig/canmodule-mirror.git">gitlabCanModule</a> and the .gitlab-ci.yml is executed on gitlab for the two stages only:</p>
@@ -184,9 +187,9 @@ repo is mirrored into <a class="reference external" href="https://gitlab.cern.ch
 <p>No libraries or binaries are built, since anyway CanModule is cross-platform and cannot be built entirely on gitlab
 runners. A jenkins instance at <a class="reference external" href="https://ics-fd-cpp-master.web.cern.ch/view/CAN">jenkins</a> is used instead.</p>
 <p>The QA results are available at <a class="reference external" href="https://cvl.sonarqube.cern.ch">sonarqube</a> under ics-fd-qa-CanModule-mirror</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
       </div>
@@ -204,8 +207,8 @@ runners. A jenkins instance at <a class="reference external" href="https://ics-f
 
     <div class="footer" role="contentinfo">
         &#169; Copyright 2020, CERN, quasar-team, BE-ICS (Michael Ludwig).
-      Last updated on 14-Jan-2021 14:02:15.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.1.2.
+      Last updated on 04-Mar-2022 16:37:37.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
     </div>
   </body>
 </html>

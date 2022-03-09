@@ -3,6 +3,7 @@ var classCSockCanScan =
     [ "CSockCanScan", "classCSockCanScan.html#abfb8f5e3726f9675a63f48648afae178", null ],
     [ "CSockCanScan", "classCSockCanScan.html#a7442798d8f943f85ca710f6f829c9efd", null ],
     [ "~CSockCanScan", "classCSockCanScan.html#a243f91e993fcc96ddd5308c1425a130c", null ],
+    [ "CanReconnectionThread", "classCSockCanScan.html#a808488b6793afea6cc8466c3a12a088c", null ],
     [ "CanScanControlThread", "classCSockCanScan.html#a2a97f7fca98e6d599bdb42da64796ad8", null ],
     [ "clearErrorMessage", "classCSockCanScan.html#a4b5f7591bfd27b8770bfb9ac9e406f66", null ],
     [ "configureCanBoard", "classCSockCanScan.html#a8bb8fcdb24b2b917258d027e6a468bae", null ],

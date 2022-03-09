@@ -101,7 +101,7 @@
         <references refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1a0f9f020e963d202faff7a1a114713219" compoundref="UdevAnalyserForPeak_8h" startline="34" endline="42">getInstance</references>
         <references refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1aacad8fc930990cc6d0d47de472022acb" compoundref="UdevAnalyserForPeak_8h" startline="55">m_logItHandleSock</references>
         <references refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1a1305c736fdc28c62cfa29144e25d7f3a" compoundref="UdevAnalyserForPeak_8h" startline="52">m_peak_v</references>
-        <referencedby refid="classCSockCanScan_1a8bb8fcdb24b2b917258d027e6a468bae" compoundref="SockCanScan_8cpp" startline="360" endline="395">CSockCanScan::configureCanBoard</referencedby>
+        <referencedby refid="classCSockCanScan_1a8bb8fcdb24b2b917258d027e6a468bae" compoundref="SockCanScan_8cpp" startline="494" endline="529">CSockCanScan::configureCanBoard</referencedby>
       </memberdef>
       <memberdef kind="function" id="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1a982db3210deb3a9483508f473af4262c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -117,7 +117,7 @@
         <location file="CanInterfaceImplementations/sockcan/UdevAnalyserForPeak.h" line="45" column="13" bodyfile="CanInterfaceImplementations/sockcan/UdevAnalyserForPeak.cpp" bodystart="118" bodyend="129"/>
         <references refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1aacad8fc930990cc6d0d47de472022acb" compoundref="UdevAnalyserForPeak_8h" startline="55">m_logItHandleSock</references>
         <references refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1a1305c736fdc28c62cfa29144e25d7f3a" compoundref="UdevAnalyserForPeak_8h" startline="52">m_peak_v</references>
-        <referencedby refid="classCSockCanScan_1a8bb8fcdb24b2b917258d027e6a468bae" compoundref="SockCanScan_8cpp" startline="360" endline="395">CSockCanScan::configureCanBoard</referencedby>
+        <referencedby refid="classCSockCanScan_1a8bb8fcdb24b2b917258d027e6a468bae" compoundref="SockCanScan_8cpp" startline="494" endline="529">CSockCanScan::configureCanBoard</referencedby>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-func">
@@ -133,7 +133,7 @@
         <inbodydescription>
         </inbodydescription>
         <location file="CanInterfaceImplementations/sockcan/UdevAnalyserForPeak.h" line="50" column="1" bodyfile="CanInterfaceImplementations/sockcan/UdevAnalyserForPeak.cpp" bodystart="23" bodyend="34"/>
-        <references refid="namespaceCanModule_1a78730a18f59663871883885f3914a2aa" compoundref="CCanAccess_8h" startline="50">CanModule::LogItComponentName</references>
+        <references refid="namespaceCanModule_1a78730a18f59663871883885f3914a2aa" compoundref="CCanAccess_8h" startline="59">CanModule::LogItComponentName</references>
         <references refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1acd46c5ec27ddad48e2f32ab65b2ac2be" compoundref="UdevAnalyserForPeak_8cpp" startline="143" endline="213">m_createUdevPortMap</references>
         <references refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1aacad8fc930990cc6d0d47de472022acb" compoundref="UdevAnalyserForPeak_8h" startline="55">m_logItHandleSock</references>
         <referencedby refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1a0f9f020e963d202faff7a1a114713219" compoundref="UdevAnalyserForPeak_8h" startline="34" endline="42">getInstance</referencedby>

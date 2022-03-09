@@ -1,27 +1,21 @@
 \hypertarget{CCanAccess_8h}{}\doxysection{Can\+Interface/include/\+C\+Can\+Access.h File Reference}
 \label{CCanAccess_8h}\index{CanInterface/include/CCanAccess.h@{CanInterface/include/CCanAccess.h}}
-{\ttfamily \#include $<$sys/time.\+h$>$}\newline
-{\ttfamily \#include \char`\"{}boost/bind/bind.\+hpp\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}boost/signals2.\+hpp\char`\"{}}\newline
+{\ttfamily \#include $<$chrono$>$}\newline
+{\ttfamily \#include $<$thread$>$}\newline
 {\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$atomic$>$}\newline
+{\ttfamily \#include $<$mutex$>$}\newline
+{\ttfamily \#include $<$condition\+\_\+variable$>$}\newline
+{\ttfamily \#include $<$boost/bind/bind.\+hpp$>$}\newline
+{\ttfamily \#include $<$boost/signals2.\+hpp$>$}\newline
+{\ttfamily \#include $<$Log\+It.\+h$>$}\newline
 {\ttfamily \#include \char`\"{}Can\+Message.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}Can\+Statistics.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}V\+E\+R\+S\+I\+O\+N.\+h\char`\"{}}\newline
-{\ttfamily \#include $<$Log\+It.\+h$>$}\newline
-Include dependency graph for C\+Can\+Access.\+h\+:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{CCanAccess_8h__incl}
-\end{center}
-\end{figure}
-This graph shows which files directly or indirectly include this file\+:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{CCanAccess_8h__dep__incl}
-\end{center}
-\end{figure}
+Include dependency graph for C\+Can\+Access.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
 \doxysubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
@@ -36,8 +30,6 @@ class \mbox{\hyperlink{classCanModule_1_1CCanAccess}{Can\+Module\+::\+C\+Can\+Ac
 \end{DoxyCompactItemize}
 \doxysubsection*{Macros}
 \begin{DoxyCompactItemize}
-\item 
-\#define \mbox{\hyperlink{CCanAccess_8h_ab5f1e478bce31c034108ce1e0113a7d8}{Can\+Module\+\_\+\+V\+E\+R\+S\+I\+ON}}~\char`\"{}2.\+0.\+7\char`\"{}
 \item 
 \#define \mbox{\hyperlink{CCanAccess_8h_ad506d1f216984abc94d5a65f33053626}{M\+L\+OG}}(L\+E\+V\+EL,  T\+H\+IS)~L\+OG(Log\+::\+L\+E\+V\+EL) $<$$<$ \+\_\+\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+\_\+ $<$$<$ \char`\"{} \char`\"{} $<$$<$ \mbox{\hyperlink{namespaceCanModule_a78730a18f59663871883885f3914a2aa}{Can\+Module\+::\+Log\+It\+Component\+Name}} $<$$<$ \char`\"{} bus= \char`\"{} $<$$<$ T\+H\+IS-\/$>$get\+Bus\+Name() $<$$<$ \char`\"{} \char`\"{}
 \item 
@@ -80,7 +72,7 @@ implementation specific counter (high nibble of status bitpattern)
 \item 0x2$<$$<$28 = anagate (linux, windows) 
 \end{DoxyItemize}
 
-Definition at line 62 of file C\+Can\+Access.\+h.
+Definition at line 76 of file C\+Can\+Access.\+h.
 
 \mbox{\Hypertarget{CCanAccess_8h_a3c0a761bfb180463b0185b27edd53af5}\label{CCanAccess_8h_a3c0a761bfb180463b0185b27edd53af5}} 
 \index{CCanAccess.h@{CCanAccess.h}!CANMODULE\_STATUS\_BP\_PEAK@{CANMODULE\_STATUS\_BP\_PEAK}}
@@ -93,7 +85,7 @@ implementation specific counter (high nibble of status bitpattern)
 \item 0x3$<$$<$28 = peak (windows) 
 \end{DoxyItemize}
 
-Definition at line 67 of file C\+Can\+Access.\+h.
+Definition at line 81 of file C\+Can\+Access.\+h.
 
 \mbox{\Hypertarget{CCanAccess_8h_a6d0995692dcb6d1be30395a18d7683ba}\label{CCanAccess_8h_a6d0995692dcb6d1be30395a18d7683ba}} 
 \index{CCanAccess.h@{CCanAccess.h}!CANMODULE\_STATUS\_BP\_SOCK@{CANMODULE\_STATUS\_BP\_SOCK}}
@@ -106,7 +98,7 @@ implementation specific counter (high nibble of status bitpattern)
 \item 0x1$<$$<$28 = sock (linux) 
 \end{DoxyItemize}
 
-Definition at line 57 of file C\+Can\+Access.\+h.
+Definition at line 71 of file C\+Can\+Access.\+h.
 
 \mbox{\Hypertarget{CCanAccess_8h_af9d1d0a4353efec30879f97d7caebb76}\label{CCanAccess_8h_af9d1d0a4353efec30879f97d7caebb76}} 
 \index{CCanAccess.h@{CCanAccess.h}!CANMODULE\_STATUS\_BP\_SYSTEC@{CANMODULE\_STATUS\_BP\_SYSTEC}}
@@ -119,17 +111,7 @@ implementation specific counter (high nibble of status bitpattern)
 \item 0x4$<$$<$28 = systec (windows) 
 \end{DoxyItemize}
 
-Definition at line 72 of file C\+Can\+Access.\+h.
-
-\mbox{\Hypertarget{CCanAccess_8h_ab5f1e478bce31c034108ce1e0113a7d8}\label{CCanAccess_8h_ab5f1e478bce31c034108ce1e0113a7d8}} 
-\index{CCanAccess.h@{CCanAccess.h}!CanModule\_VERSION@{CanModule\_VERSION}}
-\index{CanModule\_VERSION@{CanModule\_VERSION}!CCanAccess.h@{CCanAccess.h}}
-\doxysubsubsection{\texorpdfstring{CanModule\_VERSION}{CanModule\_VERSION}}
-{\footnotesize\ttfamily \#define Can\+Module\+\_\+\+V\+E\+R\+S\+I\+ON~\char`\"{}2.\+0.\+7\char`\"{}}
-
-
-
-Definition at line 2 of file V\+E\+R\+S\+I\+O\+N.\+h.
+Definition at line 86 of file C\+Can\+Access.\+h.
 
 \mbox{\Hypertarget{CCanAccess_8h_ad506d1f216984abc94d5a65f33053626}\label{CCanAccess_8h_ad506d1f216984abc94d5a65f33053626}} 
 \index{CCanAccess.h@{CCanAccess.h}!MLOG@{MLOG}}
@@ -139,5 +121,5 @@ Definition at line 2 of file V\+E\+R\+S\+I\+O\+N.\+h.
 
 
 
-Definition at line 51 of file C\+Can\+Access.\+h.
+Definition at line 60 of file C\+Can\+Access.\+h.
 
