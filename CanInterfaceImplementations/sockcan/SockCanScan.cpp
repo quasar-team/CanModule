@@ -210,6 +210,8 @@ void CSockCanScan::CanScanControlThread()
 			int numberOfReadBytes = read(sock, &socketMessage, sizeof(can_frame));
 			MLOGSOCK(DBG,p_sockCanScan) << "read(): " << canFrameToString(socketMessage) << " tid= " << _tid;
 			MLOGSOCK(DBG,p_sockCanScan) << "got numberOfReadBytes= " << numberOfReadBytes << " tid= " << _tid;;
+
+			// got an error from the socket
 			if (numberOfReadBytes < 0) {
 				MLOGSOCK(ERR,p_sockCanScan) << "read() error: " << CanModuleerrnoToString()<< " tid= " << _tid;;
 				timeval now;
@@ -218,7 +220,7 @@ void CSockCanScan::CanScanControlThread()
 				p_sockCanScan->m_errorCode = -1;
 
 
-				// try close/opening on faults while port is active
+				// try close/opening on faults while port is active. This was a system error
 				do {
 					MLOGSOCK(INF,p_sockCanScan) << "Waiting 10000ms."<< " tid= " << _tid;
 					{
@@ -249,15 +251,15 @@ void CSockCanScan::CanScanControlThread()
 						MLOGSOCK(INF,p_sockCanScan) << " tid= " << _tid << " Now port will be reopened.";
 						if ((sock = p_sockCanScan->openCanPort()) < 0) {
 							MLOGSOCK(ERR,p_sockCanScan) << " tid= " << _tid << "openCanPort() failed.";
-						} //else {
-						// MLOGSOCK(INF,p_sockCanScan) << " tid= " << _tid << "Port reopened.";
-						//}
+						} else {
+						 MLOGSOCK(INF,p_sockCanScan) << " tid= " << _tid << "Port reopened.";
+						}
 
 						// the reception handler is still connected to it's signal, by the calling task
 
-					} //else {
-					// MLOGSOCK(INF,p_sockCanScan) << " tid= " << _tid << "Leaving Port closed, not needed any more.";
-					//}
+					} else {
+					 MLOGSOCK(INF,p_sockCanScan) << " tid= " << _tid << "Leaving Port closed, thread and port needed any more.";
+					}
 				} // do...while ... we still have an error
 				while ( p_sockCanScan->m_CanScanThreadRunEnableFlag && sock < 0 );
 
@@ -269,7 +271,7 @@ void CSockCanScan::CanScanControlThread()
 				continue;
 			}
 
-
+			// got something, but wrong length and therefore obviously wrong data
 			if (numberOfReadBytes <(int) sizeof(struct can_frame)) {
 				MLOGSOCK( WRN, p_sockCanScan ) << p_sockCanScan->m_channelName.c_str() << " incomplete frame received, numberOfReadBytes=[" << numberOfReadBytes << "]";
 
@@ -277,13 +279,21 @@ void CSockCanScan::CanScanControlThread()
 				continue;
 			}
 
+			// detected a CAN error
 			if (socketMessage.can_id & CAN_ERR_FLAG) {
 
-				/* With this mechanism we only set the portError */
+				// we retrieve the timestamp and report the CAN port
 				p_sockCanScan->m_errorCode = socketMessage.can_id & ~CAN_ERR_FLAG;
 				std::string description = CSockCanScan::errorFrameToString( socketMessage );
 				timeval c_time;
-				int ioctlReturn1 = ioctl(sock, SIOCGSTAMP, &c_time); //TODO: Return code is not even checked
+				int ioctlReturn1 = ioctl(sock, SIOCGSTAMP, &c_time);
+				if ( ioctlReturn1 ){
+					MLOGSOCK(ERR, p_sockCanScan) << "SocketCAN "
+							<< p_sockCanScan->getBusName()
+							<< " got an error, ioctl timestamp from socket failed as well, setting local time"
+							<< " ioctlReturn1 = " << ioctlReturn1;
+					gettimeofday( &c_time, NULL );
+				}
 				MLOGSOCK(ERR, p_sockCanScan) << "SocketCAN ioctl return: [" << ioctlReturn1
 						<< " error frame: [" << description
 						<< "], original: [" << canFrameToString(socketMessage) << "]";
@@ -300,7 +310,7 @@ void CSockCanScan::CanScanControlThread()
 			canMessage.c_rtr = socketMessage.can_id & CAN_RTR_FLAG;
 
 			/**
-			 * OPCUA-2607. Lets just stop filtering them out. This is only done here
+			 * OPCUA-2607. Lets just stop filtering RTR out. This is only done here
 			 * anyway, all other vendor implementations don't care.
 			 */
 #if 0
@@ -318,7 +328,15 @@ void CSockCanScan::CanScanControlThread()
 			 * this actually should exclude more bits
 			 */
 			canMessage.c_id = socketMessage.can_id & ~CAN_RTR_FLAG;
-			int ioctlReturn2 = ioctl(sock,SIOCGSTAMP,&canMessage.c_time);   //TODO: Return code is not even checked, yeah, but...
+			int ioctlReturn2 = ioctl(sock,SIOCGSTAMP,&canMessage.c_time);
+			if ( ioctlReturn2 ){
+				MLOGSOCK(ERR, p_sockCanScan) << "SocketCAN "
+						<< p_sockCanScan->getBusName()
+						<< " ioctl timestamp from socket failed, setting local time"
+						<< " ioctlReturn2 = " << ioctlReturn2;
+				gettimeofday( &canMessage.c_time, NULL );
+			}
+
 			MLOGSOCK(TRC, p_sockCanScan) << " SocketCAN ioctl SIOCGSTAMP return: [" << ioctlReturn2 << "]" << " tid= " << _tid;
 			canMessage.c_dlc = socketMessage.can_dlc;
 			memcpy(&canMessage.c_data[0],&socketMessage.data[0],8);
@@ -340,15 +358,15 @@ void CSockCanScan::CanScanControlThread()
 			/**
 			 * the reconnect behavior happens in an extra thread so that the sendMessage becomes non blocking. This is
 			 * the reception of the message part, and strictly speaking we could do the reconnection due to reception
-			 * message timeout also here. For cleanliness, lets use that extra reconnection thread nevertheless here.
+			 * message timeout also here.
 			 *
-			 * that reconnection thread is always up and it depends on  three private variables:
-			 *  the socket, the ReconnectAutoCondition and the ReconnectAction. It is done in a pretty stupid way
-			 *  so that is is fast, for all vendors: you just trigger it whenever and it checks itself what to do.
+			 * That is NOT the same as the "select" timeout, of course.
+			 *
+			 * For cleanliness, lets use that extra reconnection thread nevertheless here.
 			 */
 			MLOGSOCK(DBG,p_sockCanScan) << "trigger reconnection thread to check reception timeout " << p_sockCanScan->getBusName();
 			triggerReconnectionThread();
-		} // select showed timeout
+		} // else..select showed timeout
 	} // while ( p_sockCanScan->m_CanScanThreadRunEnableFlag )
 	MLOGSOCK(INF,p_sockCanScan) << "main loop of SockCanScan terminated." << " tid= " << _tid;
 }
@@ -959,6 +977,13 @@ void CSockCanScan::clearErrorMessage()
 	string errorMessage = "";
 	timeval c_time;
 	int ioctlReturn = ioctl(m_sock, SIOCGSTAMP, &c_time);//TODO: Return code is not checked
+	if ( ioctlReturn ){
+		MLOGSOCK(ERR, this) << "SocketCAN "
+				<< getBusName()
+				<< " ioctl timestamp from socket failed, setting local time"
+				<< " ioctlReturn = " << ioctlReturn;
+		gettimeofday( &c_time, NULL );
+	}
 	MLOGSOCK(TRC,this) << "ioctlReturn= " << ioctlReturn;
 	canMessageError(0, errorMessage.c_str(), c_time);
 }
@@ -967,6 +992,13 @@ void CSockCanScan::sendErrorMessage(const char *mess)
 {
 	timeval c_time;
 	int ioctlReturn = ioctl(m_sock,SIOCGSTAMP,&c_time);//TODO: Return code is not checked
+	if ( ioctlReturn ){
+		MLOGSOCK(ERR, this) << "SocketCAN "
+				<< getBusName()
+				<< " ioctl timestamp from socket failed, setting local time"
+				<< " ioctlReturn = " << ioctlReturn;
+		gettimeofday( &c_time, NULL );
+	}
 	MLOGSOCK(TRC,this) << "ioctlReturn= " << ioctlReturn;
 	canMessageError(-1,mess,c_time);
 }

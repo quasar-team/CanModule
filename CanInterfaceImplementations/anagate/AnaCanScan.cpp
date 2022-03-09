@@ -509,7 +509,8 @@ int AnaCanScan::openCanPort()
 }
 
 /**
- * if sending had a problem invoke the error handler with a message
+ * if sending had a problem invoke the error handler with a message.
+ * Ultimately, this sends a boost::signal to a connected boost::slot in the client's code.
  */
 bool AnaCanScan::sendErrorCode(AnaInt32 status)
 {
@@ -524,7 +525,7 @@ bool AnaCanScan::sendErrorCode(AnaInt32 status)
 		ftTimeStamp.tv_sec = nMicrosecs.count() / 1000000L;
 		ftTimeStamp.tv_usec = (nMicrosecs.count() % 1000000L) ;
 
-		if (!errorCodeToString(status, errorMessage))
+		if (!errorCodeToString( (long int) status, errorMessage))
 			canMessageError(status, errorMessage, ftTimeStamp);
 	}
 	return true;

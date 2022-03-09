@@ -174,9 +174,8 @@ private:
 	 * reconnection behavior thread, always up
 	 */
 	void CanReconnectionThread();
+	bool sendErrorCode( AnaInt32 status );
 
-
-	bool sendErrorCode(AnaInt32);
 	std::string ipAdress(){ return(m_canIPAddress );}
 	int canPortNumber(){ return(m_canPortNumber);}
 	int handle(){ return(m_UcanHandle);}
