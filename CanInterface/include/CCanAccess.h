@@ -434,7 +434,8 @@ public:
 	}
 
 	void decreaseSendFailedCountdown(){
-		m_failedSendCountdown--;
+		if ( m_failedSendCounter > 0 )
+          		m_failedSendCountdown--;
 		LOG(Log::TRC, m_lh) << __FUNCTION__ << " decrease m_failedSendCountdown= " << m_failedSendCountdown;
 	}
 
