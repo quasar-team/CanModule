@@ -18,23 +18,13 @@
 #  
 #
 cmake_minimum_required(VERSION 3.0)
-project( CanModule LANGUAGES C CXX  VERSION 2.0.17  ) # sets PROJECT_VERSION etc etc
+project( CanModule LANGUAGES C CXX  VERSION 2.0.17  ) 
 
-
-message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: PROJECT_BINARY_DIR= ${PROJECT_BINARY_DIR}")
-message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: PROJECT_SOURCE_DIR= ${PROJECT_SOURCE_DIR}")
- 
-# thats an in-source build inside an out-of-source build 
-# set ( PROJECT_BINARY_DIR ${PROJECT_SOURCE_DIR}/build )
-
-message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: PROJECT_BINARY_DIR= ${PROJECT_BINARY_DIR}")
-message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: PROJECT_SOURCE_DIR= ${PROJECT_SOURCE_DIR}")
  
 message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CanModule version= ${PROJECT_VERSION}" )
-#file(WRITE CanInterface/include/VERSION.h "// VERSION.h - do not edit\n#define CanModule_VERSION \"${PROJECT_VERSION}\"" )
 
-file(WRITE ${PROJECT_BINARY_DIR}/generated/VERSION.h "// VERSION.h - do not edit\n#define CanModule_VERSION \"${PROJECT_VERSION}\"" )
-message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: generated VERSION.h into ${PROJECT_BINARY_DIR}/generated")
+#file(WRITE ${PROJECT_BINARY_DIR}/generated/VERSION.h "// VERSION.h - do not edit\n#define CanModule_VERSION \"${PROJECT_VERSION}\"" )
+#message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: generated VERSION.h into ${PROJECT_BINARY_DIR}/generated")
 
 # specify -DCANMODULE_AS_STATIC_AS_POSSIBLE for cmake to switch the CanLibLoaderLin lib names accordingly
 # so that the "as-static-as-possible" shared libs are used by CanModule
