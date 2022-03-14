@@ -91,6 +91,9 @@ function ( clone_LogIt )
    include_directories( ${PROJECT_SOURCE_DIR}/LogIt/include )
 endfunction()
 
+
+# LogIt stuff
+#
 # what ?
 # todo: set only if not set yet
 option(STANDALONE_BUILD "Build ${PROJECT_NAME} as a stand-alone library (rather than a quasar optional module)" OFF )
