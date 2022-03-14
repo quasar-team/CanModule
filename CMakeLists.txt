@@ -32,7 +32,9 @@ message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: PROJECT
  
 message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CanModule version= ${PROJECT_VERSION}" )
 #file(WRITE CanInterface/include/VERSION.h "// VERSION.h - do not edit\n#define CanModule_VERSION \"${PROJECT_VERSION}\"" )
+
 file(WRITE ${PROJECT_BINARY_DIR}/generated/VERSION.h "// VERSION.h - do not edit\n#define CanModule_VERSION \"${PROJECT_VERSION}\"" )
+message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: generated VERSION.h into ${PROJECT_BINARY_DIR}/generated")
 
 # specify -DCANMODULE_AS_STATIC_AS_POSSIBLE for cmake to switch the CanLibLoaderLin lib names accordingly
 # so that the "as-static-as-possible" shared libs are used by CanModule
@@ -123,6 +125,13 @@ ELSE()
 	SET( CAN_LIBRARY_GETTIMEOFDAY_HEADER )
 ENDIF()
 
+
+if (NOT EXIST ${PROJECT_BINARY_DIR}/generated/VERSION.h )
+	file(WRITE ${PROJECT_BINARY_DIR}/generated/VERSION.h "// VERSION.h - do not edit\n#define CanModule_VERSION \"${PROJECT_VERSION}\"" )
+	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: generated VERSION.h into ${PROJECT_BINARY_DIR}/generated")
+ELSE()
+	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CanModule VERSION.h exists already in ${PROJECT_BINARY_DIR}/generated, don't touch it")
+ENDIF()
 SET( SRCS
 		Diagnostic/src/Diag.cpp
 		Diagnostic/include/Diag.h
@@ -140,13 +149,17 @@ SET( SRCS
 		CanInterface/src/CCanAccess.cpp
 		CanInterface/include/CCanAccess.h
 		${CAN_LIBRARY_GETTIMEOFDAY}
-		${CAN_LIBRARY_GETTIMEOFDAY_HEADER}		
+		${CAN_LIBRARY_GETTIMEOFDAY_HEADER}	
+		${PROJECT_BINARY_DIR}/generated/VERSION.h	
 )
 
-include_directories( include )
-include_directories( CanLibLoader/include )
-include_directories( CanInterface/include )
-include_directories( Diagnostic/include )
+include_directories( 
+	include 
+	CanLibLoader/include
+	CanInterface/include 
+	Diagnostic/include 
+	${PROJECT_BINARY_DIR}/generated
+)
 
 # switch the CanModuleLibLoader library name, and we want to produce two different CanModule 
 # libs: one which loads ancan-static.so, sockcan-static.so ("as static as possible") etc 
