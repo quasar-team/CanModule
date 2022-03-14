@@ -85,16 +85,16 @@ function ( clone_LogIt )
   
   if ( NOT EXISTS ${PROJECT_SOURCE_DIR}/LogIt ) 
 	  execute_process(COMMAND git clone -b ${LOGIT_VERSION} https://github.com/quasar-team/LogIt.git WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}  )
-	  include_directories( ${PROJECT_SOURCE_DIR}/LogIt/include )
-
+	
       # todo: we want that optional
 	  set( LOGIT_HAS_UATRACE FALSE )
 
 
 	  message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: LogIt cloned from LogIt repo into ${PROJECT_SOURCE_DIR}/LogIt")
-  ELSE()
+   ELSE()
 	  message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Logit is already cloned into ${PROJECT_SOURCE_DIR}/LogIt" )
-  ENDIF() 
+   ENDIF() 
+   include_directories( ${PROJECT_SOURCE_DIR}/LogIt/include )
 endfunction()
 
 option(STANDALONE_BUILD "Build ${PROJECT_NAME} as a stand-alone library (rather than a quasar optional module)" OFF )
