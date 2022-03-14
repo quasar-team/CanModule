@@ -146,6 +146,8 @@ else()
     if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
   	    clone_LogIt()
   	    message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: PROJECT_BINARY_DIR= ${PROJECT_BINARY_DIR}")
+   	    message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: PROJECT_DIR= ${PROJECT_DIR}")
+   	    message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: PROJECT_SOURCE_DIR= ${PROJECT_SOURCE_DIR}")
   	    
         add_subdirectory( ${PROJECT_BINARY_DIR}/LogIt )
         message(STATUS "LogIt added as compiled object code from sub-directory LogIt")
