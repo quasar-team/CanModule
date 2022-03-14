@@ -7,6 +7,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 - OPCUA-2614: extended messages, do we need an option ? 
 - OPCUA-2584: rx/tx counting in the handler, for now, to improve err reporting already
 
+
+### 2.0.17 [14.march.2022]
+- OPCUA-2529: build chain version
+
 ### 2.0.16 [23.feb.2022]
 - reconnection documentation updated and improved
 - OPCUA-2604: reconnection behavior with firewall, sendMessage should not block. also fix the
