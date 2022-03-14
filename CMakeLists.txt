@@ -18,9 +18,10 @@
 #  
 #
 cmake_minimum_required(VERSION 3.0)
-project( CanModule LANGUAGES C CXX  VERSION 2.0.16  ) # sets PROJECT_VERSION etc etc
+project( CanModule LANGUAGES C CXX  VERSION 2.0.17  ) # sets PROJECT_VERSION etc etc
 message(STATUS " [${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CanModule version= ${PROJECT_VERSION}" )
-file(WRITE CanInterface/include/VERSION.h "// VERSION.h - do not edit\n#define CanModule_VERSION \"${PROJECT_VERSION}\"" )
+#file(WRITE CanInterface/include/VERSION.h "// VERSION.h - do not edit\n#define CanModule_VERSION \"${PROJECT_VERSION}\"" )
+file(WRITE ${PROJECT_BINARY_DIR}/generated/VERSION.h "// VERSION.h - do not edit\n#define CanModule_VERSION \"${PROJECT_VERSION}\"" )
 
 # specify -DCANMODULE_AS_STATIC_AS_POSSIBLE for cmake to switch the CanLibLoaderLin lib names accordingly
 # so that the "as-static-as-possible" shared libs are used by CanModule
