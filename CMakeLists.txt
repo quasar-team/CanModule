@@ -79,11 +79,12 @@ endfunction()
 
 function ( clone_LogIt )
   SET (LOGIT_VERSION "master")
-  message(STATUS "cloning LogIt from github. *NOTE* cloning version [${LOGIT_VERSION}]")
-  #message(STATUS " [${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: PROJECT_BINARY_DIR= ${PROJECT_BINARY_DIR}" )
+  message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: cloning LogIt from github. *NOTE* cloning version [${LOGIT_VERSION}]")
+  message(STATUS " [${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: PROJECT_BINARY_DIR= ${PROJECT_BINARY_DIR}" )
+  message(STATUS " [${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: PROJECT_SOURCE_DIR= ${PROJECT_SOURCE_DIR}" )
   
   if ( NOT EXISTS ${PROJECT_SOURCE_DIR}/LogIt ) 
-	  execute_process(COMMAND git clone -b ${LOGIT_VERSION} https://github.com/quasar-team/LogIt.git WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}  )
+	  execute_process(COMMAND git clone -b ${LOGIT_VERSION} https://github.com/quasar-team/LogIt.git WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/LogIt  )
 	  include_directories( ${PROJECT_SOURCE_DIR}/LogIt/include )
 
       # todo: we want that optional
