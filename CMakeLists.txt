@@ -86,8 +86,11 @@ function ( clone_LogIt )
   if ( NOT EXISTS ${PROJECT_SOURCE_DIR}/LogIt ) 
 	  execute_process(COMMAND git clone -b ${LOGIT_VERSION} https://github.com/quasar-team/LogIt.git WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}  )
 	
-      # todo: we want that optional
-	  set( LOGIT_HAS_UATRACE FALSE )
+      # you can define it, but if not, we switch it off
+      if ( NOT DEFINED LOGIT_HAS_UATRACE )
+	  	set( LOGIT_HAS_UATRACE FALSE )
+        message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: LOGIT_HAS_UATRACE was not defined, therefore switch it off LOGIT_HAS_UATRACE= ${LOGIT_HAS_UATRACE}" )
+	  ENDIF()
 
 
 	  message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: LogIt cloned from LogIt repo into ${PROJECT_SOURCE_DIR}/LogIt")
