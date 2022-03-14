@@ -80,7 +80,7 @@ endfunction()
 function ( clone_LogIt )
   SET (LOGIT_VERSION "master")
   message(STATUS "cloning LogIt from github. *NOTE* cloning version [${LOGIT_VERSION}]")
-  message(STATUS " [${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: PROJECT_BINARY_DIR= ${PROJECT_BINARY_DIR}" )
+  #message(STATUS " [${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: PROJECT_BINARY_DIR= ${PROJECT_BINARY_DIR}" )
   
   if ( NOT EXISTS ${PROJECT_SOURCE_DIR}/LogIt ) 
 	  execute_process(COMMAND git clone -b ${LOGIT_VERSION} https://github.com/quasar-team/LogIt.git WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}  )
@@ -90,9 +90,9 @@ function ( clone_LogIt )
 	  set( LOGIT_HAS_UATRACE FALSE )
 
 
-	  message(STATUS "LogIt cloned from LogIt repo into ${PROJECT_BINARY_DIR}/LogIt")
+	  message(STATUS "LogIt cloned from LogIt repo into ${PROJECT_SOURCE_DIR}/LogIt")
   ELSE()
-		message(STATUS " [${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Logit is already cloned into PROJECT_BINARY_DIR= ${PROJECT_BINARY_DIR}" )
+		message(STATUS " [${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Logit is already cloned into ${PROJECT_SOURCE_DIR}/LogIt" )
   ENDIF() 
 endfunction()
 
