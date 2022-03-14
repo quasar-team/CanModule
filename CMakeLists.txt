@@ -126,7 +126,7 @@ ELSE()
 ENDIF()
 
 
-if (NOT EXIST ${PROJECT_BINARY_DIR}/generated/VERSION.h )
+if (NOT EXISTS ${PROJECT_BINARY_DIR}/generated/VERSION.h )
 	file(WRITE ${PROJECT_BINARY_DIR}/generated/VERSION.h "// VERSION.h - do not edit\n#define CanModule_VERSION \"${PROJECT_VERSION}\"" )
 	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: generated VERSION.h into ${PROJECT_BINARY_DIR}/generated")
 ELSE()
