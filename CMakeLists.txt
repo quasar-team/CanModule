@@ -68,6 +68,8 @@ endfunction()
 function ( clone_LogIt )
   SET (LOGIT_VERSION "master")
   message(STATUS "cloning LogIt from github. *NOTE* cloning version [${LOGIT_VERSION}]")
+  message(STATUS " [${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: PROJECT_BINARY_DIR= ${PROJECT_BINARY_DIR}" )
+  
   execute_process(COMMAND git clone -b ${LOGIT_VERSION} https://github.com/quasar-team/LogIt.git WORKING_DIRECTORY ${PROJECT_BINARY_DIR}  )
   include_directories( ${PROJECT_BINARY_DIR}/LogIt/include )
   set( LOGIT_HAS_UATRACE FALSE )
