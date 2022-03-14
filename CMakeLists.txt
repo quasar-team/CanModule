@@ -84,7 +84,7 @@ function ( clone_LogIt )
   message(STATUS " [${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: PROJECT_SOURCE_DIR= ${PROJECT_SOURCE_DIR}" )
   
   if ( NOT EXISTS ${PROJECT_SOURCE_DIR}/LogIt ) 
-	  execute_process(COMMAND git clone -b ${LOGIT_VERSION} https://github.com/quasar-team/LogIt.git WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/LogIt  )
+	  execute_process(COMMAND git clone -b ${LOGIT_VERSION} https://github.com/quasar-team/LogIt.git WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}  )
 	  include_directories( ${PROJECT_SOURCE_DIR}/LogIt/include )
 
       # todo: we want that optional
