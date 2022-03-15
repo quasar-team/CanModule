@@ -182,7 +182,7 @@ public:
 	 * @param name: Name of the can bus channel. The specific mapping will change depending on the interface used. For example, accessing channel 0 for the
 	 * 				systec interface would be using name "st:9", while in socket can the same channel would be "sock:can0".
 	 * 				anagate interface would be an:192.168.1.2 for the default ip address
-	 * @param parameters: Different parameters used for the initialisation. For using the default parameters just set this to "Unspecified"
+	 * @param parameters: Different parameters used for the initialisation. For using the parameters already in the hardware just set this to "Unspecified".
 	 * 				anagate: pass the ip number
 	 *
 	 * @return:
