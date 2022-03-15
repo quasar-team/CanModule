@@ -215,7 +215,12 @@ else()
 	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Using boost libraries: BOOST_LIBS [${BOOST_LIBS}]")  
     if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
   	    clone_LogIt()
-        add_subdirectory( ${PROJECT_SOURCE_DIR}/LogIt )
+  	    
+  	    #IF ( NOT DEFINED CLONE_LOGIT_DIR )
+		#  set ( CLONE_LOGIT_DIR ${PROJECT_SOURCE_DIR} )
+		#ENDIF()
+  	    
+        add_subdirectory( ${CLONE_LOGIT_DIR}/LogIt )
         message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: LogIt compiled object code from src sub-directory added")
         add_library( ${CANMODULE_LIB_NAME} SHARED ${SRCS} $<TARGET_OBJECTS:LogIt> )
     else()
