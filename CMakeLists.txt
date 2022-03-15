@@ -216,9 +216,11 @@ else()
     if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
   	    clone_LogIt()
   	    
-  	    #IF ( NOT DEFINED CLONE_LOGIT_DIR )
-		#  set ( CLONE_LOGIT_DIR ${PROJECT_SOURCE_DIR} )
-		#ENDIF()
+  	    # need to set it again
+  	    IF ( NOT DEFINED CLONE_LOGIT_DIR )
+		  set ( CLONE_LOGIT_DIR ${PROJECT_BINARY_DIR} )
+		  message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CanModule default: cloning LogIt into CanModule subdir since CLONE_LOGIT_DIR wasn't specified")  
+		ENDIF()
   	    
         message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: adding LogIt subdir ${CLONE_LOGIT_DIR}/LogIt ")
         add_subdirectory( ${CLONE_LOGIT_DIR}/LogIt )
