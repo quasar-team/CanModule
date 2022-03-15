@@ -92,23 +92,37 @@ function ( clone_LogIt )
 endfunction()
 
 
-# LogIt stuff
-#
-# what ?
-# todo: set only if not set yet
-option(STANDALONE_BUILD "Build ${PROJECT_NAME} as a stand-alone library (rather than a quasar optional module)" OFF )
-message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: STANDALONE_BUILD [${STANDALONE_BUILD}]")
+# LogIt options. If they are not set, set them to convenient defaults with minimum dependencies
+# any options which exist are untouched (and left to the top-level project CMakeLists.txt)
+# - default statc linking via source
+# - default boost rotating log
+IF ( NOT DEFINED LOGIT_BUILD_STAND_ALONE)
+	option(STANDALONE_BUILD "Build ${PROJECT_NAME} as a stand-alone library (rather than a quasar optional module)" OFF )
+	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CanModule default STANDALONE_BUILD= [${STANDALONE_BUILD}]")
+	IF ( (NOT DEFINED LOGIT_BUILD_STATIC_LIB) AND (NOT DEFINED LOGIT_BUILD_SHARED_LIB) )
+		option(STANDALONE_BUILD "Build ${PROJECT_NAME} as a stand-alone library (rather than a quasar optional module) " OFF )
+		option(LOGIT_BUILD_STATIC_LIB "Build ${PROJECT_NAME} static lib " ON )
+		option(LOGIT_BUILD_SHARED_LIB "Build ${PROJECT_NAME} static lib " OFF )
+		message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CanModule default STANDALONE_BUILD= ${STANDALONE_BUILD}") 
+		message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CanModule default LOGIT_BUILD_STATIC_LIB= [${LOGIT_BUILD_STATIC_LIB}")
+		message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CanModule default LOGIT_BUILD_SHARED_LIB= [${LOGIT_BUILD_SHARED_LIB}")
+	ENDIF
+ENDIF()
 
-#
-# How does the stand-alone open62541-compat build want to use LogIt? Possible options:
-# - Source
-# - External shared
-# - External static.
-#
+IF ( (NOT DEFINED LOGIT_BACKEND_STDOUTLOG) AND (NOT DEFINED LOGIT_BACKEND_BOOSTLOG) AND (NOT DEFINED LOGIT_BACKEND_UATRACE))
+		option(LOGIT_BACKEND_BOOSTLOG "Build ${PROJECT_NAME} with boost log " OFF )
+		option(LOGIT_BACKEND_STDOUTLOG "Build ${PROJECT_NAME} stdout log is off " ON )
+		option(LOGIT_BACKEND_UATRACE "Build ${PROJECT_NAME} ustrace log is off " OFF )
+		message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CanModule default LOGIT_BACKEND_BOOSTLOG= ${LOGIT_BACKEND_BOOSTLOG}") 
+		message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CanModule default LOGIT_BACKEND_STDOUTLOG= ${LOGIT_BACKEND_STDOUTLOG}") 
+		message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CanModule default LOGIT_BACKEND_UATRACE= ${LOGIT_BACKEND_UATRACE}") 
+ENDIF()
+
 set(LOGIT_BUILD_OPTION "LOGIT_AS_INT_SRC" CACHE STRING "LogIt is a mandatory dependency of CanModule. Inclusion options LOGIT_AS_INT_SRC, LOGIT_AS_EXT_SHARED, LOGIT_AS_EXT_STATIC")
 set_property(CACHE LOGIT_BUILD_OPTION PROPERTY STRINGS LOGIT_AS_INT_SRC LOGIT_AS_EXT_SHARED LOGIT_AS_EXT_STATIC)
 message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: LogIt build option LOGIT_BUILD_OPTION [${LOGIT_BUILD_OPTION}]")
- 
+
+
 # sources  
 IF (WIN32)
 	SET( CAN_LIBRARY_LOADER_PLATFORM_IMPL CanLibLoader/src/CanLibLoaderWin.cpp)
