@@ -180,7 +180,7 @@ include_directories(
 # manage build options
 # - static as possible
 # - stand alone
-IF ( DEFINED $ENV{CANMODULE_AS_STATIC_AS_POSSIBLE} OR DEFINED CANMODULE_AS_STATIC_AS_POSSIBLE )
+IF ( ( DEFINED $ENV{CANMODULE_AS_STATIC_AS_POSSIBLE} ) OR ( DEFINED CANMODULE_AS_STATIC_AS_POSSIBLE ) )
 	SET ( CANMODULE_LIB_NAME CanModule-static )
   	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: building static CanModule lib: ${CANMODULE_LIB_NAME}" )
 ELSE()
