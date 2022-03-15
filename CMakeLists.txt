@@ -226,9 +226,10 @@ else()
   	    # need to set it again
 	    #set ( CLONE_LOGIT_DIR ${PROJECT_BINARY_DIR} )
  		#message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CLONE_LOGIT_DIR= ${CLONE_LOGIT_DIR}")  
- 		
-  	  
-        add_subdirectory( ${CLONE_LOGIT_DIR}/LogIt build )
+        #add_subdirectory( ${CLONE_LOGIT_DIR}/LogIt build )
+        add_subdirectory( ${PROJECT_BINARY_DIR}/LogIt build )
+        
+        
         add_library( ${CANMODULE_LIB_NAME} SHARED ${SRCS} $<TARGET_OBJECTS:LogIt> )
         include_directories( ${CLONE_LOGIT_DIR}/LogIt/include )
         set(LOGIT_HEADERS ${CLONE_LOGIT_DIR}/LogIt/include )
