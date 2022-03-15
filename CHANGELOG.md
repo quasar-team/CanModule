@@ -9,7 +9,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 
 ### 2.0.17 [14.march.2022]
-- OPCUA-2529: VERSION.h file created by build chain into build/generated. At that occasion also cleaned up the build to be neatly out of source.
+- OPCUA-2529: VERSION.h file created by build chain into build/generated. At that occasion also cleaned up the whole build to be neatly out of source.
+  including LogIt clone into build/build using defaults
 
 ### 2.0.16 [23.feb.2022]
 - reconnection documentation updated and improved

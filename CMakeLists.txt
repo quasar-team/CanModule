@@ -32,15 +32,13 @@ set (CMAKE_CXX_STANDARD 11)
 # CANMODULE_BUILD_VENDORS ON, CANMODULE_BUILD_SYSTEC OFF: build mockup and all vendor libs except systec (drop systec)
 # CANMODULE_BUILD_VENDORS ON, CANMODULE_BUILD_ANAGATE OFF: build mockup and all vendor libs except anagate (drop anagate)
 # CANMODULE_BUILD_VENDORS ON, CANMODULE_BUILD_PEAK OFF: build mockup and all vendor libs except peak (drop peak)
-# i.i. set(CANMODULE_BUILD_VENDORS ON )
+# i.e. set(CANMODULE_BUILD_VENDORS ON )
 
 # for linux, pull in as many static libs as possible. Vendor libs are not always fully static (relocatable), that is why we still end up with shared libs
-# specify -DCANMODULE_AS_STATIC_AS_POSSIBLE (environment or here) for cmake to switch the CanLibLoaderLin lib names accordingly
+# specify -DCANMODULE_AS_STATIC_AS_POSSIBLE (environment or here) to switch the CanLibLoaderLin lib names accordingly
 # so that the "as-static-as-possible" shared libs are used by CanModule
 #option(CANMODULE_AS_STATIC_AS_POSSIBLE "Build ${PROJECT_NAME} as-static-as-possible (default off, shared)" OFF )
 
-# where shall the source clone of LogIt go to? If not set, Logit sources will be cloned as subdir of CanModule
-#set (CLONE_LOGIT_DIR <your-top-level-source-dir-for-your-server-if-you-want> )
 
 IF (WIN32)
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
@@ -53,7 +51,7 @@ ELSE()
 	ENDIF()
 ENDIF()
 
-# I dont use that, but leave it in for comfort
+# unsure if that works correctly
 function ( locateBoostLibsUsingToolchainFile )
   if(DEFINED CMAKE_TOOLCHAIN_FILE)
     message("[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CMAKE_TOOLCHAIN_FILE is defined -- including [[${CMAKE_TOOLCHAIN_FILE}]]")
@@ -65,7 +63,7 @@ function ( locateBoostLibsUsingToolchainFile )
   message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: function [locateBoostLibsUsingToolchainFile] located BOOST_LIBS [${BOOST_LIBS}]")
 endfunction()
 
-# I dont use that, but leave it in for comfort
+# unsure if that works correctly
 function ( locateLogItSharedLib )
 	set(LOGIT_EXT_LIB_DIR "UNINIALIZED" CACHE PATH "Path to the directory containing the LogIt shared/static library binary file. Use absolute path, or relative to [${PROJECT_SOURCE_DIR}/]")
 	set(LOGIT_INCLUDE_DIR "UNINIALIZED" CACHE PATH "Path to the directory containing the LogIt include files. Use absolute path, or relative to [${PROJECT_SOURCE_DIR}/]")
@@ -73,17 +71,16 @@ function ( locateLogItSharedLib )
 	
 	SET(CMAKE_FIND_LIBRARY_SUFFIXES ".so" ".lib") # windows looks for lib file to link to target dll: lib contains dll exports, symbols etc (see LogIt.h SHARED_LIB_EXPORT_DEFN)
 	find_library( LOGITLIB NAMES LogIt PATHS ${LOGIT_EXT_LIB_DIR} NO_DEFAULT_PATH )
-        
+    
     if(NOT EXISTS ${LOGIT_INCLUDE_DIR})
         message(FATAL "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: No LogIt include directory found at [${LOGIT_INCLUDE_DIR}]. Please check the value of your -DLOGIT_INCLUDE_DIR build option" ) 
     endif()
     include_directories(${LOGIT_INCLUDE_DIR})
-
     set( LOGIT_LIB ${LOGITLIB} CACHE FILEPATH "location of the LogIt library the build will use")
     message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Shared LogIt found, lib [${LOGIT_LIB}] headers [${LOGIT_INCLUDE_DIR}]")
 endfunction()
 
-# Don't clone if dir exists already. 
+# pull in LogIt as sources. Don't clone if dir exists already. 
 function ( clone_LogIt ) 
   SET (LOGIT_VERSION "master")
   message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: cloning LogIt from github. *NOTE* cloning version [${LOGIT_VERSION}]")
@@ -93,7 +90,7 @@ function ( clone_LogIt )
    ELSE()
 	  message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Logit is already cloned into ${PROJECT_BINARY_DIR}/LogIt" )
    ENDIF() 
-   #set ( LOGIT_HEADERS ${PROJECT_BINARY_DIR}/LogIt/include )
+   set ( LOGIT_HEADERS ${PROJECT_BINARY_DIR}/LogIt/include ) # some bw compatibility, otherwise maybe useless
    include_directories( ${PROJECT_BINARY_DIR}/LogIt/include )
 endfunction()
 
@@ -114,12 +111,12 @@ IF ( NOT DEFINED LOGIT_BUILD_STAND_ALONE)
 ENDIF()
 
 IF ( (NOT DEFINED LOGIT_BACKEND_STDOUTLOG) AND (NOT DEFINED LOGIT_BACKEND_BOOSTLOG) AND (NOT DEFINED LOGIT_BACKEND_UATRACE))
-		option(LOGIT_BACKEND_BOOSTLOG "Build ${PROJECT_NAME} with boost log " OFF )
-		option(LOGIT_BACKEND_STDOUTLOG "Build ${PROJECT_NAME} stdout log is off " ON )
-		option(LOGIT_BACKEND_UATRACE "Build ${PROJECT_NAME} ustrace log is off " OFF )
-		message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CanModule default LOGIT_BACKEND_BOOSTLOG= ${LOGIT_BACKEND_BOOSTLOG}") 
-		message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CanModule default LOGIT_BACKEND_STDOUTLOG= ${LOGIT_BACKEND_STDOUTLOG}") 
-		message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CanModule default LOGIT_BACKEND_UATRACE= ${LOGIT_BACKEND_UATRACE}") 
+	option(LOGIT_BACKEND_BOOSTLOG "Build ${PROJECT_NAME} with boost log " OFF )
+	option(LOGIT_BACKEND_STDOUTLOG "Build ${PROJECT_NAME} stdout log is off " ON )
+	option(LOGIT_BACKEND_UATRACE "Build ${PROJECT_NAME} ustrace log is off " OFF )
+	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CanModule default LOGIT_BACKEND_BOOSTLOG= ${LOGIT_BACKEND_BOOSTLOG}") 
+	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CanModule default LOGIT_BACKEND_STDOUTLOG= ${LOGIT_BACKEND_STDOUTLOG}") 
+	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CanModule default LOGIT_BACKEND_UATRACE= ${LOGIT_BACKEND_UATRACE}") 
 ENDIF()
 
 # seems not needed any more
@@ -128,7 +125,7 @@ ENDIF()
 #message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: LogIt build option LOGIT_BUILD_OPTION [${LOGIT_BUILD_OPTION}]")
 
 
-# sources  
+# switch sources for the lib loader
 IF (WIN32)
 	SET( CAN_LIBRARY_LOADER_PLATFORM_IMPL CanLibLoader/src/CanLibLoaderWin.cpp)
 	SET( CAN_LIBRARY_LOADER_PLATFORM_IMPL_HEADER CanLibLoader/include/CanLibLoaderWin.h)
@@ -142,7 +139,7 @@ ELSE()
 	SET( CANMODULE_RPATHS "-Wl,-rpath,./ -Wl,-rpath,./lib -Wl,-rpath,/usr/local/lib" )
 ENDIF()
 
-# versioning burnt into the bins
+# versioning burnt into the bins, but don't overwrite in the build if exists
 if (NOT EXISTS ${PROJECT_BINARY_DIR}/generated/VERSION.h )
 	file(WRITE ${PROJECT_BINARY_DIR}/generated/VERSION.h "// VERSION.h - do not edit\n#define CanModule_VERSION \"${PROJECT_VERSION}\"" )
 	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: generated VERSION.h into ${PROJECT_BINARY_DIR}/generated")
@@ -200,20 +197,8 @@ else()
 	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Using boost libraries: BOOST_LIBS [${BOOST_LIBS}]")  
     if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
   	    clone_LogIt()
-  	     
-  	    
-  	    
-  	    # need to set it again
-	    #set ( CLONE_LOGIT_DIR ${PROJECT_BINARY_DIR} )
- 		#message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CLONE_LOGIT_DIR= ${CLONE_LOGIT_DIR}")  
-        #add_subdirectory( ${CLONE_LOGIT_DIR}/LogIt build )
-        add_subdirectory( ${PROJECT_BINARY_DIR}/LogIt build )
-        
-        
+        add_subdirectory( ${PROJECT_BINARY_DIR}/LogIt build )  
         add_library( ${CANMODULE_LIB_NAME} SHARED ${SRCS} $<TARGET_OBJECTS:LogIt> )
-        #include_directories( ${CLONE_LOGIT_DIR}/LogIt/include )
-        #set(LOGIT_HEADERS ${CLONE_LOGIT_DIR}/LogIt/include )
-        #message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: LogIt include= ${CLONE_LOGIT_DIR}/LogIt/include")
     else()
 	    locateLogItSharedLib()
 	    message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Using LogIt library: LOGIT_LIB [${LOGIT_LIB}]")
@@ -225,7 +210,7 @@ endif()
 
 # need boost signal/slot and timer
 message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] [BOOST_PATH_LIBS:${BOOST_PATH_LIBS}]" )
-message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] [BOOST_HEADERS:${BOOST_HEADERS}]" )
+message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] [BOOST_PATH_HEADERS:${BOOST_PATH_HEADERS}]" )
 message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] [BOOST_LIBS:${BOOST_LIBS}]" )
 
 target_link_libraries( ${CANMODULE_LIB_NAME} ${CANMODULE_RPATHS} )
