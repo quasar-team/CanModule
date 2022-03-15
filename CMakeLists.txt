@@ -32,7 +32,7 @@ set (CMAKE_CXX_STANDARD 11)
 # CANMODULE_BUILD_VENDORS ON, CANMODULE_BUILD_SYSTEC OFF: build mockup and all vendor libs except systec (drop systec)
 # CANMODULE_BUILD_VENDORS ON, CANMODULE_BUILD_ANAGATE OFF: build mockup and all vendor libs except anagate (drop anagate)
 # CANMODULE_BUILD_VENDORS ON, CANMODULE_BUILD_PEAK OFF: build mockup and all vendor libs except peak (drop peak)
-option(CANMODULE_BUILD_VENDORS "Build ${PROJECT_NAME} vendor libs (default off, just do mockup)" OFF )
+# i.i. set(CANMODULE_BUILD_VENDORS ON )
 
 # for linux, pull in as many static libs as possible. Vendor libs are not always fully static (relocatable), that is why we still end up with shared libs
 # specify -DCANMODULE_AS_STATIC_AS_POSSIBLE (environment or here) for cmake to switch the CanLibLoaderLin lib names accordingly
