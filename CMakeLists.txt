@@ -90,7 +90,7 @@ endfunction()
 # Don't clone if dir exists already. Delete clone to recharge git branch/version.
 function ( clone_LogIt )
   #IF ( NOT DEFINED CLONE_LOGIT_DIR )
-  set( CLONE_LOGIT_DIR ${PROJECT_SOURCE_DIR}/build/CanModule )
+  set( CLONE_LOGIT_DIR ${PROJECT_BINARY_DIR} )
   	  execute_process(COMMAND mkdir -p ${CLONE_LOGIT_DIR}  )
   
 	  #set ( CLONE_LOGIT_DIR ${PROJECT_BINARY_DIR} )
