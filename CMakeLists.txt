@@ -39,6 +39,8 @@ option(CANMODULE_BUILD_VENDORS "Build ${PROJECT_NAME} vendor libs (default off, 
 # so that the "as-static-as-possible" shared libs are used by CanModule
 #option(CANMODULE_AS_STATIC_AS_POSSIBLE "Build ${PROJECT_NAME} as-static-as-possible (default off, shared)" OFF )
 
+# where shall the source clone of LogIt go to? If not set, Logit sources will be cloned as subdir of CanModule
+#set (CLONE_LOGIT_DIR <your-top-level-source-dir-for-your-server-if-you-want> )
 
 IF (WIN32)
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
@@ -81,12 +83,20 @@ function ( locateLogItSharedLib )
     message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Shared LogIt found, lib [${LOGIT_LIB}] headers [${LOGIT_INCLUDE_DIR}]")
 endfunction()
 
-# clone into top-level source dir. Don't clone if dir exists already. Delete clone to recharge git branch/version.
+# clone into source dir of the project as subdir, underneath CanModule right here.
+# Since LogIt is also used elsewhere this might not be such a great place to be, it rather go into the
+# toplevel source dir. We'll have an option for that: CLONE_LOGIT_DIR
+# if that option is NOT set we clone it beneath CanModule
+# Don't clone if dir exists already. Delete clone to recharge git branch/version.
 function ( clone_LogIt )
+  IF ( NOT DEFINED CLONE_LOGIT_DIR )
+	  set ( CLONE_LOGIT_DIR ${PROJECT_SOURCE_DIR} )
+	  message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CanModule default: cloning LogIt into CanModule subdir since CLONE_LOGIT_DIR wasn't specified")  
+  ENDIF()
   SET (LOGIT_VERSION "master")
   message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: cloning LogIt from github. *NOTE* cloning version [${LOGIT_VERSION}]")
   if ( NOT EXISTS ${PROJECT_SOURCE_DIR}/LogIt ) 
-	  execute_process(COMMAND git clone -b ${LOGIT_VERSION} https://github.com/quasar-team/LogIt.git WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}  )
+	  execute_process(COMMAND git clone -b ${LOGIT_VERSION} https://github.com/quasar-team/LogIt.git WORKING_DIRECTORY ${CLONE_LOGIT_DIR}  )
 	  
 # default for LogIt = option(LOGIT_BACKEND_STDOUTLOG "The basic back-end: logs to stdout" ON )	  
 # you can define it, but if not, we switch it off
@@ -95,11 +105,11 @@ function ( clone_LogIt )
 #	  	set( LOGIT_HAS_STDOUT TRUE )
 #      message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: LOGIT_HAS_UATRACE was not defined, therefore switch it off LOGIT_HAS_UATRACE= ${LOGIT_HAS_UATRACE}" )
 #	  ENDIF()
-	  message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: LogIt cloned from LogIt repo into ${PROJECT_SOURCE_DIR}/LogIt")
+	  message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: LogIt cloned from LogIt repo into ${CLONE_LOGIT_DIR}/LogIt")
    ELSE()
-	  message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Logit is already cloned into ${PROJECT_SOURCE_DIR}/LogIt" )
+	  message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Logit is already cloned into ${CLONE_LOGIT_DIR}/LogIt" )
    ENDIF() 
-   include_directories( ${PROJECT_SOURCE_DIR}/LogIt/include )
+   include_directories( ${CLONE_LOGIT_DIR}/LogIt/include )
 endfunction()
 
 
