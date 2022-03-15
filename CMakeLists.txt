@@ -219,10 +219,12 @@ else()
 	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Using boost libraries: BOOST_LIBS [${BOOST_LIBS}]")  
     if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
   	    clone_LogIt()
+  	     
+  	    
   	    
   	    # need to set it again
 	    set ( CLONE_LOGIT_DIR ${PROJECT_BINARY_DIR} )
- 		message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CLONE_LOGIT_DIR= $CLONE_LOGIT_DIR}")  
+ 		message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CLONE_LOGIT_DIR= ${CLONE_LOGIT_DIR}")  
  		
   	    #IF ( NOT DEFINED CLONE_LOGIT_DIR )
 		
@@ -231,7 +233,7 @@ else()
 		#ENDIF()
   	    
         message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: adding LogIt subdir ${CLONE_LOGIT_DIR}/LogIt ")
-        add_subdirectory( ${CLONE_LOGIT_DIR}/LogIt )
+        add_subdirectory( ${CLONE_LOGIT_DIR}/LogIt build )
         add_library( ${CANMODULE_LIB_NAME} SHARED ${SRCS} $<TARGET_OBJECTS:LogIt> )
     else()
 	    locateLogItSharedLib()
