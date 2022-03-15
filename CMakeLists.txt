@@ -113,6 +113,7 @@ function ( clone_LogIt )
    ELSE()
 	  message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Logit is already cloned into ${CLONE_LOGIT_DIR}/LogIt" )
    ENDIF() 
+   set ( LOGIT_HEADERS ${CLONE_LOGIT_DIR}/LogIt/include )
    include_directories( ${CLONE_LOGIT_DIR}/LogIt/include )
 endfunction()
 
