@@ -90,12 +90,14 @@ endfunction()
 # Don't clone if dir exists already. Delete clone to recharge git branch/version.
 function ( clone_LogIt )
   #IF ( NOT DEFINED CLONE_LOGIT_DIR )
-	  set ( CLONE_LOGIT_DIR ${PROJECT_BINARY_DIR} )
+  set( CLONE_LOGIT_DIR ${PROJECT_SOURCE_DIR}/build/CanModule )
+	  #set ( CLONE_LOGIT_DIR ${PROJECT_BINARY_DIR} )
 	  message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CanModule default: cloning LogIt into CanModule subdir since CLONE_LOGIT_DIR wasn't specified")  
   #ENDIF()
   SET (LOGIT_VERSION "master")
   message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: cloning LogIt from github. *NOTE* cloning version [${LOGIT_VERSION}]")
-  if ( NOT EXISTS ${PROJECT_SOURCE_DIR}/LogIt ) 
+  #if ( NOT EXISTS ${PROJECT_SOURCE_DIR}/LogIt ) 
+  if ( NOT EXISTS ${CLONE_LOGIT_DIR}/LogIt ) 
 	  execute_process(COMMAND git clone -b ${LOGIT_VERSION} https://github.com/quasar-team/LogIt.git WORKING_DIRECTORY ${CLONE_LOGIT_DIR}  )
 	  
 # default for LogIt = option(LOGIT_BACKEND_STDOUTLOG "The basic back-end: logs to stdout" ON )	  
@@ -218,7 +220,8 @@ else()
   	    
   	    # need to set it again
   	    #IF ( NOT DEFINED CLONE_LOGIT_DIR )
-		  set ( CLONE_LOGIT_DIR ${PROJECT_BINARY_DIR} )
+		  #set ( CLONE_LOGIT_DIR ${PROJECT_BINARY_DIR} )
+		  set ( CLONE_LOGIT_DIR ${PROJECT_SOURCE_DIR}/build/CanModule )
 		  message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CanModule default: cloning LogIt into CanModule subdir since CLONE_LOGIT_DIR wasn't specified")  
 		#ENDIF()
   	    
