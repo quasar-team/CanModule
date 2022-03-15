@@ -83,7 +83,7 @@ function ( locateLogItSharedLib )
     message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Shared LogIt found, lib [${LOGIT_LIB}] headers [${LOGIT_INCLUDE_DIR}]")
 endfunction()
 
-# Don't clone if dir exists already. Delete clone to recharge git branch/version.
+# Don't clone if dir exists already. 
 function ( clone_LogIt ) 
   SET (LOGIT_VERSION "master")
   message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: cloning LogIt from github. *NOTE* cloning version [${LOGIT_VERSION}]")
