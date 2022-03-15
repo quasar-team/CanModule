@@ -83,42 +83,17 @@ function ( locateLogItSharedLib )
     message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Shared LogIt found, lib [${LOGIT_LIB}] headers [${LOGIT_INCLUDE_DIR}]")
 endfunction()
 
-# clone into source dir of the project as subdir, underneath CanModule right here.
-# Since LogIt is also used elsewhere this might not be such a great place to be, it rather go into the
-# toplevel source dir. We'll have an option for that: CLONE_LOGIT_DIR
-# if that option is NOT set we clone it beneath CanModule
 # Don't clone if dir exists already. Delete clone to recharge git branch/version.
-function ( clone_LogIt )
-  #IF ( NOT DEFINED CLONE_LOGIT_DIR )
-  #set( CLONE_LOGIT_DIR ${PROJECT_BINARY_DIR} )
-  # execute_process(COMMAND mkdir -p ${CLONE_LOGIT_DIR}  )
-  
-	  #set ( CLONE_LOGIT_DIR ${PROJECT_BINARY_DIR} )
-	#  message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CanModule default: cloning LogIt into CanModule subdir CLONE_LOGIT_DIR= ${CLONE_LOGIT_DIR} since it wasn't specified")  
-  #ENDIF()
- 
+function ( clone_LogIt ) 
   SET (LOGIT_VERSION "master")
   message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: cloning LogIt from github. *NOTE* cloning version [${LOGIT_VERSION}]")
-  #if ( NOT EXISTS ${PROJECT_SOURCE_DIR}/LogIt ) 
- # if ( NOT EXISTS ${CLONE_LOGIT_DIR}/LogIt ) 
   if ( NOT EXISTS ${PROJECT_BINARY_DIR}/LogIt ) 
 	  execute_process(COMMAND git clone -b ${LOGIT_VERSION} https://github.com/quasar-team/LogIt.git WORKING_DIRECTORY ${PROJECT_BINARY_DIR}  )
-#	  execute_process(COMMAND git clone -b ${LOGIT_VERSION} https://github.com/quasar-team/LogIt.git WORKING_DIRECTORY ${CLONE_LOGIT_DIR}  )
-	  
-# default for LogIt = option(LOGIT_BACKEND_STDOUTLOG "The basic back-end: logs to stdout" ON )	  
-# you can define it, but if not, we switch it off
-#      IF ( NOT DEFINED LOGIT_HAS_UATRACE )
-#	  	set( LOGIT_HAS_UATRACE FALSE )
-#	  	set( LOGIT_HAS_STDOUT TRUE )
-#      message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: LOGIT_HAS_UATRACE was not defined, therefore switch it off LOGIT_HAS_UATRACE= ${LOGIT_HAS_UATRACE}" )
-#	  ENDIF()
 	  message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: LogIt cloned from LogIt repo into ${PROJECT_BINARY_DIR}/LogIt")
    ELSE()
 	  message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Logit is already cloned into ${PROJECT_BINARY_DIR}/LogIt" )
    ENDIF() 
-   #set ( LOGIT_HEADERS ${CLONE_LOGIT_DIR}/LogIt/include )
-   #include_directories( ${CLONE_LOGIT_DIR}/LogIt/include )
-   set ( LOGIT_HEADERS ${PROJECT_BINARY_DIR}/LogIt/include )
+   #set ( LOGIT_HEADERS ${PROJECT_BINARY_DIR}/LogIt/include )
    include_directories( ${PROJECT_BINARY_DIR}/LogIt/include )
 endfunction()
 
