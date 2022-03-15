@@ -27,8 +27,17 @@ message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CanModu
 # use ua toolkit trace. CanModule does NOT depend on the ua toolkit by default, so this is undefined, and therefore set to false further down. 
 # set (LOGIT_HAS_UATRACE true )
 
-# select the vendor libs you need
-# set ( CANMODULE_BUILD_VENDORS "ON" )
+# vendor build behaviour:
+# CANMODULE_BUILD_VENDORS OFF or not specified: only build mockup, do not build any vendor libs (default phony)
+# CANMODULE_BUILD_VENDORS ON, nothing else: build mockup and all vendor libs (default all on)
+# CANMODULE_BUILD_VENDORS ON, CANMODULE_BUILD_SYSTEC OFF: build mockup and all vendor libs except systec (drop systec)
+# CANMODULE_BUILD_VENDORS ON, CANMODULE_BUILD_ANAGATE OFF: build mockup and all vendor libs except anagate (drop anagate)
+# CANMODULE_BUILD_VENDORS ON, CANMODULE_BUILD_PEAK OFF: build mockup and all vendor libs except peak (drop peak)
+option(CANMODULE_BUILD_VENDORS "Build ${PROJECT_NAME} vendor libs (default off, just do mockup)" OFF )
+
+
+option(CANMODULE_AS_STATIC_AS_POSSIBLE "Build ${PROJECT_NAME} as-static-as-possible (default off, shared)" OFF )
+
 
 set (CMAKE_CXX_STANDARD 11)
 
@@ -100,10 +109,8 @@ IF ( NOT DEFINED LOGIT_BUILD_STAND_ALONE)
 	option(STANDALONE_BUILD "Build ${PROJECT_NAME} as a stand-alone library (rather than a quasar optional module)" OFF )
 	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CanModule default STANDALONE_BUILD= [${STANDALONE_BUILD}]")
 	IF ( (NOT DEFINED LOGIT_BUILD_STATIC_LIB) AND (NOT DEFINED LOGIT_BUILD_SHARED_LIB) )
-		option(STANDALONE_BUILD "Build ${PROJECT_NAME} as a stand-alone library (rather than a quasar optional module) " OFF )
 		option(LOGIT_BUILD_STATIC_LIB "Build ${PROJECT_NAME} static lib " ON )
 		option(LOGIT_BUILD_SHARED_LIB "Build ${PROJECT_NAME} static lib " OFF )
-		message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CanModule default STANDALONE_BUILD= ${STANDALONE_BUILD}") 
 		message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CanModule default LOGIT_BUILD_STATIC_LIB= [${LOGIT_BUILD_STATIC_LIB}")
 		message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CanModule default LOGIT_BUILD_SHARED_LIB= [${LOGIT_BUILD_SHARED_LIB}")
 	ENDIF()
@@ -179,8 +186,7 @@ include_directories(
 # manage build options
 # - static as possible
 # - stand alone
-#
-IF ( $ENV{CANMODULE_AS_STATIC_AS_POSSIBLE} )
+IF ( $ENV{CANMODULE_AS_STATIC_AS_POSSIBLE} OR DEFINED CANMODULE_AS_STATIC_AS_POSSIBLE )
 	SET ( CANMODULE_LIB_NAME CanModule-static )
   	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: building static CanModule lib: ${CANMODULE_LIB_NAME}" )
 ELSE()
@@ -194,7 +200,7 @@ if(NOT STANDALONE_BUILD)
 	message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: SERVER_LINK_LIBRARIES= [${SERVER_LINK_LIBRARIES}]" )
 else()
 	#locateBoostLibsUsingToolchainFile()
-	message(STATUS "Using boost libraries: BOOST_LIBS [${BOOST_LIBS}]")  
+	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Using boost libraries: BOOST_LIBS [${BOOST_LIBS}]")  
     if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
   	    clone_LogIt()
         add_subdirectory( ${PROJECT_SOURCE_DIR}/LogIt )
@@ -214,14 +220,6 @@ message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] [BOOST_
 message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] [BOOST_HEADERS:${BOOST_HEADERS}]" )
 message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] [BOOST_LIBS:${BOOST_LIBS}]" )
 
-# add rpath: burn some execution paths into bins for linux
-#IF (WIN32)
-#ELSE()
-#    # use RUNPATH instead of RPATH -Wl,--disable-new-dtags does not work on g++ (GCC) 4.8.5 20150623 (Red Hat 4.8.5-39)
-#    SET( CMAKE_SKIP_RPATH TRUE )
-#	SET( CANMODULE_RPATHS "-Wl,-rpath,./ -Wl,-rpath,./lib -Wl,-rpath,/usr/local/lib" )
-#ENDIF()
-
 target_link_libraries( ${CANMODULE_LIB_NAME} ${CANMODULE_RPATHS} )
 
 # build implementation shared libs (reqd at runtime - loaded dynamically)
@@ -230,7 +228,7 @@ target_link_libraries( ${CANMODULE_LIB_NAME} ${CANMODULE_RPATHS} )
 # if you have nothing declared, vendors will be OFF
 # set ( CANMODULE_BUILD_VENDORS "ON" )
 message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: building vendor libs is ${BUILD_VENDORS}")
-if ( NOT CANMODULE_BUILD_VENDORS )
+if ( NOT DEFINED CANMODULE_BUILD_VENDORS )
 	set ( CANMODULE_BUILD_VENDORS "OFF" )
 	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] you have not specified if you want to build the vendor code or not ( CANMODULE_BUILD_VENDORS ). Set to OFF")
 endif() 
