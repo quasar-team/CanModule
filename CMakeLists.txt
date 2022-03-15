@@ -20,9 +20,8 @@
 cmake_minimum_required(VERSION 3.0)
 project( CanModule LANGUAGES C CXX  VERSION 2.0.17  )  
 message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CanModule version= ${PROJECT_VERSION}" )
+set (CMAKE_CXX_STANDARD 11)
 
-# specify -DCANMODULE_AS_STATIC_AS_POSSIBLE for cmake to switch the CanLibLoaderLin lib names accordingly
-# so that the "as-static-as-possible" shared libs are used by CanModule
 
 # use ua toolkit trace. CanModule does NOT depend on the ua toolkit by default, so this is undefined, and therefore set to false further down. 
 # set (LOGIT_HAS_UATRACE true )
@@ -35,11 +34,11 @@ message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CanModu
 # CANMODULE_BUILD_VENDORS ON, CANMODULE_BUILD_PEAK OFF: build mockup and all vendor libs except peak (drop peak)
 option(CANMODULE_BUILD_VENDORS "Build ${PROJECT_NAME} vendor libs (default off, just do mockup)" OFF )
 
+# for linux, pull in as many static libs as possible. Vendor libs are not always fully static (relocatable), that is why we still end up with shared libs
+# specify -DCANMODULE_AS_STATIC_AS_POSSIBLE (environment or here) for cmake to switch the CanLibLoaderLin lib names accordingly
+# so that the "as-static-as-possible" shared libs are used by CanModule
+#option(CANMODULE_AS_STATIC_AS_POSSIBLE "Build ${PROJECT_NAME} as-static-as-possible (default off, shared)" OFF )
 
-option(CANMODULE_AS_STATIC_AS_POSSIBLE "Build ${PROJECT_NAME} as-static-as-possible (default off, shared)" OFF )
-
-
-set (CMAKE_CXX_STANDARD 11)
 
 IF (WIN32)
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
@@ -88,11 +87,14 @@ function ( clone_LogIt )
   message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: cloning LogIt from github. *NOTE* cloning version [${LOGIT_VERSION}]")
   if ( NOT EXISTS ${PROJECT_SOURCE_DIR}/LogIt ) 
 	  execute_process(COMMAND git clone -b ${LOGIT_VERSION} https://github.com/quasar-team/LogIt.git WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}  )
-      # you can define it, but if not, we switch it off
-      if ( NOT DEFINED LOGIT_HAS_UATRACE )
-	  	set( LOGIT_HAS_UATRACE FALSE )
-        message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: LOGIT_HAS_UATRACE was not defined, therefore switch it off LOGIT_HAS_UATRACE= ${LOGIT_HAS_UATRACE}" )
-	  ENDIF()
+	  
+# default for LogIt = option(LOGIT_BACKEND_STDOUTLOG "The basic back-end: logs to stdout" ON )	  
+# you can define it, but if not, we switch it off
+#      IF ( NOT DEFINED LOGIT_HAS_UATRACE )
+#	  	set( LOGIT_HAS_UATRACE FALSE )
+#	  	set( LOGIT_HAS_STDOUT TRUE )
+#      message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: LOGIT_HAS_UATRACE was not defined, therefore switch it off LOGIT_HAS_UATRACE= ${LOGIT_HAS_UATRACE}" )
+#	  ENDIF()
 	  message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: LogIt cloned from LogIt repo into ${PROJECT_SOURCE_DIR}/LogIt")
    ELSE()
 	  message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Logit is already cloned into ${PROJECT_SOURCE_DIR}/LogIt" )
@@ -125,7 +127,7 @@ IF ( (NOT DEFINED LOGIT_BACKEND_STDOUTLOG) AND (NOT DEFINED LOGIT_BACKEND_BOOSTL
 		message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CanModule default LOGIT_BACKEND_UATRACE= ${LOGIT_BACKEND_UATRACE}") 
 ENDIF()
 
-# seems no needed any more
+# seems not needed any more
 #set(LOGIT_BUILD_OPTION "LOGIT_AS_INT_SRC" CACHE STRING "LogIt is a mandatory dependency of CanModule. Inclusion options LOGIT_AS_INT_SRC, LOGIT_AS_EXT_SHARED, LOGIT_AS_EXT_STATIC")
 #set_property(CACHE LOGIT_BUILD_OPTION PROPERTY STRINGS LOGIT_AS_INT_SRC LOGIT_AS_EXT_SHARED LOGIT_AS_EXT_STATIC)
 #message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: LogIt build option LOGIT_BUILD_OPTION [${LOGIT_BUILD_OPTION}]")
