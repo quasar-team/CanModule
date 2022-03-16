@@ -286,7 +286,15 @@ int AnaCanScan::createBus(const string name,const string parameters)
 
 /**
  * decode the name, parameter and return the port of the configured module
- *  like  "an:0:128.141.159.194"
+ *  i.e. name="an:0:128.141.159.194"
+ *  i.e. parameters= "p0 p1 p2 p3 p4 p5 p6" with i.e. "125000 0 1 0 0 0 6000"
+ *  p0=baudrate
+ *  p1=	operation mode
+ *  p2 = termination
+ *  p3 = high speed flag
+ *  p4 = time stamp
+ *  p5 = sync mode
+ *  p6 = timeout/ms
  */
 int AnaCanScan::configureCanBoard(const string name,const string parameters)
 {

@@ -45,17 +45,6 @@ set(SOCKCAN_SOURCES
 	../../CanInterface/src/CanStatistics.cpp
 	../../CanInterface/include/CanStatistics.h	
 )
-# you can either build the fully dynamic libs or the as-static-as-possible, 
-# but not both in one go
-#IF ( $ENV{CANMODULE_AS_STATIC_AS_POSSIBLE} )
-#ELSE()
-#ENDIF()
-
-#if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
-#	add_library( ${SOCK_LIB_NAME} SHARED ${SOCKCAN_SOURCES} $<TARGET_OBJECTS:LogIt>)
-#else()
-#	add_library( ${SOCK_LIB_NAME} SHARED ${SOCKCAN_SOURCES} )
-#endif()
 
 # we profit and also link the linux socketcan static if specified
 IF ( $ENV{CANMODULE_AS_STATIC_AS_POSSIBLE} )

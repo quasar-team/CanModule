@@ -13,6 +13,38 @@ into the user code as a library. There are therefore no implementation differenc
 
 The downside of Anagate CAN-ethernet modules is of course that the latency of the network has to be added to the bridge latency. 
 
+parameters
+----------
+
+.. doxygenclass:: AnaCanScan  
+   :project: CanModule
+   :members: configureCanBoard
+   :private-members: 
+   :no-link:
+
+
+* "Unspecified" the internal CanModule parameters are set to
+	*		m_CanParameters.m_lBaudRate = 125000;
+	*		m_CanParameters.m_iOperationMode = 0;
+	*		m_CanParameters.m_iTermination = 1 ;// ENS-26903: default is terminated
+	*		m_CanParameters.m_iHighSpeed = 0;
+	*		m_CanParameters.m_iTimeStamp = 0;
+	*		m_CanParameters.m_iSyncMode = 0;
+	*		m_CanParameters.m_iTimeout = 6000; // CANT-44: can be set
+	
+* and these values are used in the Anagate API calls and
+
+	* CANOpenDevice() 
+	* CANSetGlobals()
+	
+* explicit parameter set like "125000 0 1 0 0 0 6000"
+	
+the parameters are written to hardware. The "Unspecified" works as default.
+
+
+
+
+
 status
 ------
 status information is propagated through the unified status.
