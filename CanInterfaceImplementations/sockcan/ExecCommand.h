@@ -32,7 +32,7 @@ class ExecCommand {
       while ( !feof(pfd) ) {
         char buf[ 1024 ] = {0};
 
-        if ( fgets(buf, sizeof(buf), pfd) > 0 ) {
+        if ( fgets(buf, sizeof(buf), pfd) != NULL ) {
           std::string str(buf);
           m_results.push_back( str.substr(0, str.length()-1) );
         }

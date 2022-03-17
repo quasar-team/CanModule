@@ -7,6 +7,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 - OPCUA-2614: extended messages, do we need an option ? 
 - OPCUA-2584: rx/tx counting in the handler, for now, to improve err reporting already
 
+### 2.0.18 [march.2022]
+- fix popen return type (cs9)
 
 ### 2.0.17 [14.march.2022]
 - OPCUA-2529: VERSION.h file created by build chain into build/generated. At that occasion also cleaned up the whole build to be neatly out of source.
