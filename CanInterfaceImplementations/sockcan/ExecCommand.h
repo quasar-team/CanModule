@@ -25,7 +25,7 @@ class ExecCommand {
 
     ExecCommand( const std::string &cmd ) {
       FILE *pfd = popen( cmd.c_str(), "r" );
-      if ( pfd <= 0 ) {
+      if ( pfd == NULL ) {
     	  throw std::runtime_error( "Command or process could not be executed." );
       }
 
