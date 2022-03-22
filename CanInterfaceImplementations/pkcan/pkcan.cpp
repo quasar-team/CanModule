@@ -23,13 +23,18 @@
  * PEAK bridge integration for windows
  */
 
+#include <pkcan.h>
+
 #include <time.h>
 #include <string.h>
+#include <thread>
+#include <mutex>
+#include <condition_variable>
+
 #include <boost/thread/thread.hpp>
 
 #include <LogIt.h>
 
-#include "pkcan.h"
 #include "CanModuleUtils.h"
 
 /* static */ std::map<string, string> PKCanScan::m_busMap;
@@ -58,6 +63,11 @@ PKCanScan::PKCanScan():
 	m_statistics.setTimeSinceOpened();
 	m_statistics.beginNewRun();
 	m_failedSendCountdown = m_maxFailedSendCount;
+
+	/**
+	 * start a reconnection thread
+	 */
+	m_hCanReconnectionThread = new std::thread( &PKCanScan::CanReconnectionThread, this);
 }
 
 PKCanScan::~PKCanScan()
