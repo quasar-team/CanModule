@@ -92,6 +92,7 @@ private:
 	bool sendErrorCode(long);
 	// The main control thread function for the CAN update scan manager.
 	static DWORD WINAPI CanScanControlThread(LPVOID pCanScan);
+	void CanReconnectionThread();               // not static, private is enough in C11
 
 
 	CanStatistics m_statistics;

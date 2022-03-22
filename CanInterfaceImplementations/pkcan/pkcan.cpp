@@ -582,3 +582,91 @@ void PKCanScan::getStatistics( CanStatistics & result )
 	m_statistics.beginNewRun();
 }
 
+
+/**
+ * Reconnection thread managing the reconnection behavior, per port. The behavior settings can not change during runtime.
+ * This thread is initialized after the main thread is up, and then listens on its cond.var as a trigger.
+ * Triggers occur in two contexts: sending and receiving problems.
+ *
+ * https://en.cppreference.com/w/cpp/thread/condition_variable/wait
+ */
+void PKCanScan::CanReconnectionThread()
+{
+	std::string _tid;
+	{
+		std::stringstream ss;
+		ss << this_thread::get_id();
+		_tid = ss.str();
+	}
+	MLOGPK(TRC, this ) << "created reconnection thread tid= " << _tid;
+
+	// need some sync to the main thread to be sure it is up and the sock is created: wait first time for init
+	waitForReconnectionThreadTrigger();
+
+	/**
+	 * lets check the timeoutOnReception reconnect condition. If it is true, all we can do is to
+	 * close/open the socket again since the underlying hardware is hidden by socketcan abstraction.
+	 * Like his we do not have to pollute the "sendMessage" like for anagate, and that is cleaner.
+	 */
+	MLOGPK(TRC, this) << "initialized reconnection thread tid= " << _tid << ", entering loop";
+	while ( true ) {
+
+		// wait for sync: need a condition sync to step that thread once: a "trigger".
+		MLOGPK(TRC, this) << "waiting reconnection thread tid= " << _tid;
+		waitForReconnectionThreadTrigger();
+		MLOGPK(TRC, this)
+			<< " reconnection thread tid= " << _tid
+			<< " condition "<< reconnectConditionString(getReconnectCondition() )
+			<< " action " << reconnectActionString(getReconnectAction())
+			<< " is checked, m_failedSendCountdown= "
+			<< m_failedSendCountdown;
+
+		// condition
+		switch ( getReconnectCondition() ){
+		case CanModule::ReconnectAutoCondition::timeoutOnReception: {
+			resetSendFailedCountdown(); // do the action
+			break;
+		}
+		case CanModule::ReconnectAutoCondition::sendFail: {
+			resetTimeoutOnReception();
+			if (m_failedSendCountdown > 0) {
+				continue;// do nothing
+			} else {
+				resetSendFailedCountdown(); // do the action
+			}
+			break;
+		}
+		// do nothing but keep counter and timeout resetted
+		case CanModule::ReconnectAutoCondition::never:
+		default:{
+			resetSendFailedCountdown();
+			resetTimeoutOnReception();
+			continue;// do nothing
+			break;
+		}
+		} // switch
+
+		// action
+		switch ( getReconnectAction() ){
+		case CanModule::ReconnectAction::singleBus: {
+			MLOGPK(INF, this) << " reconnect condition " << reconnectConditionString(m_reconnectCondition)
+										<< " triggered action " << reconnectActionString(m_reconnectAction);
+			break;
+		}
+
+		case CanModule::ReconnectAction::allBusesOnBridge: {
+			MLOGPK(INF, this) << " reconnect condition " << reconnectConditionString(m_reconnectCondition)
+										<< " triggered action " << reconnectActionString(m_reconnectAction);
+			break;
+		}
+		default: {
+			// we have a runtime bug
+			MLOGPK(ERR, this) << "reconnection action "
+					<< (int) m_reconnectAction << reconnectActionString( m_reconnectAction )
+					<< " unknown. Check your config & see documentation. No action.";
+			break;
+		}
+		} // switch
+	} // while
+}
+

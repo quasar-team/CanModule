@@ -1098,9 +1098,6 @@ void AnaCanScan::CanReconnectionThread()
 	// need some sync to the main thread to be sure it is up and the sock is created: wait first time for init
 	waitForReconnectionThreadTrigger();
 
-	//int sock = m_sock;
-
-
 	/**
 	 * lets check the timeoutOnReception reconnect condition. If it is true, all we can do is to
 	 * close/open the socket again since the underlying hardware is hidden by socketcan abstraction.
