@@ -56,6 +56,7 @@ PKCanScan::PKCanScan():
 				m_busStatus(0),
 				m_baudRate(0),
 				m_idCanScanThread(0),
+				m_idCanReconnectionThread(0),
 				m_CanScanThreadRunEnableFlag(false),
 				m_logItHandlePk(0),
 				m_pkCanHandle(0)
@@ -67,7 +68,10 @@ PKCanScan::PKCanScan():
 	/**
 	 * start a reconnection thread
 	 */
-	m_hCanReconnectionThread = new std::thread( &PKCanScan::CanReconnectionThread, this);
+	m_hCanReconnectionThread = CreateThread(NULL, 0, CanReconnectionThread, this, 0, &m_idCanReconnectionThread);
+	if ( NULL == m_hCanReconnectionThread ) {
+		MLOGPK(TRC, this) << "could not start reconnection thread" << DebugBreak();
+	}
 }
 
 PKCanScan::~PKCanScan()
@@ -101,7 +105,7 @@ void PKCanScan::stopBus ()
 		}
 		peakReconnectMutex.unlock();
 	}
-	Sleep(2); // and wait a bit for the thread to die
+	CanModule::ms_sleep( 2000 );
 	MLOGPK(DBG,this) << __FUNCTION__ << " finished";
 }
 
@@ -152,7 +156,14 @@ DWORD WINAPI PKCanScan::CanScanControlThread(LPVOID pCanScan)
 			// we can reset the reconnectionTimeout here, since we have received a message
 			pkCanScanPointer->resetTimeoutOnReception();
 		} else {
-			if (tpcanStatus & PCAN_ERROR_QRCVEMPTY) {
+			if ( (tpcanStatus & PCAN_ERROR_QRCVEMPTY) && (getReconnectCondition() == CanModule::ReconnectAutoCondition::timeoutOnReception) && hasTimeoutOnReception() ) {
+
+				//send a reconnection thread trigger
+				MLOGPK(DBG, this) << "trigger reconnection thread to check reception timeout " << getBusName();
+				triggerReconnectionThread();
+
+
+#if 0
 				// timeout
 				/**
 				 * lets check the timeoutOnReception reconnect condition. If it is true, all we can do is to
@@ -178,8 +189,12 @@ DWORD WINAPI PKCanScan::CanScanControlThread(LPVOID pCanScan)
 								<< " is not implemented for peak";
 					}
 				}  // reconnect condition
+
 				continue;
+#endif
 			}
+
+#if
 
 			// default behaviour: reopen the port
 			pkCanScanPointer->sendErrorCode(tpcanStatus);
@@ -187,10 +202,11 @@ DWORD WINAPI PKCanScan::CanScanControlThread(LPVOID pCanScan)
 				CAN_Initialize(tpcanHandler,pkCanScanPointer->m_baudRate);
 				Sleep(100);
 			}
+#endif
 		}
 	}
 	MLOGPK(TRC, pkCanScanPointer) << "exiting thread...(in 2 secs)";
-	Sleep(2000);
+	CanModule::ms_sleep( 2000 );
 	ExitThread(0);
 	return 0;
 }
@@ -600,8 +616,10 @@ void PKCanScan::getStatistics( CanStatistics & result )
  *
  * https://en.cppreference.com/w/cpp/thread/condition_variable/wait
  */
-void PKCanScan::CanReconnectionThread()
+void PKCanScan::CanReconnectionThread(LPVOID pCanScan)
 {
+	PKCanScan *pkCanScanPointer = reinterpret_cast<PKCanScan *>(pCanScan);
+
 	std::string _tid;
 	{
 		std::stringstream ss;
@@ -634,6 +652,7 @@ void PKCanScan::CanReconnectionThread()
 		// condition
 		switch ( getReconnectCondition() ){
 		case CanModule::ReconnectAutoCondition::timeoutOnReception: {
+			// no need to check the reception timeout, the control thread has done that already
 			resetSendFailedCountdown(); // do the action
 			break;
 		}
@@ -661,6 +680,12 @@ void PKCanScan::CanReconnectionThread()
 		case CanModule::ReconnectAction::singleBus: {
 			MLOGPK(INF, this) << " reconnect condition " << reconnectConditionString(m_reconnectCondition)
 										<< " triggered action " << reconnectActionString(m_reconnectAction);
+
+			pkCanScanPointer->sendErrorCode(tpcanStatus);
+			if (tpcanStatus | PCAN_ERROR_ANYBUSERR) {
+				CAN_Initialize(tpcanHandler,pkCanScanPointer->m_baudRate);
+				CanModule::ms_sleep( 10000 );
+			}
 			break;
 		}
 

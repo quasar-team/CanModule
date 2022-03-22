@@ -606,7 +606,6 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 		MLOGANA(DBG, this) << "trigger reconnection thread to check reception timeout " << getBusName();
 		triggerReconnectionThread();
 
-		// anaCallReturn = 99; // make sure we trigger the action, even while skipping the send
 	} else {
 
 		/**
