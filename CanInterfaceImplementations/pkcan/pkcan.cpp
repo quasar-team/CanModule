@@ -56,7 +56,7 @@ PKCanScan::PKCanScan():
 				m_busStatus(0),
 				m_baudRate(0),
 				m_idCanScanThread(0),
-				m_idCanReconnectionThread(0),
+				m_idPeakReconnectionThread(0),
 				m_CanScanThreadRunEnableFlag(false),
 				m_logItHandlePk(0),
 				m_pkCanHandle(0)
@@ -616,7 +616,7 @@ void PKCanScan::getStatistics( CanStatistics & result )
  *
  * https://en.cppreference.com/w/cpp/thread/condition_variable/wait
  */
-void PKCanScan::CanReconnectionThread(LPVOID pCanScan)
+DWORD WINAPI PKCanScan::CanReconnectionThread(LPVOID pCanScan)
 {
 	PKCanScan *pkCanScanPointer = reinterpret_cast<PKCanScan *>(pCanScan);
 
