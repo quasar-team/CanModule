@@ -109,13 +109,9 @@ private:
 	// void stopBus ( void );
 
 	HANDLE      m_hCanScanThread;
-	//	HANDLE		m_ReadEvent;
-
-    // Thread ID for the CAN update scan manager thread.
+	HANDLE m_PeakReconnectionThread;
     DWORD           m_idCanScanThread;
-
-    // Thread ID for the reconnection thread
-    DWORD           m_idCanReconnectionThread;
+    DWORD           m_idPeakReconnectionThread;
 };
 
 #endif
