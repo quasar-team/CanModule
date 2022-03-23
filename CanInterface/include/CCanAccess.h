@@ -515,7 +515,7 @@ protected:
 	atomic_uint m_timeoutOnReception;
 	atomic_int m_failedSendCountdown;
 	atomic_uint m_maxFailedSendCount;
-	std::thread *m_hCanReconnectionThread;     // ptr thread, it's a private method of the class (virtual)
+	std::thread *m_hCanReconnectionThread;     // ptr thread, it's a private method of the class (virtual) // unused for peak
 	atomic_bool m_reconnectTrigger;            // trigger stuff: predicate of the condition var
 	std::mutex m_reconnection_mtx;             // trigger stuff
 	std::condition_variable m_reconnection_cv; // trigger stuff
