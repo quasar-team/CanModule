@@ -630,7 +630,7 @@ DWORD WINAPI PKCanScan::CanReconnectionThread(LPVOID pCanScan)
 	MLOGPK(TRC, pkCanScanPointer ) << "created reconnection thread tid= " << _tid;
 
 	// need some sync to the main thread to be sure it is up and the sock is created: wait first time for init
-	waitForReconnectionThreadTrigger();
+	pkCanScanPointer->waitForReconnectionThreadTrigger();
 
 	/**
 	 * lets check the timeoutOnReception reconnect condition. If it is true, all we can do is to
@@ -642,7 +642,7 @@ DWORD WINAPI PKCanScan::CanReconnectionThread(LPVOID pCanScan)
 
 		// wait for sync: need a condition sync to step that thread once: a "trigger".
 		MLOGPK(TRC, pkCanScanPointer) << "waiting reconnection thread tid= " << _tid;
-		waitForReconnectionThreadTrigger();
+		pkCanScanPointer->waitForReconnectionThreadTrigger();
 		MLOGPK(TRC, pkCanScanPointer)
 			<< " reconnection thread tid= " << _tid
 			<< " condition "<< reconnectConditionString(getReconnectCondition() )
@@ -651,18 +651,18 @@ DWORD WINAPI PKCanScan::CanReconnectionThread(LPVOID pCanScan)
 			<< m_failedSendCountdown;
 
 		// condition
-		switch ( getReconnectCondition() ){
+		switch ( pkCanScanPointer->getReconnectCondition() ){
 		case CanModule::ReconnectAutoCondition::timeoutOnReception: {
 			// no need to check the reception timeout, the control thread has done that already
-			resetSendFailedCountdown(); // do the action
+			pkCanScanPointer->resetSendFailedCountdown(); // do the action
 			break;
 		}
 		case CanModule::ReconnectAutoCondition::sendFail: {
-			resetTimeoutOnReception();
+			pkCanScanPointer->resetTimeoutOnReception();
 			if (m_failedSendCountdown > 0) {
 				continue;// do nothing
 			} else {
-				resetSendFailedCountdown(); // do the action
+				pkCanScanPointer->resetSendFailedCountdown(); // do the action
 			}
 			break;
 		}
