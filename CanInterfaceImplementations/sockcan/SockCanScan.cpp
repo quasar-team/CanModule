@@ -52,7 +52,7 @@
 /* static */ std::map<string, string> CSockCanScan::m_busMap;
 std::mutex sockReconnectMutex; // protect global m_busMap
 
-#define MLOGSOCK(LEVEL,THIS) LOG(Log::LEVEL, THIS->logItHandle()) << __FUNCTION__ << " sock bus= " << THIS->getBusName() << " "
+#define MLOGSOCK(LEVEL,THIS) ( LOG(Log::LEVEL, THIS->logItHandle()) << __FUNCTION__ << " sock bus= " << THIS->getBusName() << " " )
 
 /**
  * This function creates an instance of this class and returns it.
