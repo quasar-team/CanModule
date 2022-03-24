@@ -627,7 +627,7 @@ DWORD WINAPI PKCanScan::CanReconnectionThread(LPVOID pCanScan)
 		ss << this_thread::get_id();
 		_tid = ss.str();
 	}
-	MLOGPK(TRC, this ) << "created reconnection thread tid= " << _tid;
+	MLOGPK(TRC, pkCanScanPointer ) << "created reconnection thread tid= " << _tid;
 
 	// need some sync to the main thread to be sure it is up and the sock is created: wait first time for init
 	waitForReconnectionThreadTrigger();
@@ -637,13 +637,13 @@ DWORD WINAPI PKCanScan::CanReconnectionThread(LPVOID pCanScan)
 	 * close/open the socket again since the underlying hardware is hidden by socketcan abstraction.
 	 * Like his we do not have to pollute the "sendMessage" like for anagate, and that is cleaner.
 	 */
-	MLOGPK(TRC, this) << "initialized reconnection thread tid= " << _tid << ", entering loop";
+	MLOGPK(TRC, pkCanScanPointer) << "initialized reconnection thread tid= " << _tid << ", entering loop";
 	while ( true ) {
 
 		// wait for sync: need a condition sync to step that thread once: a "trigger".
-		MLOGPK(TRC, this) << "waiting reconnection thread tid= " << _tid;
+		MLOGPK(TRC, pkCanScanPointer) << "waiting reconnection thread tid= " << _tid;
 		waitForReconnectionThreadTrigger();
-		MLOGPK(TRC, this)
+		MLOGPK(TRC, pkCanScanPointer)
 			<< " reconnection thread tid= " << _tid
 			<< " condition "<< reconnectConditionString(getReconnectCondition() )
 			<< " action " << reconnectActionString(getReconnectAction())
@@ -669,17 +669,17 @@ DWORD WINAPI PKCanScan::CanReconnectionThread(LPVOID pCanScan)
 		// do nothing but keep counter and timeout resetted
 		case CanModule::ReconnectAutoCondition::never:
 		default:{
-			resetSendFailedCountdown();
-			resetTimeoutOnReception();
+			pkCanScanPointer->resetSendFailedCountdown();
+			pkCanScanPointer->resetTimeoutOnReception();
 			continue;// do nothing
 			break;
 		}
 		} // switch
 
 		// action
-		switch ( getReconnectAction() ){
+		switch ( pkCanScanPointer->getReconnectAction() ){
 		case CanModule::ReconnectAction::singleBus: {
-			MLOGPK(INF, this) << " reconnect condition " << reconnectConditionString(m_reconnectCondition)
+			MLOGPK(INF, pkCanScanPointer) << " reconnect condition " << reconnectConditionString(m_reconnectCondition)
 										<< " triggered action " << reconnectActionString(m_reconnectAction);
 
 			pkCanScanPointer->sendErrorCode(tpcanStatus);
@@ -691,18 +691,22 @@ DWORD WINAPI PKCanScan::CanReconnectionThread(LPVOID pCanScan)
 		}
 
 		case CanModule::ReconnectAction::allBusesOnBridge: {
-			MLOGPK(INF, this) << " reconnect condition " << reconnectConditionString(m_reconnectCondition)
+			MLOGPK(INF, pkCanScanPointer) << " reconnect condition " << reconnectConditionString(m_reconnectCondition)
 										<< " triggered action " << reconnectActionString(m_reconnectAction);
 			break;
 		}
 		default: {
 			// we have a runtime bug
-			MLOGPK(ERR, this) << "reconnection action "
+			MLOGPK(ERR, pkCanScanPointer) << "reconnection action "
 					<< (int) m_reconnectAction << reconnectActionString( m_reconnectAction )
 					<< " unknown. Check your config & see documentation. No action.";
 			break;
 		}
 		} // switch
 	} // while
+	MLOGPK(TRC, pkCanScanPointer) << "exiting thread...(in 2 secs)";
+	CanModule::ms_sleep( 2000 );
+	ExitThread(0);
+	return 0;
 }
 
