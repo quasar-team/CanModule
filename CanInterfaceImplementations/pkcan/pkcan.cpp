@@ -645,8 +645,8 @@ DWORD WINAPI PKCanScan::CanReconnectionThread(LPVOID pCanScan)
 		pkCanScanPointer->waitForReconnectionThreadTrigger();
 		MLOGPK(TRC, pkCanScanPointer)
 			<< " reconnection thread tid= " << _tid
-			<< " condition "<< reconnectConditionString(getReconnectCondition() )
-			<< " action " << reconnectActionString(getReconnectAction())
+			<< " condition "<< reconnectConditionString(pkCanScanPointer->getReconnectCondition() )
+			<< " action " << reconnectActionString(pkCanScanPointer->getReconnectAction())
 			<< " is checked, m_failedSendCountdown= "
 			<< m_failedSendCountdown;
 
