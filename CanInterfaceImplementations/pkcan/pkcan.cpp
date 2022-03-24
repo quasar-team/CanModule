@@ -194,7 +194,7 @@ DWORD WINAPI PKCanScan::CanScanControlThread(LPVOID pCanScan)
 #endif
 			}
 
-#if
+#if 0
 
 			// default behaviour: reopen the port
 			pkCanScanPointer->sendErrorCode(tpcanStatus);
