@@ -156,10 +156,11 @@ DWORD WINAPI PKCanScan::CanScanControlThread(LPVOID pCanScan)
 			// we can reset the reconnectionTimeout here, since we have received a message
 			pkCanScanPointer->resetTimeoutOnReception();
 		} else {
-			if ( (tpcanStatus & PCAN_ERROR_QRCVEMPTY) && (getReconnectCondition() == CanModule::ReconnectAutoCondition::timeoutOnReception) && hasTimeoutOnReception() ) {
+			if ( (tpcanStatus & PCAN_ERROR_QRCVEMPTY) && (pkCanScanPointer->getReconnectCondition() == CanModule::ReconnectAutoCondition::timeoutOnReception)
+					&& pkCanScanPointer->hasTimeoutOnReception() ) {
 
 				//send a reconnection thread trigger
-				MLOGPK(DBG, this) << "trigger reconnection thread to check reception timeout " << getBusName();
+				MLOGPK(DBG, pkCanScanPointer) << "trigger reconnection thread to check reception timeout " << getBusName();
 				triggerReconnectionThread();
 
 
