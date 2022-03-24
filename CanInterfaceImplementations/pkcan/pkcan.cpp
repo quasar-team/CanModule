@@ -160,8 +160,8 @@ DWORD WINAPI PKCanScan::CanScanControlThread(LPVOID pCanScan)
 					&& pkCanScanPointer->hasTimeoutOnReception() ) {
 
 				//send a reconnection thread trigger
-				MLOGPK(DBG, pkCanScanPointer) << "trigger reconnection thread to check reception timeout " << getBusName();
-				triggerReconnectionThread();
+				MLOGPK(DBG, pkCanScanPointer) << "trigger reconnection thread to check reception timeout " << pkCanScanPointer->getBusName();
+				pkCanScanPointer->triggerReconnectionThread();
 
 
 #if 0
