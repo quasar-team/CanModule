@@ -70,7 +70,7 @@ PKCanScan::PKCanScan():
 	 */
 	m_PeakReconnectionThread = CreateThread(NULL, 0, CanReconnectionThread, this, 0, &m_idPeakReconnectionThread);
 	if ( NULL == m_PeakReconnectionThread ) {
-		MLOGPK(TRC, this) << "could not start reconnection thread" << DebugBreak();
+		MLOGPK(TRC, this) << "could not start reconnection thread";
 	}
 }
 
