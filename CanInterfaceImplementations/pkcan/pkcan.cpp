@@ -648,7 +648,7 @@ DWORD WINAPI PKCanScan::CanReconnectionThread(LPVOID pCanScan)
 			<< " condition "<< reconnectConditionString(pkCanScanPointer->getReconnectCondition() )
 			<< " action " << reconnectActionString(pkCanScanPointer->getReconnectAction())
 			<< " is checked, m_failedSendCountdown= "
-			<< m_failedSendCountdown;
+			<< pkCanScanPointer->getFailedSendCountdown();
 
 		// condition
 		switch ( pkCanScanPointer->getReconnectCondition() ){
@@ -659,7 +659,7 @@ DWORD WINAPI PKCanScan::CanReconnectionThread(LPVOID pCanScan)
 		}
 		case CanModule::ReconnectAutoCondition::sendFail: {
 			pkCanScanPointer->resetTimeoutOnReception();
-			if (m_failedSendCountdown > 0) {
+			if (pkCanScanPointer->getFailedSendCountdown() > 0) {
 				continue;// do nothing
 			} else {
 				pkCanScanPointer->resetSendFailedCountdown(); // do the action

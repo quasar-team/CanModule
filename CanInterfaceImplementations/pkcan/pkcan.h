@@ -84,6 +84,9 @@ public:
 	virtual CanModule::ReconnectAction getReconnectAction() { return m_reconnectAction; };
 
 	virtual void stopBus();
+
+	int getFailedSendCountdown() { return m_failedSendCountdown; }
+
 private:
 
 	TPCANHandle getHandle(const char *name);
