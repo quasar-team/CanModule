@@ -73,7 +73,7 @@ std::recursive_mutex anagateReconnectMutex;
  */
 std::map<AnaInt32, AnaCanScan*> g_AnaCanScanObjectMap; // map handles to objects
 
-#define MLOGANA(LEVEL,THIS) ( (LOG(Log::LEVEL, AnaCanScan::st_logItHandleAnagate)) << __FUNCTION__ << " " << " anagate bus= " << ( THIS->getBusName() )  << " " )
+#define MLOGANA(LEVEL,THIS) LOG(( Log::LEVEL ), AnaCanScan::st_logItHandleAnagate)) << __FUNCTION__ << " " << " anagate bus= " << ( THIS->getBusName() )  << " "
 
 AnaCanScan::AnaCanScan():
 	m_canPortNumber(0),
