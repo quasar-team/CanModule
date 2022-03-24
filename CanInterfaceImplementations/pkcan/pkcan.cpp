@@ -39,7 +39,7 @@
 
 /* static */ std::map<string, string> PKCanScan::m_busMap;
 
-#define MLOGPK(LEVEL,THIS) ( LOG(Log::LEVEL, THIS->logItHandle()) << __FUNCTION__ << " " << " peak bus= " << THIS->getBusName() << " " )
+#define MLOGPK(LEVEL,THIS) LOG(Log::LEVEL, THIS->logItHandle() << __FUNCTION__ << " " << " peak bus= " << THIS->getBusName() << " "
 
 boost::mutex peakReconnectMutex; // protect m_busMap
 
