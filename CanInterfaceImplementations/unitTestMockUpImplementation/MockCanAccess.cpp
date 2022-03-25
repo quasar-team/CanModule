@@ -92,3 +92,8 @@ bool MockCanAccess::initialiseLogging(LogItInstance* remoteInstance)
 {
 	return true;
 }
+
+void MockCanAccess::updateInitialError ()
+{
+	
+}

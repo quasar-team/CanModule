@@ -479,6 +479,8 @@ public:
 	 */
 	virtual void stopBus() = 0;
 
+	virtual void updateInitialError () = 0;
+
 protected:
 
 	string m_sBusName;

@@ -61,6 +61,9 @@ public:
 
 	virtual void stopBus ();
 
+	virtual void updateInitialError ();
+
+
 private:
 	//Instance of Can Statistics
 	CanModule::CanStatistics m_statistics;
