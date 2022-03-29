@@ -620,6 +620,8 @@ void PKCanScan::getStatistics( CanStatistics & result )
 DWORD WINAPI PKCanScan::CanReconnectionThread(LPVOID pCanScan)
 {
 	PKCanScan *pkCanScanPointer = reinterpret_cast<PKCanScan *>(pCanScan);
+	CanModule::ReconnectAutoCondition rcondition = pkCanScanPointer->getReconnectCondition();
+	CanModule::ReconnectAction raction = pkCanScanPointer->getReconnectAction();
 
 	std::string _tid;
 	{
@@ -651,7 +653,7 @@ DWORD WINAPI PKCanScan::CanReconnectionThread(LPVOID pCanScan)
 			<< pkCanScanPointer->getFailedSendCountdown();
 
 		// condition
-		switch ( pkCanScanPointer->getReconnectCondition() ){
+		switch ( rcondition ){
 		case CanModule::ReconnectAutoCondition::timeoutOnReception: {
 			// no need to check the reception timeout, the control thread has done that already
 			pkCanScanPointer->resetSendFailedCountdown(); // do the action
@@ -677,12 +679,14 @@ DWORD WINAPI PKCanScan::CanReconnectionThread(LPVOID pCanScan)
 		} // switch
 
 		// action
-		switch ( pkCanScanPointer->getReconnectAction() ){
+		switch ( raction ){
 		case CanModule::ReconnectAction::singleBus: {
-			MLOGPK(INF, pkCanScanPointer) << " reconnect condition " << reconnectConditionString(m_reconnectCondition)
-										<< " triggered action " << reconnectActionString(m_reconnectAction);
+			MLOGPK(INF, pkCanScanPointer) << " reconnect condition " << reconnectConditionString( rcondition )
+										<< " triggered action " << reconnectActionString( raction );
+
 #if 0
-			pkCanScanPointer->sendErrorCode(tpcanStatus);
+			//TPCANStatus tpcanStatus
+			//pkCanScanPointer->sendErrorCode(tpcanStatus);
 			if (tpcanStatus | PCAN_ERROR_ANYBUSERR) {
 				CAN_Initialize(tpcanHandler,pkCanScanPointer->m_baudRate);
 				CanModule::ms_sleep( 10000 );
@@ -692,14 +696,14 @@ DWORD WINAPI PKCanScan::CanReconnectionThread(LPVOID pCanScan)
 		}
 
 		case CanModule::ReconnectAction::allBusesOnBridge: {
-			MLOGPK(INF, pkCanScanPointer) << " reconnect condition " << reconnectConditionString(m_reconnectCondition)
-										<< " triggered action " << reconnectActionString(m_reconnectAction);
+			MLOGPK(INF, pkCanScanPointer) << " reconnect condition " << reconnectConditionString( rcondition )
+				<< " triggered action " << reconnectActionString( raction );
 			break;
 		}
 		default: {
 			// we have a runtime bug
 			MLOGPK(ERR, pkCanScanPointer) << "reconnection action "
-					<< (int) m_reconnectAction << reconnectActionString( m_reconnectAction )
+					<< (int) raction << reconnectActionString( raction )
 					<< " unknown. Check your config & see documentation. No action.";
 			break;
 		}
