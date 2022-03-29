@@ -87,6 +87,7 @@ public:
 
 	int getFailedSendCountdown() { return m_failedSendCountdown; }
 	TPCANHandle	getTPCANHandle() { return m_pkCanHandle;	}
+	unsigned int getBaudRate() { return m_baudRate; }
 
 private:
 

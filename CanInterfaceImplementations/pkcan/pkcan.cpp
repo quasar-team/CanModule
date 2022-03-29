@@ -395,10 +395,10 @@ bool PKCanScan::configureCanboard(const string name,const string parameters)
 			MLOGPK(TRC, this) << "CAN_Initialize returns " << (int) tpcanStatus << " OK";
 			break;
 		}
-		Sleep( 1000 ); // 1000 ms
+		CanModule::ms_sleep(1000);
 		MLOGPK(TRC, this) << "try again... calling Can_Uninitialize " ;
 		tpcanStatus = CAN_Uninitialize( m_pkCanHandle );
-		Sleep( 1000 ); // 1000 ms
+		CanModule::ms_sleep(1000);
 		counter--;
 	}
 
@@ -468,52 +468,6 @@ bool PKCanScan::sendMessage(short cobID, unsigned char len, unsigned char *messa
 
 			// here we should see if we need to reconnect
 			triggerReconnectionThread();
-#if 0
-			switch( m_reconnectCondition ){
-			case CanModule::ReconnectAutoCondition::sendFail: {
-				MLOGPK(WRN, this) << " detected a sendFail, triggerCounter= " << m_failedSendCountdown
-						<< " failedSendCounter= " << m_maxFailedSendCount;
-				m_failedSendCountdown--;
-				break;
-			}
-			case CanModule::ReconnectAutoCondition::never:
-			default:{
-				m_failedSendCountdown = m_maxFailedSendCount;
-				break;
-			}
-			}
-
-			switch ( m_reconnectAction ){
-			case CanModule::ReconnectAction::allBusesOnBridge: {
-				if ( m_failedSendCountdown <= 0 ){
-					MLOGPK(INF, this) << " reconnect condition " << (int) m_reconnectCondition
-							<< reconnectConditionString(m_reconnectCondition)
-							<< " triggered action " << (int) m_reconnectAction
-							<< reconnectActionString(m_reconnectAction)
-							<< " not yet implemented";
-					m_failedSendCountdown = m_maxFailedSendCount;
-				}
-				break;
-			}
-			case CanModule::ReconnectAction::singleBus: {
-				MLOGPK(INF, this) << " reconnect condition " << (int) m_reconnectCondition
-						<< reconnectConditionString(m_reconnectCondition)
-						<< " triggered action " << (int) m_reconnectAction
-						<< reconnectActionString(m_reconnectAction);
-				if ( m_failedSendCountdown <= 0 ){
-					stopBus();
-					createBus(m_busName, m_busParameters );
-					MLOGPK(TRC, this) << "reconnect one CAN port  m_pkCanHandle= " << m_pkCanHandle;
-					m_failedSendCountdown = m_maxFailedSendCount;
-				}
-				break;
-			}
-			default: {
-				break;
-			}
-			}
-#endif
-
 			return sendErrorCode(tpcanStatus);
 		}
 		m_statistics.onTransmit( tpcanMessage.LEN );
@@ -636,11 +590,6 @@ DWORD WINAPI PKCanScan::CanReconnectionThread(LPVOID pCanScan)
 	// need some sync to the main thread to be sure it is up and the sock is created: wait first time for init
 	pkCanScanPointer->waitForReconnectionThreadTrigger();
 
-	/**
-	 * lets check the timeoutOnReception reconnect condition. If it is true, all we can do is to
-	 * close/open the socket again since the underlying hardware is hidden by socketcan abstraction.
-	 * Like his we do not have to pollute the "sendMessage" like for anagate, and that is cleaner.
-	 */
 	MLOGPK(TRC, pkCanScanPointer) << "initialized reconnection thread tid= " << _tid << ", entering loop";
 	while ( true ) {
 
@@ -686,10 +635,9 @@ DWORD WINAPI PKCanScan::CanReconnectionThread(LPVOID pCanScan)
 			MLOGPK(INF, pkCanScanPointer) << " reconnect condition " << reconnectConditionString( rcondition )
 										<< " triggered action " << reconnectActionString( raction );
 
-#if 0
-				CAN_Initialize(tpcanHandler,pkCanScanPointer->m_baudRate);
-				CanModule::ms_sleep( 10000 );
-#endif
+
+				CAN_Initialize(pkCanScanPointer->getTPCANHandle(), pkCanScanPointer->getBaudRate() );
+				CanModule::ms_sleep( 10000 ); // USB module boot is slow, the OS is also slow to recognize the USB back
 			break;
 		}
 
