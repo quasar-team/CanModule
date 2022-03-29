@@ -65,13 +65,6 @@ PKCanScan::PKCanScan():
 	m_statistics.beginNewRun();
 	m_failedSendCountdown = m_maxFailedSendCount;
 
-	/**
-	 * start a reconnection thread
-	 */
-	m_PeakReconnectionThread = CreateThread(NULL, 0, CanReconnectionThread, this, 0, &m_idPeakReconnectionThread);
-	if ( NULL == m_PeakReconnectionThread ) {
-		MLOGPK(TRC, this) << "could not start reconnection thread";
-	}
 }
 
 PKCanScan::~PKCanScan()
@@ -162,48 +155,7 @@ DWORD WINAPI PKCanScan::CanScanControlThread(LPVOID pCanScan)
 				//send a reconnection thread trigger
 				MLOGPK(DBG, pkCanScanPointer) << "trigger reconnection thread to check reception timeout " << pkCanScanPointer->getBusName();
 				pkCanScanPointer->triggerReconnectionThread();
-
-
-#if 0
-				// timeout
-				/**
-				 * lets check the timeoutOnReception reconnect condition. If it is true, all we can do is to
-				 * close/open the port again since the underlying hardware is hidden by socketcan abstraction.
-				 * Like his we do not have to pollute the "sendMessage" like for anagate, and that is cleaner.
-				 */
-				CanModule::ReconnectAutoCondition rcond = pkCanScanPointer->getReconnectCondition();
-				CanModule::ReconnectAction ract = pkCanScanPointer->getReconnectAction();
-				if ( rcond == CanModule::ReconnectAutoCondition::timeoutOnReception && pkCanScanPointer->hasTimeoutOnReception()) {
-					if ( ract == CanModule::ReconnectAction::singleBus ){
-						MLOGPK(INF, pkCanScanPointer) << " reconnect condition " << (int) rcond
-								<< pkCanScanPointer->reconnectConditionString(rcond)
-								<< " triggered action " << (int) ract
-								<< pkCanScanPointer->reconnectActionString(ract);
-						pkCanScanPointer->resetTimeoutOnReception();  // renew timeout while reconnect is in progress
-
-						// deinit single bus and reopen. We do not have a openCanPort() method
-						CAN_Initialize( tpcanHandler, pkCanScanPointer->m_baudRate );
-						MLOGPK(TRC, pkCanScanPointer) << "reconnect one CAN port  m_UcanHandle= " << pkCanScanPointer->m_pkCanHandle;
-					} else {
-						MLOGPK(INF, pkCanScanPointer) << "reconnect action " << (int) ract
-								<< pkCanScanPointer->reconnectActionString(ract)
-								<< " is not implemented for peak";
-					}
-				}  // reconnect condition
-
-				continue;
-#endif
 			}
-
-#if 0
-
-			// default behaviour: reopen the port
-			pkCanScanPointer->sendErrorCode(tpcanStatus);
-			if (tpcanStatus | PCAN_ERROR_ANYBUSERR) {
-				CAN_Initialize(tpcanHandler,pkCanScanPointer->m_baudRate);
-				Sleep(100);
-			}
-#endif
 		}
 	}
 	MLOGPK(TRC, pkCanScanPointer) << "exiting thread...(in 2 secs)";
@@ -270,8 +222,10 @@ int PKCanScan::createBus(const string name ,const string parameters )
 		}
 		peakReconnectMutex.unlock();
 	}
+
 	if ( skipMainThreadCreation ){
-		MLOGPK(TRC, this) << "Re-using main thread m_idCanScanThread= " << m_idCanScanThread;
+		MLOGPK(TRC, this) << "Re-using main thread m_idCanScanThread= " << m_idCanScanThread
+			<< " and reconnection thread m_idPeakReconnectionThread= " << m_idPeakReconnectionThread;
 		return (1);
 	}	else {
 		MLOGPK(TRC, this) << "creating  main thread m_idCanScanThread= " << m_idCanScanThread;
@@ -280,6 +234,16 @@ int PKCanScan::createBus(const string name ,const string parameters )
 		if ( NULL == m_hCanScanThread ) {
 			DebugBreak();
 			return (-2);
+		} 
+
+		/**
+		* start a reconnection thread
+		*/
+		m_PeakReconnectionThread = CreateThread(NULL, 0, CanReconnectionThread, this, 0, &m_idPeakReconnectionThread);
+		if (NULL == m_PeakReconnectionThread) {
+			MLOGPK(TRC, this) << "could not start reconnection thread";		
+			DebugBreak();
+			return (-4);
 		} else {
 			return(0);
 		}
