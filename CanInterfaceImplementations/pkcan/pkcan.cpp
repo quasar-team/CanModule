@@ -681,12 +681,13 @@ DWORD WINAPI PKCanScan::CanReconnectionThread(LPVOID pCanScan)
 		case CanModule::ReconnectAction::singleBus: {
 			MLOGPK(INF, pkCanScanPointer) << " reconnect condition " << reconnectConditionString(m_reconnectCondition)
 										<< " triggered action " << reconnectActionString(m_reconnectAction);
-
+#if 0
 			pkCanScanPointer->sendErrorCode(tpcanStatus);
 			if (tpcanStatus | PCAN_ERROR_ANYBUSERR) {
 				CAN_Initialize(tpcanHandler,pkCanScanPointer->m_baudRate);
 				CanModule::ms_sleep( 10000 );
 			}
+#endif
 			break;
 		}
 
