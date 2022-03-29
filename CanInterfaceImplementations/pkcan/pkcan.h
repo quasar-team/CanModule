@@ -86,6 +86,7 @@ public:
 	virtual void stopBus();
 
 	int getFailedSendCountdown() { return m_failedSendCountdown; }
+	TPCANHandle	getTPCANHandle() { return m_pkCanHandle;	}
 
 private:
 

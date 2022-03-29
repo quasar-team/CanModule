@@ -467,6 +467,8 @@ bool PKCanScan::sendMessage(short cobID, unsigned char len, unsigned char *messa
 		if (tpcanStatus != PCAN_ERROR_OK) {
 
 			// here we should see if we need to reconnect
+			triggerReconnectionThread();
+#if 0
 			switch( m_reconnectCondition ){
 			case CanModule::ReconnectAutoCondition::sendFail: {
 				MLOGPK(WRN, this) << " detected a sendFail, triggerCounter= " << m_failedSendCountdown
@@ -510,7 +512,7 @@ bool PKCanScan::sendMessage(short cobID, unsigned char len, unsigned char *messa
 				break;
 			}
 			}
-
+#endif
 
 			return sendErrorCode(tpcanStatus);
 		}
@@ -685,12 +687,8 @@ DWORD WINAPI PKCanScan::CanReconnectionThread(LPVOID pCanScan)
 										<< " triggered action " << reconnectActionString( raction );
 
 #if 0
-			//TPCANStatus tpcanStatus
-			//pkCanScanPointer->sendErrorCode(tpcanStatus);
-			if (tpcanStatus | PCAN_ERROR_ANYBUSERR) {
 				CAN_Initialize(tpcanHandler,pkCanScanPointer->m_baudRate);
 				CanModule::ms_sleep( 10000 );
-			}
 #endif
 			break;
 		}
