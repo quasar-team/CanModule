@@ -429,7 +429,8 @@ bool PKCanScan::sendMessage(short cobID, unsigned char len, unsigned char *messa
 		memcpy(tpcanMessage.DATA,message,lengthToBeSent);
 		tpcanStatus = CAN_Write(m_pkCanHandle, &tpcanMessage);
 		if (tpcanStatus != PCAN_ERROR_OK) {
-
+			MLOGPK(TRC, this) << __FUNCTION__ << " send message problem detected " << (int)tpcanStatus;
+			
 			// here we should see if we need to reconnect
 			triggerReconnectionThread();
 			return sendErrorCode(tpcanStatus);
