@@ -356,7 +356,7 @@ bool PKCanScan::configureCanboard(const string name,const string parameters)
 		tpcanStatus = CAN_Initialize(m_pkCanHandle, m_baudRate );
 		MLOGPK(TRC, this) << "CAN_Initialize returns 0x" << hex << (unsigned int) tpcanStatus << dec << " counter= " << counter;
 		if ( tpcanStatus == PCAN_ERROR_OK ) {
-			MLOGPK(TRC, this) << "CAN_Initialize returns " << hex << (unsigned int) tpcanStatus << dec;
+			MLOGPK(TRC, this) << "CAN_Initialize has returned OK 0x " << hex << (unsigned int) tpcanStatus << dec;
 			break;
 		}
 		CanModule::ms_sleep(1000);
