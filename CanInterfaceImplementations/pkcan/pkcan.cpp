@@ -364,6 +364,8 @@ bool PKCanScan::configureCanboard(const string name,const string parameters)
 		tpcanStatus = CAN_Uninitialize( m_pkCanHandle );
 		MLOGPK(TRC, this) << "CAN_Uninitialize returns " << hex << (unsigned int) tpcanStatus << dec;
 		CanModule::ms_sleep(1000);
+		MLOGPK(TRC, this) << "try again... calling Can_Initialize " ;
+		tpcanStatus = 99;
 		counter--;
 	}
 
