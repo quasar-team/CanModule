@@ -253,11 +253,15 @@ int PKCanScan::createBus(const string name ,const string parameters )
 
 
 /**
- * method to configure peak modules, one channel at a time. We restrict this to USB interfaces and fixed datarate (not FD) modules
+ * method to configure peak modules. We restrict this to USB interfaces and fixed datarate (not FD) modules
  * If needed this can relatively easily be extended to other interfaces and FD mods as well.
  *
  * These USB CAN bridges are "plug&lplay CAN devices according to peak, so we can initialize them
- * with only the handle and the baudrate
+ * with only the handle and the baudrate. BUT - The handle is PER MODULE and not PER CHANNEL !!
+ *
+ * returns:
+ * true = success
+ * false = failed
  */
 bool PKCanScan::configureCanboard(const string name,const string parameters)
 {
@@ -287,7 +291,7 @@ bool PKCanScan::configureCanboard(const string name,const string parameters)
 	string humanReadableCode = interface + channel.str();
 	m_pkCanHandle = getHandle( humanReadableCode.c_str() );
 	MLOGPK( DBG, this ) << "PEAK handle for vectorString[1]= " << vectorString[1]
-	      << " is code= 0x" <<hex <<  m_pkCanHandle << dec
+	      << " is m_pkCanHandle= 0x" <<hex <<  m_pkCanHandle << dec
 		  << " human readable code= " << humanReadableCode;
 
 
@@ -352,6 +356,7 @@ bool PKCanScan::configureCanboard(const string name,const string parameters)
 	 * fixed datarate modules (classical CAN), plug and play
 	 * we try 10 times until success, the OS is a bit slow
 	 */
+	bool ret = true;
 	MLOGPK(TRC, this) << "calling CAN_Initialize on m_pkCanHandle= " << m_pkCanHandle;
 	TPCANStatus tpcanStatus = 99;
 	int counter = 10;
@@ -360,10 +365,14 @@ bool PKCanScan::configureCanboard(const string name,const string parameters)
 		MLOGPK(TRC, this) << "CAN_Initialize returns 0x" << hex << (unsigned int) tpcanStatus << dec << " counter= " << counter;
 		if ( tpcanStatus == PCAN_ERROR_OK ) {
 			MLOGPK(TRC, this) << "CAN_Initialize has returned OK 0x " << hex << (unsigned int) tpcanStatus << dec;
+			ret = true;
 			break;
 		}
+		// for plug&play devices this is returned on the second channel of a USB module, apparently.
+		// This seems OK, so we just continue talking to the channel. Counts as success.
 		if ( tpcanStatus == PCAN_ERROR_INITIALIZE ) {
-			MLOGPK(TRC, this) << "CAN_Initialize detected channel is already in use (plug&play), returned OK 0x " << hex << (unsigned int) tpcanStatus << dec;
+			MLOGPK(TRC, this) << "CAN_Initialize detected module is already in use (plug&play), returned OK 0x " << hex << (unsigned int) tpcanStatus << dec;
+			ret = true;
 			break;
 		}
 		CanModule::ms_sleep(1000);
@@ -373,6 +382,7 @@ bool PKCanScan::configureCanboard(const string name,const string parameters)
 		CanModule::ms_sleep(1000);
 		MLOGPK(TRC, this) << "try again... calling Can_Initialize " ;
 		tpcanStatus = 99;
+		ret = false;
 		counter--;
 	}
 
@@ -385,7 +395,8 @@ bool PKCanScan::configureCanboard(const string name,const string parameters)
 	 * UInt16 Interrupt);
 	 */
 	// TPCANStatus tpcanStatus = CAN_Initialize(m_canObjHandler, m_baudRate,256,3); // one param missing ? 
-	return tpcanStatus;
+	// return tpcanStatus;
+	return ret;
 }
 
 
