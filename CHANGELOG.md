@@ -14,6 +14,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
   the plug&play devices, with reduced parameter set (documentation is "misleading" and in any case chm files are "compressed html" so no-one
   can actually read their docs! Got it converted to pdf. ). In fact for a dual-CAN, the second CAN_Initialize
   call returns 0x400000, but in that case this error must be ignored. That was a long-standing sub-sub-bug. Fixed now, working as it should.
+  
+  AS A SIDEFFECT peak-USB multichannel (more than one CAN port) modules can NOT be shared between tasks ! uni_multi_shared0 scenarios all fail.
 
 ### 2.0.17 [14.march.2022]
 - OPCUA-2529: VERSION.h file created by build chain into build/generated. At that occasion also cleaned up the whole build to be neatly out of source.
