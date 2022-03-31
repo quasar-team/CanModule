@@ -255,6 +255,9 @@ int PKCanScan::createBus(const string name ,const string parameters )
 /**
  * method to configure peak modules, one channel at a time. We restrict this to USB interfaces and fixed datarate (not FD) modules
  * If needed this can relatively easily be extended to other interfaces and FD mods as well.
+ *
+ * These USB CAN bridges are "plug&lplay CAN devices according to peak, so we can initialize them
+ * with only the handle and the baudrate
  */
 bool PKCanScan::configureCanboard(const string name,const string parameters)
 {
@@ -349,7 +352,7 @@ bool PKCanScan::configureCanboard(const string name,const string parameters)
 	 * fixed datarate modules (classical CAN), plug and play
 	 * we try 10 times until success, the OS is a bit slow
 	 */
-	MLOGPK(TRC, this) << "calling CAN_Initialize";
+	MLOGPK(TRC, this) << "calling CAN_Initialize on m_pkCanHandle= " << m_pkCanHandle;
 	TPCANStatus tpcanStatus = 99;
 	int counter = 10;
 	while ( tpcanStatus != PCAN_ERROR_OK && counter > 0 ){
@@ -359,9 +362,13 @@ bool PKCanScan::configureCanboard(const string name,const string parameters)
 			MLOGPK(TRC, this) << "CAN_Initialize has returned OK 0x " << hex << (unsigned int) tpcanStatus << dec;
 			break;
 		}
+		if ( tpcanStatus == PCAN_ERROR_INITIALIZE ) {
+			MLOGPK(TRC, this) << "CAN_Initialize detected channel is already in use (plug&play), returned OK 0x " << hex << (unsigned int) tpcanStatus << dec;
+			break;
+		}
 		CanModule::ms_sleep(1000);
 		MLOGPK(TRC, this) << "try again... calling Can_Uninitialize " ;
-		tpcanStatus = CAN_Uninitialize( m_pkCanHandle );
+		tpcanStatus = CAN_Uninitialize( m_pkCanHandle ); // Giving the TPCANHandle value "PCAN_NONEBUS" uninitialize all initialized channels
 		MLOGPK(TRC, this) << "CAN_Uninitialize returns " << hex << (unsigned int) tpcanStatus << dec;
 		CanModule::ms_sleep(1000);
 		MLOGPK(TRC, this) << "try again... calling Can_Initialize " ;
