@@ -421,18 +421,24 @@ bool PKCanScan::sendMessage(short cobID, unsigned char len, unsigned char *messa
 		if (lengthOfUnsentData > 8) {
 			lengthToBeSent = 8;
 			lengthOfUnsentData = lengthOfUnsentData - 8;
-		} else {
+		}
+		else {
 			lengthToBeSent = lengthOfUnsentData;
 		}
 		tpcanMessage.LEN = lengthToBeSent;
 
-		memcpy(tpcanMessage.DATA,message,lengthToBeSent);
+		memcpy(tpcanMessage.DATA, message, lengthToBeSent);
 		tpcanStatus = CAN_Write(m_pkCanHandle, &tpcanMessage);
 		if (tpcanStatus != PCAN_ERROR_OK) {
+			MLOGPK(ERR, this) << " send message problem detected, tpcanStatus= "
+				<< hex << "0x" << tpcanStatus << dec;
 
 			// here we should see if we need to reconnect
 			triggerReconnectionThread();
 			return sendErrorCode(tpcanStatus);
+		} else {
+			MLOGPK(TRC, this) << " send message OK, tpcanStatus= "
+				<< hex << "0x" << tpcanStatus << dec;
 		}
 		m_statistics.onTransmit( tpcanMessage.LEN );
 		m_statistics.setTimeSinceTransmitted();
