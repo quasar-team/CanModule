@@ -259,6 +259,8 @@ int PKCanScan::createBus(const string name ,const string parameters )
  * These USB CAN bridges are "plug&lplay CAN devices according to peak, so we can initialize them
  * with only the handle and the baudrate. BUT - The handle is PER MODULE and not PER CHANNEL !!
  *
+ * Nevertheless this is called for each BUS creation.
+ *
  * returns:
  * true = success
  * false = failed
