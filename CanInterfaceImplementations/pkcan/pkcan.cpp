@@ -352,11 +352,11 @@ bool PKCanScan::configureCanboard(const string name,const string parameters)
 	MLOGPK(TRC, this) << "calling CAN_Initialize";
 	TPCANStatus tpcanStatus = 99;
 	int counter = 10;
-	while ( tpcanStatus != 0 && counter > 0 ){
+	while ( tpcanStatus != PCAN_ERROR_OK && counter > 0 ){
 		tpcanStatus = CAN_Initialize(m_pkCanHandle, m_baudRate );
-		MLOGPK(TRC, this) << "CAN_Initialize returns " << (int) tpcanStatus << " counter= " << counter;
-		if ( tpcanStatus == 0 ) {
-			MLOGPK(TRC, this) << "CAN_Initialize returns " << (int) tpcanStatus << " OK";
+		MLOGPK(TRC, this) << "CAN_Initialize returns 0x" << hex << (unsigned int) tpcanStatus << dec << " counter= " << counter;
+		if ( tpcanStatus == PCAN_ERROR_OK ) {
+			MLOGPK(TRC, this) << "CAN_Initialize returns " << hex << (unsigned int) tpcanStatus << dec;
 			break;
 		}
 		CanModule::ms_sleep(1000);
@@ -375,7 +375,7 @@ bool PKCanScan::configureCanboard(const string name,const string parameters)
 	 * UInt16 Interrupt);
 	 */
 	// TPCANStatus tpcanStatus = CAN_Initialize(m_canObjHandler, m_baudRate,256,3); // one param missing ? 
-	return tpcanStatus == PCAN_ERROR_OK;
+	return tpcanStatus;
 }
 
 
