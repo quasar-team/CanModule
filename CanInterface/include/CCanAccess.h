@@ -522,7 +522,6 @@ protected:
 	std::mutex m_reconnection_mtx;             // trigger stuff
 	std::condition_variable m_reconnection_cv; // trigger stuff
 
-public:
 	/**
 	 * just translate the ugly r.condition enum into a user-friendly string for convenience and logging.
 	 */
@@ -546,8 +545,6 @@ public:
 		return(" unknown action");
 	}
 
-
-protected:
 	/**
 	 * compared to the last received message, are we in timeout?
 	 */
