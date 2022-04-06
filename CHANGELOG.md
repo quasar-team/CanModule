@@ -10,12 +10,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 ### 2.0.18 [march.2022]
 - fix popen return type (cs9)
 - OPCUA-2667: peak reconnection under windows. The PCAN-Basic API has slightly weird design concerning plug&play USB multiport bridges. 
-  the hanle on gets is per module, but when a CAN bus is created the whole board is initialized with a CAN_Initialize() call for
+  the handle on gets is per module, but when a CAN bus is created the whole board is initialized with a CAN_Initialize() call for
   the plug&play devices, with reduced parameter set (documentation is "misleading" and in any case chm files are "compressed html" so no-one
   can actually read their docs! Got it converted to pdf. ). In fact for a dual-CAN, the second CAN_Initialize
-  call returns 0x400000, but in that case this error must be ignored. That was a long-standing sub-sub-bug. Fixed now, working as it should.
-  
-  AS A SIDEFFECT peak-USB multichannel (more than one CAN port) modules can NOT be shared between tasks ! uni_multi_shared0 scenarios all fail.
+  call returns 0x400000. Therefore a peak bridge CAN NOT be shared between tasks in windows: peak-USB multichannel (more than one CAN port) 
+  modules can NOT be shared between tasks ! uni_multi_shared0 scenarios all fail.
+- replaced gettimeofday with C++ chrono OS independent calls
 
 ### 2.0.17 [14.march.2022]
 - OPCUA-2529: VERSION.h file created by build chain into build/generated. At that occasion also cleaned up the whole build to be neatly out of source.
