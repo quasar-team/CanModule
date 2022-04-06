@@ -102,11 +102,14 @@ namespace CanModule
 		m_totalReceived++;
 		m_received++;
 		m_receivedOctets += 2 + 1 + dataLength + 2; /* ID, DLC, USER DATA, CRC */
+#if 0
 #ifdef _WIN32
 		GetSystemTime(&m_dreceived);
 #else
 		gettimeofday( &m_dreceived, &m_tz);
 #endif
+#endif
+		setTimeSinceReceived();
 	}
 
 	void CanStatistics::operator=(const CanStatistics & other)
@@ -122,7 +125,7 @@ namespace CanModule
 		this->m_dreceived = other.m_dreceived;
 		this->m_dtransmitted = other.m_dtransmitted;
 		this->m_dopen = other.m_dopen;
-		this->m_now = other.m_now;
+		this->m_dnow = other.m_dnow;
 
 		this->m_portStatus = other.m_portStatus;
 	}

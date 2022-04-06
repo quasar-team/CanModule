@@ -70,6 +70,28 @@ public:
 	float rxRate() { return m_internals.m_receivedPerSec; }
 	float busLoad() { return m_internals.m_busLoad; }
 
+
+	double timeSinceReceived() {
+		m_dnow = high_resolution_clock::now();
+		duration<double, micro> time_span = duration_cast<duration<double, micro>>(m_dnow - m_dreceived);
+		return ( time_span.count() / 1000 );
+	}
+	double timeSinceTransmitted() {
+		m_dnow = high_resolution_clock::now();
+		duration<double, micro> time_span = duration_cast<duration<double, micro>>(m_dnow - m_dtransmitted);
+		return ( time_span.count() / 1000 );
+	}
+	double timeSinceOpened() {
+		m_dnow = high_resolution_clock::now();
+		duration<double, micro> time_span = duration_cast<duration<double, micro>>(m_dnow - m_dopen);
+		return ( time_span.count() / 1000 );
+	}
+	void setTimeSinceOpened()      { m_dopen        = high_resolution_clock::now();	}
+	void setTimeSinceReceived()    { m_dreceived    = high_resolution_clock::now();	}
+	void setTimeSinceTransmitted() { m_dtransmitted = high_resolution_clock::now();	}
+
+
+#if 0
 	double timeSinceReceived() {
 #ifdef _WIN32
 		GetSystemTime(&m_now);
@@ -128,6 +150,8 @@ public:
 #endif
 	}
 
+#endif
+
 
 	/*
 	 * acquire the latest status of the CAN bus, from as-low-as-possible SW layer,
@@ -156,12 +180,17 @@ private:
 	std::atomic_uint_least32_t m_transmittedOctets;
 	std::atomic_uint_least32_t m_receivedOctets;
 
+#if 0
+
 #ifdef _WIN32
 	SYSTEMTIME m_now, m_dreceived, m_dtransmitted, m_dopen;
 #else
 	struct timeval m_now, m_dreceived, m_dtransmitted, m_dopen;
 	struct timezone m_tz;
 #endif
+
+#endif
+	high_resolution_clock::time_point m_dnow, m_dreceived, m_dtransmitted, m_dopen;
 
 	uint32_t m_portStatus; // encoded status for all vendors
 
