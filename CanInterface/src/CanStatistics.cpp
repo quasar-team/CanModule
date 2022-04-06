@@ -102,13 +102,6 @@ namespace CanModule
 		m_totalReceived++;
 		m_received++;
 		m_receivedOctets += 2 + 1 + dataLength + 2; /* ID, DLC, USER DATA, CRC */
-#if 0
-#ifdef _WIN32
-		GetSystemTime(&m_dreceived);
-#else
-		gettimeofday( &m_dreceived, &m_tz);
-#endif
-#endif
 		setTimeSinceReceived();
 	}
 
