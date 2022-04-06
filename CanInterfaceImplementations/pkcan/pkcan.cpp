@@ -23,13 +23,18 @@
  * PEAK bridge integration for windows
  */
 
+#include "pkcan.h"
+
 #include <time.h>
 #include <string.h>
+#include <thread>
+#include <mutex>
+#include <condition_variable>
+
 #include <boost/thread/thread.hpp>
 
 #include <LogIt.h>
 
-#include "pkcan.h"
 #include "CanModuleUtils.h"
 
 /* static */ std::map<string, string> PKCanScan::m_busMap;
@@ -51,6 +56,7 @@ PKCanScan::PKCanScan():
 				m_busStatus(0),
 				m_baudRate(0),
 				m_idCanScanThread(0),
+				m_idPeakReconnectionThread(0),
 				m_CanScanThreadRunEnableFlag(false),
 				m_logItHandlePk(0),
 				m_pkCanHandle(0)
@@ -58,6 +64,7 @@ PKCanScan::PKCanScan():
 	m_statistics.setTimeSinceOpened();
 	m_statistics.beginNewRun();
 	m_failedSendCountdown = m_maxFailedSendCount;
+
 }
 
 PKCanScan::~PKCanScan()
@@ -91,7 +98,7 @@ void PKCanScan::stopBus ()
 		}
 		peakReconnectMutex.unlock();
 	}
-	Sleep(2); // and wait a bit for the thread to die
+	CanModule::ms_sleep( 2000 );
 	MLOGPK(DBG,this) << __FUNCTION__ << " finished";
 }
 
@@ -142,45 +149,17 @@ DWORD WINAPI PKCanScan::CanScanControlThread(LPVOID pCanScan)
 			// we can reset the reconnectionTimeout here, since we have received a message
 			pkCanScanPointer->resetTimeoutOnReception();
 		} else {
-			if (tpcanStatus & PCAN_ERROR_QRCVEMPTY) {
-				// timeout
-				/**
-				 * lets check the timeoutOnReception reconnect condition. If it is true, all we can do is to
-				 * close/open the port again since the underlying hardware is hidden by socketcan abstraction.
-				 * Like his we do not have to pollute the "sendMessage" like for anagate, and that is cleaner.
-				 */
-				CanModule::ReconnectAutoCondition rcond = pkCanScanPointer->getReconnectCondition();
-				CanModule::ReconnectAction ract = pkCanScanPointer->getReconnectAction();
-				if ( rcond == CanModule::ReconnectAutoCondition::timeoutOnReception && pkCanScanPointer->hasTimeoutOnReception()) {
-					if ( ract == CanModule::ReconnectAction::singleBus ){
-						MLOGPK(INF, pkCanScanPointer) << " reconnect condition " << (int) rcond
-								<< pkCanScanPointer->reconnectConditionString(rcond)
-								<< " triggered action " << (int) ract
-								<< pkCanScanPointer->reconnectActionString(ract);
-						pkCanScanPointer->resetTimeoutOnReception();  // renew timeout while reconnect is in progress
+			if ( (tpcanStatus & PCAN_ERROR_QRCVEMPTY) && (pkCanScanPointer->getReconnectCondition() == CanModule::ReconnectAutoCondition::timeoutOnReception)
+					&& pkCanScanPointer->hasTimeoutOnReception() ) {
 
-						// deinit single bus and reopen. We do not have a openCanPort() method
-						CAN_Initialize( tpcanHandler, pkCanScanPointer->m_baudRate );
-						MLOGPK(TRC, pkCanScanPointer) << "reconnect one CAN port  m_UcanHandle= " << pkCanScanPointer->m_pkCanHandle;
-					} else {
-						MLOGPK(INF, pkCanScanPointer) << "reconnect action " << (int) ract
-								<< pkCanScanPointer->reconnectActionString(ract)
-								<< " is not implemented for peak";
-					}
-				}  // reconnect condition
-				continue;
-			}
-
-			// default behaviour: reopen the port
-			pkCanScanPointer->sendErrorCode(tpcanStatus);
-			if (tpcanStatus | PCAN_ERROR_ANYBUSERR) {
-				CAN_Initialize(tpcanHandler,pkCanScanPointer->m_baudRate);
-				Sleep(100);
+				//send a reconnection thread trigger
+				MLOGPK(DBG, pkCanScanPointer) << "trigger reconnection thread to check reception timeout " << pkCanScanPointer->getBusName();
+				pkCanScanPointer->triggerReconnectionThread();
 			}
 		}
 	}
 	MLOGPK(TRC, pkCanScanPointer) << "exiting thread...(in 2 secs)";
-	Sleep(2000);
+	CanModule::ms_sleep( 2000 );
 	ExitThread(0);
 	return 0;
 }
@@ -243,8 +222,10 @@ int PKCanScan::createBus(const string name ,const string parameters )
 		}
 		peakReconnectMutex.unlock();
 	}
+
 	if ( skipMainThreadCreation ){
-		MLOGPK(TRC, this) << "Re-using main thread m_idCanScanThread= " << m_idCanScanThread;
+		MLOGPK(TRC, this) << "Re-using main thread m_idCanScanThread= " << m_idCanScanThread
+			<< " and reconnection thread m_idPeakReconnectionThread= " << m_idPeakReconnectionThread;
 		return (1);
 	}	else {
 		MLOGPK(TRC, this) << "creating  main thread m_idCanScanThread= " << m_idCanScanThread;
@@ -253,6 +234,16 @@ int PKCanScan::createBus(const string name ,const string parameters )
 		if ( NULL == m_hCanScanThread ) {
 			DebugBreak();
 			return (-2);
+		} 
+
+		/**
+		* start a reconnection thread
+		*/
+		m_PeakReconnectionThread = CreateThread(NULL, 0, CanReconnectionThread, this, 0, &m_idPeakReconnectionThread);
+		if (NULL == m_PeakReconnectionThread) {
+			MLOGPK(TRC, this) << "could not start reconnection thread";		
+			DebugBreak();
+			return (-4);
 		} else {
 			return(0);
 		}
@@ -262,8 +253,17 @@ int PKCanScan::createBus(const string name ,const string parameters )
 
 
 /**
- * method to configure peak modules, one channel at a time. We restrict this to USB interfaces and fixed datarate (not FD) modules
+ * method to configure peak modules. We restrict this to USB interfaces and fixed datarate (not FD) modules
  * If needed this can relatively easily be extended to other interfaces and FD mods as well.
+ *
+ * These USB CAN bridges are "plug&lplay CAN devices according to peak, so we can initialize them
+ * with only the handle and the baudrate. BUT - The handle is PER MODULE and not PER CHANNEL !!
+ *
+ * Nevertheless this is called for each BUS creation.
+ *
+ * returns:
+ * true = success
+ * false = failed
  */
 bool PKCanScan::configureCanboard(const string name,const string parameters)
 {
@@ -293,7 +293,7 @@ bool PKCanScan::configureCanboard(const string name,const string parameters)
 	string humanReadableCode = interface + channel.str();
 	m_pkCanHandle = getHandle( humanReadableCode.c_str() );
 	MLOGPK( DBG, this ) << "PEAK handle for vectorString[1]= " << vectorString[1]
-	      << " is code= 0x" <<hex <<  m_pkCanHandle << dec
+	      << " is m_pkCanHandle= 0x" <<hex <<  m_pkCanHandle << dec
 		  << " human readable code= " << humanReadableCode;
 
 
@@ -358,20 +358,33 @@ bool PKCanScan::configureCanboard(const string name,const string parameters)
 	 * fixed datarate modules (classical CAN), plug and play
 	 * we try 10 times until success, the OS is a bit slow
 	 */
-	MLOGPK(TRC, this) << "calling CAN_Initialize";
+	bool ret = true;
+	MLOGPK(TRC, this) << "calling CAN_Initialize on m_pkCanHandle= " << m_pkCanHandle;
 	TPCANStatus tpcanStatus = 99;
 	int counter = 10;
-	while ( tpcanStatus != 0 && counter > 0 ){
+	while ( tpcanStatus != PCAN_ERROR_OK && counter > 0 ){
 		tpcanStatus = CAN_Initialize(m_pkCanHandle, m_baudRate );
-		MLOGPK(TRC, this) << "CAN_Initialize returns " << (int) tpcanStatus << " counter= " << counter;
-		if ( tpcanStatus == 0 ) {
-			MLOGPK(TRC, this) << "CAN_Initialize returns " << (int) tpcanStatus << " OK";
+		MLOGPK(TRC, this) << "CAN_Initialize returns 0x" << hex << (unsigned int) tpcanStatus << dec << " counter= " << counter;
+		if ( tpcanStatus == PCAN_ERROR_OK ) {
+			MLOGPK(TRC, this) << "CAN_Initialize has returned OK 0x " << hex << (unsigned int) tpcanStatus << dec;
+			ret = true;
 			break;
 		}
-		Sleep( 1000 ); // 1000 ms
+		// for plug&play devices this is returned on the second channel of a USB module, apparently.
+		// This seems OK, so we just continue talking to the channel. Counts as success.
+		if ( tpcanStatus == PCAN_ERROR_INITIALIZE ) {
+			MLOGPK(TRC, this) << "CAN_Initialize detected module is already in use (plug&play), returned OK 0x " << hex << (unsigned int) tpcanStatus << dec;
+			ret = true;
+			break;
+		}
+		CanModule::ms_sleep(1000);
 		MLOGPK(TRC, this) << "try again... calling Can_Uninitialize " ;
-		tpcanStatus = CAN_Uninitialize( m_pkCanHandle );
-		Sleep( 1000 ); // 1000 ms
+		tpcanStatus = CAN_Uninitialize( m_pkCanHandle ); // Giving the TPCANHandle value "PCAN_NONEBUS" uninitialize all initialized channels
+		MLOGPK(TRC, this) << "CAN_Uninitialize returns " << hex << (unsigned int) tpcanStatus << dec;
+		CanModule::ms_sleep(1000);
+		MLOGPK(TRC, this) << "try again... calling Can_Initialize " ;
+		tpcanStatus = 99;
+		ret = false;
 		counter--;
 	}
 
@@ -384,7 +397,8 @@ bool PKCanScan::configureCanboard(const string name,const string parameters)
 	 * UInt16 Interrupt);
 	 */
 	// TPCANStatus tpcanStatus = CAN_Initialize(m_canObjHandler, m_baudRate,256,3); // one param missing ? 
-	return tpcanStatus == PCAN_ERROR_OK;
+	// return tpcanStatus;
+	return ret;
 }
 
 
@@ -430,62 +444,24 @@ bool PKCanScan::sendMessage(short cobID, unsigned char len, unsigned char *messa
 		if (lengthOfUnsentData > 8) {
 			lengthToBeSent = 8;
 			lengthOfUnsentData = lengthOfUnsentData - 8;
-		} else {
+		}
+		else {
 			lengthToBeSent = lengthOfUnsentData;
 		}
 		tpcanMessage.LEN = lengthToBeSent;
 
-		memcpy(tpcanMessage.DATA,message,lengthToBeSent);
+		memcpy(tpcanMessage.DATA, message, lengthToBeSent);
 		tpcanStatus = CAN_Write(m_pkCanHandle, &tpcanMessage);
+		MLOGPK(TRC, this) << " send message returned tpcanStatus= "	<< hex << "0x" << tpcanStatus << dec;
 		if (tpcanStatus != PCAN_ERROR_OK) {
+			MLOGPK(ERR, this) << " send message problem detected, tpcanStatus= " << hex << "0x" << tpcanStatus << dec;
 
 			// here we should see if we need to reconnect
-			switch( m_reconnectCondition ){
-			case CanModule::ReconnectAutoCondition::sendFail: {
-				MLOGPK(WRN, this) << " detected a sendFail, triggerCounter= " << m_failedSendCountdown
-						<< " failedSendCounter= " << m_maxFailedSendCount;
-				m_failedSendCountdown--;
-				break;
-			}
-			case CanModule::ReconnectAutoCondition::never:
-			default:{
-				m_failedSendCountdown = m_maxFailedSendCount;
-				break;
-			}
-			}
-
-			switch ( m_reconnectAction ){
-			case CanModule::ReconnectAction::allBusesOnBridge: {
-				if ( m_failedSendCountdown <= 0 ){
-					MLOGPK(INF, this) << " reconnect condition " << (int) m_reconnectCondition
-							<< reconnectConditionString(m_reconnectCondition)
-							<< " triggered action " << (int) m_reconnectAction
-							<< reconnectActionString(m_reconnectAction)
-							<< " not yet implemented";
-					m_failedSendCountdown = m_maxFailedSendCount;
-				}
-				break;
-			}
-			case CanModule::ReconnectAction::singleBus: {
-				MLOGPK(INF, this) << " reconnect condition " << (int) m_reconnectCondition
-						<< reconnectConditionString(m_reconnectCondition)
-						<< " triggered action " << (int) m_reconnectAction
-						<< reconnectActionString(m_reconnectAction);
-				if ( m_failedSendCountdown <= 0 ){
-					stopBus();
-					createBus(m_busName, m_busParameters );
-					MLOGPK(TRC, this) << "reconnect one CAN port  m_pkCanHandle= " << m_pkCanHandle;
-					m_failedSendCountdown = m_maxFailedSendCount;
-				}
-				break;
-			}
-			default: {
-				break;
-			}
-			}
-
-
+			triggerReconnectionThread();
 			return sendErrorCode(tpcanStatus);
+		} else {
+			MLOGPK(TRC, this) << " send message OK, tpcanStatus= "
+				<< hex << "0x" << tpcanStatus << dec;
 		}
 		m_statistics.onTransmit( tpcanMessage.LEN );
 		m_statistics.setTimeSinceTransmitted();
@@ -580,5 +556,101 @@ void PKCanScan::getStatistics( CanStatistics & result )
 	m_statistics.computeDerived (m_baudRate);
 	result = m_statistics;  // copy whole structure
 	m_statistics.beginNewRun();
+}
+
+
+/**
+ * Reconnection thread managing the reconnection behavior, per port. The behavior settings can not change during runtime.
+ * This thread is initialized after the main thread is up, and then listens on its cond.var as a trigger.
+ * Triggers occur in two contexts: sending and receiving problems.
+ *
+ * https://en.cppreference.com/w/cpp/thread/condition_variable/wait
+ */
+DWORD WINAPI PKCanScan::CanReconnectionThread(LPVOID pCanScan)
+{
+	PKCanScan *pkCanScanPointer = reinterpret_cast<PKCanScan *>(pCanScan);
+	CanModule::ReconnectAutoCondition rcondition = pkCanScanPointer->getReconnectCondition();
+	CanModule::ReconnectAction raction = pkCanScanPointer->getReconnectAction();
+
+	std::string _tid;
+	{
+		std::stringstream ss;
+		ss << this_thread::get_id();
+		_tid = ss.str();
+	}
+	MLOGPK(TRC, pkCanScanPointer ) << "created reconnection thread tid= " << _tid;
+
+	// need some sync to the main thread to be sure it is up and the sock is created: wait first time for init
+	pkCanScanPointer->waitForReconnectionThreadTrigger();
+
+	MLOGPK(TRC, pkCanScanPointer) << "initialized reconnection thread tid= " << _tid << ", entering loop";
+	while ( true ) {
+
+		// wait for sync: need a condition sync to step that thread once: a "trigger".
+		MLOGPK(TRC, pkCanScanPointer) << "waiting reconnection thread tid= " << _tid;
+		pkCanScanPointer->waitForReconnectionThreadTrigger();
+		MLOGPK(TRC, pkCanScanPointer)
+			<< " reconnection thread tid= " << _tid
+			<< " condition "<< reconnectConditionString(pkCanScanPointer->getReconnectCondition() )
+			<< " action " << reconnectActionString(pkCanScanPointer->getReconnectAction())
+			<< " is checked, m_failedSendCountdown= "
+			<< pkCanScanPointer->getFailedSendCountdown();
+
+		// condition
+		switch ( rcondition ){
+		case CanModule::ReconnectAutoCondition::timeoutOnReception: {
+			// no need to check the reception timeout, the control thread has done that already
+			pkCanScanPointer->resetSendFailedCountdown(); // do the action
+			break;
+		}
+		case CanModule::ReconnectAutoCondition::sendFail: {
+			pkCanScanPointer->resetTimeoutOnReception();
+			if (pkCanScanPointer->getFailedSendCountdown() > 0) {
+				continue;// do nothing
+			} else {
+				pkCanScanPointer->resetSendFailedCountdown(); // do the action
+			}
+			break;
+		}
+		// do nothing but keep counter and timeout resetted
+		case CanModule::ReconnectAutoCondition::never:
+		default:{
+			pkCanScanPointer->resetSendFailedCountdown();
+			pkCanScanPointer->resetTimeoutOnReception();
+			continue;// do nothing
+			break;
+		}
+		} // switch
+
+		// action
+		switch ( raction ){
+		case CanModule::ReconnectAction::singleBus: {
+			MLOGPK(INF, pkCanScanPointer) << " reconnect condition " << reconnectConditionString( rcondition )
+										<< " triggered action " << reconnectActionString( raction );
+
+
+				CAN_Initialize(pkCanScanPointer->getTPCANHandle(), pkCanScanPointer->getBaudRate() );
+				CanModule::ms_sleep( 10000 ); // USB module boot is slow, the OS is also slow to recognize the USB back
+			break;
+		}
+
+		case CanModule::ReconnectAction::allBusesOnBridge: {
+			MLOGPK(INF, pkCanScanPointer) << " reconnect condition " << reconnectConditionString( rcondition )
+				<< " triggered action " << reconnectActionString( raction );
+			break;
+		}
+		default: {
+			// we have a runtime bug
+			MLOGPK(ERR, pkCanScanPointer) << "reconnection action "
+					<< (int) raction << reconnectActionString( raction )
+					<< " unknown. Check your config & see documentation. No action.";
+			break;
+		}
+		} // switch
+	} // while
+	MLOGPK(TRC, pkCanScanPointer) << "exiting thread...(in 2 secs)";
+	CanModule::ms_sleep( 2000 );
+	ExitThread(0);
+	return 0;
 }
 

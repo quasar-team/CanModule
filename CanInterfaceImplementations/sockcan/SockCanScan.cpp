@@ -708,7 +708,6 @@ bool CSockCanScan::sendMessage(short cobID, unsigned char len, unsigned char *me
 		return false;
 	}
 
-
 	bool ret = true;
 	int messageLengthToBeProcessed;
 	struct can_frame canFrame = CSockCanScan::emptyCanFrame();

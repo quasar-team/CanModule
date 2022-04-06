@@ -25,14 +25,14 @@ class ExecCommand {
 
     ExecCommand( const std::string &cmd ) {
       FILE *pfd = popen( cmd.c_str(), "r" );
-      if ( pfd <= 0 ) {
+      if ( pfd == NULL ) {
     	  throw std::runtime_error( "Command or process could not be executed." );
       }
 
       while ( !feof(pfd) ) {
         char buf[ 1024 ] = {0};
 
-        if ( fgets(buf, sizeof(buf), pfd) > 0 ) {
+        if ( fgets(buf, sizeof(buf), pfd) != NULL ) {
           std::string str(buf);
           m_results.push_back( str.substr(0, str.length()-1) );
         }

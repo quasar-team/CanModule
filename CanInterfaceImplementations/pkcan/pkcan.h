@@ -84,6 +84,11 @@ public:
 	virtual CanModule::ReconnectAction getReconnectAction() { return m_reconnectAction; };
 
 	virtual void stopBus();
+
+	int getFailedSendCountdown() { return m_failedSendCountdown; }
+	TPCANHandle	getTPCANHandle() { return m_pkCanHandle;	}
+	unsigned int getBaudRate() { return m_baudRate; }
+
 private:
 
 	TPCANHandle getHandle(const char *name);
@@ -92,6 +97,8 @@ private:
 	bool sendErrorCode(long);
 	// The main control thread function for the CAN update scan manager.
 	static DWORD WINAPI CanScanControlThread(LPVOID pCanScan);
+	// reconnection thread
+	static DWORD WINAPI CanReconnectionThread(LPVOID pCanScan);
 
 
 	CanStatistics m_statistics;
@@ -107,10 +114,9 @@ private:
 	// void stopBus ( void );
 
 	HANDLE      m_hCanScanThread;
-	//	HANDLE		m_ReadEvent;
-
-    // Thread ID for the CAN update scan manager thread.
+	HANDLE m_PeakReconnectionThread;
     DWORD           m_idCanScanThread;
+    DWORD           m_idPeakReconnectionThread;
 };
 
 #endif

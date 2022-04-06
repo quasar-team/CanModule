@@ -73,7 +73,7 @@ std::recursive_mutex anagateReconnectMutex;
  */
 std::map<AnaInt32, AnaCanScan*> g_AnaCanScanObjectMap; // map handles to objects
 
-#define MLOGANA(LEVEL,THIS) LOG(Log::LEVEL, AnaCanScan::st_logItHandleAnagate) << __FUNCTION__ << " " << " anagate bus= " << THIS->getBusName() << " "
+#define MLOGANA(LEVEL,THIS) LOG( Log::LEVEL, AnaCanScan::st_logItHandleAnagate) << __FUNCTION__ << " " << " anagate bus= " << THIS->getBusName() << " "
 
 AnaCanScan::AnaCanScan():
 	m_canPortNumber(0),
@@ -606,7 +606,6 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 		MLOGANA(DBG, this) << "trigger reconnection thread to check reception timeout " << getBusName();
 		triggerReconnectionThread();
 
-		// anaCallReturn = 99; // make sure we trigger the action, even while skipping the send
 	} else {
 
 		/**
@@ -1097,9 +1096,6 @@ void AnaCanScan::CanReconnectionThread()
 
 	// need some sync to the main thread to be sure it is up and the sock is created: wait first time for init
 	waitForReconnectionThreadTrigger();
-
-	//int sock = m_sock;
-
 
 	/**
 	 * lets check the timeoutOnReception reconnect condition. If it is true, all we can do is to

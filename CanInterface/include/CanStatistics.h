@@ -70,64 +70,25 @@ public:
 	float rxRate() { return m_internals.m_receivedPerSec; }
 	float busLoad() { return m_internals.m_busLoad; }
 
+
 	double timeSinceReceived() {
-#ifdef _WIN32
-		GetSystemTime(&m_now);
-		double delta = (m_now.wSecond * 1000) + m_now.wMilliseconds - (m_dreceived.wSecond * 1000) - m_dreceived.wMilliseconds;
-#else
-		gettimeofday( &m_now, &m_tz);
-		double delta = (double) ( m_now.tv_sec - m_dreceived.tv_sec) * 1000 + (double) ( m_now.tv_usec - m_dreceived.tv_usec) / 1000.0;
-#endif
-		return delta;
+		m_dnow = high_resolution_clock::now();
+		duration<double, micro> time_span = duration_cast<duration<double, micro>>(m_dnow - m_dreceived);
+		return ( time_span.count() / 1000 );
 	}
-
 	double timeSinceTransmitted() {
-#ifdef _WIN32
-		GetSystemTime(&m_now);
-		double delta = (m_now.wSecond * 1000) + m_now.wMilliseconds - (m_dtransmitted.wSecond * 1000) - m_dtransmitted.wMilliseconds;
-#else
-		gettimeofday( &m_now, &m_tz);
-		double delta = (double) ( m_now.tv_sec - m_dtransmitted.tv_sec) * 1000 + (double) ( m_now.tv_usec - m_dtransmitted.tv_usec) / 1000.0;
-#endif
-		return delta;
+		m_dnow = high_resolution_clock::now();
+		duration<double, micro> time_span = duration_cast<duration<double, micro>>(m_dnow - m_dtransmitted);
+		return ( time_span.count() / 1000 );
 	}
-
-
 	double timeSinceOpened() {
-#ifdef _WIN32
-		GetSystemTime(&m_now);
-		double delta = (m_now.wSecond * 1000) + m_now.wMilliseconds - (m_dopen.wSecond * 1000) - m_dopen.wMilliseconds;
-#else
-		gettimeofday( &m_now, &m_tz);
-		double delta = (double) ( m_now.tv_sec - m_dopen.tv_sec) * 1000 + (double) ( m_now.tv_usec - m_dopen.tv_usec) / 1000.0;
-#endif
-		return delta;
+		m_dnow = high_resolution_clock::now();
+		duration<double, micro> time_span = duration_cast<duration<double, micro>>(m_dnow - m_dopen);
+		return ( time_span.count() / 1000 );
 	}
-
-	void setTimeSinceOpened() {
-#ifdef _WIN32
-		GetSystemTime(&m_dopen);
-#else
-		gettimeofday( &m_dopen, &m_tz);
-#endif
-	}
-
-	void setTimeSinceReceived() {
-#ifdef _WIN32
-		GetSystemTime(&m_dreceived);
-#else
-		gettimeofday( &m_dreceived, &m_tz);
-#endif
-	}
-
-	void setTimeSinceTransmitted() {
-#ifdef _WIN32
-		GetSystemTime(&m_dtransmitted);
-#else
-		gettimeofday( &m_dtransmitted, &m_tz);
-#endif
-	}
-
+	void setTimeSinceOpened()      { m_dopen        = high_resolution_clock::now();	}
+	void setTimeSinceReceived()    { m_dreceived    = high_resolution_clock::now();	}
+	void setTimeSinceTransmitted() { m_dtransmitted = high_resolution_clock::now();	}
 
 	/*
 	 * acquire the latest status of the CAN bus, from as-low-as-possible SW layer,
@@ -156,13 +117,7 @@ private:
 	std::atomic_uint_least32_t m_transmittedOctets;
 	std::atomic_uint_least32_t m_receivedOctets;
 
-#ifdef _WIN32
-	SYSTEMTIME m_now, m_dreceived, m_dtransmitted, m_dopen;
-#else
-	struct timeval m_now, m_dreceived, m_dtransmitted, m_dopen;
-	struct timezone m_tz;
-#endif
-
+	high_resolution_clock::time_point m_dnow, m_dreceived, m_dtransmitted, m_dopen;
 	uint32_t m_portStatus; // encoded status for all vendors
 
 	//! Following is encapsulated as a class, to provide sane copying in assignment operator
@@ -174,7 +129,6 @@ private:
 		//! Bus load derived from #TX and #RX packages
 		float m_busLoad;
 		system_clock::time_point m_observationStart;
-
 		uint32_t m_state; // from IFLA socketcan: can_get_state(..)
 	};
 	Internals m_internals;

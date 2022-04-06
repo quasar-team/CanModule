@@ -18,12 +18,13 @@
 #  
 #
 cmake_minimum_required(VERSION 3.0)
-project( CanModule LANGUAGES C CXX  VERSION 2.0.17  )  
+project( CanModule LANGUAGES C CXX  VERSION 2.0.18  )  
 message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CanModule version= ${PROJECT_VERSION}" )
 set (CMAKE_CXX_STANDARD 11)
 
 
-# use ua toolkit trace. CanModule does NOT depend on the ua toolkit by default, so this is undefined, and therefore set to false further down. 
+# use ua toolkit trace. CanModule does NOT depend on the ua toolkit by default, so this is kept undefined. See below for expicit dealing
+# with this.
 # set (LOGIT_HAS_UATRACE true )
 
 # vendor build behaviour:
