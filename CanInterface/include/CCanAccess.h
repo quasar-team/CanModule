@@ -40,6 +40,8 @@
 
 #include "CanMessage.h"
 #include "CanStatistics.h"
+#include "CanModuleUtils.h"
+
 #include "VERSION.h"
 
 
@@ -550,13 +552,8 @@ protected:
 	 * compared to the last received message, are we in timeout?
 	 */
 	bool hasTimeoutOnReception() {
-#ifdef _WIN32
-		GetSystemTime(&m_now);
-		double delta = m_now.wSecond- m_dreceived.wSecond ;
-#else
-		gettimeofday( &m_now, &m_tz);
+		m_now = convertTimepointToTimeval( std::chrono::system_clock::now());
 		double delta = (double) ( m_now.tv_sec - m_dreceived.tv_sec);
-#endif
 		if ( delta > m_timeoutOnReception ) return true;
 		else return false;
 	}
@@ -565,18 +562,10 @@ protected:
 	 * reset the internal reconnection timeout counter
 	 */
 	void resetTimeoutOnReception() {
-#ifdef _WIN32
-		GetSystemTime(&m_dreceived);
-#else
-		gettimeofday( &m_dreceived, &m_tz);
-#endif
+		m_dreceived = convertTimepointToTimeval( std::chrono::system_clock::now());
 	}
 	void resetTimeNow() {
-#ifdef _WIN32
-		GetSystemTime(&m_now);
-#else
-		gettimeofday( &m_now, &m_tz);
-#endif
+		m_now = convertTimepointToTimeval( std::chrono::system_clock::now());
 	}
 
 private:
