@@ -7,7 +7,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 - OPCUA-2584: rx/tx counting in the handler, for now, to improve err reporting already
 
 ### 2.0.19 [7.april.2022]
-- getPortStatus() for "sock" should make a system call to the network layer each time it is invoked
+- getPortStatus() for "sock" should make a system call to the network layer each time it is invoked, and NOT be part of the statistics any more.
+  makes more sense anyway.
 
 
 ### 2.0.18 [march.2022]
