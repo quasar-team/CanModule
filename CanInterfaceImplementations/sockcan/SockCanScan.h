@@ -58,7 +58,8 @@ public:
 	virtual void getStatistics( CanStatistics & result );
 
 	/**
-	 * return socketcan port status as-is, from can_netlink.h
+	 * return socketcan port status in vendor unified format (with implementation nibble set), from can_netlink.h
+	 * do not start a new statistics run for that.
 	 * enum can_state {
 	 * CAN_STATE_ERROR_ACTIVE = 0,	 RX/TX error count < 96
 	 * CAN_STATE_ERROR_WARNING,	 RX/TX error count < 128
@@ -68,12 +69,24 @@ public:
 	 * CAN_STATE_SLEEPING,		 Device is sleeping
 	 * CAN_STATE_MAX
 	 * };
+		 *
+	 * update the CAN bus status IFLA from socketcan and make up a CanModule
+	 * status bitpattern out from this.
+	 *
+	 * int can_get_restart_ms(const char *name, __u32 *restart_ms);
+	 * int can_get_bittiming(const char *name, struct can_bittiming *bt);
+	 * int can_get_ctrlmode(const char *name, struct can_ctrlmode *cm);
+	 * int can_get_state(const char *name, int *state);
+	 * int can_get_clock(const char *name, struct can_clock *clock);
+	 * int can_get_bittiming_const(const char *name, struct can_bittiming_const *btc);
+	 * int can_get_berr_counter(const char *name, struct can_berr_counter *bc);
+	 * int can_get_device_stats(const char *name, struct can_device_stats *cds);
 	 *
 	 */
 	virtual uint32_t getPortStatus(){
-		CanStatistics stats;
-		getStatistics( stats );
-		return( stats.portStatus() | CANMODULE_STATUS_BP_SOCK );
+		int _state;
+		can_get_state( m_channelName.c_str(), &_state );
+		return( _state | CANMODULE_STATUS_BP_SOCK );
 	};
 
 	virtual uint32_t getPortBitrate(){ return m_CanParameters.m_lBaudRate; };
@@ -131,7 +144,7 @@ private:
 	void sendErrorMessage(const char  *);
 	void clearErrorMessage();
 	int configureCanBoard(const string name,const string parameters);
-	void updateBusStatus();
+	// void updateBusStatus();
 	int openCanPort();
 	void CanScanControlThread(); // not static, private is enough in C11
 	void CanReconnectionThread();// not static, private is enough in C11

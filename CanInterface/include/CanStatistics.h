@@ -90,17 +90,6 @@ public:
 	void setTimeSinceReceived()    { m_dreceived    = high_resolution_clock::now();	}
 	void setTimeSinceTransmitted() { m_dtransmitted = high_resolution_clock::now();	}
 
-	/*
-	 * acquire the latest status of the CAN bus, from as-low-as-possible SW layer,
-	 * and put it into a bitpattern.
-	 * socketcan: netlink layer IFLA states STATUS and others...
-	 * anagate:
-	 * peak (windows):
-	 * systec (windows):
-	 */
-	uint32_t portStatus() { return( m_portStatus ); }
-	void setPortStatus( uint32_t s ) { m_internals.m_state = s;}
-	void encodeCanModuleStatus();
 	void operator=(const CanStatistics & other);  // not default, because of atomic data
 
 private:
@@ -118,7 +107,7 @@ private:
 	std::atomic_uint_least32_t m_receivedOctets;
 
 	high_resolution_clock::time_point m_dnow, m_dreceived, m_dtransmitted, m_dopen;
-	uint32_t m_portStatus; // encoded status for all vendors
+	//uint32_t m_portStatus; // encoded status for all vendors
 
 	//! Following is encapsulated as a class, to provide sane copying in assignment operator
 	class Internals
@@ -129,7 +118,6 @@ private:
 		//! Bus load derived from #TX and #RX packages
 		float m_busLoad;
 		system_clock::time_point m_observationStart;
-		uint32_t m_state; // from IFLA socketcan: can_get_state(..)
 	};
 	Internals m_internals;
 

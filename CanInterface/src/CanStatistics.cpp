@@ -37,8 +37,7 @@ namespace CanModule
 		m_transmitted(0),
 		m_received(0),
 		m_transmittedOctets(0),
-		m_receivedOctets(0),
-		m_portStatus(0)
+		m_receivedOctets(0)
 	{}
 
 	void CanStatistics::beginNewRun()
@@ -49,28 +48,6 @@ namespace CanModule
 		m_transmittedOctets = 0;
 		m_receivedOctets = 0;
 	}
-
-	/**
-	 * encode a port status from the various informations of the CAN system
-	 *
-	 * the whole netlink structs are available. We can code anything as long as
-	 * it is usefully making sense for all vendors. see void CSockCanScan::updateBusStatus(){
-	 * but lets just copy the _state for now, which is a simple enum:
-	 *
-	 * enum can_state {
-	 * 	CAN_STATE_ERROR_ACTIVE = 0,	 RX/TX error count < 96
-	 * 	CAN_STATE_ERROR_WARNING,	 RX/TX error count < 128
-	 * 	CAN_STATE_ERROR_PASSIVE,	 RX/TX error count < 256
-	 * 	CAN_STATE_BUS_OFF,		 RX/TX error count >= 256
-	 * 	CAN_STATE_STOPPED,		 Device is stopped
-	 * 	CAN_STATE_SLEEPING,		 Device is sleeping
-	 * 	CAN_STATE_MAX
-	 * 	};
-	 */
-	void CanStatistics::encodeCanModuleStatus(){
-		m_portStatus = m_internals.m_state;
-	}
-
 	void CanStatistics::computeDerived(unsigned int baudRate)
 	{
 		system_clock::time_point tnom = system_clock::now(); 
@@ -119,7 +96,5 @@ namespace CanModule
 		this->m_dtransmitted = other.m_dtransmitted;
 		this->m_dopen = other.m_dopen;
 		this->m_dnow = other.m_dnow;
-
-		this->m_portStatus = other.m_portStatus;
 	}
 }
