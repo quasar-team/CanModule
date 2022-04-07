@@ -116,13 +116,9 @@ public:
 		m_reconnectAction = action;
 	};
 	virtual void setReconnectReceptionTimeout( unsigned int timeout ){ 	m_timeoutOnReception = timeout;	};
-	virtual void setReconnectFailedSendCount( unsigned int c ){
-		m_maxFailedSendCount = m_failedSendCountdown = c;
-		std::cout << __FILE__ << " " << __LINE__ << " m_triggerCounter= " << m_failedSendCountdown << std::endl;
-	}
+	virtual void setReconnectFailedSendCount( unsigned int c ){	m_maxFailedSendCount = m_failedSendCountdown = c;	}
 	virtual CanModule::ReconnectAutoCondition getReconnectCondition() { return m_reconnectCondition; };
 	virtual CanModule::ReconnectAction getReconnectAction() { return m_reconnectAction; };
-
 	virtual void stopBus ();
 
 private:
