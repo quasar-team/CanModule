@@ -144,7 +144,6 @@ void CSockCanScan::CanScanControlThread()
 	}
 
 	MLOGSOCK(TRC,p_sockCanScan) << "main loop of SockCanScan starting, tid= " << _tid;
-	int statusCountdown = 10;
 
 	// unblock init of reconnection thread
 	MLOGSOCK(TRC,p_sockCanScan) << "init reconnection thread " << p_sockCanScan->getBusName();
@@ -155,11 +154,7 @@ void CSockCanScan::CanScanControlThread()
 		FD_ZERO( &set );
 		FD_SET( sock, &set );
 
-		// lets update the status every 10th reception, or every 10 seconds, whichever comes earlier
-		if ( --statusCountdown <= 0 ){
-			p_sockCanScan->updateBusStatus();
-			statusCountdown = 10;
-		}
+		// p_sockCanScan->updateBusStatus();
 
 		timeval timeout;
 		timeout.tv_sec = 1;
@@ -621,68 +616,7 @@ int CSockCanScan::openCanPort()
 	return m_sock;
 }
 
-/**
- * update the CAN bus status IFLA from socketcan and make up a CanModule
- * status bitpattern out from this. Each vendor has to implement this with the same
- * bit meanings.
- *
- * Errors are a subset of status.
- *
- * std::string CSockCanScan::errorFrameToString(const struct can_frame &canFrame)
- * fabricates a string, we need a bitpattern
- *
- * int can_get_restart_ms(const char *name, __u32 *restart_ms);
- * int can_get_bittiming(const char *name, struct can_bittiming *bt);
- * int can_get_ctrlmode(const char *name, struct can_ctrlmode *cm);
- * int can_get_state(const char *name, int *state);
- * int can_get_clock(const char *name, struct can_clock *clock);
- * int can_get_bittiming_const(const char *name, struct can_bittiming_const *btc);
- * int can_get_berr_counter(const char *name, struct can_berr_counter *bc);
- * int can_get_device_stats(const char *name, struct can_device_stats *cds);
- *
- */
-void CSockCanScan::updateBusStatus(){
-	int ret = 0;
 
-	/* see libsocketcan/include/can_netlink.h
-	 *
-	 * CAN operational and error states
-	 *
-	enum can_state {
-		CAN_STATE_ERROR_ACTIVE = 0,	 RX/TX error count < 96
-		CAN_STATE_ERROR_WARNING,	 RX/TX error count < 128
-		CAN_STATE_ERROR_PASSIVE,	 RX/TX error count < 256
-		CAN_STATE_BUS_OFF,		 RX/TX error count >= 256
-		CAN_STATE_STOPPED,		 Device is stopped
-		CAN_STATE_SLEEPING,		 Device is sleeping
-		CAN_STATE_MAX
-	};
-	 */
-	int _state;
-	ret += can_get_state( m_channelName.c_str(), &_state );
-
-#if 0
-	uint32_t _restart_ms;
-	struct can_bittiming _bt;
-	struct can_ctrlmode _cm;
-	struct can_clock _clock;
-	struct can_bittiming_const _btc;
-	struct can_berr_counter _bc;
-	struct can_device_stats _cds;
-
-	ret += can_get_restart_ms( m_channelName.c_str(), &_restart_ms );
-	ret += can_get_bittiming( m_channelName.c_str(), &_bt);
-	ret += can_get_ctrlmode( m_channelName.c_str(), &_cm);
-	ret += can_get_clock( m_channelName.c_str(), &_clock);
-	ret += can_get_bittiming_const( m_channelName.c_str(), &_btc);
-	ret += can_get_berr_counter( m_channelName.c_str(), &_bc);
-	ret += can_get_device_stats( m_channelName.c_str(), &_cds);
-#endif
-
-	if ( !ret ) {
-		m_statistics.setPortStatus( _state );
-	}
-}
 
 /**
  * Method that sends a message trough the can bus channel. If the method createBUS was not
@@ -1042,7 +976,7 @@ void CSockCanScan::stopBus ()
 void CSockCanScan::getStatistics( CanStatistics & result )
 {
 	m_statistics.computeDerived (m_CanParameters.m_lBaudRate);
-	m_statistics.encodeCanModuleStatus();
+//	m_statistics.encodeCanModuleStatus();
 
 	result = m_statistics;  // copy whole structure
 	m_statistics.beginNewRun();
