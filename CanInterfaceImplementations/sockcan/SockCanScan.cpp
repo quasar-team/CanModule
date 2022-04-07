@@ -926,14 +926,14 @@ void CSockCanScan::clearErrorMessage()
 				<< getBusName()
 				<< " ioctl timestamp from socket failed, setting local time"
 				<< " ioctlReturn = " << ioctlReturn;
-		xxx gettimeofday( &c_time, NULL );
+		c_time = convertTimepointToTimeval( std::chrono::system_clock::now());
 	}
 	MLOGSOCK(TRC,this) << "ioctlReturn= " << ioctlReturn;
 	canMessageError(0, errorMessage.c_str(), c_time);
 }
 
 /**
- * send a timestamped error message
+ * send a timestamped error message, get time from the socket or from chrono
  */
 void CSockCanScan::sendErrorMessage(const char *mess)
 {
@@ -944,19 +944,7 @@ void CSockCanScan::sendErrorMessage(const char *mess)
 				<< getBusName()
 				<< " ioctl timestamp from socket failed, setting local time"
 				<< " ioctlReturn = " << ioctlReturn;
-
-
-		auto now = std::chrono::system_clock::now();
-		c_time = CanModule::CanModuleUtils::convertTimepointToTimeval(&now);
-
-#if 0
-		auto nMicrosecs =
-				duration_cast<std::chrono::microseconds>(
-						now.time_since_epoch()
-				);
-		c_time.tv_sec = nMicrosecs.count() / 1000000L;
-		c_time.tv_usec = (nMicrosecs.count() % 1000000L) ;
-#endif
+		c_time = convertTimepointToTimeval( std::chrono::system_clock::now());
 	}
 	MLOGSOCK(TRC,this) << "ioctlReturn= " << ioctlReturn;
 	canMessageError(-1,mess,c_time);
