@@ -977,8 +977,6 @@ void CSockCanScan::stopBus ()
 void CSockCanScan::getStatistics( CanStatistics & result )
 {
 	m_statistics.computeDerived (m_CanParameters.m_lBaudRate);
-//	m_statistics.encodeCanModuleStatus();
-
 	result = m_statistics;  // copy whole structure
 	m_statistics.beginNewRun();
 }
