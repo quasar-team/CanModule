@@ -989,7 +989,8 @@ void CSockCanScan::updateInitialError ()
 	if (m_errorCode == 0) {
 		clearErrorMessage();
 	} else {
-		canMessageError( m_errorCode, "Initial port state: error", convertTimepointToTimeval( std::chrono::system_clock::now()) );
+		timeval now = convertTimepointToTimeval( std::chrono::system_clock::now());
+		canMessageError( m_errorCode, "Initial port state: error", now );
 	}
 }
 
