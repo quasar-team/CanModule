@@ -59,18 +59,7 @@ namespace CanModule
 
 	std::chrono::system_clock::time_point currentTimeTimeval()
 	{
-		//	timeval ftTimeStamp;
-
-		auto now = std::chrono::system_clock::now();
-		/*
-		auto nMicrosecs =
-			std::chrono::duration_cast<std::chrono::microseconds>(
-				now.time_since_epoch()
-					);
-			ftTimeStamp.tv_sec = nMicrosecs.count() / 1000000L;
-			ftTimeStamp.tv_usec = (nMicrosecs.count() % 1000000L);
-		 */
-		return now;
+		return std::chrono::system_clock::now();
 	}
 
 	double CanModulesubtractTimeval(const std::chrono::system_clock::time_point &t1, const std::chrono::system_clock::time_point &t2)
