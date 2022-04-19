@@ -553,7 +553,6 @@ protected:
 	 * compared to the last received message, are we in timeout?
 	 */
 	bool hasTimeoutOnReception() {
-
 		m_dnow = high_resolution_clock::now();
 		duration<double, micro> time_span = duration_cast<duration<double, micro>>(m_dnow - m_dopen);
 		if ( time_span.count() / 1000 > m_timeoutOnReception ) return true;
