@@ -29,8 +29,6 @@
 #include <thread>
 #include <string>
 #include <atomic>
-#include <chrono>
-
 #include <mutex>
 #include <condition_variable>
 
