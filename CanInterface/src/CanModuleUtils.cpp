@@ -41,12 +41,12 @@ namespace CanModule
 #endif
 	}
 
-//#ifdef _WIN32
+#ifdef _WIN32
 	// overload for windows implementation errors on chrono
-//	timeval convertTimepointToTimeval(const std::chrono::steady_clock::time_point &t1)
-//#else
+	timeval convertTimepointToTimeval(const std::chrono::steady_clock::time_point &t1)
+#else
 	timeval convertTimepointToTimeval(const std::chrono::system_clock::time_point &t1)
-//#endif
+#endif
 	{
 		timeval dest;
 		auto millisecs = std::chrono::duration_cast<std::chrono::milliseconds>(t1.time_since_epoch());
