@@ -29,7 +29,6 @@
 #include <thread>
 #include <string>
 #include <atomic>
-
 #include <mutex>
 #include <condition_variable>
 
@@ -40,6 +39,7 @@
 
 #include "CanMessage.h"
 #include "CanStatistics.h"
+#include "CanModuleUtils.h"
 #include "VERSION.h"
 
 
@@ -550,14 +550,9 @@ protected:
 	 * compared to the last received message, are we in timeout?
 	 */
 	bool hasTimeoutOnReception() {
-#ifdef _WIN32
-		GetSystemTime(&m_now);
-		double delta = m_now.wSecond- m_dreceived.wSecond ;
-#else
-		gettimeofday( &m_now, &m_tz);
-		double delta = (double) ( m_now.tv_sec - m_dreceived.tv_sec);
-#endif
-		if ( delta > m_timeoutOnReception ) return true;
+		m_dnow = high_resolution_clock::now();
+		duration<double, micro> time_span = duration_cast<duration<double, micro>>(m_dnow - m_dopen);
+		if ( time_span.count() / 1000 > m_timeoutOnReception ) return true;
 		else return false;
 	}
 
@@ -565,32 +560,16 @@ protected:
 	 * reset the internal reconnection timeout counter
 	 */
 	void resetTimeoutOnReception() {
-#ifdef _WIN32
-		GetSystemTime(&m_dreceived);
-#else
-		gettimeofday( &m_dreceived, &m_tz);
-#endif
+		m_dreceived = high_resolution_clock::now();
 	}
 	void resetTimeNow() {
-#ifdef _WIN32
-		GetSystemTime(&m_now);
-#else
-		gettimeofday( &m_now, &m_tz);
-#endif
+		m_dnow = high_resolution_clock::now();
 	}
 
 private:
-	//boost::signals2::connection m_signal_connection; // seems unused
-	//int m_connectionIndex; // seems unused
-	Log::LogComponentHandle m_lh; // s_lh ?!? problem with windows w.t.f.
+	Log::LogComponentHandle m_lh;
 	LogItInstance* m_logItRemoteInstance;
-
-#ifdef _WIN32
-	SYSTEMTIME m_now, m_dreceived, m_dtransmitted, m_dopen;
-#else
-	struct timeval m_now, m_dreceived;
-	struct timezone m_tz;
-#endif
+	high_resolution_clock::time_point m_dnow, m_dreceived, m_dtransmitted, m_dopen;
 
 };
 };

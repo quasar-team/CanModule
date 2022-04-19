@@ -24,7 +24,7 @@
 #ifndef CANINTERFACE_SOCKCAN_CANSTATISTICS_H_
 #define CANINTERFACE_SOCKCAN_CANSTATISTICS_H_
 
-
+/**
 #ifdef _WIN32
 #	include <atomic>
 #	include <time.h>
@@ -40,8 +40,10 @@
 #	endif // GCC_VERSION
 #	include <sys/time.h>
 #endif
-#include "ExportDefinition.h"
+**/
 
+#include "ExportDefinition.h"
+#include <atomic>
 #include <chrono>
 using namespace std;
 using namespace std::chrono;
@@ -72,23 +74,23 @@ public:
 
 
 	double timeSinceReceived() {
-		m_dnow = high_resolution_clock::now();
-		duration<double, micro> time_span = duration_cast<duration<double, micro>>(m_dnow - m_dreceived);
+		m_hrnow = high_resolution_clock::now();
+		duration<double, micro> time_span = duration_cast<duration<double, micro>>(m_hrnow - m_hrreceived);
 		return ( time_span.count() / 1000 );
 	}
 	double timeSinceTransmitted() {
-		m_dnow = high_resolution_clock::now();
-		duration<double, micro> time_span = duration_cast<duration<double, micro>>(m_dnow - m_dtransmitted);
+		m_hrnow = high_resolution_clock::now();
+		duration<double, micro> time_span = duration_cast<duration<double, micro>>(m_hrnow - m_hrtransmitted);
 		return ( time_span.count() / 1000 );
 	}
 	double timeSinceOpened() {
-		m_dnow = high_resolution_clock::now();
-		duration<double, micro> time_span = duration_cast<duration<double, micro>>(m_dnow - m_dopen);
+		m_hrnow = high_resolution_clock::now();
+		duration<double, micro> time_span = duration_cast<duration<double, micro>>(m_hrnow - m_hropen);
 		return ( time_span.count() / 1000 );
 	}
-	void setTimeSinceOpened()      { m_dopen        = high_resolution_clock::now();	}
-	void setTimeSinceReceived()    { m_dreceived    = high_resolution_clock::now();	}
-	void setTimeSinceTransmitted() { m_dtransmitted = high_resolution_clock::now();	}
+	void setTimeSinceOpened()      { m_hropen        = high_resolution_clock::now();	}
+	void setTimeSinceReceived()    { m_hrreceived    = high_resolution_clock::now();	}
+	void setTimeSinceTransmitted() { m_hrtransmitted = high_resolution_clock::now();	}
 
 	void operator=(const CanStatistics & other);  // not default, because of atomic data
 
@@ -106,8 +108,7 @@ private:
 	std::atomic_uint_least32_t m_transmittedOctets;
 	std::atomic_uint_least32_t m_receivedOctets;
 
-	high_resolution_clock::time_point m_dnow, m_dreceived, m_dtransmitted, m_dopen;
-	//uint32_t m_portStatus; // encoded status for all vendors
+	high_resolution_clock::time_point m_hrnow, m_hrreceived, m_hrtransmitted, m_hropen;
 
 	//! Following is encapsulated as a class, to provide sane copying in assignment operator
 	class Internals

@@ -72,11 +72,16 @@ namespace CanModule
 
 	};
 
+
+#ifdef _WIN32
+	timeval convertTimepointToTimeval(const std::chrono::steady_clock::time_point &t1);
+	std::chrono::steady_clock::time_point convertTimevalToTimepoint(const timeval &t1);
+	std::chrono::steady_clock::time_point currentTimeTimeval();
+#else
 	timeval convertTimepointToTimeval(const std::chrono::system_clock::time_point &t1);
 	std::chrono::system_clock::time_point convertTimevalToTimepoint(const timeval &t1);
-	double CanModulesubtractTimeval(const std::chrono::system_clock::time_point &t1, const std::chrono::system_clock::time_point &t2);
 	std::chrono::system_clock::time_point currentTimeTimeval();
-	//UaString bytesToUaString( const unsigned char* data, unsigned int len );
+#endif
 
 	std::string CanModuleerrnoToString();
 }

@@ -41,7 +41,13 @@ namespace CanModule
 #endif
 	}
 
+
+	// windows implementation errors on chrono
+#ifdef _WIN32
+	timeval convertTimepointToTimeval(const std::chrono::steady_clock::time_point &t1)
+#else
 	timeval convertTimepointToTimeval(const std::chrono::system_clock::time_point &t1)
+#endif
 	{
 		timeval dest;
 		auto millisecs = std::chrono::duration_cast<std::chrono::milliseconds>(t1.time_since_epoch());
@@ -50,32 +56,27 @@ namespace CanModule
 		return dest;
 	}
 
+#ifdef _WIN32
+	std::chrono::steady_clock::time_point convertTimevalToTimepoint(const timeval &t1)
+	{
+		auto d = std::chrono::seconds(t1.tv_sec) + std::chrono::nanoseconds(t1.tv_usec);
+		std::chrono::steady_clock::time_point tp(std::chrono::duration_cast<std::chrono::steady_clock::duration>(d));
+		return tp;
+	}
+#else
 	std::chrono::system_clock::time_point convertTimevalToTimepoint(const timeval &t1)
 	{
 		auto d = std::chrono::seconds(t1.tv_sec) + std::chrono::nanoseconds(t1.tv_usec);
 		std::chrono::system_clock::time_point tp(std::chrono::duration_cast<std::chrono::system_clock::duration>(d));
 		return tp;
 	}
+#endif
 
-	std::chrono::system_clock::time_point currentTimeTimeval()
-	{
-		//	timeval ftTimeStamp;
+	// windows implementation errors on chrono
+#ifdef _WIN32
+	std::chrono::steady_clock::time_point currentTimeTimeval()	{ return std::chrono::steady_clock::now();}
+#else
+	std::chrono::system_clock::time_point currentTimeTimeval()	{ return std::chrono::system_clock::now();}
+#endif
 
-		auto now = std::chrono::system_clock::now();
-		/*
-		auto nMicrosecs =
-			std::chrono::duration_cast<std::chrono::microseconds>(
-				now.time_since_epoch()
-					);
-			ftTimeStamp.tv_sec = nMicrosecs.count() / 1000000L;
-			ftTimeStamp.tv_usec = (nMicrosecs.count() % 1000000L);
-		 */
-		return now;
-	}
-
-	double CanModulesubtractTimeval(const std::chrono::system_clock::time_point &t1, const std::chrono::system_clock::time_point &t2)
-	{
-		std::chrono::duration<double> differ = t2 - t1;
-		return differ.count();
-	}
 }
