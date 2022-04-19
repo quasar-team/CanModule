@@ -29,6 +29,7 @@
 #include <thread>
 #include <string>
 #include <atomic>
+#include <chrono>
 
 #include <mutex>
 #include <condition_variable>
@@ -552,20 +553,29 @@ protected:
 	 * compared to the last received message, are we in timeout?
 	 */
 	bool hasTimeoutOnReception() {
-		m_now = convertTimepointToTimeval( std::chrono::system_clock::now());
-		double delta = (double) ( m_now.tv_sec - m_dreceived.tv_sec);
-		if ( delta > m_timeoutOnReception ) return true;
+
+		m_dnow = high_resolution_clock::now();
+		duration<double, micro> time_span = duration_cast<duration<double, micro>>(m_dnow - m_dopen);
+		if ( time_span.count() / 1000 > m_timeoutOnReception ) return true;
 		else return false;
+
+
+		//m_now = convertTimepointToTimeval( std::chrono::system_clock::now());
+		//double delta = (double) ( m_now.tv_sec - m_dreceived.tv_sec);
+		//if ( delta > m_timeoutOnReception ) return true;
+		//else return false;
 	}
 
 	/**
 	 * reset the internal reconnection timeout counter
 	 */
 	void resetTimeoutOnReception() {
-		m_dreceived = convertTimepointToTimeval( std::chrono::system_clock::now());
+		m_dreceived = high_resolution_clock::now();
+		//m_dreceived = convertTimepointToTimeval( std::chrono::system_clock::now());
 	}
 	void resetTimeNow() {
-		m_now = convertTimepointToTimeval( std::chrono::system_clock::now());
+		m_dnow = high_resolution_clock::now();
+		//m_now = convertTimepointToTimeval( std::chrono::system_clock::now());
 	}
 
 private:
@@ -577,9 +587,11 @@ private:
 //#ifdef _WIN32
 //	SYSTEMTIME m_now, m_dreceived, m_dtransmitted, m_dopen;
 //#else
-	struct timeval m_now, m_dreceived, m_dtransmitted, m_dopen;
+//	struct timeval m_now, m_dreceived, m_dtransmitted, m_dopen;
 //	struct timezone m_tz;
 //#endif
+
+	high_resolution_clock::time_point m_dnow, m_dreceived, m_dtransmitted, m_dopen;
 
 };
 };
