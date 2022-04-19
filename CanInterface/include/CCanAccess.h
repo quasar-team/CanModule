@@ -574,12 +574,12 @@ private:
 	Log::LogComponentHandle m_lh; // s_lh ?!? problem with windows w.t.f.
 	LogItInstance* m_logItRemoteInstance;
 
-#ifdef _WIN32
+//#ifdef _WIN32
 	SYSTEMTIME m_now, m_dreceived, m_dtransmitted, m_dopen;
-#else
+//#else
 	struct timeval m_now, m_dreceived;
 	struct timezone m_tz;
-#endif
+//#endif
 
 };
 };
