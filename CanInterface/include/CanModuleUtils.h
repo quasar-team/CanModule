@@ -23,11 +23,11 @@
 #ifndef CanModuleUTILS_H_
 #define CanModuleUTILS_H_
 
-#ifdef _WIN32
-#include <Winsock2.h>
-#else
-#include <sys/time.h>
-#endif
+//#ifdef _WIN32
+//#include <Winsock2.h>
+//#else
+//#include <sys/time.h>
+//#endif
 #include <sstream>
 #include <stdexcept>
 #include <string>
@@ -73,6 +73,7 @@ namespace CanModule
 	};
 
 	timeval convertTimepointToTimeval(const std::chrono::system_clock::time_point &t1);
+	timeval convertTimepointToTimeval(const std::chrono::steady_clock::time_point &t1);
 	std::chrono::system_clock::time_point convertTimevalToTimepoint(const timeval &t1);
 	std::chrono::system_clock::time_point currentTimeTimeval();
 	std::string CanModuleerrnoToString();

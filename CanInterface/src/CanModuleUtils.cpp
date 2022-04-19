@@ -49,6 +49,15 @@ namespace CanModule
 		dest.tv_usec = (millisecs.count() % 1000) * 1000;
 		return dest;
 	}
+	// overload for windows implementation errors on chrono
+	timeval convertTimepointToTimeval(const std::chrono::steady_clock::time_point &t1)
+	{
+		timeval dest;
+		auto millisecs = std::chrono::duration_cast<std::chrono::milliseconds>(t1.time_since_epoch());
+		dest.tv_sec = millisecs.count() / 1000;
+		dest.tv_usec = (millisecs.count() % 1000) * 1000;
+		return dest;
+	}
 
 	std::chrono::system_clock::time_point convertTimevalToTimepoint(const timeval &t1)
 	{
