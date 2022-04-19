@@ -58,14 +58,19 @@ namespace CanModule
 
 #ifdef _WIN32
 	std::chrono::steady_clock::time_point convertTimevalToTimepoint(const timeval &t1)
+	{
+		auto d = std::chrono::seconds(t1.tv_sec) + std::chrono::nanoseconds(t1.tv_usec);
+		std::chrono::steady_clock::time_point tp(std::chrono::duration_cast<std::chrono::steady_clock::duration>(d));
+		return tp;
+	}
 #else
 	std::chrono::system_clock::time_point convertTimevalToTimepoint(const timeval &t1)
-#endif
 	{
 		auto d = std::chrono::seconds(t1.tv_sec) + std::chrono::nanoseconds(t1.tv_usec);
 		std::chrono::system_clock::time_point tp(std::chrono::duration_cast<std::chrono::system_clock::duration>(d));
 		return tp;
 	}
+#endif
 
 	// windows implementation errors on chrono
 #ifdef _WIN32
