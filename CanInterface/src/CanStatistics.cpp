@@ -92,9 +92,9 @@ namespace CanModule
 		this->m_receivedOctets = other.m_receivedOctets.load();
 		this->m_internals = other.m_internals;
 
-		this->m_dreceived = other.m_dreceived;
-		this->m_dtransmitted = other.m_dtransmitted;
-		this->m_dopen = other.m_dopen;
-		this->m_dnow = other.m_dnow;
+		this->m_hrreceived = other.m_hrreceived;
+		this->m_hrtransmitted = other.m_hrtransmitted;
+		this->m_hropen = other.m_hropen;
+		this->m_hrnow = other.m_hrnow;
 	}
 }

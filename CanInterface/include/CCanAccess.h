@@ -577,8 +577,8 @@ private:
 //#ifdef _WIN32
 //	SYSTEMTIME m_now, m_dreceived, m_dtransmitted, m_dopen;
 //#else
-	struct timeval m_now, m_dreceived;
-	struct timezone m_tz;
+	struct timeval m_now, m_dreceived, m_dtransmitted, m_dopen;
+//	struct timezone m_tz;
 //#endif
 
 };
