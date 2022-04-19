@@ -23,11 +23,11 @@
 #ifndef CanModuleUTILS_H_
 #define CanModuleUTILS_H_
 
-//#ifdef _WIN32
-//#include <Winsock2.h>
-//#else
-//#include <sys/time.h>
-//#endif
+#ifdef _WIN32
+#include <Winsock2.h>
+#else
+#include <sys/time.h>
+#endif
 #include <sstream>
 #include <stdexcept>
 #include <string>
