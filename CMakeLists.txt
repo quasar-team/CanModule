@@ -133,16 +133,16 @@ IF (WIN32)
 ELSE()
 	SET( CAN_LIBRARY_LOADER_PLATFORM_IMPL CanLibLoader/src/CanLibLoaderLin.cpp)
 	SET( CAN_LIBRARY_LOADER_PLATFORM_IMPL_HEADER CanLibLoader/include/CanLibLoaderLin.h)
-	SET( CAN_LIBRARY_GETTIMEOFDAY )
-	SET( CAN_LIBRARY_GETTIMEOFDAY_HEADER )
+#	SET( CAN_LIBRARY_GETTIMEOFDAY )
+#	SET( CAN_LIBRARY_GETTIMEOFDAY_HEADER )
 	# use RUNPATH instead of RPATH -Wl,--disable-new-dtags does not work on g++ (GCC) 4.8.5 20150623 (Red Hat 4.8.5-39)
     SET( CMAKE_SKIP_RPATH TRUE )
 	SET( CANMODULE_RPATHS "-Wl,-rpath,./ -Wl,-rpath,./lib -Wl,-rpath,/usr/local/lib" )
 ENDIF()
 
 # versioning burnt into the bins, but don't overwrite in the build if exists
-if (NOT EXISTS ${PROJECT_BINARY_DIR}/generated/VERSION.h )
-	file(WRITE ${PROJECT_BINARY_DIR}/generated/VERSION.h "// VERSION.h - do not edit\n#define CanModule_VERSION \"${PROJECT_VERSION}\"" )
+if (NOT EXISTS ${PROJECT_SOURCE_DIR}/CanInterface/include/VERSION.h )
+	file(WRITE ${PROJECT_SOURCE_DIR}/CanInterface/include/VERSION.h "// VERSION.h - do not edit\n#define CanModule_VERSION \"${PROJECT_VERSION}\"" )
 	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: generated VERSION.h into ${PROJECT_BINARY_DIR}/generated")
 ELSE()
 	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CanModule VERSION.h exists already in ${PROJECT_BINARY_DIR}/generated, don't touch it")
@@ -164,17 +164,16 @@ SET( SRCS
 		CanInterface/include/CanMessage.h
 		CanInterface/src/CCanAccess.cpp
 		CanInterface/include/CCanAccess.h
-		${CAN_LIBRARY_GETTIMEOFDAY}
-		${CAN_LIBRARY_GETTIMEOFDAY_HEADER}	
-		${PROJECT_BINARY_DIR}/generated/VERSION.h	
+#		${CAN_LIBRARY_GETTIMEOFDAY}
+#		${CAN_LIBRARY_GETTIMEOFDAY_HEADER}	
+		${PROJECT_SOURCE_DIR}/CanInterface/include/VERSION.h	
 )
 
 include_directories( 
 	include 
 	CanLibLoader/include
 	CanInterface/include 
-	Diagnostic/include 
-	${PROJECT_BINARY_DIR}/generated
+	Diagnostic/include 	
 )
 
 
