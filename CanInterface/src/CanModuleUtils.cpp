@@ -40,7 +40,7 @@ namespace CanModule
 		return std::string(strerror_r(errno, buf, max_len - 1));
 #endif
 	}
-#if 0
+
 	timeval convertTimepointToTimeval(const std::chrono::system_clock::time_point &t1)
 	{
 		timeval dest;
@@ -49,7 +49,7 @@ namespace CanModule
 		dest.tv_usec = (millisecs.count() % 1000) * 1000;
 		return dest;
 	}
-
+#if 0
 	std::chrono::system_clock::time_point convertTimevalToTimepoint(const timeval &t1)
 	{
 		auto d = std::chrono::seconds(t1.tv_sec) + std::chrono::nanoseconds(t1.tv_usec);
