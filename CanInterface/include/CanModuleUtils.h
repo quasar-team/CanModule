@@ -74,9 +74,7 @@ namespace CanModule
 
 	timeval convertTimepointToTimeval(const std::chrono::system_clock::time_point &t1);
 	std::chrono::system_clock::time_point convertTimevalToTimepoint(const timeval &t1);
-//	double CanModulesubtractTimeval(const std::chrono::system_clock::time_point &t1, const std::chrono::system_clock::time_point &t2);
 	std::chrono::system_clock::time_point currentTimeTimeval();
-
 	std::string CanModuleerrnoToString();
 }
 #endif /* UTILS_H_ */
