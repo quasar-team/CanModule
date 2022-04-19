@@ -558,12 +558,6 @@ protected:
 		duration<double, micro> time_span = duration_cast<duration<double, micro>>(m_dnow - m_dopen);
 		if ( time_span.count() / 1000 > m_timeoutOnReception ) return true;
 		else return false;
-
-
-		//m_now = convertTimepointToTimeval( std::chrono::system_clock::now());
-		//double delta = (double) ( m_now.tv_sec - m_dreceived.tv_sec);
-		//if ( delta > m_timeoutOnReception ) return true;
-		//else return false;
 	}
 
 	/**
@@ -571,11 +565,9 @@ protected:
 	 */
 	void resetTimeoutOnReception() {
 		m_dreceived = high_resolution_clock::now();
-		//m_dreceived = convertTimepointToTimeval( std::chrono::system_clock::now());
 	}
 	void resetTimeNow() {
 		m_dnow = high_resolution_clock::now();
-		//m_now = convertTimepointToTimeval( std::chrono::system_clock::now());
 	}
 
 private:

@@ -24,7 +24,7 @@
 #ifndef CANINTERFACE_SOCKCAN_CANSTATISTICS_H_
 #define CANINTERFACE_SOCKCAN_CANSTATISTICS_H_
 
-
+/**
 #ifdef _WIN32
 #	include <atomic>
 #	include <time.h>
@@ -40,8 +40,10 @@
 #	endif // GCC_VERSION
 #	include <sys/time.h>
 #endif
-#include "ExportDefinition.h"
+**/
 
+#include "ExportDefinition.h"
+#include <atomic>
 #include <chrono>
 using namespace std;
 using namespace std::chrono;
