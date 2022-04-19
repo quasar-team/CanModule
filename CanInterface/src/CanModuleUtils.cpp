@@ -49,7 +49,7 @@ namespace CanModule
 		dest.tv_usec = (millisecs.count() % 1000) * 1000;
 		return dest;
 	}
-#if 0
+
 	std::chrono::system_clock::time_point convertTimevalToTimepoint(const timeval &t1)
 	{
 		auto d = std::chrono::seconds(t1.tv_sec) + std::chrono::nanoseconds(t1.tv_usec);
@@ -62,6 +62,7 @@ namespace CanModule
 		return std::chrono::system_clock::now();
 	}
 
+#if 0
 	double CanModulesubtractTimeval(const std::chrono::system_clock::time_point &t1, const std::chrono::system_clock::time_point &t2)
 	{
 		std::chrono::duration<double> differ = t2 - t1;
