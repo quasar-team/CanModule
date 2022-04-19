@@ -64,7 +64,6 @@ namespace CanModule
 		return tp;
 	}
 #else
-	xx
 	std::chrono::system_clock::time_point convertTimevalToTimepoint(const timeval &t1)
 	{
 		auto d = std::chrono::seconds(t1.tv_sec) + std::chrono::nanoseconds(t1.tv_usec);
