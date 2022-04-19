@@ -69,7 +69,7 @@ namespace CanModule
 
 	// windows implementation errors on chrono
 #ifdef _WIN32
-	std::chrono::steady_clock::time_point currentTimeTimeval()	{ return std::chrono::ssteady_clock::now();}
+	std::chrono::steady_clock::time_point currentTimeTimeval()	{ return std::chrono::steady_clock::now();}
 #else
 	std::chrono::system_clock::time_point currentTimeTimeval()	{ return std::chrono::system_clock::now();}
 #endif
