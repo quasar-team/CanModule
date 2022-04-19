@@ -42,8 +42,7 @@
 #include "CanMessage.h"
 #include "CanStatistics.h"
 #include "CanModuleUtils.h"
-
-#include "xxxVERSION.h.xxx"
+#include "VERSION.h"
 
 
 /*
