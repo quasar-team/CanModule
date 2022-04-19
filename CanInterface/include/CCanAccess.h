@@ -579,18 +579,8 @@ protected:
 	}
 
 private:
-	//boost::signals2::connection m_signal_connection; // seems unused
-	//int m_connectionIndex; // seems unused
-	Log::LogComponentHandle m_lh; // s_lh ?!? problem with windows w.t.f.
+	Log::LogComponentHandle m_lh;
 	LogItInstance* m_logItRemoteInstance;
-
-//#ifdef _WIN32
-//	SYSTEMTIME m_now, m_dreceived, m_dtransmitted, m_dopen;
-//#else
-//	struct timeval m_now, m_dreceived, m_dtransmitted, m_dopen;
-//	struct timezone m_tz;
-//#endif
-
 	high_resolution_clock::time_point m_dnow, m_dreceived, m_dtransmitted, m_dopen;
 
 };

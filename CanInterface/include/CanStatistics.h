@@ -107,7 +107,6 @@ private:
 	std::atomic_uint_least32_t m_receivedOctets;
 
 	high_resolution_clock::time_point m_hrnow, m_hrreceived, m_hrtransmitted, m_hropen;
-	//uint32_t m_portStatus; // encoded status for all vendors
 
 	//! Following is encapsulated as a class, to provide sane copying in assignment operator
 	class Internals

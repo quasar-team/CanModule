@@ -40,7 +40,7 @@ namespace CanModule
 		return std::string(strerror_r(errno, buf, max_len - 1));
 #endif
 	}
-
+#if 0
 	timeval convertTimepointToTimeval(const std::chrono::system_clock::time_point &t1)
 	{
 		timeval dest;
@@ -67,4 +67,6 @@ namespace CanModule
 		std::chrono::duration<double> differ = t2 - t1;
 		return differ.count();
 	}
+
+#endif
 }
