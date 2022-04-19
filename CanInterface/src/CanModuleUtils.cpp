@@ -41,8 +41,9 @@ namespace CanModule
 #endif
 	}
 
+
+	// windows implementation errors on chrono
 #ifdef _WIN32
-	// overload for windows implementation errors on chrono
 	timeval convertTimepointToTimeval(const std::chrono::steady_clock::time_point &t1)
 #else
 	timeval convertTimepointToTimeval(const std::chrono::system_clock::time_point &t1)
@@ -62,9 +63,11 @@ namespace CanModule
 		return tp;
 	}
 
-	std::chrono::system_clock::time_point currentTimeTimeval()
-	{
-		return std::chrono::system_clock::now();
-	}
+	// windows implementation errors on chrono
+#ifdef _WIN32
+	std::chrono::steady_clock::time_point currentTimeTimeval()	{ return std::chrono::ssteady_clock::now();}
+#else
+	std::chrono::system_clock::time_point currentTimeTimeval()	{ return std::chrono::system_clock::now();}
+#endif
 
 }
