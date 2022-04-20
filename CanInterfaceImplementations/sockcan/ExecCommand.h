@@ -22,8 +22,8 @@ namespace execcommand_ns {
 class ExecCommand {
   public:
     typedef std::vector<std::string> CmdResults;
-
-    ExecCommand( const std::string &cmd ) {
+    // hicpp-explicit-conversions
+    explicit ExecCommand( const std::string &cmd ) {
       FILE *pfd = popen( cmd.c_str(), "r" );
       if ( pfd == NULL ) {
     	  throw std::runtime_error( "Command or process could not be executed." );
@@ -51,7 +51,7 @@ class ExecCommand {
   private:
     class Displayer {
       public:
-        Displayer( std::ostream &os ) : m_os(os) {}
+        explicit Displayer( std::ostream &os ) : m_os(os) {}
 
         void operator()( const std::string &str ) {
           m_os << str << std::endl;
