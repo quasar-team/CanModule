@@ -98,8 +98,6 @@ private:
 	/*
 	 * Provides textual representation of an error code.
 	 */
-	//bool errorCodeToString(long error, char message[]);
-
 	const char * errorCodeToString(long error) {return( STcanGetErrorText( error ).c_str() ); }
 
 	static void setCanHandleInUse(int n,bool t) { s_isCanHandleInUseArray[n] = t; }
