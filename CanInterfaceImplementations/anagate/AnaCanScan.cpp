@@ -1046,24 +1046,10 @@ std::string AnaCanScan::ana_canGetErrorText( long errorCode ){
 	case ANA_ERR_INVALID_DEVICE_TYPE: return("Function can't be executed on this\
 			device handle, as she is assigned\
 			to another device type of AnaGate series.");
+	default:
+		return("unknown error code");
 	}
-	return("unknown error code");
 }
-
-#if 0
-/**
- * Provides textual representation of an error code.
- * error return from module
- */
-bool AnaCanScan::errorCodeToString(long error, char message[])
-{
-	std::string ss = ana_canGetErrorText( error );
-	message = new char[512];
-	strcpy(message, ss.c_str());
-	return true;
-}
-#endif
-
 
 
 void AnaCanScan::getStatistics( CanStatistics & result )
