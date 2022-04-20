@@ -386,7 +386,7 @@ bool STCanScan::sendErrorCode(long status)
 		ftTimeStamp = convertTimepointToTimeval(currentTimeTimeval());
 
 		//errorCodeToString(status, errorMessage))
-		canMessageError(errorCodeToString(status), errorMessage, ftTimeStamp);
+		canMessageError(status, errorCodeToString( status ), ftTimeStamp);
 		m_busStatus = status;
 	}
 	return true;
