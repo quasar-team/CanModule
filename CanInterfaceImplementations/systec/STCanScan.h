@@ -94,10 +94,14 @@ private:
 
 	int configureCanBoard(const string name,const string parameters);
 	int openCanPort(tUcanInitCanParam initializationParameters);
+
 	/*
 	 * Provides textual representation of an error code.
 	 */
-	bool errorCodeToString(long error, char message[]);
+	//bool errorCodeToString(long error, char message[]);
+
+	const char * errorCodeToString(long error) {return( STcanGetErrorText( error ).c_str() ); }
+
 	static void setCanHandleInUse(int n,bool t) { s_isCanHandleInUseArray[n] = t; }
 	static bool isCanHandleInUse(int n) { return s_isCanHandleInUseArray[n]; }
 	static void setCanHandle(int n,tUcanHandle tU) { s_canHandleArray[n] = tU; }

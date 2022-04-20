@@ -683,6 +683,7 @@ std::string STCanScan::STcanGetErrorText( long errCode ){
 	default: return("unknown error code");
 	}
 }
+#if 0
 
 /**
  * convert the systec status word into a human readable message
@@ -694,7 +695,7 @@ bool STCanScan::errorCodeToString(long error, char message[])
 	strcpy(message,ss.c_str());
 	return true;
 }
-
+#endif
 void STCanScan::getStatistics( CanStatistics & result )
 {
 	m_statistics.computeDerived (m_baudRate);
