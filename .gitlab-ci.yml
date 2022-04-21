@@ -22,7 +22,7 @@ variables:
 # not yet integrated into qa (branch doc)
 documentation:
    stage: documentation
-   image: $CI_REGISTRY/mludwig/docker:ubuntu2004.ics-fd-qa.20may2021
+   image: $CI_REGISTRY/jcopfw/qa/ics-fd-qa:ubuntu2004.doc
    tags:
      - docker
    script:

@@ -522,7 +522,6 @@ int AnaCanScan::openCanPort()
  */
 bool AnaCanScan::sendAnErrorMessage(AnaInt32 status)
 {
-	char errorMessage[120];
 	timeval ftTimeStamp; 
 	if (status != 0) {
 		auto now = std::chrono::system_clock::now();
@@ -533,8 +532,7 @@ bool AnaCanScan::sendAnErrorMessage(AnaInt32 status)
 		ftTimeStamp.tv_sec = nMicrosecs.count() / 1000000L;
 		ftTimeStamp.tv_usec = (nMicrosecs.count() % 1000000L) ;
 
-		if (!errorCodeToString( (long int) status, errorMessage))
-			canMessageError(status, errorMessage, ftTimeStamp);
+		canMessageError(status, errorCodeToString( (long int) status), ftTimeStamp);
 	}
 	return true;
 }
@@ -1048,21 +1046,11 @@ std::string AnaCanScan::ana_canGetErrorText( long errorCode ){
 	case ANA_ERR_INVALID_DEVICE_TYPE: return("Function can't be executed on this\
 			device handle, as she is assigned\
 			to another device type of AnaGate series.");
+	default:
+		return("unknown error code");
 	}
-	return("unknown error code");
 }
 
-/**
- * Provides textual representation of an error code.
- * error return from module
- */
-bool AnaCanScan::errorCodeToString(long error, char message[])
-{
-	std::string ss = ana_canGetErrorText( error );
-	message = new char[512];
-	strcpy(message, ss.c_str());
-	return true;
-}
 
 void AnaCanScan::getStatistics( CanStatistics & result )
 {

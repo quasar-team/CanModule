@@ -385,8 +385,8 @@ bool STCanScan::sendErrorCode(long status)
 
 		ftTimeStamp = convertTimepointToTimeval(currentTimeTimeval());
 
-		if (!errorCodeToString(status, errorMessage))
-			canMessageError(status, errorMessage, ftTimeStamp);
+		//errorCodeToString(status, errorMessage))
+		canMessageError(status, errorCodeToString( status ), ftTimeStamp);
 		m_busStatus = status;
 	}
 	return true;
@@ -683,18 +683,6 @@ std::string STCanScan::STcanGetErrorText( long errCode ){
 	default: return("unknown error code");
 	}
 }
-
-/**
- * convert the systec status word into a human readable message
- */
-bool STCanScan::errorCodeToString(long error, char message[])
-{
-	std::string ss = STcanGetErrorText( error );
-	message = new char[512];
-	strcpy(message,ss.c_str());
-	return true;
-}
-
 void STCanScan::getStatistics( CanStatistics & result )
 {
 	m_statistics.computeDerived (m_baudRate);

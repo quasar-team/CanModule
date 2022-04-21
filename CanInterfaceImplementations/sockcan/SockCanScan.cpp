@@ -604,8 +604,8 @@ int CSockCanScan::openCanPort()
 	}
 
 	// Fetch initial state of the port
-	int ret=can_get_state( m_channelName.c_str(), &m_errorCode );
-	if ( ret ) {
+	int ret = can_get_state( m_channelName.c_str(), &m_errorCode );
+	if ( ret != 0 ) {
 		m_errorCode = ret;
 		MLOGSOCK(ERR,this) << "can_get_state() failed with error code " << ret << ", it was not possible to obtain initial port state";
 	}
@@ -658,7 +658,10 @@ bool CSockCanScan::sendMessage(short cobID, unsigned char len, unsigned char *me
 	ssize_t numberOfWrittenBytes = write(m_sock, &canFrame, sizeof(struct can_frame));
 	MLOGSOCK(TRC,this) << "write(): " << canFrameToString(canFrame) << " bytes written=" << numberOfWrittenBytes;
 	m_statistics.setTimeSinceTransmitted();
-	if (( numberOfWrittenBytes < 0) ||	(numberOfWrittenBytes < (int)sizeof(struct can_frame))) { /* ERROR */
+
+	//if (( numberOfWrittenBytes < 0) ||	(numberOfWrittenBytes < (int)sizeof(struct can_frame))) { /* ERROR */
+	// qa: redundant
+	if (numberOfWrittenBytes < (int)sizeof(struct can_frame)) { /* ERROR */
 		MLOGSOCK(ERR,this) << "While write() :" << CanModuleerrnoToString();
 		if ( errno == ENOBUFS ) {
 			// std::cerr << "ENOBUFS; waiting a jiffy [100ms]..." << std::endl;

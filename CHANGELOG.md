@@ -6,6 +6,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 - OPCUA-2584: rx/tx counting in the handler, for now, to improve err reporting already
 
+### 2.0.20 [20.april.2022]
+- fix bugs found by QA: error message mem leak in anagate and systec
+
 ### 2.0.19 [7.april.2022]
 - gettimeofday/C++ chrono cleanup to modernize code
 - fixing OPCUA-2691: mini release to fix getPortStatus() for "sock", provide a more direct approach

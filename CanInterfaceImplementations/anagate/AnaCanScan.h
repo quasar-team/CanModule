@@ -163,7 +163,7 @@ private:
 	int connectReceptionHandler();
 	int openCanPort();
 	int reconnect();
-	bool errorCodeToString(long error, char message[]);
+	const char * errorCodeToString(long error) {return( ana_canGetErrorText( error ).c_str() ); }
 	void eraseReceptionHandlerFromMap( AnaInt32 h );
 	std::string ana_canGetErrorText( long errorCode );
 
