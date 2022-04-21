@@ -3,9 +3,8 @@
 # and we distribute the sources only
 #
 stages:
-  - documentation
   - ics-fd-qa
- 
+  - documentation 
 
 # include QA
 include:
