@@ -78,20 +78,13 @@ public:
 	/**
 	 * Returns socket handler
 	 */
-	int getHandler() { return m_sock; }
+	// int getHandler() { return m_sock; }
 
 	/**
 	 * produce and empty can frame
 	 */
-	static can_frame emptyCanFrame( void ){
-		can_frame f;
-		f.can_dlc = 0;
-		f.can_id = 0;
-		for ( int i = 0; i < 8; i++){
-			f.data[ i ] = 0;
-		}
-		return(f);
-	}
+	static can_frame emptyCanFrame();
+	
 	static std::map<string, string> m_busMap; // {name, parameters}
 	Log::LogComponentHandle logItHandle() { return m_logItHandleSock; }
 
