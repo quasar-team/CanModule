@@ -181,8 +181,7 @@ void CSockCanScan::CanScanControlThread()
 			MLOGSOCK(DBG, this) << "got numberOfReadBytes= " << numberOfReadBytes << " tid= " << _tid;;
 			if (numberOfReadBytes < 0) {
 				MLOGSOCK(ERR, this) << "read() error: " << CanModuleerrnoToString()<< " tid= " << _tid;;
-				timeval now; // TODO remove it ?
-				gettimeofday( &now, 0 );
+				timeval now (nowAsTimeval());
 				canMessageError( numberOfReadBytes, ("read() error: "+CanModuleerrnoToString()).c_str(), now );
 				m_errorCode = -1;
 
@@ -287,36 +286,8 @@ void CSockCanScan::CanScanControlThread()
 			MLOGSOCK(DBG, this) << "listening on " << getBusName()
 									<< " socket= " << m_sock << " (got nothing)"<< " tid= " << _tid;
 
-			/**
-			 * lets check the timeoutOnReception reconnect condition. If it is true, all we can do is to
-			 * close/open the socket again since the underlying hardware is hidden by socketcan abstraction.
-			 * Like his we do not have to pollute the "sendMessage" like for anagate, and that is cleaner.
-			 */
-			// CanModule::ReconnectAutoCondition rcond = getReconnectCondition();
-			// CanModule::ReconnectAction ract = getReconnectAction();
-			// if ( rcond == CanModule::ReconnectAutoCondition::timeoutOnReception && hasTimeoutOnReception()) {
-			// 	if ( ract == CanModule::ReconnectAction::singleBus ){
-			// 		MLOGSOCK(INF, this) << " reconnect condition " << (int) rcond
-			// 				<< reconnectConditionString(rcond)
-			// 				<< " triggered action " << (int) ract
-			// 				<< reconnectActionString(ract);
-			// 		resetTimeoutOnReception();  // renew timeout while reconnect is in progress
-			// 		close( sock );
-			// 		try
-			// 		{
-			// 			sock = openCanPort();
-			// 		}
-			// 		catch (const std::exception& e)
-			// 		{
-			// 			MLOGSOCK(ERR, this) << "openCanPort failed: [" << e.what() << "]";	
-			// 		}
-			// 		MLOGSOCK(TRC, this) << "reconnect one CAN port  sock= " << sock;
-			// 	} else {
-			// 		MLOGSOCK(INF, this) << "reconnect action " << (int) ract
-			// 				<< reconnectActionString(ract)
-			// 				<< " is not implemented for sock";
-			// 	}
-			// }  // reconnect condition
+
+
 		} // select showed timeout
 	} // while ( p_sockCanScan->m_CanScanThreadRunEnableFlag )
 	MLOGSOCK(INF, this) << "main loop of SockCanScan terminated." << " tid= " << _tid;
@@ -518,7 +489,6 @@ bool CSockCanScan::sendMessage(short cobID, unsigned char len, unsigned char *me
 		return false;
 	}
 
-	int messageLengthToBeProcessed;
 	struct can_frame canFrame = CSockCanScan::emptyCanFrame();
 	if (len > 8)
 		LOG_AND_THROW(
@@ -572,6 +542,8 @@ bool CSockCanScan::sendRemoteRequest(short cobID)
 	int numberOfWrittenBytes;
 	canFrame.can_id = cobID + CAN_RTR_FLAG	;
 	canFrame.can_dlc = 0;
+	return writeWrapper(&canFrame);
+
 	numberOfWrittenBytes = write(m_sock, &canFrame, sizeof(struct can_frame));
 	do   //TODO: dirty solution, find somethin better (Recursive call?)
 	{
@@ -839,3 +811,30 @@ int CSockCanScan::selectWrapper ()
 
 	return select( m_sock+1, &set, 0, &set, &timeout );
 }
+
+bool CSockCanScan::writeWrapper (const can_frame* frame)
+{
+	ssize_t numberOfWrittenBytes;
+
+	numberOfWrittenBytes = write(m_sock, frame, sizeof (struct can_frame)); 
+	if (numberOfWrittenBytes < 0)
+	{
+		if (errno == ENOBUFS)
+		{
+			MLOGSOCK(ERR, this) << "ENOBUFS; waiting a jiffy [100ms]...";
+			std::this_thread::sleep_for(std::chrono::milliseconds(100));
+			return false;
+		}
+		else
+			MLOGSOCK(ERR, this) << "write: " << CanModuleerrnoToString(); // the recursive error problem.
+	}
+	else if (numberOfWrittenBytes < sizeof (struct can_frame))
+	{
+		MLOGSOCK(ERR,this) << "sendRemoteRequest() sent less bytes than expected";
+		return false;
+	}
+	else
+		return true;
+}
+
+

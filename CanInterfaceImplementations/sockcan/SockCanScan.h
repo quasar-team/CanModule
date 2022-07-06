@@ -158,6 +158,9 @@ private:
 
 	//! Wraps the select() on the socket
 	int selectWrapper ();
+
+	//! Wraps the write() on the socket. Returns true if all seems good.
+	bool writeWrapper (const can_frame* frame);
 };
 
 
