@@ -51,7 +51,7 @@ public:
 
 	virtual bool sendRemoteRequest(short cobID);
 	virtual int createBus(const string name ,string parameters );
-	virtual bool sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr = false);
+	virtual bool sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr = false) override;
 	virtual void getStatistics( CanStatistics & result );
 
 	/**
@@ -155,6 +155,9 @@ private:
 	 * following std::thread C++11 ways.
 	 */
 	void CanScanControlThread();
+
+	//! Wraps the select() on the socket
+	int selectWrapper ();
 };
 
 

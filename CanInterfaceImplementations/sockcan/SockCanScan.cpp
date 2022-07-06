@@ -116,19 +116,11 @@ void CSockCanScan::CanScanControlThread()
 	m_CanScanThreadRunEnableFlag = true;
 	int sock = m_sock; // TODO so what's the fucking difference?
 	{
-		// discard first read
-		fd_set set;
-		FD_ZERO( &set );
-		FD_SET( sock, &set );
-
-		timeval timeout;
-		timeout.tv_sec = 1;
-		timeout.tv_usec = 0;
-
 		MLOGSOCK(INF, this) << "waiting for first reception on socket " << sock;
 
-		int selectResult = select( sock+1, &set, 0, &set, &timeout );
-		if ( selectResult > 0 ) {
+		int selectResult = selectWrapper();
+		if ( selectResult > 0 )
+		{
 			int numberOfReadBytes = read(sock, &socketMessage, sizeof(can_frame));
 			MLOGSOCK(INF, this) << "discarding first read on socket " << sock
 					<< " " << canFrameToString(socketMessage)
@@ -138,27 +130,18 @@ void CSockCanScan::CanScanControlThread()
 
 	MLOGSOCK(TRC, this) << "main loop of SockCanScan starting, tid= " << _tid;
 	int statusCountdown = 10;
-	while ( m_CanScanThreadRunEnableFlag ) {
-		fd_set set;
-		FD_ZERO( &set );
-		FD_SET( sock, &set );
+	while ( m_CanScanThreadRunEnableFlag )
+	{
 
-		// lets update the status every 10th reception, or every 10 seconds, whichever comes earlier
-		if ( --statusCountdown <= 0 ){
-			updateBusStatus();
-			statusCountdown = 10;
-		}
-
-		timeval timeout;
-		timeout.tv_sec = 1;
-		timeout.tv_usec = 0;
-		int selectResult = select( sock+1, &set, 0, &set, &timeout );
+		updateBusStatus();
+		int selectResult = selectWrapper();
 
 		/**
 		 * the select failed. that is very bad, system problem, but let's continue nevertheless.
 		 * There is not much we can do
 		 */
-		if ( selectResult < 0 ){
+		if ( selectResult < 0 )
+		{
 			MLOGSOCK(ERR, this) << "select() failed: " << CanModuleerrnoToString()
 									<< " tid= " << _tid;
 			std::this_thread::sleep_for(std::chrono::seconds(1));
@@ -309,31 +292,31 @@ void CSockCanScan::CanScanControlThread()
 			 * close/open the socket again since the underlying hardware is hidden by socketcan abstraction.
 			 * Like his we do not have to pollute the "sendMessage" like for anagate, and that is cleaner.
 			 */
-			CanModule::ReconnectAutoCondition rcond = getReconnectCondition();
-			CanModule::ReconnectAction ract = getReconnectAction();
-			if ( rcond == CanModule::ReconnectAutoCondition::timeoutOnReception && hasTimeoutOnReception()) {
-				if ( ract == CanModule::ReconnectAction::singleBus ){
-					MLOGSOCK(INF, this) << " reconnect condition " << (int) rcond
-							<< reconnectConditionString(rcond)
-							<< " triggered action " << (int) ract
-							<< reconnectActionString(ract);
-					resetTimeoutOnReception();  // renew timeout while reconnect is in progress
-					close( sock );
-					try
-					{
-						sock = openCanPort();
-					}
-					catch (const std::exception& e)
-					{
-						MLOGSOCK(ERR, this) << "openCanPort failed: [" << e.what() << "]";	
-					}
-					MLOGSOCK(TRC, this) << "reconnect one CAN port  sock= " << sock;
-				} else {
-					MLOGSOCK(INF, this) << "reconnect action " << (int) ract
-							<< reconnectActionString(ract)
-							<< " is not implemented for sock";
-				}
-			}  // reconnect condition
+			// CanModule::ReconnectAutoCondition rcond = getReconnectCondition();
+			// CanModule::ReconnectAction ract = getReconnectAction();
+			// if ( rcond == CanModule::ReconnectAutoCondition::timeoutOnReception && hasTimeoutOnReception()) {
+			// 	if ( ract == CanModule::ReconnectAction::singleBus ){
+			// 		MLOGSOCK(INF, this) << " reconnect condition " << (int) rcond
+			// 				<< reconnectConditionString(rcond)
+			// 				<< " triggered action " << (int) ract
+			// 				<< reconnectActionString(ract);
+			// 		resetTimeoutOnReception();  // renew timeout while reconnect is in progress
+			// 		close( sock );
+			// 		try
+			// 		{
+			// 			sock = openCanPort();
+			// 		}
+			// 		catch (const std::exception& e)
+			// 		{
+			// 			MLOGSOCK(ERR, this) << "openCanPort failed: [" << e.what() << "]";	
+			// 		}
+			// 		MLOGSOCK(TRC, this) << "reconnect one CAN port  sock= " << sock;
+			// 	} else {
+			// 		MLOGSOCK(INF, this) << "reconnect action " << (int) ract
+			// 				<< reconnectActionString(ract)
+			// 				<< " is not implemented for sock";
+			// 	}
+			// }  // reconnect condition
 		} // select showed timeout
 	} // while ( p_sockCanScan->m_CanScanThreadRunEnableFlag )
 	MLOGSOCK(INF, this) << "main loop of SockCanScan terminated." << " tid= " << _tid;
@@ -521,10 +504,10 @@ void CSockCanScan::updateBusStatus(){
  * can bus channel to send a message through.
  *
  * @param cobID Identifier that will be used for the message.
- * @param len Length of the message. If the message is bigger than 8 characters, it will be split into separate 8 characters messages.
+ * @param len Length of the message -- must be maximum 8 octets.
  * @param message Message to be sent trough the can bus.
  * @param rtr is the message a remote transmission request?
- * @return Was the initialisation process successful?
+ * @return Was the message successfully passed to the CAN adapter?
  */
 bool CSockCanScan::sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr)
 {
@@ -535,112 +518,44 @@ bool CSockCanScan::sendMessage(short cobID, unsigned char len, unsigned char *me
 		return false;
 	}
 
-
-	bool ret = true;
 	int messageLengthToBeProcessed;
 	struct can_frame canFrame = CSockCanScan::emptyCanFrame();
-	if (len > 8) {
-		messageLengthToBeProcessed = 8;
-		MLOGSOCK(DBG,this) << "The Length is more then 8 bytes: " << std::dec << len;
-	} else {
-		messageLengthToBeProcessed = len;
-	}
-	canFrame.can_dlc = messageLengthToBeProcessed;
-	memcpy(canFrame.data, message, messageLengthToBeProcessed);
+	if (len > 8)
+		LOG_AND_THROW(
+			std::logic_error,
+			"Requested sending a frame longer than 8 octets [" + std::to_string(len) + "]. This is out of standard.",
+			this);
+	
+	canFrame.can_dlc = len;
+	memcpy(canFrame.data, message, len);
 	canFrame.can_id = cobID;
-	if (rtr) {
+	if (rtr)
 		canFrame.can_id |= CAN_RTR_FLAG;
-	}
+
 	ssize_t numberOfWrittenBytes = write(m_sock, &canFrame, sizeof(struct can_frame));
 	MLOGSOCK(TRC,this) << "write(): " << canFrameToString(canFrame) << " bytes written=" << numberOfWrittenBytes;
 	m_statistics.setTimeSinceTransmitted();
 	if (( numberOfWrittenBytes < 0) ||	(numberOfWrittenBytes < (int)sizeof(struct can_frame))) { /* ERROR */
 		MLOGSOCK(ERR,this) << "While write() :" << CanModuleerrnoToString();
-		if ( errno == ENOBUFS ) {
-			// std::cerr << "ENOBUFS; waiting a jiffy [100ms]..." << std::endl;
+		if ( errno == ENOBUFS )
+		{
 			MLOGSOCK(ERR,this) << "write error ENOBUFS: waiting a jiffy [100ms]...";
-			{
-
-				struct timespec tim, tim2;
-				tim.tv_sec = 0;
-				tim.tv_nsec = 100000;
-				if(nanosleep(&tim , &tim2) < 0 ) {
-					MLOGSOCK(ERR,this) << "Waiting 100ms failed (nanosleep)";
-				}
-			}
-			ret = false;
+			return false;
 		}
 		if ( numberOfWrittenBytes < (int)sizeof(struct can_frame)){
 			MLOGSOCK(ERR,this) << "Error: Incorrect number of bytes [" << numberOfWrittenBytes << "] written when sending a message.";
-			ret = false;
+			return false;
 		}
 
-		// check the reconnect condition
-		switch( m_reconnectCondition ){
-		case CanModule::ReconnectAutoCondition::sendFail: {
-			MLOGSOCK(WRN, this) << " detected a sendFail, triggerCounter= " << m_triggerCounter
-					<< " failedSendCounter= " << m_failedSendCounter;
-			m_triggerCounter--;
-			break;
-		}
-		case CanModule::ReconnectAutoCondition::never:
-		default:{
-			m_triggerCounter = m_failedSendCounter;
-			break;
-		}
-		}
-
-		// do the reconnect action if triggerCounter says so
-		switch ( m_reconnectAction ){
-		case CanModule::ReconnectAction::singleBus: {
-			if ( m_triggerCounter <= 0 ){
-				MLOGSOCK(INF, this) << " reconnect condition " << (int) m_reconnectCondition
-						<< reconnectConditionString(m_reconnectCondition)
-						<< " triggered action " << (int) m_reconnectAction
-						<< reconnectActionString(m_reconnectAction);
-				close( m_sock );
-				MLOGSOCK(TRC, this) << "calling openCanPort() for " << this->getBusName();
-				int return0 = openCanPort();
-				MLOGSOCK(TRC, this) << "reconnect one CAN port  ret= " << return0;
-				m_triggerCounter = m_failedSendCounter;
-				MLOGSOCK(TRC, this) << "set internal triggerCounter= " << m_triggerCounter;
-				{
-					MLOGSOCK(WRN,this) << "write error ENOBUFS: waiting a jiffy [100ms]...";
-					struct timespec tim, tim2;
-					tim.tv_sec = 0;
-					tim.tv_nsec = 100000;
-					if(nanosleep(&tim , &tim2) < 0 ) {
-						MLOGSOCK(ERR,this) << "Waiting 100ms failed (nanosleep)";
-					}
-				}
-			}
-			break;
-		}
-		default: {
-			/**
-			 * socketcan abstracts away the notion of a "module", and that is the point. Various plugin-orders
-			 * should lead to the same device mapping nevertheless. But then we can't
-			 * refer to a module and reset all of it's channels easily in linux. Unless we make a big effort and keep
-			 * track of which port is on which module, for peak: more udev calls, for systec: we need
-			 * to read the module serial number or similar. Maybe there is an elegant way out, but I think
-			 * it is not worth it. Use a PDU if you want to reset your systec16. For peak the notion
-			 * of "module" is already difficult through socketcan (udev calls needed to identify the modules) and
-			 * peak bridges get their power over USB. So in fact testing peak means "rebooting" unless you want
-			 * to unplug the USB. Therefore "allBusesOnBridge" as reconnect action is not available.
-			 */
-			MLOGSOCK(WRN, this) << "reconnection action "
-					<< (int) m_reconnectAction << reconnectActionString( m_reconnectAction )
-					<< " is not available for the socketcan/linux implementation.";
-			break;
-		}
-		} // switch
+		return false;
 	} else {
 		// no error
 		m_statistics.onTransmit( canFrame.can_dlc );
 		m_statistics.setTimeSinceTransmitted();
 		m_triggerCounter = m_failedSendCounter;
+		return true;
 	}
-	return ( ret );
+
 }
 
 /**
@@ -907,11 +822,20 @@ void CSockCanScan::updateInitialError ()
 	if (m_errorCode == 0) {
 		clearErrorMessage();
 	} else {
-		timeval now;
-		gettimeofday( &now, 0);
-		canMessageError( m_errorCode, "Initial port state: error", now );
+		timeval now (nowAsTimeval());
+		canMessageError( m_errorCode, "Initial port state: error", now);
 	}
 }
 
+int CSockCanScan::selectWrapper ()
+{
+	fd_set set;
+	FD_ZERO( &set );
+	FD_SET( m_sock, &set );
 
+	timeval timeout;
+	timeout.tv_sec = 1;
+	timeout.tv_usec = 0;
 
+	return select( m_sock+1, &set, 0, &set, &timeout );
+}

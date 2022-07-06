@@ -78,4 +78,10 @@ namespace CanModule
 		std::chrono::duration<double> differ = t2 - t1;
 		return differ.count();
 	}
+
+	timeval nowAsTimeval()
+	{ 
+		return convertTimepointToTimeval(currentTimeTimeval());
+	}
+	
 }
