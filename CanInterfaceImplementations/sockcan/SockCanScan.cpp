@@ -71,7 +71,7 @@ extern "C" CCanAccess *getCanBusAccess()
 
 CSockCanScan::CSockCanScan() :
 							m_CanScanThreadRunEnableFlag(false),
-							m_sock(0),
+							m_sock(-1), // unassigned
 							m_errorCode(-1),
 							m_hCanScanThread( NULL ),
 							m_busName("nobus"),
@@ -126,7 +126,7 @@ void CSockCanScan::CanScanControlThread()
 		MLOGSOCK(INF, this) << "discarding first read on socket " << m_sock
 				<< " " << canFrameToString(socketMessage)
 				<< "got numberOfReadBytes= " << numberOfReadBytes << " discard them";
-	}
+	}	
 	
 
 	MLOGSOCK(TRC, this) << "main loop of SockCanScan starting, tid= " << _tid;
@@ -165,43 +165,8 @@ void CSockCanScan::CanScanControlThread()
 
 
 			// try close/opening on faults while port is active
-			do {
-				MLOGSOCK(INF, this) << "Waiting 10000ms."<< " tid= " << _tid;
-				std::this_thread::sleep_for(std::chrono::seconds(10));
 
-				if ( m_sock > 0 )	{
-					// try closing the socket
-					MLOGSOCK(INF, this) << "Closing socket."<< " tid= " << _tid;
-					if (close(m_sock) < 0) {
-						MLOGSOCK(ERR, this) << "Socket close error!"<< " tid= " << _tid;
-					} else {
-						m_sock = -1;
-					}
-				}
-
-				/**
-				 * try to re-open the socket.
-				 * only reopen the socket if we still need it.
-				 * If we need to shutdown the thread, leave it closed and
-				 * terminate main loop.
-				 */
-				if ( m_CanScanThreadRunEnableFlag ) {
-					MLOGSOCK(INF, this) << " tid= " << _tid << " Now port will be reopened.";
-					try
-					{
-						m_sock = openCanPort();
-					}
-					catch (const std::exception& e)
-					{
-						MLOGSOCK(ERR, this) << " tid= " << _tid << "openCanPort() failed [" << e.what() << "], will retry";
-					}
-
-				} //else {
-				// MLOGSOCK(INF,p_sockCanScan) << " tid= " << _tid << "Leaving Port closed, not needed any more.";
-				//}
-			} // do...while ... we still have an error
-			while ( m_CanScanThreadRunEnableFlag && m_sock < 0 );
-
+			recoverPort();
 
 			/**
 			 * if we have an open socket again, and we can read numberOfReadBytes >=0 we
@@ -761,4 +726,42 @@ can_frame CSockCanScan::emptyCanFrame()
 	can_frame f;
 	memset((void*)&f, 0, sizeof f);
 	return f;	
+}
+
+void CSockCanScan::recoverPort ()
+{
+	// pid_t _tid = gettid();
+	auto _tid = this_thread::get_id();
+	while ( m_CanScanThreadRunEnableFlag) 
+	{
+		MLOGSOCK(INF, this) << "Waiting 10000ms."<< " tid= " << _tid;
+		std::this_thread::sleep_for(std::chrono::seconds(10));
+
+		if ( m_sock > 0 )
+		{
+			// try closing the socket
+			MLOGSOCK(INF, this) << "Closing socket."<< " tid= " << _tid;
+			if (close(m_sock) < 0)
+				MLOGSOCK(ERR, this) << "Socket close error!"<< " tid= " << _tid;
+			m_sock = -1;
+		}
+
+		/**
+		 * try to re-open the socket.
+		 * only reopen the socket if we still need it.
+		 * If we need to shutdown the thread, leave it closed and
+		 * terminate main loop.
+		 */
+
+		MLOGSOCK(INF, this) << " tid= " << _tid << " Now port will be reopened.";
+		try
+		{
+			m_sock = openCanPort();
+			return; // was successful
+		}
+		catch (const std::exception& e)
+		{
+			MLOGSOCK(ERR, this) << " tid= " << _tid << "openCanPort() failed [" << e.what() << "], will retry in 10s";
+		}
+	} 
 }

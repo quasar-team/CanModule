@@ -154,6 +154,9 @@ private:
 
 	//! Wraps the write() on the socket. Returns true if all seems good.
 	bool writeWrapper (const can_frame* frame);
+
+	//! Assuming that port went into severe problem, try to recover it by reopening and/or reconfiguring it.
+	void recoverPort ();
 };
 
 
