@@ -74,7 +74,8 @@
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv410AnaCanScan">
 <span id="_CPPv310AnaCanScan"></span><span id="_CPPv210AnaCanScan"></span><span id="AnaCanScan"></span><span class="target" id="classAnaCanScan"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">AnaCanScan</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">CanModule</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="canports.html#_CPPv4N9CanModule10CCanAccessE" title="CanModule::CCanAccess"><span class="n"><span class="pre">CCanAccess</span></span></a><a class="headerlink" href="#_CPPv410AnaCanScan" title="Permalink to this definition">¶</a><br /></dt>
-<dd><div class="breathe-sectiondef docutils container">
+<dd><p>one CAN port on an anagate bridge, an anagate bridge is an ip number. There are (physical) bridges with several ip numbers: we treat them as separated modules. </p>
+<div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N10AnaCanScan11sendMessageEshPhb">
@@ -135,7 +136,9 @@ OPCUA-2604: sendMessage must be non blocking. The reconnection behavior therefor
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N12CSockCanScan13getPortStatusEv">
 <span id="_CPPv3N12CSockCanScan13getPortStatusEv"></span><span id="_CPPv2N12CSockCanScan13getPortStatusEv"></span><span id="CSockCanScan::getPortStatus"></span><span class="target" id="classCSockCanScan_1ad1caa327a98bc30012d2c5010a98cb05"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getPortStatus</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N12CSockCanScan13getPortStatusEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>return socketcan port status as-is, from can_netlink.h enum can_state { CAN_STATE_ERROR_ACTIVE = 0, RX/TX error count &lt; 96 CAN_STATE_ERROR_WARNING, RX/TX error count &lt; 128 CAN_STATE_ERROR_PASSIVE, RX/TX error count &lt; 256 CAN_STATE_BUS_OFF, RX/TX error count &gt;= 256 CAN_STATE_STOPPED, Device is stopped CAN_STATE_SLEEPING, Device is sleeping CAN_STATE_MAX }; </p>
+<dd><p>return socketcan port status in vendor unified format (with implementation nibble set), from can_netlink.h do not start a new statistics run for that. enum can_state { CAN_STATE_ERROR_ACTIVE = 0, RX/TX error count &lt; 96 CAN_STATE_ERROR_WARNING, RX/TX error count &lt; 128 CAN_STATE_ERROR_PASSIVE, RX/TX error count &lt; 256 CAN_STATE_BUS_OFF, RX/TX error count &gt;= 256 CAN_STATE_STOPPED, Device is stopped CAN_STATE_SLEEPING, Device is sleeping CAN_STATE_MAX };</p>
+<p>update the CAN bus status IFLA from socketcan and make up a CanModule status bitpattern out from this.</p>
+<p>int can_get_restart_ms(const char *name, __u32 *restart_ms); int can_get_bittiming(const char *name, struct can_bittiming *bt); int can_get_ctrlmode(const char *name, struct can_ctrlmode *cm); int can_get_state(const char *name, int *state); int can_get_clock(const char *name, struct can_clock *clock); int can_get_bittiming_const(const char *name, struct can_bittiming_const *btc); int can_get_berr_counter(const char *name, struct can_berr_counter *bc); int can_get_device_stats(const char *name, struct can_device_stats *cds); </p>
 </dd></dl>
 
 </div>
@@ -285,7 +288,7 @@ OPCUA-2604: sendMessage must be non blocking. The reconnection behavior therefor
           
     <div class="footer" role="contentinfo">
         &#169; Copyright 2020, CERN, quasar-team, BE-ICS (Michael Ludwig).
-      Last updated on 04-Mar-2022 16:37:25.
+      Last updated on 08-Jul-2022 16:47:44.
       Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
     </div>
         </div>

@@ -59,7 +59,7 @@ You can of course add your own components for specific logging, like MYCOMP in t
 	// do sth useful with CanModule, i.e. talk to a port
 	string libName = "st";           // here: systec, windows
 	string port = "st:can0";         // here: CAN port 0, windows
-	string parameters = "Undefined"; // here: use defaults
+	string parameters = "Unspecified"; // here: use what is alread set in the hardware, do not overwrite. Therefore the CanModule does not really know.
 	CanMessage cm;
 	CanModule::CanLibLoader *libloader = CanModule::CanLibLoader::createInstance( libName );
 	cca = libloader->openCanBus( port, parameters );

@@ -11,15 +11,47 @@ datarate (FD) module types are supported, but without FD functionality. This FD 
 could be added in principle if requested.
 
 
+
 windows
 ^^^^^^^
+
 The communication takes place through peak's open-source PCAN-Basic windows library. Only "plug-and-play"
 modules with USB interface and fixed datarate (non-FD) are supported by CanModule for now. PEAK's 
 flexible datarate (FD) modules can be added later on (they need some different API-calls and more complex parameters), and also
 other interfaces like PCI are possible for windows.The implementation is based on the PCAN-Basic driver.
 
+
+.. doxygenclass:: PKCanScan  
+   :project: CanModule
+   :members: configureCanBoard, parseNameAndParameters
+   :private-members: 
+   :no-link:
+
+* parameters="p0 p1 p2 p3 p4 p5 p6" i.e. "125000 0 0 0 0 0 5000"
+* ONLY p0 = bitrate or "baudrate" is used.
+* "Unspecified" : the module bitrate 125000 is used as default when calling CAN_Initialize(...)
+
+
 linux
 ^^^^^
+
+parameters
+----------
+
+.. doxygenclass:: CSockCanScan  
+   :project: CanModule
+   :members: configureCanBoard, parseNameAndParameters
+   :private-members: 
+   :no-link:
+
+* bus name: "can" or "vcan"
+* port number, follows bus name: "can:0" or "vcan:9"
+
+* parameters="p0 p1 p2 p3 p4 p5 p6" i.e. "125000 0 0 0 0 0 5000"
+* ONLY p0 = bitrate or "baudrate" is used.
+* "Unspecified" : the socket bitrate is NOT reconfigured , no stop/start sequence on the socket are done
+
+
 The open-source socketcan interface is used on top of peak's open source netdev driver. Both Peak's
 fixed and flexible datarate are working, although the fixed modules are recommended for bus compatibility.
 Only modules with USB interface are supported. 

@@ -92,7 +92,7 @@ For windows the strings are as listed above, for linux the string “sock” is 
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// do sth useful with CanModule, i.e. talk to a port</span>
 <span class="n">string</span><span class="w"> </span><span class="n">libName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;st&quot;</span><span class="p">;</span><span class="w">           </span><span class="c1">// here: systec, windows</span>
 <span class="n">string</span><span class="w"> </span><span class="n">port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;st:can0&quot;</span><span class="p">;</span><span class="w">         </span><span class="c1">// here: CAN port 0, windows</span>
-<span class="n">string</span><span class="w"> </span><span class="n">parameters</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Undefined&quot;</span><span class="p">;</span><span class="w"> </span><span class="c1">// here: use defaults</span>
+<span class="n">string</span><span class="w"> </span><span class="n">parameters</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Unspecified&quot;</span><span class="p">;</span><span class="w"> </span><span class="c1">// here: use what is alread set in the hardware, do not overwrite. Therefore the CanModule does not really know.</span>
 <span class="n">CanMessage</span><span class="w"> </span><span class="n">cm</span><span class="p">;</span><span class="w"></span>
 <span class="n">CanModule</span><span class="o">::</span><span class="n">CanLibLoader</span><span class="w"> </span><span class="o">*</span><span class="n">libloader</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CanModule</span><span class="o">::</span><span class="n">CanLibLoader</span><span class="o">::</span><span class="n">createInstance</span><span class="p">(</span><span class="w"> </span><span class="n">libName</span><span class="w"> </span><span class="p">);</span><span class="w"></span>
 <span class="n">cca</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">libloader</span><span class="o">-&gt;</span><span class="n">openCanBus</span><span class="p">(</span><span class="w"> </span><span class="n">port</span><span class="p">,</span><span class="w"> </span><span class="n">parameters</span><span class="w"> </span><span class="p">);</span><span class="w"></span>
@@ -174,7 +174,7 @@ on a running server instance.</strong></p>
           
     <div class="footer" role="contentinfo">
         &#169; Copyright 2020, CERN, quasar-team, BE-ICS (Michael Ludwig).
-      Last updated on 04-Mar-2022 16:37:25.
+      Last updated on 08-Jul-2022 16:47:44.
       Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
     </div>
         </div>

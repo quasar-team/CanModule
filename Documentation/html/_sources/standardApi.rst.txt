@@ -14,7 +14,7 @@ This is how to choose an implementation and open one port:
 
    string implementationName = "sock";   // here: systec or peak through socketCan, linux
    string port = "sock:can0";            // here: CAN port 0 via socket CAN, linux
-   string parameters = "Unspecified";    // here: use defaults. see documentation for each implementation/vendor. same as ""
+   string parameters = "Unspecified";    // here: use HW settings if possible. see documentation for each implementation/vendor. same as ""
    CanMessage cm;
    CanModule::CanLibLoader *libloader = CanModule::CanLibLoader::createInstance( implementationName );
    cca = libloader->openCanBus( port, parameters );

@@ -51,6 +51,12 @@ triggered each time there is a sending problem detected, and each time there has
 The reconnection thread then decides, according to it's configuration, if there is something to do (condition=it checks 
 counters and timeouts) and what to do (action=reset single bus or whole board or nothing).  
 
+This behavior can be controlled using the classes:
+
+.. doxygenclass:: CCanAccess 
+   :project: CanModule
+   :members: setReconnectBehavior, setReconnectReceptionTimeout, setReconnectFailedSendCount, getReconnectCondition, getReconnectAction
+
 
 anagate ("an")
 ==============
@@ -105,6 +111,10 @@ if this connection is lost we need to reconnect. Reconnection works for both nor
 and flexible datarate (FD) modules under linux, as socketcan is used, and takes less than 30sec.
 Correct port numbering is achieved (through a udevadmin call) as well.
 
+"whole module"  mode is not supported since
+the socketcan layer abstracts away the notion of a "module". 
+
+
 windows ("peak")
 ----------------
 A power loss is recuperated correctly, but only normal datarate (fixed) are supported. 
@@ -125,7 +135,7 @@ A USB connection or power loss/recover will trigger a reconnection.
 will have various problems later during runtime.
 - Single port close/open is fully supported and works. If the sequence is too fast some messages will be lost, but the 
 module recuperates correctly in the following. Port numbering is preserved.
-- whole module reconnect is not supported due to the socketcan abstraction, which abstracts the concept od a "module" away.
+- whole module reconnect is not supported due to the socketcan abstraction, which abstracts the concept of a "module" away.
 
 In the case of a power loss and recovery, the driver should be automatically inserted again (dmesg | grep systec), but the network
 interfaces need to be re-activated (i.e. ifconfig can0 down; ip link set can0 type can bitrate 125000; ifconfig can0 up) on the OS level.

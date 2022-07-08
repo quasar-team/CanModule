@@ -49,7 +49,7 @@
 <p>This is how to choose an implementation and open one port:</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">string</span><span class="w"> </span><span class="n">implementationName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;sock&quot;</span><span class="p">;</span><span class="w">   </span><span class="c1">// here: systec or peak through socketCan, linux</span>
 <span class="n">string</span><span class="w"> </span><span class="n">port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;sock:can0&quot;</span><span class="p">;</span><span class="w">            </span><span class="c1">// here: CAN port 0 via socket CAN, linux</span>
-<span class="n">string</span><span class="w"> </span><span class="n">parameters</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Unspecified&quot;</span><span class="p">;</span><span class="w">    </span><span class="c1">// here: use defaults. see documentation for each implementation/vendor. same as &quot;&quot;</span>
+<span class="n">string</span><span class="w"> </span><span class="n">parameters</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Unspecified&quot;</span><span class="p">;</span><span class="w">    </span><span class="c1">// here: use HW settings if possible. see documentation for each implementation/vendor. same as &quot;&quot;</span>
 <span class="n">CanMessage</span><span class="w"> </span><span class="n">cm</span><span class="p">;</span><span class="w"></span>
 <span class="n">CanModule</span><span class="o">::</span><span class="n">CanLibLoader</span><span class="w"> </span><span class="o">*</span><span class="n">libloader</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CanModule</span><span class="o">::</span><span class="n">CanLibLoader</span><span class="o">::</span><span class="n">createInstance</span><span class="p">(</span><span class="w"> </span><span class="n">implementationName</span><span class="w"> </span><span class="p">);</span><span class="w"></span>
 <span class="n">cca</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">libloader</span><span class="o">-&gt;</span><span class="n">openCanBus</span><span class="p">(</span><span class="w"> </span><span class="n">port</span><span class="p">,</span><span class="w"> </span><span class="n">parameters</span><span class="w"> </span><span class="p">);</span><span class="w"></span>
@@ -174,7 +174,7 @@ is needed at the end to close the <strong>cca</strong> .</p></li>
           
     <div class="footer" role="contentinfo">
         &#169; Copyright 2020, CERN, quasar-team, BE-ICS (Michael Ludwig).
-      Last updated on 04-Mar-2022 16:37:25.
+      Last updated on 08-Jul-2022 16:47:44.
       Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
     </div>
         </div>
