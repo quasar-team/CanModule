@@ -51,6 +51,12 @@ triggered each time there is a sending problem detected, and each time there has
 The reconnection thread then decides, according to it's configuration, if there is something to do (condition=it checks 
 counters and timeouts) and what to do (action=reset single bus or whole board or nothing).  
 
+This behavior can be controlled using the classes:
+
+.. doxygenclass:: CCanAccess 
+   :project: CanModule
+   :members: setReconnectBehavior, setReconnectReceptionTimeout, setReconnectFailedSendCount, getReconnectCondition, getReconnectAction
+
 
 anagate ("an")
 ==============
