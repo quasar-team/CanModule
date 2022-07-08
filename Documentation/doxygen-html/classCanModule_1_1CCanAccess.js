@@ -17,8 +17,8 @@ var classCanModule_1_1CCanAccess =
     [ "resetSendFailedCountdown", "classCanModule_1_1CCanAccess.html#aad13b5ad34547cbe6cad4e8369557bed", null ],
     [ "resetTimeNow", "classCanModule_1_1CCanAccess.html#afefee3a90966dd8a01ca471022a7a9cd", null ],
     [ "resetTimeoutOnReception", "classCanModule_1_1CCanAccess.html#a067f50699c1ed4b6ee6732eb0078ed0a", null ],
-    [ "sendMessage", "classCanModule_1_1CCanAccess.html#ad0360c49d00ec0ee92cfdd73c2e43935", null ],
     [ "sendMessage", "classCanModule_1_1CCanAccess.html#aee42ab7fb9e50c02a1812202f7863d8c", null ],
+    [ "sendMessage", "classCanModule_1_1CCanAccess.html#ad0360c49d00ec0ee92cfdd73c2e43935", null ],
     [ "sendRemoteRequest", "classCanModule_1_1CCanAccess.html#acfefbc9be2696b1388cf6df2bba00aa1", null ],
     [ "setReconnectBehavior", "classCanModule_1_1CCanAccess.html#ae1088edaf5444ff42ee094ae46240cc5", null ],
     [ "setReconnectFailedSendCount", "classCanModule_1_1CCanAccess.html#a665620fe5924cf87db0589a353d3d148", null ],
@@ -29,7 +29,10 @@ var classCanModule_1_1CCanAccess =
     [ "canMessageCame", "classCanModule_1_1CCanAccess.html#aa8e0e974863874b0e7bbcdb57084c241", null ],
     [ "canMessageError", "classCanModule_1_1CCanAccess.html#a33fbd693f04b4f4e21cee20856c44866", null ],
     [ "m_CanParameters", "classCanModule_1_1CCanAccess.html#a484a4f9dc352fe31b4baff0365095705", null ],
-    [ "m_dreceived", "classCanModule_1_1CCanAccess.html#a6a9790a2842b40ced0ff98e1e171acbc", null ],
+    [ "m_dnow", "classCanModule_1_1CCanAccess.html#ac78d16f12da7cb1023259e92103bd056", null ],
+    [ "m_dopen", "classCanModule_1_1CCanAccess.html#a0177a6a6731a568f8e1357348f2d36bb", null ],
+    [ "m_dreceived", "classCanModule_1_1CCanAccess.html#a38ae6734bf159819b541624d977ef548", null ],
+    [ "m_dtransmitted", "classCanModule_1_1CCanAccess.html#af890e5858885d2188714aaab7ba25672", null ],
     [ "m_failedSendCountdown", "classCanModule_1_1CCanAccess.html#a921748fa6f0da92c7afef60f41007a3e", null ],
     [ "m_hCanReconnectionThread", "classCanModule_1_1CCanAccess.html#a41af60558bdb3b738f39560755864333", null ],
     [ "m_lh", "classCanModule_1_1CCanAccess.html#a782b2e9b52ebb49a14307e1f37440490", null ],
@@ -41,6 +44,5 @@ var classCanModule_1_1CCanAccess =
     [ "m_reconnection_mtx", "classCanModule_1_1CCanAccess.html#a08cc164e3baaf95fedeb50198a7fa799", null ],
     [ "m_reconnectTrigger", "classCanModule_1_1CCanAccess.html#ab8dd2b137cebaa0764c406db6061bbc7", null ],
     [ "m_sBusName", "classCanModule_1_1CCanAccess.html#a0eff18d10b7ee5d6f86b03898f38f7ca", null ],
-    [ "m_timeoutOnReception", "classCanModule_1_1CCanAccess.html#a4ddc9691fd9d42bcc7cb14ceae24da82", null ],
-    [ "m_tz", "classCanModule_1_1CCanAccess.html#a7bb4a17c5b05e5b01f59d9d9a0728f8a", null ]
+    [ "m_timeoutOnReception", "classCanModule_1_1CCanAccess.html#a4ddc9691fd9d42bcc7cb14ceae24da82", null ]
 ];
