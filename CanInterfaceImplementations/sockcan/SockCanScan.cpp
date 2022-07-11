@@ -682,15 +682,18 @@ void CSockCanScan::updateInitialError ()
 
 int CSockCanScan::selectWrapper ()
 {
-	fd_set set;
-	FD_ZERO( &set );
-	FD_SET( m_sock, &set );
+	fd_set readSet, exceptSet;
+	FD_ZERO( &readSet );
+	FD_SET( m_sock, &readSet );
+
+	FD_ZERO( &exceptSet );
+	FD_SET( m_sock, &exceptSet );
 
 	timeval timeout;
 	timeout.tv_sec = 1;
 	timeout.tv_usec = 0;
 
-	return select( m_sock+1, &set, nullptr, &set, &timeout ); // TODO: we should have two FDSETs for this select call
+	return select( m_sock+1, &readSet, nullptr, &exceptSet, &timeout ); // TODO: we should have two FDSETs for this select call
 }
 
 bool CSockCanScan::writeWrapper (const can_frame* frame)
