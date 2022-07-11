@@ -948,6 +948,8 @@ void CSockCanScan::clearErrorMessage()
 	canMessageError(0, errorMessage.c_str(), c_time);
 }
 
+#if 0
+// this method is not used, instead, code is implemented directly everywhere
 /**
  * send a timestamped error message, get time from the socket or from chrono
  */
@@ -965,6 +967,7 @@ void CSockCanScan::sendErrorMessage(const char *mess)
 	MLOGSOCK(TRC,this) << "ioctlReturn= " << ioctlReturn;
 	canMessageError(-1,mess,c_time);
 }
+#endif
 
 /**
  * notify the main thread to finish and delete the bus from the map of connections
