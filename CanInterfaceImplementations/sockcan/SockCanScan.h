@@ -33,7 +33,7 @@
 
 #include "CCanAccess.h"
 #include "CanStatistics.h"
-#include "libsocketcan.h"
+
 
 /*
  * This is an implementation of the abstract class CCanAccess. It serves as a can bus access layer that will communicate with socket can (Linux only)
@@ -104,6 +104,7 @@ public:
 
 		void updateInitialError () ;
 
+
 private:
 	volatile atomic_bool m_CanScanThreadRunEnableFlag; //Flag for running/shutting down the
 	// CanScan thread, with compiler optimization switched off for more code safety
@@ -113,8 +114,8 @@ private:
 
 	CanStatistics m_statistics;
 	std::thread *m_hCanScanThread;	// ptr thread object, needed for join. allocate thread with new(..)
-	std::string m_channelName;
-	std::string m_busName;
+	std::string m_channelName; // this is the network adapter name for SocketCAN, e.g. "vcan0"
+	std::string m_busName; // this is the whole given name, e.g.: "sock:vcan0"
 	Log::LogComponentHandle m_logItHandleSock;
 
 
@@ -130,8 +131,6 @@ private:
 	 */
 	static std::string errorFrameToString (const struct can_frame &f);
 
-	void sendErrorMessage(const char  *);
-	void clearErrorMessage();
 	int configureCanBoard(const string name,const string parameters);
 	void updateBusStatus();
 
@@ -147,7 +146,7 @@ private:
 	 * a private non-static method, which is called on the object (this)
 	 * following std::thread C++11 ways.
 	 */
-	void CanScanControlThread();
+	void backgroundThread();
 
 	//! Wraps the select() on the socket
 	int selectWrapper ();
@@ -157,6 +156,11 @@ private:
 
 	//! Assuming that port went into severe problem, try to recover it by reopening and/or reconfiguring it.
 	void recoverPort ();
+
+	//! This function is to be used whenever status changes (and sends notifications!)
+	void publishStatus (unsigned int status, const std::string& message, bool unconditionalMessage=false);
+
+	void fetchAndPublishState ();
 };
 
 

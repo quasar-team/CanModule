@@ -42,6 +42,8 @@
 #include <linux/can.h>
 #include <linux/can/raw.h>
 #include <linux/can/error.h>
+#include <can_netlink.h> // for can_state
+#include <libsocketcan.h> // for can_get_state ...
 
 #include <CanModuleUtils.h>
 
@@ -58,6 +60,22 @@ std::mutex sockReconnectMutex; // protect m_busMap
     LOG(Log::ERR, THIS->logItHandle()) << MSG; \
     throw EXCEPTION_TYPE (MSG); \
     }
+
+//TODO another file ?
+static std::string translateCanStateToText(can_state state)
+{
+	switch (state)
+	{
+		case CAN_STATE_ERROR_ACTIVE: return "ERROR_ACTIVE (approximate OK)";
+		case CAN_STATE_ERROR_WARNING: return "ERROR_WARNING";
+		case CAN_STATE_ERROR_PASSIVE: return "ERROR_PASSIVE";
+		case CAN_STATE_BUS_OFF: return "BUS_OFF";
+		case CAN_STATE_STOPPED: return "CAN_STATE_STOPPED";
+		case CAN_STATE_SLEEPING: return "CAN_STATE_SLEEPING";
+		default:
+			throw std::logic_error("Unhanndled state condition");
+	}
+} 
 
 /**
  * This function creates an instance of this class and returns it.
@@ -103,7 +121,7 @@ static std::string canFrameToString(const struct can_frame &f)
  * select call on that socket/object. The select runs with 1Hz, and if
  * there is nothing to receive it should timeout.
  */
-void CSockCanScan::CanScanControlThread()
+void CSockCanScan::backgroundThread()
 {
 	struct can_frame  socketMessage;
 
@@ -132,7 +150,8 @@ void CSockCanScan::CanScanControlThread()
 	MLOGSOCK(TRC, this) << "main loop of SockCanScan starting, tid= " << _tid;
 	while ( m_CanScanThreadRunEnableFlag )
 	{
-		updateBusStatus();
+		fetchAndPublishState();
+
 		int selectResult = selectWrapper();
 
 		/**
@@ -141,7 +160,7 @@ void CSockCanScan::CanScanControlThread()
 		 */
 		if ( selectResult < 0 )
 		{
-			MLOGSOCK(ERR, this) << "select() failed: " << CanModuleerrnoToString() << " tid= " << _tid;
+			publishStatus(selectResult, "select() failed: " + CanModuleerrnoToString() + " tid= " + _tid);
 			std::this_thread::sleep_for(std::chrono::seconds(1));
 			continue;
 		}
@@ -157,13 +176,9 @@ void CSockCanScan::CanScanControlThread()
 		int numberOfReadBytes = read(m_sock, &socketMessage, sizeof(can_frame));
 		MLOGSOCK(DBG, this) << "read(): " << canFrameToString(socketMessage) << " tid= " << _tid;
 		MLOGSOCK(DBG, this) << "got numberOfReadBytes= " << numberOfReadBytes << " tid= " << _tid;;
-		if (numberOfReadBytes < 0) {
-			MLOGSOCK(ERR, this) << "read() error: " << CanModuleerrnoToString()<< " tid= " << _tid;;
-			timeval now (nowAsTimeval());
-			canMessageError( numberOfReadBytes, ("read() error: "+CanModuleerrnoToString()).c_str(), now );
-			m_errorCode = -1;
-
-
+		if (numberOfReadBytes < 0)
+		{
+			publishStatus(numberOfReadBytes, "read() failed: " + CanModuleerrnoToString() + " tid= " + _tid);
 			// try close/opening on faults while port is active
 
 			recoverPort();
@@ -175,7 +190,6 @@ void CSockCanScan::CanScanControlThread()
 			continue;
 		}
 
-
 		if (numberOfReadBytes <(int) sizeof(struct can_frame)) {
 			MLOGSOCK( WRN, this ) << m_channelName << " incomplete frame received, numberOfReadBytes=[" << numberOfReadBytes << "]";
 
@@ -186,15 +200,9 @@ void CSockCanScan::CanScanControlThread()
 		if (socketMessage.can_id & CAN_ERR_FLAG) {
 
 			/* With this mechanism we only set the portError */
-			m_errorCode = socketMessage.can_id & ~CAN_ERR_FLAG;
+			int code = socketMessage.can_id & ~CAN_ERR_FLAG;
 			std::string description = CSockCanScan::errorFrameToString( socketMessage );
-			timeval c_time;
-			int ioctlReturn1 = ioctl(m_sock, SIOCGSTAMP, &c_time); //TODO: Return code is not even checked
-			MLOGSOCK(ERR, this) << "SocketCAN ioctl return: [" << ioctlReturn1
-					<< " error frame: [" << description
-					<< "], original: [" << canFrameToString(socketMessage) << "]";
-			canMessageError( m_errorCode, description.c_str(), c_time );
-
+			publishStatus( code, description, true);
 			// we have tried to get the error, and we continue thread normally
 			continue;
 		}
@@ -335,73 +343,11 @@ int CSockCanScan::openCanPort()
 		m_errorCode = ret;
 		MLOGSOCK(ERR,this) << "can_get_state() failed with error code " << ret << ", it was not possible to obtain initial port state";
 	}
-	updateInitialError();
+	updateInitialError(); // TODO piotr
 	m_statistics.setTimeSinceOpened();
 	return m_sock;
 }
 
-/**
- * update the CAN bus status IFLA from socketcan and make up a CanModule
- * status bitpattern out from this. Each vendor has to implement this with the same
- * bit meanings.
- *
- * Errors are a subset of status.
- *
- * std::string CSockCanScan::errorFrameToString(const struct can_frame &canFrame)
- * fabricates a string, we need a bitpattern
- *
- * int can_get_restart_ms(const char *name, __u32 *restart_ms);
- * int can_get_bittiming(const char *name, struct can_bittiming *bt);
- * int can_get_ctrlmode(const char *name, struct can_ctrlmode *cm);
- * int can_get_state(const char *name, int *state);
- * int can_get_clock(const char *name, struct can_clock *clock);
- * int can_get_bittiming_const(const char *name, struct can_bittiming_const *btc);
- * int can_get_berr_counter(const char *name, struct can_berr_counter *bc);
- * int can_get_device_stats(const char *name, struct can_device_stats *cds);
- *
- */
-void CSockCanScan::updateBusStatus(){
-	int ret = 0;
-
-	/* see libsocketcan/include/can_netlink.h
-	 *
-	 * CAN operational and error states
-	 *
-	enum can_state {
-		CAN_STATE_ERROR_ACTIVE = 0,	 RX/TX error count < 96
-		CAN_STATE_ERROR_WARNING,	 RX/TX error count < 128
-		CAN_STATE_ERROR_PASSIVE,	 RX/TX error count < 256
-		CAN_STATE_BUS_OFF,		 RX/TX error count >= 256
-		CAN_STATE_STOPPED,		 Device is stopped
-		CAN_STATE_SLEEPING,		 Device is sleeping
-		CAN_STATE_MAX
-	};
-	 */
-	int _state;
-	ret += can_get_state( m_channelName.c_str(), &_state );
-
-#if 0
-	uint32_t _restart_ms;
-	struct can_bittiming _bt;
-	struct can_ctrlmode _cm;
-	struct can_clock _clock;
-	struct can_bittiming_const _btc;
-	struct can_berr_counter _bc;
-	struct can_device_stats _cds;
-
-	ret += can_get_restart_ms( m_channelName.c_str(), &_restart_ms );
-	ret += can_get_bittiming( m_channelName.c_str(), &_bt);
-	ret += can_get_ctrlmode( m_channelName.c_str(), &_cm);
-	ret += can_get_clock( m_channelName.c_str(), &_clock);
-	ret += can_get_bittiming_const( m_channelName.c_str(), &_btc);
-	ret += can_get_berr_counter( m_channelName.c_str(), &_bc);
-	ret += can_get_device_stats( m_channelName.c_str(), &_cds);
-#endif
-
-	if ( !ret ) {
-		m_statistics.setPortStatus( _state );
-	}
-}
 
 /**
  * Method that sends a message trough the can bus channel. If the method createBUS was not
@@ -536,7 +482,7 @@ int CSockCanScan::createBus(const string name, const string parameters)
 	// start a thread on a private non-static member function. We don't need any arguments since
 	// the thread is run on the object anyway.
 	// m_hCanScanThread = new std::thread( &CSockCanScan::CanScanControlThread, this, "test" );
-	m_hCanScanThread = new std::thread( &CSockCanScan::CanScanControlThread, this);
+	m_hCanScanThread = new std::thread( &CSockCanScan::backgroundThread, this);
 	MLOGSOCK(TRC,this) << "created main thread m_idCanScanThread";
 	return( 0 );
 }
@@ -618,23 +564,6 @@ std::string CSockCanScan::errorFrameToString(const struct can_frame &canFrame)
 	return result;
 }
 
-void CSockCanScan::clearErrorMessage()
-{
-	string errorMessage = "";
-	timeval c_time;
-	int ioctlReturn = ioctl(m_sock, SIOCGSTAMP, &c_time);//TODO: Return code is not checked
-	MLOGSOCK(TRC,this) << "ioctlReturn= " << ioctlReturn;
-	canMessageError(0, errorMessage.c_str(), c_time);
-}
-
-void CSockCanScan::sendErrorMessage(const char *mess)
-{
-	timeval c_time;
-	int ioctlReturn = ioctl(m_sock,SIOCGSTAMP,&c_time);//TODO: Return code is not checked
-	MLOGSOCK(TRC,this) << "ioctlReturn= " << ioctlReturn;
-	canMessageError(-1,mess,c_time);
-}
-
 /**
  * notify the main thread to finish and delete the bus from the map of connections
  */
@@ -673,7 +602,7 @@ void CSockCanScan::getStatistics( CanStatistics & result )
 void CSockCanScan::updateInitialError ()
 {
 	if (m_errorCode == 0) {
-		clearErrorMessage();
+		// clearErrorMessage(); // TODO
 	} else {
 		timeval now (nowAsTimeval());
 		canMessageError( m_errorCode, "Initial port state: error", now);
@@ -715,7 +644,7 @@ bool CSockCanScan::writeWrapper (const can_frame* frame)
 			return false;
 		}
 	}
-	else if (numberOfWrittenBytes < sizeof (struct can_frame))
+	else if ((size_t)numberOfWrittenBytes < sizeof (struct can_frame)) // numberOfWrittenBytes is for sure positive
 	{
 		MLOGSOCK(ERR,this) << "sendRemoteRequest() sent less bytes than expected";
 		return false;
@@ -745,7 +674,9 @@ void CSockCanScan::recoverPort ()
 			// try closing the socket
 			MLOGSOCK(INF, this) << "Closing socket."<< " tid= " << _tid;
 			if (close(m_sock) < 0)
+			{
 				MLOGSOCK(ERR, this) << "Socket close error!"<< " tid= " << _tid;
+			}
 			m_sock = -1;
 		}
 
@@ -767,4 +698,32 @@ void CSockCanScan::recoverPort ()
 			MLOGSOCK(ERR, this) << " tid= " << _tid << "openCanPort() failed [" << e.what() << "], will retry in 10s";
 		}
 	} 
+}
+
+void CSockCanScan::publishStatus (
+	unsigned int status,
+	const std::string& message,
+	bool unconditionalMessage)
+{
+	if (unconditionalMessage || (m_errorCode >= 0 && status < 0))
+	{ //! Notify about transition to error.
+		MLOGSOCK(ERR, this) << message << "tid=[" << this_thread::get_id() << "]";
+	}
+	m_errorCode = status;
+	timeval now (nowAsTimeval());
+	canMessageError(status, message.c_str(), now);
+}
+
+void CSockCanScan::fetchAndPublishState ()
+{
+	int obtainedState;
+	if (can_get_state(m_channelName.c_str(), &obtainedState) < 0)
+	{
+		// are we in DontConfigure mode? if so, it is okay for get_state to fail
+		if (m_CanParameters.m_dontReconfigure)
+			return;
+		else
+			publishStatus(-1, "Can't get state via netlink", true);
+	}
+	publishStatus(obtainedState, translateCanStateToText((can_state)obtainedState));
 }
