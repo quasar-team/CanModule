@@ -133,8 +133,6 @@ IF (WIN32)
 ELSE()
 	SET( CAN_LIBRARY_LOADER_PLATFORM_IMPL CanLibLoader/src/CanLibLoaderLin.cpp)
 	SET( CAN_LIBRARY_LOADER_PLATFORM_IMPL_HEADER CanLibLoader/include/CanLibLoaderLin.h)
-#	SET( CAN_LIBRARY_GETTIMEOFDAY )
-#	SET( CAN_LIBRARY_GETTIMEOFDAY_HEADER )
 	# use RUNPATH instead of RPATH -Wl,--disable-new-dtags does not work on g++ (GCC) 4.8.5 20150623 (Red Hat 4.8.5-39)
     SET( CMAKE_SKIP_RPATH TRUE )
 	SET( CANMODULE_RPATHS "-Wl,-rpath,./ -Wl,-rpath,./lib -Wl,-rpath,/usr/local/lib" )
@@ -164,8 +162,6 @@ SET( SRCS
 		CanInterface/include/CanMessage.h
 		CanInterface/src/CCanAccess.cpp
 		CanInterface/include/CCanAccess.h
-#		${CAN_LIBRARY_GETTIMEOFDAY}
-#		${CAN_LIBRARY_GETTIMEOFDAY_HEADER}	
 		${PROJECT_SOURCE_DIR}/CanInterface/include/VERSION.h	
 )
 
