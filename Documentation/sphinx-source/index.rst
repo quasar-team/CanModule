@@ -20,6 +20,7 @@ CanModule reference documentation
    logging
    building
    running
+   errors
    testing
    support
 
