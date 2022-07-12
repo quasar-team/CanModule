@@ -3,12 +3,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 
-<<<<<<< HEAD
 ### 2.0.21 [12.july.2022]
 - version corrected
 - found and suppreses another few nanosleeps, replace with chrono
-=======
->>>>>>> 7354ffe454b67ca63b9737dda3c98290c0346d26
 - OPCUA-2584: rx/tx counting in the handler, for now, to improve err reporting already, and port status:
   - CanMessageError: send a boost signal with an error message to a subscibing error handler
   - anagate: used in sendMessage() and sendRemoteMessage()
@@ -16,10 +13,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
   - systec: sendErrorCode() sends an error code (not a message) at message reception with USB error AND the return code of sendMessage (also if it is OK)
   - sock: no wrapper method (defined but not used), error messages are sent when: socket recovers, error reading from socket, a CAN error 
     was flagged from the socket (plus message and socket timestamp if possible), when opening a CAN port produces an error
-<<<<<<< HEAD
 - no functional changes
-=======
-    
     
   
   
@@ -28,8 +22,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 - version corrected
 - found and suppreses another few nanosleeps, replace with chrono
 
+- OPCUA-2584: rx/tx counting in the handler, for now, to improve err reporting already, and port status:
+  - CanMessageError: send a boost signal with an error message to a subscibing error handler
+  - anagate: used in sendMessage() and sendRemoteMessage()
+  - peak: sendErrorCode() sends an error code (not a message) at sendMessage(), triggerReconnectionThread() and sendRemoteRequest()
+  - systec: sendErrorCode() sends an error code (not a message) at message reception with USB error AND the return code of sendMessage (also if it is OK)
+  - sock: no wrapper method (defined but not used), error messages are sent when: socket recovers, error reading from socket, a CAN error 
+    was flagged from the socket (plus message and socket timestamp if possible), when opening a CAN port produces an error
 
->>>>>>> 7354ffe454b67ca63b9737dda3c98290c0346d26
 
 ### 2.0.20 [20.april.2022]
 - fix bugs found by QA: error message mem leak in anagate and systec
