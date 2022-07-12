@@ -1,0 +1,6 @@
+<map id="STCanScan" name="STCanScan">
+<area shape="rect" id="node2" href="$classCanModule_1_1CCanAccess.html" title="CanModule::CCanAccess" alt="" coords="17,112,199,139"/>
+<area shape="rect" id="node3" href="$structCanModule_1_1CanParameters.html" title="CanModule::CanParameters" alt="" coords="5,13,205,40"/>
+<area shape="rect" id="node4" href="$classCanModule_1_1CanStatistics.html" title="CanModule::CanStatistics" alt="" coords="228,112,415,139"/>
+<area shape="rect" id="node5" href="$classCanModule_1_1CanStatistics_1_1Internals.html" title="Following is encapsulated as a class, to provide sane copying in assignment operator. " alt="" coords="231,6,417,47"/>
+</map>

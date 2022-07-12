@@ -168,6 +168,7 @@ void CSockCanScan::CanScanControlThread()
 		if ( selectResult < 0 ){
 			MLOGSOCK(ERR,p_sockCanScan) << "select() failed: " << CanModuleerrnoToString()
 									<< " tid= " << _tid;
+#if 0
 			{
 				struct timespec tim, tim2;
 				tim.tv_sec = 1;
@@ -176,6 +177,8 @@ void CSockCanScan::CanScanControlThread()
 					MLOGSOCK(ERR,p_sockCanScan) << "Waiting 1s failed (nanosleep) tid= " << _tid;
 				}
 			}
+#endif
+			CanModule::ms_sleep( 1000 );
 			continue;
 		}
 
@@ -221,6 +224,7 @@ void CSockCanScan::CanScanControlThread()
 				// try close/opening on faults while port is active. This was a system error
 				do {
 					MLOGSOCK(INF,p_sockCanScan) << "Waiting 10000ms."<< " tid= " << _tid;
+#if 0
 					{
 						struct timespec tim, tim2;
 						tim.tv_sec = 10;
@@ -229,6 +233,9 @@ void CSockCanScan::CanScanControlThread()
 							MLOG(ERR,p_sockCanScan) << "Waiting 10000ms failed (nanosleep)"<< " tid= " << _tid;
 						}
 					}
+#endif
+					CanModule::ms_sleep( 10000 );
+
 					if ( sock > 0 )	{
 						// try closing the socket
 						MLOGSOCK(INF,p_sockCanScan) << "Closing socket."<< " tid= " << _tid;
@@ -666,6 +673,7 @@ bool CSockCanScan::sendMessage(short cobID, unsigned char len, unsigned char *me
 		if ( errno == ENOBUFS ) {
 			// std::cerr << "ENOBUFS; waiting a jiffy [100ms]..." << std::endl;
 			MLOGSOCK(ERR,this) << "write error ENOBUFS: waiting a jiffy [100ms]...";
+#if 0
 			{
 				struct timespec tim, tim2;
 				tim.tv_sec = 0;
@@ -674,6 +682,9 @@ bool CSockCanScan::sendMessage(short cobID, unsigned char len, unsigned char *me
 					MLOGSOCK(ERR,this) << "Waiting 100ms failed (nanosleep)";
 				}
 			}
+#endif
+			CanModule::ms_sleep( 100 );
+
 			ret = false;
 		}
 		if ( numberOfWrittenBytes < (int)sizeof(struct can_frame)){
@@ -725,6 +736,7 @@ bool CSockCanScan::sendRemoteRequest(short cobID)
 			if (errno == ENOBUFS)
 			{
 				MLOGSOCK(ERR,this) << "ENOBUFS; waiting a jiffy [100ms]...";
+#if 0
 				{
 					struct timespec tim, tim2;
 					tim.tv_sec = 0;
@@ -733,6 +745,9 @@ bool CSockCanScan::sendRemoteRequest(short cobID)
 						MLOGSOCK(ERR,this) << "Waiting 100ms failed (nanosleep)";
 					}
 				}
+#endif
+				CanModule::ms_sleep( 100 );
+
 				continue;//If this happens we sleep and start from the beggining of the loop
 			}
 		}
@@ -933,6 +948,8 @@ void CSockCanScan::clearErrorMessage()
 	canMessageError(0, errorMessage.c_str(), c_time);
 }
 
+#if 0
+// this method is not used, instead, code is implemented directly everywhere
 /**
  * send a timestamped error message, get time from the socket or from chrono
  */
@@ -950,6 +967,7 @@ void CSockCanScan::sendErrorMessage(const char *mess)
 	MLOGSOCK(TRC,this) << "ioctlReturn= " << ioctlReturn;
 	canMessageError(-1,mess,c_time);
 }
+#endif
 
 /**
  * notify the main thread to finish and delete the bus from the map of connections

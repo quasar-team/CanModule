@@ -1,0 +1,8 @@
+<map id="CSockCanScan::openCanPort" name="CSockCanScan::openCanPort">
+<area shape="rect" id="node2" href="$namespaceCanModule.html#a6cae4be8d395b496f5f602a5f9714ae1" title="CanModule::CanModuleerrno\lToString" alt="" coords="264,5,472,46"/>
+<area shape="rect" id="node3" href="$classCanModule_1_1CanStatistics.html#af3f15dedf80e67f1309946632d87198d" title="CanModule::CanStatistics\l::setTimeSinceOpened" alt="" coords="275,70,461,111"/>
+<area shape="rect" id="node4" href="$classCSockCanScan.html#a623057580187ecb241adf143c64d711c" title="CSockCanScan::updateInitial\lError" alt="" coords="264,135,472,177"/>
+<area shape="rect" id="node5" href="$classCSockCanScan.html#a4b5f7591bfd27b8770bfb9ac9e406f66" title="CSockCanScan::clearError\lMessage" alt="" coords="520,165,709,206"/>
+<area shape="rect" id="node6" href="$namespaceCanModule.html#a3ec3082d7d11a9c1641023cb3f53cbe5" title="CanModule::convertTimepoint\lToTimeval" alt="" coords="758,106,975,147"/>
+<area shape="rect" id="node7" href="$classCanModule_1_1CCanAccess.html#ac3f5126ae36d642217425e21696d19ca" title="CanModule::CCanAccess\l::getBusName" alt="" coords="776,171,957,213"/>
+</map>

@@ -137,7 +137,7 @@ private:
 	void updateInitialError () ;
 	static std::string errorFrameToString (const struct can_frame &f);
 
-	void sendErrorMessage(const char  *);
+	// void sendErrorMessage(const char  *);
 	void clearErrorMessage();
 	int configureCanBoard(const string name,const string parameters);
 	// void updateBusStatus();

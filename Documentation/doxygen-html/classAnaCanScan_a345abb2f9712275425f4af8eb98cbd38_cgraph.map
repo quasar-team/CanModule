@@ -1,0 +1,4 @@
+<map id="AnaCanScan::sendRemoteRequest" name="AnaCanScan::sendRemoteRequest">
+<area shape="rect" id="node2" href="$classAnaCanScan.html#a6260e2ac6ce9c181ad5d64551ddeb60c" title="AnaCanScan::sendAnErrorMessage" alt="" coords="299,5,546,32"/>
+<area shape="rect" id="node3" href="$classAnaCanScan.html#a25489463d6a0a1f2f122a0bfc55bb318" title="AnaCanScan::errorCodeToString" alt="" coords="595,5,821,32"/>
+</map>

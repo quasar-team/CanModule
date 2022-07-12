@@ -1,0 +1,9 @@
+<map id="CSockCanScan::sendMessage" name="CSockCanScan::sendMessage">
+<area shape="rect" id="node2" href="$namespaceCanModule.html#a6cae4be8d395b496f5f602a5f9714ae1" title="CanModule::CanModuleerrno\lToString" alt="" coords="283,5,491,46"/>
+<area shape="rect" id="node3" href="$classCanModule_1_1CCanAccess.html#a24494114ec0dc237b63fb321ba4d084e" title="CanModule::CCanAccess\l::decreaseSendFailedCountdown" alt="" coords="271,70,503,111"/>
+<area shape="rect" id="node4" href="$classCSockCanScan.html#ace6f7aa52fe582af6de098895fc91b83" title="CSockCanScan::emptyCanFrame" alt="" coords="270,136,503,163"/>
+<area shape="rect" id="node5" href="$classCanModule_1_1CanStatistics.html#a0265b75e9e2e16737950b6b5c5662f35" title="dataLength is the user data size (DLC field) " alt="" coords="293,187,480,229"/>
+<area shape="rect" id="node6" href="$classCanModule_1_1CCanAccess.html#aad13b5ad34547cbe6cad4e8369557bed" title="CanModule::CCanAccess\l::resetSendFailedCountdown" alt="" coords="283,253,490,294"/>
+<area shape="rect" id="node7" href="$classCanModule_1_1CanStatistics.html#afe8d43dfb65ee2675ceac1dc84f7eb1a" title="CanModule::CanStatistics\l::setTimeSinceTransmitted" alt="" coords="289,318,484,359"/>
+<area shape="rect" id="node8" href="$classCanModule_1_1CCanAccess.html#a16e43f90cd984b9ea72028c0f8dfe784" title="CanModule::CCanAccess\l::triggerReconnectionThread" alt="" coords="284,383,489,425"/>
+</map>

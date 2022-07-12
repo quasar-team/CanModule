@@ -60,29 +60,57 @@ public:
 	void beginNewRun();
 	void computeDerived(unsigned int baudRate);
 
-	//! dataLength is the user data size (DLC field)
+	/**
+	 * called when transmitting a message
+	 * dataLength is the user data size (DLC field)
+	 */
 	void onTransmit(unsigned int dataLength);
 
-	//! dataLength is the user data size (DLC field)
+	/**
+	 * called when receiving a message
+	 * dataLength is the user data size (DLC field)
+	 */
 	void onReceive(unsigned int dataLength);
 
 	unsigned int totalTransmitted() { return m_totalTransmitted.load(); }
 	unsigned int totalReceived() { return m_totalReceived.load(); }
+
+	/**
+	 * transmission rate bytes/s
+	 */
 	float txRate() { return m_internals.m_transmittedPerSec; }
+
+	/**
+	 * reception rate bytes/s
+	 */
 	float rxRate() { return m_internals.m_receivedPerSec; }
+
+	/**
+	 * bus load in 0...1 ( % * 100 ) of max bus speed (baudrate)
+	 */
 	float busLoad() { return m_internals.m_busLoad; }
 
-
+	/**
+	 * time since the last message was received in microseconds
+	 */
 	double timeSinceReceived() {
 		m_hrnow = high_resolution_clock::now();
 		duration<double, micro> time_span = duration_cast<duration<double, micro>>(m_hrnow - m_hrreceived);
 		return ( time_span.count() / 1000 );
 	}
+
+	/**
+	 * time since the last message was sent, in microseconds
+	 */
 	double timeSinceTransmitted() {
 		m_hrnow = high_resolution_clock::now();
 		duration<double, micro> time_span = duration_cast<duration<double, micro>>(m_hrnow - m_hrtransmitted);
 		return ( time_span.count() / 1000 );
 	}
+
+	/**
+	 *  time since that bus was opened, in microseconds
+	 */
 	double timeSinceOpened() {
 		m_hrnow = high_resolution_clock::now();
 		duration<double, micro> time_span = duration_cast<duration<double, micro>>(m_hrnow - m_hropen);
