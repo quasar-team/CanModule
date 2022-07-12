@@ -1,0 +1,12 @@
+<map id="PKCanScan::CanReconnectionThread" name="PKCanScan::CanReconnectionThread">
+<area shape="rect" id="node2" href="$classPKCanScan.html#a28ef6a7e978c2a129a21b13bbf1fc869" title="PKCanScan::getBaudRate" alt="" coords="303,5,489,32"/>
+<area shape="rect" id="node3" href="$classPKCanScan.html#a454636f43c7056e861870f59b5a4bfcc" title="PKCanScan::getFailedSend\lCountdown" alt="" coords="299,57,493,98"/>
+<area shape="rect" id="node4" href="$classPKCanScan.html#a00c1fa5d1abd77601c46669df80b6fba" title="PKCanScan::getReconnectAction" alt="" coords="281,123,511,149"/>
+<area shape="rect" id="node5" href="$classPKCanScan.html#a4ae1f1cfd3e566a903b79f2502fe8752" title="PKCanScan::getReconnectCondition" alt="" coords="270,173,522,200"/>
+<area shape="rect" id="node6" href="$classPKCanScan.html#a4905a303d36dcae5be09e5c4acd4d558" title="PKCanScan::getTPCANHandle" alt="" coords="289,224,503,251"/>
+<area shape="rect" id="node7" href="$classCanModule_1_1CCanAccess.html#aa12f64e9e31bd491f39fc3169b1e5025" title="CanModule::CCanAccess\l::reconnectActionString" alt="" coords="305,275,487,317"/>
+<area shape="rect" id="node8" href="$classCanModule_1_1CCanAccess.html#a9da88ce122d5de04a0235a4682a13dc0" title="CanModule::CCanAccess\l::reconnectConditionString" alt="" coords="299,341,493,382"/>
+<area shape="rect" id="node9" href="$classCanModule_1_1CCanAccess.html#aad13b5ad34547cbe6cad4e8369557bed" title="CanModule::CCanAccess\l::resetSendFailedCountdown" alt="" coords="293,406,499,447"/>
+<area shape="rect" id="node10" href="$classCanModule_1_1CCanAccess.html#a067f50699c1ed4b6ee6732eb0078ed0a" title="CanModule::CCanAccess\l::resetTimeoutOnReception" alt="" coords="297,471,495,513"/>
+<area shape="rect" id="node11" href="$classCanModule_1_1CCanAccess.html#ad8afab7f9acc769c53574edec695065b" title="CanModule::CCanAccess\l::waitForReconnectionThread\lTrigger" alt="" coords="291,537,501,593"/>
+</map>

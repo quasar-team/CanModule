@@ -1,0 +1,36 @@
+<map id="CSockCanScan::createBus" name="CSockCanScan::createBus">
+<area shape="rect" id="node2" href="$classCSockCanScan.html#a808488b6793afea6cc8466c3a12a088c" title="CSockCanScan::CanReconnection\lThread" alt="" coords="246,363,485,405"/>
+<area shape="rect" id="node18" href="$classCSockCanScan.html#a2a97f7fca98e6d599bdb42da64796ad8" title="CSockCanScan::CanScanControl\lThread" alt="" coords="539,37,768,78"/>
+<area shape="rect" id="node21" href="$classCSockCanScan.html#a8bb8fcdb24b2b917258d027e6a468bae" title="CSockCanScan::configureCan\lBoard" alt="" coords="260,693,471,734"/>
+<area shape="rect" id="node3" href="$classCSockCanScan.html#a03594b2fff9c61f37a5f68df2cfec05c" title="CSockCanScan::getReconnect\lAction" alt="" coords="546,575,761,617"/>
+<area shape="rect" id="node4" href="$classCSockCanScan.html#aa8cb4c89fe3a13bb787c4085f1e994e3" title="CSockCanScan::getReconnect\lCondition" alt="" coords="546,102,761,143"/>
+<area shape="rect" id="node5" href="$classCanModule_1_1CCanAccess.html#a79c236a0e2b3e3b183b1c85aab3f5b71" title="CanModule::CCanAccess\l::hasTimeoutOnReception" alt="" coords="559,167,748,209"/>
+<area shape="rect" id="node6" href="$classCSockCanScan.html#a203a51239f8efc013d4b9df36f271317" title="CSockCanScan::openCanPort" alt="" coords="549,641,758,668"/>
+<area shape="rect" id="node13" href="$classCanModule_1_1CCanAccess.html#aa12f64e9e31bd491f39fc3169b1e5025" title="CanModule::CCanAccess\l::reconnectActionString" alt="" coords="563,233,744,274"/>
+<area shape="rect" id="node14" href="$classCanModule_1_1CCanAccess.html#a9da88ce122d5de04a0235a4682a13dc0" title="CanModule::CCanAccess\l::reconnectConditionString" alt="" coords="556,298,751,339"/>
+<area shape="rect" id="node15" href="$classCanModule_1_1CCanAccess.html#aad13b5ad34547cbe6cad4e8369557bed" title="CanModule::CCanAccess\l::resetSendFailedCountdown" alt="" coords="550,363,757,405"/>
+<area shape="rect" id="node16" href="$classCanModule_1_1CCanAccess.html#a067f50699c1ed4b6ee6732eb0078ed0a" title="CanModule::CCanAccess\l::resetTimeoutOnReception" alt="" coords="554,429,753,470"/>
+<area shape="rect" id="node17" href="$classCanModule_1_1CCanAccess.html#ad8afab7f9acc769c53574edec695065b" title="CanModule::CCanAccess\l::waitForReconnectionThread\lTrigger" alt="" coords="548,495,759,551"/>
+<area shape="rect" id="node7" href="$namespaceCanModule.html#a6cae4be8d395b496f5f602a5f9714ae1" title="CanModule::CanModuleerrno\lToString" alt="" coords="821,294,1029,335"/>
+<area shape="rect" id="node8" href="$classCSockCanScan.html#a623057580187ecb241adf143c64d711c" title="CSockCanScan::updateInitial\lError" alt="" coords="821,425,1029,466"/>
+<area shape="rect" id="node12" href="$classCanModule_1_1CanStatistics.html#af3f15dedf80e67f1309946632d87198d" title="CanModule::CanStatistics\l::setTimeSinceOpened" alt="" coords="832,631,1019,673"/>
+<area shape="rect" id="node9" href="$classCSockCanScan.html#a4b5f7591bfd27b8770bfb9ac9e406f66" title="CSockCanScan::clearError\lMessage" alt="" coords="1080,425,1269,466"/>
+<area shape="rect" id="node10" href="$namespaceCanModule.html#a3ec3082d7d11a9c1641023cb3f53cbe5" title="CanModule::convertTimepoint\lToTimeval" alt="" coords="1321,362,1538,403"/>
+<area shape="rect" id="node11" href="$classCanModule_1_1CCanAccess.html#ac3f5126ae36d642217425e21696d19ca" title="CanModule::CCanAccess\l::getBusName" alt="" coords="1339,427,1520,469"/>
+<area shape="rect" id="node19" href="$classCSockCanScan.html#a177453d85f24c6b12b84468ac812cf5c" title="CSockCanScan::errorFrame\lToString" alt="" coords="827,5,1024,46"/>
+<area shape="rect" id="node20" href="$classCanModule_1_1CCanAccess.html#a16e43f90cd984b9ea72028c0f8dfe784" title="CanModule::CCanAccess\l::triggerReconnectionThread" alt="" coords="823,70,1028,111"/>
+<area shape="rect" id="node22" href="$classCanModule_1_1CCanAccess.html#af26c9d102638fb96e5e1305f807d148f" title="CanModule::CCanAccess\l::parseNameAndParameters" alt="" coords="551,693,755,734"/>
+<area shape="rect" id="node24" href="$classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak.html#a7edf6a8b32f9728aacf570a7704e560f" title="udevanalyserforpeak\l_ns::UdevAnalyserForPeak\l::peakExtendedIdentifierToSocket\lCanDevice" alt="" coords="534,758,773,829"/>
+<area shape="rect" id="node35" href="$classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak.html#a982db3210deb3a9483508f473af4262c" title="udevanalyserforpeak\l_ns::UdevAnalyserForPeak\l::showMap" alt="" coords="556,853,751,909"/>
+<area shape="rect" id="node23" href="$structCanModule_1_1CanParameters.html#ae3c938ac282acae4e49487cbb8a61133" title="CanModule::CanParameters\l::scanParameters" alt="" coords="825,697,1026,738"/>
+<area shape="rect" id="node25" href="$classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak.html#a0f9f020e963d202faff7a1a114713219" title="udevanalyserforpeak\l_ns::UdevAnalyserForPeak\l::getInstance" alt="" coords="828,765,1023,821"/>
+<area shape="rect" id="node26" href="$classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak.html#aaf0bf3ac85c7b39a34b8c9430f99f88c" title="udevanalyserforpeak\l_ns::UdevAnalyserForPeak\l::UdevAnalyserForPeak" alt="" coords="1077,765,1272,821"/>
+<area shape="rect" id="node27" href="$classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak.html#acd46c5ec27ddad48e2f32ab65b2ac2be" title="udevanalyserforpeak\l_ns::UdevAnalyserForPeak\l::m_createUdevPortMap" alt="" coords="1332,765,1527,821"/>
+<area shape="rect" id="node28" href="$classexeccommand__ns_1_1ExecCommand.html#a440dcd04236854e0fcbc7d4a81d0d1f9" title="execcommand_ns::ExecCommand\l::getResults" alt="" coords="1614,539,1861,581"/>
+<area shape="rect" id="node29" href="$classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak.html#aa4c7f266427a299185aa8999d63b381a" title="udevanalyserforpeak\l_ns::UdevAnalyserForPeak\l::m_peakDeviceId" alt="" coords="1640,605,1835,661"/>
+<area shape="rect" id="node30" href="$classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak.html#a398b71235631eac545a05eb0d03acfcd" title="udevanalyserforpeak\l_ns::UdevAnalyserForPeak\l::m_peakSystemDeviceIndex" alt="" coords="1631,685,1843,741"/>
+<area shape="rect" id="node31" href="$classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak.html#a0570a23bb2eb7f57930ff4eb8cf7fbaf" title="udevanalyserforpeak\l_ns::UdevAnalyserForPeak\l::m_peakLocalCanPort" alt="" coords="1640,765,1835,821"/>
+<area shape="rect" id="node32" href="$classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak.html#a591ea665dcb445268404b113473092a1" title="udevanalyserforpeak\l_ns::UdevAnalyserForPeak\l::m_peakDriverNumber" alt="" coords="1640,845,1835,901"/>
+<area shape="rect" id="node33" href="$classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak.html#a64bc86c641b444e6d6ccfc80d565b74f" title="udevanalyserforpeak\l_ns::UdevAnalyserForPeak\l::m_peakDeviceIdFromSystemDeviceIndex" alt="" coords="1587,925,1888,981"/>
+<area shape="rect" id="node34" href="$classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak.html#a2b522c5a1624c408d0f1854fba53b066" title="udevanalyserforpeak\l_ns::UdevAnalyserForPeak\l::m_peakStructCompare" alt="" coords="1640,1005,1835,1061"/>
+</map>

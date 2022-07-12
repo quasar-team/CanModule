@@ -24,7 +24,6 @@ var classCSockCanScan =
     [ "setReconnectFailedSendCount", "classCSockCanScan.html#aceab51e91b2c698211e5d563e4449c91", null ],
     [ "setReconnectReceptionTimeout", "classCSockCanScan.html#afad122d886579de793f2b7b49e5c6d5f", null ],
     [ "stopBus", "classCSockCanScan.html#a7be2c075520b1cbf4baa4eb7d728fd2d", null ],
-    [ "updateBusStatus", "classCSockCanScan.html#aaed83a57ee1b70fff48a1a5ca9655fe6", null ],
     [ "updateInitialError", "classCSockCanScan.html#a623057580187ecb241adf143c64d711c", null ],
     [ "m_busName", "classCSockCanScan.html#a47b82a55c47a74e0918378baf82dd45a", null ],
     [ "m_CanScanThreadRunEnableFlag", "classCSockCanScan.html#aab77a9dc136d4c01ce31021929412ddb", null ],

@@ -1,0 +1,6 @@
+<map id="CSockCanScan::CanScanControlThread" name="CSockCanScan::CanScanControlThread">
+<area shape="rect" id="node2" href="$namespaceCanModule.html#a6cae4be8d395b496f5f602a5f9714ae1" title="CanModule::CanModuleerrno\lToString" alt="" coords="288,5,496,46"/>
+<area shape="rect" id="node3" href="$namespaceCanModule.html#a3ec3082d7d11a9c1641023cb3f53cbe5" title="CanModule::convertTimepoint\lToTimeval" alt="" coords="283,70,501,111"/>
+<area shape="rect" id="node4" href="$classCSockCanScan.html#a177453d85f24c6b12b84468ac812cf5c" title="CSockCanScan::errorFrame\lToString" alt="" coords="293,135,491,177"/>
+<area shape="rect" id="node5" href="$classCanModule_1_1CCanAccess.html#a16e43f90cd984b9ea72028c0f8dfe784" title="CanModule::CCanAccess\l::triggerReconnectionThread" alt="" coords="289,201,495,242"/>
+</map>

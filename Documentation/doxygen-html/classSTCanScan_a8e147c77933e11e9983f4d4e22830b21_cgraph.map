@@ -1,0 +1,12 @@
+<map id="STCanScan::configureCanBoard" name="STCanScan::configureCanBoard">
+<area shape="rect" id="node2" href="$classSTCanScan.html#af6cf11abff5d1b39b35ceff9ae857270" title="STCanScan::createInitialization\lParameters" alt="" coords="278,66,501,107"/>
+<area shape="rect" id="node3" href="$classSTCanScan.html#a5f74df7e9615929365b33c08e709e918" title="STCanScan::openCanPort" alt="" coords="297,132,481,159"/>
+<area shape="rect" id="node9" href="$classCanModule_1_1CCanAccess.html#af26c9d102638fb96e5e1305f807d148f" title="CanModule::CCanAccess\l::parseNameAndParameters" alt="" coords="287,183,491,225"/>
+<area shape="rect" id="node11" href="$classSTCanScan.html#aa57c48594c8a70a0331f07fb4ad208fd" title="STCanScan::vendorBaudRate2\lUserBaudRate" alt="" coords="281,249,498,290"/>
+<area shape="rect" id="node4" href="$classSTCanScan.html#a2f2a9aaa3ce2c653a4e1152eb8497493" title="STCanScan::isCanHandleInUse" alt="" coords="554,5,774,32"/>
+<area shape="rect" id="node5" href="$classSTCanScan.html#a29b4c3c8f29e45f808fbb7528e4593aa" title="STCanScan::getCanHandle" alt="" coords="567,56,761,83"/>
+<area shape="rect" id="node6" href="$classSTCanScan.html#ae29a23d161c115f173cbdb3a807c895e" title="STCanScan::setCanHandleInUse" alt="" coords="549,107,779,133"/>
+<area shape="rect" id="node7" href="$classSTCanScan.html#a50f89ce5fc0b2961937dc8a4b86081f8" title="STCanScan::setCanHandle" alt="" coords="568,157,760,184"/>
+<area shape="rect" id="node8" href="$classCanModule_1_1CanStatistics.html#af3f15dedf80e67f1309946632d87198d" title="CanModule::CanStatistics\l::setTimeSinceOpened" alt="" coords="571,209,757,250"/>
+<area shape="rect" id="node10" href="$structCanModule_1_1CanParameters.html#ae3c938ac282acae4e49487cbb8a61133" title="CanModule::CanParameters\l::scanParameters" alt="" coords="563,274,765,315"/>
+</map>

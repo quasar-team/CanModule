@@ -5,7 +5,7 @@ var classSTCanScan =
     [ "~STCanScan", "classSTCanScan.html#a2f3398dc992ebd90002c179305c55d54", null ],
     [ "configureCanBoard", "classSTCanScan.html#a8e147c77933e11e9983f4d4e22830b21", null ],
     [ "createBus", "classSTCanScan.html#a28ac80d789b6d4d2bb11526bfaede69e", null ],
-    [ "errorCodeToString", "classSTCanScan.html#a9a4da7b1dd74e81e8066894a1a8c051e", null ],
+    [ "errorCodeToString", "classSTCanScan.html#a54da665706336c8fab2f1c32b64056c5", null ],
     [ "getPortBitrate", "classSTCanScan.html#a91743fa3da0804c3bf55e40c8c8da9b6", null ],
     [ "getPortStatus", "classSTCanScan.html#a27eabd471d3bb8154dfadb677c66e1d5", null ],
     [ "getReconnectAction", "classSTCanScan.html#a471b6a8617a57b974cb71a2dc540d370", null ],
