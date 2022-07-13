@@ -50,28 +50,9 @@ public:
 	virtual ~CSockCanScan();
 
 	virtual bool sendRemoteRequest(short cobID);
-	virtual int createBus(const string name ,string parameters );
+	virtual int createBus(const std::string& name, const std::string& parameters );
 	virtual bool sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr = false) override;
 	virtual void getStatistics( CanStatistics & result );
-
-	/**
-	 * return socketcan port status as-is, from can_netlink.h
-	 * enum can_state {
-	 * CAN_STATE_ERROR_ACTIVE = 0,	 RX/TX error count < 96
-	 * CAN_STATE_ERROR_WARNING,	 RX/TX error count < 128
-	 * CAN_STATE_ERROR_PASSIVE,	 RX/TX error count < 256
-	 * CAN_STATE_BUS_OFF,		 RX/TX error count >= 256
-	 * CAN_STATE_STOPPED,		 Device is stopped
-	 * CAN_STATE_SLEEPING,		 Device is sleeping
-	 * CAN_STATE_MAX
-	 * };
-	 *
-	 */
-	virtual uint32_t getPortStatus(){
-		CanStatistics stats;
-		getStatistics( stats );
-		return( stats.portStatus() | CANMODULE_STATUS_BP_SOCK );
-	};
 
 	virtual uint32_t getPortBitrate(){ return m_CanParameters.m_lBaudRate; };
 
@@ -85,7 +66,7 @@ public:
 	 */
 	static can_frame emptyCanFrame();
 	
-	static std::map<string, string> m_busMap; // {name, parameters}
+	static std::map<std::string, std::string> m_busMap; // {name, parameters}
 	Log::LogComponentHandle logItHandle() { return m_logItHandleSock; }
 
 	virtual void setReconnectBehavior( CanModule::ReconnectAutoCondition cond, CanModule::ReconnectAction action ){
@@ -102,13 +83,13 @@ public:
 
 	virtual void stopBus ();
 
-		void updateInitialError () ;
+		// void updateInitialError () ;
 
 
 private:
-	volatile atomic_bool m_CanScanThreadRunEnableFlag; //Flag for running/shutting down the
+	volatile bool m_CanScanThreadRunEnableFlag; //Flag for running/shutting down the
 	// CanScan thread, with compiler optimization switched off for more code safety
-	atomic_int m_sock;
+	int m_sock;
 
 	int m_errorCode; // As up-to-date as possible state of the interface.
 
@@ -131,7 +112,7 @@ private:
 	 */
 	static std::string errorFrameToString (const struct can_frame &f);
 
-	int configureCanBoard(const string name,const string parameters);
+	int configureCanBoard(const std::string name, const std::string parameters);
 	void updateBusStatus();
 
 	/** Obtains a SocketCAN socket and opens it.

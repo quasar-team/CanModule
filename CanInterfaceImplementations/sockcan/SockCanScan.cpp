@@ -49,6 +49,8 @@
 
 #include <LogIt.h>
 
+using namespace std;
+
 /* static */ std::map<string, string> CSockCanScan::m_busMap; // TODO: maps what to what ?
 
 std::mutex sockReconnectMutex; // protect m_busMap
@@ -95,7 +97,7 @@ CSockCanScan::CSockCanScan() :
 							m_busName("nobus"),
 							m_logItHandleSock(0)
 {
-	m_statistics.setTimeSinceOpened();
+	//m_statistics.setTimeSinceOpened(); -- TODO Piotr Uncomment it later
 	m_statistics.beginNewRun();
 	m_triggerCounter = m_failedSendCounter;
 }
@@ -228,7 +230,7 @@ void CSockCanScan::backgroundThread()
 		m_statistics.onReceive( socketMessage.can_dlc );
 
 		// we can reset the reconnectionTimeout here, since we have received a message
-		resetTimeoutOnReception();
+		//resetTimeoutOnReception(); -- TODO Piotr uncomment it later
 
 
 	}
@@ -343,8 +345,8 @@ int CSockCanScan::openCanPort()
 		m_errorCode = ret;
 		MLOGSOCK(ERR,this) << "can_get_state() failed with error code " << ret << ", it was not possible to obtain initial port state";
 	}
-	updateInitialError(); // TODO piotr
-	m_statistics.setTimeSinceOpened();
+	// updateInitialError(); // TODO piotr
+	//m_statistics.setTimeSinceOpened(); // TODO Piotr uncomment it later
 	return m_sock;
 }
 
@@ -387,7 +389,7 @@ bool CSockCanScan::sendMessage(short cobID, unsigned char len, unsigned char *me
 	if (success)
 	{
 		m_statistics.onTransmit( canFrame.can_dlc );
-		m_statistics.setTimeSinceTransmitted();
+		//m_statistics.setTimeSinceTransmitted(); TODO Piotr uncomment it later
 	}
 	return success;
 	
@@ -431,7 +433,7 @@ bool CSockCanScan::sendRemoteRequest(short cobID)
  * the port is erased from the connection map. when the same port is opened again later on, a (new)
  * main thread is created, and the connection is again added to the map.
  */
-int CSockCanScan::createBus(const string name, const string parameters)
+int CSockCanScan::createBus(const std::string& name, const std::string& parameters)
 {
 
 	LogItInstance* logItInstance = CCanAccess::getLogItInstance();
@@ -593,21 +595,21 @@ void CSockCanScan::stopBus ()
 void CSockCanScan::getStatistics( CanStatistics & result )
 {
 	m_statistics.computeDerived (m_CanParameters.m_lBaudRate);
-	m_statistics.encodeCanModuleStatus();
+	// m_statistics.encodeCanModuleStatus(); // TODO Piotr -- uncomment it later
 
 	result = m_statistics;  // copy whole structure
 	m_statistics.beginNewRun();
 }
 
-void CSockCanScan::updateInitialError ()
-{
-	if (m_errorCode == 0) {
-		// clearErrorMessage(); // TODO
-	} else {
-		timeval now (nowAsTimeval());
-		canMessageError( m_errorCode, "Initial port state: error", now);
-	}
-}
+// void CSockCanScan::updateInitialError ()
+// {
+// 	if (m_errorCode == 0) {
+// 		// clearErrorMessage(); // TODO
+// 	} else {
+// 		timeval now (nowAsTimeval());
+// 		canMessageError( m_errorCode, "Initial port state: error", now);
+// 	}
+// }
 
 int CSockCanScan::selectWrapper ()
 {

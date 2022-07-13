@@ -28,6 +28,7 @@
 
 #include <iostream>
 
+using namespace std::chrono;
 
 namespace CanModule
 {
@@ -37,8 +38,7 @@ namespace CanModule
 		m_transmitted(0),
 		m_received(0),
 		m_transmittedOctets(0),
-		m_receivedOctets(0),
-		m_portStatus(0)
+		m_receivedOctets(0)
 	{}
 
 	void CanStatistics::beginNewRun()
@@ -67,13 +67,13 @@ namespace CanModule
 	 * 	CAN_STATE_MAX
 	 * 	};
 	 */
-	void CanStatistics::encodeCanModuleStatus(){
-		m_portStatus = m_internals.m_state;
-	}
+	// void CanStatistics::encodeCanModuleStatus(){
+	// 	m_portStatus = m_internals.m_state;
+	// }
 
 	void CanStatistics::computeDerived(unsigned int baudRate)
 	{
-		system_clock::time_point tnom = system_clock::now(); 
+		std::chrono::system_clock::time_point tnom = system_clock::now(); 
 		auto nDiff = tnom - m_internals.m_observationStart;
 		auto period = duration_cast<seconds>(nDiff).count();
 
@@ -102,11 +102,11 @@ namespace CanModule
 		m_totalReceived++;
 		m_received++;
 		m_receivedOctets += 2 + 1 + dataLength + 2; /* ID, DLC, USER DATA, CRC */
-#ifdef _WIN32
-		GetSystemTime(&m_dreceived);
-#else
-		gettimeofday( &m_dreceived, &m_tz);
-#endif
+// #ifdef _WIN32
+// 		GetSystemTime(&m_dreceived);
+// #else
+// 		gettimeofday( &m_dreceived, &m_tz);
+// #endif
 	}
 
 	void CanStatistics::operator=(const CanStatistics & other)
@@ -119,11 +119,11 @@ namespace CanModule
 		this->m_receivedOctets = other.m_receivedOctets.load();
 		this->m_internals = other.m_internals;
 
-		this->m_dreceived = other.m_dreceived;
-		this->m_dtransmitted = other.m_dtransmitted;
-		this->m_dopen = other.m_dopen;
-		this->m_now = other.m_now;
+		// this->m_dreceived = other.m_dreceived;
+		// this->m_dtransmitted = other.m_dtransmitted;
+		// this->m_dopen = other.m_dopen;
+		// this->m_now = other.m_now;
 
-		this->m_portStatus = other.m_portStatus;
+		// this->m_portStatus = other.m_portStatus;
 	}
 }

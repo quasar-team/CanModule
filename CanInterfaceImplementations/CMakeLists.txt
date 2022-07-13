@@ -72,7 +72,7 @@ ELSE()
 		ENDIF()
 	ENDIF()
 ENDIF()
-add_subdirectory(unitTestMockUpImplementation)
+# add_subdirectory(unitTestMockUpImplementation)
 
 message(STATUS "file [${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: [STANDALONE_BUILD:${STANDALONE_BUILD}]")
 message(STATUS "file [${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: [BOOST_PATH_LIBS:${BOOST_PATH_LIBS}]" )

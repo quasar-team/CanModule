@@ -87,37 +87,37 @@ set(LOGIT_BUILD_OPTION "LOGIT_AS_INT_SRC" CACHE STRING "LogIt is a mandatory dep
 set_property(CACHE LOGIT_BUILD_OPTION PROPERTY STRINGS LOGIT_AS_INT_SRC LOGIT_AS_EXT_SHARED LOGIT_AS_EXT_STATIC)
 message(STATUS "LogIt build option LOGIT_BUILD_OPTION [${LOGIT_BUILD_OPTION}]")
   
-IF (WIN32)
-	SET( CAN_LIBRARY_LOADER_PLATFORM_IMPL CanLibLoader/src/CanLibLoaderWin.cpp)
-	SET( CAN_LIBRARY_LOADER_PLATFORM_IMPL_HEADER CanLibLoader/include/CanLibLoaderWin.h)
-ELSE()
-	SET( CAN_LIBRARY_LOADER_PLATFORM_IMPL CanLibLoader/src/CanLibLoaderLin.cpp)
-	SET( CAN_LIBRARY_LOADER_PLATFORM_IMPL_HEADER CanLibLoader/include/CanLibLoaderLin.h)
-	SET( CAN_LIBRARY_GETTIMEOFDAY )
-	SET( CAN_LIBRARY_GETTIMEOFDAY_HEADER )
-ENDIF()
+# IF (WIN32)
+# 	SET( CAN_LIBRARY_LOADER_PLATFORM_IMPL CanLibLoader/src/CanLibLoaderWin.cpp)
+# 	SET( CAN_LIBRARY_LOADER_PLATFORM_IMPL_HEADER CanLibLoader/include/CanLibLoaderWin.h)
+# ELSE()
+# 	SET( CAN_LIBRARY_LOADER_PLATFORM_IMPL CanLibLoader/src/CanLibLoaderLin.cpp)
+# 	SET( CAN_LIBRARY_LOADER_PLATFORM_IMPL_HEADER CanLibLoader/include/CanLibLoaderLin.h)
+# 	SET( CAN_LIBRARY_GETTIMEOFDAY )
+# 	SET( CAN_LIBRARY_GETTIMEOFDAY_HEADER )
+# ENDIF()
 
 SET( SRCS
-		Diagnostic/src/Diag.cpp
-		Diagnostic/include/Diag.h
-		CanLibLoader/src/CanLibLoader.cpp
-		CanLibLoader/include/CanLibLoader.h
-		${CAN_LIBRARY_LOADER_PLATFORM_IMPL}
-		${CAN_LIBRARY_LOADER_PLATFORM_IMPL_HEADER}		
+		# Diagnostic/src/Diag.cpp
+		# Diagnostic/include/Diag.h
+		# CanLibLoader/src/CanLibLoader.cpp
+		# CanLibLoader/include/CanLibLoader.h
+		# ${CAN_LIBRARY_LOADER_PLATFORM_IMPL}
+		# ${CAN_LIBRARY_LOADER_PLATFORM_IMPL_HEADER}		
 		CanInterface/src/CanStatistics.cpp    
-		CanInterface/include/CanStatistics.h 
+		# CanInterface/include/CanStatistics.h 
 		CanInterface/src/CanModuleUtils.cpp
-		CanInterface/include/CanModuleUtils.h
-		CanInterface/src/CanBusAccess.cpp
-		CanInterface/include/CanBusAccess.h
-		CanInterface/include/CanMessage.h
+		# CanInterface/include/CanModuleUtils.h
+		# CanInterface/src/CanBusAccess.cpp
+		# CanInterface/include/CanBusAccess.h
+		# CanInterface/include/CanMessage.h
 		CanInterface/src/CCanAccess.cpp
-		CanInterface/include/CCanAccess.h
+		# CanInterface/include/CCanAccess.h
 		CanInterfaceImplementations/sockcan/SockCanScan.cpp
 		CanInterfaceImplementations/sockcan/UdevAnalyserForPeak.cpp
 		CanInterface/src/CanMessage.cpp
-		${CAN_LIBRARY_GETTIMEOFDAY}
-		${CAN_LIBRARY_GETTIMEOFDAY_HEADER}		
+		# ${CAN_LIBRARY_GETTIMEOFDAY}
+		# ${CAN_LIBRARY_GETTIMEOFDAY_HEADER}		
 )
 
 include_directories( include )

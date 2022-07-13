@@ -25,12 +25,6 @@
 #ifndef CCANACCESS_H_
 #define CCANACCESS_H_
 
-//#ifdef _WIN32
-//#include <time.h>
-//#else
-//#include <sys/time.h>
-//#endif
-
 #include <chrono>
 #include <thread>
 #include <string>
@@ -55,37 +49,10 @@ namespace CanModule
 const std::string LogItComponentName = "CanModule";
 #define MLOG(LEVEL,THIS) LOG(Log::LEVEL) << __FUNCTION__ << " " << CanModule::LogItComponentName << " bus= " << THIS->getBusName() << " "
 
-inline static void ms_sleep( int ms ){
-	std::chrono::milliseconds delay( ms );
-	std::this_thread::sleep_for( delay );
-}
-
-/**
- * implementation specific counter (high nibble of status bitpattern)
- * * 0x1<<28 = sock (linux)
- */
-#define CANMODULE_STATUS_BP_SOCK (0x1<<28)
-/**
- * implementation specific counter (high nibble of status bitpattern)
- * * 0x2<<28 = anagate (linux, windows)
- */
-#define CANMODULE_STATUS_BP_ANAGATE (0x2<<28)
-/**
- * implementation specific counter (high nibble of status bitpattern)
- * * 0x3<<28 = peak (windows)
- */
-#define CANMODULE_STATUS_BP_PEAK (0x3<<28)
-/**
- * implementation specific counter (high nibble of status bitpattern)
- * * 0x4<<28 = systec (windows)
- */
-#define CANMODULE_STATUS_BP_SYSTEC (0x4<<28)
-
-
 /**
  * returns a version string which is created at build-time, stemming from the CMakeLists.txt
  */
-static std::string version(){ return( CanModule_VERSION ); }
+//static std::string version(){ return( CanModule_VERSION ); }
 
 /**
  * if a reconnect condition becomes true, a reconnect action is performed.
@@ -134,19 +101,8 @@ struct CanParameters {
 			m_iSyncMode(0), m_iTimeout(6000),
 			m_iNumberOfDetectedParameters(), m_dontReconfigure(false) {}
 
-	void scanParameters(string parameters)
-	{
-		const char * canpars = parameters.c_str();
-		if (strcmp(canpars, "Unspecified") != 0) {
-#ifdef _WIN32
-			m_iNumberOfDetectedParameters = sscanf_s(canpars, "%ld %u %u %u %u %u %u", &m_lBaudRate, &m_iOperationMode, &m_iTermination, &m_iHighSpeed, &m_iTimeStamp, &m_iSyncMode, &m_iTimeout);
-#else
-			m_iNumberOfDetectedParameters = sscanf(canpars, "%ld %u %u %u %u %u %u", &m_lBaudRate, &m_iOperationMode, &m_iTermination, &m_iHighSpeed, &m_iTimeStamp, &m_iSyncMode, &m_iTimeout);
-#endif
-		} else {
-			m_dontReconfigure = true;
-		}
-	}
+	void scanParameters(std::string parameters);
+
 };
 
 class CCanAccess
@@ -164,9 +120,9 @@ public:
 		m_lh(0),
 		m_logItRemoteInstance( NULL )
 {
-		resetTimeoutOnReception();
-		resetTimeNow();
-		CanModule::version();
+		// resetTimeoutOnReception();
+		// resetTimeNow();
+		// CanModule::version();
 };
 
 
@@ -193,7 +149,7 @@ public:
 	 * init OK, bus was skipped because it exists already = 1
 	 * init failed = -1
 	 */
-	virtual int createBus(const string name, const string parameters) = 0;
+	virtual int createBus(const std::string& name, const std::string& parameters) = 0;
 
 
 	/**
@@ -208,18 +164,16 @@ public:
 	 */
 	virtual bool sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr = false) = 0;
 
-	virtual bool sendMessage(CanMessage *canm)
+	virtual bool sendMessage(CanMessage *canm) // TODO move implementation out !
 	{
-		if ( canm->c_id < 0 || canm->c_id > 2047 ){
-			LOG(Log::WRN, m_lh) << __FUNCTION__ << " CAN ID outside 11 bit (standard) range detected. Truncating ID. This message will likely be lost on the CAN Bus. Extended CAN is not supported.";
-			canm->c_id = canm->c_id & 0x7FF;
-		}
+		if ( canm->c_id < 0 || canm->c_id > 2047 )
+			throw std::runtime_error("CAN ID outside 11 bit (standard) range detected. Truncating ID. This message will likely be lost on the CAN Bus. Extended CAN is not supported.");
 		return sendMessage(short(canm->c_id), canm->c_dlc, canm->c_data, canm->c_rtr);
 	}
 
-	/**
-	 * Returns the can bus name
-	 */
+	// /**
+	//  * Returns the can bus name
+	//  */
 	std::string& getBusName() { return m_sBusName; }
 
 	/**
@@ -302,7 +256,7 @@ public:
 	 * * b14: 0x4000: module/usb got reset because watchdog was not triggered
 	 * * b15...b27: unused
 	 */
-	virtual uint32_t getPortStatus() = 0;
+	// virtual uint32_t getPortStatus() = 0;
 
 	/**
 	 * returns the bitrate of that port [bits/sec] according to what CanModule buffers say. This is
@@ -358,68 +312,7 @@ public:
 	 * @param parameters is a string with possible 6 word describing can options
 	 * @return: the result is saved in internal variable m_sBusName and m_CanParameters
 	 */
-	inline vector<string> parseNameAndParameters(string name, string parameters){
-		LOG(Log::TRC, m_lh) << __FUNCTION__ << " name= " << name << " parameters= " << parameters;
-
-		bool isSocketCanLinux = false;
-		std::size_t s = name.find("sock");
-		if ( s != std::string::npos ){
-			isSocketCanLinux = true;
-		}
-
-		/** care for different syntax:
-		 * "sock:0" => sock:can0
-		 * "sock:can0" => "sock:can0"
-		 * "sock:vcan0" => "sock:vcan0"
-		 *
-		 * "sock:whatsoever0" => "sock:can0"
-		 * "sock:whatsoevervcan0" => "sock:vcan0"
-		 * "sock:wvcanhatso0" => "sock:vcan0"
-		 *
-		 * if you specify only an integer portnumber we default to "can"
-		 * if you specify ":can" we stay with "can"
-		 * if you specify ":vcan" we stay with "vcan"
-		 * if you specify anything else which contains a string and an integer, we use can
-		 * if you specify anything else which contains a string containing ":vcan" and an integer, we use vcan
-		 * so basically you have the freedom to call your devices as you want. Maybe this is too much freedom.
-		*/
-		std::size_t foundVcan = name.find(":vcan", 0);
-		std::size_t foundSeperator = name.find_first_of (":", 0);
-		std::size_t foundPortNumber = name.find_first_of ( "0123456789", foundSeperator );
-		if ( foundPortNumber != std::string::npos ) {
-			name.erase( foundSeperator + 1, foundPortNumber - foundSeperator - 1 );
-		} else {
-			throw std::runtime_error("could not decode port number (need an integer, i.e. can0)");
-		}
-
-		// for socketcan, have to prefix "can" or "vcan" to port number
-		if ( isSocketCanLinux ){
-			foundSeperator = name.find_first_of (":", 0);
-			if ( foundVcan != std::string::npos ) {
-				m_sBusName = name.insert( foundSeperator + 1, "vcan");
-			} else {
-				m_sBusName = name.insert( foundSeperator + 1, "can");
-			}
-		} else {
-			m_sBusName = name;
-		}
-
-		LOG(Log::TRC, m_lh) << __FUNCTION__ << " m_sBusName= " << m_sBusName;
-
-		vector<string> stringVector;
-		istringstream nameSS(name);
-		string temporalString;
-		while (getline(nameSS, temporalString, ':')) {
-			stringVector.push_back(temporalString);
-			LOG(Log::TRC, m_lh) << __FUNCTION__ << " stringVector new element= " << temporalString;
-		}
-		m_CanParameters.scanParameters(parameters);
-		LOG(Log::TRC, m_lh) << __FUNCTION__ << " stringVector size= " << stringVector.size();
-		for(const auto& value: stringVector) {
-			LOG(Log::TRC, m_lh) << __FUNCTION__ << " " << value;
-		}
-		return stringVector;
-	}
+	std::vector<std::string> parseNameAndParameters(std::string name, std::string parameters);
 
 	/**
 	 * configuring the reconnection behavior: a condition triggers an action. The implementation is implementation-specific
@@ -479,11 +372,11 @@ public:
 	 */
 	virtual void stopBus() = 0;
 
-	virtual void updateInitialError () = 0;
+	// virtual void updateInitialError () = 0;
 
 protected:
 
-	string m_sBusName;
+	std::string m_sBusName;
 	CanParameters m_CanParameters;
 
 	// reconnection
@@ -519,35 +412,35 @@ protected:
 	/**
 	 * compared to the last received message, are we in timeout?
 	 */
-	bool hasTimeoutOnReception() {
-#ifdef _WIN32
-		GetSystemTime(&m_now);
-		double delta = m_now.wSecond- m_dreceived.wSecond ;
-#else
-		gettimeofday( &m_now, &m_tz);
-		double delta = (double) ( m_now.tv_sec - m_dreceived.tv_sec);
-#endif
-		if ( delta > m_timeoutOnReception ) return true;
-		else return false;
-	}
+// 	bool hasTimeoutOnReception() {
+// #ifdef _WIN32
+// 		GetSystemTime(&m_now);
+// 		double delta = m_now.wSecond- m_dreceived.wSecond ;
+// #else
+// 		gettimeofday( &m_now, &m_tz);
+// 		double delta = (double) ( m_now.tv_sec - m_dreceived.tv_sec);
+// #endif
+// 		if ( delta > m_timeoutOnReception ) return true;
+// 		else return false;
+// 	}
 
 	/**
 	 * reset the internal reconnection timeout counter
 	 */
-	void resetTimeoutOnReception() {
-#ifdef _WIN32
-		GetSystemTime(&m_dreceived);
-#else
-		gettimeofday( &m_dreceived, &m_tz);
-#endif
-	}
-	void resetTimeNow() {
-#ifdef _WIN32
-		GetSystemTime(&m_now);
-#else
-		gettimeofday( &m_now, &m_tz);
-#endif
-	}
+// 	void resetTimeoutOnReception() {
+// #ifdef _WIN32
+// 		GetSystemTime(&m_dreceived);
+// #else
+// 		gettimeofday( &m_dreceived, &m_tz);
+// #endif
+// 	}
+// 	void resetTimeNow() {
+// #ifdef _WIN32
+// 		GetSystemTime(&m_now);
+// #else
+// 		gettimeofday( &m_now, &m_tz);
+// #endif
+// 	}
 
 private:
 	boost::signals2::connection m_signal_connection;
@@ -555,12 +448,12 @@ private:
 	Log::LogComponentHandle m_lh; // s_lh ?!? problem with windows w.t.f.
 	LogItInstance* m_logItRemoteInstance;
 
-#ifdef _WIN32
-	SYSTEMTIME m_now, m_dreceived, m_dtransmitted, m_dopen;
-#else
-	struct timeval m_now, m_dreceived;
-	struct timezone m_tz;
-#endif
+// #ifdef _WIN32
+// 	SYSTEMTIME m_now, m_dreceived, m_dtransmitted, m_dopen;
+// #else
+// 	struct timeval m_now, m_dreceived;
+// 	struct timezone m_tz;
+// #endif
 
 };
 };
