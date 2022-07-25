@@ -142,6 +142,9 @@ private:
 	void publishStatus (unsigned int status, const std::string& message, bool unconditionalMessage=false);
 
 	void fetchAndPublishState ();
+
+	//! Takes the bus name in the form: "provider:channel" (e.g. sock:can3 or sock:1) and returns the channel name (here: can3 and can1 respectively)
+	std::string getNetworkInterfaceName (const std::string& name );
 };
 
 

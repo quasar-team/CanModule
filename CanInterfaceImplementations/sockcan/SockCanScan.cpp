@@ -20,7 +20,7 @@
  *
  *  You should have received a copy of the GNU Lesser General Public License
  *  along with Quasar.  If not, see <http://www.gnu.org/licenses/>.
- */
+	 */
 #include "SockCanScan.h"
 #include "UdevAnalyserForPeak.h"
 
@@ -44,6 +44,8 @@
 #include <linux/can/error.h>
 #include <can_netlink.h> // for can_state
 #include <libsocketcan.h> // for can_get_state ...
+
+#include <boost/regex.hpp>
 
 #include <CanModuleUtils.h>
 
@@ -273,9 +275,10 @@ int CSockCanScan::configureCanBoard(const string name,const string parameters)
 		lname = string("sock:") + sockPort;
 		LOG(Log::INF, m_logItHandleSock) << "peak *** remapping extended port ID= " << name << " to global socketcan portID= " << lname << " *** ";
 	}
-	vector<string> parset;
-	parset = parseNameAndParameters( lname, parameters );
-	m_channelName = parset[1];
+
+	m_channelName = this->getNetworkInterfaceName(lname);
+	m_CanParameters.scanParameters(parameters);
+	
 	MLOGSOCK(TRC, this) << "m_channelName= " << m_channelName ;
 	return openCanPort();
 }
@@ -728,4 +731,21 @@ void CSockCanScan::fetchAndPublishState ()
 			publishStatus(-1, "Can't get state via netlink", true);
 	}
 	publishStatus(obtainedState, translateCanStateToText((can_state)obtainedState));
+}
+
+//! Piotr's reimplementation of parseNameAndParameters
+std::string CSockCanScan::getNetworkInterfaceName (const std::string& name )
+{
+	boost::regex nameByNumber ("^sock:([0-9]|[1-9][0-9]+)$");
+	boost::regex nameByPortName ("^sock:([a-zA-Z0-9_]+)$");
+	boost::smatch matchResults;
+    
+	bool matched = boost::regex_match( name, matchResults, nameByNumber );
+	if (matched)
+		return "can" + matchResults[1];
+	//! did not match, let's try the usual port name.
+	matched = boost::regex_match( name, matchResults, nameByPortName );
+	if (matched)
+		return matchResults[1];
+	throw std::runtime_error("Given name [" + name + "] does not match expected schema. Expected is sock:X where X is a non-negative integer or X is a string in Linux network interface ");
 }
