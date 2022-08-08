@@ -340,6 +340,7 @@ public:
 		return( m_logItRemoteInstance );
 	}
 
+	std::vector<string> parseNameAndParameters( std::string name, std::string parameters);
 #if 0
 	/* @ Parse the input parameters
 	 * @param name The parameters have a format <name component>:name chanel:options for add address parameters>
