@@ -130,19 +130,7 @@ struct CanParameters {
 			m_iSyncMode(0), m_iTimeout(6000),
 			m_iNumberOfDetectedParameters(), m_dontReconfigure(false) {}
 
-	void scanParameters(string parameters)
-	{
-		const char * canpars = parameters.c_str();
-		if (strcmp(canpars, "Unspecified") != 0) {
-#ifdef _WIN32
-			m_iNumberOfDetectedParameters = sscanf_s(canpars, "%ld %u %u %u %u %u %u", &m_lBaudRate, &m_iOperationMode, &m_iTermination, &m_iHighSpeed, &m_iTimeStamp, &m_iSyncMode, &m_iTimeout);
-#else
-			m_iNumberOfDetectedParameters = sscanf(canpars, "%ld %u %u %u %u %u %u", &m_lBaudRate, &m_iOperationMode, &m_iTermination, &m_iHighSpeed, &m_iTimeStamp, &m_iSyncMode, &m_iTimeout);
-#endif
-		} else {
-			m_dontReconfigure = true;
-		}
-	}
+	void scanParameters(string parameters);
 };
 
 class CCanAccess
@@ -188,7 +176,7 @@ public:
 	 * init OK, bus was skipped because it exists already = 1
 	 * init failed = -1
 	 */
-	virtual int createBus(const string name, const string parameters) = 0;
+	virtual int createBus(const std::string name, const std::string parameters) = 0;
 
 
 	/**
@@ -208,8 +196,9 @@ public:
 		if ( canm->c_id < 0 || canm->c_id > 2047 ){
 			LOG(Log::WRN, m_lh) << __FUNCTION__ << " CAN ID= 0x"
 					<< hex << canm->c_id
-					<< " outside 11 bit (standard) range detected. Truncating ID. This message will likely be lost on the CAN Bus. Extended CAN is not supported.";
-			canm->c_id = canm->c_id & 0x7FF;
+					<< " outside 11 bit (standard) range detected. Dropping message: Extended CAN is not supported.";
+			// canm->c_id = canm->c_id & 0x7FF;
+			return false;
 		}
 		return sendMessage(short(canm->c_id), canm->c_dlc, canm->c_data, canm->c_rtr);
 	}
