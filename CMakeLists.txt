@@ -18,7 +18,7 @@
 #  
 #
 cmake_minimum_required(VERSION 3.0)
-project( CanModule LANGUAGES C CXX  VERSION 2.0.21  )  
+project( CanModule LANGUAGES C CXX  VERSION 2.0.22  )  
 message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CanModule version= ${PROJECT_VERSION}" )
 set (CMAKE_CXX_STANDARD 11)
 
@@ -167,11 +167,11 @@ SET( SRCS
 )
 
 include_directories( 
-	#include 
+	include 
 	CanLibLoader/include
 	CanInterface/include
 	Diagnostic/include 	
-	${PROJECT_BINARY_DIR}/CanInterface/include/
+	#${PROJECT_BINARY_DIR}/CanInterface/include/
 )
 
 
