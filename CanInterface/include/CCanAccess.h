@@ -130,7 +130,7 @@ struct CanParameters {
 			m_iSyncMode(0), m_iTimeout(6000),
 			m_iNumberOfDetectedParameters(), m_dontReconfigure(false) {}
 
-	void scanParameters(string parameters);
+	void scanParameters(std::string parameters);
 };
 
 class CCanAccess

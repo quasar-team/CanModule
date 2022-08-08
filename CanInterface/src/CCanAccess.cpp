@@ -20,7 +20,7 @@ void CanParameters::scanParameters(std::string parameters)
     }
 }
 
-std::vector<std::string> CCanAccess::parseNameAndParameters(string name, string parameters)
+std::vector<std::string> CCanAccess::parseNameAndParameters(std::string name, std::string parameters)
 {
 	LOG(Log::INF) << "******";
 	LOG(Log::INF) << __FUNCTION__ << " name= " << name << " parameters= " << parameters;
