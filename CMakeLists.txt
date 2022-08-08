@@ -146,7 +146,7 @@ ELSE()
 	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CanModule VERSION.h exists already in ${PROJECT_SOURCE_DIR}/CanInterface/include/, don't touch it")
 ENDIF()
 
-SET( SRCS
+SET( XXXSRCS
 		Diagnostic/src/Diag.cpp
 		#Diagnostic/include/Diag.h
 		CanLibLoader/src/CanLibLoader.cpp
@@ -166,12 +166,24 @@ SET( SRCS
 		#${PROJECT_BINARY_DIR}/CanInterface/include/VERSION.h	# in the build
 )
 
+SET( SRCS
+		Diagnostic/src/Diag.cpp
+		CanLibLoader/src/CanLibLoader.cpp
+		${CAN_LIBRARY_LOADER_PLATFORM_IMPL}
+		${CAN_LIBRARY_LOADER_PLATFORM_IMPL_HEADER}		
+		CanInterface/src/CanStatistics.cpp     
+		CanInterface/src/CanModuleUtils.cpp
+		CanInterface/src/CanBusAccess.cpp
+		CanInterface/src/CCanAccess.cpp
+		#${PROJECT_SOURCE_DIR}/CanInterface/include/VERSION.h
+)
+
 include_directories( 
 	#include 
 	CanLibLoader/include
 	CanInterface/include
 	Diagnostic/include 	
-	${PROJECT_SOURCE_DIR}/CanInterface/include/
+	${PROJECT_SOURCE_DIR}/CanInterface/include
 )
 
 
