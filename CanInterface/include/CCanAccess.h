@@ -37,10 +37,10 @@
 
 #include <LogIt.h>
 
-#include "CanMessage.h"
-#include "CanStatistics.h"
-#include "CanModuleUtils.h"
-#include "VERSION.h"
+#include <CanMessage.h>
+#include <CanStatistics.h>
+#include <CanModuleUtils.h>
+#include <VERSION.h>
 
 
 /*
