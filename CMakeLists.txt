@@ -167,7 +167,7 @@ SET( SRCS
 )
 
 include_directories( 
-	include 
+	#include 
 	CanLibLoader/include
 	CanInterface/include
 	Diagnostic/include 	
