@@ -288,6 +288,7 @@ public:
 	 * * b14: 0x4000: module/usb got reset because watchdog was not triggered
 	 * * b15...b27: unused
 	 */
+	// we should replace this with a boost signal/slot for a status change
 	virtual uint32_t getPortStatus() = 0;
 
 	/**
@@ -339,6 +340,7 @@ public:
 		return( m_logItRemoteInstance );
 	}
 
+#if 0
 	/* @ Parse the input parameters
 	 * @param name The parameters have a format <name component>:name chanel:options for add address parameters>
 	 * @param parameters is a string with possible 6 word describing can options
@@ -407,6 +409,7 @@ public:
 		}
 		return stringVector;
 	}
+#endif
 
 	// non blocking
 	void triggerReconnectionThread(){
