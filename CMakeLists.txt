@@ -170,11 +170,11 @@ SET( SRCS
 		CanInterface/src/CCanAccess.cpp
 		#CanInterface/include/CCanAccess.h
 		#${PROJECT_SOURCE_DIR}/CanInterface/include/VERSION.h
-		CanInterface/include/VERSION.h	
+		CanInterface/include/VERSION.h	# in the build
 )
 
 include_directories( 
-	include 
+	#include 
 	CanLibLoader/include
 	CanInterface/include 
 	Diagnostic/include 	
