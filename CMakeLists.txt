@@ -148,27 +148,27 @@ ENDIF()
 
 file(GLOB_RECURSE SRCS_CPP ${PROJECT_SOURCE_DIR}/*.cpp)
 file(GLOB_RECURSE SRCS_H ${PROJECT_SOURCE_DIR}/*.h)
-SET( SRCS ${SRCS_CPP} ${SRCS_H} )
-message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: SRCS= ${SRCS}")
+SET( SRCSG ${SRCS_CPP} ${SRCS_H} )
+message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: SRCSG= ${SRCSG}")
 
 
 
-SET( XXSRCS
-		#Diagnostic/src/Diag.cpp
-		#Diagnostic/include/Diag.h
-		#CanLibLoader/src/CanLibLoader.cpp
-		#CanLibLoader/include/CanLibLoader.h
-		#${CAN_LIBRARY_LOADER_PLATFORM_IMPL}
-		#${CAN_LIBRARY_LOADER_PLATFORM_IMPL_HEADER}		
+SET( SRCS
+		Diagnostic/src/Diag.cpp
+		Diagnostic/include/Diag.h
+		CanLibLoader/src/CanLibLoader.cpp
+		CanLibLoader/include/CanLibLoader.h
+		${CAN_LIBRARY_LOADER_PLATFORM_IMPL}
+		${CAN_LIBRARY_LOADER_PLATFORM_IMPL_HEADER}		
 		CanInterface/src/CanStatistics.cpp    
-		#CanInterface/include/CanStatistics.h 
+		CanInterface/include/CanStatistics.h 
 		CanInterface/src/CanModuleUtils.cpp
-		#CanInterface/include/CanModuleUtils.h
-		#CanInterface/src/CanBusAccess.cpp
-		#CanInterface/include/CanBusAccess.h
-		#CanInterface/include/CanMessage.h
+		CanInterface/include/CanModuleUtils.h
+		CanInterface/src/CanBusAccess.cpp
+		CanInterface/include/CanBusAccess.h
+		CanInterface/include/CanMessage.h
 		CanInterface/src/CCanAccess.cpp
-		#CanInterface/include/CCanAccess.h
+		CanInterface/include/CCanAccess.h
 		${PROJECT_SOURCE_DIR}/CanInterface/include/VERSION.h	
 )
 
