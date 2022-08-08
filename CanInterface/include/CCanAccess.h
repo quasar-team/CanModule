@@ -28,8 +28,6 @@
 #include <chrono>
 #include <thread>
 #include <string>
-//#include <atomic>
-//#include <mutex>
 #include <condition_variable>
 
 #include <boost/bind/bind.hpp>
