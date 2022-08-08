@@ -155,21 +155,22 @@ message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: SRCSG= 
 
 SET( SRCS
 		Diagnostic/src/Diag.cpp
-		Diagnostic/include/Diag.h
+		#Diagnostic/include/Diag.h
 		CanLibLoader/src/CanLibLoader.cpp
-		CanLibLoader/include/CanLibLoader.h
+		#CanLibLoader/include/CanLibLoader.h
 		${CAN_LIBRARY_LOADER_PLATFORM_IMPL}
 		${CAN_LIBRARY_LOADER_PLATFORM_IMPL_HEADER}		
 		CanInterface/src/CanStatistics.cpp    
-		CanInterface/include/CanStatistics.h 
+		#CanInterface/include/CanStatistics.h 
 		CanInterface/src/CanModuleUtils.cpp
-		CanInterface/include/CanModuleUtils.h
+		#CanInterface/include/CanModuleUtils.h
 		CanInterface/src/CanBusAccess.cpp
-		CanInterface/include/CanBusAccess.h
-		CanInterface/include/CanMessage.h
+		#CanInterface/include/CanBusAccess.h
+		#CanInterface/include/CanMessage.h
 		CanInterface/src/CCanAccess.cpp
-		CanInterface/include/CCanAccess.h
-		${PROJECT_SOURCE_DIR}/CanInterface/include/VERSION.h	
+		#CanInterface/include/CCanAccess.h
+		#${PROJECT_SOURCE_DIR}/CanInterface/include/VERSION.h
+		CanInterface/include/VERSION.h	
 )
 
 include_directories( 
