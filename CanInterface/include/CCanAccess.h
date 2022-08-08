@@ -28,9 +28,9 @@
 #include <chrono>
 #include <thread>
 #include <string>
-#include <atomic>
-#include <mutex>
-#include <condition_variable>
+//#include <atomic>
+//#include <mutex>
+//#include <condition_variable>
 
 #include <boost/bind/bind.hpp>
 #include <boost/signals2.hpp>
