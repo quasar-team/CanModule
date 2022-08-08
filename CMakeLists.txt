@@ -171,7 +171,7 @@ include_directories(
 	CanLibLoader/include
 	CanInterface/include
 	Diagnostic/include 	
-	#${PROJECT_BINARY_DIR}/CanInterface/include/
+	${PROJECT_BINARY_DIR}/CanInterface/include/
 )
 
 
