@@ -146,13 +146,6 @@ ELSE()
 	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CanModule VERSION.h exists already in ${PROJECT_BINARY_DIR}/CanInterface/include/, don't touch it")
 ENDIF()
 
-file(GLOB_RECURSE SRCS_CPP ${PROJECT_SOURCE_DIR}/*.cpp)
-file(GLOB_RECURSE SRCS_H ${PROJECT_SOURCE_DIR}/*.h)
-SET( SRCSG ${SRCS_CPP} ${SRCS_H} )
-message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: SRCSG= ${SRCSG}")
-
-
-
 SET( SRCS
 		Diagnostic/src/Diag.cpp
 		#Diagnostic/include/Diag.h
@@ -176,8 +169,9 @@ SET( SRCS
 include_directories( 
 	#include 
 	CanLibLoader/include
-	CanInterface/include 
+	CanInterface/include
 	Diagnostic/include 	
+	${PROJECT_BINARY_DIR}/CanInterface/include/
 )
 
 
