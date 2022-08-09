@@ -101,7 +101,7 @@ namespace CanModule
 			LOG(Log::DBG, lh) << " loaded the dynamic library: [" << ss.str() << "]";
 			setLibName(ss.str());
 		} else {
-			string msg = std::string(__FUNCTION__) + std::string("Error: could not load the dynamic library ") + ss.str();
+			std::string msg = std::string(__FUNCTION__) + std::string("Error: could not load the dynamic library ") + ss.str();
 			LOG(Log::ERR, lh) << msg;
 			if ( ss.str() == "ancan.dll"){
 				LOG(Log::ERR, lh) << " WARNING: anagate vendor libs do not install on your system, they are just copied. Make sure the hidden dependend libs (i.e. AnaGateCan64.dll) are in your lib search path!";
