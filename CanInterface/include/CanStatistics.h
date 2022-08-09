@@ -27,7 +27,15 @@
 
 #include "ExportDefinition.h"
 #include <atomic>
+#include <iostream>
 #include <chrono>
+
+//using namespace std::chrono_literals;
+using Clock = std::chrono::high_resolution_clock;
+using Ms = std::chrono::milliseconds;
+using Sec = std::chrono::seconds;
+template<class Duration>
+using TimePoint = std::chrono::time_point<Clock, Duration>;
 
 namespace CanModule
 {
@@ -76,7 +84,8 @@ public:
 	 */
 	double timeSinceReceived() {
 		m_hrnow = std::chrono::high_resolution_clock::now();
-		std::chrono::duration<double, micro> time_span = std::chrono::duration_cast<duration<double, micro>>(m_hrnow - m_hrreceived);
+		// std::chrono::duration<double, std::micro> time_span = std::chrono::duration_cast<duration<double, std::micro>>(m_hrnow - m_hrreceived);
+		std::chrono::duration<double, std::micro> time_span = m_hrnow - m_hrreceived;
 		return ( time_span.count() / 1000 );
 	}
 
@@ -85,7 +94,8 @@ public:
 	 */
 	double timeSinceTransmitted() {
 		m_hrnow = std::chrono::high_resolution_clock::now();
-		std::chrono::duration<double, micro> time_span = std::chrono::duration_cast<duration<double, micro>>(m_hrnow - m_hrtransmitted);
+		std::chrono::duration<double, std::micro> time_span = m_hrnow - m_hrtransmitted;
+		//std::chrono::duration<double, std::micro> time_span = std::chrono::duration_cast<duration<double, std::micro>>(m_hrnow - m_hrtransmitted);
 		return ( time_span.count() / 1000 );
 	}
 
@@ -94,12 +104,13 @@ public:
 	 */
 	double timeSinceOpened() {
 		m_hrnow = std::chrono::high_resolution_clock::now();
-		std::chrono::duration<double, micro> time_span = std::chrono::duration_cast<duration<double, micro>>(m_hrnow - m_hropen);
+		//std::chrono::duration<double, std::micro> time_span = std::chrono::duration_cast<duration<double, std::micro>>(m_hrnow - m_hropen);
+		std::chrono::duration<double, std::micro> time_span = m_hrnow - m_hropen;
 		return ( time_span.count() / 1000 );
 	}
-	void setTimeSinceOpened()      { m_hropen        = high_resolution_clock::now();	}
-	void setTimeSinceReceived()    { m_hrreceived    = high_resolution_clock::now();	}
-	void setTimeSinceTransmitted() { m_hrtransmitted = high_resolution_clock::now();	}
+	void setTimeSinceOpened()      { m_hropen        = std::chrono::high_resolution_clock::now();	}
+	void setTimeSinceReceived()    { m_hrreceived    = std::chrono::high_resolution_clock::now();	}
+	void setTimeSinceTransmitted() { m_hrtransmitted = std::chrono::high_resolution_clock::now();	}
 
 	void operator=(const CanStatistics & other);  // not default, because of atomic data
 
@@ -127,7 +138,7 @@ private:
 		float m_receivedPerSec;
 		//! Bus load derived from #TX and #RX packages
 		float m_busLoad;
-		chrono::system_clock::time_point m_observationStart;
+		std::chrono::system_clock::time_point m_observationStart;
 	};
 	Internals m_internals;
 

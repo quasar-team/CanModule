@@ -53,7 +53,7 @@ public:
 	virtual ~CSockCanScan();
 
 	virtual bool sendRemoteRequest(short cobID);
-	virtual int createBus(const string name ,string parameters );
+	virtual int createBus(const std::string name, std::string parameters );
 	virtual bool sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr = false);
 	virtual void getStatistics( CanStatistics & result );
 
@@ -108,7 +108,7 @@ public:
 		}
 		return(f);
 	}
-	static std::map<string, string> m_busMap; // {name, parameters}
+	static std::map<std::string, std::string> m_busMap; // {name, parameters}
 	Log::LogComponentHandle logItHandle() { return m_logItHandleSock; }
 
 	virtual void setReconnectBehavior( CanModule::ReconnectAutoCondition cond, CanModule::ReconnectAction action ){
@@ -122,10 +122,10 @@ public:
 	virtual void stopBus ();
 
 private:
-	volatile atomic_bool m_CanScanThreadRunEnableFlag; //Flag for running/shutting down the
+	volatile std::atomic_bool m_CanScanThreadRunEnableFlag; //Flag for running/shutting down the
 
 	// socket: CanScan thread, with compiler mem optimization switched off (~atomic) for more code safety
-	atomic_int m_sock;
+	std::atomic_int m_sock;
 	int m_errorCode; // As up-to-date as possible state of the interface.
 
 	CanStatistics m_statistics;
@@ -139,7 +139,7 @@ private:
 
 	// void sendErrorMessage(const char  *);
 	void clearErrorMessage();
-	int configureCanBoard(const string name,const string parameters);
+	int configureCanBoard(const std::string name, const std::string parameters);
 	// void updateBusStatus();
 	int openCanPort();
 	void CanScanControlThread(); // not static, private is enough in C11

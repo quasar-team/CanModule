@@ -42,7 +42,7 @@ public:
 	/*
 	 * Required overrides of abstract base class CCanAccess
 	 */
-	virtual int createBus(const string name, const string parameters);
+	virtual int createBus(const std::string name, const std::string parameters);
 	virtual bool sendRemoteRequest(short cobID);
     virtual bool sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr = false);
 	virtual void getStatistics( CanModule::CanStatistics & result );

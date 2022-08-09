@@ -49,7 +49,7 @@
 
 #include <LogIt.h>
 
-/* static */ std::map<string, string> CSockCanScan::m_busMap;
+/* static */ std::map<std::string, std::string> CSockCanScan::m_busMap;
 std::mutex sockReconnectMutex; // protect global m_busMap
 
 #define MLOGSOCK(LEVEL,THIS) LOG(Log::LEVEL, THIS->logItHandle()) << __FUNCTION__ << " sock bus= " << THIS->getBusName() << " "
@@ -115,7 +115,7 @@ void CSockCanScan::CanScanControlThread()
 	std::string _tid;
 	{
 		std::stringstream ss;
-		ss << this_thread::get_id();
+		ss << std::this_thread::get_id();
 		_tid = ss.str();
 	}
 	MLOGSOCK(TRC, p_sockCanScan) << "created main loop tid= " << _tid;
@@ -394,7 +394,7 @@ void CSockCanScan::CanReconnectionThread()
 	std::string _tid;
 	{
 		std::stringstream ss;
-		ss << this_thread::get_id();
+		ss << std::this_thread::get_id();
 		_tid = ss.str();
 	}
 	MLOGSOCK(TRC, this ) << "created reconnection thread tid= " << _tid;
@@ -497,9 +497,9 @@ CSockCanScan::~CSockCanScan()
 	MLOGSOCK(DBG,this) << __FUNCTION__ <<" closed successfully";
 }
 
-int CSockCanScan::configureCanBoard(const string name,const string parameters)
+int CSockCanScan::configureCanBoard(const std::string name,const std::string parameters)
 {
-	string lname = name;
+	std::string lname = name;
 
 	/**
 	 * for PEAK bridges, we have a problem: the local ports are not mapped to the global socketcan
@@ -511,10 +511,10 @@ int CSockCanScan::configureCanBoard(const string name,const string parameters)
 	 * systec: name="sock:can0"
 	 * peak: name="sock:can0:device17440"
 	 */
-	if ( name.find("device") != string::npos ) {
+	if ( name.find("device") != std::string::npos ) {
 		LOG(Log::INF, m_logItHandleSock) << "found extended port identifier for PEAK " << name;
 		// get a mapping: do all the udev calls in the constructor of the singleton
-		string sockPort = udevanalyserforpeak_ns::UdevAnalyserForPeak::peakExtendedIdentifierToSocketCanDevice( name );
+		std::string sockPort = udevanalyserforpeak_ns::UdevAnalyserForPeak::peakExtendedIdentifierToSocketCanDevice( name );
 		LOG(Log::INF, m_logItHandleSock) << "portIdentifierToSocketCanDevice: name= " << name << " sockPort= " << sockPort;
 
 		// show the whole map
@@ -524,10 +524,10 @@ int CSockCanScan::configureCanBoard(const string name,const string parameters)
 		 * now, we manipulate the lname to reflect the absolute port which we found out. We do the rewiring at initialisation, like this we don't
 		 * care anymore during runtime.
 		 */
-		lname = string("sock:") + sockPort;
+		lname = std::string("sock:") + sockPort;
 		LOG(Log::INF, m_logItHandleSock) << "peak *** remapping extended port ID= " << name << " to global socketcan portID= " << lname << " *** ";
 	}
-	vector<string> parset;
+	std::vector<std::string> parset;
 	parset = parseNameAndParameters( lname, parameters );
 	m_channelName = parset[1];
 	MLOGSOCK(TRC, this) << "m_channelName= " << m_channelName ;
@@ -791,7 +791,7 @@ bool CSockCanScan::sendRemoteRequest(short cobID)
  * the port is erased from the connection map. when the same port is opened again later on, a (new)
  * main thread is created, and the connection is again added to the map.
  */
-int CSockCanScan::createBus(const string name, const string parameters)
+int CSockCanScan::createBus(const std::string name, const std::string parameters)
 {
 
 	LogItInstance* logItInstance = CCanAccess::getLogItInstance();
@@ -809,9 +809,9 @@ int CSockCanScan::createBus(const string name, const string parameters)
 
 		std::lock_guard<std::mutex> busMapScopedLock( sockReconnectMutex );
 
-		std::map<string, string>::iterator it = CSockCanScan::m_busMap.find( name );
+		std::map<std::string, std::string>::iterator it = CSockCanScan::m_busMap.find( name );
 		if (it == CSockCanScan::m_busMap.end()) {
-			CSockCanScan::m_busMap.insert ( std::pair<string, string>(name, parameters) );
+			CSockCanScan::m_busMap.insert ( std::pair<std::string, std::string>(name, parameters) );
 			m_busName = name;
 			MLOGSOCK(TRC,this) << "added to busMap: [" << name << "] with parameters [" << parameters << "]";
 		} else {
@@ -828,7 +828,7 @@ int CSockCanScan::createBus(const string name, const string parameters)
 	if (m_sock < 0) {
 		MLOGSOCK(ERR,this) << "Could not create bus [" << name << "] with parameters [" << parameters << "]";
 		// take it out from the map again
-		std::map<string, string>::iterator it = CSockCanScan::m_busMap.find( name );
+		std::map<std::string, std::string>::iterator it = CSockCanScan::m_busMap.find( name );
 		if (it != CSockCanScan::m_busMap.end()) {
 			CSockCanScan::m_busMap.erase ( it );
 			m_busName = "";
@@ -934,7 +934,7 @@ std::string CSockCanScan::errorFrameToString(const struct can_frame &canFrame)
 
 void CSockCanScan::clearErrorMessage()
 {
-	string errorMessage = "";
+	std::string errorMessage = "";
 	timeval c_time;
 	int ioctlReturn = ioctl(m_sock, SIOCGSTAMP, &c_time);//TODO: Return code is not checked
 	if ( ioctlReturn ){
@@ -984,7 +984,7 @@ void CSockCanScan::stopBus ()
 	{
 		std::lock_guard<std::mutex> busMapScopedLock( sockReconnectMutex );
 
-		std::map<string, string>::iterator it = CSockCanScan::m_busMap.find( m_busName );
+		std::map<std::string, std::string>::iterator it = CSockCanScan::m_busMap.find( m_busName );
 		if (it != CSockCanScan::m_busMap.end()) {
 			m_hCanScanThread->join();
 			CSockCanScan::m_busMap.erase ( it );

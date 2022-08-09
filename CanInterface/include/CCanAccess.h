@@ -25,6 +25,7 @@
 #ifndef CCANACCESS_H_
 #define CCANACCESS_H_
 
+#include <iostream>
 #include <chrono>
 #include <thread>
 #include <string>
@@ -40,6 +41,14 @@
 #include <CanModuleUtils.h>
 #include <VERSION.h>
 
+// using namespace std::chrono_literals;
+using Clock = std::chrono::high_resolution_clock;
+using Micros = std::chrono::microseconds;
+using Ms = std::chrono::milliseconds;
+using Sec = std::chrono::seconds;
+template<class Duration>
+using TimePoint = std::chrono::time_point<Clock, Duration>;
+using FpMicroseconds = std::chrono::duration<float, std::chrono::microseconds::period>;
 
 /*
  * CCanAccess is an abstract class that defines the interface for controlling a canbus. Different implementations for different hardware and platforms should
@@ -195,7 +204,7 @@ public:
 	{
 		if ( canm->c_id < 0 || canm->c_id > 2047 ){
 			LOG(Log::WRN, m_lh) << __FUNCTION__ << " CAN ID= 0x"
-					<< hex << canm->c_id
+					<< std::hex << canm->c_id
 					<< " outside 11 bit (standard) range detected. Dropping message: Extended CAN is not supported.";
 			// canm->c_id = canm->c_id & 0x7FF;
 			return false;
@@ -340,7 +349,7 @@ public:
 		return( m_logItRemoteInstance );
 	}
 
-	std::vector<string> parseNameAndParameters( std::string name, std::string parameters);
+	std::vector<std::string> parseNameAndParameters( std::string name, std::string parameters);
 
 	// non blocking
 	void triggerReconnectionThread(){
@@ -452,17 +461,17 @@ public:
 
 protected:
 
-	string m_sBusName;
+	std::string m_sBusName;
 	CanParameters m_CanParameters;
 
 	// reconnection, reconnection thread triggering
     CanModule::ReconnectAutoCondition m_reconnectCondition;
     CanModule::ReconnectAction m_reconnectAction;
-	std::atomic::atomic_uint m_timeoutOnReception;
-	std::atomic::atomic_int m_failedSendCountdown;
-	std::atomic::atomic_uint m_maxFailedSendCount;
+	std::atomic_uint m_timeoutOnReception;
+	std::atomic_int m_failedSendCountdown;
+	std::atomic_uint m_maxFailedSendCount;
 	std::thread *m_hCanReconnectionThread;     // ptr thread, it's a private method of the class (virtual) // unused for peak
-	atomic_bool m_reconnectTrigger;            // trigger stuff: predicate of the condition var
+	std::atomic_bool m_reconnectTrigger;            // trigger stuff: predicate of the condition var
 	std::mutex m_reconnection_mtx;             // trigger stuff
 	std::condition_variable m_reconnection_cv; // trigger stuff
 
@@ -472,9 +481,11 @@ protected:
 	 */
 	bool hasTimeoutOnReception() {
 		m_dnow = std::chrono::high_resolution_clock::now();
-		std::chrono::duration<double, micro> time_span = std::chrono::duration_cast<duration<double, micro>>(m_dnow - m_dopen);
-		// if ( time_span.count() / 1000 > m_timeoutOnReception ) return true;
-		if ( time_span / 1000 > m_timeoutOnReception ) return true;
+		// std::chrono::duration<double, std::micro> time_span = m_dnow - m_dopen;
+
+		// std::chrono::duration<double, micro> time_span = std::chrono::duration_cast<duration<double, std::micro>>(m_dnow - m_dopen);
+		auto delta_us = FpMicroseconds( m_dnow - m_dopen);
+		if ( delta_us.count() / 1000 > m_timeoutOnReception ) return true;
 		else return false;
 	}
 
@@ -491,8 +502,13 @@ protected:
 private:
 	Log::LogComponentHandle m_lh;
 	LogItInstance* m_logItRemoteInstance;
-	std::chrono::high_resolution_clock::time_point m_dnow, m_dreceived, m_dtransmitted, m_dopen;
-
+	// std::chrono::time_point m_dnow, m_dreceived, m_dtransmitted, m_dopen;
+	//auto m_dnow, m_dreceived, m_dtransmitted, m_dopen;
+	//std::chrono::time_point<Clock, Duration>m_dnow, m_dreceived, m_dtransmitted, m_dopen;
+	std::chrono::time_point<std::chrono::high_resolution_clock> m_dnow, m_dreceived, m_dtransmitted, m_dopen;
+	//std::chrono::time_point m_dnow;
+	//std::chrono::time_point m_dreceived, m_dtransmitted, m_dopen;
+	// TimePoint<Micros> m_dnow, m_dreceived, m_dtransmitted, m_dopen;
 };
 };
 #endif /* CCANACCESS_H_ */
