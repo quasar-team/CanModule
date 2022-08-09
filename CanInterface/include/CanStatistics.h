@@ -75,7 +75,7 @@ public:
 	 * time since the last message was received in microseconds
 	 */
 	double timeSinceReceived() {
-		m_hrnow = high_resolution_clock::now();
+		m_hrnow = chrono::high_resolution_clock::now();
 		duration<double, micro> time_span = duration_cast<duration<double, micro>>(m_hrnow - m_hrreceived);
 		return ( time_span.count() / 1000 );
 	}
