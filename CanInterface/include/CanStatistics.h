@@ -24,29 +24,10 @@
 #ifndef CANINTERFACE_SOCKCAN_CANSTATISTICS_H_
 #define CANINTERFACE_SOCKCAN_CANSTATISTICS_H_
 
-/**
-#ifdef _WIN32
-#	include <atomic>
-#	include <time.h>
-#	ifndef timeval
-#		include "Winsock2.h"
-#	endif
-#else
-#	define GCC_VERSION (__GNUC__ * 10000 + __GNUC_MINOR__ * 100 + __GNUC_PATCHLEVEL__)
-#	if GCC_VERSION > 40800
-#		include <atomic>
-#	else // GCC_VERSION
-#		include <stdatomic.h>
-#	endif // GCC_VERSION
-#	include <sys/time.h>
-#endif
-**/
 
 #include "ExportDefinition.h"
 #include <atomic>
 #include <chrono>
-using namespace std;
-using namespace std::chrono;
 
 namespace CanModule
 {
