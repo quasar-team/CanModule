@@ -3,6 +3,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 
+### 2.0.22 [9.aug.2022]
+- starting to merge and implement the changes proposed by piotr (based on 2.0.14) in branch piotr_canopen
+- chrono and std:: cleanup, nanosleep etc are suppressed in favour of chrono
+- drop messages with extended IDs or data (do not truncate and send nevertheless)
+
+
 ### 2.0.21 [12.july.2022]
 - version corrected
 - found and suppreses another few nanosleeps, replace with chrono
