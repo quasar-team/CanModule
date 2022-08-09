@@ -471,8 +471,8 @@ protected:
 	 * compared to the last received message, are we in timeout?
 	 */
 	bool hasTimeoutOnReception() {
-		m_dnow = high_resolution_clock::now();
-		duration<double, micro> time_span = duration_cast<duration<double, micro>>(m_dnow - m_dopen);
+		m_dnow = std::chrono::high_resolution_clock::now();
+		std::chrono::duration<double, micro> time_span = std::chrono::duration_cast<duration<double, micro>>(m_dnow - m_dopen);
 		if ( time_span.count() / 1000 > m_timeoutOnReception ) return true;
 		else return false;
 	}
@@ -481,16 +481,16 @@ protected:
 	 * reset the internal reconnection timeout counter
 	 */
 	void resetTimeoutOnReception() {
-		m_dreceived = high_resolution_clock::now();
+		m_dreceived = std::chrono::high_resolution_clock::now();
 	}
 	void resetTimeNow() {
-		m_dnow = high_resolution_clock::now();
+		m_dnow = std::chrono::high_resolution_clock::now();
 	}
 
 private:
 	Log::LogComponentHandle m_lh;
 	LogItInstance* m_logItRemoteInstance;
-	high_resolution_clock::time_point m_dnow, m_dreceived, m_dtransmitted, m_dopen;
+	std::chrono::high_resolution_clock::time_point m_dnow, m_dreceived, m_dtransmitted, m_dopen;
 
 };
 };
