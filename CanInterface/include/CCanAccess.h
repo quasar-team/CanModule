@@ -458,9 +458,9 @@ protected:
 	// reconnection, reconnection thread triggering
     CanModule::ReconnectAutoCondition m_reconnectCondition;
     CanModule::ReconnectAction m_reconnectAction;
-	atomic_uint m_timeoutOnReception;
-	atomic_int m_failedSendCountdown;
-	atomic_uint m_maxFailedSendCount;
+	std::atomic::atomic_uint m_timeoutOnReception;
+	std::atomic::atomic_int m_failedSendCountdown;
+	std::atomic::atomic_uint m_maxFailedSendCount;
 	std::thread *m_hCanReconnectionThread;     // ptr thread, it's a private method of the class (virtual) // unused for peak
 	atomic_bool m_reconnectTrigger;            // trigger stuff: predicate of the condition var
 	std::mutex m_reconnection_mtx;             // trigger stuff
