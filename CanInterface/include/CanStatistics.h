@@ -75,8 +75,8 @@ public:
 	 * time since the last message was received in microseconds
 	 */
 	double timeSinceReceived() {
-		m_hrnow = chrono::high_resolution_clock::now();
-		chrono::duration<double, micro> time_span = chrono::duration_cast<duration<double, micro>>(m_hrnow - m_hrreceived);
+		m_hrnow = std::chrono::high_resolution_clock::now();
+		std::chrono::duration<double, micro> time_span = std::chrono::duration_cast<duration<double, micro>>(m_hrnow - m_hrreceived);
 		return ( time_span.count() / 1000 );
 	}
 
@@ -84,8 +84,8 @@ public:
 	 * time since the last message was sent, in microseconds
 	 */
 	double timeSinceTransmitted() {
-		m_hrnow = chrono::high_resolution_clock::now();
-		chrono::duration<double, micro> time_span = chrono::duration_cast<duration<double, micro>>(m_hrnow - m_hrtransmitted);
+		m_hrnow = std::chrono::high_resolution_clock::now();
+		std::chrono::duration<double, micro> time_span = std::chrono::duration_cast<duration<double, micro>>(m_hrnow - m_hrtransmitted);
 		return ( time_span.count() / 1000 );
 	}
 
@@ -93,8 +93,8 @@ public:
 	 *  time since that bus was opened, in microseconds
 	 */
 	double timeSinceOpened() {
-		m_hrnow = chrono::high_resolution_clock::now();
-		chrono::duration<double, micro> time_span = chrono::duration_cast<duration<double, micro>>(m_hrnow - m_hropen);
+		m_hrnow = std::chrono::high_resolution_clock::now();
+		std::chrono::duration<double, micro> time_span = std::chrono::duration_cast<duration<double, micro>>(m_hrnow - m_hropen);
 		return ( time_span.count() / 1000 );
 	}
 	void setTimeSinceOpened()      { m_hropen        = high_resolution_clock::now();	}
@@ -117,7 +117,7 @@ private:
 	std::atomic_uint_least32_t m_transmittedOctets;
 	std::atomic_uint_least32_t m_receivedOctets;
 
-	chrono::high_resolution_clock::time_point m_hrnow, m_hrreceived, m_hrtransmitted, m_hropen;
+	std::chrono::high_resolution_clock::time_point m_hrnow, m_hrreceived, m_hrtransmitted, m_hropen;
 
 	//! Following is encapsulated as a class, to provide sane copying in assignment operator
 	class Internals
