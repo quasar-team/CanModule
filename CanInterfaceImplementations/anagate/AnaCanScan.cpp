@@ -458,7 +458,7 @@ int AnaCanScan::openCanPort()
 		anaCallReturn = CANOpenDevice(&canModuleHandle, FALSE, TRUE, m_canPortNumber, m_canIPAddress.c_str(), m_timeout);
 		if (anaCallReturn != 0) {
 			// fill out initialisation struct
-			MLOGANA(ERR,this) << "Error in CANOpenDevice, return code = [0x" << hex << anaCallReturn << dec << "]";
+			MLOGANA(ERR,this) << "Error in CANOpenDevice, return code = [0x" << std::hex << anaCallReturn << std::dec << "]";
 			return -1;
 		}
 	} else {
@@ -480,19 +480,19 @@ int AnaCanScan::openCanPort()
 	switch ( anaCallReturn ){
 	case 0:{ break; }
 	case 0x30000: {
-		MLOGANA(ERR,this) << "Connection to TCP/IP partner can't be established or is disconnected. Lost TCP/IP: 0x" << hex << anaCallReturn << dec;
+		MLOGANA(ERR,this) << "Connection to TCP/IP partner can't be established or is disconnected. Lost TCP/IP: 0x" << std::hex << anaCallReturn << std::dec;
 		return -1;
 	}
 	case 0x40000: {
-		MLOGANA(ERR,this) << "No  answer  was  received  from	TCP/IP partner within the defined timeout. Lost TCP/IP: 0x" << hex << anaCallReturn << dec;
+		MLOGANA(ERR,this) << "No  answer  was  received  from	TCP/IP partner within the defined timeout. Lost TCP/IP: 0x" << std::hex << anaCallReturn << std::dec;
 		return -1;
 	}
 	case 0x900000: {
-		MLOGANA(ERR,this) << "Invalid device handle. Lost TCP/IP: 0x" << hex << anaCallReturn << dec;
+		MLOGANA(ERR,this) << "Invalid device handle. Lost TCP/IP: 0x" << std::hex << anaCallReturn << std::dec;
 		return -1;
 	}
 	default : {
-		MLOGANA(ERR,this) << "Other Error in CANSetGlobals: 0x" << hex << anaCallReturn << dec;
+		MLOGANA(ERR,this) << "Other Error in CANSetGlobals: 0x" << std::hex << anaCallReturn << std::dec;
 		return -1;
 	}
 	}

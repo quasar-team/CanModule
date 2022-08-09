@@ -339,7 +339,7 @@ bool PKCanScan::configureCanboard(const string name,const string parameters)
 	} else {
 		MLOGPK(DBG, this) << "Unspecified parameters, default values will be used.";
 	}
-	MLOGPK(DBG, this) << " m_baudRate= 0x" << hex << m_baudRate << dec;
+	MLOGPK(DBG, this) << " m_baudRate= 0x" << std::hex << m_baudRate << dstd::ec;
 	MLOGPK(DBG, this) << " m_CanParameters.m_lBaudRate= " << m_CanParameters.m_lBaudRate;
 
 	/** FD (flexible datarate) modules.
@@ -364,23 +364,23 @@ bool PKCanScan::configureCanboard(const string name,const string parameters)
 	int counter = 10;
 	while ( tpcanStatus != PCAN_ERROR_OK && counter > 0 ){
 		tpcanStatus = CAN_Initialize(m_pkCanHandle, m_baudRate );
-		MLOGPK(TRC, this) << "CAN_Initialize returns 0x" << hex << (unsigned int) tpcanStatus << dec << " counter= " << counter;
+		MLOGPK(TRC, this) << "CAN_Initialize returns 0x" << std::hex << (unsigned int) tpcanStatus << std::dec << " counter= " << counter;
 		if ( tpcanStatus == PCAN_ERROR_OK ) {
-			MLOGPK(TRC, this) << "CAN_Initialize has returned OK 0x " << hex << (unsigned int) tpcanStatus << dec;
+			MLOGPK(TRC, this) << "CAN_Initialize has returned OK 0x " << std::hex << (unsigned int) tpcanStatus << std::dec;
 			ret = true;
 			break;
 		}
 		// for plug&play devices this is returned on the second channel of a USB module, apparently.
 		// This seems OK, so we just continue talking to the channel. Counts as success.
 		if ( tpcanStatus == PCAN_ERROR_INITIALIZE ) {
-			MLOGPK(TRC, this) << "CAN_Initialize detected module is already in use (plug&play), returned OK 0x " << hex << (unsigned int) tpcanStatus << dec;
+			MLOGPK(TRC, this) << "CAN_Initialize detected module is already in use (plug&play), returned OK 0x " << std::hex << (unsigned int) tpcanStatus << std::dec;
 			ret = true;
 			break;
 		}
 		CanModule::ms_sleep(1000);
 		MLOGPK(TRC, this) << "try again... calling Can_Uninitialize " ;
 		tpcanStatus = CAN_Uninitialize( m_pkCanHandle ); // Giving the TPCANHandle value "PCAN_NONEBUS" uninitialize all initialized channels
-		MLOGPK(TRC, this) << "CAN_Uninitialize returns " << hex << (unsigned int) tpcanStatus << dec;
+		MLOGPK(TRC, this) << "CAN_Uninitialize returns " << std::hex << (unsigned int) tpcanStatus << std::dec;
 		CanModule::ms_sleep(1000);
 		MLOGPK(TRC, this) << "try again... calling Can_Initialize " ;
 		tpcanStatus = 99;
@@ -452,16 +452,16 @@ bool PKCanScan::sendMessage(short cobID, unsigned char len, unsigned char *messa
 
 		memcpy(tpcanMessage.DATA, message, lengthToBeSent);
 		tpcanStatus = CAN_Write(m_pkCanHandle, &tpcanMessage);
-		MLOGPK(TRC, this) << " send message returned tpcanStatus= "	<< hex << "0x" << tpcanStatus << dec;
+		MLOGPK(TRC, this) << " send message returned tpcanStatus= "	<< std::hex << "0x" << tpcanStatus << std::dec;
 		if (tpcanStatus != PCAN_ERROR_OK) {
-			MLOGPK(ERR, this) << " send message problem detected, tpcanStatus= " << hex << "0x" << tpcanStatus << dec;
+			MLOGPK(ERR, this) << " send message problem detected, tpcanStatus= " << std::hex << "0x" << tpcanStatus << std::dec;
 
 			// here we should see if we need to reconnect
 			triggerReconnectionThread();
 			return sendErrorCode(tpcanStatus);
 		} else {
 			MLOGPK(TRC, this) << " send message OK, tpcanStatus= "
-				<< hex << "0x" << tpcanStatus << dec;
+				<< std::hex << "0x" << tpcanStatus << std::dec;
 		}
 		m_statistics.onTransmit( tpcanMessage.LEN );
 		m_statistics.setTimeSinceTransmitted();
