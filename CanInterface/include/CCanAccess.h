@@ -473,7 +473,8 @@ protected:
 	bool hasTimeoutOnReception() {
 		m_dnow = std::chrono::high_resolution_clock::now();
 		std::chrono::duration<double, micro> time_span = std::chrono::duration_cast<duration<double, micro>>(m_dnow - m_dopen);
-		if ( time_span.count() / 1000 > m_timeoutOnReception ) return true;
+		// if ( time_span.count() / 1000 > m_timeoutOnReception ) return true;
+		if ( time_span / 1000 > m_timeoutOnReception ) return true;
 		else return false;
 	}
 
