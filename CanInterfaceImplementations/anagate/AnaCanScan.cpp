@@ -24,7 +24,7 @@
  * Here the Anagate ethernet-CAN bridges are implemented
  */
 
-#include "AnaCanScan.h"
+#include <AnaCanScan.h>
 
 #include <thread>
 #include <mutex>
@@ -37,7 +37,8 @@
 #include <sstream>
 #include <iostream>
 
-#include "CanModuleUtils.h"
+#include <CanModuleUtils.h>
+#include <CCanAccess.h>
 
 #ifdef _WIN32
 
@@ -121,12 +122,12 @@ void AnaCanScan::stopBus ()
 
 /* static */ void AnaCanScan::setIpReconnectInProgress( std::string ip, bool flag ){
 	// only called inside the locked mutex
-	std::map<string,bool>::iterator it = AnaCanScan::m_reconnectInProgress_map.find( ip );
+	std::map< std::string, bool >::iterator it = AnaCanScan::m_reconnectInProgress_map.find( ip );
 
 	if ( flag ){
 		// mark as in progress if not yet exists/marked
 		if ( it == AnaCanScan::m_reconnectInProgress_map.end() ) {
-			AnaCanScan::m_reconnectInProgress_map.insert ( std::pair<string,bool>( ip, true ) );
+			AnaCanScan::m_reconnectInProgress_map.insert ( std::pair< std::string, bool >( ip, true ) );
 		}
 	} else {
 		// erase existing if still exists/marked
@@ -142,7 +143,7 @@ void AnaCanScan::stopBus ()
  */
 /* static */ bool AnaCanScan::isIpReconnectInProgress( std::string ip ){
 	// only called inside the locked mutex
-	std::map<string,bool>::iterator it = AnaCanScan::m_reconnectInProgress_map.find( ip );
+	std::map< std::string, bool >::iterator it = AnaCanScan::m_reconnectInProgress_map.find( ip );
 	if ( it == AnaCanScan::m_reconnectInProgress_map.end() )
 		return( false );
 	else
@@ -254,7 +255,7 @@ void AnaCanScan::callbackOnRecieve(CanMessage& msg)
  * 1: existing bus, OK, do not add
  * -1: error
  */
-int AnaCanScan::createBus(const std::string name,const std::string parameters)
+int AnaCanScan::createBus(const std::string name, const std::string parameters)
 {	
 	m_busName = name;
 	m_busParameters = parameters;
@@ -299,7 +300,7 @@ int AnaCanScan::createBus(const std::string name,const std::string parameters)
 int AnaCanScan::configureCanBoard(const std::string name,const std::string parameters)
 {
 	MLOGANA(DBG, this) << "(user supplied) name= " << name << " parameters= " << parameters;
-	vector<  std::string > stringVector;
+	vector< std::string > stringVector;
 	stringVector = parseNameAndParameters(name, parameters);
 
 	// we should decode 3 elements from this:0="an" for anagate library, 1=can port, 2=ip number

@@ -41,7 +41,6 @@
 #include <CanModuleUtils.h>
 #include <VERSION.h>
 
-// using namespace std::chrono_literals;
 using Clock = std::chrono::high_resolution_clock;
 using Micros = std::chrono::microseconds;
 using Ms = std::chrono::milliseconds;
