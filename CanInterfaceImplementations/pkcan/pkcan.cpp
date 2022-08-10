@@ -286,7 +286,7 @@ bool PKCanScan::configureCanboard(const std::string name,const std::string param
 
 	// peak guys start counting from 1, we start counting from 0. ugh.
 	int ich = atoi(vectorString[1].c_str());
-	stringstream channel;
+	std::stringstream channel;
 	channel << ich + 1;
 
 	std::string interface = "USB";
