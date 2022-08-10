@@ -52,7 +52,6 @@ else()
 endif() 
 link_directories( ${ANAGATE_LIB_PATH} )
 include_directories ( ${ANAGATE_HEADERS} )
-include_directories ( ../../CanInterface/include )
 
 set(ANAGATE_SOURCES
 	AnaCanScan.cpp
