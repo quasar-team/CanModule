@@ -51,7 +51,7 @@ else()
   message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: toolchain PEAK_HEADERS=  ${PEAK_HEADERS}" )
   message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: toolchain PEAK_LIB_FILE= ${PEAK_LIB_FILE}" )
 endif() 
-include_directories ( ${PEAK_HEADERS} ${PROJECT_SOURCE_DIR} )
+include_directories ( ${PEAK_HEADERS} )
 link_directories ( ${PEAK_LIB_PATH} )
 
 set(PEAKCAN_SOURCES
@@ -61,6 +61,8 @@ set(PEAKCAN_SOURCES
 #	../../CanInterface/include/CanStatistics.h	
 	../../CanInterface/src/CanModuleUtils.cpp
 #	../../CanInterface/include/CanModuleUtils.h	
+	../../CanInterface/src/CCanAccess.cpp	
+
 )
 
 

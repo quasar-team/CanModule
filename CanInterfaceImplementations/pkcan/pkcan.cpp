@@ -37,7 +37,7 @@
 
 #include <CanModuleUtils.h>
 
-/* static */ std::map<string, string> PKCanScan::m_busMap;
+/* static */ std::map< std::string, std::string> PKCanScan::m_busMap;
 
 #define MLOGPK(LEVEL,THIS) LOG(Log::LEVEL, THIS->logItHandle()) << __FUNCTION__ << " " << " peak bus= " << THIS->getBusName() << " "
 
@@ -187,7 +187,7 @@ DWORD WINAPI PKCanScan::CanScanControlThread(LPVOID pCanScan)
  * -2: could not create the thread
  * -3: sth else went wrong
  */
-int PKCanScan::createBus(const string name ,const string parameters )
+int PKCanScan::createBus(const std::string name, const std::string parameters )
 {
 	m_busName = name;
 	m_busParameters = parameters;
