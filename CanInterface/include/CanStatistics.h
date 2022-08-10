@@ -30,12 +30,7 @@
 #include <iostream>
 #include <chrono>
 
-//using namespace std::chrono_literals;
-//using Clock = std::chrono::high_resolution_clock;
-//using Ms = std::chrono::milliseconds;
-//using Sec = std::chrono::seconds;
 template<class Duration>
-//using TimePoint = std::chrono::time_point<Clock, Duration>;
 using TimePoint = std::chrono::time_point<std::chrono::high_resolution_clock, Duration>;
 
 namespace CanModule
@@ -81,31 +76,28 @@ public:
 	float busLoad() { return m_internals.m_busLoad; }
 
 	/**
-	 * time since the last message was received in microseconds
+	 * time since the last message was received in microseconds precision
 	 */
 	double timeSinceReceived() {
 		m_hrnow = std::chrono::high_resolution_clock::now();
-		// std::chrono::duration<double, std::micro> time_span = std::chrono::duration_cast<duration<double, std::micro>>(m_hrnow - m_hrreceived);
 		std::chrono::duration<double, std::micro> time_span = m_hrnow - m_hrreceived;
 		return ( time_span.count() / 1000 );
 	}
 
 	/**
-	 * time since the last message was sent, in microseconds
+	 * time since the last message was sent, in microseconds precision
 	 */
 	double timeSinceTransmitted() {
 		m_hrnow = std::chrono::high_resolution_clock::now();
 		std::chrono::duration<double, std::micro> time_span = m_hrnow - m_hrtransmitted;
-		//std::chrono::duration<double, std::micro> time_span = std::chrono::duration_cast<duration<double, std::micro>>(m_hrnow - m_hrtransmitted);
 		return ( time_span.count() / 1000 );
 	}
 
 	/**
-	 *  time since that bus was opened, in microseconds
+	 *  time since that bus was opened, in microseconds precision
 	 */
 	double timeSinceOpened() {
 		m_hrnow = std::chrono::high_resolution_clock::now();
-		//std::chrono::duration<double, std::micro> time_span = std::chrono::duration_cast<duration<double, std::micro>>(m_hrnow - m_hropen);
 		std::chrono::duration<double, std::micro> time_span = m_hrnow - m_hropen;
 		return ( time_span.count() / 1000 );
 	}
@@ -124,8 +116,6 @@ private:
 	std::atomic_uint_least32_t m_transmitted;
 	//! Number of messaged in current statistic run
 	std::atomic_uint_least32_t m_received;
-
-
 	std::atomic_uint_least32_t m_transmittedOctets;
 	std::atomic_uint_least32_t m_receivedOctets;
 
