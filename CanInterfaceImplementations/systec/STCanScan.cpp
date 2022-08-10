@@ -22,11 +22,11 @@
  *  along with Quasar.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "STCanScan.h"
+#include <STCanScan.h>
 
 #include <time.h>
 #include <string.h>
-#include "CanModuleUtils.h"
+#include <CanModuleUtils.h>
 
 #include <LogIt.h>
 

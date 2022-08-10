@@ -51,16 +51,15 @@ else()
   message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: toolchain SYSTEC_LIB_FILE = ${SYSTEC_LIB_FILE}" )
 endif() 
 
-include_directories ( ${SYSTEC_HEADERS} )
+include_directories ( ${SYSTEC_HEADERS} ${PROJECT_SOURCE_DIR}  )
 link_directories( ${SYSTEC_LIB_PATH} )
 
 set(STCAN_SOURCES
 	STCanScan.cpp
-	STCanScan.cpp
 	../../CanInterface/src/CanStatistics.cpp
-	../../CanInterface/include/CanStatistics.h	
+#	../../CanInterface/include/CanStatistics.h	
 	../../CanInterface/src/CanModuleUtils.cpp
-	../../CanInterface/include/CanModuleUtils.h	
+#	../../CanInterface/include/CanModuleUtils.h	
 )
 
 #if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
