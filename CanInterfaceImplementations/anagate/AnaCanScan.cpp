@@ -33,16 +33,12 @@
 #define WINAPI  
 #endif
 
-
 using namespace CanModule;
-// using namespace std;
-
-//boost::mutex anagateReconnectMutex;
 std::recursive_mutex anagateReconnectMutex;
 
 /* static */ std::map<int, AnaCanScan::ANAGATE_PORTDEF_t> AnaCanScan::st_canHandleMap; // map handles to  {ports, ip}
 /* static */ Log::LogComponentHandle AnaCanScan::st_logItHandleAnagate = 0;
-/* static */ std::map<string,bool> AnaCanScan::m_reconnectInProgress_map;
+/* static */ std::map< std::string,bool > AnaCanScan::m_reconnectInProgress_map;
 
 /** global map of connection-objects: the map-key is the handle. Since handles are allocated by the OS
  * the keys are getting changed as well when we reconnect, so that we do not keep the stale keys(=handles) in
@@ -280,7 +276,7 @@ int AnaCanScan::createBus(const std::string name, const std::string parameters)
 int AnaCanScan::configureCanBoard(const std::string name,const std::string parameters)
 {
 	MLOGANA(DBG, this) << "(user supplied) name= " << name << " parameters= " << parameters;
-	vector< std::string > stringVector;
+	std::vector< std::string > stringVector;
 	stringVector = parseNameAndParameters(name, parameters);
 
 	// we should decode 3 elements from this:0="an" for anagate library, 1=can port, 2=ip number
@@ -598,7 +594,7 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 
 	if (anaCallReturn != 0) {
 		MLOGANA(ERR, this) << "There was a problem when sending/receiving timeout with CANWrite or a reconnect condition: 0x"
-				<< hex << anaCallReturn << dec
+				<< std::hex << anaCallReturn << std::dec
 				<< " ip= " << m_canIPAddress;
 		m_canCloseDevice = false;
 		decreaseSendFailedCountdown();
@@ -625,7 +621,7 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 				<< " ip= " << it->second->ipAdress()
 				<< " CAN port= " << it->second->canPortNumber()
 				<< " handle= " << it->second->handle()
-				<< " ptr= 0x" << hex << (unsigned long) (it->second) << dec; // naja, just to see it tis != NULL
+				<< " ptr= 0x" << std::hex << (unsigned long) (it->second) << std::dec; // naja, just to see it tis != NULL
 
 	}
 }
@@ -808,19 +804,19 @@ AnaInt32 AnaCanScan::connectReceptionHandler(){
 	switch ( anaCallReturn ){
 	case 0:{ break; }
 	case 0x30000: {
-		MLOGANA(ERR,this) << "Connection to TCP/IP partner can't be established or is disconnected. Lost TCP/IP: 0x" << hex << anaCallReturn << dec;
+		MLOGANA(ERR,this) << "Connection to TCP/IP partner can't be established or is disconnected. Lost TCP/IP: 0x" << std::hex << anaCallReturn << std::dec;
 		return -1;
 	}
 	case 0x40000: {
-		MLOGANA(ERR,this) << "No  answer  was  received  from	TCP/IP partner within the defined timeout. Lost TCP/IP: 0x" << hex << anaCallReturn << dec;
+		MLOGANA(ERR,this) << "No  answer  was  received  from	TCP/IP partner within the defined timeout. Lost TCP/IP: 0x" << std::hex << anaCallReturn << std::dec;
 		return -1;
 	}
 	case 0x900000: {
-		MLOGANA(ERR,this) << "Invalid device handle. Lost TCP/IP: 0x" << hex << anaCallReturn << dec;
+		MLOGANA(ERR,this) << "Invalid device handle. Lost TCP/IP: 0x" << std::hex << anaCallReturn << std::dec;
 		return -1;
 	}
 	default : {
-		MLOGANA(ERR,this) << "Other Error in CANSetGlobals: 0x" << hex << anaCallReturn << dec;
+		MLOGANA(ERR,this) << "Other Error in CANSetGlobals: 0x" << std::hex << anaCallReturn << std::dec;
 		return -1;
 	}
 	}
@@ -887,7 +883,7 @@ int AnaCanScan::reconnect(){
 		// todo: we should probably drop this, if the handle isn't valid anyway
 		state = CANDeviceConnectState( m_UcanHandle );
 	}
-	MLOGANA(TRC, this) << "CANDeviceConnectState: device connect state= 0x" << hex << state << dec;
+	MLOGANA(TRC, this) << "CANDeviceConnectState: device connect state= 0x" << std::hex << state << std::dec;
 	/**
 	•
 	1 = DISCONNECTED
@@ -923,10 +919,10 @@ int AnaCanScan::reconnect(){
 		if ( !m_canCloseDevice ) {
 			anaCallReturn = CANCloseDevice( m_UcanHandle );
 			MLOGANA(WRN, this) << "closed device m_UcanHandle= " << m_UcanHandle
-					<< " anaCallReturn= 0x" << hex << anaCallReturn << dec;
+					<< " anaCallReturn= 0x" << std::hex << anaCallReturn << std::dec;
 			if ( anaCallReturn != 0 ) {
 				MLOGANA(WRN, this) << "could not close device m_UcanHandle= " << m_UcanHandle
-						<< " anaCallReturn= 0x" << hex << anaCallReturn << dec;
+						<< " anaCallReturn= 0x" << std::hex << anaCallReturn << std::dec;
 				// return(-3);
 			}
 			m_canCloseDevice = true;
@@ -942,7 +938,7 @@ int AnaCanScan::reconnect(){
 				<< " ip= " << m_canIPAddress << " timeout= " << m_timeout;
 		anaCallReturn = CANOpenDevice(&canModuleHandle, FALSE, TRUE, m_canPortNumber, m_canIPAddress.c_str(), m_timeout);
 		if (anaCallReturn != 0) {
-			MLOGANA(ERR,this) << "CANOpenDevice failed: 0x" << hex << anaCallReturn << dec;
+			MLOGANA(ERR,this) << "CANOpenDevice failed: 0x" << std::hex << anaCallReturn << std::dec;
 			m_canCloseDevice = false;
 			return(-1);
 		}
