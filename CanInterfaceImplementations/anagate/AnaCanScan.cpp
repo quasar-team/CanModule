@@ -26,7 +26,8 @@
 
 #include "AnaCanScan.h"
 
-#include <thread>
+/**
+ * #include <thread>
 #include <mutex>
 #include <condition_variable>
 
@@ -36,9 +37,10 @@
 #include <LogIt.h>
 #include <sstream>
 #include <iostream>
+*/
 
-#include <CanModuleUtils.h>
-#include <CCanAccess.h>
+//#include <CanModuleUtils.h>
+//#include <CCanAccess.h>
 
 #ifdef _WIN32
 
