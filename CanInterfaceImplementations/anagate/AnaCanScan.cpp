@@ -39,8 +39,8 @@
 #include <iostream>
 */
 
-#include <CanModuleUtils.h>
-#include <CCanAccess.h>
+//#include <CanModuleUtils.h>
+//#include <CCanAccess.h>
 
 #ifdef _WIN32
 
@@ -48,7 +48,7 @@
 
 #else
 
-#include <sys/time.h>
+//#include <sys/time.h>
 
 #define DLLEXPORTFLAG  
 #define WINAPI  

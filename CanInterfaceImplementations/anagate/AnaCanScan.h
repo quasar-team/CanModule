@@ -29,6 +29,7 @@
 #include <thread>
 #include <mutex>
 #include <condition_variable>
+// #include <sys/time.h>
 
 #include <time.h>
 // #include <string.h>
@@ -36,6 +37,10 @@
 #include <LogIt.h>
 #include <sstream>
 #include <iostream>
+
+
+#include <CanModuleUtils.h>
+#include <CCanAccess.h>
 
 #include "CanStatistics.h"
 #include "CCanAccess.h"
