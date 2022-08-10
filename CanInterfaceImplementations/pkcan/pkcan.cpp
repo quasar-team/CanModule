@@ -280,7 +280,7 @@ bool PKCanScan::configureCanboard(const std::string name,const std::string param
 	//long parametersBaudRate;
 	//int	numPar;
 	//Process the parameters
-	vector<std::string> vectorString;
+	std::vector<std::string> vectorString;
 	vectorString = parseNameAndParameters(name, parameters);
 	MLOGPK(DBG, this) << " calling getHandle vectorString[1]= " << vectorString[1];
 
