@@ -30,9 +30,6 @@
 #include <iostream>
 #include <chrono>
 
-template<class Duration>
-using TimePoint = std::chrono::time_point<std::chrono::high_resolution_clock, Duration>;
-
 namespace CanModule
 {
 class CanStatistics
