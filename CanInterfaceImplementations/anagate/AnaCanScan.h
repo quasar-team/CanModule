@@ -115,7 +115,6 @@ public:
 	virtual CanModule::ReconnectAutoCondition getReconnectCondition() { return m_reconnectCondition; };
 	virtual CanModule::ReconnectAction getReconnectAction() { return m_reconnectAction; };
 	virtual void stopBus( void );
-	int configureCanBoard(const std::string name,const std::string parameters);
 
 private:
 
@@ -170,7 +169,7 @@ private:
 	std::string ipAdress(){ return(m_canIPAddress );}
 	int canPortNumber(){ return(m_canPortNumber);}
 	int handle(){ return(m_UcanHandle);}
-	//int configureCanBoard(const std::string name,const std::string parameters);
+	int configureCanBoard(const std::string name,const std::string parameters);
 	int connectReceptionHandler();
 	int openCanPort();
 	int reconnect();
