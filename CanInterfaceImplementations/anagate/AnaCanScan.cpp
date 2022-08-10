@@ -518,7 +518,7 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 	// /* static */ std::string AnaCanScan::canMessageToString(CanMessage &f)
 	// MLOGANA(DBG,this) << "Sending message: [" << ( message == 0  ? "" : (const char *) message) << "], cobID: [" << cobID << "], Message Length: [" << static_cast<int>(len) << "]";
 
-	MLOGANA(DBG,this) << "Sending message: [" << AnaCanScan::canMessage2ToString(cobID, len, message, rtr) << "]";
+	MLOGANA(DBG,this) << "Sending message: [" << CanModule::canMessage2ToString(cobID, len, message, rtr) << "]";
 	AnaInt32 anaCallReturn = 0;
 	unsigned char *messageToBeSent[8];
 	AnaInt32 flags = 0x0;
