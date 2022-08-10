@@ -110,7 +110,7 @@ private:
 	std::string m_busParameters;
 
    	TPCANHandle	m_pkCanHandle;
-	bool configureCanboard(const string name,const string parameters);
+	bool configureCanboard(const std::string name, const std::string parameters);
 	// void stopBus ( void );
 
 	HANDLE      m_hCanScanThread;
