@@ -293,7 +293,7 @@ bool PKCanScan::configureCanboard(const std::string name,const std::string param
 	std::string humanReadableCode = interface + channel.str();
 	m_pkCanHandle = getHandle( humanReadableCode.c_str() );
 	MLOGPK( DBG, this ) << "PEAK handle for vectorString[1]= " << vectorString[1]
-	      << " is m_pkCanHandle= 0x" <<hex <<  m_pkCanHandle << dec
+	      << " is m_pkCanHandle= 0x" <<std::hex <<  m_pkCanHandle << dec
 		  << " human readable code= " << humanReadableCode;
 
 
@@ -339,7 +339,7 @@ bool PKCanScan::configureCanboard(const std::string name,const std::string param
 	} else {
 		MLOGPK(DBG, this) << "Unspecified parameters, default values will be used.";
 	}
-	MLOGPK(DBG, this) << " m_baudRate= 0x" << std::hex << m_baudRate << dstd::ec;
+	MLOGPK(DBG, this) << " m_baudRate= 0x" << std::hex << m_baudRate << std::dec;
 	MLOGPK(DBG, this) << " m_CanParameters.m_lBaudRate= " << m_CanParameters.m_lBaudRate;
 
 	/** FD (flexible datarate) modules.
