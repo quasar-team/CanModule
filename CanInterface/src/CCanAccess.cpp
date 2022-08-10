@@ -20,7 +20,7 @@ void CanParameters::scanParameters(std::string parameters)
     }
 }
 #if 0
-should be identical to below code, but it went through piotrs mill, so one never knows ;-) Its not great code anyway
+should be identical to below code
 	/* @ Parse the input parameters
 	 * @param name The parameters have a format <name component>:name chanel:options for add address parameters>
 	 * @param parameters is a string with possible 6 word describing can options

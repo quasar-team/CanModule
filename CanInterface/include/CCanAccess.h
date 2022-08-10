@@ -509,5 +509,5 @@ private:
 	//std::chrono::time_point m_dreceived, m_dtransmitted, m_dopen;
 	// TimePoint<Micros> m_dnow, m_dreceived, m_dtransmitted, m_dopen;
 };
-};
+}; // namespace CanModule
 #endif /* CCANACCESS_H_ */
