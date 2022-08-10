@@ -52,7 +52,7 @@ else()
 endif() 
 link_directories( ${ANAGATE_LIB_PATH} )
 include_directories ( ${ANAGATE_HEADERS} )
-include_directories ( ${PROJECT_SOURCE_DIR}/include )
+include_directories ( ${PROJECT_SOURCE_DIR} )
 message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: PROJECT_SOURCE_DIR/include= ${PROJECT_SOURCE_DIR}/include" )
 
 
