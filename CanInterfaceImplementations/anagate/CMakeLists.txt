@@ -52,16 +52,16 @@ else()
   	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: toolchain ANAGATE_LIB_FILE= ${ANAGATE_LIB_FILE}" )
 endif() 
 link_directories( ${ANAGATE_LIB_PATH} )
-include_directories ( ${ANAGATE_HEADERS} )
+include_directories ( ${ANAGATE_HEADERS} ${PROJECT_SOURCE_DIR)/include )
 
 
 set(ANAGATE_SOURCES
 	AnaCanScan.cpp
-	AnaCanScan.h
+#	AnaCanScan.h
 	../../CanInterface/src/CanStatistics.cpp
-	../../CanInterface/include/CanStatistics.h	
+#	../../CanInterface/include/CanStatistics.h	
 	../../CanInterface/src/CanModuleUtils.cpp
-	../../CanInterface/include/CanModuleUtils.h	
+#	../../CanInterface/include/CanModuleUtils.h	
 )
 
 # you can either build the fully dynamic libs or the as-static-as-possible, 
