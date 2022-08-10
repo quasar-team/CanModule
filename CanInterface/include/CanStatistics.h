@@ -31,11 +31,12 @@
 #include <chrono>
 
 //using namespace std::chrono_literals;
-using Clock = std::chrono::high_resolution_clock;
-using Ms = std::chrono::milliseconds;
-using Sec = std::chrono::seconds;
+//using Clock = std::chrono::high_resolution_clock;
+//using Ms = std::chrono::milliseconds;
+//using Sec = std::chrono::seconds;
 template<class Duration>
-using TimePoint = std::chrono::time_point<Clock, Duration>;
+//using TimePoint = std::chrono::time_point<Clock, Duration>;
+using TimePoint = std::chrono::time_point<std::chrono::high_resolution_clock, Duration>;
 
 namespace CanModule
 {
