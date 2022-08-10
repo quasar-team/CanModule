@@ -23,7 +23,7 @@
  * PEAK bridge integration for windows
  */
 
-#include "pkcan.h"
+#include <>pkcan.h>
 
 #include <time.h>
 #include <string.h>
@@ -35,7 +35,7 @@
 
 #include <LogIt.h>
 
-#include "CanModuleUtils.h"
+#include <CanModuleUtils.h>
 
 /* static */ std::map<string, string> PKCanScan::m_busMap;
 
