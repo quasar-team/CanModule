@@ -33,6 +33,8 @@
 #include <string>
 #include <chrono>
 
+#include "CanMessage.h"
+
 namespace CanModule
 {
 	class CanModuleUtils
@@ -72,7 +74,7 @@ namespace CanModule
 
 	};
 
-	// convenience for clients
+
 #ifdef _WIN32
 	timeval convertTimepointToTimeval(const std::chrono::steady_clock::time_point &t1);
 	std::chrono::steady_clock::time_point convertTimevalToTimepoint(const timeval &t1);
@@ -83,5 +85,8 @@ namespace CanModule
 	std::chrono::system_clock::time_point currentTimeTimeval();
 #endif
 	std::string CanModuleerrnoToString();
+	std::string canMessageToString(CanMessage &f);
+	std::string canMessage2ToString(short cobID, unsigned char len, unsigned char *message, bool rtr);
+
 }
 #endif /* UTILS_H_ */
