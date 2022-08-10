@@ -110,7 +110,8 @@ void CSockCanScan::CanScanControlThread()
 	struct can_frame  socketMessage;
 	CSockCanScan *p_sockCanScan = this;
 	// convenience, not really needed as we call the thread as
-	// non-static private member on the object
+	// non-static private member on the object. I like it nevertheless
+	// since it explicitly makes a difference between the object (this) and this thread.
 
 	std::string _tid;
 	{
@@ -168,16 +169,6 @@ void CSockCanScan::CanScanControlThread()
 		if ( selectResult < 0 ){
 			MLOGSOCK(ERR,p_sockCanScan) << "select() failed: " << CanModuleerrnoToString()
 									<< " tid= " << _tid;
-#if 0
-			{
-				struct timespec tim, tim2;
-				tim.tv_sec = 1;
-				tim.tv_nsec = 0;
-				if(nanosleep(&tim , &tim2) < 0 ) {
-					MLOGSOCK(ERR,p_sockCanScan) << "Waiting 1s failed (nanosleep) tid= " << _tid;
-				}
-			}
-#endif
 			CanModule::ms_sleep( 1000 );
 			continue;
 		}
@@ -224,16 +215,6 @@ void CSockCanScan::CanScanControlThread()
 				// try close/opening on faults while port is active. This was a system error
 				do {
 					MLOGSOCK(INF,p_sockCanScan) << "Waiting 10000ms."<< " tid= " << _tid;
-#if 0
-					{
-						struct timespec tim, tim2;
-						tim.tv_sec = 10;
-						tim.tv_nsec = 0;
-						if(nanosleep(&tim , &tim2) < 0 ) {
-							MLOG(ERR,p_sockCanScan) << "Waiting 10000ms failed (nanosleep)"<< " tid= " << _tid;
-						}
-					}
-#endif
 					CanModule::ms_sleep( 10000 );
 
 					if ( sock > 0 )	{
@@ -314,19 +295,6 @@ void CSockCanScan::CanScanControlThread()
 			CanMessage canMessage;
 			canMessage.c_rtr = socketMessage.can_id & CAN_RTR_FLAG;
 
-			/**
-			 * OPCUA-2607. Lets just stop filtering RTR out. This is only done here
-			 * anyway, all other vendor implementations don't care.
-			 */
-#if 0
-			// remote flag: ignore frame
-			if (canMessage.c_rtr) {
-				MLOGSOCK(TRC, p_sockCanScan) << " Got a remote CAN message, skipping"<< " tid= " << _tid;
-				continue;
-			}
-#else
-			// MLOGSOCK(TRC, p_sockCanScan) << " Got a remote CAN message "<< " tid= " << _tid;
-#endif
 
 			/**
 			 * reformat and buffer the message from the socket.
@@ -653,9 +621,13 @@ bool CSockCanScan::sendMessage(short cobID, unsigned char len, unsigned char *me
 	if (len > 8) {
 		messageLengthToBeProcessed = 8;
 		MLOGSOCK(DBG,this) << "The Length is more then 8 bytes: " << std::dec << len;
+		return false;
 	} else {
 		messageLengthToBeProcessed = len;
 	}
+
+	MLOGSOCK(DBG,this) << "Sending message: [" << CanModule::canMessage2ToString(cobID, len, message, rtr) << "]";
+
 	canFrame.can_dlc = messageLengthToBeProcessed;
 	memcpy(canFrame.data, message, messageLengthToBeProcessed);
 	canFrame.can_id = cobID;
@@ -673,16 +645,6 @@ bool CSockCanScan::sendMessage(short cobID, unsigned char len, unsigned char *me
 		if ( errno == ENOBUFS ) {
 			// std::cerr << "ENOBUFS; waiting a jiffy [100ms]..." << std::endl;
 			MLOGSOCK(ERR,this) << "write error ENOBUFS: waiting a jiffy [100ms]...";
-#if 0
-			{
-				struct timespec tim, tim2;
-				tim.tv_sec = 0;
-				tim.tv_nsec = 100000;
-				if(nanosleep(&tim , &tim2) < 0 ) {
-					MLOGSOCK(ERR,this) << "Waiting 100ms failed (nanosleep)";
-				}
-			}
-#endif
 			CanModule::ms_sleep( 100 );
 
 			ret = false;
