@@ -26,7 +26,7 @@
 #include "pkcan.h"
 
 #include <time.h>
-#include <string.h>
+#include <string>
 #include <thread>
 #include <mutex>
 #include <condition_variable>
@@ -87,7 +87,7 @@ void PKCanScan::stopBus ()
 
 	{
 		peakReconnectMutex.lock();
-		std::map<string, string>::iterator it = PKCanScan::m_busMap.find( m_busName );
+		std::map< std::string, std::string>::iterator it = PKCanScan::m_busMap.find( m_busName );
 		if (it != PKCanScan::m_busMap.end()) {
 			m_idCanScanThread = 0;
 			PKCanScan::m_busMap.erase ( it );
@@ -212,9 +212,9 @@ int PKCanScan::createBus(const std::string name, const std::string parameters )
 	{
 		peakReconnectMutex.lock();
 		// dont create a main thread for the same bus twice
-		std::map<string, string>::iterator it = PKCanScan::m_busMap.find( name );
+		std::map<std::string, std::string>::iterator it = PKCanScan::m_busMap.find( name );
 		if (it == PKCanScan::m_busMap.end()) {
-			PKCanScan::m_busMap.insert ( std::pair<string, string>(name, parameters) );
+			PKCanScan::m_busMap.insert ( std::pair<std::string, std::string>(name, parameters) );
 			m_busName = name;
 		} else {
 			LOG(Log::WRN) << __FUNCTION__ << " bus exists already [" << name << ", " << parameters << "], not creating another main thread";
@@ -265,7 +265,7 @@ int PKCanScan::createBus(const std::string name, const std::string parameters )
  * true = success
  * false = failed
  */
-bool PKCanScan::configureCanboard(const string name,const string parameters)
+bool PKCanScan::configureCanboard(const std::string name,const std::string parameters)
 {
 	m_sBusName = name;
 	m_baudRate = PCAN_BAUD_125K;
@@ -280,7 +280,7 @@ bool PKCanScan::configureCanboard(const string name,const string parameters)
 	//long parametersBaudRate;
 	//int	numPar;
 	//Process the parameters
-	vector<string> vectorString;
+	vector<std::string> vectorString;
 	vectorString = parseNameAndParameters(name, parameters);
 	MLOGPK(DBG, this) << " calling getHandle vectorString[1]= " << vectorString[1];
 
@@ -289,8 +289,8 @@ bool PKCanScan::configureCanboard(const string name,const string parameters)
 	stringstream channel;
 	channel << ich + 1;
 
-	string interface = "USB";
-	string humanReadableCode = interface + channel.str();
+	std::string interface = "USB";
+	std::string humanReadableCode = interface + channel.str();
 	m_pkCanHandle = getHandle( humanReadableCode.c_str() );
 	MLOGPK( DBG, this ) << "PEAK handle for vectorString[1]= " << vectorString[1]
 	      << " is m_pkCanHandle= 0x" <<hex <<  m_pkCanHandle << dec
