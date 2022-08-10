@@ -208,7 +208,7 @@ STCanScan::~STCanScan()
  * no implemented: 1=OK, bus creation skipped since it exists already
  *
  */
-int STCanScan::createBus(const string name,const string parameters)
+int STCanScan::createBus(const std::string name,const std::string parameters)
 {	
 	LogItInstance* logItInstance = CCanAccess::getLogItInstance(); // actually calling instance method, not class
 
@@ -242,7 +242,7 @@ int STCanScan::createBus(const string name,const string parameters)
  * configures systec @ windows board
  * only G1/G2 boards
  */
-int STCanScan::configureCanBoard(const string name,const string parameters)
+int STCanScan::configureCanBoard(const std::string name,const std::string parameters)
 {
 	long baudRate = USBCAN_BAUD_125kBit;
 	m_CanParameters.m_lBaudRate = 125000;

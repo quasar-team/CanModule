@@ -77,7 +77,7 @@ std::map<AnaInt32, AnaCanScan*> g_AnaCanScanObjectMap; // map handles to objects
 
 AnaCanScan::AnaCanScan():
 	m_canPortNumber(0),
-	m_canIPAddress( (char *) string("192.168.1.2").c_str()),
+	m_canIPAddress( (char *) std::string("192.168.1.2").c_str()),
 	m_baudRate(0),
 	m_idCanScanThread(0),
 	m_canCloseDevice(false),
@@ -119,7 +119,7 @@ void AnaCanScan::stopBus ()
 }
 
 
-/* static */ void AnaCanScan::setIpReconnectInProgress( string ip, bool flag ){
+/* static */ void AnaCanScan::setIpReconnectInProgress( std::string ip, bool flag ){
 	// only called inside the locked mutex
 	std::map<string,bool>::iterator it = AnaCanScan::m_reconnectInProgress_map.find( ip );
 
@@ -140,7 +140,7 @@ void AnaCanScan::stopBus ()
  * checks if a reconnection is already in progress for the bridge at that IP. Several ports can (and will) fail
  * at the same time, but the bridge should be reset only once, and not again for each port.
  */
-/* static */ bool AnaCanScan::isIpReconnectInProgress( string ip ){
+/* static */ bool AnaCanScan::isIpReconnectInProgress( std::string ip ){
 	// only called inside the locked mutex
 	std::map<string,bool>::iterator it = AnaCanScan::m_reconnectInProgress_map.find( ip );
 	if ( it == AnaCanScan::m_reconnectInProgress_map.end() )
@@ -254,7 +254,7 @@ void AnaCanScan::callbackOnRecieve(CanMessage& msg)
  * 1: existing bus, OK, do not add
  * -1: error
  */
-int AnaCanScan::createBus(const string name,const string parameters)
+int AnaCanScan::createBus(const std::string name,const std::string parameters)
 {	
 	m_busName = name;
 	m_busParameters = parameters;
@@ -296,10 +296,10 @@ int AnaCanScan::createBus(const string name,const string parameters)
  *  p5 = sync mode
  *  p6 = timeout/ms
  */
-int AnaCanScan::configureCanBoard(const string name,const string parameters)
+int AnaCanScan::configureCanBoard(const std::string name,const std::string parameters)
 {
 	MLOGANA(DBG, this) << "(user supplied) name= " << name << " parameters= " << parameters;
-	vector<string> stringVector;
+	vector<  std::string > stringVector;
 	stringVector = parseNameAndParameters(name, parameters);
 
 	// we should decode 3 elements from this:0="an" for anagate library, 1=can port, 2=ip number
@@ -707,7 +707,7 @@ AnaInt32 AnaCanScan::reconnectThisPort(){
  * -1 = cant open / reconnect CAN ports
  * +1 = ignore, since another thread is doing the reconnect already
  */
-/* static */ AnaInt32 AnaCanScan::reconnectAllPorts( string ip ){
+/* static */ AnaInt32 AnaCanScan::reconnectAllPorts( std::string ip ){
 
 	// protect against several calls on the same ip, recursive_mutex needed
 	{
