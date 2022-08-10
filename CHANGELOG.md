@@ -8,6 +8,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 - chrono and std:: cleanup, nanosleep etc are suppressed in favour of chrono
 - drop messages with extended IDs or data (do not truncate and send nevertheless)
 
+todo:
+LogIt linkage
+chrono methods into superclass
+signals for status updates
+poartStatus, unifiedPortSatatus cleanup
+
+
 
 ### 2.0.21 [12.july.2022]
 - version corrected

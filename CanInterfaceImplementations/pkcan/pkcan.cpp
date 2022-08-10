@@ -23,7 +23,7 @@
  * PEAK bridge integration for windows
  */
 
-#include <>pkcan.h>
+#include <pkcan.h>
 
 #include <time.h>
 #include <string.h>

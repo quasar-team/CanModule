@@ -247,7 +247,7 @@ int STCanScan::configureCanBoard(const std::string name,const std::string parame
 	long baudRate = USBCAN_BAUD_125kBit;
 	m_CanParameters.m_lBaudRate = 125000;
 
-	vector<string> stringVector;
+	std::vector< std::string > stringVector;
 	stringVector = parseNameAndParameters(name, parameters);
 
 	const char *na = stringVector[1].c_str();
