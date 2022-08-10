@@ -26,38 +26,16 @@
 
 #include "AnaCanScan.h"
 
-/**
- * #include <thread>
-#include <mutex>
-#include <condition_variable>
-
-#include <time.h>
-#include <string.h>
-#include <map>
-#include <LogIt.h>
-#include <sstream>
-#include <iostream>
-*/
-
-//#include <CanModuleUtils.h>
-//#include <CCanAccess.h>
-
 #ifdef _WIN32
-
 #define DLLEXPORTFLAG __declspec(dllexport)
-
 #else
-
-//#include <sys/time.h>
-
 #define DLLEXPORTFLAG  
 #define WINAPI  
-
 #endif
 
 
 using namespace CanModule;
-using namespace std;
+// using namespace std;
 
 //boost::mutex anagateReconnectMutex;
 std::recursive_mutex anagateReconnectMutex;
