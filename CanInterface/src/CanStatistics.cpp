@@ -22,12 +22,10 @@
  *  along with Quasar.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-
-#include <CanModuleUtils.h>
-#include "CanStatistics.h"
-
 #include <iostream>
 
+#include "CanModuleUtils.h"
+#include "CanStatistics.h"
 
 namespace CanModule
 {
