@@ -134,6 +134,9 @@ DWORD WINAPI PKCanScan::CanScanControlThread(LPVOID pCanScan)
 			canMessage.c_id = tpcanMessage.ID;
 			canMessage.c_ff = tpcanMessage.MSGTYPE;
 
+			MLOGPK(DBG, pkCanScanPointer)<< __FILE__ << " " << __LINE__ << " " << __FUNCTION__
+					<< " CanModule peak received message: " << CanModule::canMessageToString( canMessage );
+
 			unsigned long long mmsec = 0xFFFFFFFFUL;
 			mmsec = mmsec *  1000;
 			mmsec = mmsec * tpcanTimestamp.millis_overflow;
