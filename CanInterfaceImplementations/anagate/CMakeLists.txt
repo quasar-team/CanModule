@@ -51,7 +51,7 @@ else()
   	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: toolchain ANAGATE_LIB_FILE= ${ANAGATE_LIB_FILE}" )
 endif() 
 link_directories( ${ANAGATE_LIB_PATH} )
-include_directories ( ${ANAGATE_HEADERS} ${PROJECT_SOURCE_DIR} )
+include_directories ( ${ANAGATE_HEADERS} )
 
 set(ANAGATE_SOURCES
 	AnaCanScan.cpp
