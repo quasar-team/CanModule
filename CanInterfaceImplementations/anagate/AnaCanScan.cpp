@@ -1080,7 +1080,7 @@ void AnaCanScan::CanReconnectionThread()
 	std::string _tid;
 	{
 		std::stringstream ss;
-		ss << this_thread::get_id();
+		ss << std::this_thread::get_id();
 		_tid = ss.str();
 	}
 	MLOGANA(TRC, this ) << "created reconnection thread tid= " << _tid;

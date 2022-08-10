@@ -293,7 +293,7 @@ bool PKCanScan::configureCanboard(const std::string name,const std::string param
 	std::string humanReadableCode = interface + channel.str();
 	m_pkCanHandle = getHandle( humanReadableCode.c_str() );
 	MLOGPK( DBG, this ) << "PEAK handle for vectorString[1]= " << vectorString[1]
-	      << " is m_pkCanHandle= 0x" <<std::hex <<  m_pkCanHandle << dec
+	      << " is m_pkCanHandle= 0x" <<std::hex <<  m_pkCanHandle << std::dec
 		  << " human readable code= " << humanReadableCode;
 
 
@@ -575,7 +575,7 @@ DWORD WINAPI PKCanScan::CanReconnectionThread(LPVOID pCanScan)
 	std::string _tid;
 	{
 		std::stringstream ss;
-		ss << this_thread::get_id();
+		ss << std::this_thread::get_id();
 		_tid = ss.str();
 	}
 	MLOGPK(TRC, pkCanScanPointer ) << "created reconnection thread tid= " << _tid;
