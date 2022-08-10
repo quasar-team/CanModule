@@ -114,7 +114,7 @@ DWORD WINAPI STCanScan::CanScanControlThread(LPVOID pCanScan)
 			for (int i = 0; i < 8; i++)
 				canMsgCopy.c_data[i] = readCanMessage.m_bData[i];
 
-			canMsgCopy.c_time = convertTimepointToTimeval(currentTimeTimeval());
+			canMsgCopy.c_time = CanModule::convertTimepointToTimeval(currentTimeTimeval());
 
 			stCanScanPointer->canMessageCame(canMsgCopy);
 			stCanScanPointer->m_statistics.onReceive( readCanMessage.m_bDLC );
@@ -383,7 +383,7 @@ bool STCanScan::sendErrorCode(long status)
 	timeval ftTimeStamp; 
 	if (status != m_busStatus) {
 
-		ftTimeStamp = convertTimepointToTimeval(currentTimeTimeval());
+		ftTimeStamp = CanModule::convertTimepointToTimeval(currentTimeTimeval());
 
 		//errorCodeToString(status, errorMessage))
 		canMessageError(status, errorCodeToString( status ), ftTimeStamp);

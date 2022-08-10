@@ -406,7 +406,7 @@ bool PKCanScan::sendErrorCode(long status)
 {
 	if (status != m_busStatus)
 	{
-		timeval ftTimeStamp = convertTimepointToTimeval(currentTimeTimeval());
+		timeval ftTimeStamp = CanModule::convertTimepointToTimeval(currentTimeTimeval());
 		char *errorMessage;
 		getErrorMessage(status, &errorMessage);
 		canMessageError(status, errorMessage, ftTimeStamp );

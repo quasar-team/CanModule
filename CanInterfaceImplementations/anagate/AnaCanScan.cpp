@@ -177,7 +177,7 @@ void WINAPI InternalCallback(AnaUInt32 nIdentifier, const char * pcBuffer, AnaIn
 	for (int i = 0; i < nBufferLen; i++)
 		canMsgCopy.c_data[i] = pcBuffer[i];
 
-	canMsgCopy.c_time = convertTimepointToTimeval(currentTimeTimeval());
+	canMsgCopy.c_time = CanModule::convertTimepointToTimeval(currentTimeTimeval());
 
 	// more hardcode debugging, leave it in
 	//cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
