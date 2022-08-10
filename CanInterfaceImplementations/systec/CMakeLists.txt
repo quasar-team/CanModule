@@ -56,10 +56,8 @@ link_directories( ${SYSTEC_LIB_PATH} )
 
 set(STCAN_SOURCES
 	STCanScan.cpp
-	../../CanInterface/src/CanStatistics.cpp
-#	../../CanInterface/include/CanStatistics.h	
-	../../CanInterface/src/CanModuleUtils.cpp
-#	../../CanInterface/include/CanModuleUtils.h	
+	../../CanInterface/src/CanStatistics.cpp	
+	../../CanInterface/src/CanModuleUtils.cpp	
 	../../CanInterface/src/CCanAccess.cpp	
 )
 
