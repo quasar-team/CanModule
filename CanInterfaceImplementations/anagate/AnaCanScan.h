@@ -89,23 +89,7 @@ public:
 	void statisticsOnRecieve(int);
 	void callbackOnRecieve(CanMessage&);
 
-	/**
-	 * CANCanDeviceConnectState , translate from counter
-	 * 1 = DISCONNECTED   :
-	 * 2 = CONNECTING :
-	 * 3 = CONNECTED
-	 * 4 = DISCONNECTING
-	 * 5 = NOT_INITIALIZED
-	 * b3...b27: unused
-	 *
-	 * into simple bitpattern (counter)
-	 * 0, 10, 11, 100, 101
-	 *
-	 */
-	uint32_t getPortStatus(){
-		AnaInt32 state = CANDeviceConnectState( m_UcanHandle );
-		return( state | CANMODULE_STATUS_BP_ANAGATE );
-	}
+	uint32_t getPortStatus();
 	virtual uint32_t getPortBitrate(){ return m_CanParameters.m_lBaudRate; };
 
 	virtual void setReconnectBehavior( CanModule::ReconnectAutoCondition cond, CanModule::ReconnectAction action ){

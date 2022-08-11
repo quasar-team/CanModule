@@ -306,7 +306,6 @@ public:
 	 * and the bitrate can only be changed at that moment. So please call this method just after you have
 	 * opened the port. But also since there is no hw interaction and it just returns a buffer, you may
 	 * call it as often as you like.
-	 * Default bitrate is always 125000bits/s if "Unspecified"
 	 */
 	virtual uint32_t getPortBitrate() = 0;
 

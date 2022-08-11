@@ -75,6 +75,24 @@ AnaCanScan::AnaCanScan():
 }
 
 /**
+ * CANCanDeviceConnectState , translate from counter
+ * 1 = DISCONNECTED   :
+ * 2 = CONNECTING :
+ * 3 = CONNECTED
+ * 4 = DISCONNECTING
+ * 5 = NOT_INITIALIZED
+ * b3...b27: unused
+ *
+ * into simple bitpattern (counter)
+ * 0, 10, 11, 100, 101
+ *
+ */
+uint32_t AnaCanScan::getPortStatus(){
+	AnaInt32 state = CANDeviceConnectState( m_UcanHandle );
+	return( state | CANMODULE_STATUS_BP_ANAGATE );
+}
+
+/**
  * Shut down can scan thread
  */
 AnaCanScan::~AnaCanScan()
