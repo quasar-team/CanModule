@@ -41,13 +41,15 @@
 #include <CanModuleUtils.h>
 #include <VERSION.h>
 
+#if 0
 using Clock = std::chrono::high_resolution_clock;
 using Micros = std::chrono::microseconds;
 using Ms = std::chrono::milliseconds;
 using Sec = std::chrono::seconds;
 template<class Duration>
 using TimePoint = std::chrono::time_point<Clock, Duration>;
-using FpMicroseconds = std::chrono::duration<float, std::chrono::microseconds::period>;
+#endif
+// using FpMicroseconds = std::chrono::duration<float, std::chrono::microseconds::period>;
 
 /*
  * CCanAccess is an abstract class that defines the interface for controlling a canbus. Different implementations for different hardware and platforms should
@@ -479,10 +481,7 @@ protected:
 	 */
 	bool hasTimeoutOnReception() {
 		m_dnow = std::chrono::high_resolution_clock::now();
-		// std::chrono::duration<double, std::micro> time_span = m_dnow - m_dopen;
-
-		// std::chrono::duration<double, micro> time_span = std::chrono::duration_cast<duration<double, std::micro>>(m_dnow - m_dopen);
-		auto delta_us = FpMicroseconds( m_dnow - m_dopen);
+		auto delta_us = std::chrono::duration<double, std::chrono::microseconds::period>( m_dnow - m_dopen);
 		if ( delta_us.count() / 1000 > m_timeoutOnReception ) return true;
 		else return false;
 	}
@@ -500,13 +499,7 @@ protected:
 private:
 	Log::LogComponentHandle m_lh;
 	LogItInstance* m_logItRemoteInstance;
-	// std::chrono::time_point m_dnow, m_dreceived, m_dtransmitted, m_dopen;
-	//auto m_dnow, m_dreceived, m_dtransmitted, m_dopen;
-	//std::chrono::time_point<Clock, Duration>m_dnow, m_dreceived, m_dtransmitted, m_dopen;
 	std::chrono::time_point<std::chrono::high_resolution_clock> m_dnow, m_dreceived, m_dtransmitted, m_dopen;
-	//std::chrono::time_point m_dnow;
-	//std::chrono::time_point m_dreceived, m_dtransmitted, m_dopen;
-	// TimePoint<Micros> m_dnow, m_dreceived, m_dtransmitted, m_dopen;
 };
 }; // namespace CanModule
 #endif /* CCANACCESS_H_ */
