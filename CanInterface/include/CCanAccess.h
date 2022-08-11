@@ -221,7 +221,8 @@ public:
 	/**
 	 * according to vendor and OS, acquire bus status, and return one uint32_t bitpattern which has
 	 * the same rules for all vendors. In fact the status for vendors is too different to be abstracted
-	 * into a common bitpattern.
+	 * into a common bitpattern. Actually, talk to the HW, so use with parcimony while comms are ongoing:
+	 * we do not really know how well the vendors have implemented that.
 	 *
 	 * the **implementation** occupies the highest nibble, and it is a counter (see CANMODULE_STATUS_BP_SOCK etc)
 	 * * 0x1<<28 = sock (linux)
@@ -298,7 +299,6 @@ public:
 	 * * b14: 0x4000: module/usb got reset because watchdog was not triggered
 	 * * b15...b27: unused
 	 */
-	// we should replace this with a boost signal/slot for a status change
 	virtual uint32_t getPortStatus() = 0;
 
 	/**

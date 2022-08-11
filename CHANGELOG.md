@@ -5,9 +5,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### 2.0.22 [9.aug.2022]
 - starting to merge and implement the changes proposed by piotr (based on 2.0.14) in branch piotr_canopen
-- chrono and std:: cleanup, nanosleep etc are suppressed in favour of chrono
+- chrono and std:: cleanup, nanosleep etc are suppressed in favour of chrono. Some code streamlining.
 - drop messages with extended IDs or data (do not truncate and send nevertheless)
 - checked all thrown exceptions: they are indeed runtime_error and NOT logical_error
+- getPortStatus() when invoked by a client, it actually talks to the specific hardware for each vendor 
+  using the vendor API. It returns a unified port status as documented (per implementation).
+  A port status change occurs (1) there is an error (2) a controlling action by the 
+  client has occurred. Errors are reported by LogIt or by thrown exceptions. So there is no need to
+  report port-status changes through signals.
+  
 
 todo:
 LogIt linkage
