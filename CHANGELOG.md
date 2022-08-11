@@ -8,18 +8,19 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 - chrono and std:: cleanup, nanosleep etc are suppressed in favour of chrono. Some code streamlining.
 - drop messages with extended IDs or data (do not truncate and send nevertheless)
 - checked all thrown exceptions: they are indeed runtime_error and NOT logical_error
-- getPortStatus() when invoked by a client, it actually talks to the specific hardware for each vendor 
-  using the vendor API. It returns a unified port status as documented (per implementation).
+- getPortStatus(): UNIFIED PORT STATUS. when invoked by a client, it actually talks to the specific hardware for each vendor 
+  using the vendor API. It returns a unified port status as documented: first nibble=implementation, all other bits: 
+  whatever the vendor returns per implementation. No "abstraction" to an i.e. "CAN_PORT_ERROR_ACTIVE is possible.
   A port status change occurs (1) there is an error (2) a controlling action by the 
   client has occurred. Errors are reported by LogIt or by thrown exceptions. So there is no need to
   report port-status changes through signals.
+- piotr n slide8: what is status... refers to CAN bus. Depending on the vendor API CAN status is not available
+  through the API! That is why getPosrtStatus() exists. IF we have a CAN error frame we send it per signal.
   
 
 todo:
 LogIt linkage
-chrono methods into CanModule Utils
-signals for status updates
-poartStatus, unifiedPortSatatus cleanup
+check signals for error frames
 
 
 
