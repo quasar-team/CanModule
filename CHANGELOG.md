@@ -7,10 +7,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 - starting to merge and implement the changes proposed by piotr (based on 2.0.14) in branch piotr_canopen
 - chrono and std:: cleanup, nanosleep etc are suppressed in favour of chrono
 - drop messages with extended IDs or data (do not truncate and send nevertheless)
+- checked all thrown exceptions: they are indeed runtime_error and NOT logical_error
 
 todo:
 LogIt linkage
-chrono methods into superclass
+chrono methods into CanModule Utils
 signals for status updates
 poartStatus, unifiedPortSatatus cleanup
 

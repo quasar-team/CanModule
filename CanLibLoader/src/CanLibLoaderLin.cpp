@@ -60,7 +60,7 @@ void CanLibLoaderLin::dynamicallyLoadLib(const std::string& libName)
 		char *err = dlerror();
 		if (err) {
 			std::ostringstream msg;
-			msg << "Error: could not load dynamic library ["<<ss.str()<<"], current working directory ["<<boost::filesystem::current_path()<<"] error: "<<err;
+			msg << "Error: could not load library ["<<ss.str()<<"], current working directory ["<<boost::filesystem::current_path()<<"] error: "<<err;
 			LOG(Log::ERR, lh) << msg.str();
 			throw std::runtime_error(msg.str());
 		}
@@ -81,14 +81,18 @@ CCanAccess*  CanLibLoaderLin::createCanAccess()
 	// We check for errors again. If there is an error the library is released from memory.
 	char *err = dlerror();
 	if (err) {
-		LOG(Log::ERR, lh) << "Error: could not locate the function, error: [" << err << "]";
-		throw std::runtime_error("Error: could not locate the function");//TODO: add library name to message
+		std::ostringstream msg;
+		msg << "Error: could not locate the function 'getCanBusAccess', error: [" << err << "]";
+		LOG(Log::ERR, lh) << msg.str();
+		throw std::runtime_error( msg.str() );
 	}
 	if (!canAccess)
 	{
 		dlclose(p_dynamicLibrary);
-		LOG(Log::ERR, lh) << "Error: could not locate the function, error: [" << err << "]";
-		throw std::runtime_error("Error: could not locate the function");//TODO: add library name to message	
+		std::ostringstream msg;
+		msg << "Error: could not locate the function 'canAccess', error: [" << err << "]";
+		LOG(Log::ERR, lh) << msg.str();
+		throw std::runtime_error( msg.str() );
 	}
 	// We call the function getHalAccess we got from the library. This will give us a pointer to an object, which we store.
 	return canAccess();

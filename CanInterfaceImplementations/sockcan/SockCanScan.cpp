@@ -698,19 +698,8 @@ bool CSockCanScan::sendRemoteRequest(short cobID)
 			if (errno == ENOBUFS)
 			{
 				MLOGSOCK(ERR,this) << "ENOBUFS; waiting a jiffy [100ms]...";
-#if 0
-				{
-					struct timespec tim, tim2;
-					tim.tv_sec = 0;
-					tim.tv_nsec = 100000;
-					if(nanosleep(&tim , &tim2) < 0 ) {
-						MLOGSOCK(ERR,this) << "Waiting 100ms failed (nanosleep)";
-					}
-				}
-#endif
 				CanModule::ms_sleep( 100 );
-
-				continue;//If this happens we sleep and start from the beggining of the loop
+				continue;
 			}
 		}
 		else
