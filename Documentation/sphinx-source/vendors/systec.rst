@@ -9,11 +9,9 @@ Here the underlying vendor specific classes and the specific parameters are docu
 SysTec modules USB-CAN bridges are supported: sysWORXX 1,2,8,16
 
 
-linux
-^^^^^
 
-parameters
-----------
+linux-parameters
+----------------
 
 .. doxygenclass:: CSockCanScan  
    :project: CanModule
@@ -30,11 +28,8 @@ parameters
 * "Unspecified" : the socket bitrate is NOT reconfigured , no stop/start sequence on the socket are done
 
 
-windows
-^^^^^^^
-
-parameters
-----------
+windows-parameters
+------------------
 
 .. doxygenclass:: STCanScan  
    :project: CanModule
@@ -42,9 +37,10 @@ parameters
    :private-members: 
    :no-link:
 
+
 * parameters="p0 p1 p2 p3 p4 p5 p6" i.e. "125000 0 0 0 0 0 5000"
 * ONLY p0 = bitrate or "baudrate" is used.
-* "Unspecified" : the module bitrate 125000 is used as default when calling openCanBoard(). The init parameters are quite involved abut only the bitrate is relevant.
+* "Unspecified" : the module bitrate 125000 is used as default when calling openCanBoard(). The init parameters are quite involved but only the bitrate is relevant.
 
 
 status

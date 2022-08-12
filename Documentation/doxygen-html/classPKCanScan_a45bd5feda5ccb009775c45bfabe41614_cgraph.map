@@ -1,9 +1,0 @@
-<map id="PKCanScan::CanScanControlThread" name="PKCanScan::CanScanControlThread">
-<area shape="rect" id="node2" href="$classCanModule_1_1CCanAccess.html#ac3f5126ae36d642217425e21696d19ca" title="CanModule::CCanAccess\l::getBusName" alt="" coords="295,5,476,46"/>
-<area shape="rect" id="node3" href="$classPKCanScan.html#a4ae1f1cfd3e566a903b79f2502fe8752" title="PKCanScan::getReconnectCondition" alt="" coords="259,71,511,97"/>
-<area shape="rect" id="node4" href="$classCanModule_1_1CCanAccess.html#a79c236a0e2b3e3b183b1c85aab3f5b71" title="CanModule::CCanAccess\l::hasTimeoutOnReception" alt="" coords="291,122,480,163"/>
-<area shape="rect" id="node5" href="$classCanModule_1_1CanStatistics.html#a82b38a2383bc0ad6b1d306e86b9ef5c6" title="dataLength is the user data size (DLC field) " alt="" coords="292,187,479,229"/>
-<area shape="rect" id="node7" href="$classCanModule_1_1CCanAccess.html#a067f50699c1ed4b6ee6732eb0078ed0a" title="CanModule::CCanAccess\l::resetTimeoutOnReception" alt="" coords="286,253,485,294"/>
-<area shape="rect" id="node6" href="$classCanModule_1_1CanStatistics.html#a99de404f1b24cee80edfaad7ad1f9499" title="CanModule::CanStatistics\l::setTimeSinceReceived" alt="" coords="560,250,747,291"/>
-<area shape="rect" id="node8" href="$classCanModule_1_1CCanAccess.html#a16e43f90cd984b9ea72028c0f8dfe784" title="CanModule::CCanAccess\l::triggerReconnectionThread" alt="" coords="283,370,488,411"/>
-</map>

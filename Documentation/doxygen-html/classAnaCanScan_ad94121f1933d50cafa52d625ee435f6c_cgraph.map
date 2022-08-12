@@ -1,8 +1,0 @@
-<map id="AnaCanScan::openCanPort" name="AnaCanScan::openCanPort">
-<area shape="rect" id="node2" href="$classAnaCanScan.html#a3e2635663ebdfac68591d6a0577fa951" title="AnaCanScan::addCanHandle\lOfPortIp" alt="" coords="249,5,455,46"/>
-<area shape="rect" id="node3" href="$classAnaCanScan.html#a7bf29c3cb20f59bca41d581e4d8c9c04" title="AnaCanScan::getCanHandle\lOfPortIp" alt="" coords="251,70,453,111"/>
-<area shape="rect" id="node4" href="$AnaCanScan_8cpp.html#ad5698349874e3653b879b5de27311594" title="InternalCallback" alt="" coords="288,136,416,163"/>
-<area shape="rect" id="node5" href="$classAnaCanScan.html#ad4a01934370aa2e9ee72bd31406e2752" title="AnaCanScan::canMessageTo\lString" alt="" coords="519,63,724,105"/>
-<area shape="rect" id="node6" href="$namespaceCanModule.html#a3ec3082d7d11a9c1641023cb3f53cbe5" title="CanModule::convertTimepoint\lToTimeval" alt="" coords="513,129,730,170"/>
-<area shape="rect" id="node7" href="$namespaceCanModule.html#a6d0711aac0a75de5d2bf6142997a814d" title="CanModule::currentTimeTimeval" alt="" coords="504,195,739,221"/>
-</map>

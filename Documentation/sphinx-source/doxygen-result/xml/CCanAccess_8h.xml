@@ -1,0 +1,623 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="CCanAccess_8h" kind="file" language="C++">
+    <compoundname>CCanAccess.h</compoundname>
+    <includes local="no">iostream</includes>
+    <includes local="no">chrono</includes>
+    <includes local="no">thread</includes>
+    <includes local="no">string</includes>
+    <includes local="no">condition_variable</includes>
+    <includes local="no">boost/bind/bind.hpp</includes>
+    <includes local="no">boost/signals2.hpp</includes>
+    <includes local="no">LogIt.h</includes>
+    <includes refid="CanMessage_8h" local="no">CanMessage.h</includes>
+    <includes refid="CanStatistics_8h" local="no">CanStatistics.h</includes>
+    <includes refid="CanModuleUtils_8h" local="no">CanModuleUtils.h</includes>
+    <includes local="no">VERSION.h</includes>
+    <includedby refid="CanBusAccess_8h" local="yes">CanInterface/include/CanBusAccess.h</includedby>
+    <includedby refid="CCanAccess_8cpp" local="no">CanInterface/src/CCanAccess.cpp</includedby>
+    <includedby refid="AnaCanScan_8h" local="no">CanInterfaceImplementations/anagate/AnaCanScan.h</includedby>
+    <includedby refid="pkcan_8h" local="yes">CanInterfaceImplementations/pkcan/pkcan.h</includedby>
+    <includedby refid="SockCanScan_8h" local="yes">CanInterfaceImplementations/sockcan/SockCanScan.h</includedby>
+    <includedby refid="UdevAnalyserForPeak_8cpp" local="no">CanInterfaceImplementations/sockcan/UdevAnalyserForPeak.cpp</includedby>
+    <includedby refid="STCanScan_8h" local="yes">CanInterfaceImplementations/systec/STCanScan.h</includedby>
+    <includedby refid="MockCanAccess_8h" local="yes">CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.h</includedby>
+    <includedby refid="CanLibLoader_8h" local="yes">CanLibLoader/include/CanLibLoader.h</includedby>
+    <includedby refid="Diag_8h" local="no">Diagnostic/include/Diag.h</includedby>
+    <incdepgraph>
+      <node id="14">
+        <label>atomic</label>
+      </node>
+      <node id="13">
+        <label>ExportDefinition.h</label>
+        <link refid="ExportDefinition_8h"/>
+      </node>
+      <node id="9">
+        <label>LogIt.h</label>
+      </node>
+      <node id="12">
+        <label>CanStatistics.h</label>
+        <link refid="CanStatistics_8h"/>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>boost/signals2.hpp</label>
+      </node>
+      <node id="10">
+        <label>CanMessage.h</label>
+        <link refid="CanMessage_8h"/>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>stdexcept</label>
+      </node>
+      <node id="5">
+        <label>string</label>
+      </node>
+      <node id="18">
+        <label>VERSION.h</label>
+      </node>
+      <node id="7">
+        <label>boost/bind/bind.hpp</label>
+      </node>
+      <node id="6">
+        <label>condition_variable</label>
+      </node>
+      <node id="16">
+        <label>sstream</label>
+      </node>
+      <node id="11">
+        <label>sys/time.h</label>
+      </node>
+      <node id="2">
+        <label>iostream</label>
+      </node>
+      <node id="3">
+        <label>chrono</label>
+      </node>
+      <node id="4">
+        <label>thread</label>
+      </node>
+      <node id="15">
+        <label>CanModuleUtils.h</label>
+        <link refid="CanModuleUtils_8h"/>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>CanInterface/include/CCanAccess.h</label>
+        <link refid="CCanAccess_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="16">
+        <label>CanLibLoader/include/CanLibLoader.h</label>
+        <link refid="CanLibLoader_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>CanInterface/src/CCanAccess.cpp</label>
+        <link refid="CCanAccess_8cpp"/>
+      </node>
+      <node id="7">
+        <label>CanInterfaceImplementations/pkcan/pkcan.h</label>
+        <link refid="pkcan_8h"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>Diagnostic/include/Diag.h</label>
+        <link refid="Diag_8h"/>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.h</label>
+        <link refid="MockCanAccess_8h"/>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>CanLibLoader/src/CanLibLoaderLin.cpp</label>
+        <link refid="CanLibLoaderLin_8cpp"/>
+      </node>
+      <node id="9">
+        <label>CanInterfaceImplementations/sockcan/SockCanScan.h</label>
+        <link refid="SockCanScan_8h"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>CanLibLoader/include/CanLibLoaderLin.h</label>
+        <link refid="CanLibLoaderLin_8h"/>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>CanInterfaceImplementations/sockcan/UdevAnalyserForPeak.cpp</label>
+        <link refid="UdevAnalyserForPeak_8cpp"/>
+      </node>
+      <node id="18">
+        <label>CanLibLoader/src/CanLibLoader.cpp</label>
+        <link refid="CanLibLoader_8cpp"/>
+      </node>
+      <node id="12">
+        <label>CanInterfaceImplementations/systec/STCanScan.h</label>
+        <link refid="STCanScan_8h"/>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>CanLibLoader/src/CanLibLoaderWin.cpp</label>
+        <link refid="CanLibLoaderWin_8cpp"/>
+      </node>
+      <node id="2">
+        <label>CanInterface/include/CanBusAccess.h</label>
+        <link refid="CanBusAccess_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>CanInterfaceImplementations/anagate/AnaCanScan.cpp</label>
+        <link refid="AnaCanScan_8cpp"/>
+      </node>
+      <node id="3">
+        <label>CanInterface/src/CanBusAccess.cpp</label>
+        <link refid="CanBusAccess_8cpp"/>
+      </node>
+      <node id="8">
+        <label>CanInterfaceImplementations/pkcan/pkcan.cpp</label>
+        <link refid="pkcan_8cpp"/>
+      </node>
+      <node id="13">
+        <label>CanInterfaceImplementations/systec/STCanScan.cpp</label>
+        <link refid="STCanScan_8cpp"/>
+      </node>
+      <node id="20">
+        <label>CanLibLoader/include/CanLibLoaderWin.h</label>
+        <link refid="CanLibLoaderWin_8h"/>
+        <childnode refid="21" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>CanInterfaceImplementations/anagate/AnaCanScan.h</label>
+        <link refid="AnaCanScan_8h"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>CanInterfaceImplementations/sockcan/SockCanScan.cpp</label>
+        <link refid="SockCanScan_8cpp"/>
+      </node>
+      <node id="1">
+        <label>CanInterface/include/CCanAccess.h</label>
+        <link refid="CCanAccess_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>CanInterfaceImplementations/unitTestMockUpImplementation/MockCanAccess.cpp</label>
+        <link refid="MockCanAccess_8cpp"/>
+      </node>
+      <node id="23">
+        <label>Diagnostic/src/Diag.cpp</label>
+        <link refid="Diag_8cpp"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structCanModule_1_1CanParameters" prot="public">CanModule::CanParameters</innerclass>
+    <innerclass refid="classCanModule_1_1CCanAccess" prot="public">CanModule::CCanAccess</innerclass>
+    <innernamespace refid="namespaceCanModule">CanModule</innernamespace>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="CCanAccess_8h_1ad506d1f216984abc94d5a65f33053626" prot="public" static="no">
+        <name>MLOG</name>
+        <param><defname>LEVEL</defname></param>
+        <param><defname>THIS</defname></param>
+        <initializer>LOG(Log::LEVEL) &lt;&lt; __FUNCTION__ &lt;&lt; &quot; &quot; &lt;&lt; <ref refid="namespaceCanModule_1a78730a18f59663871883885f3914a2aa" kindref="member">CanModule::LogItComponentName</ref> &lt;&lt; &quot; bus= &quot; &lt;&lt; THIS-&gt;getBusName() &lt;&lt; &quot; &quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterface/include/CCanAccess.h" line="62" column="9" bodyfile="CanInterface/include/CCanAccess.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="CCanAccess_8h_1a6d0995692dcb6d1be30395a18d7683ba" prot="public" static="no">
+        <name>CANMODULE_STATUS_BP_SOCK</name>
+        <initializer>(0x1&lt;&lt;28)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>implementation specific counter (high nibble of status bitpattern)<itemizedlist>
+<listitem><para>0x1&lt;&lt;28 = sock (linux) </para>
+</listitem></itemizedlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterface/include/CCanAccess.h" line="73" column="9" bodyfile="CanInterface/include/CCanAccess.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="CCanAccess_8h_1a1f1789533d0f909368bb51596939ef5b" prot="public" static="no">
+        <name>CANMODULE_STATUS_BP_ANAGATE</name>
+        <initializer>(0x2&lt;&lt;28)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>implementation specific counter (high nibble of status bitpattern)<itemizedlist>
+<listitem><para>0x2&lt;&lt;28 = anagate (linux, windows) </para>
+</listitem></itemizedlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterface/include/CCanAccess.h" line="78" column="9" bodyfile="CanInterface/include/CCanAccess.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="CCanAccess_8h_1a3c0a761bfb180463b0185b27edd53af5" prot="public" static="no">
+        <name>CANMODULE_STATUS_BP_PEAK</name>
+        <initializer>(0x3&lt;&lt;28)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>implementation specific counter (high nibble of status bitpattern)<itemizedlist>
+<listitem><para>0x3&lt;&lt;28 = peak (windows) </para>
+</listitem></itemizedlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterface/include/CCanAccess.h" line="83" column="9" bodyfile="CanInterface/include/CCanAccess.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="CCanAccess_8h_1af9d1d0a4353efec30879f97d7caebb76" prot="public" static="no">
+        <name>CANMODULE_STATUS_BP_SYSTEC</name>
+        <initializer>(0x4&lt;&lt;28)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>implementation specific counter (high nibble of status bitpattern)<itemizedlist>
+<listitem><para>0x4&lt;&lt;28 = systec (windows) </para>
+</listitem></itemizedlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterface/include/CCanAccess.h" line="88" column="9" bodyfile="CanInterface/include/CCanAccess.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"></codeline>
+<codeline lineno="25"><highlight class="preprocessor">#ifndef<sp/>CCANACCESS_H_</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CCANACCESS_H_</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;iostream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;chrono&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;thread&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;condition_variable&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;boost/bind/bind.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;boost/signals2.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;LogIt.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="CanMessage_8h" kindref="compound">CanMessage.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="CanStatistics_8h" kindref="compound">CanStatistics.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="CanModuleUtils_8h" kindref="compound">CanModuleUtils.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;VERSION.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>Clock<sp/>=<sp/>std::chrono::high_resolution_clock;</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>Micros<sp/>=<sp/>std::chrono::microseconds;</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>Ms<sp/>=<sp/>std::chrono::milliseconds;</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>Sec<sp/>=<sp/>std::chrono::seconds;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>Duration&gt;</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>TimePoint<sp/>=<sp/>std::chrono::time_point&lt;Clock,<sp/>Duration&gt;;</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">//<sp/>using<sp/>FpMicroseconds<sp/>=<sp/>std::chrono::duration&lt;float,<sp/>std::chrono::microseconds::period&gt;;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="55"><highlight class="comment"><sp/>*<sp/>CCanAccess<sp/>is<sp/>an<sp/>abstract<sp/>class<sp/>that<sp/>defines<sp/>the<sp/>interface<sp/>for<sp/>controlling<sp/>a<sp/>canbus.<sp/>Different<sp/>implementations<sp/>for<sp/>different<sp/>hardware<sp/>and<sp/>platforms<sp/>should</highlight></codeline>
+<codeline lineno="56"><highlight class="comment"><sp/>*<sp/>inherit<sp/>this<sp/>class<sp/>and<sp/>implement<sp/>the<sp/>pure<sp/>virtual<sp/>methods.</highlight></codeline>
+<codeline lineno="57"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespaceCanModule" kindref="compound">CanModule</ref></highlight></codeline>
+<codeline lineno="59"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61" refid="namespaceCanModule_1a78730a18f59663871883885f3914a2aa" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/><ref refid="namespaceCanModule_1a78730a18f59663871883885f3914a2aa" kindref="member">LogItComponentName</ref><sp/>=<sp/></highlight><highlight class="stringliteral">&quot;CanModule&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="62" refid="CCanAccess_8h_1ad506d1f216984abc94d5a65f33053626" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MLOG(LEVEL,THIS)<sp/>LOG(Log::LEVEL)<sp/>&lt;&lt;<sp/>__FUNCTION__<sp/>&lt;&lt;<sp/>&quot;<sp/>&quot;<sp/>&lt;&lt;<sp/>CanModule::LogItComponentName<sp/>&lt;&lt;<sp/>&quot;<sp/>bus=<sp/>&quot;<sp/>&lt;&lt;<sp/>THIS-&gt;getBusName()<sp/>&lt;&lt;<sp/>&quot;<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>ms_sleep(<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ms<sp/>){</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/>std::chrono::milliseconds<sp/>delay(<sp/>ms<sp/>);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/>std::this_thread::sleep_for(<sp/>delay<sp/>);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73" refid="CCanAccess_8h_1a6d0995692dcb6d1be30395a18d7683ba" refkind="member"><highlight class="preprocessor">#define<sp/>CANMODULE_STATUS_BP_SOCK<sp/>(0x1&lt;&lt;28)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78" refid="CCanAccess_8h_1a1f1789533d0f909368bb51596939ef5b" refkind="member"><highlight class="preprocessor">#define<sp/>CANMODULE_STATUS_BP_ANAGATE<sp/>(0x2&lt;&lt;28)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83" refid="CCanAccess_8h_1a3c0a761bfb180463b0185b27edd53af5" refkind="member"><highlight class="preprocessor">#define<sp/>CANMODULE_STATUS_BP_PEAK<sp/>(0x3&lt;&lt;28)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88" refid="CCanAccess_8h_1af9d1d0a4353efec30879f97d7caebb76" refkind="member"><highlight class="preprocessor">#define<sp/>CANMODULE_STATUS_BP_SYSTEC<sp/>(0x4&lt;&lt;28)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>std::string<sp/>version(){<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">(<sp/>CanModule_VERSION<sp/>);<sp/>}</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110" refid="namespaceCanModule_1a2f4fee79cc7ba53467c2538fe6b9adbb" refkind="member"><highlight class="normal"><ref refid="ExportDefinition_8h_1a7478c359eb321f7939044e70abfb4cca" kindref="member">SHARED_LIB_EXPORT_DEFN</ref><sp/></highlight><highlight class="keyword">enum<sp/>class</highlight><highlight class="normal"><sp/><ref refid="namespaceCanModule_1a2f4fee79cc7ba53467c2538fe6b9adbb" kindref="member">ReconnectAutoCondition</ref><sp/>{<sp/><ref refid="namespaceCanModule_1a2f4fee79cc7ba53467c2538fe6b9adbbae323a25a871808f9a0df9a72ce954585" kindref="member">sendFail</ref>=0,<sp/><ref refid="namespaceCanModule_1a2f4fee79cc7ba53467c2538fe6b9adbbaba350cf15e5a1471109f17351afb401a" kindref="member">timeoutOnReception</ref>,<sp/><ref refid="namespaceCanModule_1a2f4fee79cc7ba53467c2538fe6b9adbbac7561db7a418dd39b2201dfe110ab4a4" kindref="member">never</ref><sp/>};</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight></codeline>
+<codeline lineno="125" refid="namespaceCanModule_1a2062089fa4fa87c8354295f2a8fe31a5" refkind="member"><highlight class="normal"><ref refid="ExportDefinition_8h_1a7478c359eb321f7939044e70abfb4cca" kindref="member">SHARED_LIB_EXPORT_DEFN</ref><sp/></highlight><highlight class="keyword">enum<sp/>class</highlight><highlight class="normal"><sp/><ref refid="namespaceCanModule_1a2062089fa4fa87c8354295f2a8fe31a5" kindref="member">ReconnectAction</ref><sp/>{<sp/><ref refid="namespaceCanModule_1a2062089fa4fa87c8354295f2a8fe31a5a5f768fefafa6db21eee26885afb6163d" kindref="member">singleBus</ref>=0,<sp/><ref refid="namespaceCanModule_1a2062089fa4fa87c8354295f2a8fe31a5a319ee2c9d887d55f6bc1941518a5ae76" kindref="member">allBusesOnBridge</ref><sp/>};</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127" refid="structCanModule_1_1CanParameters" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structCanModule_1_1CanParameters" kindref="compound">CanParameters</ref><sp/>{</highlight></codeline>
+<codeline lineno="128" refid="structCanModule_1_1CanParameters_1a53ce17e16c2a818ffbc05904d9e56e11" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="structCanModule_1_1CanParameters_1a53ce17e16c2a818ffbc05904d9e56e11" kindref="member">m_lBaudRate</ref>;</highlight></codeline>
+<codeline lineno="129" refid="structCanModule_1_1CanParameters_1a6dcce5899a28a07c35042c2005fbac03" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structCanModule_1_1CanParameters_1a6dcce5899a28a07c35042c2005fbac03" kindref="member">m_iOperationMode</ref>;</highlight></codeline>
+<codeline lineno="130" refid="structCanModule_1_1CanParameters_1ac15d1cfe926f508a2788dab50aed992b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structCanModule_1_1CanParameters_1ac15d1cfe926f508a2788dab50aed992b" kindref="member">m_iTermination</ref>;</highlight></codeline>
+<codeline lineno="131" refid="structCanModule_1_1CanParameters_1a3481b638a47d3a832c6fad761973c9de" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structCanModule_1_1CanParameters_1a3481b638a47d3a832c6fad761973c9de" kindref="member">m_iHighSpeed</ref>;</highlight></codeline>
+<codeline lineno="132" refid="structCanModule_1_1CanParameters_1a0f3653eda77900c9d2450793bd285c29" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structCanModule_1_1CanParameters_1a0f3653eda77900c9d2450793bd285c29" kindref="member">m_iTimeStamp</ref>;</highlight></codeline>
+<codeline lineno="133" refid="structCanModule_1_1CanParameters_1ac17a318a7e3883005733c66010c04604" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structCanModule_1_1CanParameters_1ac17a318a7e3883005733c66010c04604" kindref="member">m_iSyncMode</ref>;</highlight></codeline>
+<codeline lineno="134" refid="structCanModule_1_1CanParameters_1aae2aa9f136d9bcc78ce596aaee286f3f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structCanModule_1_1CanParameters_1aae2aa9f136d9bcc78ce596aaee286f3f" kindref="member">m_iTimeout</ref>;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136" refid="structCanModule_1_1CanParameters_1ac4e03899b26e33a3867ee1f0bce674b5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structCanModule_1_1CanParameters_1ac4e03899b26e33a3867ee1f0bce674b5" kindref="member">m_iNumberOfDetectedParameters</ref>;</highlight></codeline>
+<codeline lineno="137" refid="structCanModule_1_1CanParameters_1a8668831351aaaa0446c75c58073bf357" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="structCanModule_1_1CanParameters_1a8668831351aaaa0446c75c58073bf357" kindref="member">m_dontReconfigure</ref>;</highlight></codeline>
+<codeline lineno="138" refid="structCanModule_1_1CanParameters_1ac364dcf7b4d16af59776d931097010bc" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structCanModule_1_1CanParameters_1ac364dcf7b4d16af59776d931097010bc" kindref="member">CanParameters</ref>()<sp/>:<sp/><ref refid="structCanModule_1_1CanParameters_1a53ce17e16c2a818ffbc05904d9e56e11" kindref="member">m_lBaudRate</ref>(0),<sp/><ref refid="structCanModule_1_1CanParameters_1a6dcce5899a28a07c35042c2005fbac03" kindref="member">m_iOperationMode</ref>(0),<sp/><ref refid="structCanModule_1_1CanParameters_1ac15d1cfe926f508a2788dab50aed992b" kindref="member">m_iTermination</ref>(0),</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structCanModule_1_1CanParameters_1a3481b638a47d3a832c6fad761973c9de" kindref="member">m_iHighSpeed</ref>(1),<sp/><ref refid="structCanModule_1_1CanParameters_1a0f3653eda77900c9d2450793bd285c29" kindref="member">m_iTimeStamp</ref>(0),</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structCanModule_1_1CanParameters_1ac17a318a7e3883005733c66010c04604" kindref="member">m_iSyncMode</ref>(0),<sp/><ref refid="structCanModule_1_1CanParameters_1aae2aa9f136d9bcc78ce596aaee286f3f" kindref="member">m_iTimeout</ref>(6000),</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structCanModule_1_1CanParameters_1ac4e03899b26e33a3867ee1f0bce674b5" kindref="member">m_iNumberOfDetectedParameters</ref>(),<sp/><ref refid="structCanModule_1_1CanParameters_1a8668831351aaaa0446c75c58073bf357" kindref="member">m_dontReconfigure</ref>(false)<sp/>{}</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structCanModule_1_1CanParameters_1aaf671377af7b0d3c56d545b1cf31730a" kindref="member">scanParameters</ref>(std::string<sp/>parameters);</highlight></codeline>
+<codeline lineno="144"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight></codeline>
+<codeline lineno="146" refid="classCanModule_1_1CCanAccess" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classCanModule_1_1CCanAccess" kindref="compound">CCanAccess</ref></highlight></codeline>
+<codeline lineno="147"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight></codeline>
+<codeline lineno="151" refid="classCanModule_1_1CCanAccess_1a7c9b87d205b0ec265c972a3303cecda2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCanModule_1_1CCanAccess_1a7c9b87d205b0ec265c972a3303cecda2" kindref="member">CCanAccess</ref>():</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCanModule_1_1CCanAccess_1abfd40edc34a777a5ff4503a6e8a239d6" kindref="member">m_reconnectCondition</ref>(<sp/><ref refid="namespaceCanModule" kindref="compound">CanModule</ref>::<ref refid="namespaceCanModule_1a2f4fee79cc7ba53467c2538fe6b9adbb" kindref="member">ReconnectAutoCondition</ref>::<ref refid="namespaceCanModule_1a2f4fee79cc7ba53467c2538fe6b9adbbae323a25a871808f9a0df9a72ce954585" kindref="member">sendFail</ref><sp/>),</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCanModule_1_1CCanAccess_1a6baf24c56eb715adf55a569d08b12c25" kindref="member">m_reconnectAction</ref>(<sp/><ref refid="namespaceCanModule" kindref="compound">CanModule</ref>::<ref refid="namespaceCanModule_1a2062089fa4fa87c8354295f2a8fe31a5" kindref="member">ReconnectAction</ref>::<ref refid="namespaceCanModule_1a2062089fa4fa87c8354295f2a8fe31a5a5f768fefafa6db21eee26885afb6163d" kindref="member">singleBus</ref><sp/>),</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCanModule_1_1CCanAccess_1ae83a522e598248d1814685e9fc34d9d0" kindref="member">m_timeoutOnReception</ref>(<sp/>120<sp/>),</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCanModule_1_1CCanAccess_1a6f97774773e3e4457f38a7b612d991f0" kindref="member">m_failedSendCountdown</ref>(<sp/>10<sp/>),</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCanModule_1_1CCanAccess_1a2dbf5862f3818d94bc78dd9ccb5c73d0" kindref="member">m_maxFailedSendCount</ref>(<sp/>10<sp/>),</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCanModule_1_1CCanAccess_1a782b2e9b52ebb49a14307e1f37440490" kindref="member">m_lh</ref>(0),</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCanModule_1_1CCanAccess_1a2bb6325281679f955ab32fc18367a7b3" kindref="member">m_logItRemoteInstance</ref>(<sp/>NULL<sp/>)</highlight></codeline>
+<codeline lineno="159"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCanModule_1_1CCanAccess_1a067f50699c1ed4b6ee6732eb0078ed0a" kindref="member">resetTimeoutOnReception</ref>();</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCanModule_1_1CCanAccess_1afefee3a90966dd8a01ca471022a7a9cd" kindref="member">resetTimeNow</ref>();</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CanModule::version();</highlight></codeline>
+<codeline lineno="163"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classCanModule_1_1CCanAccess_1acfefbc9be2696b1388cf6df2bba00aa1" kindref="member">sendRemoteRequest</ref>(</highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/>cobID)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classCanModule_1_1CCanAccess_1a2ef435a5fb9896dbb70bc0e149fa0549" kindref="member">createBus</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>name,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>parameters)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight></codeline>
+<codeline lineno="191"><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classCanModule_1_1CCanAccess_1aee42ab7fb9e50c02a1812202f7863d8c" kindref="member">sendMessage</ref>(</highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/>cobID,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*message,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>rtr<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"></highlight></codeline>
+<codeline lineno="204" refid="classCanModule_1_1CCanAccess_1ad0360c49d00ec0ee92cfdd73c2e43935" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classCanModule_1_1CCanAccess_1ad0360c49d00ec0ee92cfdd73c2e43935" kindref="member">sendMessage</ref>(<ref refid="structCanMsgStruct" kindref="compound">CanMessage</ref><sp/>*canm)</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<sp/>canm-&gt;<ref refid="structCanMsgStruct_1a619515aef041e64b78e7e8c33989ddd0" kindref="member">c_id</ref><sp/>&lt;<sp/>0<sp/>||<sp/>canm-&gt;<ref refid="structCanMsgStruct_1a619515aef041e64b78e7e8c33989ddd0" kindref="member">c_id</ref><sp/>&gt;<sp/>2047<sp/>){</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOG(Log::WRN,<sp/><ref refid="classCanModule_1_1CCanAccess_1a782b2e9b52ebb49a14307e1f37440490" kindref="member">m_lh</ref>)<sp/>&lt;&lt;<sp/>__FUNCTION__<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>CAN<sp/>ID=<sp/>0x&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/>std::hex<sp/>&lt;&lt;<sp/>canm-&gt;<ref refid="structCanMsgStruct_1a619515aef041e64b78e7e8c33989ddd0" kindref="member">c_id</ref></highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>outside<sp/>11<sp/>bit<sp/>(standard)<sp/>range<sp/>detected.<sp/>Dropping<sp/>message:<sp/>Extended<sp/>CAN<sp/>is<sp/>not<sp/>supported.&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>canm-&gt;c_id<sp/>=<sp/>canm-&gt;c_id<sp/>&amp;<sp/>0x7FF;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCanModule_1_1CCanAccess_1aee42ab7fb9e50c02a1812202f7863d8c" kindref="member">sendMessage</ref>(</highlight><highlight class="keywordtype">short</highlight><highlight class="normal">(canm-&gt;<ref refid="structCanMsgStruct_1a619515aef041e64b78e7e8c33989ddd0" kindref="member">c_id</ref>),<sp/>canm-&gt;<ref refid="structCanMsgStruct_1a3e5add8ae9cdadfcf3f2255d375ec9b3" kindref="member">c_dlc</ref>,<sp/>canm-&gt;<ref refid="structCanMsgStruct_1a2e47a33e7bba46b05a8fff29433f047b" kindref="member">c_data</ref>,<sp/>canm-&gt;<ref refid="structCanMsgStruct_1ad4a78c27262604bacb5720d8633f71c6" kindref="member">c_rtr</ref>);</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"></highlight></codeline>
+<codeline lineno="219" refid="classCanModule_1_1CCanAccess_1ac3f5126ae36d642217425e21696d19ca" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string&amp;<sp/><ref refid="classCanModule_1_1CCanAccess_1ac3f5126ae36d642217425e21696d19ca" kindref="member">getBusName</ref>()<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCanModule_1_1CCanAccess_1a3a7a432d8d12f931c97ee0e91f35b1dd" kindref="member">m_sBusName</ref>;<sp/>}</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"></highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>uint32_t<sp/><ref refid="classCanModule_1_1CCanAccess_1a33fe530d070cf35d096e967d543186a4" kindref="member">getPortStatus</ref>()<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"></highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>uint32_t<sp/><ref refid="classCanModule_1_1CCanAccess_1aa8cb67096349fefc6e03aeb33e45ef81" kindref="member">getPortBitrate</ref>()<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"></highlight></codeline>
+<codeline lineno="314"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="315"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*<sp/>Signal<sp/>that<sp/>will<sp/>be<sp/>called<sp/>when<sp/>a<sp/>can<sp/>Message<sp/>arrives<sp/>into<sp/>the<sp/>initialised<sp/>can<sp/>bus.</highlight></codeline>
+<codeline lineno="316"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*<sp/>In<sp/>order<sp/>to<sp/>process<sp/>this<sp/>message<sp/>manually,<sp/>a<sp/>handler<sp/>needs<sp/>to<sp/>be<sp/>connected<sp/>to<sp/>the<sp/>signal.</highlight></codeline>
+<codeline lineno="317"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*</highlight></codeline>
+<codeline lineno="318"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*<sp/>Example:<sp/>myCCanAccessPointer-&gt;canMessageCame.connect(&amp;myMessageRecievedHandler);</highlight></codeline>
+<codeline lineno="319"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="320" refid="classCanModule_1_1CCanAccess_1aa8e0e974863874b0e7bbcdb57084c241" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>boost::signals2::signal&lt;void<sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structCanMsgStruct" kindref="compound">CanMessage</ref><sp/>&amp;)<sp/>&gt;<sp/><ref refid="classCanModule_1_1CCanAccess_1aa8e0e974863874b0e7bbcdb57084c241" kindref="member">canMessageCame</ref>;</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"></highlight></codeline>
+<codeline lineno="322" refid="classCanModule_1_1CCanAccess_1ac96f1cce6beda4309cdfb6651d3ce547" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="classCanModule_1_1CCanAccess_1ac96f1cce6beda4309cdfb6651d3ce547" kindref="member">~CCanAccess</ref>()<sp/>{};</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"></highlight></codeline>
+<codeline lineno="324"><highlight class="normal"></highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="326"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*<sp/>Signal<sp/>that<sp/>will<sp/>be<sp/>called<sp/>when<sp/>a<sp/>can<sp/>Error<sp/>arrives<sp/>into<sp/>the<sp/>initialised<sp/>can<sp/>bus.</highlight></codeline>
+<codeline lineno="327"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*<sp/>In<sp/>order<sp/>to<sp/>process<sp/>this<sp/>message<sp/>manually,<sp/>a<sp/>handler<sp/>needs<sp/>to<sp/>be<sp/>connected<sp/>to<sp/>the<sp/>signal.</highlight></codeline>
+<codeline lineno="328"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*</highlight></codeline>
+<codeline lineno="329"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*<sp/>Example:<sp/>myCCanAccessPointer-&gt;canMessageError.connect(&amp;myErrorRecievedHandler);</highlight></codeline>
+<codeline lineno="330"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/>boost::signals2::signal&lt;void<sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">,</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*,timeval<sp/>&amp;)<sp/>&gt;<sp/><ref refid="classCanModule_1_1CCanAccess_1a33fbd693f04b4f4e21cee20856c44866" kindref="member">canMessageError</ref>;</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"></highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Returns<sp/>the<sp/>CanStatistics<sp/>object.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classCanModule_1_1CCanAccess_1ad3182c83b4c5d7e6aef982c36e731507" kindref="member">getStatistics</ref>(<sp/><ref refid="classCanModule_1_1CanStatistics" kindref="compound">CanStatistics</ref><sp/>&amp;<sp/>result<sp/>)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"></highlight></codeline>
+<codeline lineno="336" refid="classCanModule_1_1CCanAccess_1ab5a430fc27073d92c69659bda261b74d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classCanModule_1_1CCanAccess_1ab5a430fc27073d92c69659bda261b74d" kindref="member">initialiseLogging</ref>(LogItInstance*<sp/>remoteInstance)</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>ret<sp/>=<sp/>Log::initializeDllLogging(remoteInstance);</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCanModule_1_1CCanAccess_1a2bb6325281679f955ab32fc18367a7b3" kindref="member">m_logItRemoteInstance</ref><sp/>=<sp/>remoteInstance;</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>ret;</highlight></codeline>
+<codeline lineno="341"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="342"><highlight class="normal"></highlight></codeline>
+<codeline lineno="347" refid="classCanModule_1_1CCanAccess_1a8210a8161f1987973584b6dda5dc6d7d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>LogItInstance*<sp/><ref refid="classCanModule_1_1CCanAccess_1a8210a8161f1987973584b6dda5dc6d7d" kindref="member">getLogItInstance</ref>()</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="349"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">(<sp/><ref refid="classCanModule_1_1CCanAccess_1a2bb6325281679f955ab32fc18367a7b3" kindref="member">m_logItRemoteInstance</ref><sp/>);</highlight></codeline>
+<codeline lineno="350"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"></highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;std::string&gt;<sp/><ref refid="classCanModule_1_1CCanAccess_1ac78e7df675c7e59f04ecc642406fecbe" kindref="member">parseNameAndParameters</ref>(<sp/>std::string<sp/>name,<sp/>std::string<sp/>parameters);</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"></highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>non<sp/>blocking</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="355" refid="classCanModule_1_1CCanAccess_1a16e43f90cd984b9ea72028c0f8dfe784" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classCanModule_1_1CCanAccess_1a16e43f90cd984b9ea72028c0f8dfe784" kindref="member">triggerReconnectionThread</ref>(){</highlight></codeline>
+<codeline lineno="356"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>std::cout<sp/>&lt;&lt;<sp/>&quot;==&gt;<sp/>trigger<sp/>reconnection<sp/>thread<sp/>&quot;<sp/>&lt;&lt;<sp/>getBusName()<sp/>&lt;&lt;<sp/>std::endl;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="357"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCanModule_1_1CCanAccess_1aadb73de7daf5d5bf35e47cccacd4ebc7" kindref="member">m_reconnectTrigger</ref><sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="358"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCanModule_1_1CCanAccess_1a9edb8bed739db66c1a6a8b3489ce79a2" kindref="member">m_reconnection_cv</ref>.notify_one();</highlight></codeline>
+<codeline lineno="359"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"></highlight></codeline>
+<codeline lineno="361"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>blocking</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="362" refid="classCanModule_1_1CCanAccess_1ad8afab7f9acc769c53574edec695065b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classCanModule_1_1CCanAccess_1ad8afab7f9acc769c53574edec695065b" kindref="member">waitForReconnectionThreadTrigger</ref>(){</highlight></codeline>
+<codeline lineno="363"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::unique_lock&lt;std::mutex&gt;<sp/>lk(<ref refid="classCanModule_1_1CCanAccess_1a08cc164e3baaf95fedeb50198a7fa799" kindref="member">m_reconnection_mtx</ref>);</highlight></codeline>
+<codeline lineno="364"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/><sp/>(<sp/>!<ref refid="classCanModule_1_1CCanAccess_1aadb73de7daf5d5bf35e47cccacd4ebc7" kindref="member">m_reconnectTrigger</ref><sp/>)<sp/><ref refid="classCanModule_1_1CCanAccess_1a9edb8bed739db66c1a6a8b3489ce79a2" kindref="member">m_reconnection_cv</ref>.wait(<sp/>lk<sp/>);</highlight></codeline>
+<codeline lineno="365"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCanModule_1_1CCanAccess_1aadb73de7daf5d5bf35e47cccacd4ebc7" kindref="member">m_reconnectTrigger</ref><sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="367"><highlight class="normal"></highlight></codeline>
+<codeline lineno="368" refid="classCanModule_1_1CCanAccess_1a24494114ec0dc237b63fb321ba4d084e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classCanModule_1_1CCanAccess_1a24494114ec0dc237b63fb321ba4d084e" kindref="member">decreaseSendFailedCountdown</ref>(){</highlight></codeline>
+<codeline lineno="369"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<sp/><ref refid="classCanModule_1_1CCanAccess_1a6f97774773e3e4457f38a7b612d991f0" kindref="member">m_failedSendCountdown</ref><sp/>&gt;<sp/>0<sp/>)</highlight></codeline>
+<codeline lineno="370"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCanModule_1_1CCanAccess_1a6f97774773e3e4457f38a7b612d991f0" kindref="member">m_failedSendCountdown</ref>--;</highlight></codeline>
+<codeline lineno="371"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOG(Log::TRC,<sp/><ref refid="classCanModule_1_1CCanAccess_1a782b2e9b52ebb49a14307e1f37440490" kindref="member">m_lh</ref>)<sp/>&lt;&lt;<sp/>__FUNCTION__<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>decrease<sp/>m_failedSendCountdown=<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/><ref refid="classCanModule_1_1CCanAccess_1a6f97774773e3e4457f38a7b612d991f0" kindref="member">m_failedSendCountdown</ref>;</highlight></codeline>
+<codeline lineno="372"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="373"><highlight class="normal"></highlight></codeline>
+<codeline lineno="374" refid="classCanModule_1_1CCanAccess_1aad13b5ad34547cbe6cad4e8369557bed" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classCanModule_1_1CCanAccess_1aad13b5ad34547cbe6cad4e8369557bed" kindref="member">resetSendFailedCountdown</ref>(){</highlight></codeline>
+<codeline lineno="375"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCanModule_1_1CCanAccess_1a6f97774773e3e4457f38a7b612d991f0" kindref="member">m_failedSendCountdown</ref><sp/>=<sp/><ref refid="classCanModule_1_1CCanAccess_1a2dbf5862f3818d94bc78dd9ccb5c73d0" kindref="member">m_maxFailedSendCount</ref>;</highlight></codeline>
+<codeline lineno="376"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOG(Log::TRC,<sp/><ref refid="classCanModule_1_1CCanAccess_1a782b2e9b52ebb49a14307e1f37440490" kindref="member">m_lh</ref>)<sp/>&lt;&lt;<sp/>__FUNCTION__<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>reset<sp/>internal<sp/>m_failedSendCountdown=<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/><ref refid="classCanModule_1_1CCanAccess_1a6f97774773e3e4457f38a7b612d991f0" kindref="member">m_failedSendCountdown</ref>;</highlight></codeline>
+<codeline lineno="377"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="378"><highlight class="normal"></highlight></codeline>
+<codeline lineno="379"><highlight class="normal"></highlight></codeline>
+<codeline lineno="380"><highlight class="normal"></highlight></codeline>
+<codeline lineno="411"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classCanModule_1_1CCanAccess_1ae1088edaf5444ff42ee094ae46240cc5" kindref="member">setReconnectBehavior</ref>(<sp/><ref refid="namespaceCanModule_1a2f4fee79cc7ba53467c2538fe6b9adbb" kindref="member">CanModule::ReconnectAutoCondition</ref><sp/>cond,<sp/><ref refid="namespaceCanModule_1a2062089fa4fa87c8354295f2a8fe31a5" kindref="member">CanModule::ReconnectAction</ref><sp/>action<sp/>)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="412"><highlight class="normal"></highlight></codeline>
+<codeline lineno="416"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classCanModule_1_1CCanAccess_1a3c902569c0712d165fc7e385e683dc95" kindref="member">setReconnectReceptionTimeout</ref>(<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>timeout<sp/>)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="417"><highlight class="normal"></highlight></codeline>
+<codeline lineno="421"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classCanModule_1_1CCanAccess_1a665620fe5924cf87db0589a353d3d148" kindref="member">setReconnectFailedSendCount</ref>(<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>c<sp/>)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="422"><highlight class="normal"></highlight></codeline>
+<codeline lineno="423"><highlight class="normal"></highlight></codeline>
+<codeline lineno="427"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="namespaceCanModule_1a2f4fee79cc7ba53467c2538fe6b9adbb" kindref="member">CanModule::ReconnectAutoCondition</ref><sp/><ref refid="classCanModule_1_1CCanAccess_1a003566cbcdf4ce8195853bd8049a8800" kindref="member">getReconnectCondition</ref>()<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="428"><highlight class="normal"></highlight></codeline>
+<codeline lineno="432"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="namespaceCanModule_1a2062089fa4fa87c8354295f2a8fe31a5" kindref="member">CanModule::ReconnectAction</ref><sp/><ref refid="classCanModule_1_1CCanAccess_1aaf2312ff9074ce7a4ec2e7d0a5b6fa16" kindref="member">getReconnectAction</ref>()<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="433"><highlight class="normal"></highlight></codeline>
+<codeline lineno="437" refid="classCanModule_1_1CCanAccess_1a9da88ce122d5de04a0235a4682a13dc0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>std::string<sp/><ref refid="classCanModule_1_1CCanAccess_1a9da88ce122d5de04a0235a4682a13dc0" kindref="member">reconnectConditionString</ref>(<ref refid="namespaceCanModule_1a2f4fee79cc7ba53467c2538fe6b9adbb" kindref="member">CanModule::ReconnectAutoCondition</ref><sp/>c)<sp/>{</highlight></codeline>
+<codeline lineno="438"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(c)<sp/>{</highlight></codeline>
+<codeline lineno="439"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="namespaceCanModule_1a2f4fee79cc7ba53467c2538fe6b9adbbae323a25a871808f9a0df9a72ce954585" kindref="member">ReconnectAutoCondition::sendFail</ref>:<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">(</highlight><highlight class="stringliteral">&quot;<sp/>sendFail&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="440"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="namespaceCanModule_1a2f4fee79cc7ba53467c2538fe6b9adbbaba350cf15e5a1471109f17351afb401a" kindref="member">ReconnectAutoCondition::timeoutOnReception</ref>:<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">(</highlight><highlight class="stringliteral">&quot;<sp/>timeoutOnReception&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="441"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="namespaceCanModule_1a2f4fee79cc7ba53467c2538fe6b9adbbac7561db7a418dd39b2201dfe110ab4a4" kindref="member">ReconnectAutoCondition::never</ref>:<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">(</highlight><highlight class="stringliteral">&quot;<sp/>never&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="442"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="443"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">(</highlight><highlight class="stringliteral">&quot;<sp/>unknown<sp/>condition&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="444"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="445"><highlight class="normal"></highlight></codeline>
+<codeline lineno="449" refid="classCanModule_1_1CCanAccess_1aa12f64e9e31bd491f39fc3169b1e5025" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>std::string<sp/><ref refid="classCanModule_1_1CCanAccess_1aa12f64e9e31bd491f39fc3169b1e5025" kindref="member">reconnectActionString</ref>(<ref refid="namespaceCanModule_1a2062089fa4fa87c8354295f2a8fe31a5" kindref="member">CanModule::ReconnectAction</ref><sp/>c)<sp/>{</highlight></codeline>
+<codeline lineno="450"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(c)<sp/>{</highlight></codeline>
+<codeline lineno="451"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="namespaceCanModule_1a2062089fa4fa87c8354295f2a8fe31a5a319ee2c9d887d55f6bc1941518a5ae76" kindref="member">ReconnectAction::allBusesOnBridge</ref>:<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">(</highlight><highlight class="stringliteral">&quot;<sp/>allBusesOnBridge&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="452"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="namespaceCanModule_1a2062089fa4fa87c8354295f2a8fe31a5a5f768fefafa6db21eee26885afb6163d" kindref="member">ReconnectAction::singleBus</ref>:<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">(</highlight><highlight class="stringliteral">&quot;<sp/>singleBus&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="453"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="454"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">(</highlight><highlight class="stringliteral">&quot;<sp/>unknown<sp/>action&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="455"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="456"><highlight class="normal"></highlight></codeline>
+<codeline lineno="460"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classCanModule_1_1CCanAccess_1a3fabe88b8e21638afd5d9886bb9c4aeb" kindref="member">stopBus</ref>()<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="461"><highlight class="normal"></highlight></codeline>
+<codeline lineno="462"><highlight class="normal"></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="463"><highlight class="normal"></highlight></codeline>
+<codeline lineno="464" refid="classCanModule_1_1CCanAccess_1a3a7a432d8d12f931c97ee0e91f35b1dd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/><ref refid="classCanModule_1_1CCanAccess_1a3a7a432d8d12f931c97ee0e91f35b1dd" kindref="member">m_sBusName</ref>;</highlight></codeline>
+<codeline lineno="465" refid="classCanModule_1_1CCanAccess_1a484a4f9dc352fe31b4baff0365095705" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structCanModule_1_1CanParameters" kindref="compound">CanParameters</ref><sp/><ref refid="classCanModule_1_1CCanAccess_1a484a4f9dc352fe31b4baff0365095705" kindref="member">m_CanParameters</ref>;</highlight></codeline>
+<codeline lineno="466"><highlight class="normal"></highlight></codeline>
+<codeline lineno="467"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>reconnection,<sp/>reconnection<sp/>thread<sp/>triggering</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="468" refid="classCanModule_1_1CCanAccess_1abfd40edc34a777a5ff4503a6e8a239d6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespaceCanModule_1a2f4fee79cc7ba53467c2538fe6b9adbb" kindref="member">CanModule::ReconnectAutoCondition</ref><sp/><ref refid="classCanModule_1_1CCanAccess_1abfd40edc34a777a5ff4503a6e8a239d6" kindref="member">m_reconnectCondition</ref>;</highlight></codeline>
+<codeline lineno="469" refid="classCanModule_1_1CCanAccess_1a6baf24c56eb715adf55a569d08b12c25" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespaceCanModule_1a2062089fa4fa87c8354295f2a8fe31a5" kindref="member">CanModule::ReconnectAction</ref><sp/><ref refid="classCanModule_1_1CCanAccess_1a6baf24c56eb715adf55a569d08b12c25" kindref="member">m_reconnectAction</ref>;</highlight></codeline>
+<codeline lineno="470" refid="classCanModule_1_1CCanAccess_1ae83a522e598248d1814685e9fc34d9d0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::atomic_uint<sp/><ref refid="classCanModule_1_1CCanAccess_1ae83a522e598248d1814685e9fc34d9d0" kindref="member">m_timeoutOnReception</ref>;</highlight></codeline>
+<codeline lineno="471" refid="classCanModule_1_1CCanAccess_1a6f97774773e3e4457f38a7b612d991f0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::atomic_int<sp/><ref refid="classCanModule_1_1CCanAccess_1a6f97774773e3e4457f38a7b612d991f0" kindref="member">m_failedSendCountdown</ref>;</highlight></codeline>
+<codeline lineno="472" refid="classCanModule_1_1CCanAccess_1a2dbf5862f3818d94bc78dd9ccb5c73d0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::atomic_uint<sp/><ref refid="classCanModule_1_1CCanAccess_1a2dbf5862f3818d94bc78dd9ccb5c73d0" kindref="member">m_maxFailedSendCount</ref>;</highlight></codeline>
+<codeline lineno="473" refid="classCanModule_1_1CCanAccess_1a41af60558bdb3b738f39560755864333" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::thread<sp/>*<ref refid="classCanModule_1_1CCanAccess_1a41af60558bdb3b738f39560755864333" kindref="member">m_hCanReconnectionThread</ref>;<sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>ptr<sp/>thread,<sp/>it&apos;s<sp/>a<sp/>private<sp/>method<sp/>of<sp/>the<sp/>class<sp/>(virtual)<sp/>//<sp/>unused<sp/>for<sp/>peak</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="474" refid="classCanModule_1_1CCanAccess_1aadb73de7daf5d5bf35e47cccacd4ebc7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::atomic_bool<sp/><ref refid="classCanModule_1_1CCanAccess_1aadb73de7daf5d5bf35e47cccacd4ebc7" kindref="member">m_reconnectTrigger</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>trigger<sp/>stuff:<sp/>predicate<sp/>of<sp/>the<sp/>condition<sp/>var</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="475" refid="classCanModule_1_1CCanAccess_1a08cc164e3baaf95fedeb50198a7fa799" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::mutex<sp/><ref refid="classCanModule_1_1CCanAccess_1a08cc164e3baaf95fedeb50198a7fa799" kindref="member">m_reconnection_mtx</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>trigger<sp/>stuff</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="476" refid="classCanModule_1_1CCanAccess_1a9edb8bed739db66c1a6a8b3489ce79a2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::condition_variable<sp/><ref refid="classCanModule_1_1CCanAccess_1a9edb8bed739db66c1a6a8b3489ce79a2" kindref="member">m_reconnection_cv</ref>;<sp/></highlight><highlight class="comment">//<sp/>trigger<sp/>stuff</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="477"><highlight class="normal"></highlight></codeline>
+<codeline lineno="478"><highlight class="normal"></highlight></codeline>
+<codeline lineno="482" refid="classCanModule_1_1CCanAccess_1a79c236a0e2b3e3b183b1c85aab3f5b71" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classCanModule_1_1CCanAccess_1a79c236a0e2b3e3b183b1c85aab3f5b71" kindref="member">hasTimeoutOnReception</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="483"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCanModule_1_1CCanAccess_1a2a102ce44fed6b6703c50fc82babb7bf" kindref="member">m_dnow</ref><sp/>=<sp/>std::chrono::high_resolution_clock::now();</highlight></codeline>
+<codeline lineno="484"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>delta_us<sp/>=<sp/>std::chrono::duration&lt;double,<sp/>std::chrono::microseconds::period&gt;(<sp/><ref refid="classCanModule_1_1CCanAccess_1a2a102ce44fed6b6703c50fc82babb7bf" kindref="member">m_dnow</ref><sp/>-<sp/><ref refid="classCanModule_1_1CCanAccess_1a7ce1180a014b0375e200accd6564d1a6" kindref="member">m_dopen</ref>);</highlight></codeline>
+<codeline lineno="485"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<sp/>delta_us.count()<sp/>/<sp/>1000<sp/>&gt;<sp/><ref refid="classCanModule_1_1CCanAccess_1ae83a522e598248d1814685e9fc34d9d0" kindref="member">m_timeoutOnReception</ref><sp/>)<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="486"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="487"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="488"><highlight class="normal"></highlight></codeline>
+<codeline lineno="492" refid="classCanModule_1_1CCanAccess_1a067f50699c1ed4b6ee6732eb0078ed0a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classCanModule_1_1CCanAccess_1a067f50699c1ed4b6ee6732eb0078ed0a" kindref="member">resetTimeoutOnReception</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="493"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCanModule_1_1CCanAccess_1af1e7da250f5f36b8f2d4ce6b9d9f93df" kindref="member">m_dreceived</ref><sp/>=<sp/>std::chrono::high_resolution_clock::now();</highlight></codeline>
+<codeline lineno="494"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="495" refid="classCanModule_1_1CCanAccess_1afefee3a90966dd8a01ca471022a7a9cd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classCanModule_1_1CCanAccess_1afefee3a90966dd8a01ca471022a7a9cd" kindref="member">resetTimeNow</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="496"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCanModule_1_1CCanAccess_1a2a102ce44fed6b6703c50fc82babb7bf" kindref="member">m_dnow</ref><sp/>=<sp/>std::chrono::high_resolution_clock::now();</highlight></codeline>
+<codeline lineno="497"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="498"><highlight class="normal"></highlight></codeline>
+<codeline lineno="499"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="500" refid="classCanModule_1_1CCanAccess_1a782b2e9b52ebb49a14307e1f37440490" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>Log::LogComponentHandle<sp/><ref refid="classCanModule_1_1CCanAccess_1a782b2e9b52ebb49a14307e1f37440490" kindref="member">m_lh</ref>;</highlight></codeline>
+<codeline lineno="501" refid="classCanModule_1_1CCanAccess_1a2bb6325281679f955ab32fc18367a7b3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>LogItInstance*<sp/><ref refid="classCanModule_1_1CCanAccess_1a2bb6325281679f955ab32fc18367a7b3" kindref="member">m_logItRemoteInstance</ref>;</highlight></codeline>
+<codeline lineno="502" refid="classCanModule_1_1CCanAccess_1a70a2966f190a0956aec8cded6009fe98" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::chrono::time_point&lt;std::chrono::high_resolution_clock&gt;<sp/><ref refid="classCanModule_1_1CCanAccess_1a2a102ce44fed6b6703c50fc82babb7bf" kindref="member">m_dnow</ref>,<sp/><ref refid="classCanModule_1_1CCanAccess_1af1e7da250f5f36b8f2d4ce6b9d9f93df" kindref="member">m_dreceived</ref>,<sp/><ref refid="classCanModule_1_1CCanAccess_1a70a2966f190a0956aec8cded6009fe98" kindref="member">m_dtransmitted</ref>,<sp/><ref refid="classCanModule_1_1CCanAccess_1a7ce1180a014b0375e200accd6564d1a6" kindref="member">m_dopen</ref>;</highlight></codeline>
+<codeline lineno="503"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="504"><highlight class="normal">};<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>CanModule</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="505"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>CCANACCESS_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="CanInterface/include/CCanAccess.h"/>
+  </compounddef>
+</doxygen>

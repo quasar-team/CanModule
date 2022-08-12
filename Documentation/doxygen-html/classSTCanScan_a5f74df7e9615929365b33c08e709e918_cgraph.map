@@ -1,7 +1,0 @@
-<map id="STCanScan::openCanPort" name="STCanScan::openCanPort">
-<area shape="rect" id="node2" href="$classSTCanScan.html#a29b4c3c8f29e45f808fbb7528e4593aa" title="STCanScan::getCanHandle" alt="" coords="255,5,449,32"/>
-<area shape="rect" id="node3" href="$classSTCanScan.html#a2f2a9aaa3ce2c653a4e1152eb8497493" title="STCanScan::isCanHandleInUse" alt="" coords="242,56,462,83"/>
-<area shape="rect" id="node4" href="$classSTCanScan.html#a50f89ce5fc0b2961937dc8a4b86081f8" title="STCanScan::setCanHandle" alt="" coords="256,107,448,133"/>
-<area shape="rect" id="node5" href="$classSTCanScan.html#ae29a23d161c115f173cbdb3a807c895e" title="STCanScan::setCanHandleInUse" alt="" coords="237,157,467,184"/>
-<area shape="rect" id="node6" href="$classCanModule_1_1CanStatistics.html#af3f15dedf80e67f1309946632d87198d" title="CanModule::CanStatistics\l::setTimeSinceOpened" alt="" coords="259,209,445,250"/>
-</map>

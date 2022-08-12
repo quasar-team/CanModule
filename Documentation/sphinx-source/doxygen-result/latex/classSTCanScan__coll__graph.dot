@@ -1,0 +1,15 @@
+digraph "STCanScan"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="STCanScan",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node2 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="CanModule::CCanAccess",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classCanModule_1_1CCanAccess.html",tooltip=" "];
+  Node3 -> Node2 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" m_CanParameters" ];
+  Node3 [label="CanModule::CanParameters",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structCanModule_1_1CanParameters.html",tooltip=" "];
+  Node4 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" m_statistics" ];
+  Node4 [label="CanModule::CanStatistics",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classCanModule_1_1CanStatistics.html",tooltip=" "];
+  Node5 -> Node4 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" m_internals" ];
+  Node5 [label="CanModule::CanStatistics\l::Internals",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classCanModule_1_1CanStatistics_1_1Internals.html",tooltip="Following is encapsulated as a class, to provide sane copying in assignment operator."];
+}

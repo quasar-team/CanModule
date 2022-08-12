@@ -1,7 +1,0 @@
-<map id="CanModule::CanBusAccess::closeCanBus" name="CanModule::CanBusAccess::closeCanBus">
-<area shape="rect" id="node2" href="$classCanModule_1_1CanLibLoader.html#acd7d3af103bb72d5bd18737333d682f4" title="CanModule::CanLibLoader\l::closeCanBus" alt="" coords="251,55,442,97"/>
-<area shape="rect" id="node3" href="$classCanModule_1_1CCanAccess.html#ac3f5126ae36d642217425e21696d19ca" title="CanModule::CCanAccess\l::getBusName" alt="" coords="768,18,949,59"/>
-<area shape="rect" id="node4" href="$classCanModule_1_1Diag.html#aa79c20827b6e33fa35d4106d9aa479b8" title="CanModule::Diag::delete_maps" alt="" coords="491,84,715,111"/>
-<area shape="rect" id="node6" href="$classCanModule_1_1CCanAccess.html#a3fabe88b8e21638afd5d9886bb9c4aeb" title="CanModule::CCanAccess\l::stopBus" alt="" coords="512,135,693,177"/>
-<area shape="rect" id="node5" href="$classCanModule_1_1CanLibLoader.html#a7b4d0043b9715fce19bca9bb4035df0a" title="CanModule::CanLibLoader\l::getLibName" alt="" coords="763,83,954,125"/>
-</map>

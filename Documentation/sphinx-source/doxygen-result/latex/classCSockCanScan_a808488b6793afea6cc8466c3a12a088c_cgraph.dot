@@ -1,0 +1,39 @@
+digraph "CSockCanScan::CanReconnectionThread"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="CSockCanScan::CanReconnection\lThread",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="CSockCanScan::getReconnect\lAction",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classCSockCanScan.html#a03594b2fff9c61f37a5f68df2cfec05c",tooltip=" "];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="CSockCanScan::getReconnect\lCondition",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classCSockCanScan.html#aa8cb4c89fe3a13bb787c4085f1e994e3",tooltip=" "];
+  Node1 -> Node4 [color="midnightblue",fontsize="10",style="solid"];
+  Node4 [label="CanModule::CCanAccess\l::hasTimeoutOnReception",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classCanModule_1_1CCanAccess.html#a79c236a0e2b3e3b183b1c85aab3f5b71",tooltip=" "];
+  Node1 -> Node5 [color="midnightblue",fontsize="10",style="solid"];
+  Node5 [label="CSockCanScan::openCanPort",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classCSockCanScan.html#a203a51239f8efc013d4b9df36f271317",tooltip=" "];
+  Node5 -> Node6 [color="midnightblue",fontsize="10",style="solid"];
+  Node6 [label="CanModule::CanModuleerrno\lToString",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$namespaceCanModule.html#a6cae4be8d395b496f5f602a5f9714ae1",tooltip=" "];
+  Node5 -> Node7 [color="midnightblue",fontsize="10",style="solid"];
+  Node7 [label="CanModule::CanStatistics\l::setTimeSinceOpened",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classCanModule_1_1CanStatistics.html#af3f15dedf80e67f1309946632d87198d",tooltip=" "];
+  Node5 -> Node8 [color="midnightblue",fontsize="10",style="solid"];
+  Node8 [label="CSockCanScan::updateInitial\lError",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classCSockCanScan.html#a623057580187ecb241adf143c64d711c",tooltip=" "];
+  Node8 -> Node9 [color="midnightblue",fontsize="10",style="solid"];
+  Node9 [label="CSockCanScan::clearError\lMessage",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classCSockCanScan.html#a4b5f7591bfd27b8770bfb9ac9e406f66",tooltip=" "];
+  Node9 -> Node10 [color="midnightblue",fontsize="10",style="solid"];
+  Node10 [label="CanModule::convertTimepoint\lToTimeval",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$namespaceCanModule.html#a3ec3082d7d11a9c1641023cb3f53cbe5",tooltip=" "];
+  Node9 -> Node11 [color="midnightblue",fontsize="10",style="solid"];
+  Node11 [label="CanModule::CCanAccess\l::getBusName",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classCanModule_1_1CCanAccess.html#ac3f5126ae36d642217425e21696d19ca",tooltip=" "];
+  Node8 -> Node10 [color="midnightblue",fontsize="10",style="solid"];
+  Node1 -> Node12 [color="midnightblue",fontsize="10",style="solid"];
+  Node12 [label="CanModule::CCanAccess\l::reconnectActionString",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classCanModule_1_1CCanAccess.html#aa12f64e9e31bd491f39fc3169b1e5025",tooltip=" "];
+  Node1 -> Node13 [color="midnightblue",fontsize="10",style="solid"];
+  Node13 [label="CanModule::CCanAccess\l::reconnectConditionString",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classCanModule_1_1CCanAccess.html#a9da88ce122d5de04a0235a4682a13dc0",tooltip=" "];
+  Node1 -> Node14 [color="midnightblue",fontsize="10",style="solid"];
+  Node14 [label="CanModule::CCanAccess\l::resetSendFailedCountdown",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classCanModule_1_1CCanAccess.html#aad13b5ad34547cbe6cad4e8369557bed",tooltip=" "];
+  Node1 -> Node15 [color="midnightblue",fontsize="10",style="solid"];
+  Node15 [label="CanModule::CCanAccess\l::resetTimeoutOnReception",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classCanModule_1_1CCanAccess.html#a067f50699c1ed4b6ee6732eb0078ed0a",tooltip=" "];
+  Node1 -> Node16 [color="midnightblue",fontsize="10",style="solid"];
+  Node16 [label="CanModule::CCanAccess\l::waitForReconnectionThread\lTrigger",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classCanModule_1_1CCanAccess.html#ad8afab7f9acc769c53574edec695065b",tooltip=" "];
+}

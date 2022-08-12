@@ -1,0 +1,28 @@
+digraph "PKCanScan::CanReconnectionThread"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="PKCanScan::CanReconnection\lThread",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="PKCanScan::getBaudRate",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPKCanScan.html#a28ef6a7e978c2a129a21b13bbf1fc869",tooltip=" "];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="PKCanScan::getFailedSend\lCountdown",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPKCanScan.html#a454636f43c7056e861870f59b5a4bfcc",tooltip=" "];
+  Node1 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="PKCanScan::getReconnectAction",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPKCanScan.html#a00c1fa5d1abd77601c46669df80b6fba",tooltip=" "];
+  Node1 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="PKCanScan::getReconnectCondition",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPKCanScan.html#a4ae1f1cfd3e566a903b79f2502fe8752",tooltip=" "];
+  Node1 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="PKCanScan::getTPCANHandle",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPKCanScan.html#a4905a303d36dcae5be09e5c4acd4d558",tooltip=" "];
+  Node1 -> Node7 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="CanModule::CCanAccess\l::reconnectActionString",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classCanModule_1_1CCanAccess.html#aa12f64e9e31bd491f39fc3169b1e5025",tooltip=" "];
+  Node1 -> Node8 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="CanModule::CCanAccess\l::reconnectConditionString",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classCanModule_1_1CCanAccess.html#a9da88ce122d5de04a0235a4682a13dc0",tooltip=" "];
+  Node1 -> Node9 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 [label="CanModule::CCanAccess\l::resetSendFailedCountdown",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classCanModule_1_1CCanAccess.html#aad13b5ad34547cbe6cad4e8369557bed",tooltip=" "];
+  Node1 -> Node10 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 [label="CanModule::CCanAccess\l::resetTimeoutOnReception",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classCanModule_1_1CCanAccess.html#a067f50699c1ed4b6ee6732eb0078ed0a",tooltip=" "];
+  Node1 -> Node11 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node11 [label="CanModule::CCanAccess\l::waitForReconnectionThread\lTrigger",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classCanModule_1_1CCanAccess.html#ad8afab7f9acc769c53574edec695065b",tooltip=" "];
+}

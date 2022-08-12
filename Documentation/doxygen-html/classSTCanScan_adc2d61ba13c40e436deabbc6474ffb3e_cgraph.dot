@@ -1,0 +1,26 @@
+digraph "STCanScan::configureCanBoard"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="STCanScan::configureCanBoard",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="STCanScan::createInitialization\lParameters",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classSTCanScan.html#af6cf11abff5d1b39b35ceff9ae857270",tooltip=" "];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="STCanScan::openCanPort",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classSTCanScan.html#a5f74df7e9615929365b33c08e709e918",tooltip=" "];
+  Node3 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="STCanScan::getCanHandle",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classSTCanScan.html#a29b4c3c8f29e45f808fbb7528e4593aa",tooltip=" "];
+  Node3 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="STCanScan::isCanHandleInUse",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classSTCanScan.html#a2f2a9aaa3ce2c653a4e1152eb8497493",tooltip=" "];
+  Node3 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="STCanScan::setCanHandle",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classSTCanScan.html#a50f89ce5fc0b2961937dc8a4b86081f8",tooltip=" "];
+  Node3 -> Node7 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="STCanScan::setCanHandleInUse",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classSTCanScan.html#ae29a23d161c115f173cbdb3a807c895e",tooltip=" "];
+  Node3 -> Node8 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="CanModule::CanStatistics\l::setTimeSinceOpened",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classCanModule_1_1CanStatistics.html#af3f15dedf80e67f1309946632d87198d",tooltip=" "];
+  Node1 -> Node9 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 [label="CanModule::CCanAccess\l::parseNameAndParameters",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classCanModule_1_1CCanAccess.html#ac78e7df675c7e59f04ecc642406fecbe",tooltip=" "];
+  Node1 -> Node10 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 [label="STCanScan::vendorBaudRate2\lUserBaudRate",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classSTCanScan.html#aa57c48594c8a70a0331f07fb4ad208fd",tooltip=" "];
+}

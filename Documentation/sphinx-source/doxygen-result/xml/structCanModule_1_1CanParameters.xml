@@ -1,0 +1,202 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="structCanModule_1_1CanParameters" kind="struct" language="C++" prot="public">
+    <compoundname>CanModule::CanParameters</compoundname>
+    <includes refid="CCanAccess_8h" local="no">CCanAccess.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structCanModule_1_1CanParameters_1a53ce17e16c2a818ffbc05904d9e56e11" prot="public" static="no" mutable="no">
+        <type>long</type>
+        <definition>long CanModule::CanParameters::m_lBaudRate</definition>
+        <argsstring></argsstring>
+        <name>m_lBaudRate</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterface/include/CCanAccess.h" line="128" column="6" bodyfile="CanInterface/include/CCanAccess.h" bodystart="128" bodyend="-1"/>
+        <referencedby refid="classSTCanScan_1adc2d61ba13c40e436deabbc6474ffb3e" compoundref="STCanScan_8cpp" startline="245" endline="286">STCanScan::configureCanBoard</referencedby>
+        <referencedby refid="classPKCanScan_1aab15943d464e81f0054ed8c4a7d497fe" compoundref="pkcan_8cpp" startline="271" endline="405">PKCanScan::configureCanboard</referencedby>
+        <referencedby refid="classAnaCanScan_1a9a235b690fe0be49a3e55d487ca72a57" compoundref="AnaCanScan_8cpp" startline="278" endline="353">AnaCanScan::configureCanBoard</referencedby>
+        <referencedby refid="classAnaCanScan_1a428d6c62f3a2d6b4297898593961696b" compoundref="AnaCanScan_8cpp" startline="786" endline="832">AnaCanScan::connectReceptionHandler</referencedby>
+        <referencedby refid="classMockCanAccess_1a198bd6f880c8b12c9aa98584b1c30097" compoundref="MockCanAccess_8h" startline="59" endline="59">MockCanAccess::getPortBitrate</referencedby>
+        <referencedby refid="classCSockCanScan_1a38110f02c2d12fa9b620ba5ff438a960" compoundref="SockCanScan_8cpp" startline="949" endline="954">CSockCanScan::getStatistics</referencedby>
+        <referencedby refid="classCSockCanScan_1a203a51239f8efc013d4b9df36f271317" compoundref="SockCanScan_8cpp" startline="514" endline="590">CSockCanScan::openCanPort</referencedby>
+        <referencedby refid="classAnaCanScan_1ad94121f1933d50cafa52d625ee435f6c" compoundref="AnaCanScan_8cpp" startline="424" endline="496">AnaCanScan::openCanPort</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structCanModule_1_1CanParameters_1a6dcce5899a28a07c35042c2005fbac03" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int CanModule::CanParameters::m_iOperationMode</definition>
+        <argsstring></argsstring>
+        <name>m_iOperationMode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterface/include/CCanAccess.h" line="129" column="14" bodyfile="CanInterface/include/CCanAccess.h" bodystart="129" bodyend="-1"/>
+        <referencedby refid="classAnaCanScan_1a9a235b690fe0be49a3e55d487ca72a57" compoundref="AnaCanScan_8cpp" startline="278" endline="353">AnaCanScan::configureCanBoard</referencedby>
+        <referencedby refid="classAnaCanScan_1a428d6c62f3a2d6b4297898593961696b" compoundref="AnaCanScan_8cpp" startline="786" endline="832">AnaCanScan::connectReceptionHandler</referencedby>
+        <referencedby refid="classAnaCanScan_1ad94121f1933d50cafa52d625ee435f6c" compoundref="AnaCanScan_8cpp" startline="424" endline="496">AnaCanScan::openCanPort</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structCanModule_1_1CanParameters_1ac15d1cfe926f508a2788dab50aed992b" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int CanModule::CanParameters::m_iTermination</definition>
+        <argsstring></argsstring>
+        <name>m_iTermination</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterface/include/CCanAccess.h" line="130" column="14" bodyfile="CanInterface/include/CCanAccess.h" bodystart="130" bodyend="-1"/>
+        <referencedby refid="classAnaCanScan_1a9a235b690fe0be49a3e55d487ca72a57" compoundref="AnaCanScan_8cpp" startline="278" endline="353">AnaCanScan::configureCanBoard</referencedby>
+        <referencedby refid="classAnaCanScan_1a428d6c62f3a2d6b4297898593961696b" compoundref="AnaCanScan_8cpp" startline="786" endline="832">AnaCanScan::connectReceptionHandler</referencedby>
+        <referencedby refid="classAnaCanScan_1ad94121f1933d50cafa52d625ee435f6c" compoundref="AnaCanScan_8cpp" startline="424" endline="496">AnaCanScan::openCanPort</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structCanModule_1_1CanParameters_1a3481b638a47d3a832c6fad761973c9de" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int CanModule::CanParameters::m_iHighSpeed</definition>
+        <argsstring></argsstring>
+        <name>m_iHighSpeed</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterface/include/CCanAccess.h" line="131" column="14" bodyfile="CanInterface/include/CCanAccess.h" bodystart="131" bodyend="-1"/>
+        <referencedby refid="classAnaCanScan_1a9a235b690fe0be49a3e55d487ca72a57" compoundref="AnaCanScan_8cpp" startline="278" endline="353">AnaCanScan::configureCanBoard</referencedby>
+        <referencedby refid="classAnaCanScan_1a428d6c62f3a2d6b4297898593961696b" compoundref="AnaCanScan_8cpp" startline="786" endline="832">AnaCanScan::connectReceptionHandler</referencedby>
+        <referencedby refid="classAnaCanScan_1ad94121f1933d50cafa52d625ee435f6c" compoundref="AnaCanScan_8cpp" startline="424" endline="496">AnaCanScan::openCanPort</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structCanModule_1_1CanParameters_1a0f3653eda77900c9d2450793bd285c29" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int CanModule::CanParameters::m_iTimeStamp</definition>
+        <argsstring></argsstring>
+        <name>m_iTimeStamp</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterface/include/CCanAccess.h" line="132" column="14" bodyfile="CanInterface/include/CCanAccess.h" bodystart="132" bodyend="-1"/>
+        <referencedby refid="classAnaCanScan_1a9a235b690fe0be49a3e55d487ca72a57" compoundref="AnaCanScan_8cpp" startline="278" endline="353">AnaCanScan::configureCanBoard</referencedby>
+        <referencedby refid="classAnaCanScan_1a428d6c62f3a2d6b4297898593961696b" compoundref="AnaCanScan_8cpp" startline="786" endline="832">AnaCanScan::connectReceptionHandler</referencedby>
+        <referencedby refid="classAnaCanScan_1ad94121f1933d50cafa52d625ee435f6c" compoundref="AnaCanScan_8cpp" startline="424" endline="496">AnaCanScan::openCanPort</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structCanModule_1_1CanParameters_1ac17a318a7e3883005733c66010c04604" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int CanModule::CanParameters::m_iSyncMode</definition>
+        <argsstring></argsstring>
+        <name>m_iSyncMode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterface/include/CCanAccess.h" line="133" column="14" bodyfile="CanInterface/include/CCanAccess.h" bodystart="133" bodyend="-1"/>
+        <referencedby refid="classAnaCanScan_1a9a235b690fe0be49a3e55d487ca72a57" compoundref="AnaCanScan_8cpp" startline="278" endline="353">AnaCanScan::configureCanBoard</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structCanModule_1_1CanParameters_1aae2aa9f136d9bcc78ce596aaee286f3f" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int CanModule::CanParameters::m_iTimeout</definition>
+        <argsstring></argsstring>
+        <name>m_iTimeout</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterface/include/CCanAccess.h" line="134" column="14" bodyfile="CanInterface/include/CCanAccess.h" bodystart="134" bodyend="-1"/>
+        <referencedby refid="classAnaCanScan_1a9a235b690fe0be49a3e55d487ca72a57" compoundref="AnaCanScan_8cpp" startline="278" endline="353">AnaCanScan::configureCanBoard</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structCanModule_1_1CanParameters_1ac4e03899b26e33a3867ee1f0bce674b5" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int CanModule::CanParameters::m_iNumberOfDetectedParameters</definition>
+        <argsstring></argsstring>
+        <name>m_iNumberOfDetectedParameters</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterface/include/CCanAccess.h" line="136" column="4" bodyfile="CanInterface/include/CCanAccess.h" bodystart="136" bodyend="-1"/>
+        <referencedby refid="classSTCanScan_1adc2d61ba13c40e436deabbc6474ffb3e" compoundref="STCanScan_8cpp" startline="245" endline="286">STCanScan::configureCanBoard</referencedby>
+        <referencedby refid="classPKCanScan_1aab15943d464e81f0054ed8c4a7d497fe" compoundref="pkcan_8cpp" startline="271" endline="405">PKCanScan::configureCanboard</referencedby>
+        <referencedby refid="classAnaCanScan_1a9a235b690fe0be49a3e55d487ca72a57" compoundref="AnaCanScan_8cpp" startline="278" endline="353">AnaCanScan::configureCanBoard</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structCanModule_1_1CanParameters_1a8668831351aaaa0446c75c58073bf357" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool CanModule::CanParameters::m_dontReconfigure</definition>
+        <argsstring></argsstring>
+        <name>m_dontReconfigure</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterface/include/CCanAccess.h" line="137" column="6" bodyfile="CanInterface/include/CCanAccess.h" bodystart="137" bodyend="-1"/>
+        <referencedby refid="classCSockCanScan_1a203a51239f8efc013d4b9df36f271317" compoundref="SockCanScan_8cpp" startline="514" endline="590">CSockCanScan::openCanPort</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structCanModule_1_1CanParameters_1ac364dcf7b4d16af59776d931097010bc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>CanModule::CanParameters::CanParameters</definition>
+        <argsstring>()</argsstring>
+        <name>CanParameters</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterface/include/CCanAccess.h" line="138" column="1" bodyfile="CanInterface/include/CCanAccess.h" bodystart="138" bodyend="141"/>
+      </memberdef>
+      <memberdef kind="function" id="structCanModule_1_1CanParameters_1aaf671377af7b0d3c56d545b1cf31730a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CanModule::CanParameters::scanParameters</definition>
+        <argsstring>(std::string parameters)</argsstring>
+        <name>scanParameters</name>
+        <param>
+          <type>std::string</type>
+          <declname>parameters</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterface/include/CCanAccess.h" line="143" column="6" bodyfile="CanInterface/src/CCanAccess.cpp" bodystart="9" bodyend="21"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="CanInterface/include/CCanAccess.h" line="127" column="20" bodyfile="CanInterface/include/CCanAccess.h" bodystart="127" bodyend="144"/>
+    <listofallmembers>
+      <member refid="structCanModule_1_1CanParameters_1ac364dcf7b4d16af59776d931097010bc" prot="public" virt="non-virtual"><scope>CanModule::CanParameters</scope><name>CanParameters</name></member>
+      <member refid="structCanModule_1_1CanParameters_1a8668831351aaaa0446c75c58073bf357" prot="public" virt="non-virtual"><scope>CanModule::CanParameters</scope><name>m_dontReconfigure</name></member>
+      <member refid="structCanModule_1_1CanParameters_1a3481b638a47d3a832c6fad761973c9de" prot="public" virt="non-virtual"><scope>CanModule::CanParameters</scope><name>m_iHighSpeed</name></member>
+      <member refid="structCanModule_1_1CanParameters_1ac4e03899b26e33a3867ee1f0bce674b5" prot="public" virt="non-virtual"><scope>CanModule::CanParameters</scope><name>m_iNumberOfDetectedParameters</name></member>
+      <member refid="structCanModule_1_1CanParameters_1a6dcce5899a28a07c35042c2005fbac03" prot="public" virt="non-virtual"><scope>CanModule::CanParameters</scope><name>m_iOperationMode</name></member>
+      <member refid="structCanModule_1_1CanParameters_1ac17a318a7e3883005733c66010c04604" prot="public" virt="non-virtual"><scope>CanModule::CanParameters</scope><name>m_iSyncMode</name></member>
+      <member refid="structCanModule_1_1CanParameters_1ac15d1cfe926f508a2788dab50aed992b" prot="public" virt="non-virtual"><scope>CanModule::CanParameters</scope><name>m_iTermination</name></member>
+      <member refid="structCanModule_1_1CanParameters_1aae2aa9f136d9bcc78ce596aaee286f3f" prot="public" virt="non-virtual"><scope>CanModule::CanParameters</scope><name>m_iTimeout</name></member>
+      <member refid="structCanModule_1_1CanParameters_1a0f3653eda77900c9d2450793bd285c29" prot="public" virt="non-virtual"><scope>CanModule::CanParameters</scope><name>m_iTimeStamp</name></member>
+      <member refid="structCanModule_1_1CanParameters_1a53ce17e16c2a818ffbc05904d9e56e11" prot="public" virt="non-virtual"><scope>CanModule::CanParameters</scope><name>m_lBaudRate</name></member>
+      <member refid="structCanModule_1_1CanParameters_1aaf671377af7b0d3c56d545b1cf31730a" prot="public" virt="non-virtual"><scope>CanModule::CanParameters</scope><name>scanParameters</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,145 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Downloading &#8212; CanModule 2.0.21 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/agogo.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Objective" href="objective.html" />
+    <link rel="prev" title="CanModule reference documentation" href="index.html" /> 
+  </head><body>
+    <div class="header-wrapper" role="banner">
+      <div class="header">
+        <div class="headertitle"><a
+          href="index.html">CanModule 2.0.21 documentation</a></div>
+        <div class="rel" role="navigation" aria-label="related navigation">
+          <a href="index.html" title="CanModule reference documentation"
+             accesskey="P">previous</a> |
+          <a href="objective.html" title="Objective"
+             accesskey="N">next</a> |
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a>
+        </div>
+       </div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="content">
+        <div class="document">
+            
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="downloading">
+<h1>Downloading<a class="headerlink" href="#downloading" title="Permalink to this headline">¶</a></h1>
+<section id="sources">
+<h2>sources<a class="headerlink" href="#sources" title="Permalink to this headline">¶</a></h2>
+<p>CanModule can be cloned from github, and is integrated in a cmake build chain:</p>
+<p>git clone <a class="reference external" href="https://github.com/quasar-team/CanModule.git">https://github.com/quasar-team/CanModule.git</a></p>
+<p>or a specific tag
+git clone <strong>-b v2.0</strong> <a class="reference external" href="https://github.com/quasar-team/CanModule.git">https://github.com/quasar-team/CanModule.git</a></p>
+<ul class="simple">
+<li><p>check out the <a class="reference external" href="https://readthedocs.web.cern.ch/display/CANDev/CAN+development?src=sidebar">readthedocs</a> and the generated doc from gitlab CI</p></li>
+<li><p>the cross OS CI is on <a class="reference external" href="https://ics-fd-cpp-master.web.cern.ch/view/CAN/">jenkins_can</a> .</p></li>
+</ul>
+</section>
+<section id="runtime-dependencies">
+<h2>runtime dependencies<a class="headerlink" href="#runtime-dependencies" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>boost 1.73.0 from <a class="reference external" href="https://www.boost.org/">boost</a></p></li>
+<li><p>libsocketcan for linux.
+git clone <a class="reference external" href="https://gitlab.cern.ch/mludwig/CAN_libsocketcan.git">libsocketcan</a> &amp;&amp; cmake . &amp;&amp; sudo make install</p></li>
+<li><p>anagate lib</p></li>
+<li><p>systec driver</p></li>
+<li><p>peak driver</p></li>
+</ul>
+<p>you can also build a reduced dependency CanModule with boost and libsocketcan linked statically.</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+        </div>
+        <div class="sidebar">
+          
+          <h3>Table of Contents</h3>
+          <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Downloading</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#sources">sources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#runtime-dependencies">runtime dependencies</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="objective.html">Objective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="standardApi.html">Standard API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="canports.html">CAN ports</a></li>
+<li class="toctree-l1"><a class="reference internal" href="classestracing.html">Details on classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vendors/systec.html">SysTec</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vendors/anagate.html">AnaGate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vendors/peak.html">Peak</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reconnection.html">Reconnection Behavior</a></li>
+<li class="toctree-l1"><a class="reference internal" href="logging.html">Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building.html">Building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="running.html">Running</a></li>
+<li class="toctree-l1"><a class="reference internal" href="errors.html">error reporting and diagnostics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="support.html">Support</a></li>
+</ul>
+
+          <div role="search">
+            <h3 style="margin-top: 1.5em;">Search</h3>
+            <form class="search" action="search.html" method="get">
+                <input type="text" name="q" />
+                <input type="submit" value="Go" />
+            </form>
+          </div>
+
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+    <div class="footer-wrapper">
+      <div class="footer">
+        <div class="left">
+          <div role="navigation" aria-label="related navigaton">
+            <a href="index.html" title="CanModule reference documentation"
+              >previous</a> |
+            <a href="objective.html" title="Objective"
+              >next</a> |
+            <a href="genindex.html" title="General Index"
+              >index</a>
+          </div>
+          <div role="note" aria-label="source link">
+              <br/>
+              <a href="_sources/downloading.rst.txt"
+                rel="nofollow">Show Source</a>
+          </div>
+        </div>
+
+        <div class="right">
+          
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, CERN, quasar-team, BE-ICS (Michael Ludwig).
+      Last updated on 12-Aug-2022 11:30:25.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+    </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+  </body>
+</html>

@@ -1,0 +1,230 @@
+\hypertarget{classCanModule_1_1Diag}{}\doxysection{Can\+Module\+::Diag Class Reference}
+\label{classCanModule_1_1Diag}\index{CanModule::Diag@{CanModule::Diag}}
+
+
+{\ttfamily \#include $<$Diag.\+h$>$}
+
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structCanModule_1_1Diag_1_1CONNECTION__DIAG__t}{C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+D\+I\+A\+G\+\_\+t}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{classCanModule_1_1Diag_addd2c4afbe8b21115f487085f3226e8d}{insert\+\_\+maps}} (\mbox{\hyperlink{classCanModule_1_1CanLibLoader}{Can\+Lib\+Loader}} $\ast$lib, \mbox{\hyperlink{classCanModule_1_1CCanAccess}{C\+Can\+Access}} $\ast$acc, std\+::string params)
+\item 
+static void \mbox{\hyperlink{classCanModule_1_1Diag_aa79c20827b6e33fa35d4106d9aa479b8}{delete\+\_\+maps}} (\mbox{\hyperlink{classCanModule_1_1CanLibLoader}{Can\+Lib\+Loader}} $\ast$lib, \mbox{\hyperlink{classCanModule_1_1CCanAccess}{C\+Can\+Access}} $\ast$acc)
+\item 
+static std\+::vector$<$ \mbox{\hyperlink{structCanModule_1_1Diag_1_1CONNECTION__DIAG__t}{Diag\+::\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+D\+I\+A\+G\+\_\+t}} $>$ \mbox{\hyperlink{classCanModule_1_1Diag_ab3c649e5706e62a9552294a68380c520}{get\+\_\+connections}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static int \mbox{\hyperlink{classCanModule_1_1Diag_a71e31de7bd89a83e624d15a7a4e7a0c9}{Can\+Lib\+Loader\+\_\+icount}} = 0
+\item 
+static int \mbox{\hyperlink{classCanModule_1_1Diag_a1f42c5f2717eb1f36f4f85bb93c5a338}{Can\+Access\+\_\+icount}} = 0
+\item 
+static Log\+::\+Log\+Component\+Handle \mbox{\hyperlink{classCanModule_1_1Diag_acbdf0ac17a375b59f6fb0f41c6fdf22a}{lh}} = 0
+\item 
+static std\+::map$<$ std\+::string, \mbox{\hyperlink{classCanModule_1_1CCanAccess}{C\+Can\+Access}} $\ast$ $>$ \mbox{\hyperlink{classCanModule_1_1Diag_a1f761ca050e1c4f3da1f219218c541c9}{port\+\_\+map}}
+\item 
+static std\+::map$<$ std\+::string, \mbox{\hyperlink{classCanModule_1_1CanLibLoader}{Can\+Lib\+Loader}} $\ast$ $>$ \mbox{\hyperlink{classCanModule_1_1Diag_a2fb2c9c6a0cd7ad1acd2e505ebde3beb}{lib\+\_\+map}}
+\item 
+static std\+::map$<$ std\+::string, std\+::string $>$ \mbox{\hyperlink{classCanModule_1_1Diag_aca8bc6fe0248257cbc526f9485c287cb}{parameter\+\_\+map}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classCanModule_1_1Diag_a282a54b7181d085ba0abccca8fcb0874}{Diag}} ()
+\item 
+\mbox{\hyperlink{classCanModule_1_1Diag_a2725bd2ef8f986c94a0f025ac6b95240}{$\sim$\+Diag}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+diagnostic class to monitor what is going on inside \mbox{\hyperlink{namespaceCanModule}{Can\+Module}}, used as static api only
+\begin{DoxyItemize}
+\item keeps track of library instances and pointers
+\item tracks opened can buses for each lib instance 
+\end{DoxyItemize}
+
+Definition at line 34 of file Diag.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classCanModule_1_1Diag_a282a54b7181d085ba0abccca8fcb0874}\label{classCanModule_1_1Diag_a282a54b7181d085ba0abccca8fcb0874}} 
+\index{CanModule::Diag@{CanModule::Diag}!Diag@{Diag}}
+\index{Diag@{Diag}!CanModule::Diag@{CanModule::Diag}}
+\doxysubsubsection{\texorpdfstring{Diag()}{Diag()}}
+{\footnotesize\ttfamily Can\+Module\+::\+Diag\+::\+Diag (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 21 of file Diag.\+cpp.
+
+
+
+References lh, and Can\+Module\+::\+Log\+It\+Component\+Name.
+
+\mbox{\Hypertarget{classCanModule_1_1Diag_a2725bd2ef8f986c94a0f025ac6b95240}\label{classCanModule_1_1Diag_a2725bd2ef8f986c94a0f025ac6b95240}} 
+\index{CanModule::Diag@{CanModule::Diag}!````~Diag@{$\sim$Diag}}
+\index{````~Diag@{$\sim$Diag}!CanModule::Diag@{CanModule::Diag}}
+\doxysubsubsection{\texorpdfstring{$\sim$Diag()}{~Diag()}}
+{\footnotesize\ttfamily Can\+Module\+::\+Diag\+::$\sim$\+Diag (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Definition at line 55 of file Diag.\+h.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classCanModule_1_1Diag_aa79c20827b6e33fa35d4106d9aa479b8}\label{classCanModule_1_1Diag_aa79c20827b6e33fa35d4106d9aa479b8}} 
+\index{CanModule::Diag@{CanModule::Diag}!delete\_maps@{delete\_maps}}
+\index{delete\_maps@{delete\_maps}!CanModule::Diag@{CanModule::Diag}}
+\doxysubsubsection{\texorpdfstring{delete\_maps()}{delete\_maps()}}
+{\footnotesize\ttfamily void Can\+Module\+::\+Diag\+::delete\+\_\+maps (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classCanModule_1_1CanLibLoader}{Can\+Lib\+Loader}} $\ast$}]{lib,  }\item[{\mbox{\hyperlink{classCanModule_1_1CCanAccess}{C\+Can\+Access}} $\ast$}]{acc }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 27 of file Diag.\+cpp.
+
+
+
+References Can\+Access\+\_\+icount, Can\+Lib\+Loader\+\_\+icount, Can\+Module\+::\+C\+Can\+Access\+::get\+Bus\+Name(), Can\+Module\+::\+Can\+Lib\+Loader\+::get\+Lib\+Name(), lib\+\_\+map, Can\+Module\+::mtx, parameter\+\_\+map, and port\+\_\+map.
+
+
+
+Referenced by Can\+Module\+::\+Can\+Lib\+Loader\+::close\+Can\+Bus().
+
+Here is the call graph for this function\+:
+% FIG 0
+\mbox{\Hypertarget{classCanModule_1_1Diag_ab3c649e5706e62a9552294a68380c520}\label{classCanModule_1_1Diag_ab3c649e5706e62a9552294a68380c520}} 
+\index{CanModule::Diag@{CanModule::Diag}!get\_connections@{get\_connections}}
+\index{get\_connections@{get\_connections}!CanModule::Diag@{CanModule::Diag}}
+\doxysubsubsection{\texorpdfstring{get\_connections()}{get\_connections()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{structCanModule_1_1Diag_1_1CONNECTION__DIAG__t}{Diag\+::\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+D\+I\+A\+G\+\_\+t}} $>$ Can\+Module\+::\+Diag\+::get\+\_\+connections (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+gives back a vector filled with connection details, mostly timestamp related the maps are only used as rvalues in a reentrant method\+: fine without mutex 
+
+Definition at line 92 of file Diag.\+cpp.
+
+
+
+References Can\+Module\+::\+Diag\+::\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+D\+I\+A\+G\+\_\+t\+::bus, Can\+Module\+::\+Diag\+::\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+D\+I\+A\+G\+\_\+t\+::lib, lib\+\_\+map, Can\+Module\+::\+Diag\+::\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+D\+I\+A\+G\+\_\+t\+::parameter, parameter\+\_\+map, and port\+\_\+map.
+
+\mbox{\Hypertarget{classCanModule_1_1Diag_addd2c4afbe8b21115f487085f3226e8d}\label{classCanModule_1_1Diag_addd2c4afbe8b21115f487085f3226e8d}} 
+\index{CanModule::Diag@{CanModule::Diag}!insert\_maps@{insert\_maps}}
+\index{insert\_maps@{insert\_maps}!CanModule::Diag@{CanModule::Diag}}
+\doxysubsubsection{\texorpdfstring{insert\_maps()}{insert\_maps()}}
+{\footnotesize\ttfamily void Can\+Module\+::\+Diag\+::insert\+\_\+maps (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classCanModule_1_1CanLibLoader}{Can\+Lib\+Loader}} $\ast$}]{lib,  }\item[{\mbox{\hyperlink{classCanModule_1_1CCanAccess}{C\+Can\+Access}} $\ast$}]{acc,  }\item[{std\+::string}]{params }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+insert the two objects into the tracing maps and define a common key the key looks like this\+: libname\+\_\+\+Can\+Lib\+Loader\+\_\+icount\+:busname\+\_\+\+Can\+Access\+\_\+icount i.\+e. an\+\_\+1\+:can2\+\_\+0 \mbox{[} anagate lib instance 1, bus can2 instance 0 \mbox{]} sock\+\_\+0\+:can2\+\_\+4 \mbox{[} sock instance 0, bus can2 instance 4 \mbox{]} 
+
+Definition at line 62 of file Diag.\+cpp.
+
+
+
+References Can\+Access\+\_\+icount, Can\+Lib\+Loader\+\_\+icount, Can\+Module\+::\+C\+Can\+Access\+::get\+Bus\+Name(), Can\+Module\+::\+Can\+Lib\+Loader\+::get\+Lib\+Name(), lh, lib\+\_\+map, Can\+Module\+::mtx, parameter\+\_\+map, and port\+\_\+map.
+
+
+
+Referenced by Can\+Module\+::\+Can\+Lib\+Loader\+::open\+Can\+Bus().
+
+Here is the call graph for this function\+:
+% FIG 1
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classCanModule_1_1Diag_a1f42c5f2717eb1f36f4f85bb93c5a338}\label{classCanModule_1_1Diag_a1f42c5f2717eb1f36f4f85bb93c5a338}} 
+\index{CanModule::Diag@{CanModule::Diag}!CanAccess\_icount@{CanAccess\_icount}}
+\index{CanAccess\_icount@{CanAccess\_icount}!CanModule::Diag@{CanModule::Diag}}
+\doxysubsubsection{\texorpdfstring{CanAccess\_icount}{CanAccess\_icount}}
+{\footnotesize\ttfamily int Can\+Module\+::\+Diag\+::\+Can\+Access\+\_\+icount = 0\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 47 of file Diag.\+h.
+
+
+
+Referenced by delete\+\_\+maps(), and insert\+\_\+maps().
+
+\mbox{\Hypertarget{classCanModule_1_1Diag_a71e31de7bd89a83e624d15a7a4e7a0c9}\label{classCanModule_1_1Diag_a71e31de7bd89a83e624d15a7a4e7a0c9}} 
+\index{CanModule::Diag@{CanModule::Diag}!CanLibLoader\_icount@{CanLibLoader\_icount}}
+\index{CanLibLoader\_icount@{CanLibLoader\_icount}!CanModule::Diag@{CanModule::Diag}}
+\doxysubsubsection{\texorpdfstring{CanLibLoader\_icount}{CanLibLoader\_icount}}
+{\footnotesize\ttfamily int Can\+Module\+::\+Diag\+::\+Can\+Lib\+Loader\+\_\+icount = 0\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 46 of file Diag.\+h.
+
+
+
+Referenced by delete\+\_\+maps(), and insert\+\_\+maps().
+
+\mbox{\Hypertarget{classCanModule_1_1Diag_acbdf0ac17a375b59f6fb0f41c6fdf22a}\label{classCanModule_1_1Diag_acbdf0ac17a375b59f6fb0f41c6fdf22a}} 
+\index{CanModule::Diag@{CanModule::Diag}!lh@{lh}}
+\index{lh@{lh}!CanModule::Diag@{CanModule::Diag}}
+\doxysubsubsection{\texorpdfstring{lh}{lh}}
+{\footnotesize\ttfamily Log\+::\+Log\+Component\+Handle Can\+Module\+::\+Diag\+::lh = 0\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 48 of file Diag.\+h.
+
+
+
+Referenced by Diag(), and insert\+\_\+maps().
+
+\mbox{\Hypertarget{classCanModule_1_1Diag_a2fb2c9c6a0cd7ad1acd2e505ebde3beb}\label{classCanModule_1_1Diag_a2fb2c9c6a0cd7ad1acd2e505ebde3beb}} 
+\index{CanModule::Diag@{CanModule::Diag}!lib\_map@{lib\_map}}
+\index{lib\_map@{lib\_map}!CanModule::Diag@{CanModule::Diag}}
+\doxysubsubsection{\texorpdfstring{lib\_map}{lib\_map}}
+{\footnotesize\ttfamily std\+::map$<$ std\+::string, \mbox{\hyperlink{classCanModule_1_1CanLibLoader}{Can\+Lib\+Loader}} $\ast$ $>$ Can\+Module\+::\+Diag\+::lib\+\_\+map\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 50 of file Diag.\+h.
+
+
+
+Referenced by delete\+\_\+maps(), get\+\_\+connections(), and insert\+\_\+maps().
+
+\mbox{\Hypertarget{classCanModule_1_1Diag_aca8bc6fe0248257cbc526f9485c287cb}\label{classCanModule_1_1Diag_aca8bc6fe0248257cbc526f9485c287cb}} 
+\index{CanModule::Diag@{CanModule::Diag}!parameter\_map@{parameter\_map}}
+\index{parameter\_map@{parameter\_map}!CanModule::Diag@{CanModule::Diag}}
+\doxysubsubsection{\texorpdfstring{parameter\_map}{parameter\_map}}
+{\footnotesize\ttfamily std\+::map$<$ std\+::string, std\+::string $>$ Can\+Module\+::\+Diag\+::parameter\+\_\+map\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 51 of file Diag.\+h.
+
+
+
+Referenced by delete\+\_\+maps(), get\+\_\+connections(), and insert\+\_\+maps().
+
+\mbox{\Hypertarget{classCanModule_1_1Diag_a1f761ca050e1c4f3da1f219218c541c9}\label{classCanModule_1_1Diag_a1f761ca050e1c4f3da1f219218c541c9}} 
+\index{CanModule::Diag@{CanModule::Diag}!port\_map@{port\_map}}
+\index{port\_map@{port\_map}!CanModule::Diag@{CanModule::Diag}}
+\doxysubsubsection{\texorpdfstring{port\_map}{port\_map}}
+{\footnotesize\ttfamily std\+::map$<$ std\+::string, \mbox{\hyperlink{classCanModule_1_1CCanAccess}{C\+Can\+Access}} $\ast$ $>$ Can\+Module\+::\+Diag\+::port\+\_\+map\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 49 of file Diag.\+h.
+
+
+
+Referenced by delete\+\_\+maps(), get\+\_\+connections(), and insert\+\_\+maps().
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Diagnostic/include/\mbox{\hyperlink{Diag_8h}{Diag.\+h}}\item 
+Diagnostic/src/\mbox{\hyperlink{Diag_8cpp}{Diag.\+cpp}}\end{DoxyCompactItemize}

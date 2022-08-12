@@ -2,15 +2,15 @@
 <QtHelpProject version="1.0">
     <namespace>canmodule</namespace>
     <virtualFolder>doc</virtualFolder>
-    <customFilter name="CanModule 2.0.16">
+    <customFilter name="CanModule 2.0.21">
         <filterAttribute>CanModule</filterAttribute>
-        <filterAttribute>2.0.16</filterAttribute>
+        <filterAttribute>2.0.21</filterAttribute>
     </customFilter>
     <filterSection>
         <filterAttribute>CanModule</filterAttribute>
-        <filterAttribute>2.0.16</filterAttribute>
+        <filterAttribute>2.0.21</filterAttribute>
         <toc>
-            <section title="CanModule 2.0.16 documentation" ref="index.html">
+            <section title="CanModule 2.0.21 documentation" ref="index.html">
                 <section title="Downloading" ref="downloading.html">
                     <section title="sources" ref="downloading.html#sources"/>
                     <section title="runtime dependencies" ref="downloading.html#runtime-dependencies"/>
@@ -32,16 +32,24 @@
                     <section title="tracing connections" ref="classestracing.html#tracing-connections"/>
                 </section>
                 <section title="SysTec" ref="vendors/systec.html">
-                    <section title="status" ref="vendors/systec.html#status"/>
-                    <section title="errors" ref="vendors/systec.html#errors"/>
+                    <section title="linux" ref="vendors/systec.html#linux">
+                        <section title="parameters" ref="vendors/systec.html#parameters"/>
+                    </section>
+                    <section title="windows" ref="vendors/systec.html#windows">
+                        <section title="parameters" ref="vendors/systec.html#id1"/>
+                        <section title="status" ref="vendors/systec.html#status"/>
+                        <section title="errors" ref="vendors/systec.html#errors"/>
+                    </section>
                 </section>
                 <section title="AnaGate" ref="vendors/anagate.html">
+                    <section title="parameters" ref="vendors/anagate.html#parameters"/>
                     <section title="status" ref="vendors/anagate.html#status"/>
                     <section title="errors" ref="vendors/anagate.html#errors"/>
                 </section>
                 <section title="Peak" ref="vendors/peak.html">
                     <section title="windows" ref="vendors/peak.html#windows"/>
                     <section title="linux" ref="vendors/peak.html#linux">
+                        <section title="parameters" ref="vendors/peak.html#parameters"/>
                         <section title="status" ref="vendors/peak.html#status"/>
                         <section title="errors" ref="vendors/peak.html#errors"/>
                     </section>
@@ -71,6 +79,12 @@
                     <section title="Anagate" ref="running.html#anagate"/>
                     <section title="Systec" ref="running.html#systec"/>
                     <section title="Peak" ref="running.html#peak"/>
+                </section>
+                <section title="error reporting and diagnostics" ref="errors.html">
+                    <section title="boost signal error messages, delivered to a connected boost handler" ref="errors.html#boost-signal-error-messages-delivered-to-a-connected-boost-handler"/>
+                    <section title="unified port status" ref="errors.html#unified-port-status"/>
+                    <section title="statistics" ref="errors.html#statistics"/>
+                    <section title="LogIt messages" ref="errors.html#logit-messages"/>
                 </section>
                 <section title="Support" ref="support.html"/>
             </section>
@@ -123,6 +137,7 @@
             <file>canports.html</file>
             <file>classestracing.html</file>
             <file>downloading.html</file>
+            <file>errors.html</file>
             <file>genindex.html</file>
             <file>index.html</file>
             <file>logging.html</file>

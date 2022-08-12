@@ -19,8 +19,8 @@ breathe_projects = { "CanModule": "./doxygen-result/xml" }
 breathe_default_project = "CanModule"
 project = u'CanModule'
 copyright = u'2020, CERN, quasar-team, BE-ICS (Michael Ludwig)'
-version = '2.0.21'
-release = '2.0.21'
+version = '2.0.22'
+release = '2.0.22'
 qthelp_namespace = 'CanModule'
 htmlhelp_basename = 'CanModule'
 

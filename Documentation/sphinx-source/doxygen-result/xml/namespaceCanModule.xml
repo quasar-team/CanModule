@@ -1,0 +1,445 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="namespaceCanModule" kind="namespace" language="C++">
+    <compoundname>CanModule</compoundname>
+    <innerclass refid="classCanModule_1_1CanBusAccess" prot="public">CanModule::CanBusAccess</innerclass>
+    <innerclass refid="classCanModule_1_1CanLibLoader" prot="public">CanModule::CanLibLoader</innerclass>
+    <innerclass refid="classCanModule_1_1CanLibLoaderLin" prot="public">CanModule::CanLibLoaderLin</innerclass>
+    <innerclass refid="classCanModule_1_1CanLibLoaderWin" prot="public">CanModule::CanLibLoaderWin</innerclass>
+    <innerclass refid="classCanModule_1_1CanModuleUtils" prot="public">CanModule::CanModuleUtils</innerclass>
+    <innerclass refid="structCanModule_1_1CanParameters" prot="public">CanModule::CanParameters</innerclass>
+    <innerclass refid="classCanModule_1_1CanStatistics" prot="public">CanModule::CanStatistics</innerclass>
+    <innerclass refid="classCanModule_1_1CCanAccess" prot="public">CanModule::CCanAccess</innerclass>
+    <innerclass refid="classCanModule_1_1Diag" prot="public">CanModule::Diag</innerclass>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="namespaceCanModule_1a2f4fee79cc7ba53467c2538fe6b9adbb" prot="public" static="no" strong="yes">
+        <type></type>
+        <name>ReconnectAutoCondition</name>
+        <enumvalue id="namespaceCanModule_1a2f4fee79cc7ba53467c2538fe6b9adbbae323a25a871808f9a0df9a72ce954585" prot="public">
+          <name>sendFail</name>
+          <initializer>=0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceCanModule_1a2f4fee79cc7ba53467c2538fe6b9adbbaba350cf15e5a1471109f17351afb401a" prot="public">
+          <name>timeoutOnReception</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceCanModule_1a2f4fee79cc7ba53467c2538fe6b9adbbac7561db7a418dd39b2201dfe110ab4a4" prot="public">
+          <name>never</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>if a reconnect condition becomes true, a reconnect action is performed. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sendFail</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(default): the number of allowed fails for a send attempt can be set (default=10).</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>timeoutOnReception</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the number of seconds during which no message was received can be set (default=120sec). If the timeout is exceeded the condition becomes true. For anagate, this condition is only checked before a sending attempt. For all others the condition is checked in the supervisory thread.</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>never</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>this condition is never true, use it to switch off reconnection behavior. You might need this if you share a bridge between several tasks. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterface/include/CCanAccess.h" line="110" column="57" bodyfile="CanInterface/include/CCanAccess.h" bodystart="110" bodyend="110"/>
+      </memberdef>
+      <memberdef kind="enum" id="namespaceCanModule_1a2062089fa4fa87c8354295f2a8fe31a5" prot="public" static="no" strong="yes">
+        <type></type>
+        <name>ReconnectAction</name>
+        <enumvalue id="namespaceCanModule_1a2062089fa4fa87c8354295f2a8fe31a5a5f768fefafa6db21eee26885afb6163d" prot="public">
+          <name>singleBus</name>
+          <initializer>=0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespaceCanModule_1a2062089fa4fa87c8354295f2a8fe31a5a319ee2c9d887d55f6bc1941518a5ae76" prot="public">
+          <name>allBusesOnBridge</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>a reconnect action is performed if it is triggered by a reconnect condition of that channel/bus. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>singleBus</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(default): only the bus in question (this object) is reconnected, including it&apos;s reply handler, using the available implementation and vendor API.</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>allBusesOnBridge</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>all the buses/channels on the bridge where this channel/bus physically belongs to are reconnected. Only available for anagate, where the whole bridge can be reset using it&apos;s ip number.</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>hardReset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the whole bridge receives some kind of &quot;hard reset via software&quot;, only available for anagate (firmware reboot). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterface/include/CCanAccess.h" line="125" column="50" bodyfile="CanInterface/include/CCanAccess.h" bodystart="125" bodyend="125"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="namespaceCanModule_1aca5babab77e506364d8fb87f20767c3f" prot="public" static="no">
+        <type><ref refid="classCanModule_1_1CCanAccess" kindref="compound">CCanAccess</ref> *</type>
+        <definition>typedef CCanAccess* CanModule::f_canAccess()</definition>
+        <argsstring>()</argsstring>
+        <name>f_canAccess</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanLibLoader/src/CanLibLoaderLin.cpp" line="36" column="20" bodyfile="CanLibLoader/src/CanLibLoaderLin.cpp" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="namespaceCanModule_1a78730a18f59663871883885f3914a2aa" prot="public" static="no" mutable="no">
+        <type>const std::string</type>
+        <definition>const std::string CanModule::LogItComponentName</definition>
+        <argsstring></argsstring>
+        <name>LogItComponentName</name>
+        <initializer>= &quot;CanModule&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterface/include/CCanAccess.h" line="61" column="19" bodyfile="CanInterface/include/CCanAccess.h" bodystart="61" bodyend="-1"/>
+        <referencedby refid="classCanModule_1_1CanLibLoader_1aa303c1dd64affa5c27f707e0306786a0" compoundref="CanLibLoader_8cpp" startline="39" endline="43">CanModule::CanLibLoader::CanLibLoader</referencedby>
+        <referencedby refid="classPKCanScan_1ab5603fff4027c341125d277feafca6fb" compoundref="pkcan_8cpp" startline="193" endline="255">PKCanScan::createBus</referencedby>
+        <referencedby refid="classSTCanScan_1ad45582e26b616cbaa3d6978008819ab8" compoundref="STCanScan_8cpp" startline="211" endline="239">STCanScan::createBus</referencedby>
+        <referencedby refid="classCSockCanScan_1a0f5e7229e4be33b45698c2a21577fc6b" compoundref="SockCanScan_8cpp" startline="745" endline="806">CSockCanScan::createBus</referencedby>
+        <referencedby refid="classAnaCanScan_1a64b086259bdd302b1d40cb9b7be49e5b" compoundref="AnaCanScan_8cpp" startline="236" endline="263">AnaCanScan::createBus</referencedby>
+        <referencedby refid="classCanModule_1_1Diag_1a282a54b7181d085ba0abccca8fcb0874" compoundref="Diag_8cpp" startline="21" endline="25">CanModule::Diag::Diag</referencedby>
+        <referencedby refid="classCanModule_1_1CanLibLoader_1aaac995d89efdcf2b673cbd3e678be55b" compoundref="CanLibLoader_8cpp" startline="72" endline="132">CanModule::CanLibLoader::openCanBus</referencedby>
+        <referencedby refid="classudevanalyserforpeak__ns_1_1UdevAnalyserForPeak_1aaf0bf3ac85c7b39a34b8c9430f99f88c" compoundref="UdevAnalyserForPeak_8cpp" startline="23" endline="34">udevanalyserforpeak_ns::UdevAnalyserForPeak::UdevAnalyserForPeak</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceCanModule_1a30152f28b688b7faa77e56732989f4de" prot="public" static="no" mutable="no">
+        <type>std::mutex</type>
+        <definition>std::mutex CanModule::mtx</definition>
+        <argsstring></argsstring>
+        <name>mtx</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Diagnostic/src/Diag.cpp" line="19" column="12" bodyfile="Diagnostic/src/Diag.cpp" bodystart="19" bodyend="-1"/>
+        <referencedby refid="classCanModule_1_1Diag_1aa79c20827b6e33fa35d4106d9aa479b8" compoundref="Diag_8cpp" startline="27" endline="53">CanModule::Diag::delete_maps</referencedby>
+        <referencedby refid="classCanModule_1_1Diag_1addd2c4afbe8b21115f487085f3226e8d" compoundref="Diag_8cpp" startline="62" endline="86">CanModule::Diag::insert_maps</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="namespaceCanModule_1a3ec3082d7d11a9c1641023cb3f53cbe5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>timeval</type>
+        <definition>timeval CanModule::convertTimepointToTimeval</definition>
+        <argsstring>(const std::chrono::system_clock::time_point &amp;t1)</argsstring>
+        <name>convertTimepointToTimeval</name>
+        <param>
+          <type>const std::chrono::system_clock::time_point &amp;</type>
+          <declname>t1</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterface/src/CanModuleUtils.cpp" line="49" column="9" bodyfile="CanInterface/src/CanModuleUtils.cpp" bodystart="49" bodyend="57" declfile="CanInterface/include/CanModuleUtils.h" declline="83" declcolumn="9"/>
+        <referencedby refid="classSTCanScan_1aab42375da764eb0d50dee318cd790646" compoundref="STCanScan_8cpp" startline="98" endline="167">STCanScan::CanScanControlThread</referencedby>
+        <referencedby refid="classCSockCanScan_1a4b5f7591bfd27b8770bfb9ac9e406f66" compoundref="SockCanScan_8cpp" startline="886" endline="900">CSockCanScan::clearErrorMessage</referencedby>
+        <referencedby refid="AnaCanScan_8cpp_1ad5698349874e3653b879b5de27311594" compoundref="AnaCanScan_8cpp" startline="162" endline="186">InternalCallback</referencedby>
+        <referencedby refid="classSTCanScan_1a43454c0bc20eb764cbb4ef3dd5e52cc9" compoundref="STCanScan_8cpp" startline="380" endline="393">STCanScan::sendErrorCode</referencedby>
+        <referencedby refid="classPKCanScan_1a35ccc4082d56a736abb34d0c289c5a96" compoundref="pkcan_8cpp" startline="408" endline="424">PKCanScan::sendErrorCode</referencedby>
+        <referencedby refid="classCSockCanScan_1a623057580187ecb241adf143c64d711c" compoundref="SockCanScan_8cpp" startline="959" endline="967">CSockCanScan::updateInitialError</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="namespaceCanModule_1ac10ba397acc9fd9a69de54836bc6ca4a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::chrono::system_clock::time_point</type>
+        <definition>std::chrono::system_clock::time_point CanModule::convertTimevalToTimepoint</definition>
+        <argsstring>(const timeval &amp;t1)</argsstring>
+        <name>convertTimevalToTimepoint</name>
+        <param>
+          <type>const timeval &amp;</type>
+          <declname>t1</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterface/src/CanModuleUtils.cpp" line="67" column="39" bodyfile="CanInterface/src/CanModuleUtils.cpp" bodystart="67" bodyend="72" declfile="CanInterface/include/CanModuleUtils.h" declline="84" declcolumn="39"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceCanModule_1a6d0711aac0a75de5d2bf6142997a814d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::chrono::system_clock::time_point</type>
+        <definition>std::chrono::system_clock::time_point CanModule::currentTimeTimeval</definition>
+        <argsstring>()</argsstring>
+        <name>currentTimeTimeval</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterface/src/CanModuleUtils.cpp" line="79" column="39" bodyfile="CanInterface/src/CanModuleUtils.cpp" bodystart="79" bodyend="79" declfile="CanInterface/include/CanModuleUtils.h" declline="85" declcolumn="39"/>
+        <referencedby refid="classSTCanScan_1aab42375da764eb0d50dee318cd790646" compoundref="STCanScan_8cpp" startline="98" endline="167">STCanScan::CanScanControlThread</referencedby>
+        <referencedby refid="AnaCanScan_8cpp_1ad5698349874e3653b879b5de27311594" compoundref="AnaCanScan_8cpp" startline="162" endline="186">InternalCallback</referencedby>
+        <referencedby refid="classSTCanScan_1a43454c0bc20eb764cbb4ef3dd5e52cc9" compoundref="STCanScan_8cpp" startline="380" endline="393">STCanScan::sendErrorCode</referencedby>
+        <referencedby refid="classPKCanScan_1a35ccc4082d56a736abb34d0c289c5a96" compoundref="pkcan_8cpp" startline="408" endline="424">PKCanScan::sendErrorCode</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="namespaceCanModule_1a6cae4be8d395b496f5f602a5f9714ae1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string CanModule::CanModuleerrnoToString</definition>
+        <argsstring>()</argsstring>
+        <name>CanModuleerrnoToString</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterface/src/CanModuleUtils.cpp" line="32" column="13" bodyfile="CanInterface/src/CanModuleUtils.cpp" bodystart="32" bodyend="42" declfile="CanInterface/include/CanModuleUtils.h" declline="87" declcolumn="13"/>
+        <referencedby refid="classCSockCanScan_1a203a51239f8efc013d4b9df36f271317" compoundref="SockCanScan_8cpp" startline="514" endline="590">CSockCanScan::openCanPort</referencedby>
+        <referencedby refid="classCSockCanScan_1a4999204ff7166ee992a89b30a118af06" compoundref="SockCanScan_8cpp" startline="686" endline="718">CSockCanScan::sendRemoteRequest</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="namespaceCanModule_1a4cbb8d5fed5d508c5d6854a26e71a820" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string CanModule::canMessageToString</definition>
+        <argsstring>(CanMessage &amp;f)</argsstring>
+        <name>canMessageToString</name>
+        <param>
+          <type><ref refid="CanMessage_8h_1ab1aeab76298263f21dfde5bbdacaf46f" kindref="member">CanMessage</ref> &amp;</type>
+          <declname>f</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterface/src/CanModuleUtils.cpp" line="82" column="13" bodyfile="CanInterface/src/CanModuleUtils.cpp" bodystart="82" bodyend="94" declfile="CanInterface/include/CanModuleUtils.h" declline="88" declcolumn="13"/>
+        <references refid="structCanMsgStruct_1a2e47a33e7bba46b05a8fff29433f047b" compoundref="CanMessage_8h" startline="29">CanMsgStruct::c_data</references>
+        <references refid="structCanMsgStruct_1a3e5add8ae9cdadfcf3f2255d375ec9b3" compoundref="CanMessage_8h" startline="27">CanMsgStruct::c_dlc</references>
+        <references refid="structCanMsgStruct_1a619515aef041e64b78e7e8c33989ddd0" compoundref="CanMessage_8h" startline="23">CanMsgStruct::c_id</references>
+        <references refid="structCanMsgStruct_1ad4a78c27262604bacb5720d8633f71c6" compoundref="CanMessage_8h" startline="33">CanMsgStruct::c_rtr</references>
+        <references refid="classCanModule_1_1CanModuleUtils_1aeb2a2ee933f230f2c82cca7e45c7b6ad" compoundref="CanModuleUtils_8h" startline="52" endline="63">CanModule::CanModuleUtils::toHexString</references>
+        <references refid="classCanModule_1_1CanModuleUtils_1a535734490dee7c5c0ff0f51cb3875289" compoundref="CanModuleUtils_8h" startline="44" endline="49">CanModule::CanModuleUtils::toString</references>
+        <referencedby refid="classPKCanScan_1a45bd5feda5ccb009775c45bfabe41614" compoundref="pkcan_8cpp" startline="118" endline="168">PKCanScan::CanScanControlThread</referencedby>
+        <referencedby refid="AnaCanScan_8cpp_1ad5698349874e3653b879b5de27311594" compoundref="AnaCanScan_8cpp" startline="162" endline="186">InternalCallback</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="namespaceCanModule_1a901b4695397276d8bbc0f1ebd0204a8e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string CanModule::canMessage2ToString</definition>
+        <argsstring>(short cobID, unsigned char len, unsigned char *message, bool rtr)</argsstring>
+        <name>canMessage2ToString</name>
+        <param>
+          <type>short</type>
+          <declname>cobID</declname>
+        </param>
+        <param>
+          <type>unsigned char</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>unsigned char *</type>
+          <declname>message</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>rtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterface/src/CanModuleUtils.cpp" line="96" column="13" bodyfile="CanInterface/src/CanModuleUtils.cpp" bodystart="96" bodyend="108" declfile="CanInterface/include/CanModuleUtils.h" declline="89" declcolumn="13"/>
+        <references refid="classCanModule_1_1CanModuleUtils_1aeb2a2ee933f230f2c82cca7e45c7b6ad" compoundref="CanModuleUtils_8h" startline="52" endline="63">CanModule::CanModuleUtils::toHexString</references>
+        <referencedby refid="classSTCanScan_1a45f0ec011022bf58a23e8370bac7f829" compoundref="STCanScan_8cpp" startline="431" endline="511">STCanScan::sendMessage</referencedby>
+        <referencedby refid="classPKCanScan_1a48a2e9ba00dae1b1fe01f7b095430503" compoundref="pkcan_8cpp" startline="431" endline="476">PKCanScan::sendMessage</referencedby>
+        <referencedby refid="classCSockCanScan_1a485ec8621a98cdacad8e27433e09d919" compoundref="SockCanScan_8cpp" startline="609" endline="676">CSockCanScan::sendMessage</referencedby>
+        <referencedby refid="classAnaCanScan_1ad45666454318c891d7acd9fe16ae4c49" compoundref="AnaCanScan_8cpp" startline="528" endline="598">AnaCanScan::sendMessage</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="namespaceCanModule_1a8dc188d2dd2a214a3163f4aef5e017c9" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void CanModule::ms_sleep</definition>
+        <argsstring>(int ms)</argsstring>
+        <name>ms_sleep</name>
+        <param>
+          <type>int</type>
+          <declname>ms</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterface/include/CCanAccess.h" line="64" column="20" bodyfile="CanInterface/include/CCanAccess.h" bodystart="64" bodyend="67"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceCanModule_1aca09a34a617d28f8b35699e7933d2599" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>static std::string CanModule::version</definition>
+        <argsstring>()</argsstring>
+        <name>version</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>returns a version string which is created at build-time, stemming from the CMakeLists.txt </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterface/include/CCanAccess.h" line="94" column="20" bodyfile="CanInterface/include/CCanAccess.h" bodystart="94" bodyend="94"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceCanModule_1adcce5b3c80f29fba526b9c976746b146" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>typedef</type>
+        <definition>typedef CanModule::__declspec</definition>
+        <argsstring>(dllimport) CCanAccess *f_CCanAccess()</argsstring>
+        <name>__declspec</name>
+        <param>
+          <type>dllimport</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanLibLoader/src/CanLibLoaderWin.cpp" line="32" column="9" declfile="CanLibLoader/src/CanLibLoaderWin.cpp" declline="32" declcolumn="9"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>© Copyright CERN, 2015. All rights not expressly granted are reserved.</para>
+<para><ref refid="CanModuleUtils_8h" kindref="compound">CanModuleUtils.h</ref></para>
+<para>Created on: Oct 22, 2014 Author: Piotr Nikiel <ulink url="mailto:piotr@nikiel.info">piotr@nikiel.info</ulink></para>
+<para>This file is part of Quasar.</para>
+<para>Quasar is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public Licence as published by the Free Software Foundation, either version 3 of the Licence.</para>
+<para>Quasar is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public Licence for more details.</para>
+<para>You should have received a copy of the GNU Lesser General Public License along with Quasar. If not, see <ulink url="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</ulink>.</para>
+<para>© Copyright CERN, 2015. All rights not expressly granted are reserved.</para>
+<para><ref refid="CanStatistics_8h" kindref="compound">CanStatistics.h</ref></para>
+<para>Created on: Mar 17, 2015 Author: Piotr Nikiel <ulink url="mailto:piotr@nikiel.info">piotr@nikiel.info</ulink>, quasar team</para>
+<para>This file is part of Quasar.</para>
+<para>Quasar is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public Licence as published by the Free Software Foundation, either version 3 of the Licence.</para>
+<para>Quasar is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public Licence for more details.</para>
+<para>You should have received a copy of the GNU Lesser General Public License along with Quasar. If not, see <ulink url="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</ulink>.</para>
+<para>© Copyright CERN, 2015. All rights not expressly granted are reserved.</para>
+<para><ref refid="CCanAccess_8h" kindref="compound">CCanAccess.h</ref></para>
+<para>Created on: Apr 4, 2011 original author: vfilimon maintaining: mludwig, quasar team</para>
+<para>This file is part of Quasar.</para>
+<para>Quasar is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public Licence as published by the Free Software Foundation, either version 3 of the Licence.</para>
+<para>Quasar is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public Licence for more details.</para>
+<para>You should have received a copy of the GNU Lesser General Public License along with Quasar. If not, see <ulink url="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</ulink>.</para>
+<para>© Copyright CERN, 2015. All rights not expressly granted are reserved.</para>
+<para><ref refid="CanBusAccess_8cpp" kindref="compound">CanBusAccess.cpp</ref></para>
+<para>Created on: Apr 4, 2011 Author: vfilimon maintaining touches: mludwig, quasar team</para>
+<para>This file is part of Quasar.</para>
+<para>Quasar is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public Licence as published by the Free Software Foundation, either version 3 of the Licence.</para>
+<para>Quasar is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public Licence for more details.</para>
+<para>You should have received a copy of the GNU Lesser General Public License along with Quasar. If not, see <ulink url="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</ulink>.</para>
+<para>© Copyright CERN, 2015. All rights not expressly granted are reserved.</para>
+<para><ref refid="CanModuleUtils_8cpp" kindref="compound">CanModuleUtils.cpp</ref></para>
+<para>Created on: Nov 24, 2014 Author: pnikiel * <ref refid="CanBusAccess_8cpp" kindref="compound">CanBusAccess.cpp</ref></para>
+<para>This file is part of Quasar.</para>
+<para>Quasar is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public Licence as published by the Free Software Foundation, either version 3 of the Licence.</para>
+<para>Quasar is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public Licence for more details.</para>
+<para>You should have received a copy of the GNU Lesser General Public License along with Quasar. If not, see <ulink url="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</ulink>.</para>
+<para>© Copyright CERN, 2015. All rights not expressly granted are reserved.</para>
+<para><ref refid="CanModuleUtils_8cpp" kindref="compound">CanModuleUtils.cpp</ref></para>
+<para><ref refid="CanStatistics_8cpp" kindref="compound">CanStatistics.cpp</ref></para>
+<para>Created on: Mar 17, 2015 Author: pnikiel</para>
+<para>This file is part of Quasar.</para>
+<para>Quasar is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public Licence as published by the Free Software Foundation, either version 3 of the Licence.</para>
+<para>Quasar is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public Licence for more details.</para>
+<para>You should have received a copy of the GNU Lesser General Public License along with Quasar. If not, see <ulink url="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</ulink>.</para>
+<para>© Copyright CERN, 2015. All rights not expressly granted are reserved.</para>
+<para><ref refid="CanLibLoader_8h" kindref="compound">CanLibLoader.h</ref></para>
+<para>Created on: Feb 22, 2012 Author: vfilimon mludwig at cern dot ch</para>
+<para>This file is part of Quasar.</para>
+<para>Quasar is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public Licence as published by the Free Software Foundation, either version 3 of the Licence.</para>
+<para>Quasar is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public Licence for more details.</para>
+<para>You should have received a copy of the GNU Lesser General Public License along with Quasar. If not, see <ulink url="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</ulink>.</para>
+<para>© Copyright CERN, 2015. All rights not expressly granted are reserved.</para>
+<para><ref refid="CanLibLoaderLin_8h" kindref="compound">CanLibLoaderLin.h</ref></para>
+<para>Created on: Feb 22, 2012 Author: vfilimon mludwig at cern dot ch</para>
+<para>This file is part of Quasar.</para>
+<para>Quasar is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public Licence as published by the Free Software Foundation, either version 3 of the Licence.</para>
+<para>Quasar is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public Licence for more details.</para>
+<para>You should have received a copy of the GNU Lesser General Public License along with Quasar. If not, see <ulink url="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</ulink>.</para>
+<para>© Copyright CERN, 2015. All rights not expressly granted are reserved.</para>
+<para><ref refid="CanLibLoader_8cpp" kindref="compound">CanLibLoader.cpp</ref></para>
+<para>Created on: Feb 22, 2012 Author: vfilimon mludwig at cern dot ch</para>
+<para>This file is part of Quasar.</para>
+<para>Quasar is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public Licence as published by the Free Software Foundation, either version 3 of the Licence.</para>
+<para>Quasar is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public Licence for more details.</para>
+<para>You should have received a copy of the GNU Lesser General Public License along with Quasar. If not, see <ulink url="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</ulink>.</para>
+<para>© Copyright CERN, 2015. All rights not expressly granted are reserved.</para>
+<para><ref refid="CanLibLoaderLin_8cpp" kindref="compound">CanLibLoaderLin.cpp</ref></para>
+<para>Created on: Feb 22, 2012 Author: vfilimon mludwig at cern dot ch</para>
+<para>This file is part of Quasar.</para>
+<para>Quasar is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public Licence as published by the Free Software Foundation, either version 3 of the Licence.</para>
+<para>Quasar is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public Licence for more details.</para>
+<para>You should have received a copy of the GNU Lesser General Public License along with Quasar. If not, see <ulink url="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</ulink>.</para>
+<para>© Copyright CERN, 2015. All rights not expressly granted are reserved.</para>
+<para><ref refid="CanLibLoaderWin_8cpp" kindref="compound">CanLibLoaderWin.cpp</ref></para>
+<para>Created on: Feb 22, 2012 Author: vfilimon mludwig at cern dot ch</para>
+<para>This file is part of Quasar.</para>
+<para>Quasar is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public Licence as published by the Free Software Foundation, either version 3 of the Licence.</para>
+<para>Quasar is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public Licence for more details.</para>
+<para>You should have received a copy of the GNU Lesser General Public License along with Quasar. If not, see <ulink url="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</ulink>. </para>
+    </detaileddescription>
+    <location file="CanInterface/include/CanBusAccess.h" line="36" column="1"/>
+  </compounddef>
+</doxygen>

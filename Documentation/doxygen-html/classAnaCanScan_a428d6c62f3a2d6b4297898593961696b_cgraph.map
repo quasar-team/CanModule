@@ -1,6 +1,0 @@
-<map id="AnaCanScan::connectReceptionHandler" name="AnaCanScan::connectReceptionHandler">
-<area shape="rect" id="node2" href="$AnaCanScan_8cpp.html#ad5698349874e3653b879b5de27311594" title="InternalCallback" alt="" coords="280,77,408,104"/>
-<area shape="rect" id="node3" href="$classAnaCanScan.html#ad4a01934370aa2e9ee72bd31406e2752" title="AnaCanScan::canMessageTo\lString" alt="" coords="471,5,676,46"/>
-<area shape="rect" id="node4" href="$namespaceCanModule.html#a3ec3082d7d11a9c1641023cb3f53cbe5" title="CanModule::convertTimepoint\lToTimeval" alt="" coords="465,70,682,111"/>
-<area shape="rect" id="node5" href="$namespaceCanModule.html#a6d0711aac0a75de5d2bf6142997a814d" title="CanModule::currentTimeTimeval" alt="" coords="456,136,691,163"/>
-</map>

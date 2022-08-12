@@ -1,0 +1,350 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="AnaCanScan_8h" kind="file" language="C++">
+    <compoundname>AnaCanScan.h</compoundname>
+    <includes local="no">string</includes>
+    <includes local="no">thread</includes>
+    <includes local="no">mutex</includes>
+    <includes local="no">condition_variable</includes>
+    <includes local="no">time.h</includes>
+    <includes local="no">map</includes>
+    <includes local="no">LogIt.h</includes>
+    <includes local="no">sstream</includes>
+    <includes local="no">iostream</includes>
+    <includes refid="CanModuleUtils_8h" local="no">CanModuleUtils.h</includes>
+    <includes refid="CCanAccess_8h" local="no">CCanAccess.h</includes>
+    <includes refid="CanStatistics_8h" local="yes">CanStatistics.h</includes>
+    <includes refid="CanMessage_8h" local="yes">CanMessage.h</includes>
+    <includes refid="AnaGateErrors_8h" local="yes">AnaGateErrors.h</includes>
+    <includes local="yes">AnaGateDLL.h</includes>
+    <includes local="yes">AnaGateDllCan.h</includes>
+    <includedby refid="AnaCanScan_8cpp" local="yes">CanInterfaceImplementations/anagate/AnaCanScan.cpp</includedby>
+    <incdepgraph>
+      <node id="21">
+        <label>atomic</label>
+      </node>
+      <node id="20">
+        <label>ExportDefinition.h</label>
+        <link refid="ExportDefinition_8h"/>
+      </node>
+      <node id="8">
+        <label>LogIt.h</label>
+      </node>
+      <node id="19">
+        <label>CanStatistics.h</label>
+        <link refid="CanStatistics_8h"/>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>AnaGateDLL.h</label>
+      </node>
+      <node id="18">
+        <label>boost/signals2.hpp</label>
+      </node>
+      <node id="15">
+        <label>CanMessage.h</label>
+        <link refid="CanMessage_8h"/>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>stdexcept</label>
+      </node>
+      <node id="2">
+        <label>string</label>
+      </node>
+      <node id="22">
+        <label>VERSION.h</label>
+      </node>
+      <node id="7">
+        <label>map</label>
+      </node>
+      <node id="17">
+        <label>boost/bind/bind.hpp</label>
+      </node>
+      <node id="5">
+        <label>condition_variable</label>
+      </node>
+      <node id="9">
+        <label>sstream</label>
+      </node>
+      <node id="25">
+        <label>AnaGateDllCan.h</label>
+      </node>
+      <node id="6">
+        <label>time.h</label>
+      </node>
+      <node id="12">
+        <label>sys/time.h</label>
+      </node>
+      <node id="10">
+        <label>iostream</label>
+      </node>
+      <node id="1">
+        <label>CanInterfaceImplementations/anagate/AnaCanScan.h</label>
+        <link refid="AnaCanScan_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>mutex</label>
+      </node>
+      <node id="14">
+        <label>chrono</label>
+      </node>
+      <node id="3">
+        <label>thread</label>
+      </node>
+      <node id="11">
+        <label>CanModuleUtils.h</label>
+        <link refid="CanModuleUtils_8h"/>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>CCanAccess.h</label>
+        <link refid="CCanAccess_8h"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>AnaGateErrors.h</label>
+        <link refid="AnaGateErrors_8h"/>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>CanInterfaceImplementations/anagate/AnaCanScan.cpp</label>
+        <link refid="AnaCanScan_8cpp"/>
+      </node>
+      <node id="1">
+        <label>CanInterfaceImplementations/anagate/AnaCanScan.h</label>
+        <link refid="AnaCanScan_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classAnaCanScan" prot="public">AnaCanScan</innerclass>
+    <innerclass refid="structAnaCanScan_1_1ANAGATE__PORTDEF__t" prot="private">AnaCanScan::ANAGATE_PORTDEF_t</innerclass>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="AnaCanScan_8h_1ad342ac907eb044443153a22f964bf0af" prot="public" static="no">
+        <type>unsigned long</type>
+        <definition>typedef unsigned long DWORD</definition>
+        <argsstring></argsstring>
+        <name>DWORD</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>© Copyright CERN, 2015. All rights not expressly granted are reserved.</para>
+<para><ref refid="AnaCanScan_8h" kindref="compound">AnaCanScan.h</ref></para>
+<para>Created on: Feb 22, 2012 Author: vfilimon, quasar team mludwig at cern dot ch</para>
+<para>This file is part of Quasar.</para>
+<para>Quasar is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public Licence as published by the Free Software Foundation, either version 3 of the Licence.</para>
+<para>Quasar is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public Licence for more details.</para>
+<para>You should have received a copy of the GNU Lesser General Public License along with Quasar. If not, see <ulink url="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</ulink>. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CanInterfaceImplementations/anagate/AnaCanScan.h" line="61" column="23" bodyfile="CanInterfaceImplementations/anagate/AnaCanScan.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"></codeline>
+<codeline lineno="24"><highlight class="preprocessor">#ifndef<sp/>CCANANASCAN_H_</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CCANANASCAN_H_</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;thread&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;mutex&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;condition_variable&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">//<sp/>#include<sp/>&lt;sys/time.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;time.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">//<sp/>#include<sp/>&lt;string.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;map&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;LogIt.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;sstream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;iostream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="CanModuleUtils_8h" kindref="compound">CanModuleUtils.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="CCanAccess_8h" kindref="compound">CCanAccess.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="CanStatistics_8h" kindref="compound">CanStatistics.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="CCanAccess_8h" kindref="compound">CCanAccess.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="CanMessage_8h" kindref="compound">CanMessage.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="AnaGateErrors_8h" kindref="compound">AnaGateErrors.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;AnaGateDLL.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;AnaGateDllCan.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>_WIN32</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;tchar.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;Winsock2.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;windows.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61" refid="AnaCanScan_8h_1ad342ac907eb044443153a22f964bf0af" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="AnaCanScan_8h_1ad342ac907eb044443153a22f964bf0af" kindref="member">DWORD</ref>;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="keyword">using<sp/>namespace<sp/></highlight><highlight class="normal"><ref refid="namespaceCanModule" kindref="compound">CanModule</ref>;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74" refid="classAnaCanScan" refkind="compound"><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classAnaCanScan" kindref="compound">AnaCanScan</ref>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="classCanModule_1_1CCanAccess" kindref="compound">CanModule::CCanAccess</ref></highlight></codeline>
+<codeline lineno="75"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classAnaCanScan" kindref="compound">AnaCanScan</ref>();</highlight><highlight class="comment">//Constructor<sp/>of<sp/>the<sp/>class.<sp/>Will<sp/>initiate<sp/>the<sp/>statistics.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classAnaCanScan" kindref="compound">AnaCanScan</ref>(<ref refid="classAnaCanScan" kindref="compound">AnaCanScan</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>&amp;<sp/>other)<sp/>=<sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal">;<sp/><sp/></highlight><highlight class="comment">//Disables<sp/>copy<sp/>constructor</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classAnaCanScan" kindref="compound">AnaCanScan</ref>&amp;<sp/>operator=(<ref refid="classAnaCanScan" kindref="compound">AnaCanScan</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>&amp;<sp/>other)<sp/>=<sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal">;<sp/></highlight><highlight class="comment">//<sp/>Disables<sp/>assignment</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>~<ref refid="classAnaCanScan" kindref="compound">AnaCanScan</ref>();</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>createBus(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>name,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>parameters);</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>sendMessage(</highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/>cobID,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*message,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>rtr<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>sendMessage(<ref refid="structCanMsgStruct" kindref="compound">CanMessage</ref><sp/>*);</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>sendRemoteRequest(</highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/>cobID);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>getStatistics(<sp/><ref refid="classCanModule_1_1CanStatistics" kindref="compound">CanStatistics</ref><sp/>&amp;<sp/>result<sp/>);</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>statisticsOnRecieve(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>callbackOnRecieve(<ref refid="structCanMsgStruct" kindref="compound">CanMessage</ref>&amp;);</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/>getPortStatus();</highlight></codeline>
+<codeline lineno="93" refid="classAnaCanScan_1a8618662dac4627418ed9c69442f51714" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>uint32_t<sp/><ref refid="classAnaCanScan_1a8618662dac4627418ed9c69442f51714" kindref="member">getPortBitrate</ref>(){<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>m_CanParameters.m_lBaudRate;<sp/>};</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95" refid="classAnaCanScan_1a0b9879988a65b60c9f9abc7c88ce6993" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classAnaCanScan_1a0b9879988a65b60c9f9abc7c88ce6993" kindref="member">setReconnectBehavior</ref>(<sp/><ref refid="namespaceCanModule_1a2f4fee79cc7ba53467c2538fe6b9adbb" kindref="member">CanModule::ReconnectAutoCondition</ref><sp/>cond,<sp/><ref refid="namespaceCanModule_1a2062089fa4fa87c8354295f2a8fe31a5" kindref="member">CanModule::ReconnectAction</ref><sp/>action<sp/>){</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>m_reconnectCondition<sp/>=<sp/>cond;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>m_reconnectAction<sp/>=<sp/>action;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="99" refid="classAnaCanScan_1a6b617410ab9dcbb9c89302cc2ffd78c0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classAnaCanScan_1a6b617410ab9dcbb9c89302cc2ffd78c0" kindref="member">setReconnectReceptionTimeout</ref>(<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>timeout<sp/>){<sp/><sp/>m_timeoutOnReception<sp/>=<sp/>timeout;<sp/>};</highlight></codeline>
+<codeline lineno="100" refid="classAnaCanScan_1ae986496d224081758e5bd2eca0b343c5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classAnaCanScan_1ae986496d224081758e5bd2eca0b343c5" kindref="member">setReconnectFailedSendCount</ref>(<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>c<sp/>){<sp/>m_maxFailedSendCount<sp/>=<sp/>m_failedSendCountdown<sp/>=<sp/>c;<sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="101" refid="classAnaCanScan_1a74073d663dd44148033b3d6d15428ea9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="namespaceCanModule_1a2f4fee79cc7ba53467c2538fe6b9adbb" kindref="member">CanModule::ReconnectAutoCondition</ref><sp/><ref refid="classAnaCanScan_1a74073d663dd44148033b3d6d15428ea9" kindref="member">getReconnectCondition</ref>()<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>m_reconnectCondition;<sp/>};</highlight></codeline>
+<codeline lineno="102" refid="classAnaCanScan_1a6ad398dd6aec952c19165899abd48b8a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="namespaceCanModule_1a2062089fa4fa87c8354295f2a8fe31a5" kindref="member">CanModule::ReconnectAction</ref><sp/><ref refid="classAnaCanScan_1a6ad398dd6aec952c19165899abd48b8a" kindref="member">getReconnectAction</ref>()<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>m_reconnectAction;<sp/>};</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>stopBus(<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>);</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107" refid="classAnaCanScan_1a2ef4dd0b4c07b341597382688b8a2964" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classAnaCanScan_1a2ef4dd0b4c07b341597382688b8a2964" kindref="member">m_canPortNumber</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//The<sp/>number<sp/>of<sp/>can<sp/>port<sp/>(CANA,<sp/>CANB,<sp/>...)<sp/>associated<sp/>with<sp/>this<sp/>instance.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="108" refid="classAnaCanScan_1a9de78cb4cdba4a4dca1910d752b4ff65" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/><sp/><ref refid="classAnaCanScan_1a9de78cb4cdba4a4dca1910d752b4ff65" kindref="member">m_canIPAddress</ref>;</highlight></codeline>
+<codeline lineno="109" refid="classAnaCanScan_1ae2d7c7a9b314adffbde6eafac5a3607e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classAnaCanScan_1ae2d7c7a9b314adffbde6eafac5a3607e" kindref="member">m_baudRate</ref>;<sp/><sp/><sp/></highlight><highlight class="comment">//Current<sp/>baud<sp/>rate<sp/>for<sp/>statistics</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="110" refid="classAnaCanScan_1a140c655eb7afe156add0edbd93ca2789" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="AnaCanScan_8h_1ad342ac907eb044443153a22f964bf0af" kindref="member">DWORD</ref><sp/><sp/><sp/><ref refid="classAnaCanScan_1a140c655eb7afe156add0edbd93ca2789" kindref="member">m_idCanScanThread</ref>;<sp/></highlight><highlight class="comment">//<sp/>Thread<sp/>ID<sp/>for<sp/>the<sp/>CAN<sp/>update<sp/>scan<sp/>manager<sp/>thread.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="111" refid="classAnaCanScan_1adea6b9e3f699ae412a8fc532a3eb9a48" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classAnaCanScan_1adea6b9e3f699ae412a8fc532a3eb9a48" kindref="member">m_canCloseDevice</ref>;</highlight></codeline>
+<codeline lineno="112" refid="classAnaCanScan_1a86b2f6e716cbe52a850ec75c1736b7af" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/><ref refid="classAnaCanScan_1a86b2f6e716cbe52a850ec75c1736b7af" kindref="member">m_busName</ref>;</highlight></codeline>
+<codeline lineno="113" refid="classAnaCanScan_1a5558200a84f7754415c1b0625ee7f576" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/><ref refid="classAnaCanScan_1a5558200a84f7754415c1b0625ee7f576" kindref="member">m_busParameters</ref>;</highlight></codeline>
+<codeline lineno="114" refid="classAnaCanScan_1a581830a4a70cee6b31e3e895d669a9be" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>AnaInt32<sp/><ref refid="classAnaCanScan_1a581830a4a70cee6b31e3e895d669a9be" kindref="member">m_UcanHandle</ref>;<sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>handler<sp/>of<sp/>the<sp/>can<sp/>bus</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="115" refid="classAnaCanScan_1a862310267c2415fa9afb401402fa7b57" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCanModule_1_1CanStatistics" kindref="compound">CanStatistics</ref><sp/><ref refid="classAnaCanScan_1a862310267c2415fa9afb401402fa7b57" kindref="member">m_statistics</ref>;<sp/></highlight><highlight class="comment">//Instance<sp/>of<sp/>Can<sp/>Statistics</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="116" refid="classAnaCanScan_1a2ef809f84d976b6f453049a7298760fe" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>AnaInt32<sp/><ref refid="classAnaCanScan_1a2ef809f84d976b6f453049a7298760fe" kindref="member">m_timeout</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>connect_wait<sp/>time</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="117" refid="classAnaCanScan_1a9777d181ff5f28da363907ecb50ebc90" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classAnaCanScan_1a9777d181ff5f28da363907ecb50ebc90" kindref="member">m_busStopped</ref>;</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="129" refid="classAnaCanScan_1a39ab4f1c865bef7349992abd4d91da1d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>Log::LogComponentHandle<sp/><ref refid="classAnaCanScan_1a39ab4f1c865bef7349992abd4d91da1d" kindref="member">st_logItHandleAnagate</ref>;</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight></codeline>
+<codeline lineno="138" refid="structAnaCanScan_1_1ANAGATE__PORTDEF__t" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="139" refid="structAnaCanScan_1_1ANAGATE__PORTDEF__t_1a3bd14d317f470ae619d41105908436a0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AnaInt32<sp/><ref refid="structAnaCanScan_1_1ANAGATE__PORTDEF__t_1a3bd14d317f470ae619d41105908436a0" kindref="member">port</ref>;</highlight></codeline>
+<codeline lineno="140" refid="structAnaCanScan_1_1ANAGATE__PORTDEF__t_1a6ad8dd52dfbbfe170f3c5e0f4e20a49d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::string<sp/><ref refid="structAnaCanScan_1_1ANAGATE__PORTDEF__t_1a6ad8dd52dfbbfe170f3c5e0f4e20a49d" kindref="member">ip</ref>;</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/><ref refid="structAnaCanScan_1_1ANAGATE__PORTDEF__t" kindref="compound">ANAGATE_PORTDEF_t</ref>;</highlight></codeline>
+<codeline lineno="142" refid="classAnaCanScan_1a71e415a2fec462b991777ca38a9797cc" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>std::map&lt;int,<sp/>ANAGATE_PORTDEF_t&gt;<sp/><ref refid="classAnaCanScan_1a71e415a2fec462b991777ca38a9797cc" kindref="member">st_canHandleMap</ref>;</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>showAnaCanScanObjectMap();</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>reconnectAllPorts(<sp/>std::string<sp/>ip<sp/>);</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/>AnaInt32<sp/>reconnectThisPort();</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>addCanHandleOfPortIp(AnaInt32<sp/>handle,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>port,<sp/>std::string<sp/>ip);</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>deleteCanHandleOfPortIp(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>port,<sp/>std::string<sp/>ip);</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>AnaInt32<sp/>getCanHandleOfPortIp(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>port,<sp/>std::string<sp/>ip);</highlight></codeline>
+<codeline lineno="150" refid="classAnaCanScan_1a09cebd448f6a018081f94d2824ae391b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>std::map&lt;std::string,<sp/>bool&gt;<sp/><ref refid="classAnaCanScan_1a09cebd448f6a018081f94d2824ae391b" kindref="member">m_reconnectInProgress_map</ref>;<sp/></highlight><highlight class="comment">//<sp/>could<sp/>use<sp/>1-dim<sp/>vector<sp/>but<sp/>map<sp/>is<sp/>faster</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>setIpReconnectInProgress(<sp/>std::string<sp/>ip,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>flag<sp/>);</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>isIpReconnectInProgress(<sp/>std::string<sp/>ip<sp/>);</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>CanReconnectionThread();<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>not<sp/>static,<sp/>private<sp/>is<sp/>enough<sp/>in<sp/>C11</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>sendAnErrorMessage(<sp/>AnaInt32<sp/>status<sp/>);</highlight></codeline>
+<codeline lineno="155" refid="classAnaCanScan_1a8816262d658e19111e10b05cceb2e4f9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/><ref refid="classAnaCanScan_1a8816262d658e19111e10b05cceb2e4f9" kindref="member">ipAdress</ref>(){<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">(m_canIPAddress<sp/>);}</highlight></codeline>
+<codeline lineno="156" refid="classAnaCanScan_1aa7198f11bf94e97b26855fecdbcc85ed" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classAnaCanScan_1aa7198f11bf94e97b26855fecdbcc85ed" kindref="member">canPortNumber</ref>(){<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">(m_canPortNumber);}</highlight></codeline>
+<codeline lineno="157" refid="classAnaCanScan_1a9ce965955bb5eba734ed36b81945cb74" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classAnaCanScan_1a9ce965955bb5eba734ed36b81945cb74" kindref="member">handle</ref>(){<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">(m_UcanHandle);}</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>configureCanBoard(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>name,</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>parameters);</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>connectReceptionHandler();</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>openCanPort();</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>reconnect();</highlight></codeline>
+<codeline lineno="162" refid="classAnaCanScan_1a25489463d6a0a1f2f122a0bfc55bb318" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<sp/><ref refid="classAnaCanScan_1a25489463d6a0a1f2f122a0bfc55bb318" kindref="member">errorCodeToString</ref>(</highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/>error)<sp/>{</highlight><highlight class="keywordflow">return</highlight><highlight class="normal">(<sp/>ana_canGetErrorText(<sp/>error<sp/>).c_str()<sp/>);<sp/>}</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>eraseReceptionHandlerFromMap(<sp/>AnaInt32<sp/>h<sp/>);</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>ana_canGetErrorText(<sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/>errorCode<sp/>);</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//CCANANASCAN_H_</highlight></codeline>
+    </programlisting>
+    <location file="CanInterfaceImplementations/anagate/AnaCanScan.h"/>
+  </compounddef>
+</doxygen>

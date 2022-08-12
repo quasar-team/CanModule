@@ -1,0 +1,130 @@
+\hypertarget{classexeccommand__ns_1_1ExecCommand}{}\doxysection{execcommand\+\_\+ns\+::Exec\+Command Class Reference}
+\label{classexeccommand__ns_1_1ExecCommand}\index{execcommand\_ns::ExecCommand@{execcommand\_ns::ExecCommand}}
+
+
+{\ttfamily \#include $<$Exec\+Command.\+h$>$}
+
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classexeccommand__ns_1_1ExecCommand_1_1Displayer}{Displayer}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+typedef std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{classexeccommand__ns_1_1ExecCommand_a845d6035374fe25c0c68bea83f64f4b5}{Cmd\+Results}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classexeccommand__ns_1_1ExecCommand_aeedf8d30a7dd147e72af0395e15e3463}{Exec\+Command}} (const std\+::string \&cmd)
+\item 
+const \mbox{\hyperlink{classexeccommand__ns_1_1ExecCommand_a845d6035374fe25c0c68bea83f64f4b5}{Cmd\+Results}} \mbox{\hyperlink{classexeccommand__ns_1_1ExecCommand_aa85d0c7383bce43ba756006b64505d23}{get\+Results}} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classexeccommand__ns_1_1ExecCommand_a845d6035374fe25c0c68bea83f64f4b5}{Cmd\+Results}} \mbox{\hyperlink{classexeccommand__ns_1_1ExecCommand_a557d1e18086d1b3edbe91ed2e84c7d73}{m\+\_\+results}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+std\+::ostream \& \mbox{\hyperlink{classexeccommand__ns_1_1ExecCommand_a9451655efca44adb63da51f6ddcd3ba7}{operator$<$$<$}} (std\+::ostream \&os, const \mbox{\hyperlink{classexeccommand__ns_1_1ExecCommand}{Exec\+Command}} \&exec)
+\begin{DoxyCompactList}\small\item\em uuh oh, elegant ! \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 22 of file Exec\+Command.\+h.
+
+
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classexeccommand__ns_1_1ExecCommand_a845d6035374fe25c0c68bea83f64f4b5}\label{classexeccommand__ns_1_1ExecCommand_a845d6035374fe25c0c68bea83f64f4b5}} 
+\index{execcommand\_ns::ExecCommand@{execcommand\_ns::ExecCommand}!CmdResults@{CmdResults}}
+\index{CmdResults@{CmdResults}!execcommand\_ns::ExecCommand@{execcommand\_ns::ExecCommand}}
+\doxysubsubsection{\texorpdfstring{CmdResults}{CmdResults}}
+{\footnotesize\ttfamily typedef std\+::vector$<$std\+::string$>$ \mbox{\hyperlink{classexeccommand__ns_1_1ExecCommand_a845d6035374fe25c0c68bea83f64f4b5}{execcommand\+\_\+ns\+::\+Exec\+Command\+::\+Cmd\+Results}}}
+
+
+
+Definition at line 24 of file Exec\+Command.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classexeccommand__ns_1_1ExecCommand_aeedf8d30a7dd147e72af0395e15e3463}\label{classexeccommand__ns_1_1ExecCommand_aeedf8d30a7dd147e72af0395e15e3463}} 
+\index{execcommand\_ns::ExecCommand@{execcommand\_ns::ExecCommand}!ExecCommand@{ExecCommand}}
+\index{ExecCommand@{ExecCommand}!execcommand\_ns::ExecCommand@{execcommand\_ns::ExecCommand}}
+\doxysubsubsection{\texorpdfstring{ExecCommand()}{ExecCommand()}}
+{\footnotesize\ttfamily execcommand\+\_\+ns\+::\+Exec\+Command\+::\+Exec\+Command (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{cmd }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+
+
+Definition at line 26 of file Exec\+Command.\+h.
+
+
+
+References m\+\_\+results.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classexeccommand__ns_1_1ExecCommand_aa85d0c7383bce43ba756006b64505d23}\label{classexeccommand__ns_1_1ExecCommand_aa85d0c7383bce43ba756006b64505d23}} 
+\index{execcommand\_ns::ExecCommand@{execcommand\_ns::ExecCommand}!getResults@{getResults}}
+\index{getResults@{getResults}!execcommand\_ns::ExecCommand@{execcommand\_ns::ExecCommand}}
+\doxysubsubsection{\texorpdfstring{getResults()}{getResults()}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{classexeccommand__ns_1_1ExecCommand_a845d6035374fe25c0c68bea83f64f4b5}{Cmd\+Results}} execcommand\+\_\+ns\+::\+Exec\+Command\+::get\+Results (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 45 of file Exec\+Command.\+h.
+
+
+
+References m\+\_\+results.
+
+
+
+Referenced by udevanalyserforpeak\+\_\+ns\+::\+Udev\+Analyser\+For\+Peak\+::m\+\_\+create\+Udev\+Port\+Map().
+
+
+
+\doxysubsection{Friends And Related Function Documentation}
+\mbox{\Hypertarget{classexeccommand__ns_1_1ExecCommand_a9451655efca44adb63da51f6ddcd3ba7}\label{classexeccommand__ns_1_1ExecCommand_a9451655efca44adb63da51f6ddcd3ba7}} 
+\index{execcommand\_ns::ExecCommand@{execcommand\_ns::ExecCommand}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!execcommand\_ns::ExecCommand@{execcommand\_ns::ExecCommand}}
+\doxysubsubsection{\texorpdfstring{operator$<$$<$}{operator<<}}
+{\footnotesize\ttfamily std\+::ostream\& operator$<$$<$ (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{os,  }\item[{const \mbox{\hyperlink{classexeccommand__ns_1_1ExecCommand}{Exec\+Command}} \&}]{exec }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+uuh oh, elegant ! 
+
+
+
+Definition at line 48 of file Exec\+Command.\+h.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classexeccommand__ns_1_1ExecCommand_a557d1e18086d1b3edbe91ed2e84c7d73}\label{classexeccommand__ns_1_1ExecCommand_a557d1e18086d1b3edbe91ed2e84c7d73}} 
+\index{execcommand\_ns::ExecCommand@{execcommand\_ns::ExecCommand}!m\_results@{m\_results}}
+\index{m\_results@{m\_results}!execcommand\_ns::ExecCommand@{execcommand\_ns::ExecCommand}}
+\doxysubsubsection{\texorpdfstring{m\_results}{m\_results}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classexeccommand__ns_1_1ExecCommand_a845d6035374fe25c0c68bea83f64f4b5}{Cmd\+Results}} execcommand\+\_\+ns\+::\+Exec\+Command\+::m\+\_\+results\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 65 of file Exec\+Command.\+h.
+
+
+
+Referenced by Exec\+Command(), and get\+Results().
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Can\+Interface\+Implementations/sockcan/\mbox{\hyperlink{ExecCommand_8h}{Exec\+Command.\+h}}\end{DoxyCompactItemize}

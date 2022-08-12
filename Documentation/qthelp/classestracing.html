@@ -14,7 +14,7 @@
     <link rel="prev" title="CAN ports" href="canports.html" /> 
   </head><body>
       <div class="header" role="banner"><h1 class="heading"><a href="index.html">
-          <span>CanModule 2.0.16 documentation</span></a></h1>
+          <span>CanModule 2.0.21 documentation</span></a></h1>
         <h2 class="heading"><span>Details on classes</span></h2>
       </div>
       <div class="topnav" role="navigation" aria-label="top navigation">
@@ -64,7 +64,8 @@
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv410AnaCanScan">
 <span id="_CPPv310AnaCanScan"></span><span id="_CPPv210AnaCanScan"></span><span id="AnaCanScan"></span><span class="target" id="classAnaCanScan"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">AnaCanScan</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">CanModule</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="canports.html#_CPPv4N9CanModule10CCanAccessE" title="CanModule::CCanAccess"><span class="n"><span class="pre">CCanAccess</span></span></a><br /></dt>
-<dd><div class="breathe-sectiondef docutils container">
+<dd><p>one CAN port on an anagate bridge, an anagate bridge is an ip number. There are (physical) bridges with several ip numbers: we treat them as separated modules. </p>
+<div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N10AnaCanScan11sendMessageEshPhb">
@@ -87,7 +88,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N10AnaCanScan13getPortStatusEv">
-<span id="_CPPv3N10AnaCanScan13getPortStatusEv"></span><span id="_CPPv2N10AnaCanScan13getPortStatusEv"></span><span id="AnaCanScan::getPortStatus"></span><span class="target" id="classAnaCanScan_1a4c115df4a8755c0fd70030ae457af24c"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getPortStatus</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<span id="_CPPv3N10AnaCanScan13getPortStatusEv"></span><span id="_CPPv2N10AnaCanScan13getPortStatusEv"></span><span id="AnaCanScan::getPortStatus"></span><span class="target" id="classAnaCanScan_1a4c115df4a8755c0fd70030ae457af24c"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getPortStatus</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
 <dd><p>CANCanDeviceConnectState , translate from counter 1 = DISCONNECTED : 2 = CONNECTING : 3 = CONNECTED 4 = DISCONNECTING 5 = NOT_INITIALIZED b3…b27: unused</p>
 <p>into simple bitpattern (counter) 0, 10, 11, 100, 101 </p>
 </dd></dl>
@@ -125,7 +126,9 @@ OPCUA-2604: sendMessage must be non blocking. The reconnection behavior therefor
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N12CSockCanScan13getPortStatusEv">
 <span id="_CPPv3N12CSockCanScan13getPortStatusEv"></span><span id="_CPPv2N12CSockCanScan13getPortStatusEv"></span><span id="CSockCanScan::getPortStatus"></span><span class="target" id="classCSockCanScan_1ad1caa327a98bc30012d2c5010a98cb05"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getPortStatus</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
-<dd><p>return socketcan port status as-is, from can_netlink.h enum can_state { CAN_STATE_ERROR_ACTIVE = 0, RX/TX error count &lt; 96 CAN_STATE_ERROR_WARNING, RX/TX error count &lt; 128 CAN_STATE_ERROR_PASSIVE, RX/TX error count &lt; 256 CAN_STATE_BUS_OFF, RX/TX error count &gt;= 256 CAN_STATE_STOPPED, Device is stopped CAN_STATE_SLEEPING, Device is sleeping CAN_STATE_MAX }; </p>
+<dd><p>return socketcan port status in vendor unified format (with implementation nibble set), from can_netlink.h do not start a new statistics run for that. enum can_state { CAN_STATE_ERROR_ACTIVE = 0, RX/TX error count &lt; 96 CAN_STATE_ERROR_WARNING, RX/TX error count &lt; 128 CAN_STATE_ERROR_PASSIVE, RX/TX error count &lt; 256 CAN_STATE_BUS_OFF, RX/TX error count &gt;= 256 CAN_STATE_STOPPED, Device is stopped CAN_STATE_SLEEPING, Device is sleeping CAN_STATE_MAX };</p>
+<p>update the CAN bus status IFLA from socketcan and make up a CanModule status bitpattern out from this.</p>
+<p>int can_get_restart_ms(const char *name, __u32 *restart_ms); int can_get_bittiming(const char *name, struct can_bittiming *bt); int can_get_ctrlmode(const char *name, struct can_ctrlmode *cm); int can_get_state(const char *name, int *state); int can_get_clock(const char *name, struct can_clock *clock); int can_get_bittiming_const(const char *name, struct can_bittiming_const *btc); int can_get_berr_counter(const char *name, struct can_berr_counter *bc); int can_get_device_stats(const char *name, struct can_device_stats *cds); </p>
 </dd></dl>
 
 </div>
@@ -202,7 +205,7 @@ OPCUA-2604: sendMessage must be non blocking. The reconnection behavior therefor
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-functions">Public Static Functions</p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N9CanModule4Diag15get_connectionsEv">
-<span id="_CPPv3N9CanModule4Diag15get_connectionsEv"></span><span id="_CPPv2N9CanModule4Diag15get_connectionsEv"></span><span id="CanModule::Diag::get_connections"></span><span class="target" id="classCanModule_1_1Diag_1afcea76f7b51b8fa0996b7574abc03c46"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N9CanModule4DiagE" title="CanModule::Diag"><span class="n"><span class="pre">Diag</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">CONNECTION_DIAG_t</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">get_connections</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<span id="_CPPv3N9CanModule4Diag15get_connectionsEv"></span><span id="_CPPv2N9CanModule4Diag15get_connectionsEv"></span><span id="CanModule::Diag::get_connections"></span><span class="target" id="classCanModule_1_1Diag_1ab3c649e5706e62a9552294a68380c520"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N9CanModule4DiagE" title="CanModule::Diag"><span class="n"><span class="pre">Diag</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">CONNECTION_DIAG_t</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">get_connections</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
 <dd><p>gives back a vector filled with connection details, mostly timestamp related the maps are only used as rvalues in a reentrant method: fine without mutex </p>
 </dd></dl>
 
@@ -228,7 +231,7 @@ OPCUA-2604: sendMessage must be non blocking. The reconnection behavior therefor
 
     <div class="footer" role="contentinfo">
         &#169; Copyright 2020, CERN, quasar-team, BE-ICS (Michael Ludwig).
-      Last updated on 04-Mar-2022 16:37:37.
+      Last updated on 12-Aug-2022 11:30:35.
       Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
     </div>
   </body>

@@ -1,0 +1,244 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="Diag_8h" kind="file" language="C++">
+    <compoundname>Diag.h</compoundname>
+    <includes local="no">sys/time.h</includes>
+    <includes local="no">map</includes>
+    <includes local="no">string</includes>
+    <includes local="no">iostream</includes>
+    <includes local="no">mutex</includes>
+    <includes local="no">LogIt.h</includes>
+    <includes refid="CCanAccess_8h" local="no">CCanAccess.h</includes>
+    <includes refid="CanLibLoader_8h" local="no">CanLibLoader.h</includes>
+    <includedby refid="CanLibLoader_8cpp" local="no">CanLibLoader/src/CanLibLoader.cpp</includedby>
+    <includedby refid="Diag_8cpp" local="yes">Diagnostic/src/Diag.cpp</includedby>
+    <incdepgraph>
+      <node id="17">
+        <label>atomic</label>
+      </node>
+      <node id="16">
+        <label>ExportDefinition.h</label>
+        <link refid="ExportDefinition_8h"/>
+      </node>
+      <node id="7">
+        <label>LogIt.h</label>
+      </node>
+      <node id="15">
+        <label>CanStatistics.h</label>
+        <link refid="CanStatistics_8h"/>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>CanLibLoader.h</label>
+        <link refid="CanLibLoader_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>Diagnostic/include/Diag.h</label>
+        <link refid="Diag_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>boost/signals2.hpp</label>
+      </node>
+      <node id="14">
+        <label>CanMessage.h</label>
+        <link refid="CanMessage_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>stdexcept</label>
+      </node>
+      <node id="4">
+        <label>string</label>
+      </node>
+      <node id="21">
+        <label>VERSION.h</label>
+      </node>
+      <node id="3">
+        <label>map</label>
+      </node>
+      <node id="12">
+        <label>boost/bind/bind.hpp</label>
+      </node>
+      <node id="11">
+        <label>condition_variable</label>
+      </node>
+      <node id="19">
+        <label>sstream</label>
+      </node>
+      <node id="2">
+        <label>sys/time.h</label>
+      </node>
+      <node id="5">
+        <label>iostream</label>
+      </node>
+      <node id="6">
+        <label>mutex</label>
+      </node>
+      <node id="9">
+        <label>chrono</label>
+      </node>
+      <node id="10">
+        <label>thread</label>
+      </node>
+      <node id="18">
+        <label>CanModuleUtils.h</label>
+        <link refid="CanModuleUtils_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>CCanAccess.h</label>
+        <link refid="CCanAccess_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1">
+        <label>Diagnostic/include/Diag.h</label>
+        <link refid="Diag_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>CanLibLoader/src/CanLibLoader.cpp</label>
+        <link refid="CanLibLoader_8cpp"/>
+      </node>
+      <node id="3">
+        <label>Diagnostic/src/Diag.cpp</label>
+        <link refid="Diag_8cpp"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classCanModule_1_1Diag" prot="public">CanModule::Diag</innerclass>
+    <innerclass refid="structCanModule_1_1Diag_1_1CONNECTION__DIAG__t" prot="public">CanModule::Diag::CONNECTION_DIAG_t</innerclass>
+    <innernamespace refid="namespaceCanModule">CanModule</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/>*<sp/>Diag.h</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*<sp/><sp/>Created<sp/>on:<sp/>Aug<sp/>25,<sp/>2020</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>Author:<sp/>mludwig</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>CANMODULE_DIAGNOSTIC_DIAG_H_</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CANMODULE_DIAGNOSTIC_DIAG_H_</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>_WIN32</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;sys/time.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;map&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;iostream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;mutex&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;LogIt.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="CCanAccess_8h" kindref="compound">CCanAccess.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="CanLibLoader_8h" kindref="compound">CanLibLoader.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespaceCanModule" kindref="compound">CanModule</ref><sp/>{</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34" refid="classCanModule_1_1Diag" refkind="compound"><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classCanModule_1_1Diag" kindref="compound">Diag</ref><sp/>{</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="36" refid="structCanModule_1_1Diag_1_1CONNECTION__DIAG__t" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="37" refid="structCanModule_1_1Diag_1_1CONNECTION__DIAG__t_1aa5b85c2aa4300d4cd8da18e8b8e32be1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::string<sp/><ref refid="structCanModule_1_1Diag_1_1CONNECTION__DIAG__t_1aa5b85c2aa4300d4cd8da18e8b8e32be1" kindref="member">bus</ref>;</highlight></codeline>
+<codeline lineno="38" refid="structCanModule_1_1Diag_1_1CONNECTION__DIAG__t_1a94f9b3b1352605e99904352667c013c5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::string<sp/><ref refid="structCanModule_1_1Diag_1_1CONNECTION__DIAG__t_1a94f9b3b1352605e99904352667c013c5" kindref="member">lib</ref>;</highlight></codeline>
+<codeline lineno="39" refid="structCanModule_1_1Diag_1_1CONNECTION__DIAG__t_1a2bd7ac2df6af5b06078aa0329db9fd7b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::string<sp/><ref refid="structCanModule_1_1Diag_1_1CONNECTION__DIAG__t_1a2bd7ac2df6af5b06078aa0329db9fd7b" kindref="member">parameter</ref>;</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/><ref refid="structCanModule_1_1Diag_1_1CONNECTION__DIAG__t" kindref="compound">CONNECTION_DIAG_t</ref>;</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classCanModule_1_1Diag_1addd2c4afbe8b21115f487085f3226e8d" kindref="member">insert_maps</ref>(<sp/><ref refid="classCanModule_1_1CanLibLoader" kindref="compound">CanLibLoader</ref><sp/>*lib,<sp/><ref refid="classCanModule_1_1CCanAccess" kindref="compound">CCanAccess</ref><sp/>*acc,<sp/>std::string<sp/>params<sp/>);</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classCanModule_1_1Diag_1aa79c20827b6e33fa35d4106d9aa479b8" kindref="member">delete_maps</ref>(<sp/><ref refid="classCanModule_1_1CanLibLoader" kindref="compound">CanLibLoader</ref><sp/>*lib,<sp/><ref refid="classCanModule_1_1CCanAccess" kindref="compound">CCanAccess</ref><sp/>*acc<sp/>);</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>std::vector&lt;Diag::CONNECTION_DIAG_t&gt;<sp/><ref refid="classCanModule_1_1Diag_1ab3c649e5706e62a9552294a68380c520" kindref="member">get_connections</ref>();</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46" refid="classCanModule_1_1Diag_1a71e31de7bd89a83e624d15a7a4e7a0c9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classCanModule_1_1Diag_1a71e31de7bd89a83e624d15a7a4e7a0c9" kindref="member">CanLibLoader_icount</ref>;</highlight></codeline>
+<codeline lineno="47" refid="classCanModule_1_1Diag_1a1f42c5f2717eb1f36f4f85bb93c5a338" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classCanModule_1_1Diag_1a1f42c5f2717eb1f36f4f85bb93c5a338" kindref="member">CanAccess_icount</ref>;</highlight></codeline>
+<codeline lineno="48" refid="classCanModule_1_1Diag_1acbdf0ac17a375b59f6fb0f41c6fdf22a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>Log::LogComponentHandle<sp/><ref refid="classCanModule_1_1Diag_1acbdf0ac17a375b59f6fb0f41c6fdf22a" kindref="member">lh</ref>;</highlight></codeline>
+<codeline lineno="49" refid="classCanModule_1_1Diag_1a1f761ca050e1c4f3da1f219218c541c9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>std::map&lt;std::string,<sp/>CCanAccess<sp/>*&gt;<sp/><ref refid="classCanModule_1_1Diag_1a1f761ca050e1c4f3da1f219218c541c9" kindref="member">port_map</ref>;</highlight></codeline>
+<codeline lineno="50" refid="classCanModule_1_1Diag_1a2fb2c9c6a0cd7ad1acd2e505ebde3beb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>std::map&lt;std::string,<sp/>CanLibLoader<sp/>*&gt;<sp/><ref refid="classCanModule_1_1Diag_1a2fb2c9c6a0cd7ad1acd2e505ebde3beb" kindref="member">lib_map</ref>;</highlight></codeline>
+<codeline lineno="51" refid="classCanModule_1_1Diag_1aca8bc6fe0248257cbc526f9485c287cb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>std::map&lt;std::string,<sp/>std::string&gt;<sp/><ref refid="classCanModule_1_1Diag_1aca8bc6fe0248257cbc526f9485c287cb" kindref="member">parameter_map</ref>;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCanModule_1_1Diag_1a282a54b7181d085ba0abccca8fcb0874" kindref="member">Diag</ref>();</highlight></codeline>
+<codeline lineno="55" refid="classCanModule_1_1Diag_1a2725bd2ef8f986c94a0f025ac6b95240" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCanModule_1_1Diag_1a2725bd2ef8f986c94a0f025ac6b95240" kindref="member">~Diag</ref>(){};</highlight></codeline>
+<codeline lineno="56"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal">}<sp/></highlight><highlight class="comment">/*<sp/>namespace<sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>CANMODULE_DIAGNOSTIC_DIAG_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="Diagnostic/include/Diag.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,11 @@
+digraph "CanInterface/include" {
+  compound=true
+  node [ fontsize="10", fontname="Helvetica"];
+  edge [ labelfontsize="10", labelfontname="Helvetica"];
+  subgraph clusterdir_1f0e3058fad0934718aa0fd5f744cca0 {
+    graph [ bgcolor="#ddddee", pencolor="black", label="CanInterface" fontname="Helvetica", fontsize="10", URL="dir_1f0e3058fad0934718aa0fd5f744cca0.html"]
+  dir_156b6c9c97209fb6dfbd18b16f86aa71 [shape=box, label="include", style="filled", fillcolor="#eeeeff", pencolor="black", URL="dir_156b6c9c97209fb6dfbd18b16f86aa71.html"];
+  }
+  dir_9c47e0b3b9d011e29e21289b959af4df [shape=box label="CanLibLoader" fillcolor="white" style="filled" color="red" URL="dir_9c47e0b3b9d011e29e21289b959af4df.html"];
+  dir_156b6c9c97209fb6dfbd18b16f86aa71->dir_9c47e0b3b9d011e29e21289b959af4df [headlabel="1", labeldistance=1.5 headhref="dir_000001_000009.html"];
+}
