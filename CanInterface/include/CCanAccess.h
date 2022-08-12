@@ -41,15 +41,6 @@
 #include <CanModuleUtils.h>
 #include <VERSION.h>
 
-#if 0
-using Clock = std::chrono::high_resolution_clock;
-using Micros = std::chrono::microseconds;
-using Ms = std::chrono::milliseconds;
-using Sec = std::chrono::seconds;
-template<class Duration>
-using TimePoint = std::chrono::time_point<Clock, Duration>;
-#endif
-// using FpMicroseconds = std::chrono::duration<float, std::chrono::microseconds::period>;
 
 /*
  * CCanAccess is an abstract class that defines the interface for controlling a canbus. Different implementations for different hardware and platforms should

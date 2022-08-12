@@ -11,16 +11,16 @@
     <link rel="stylesheet" type="text/css" href="../_static/haiku.css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="next" title="AnaGate" href="anagate.html" />
-    <link rel="prev" title="Details on classes" href="../classestracing.html" /> 
+    <link rel="prev" title="Details on classes" href="../classesdetails.html" /> 
   </head><body>
       <div class="header" role="banner"><h1 class="heading"><a href="../index.html">
-          <span>CanModule 2.0.21 documentation</span></a></h1>
+          <span>CanModule 2.0.22 documentation</span></a></h1>
         <h2 class="heading"><span>SysTec</span></h2>
       </div>
       <div class="topnav" role="navigation" aria-label="top navigation">
       
         <p>
-        «&#160;&#160;<a href="../classestracing.html">Details on classes</a>
+        «&#160;&#160;<a href="../classesdetails.html">Details on classes</a>
         &#160;&#160;::&#160;&#160;
         <a class="uplink" href="../index.html">Contents</a>
         &#160;&#160;::&#160;&#160;
@@ -32,15 +32,13 @@
         
         
   <section id="systec">
-<h1><a class="reference internal" href="#systec">SysTec</a></h1>
-<p>All modules from vendor <a class="reference internal" href="#systec">SysTec</a> are handled by class STCanScan (windows) or CSockCanScan (linux) which
+<h1>SysTec</h1>
+<p>All modules from vendor <a href="#id1"><span class="problematic" id="id2">`SysTec`__</span></a> are handled by class STCanScan (windows) or CSockCanScan (linux) which
 manage the modules through their underlying vendor specific API and provide the standard generic CanModule API.
 Here the underlying vendor specific classes and the specific parameters are documented.</p>
 <p>SysTec modules USB-CAN bridges are supported: sysWORXX 1,2,8,16</p>
-<section id="linux">
-<h2>linux</h2>
-<section id="parameters">
-<h3>parameters</h3>
+<section id="linux-parameters">
+<h2>linux-parameters</h2>
 <dl class="cpp class">
 <dt class="sig sig-object cpp">
 <span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CSockCanScan</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">CanModule</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../canports.html#_CPPv4N9CanModule10CCanAccessE" title="CanModule::CCanAccess"><span class="n"><span class="pre">CCanAccess</span></span></a><br /></dt>
@@ -101,11 +99,8 @@ stop, set bitrate, start a CAN port, open a socket for it, set the socket to CAN
 <li><p>“Unspecified” : the socket bitrate is NOT reconfigured , no stop/start sequence on the socket are done</p></li>
 </ul>
 </section>
-</section>
-<section id="windows">
-<h2>windows</h2>
-<section id="id1">
-<h3>parameters</h3>
+<section id="windows-parameters">
+<h2>windows-parameters</h2>
 <dl class="cpp class">
 <dt class="sig sig-object cpp">
 <span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">STCanScan</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">CanModule</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../canports.html#_CPPv4N9CanModule10CCanAccessE" title="CanModule::CCanAccess"><span class="n"><span class="pre">CCanAccess</span></span></a><br /></dt>
@@ -183,11 +178,11 @@ stop, set bitrate, start a CAN port, open a socket for it, set the socket to CAN
 <ul class="simple">
 <li><p>parameters=”p0 p1 p2 p3 p4 p5 p6” i.e. “125000 0 0 0 0 0 5000”</p></li>
 <li><p>ONLY p0 = bitrate or “baudrate” is used.</p></li>
-<li><p>“Unspecified” : the module bitrate 125000 is used as default when calling openCanBoard(). The init parameters are quite involved abut only the bitrate is relevant.</p></li>
+<li><p>“Unspecified” : the module bitrate 125000 is used as default when calling openCanBoard(). The init parameters are quite involved but only the bitrate is relevant.</p></li>
 </ul>
 </section>
 <section id="status">
-<h3>status</h3>
+<h2>status</h2>
 <p>status information is propagated through the unified status.
 For windows:</p>
 <dl class="cpp class">
@@ -224,7 +219,7 @@ For windows:</p>
 
 </section>
 <section id="errors">
-<h3>errors</h3>
+<h2>errors</h2>
 <p>Errors and problems are available through two mechanisms:</p>
 <ul class="simple">
 <li><p>LogIt. This reports runtime errors detected by CanModule:
@@ -253,14 +248,13 @@ set the LogIt trace level to TRC and grep for “systec”, for component “Can
 * the error message from the ioctl call is returned, unfortunately it is rather unspecific.</p>
 </section>
 </section>
-</section>
 
 
       </div>
       <div class="bottomnav" role="navigation" aria-label="bottom navigation">
       
         <p>
-        «&#160;&#160;<a href="../classestracing.html">Details on classes</a>
+        «&#160;&#160;<a href="../classesdetails.html">Details on classes</a>
         &#160;&#160;::&#160;&#160;
         <a class="uplink" href="../index.html">Contents</a>
         &#160;&#160;::&#160;&#160;
@@ -271,7 +265,7 @@ set the LogIt trace level to TRC and grep for “systec”, for component “Can
 
     <div class="footer" role="contentinfo">
         &#169; Copyright 2020, CERN, quasar-team, BE-ICS (Michael Ludwig).
-      Last updated on 12-Aug-2022 11:30:35.
+      Last updated on 12-Aug-2022 13:35:11.
       Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
     </div>
   </body>

@@ -9,8 +9,9 @@ CanModule reference documentation
    downloading
    objective
    standardApi
+   standardApiList
    canports
-   classestracing
+   classesdetails
    vendors/systec
    vendors/anagate
    vendors/peak

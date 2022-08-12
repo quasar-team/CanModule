@@ -61,7 +61,7 @@
 
 \title{CanModule Developer Documentation}
 \date{August 12, 2022}
-\release{2.0.21}
+\release{2.0.22}
 \author{Michael Ludwig}
 \newcommand{\sphinxlogo}{\vbox{}}
 \renewcommand{\releasename}{Release}
@@ -293,6 +293,17 @@ you can take a look at {\color{red}\bfseries{}\textasciigrave{}CANX\textasciigra
 \end{itemize}
 
 
+\chapter{standard API list}
+\label{\detokenize{standardApiList:standard-api-list}}\label{\detokenize{standardApiList::doc}}
+\sphinxAtStartPar
+This is the complete list of methods and classes of the public API of CanModule:
+
+\begin{sphinxadmonition}{warning}{Warning:}
+\sphinxAtStartPar
+doxygenclass: Cannot find class “CCanAccess” in doxygen xml output for project “CanModule” from directory: ./doxygen\sphinxhyphen{}result/xml
+\end{sphinxadmonition}
+
+
 \chapter{CAN ports}
 \label{\detokenize{canports:can-ports}}\label{\detokenize{canports::doc}}
 
@@ -305,7 +316,7 @@ you can take a look at {\color{red}\bfseries{}\textasciigrave{}CANX\textasciigra
 \pysigline{\phantomsection\label{\detokenize{canports:classCanModule_1_1CCanAccess}}\DUrole{k}{class}\DUrole{w}{  }\sphinxcode{\sphinxupquote{\DUrole{n}{CanModule}\DUrole{p}{::}}}\sphinxbfcode{\sphinxupquote{\DUrole{n}{CCanAccess}}}}%
 \pysigstopmultiline
 \sphinxAtStartPar
-Subclassed by {\hyperref[\detokenize{classestracing:classAnaCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{AnaCanScan}}}}, {\hyperref[\detokenize{vendors/systec:classCSockCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{CSockCanScan}}}}, MockCanAccess, {\hyperref[\detokenize{vendors/peak:classPKCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{PKCanScan}}}}, {\hyperref[\detokenize{classestracing:classSTCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{STCanScan}}}}
+Subclassed by {\hyperref[\detokenize{classesdetails:classAnaCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{AnaCanScan}}}}, {\hyperref[\detokenize{vendors/systec:classCSockCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{CSockCanScan}}}}, MockCanAccess, {\hyperref[\detokenize{vendors/peak:classPKCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{PKCanScan}}}}, {\hyperref[\detokenize{classesdetails:classSTCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{STCanScan}}}}
 
 \begin{sphinxuseclass}{breathe-sectiondef}\subsubsection*{Public Functions}
 \index{CanModule::CCanAccess::getPortBitrate (C++ function)@\spxentry{CanModule::CCanAccess::getPortBitrate}\spxextra{C++ function}}
@@ -350,7 +361,7 @@ a 32\sphinxhyphen{}bit pattern, with
 \pysigline{\phantomsection\label{\detokenize{canports:classCanModule_1_1CCanAccess}}\DUrole{k}{class}\DUrole{w}{  }\sphinxcode{\sphinxupquote{\DUrole{n}{CanModule}\DUrole{p}{::}}}\sphinxbfcode{\sphinxupquote{\DUrole{n}{CCanAccess}}}}%
 \pysigstopmultiline
 \sphinxAtStartPar
-Subclassed by {\hyperref[\detokenize{classestracing:classAnaCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{AnaCanScan}}}}, {\hyperref[\detokenize{vendors/systec:classCSockCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{CSockCanScan}}}}, MockCanAccess, {\hyperref[\detokenize{vendors/peak:classPKCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{PKCanScan}}}}, {\hyperref[\detokenize{classestracing:classSTCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{STCanScan}}}}
+Subclassed by {\hyperref[\detokenize{classesdetails:classAnaCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{AnaCanScan}}}}, {\hyperref[\detokenize{vendors/systec:classCSockCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{CSockCanScan}}}}, MockCanAccess, {\hyperref[\detokenize{vendors/peak:classPKCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{PKCanScan}}}}, {\hyperref[\detokenize{classesdetails:classSTCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{STCanScan}}}}
 
 \begin{sphinxuseclass}{breathe-sectiondef}\subsubsection*{Public Functions}
 \index{CanModule::CCanAccess::getPortStatus (C++ function)@\spxentry{CanModule::CCanAccess::getPortStatus}\spxextra{C++ function}}
@@ -709,14 +720,14 @@ The \sphinxstylestrong{access to a CAN port} is through:
 \pysigline{\phantomsection\label{\detokenize{canports:classCanModule_1_1CCanAccess}}\DUrole{k}{class}\DUrole{w}{  }\sphinxbfcode{\sphinxupquote{\DUrole{n}{CCanAccess}}}}%
 \pysigstopmultiline
 \sphinxAtStartPar
-Subclassed by {\hyperref[\detokenize{classestracing:classAnaCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{AnaCanScan}}}}, {\hyperref[\detokenize{vendors/systec:classCSockCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{CSockCanScan}}}}, MockCanAccess, {\hyperref[\detokenize{vendors/peak:classPKCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{PKCanScan}}}}, {\hyperref[\detokenize{classestracing:classSTCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{STCanScan}}}}
+Subclassed by {\hyperref[\detokenize{classesdetails:classAnaCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{AnaCanScan}}}}, {\hyperref[\detokenize{vendors/systec:classCSockCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{CSockCanScan}}}}, MockCanAccess, {\hyperref[\detokenize{vendors/peak:classPKCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{PKCanScan}}}}, {\hyperref[\detokenize{classesdetails:classSTCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{STCanScan}}}}
 
 \end{fulllineitems}
 
 
 
 \chapter{Details on classes}
-\label{\detokenize{classestracing:details-on-classes}}\label{\detokenize{classestracing::doc}}\begin{itemize}
+\label{\detokenize{classesdetails:details-on-classes}}\label{\detokenize{classesdetails::doc}}\begin{itemize}
 \item {} 
 \sphinxAtStartPar
 An \sphinxstylestrong{implementation is chosen} and specific details are then taken care of by loading any further dependencies:
@@ -725,30 +736,30 @@ An \sphinxstylestrong{implementation is chosen} and specific details are then ta
 \index{CanModule::CanLibLoader (C++ class)@\spxentry{CanModule::CanLibLoader}\spxextra{C++ class}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{classestracing:_CPPv4N9CanModule12CanLibLoaderE}}%
+\phantomsection\label{\detokenize{classesdetails:_CPPv4N9CanModule12CanLibLoaderE}}%
 \pysigstartmultiline
-\pysigline{\phantomsection\label{\detokenize{classestracing:classCanModule_1_1CanLibLoader}}\DUrole{k}{class}\DUrole{w}{  }\sphinxbfcode{\sphinxupquote{\DUrole{n}{CanLibLoader}}}}%
+\pysigline{\phantomsection\label{\detokenize{classesdetails:classCanModule_1_1CanLibLoader}}\DUrole{k}{class}\DUrole{w}{  }\sphinxbfcode{\sphinxupquote{\DUrole{n}{CanLibLoader}}}}%
 \pysigstopmultiline
 \sphinxAtStartPar
-Subclassed by {\hyperref[\detokenize{classestracing:classCanModule_1_1CanLibLoaderLin}]{\sphinxcrossref{\DUrole{std,std-ref}{CanModule::CanLibLoaderLin}}}}, {\hyperref[\detokenize{classestracing:classCanModule_1_1CanLibLoaderWin}]{\sphinxcrossref{\DUrole{std,std-ref}{CanModule::CanLibLoaderWin}}}}
+Subclassed by {\hyperref[\detokenize{classesdetails:classCanModule_1_1CanLibLoaderLin}]{\sphinxcrossref{\DUrole{std,std-ref}{CanModule::CanLibLoaderLin}}}}, {\hyperref[\detokenize{classesdetails:classCanModule_1_1CanLibLoaderWin}]{\sphinxcrossref{\DUrole{std,std-ref}{CanModule::CanLibLoaderWin}}}}
 
 \end{fulllineitems}
 
 \index{CanModule::CanLibLoaderLin (C++ class)@\spxentry{CanModule::CanLibLoaderLin}\spxextra{C++ class}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{classestracing:_CPPv4N9CanModule15CanLibLoaderLinE}}%
+\phantomsection\label{\detokenize{classesdetails:_CPPv4N9CanModule15CanLibLoaderLinE}}%
 \pysigstartmultiline
-\pysigline{\phantomsection\label{\detokenize{classestracing:classCanModule_1_1CanLibLoaderLin}}\DUrole{k}{class}\DUrole{w}{  }\sphinxbfcode{\sphinxupquote{\DUrole{n}{CanLibLoaderLin}}}\DUrole{w}{  }\DUrole{p}{:}\DUrole{w}{  }\DUrole{k}{public}\DUrole{w}{  }\DUrole{n}{CanModule}\DUrole{p}{::}{\hyperref[\detokenize{classestracing:_CPPv4N9CanModule12CanLibLoaderE}]{\sphinxcrossref{\DUrole{n}{CanLibLoader}}}}}%
+\pysigline{\phantomsection\label{\detokenize{classesdetails:classCanModule_1_1CanLibLoaderLin}}\DUrole{k}{class}\DUrole{w}{  }\sphinxbfcode{\sphinxupquote{\DUrole{n}{CanLibLoaderLin}}}\DUrole{w}{  }\DUrole{p}{:}\DUrole{w}{  }\DUrole{k}{public}\DUrole{w}{  }\DUrole{n}{CanModule}\DUrole{p}{::}{\hyperref[\detokenize{classesdetails:_CPPv4N9CanModule12CanLibLoaderE}]{\sphinxcrossref{\DUrole{n}{CanLibLoader}}}}}%
 \pysigstopmultiline
 \end{fulllineitems}
 
 \index{CanModule::CanLibLoaderWin (C++ class)@\spxentry{CanModule::CanLibLoaderWin}\spxextra{C++ class}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{classestracing:_CPPv4N9CanModule15CanLibLoaderWinE}}%
+\phantomsection\label{\detokenize{classesdetails:_CPPv4N9CanModule15CanLibLoaderWinE}}%
 \pysigstartmultiline
-\pysigline{\phantomsection\label{\detokenize{classestracing:classCanModule_1_1CanLibLoaderWin}}\DUrole{k}{class}\DUrole{w}{  }\sphinxbfcode{\sphinxupquote{\DUrole{n}{CanLibLoaderWin}}}\DUrole{w}{  }\DUrole{p}{:}\DUrole{w}{  }\DUrole{k}{public}\DUrole{w}{  }\DUrole{n}{CanModule}\DUrole{p}{::}{\hyperref[\detokenize{classestracing:_CPPv4N9CanModule12CanLibLoaderE}]{\sphinxcrossref{\DUrole{n}{CanLibLoader}}}}}%
+\pysigline{\phantomsection\label{\detokenize{classesdetails:classCanModule_1_1CanLibLoaderWin}}\DUrole{k}{class}\DUrole{w}{  }\sphinxbfcode{\sphinxupquote{\DUrole{n}{CanLibLoaderWin}}}\DUrole{w}{  }\DUrole{p}{:}\DUrole{w}{  }\DUrole{k}{public}\DUrole{w}{  }\DUrole{n}{CanModule}\DUrole{p}{::}{\hyperref[\detokenize{classesdetails:_CPPv4N9CanModule12CanLibLoaderE}]{\sphinxcrossref{\DUrole{n}{CanLibLoader}}}}}%
 \pysigstopmultiline
 \end{fulllineitems}
 
@@ -761,21 +772,21 @@ Connection/access details to the \sphinxstylestrong{different implementations/ve
 \index{CanModule::CCanAccess (C++ class)@\spxentry{CanModule::CCanAccess}\spxextra{C++ class}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{classestracing:_CPPv4N9CanModule10CCanAccessE}}%
+\phantomsection\label{\detokenize{classesdetails:_CPPv4N9CanModule10CCanAccessE}}%
 \pysigstartmultiline
-\pysigline{\phantomsection\label{\detokenize{classestracing:classCanModule_1_1CCanAccess}}\DUrole{k}{class}\DUrole{w}{  }\sphinxbfcode{\sphinxupquote{\DUrole{n}{CCanAccess}}}}%
+\pysigline{\phantomsection\label{\detokenize{classesdetails:classCanModule_1_1CCanAccess}}\DUrole{k}{class}\DUrole{w}{  }\sphinxbfcode{\sphinxupquote{\DUrole{n}{CCanAccess}}}}%
 \pysigstopmultiline
 \sphinxAtStartPar
-Subclassed by {\hyperref[\detokenize{classestracing:classAnaCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{AnaCanScan}}}}, {\hyperref[\detokenize{vendors/systec:classCSockCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{CSockCanScan}}}}, MockCanAccess, {\hyperref[\detokenize{vendors/peak:classPKCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{PKCanScan}}}}, {\hyperref[\detokenize{classestracing:classSTCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{STCanScan}}}}
+Subclassed by {\hyperref[\detokenize{classesdetails:classAnaCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{AnaCanScan}}}}, {\hyperref[\detokenize{vendors/systec:classCSockCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{CSockCanScan}}}}, MockCanAccess, {\hyperref[\detokenize{vendors/peak:classPKCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{PKCanScan}}}}, {\hyperref[\detokenize{classesdetails:classSTCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{STCanScan}}}}
 
 \end{fulllineitems}
 
 \index{AnaCanScan (C++ class)@\spxentry{AnaCanScan}\spxextra{C++ class}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{classestracing:_CPPv410AnaCanScan}}%
+\phantomsection\label{\detokenize{classesdetails:_CPPv410AnaCanScan}}%
 \pysigstartmultiline
-\pysigline{\phantomsection\label{\detokenize{classestracing:classAnaCanScan}}\DUrole{k}{class}\DUrole{w}{  }\sphinxbfcode{\sphinxupquote{\DUrole{n}{AnaCanScan}}}\DUrole{w}{  }\DUrole{p}{:}\DUrole{w}{  }\DUrole{k}{public}\DUrole{w}{  }\DUrole{n}{CanModule}\DUrole{p}{::}{\hyperref[\detokenize{canports:_CPPv4N9CanModule10CCanAccessE}]{\sphinxcrossref{\DUrole{n}{CCanAccess}}}}}%
+\pysigline{\phantomsection\label{\detokenize{classesdetails:classAnaCanScan}}\DUrole{k}{class}\DUrole{w}{  }\sphinxbfcode{\sphinxupquote{\DUrole{n}{AnaCanScan}}}\DUrole{w}{  }\DUrole{p}{:}\DUrole{w}{  }\DUrole{k}{public}\DUrole{w}{  }\DUrole{n}{CanModule}\DUrole{p}{::}{\hyperref[\detokenize{canports:_CPPv4N9CanModule10CCanAccessE}]{\sphinxcrossref{\DUrole{n}{CCanAccess}}}}}%
 \pysigstopmultiline
 \sphinxAtStartPar
 one CAN port on an anagate bridge, an anagate bridge is an ip number. There are (physical) bridges with several ip numbers: we treat them as separated modules. 
@@ -784,9 +795,9 @@ one CAN port on an anagate bridge, an anagate bridge is an ip number. There are 
 \index{AnaCanScan::sendMessage (C++ function)@\spxentry{AnaCanScan::sendMessage}\spxextra{C++ function}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{classestracing:_CPPv4N10AnaCanScan11sendMessageEshPhb}}%
+\phantomsection\label{\detokenize{classesdetails:_CPPv4N10AnaCanScan11sendMessageEshPhb}}%
 \pysigstartmultiline
-\pysiglinewithargsret{\phantomsection\label{\detokenize{classestracing:classAnaCanScan_1ad45666454318c891d7acd9fe16ae4c49}}\DUrole{k}{virtual}\DUrole{w}{  }\DUrole{kt}{bool}\DUrole{w}{  }\sphinxbfcode{\sphinxupquote{\DUrole{n}{sendMessage}}}}{\DUrole{kt}{short}\DUrole{w}{  }\DUrole{n,sig-param}{cobID}, \DUrole{kt}{unsigned}\DUrole{w}{  }\DUrole{kt}{char}\DUrole{w}{  }\DUrole{n,sig-param}{len}, \DUrole{kt}{unsigned}\DUrole{w}{  }\DUrole{kt}{char}\DUrole{w}{  }\DUrole{p}{*}\DUrole{n,sig-param}{message}, \DUrole{kt}{bool}\DUrole{w}{  }\DUrole{n,sig-param}{rtr}\DUrole{w}{  }\DUrole{p}{=}\DUrole{w}{  }\DUrole{k}{false}}{}%
+\pysiglinewithargsret{\phantomsection\label{\detokenize{classesdetails:classAnaCanScan_1ad45666454318c891d7acd9fe16ae4c49}}\DUrole{k}{virtual}\DUrole{w}{  }\DUrole{kt}{bool}\DUrole{w}{  }\sphinxbfcode{\sphinxupquote{\DUrole{n}{sendMessage}}}}{\DUrole{kt}{short}\DUrole{w}{  }\DUrole{n,sig-param}{cobID}, \DUrole{kt}{unsigned}\DUrole{w}{  }\DUrole{kt}{char}\DUrole{w}{  }\DUrole{n,sig-param}{len}, \DUrole{kt}{unsigned}\DUrole{w}{  }\DUrole{kt}{char}\DUrole{w}{  }\DUrole{p}{*}\DUrole{n,sig-param}{message}, \DUrole{kt}{bool}\DUrole{w}{  }\DUrole{n,sig-param}{rtr}\DUrole{w}{  }\DUrole{p}{=}\DUrole{w}{  }\DUrole{k}{false}}{}%
 \pysigstopmultiline
 \sphinxAtStartPar
 send a CAN message frame (8 byte) for anagate Method that sends a message through the can bus channel. If the method createBus was not called before this, sendMessage will fail, as there is no can bus channel to send a message trough. 
@@ -821,9 +832,9 @@ Was the sending process successful?
 \index{AnaCanScan::getPortStatus (C++ function)@\spxentry{AnaCanScan::getPortStatus}\spxextra{C++ function}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{classestracing:_CPPv4N10AnaCanScan13getPortStatusEv}}%
+\phantomsection\label{\detokenize{classesdetails:_CPPv4N10AnaCanScan13getPortStatusEv}}%
 \pysigstartmultiline
-\pysiglinewithargsret{\phantomsection\label{\detokenize{classestracing:classAnaCanScan_1a4c115df4a8755c0fd70030ae457af24c}}\DUrole{k}{virtual}\DUrole{w}{  }\DUrole{n}{uint32\_t}\DUrole{w}{  }\sphinxbfcode{\sphinxupquote{\DUrole{n}{getPortStatus}}}}{}{}%
+\pysiglinewithargsret{\phantomsection\label{\detokenize{classesdetails:classAnaCanScan_1a4c115df4a8755c0fd70030ae457af24c}}\DUrole{k}{virtual}\DUrole{w}{  }\DUrole{n}{uint32\_t}\DUrole{w}{  }\sphinxbfcode{\sphinxupquote{\DUrole{n}{getPortStatus}}}}{}{}%
 \pysigstopmultiline
 \sphinxAtStartPar
 CANCanDeviceConnectState , translate from counter 1 = DISCONNECTED : 2 = CONNECTING : 3 = CONNECTED 4 = DISCONNECTING 5 = NOT\_INITIALIZED b3…b27: unused
@@ -840,17 +851,17 @@ into simple bitpattern (counter) 0, 10, 11, 100, 101
 \index{CSockCanScan (C++ class)@\spxentry{CSockCanScan}\spxextra{C++ class}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{classestracing:_CPPv412CSockCanScan}}%
+\phantomsection\label{\detokenize{classesdetails:_CPPv412CSockCanScan}}%
 \pysigstartmultiline
-\pysigline{\phantomsection\label{\detokenize{classestracing:classCSockCanScan}}\DUrole{k}{class}\DUrole{w}{  }\sphinxbfcode{\sphinxupquote{\DUrole{n}{CSockCanScan}}}\DUrole{w}{  }\DUrole{p}{:}\DUrole{w}{  }\DUrole{k}{public}\DUrole{w}{  }\DUrole{n}{CanModule}\DUrole{p}{::}{\hyperref[\detokenize{canports:_CPPv4N9CanModule10CCanAccessE}]{\sphinxcrossref{\DUrole{n}{CCanAccess}}}}}%
+\pysigline{\phantomsection\label{\detokenize{classesdetails:classCSockCanScan}}\DUrole{k}{class}\DUrole{w}{  }\sphinxbfcode{\sphinxupquote{\DUrole{n}{CSockCanScan}}}\DUrole{w}{  }\DUrole{p}{:}\DUrole{w}{  }\DUrole{k}{public}\DUrole{w}{  }\DUrole{n}{CanModule}\DUrole{p}{::}{\hyperref[\detokenize{canports:_CPPv4N9CanModule10CCanAccessE}]{\sphinxcrossref{\DUrole{n}{CCanAccess}}}}}%
 \pysigstopmultiline
 \begin{sphinxuseclass}{breathe-sectiondef}\subsubsection*{Public Functions}
 \index{CSockCanScan::sendMessage (C++ function)@\spxentry{CSockCanScan::sendMessage}\spxextra{C++ function}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{classestracing:_CPPv4N12CSockCanScan11sendMessageEshPhb}}%
+\phantomsection\label{\detokenize{classesdetails:_CPPv4N12CSockCanScan11sendMessageEshPhb}}%
 \pysigstartmultiline
-\pysiglinewithargsret{\phantomsection\label{\detokenize{classestracing:classCSockCanScan_1a485ec8621a98cdacad8e27433e09d919}}\DUrole{k}{virtual}\DUrole{w}{  }\DUrole{kt}{bool}\DUrole{w}{  }\sphinxbfcode{\sphinxupquote{\DUrole{n}{sendMessage}}}}{\DUrole{kt}{short}\DUrole{w}{  }\DUrole{n,sig-param}{cobID}, \DUrole{kt}{unsigned}\DUrole{w}{  }\DUrole{kt}{char}\DUrole{w}{  }\DUrole{n,sig-param}{len}, \DUrole{kt}{unsigned}\DUrole{w}{  }\DUrole{kt}{char}\DUrole{w}{  }\DUrole{p}{*}\DUrole{n,sig-param}{message}, \DUrole{kt}{bool}\DUrole{w}{  }\DUrole{n,sig-param}{rtr}\DUrole{w}{  }\DUrole{p}{=}\DUrole{w}{  }\DUrole{k}{false}}{}%
+\pysiglinewithargsret{\phantomsection\label{\detokenize{classesdetails:classCSockCanScan_1a485ec8621a98cdacad8e27433e09d919}}\DUrole{k}{virtual}\DUrole{w}{  }\DUrole{kt}{bool}\DUrole{w}{  }\sphinxbfcode{\sphinxupquote{\DUrole{n}{sendMessage}}}}{\DUrole{kt}{short}\DUrole{w}{  }\DUrole{n,sig-param}{cobID}, \DUrole{kt}{unsigned}\DUrole{w}{  }\DUrole{kt}{char}\DUrole{w}{  }\DUrole{n,sig-param}{len}, \DUrole{kt}{unsigned}\DUrole{w}{  }\DUrole{kt}{char}\DUrole{w}{  }\DUrole{p}{*}\DUrole{n,sig-param}{message}, \DUrole{kt}{bool}\DUrole{w}{  }\DUrole{n,sig-param}{rtr}\DUrole{w}{  }\DUrole{p}{=}\DUrole{w}{  }\DUrole{k}{false}}{}%
 \pysigstopmultiline
 \sphinxAtStartPar
 Method that sends a message trough the can bus channel. If the method createBUS was not called before this, sendMessage will fail, as there is no can bus channel to send a message through.
@@ -892,9 +903,9 @@ Was the initialisation process successful?
 \index{CSockCanScan::getPortStatus (C++ function)@\spxentry{CSockCanScan::getPortStatus}\spxextra{C++ function}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{classestracing:_CPPv4N12CSockCanScan13getPortStatusEv}}%
+\phantomsection\label{\detokenize{classesdetails:_CPPv4N12CSockCanScan13getPortStatusEv}}%
 \pysigstartmultiline
-\pysiglinewithargsret{\phantomsection\label{\detokenize{classestracing:classCSockCanScan_1ad1caa327a98bc30012d2c5010a98cb05}}\DUrole{k}{inline}\DUrole{w}{  }\DUrole{k}{virtual}\DUrole{w}{  }\DUrole{n}{uint32\_t}\DUrole{w}{  }\sphinxbfcode{\sphinxupquote{\DUrole{n}{getPortStatus}}}}{}{}%
+\pysiglinewithargsret{\phantomsection\label{\detokenize{classesdetails:classCSockCanScan_1ad1caa327a98bc30012d2c5010a98cb05}}\DUrole{k}{inline}\DUrole{w}{  }\DUrole{k}{virtual}\DUrole{w}{  }\DUrole{n}{uint32\_t}\DUrole{w}{  }\sphinxbfcode{\sphinxupquote{\DUrole{n}{getPortStatus}}}}{}{}%
 \pysigstopmultiline
 \sphinxAtStartPar
 return socketcan port status in vendor unified format (with implementation nibble set), from can\_netlink.h do not start a new statistics run for that. enum can\_state \{ CAN\_STATE\_ERROR\_ACTIVE = 0, RX/TX error count \textless{} 96 CAN\_STATE\_ERROR\_WARNING, RX/TX error count \textless{} 128 CAN\_STATE\_ERROR\_PASSIVE, RX/TX error count \textless{} 256 CAN\_STATE\_BUS\_OFF, RX/TX error count \textgreater{}= 256 CAN\_STATE\_STOPPED, Device is stopped CAN\_STATE\_SLEEPING, Device is sleeping CAN\_STATE\_MAX \};
@@ -914,17 +925,17 @@ int can\_get\_restart\_ms(const char *name, \_\_u32 *restart\_ms); int can\_get\
 \index{PKCanScan (C++ class)@\spxentry{PKCanScan}\spxextra{C++ class}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{classestracing:_CPPv49PKCanScan}}%
+\phantomsection\label{\detokenize{classesdetails:_CPPv49PKCanScan}}%
 \pysigstartmultiline
-\pysigline{\phantomsection\label{\detokenize{classestracing:classPKCanScan}}\DUrole{k}{class}\DUrole{w}{  }\sphinxbfcode{\sphinxupquote{\DUrole{n}{PKCanScan}}}\DUrole{w}{  }\DUrole{p}{:}\DUrole{w}{  }\DUrole{k}{public}\DUrole{w}{  }\DUrole{n}{CanModule}\DUrole{p}{::}{\hyperref[\detokenize{canports:_CPPv4N9CanModule10CCanAccessE}]{\sphinxcrossref{\DUrole{n}{CCanAccess}}}}}%
+\pysigline{\phantomsection\label{\detokenize{classesdetails:classPKCanScan}}\DUrole{k}{class}\DUrole{w}{  }\sphinxbfcode{\sphinxupquote{\DUrole{n}{PKCanScan}}}\DUrole{w}{  }\DUrole{p}{:}\DUrole{w}{  }\DUrole{k}{public}\DUrole{w}{  }\DUrole{n}{CanModule}\DUrole{p}{::}{\hyperref[\detokenize{canports:_CPPv4N9CanModule10CCanAccessE}]{\sphinxcrossref{\DUrole{n}{CCanAccess}}}}}%
 \pysigstopmultiline
 \begin{sphinxuseclass}{breathe-sectiondef}\subsubsection*{Public Functions}
 \index{PKCanScan::sendMessage (C++ function)@\spxentry{PKCanScan::sendMessage}\spxextra{C++ function}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{classestracing:_CPPv4N9PKCanScan11sendMessageEshPhb}}%
+\phantomsection\label{\detokenize{classesdetails:_CPPv4N9PKCanScan11sendMessageEshPhb}}%
 \pysigstartmultiline
-\pysiglinewithargsret{\phantomsection\label{\detokenize{classestracing:classPKCanScan_1a48a2e9ba00dae1b1fe01f7b095430503}}\DUrole{k}{virtual}\DUrole{w}{  }\DUrole{kt}{bool}\DUrole{w}{  }\sphinxbfcode{\sphinxupquote{\DUrole{n}{sendMessage}}}}{\DUrole{kt}{short}\DUrole{w}{  }\DUrole{n,sig-param}{cobID}, \DUrole{kt}{unsigned}\DUrole{w}{  }\DUrole{kt}{char}\DUrole{w}{  }\DUrole{n,sig-param}{len}, \DUrole{kt}{unsigned}\DUrole{w}{  }\DUrole{kt}{char}\DUrole{w}{  }\DUrole{p}{*}\DUrole{n,sig-param}{message}, \DUrole{kt}{bool}\DUrole{w}{  }\DUrole{n,sig-param}{rtr}\DUrole{w}{  }\DUrole{p}{=}\DUrole{w}{  }\DUrole{k}{false}}{}%
+\pysiglinewithargsret{\phantomsection\label{\detokenize{classesdetails:classPKCanScan_1a48a2e9ba00dae1b1fe01f7b095430503}}\DUrole{k}{virtual}\DUrole{w}{  }\DUrole{kt}{bool}\DUrole{w}{  }\sphinxbfcode{\sphinxupquote{\DUrole{n}{sendMessage}}}}{\DUrole{kt}{short}\DUrole{w}{  }\DUrole{n,sig-param}{cobID}, \DUrole{kt}{unsigned}\DUrole{w}{  }\DUrole{kt}{char}\DUrole{w}{  }\DUrole{n,sig-param}{len}, \DUrole{kt}{unsigned}\DUrole{w}{  }\DUrole{kt}{char}\DUrole{w}{  }\DUrole{p}{*}\DUrole{n,sig-param}{message}, \DUrole{kt}{bool}\DUrole{w}{  }\DUrole{n,sig-param}{rtr}\DUrole{w}{  }\DUrole{p}{=}\DUrole{w}{  }\DUrole{k}{false}}{}%
 \pysigstopmultiline
 \sphinxAtStartPar
 method to send a CAN message to the peak module. we use the standard API “PCAN\sphinxhyphen{}Basic” for this for windows and we talk only over USB to fixed bitrate modules. The flexible bitrate (FD) modules can be implemented later as well: for this we need more parameters to pass and a switch between CAN\_Write and CAN\_WriteFD. 
@@ -934,9 +945,9 @@ method to send a CAN message to the peak module. we use the standard API “PCAN
 \index{PKCanScan::getPortStatus (C++ function)@\spxentry{PKCanScan::getPortStatus}\spxextra{C++ function}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{classestracing:_CPPv4N9PKCanScan13getPortStatusEv}}%
+\phantomsection\label{\detokenize{classesdetails:_CPPv4N9PKCanScan13getPortStatusEv}}%
 \pysigstartmultiline
-\pysiglinewithargsret{\phantomsection\label{\detokenize{classestracing:classPKCanScan_1aae31de6a82fcacc8ef3f581aff5305fc}}\DUrole{k}{virtual}\DUrole{w}{  }\DUrole{n}{uint32\_t}\DUrole{w}{  }\sphinxbfcode{\sphinxupquote{\DUrole{n}{getPortStatus}}}}{}{}%
+\pysiglinewithargsret{\phantomsection\label{\detokenize{classesdetails:classPKCanScan_1aae31de6a82fcacc8ef3f581aff5305fc}}\DUrole{k}{virtual}\DUrole{w}{  }\DUrole{n}{uint32\_t}\DUrole{w}{  }\sphinxbfcode{\sphinxupquote{\DUrole{n}{getPortStatus}}}}{}{}%
 \pysigstopmultiline
 \sphinxAtStartPar
 PCANBasic.h:113 
@@ -950,17 +961,17 @@ PCANBasic.h:113
 \index{STCanScan (C++ class)@\spxentry{STCanScan}\spxextra{C++ class}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{classestracing:_CPPv49STCanScan}}%
+\phantomsection\label{\detokenize{classesdetails:_CPPv49STCanScan}}%
 \pysigstartmultiline
-\pysigline{\phantomsection\label{\detokenize{classestracing:classSTCanScan}}\DUrole{k}{class}\DUrole{w}{  }\sphinxbfcode{\sphinxupquote{\DUrole{n}{STCanScan}}}\DUrole{w}{  }\DUrole{p}{:}\DUrole{w}{  }\DUrole{k}{public}\DUrole{w}{  }\DUrole{n}{CanModule}\DUrole{p}{::}{\hyperref[\detokenize{canports:_CPPv4N9CanModule10CCanAccessE}]{\sphinxcrossref{\DUrole{n}{CCanAccess}}}}}%
+\pysigline{\phantomsection\label{\detokenize{classesdetails:classSTCanScan}}\DUrole{k}{class}\DUrole{w}{  }\sphinxbfcode{\sphinxupquote{\DUrole{n}{STCanScan}}}\DUrole{w}{  }\DUrole{p}{:}\DUrole{w}{  }\DUrole{k}{public}\DUrole{w}{  }\DUrole{n}{CanModule}\DUrole{p}{::}{\hyperref[\detokenize{canports:_CPPv4N9CanModule10CCanAccessE}]{\sphinxcrossref{\DUrole{n}{CCanAccess}}}}}%
 \pysigstopmultiline
 \begin{sphinxuseclass}{breathe-sectiondef}\subsubsection*{Public Functions}
 \index{STCanScan::sendMessage (C++ function)@\spxentry{STCanScan::sendMessage}\spxextra{C++ function}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{classestracing:_CPPv4N9STCanScan11sendMessageEshPhb}}%
+\phantomsection\label{\detokenize{classesdetails:_CPPv4N9STCanScan11sendMessageEshPhb}}%
 \pysigstartmultiline
-\pysiglinewithargsret{\phantomsection\label{\detokenize{classestracing:classSTCanScan_1a45f0ec011022bf58a23e8370bac7f829}}\DUrole{k}{virtual}\DUrole{w}{  }\DUrole{kt}{bool}\DUrole{w}{  }\sphinxbfcode{\sphinxupquote{\DUrole{n}{sendMessage}}}}{\DUrole{kt}{short}\DUrole{w}{  }\DUrole{n,sig-param}{cobID}, \DUrole{kt}{unsigned}\DUrole{w}{  }\DUrole{kt}{char}\DUrole{w}{  }\DUrole{n,sig-param}{len}, \DUrole{kt}{unsigned}\DUrole{w}{  }\DUrole{kt}{char}\DUrole{w}{  }\DUrole{p}{*}\DUrole{n,sig-param}{message}, \DUrole{kt}{bool}\DUrole{w}{  }\DUrole{n,sig-param}{rtr}\DUrole{w}{  }\DUrole{p}{=}\DUrole{w}{  }\DUrole{k}{false}}{}%
+\pysiglinewithargsret{\phantomsection\label{\detokenize{classesdetails:classSTCanScan_1a45f0ec011022bf58a23e8370bac7f829}}\DUrole{k}{virtual}\DUrole{w}{  }\DUrole{kt}{bool}\DUrole{w}{  }\sphinxbfcode{\sphinxupquote{\DUrole{n}{sendMessage}}}}{\DUrole{kt}{short}\DUrole{w}{  }\DUrole{n,sig-param}{cobID}, \DUrole{kt}{unsigned}\DUrole{w}{  }\DUrole{kt}{char}\DUrole{w}{  }\DUrole{n,sig-param}{len}, \DUrole{kt}{unsigned}\DUrole{w}{  }\DUrole{kt}{char}\DUrole{w}{  }\DUrole{p}{*}\DUrole{n,sig-param}{message}, \DUrole{kt}{bool}\DUrole{w}{  }\DUrole{n,sig-param}{rtr}\DUrole{w}{  }\DUrole{p}{=}\DUrole{w}{  }\DUrole{k}{false}}{}%
 \pysigstopmultiline
 \sphinxAtStartPar
 Method that sends a message trough the can bus channel. If the method createBUS was not called before this, sendMessage will fail, as there is no can bus channel to send a message through.
@@ -995,9 +1006,9 @@ Was the sending process successful?
 \index{STCanScan::getPortStatus (C++ function)@\spxentry{STCanScan::getPortStatus}\spxextra{C++ function}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{classestracing:_CPPv4N9STCanScan13getPortStatusEv}}%
+\phantomsection\label{\detokenize{classesdetails:_CPPv4N9STCanScan13getPortStatusEv}}%
 \pysigstartmultiline
-\pysiglinewithargsret{\phantomsection\label{\detokenize{classestracing:classSTCanScan_1a27eabd471d3bb8154dfadb677c66e1d5}}\DUrole{k}{virtual}\DUrole{w}{  }\DUrole{n}{uint32\_t}\DUrole{w}{  }\sphinxbfcode{\sphinxupquote{\DUrole{n}{getPortStatus}}}}{}{}%
+\pysiglinewithargsret{\phantomsection\label{\detokenize{classesdetails:classSTCanScan_1a27eabd471d3bb8154dfadb677c66e1d5}}\DUrole{k}{virtual}\DUrole{w}{  }\DUrole{n}{uint32\_t}\DUrole{w}{  }\sphinxbfcode{\sphinxupquote{\DUrole{n}{getPortStatus}}}}{}{}%
 \pysigstopmultiline
 \sphinxAtStartPar
 get CAN port and USB status, code it into an int \textgreater{} 200 (for windows@systec). use the API directly table19 says for CAN status: 0x0: no error 0x1: tx overrun 0x2: rx overrun 0x4: error limit1 exceeded: warning limit 0x8: error limit2 exceeded: error passive 0x10: can controller is off 0x40: rx buffer overrun 0x80: tx buffer overrun 0x400: transmit timeout, message dropped
@@ -1014,7 +1025,7 @@ table20 says for USB status: 0x2000: module/usb got reset because of polling fai
 
 
 \section{tracing connections}
-\label{\detokenize{classestracing:tracing-connections}}\begin{itemize}
+\label{\detokenize{classesdetails:tracing-connections}}\begin{itemize}
 \item {} 
 \sphinxAtStartPar
 keep trace of all connections to buses using a static API class without instances:
@@ -1023,9 +1034,9 @@ keep trace of all connections to buses using a static API class without instance
 \index{CanModule::Diag (C++ class)@\spxentry{CanModule::Diag}\spxextra{C++ class}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{classestracing:_CPPv4N9CanModule4DiagE}}%
+\phantomsection\label{\detokenize{classesdetails:_CPPv4N9CanModule4DiagE}}%
 \pysigstartmultiline
-\pysigline{\phantomsection\label{\detokenize{classestracing:classCanModule_1_1Diag}}\DUrole{k}{class}\DUrole{w}{  }\sphinxcode{\sphinxupquote{\DUrole{n}{CanModule}\DUrole{p}{::}}}\sphinxbfcode{\sphinxupquote{\DUrole{n}{Diag}}}}%
+\pysigline{\phantomsection\label{\detokenize{classesdetails:classCanModule_1_1Diag}}\DUrole{k}{class}\DUrole{w}{  }\sphinxcode{\sphinxupquote{\DUrole{n}{CanModule}\DUrole{p}{::}}}\sphinxbfcode{\sphinxupquote{\DUrole{n}{Diag}}}}%
 \pysigstopmultiline
 \sphinxAtStartPar
 diagnostic class to monitor what is going on inside CanModule, used as static api only\begin{itemize}
@@ -1044,9 +1055,9 @@ tracks opened can buses for each lib instance
 \index{CanModule::Diag::get\_connections (C++ function)@\spxentry{CanModule::Diag::get\_connections}\spxextra{C++ function}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{classestracing:_CPPv4N9CanModule4Diag15get_connectionsEv}}%
+\phantomsection\label{\detokenize{classesdetails:_CPPv4N9CanModule4Diag15get_connectionsEv}}%
 \pysigstartmultiline
-\pysiglinewithargsret{\phantomsection\label{\detokenize{classestracing:classCanModule_1_1Diag_1ab3c649e5706e62a9552294a68380c520}}\DUrole{k}{static}\DUrole{w}{  }\DUrole{n}{std}\DUrole{p}{::}\DUrole{n}{vector}\DUrole{p}{\textless{}}{\hyperref[\detokenize{classestracing:_CPPv4N9CanModule4DiagE}]{\sphinxcrossref{\DUrole{n}{Diag}}}}\DUrole{p}{::}\DUrole{n}{CONNECTION\_DIAG\_t}\DUrole{p}{\textgreater{}}\DUrole{w}{  }\sphinxbfcode{\sphinxupquote{\DUrole{n}{get\_connections}}}}{}{}%
+\pysiglinewithargsret{\phantomsection\label{\detokenize{classesdetails:classCanModule_1_1Diag_1ab3c649e5706e62a9552294a68380c520}}\DUrole{k}{static}\DUrole{w}{  }\DUrole{n}{std}\DUrole{p}{::}\DUrole{n}{vector}\DUrole{p}{\textless{}}{\hyperref[\detokenize{classesdetails:_CPPv4N9CanModule4DiagE}]{\sphinxcrossref{\DUrole{n}{Diag}}}}\DUrole{p}{::}\DUrole{n}{CONNECTION\_DIAG\_t}\DUrole{p}{\textgreater{}}\DUrole{w}{  }\sphinxbfcode{\sphinxupquote{\DUrole{n}{get\_connections}}}}{}{}%
 \pysigstopmultiline
 \sphinxAtStartPar
 gives back a vector filled with connection details, mostly timestamp related the maps are only used as rvalues in a reentrant method: fine without mutex 
@@ -1062,7 +1073,7 @@ gives back a vector filled with connection details, mostly timestamp related the
 \chapter{SysTec}
 \label{\detokenize{vendors/systec:systec}}\label{\detokenize{vendors/systec::doc}}
 \sphinxAtStartPar
-All modules from vendor {\hyperref[\detokenize{vendors/systec:systec}]{\sphinxcrossref{SysTec}}} are handled by class STCanScan (windows) or CSockCanScan (linux) which
+All modules from vendor {\color{red}\bfseries{}\textasciigrave{}SysTec\textasciigrave{}\_\_} are handled by class STCanScan (windows) or CSockCanScan (linux) which
 manage the modules through their underlying vendor specific API and provide the standard generic CanModule API.
 Here the underlying vendor specific classes and the specific parameters are documented.
 
@@ -1070,11 +1081,8 @@ Here the underlying vendor specific classes and the specific parameters are docu
 SysTec modules USB\sphinxhyphen{}CAN bridges are supported: sysWORXX 1,2,8,16
 
 
-\section{linux}
-\label{\detokenize{vendors/systec:linux}}
-
-\subsection{parameters}
-\label{\detokenize{vendors/systec:parameters}}
+\section{linux\sphinxhyphen{}parameters}
+\label{\detokenize{vendors/systec:linux-parameters}}
 
 \begin{fulllineitems}
 %
@@ -1196,11 +1204,8 @@ p0 = m\_lBaudRate
 \end{itemize}
 
 
-\section{windows}
-\label{\detokenize{vendors/systec:windows}}
-
-\subsection{parameters}
-\label{\detokenize{vendors/systec:id1}}
+\section{windows\sphinxhyphen{}parameters}
+\label{\detokenize{vendors/systec:windows-parameters}}
 
 \begin{fulllineitems}
 %
@@ -1349,12 +1354,12 @@ ONLY p0 = bitrate or “baudrate” is used.
 
 \item {} 
 \sphinxAtStartPar
-“Unspecified” : the module bitrate 125000 is used as default when calling openCanBoard(). The init parameters are quite involved abut only the bitrate is relevant.
+“Unspecified” : the module bitrate 125000 is used as default when calling openCanBoard(). The init parameters are quite involved but only the bitrate is relevant.
 
 \end{itemize}
 
 
-\subsection{status}
+\section{status}
 \label{\detokenize{vendors/systec:status}}
 \sphinxAtStartPar
 status information is propagated through the unified status.
@@ -1421,7 +1426,7 @@ int can\_get\_restart\_ms(const char *name, \_\_u32 *restart\_ms); int can\_get\
 
 
 
-\subsection{errors}
+\section{errors}
 \label{\detokenize{vendors/systec:errors}}
 \sphinxAtStartPar
 Errors and problems are available through two mechanisms:
@@ -2280,7 +2285,7 @@ a reconnection condition, depending on send or receive faults or timeouts
 \pysigline{\phantomsection\label{\detokenize{reconnection:classCanModule_1_1CCanAccess}}\DUrole{k}{class}\DUrole{w}{  }\sphinxbfcode{\sphinxupquote{\DUrole{n}{CCanAccess}}}}%
 \pysigstopmultiline
 \sphinxAtStartPar
-Subclassed by {\hyperref[\detokenize{classestracing:classAnaCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{AnaCanScan}}}}, {\hyperref[\detokenize{vendors/systec:classCSockCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{CSockCanScan}}}}, MockCanAccess, {\hyperref[\detokenize{vendors/peak:classPKCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{PKCanScan}}}}, {\hyperref[\detokenize{classestracing:classSTCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{STCanScan}}}}
+Subclassed by {\hyperref[\detokenize{classesdetails:classAnaCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{AnaCanScan}}}}, {\hyperref[\detokenize{vendors/systec:classCSockCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{CSockCanScan}}}}, MockCanAccess, {\hyperref[\detokenize{vendors/peak:classPKCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{PKCanScan}}}}, {\hyperref[\detokenize{classesdetails:classSTCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{STCanScan}}}}
 
 \end{fulllineitems}
 
@@ -2298,7 +2303,7 @@ a reconnection action which is executed if the condition is true
 \pysigline{\phantomsection\label{\detokenize{reconnection:classCanModule_1_1CCanAccess}}\DUrole{k}{class}\DUrole{w}{  }\sphinxbfcode{\sphinxupquote{\DUrole{n}{CCanAccess}}}}%
 \pysigstopmultiline
 \sphinxAtStartPar
-Subclassed by {\hyperref[\detokenize{classestracing:classAnaCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{AnaCanScan}}}}, {\hyperref[\detokenize{vendors/systec:classCSockCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{CSockCanScan}}}}, MockCanAccess, {\hyperref[\detokenize{vendors/peak:classPKCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{PKCanScan}}}}, {\hyperref[\detokenize{classestracing:classSTCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{STCanScan}}}}
+Subclassed by {\hyperref[\detokenize{classesdetails:classAnaCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{AnaCanScan}}}}, {\hyperref[\detokenize{vendors/systec:classCSockCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{CSockCanScan}}}}, MockCanAccess, {\hyperref[\detokenize{vendors/peak:classPKCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{PKCanScan}}}}, {\hyperref[\detokenize{classesdetails:classSTCanScan}]{\sphinxcrossref{\DUrole{std,std-ref}{STCanScan}}}}
 
 \end{fulllineitems}
 

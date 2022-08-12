@@ -26,7 +26,7 @@ htmlhelp_basename = 'CanModule'
 
 # general sphinx
 sys.path.append( "/breathe" )
-needs_sphinx = '1.8.5'
+#needs_sphinx = '1.8.5'
 extensions = ['sphinx.ext.autodoc', 'sphinx.ext.todo', 'sphinx.ext.coverage', 'breathe']
 templates_path = ['sphinx_templates']
 source_suffix = '.rst'

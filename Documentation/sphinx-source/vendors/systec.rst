@@ -1,8 +1,8 @@
-=========
-`SysTec`_
-=========
+======
+SysTec
+======
 
-All modules from vendor `SysTec`_ are handled by class STCanScan (windows) or CSockCanScan (linux) which 
+All modules from vendor `SysTec`__ are handled by class STCanScan (windows) or CSockCanScan (linux) which 
 manage the modules through their underlying vendor specific API and provide the standard generic CanModule API.
 Here the underlying vendor specific classes and the specific parameters are documented. 
 
