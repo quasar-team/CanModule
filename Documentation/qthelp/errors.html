@@ -41,9 +41,8 @@
 <li><p>anagate: used in sendMessage() and sendRemoteMessage()</p></li>
 <li><p>peak: sendErrorCode() sends an error code (not a message) at sendMessage(), triggerReconnectionThread() and sendRemoteRequest()</p></li>
 <li><p>systec: sendErrorCode() sends an error code (not a message) at message reception with USB error AND the return code of sendMessage (also if it is OK)</p></li>
-<li><p>sock: no wrapper method (defined but not used), error messages are sent when: socket recovers, error reading from socket,</p></li>
+<li><p>sock: no wrapper method (defined but not used), error messages are sent when: socket recovers, error reading from socket, a CAN error was flagged from the socket (plus message and socket timestamp if possible), when opening a CAN port produces an error</p></li>
 </ul>
-<p>a CAN error was flagged from the socket (plus message and socket timestamp if possible), when opening a CAN port produces an error</p>
 </section>
 <section id="unified-port-status">
 <h2>unified port status</h2>
@@ -83,7 +82,7 @@ The TRC level will show all internal details, the recommended log levels are INF
 
     <div class="footer" role="contentinfo">
         &#169; Copyright 2020, CERN, quasar-team, BE-ICS (Michael Ludwig).
-      Last updated on 12-Aug-2022 13:35:11.
+      Last updated on 12-Aug-2022 17:30:22.
       Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
     </div>
   </body>

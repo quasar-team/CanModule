@@ -249,7 +249,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="MockCanAccess_8cpp_source.html#l00030">30</a> of file <a class="el" href="MockCanAccess_8cpp_source.html">MockCanAccess.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="CanStatistics_8cpp_source.html#l00041">CanModule::CanStatistics::beginNewRun()</a>, <a class="el" href="CCanAccess_8h_source.html#l00462">CanModule::CCanAccess::m_failedSendCountdown</a>, <a class="el" href="CCanAccess_8h_source.html#l00463">CanModule::CCanAccess::m_maxFailedSendCount</a>, <a class="el" href="MockCanAccess_8h_source.html#l00066">m_statistics</a>, and <a class="el" href="CanStatistics_8h_source.html#l00101">CanModule::CanStatistics::setTimeSinceOpened()</a>.</p>
+<p class="reference">References <a class="el" href="CanStatistics_8cpp_source.html#l00041">CanModule::CanStatistics::beginNewRun()</a>, <a class="el" href="CCanAccess_8h_source.html#l00469">CanModule::CCanAccess::m_failedSendCountdown</a>, <a class="el" href="CCanAccess_8h_source.html#l00470">CanModule::CCanAccess::m_maxFailedSendCount</a>, <a class="el" href="MockCanAccess_8h_source.html#l00066">m_statistics</a>, and <a class="el" href="CanStatistics_8h_source.html#l00101">CanModule::CanStatistics::setTimeSinceOpened()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -362,13 +362,13 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>: init OK, bus was created = OK = 0 init OK, bus was skipped because it exists already = 1 init failed = -1 </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>and integer 0 = init OK, bus was created = OK 1 = init OK, bus was skipped because it exists already -1 = init failed </dd></dl>
 
 <p>Implements <a class="el" href="classCanModule_1_1CCanAccess.html#a2ef435a5fb9896dbb70bc0e149fa0549">CanModule::CCanAccess</a>.</p>
 
 <p class="definition">Definition at line <a class="el" href="MockCanAccess_8cpp_source.html#l00048">48</a> of file <a class="el" href="MockCanAccess_8cpp_source.html">MockCanAccess.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="CCanAccess_8h_source.html#l00455">CanModule::CCanAccess::m_sBusName</a>.</p>
+<p class="reference">References <a class="el" href="CCanAccess_8h_source.html#l00462">CanModule::CCanAccess::m_sBusName</a>.</p>
 
 </div>
 </div>
@@ -438,7 +438,7 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="MockCanAccess_8h_source.html#l00059">59</a> of file <a class="el" href="MockCanAccess_8h_source.html">MockCanAccess.h</a>.</p>
 
-<p class="reference">References <a class="el" href="CCanAccess_8h_source.html#l00456">CanModule::CCanAccess::m_CanParameters</a>, and <a class="el" href="CCanAccess_8h_source.html#l00119">CanModule::CanParameters::m_lBaudRate</a>.</p>
+<p class="reference">References <a class="el" href="CCanAccess_8h_source.html#l00463">CanModule::CCanAccess::m_CanParameters</a>, and <a class="el" href="CCanAccess_8h_source.html#l00119">CanModule::CanParameters::m_lBaudRate</a>.</p>
 
 </div>
 </div>
@@ -464,7 +464,8 @@ Here is the call graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>according to vendor and OS, acquire bus status, and return one uint32_t bitpattern which has the same rules for all vendors. In fact the status for vendors is too different to be abstracted into a common bitpattern. Actually, talk to the HW, so use with parcimony while comms are ongoing: we do not really know how well the vendors have implemented that.</p>
+<p>UNIFIED PORT status</p>
+<p>according to vendor and OS, acquire bus (port) status, and return one uint32_t bitpattern which has the same rules for all vendors. In fact the status for vendors is too different to be abstracted into a common bitpattern. Actually, talk to the HW, so use with parcimony while comms are ongoing: we do not really know how well the vendors have implemented that.</p>
 <p>the <b>implementation</b> occupies the highest nibble, and it is a counter (see CANMODULE_STATUS_BP_SOCK etc)</p><ul>
 <li>0x1&lt;&lt;28 = sock (linux)</li>
 <li>0x2&lt;&lt;28 = anagate (linux, windows)</li>
@@ -472,7 +473,7 @@ Here is the call graph for this function:</div>
 <li>0x4&lt;&lt;28 = systec (windows)</li>
 <li>0x5&lt;&lt;28....0xf&lt;&lt;28 = unused, for future use</li>
 </ul>
-<p>the **specific status** occupies bits b0..b27, and it is a (composed) implementation specific bitpattern</p>
+<p>the **specific_status** occupies bits b0..b27, and it is a (composed) implementation specific bitpattern</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">sock</td><td>(linux): [ see can_netlink.h enum can_state ]<ul>
@@ -540,12 +541,16 @@ Here is the call graph for this function:</div>
 <li>b12..b11: unused</li>
 <li>b13: 0x2000: module/usb got reset because of polling failure per second</li>
 <li>b14: 0x4000: module/usb got reset because watchdog was not triggered</li>
-<li>b15...b27: unused </li>
+<li>b15...b27: unused</li>
 </ul>
 </td></tr>
   </table>
   </dd>
 </dl>
+<p>examples:</p><ul>
+<li>0x3000.0000.000.0040 means "peak" implementation (peak@windows) receive queue was read too late</li>
+<li>0x1000.0000.000.0002 means "sock" implementation (peak or systec @linux) CAN_STATE_ERROR_WARNING </li>
+</ul>
 
 <p>Implements <a class="el" href="classCanModule_1_1CCanAccess.html#a33fe530d070cf35d096e967d543186a4">CanModule::CCanAccess</a>.</p>
 
@@ -581,7 +586,7 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="MockCanAccess_8h_source.html#l00057">57</a> of file <a class="el" href="MockCanAccess_8h_source.html">MockCanAccess.h</a>.</p>
 
-<p class="reference">References <a class="el" href="CCanAccess_8h_source.html#l00460">CanModule::CCanAccess::m_reconnectAction</a>.</p>
+<p class="reference">References <a class="el" href="CCanAccess_8h_source.html#l00467">CanModule::CCanAccess::m_reconnectAction</a>.</p>
 
 </div>
 </div>
@@ -613,7 +618,7 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="MockCanAccess_8h_source.html#l00056">56</a> of file <a class="el" href="MockCanAccess_8h_source.html">MockCanAccess.h</a>.</p>
 
-<p class="reference">References <a class="el" href="CCanAccess_8h_source.html#l00459">CanModule::CCanAccess::m_reconnectCondition</a>.</p>
+<p class="reference">References <a class="el" href="CCanAccess_8h_source.html#l00466">CanModule::CCanAccess::m_reconnectCondition</a>.</p>
 
 </div>
 </div>
@@ -754,7 +759,7 @@ Here is the call graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Method that sends a message through the can bus channel. If the method createBUS was not called before this, sendMessage will fail, as there is no can bus channel to send a message through. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Method that sends a message through the can bus channel. If the method createBUS was not called before this, sendMessage will fail, as there is no can bus channel to send a message through. SendMessage is non blocking and reentrant - as far as the various vendor APIs permit this. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">cobID</td><td>Identifier that will be used for the message. </td></tr>
     <tr><td class="paramname">len</td><td>Length of the message. If the message is bigger than 8 characters, it will be split into separate 8 characters messages. </td></tr>
@@ -763,13 +768,13 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>: Was the initialisation process successful? </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>: Was the message sent successfully? If not, we may reconnect. </dd></dl>
 
 <p>Implements <a class="el" href="classCanModule_1_1CCanAccess.html#aee42ab7fb9e50c02a1812202f7863d8c">CanModule::CCanAccess</a>.</p>
 
 <p class="definition">Definition at line <a class="el" href="MockCanAccess_8cpp_source.html#l00063">63</a> of file <a class="el" href="MockCanAccess_8cpp_source.html">MockCanAccess.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="CanMessage_8h_source.html#l00029">CanMsgStruct::c_data</a>, <a class="el" href="CanMessage_8h_source.html#l00027">CanMsgStruct::c_dlc</a>, <a class="el" href="CanMessage_8h_source.html#l00023">CanMsgStruct::c_id</a>, <a class="el" href="MockCanAccess_8h_source.html#l00027">CAN_ECHO_MSG</a>, <a class="el" href="CCanAccess_8h_source.html#l00311">CanModule::CCanAccess::canMessageCame</a>, <a class="el" href="MockCanAccess_8h_source.html#l00066">m_statistics</a>, and <a class="el" href="CanStatistics_8cpp_source.html#l00069">CanModule::CanStatistics::onTransmit()</a>.</p>
+<p class="reference">References <a class="el" href="CanMessage_8h_source.html#l00029">CanMsgStruct::c_data</a>, <a class="el" href="CanMessage_8h_source.html#l00027">CanMsgStruct::c_dlc</a>, <a class="el" href="CanMessage_8h_source.html#l00023">CanMsgStruct::c_id</a>, <a class="el" href="MockCanAccess_8h_source.html#l00027">CAN_ECHO_MSG</a>, <a class="el" href="CCanAccess_8h_source.html#l00318">CanModule::CCanAccess::canMessageCame</a>, <a class="el" href="MockCanAccess_8h_source.html#l00066">m_statistics</a>, and <a class="el" href="CanStatistics_8cpp_source.html#l00069">CanModule::CanStatistics::onTransmit()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -808,7 +813,7 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>: Was the initialisation process successful? </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Was the sent request successful ? </dd></dl>
 
 <p>Implements <a class="el" href="classCanModule_1_1CCanAccess.html#acfefbc9be2696b1388cf6df2bba00aa1">CanModule::CCanAccess</a>.</p>
 
@@ -910,7 +915,7 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="MockCanAccess_8h_source.html#l00055">55</a> of file <a class="el" href="MockCanAccess_8h_source.html">MockCanAccess.h</a>.</p>
 
-<p class="reference">References <a class="el" href="CCanAccess_8h_source.html#l00462">CanModule::CCanAccess::m_failedSendCountdown</a>, and <a class="el" href="CCanAccess_8h_source.html#l00463">CanModule::CCanAccess::m_maxFailedSendCount</a>.</p>
+<p class="reference">References <a class="el" href="CCanAccess_8h_source.html#l00469">CanModule::CCanAccess::m_failedSendCountdown</a>, and <a class="el" href="CCanAccess_8h_source.html#l00470">CanModule::CCanAccess::m_maxFailedSendCount</a>.</p>
 
 </div>
 </div>
@@ -943,7 +948,7 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="MockCanAccess_8h_source.html#l00054">54</a> of file <a class="el" href="MockCanAccess_8h_source.html">MockCanAccess.h</a>.</p>
 
-<p class="reference">References <a class="el" href="CCanAccess_8h_source.html#l00461">CanModule::CCanAccess::m_timeoutOnReception</a>.</p>
+<p class="reference">References <a class="el" href="CCanAccess_8h_source.html#l00468">CanModule::CCanAccess::m_timeoutOnReception</a>.</p>
 
 </div>
 </div>

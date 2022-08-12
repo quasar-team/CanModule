@@ -73,7 +73,7 @@ public:
 	float busLoad() { return m_internals.m_busLoad; }
 
 	/**
-	 * time since the last message was received in microseconds precision
+	 * time since the last message was received in milliseconds with microseconds precision
 	 */
 	double timeSinceReceived() {
 		m_hrnow = std::chrono::high_resolution_clock::now();
@@ -82,7 +82,7 @@ public:
 	}
 
 	/**
-	 * time since the last message was sent, in microseconds precision
+	 * time since the last message was sent, in milliseconds with microseconds precision
 	 */
 	double timeSinceTransmitted() {
 		m_hrnow = std::chrono::high_resolution_clock::now();
@@ -91,7 +91,7 @@ public:
 	}
 
 	/**
-	 *  time since that bus was opened, in microseconds precision
+	 *  time since that bus was opened, in milliseconds with microseconds precision
 	 */
 	double timeSinceOpened() {
 		m_hrnow = std::chrono::high_resolution_clock::now();

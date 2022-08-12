@@ -43,7 +43,7 @@
 <dd class="field-odd"><p><strong>cobID</strong> – Identifier that will be used for the request. </p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>: Was the initialisation process successful? </p>
+<dd class="field-even"><p>Was the sent request successful ? </p>
 </dd>
 </dl>
 </dd></dl>
@@ -60,7 +60,7 @@
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>: init OK, bus was created = OK = 0 init OK, bus was skipped because it exists already = 1 init failed = -1 </p>
+<dd class="field-even"><p>and integer 0 = init OK, bus was created = OK 1 = init OK, bus was skipped because it exists already -1 = init failed </p>
 </dd>
 </dl>
 </dd></dl>
@@ -68,7 +68,7 @@
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N9CanModule10CCanAccess11sendMessageEshPhb">
 <span id="_CPPv3N9CanModule10CCanAccess11sendMessageEshPhb"></span><span id="_CPPv2N9CanModule10CCanAccess11sendMessageEshPhb"></span><span id="CanModule::CCanAccess::sendMessage__short.unsigned-c.unsigned-cP.b"></span><span class="target" id="classCanModule_1_1CCanAccess_1aee42ab7fb9e50c02a1812202f7863d8c"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">sendMessage</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">short</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">cobID</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">len</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">message</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">rtr</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><br /></dt>
-<dd><p>Method that sends a message through the can bus channel. If the method createBUS was not called before this, sendMessage will fail, as there is no can bus channel to send a message through. </p>
+<dd><p>Method that sends a message through the can bus channel. If the method createBUS was not called before this, sendMessage will fail, as there is no can bus channel to send a message through. SendMessage is non blocking and reentrant - as far as the various vendor APIs permit this. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -79,7 +79,7 @@
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>: Was the initialisation process successful? </p>
+<dd class="field-even"><p>: Was the message sent successfully? If not, we may reconnect. </p>
 </dd>
 </dl>
 </dd></dl>
@@ -87,13 +87,14 @@
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N9CanModule10CCanAccess10getBusNameEv">
 <span id="_CPPv3N9CanModule10CCanAccess10getBusNameEv"></span><span id="_CPPv2N9CanModule10CCanAccess10getBusNameEv"></span><span id="CanModule::CCanAccess::getBusName"></span><span class="target" id="classCanModule_1_1CCanAccess_1ac3f5126ae36d642217425e21696d19ca"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">getBusName</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
-<dd><p>Returns the can bus name </p>
+<dd><p>Returns the can bus name (from buffered data) </p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N9CanModule10CCanAccess13getPortStatusEv">
 <span id="_CPPv3N9CanModule10CCanAccess13getPortStatusEv"></span><span id="_CPPv2N9CanModule10CCanAccess13getPortStatusEv"></span><span id="CanModule::CCanAccess::getPortStatus"></span><span class="target" id="classCanModule_1_1CCanAccess_1a33fe530d070cf35d096e967d543186a4"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getPortStatus</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><br /></dt>
-<dd><p>according to vendor and OS, acquire bus status, and return one uint32_t bitpattern which has the same rules for all vendors. In fact the status for vendors is too different to be abstracted into a common bitpattern. Actually, talk to the HW, so use with parcimony while comms are ongoing: we do not really know how well the vendors have implemented that.</p>
+<dd><p>UNIFIED PORT status</p>
+<p>according to vendor and OS, acquire bus (port) status, and return one uint32_t bitpattern which has the same rules for all vendors. In fact the status for vendors is too different to be abstracted into a common bitpattern. Actually, talk to the HW, so use with parcimony while comms are ongoing: we do not really know how well the vendors have implemented that.</p>
 <p>the <strong>implementation</strong> occupies the highest nibble, and it is a counter (see CANMODULE_STATUS_BP_SOCK etc)<ul class="simple">
 <li><p>0x1&lt;&lt;28 = sock (linux)</p></li>
 <li><p>0x2&lt;&lt;28 = anagate (linux, windows)</p></li>
@@ -102,7 +103,13 @@
 <li><p>0x5&lt;&lt;28….0xf&lt;&lt;28 = unused, for future use</p></li>
 </ul>
 </p>
-<p>the **specific status** occupies bits b0..b27, and it is a (composed) implementation specific bitpattern</p>
+<p>the **specific_status** occupies bits b0..b27, and it is a (composed) implementation specific bitpattern</p>
+<p>
+examples:<ul class="simple">
+<li><p>0x3000.0000.000.0040 means “peak” implementation (peak&#64;windows) receive queue was read too late</p></li>
+<li><p>0x1000.0000.000.0002 means “sock” implementation (peak or systec &#64;linux) CAN_STATE_ERROR_WARNING </p></li>
+</ul>
+</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -171,7 +178,7 @@
 <li><p>b12..b11: unused</p></li>
 <li><p>b13: 0x2000: module/usb got reset because of polling failure per second</p></li>
 <li><p>b14: 0x4000: module/usb got reset because watchdog was not triggered</p></li>
-<li><p>b15…b27: unused </p></li>
+<li><p>b15…b27: unused</p></li>
 </ul>
 </p></li>
 </ul>
@@ -183,12 +190,6 @@
 <dt class="sig sig-object cpp" id="_CPPv4N9CanModule10CCanAccess14getPortBitrateEv">
 <span id="_CPPv3N9CanModule10CCanAccess14getPortBitrateEv"></span><span id="_CPPv2N9CanModule10CCanAccess14getPortBitrateEv"></span><span id="CanModule::CCanAccess::getPortBitrate"></span><span class="target" id="classCanModule_1_1CCanAccess_1aa8cb67096349fefc6e03aeb33e45ef81"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getPortBitrate</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><br /></dt>
 <dd><p>returns the bitrate of that port [bits/sec] according to what CanModule buffers say. This is the setting used for setting up the hardware, after any default rules have been applied, but BEFORE any vendor specific encoding into obscure bitpatterns occurs. This happens at port opening and the bitrate can only be changed at that moment. So please call this method just after you have opened the port. But also since there is no hw interaction and it just returns a buffer, you may call it as often as you like. </p>
-</dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N9CanModule10CCanAccess16getLogItInstanceEv">
-<span id="_CPPv3N9CanModule10CCanAccess16getLogItInstanceEv"></span><span id="_CPPv2N9CanModule10CCanAccess16getLogItInstanceEv"></span><span id="CanModule::CCanAccess::getLogItInstance"></span><span class="target" id="classCanModule_1_1CCanAccess_1a8210a8161f1987973584b6dda5dc6d7d"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">LogItInstance</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">getLogItInstance</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
-<dd><p>the LogIt instance is NOT shared by inheritance in windows, the instance has to be passed explicitly from the parent </p>
 </dd></dl>
 
 <dl class="cpp function">
@@ -247,15 +248,39 @@
 </div>
 <div class="breathe-sectiondef docutils container">
 <dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N9CanModule10CCanAccess24reconnectConditionStringEN9CanModule22ReconnectAutoConditionE">
-<span id="_CPPv3N9CanModule10CCanAccess24reconnectConditionStringEN9CanModule22ReconnectAutoConditionE"></span><span id="_CPPv2N9CanModule10CCanAccess24reconnectConditionStringEN9CanModule22ReconnectAutoConditionE"></span><span id="CanModule::CCanAccess::reconnectConditionString__CanModule::ReconnectAutoCondition"></span><span class="target" id="classCanModule_1_1CCanAccess_1a9da88ce122d5de04a0235a4682a13dc0"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">reconnectConditionString</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">CanModule</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ReconnectAutoCondition</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">c</span></span><span class="sig-paren">)</span><br /></dt>
-<dd><p>just translate the ugly r.condition enum into a user-friendly string for convenience and logging. </p>
+<dt class="sig sig-object cpp" id="_CPPv4N9CanModule13CanStatistics6txRateEv">
+<span id="_CPPv3N9CanModule13CanStatistics6txRateEv"></span><span id="_CPPv2N9CanModule13CanStatistics6txRateEv"></span><span id="CanModule::CanStatistics::txRate"></span><span class="target" id="classCanModule_1_1CanStatistics_1ad8a95eeeea9fe50c9fe5465b3bde95d9"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">txRate</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd><p>transmission rate bytes/s </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N9CanModule10CCanAccess21reconnectActionStringEN9CanModule15ReconnectActionE">
-<span id="_CPPv3N9CanModule10CCanAccess21reconnectActionStringEN9CanModule15ReconnectActionE"></span><span id="_CPPv2N9CanModule10CCanAccess21reconnectActionStringEN9CanModule15ReconnectActionE"></span><span id="CanModule::CCanAccess::reconnectActionString__CanModule::ReconnectAction"></span><span class="target" id="classCanModule_1_1CCanAccess_1aa12f64e9e31bd491f39fc3169b1e5025"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">reconnectActionString</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">CanModule</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ReconnectAction</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">c</span></span><span class="sig-paren">)</span><br /></dt>
-<dd><p>just translate the ugly r.action enum into a user-friendly string for convenience and logging. </p>
+<dt class="sig sig-object cpp" id="_CPPv4N9CanModule13CanStatistics6rxRateEv">
+<span id="_CPPv3N9CanModule13CanStatistics6rxRateEv"></span><span id="_CPPv2N9CanModule13CanStatistics6rxRateEv"></span><span id="CanModule::CanStatistics::rxRate"></span><span class="target" id="classCanModule_1_1CanStatistics_1a732233caca87cf1532c9f2869d442d68"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">rxRate</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd><p>reception rate bytes/s </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N9CanModule13CanStatistics7busLoadEv">
+<span id="_CPPv3N9CanModule13CanStatistics7busLoadEv"></span><span id="_CPPv2N9CanModule13CanStatistics7busLoadEv"></span><span id="CanModule::CanStatistics::busLoad"></span><span class="target" id="classCanModule_1_1CanStatistics_1a761bffce2db7f24a9dcbc439a95c1e65"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">busLoad</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd><p>bus load in 0…1 ( % * 100 ) of max bus speed (baudrate) </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N9CanModule13CanStatistics17timeSinceReceivedEv">
+<span id="_CPPv3N9CanModule13CanStatistics17timeSinceReceivedEv"></span><span id="_CPPv2N9CanModule13CanStatistics17timeSinceReceivedEv"></span><span id="CanModule::CanStatistics::timeSinceReceived"></span><span class="target" id="classCanModule_1_1CanStatistics_1a44da075145ae6dd716bcb9432e254ce7"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">timeSinceReceived</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd><p>time since the last message was received in milliseconds with microseconds precision </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N9CanModule13CanStatistics20timeSinceTransmittedEv">
+<span id="_CPPv3N9CanModule13CanStatistics20timeSinceTransmittedEv"></span><span id="_CPPv2N9CanModule13CanStatistics20timeSinceTransmittedEv"></span><span id="CanModule::CanStatistics::timeSinceTransmitted"></span><span class="target" id="classCanModule_1_1CanStatistics_1a82bf9c9ca0e1578dbd962ee3d2e05fa6"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">timeSinceTransmitted</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd><p>time since the last message was sent, in milliseconds with microseconds precision </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N9CanModule13CanStatistics15timeSinceOpenedEv">
+<span id="_CPPv3N9CanModule13CanStatistics15timeSinceOpenedEv"></span><span id="_CPPv2N9CanModule13CanStatistics15timeSinceOpenedEv"></span><span id="CanModule::CanStatistics::timeSinceOpened"></span><span class="target" id="classCanModule_1_1CanStatistics_1a08d5c282de626e89ebf508291d1bde33"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">timeSinceOpened</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd><p>time since that bus was opened, in milliseconds with microseconds precision </p>
 </dd></dl>
 
 </div>
@@ -277,7 +302,7 @@
 
     <div class="footer" role="contentinfo">
         &#169; Copyright 2020, CERN, quasar-team, BE-ICS (Michael Ludwig).
-      Last updated on 12-Aug-2022 13:35:11.
+      Last updated on 12-Aug-2022 17:30:22.
       Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
     </div>
   </body>

@@ -13,7 +13,7 @@
             <section title="CanModule 2.0.22 documentation" ref="index.html">
                 <section title="Downloading" ref="downloading.html">
                     <section title="sources" ref="downloading.html#sources"/>
-                    <section title="runtime dependencies" ref="downloading.html#runtime-dependencies"/>
+                    <section title="dependencies runtime and build" ref="downloading.html#dependencies-runtime-and-build"/>
                 </section>
                 <section title="Objective" ref="objective.html">
                     <section title="Supported OS" ref="objective.html#supported-os"/>
@@ -84,6 +84,7 @@
                     <section title="LogIt messages" ref="errors.html#logit-messages"/>
                 </section>
                 <section title="Support" ref="support.html"/>
+                <section title="doxygen source" ref="doxygen.html"/>
             </section>
         </toc>
         <keywords>
@@ -97,6 +98,12 @@
             <keyword name="CanModule::CanLibLoader (C++ class)" ref="classesdetails.html#_CPPv4N9CanModule12CanLibLoaderE"/>
             <keyword name="CanModule::CanLibLoaderLin (C++ class)" ref="classesdetails.html#_CPPv4N9CanModule15CanLibLoaderLinE"/>
             <keyword name="CanModule::CanLibLoaderWin (C++ class)" ref="classesdetails.html#_CPPv4N9CanModule15CanLibLoaderWinE"/>
+            <keyword name="CanModule::CanStatistics::busLoad (C++ function)" ref="standardApiList.html#_CPPv4N9CanModule13CanStatistics7busLoadEv"/>
+            <keyword name="CanModule::CanStatistics::rxRate (C++ function)" ref="standardApiList.html#_CPPv4N9CanModule13CanStatistics6rxRateEv"/>
+            <keyword name="CanModule::CanStatistics::timeSinceOpened (C++ function)" ref="standardApiList.html#_CPPv4N9CanModule13CanStatistics15timeSinceOpenedEv"/>
+            <keyword name="CanModule::CanStatistics::timeSinceReceived (C++ function)" ref="standardApiList.html#_CPPv4N9CanModule13CanStatistics17timeSinceReceivedEv"/>
+            <keyword name="CanModule::CanStatistics::timeSinceTransmitted (C++ function)" ref="standardApiList.html#_CPPv4N9CanModule13CanStatistics20timeSinceTransmittedEv"/>
+            <keyword name="CanModule::CanStatistics::txRate (C++ function)" ref="standardApiList.html#_CPPv4N9CanModule13CanStatistics6txRateEv"/>
             <keyword name="CanModule::CCanAccess (C++ class)" ref="canports.html#_CPPv4N9CanModule10CCanAccessE"/>
             <keyword name="CanModule::CCanAccess (C++ class)" ref="canports.html#_CPPv4N9CanModule10CCanAccessE"/>
             <keyword name="CanModule::CCanAccess (C++ class)" ref="canports.html#_CPPv4N9CanModule10CCanAccessE"/>
@@ -105,15 +112,12 @@
             <keyword name="CanModule::CCanAccess (C++ class)" ref="reconnection.html#_CPPv4N9CanModule10CCanAccessE"/>
             <keyword name="CanModule::CCanAccess::createBus (C++ function)" ref="standardApiList.html#_CPPv4N9CanModule10CCanAccess9createBusEKNSt6stringEKNSt6stringE"/>
             <keyword name="CanModule::CCanAccess::getBusName (C++ function)" ref="standardApiList.html#_CPPv4N9CanModule10CCanAccess10getBusNameEv"/>
-            <keyword name="CanModule::CCanAccess::getLogItInstance (C++ function)" ref="standardApiList.html#_CPPv4N9CanModule10CCanAccess16getLogItInstanceEv"/>
             <keyword name="CanModule::CCanAccess::getPortBitrate (C++ function)" ref="canports.html#_CPPv4N9CanModule10CCanAccess14getPortBitrateEv"/>
             <keyword name="CanModule::CCanAccess::getPortBitrate (C++ function)" ref="standardApiList.html#_CPPv4N9CanModule10CCanAccess14getPortBitrateEv"/>
             <keyword name="CanModule::CCanAccess::getPortStatus (C++ function)" ref="canports.html#_CPPv4N9CanModule10CCanAccess13getPortStatusEv"/>
             <keyword name="CanModule::CCanAccess::getPortStatus (C++ function)" ref="standardApiList.html#_CPPv4N9CanModule10CCanAccess13getPortStatusEv"/>
             <keyword name="CanModule::CCanAccess::getReconnectAction (C++ function)" ref="standardApiList.html#_CPPv4N9CanModule10CCanAccess18getReconnectActionEv"/>
             <keyword name="CanModule::CCanAccess::getReconnectCondition (C++ function)" ref="standardApiList.html#_CPPv4N9CanModule10CCanAccess21getReconnectConditionEv"/>
-            <keyword name="CanModule::CCanAccess::reconnectActionString (C++ function)" ref="standardApiList.html#_CPPv4N9CanModule10CCanAccess21reconnectActionStringEN9CanModule15ReconnectActionE"/>
-            <keyword name="CanModule::CCanAccess::reconnectConditionString (C++ function)" ref="standardApiList.html#_CPPv4N9CanModule10CCanAccess24reconnectConditionStringEN9CanModule22ReconnectAutoConditionE"/>
             <keyword name="CanModule::CCanAccess::sendMessage (C++ function)" ref="standardApiList.html#_CPPv4N9CanModule10CCanAccess11sendMessageEshPhb"/>
             <keyword name="CanModule::CCanAccess::sendRemoteRequest (C++ function)" ref="standardApiList.html#_CPPv4N9CanModule10CCanAccess17sendRemoteRequestEs"/>
             <keyword name="CanModule::CCanAccess::setReconnectBehavior (C++ function)" ref="standardApiList.html#_CPPv4N9CanModule10CCanAccess20setReconnectBehaviorEN9CanModule22ReconnectAutoConditionEN9CanModule15ReconnectActionE"/>
@@ -149,6 +153,7 @@
             <file>canports.html</file>
             <file>classesdetails.html</file>
             <file>downloading.html</file>
+            <file>doxygen.html</file>
             <file>errors.html</file>
             <file>genindex.html</file>
             <file>index.html</file>

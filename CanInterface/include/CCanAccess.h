@@ -158,7 +158,7 @@ public:
 	 * Method that sends a remote request trough the can bus channel. If the method createBus was not called before this, sendMessage will fail, as there is no
 	 * can bus channel to send the request trough. Similar to sendMessage, but it sends an special message reserved for requests.
 	 * @param cobID: Identifier that will be used for the request.
-	 * @return: Was the initialisation process successful?
+	 * @return Was the sent request successful ?
 	 */
 	virtual bool sendRemoteRequest(short cobID) = 0;
 
@@ -172,23 +172,23 @@ public:
 	 * @param parameters: Different parameters used for the initialisation. For using the parameters already in the hardware just set this to "Unspecified".
 	 * 				anagate: pass the ip number
 	 *
-	 * @return:
-	 * init OK, bus was created = OK = 0
-	 * init OK, bus was skipped because it exists already = 1
-	 * init failed = -1
+	 * @return and integer
+	 * 0 = init OK, bus was created = OK
+	 * 1 = init OK, bus was skipped because it exists already
+	 * -1 = init failed
 	 */
 	virtual int createBus(const std::string name, const std::string parameters) = 0;
 
 
 	/**
 	 * Method that sends a message through the can bus channel. If the method createBUS was not called before this, sendMessage will fail, as there is no
-	 * can bus channel to send a message through.
+	 * can bus channel to send a message through. SendMessage is non blocking and reentrant - as far as the various vendor APIs permit this.
 	 * @param cobID: Identifier that will be used for the message.
 	 * @param len: Length of the message. If the message is bigger than 8 characters, it will be split into separate 8 characters messages.
 	 * @param message: Message to be sent through the can bus.
 	 * @param rtr: activate the Remote Transmission Request flag. Having this flag in a message with data/len is not part of the CAN standard,
 	 * but since some hardware uses it anyway, the option to use it is provided.
-	 * @return: Was the initialisation process successful?
+	 * @return: Was the message sent successfully? If not, we may reconnect.
 	 */
 	virtual bool sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr = false) = 0;
 
@@ -198,22 +198,24 @@ public:
 			LOG(Log::WRN, m_lh) << __FUNCTION__ << " CAN ID= 0x"
 					<< std::hex << canm->c_id
 					<< " outside 11 bit (standard) range detected. Dropping message: Extended CAN is not supported.";
-			// canm->c_id = canm->c_id & 0x7FF;
 			return false;
 		}
 		return sendMessage(short(canm->c_id), canm->c_dlc, canm->c_data, canm->c_rtr);
 	}
 
 	/**
-	 * Returns the can bus name
+	 * Returns the can bus name (from buffered data)
 	 */
 	std::string& getBusName() { return m_sBusName; }
 
 	/**
-	 * according to vendor and OS, acquire bus status, and return one uint32_t bitpattern which has
+	 * UNIFIED PORT status
+	 *
+	 * according to vendor and OS, acquire bus (port) status, and return one uint32_t bitpattern which has
 	 * the same rules for all vendors. In fact the status for vendors is too different to be abstracted
 	 * into a common bitpattern. Actually, talk to the HW, so use with parcimony while comms are ongoing:
 	 * we do not really know how well the vendors have implemented that.
+	 *
 	 *
 	 * the **implementation** occupies the highest nibble, and it is a counter (see CANMODULE_STATUS_BP_SOCK etc)
 	 * * 0x1<<28 = sock (linux)
@@ -222,7 +224,8 @@ public:
 	 * * 0x4<<28 = systec (windows)
 	 * * 0x5<<28....0xf<<28 = unused, for future use
 	 *
-	 * the **specific status** occupies bits b0..b27, and it is a (composed) implementation specific bitpattern
+	 *
+	 * the **specific_status** occupies bits b0..b27, and it is a (composed) implementation specific bitpattern
 	 *
 	 * @param sock (linux): [ see can_netlink.h  enum can_state ]
 	 * * b0: 0x1 = CAN_STATE_ERROR_ACTIVE   : RX/TX error count < 96
@@ -289,6 +292,10 @@ public:
 	 * * b13: 0x2000: module/usb got reset because of polling failure per second
 	 * * b14: 0x4000: module/usb got reset because watchdog was not triggered
 	 * * b15...b27: unused
+	 *
+	 * examples:
+	 * * 0x3000.0000.000.0040 means "peak" implementation (peak@windows) receive queue was read too late
+	 * * 0x1000.0000.000.0002 means "sock" implementation (peak or systec @linux) CAN_STATE_ERROR_WARNING
 	 */
 	virtual uint32_t getPortStatus() = 0;
 
@@ -303,7 +310,7 @@ public:
 	virtual uint32_t getPortBitrate() = 0;
 
 	/*
-	 * Signal that will be called when a can Message arrives into the initialised can bus.
+	 * Signal that gets called when a can Message is received from the initialised can bus.
 	 * In order to process this message manually, a handler needs to be connected to the signal.
 	 *
 	 * Example: myCCanAccessPointer->canMessageCame.connect(&myMessageRecievedHandler);
@@ -314,7 +321,7 @@ public:
 
 
 	/*
-	 * Signal that will be called when a can Error arrives into the initialised can bus.
+	 * Signal that gets called when a can Error happens on the initialised can bus.
 	 * In order to process this message manually, a handler needs to be connected to the signal.
 	 *
 	 * Example: myCCanAccessPointer->canMessageError.connect(&myErrorRecievedHandler);

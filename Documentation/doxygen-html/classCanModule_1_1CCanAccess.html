@@ -251,7 +251,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00142">142</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
 
-<p class="reference">References <a class="el" href="CCanAccess_8h_source.html#l00486">resetTimeNow()</a>, <a class="el" href="CCanAccess_8h_source.html#l00483">resetTimeoutOnReception()</a>, <a class="el" href="namespaceCanModule.html#a2f4fee79cc7ba53467c2538fe6b9adbbae323a25a871808f9a0df9a72ce954585">CanModule::sendFail</a>, and <a class="el" href="namespaceCanModule.html#a2062089fa4fa87c8354295f2a8fe31a5a5f768fefafa6db21eee26885afb6163d">CanModule::singleBus</a>.</p>
+<p class="reference">References <a class="el" href="CCanAccess_8h_source.html#l00493">resetTimeNow()</a>, <a class="el" href="CCanAccess_8h_source.html#l00490">resetTimeoutOnReception()</a>, <a class="el" href="namespaceCanModule.html#a2f4fee79cc7ba53467c2538fe6b9adbbae323a25a871808f9a0df9a72ce954585">CanModule::sendFail</a>, and <a class="el" href="namespaceCanModule.html#a2062089fa4fa87c8354295f2a8fe31a5a5f768fefafa6db21eee26885afb6163d">CanModule::singleBus</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -284,7 +284,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00313">313</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00320">320</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
 
 </div>
 </div>
@@ -330,7 +330,7 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>: init OK, bus was created = OK = 0 init OK, bus was skipped because it exists already = 1 init failed = -1 </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>and integer 0 = init OK, bus was created = OK 1 = init OK, bus was skipped because it exists already -1 = init failed </dd></dl>
 
 <p>Implemented in <a class="el" href="classCSockCanScan.html#a0f5e7229e4be33b45698c2a21577fc6b">CSockCanScan</a>, <a class="el" href="classAnaCanScan.html#a64b086259bdd302b1d40cb9b7be49e5b">AnaCanScan</a>, <a class="el" href="classSTCanScan.html#ad45582e26b616cbaa3d6978008819ab8">STCanScan</a>, <a class="el" href="classPKCanScan.html#ab5603fff4027c341125d277feafca6fb">PKCanScan</a>, and <a class="el" href="classMockCanAccess.html#ae7cedecbb1fc4a34ddf204e6eaaedb2b">MockCanAccess</a>.</p>
 
@@ -361,9 +361,9 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00359">359</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00366">366</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
 
-<p class="reference">References <a class="el" href="CCanAccess_8h_source.html#l00462">m_failedSendCountdown</a>, and <a class="el" href="CCanAccess_8h_source.html#l00491">m_lh</a>.</p>
+<p class="reference">References <a class="el" href="CCanAccess_8h_source.html#l00469">m_failedSendCountdown</a>, and <a class="el" href="CCanAccess_8h_source.html#l00498">m_lh</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00528">AnaCanScan::sendMessage()</a>.</p>
 
@@ -391,11 +391,11 @@ Here is the call graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Returns the can bus name </p>
+<p>Returns the can bus name (from buffered data) </p>
 
-<p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00210">210</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00209">209</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
 
-<p class="reference">References <a class="el" href="CCanAccess_8h_source.html#l00455">m_sBusName</a>.</p>
+<p class="reference">References <a class="el" href="CCanAccess_8h_source.html#l00462">m_sBusName</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l01038">AnaCanScan::CanReconnectionThread()</a>, <a class="el" href="pkcan_8cpp_source.html#l00118">PKCanScan::CanScanControlThread()</a>, <a class="el" href="SockCanScan_8cpp_source.html#l00886">CSockCanScan::clearErrorMessage()</a>, <a class="el" href="CanBusAccess_8cpp_source.html#l00030">CanModule::CanBusAccess::closeCanBus()</a>, <a class="el" href="CanLibLoader_8cpp_source.html#l00060">CanModule::CanLibLoader::closeCanBus()</a>, <a class="el" href="Diag_8cpp_source.html#l00027">CanModule::Diag::delete_maps()</a>, <a class="el" href="Diag_8cpp_source.html#l00062">CanModule::Diag::insert_maps()</a>, and <a class="el" href="AnaCanScan_8cpp_source.html#l00528">AnaCanScan::sendMessage()</a>.</p>
 
@@ -425,9 +425,9 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>the LogIt instance is NOT shared by inheritance in windows, the instance has to be passed explicitly from the parent </p>
 
-<p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00338">338</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00345">345</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
 
-<p class="reference">References <a class="el" href="CCanAccess_8h_source.html#l00492">m_logItRemoteInstance</a>.</p>
+<p class="reference">References <a class="el" href="CCanAccess_8h_source.html#l00499">m_logItRemoteInstance</a>.</p>
 
 </div>
 </div>
@@ -481,7 +481,8 @@ Here is the call graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>according to vendor and OS, acquire bus status, and return one uint32_t bitpattern which has the same rules for all vendors. In fact the status for vendors is too different to be abstracted into a common bitpattern. Actually, talk to the HW, so use with parcimony while comms are ongoing: we do not really know how well the vendors have implemented that.</p>
+<p>UNIFIED PORT status</p>
+<p>according to vendor and OS, acquire bus (port) status, and return one uint32_t bitpattern which has the same rules for all vendors. In fact the status for vendors is too different to be abstracted into a common bitpattern. Actually, talk to the HW, so use with parcimony while comms are ongoing: we do not really know how well the vendors have implemented that.</p>
 <p>the <b>implementation</b> occupies the highest nibble, and it is a counter (see CANMODULE_STATUS_BP_SOCK etc)</p><ul>
 <li>0x1&lt;&lt;28 = sock (linux)</li>
 <li>0x2&lt;&lt;28 = anagate (linux, windows)</li>
@@ -489,7 +490,7 @@ Here is the call graph for this function:</div>
 <li>0x4&lt;&lt;28 = systec (windows)</li>
 <li>0x5&lt;&lt;28....0xf&lt;&lt;28 = unused, for future use</li>
 </ul>
-<p>the **specific status** occupies bits b0..b27, and it is a (composed) implementation specific bitpattern</p>
+<p>the **specific_status** occupies bits b0..b27, and it is a (composed) implementation specific bitpattern</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">sock</td><td>(linux): [ see can_netlink.h enum can_state ]<ul>
@@ -557,12 +558,16 @@ Here is the call graph for this function:</div>
 <li>b12..b11: unused</li>
 <li>b13: 0x2000: module/usb got reset because of polling failure per second</li>
 <li>b14: 0x4000: module/usb got reset because watchdog was not triggered</li>
-<li>b15...b27: unused </li>
+<li>b15...b27: unused</li>
 </ul>
 </td></tr>
   </table>
   </dd>
 </dl>
+<p>examples:</p><ul>
+<li>0x3000.0000.000.0040 means "peak" implementation (peak@windows) receive queue was read too late</li>
+<li>0x1000.0000.000.0002 means "sock" implementation (peak or systec @linux) CAN_STATE_ERROR_WARNING </li>
+</ul>
 
 <p>Implemented in <a class="el" href="classAnaCanScan.html#a4c115df4a8755c0fd70030ae457af24c">AnaCanScan</a>, <a class="el" href="classCSockCanScan.html#ad1caa327a98bc30012d2c5010a98cb05">CSockCanScan</a>, <a class="el" href="classPKCanScan.html#aae31de6a82fcacc8ef3f581aff5305fc">PKCanScan</a>, <a class="el" href="classSTCanScan.html#a27eabd471d3bb8154dfadb677c66e1d5">STCanScan</a>, and <a class="el" href="classMockCanAccess.html#a24e126b0ab5c70464a05ffa7286b91e1">MockCanAccess</a>.</p>
 
@@ -676,9 +681,9 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>compared to the last received message, are we in timeout? </p>
 
-<p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00473">473</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00480">480</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
 
-<p class="reference">References <a class="el" href="CCanAccess_8h_source.html#l00493">m_dnow</a>, <a class="el" href="CCanAccess_8h_source.html#l00493">m_dopen</a>, and <a class="el" href="CCanAccess_8h_source.html#l00461">m_timeoutOnReception</a>.</p>
+<p class="reference">References <a class="el" href="CCanAccess_8h_source.html#l00500">m_dnow</a>, <a class="el" href="CCanAccess_8h_source.html#l00500">m_dopen</a>, and <a class="el" href="CCanAccess_8h_source.html#l00468">m_timeoutOnReception</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="SockCanScan_8cpp_source.html#l00360">CSockCanScan::CanReconnectionThread()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00098">STCanScan::CanScanControlThread()</a>, <a class="el" href="pkcan_8cpp_source.html#l00118">PKCanScan::CanScanControlThread()</a>, and <a class="el" href="AnaCanScan_8cpp_source.html#l00528">AnaCanScan::sendMessage()</a>.</p>
 
@@ -708,9 +713,9 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00327">327</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00334">334</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
 
-<p class="reference">References <a class="el" href="CCanAccess_8h_source.html#l00492">m_logItRemoteInstance</a>.</p>
+<p class="reference">References <a class="el" href="CCanAccess_8h_source.html#l00499">m_logItRemoteInstance</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="CanLibLoader_8cpp_source.html#l00072">CanModule::CanLibLoader::openCanBus()</a>.</p>
 
@@ -776,7 +781,7 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>just translate the ugly r.action enum into a user-friendly string for convenience and logging. </p>
 
-<p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00440">440</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00447">447</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
 
 <p class="reference">References <a class="el" href="namespaceCanModule.html#a2062089fa4fa87c8354295f2a8fe31a5a319ee2c9d887d55f6bc1941518a5ae76">CanModule::allBusesOnBridge</a>, and <a class="el" href="namespaceCanModule.html#a2062089fa4fa87c8354295f2a8fe31a5a5f768fefafa6db21eee26885afb6163d">CanModule::singleBus</a>.</p>
 
@@ -809,7 +814,7 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>just translate the ugly r.condition enum into a user-friendly string for convenience and logging. </p>
 
-<p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00428">428</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00435">435</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
 
 <p class="reference">References <a class="el" href="namespaceCanModule.html#a2f4fee79cc7ba53467c2538fe6b9adbbac7561db7a418dd39b2201dfe110ab4a4">CanModule::never</a>, <a class="el" href="namespaceCanModule.html#a2f4fee79cc7ba53467c2538fe6b9adbbae323a25a871808f9a0df9a72ce954585">CanModule::sendFail</a>, and <a class="el" href="namespaceCanModule.html#a2f4fee79cc7ba53467c2538fe6b9adbbaba350cf15e5a1471109f17351afb401a">CanModule::timeoutOnReception</a>.</p>
 
@@ -840,9 +845,9 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00365">365</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00372">372</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
 
-<p class="reference">References <a class="el" href="CCanAccess_8h_source.html#l00462">m_failedSendCountdown</a>, <a class="el" href="CCanAccess_8h_source.html#l00491">m_lh</a>, and <a class="el" href="CCanAccess_8h_source.html#l00463">m_maxFailedSendCount</a>.</p>
+<p class="reference">References <a class="el" href="CCanAccess_8h_source.html#l00469">m_failedSendCountdown</a>, <a class="el" href="CCanAccess_8h_source.html#l00498">m_lh</a>, and <a class="el" href="CCanAccess_8h_source.html#l00470">m_maxFailedSendCount</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pkcan_8cpp_source.html#l00572">PKCanScan::CanReconnectionThread()</a>, <a class="el" href="SockCanScan_8cpp_source.html#l00360">CSockCanScan::CanReconnectionThread()</a>, and <a class="el" href="AnaCanScan_8cpp_source.html#l01038">AnaCanScan::CanReconnectionThread()</a>.</p>
 
@@ -871,9 +876,9 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00486">486</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00493">493</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
 
-<p class="reference">References <a class="el" href="CCanAccess_8h_source.html#l00493">m_dnow</a>.</p>
+<p class="reference">References <a class="el" href="CCanAccess_8h_source.html#l00500">m_dnow</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="CCanAccess_8h_source.html#l00142">CCanAccess()</a>.</p>
 
@@ -903,9 +908,9 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>reset the internal reconnection timeout counter </p>
 
-<p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00483">483</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00490">490</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
 
-<p class="reference">References <a class="el" href="CCanAccess_8h_source.html#l00493">m_dreceived</a>.</p>
+<p class="reference">References <a class="el" href="CCanAccess_8h_source.html#l00500">m_dreceived</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00201">AnaCanScan::callbackOnRecieve()</a>, <a class="el" href="pkcan_8cpp_source.html#l00572">PKCanScan::CanReconnectionThread()</a>, <a class="el" href="SockCanScan_8cpp_source.html#l00360">CSockCanScan::CanReconnectionThread()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l01038">AnaCanScan::CanReconnectionThread()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00098">STCanScan::CanScanControlThread()</a>, <a class="el" href="pkcan_8cpp_source.html#l00118">PKCanScan::CanScanControlThread()</a>, and <a class="el" href="CCanAccess_8h_source.html#l00142">CCanAccess()</a>.</p>
 
@@ -939,7 +944,7 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00195">195</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
 
-<p class="reference">References <a class="el" href="CanMessage_8h_source.html#l00029">CanMsgStruct::c_data</a>, <a class="el" href="CanMessage_8h_source.html#l00027">CanMsgStruct::c_dlc</a>, <a class="el" href="CanMessage_8h_source.html#l00023">CanMsgStruct::c_id</a>, <a class="el" href="CanMessage_8h_source.html#l00033">CanMsgStruct::c_rtr</a>, <a class="el" href="CCanAccess_8h_source.html#l00491">m_lh</a>, and <a class="el" href="classCanModule_1_1CCanAccess.html#aee42ab7fb9e50c02a1812202f7863d8c">sendMessage()</a>.</p>
+<p class="reference">References <a class="el" href="CanMessage_8h_source.html#l00029">CanMsgStruct::c_data</a>, <a class="el" href="CanMessage_8h_source.html#l00027">CanMsgStruct::c_dlc</a>, <a class="el" href="CanMessage_8h_source.html#l00023">CanMsgStruct::c_id</a>, <a class="el" href="CanMessage_8h_source.html#l00033">CanMsgStruct::c_rtr</a>, <a class="el" href="CCanAccess_8h_source.html#l00498">m_lh</a>, and <a class="el" href="classCanModule_1_1CCanAccess.html#aee42ab7fb9e50c02a1812202f7863d8c">sendMessage()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -994,7 +999,7 @@ Here is the call graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Method that sends a message through the can bus channel. If the method createBUS was not called before this, sendMessage will fail, as there is no can bus channel to send a message through. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Method that sends a message through the can bus channel. If the method createBUS was not called before this, sendMessage will fail, as there is no can bus channel to send a message through. SendMessage is non blocking and reentrant - as far as the various vendor APIs permit this. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">cobID</td><td>Identifier that will be used for the message. </td></tr>
     <tr><td class="paramname">len</td><td>Length of the message. If the message is bigger than 8 characters, it will be split into separate 8 characters messages. </td></tr>
@@ -1003,7 +1008,7 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>: Was the initialisation process successful? </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>: Was the message sent successfully? If not, we may reconnect. </dd></dl>
 
 <p>Implemented in <a class="el" href="classAnaCanScan.html#ad45666454318c891d7acd9fe16ae4c49">AnaCanScan</a>, <a class="el" href="classPKCanScan.html#a48a2e9ba00dae1b1fe01f7b095430503">PKCanScan</a>, <a class="el" href="classCSockCanScan.html#a485ec8621a98cdacad8e27433e09d919">CSockCanScan</a>, <a class="el" href="classSTCanScan.html#a45f0ec011022bf58a23e8370bac7f829">STCanScan</a>, and <a class="el" href="classMockCanAccess.html#a95856b7b3ac143d7c5bd7bd807c06fd5">MockCanAccess</a>.</p>
 
@@ -1040,7 +1045,7 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>: Was the initialisation process successful? </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Was the sent request successful ? </dd></dl>
 
 <p>Implemented in <a class="el" href="classAnaCanScan.html#a345abb2f9712275425f4af8eb98cbd38">AnaCanScan</a>, <a class="el" href="classPKCanScan.html#af7e22b4a484de11ccaea060ad0adb47d">PKCanScan</a>, <a class="el" href="classSTCanScan.html#a2c1de002fa7ace90ef95af00f824c8e4">STCanScan</a>, <a class="el" href="classCSockCanScan.html#a4999204ff7166ee992a89b30a118af06">CSockCanScan</a>, and <a class="el" href="classMockCanAccess.html#a584734691bc9d4d49c5ccb795ab5d526">MockCanAccess</a>.</p>
 
@@ -1212,9 +1217,9 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00346">346</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00353">353</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
 
-<p class="reference">References <a class="el" href="CCanAccess_8h_source.html#l00467">m_reconnection_cv</a>, and <a class="el" href="CCanAccess_8h_source.html#l00465">m_reconnectTrigger</a>.</p>
+<p class="reference">References <a class="el" href="CCanAccess_8h_source.html#l00474">m_reconnection_cv</a>, and <a class="el" href="CCanAccess_8h_source.html#l00472">m_reconnectTrigger</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pkcan_8cpp_source.html#l00118">PKCanScan::CanScanControlThread()</a>, <a class="el" href="pkcan_8cpp_source.html#l00431">PKCanScan::sendMessage()</a>, and <a class="el" href="AnaCanScan_8cpp_source.html#l00528">AnaCanScan::sendMessage()</a>.</p>
 
@@ -1243,9 +1248,9 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00353">353</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00360">360</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
 
-<p class="reference">References <a class="el" href="CCanAccess_8h_source.html#l00467">m_reconnection_cv</a>, <a class="el" href="CCanAccess_8h_source.html#l00466">m_reconnection_mtx</a>, and <a class="el" href="CCanAccess_8h_source.html#l00465">m_reconnectTrigger</a>.</p>
+<p class="reference">References <a class="el" href="CCanAccess_8h_source.html#l00474">m_reconnection_cv</a>, <a class="el" href="CCanAccess_8h_source.html#l00473">m_reconnection_mtx</a>, and <a class="el" href="CCanAccess_8h_source.html#l00472">m_reconnectTrigger</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pkcan_8cpp_source.html#l00572">PKCanScan::CanReconnectionThread()</a>, <a class="el" href="SockCanScan_8cpp_source.html#l00360">CSockCanScan::CanReconnectionThread()</a>, and <a class="el" href="AnaCanScan_8cpp_source.html#l01038">AnaCanScan::CanReconnectionThread()</a>.</p>
 
@@ -1264,7 +1269,7 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00311">311</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00318">318</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00201">AnaCanScan::callbackOnRecieve()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00098">STCanScan::CanScanControlThread()</a>, <a class="el" href="pkcan_8cpp_source.html#l00118">PKCanScan::CanScanControlThread()</a>, and <a class="el" href="MockCanAccess_8cpp_source.html#l00063">MockCanAccess::sendMessage()</a>.</p>
 
@@ -1282,7 +1287,7 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00313">313</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00320">320</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="SockCanScan_8cpp_source.html#l00886">CSockCanScan::clearErrorMessage()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00502">AnaCanScan::sendAnErrorMessage()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00380">STCanScan::sendErrorCode()</a>, <a class="el" href="pkcan_8cpp_source.html#l00408">PKCanScan::sendErrorCode()</a>, and <a class="el" href="SockCanScan_8cpp_source.html#l00959">CSockCanScan::updateInitialError()</a>.</p>
 
@@ -1308,7 +1313,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00456">456</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00463">463</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="STCanScan_8cpp_source.html#l00245">STCanScan::configureCanBoard()</a>, <a class="el" href="pkcan_8cpp_source.html#l00271">PKCanScan::configureCanboard()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00278">AnaCanScan::configureCanBoard()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l00786">AnaCanScan::connectReceptionHandler()</a>, <a class="el" href="MockCanAccess_8h_source.html#l00059">MockCanAccess::getPortBitrate()</a>, <a class="el" href="SockCanScan_8cpp_source.html#l00949">CSockCanScan::getStatistics()</a>, <a class="el" href="SockCanScan_8cpp_source.html#l00514">CSockCanScan::openCanPort()</a>, and <a class="el" href="AnaCanScan_8cpp_source.html#l00424">AnaCanScan::openCanPort()</a>.</p>
 
@@ -1334,9 +1339,9 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00493">493</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00500">500</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="CCanAccess_8h_source.html#l00473">hasTimeoutOnReception()</a>, and <a class="el" href="CCanAccess_8h_source.html#l00486">resetTimeNow()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="CCanAccess_8h_source.html#l00480">hasTimeoutOnReception()</a>, and <a class="el" href="CCanAccess_8h_source.html#l00493">resetTimeNow()</a>.</p>
 
 </div>
 </div>
@@ -1360,9 +1365,9 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00493">493</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00500">500</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="CCanAccess_8h_source.html#l00473">hasTimeoutOnReception()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="CCanAccess_8h_source.html#l00480">hasTimeoutOnReception()</a>.</p>
 
 </div>
 </div>
@@ -1386,9 +1391,9 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00493">493</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00500">500</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="CCanAccess_8h_source.html#l00483">resetTimeoutOnReception()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="CCanAccess_8h_source.html#l00490">resetTimeoutOnReception()</a>.</p>
 
 </div>
 </div>
@@ -1412,7 +1417,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00493">493</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00500">500</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
 
 </div>
 </div>
@@ -1436,9 +1441,9 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00462">462</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00469">469</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00055">AnaCanScan::AnaCanScan()</a>, <a class="el" href="SockCanScan_8cpp_source.html#l00360">CSockCanScan::CanReconnectionThread()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l01038">AnaCanScan::CanReconnectionThread()</a>, <a class="el" href="SockCanScan_8cpp_source.html#l00067">CSockCanScan::CSockCanScan()</a>, <a class="el" href="CCanAccess_8h_source.html#l00359">decreaseSendFailedCountdown()</a>, <a class="el" href="MockCanAccess_8cpp_source.html#l00030">MockCanAccess::MockCanAccess()</a>, <a class="el" href="pkcan_8cpp_source.html#l00055">PKCanScan::PKCanScan()</a>, <a class="el" href="CCanAccess_8h_source.html#l00365">resetSendFailedCountdown()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00431">STCanScan::sendMessage()</a>, <a class="el" href="MockCanAccess_8h_source.html#l00055">MockCanAccess::setReconnectFailedSendCount()</a>, and <a class="el" href="STCanScan_8cpp_source.html#l00061">STCanScan::STCanScan()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00055">AnaCanScan::AnaCanScan()</a>, <a class="el" href="SockCanScan_8cpp_source.html#l00360">CSockCanScan::CanReconnectionThread()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l01038">AnaCanScan::CanReconnectionThread()</a>, <a class="el" href="SockCanScan_8cpp_source.html#l00067">CSockCanScan::CSockCanScan()</a>, <a class="el" href="CCanAccess_8h_source.html#l00366">decreaseSendFailedCountdown()</a>, <a class="el" href="MockCanAccess_8cpp_source.html#l00030">MockCanAccess::MockCanAccess()</a>, <a class="el" href="pkcan_8cpp_source.html#l00055">PKCanScan::PKCanScan()</a>, <a class="el" href="CCanAccess_8h_source.html#l00372">resetSendFailedCountdown()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00431">STCanScan::sendMessage()</a>, <a class="el" href="MockCanAccess_8h_source.html#l00055">MockCanAccess::setReconnectFailedSendCount()</a>, and <a class="el" href="STCanScan_8cpp_source.html#l00061">STCanScan::STCanScan()</a>.</p>
 
 </div>
 </div>
@@ -1462,7 +1467,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00464">464</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00471">471</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00055">AnaCanScan::AnaCanScan()</a>, and <a class="el" href="SockCanScan_8cpp_source.html#l00745">CSockCanScan::createBus()</a>.</p>
 
@@ -1488,9 +1493,9 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00491">491</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00498">498</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="CCanAccess_8h_source.html#l00359">decreaseSendFailedCountdown()</a>, <a class="el" href="CCanAccess_8h_source.html#l00365">resetSendFailedCountdown()</a>, and <a class="el" href="CCanAccess_8h_source.html#l00195">sendMessage()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="CCanAccess_8h_source.html#l00366">decreaseSendFailedCountdown()</a>, <a class="el" href="CCanAccess_8h_source.html#l00372">resetSendFailedCountdown()</a>, and <a class="el" href="CCanAccess_8h_source.html#l00195">sendMessage()</a>.</p>
 
 </div>
 </div>
@@ -1514,9 +1519,9 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00492">492</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00499">499</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="CCanAccess_8h_source.html#l00338">getLogItInstance()</a>, and <a class="el" href="CCanAccess_8h_source.html#l00327">initialiseLogging()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="CCanAccess_8h_source.html#l00345">getLogItInstance()</a>, and <a class="el" href="CCanAccess_8h_source.html#l00334">initialiseLogging()</a>.</p>
 
 </div>
 </div>
@@ -1540,9 +1545,9 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00463">463</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00470">470</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00055">AnaCanScan::AnaCanScan()</a>, <a class="el" href="SockCanScan_8cpp_source.html#l00067">CSockCanScan::CSockCanScan()</a>, <a class="el" href="MockCanAccess_8cpp_source.html#l00030">MockCanAccess::MockCanAccess()</a>, <a class="el" href="pkcan_8cpp_source.html#l00055">PKCanScan::PKCanScan()</a>, <a class="el" href="CCanAccess_8h_source.html#l00365">resetSendFailedCountdown()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00431">STCanScan::sendMessage()</a>, <a class="el" href="MockCanAccess_8h_source.html#l00055">MockCanAccess::setReconnectFailedSendCount()</a>, and <a class="el" href="STCanScan_8cpp_source.html#l00061">STCanScan::STCanScan()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00055">AnaCanScan::AnaCanScan()</a>, <a class="el" href="SockCanScan_8cpp_source.html#l00067">CSockCanScan::CSockCanScan()</a>, <a class="el" href="MockCanAccess_8cpp_source.html#l00030">MockCanAccess::MockCanAccess()</a>, <a class="el" href="pkcan_8cpp_source.html#l00055">PKCanScan::PKCanScan()</a>, <a class="el" href="CCanAccess_8h_source.html#l00372">resetSendFailedCountdown()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00431">STCanScan::sendMessage()</a>, <a class="el" href="MockCanAccess_8h_source.html#l00055">MockCanAccess::setReconnectFailedSendCount()</a>, and <a class="el" href="STCanScan_8cpp_source.html#l00061">STCanScan::STCanScan()</a>.</p>
 
 </div>
 </div>
@@ -1566,7 +1571,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00460">460</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00467">467</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="SockCanScan_8cpp_source.html#l00360">CSockCanScan::CanReconnectionThread()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l01038">AnaCanScan::CanReconnectionThread()</a>, <a class="el" href="MockCanAccess_8h_source.html#l00057">MockCanAccess::getReconnectAction()</a>, and <a class="el" href="STCanScan_8cpp_source.html#l00431">STCanScan::sendMessage()</a>.</p>
 
@@ -1592,7 +1597,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00459">459</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00466">466</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="AnaCanScan_8cpp_source.html#l00201">AnaCanScan::callbackOnRecieve()</a>, <a class="el" href="SockCanScan_8cpp_source.html#l00360">CSockCanScan::CanReconnectionThread()</a>, <a class="el" href="AnaCanScan_8cpp_source.html#l01038">AnaCanScan::CanReconnectionThread()</a>, <a class="el" href="MockCanAccess_8h_source.html#l00056">MockCanAccess::getReconnectCondition()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00431">STCanScan::sendMessage()</a>, and <a class="el" href="AnaCanScan_8cpp_source.html#l00528">AnaCanScan::sendMessage()</a>.</p>
 
@@ -1618,9 +1623,9 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00467">467</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00474">474</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="CCanAccess_8h_source.html#l00346">triggerReconnectionThread()</a>, and <a class="el" href="CCanAccess_8h_source.html#l00353">waitForReconnectionThreadTrigger()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="CCanAccess_8h_source.html#l00353">triggerReconnectionThread()</a>, and <a class="el" href="CCanAccess_8h_source.html#l00360">waitForReconnectionThreadTrigger()</a>.</p>
 
 </div>
 </div>
@@ -1644,9 +1649,9 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00466">466</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00473">473</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="CCanAccess_8h_source.html#l00353">waitForReconnectionThreadTrigger()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="CCanAccess_8h_source.html#l00360">waitForReconnectionThreadTrigger()</a>.</p>
 
 </div>
 </div>
@@ -1670,9 +1675,9 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00465">465</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00472">472</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="CCanAccess_8h_source.html#l00346">triggerReconnectionThread()</a>, and <a class="el" href="CCanAccess_8h_source.html#l00353">waitForReconnectionThreadTrigger()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="CCanAccess_8h_source.html#l00353">triggerReconnectionThread()</a>, and <a class="el" href="CCanAccess_8h_source.html#l00360">waitForReconnectionThreadTrigger()</a>.</p>
 
 </div>
 </div>
@@ -1696,9 +1701,9 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00455">455</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00462">462</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="pkcan_8cpp_source.html#l00271">PKCanScan::configureCanboard()</a>, <a class="el" href="MockCanAccess_8cpp_source.html#l00048">MockCanAccess::createBus()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00211">STCanScan::createBus()</a>, and <a class="el" href="CCanAccess_8h_source.html#l00210">getBusName()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="pkcan_8cpp_source.html#l00271">PKCanScan::configureCanboard()</a>, <a class="el" href="MockCanAccess_8cpp_source.html#l00048">MockCanAccess::createBus()</a>, <a class="el" href="STCanScan_8cpp_source.html#l00211">STCanScan::createBus()</a>, and <a class="el" href="CCanAccess_8h_source.html#l00209">getBusName()</a>.</p>
 
 </div>
 </div>
@@ -1722,9 +1727,9 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00461">461</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CCanAccess_8h_source.html#l00468">468</a> of file <a class="el" href="CCanAccess_8h_source.html">CCanAccess.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="CCanAccess_8h_source.html#l00473">hasTimeoutOnReception()</a>, and <a class="el" href="MockCanAccess_8h_source.html#l00054">MockCanAccess::setReconnectReceptionTimeout()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="CCanAccess_8h_source.html#l00480">hasTimeoutOnReception()</a>, and <a class="el" href="MockCanAccess_8h_source.html#l00054">MockCanAccess::setReconnectReceptionTimeout()</a>.</p>
 
 </div>
 </div>
