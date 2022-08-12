@@ -21,6 +21,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 todo:
 LogIt linkage
 check signals for error frames
+piotr n: error handling slide 10
 
 
 
