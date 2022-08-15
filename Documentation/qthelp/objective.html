@@ -14,7 +14,7 @@
     <link rel="prev" title="Downloading" href="downloading.html" /> 
   </head><body>
       <div class="header" role="banner"><h1 class="heading"><a href="index.html">
-          <span>CanModule 2.0.16 documentation</span></a></h1>
+          <span>CanModule 2.0.22 documentation</span></a></h1>
         <h2 class="heading"><span>Objective</span></h2>
       </div>
       <div class="topnav" role="navigation" aria-label="top navigation">
@@ -41,16 +41,24 @@ can be connected.</p>
 <p>The original authors are the CERN Atlas-DCS team, support is now done by BE-ICS-FD.</p>
 <section id="supported-os">
 <h2>Supported OS</h2>
-<p>These operating systems are supported for all vendors</p>
+<p>These operating systems are supported for production for all vendors (2022), and you may contact ICS-FT if in trouble:</p>
 <ul class="simple">
 <li><p>CERN CC7</p></li>
 <li><p>Windows 2016 Server and Windows 10</p></li>
 </ul>
+<p>These are known to work and available, but not officially supported (yet?)</p>
+<ul class="simple">
+<li><p>CERN C8,CS8</p></li>
+<li><p>Windows 2019 server</p></li>
+<li><p>Ubuntu 20.04</p></li>
+</ul>
+<p>and that is in progress:
+* CERN CS9</p>
 <p>other OS versions might be available on special request, or easily be ported to.</p>
 </section>
 <section id="compatible-vendors">
 <h2>compatible vendors</h2>
-<p>CAN bridges from vendors are compatible with CanModule and are tested</p>
+<p>These CAN bridges from vendors are compatible with CanModule and are tested</p>
 <ul class="simple">
 <li><p><a class="reference external" href="http://www.anagate.de/en/products/can-ethernet-gateways.htm">AnaGate</a></p></li>
 <li><p><a class="reference external" href="https://www.systec-electronic.com/">SysTec</a></p></li>
@@ -65,6 +73,7 @@ and ethernet (Anagate) bridges</strong>. Flexible datarate bridges (PEAK FD) and
 <p>CanModule is distributed by source, coming with cmake toolchains for the implementations and OS:
 clone from <a class="reference external" href="https://github.com/quasar-team/CanModule.git">CanModuleGithub</a> and integrate it into a cmake build chain.</p>
 <p>CanModule is a quasar module, but can also be used stand-alone.</p>
+<p>Contact suport if you need libraries, that can be easily arranged (request was not there until now).</p>
 </section>
 </section>
 
@@ -84,7 +93,7 @@ clone from <a class="reference external" href="https://github.com/quasar-team/Ca
 
     <div class="footer" role="contentinfo">
         &#169; Copyright 2020, CERN, quasar-team, BE-ICS (Michael Ludwig).
-      Last updated on 04-Mar-2022 16:37:37.
+      Last updated on 12-Aug-2022 17:30:22.
       Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
     </div>
   </body>

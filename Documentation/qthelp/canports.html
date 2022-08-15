@@ -10,21 +10,21 @@
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/haiku.css" />
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="next" title="Details on classes" href="classestracing.html" />
-    <link rel="prev" title="Standard API" href="standardApi.html" /> 
+    <link rel="next" title="Details on classes" href="classesdetails.html" />
+    <link rel="prev" title="standard API list of methods" href="standardApiList.html" /> 
   </head><body>
       <div class="header" role="banner"><h1 class="heading"><a href="index.html">
-          <span>CanModule 2.0.16 documentation</span></a></h1>
+          <span>CanModule 2.0.22 documentation</span></a></h1>
         <h2 class="heading"><span>CAN ports</span></h2>
       </div>
       <div class="topnav" role="navigation" aria-label="top navigation">
       
         <p>
-        «&#160;&#160;<a href="standardApi.html">Standard API</a>
+        «&#160;&#160;<a href="standardApiList.html">standard API list of methods</a>
         &#160;&#160;::&#160;&#160;
         <a class="uplink" href="index.html">Contents</a>
         &#160;&#160;::&#160;&#160;
-        <a href="classestracing.html">Details on classes</a>&#160;&#160;»
+        <a href="classesdetails.html">Details on classes</a>&#160;&#160;»
         </p>
 
       </div>
@@ -38,13 +38,13 @@
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N9CanModule10CCanAccessE">
 <span id="_CPPv3N9CanModule10CCanAccessE"></span><span id="_CPPv2N9CanModule10CCanAccessE"></span><span id="CanModule::CCanAccess"></span><span class="target" id="classCanModule_1_1CCanAccess"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">CanModule</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">CCanAccess</span></span></span><br /></dt>
-<dd><p>Subclassed by <a class="reference internal" href="classestracing.html#classAnaCanScan"><span class="std std-ref">AnaCanScan</span></a>, <a class="reference internal" href="vendors/systec.html#classCSockCanScan"><span class="std std-ref">CSockCanScan</span></a>, MockCanAccess, <a class="reference internal" href="vendors/peak.html#classPKCanScan"><span class="std std-ref">PKCanScan</span></a>, <a class="reference internal" href="classestracing.html#classSTCanScan"><span class="std std-ref">STCanScan</span></a></p>
+<dd><p>Subclassed by <a class="reference internal" href="classesdetails.html#classAnaCanScan"><span class="std std-ref">AnaCanScan</span></a>, <a class="reference internal" href="vendors/systec.html#classCSockCanScan"><span class="std std-ref">CSockCanScan</span></a>, MockCanAccess, <a class="reference internal" href="vendors/peak.html#classPKCanScan"><span class="std std-ref">PKCanScan</span></a>, <a class="reference internal" href="classesdetails.html#classSTCanScan"><span class="std std-ref">STCanScan</span></a></p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N9CanModule10CCanAccess14getPortBitrateEv">
 <span id="_CPPv3N9CanModule10CCanAccess14getPortBitrateEv"></span><span id="_CPPv2N9CanModule10CCanAccess14getPortBitrateEv"></span><span id="CanModule::CCanAccess::getPortBitrate"></span><span class="target" id="classCanModule_1_1CCanAccess_1aa8cb67096349fefc6e03aeb33e45ef81"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getPortBitrate</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><br /></dt>
-<dd><p>returns the bitrate of that port [bits/sec] according to what CanModule buffers say. This is the setting used for setting up the hardware, after any default rules have been applied, but BEFORE any vendor specific encoding into obscure bitpatterns occurs. This happens at port opening and the bitrate can only be changed at that moment. So please call this method just after you have opened the port. But also since there is no hw interaction and it just returns a buffer, you may call it as often as you like. Default bitrate is always 125000bits/s if “Unspecified” </p>
+<dd><p>returns the bitrate of that port [bits/sec] according to what CanModule buffers say. This is the setting used for setting up the hardware, after any default rules have been applied, but BEFORE any vendor specific encoding into obscure bitpatterns occurs. This happens at port opening and the bitrate can only be changed at that moment. So please call this method just after you have opened the port. But also since there is no hw interaction and it just returns a buffer, you may call it as often as you like. </p>
 </dd></dl>
 
 </div>
@@ -63,13 +63,14 @@
 <dl class="cpp class">
 <dt class="sig sig-object cpp">
 <span class="target" id="classCanModule_1_1CCanAccess"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">CanModule</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">CCanAccess</span></span></span><br /></dt>
-<dd><p>Subclassed by <a class="reference internal" href="classestracing.html#classAnaCanScan"><span class="std std-ref">AnaCanScan</span></a>, <a class="reference internal" href="vendors/systec.html#classCSockCanScan"><span class="std std-ref">CSockCanScan</span></a>, MockCanAccess, <a class="reference internal" href="vendors/peak.html#classPKCanScan"><span class="std std-ref">PKCanScan</span></a>, <a class="reference internal" href="classestracing.html#classSTCanScan"><span class="std std-ref">STCanScan</span></a></p>
+<dd><p>Subclassed by <a class="reference internal" href="classesdetails.html#classAnaCanScan"><span class="std std-ref">AnaCanScan</span></a>, <a class="reference internal" href="vendors/systec.html#classCSockCanScan"><span class="std std-ref">CSockCanScan</span></a>, MockCanAccess, <a class="reference internal" href="vendors/peak.html#classPKCanScan"><span class="std std-ref">PKCanScan</span></a>, <a class="reference internal" href="classesdetails.html#classSTCanScan"><span class="std std-ref">STCanScan</span></a></p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N9CanModule10CCanAccess13getPortStatusEv">
 <span id="_CPPv3N9CanModule10CCanAccess13getPortStatusEv"></span><span id="_CPPv2N9CanModule10CCanAccess13getPortStatusEv"></span><span id="CanModule::CCanAccess::getPortStatus"></span><span class="target" id="classCanModule_1_1CCanAccess_1a33fe530d070cf35d096e967d543186a4"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getPortStatus</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><br /></dt>
-<dd><p>according to vendor and OS, acquire bus status, and return one uint32_t bitpattern which has the same rules for all vendors. In fact the status for vendors is too different to be abstracted into a common bitpattern.</p>
+<dd><p>UNIFIED PORT status</p>
+<p>according to vendor and OS, acquire bus (port) status, and return one uint32_t bitpattern which has the same rules for all vendors. In fact the status for vendors is too different to be abstracted into a common bitpattern. Actually, talk to the HW, so use with parcimony while comms are ongoing: we do not really know how well the vendors have implemented that.</p>
 <p>the <strong>implementation</strong> occupies the highest nibble, and it is a counter (see CANMODULE_STATUS_BP_SOCK etc)<ul class="simple">
 <li><p>0x1&lt;&lt;28 = sock (linux)</p></li>
 <li><p>0x2&lt;&lt;28 = anagate (linux, windows)</p></li>
@@ -78,7 +79,13 @@
 <li><p>0x5&lt;&lt;28….0xf&lt;&lt;28 = unused, for future use</p></li>
 </ul>
 </p>
-<p>the **specific status** occupies bits b0..b27, and it is a (composed) implementation specific bitpattern</p>
+<p>the **specific_status** occupies bits b0..b27, and it is a (composed) implementation specific bitpattern</p>
+<p>
+examples:<ul class="simple">
+<li><p>0x3000.0000.000.0040 means “peak” implementation (peak&#64;windows) receive queue was read too late</p></li>
+<li><p>0x1000.0000.000.0002 means “sock” implementation (peak or systec &#64;linux) CAN_STATE_ERROR_WARNING </p></li>
+</ul>
+</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -147,7 +154,7 @@
 <li><p>b12..b11: unused</p></li>
 <li><p>b13: 0x2000: module/usb got reset because of polling failure per second</p></li>
 <li><p>b14: 0x4000: module/usb got reset because watchdog was not triggered</p></li>
-<li><p>b15…b27: unused </p></li>
+<li><p>b15…b27: unused</p></li>
 </ul>
 </p></li>
 </ul>
@@ -185,7 +192,7 @@ the implementations.</p>
 <dl class="cpp class">
 <dt class="sig sig-object cpp">
 <span class="target" id="classCanModule_1_1CCanAccess"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CCanAccess</span></span></span><br /></dt>
-<dd><p>Subclassed by <a class="reference internal" href="classestracing.html#classAnaCanScan"><span class="std std-ref">AnaCanScan</span></a>, <a class="reference internal" href="vendors/systec.html#classCSockCanScan"><span class="std std-ref">CSockCanScan</span></a>, MockCanAccess, <a class="reference internal" href="vendors/peak.html#classPKCanScan"><span class="std std-ref">PKCanScan</span></a>, <a class="reference internal" href="classestracing.html#classSTCanScan"><span class="std std-ref">STCanScan</span></a></p>
+<dd><p>Subclassed by <a class="reference internal" href="classesdetails.html#classAnaCanScan"><span class="std std-ref">AnaCanScan</span></a>, <a class="reference internal" href="vendors/systec.html#classCSockCanScan"><span class="std std-ref">CSockCanScan</span></a>, MockCanAccess, <a class="reference internal" href="vendors/peak.html#classPKCanScan"><span class="std std-ref">PKCanScan</span></a>, <a class="reference internal" href="classesdetails.html#classSTCanScan"><span class="std std-ref">STCanScan</span></a></p>
 </dd></dl>
 
 </section>
@@ -196,18 +203,18 @@ the implementations.</p>
       <div class="bottomnav" role="navigation" aria-label="bottom navigation">
       
         <p>
-        «&#160;&#160;<a href="standardApi.html">Standard API</a>
+        «&#160;&#160;<a href="standardApiList.html">standard API list of methods</a>
         &#160;&#160;::&#160;&#160;
         <a class="uplink" href="index.html">Contents</a>
         &#160;&#160;::&#160;&#160;
-        <a href="classestracing.html">Details on classes</a>&#160;&#160;»
+        <a href="classesdetails.html">Details on classes</a>&#160;&#160;»
         </p>
 
       </div>
 
     <div class="footer" role="contentinfo">
         &#169; Copyright 2020, CERN, quasar-team, BE-ICS (Michael Ludwig).
-      Last updated on 04-Mar-2022 16:37:37.
+      Last updated on 12-Aug-2022 17:30:22.
       Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
     </div>
   </body>

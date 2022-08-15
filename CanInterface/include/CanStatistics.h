@@ -24,29 +24,11 @@
 #ifndef CANINTERFACE_SOCKCAN_CANSTATISTICS_H_
 #define CANINTERFACE_SOCKCAN_CANSTATISTICS_H_
 
-/**
-#ifdef _WIN32
-#	include <atomic>
-#	include <time.h>
-#	ifndef timeval
-#		include "Winsock2.h"
-#	endif
-#else
-#	define GCC_VERSION (__GNUC__ * 10000 + __GNUC_MINOR__ * 100 + __GNUC_PATCHLEVEL__)
-#	if GCC_VERSION > 40800
-#		include <atomic>
-#	else // GCC_VERSION
-#		include <stdatomic.h>
-#	endif // GCC_VERSION
-#	include <sys/time.h>
-#endif
-**/
 
 #include "ExportDefinition.h"
 #include <atomic>
+#include <iostream>
 #include <chrono>
-using namespace std;
-using namespace std::chrono;
 
 namespace CanModule
 {
@@ -91,34 +73,34 @@ public:
 	float busLoad() { return m_internals.m_busLoad; }
 
 	/**
-	 * time since the last message was received in microseconds
+	 * time since the last message was received in milliseconds with microseconds precision
 	 */
 	double timeSinceReceived() {
-		m_hrnow = high_resolution_clock::now();
-		duration<double, micro> time_span = duration_cast<duration<double, micro>>(m_hrnow - m_hrreceived);
+		m_hrnow = std::chrono::high_resolution_clock::now();
+		std::chrono::duration<double, std::micro> time_span = m_hrnow - m_hrreceived;
 		return ( time_span.count() / 1000 );
 	}
 
 	/**
-	 * time since the last message was sent, in microseconds
+	 * time since the last message was sent, in milliseconds with microseconds precision
 	 */
 	double timeSinceTransmitted() {
-		m_hrnow = high_resolution_clock::now();
-		duration<double, micro> time_span = duration_cast<duration<double, micro>>(m_hrnow - m_hrtransmitted);
+		m_hrnow = std::chrono::high_resolution_clock::now();
+		std::chrono::duration<double, std::micro> time_span = m_hrnow - m_hrtransmitted;
 		return ( time_span.count() / 1000 );
 	}
 
 	/**
-	 *  time since that bus was opened, in microseconds
+	 *  time since that bus was opened, in milliseconds with microseconds precision
 	 */
 	double timeSinceOpened() {
-		m_hrnow = high_resolution_clock::now();
-		duration<double, micro> time_span = duration_cast<duration<double, micro>>(m_hrnow - m_hropen);
+		m_hrnow = std::chrono::high_resolution_clock::now();
+		std::chrono::duration<double, std::micro> time_span = m_hrnow - m_hropen;
 		return ( time_span.count() / 1000 );
 	}
-	void setTimeSinceOpened()      { m_hropen        = high_resolution_clock::now();	}
-	void setTimeSinceReceived()    { m_hrreceived    = high_resolution_clock::now();	}
-	void setTimeSinceTransmitted() { m_hrtransmitted = high_resolution_clock::now();	}
+	void setTimeSinceOpened()      { m_hropen        = std::chrono::high_resolution_clock::now();	}
+	void setTimeSinceReceived()    { m_hrreceived    = std::chrono::high_resolution_clock::now();	}
+	void setTimeSinceTransmitted() { m_hrtransmitted = std::chrono::high_resolution_clock::now();	}
 
 	void operator=(const CanStatistics & other);  // not default, because of atomic data
 
@@ -131,12 +113,10 @@ private:
 	std::atomic_uint_least32_t m_transmitted;
 	//! Number of messaged in current statistic run
 	std::atomic_uint_least32_t m_received;
-
-
 	std::atomic_uint_least32_t m_transmittedOctets;
 	std::atomic_uint_least32_t m_receivedOctets;
 
-	high_resolution_clock::time_point m_hrnow, m_hrreceived, m_hrtransmitted, m_hropen;
+	std::chrono::high_resolution_clock::time_point m_hrnow, m_hrreceived, m_hrtransmitted, m_hropen;
 
 	//! Following is encapsulated as a class, to provide sane copying in assignment operator
 	class Internals
@@ -146,7 +126,7 @@ private:
 		float m_receivedPerSec;
 		//! Bus load derived from #TX and #RX packages
 		float m_busLoad;
-		system_clock::time_point m_observationStart;
+		std::chrono::system_clock::time_point m_observationStart;
 	};
 	Internals m_internals;
 

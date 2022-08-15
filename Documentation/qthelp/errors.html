@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>error reporting and diagnostics</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/haiku.css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="next" title="Support" href="support.html" />
+    <link rel="prev" title="Running" href="running.html" /> 
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="index.html">
+          <span>CanModule 2.0.22 documentation</span></a></h1>
+        <h2 class="heading"><span>error reporting and diagnostics</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        «&#160;&#160;<a href="running.html">Running</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="support.html">Support</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <section id="error-reporting-and-diagnostics">
+<h1>error reporting and diagnostics</h1>
+<p>for error reporting and diagnostics, we have:</p>
+<section id="boost-signal-error-messages-delivered-to-a-connected-boost-handler">
+<h2>boost signal error messages, delivered to a connected boost handler</h2>
+<p>A boost signal is sent with an error message to a subscibing error handler</p>
+<ul class="simple">
+<li><p>anagate: used in sendMessage() and sendRemoteMessage()</p></li>
+<li><p>peak: sendErrorCode() sends an error code (not a message) at sendMessage(), triggerReconnectionThread() and sendRemoteRequest()</p></li>
+<li><p>systec: sendErrorCode() sends an error code (not a message) at message reception with USB error AND the return code of sendMessage (also if it is OK)</p></li>
+<li><p>sock: no wrapper method (defined but not used), error messages are sent when: socket recovers, error reading from socket, a CAN error was flagged from the socket (plus message and socket timestamp if possible), when opening a CAN port produces an error</p></li>
+</ul>
+</section>
+<section id="unified-port-status">
+<h2>unified port status</h2>
+<p>This just gives a bitpattern which is the unified port status as documented. It does NOT give any statistics. Each vendor has different
+status bits and they are all reported there.</p>
+</section>
+<section id="statistics">
+<h2>statistics</h2>
+<p>statistics on activity are recorded during runtime and can be retrieved with getStatistics(..) and related methods.
+The statistics</p>
+<ul class="simple">
+<li><p>counts received and sent messages per time interval.</p></li>
+<li><p>txRate(), rxRate() and busLoad()</p></li>
+<li><p>the time since the CAN bus was opened, sent, received.</p></li>
+</ul>
+</section>
+<section id="logit-messages">
+<h2>LogIt messages</h2>
+<p>messages are reported generally and per implementation, that makes 5 LogIt components in total: CanModule, anagate, sock, peak, systec.
+The TRC level will show all internal details, the recommended log levels are INF or WRN accordingly.</p>
+</section>
+</section>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        «&#160;&#160;<a href="running.html">Running</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="support.html">Support</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, CERN, quasar-team, BE-ICS (Michael Ludwig).
+      Last updated on 12-Aug-2022 17:30:22.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+    </div>
+  </body>
+</html>

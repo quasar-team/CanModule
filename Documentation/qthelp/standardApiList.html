@@ -1,0 +1,309 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>standard API list of methods</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/haiku.css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="next" title="CAN ports" href="canports.html" />
+    <link rel="prev" title="Standard API" href="standardApi.html" /> 
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="index.html">
+          <span>CanModule 2.0.22 documentation</span></a></h1>
+        <h2 class="heading"><span>standard API list of methods</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        «&#160;&#160;<a href="standardApi.html">Standard API</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="canports.html">CAN ports</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <section id="standard-api-list-of-methods">
+<h1>standard API list of methods</h1>
+<div class="breathe-sectiondef docutils container">
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N9CanModule10CCanAccess17sendRemoteRequestEs">
+<span id="_CPPv3N9CanModule10CCanAccess17sendRemoteRequestEs"></span><span id="_CPPv2N9CanModule10CCanAccess17sendRemoteRequestEs"></span><span id="CanModule::CCanAccess::sendRemoteRequest__short"></span><span class="target" id="classCanModule_1_1CCanAccess_1acfefbc9be2696b1388cf6df2bba00aa1"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">sendRemoteRequest</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">short</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">cobID</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><br /></dt>
+<dd><p>Method that sends a remote request trough the can bus channel. If the method createBus was not called before this, sendMessage will fail, as there is no can bus channel to send the request trough. Similar to sendMessage, but it sends an special message reserved for requests. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cobID</strong> – Identifier that will be used for the request. </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Was the sent request successful ? </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N9CanModule10CCanAccess9createBusEKNSt6stringEKNSt6stringE">
+<span id="_CPPv3N9CanModule10CCanAccess9createBusEKNSt6stringEKNSt6stringE"></span><span id="_CPPv2N9CanModule10CCanAccess9createBusEKNSt6stringEKNSt6stringE"></span><span id="CanModule::CCanAccess::createBus__ssC.ssC"></span><span class="target" id="classCanModule_1_1CCanAccess_1a2ef435a5fb9896dbb70bc0e149fa0549"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">createBus</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">name</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">parameters</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><br /></dt>
+<dd><p>Method that initialises a can bus channel. The following methods called upon the same object will be using this initialised channel.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – Name of the can bus channel. The specific mapping will change depending on the interface used. For example, accessing channel 0 for the systec interface would be using name “st:9”, while in socket can the same channel would be “sock:can0”. anagate interface would be an:192.168.1.2 for the default ip address </p></li>
+<li><p><strong>parameters</strong> – Different parameters used for the initialisation. For using the parameters already in the hardware just set this to “Unspecified”. anagate: pass the ip number</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>and integer 0 = init OK, bus was created = OK 1 = init OK, bus was skipped because it exists already -1 = init failed </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N9CanModule10CCanAccess11sendMessageEshPhb">
+<span id="_CPPv3N9CanModule10CCanAccess11sendMessageEshPhb"></span><span id="_CPPv2N9CanModule10CCanAccess11sendMessageEshPhb"></span><span id="CanModule::CCanAccess::sendMessage__short.unsigned-c.unsigned-cP.b"></span><span class="target" id="classCanModule_1_1CCanAccess_1aee42ab7fb9e50c02a1812202f7863d8c"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">sendMessage</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">short</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">cobID</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">len</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">message</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">rtr</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><br /></dt>
+<dd><p>Method that sends a message through the can bus channel. If the method createBUS was not called before this, sendMessage will fail, as there is no can bus channel to send a message through. SendMessage is non blocking and reentrant - as far as the various vendor APIs permit this. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cobID</strong> – Identifier that will be used for the message. </p></li>
+<li><p><strong>len</strong> – Length of the message. If the message is bigger than 8 characters, it will be split into separate 8 characters messages. </p></li>
+<li><p><strong>message</strong> – Message to be sent through the can bus. </p></li>
+<li><p><strong>rtr</strong> – activate the Remote Transmission Request flag. Having this flag in a message with data/len is not part of the CAN standard, but since some hardware uses it anyway, the option to use it is provided. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>: Was the message sent successfully? If not, we may reconnect. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N9CanModule10CCanAccess10getBusNameEv">
+<span id="_CPPv3N9CanModule10CCanAccess10getBusNameEv"></span><span id="_CPPv2N9CanModule10CCanAccess10getBusNameEv"></span><span id="CanModule::CCanAccess::getBusName"></span><span class="target" id="classCanModule_1_1CCanAccess_1ac3f5126ae36d642217425e21696d19ca"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">getBusName</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Returns the can bus name (from buffered data) </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N9CanModule10CCanAccess13getPortStatusEv">
+<span id="_CPPv3N9CanModule10CCanAccess13getPortStatusEv"></span><span id="_CPPv2N9CanModule10CCanAccess13getPortStatusEv"></span><span id="CanModule::CCanAccess::getPortStatus"></span><span class="target" id="classCanModule_1_1CCanAccess_1a33fe530d070cf35d096e967d543186a4"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getPortStatus</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><br /></dt>
+<dd><p>UNIFIED PORT status</p>
+<p>according to vendor and OS, acquire bus (port) status, and return one uint32_t bitpattern which has the same rules for all vendors. In fact the status for vendors is too different to be abstracted into a common bitpattern. Actually, talk to the HW, so use with parcimony while comms are ongoing: we do not really know how well the vendors have implemented that.</p>
+<p>the <strong>implementation</strong> occupies the highest nibble, and it is a counter (see CANMODULE_STATUS_BP_SOCK etc)<ul class="simple">
+<li><p>0x1&lt;&lt;28 = sock (linux)</p></li>
+<li><p>0x2&lt;&lt;28 = anagate (linux, windows)</p></li>
+<li><p>0x3&lt;&lt;28 = peak (windows)</p></li>
+<li><p>0x4&lt;&lt;28 = systec (windows)</p></li>
+<li><p>0x5&lt;&lt;28….0xf&lt;&lt;28 = unused, for future use</p></li>
+</ul>
+</p>
+<p>the **specific_status** occupies bits b0..b27, and it is a (composed) implementation specific bitpattern</p>
+<p>
+examples:<ul class="simple">
+<li><p>0x3000.0000.000.0040 means “peak” implementation (peak&#64;windows) receive queue was read too late</p></li>
+<li><p>0x1000.0000.000.0002 means “sock” implementation (peak or systec &#64;linux) CAN_STATE_ERROR_WARNING </p></li>
+</ul>
+</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sock</strong> – (linux): [ see can_netlink.h enum can_state ]<ul>
+<li><p>b0: 0x1 = CAN_STATE_ERROR_ACTIVE : RX/TX error count &lt; 96</p></li>
+<li><p>b1: 0x2 = CAN_STATE_ERROR_WARNING : RX/TX error count &lt; 128</p></li>
+<li><p>b2: 0x4 = CAN_STATE_ERROR_PASSIVE : RX/TX error count &lt; 256</p></li>
+<li><p>b3: 0x8 = CAN_STATE_BUS_OFF : RX/TX error count &gt;= 256</p></li>
+<li><p>b4: 0x10 = CAN_STATE_STOPPED : Device is stopped</p></li>
+<li><p>b5: 0x20 = CAN_STATE_SLEEPING : Device is sleeping</p></li>
+<li><p>b6…b27 unused</p></li>
+</ul>
+</p></li>
+<li><p><strong>anagate</strong> – (linux, windows): [ see CANDeviceConnectState ] CANCanDeviceConnectState , translate from counter (0 does not exists, thank you anagate)<ul>
+<li><p>1 = DISCONNECTED :</p></li>
+<li><p>2 = CONNECTING :</p></li>
+<li><p>3 = CONNECTED</p></li>
+<li><p>4 = DISCONNECTING</p></li>
+<li><p>5 = NOT_INITIALIZED</p></li>
+<li><p>b3…b27: unused</p></li>
+<li><p>I translate this into a simple bitpattern which is a counter : 000(does not occur), 001, 010, 011, 100, 101. Actually 011 means OK therefore. great.</p></li>
+</ul>
+</p></li>
+<li><p><strong>peak</strong> – (windows): see PCANBasic.h:113<ul>
+<li><p>#define PCAN_ERROR_OK 0x00000U // No error</p></li>
+<li><p>#define PCAN_ERROR_XMTFULL 0x00001U // Transmit buffer in CAN controller is full</p></li>
+<li><p>#define PCAN_ERROR_OVERRUN 0x00002U // CAN controller was read too late</p></li>
+<li><p>#define PCAN_ERROR_BUSLIGHT 0x00004U // Bus error: an error counter reached the ‘light’ limit</p></li>
+<li><p>#define PCAN_ERROR_BUSHEAVY 0x00008U // Bus error: an error counter reached the ‘heavy’ limit</p></li>
+<li><p>#define PCAN_ERROR_BUSWARNING PCAN_ERROR_BUSHEAVY // Bus error: an error counter reached the ‘warning’ limit</p></li>
+<li><p>#define PCAN_ERROR_BUSPASSIVE 0x40000U // Bus error: the CAN controller is error passive</p></li>
+<li><p>#define PCAN_ERROR_BUSOFF 0x00010U // Bus error: the CAN controller is in bus-off state</p></li>
+<li><p>#define PCAN_ERROR_ANYBUSERR (PCAN_ERROR_BUSWARNING | PCAN_ERROR_BUSLIGHT | PCAN_ERROR_BUSHEAVY | PCAN_ERROR_BUSOFF | PCAN_ERROR_BUSPASSIVE) // Mask for all bus errors</p></li>
+<li><p>#define PCAN_ERROR_QRCVEMPTY 0x00020U // Receive queue is empty</p></li>
+<li><p>#define PCAN_ERROR_QOVERRUN 0x00040U // Receive queue was read too late</p></li>
+<li><p>#define PCAN_ERROR_QXMTFULL 0x00080U // Transmit queue is full</p></li>
+<li><p>#define PCAN_ERROR_REGTEST 0x00100U // Test of the CAN controller hardware registers failed (no hardware found)</p></li>
+<li><p>#define PCAN_ERROR_NODRIVER 0x00200U // Driver not loaded</p></li>
+<li><p>#define PCAN_ERROR_HWINUSE 0x00400U // Hardware already in use by a Net</p></li>
+<li><p>#define PCAN_ERROR_NETINUSE 0x00800U // A Client is already connected to the Net</p></li>
+<li><p>#define PCAN_ERROR_ILLHW 0x01400U // Hardware handle is invalid</p></li>
+<li><p>#define PCAN_ERROR_ILLNET 0x01800U // Net handle is invalid</p></li>
+<li><p>#define PCAN_ERROR_ILLCLIENT 0x01C00U // Client handle is invalid</p></li>
+<li><p>#define PCAN_ERROR_ILLHANDLE (PCAN_ERROR_ILLHW | PCAN_ERROR_ILLNET | PCAN_ERROR_ILLCLIENT) // Mask for all handle errors</p></li>
+<li><p>#define PCAN_ERROR_RESOURCE 0x02000U // Resource (FIFO, Client, timeout) cannot be created</p></li>
+<li><p>#define PCAN_ERROR_ILLPARAMTYPE 0x04000U // Invalid parameter</p></li>
+<li><p>#define PCAN_ERROR_ILLPARAMVAL 0x08000U // Invalid parameter value</p></li>
+<li><p>#define PCAN_ERROR_UNKNOWN 0x10000U // Unknown error</p></li>
+<li><p>#define PCAN_ERROR_ILLDATA 0x20000U // Invalid data, function, or action</p></li>
+<li><p>#define PCAN_ERROR_CAUTION 0x2000000U // An operation was successfully carried out, however, irregularities were registered</p></li>
+<li><p>#define PCAN_ERROR_INITIALIZE 0x4000000U // Channel is not initialized [Value was changed from 0x40000 to 0x4000000]</p></li>
+<li><p>#define PCAN_ERROR_ILLOPERATION 0x8000000U // Invalid operation [Value was changed from 0x80000 to 0x8000000]</p></li>
+</ul>
+</p></li>
+<li><p><strong>systec</strong> – (windows): [ see UcanGetStatus table19 (for CAN) and table20 (for USB) ]. This is a combination of socketcan bits and usb bits<ul>
+<li><p>b0: 0x1: tx overrun</p></li>
+<li><p>b1: 0x2: rx overrun</p></li>
+<li><p>b2: 0x4: error limit1 exceeded: warning limit</p></li>
+<li><p>b3: 0x8: error limit2 exceeded: error passive</p></li>
+<li><p>b4: 0x10: can controller is off</p></li>
+<li><p>b5: unused</p></li>
+<li><p>b6: 0x40: rx buffer overrun</p></li>
+<li><p>b7: 0x80: tx buffer overrun</p></li>
+<li><p>b8..b9: unused</p></li>
+<li><p>b10: 0x400: transmit timeout, message dropped</p></li>
+<li><p>b12..b11: unused</p></li>
+<li><p>b13: 0x2000: module/usb got reset because of polling failure per second</p></li>
+<li><p>b14: 0x4000: module/usb got reset because watchdog was not triggered</p></li>
+<li><p>b15…b27: unused</p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N9CanModule10CCanAccess14getPortBitrateEv">
+<span id="_CPPv3N9CanModule10CCanAccess14getPortBitrateEv"></span><span id="_CPPv2N9CanModule10CCanAccess14getPortBitrateEv"></span><span id="CanModule::CCanAccess::getPortBitrate"></span><span class="target" id="classCanModule_1_1CCanAccess_1aa8cb67096349fefc6e03aeb33e45ef81"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getPortBitrate</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><br /></dt>
+<dd><p>returns the bitrate of that port [bits/sec] according to what CanModule buffers say. This is the setting used for setting up the hardware, after any default rules have been applied, but BEFORE any vendor specific encoding into obscure bitpatterns occurs. This happens at port opening and the bitrate can only be changed at that moment. So please call this method just after you have opened the port. But also since there is no hw interaction and it just returns a buffer, you may call it as often as you like. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N9CanModule10CCanAccess20setReconnectBehaviorEN9CanModule22ReconnectAutoConditionEN9CanModule15ReconnectActionE">
+<span id="_CPPv3N9CanModule10CCanAccess20setReconnectBehaviorEN9CanModule22ReconnectAutoConditionEN9CanModule15ReconnectActionE"></span><span id="_CPPv2N9CanModule10CCanAccess20setReconnectBehaviorEN9CanModule22ReconnectAutoConditionEN9CanModule15ReconnectActionE"></span><span id="CanModule::CCanAccess::setReconnectBehavior__CanModule::ReconnectAutoCondition.CanModule::ReconnectAction"></span><span class="target" id="classCanModule_1_1CCanAccess_1ae1088edaf5444ff42ee094ae46240cc5"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setReconnectBehavior</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">CanModule</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ReconnectAutoCondition</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">cond</span></span>, <span class="n"><span class="pre">CanModule</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ReconnectAction</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">action</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><br /></dt>
+<dd><p>configuring the reconnection behavior: a condition triggers an action. The implementation is implementation-specific because not all vendor APIs permit the same behavior: not all combinations are available for all vendors/implementations. The implemented reconnection behavior is standardized nevertheless: “you get what you see”. Foe each CanBus you have to choose one condition and one action. Condition detection and action execution are then automatic inside CanModule.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>CanModule::ReconnectAutoCondition</strong> – cond<ul>
+<li><p>sendFail (default): a reconnection is triggered automatically if a send on the canBus fails. The number of failed sends can be set (default is 10). The failed sending must be strictly consecutive, if there is a succeeded sending, the internal counting restarts.</p></li>
+<li><p>timeoutOnReception: the last time of a successful reception on a given channel can be monitored. If the last reception is older than 120 sec a reset is triggered automatically. This last successful reception time is calculated each time a send is invoked. The timeout is specified in seconds, default is 120sec.</p></li>
+<li><p>never: this condition is always false and therefore no automatic reconnection action will be triggered. You can still call the explicit method reconnect( &lt;action&gt; ) but it is up to the client (server) to decide when.</p></li>
+</ul>
+</p></li>
+<li><p><strong>CanModule::ReconnectAction</strong> – action<ul>
+<li><p>singleBus (default): a single connection (canbus, channel) is reset and reception handler is reconnected.</p></li>
+<li><p>wholeBridge if available, the whole bridge is reset, affecting all physical channels on that bridge. Only available for anagate. If a bridge is shared between multiple tasks, all channels across tasks are reset, affecting all tasks connected to that bridge. Evidently, a given channel must only be used by at most one task. </p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N9CanModule10CCanAccess28setReconnectReceptionTimeoutEj">
+<span id="_CPPv3N9CanModule10CCanAccess28setReconnectReceptionTimeoutEj"></span><span id="_CPPv2N9CanModule10CCanAccess28setReconnectReceptionTimeoutEj"></span><span id="CanModule::CCanAccess::setReconnectReceptionTimeout__unsigned-i"></span><span class="target" id="classCanModule_1_1CCanAccess_1a3c902569c0712d165fc7e385e683dc95"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setReconnectReceptionTimeout</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">timeout</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><br /></dt>
+<dd><p>set the timout interval for message reception, for the reconnection behaviour. Units is seconds, default is 120. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N9CanModule10CCanAccess27setReconnectFailedSendCountEj">
+<span id="_CPPv3N9CanModule10CCanAccess27setReconnectFailedSendCountEj"></span><span id="_CPPv2N9CanModule10CCanAccess27setReconnectFailedSendCountEj"></span><span id="CanModule::CCanAccess::setReconnectFailedSendCount__unsigned-i"></span><span class="target" id="classCanModule_1_1CCanAccess_1a665620fe5924cf87db0589a353d3d148"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setReconnectFailedSendCount</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">c</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><br /></dt>
+<dd><p>set the counter for failed consecutive sending attempts, for reconnection. default is 10. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N9CanModule10CCanAccess21getReconnectConditionEv">
+<span id="_CPPv3N9CanModule10CCanAccess21getReconnectConditionEv"></span><span id="_CPPv2N9CanModule10CCanAccess21getReconnectConditionEv"></span><span id="CanModule::CCanAccess::getReconnectCondition"></span><span class="target" id="classCanModule_1_1CCanAccess_1a003566cbcdf4ce8195853bd8049a8800"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">CanModule</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ReconnectAutoCondition</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getReconnectCondition</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><br /></dt>
+<dd><p>read back the r.condition </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N9CanModule10CCanAccess18getReconnectActionEv">
+<span id="_CPPv3N9CanModule10CCanAccess18getReconnectActionEv"></span><span id="_CPPv2N9CanModule10CCanAccess18getReconnectActionEv"></span><span id="CanModule::CCanAccess::getReconnectAction"></span><span class="target" id="classCanModule_1_1CCanAccess_1aaf2312ff9074ce7a4ec2e7d0a5b6fa16"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">CanModule</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ReconnectAction</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getReconnectAction</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><br /></dt>
+<dd><p>read back the r.action </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N9CanModule10CCanAccess7stopBusEv">
+<span id="_CPPv3N9CanModule10CCanAccess7stopBusEv"></span><span id="_CPPv2N9CanModule10CCanAccess7stopBusEv"></span><span id="CanModule::CCanAccess::stopBus"></span><span class="target" id="classCanModule_1_1CCanAccess_1a3fabe88b8e21638afd5d9886bb9c4aeb"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">stopBus</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><br /></dt>
+<dd><p>force implementation </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N9CanModule13CanStatistics6txRateEv">
+<span id="_CPPv3N9CanModule13CanStatistics6txRateEv"></span><span id="_CPPv2N9CanModule13CanStatistics6txRateEv"></span><span id="CanModule::CanStatistics::txRate"></span><span class="target" id="classCanModule_1_1CanStatistics_1ad8a95eeeea9fe50c9fe5465b3bde95d9"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">txRate</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd><p>transmission rate bytes/s </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N9CanModule13CanStatistics6rxRateEv">
+<span id="_CPPv3N9CanModule13CanStatistics6rxRateEv"></span><span id="_CPPv2N9CanModule13CanStatistics6rxRateEv"></span><span id="CanModule::CanStatistics::rxRate"></span><span class="target" id="classCanModule_1_1CanStatistics_1a732233caca87cf1532c9f2869d442d68"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">rxRate</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd><p>reception rate bytes/s </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N9CanModule13CanStatistics7busLoadEv">
+<span id="_CPPv3N9CanModule13CanStatistics7busLoadEv"></span><span id="_CPPv2N9CanModule13CanStatistics7busLoadEv"></span><span id="CanModule::CanStatistics::busLoad"></span><span class="target" id="classCanModule_1_1CanStatistics_1a761bffce2db7f24a9dcbc439a95c1e65"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">busLoad</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd><p>bus load in 0…1 ( % * 100 ) of max bus speed (baudrate) </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N9CanModule13CanStatistics17timeSinceReceivedEv">
+<span id="_CPPv3N9CanModule13CanStatistics17timeSinceReceivedEv"></span><span id="_CPPv2N9CanModule13CanStatistics17timeSinceReceivedEv"></span><span id="CanModule::CanStatistics::timeSinceReceived"></span><span class="target" id="classCanModule_1_1CanStatistics_1a44da075145ae6dd716bcb9432e254ce7"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">timeSinceReceived</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd><p>time since the last message was received in milliseconds with microseconds precision </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N9CanModule13CanStatistics20timeSinceTransmittedEv">
+<span id="_CPPv3N9CanModule13CanStatistics20timeSinceTransmittedEv"></span><span id="_CPPv2N9CanModule13CanStatistics20timeSinceTransmittedEv"></span><span id="CanModule::CanStatistics::timeSinceTransmitted"></span><span class="target" id="classCanModule_1_1CanStatistics_1a82bf9c9ca0e1578dbd962ee3d2e05fa6"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">timeSinceTransmitted</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd><p>time since the last message was sent, in milliseconds with microseconds precision </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N9CanModule13CanStatistics15timeSinceOpenedEv">
+<span id="_CPPv3N9CanModule13CanStatistics15timeSinceOpenedEv"></span><span id="_CPPv2N9CanModule13CanStatistics15timeSinceOpenedEv"></span><span id="CanModule::CanStatistics::timeSinceOpened"></span><span class="target" id="classCanModule_1_1CanStatistics_1a08d5c282de626e89ebf508291d1bde33"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">timeSinceOpened</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd><p>time since that bus was opened, in milliseconds with microseconds precision </p>
+</dd></dl>
+
+</div>
+</section>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        «&#160;&#160;<a href="standardApi.html">Standard API</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="canports.html">CAN ports</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, CERN, quasar-team, BE-ICS (Michael Ludwig).
+      Last updated on 12-Aug-2022 17:30:22.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+    </div>
+  </body>
+</html>

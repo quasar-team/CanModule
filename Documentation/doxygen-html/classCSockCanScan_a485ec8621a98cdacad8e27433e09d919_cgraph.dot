@@ -1,0 +1,14 @@
+digraph "CSockCanScan::sendMessage"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="CSockCanScan::sendMessage",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="CanModule::canMessage2To\lString",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$namespaceCanModule.html#a901b4695397276d8bbc0f1ebd0204a8e",tooltip=" "];
+  Node2 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="CanModule::CanModuleUtils\l::toHexString",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classCanModule_1_1CanModuleUtils.html#aeb2a2ee933f230f2c82cca7e45c7b6ad",tooltip=" "];
+  Node1 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="CSockCanScan::emptyCanFrame",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classCSockCanScan.html#ace6f7aa52fe582af6de098895fc91b83",tooltip=" "];
+}

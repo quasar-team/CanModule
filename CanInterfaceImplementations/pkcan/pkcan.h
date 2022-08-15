@@ -43,7 +43,7 @@ public:
 	PKCanScan& operator=(PKCanScan const & other) = delete;//Disables assignment
 	virtual ~PKCanScan();
 
-	virtual int createBus(const string name,const string parameters);
+	virtual int createBus(const std::string name,const std::string parameters);
 
 	/*
 	 * Method that sends a message trough the can bus channel. If the method createBus was not called before this, sendMessage will fail, as there is no
@@ -72,7 +72,7 @@ public:
 	 */
 	bool getErrorMessage(long error, char **message);
 
-	static std::map<string, string> m_busMap; // {name, parameters}
+	static std::map<std::string, std::string> m_busMap; // {name, parameters}
 	Log::LogComponentHandle logItHandle(){ return m_logItHandlePk; }
 	virtual void setReconnectBehavior( CanModule::ReconnectAutoCondition cond, CanModule::ReconnectAction action ){
 		m_reconnectCondition = cond;
@@ -106,11 +106,11 @@ private:
 	bool m_CanScanThreadRunEnableFlag;
 
 	unsigned int m_baudRate;
-	string m_busName;
-	string m_busParameters;
+	std::string m_busName;
+	std::string m_busParameters;
 
    	TPCANHandle	m_pkCanHandle;
-	bool configureCanboard(const string name,const string parameters);
+	bool configureCanboard(const std::string name, const std::string parameters);
 	// void stopBus ( void );
 
 	HANDLE      m_hCanScanThread;

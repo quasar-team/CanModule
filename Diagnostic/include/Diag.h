@@ -41,7 +41,7 @@ public:
 
 	static void insert_maps( CanLibLoader *lib, CCanAccess *acc, std::string params );
 	static void delete_maps( CanLibLoader *lib, CCanAccess *acc );
-	static vector<Diag::CONNECTION_DIAG_t> get_connections();
+	static std::vector<Diag::CONNECTION_DIAG_t> get_connections();
 
 	static int CanLibLoader_icount;
 	static int CanAccess_icount;

@@ -1,0 +1,21 @@
+digraph "CSockCanScan::openCanPort"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="CSockCanScan::openCanPort",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="CanModule::CanModuleerrno\lToString",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$namespaceCanModule.html#a6cae4be8d395b496f5f602a5f9714ae1",tooltip=" "];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="CanModule::CanStatistics\l::setTimeSinceOpened",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classCanModule_1_1CanStatistics.html#af3f15dedf80e67f1309946632d87198d",tooltip=" "];
+  Node1 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="CSockCanScan::updateInitial\lError",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classCSockCanScan.html#a623057580187ecb241adf143c64d711c",tooltip=" "];
+  Node4 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="CSockCanScan::clearError\lMessage",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classCSockCanScan.html#a4b5f7591bfd27b8770bfb9ac9e406f66",tooltip=" "];
+  Node5 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="CanModule::convertTimepoint\lToTimeval",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$namespaceCanModule.html#a3ec3082d7d11a9c1641023cb3f53cbe5",tooltip=" "];
+  Node5 -> Node7 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="CanModule::CCanAccess\l::getBusName",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classCanModule_1_1CCanAccess.html#ac3f5126ae36d642217425e21696d19ca",tooltip=" "];
+  Node4 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+}

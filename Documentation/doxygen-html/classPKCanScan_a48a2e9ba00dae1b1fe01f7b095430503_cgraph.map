@@ -1,9 +1,0 @@
-<map id="PKCanScan::sendMessage" name="PKCanScan::sendMessage">
-<area shape="rect" id="node2" href="$classCanModule_1_1CanStatistics.html#a0265b75e9e2e16737950b6b5c5662f35" title="dataLength is the user data size (DLC field) " alt="" coords="255,5,441,46"/>
-<area shape="rect" id="node3" href="$classPKCanScan.html#a35ccc4082d56a736abb34d0c289c5a96" title="PKCanScan::sendErrorCode" alt="" coords="249,71,447,97"/>
-<area shape="rect" id="node7" href="$classCanModule_1_1CanStatistics.html#afe8d43dfb65ee2675ceac1dc84f7eb1a" title="CanModule::CanStatistics\l::setTimeSinceTransmitted" alt="" coords="251,122,445,163"/>
-<area shape="rect" id="node8" href="$classCanModule_1_1CCanAccess.html#a16e43f90cd984b9ea72028c0f8dfe784" title="CanModule::CCanAccess\l::triggerReconnectionThread" alt="" coords="245,187,451,229"/>
-<area shape="rect" id="node4" href="$namespaceCanModule.html#a3ec3082d7d11a9c1641023cb3f53cbe5" title="CanModule::convertTimepoint\lToTimeval" alt="" coords="507,5,725,46"/>
-<area shape="rect" id="node5" href="$namespaceCanModule.html#a6d0711aac0a75de5d2bf6142997a814d" title="CanModule::currentTimeTimeval" alt="" coords="499,71,733,97"/>
-<area shape="rect" id="node6" href="$classPKCanScan.html#a077b19a57357437f6c2e6ce00030a698" title="PKCanScan::getErrorMessage" alt="" coords="511,121,721,148"/>
-</map>

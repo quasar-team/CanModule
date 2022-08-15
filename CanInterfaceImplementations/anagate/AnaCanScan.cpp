@@ -26,42 +26,19 @@
 
 #include "AnaCanScan.h"
 
-#include <thread>
-#include <mutex>
-#include <condition_variable>
-
-#include <time.h>
-#include <string.h>
-#include <map>
-#include <LogIt.h>
-#include <sstream>
-#include <iostream>
-
-#include "CanModuleUtils.h"
-
 #ifdef _WIN32
-
 #define DLLEXPORTFLAG __declspec(dllexport)
-
 #else
-
-#include <sys/time.h>
-
 #define DLLEXPORTFLAG  
 #define WINAPI  
-
 #endif
 
-
 using namespace CanModule;
-using namespace std;
-
-//boost::mutex anagateReconnectMutex;
 std::recursive_mutex anagateReconnectMutex;
 
 /* static */ std::map<int, AnaCanScan::ANAGATE_PORTDEF_t> AnaCanScan::st_canHandleMap; // map handles to  {ports, ip}
 /* static */ Log::LogComponentHandle AnaCanScan::st_logItHandleAnagate = 0;
-/* static */ std::map<string,bool> AnaCanScan::m_reconnectInProgress_map;
+/* static */ std::map< std::string,bool > AnaCanScan::m_reconnectInProgress_map;
 
 /** global map of connection-objects: the map-key is the handle. Since handles are allocated by the OS
  * the keys are getting changed as well when we reconnect, so that we do not keep the stale keys(=handles) in
@@ -77,7 +54,7 @@ std::map<AnaInt32, AnaCanScan*> g_AnaCanScanObjectMap; // map handles to objects
 
 AnaCanScan::AnaCanScan():
 	m_canPortNumber(0),
-	m_canIPAddress( (char *) string("192.168.1.2").c_str()),
+	m_canIPAddress( (char *) std::string("192.168.1.2").c_str()),
 	m_baudRate(0),
 	m_idCanScanThread(0),
 	m_canCloseDevice(false),
@@ -95,6 +72,24 @@ AnaCanScan::AnaCanScan():
 	 * start a reconnection thread
 	 */
 	m_hCanReconnectionThread = new std::thread( &AnaCanScan::CanReconnectionThread, this);
+}
+
+/**
+ * CANCanDeviceConnectState , translate from counter
+ * 1 = DISCONNECTED   :
+ * 2 = CONNECTING :
+ * 3 = CONNECTED
+ * 4 = DISCONNECTING
+ * 5 = NOT_INITIALIZED
+ * b3...b27: unused
+ *
+ * into simple bitpattern (counter)
+ * 0, 10, 11, 100, 101
+ *
+ */
+uint32_t AnaCanScan::getPortStatus(){
+	AnaInt32 state = CANDeviceConnectState( m_UcanHandle );
+	return( state | CANMODULE_STATUS_BP_ANAGATE );
 }
 
 /**
@@ -119,14 +114,14 @@ void AnaCanScan::stopBus ()
 }
 
 
-/* static */ void AnaCanScan::setIpReconnectInProgress( string ip, bool flag ){
+/* static */ void AnaCanScan::setIpReconnectInProgress( std::string ip, bool flag ){
 	// only called inside the locked mutex
-	std::map<string,bool>::iterator it = AnaCanScan::m_reconnectInProgress_map.find( ip );
+	std::map< std::string, bool >::iterator it = AnaCanScan::m_reconnectInProgress_map.find( ip );
 
 	if ( flag ){
 		// mark as in progress if not yet exists/marked
 		if ( it == AnaCanScan::m_reconnectInProgress_map.end() ) {
-			AnaCanScan::m_reconnectInProgress_map.insert ( std::pair<string,bool>( ip, true ) );
+			AnaCanScan::m_reconnectInProgress_map.insert ( std::pair< std::string, bool >( ip, true ) );
 		}
 	} else {
 		// erase existing if still exists/marked
@@ -140,9 +135,9 @@ void AnaCanScan::stopBus ()
  * checks if a reconnection is already in progress for the bridge at that IP. Several ports can (and will) fail
  * at the same time, but the bridge should be reset only once, and not again for each port.
  */
-/* static */ bool AnaCanScan::isIpReconnectInProgress( string ip ){
+/* static */ bool AnaCanScan::isIpReconnectInProgress( std::string ip ){
 	// only called inside the locked mutex
-	std::map<string,bool>::iterator it = AnaCanScan::m_reconnectInProgress_map.find( ip );
+	std::map< std::string, bool >::iterator it = AnaCanScan::m_reconnectInProgress_map.find( ip );
 	if ( it == AnaCanScan::m_reconnectInProgress_map.end() )
 		return( false );
 	else
@@ -174,7 +169,7 @@ void WINAPI InternalCallback(AnaUInt32 nIdentifier, const char * pcBuffer, AnaIn
 	for (int i = 0; i < nBufferLen; i++)
 		canMsgCopy.c_data[i] = pcBuffer[i];
 
-	canMsgCopy.c_time = convertTimepointToTimeval(currentTimeTimeval());
+	canMsgCopy.c_time = CanModule::convertTimepointToTimeval(currentTimeTimeval());
 
 	// more hardcode debugging, leave it in
 	//cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
@@ -184,28 +179,12 @@ void WINAPI InternalCallback(AnaUInt32 nIdentifier, const char * pcBuffer, AnaIn
 	// MLOGANA(TRC, g_AnaCanScanPointerMap[hHandle] ) << "read(): " << canMessageToString(canMsgCopy);
 
 	LOG( Log::TRC ) << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
-			<< " CanModule anagate " << AnaCanScan::canMessageToString(canMsgCopy);
+			<< " CanModule anagate " << CanModule::canMessageToString(canMsgCopy);
 
 	g_AnaCanScanObjectMap[hHandle]->callbackOnRecieve(canMsgCopy);
 	g_AnaCanScanObjectMap[hHandle]->statisticsOnRecieve( nBufferLen );
 }
 
-/**
- * return a human readabale CAN message
- */
-/* static */ std::string AnaCanScan::canMessageToString(CanMessage &f)
-{
-	std::string result;
-	result =  "[id=0x"+CanModuleUtils::toHexString(f.c_id, 3, '0')+" ";
-	if (f.c_id & f.c_rtr)
-		result += "RTR ";
-	result+="dlc=" + CanModuleUtils::toString(int(f.c_dlc)) + " data=[";
-
-	for (int i=0; i<f.c_dlc; i++)
-		result+= CanModuleUtils::toHexString((unsigned int)f.c_data[i], 2, '0')+" ";
-	result += "]]";
-	return result;
-}
 
 /**
  *  update statistics API
@@ -254,7 +233,7 @@ void AnaCanScan::callbackOnRecieve(CanMessage& msg)
  * 1: existing bus, OK, do not add
  * -1: error
  */
-int AnaCanScan::createBus(const string name,const string parameters)
+int AnaCanScan::createBus(const std::string name, const std::string parameters)
 {	
 	m_busName = name;
 	m_busParameters = parameters;
@@ -296,10 +275,10 @@ int AnaCanScan::createBus(const string name,const string parameters)
  *  p5 = sync mode
  *  p6 = timeout/ms
  */
-int AnaCanScan::configureCanBoard(const string name,const string parameters)
+int AnaCanScan::configureCanBoard(const std::string name,const std::string parameters)
 {
 	MLOGANA(DBG, this) << "(user supplied) name= " << name << " parameters= " << parameters;
-	vector<string> stringVector;
+	std::vector< std::string > stringVector;
 	stringVector = parseNameAndParameters(name, parameters);
 
 	// we should decode 3 elements from this:0="an" for anagate library, 1=can port, 2=ip number
@@ -458,7 +437,7 @@ int AnaCanScan::openCanPort()
 		anaCallReturn = CANOpenDevice(&canModuleHandle, FALSE, TRUE, m_canPortNumber, m_canIPAddress.c_str(), m_timeout);
 		if (anaCallReturn != 0) {
 			// fill out initialisation struct
-			MLOGANA(ERR,this) << "Error in CANOpenDevice, return code = [0x" << hex << anaCallReturn << dec << "]";
+			MLOGANA(ERR,this) << "Error in CANOpenDevice, return code = [0x" << std::hex << anaCallReturn << std::dec << "]";
 			return -1;
 		}
 	} else {
@@ -480,19 +459,19 @@ int AnaCanScan::openCanPort()
 	switch ( anaCallReturn ){
 	case 0:{ break; }
 	case 0x30000: {
-		MLOGANA(ERR,this) << "Connection to TCP/IP partner can't be established or is disconnected. Lost TCP/IP: 0x" << hex << anaCallReturn << dec;
+		MLOGANA(ERR,this) << "Connection to TCP/IP partner can't be established or is disconnected. Lost TCP/IP: 0x" << std::hex << anaCallReturn << std::dec;
 		return -1;
 	}
 	case 0x40000: {
-		MLOGANA(ERR,this) << "No  answer  was  received  from	TCP/IP partner within the defined timeout. Lost TCP/IP: 0x" << hex << anaCallReturn << dec;
+		MLOGANA(ERR,this) << "No  answer  was  received  from	TCP/IP partner within the defined timeout. Lost TCP/IP: 0x" << std::hex << anaCallReturn << std::dec;
 		return -1;
 	}
 	case 0x900000: {
-		MLOGANA(ERR,this) << "Invalid device handle. Lost TCP/IP: 0x" << hex << anaCallReturn << dec;
+		MLOGANA(ERR,this) << "Invalid device handle. Lost TCP/IP: 0x" << std::hex << anaCallReturn << std::dec;
 		return -1;
 	}
 	default : {
-		MLOGANA(ERR,this) << "Other Error in CANSetGlobals: 0x" << hex << anaCallReturn << dec;
+		MLOGANA(ERR,this) << "Other Error in CANSetGlobals: 0x" << std::hex << anaCallReturn << std::dec;
 		return -1;
 	}
 	}
@@ -526,29 +505,13 @@ bool AnaCanScan::sendAnErrorMessage(AnaInt32 status)
 	if (status != 0) {
 		auto now = std::chrono::system_clock::now();
 		auto nMicrosecs =
-				duration_cast<std::chrono::microseconds>(
-						now.time_since_epoch()
-				);
+				std::chrono::duration_cast<std::chrono::microseconds>( now.time_since_epoch());
 		ftTimeStamp.tv_sec = nMicrosecs.count() / 1000000L;
 		ftTimeStamp.tv_usec = (nMicrosecs.count() % 1000000L) ;
 
 		canMessageError(status, errorCodeToString( (long int) status), ftTimeStamp);
 	}
 	return true;
-}
-
-/* static */ std::string AnaCanScan::canMessage2ToString(short cobID, unsigned char len, unsigned char *message, bool rtr)
-{
-	std::string result = "";
-	result =  "[id=0x"+CanModuleUtils::toHexString(cobID, 3, '0')+" ";
-	if ( rtr )
-		result += "RTR ";
-	result+="dlc= " + CanModuleUtils::toHexString( len ) + " (hex) data= ";
-
-	for (int i=0; i< len; i++)
-		result+= CanModuleUtils::toHexString((unsigned int) message[i], 2, '0')+" ";
-	result += "]";
-	return result;
 }
 
 
@@ -573,7 +536,7 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 	// /* static */ std::string AnaCanScan::canMessageToString(CanMessage &f)
 	// MLOGANA(DBG,this) << "Sending message: [" << ( message == 0  ? "" : (const char *) message) << "], cobID: [" << cobID << "], Message Length: [" << static_cast<int>(len) << "]";
 
-	MLOGANA(DBG,this) << "Sending message: [" << AnaCanScan::canMessage2ToString(cobID, len, message, rtr) << "]";
+	MLOGANA(DBG,this) << "Sending message: [" << CanModule::canMessage2ToString(cobID, len, message, rtr) << "]";
 	AnaInt32 anaCallReturn = 0;
 	unsigned char *messageToBeSent[8];
 	AnaInt32 flags = 0x0;
@@ -619,7 +582,7 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 
 	if (anaCallReturn != 0) {
 		MLOGANA(ERR, this) << "There was a problem when sending/receiving timeout with CANWrite or a reconnect condition: 0x"
-				<< hex << anaCallReturn << dec
+				<< std::hex << anaCallReturn << std::dec
 				<< " ip= " << m_canIPAddress;
 		m_canCloseDevice = false;
 		decreaseSendFailedCountdown();
@@ -646,7 +609,7 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 				<< " ip= " << it->second->ipAdress()
 				<< " CAN port= " << it->second->canPortNumber()
 				<< " handle= " << it->second->handle()
-				<< " ptr= 0x" << hex << (unsigned long) (it->second) << dec; // naja, just to see it tis != NULL
+				<< " ptr= 0x" << std::hex << (unsigned long) (it->second) << std::dec; // naja, just to see it tis != NULL
 
 	}
 }
@@ -707,7 +670,7 @@ AnaInt32 AnaCanScan::reconnectThisPort(){
  * -1 = cant open / reconnect CAN ports
  * +1 = ignore, since another thread is doing the reconnect already
  */
-/* static */ AnaInt32 AnaCanScan::reconnectAllPorts( string ip ){
+/* static */ AnaInt32 AnaCanScan::reconnectAllPorts( std::string ip ){
 
 	// protect against several calls on the same ip, recursive_mutex needed
 	{
@@ -829,19 +792,19 @@ AnaInt32 AnaCanScan::connectReceptionHandler(){
 	switch ( anaCallReturn ){
 	case 0:{ break; }
 	case 0x30000: {
-		MLOGANA(ERR,this) << "Connection to TCP/IP partner can't be established or is disconnected. Lost TCP/IP: 0x" << hex << anaCallReturn << dec;
+		MLOGANA(ERR,this) << "Connection to TCP/IP partner can't be established or is disconnected. Lost TCP/IP: 0x" << std::hex << anaCallReturn << std::dec;
 		return -1;
 	}
 	case 0x40000: {
-		MLOGANA(ERR,this) << "No  answer  was  received  from	TCP/IP partner within the defined timeout. Lost TCP/IP: 0x" << hex << anaCallReturn << dec;
+		MLOGANA(ERR,this) << "No  answer  was  received  from	TCP/IP partner within the defined timeout. Lost TCP/IP: 0x" << std::hex << anaCallReturn << std::dec;
 		return -1;
 	}
 	case 0x900000: {
-		MLOGANA(ERR,this) << "Invalid device handle. Lost TCP/IP: 0x" << hex << anaCallReturn << dec;
+		MLOGANA(ERR,this) << "Invalid device handle. Lost TCP/IP: 0x" << std::hex << anaCallReturn << std::dec;
 		return -1;
 	}
 	default : {
-		MLOGANA(ERR,this) << "Other Error in CANSetGlobals: 0x" << hex << anaCallReturn << dec;
+		MLOGANA(ERR,this) << "Other Error in CANSetGlobals: 0x" << std::hex << anaCallReturn << std::dec;
 		return -1;
 	}
 	}
@@ -908,7 +871,7 @@ int AnaCanScan::reconnect(){
 		// todo: we should probably drop this, if the handle isn't valid anyway
 		state = CANDeviceConnectState( m_UcanHandle );
 	}
-	MLOGANA(TRC, this) << "CANDeviceConnectState: device connect state= 0x" << hex << state << dec;
+	MLOGANA(TRC, this) << "CANDeviceConnectState: device connect state= 0x" << std::hex << state << std::dec;
 	/**
 	•
 	1 = DISCONNECTED
@@ -944,10 +907,10 @@ int AnaCanScan::reconnect(){
 		if ( !m_canCloseDevice ) {
 			anaCallReturn = CANCloseDevice( m_UcanHandle );
 			MLOGANA(WRN, this) << "closed device m_UcanHandle= " << m_UcanHandle
-					<< " anaCallReturn= 0x" << hex << anaCallReturn << dec;
+					<< " anaCallReturn= 0x" << std::hex << anaCallReturn << std::dec;
 			if ( anaCallReturn != 0 ) {
 				MLOGANA(WRN, this) << "could not close device m_UcanHandle= " << m_UcanHandle
-						<< " anaCallReturn= 0x" << hex << anaCallReturn << dec;
+						<< " anaCallReturn= 0x" << std::hex << anaCallReturn << std::dec;
 				// return(-3);
 			}
 			m_canCloseDevice = true;
@@ -963,7 +926,7 @@ int AnaCanScan::reconnect(){
 				<< " ip= " << m_canIPAddress << " timeout= " << m_timeout;
 		anaCallReturn = CANOpenDevice(&canModuleHandle, FALSE, TRUE, m_canPortNumber, m_canIPAddress.c_str(), m_timeout);
 		if (anaCallReturn != 0) {
-			MLOGANA(ERR,this) << "CANOpenDevice failed: 0x" << hex << anaCallReturn << dec;
+			MLOGANA(ERR,this) << "CANOpenDevice failed: 0x" << std::hex << anaCallReturn << std::dec;
 			m_canCloseDevice = false;
 			return(-1);
 		}
@@ -1077,7 +1040,7 @@ void AnaCanScan::CanReconnectionThread()
 	std::string _tid;
 	{
 		std::stringstream ss;
-		ss << this_thread::get_id();
+		ss << std::this_thread::get_id();
 		_tid = ss.str();
 	}
 	MLOGANA(TRC, this ) << "created reconnection thread tid= " << _tid;

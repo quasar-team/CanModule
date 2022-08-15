@@ -14,7 +14,7 @@
     <link rel="prev" title="CanModule reference documentation" href="index.html" /> 
   </head><body>
       <div class="header" role="banner"><h1 class="heading"><a href="index.html">
-          <span>CanModule 2.0.16 documentation</span></a></h1>
+          <span>CanModule 2.0.22 documentation</span></a></h1>
         <h2 class="heading"><span>Downloading</span></h2>
       </div>
       <div class="topnav" role="navigation" aria-label="top navigation">
@@ -36,25 +36,55 @@
 <section id="sources">
 <h2>sources</h2>
 <p>CanModule can be cloned from github, and is integrated in a cmake build chain:</p>
-<p>git clone <a class="reference external" href="https://github.com/quasar-team/CanModule.git">https://github.com/quasar-team/CanModule.git</a></p>
-<p>or a specific tag
-git clone <strong>-b v2.0</strong> <a class="reference external" href="https://github.com/quasar-team/CanModule.git">https://github.com/quasar-team/CanModule.git</a></p>
+<p>git clone <a class="reference external" href="https://github.com/quasar-team/CanModule.git">https://github.com/quasar-team/CanModule.git</a> (clones the master/main which is not always frozen)</p>
+<p>Use of a specific TAG is highly recommended:
+git clone <strong>-b v2.0.22</strong> <a class="reference external" href="https://github.com/quasar-team/CanModule.git">https://github.com/quasar-team/CanModule.git</a></p>
 <ul class="simple">
 <li><p>check out the <a class="reference external" href="https://readthedocs.web.cern.ch/display/CANDev/CAN+development?src=sidebar">readthedocs</a> and the generated doc from gitlab CI</p></li>
 <li><p>the cross OS CI is on <a class="reference external" href="https://ics-fd-cpp-master.web.cern.ch/view/CAN/">jenkins_can</a> .</p></li>
 </ul>
 </section>
-<section id="runtime-dependencies">
-<h2>runtime dependencies</h2>
+<section id="dependencies-runtime-and-build">
+<h2>dependencies runtime and build</h2>
 <ul class="simple">
-<li><p>boost 1.73.0 from <a class="reference external" href="https://www.boost.org/">boost</a></p></li>
-<li><p>libsocketcan for linux.
-git clone <a class="reference external" href="https://gitlab.cern.ch/mludwig/CAN_libsocketcan.git">libsocketcan</a> &amp;&amp; cmake . &amp;&amp; sudo make install</p></li>
-<li><p>anagate lib</p></li>
-<li><p>systec driver</p></li>
-<li><p>peak driver</p></li>
+<li><dl class="simple">
+<dt><strong>linux&amp;windows</strong>: boost (sth like 1.73.0) from <a class="reference external" href="https://www.boost.org/">boost</a>  .</dt><dd><ul>
+<li><p>can be linked statically as well to become a link dependency only.</p></li>
 </ul>
-<p>you can also build a reduced dependency CanModule with boost and libsocketcan linked statically.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>linux</strong>: libsocketcan</dt><dd><ul>
+<li><p>git clone <a class="reference external" href="https://gitlab.cern.ch/mludwig/CAN_libsocketcan.git">libsocketcan</a> &amp;&amp; cmake . &amp;&amp; sudo make install</p></li>
+<li><p>can be linked statically as well to become a link dependency only.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p><strong>linux</strong>: socketcan kernel module and the vendor USB drivers</p></li>
+<li><dl class="simple">
+<dt><strong>linux&amp;windows</strong>: anagate user space library</dt><dd><ul>
+<li><p>only dynamic library available</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>windows</strong>: systec driver</dt><dd><ul>
+<li><p>only dynamic library available</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>windows</strong>: peak driver</dt><dd><ul>
+<li><p>only dynamic library available</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
 </section>
 </section>
 
@@ -74,7 +104,7 @@ git clone <a class="reference external" href="https://gitlab.cern.ch/mludwig/CAN
 
     <div class="footer" role="contentinfo">
         &#169; Copyright 2020, CERN, quasar-team, BE-ICS (Michael Ludwig).
-      Last updated on 04-Mar-2022 16:37:37.
+      Last updated on 12-Aug-2022 17:30:22.
       Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
     </div>
   </body>

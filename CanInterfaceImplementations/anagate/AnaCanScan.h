@@ -26,6 +26,21 @@
 
 
 #include <string>
+#include <thread>
+#include <mutex>
+#include <condition_variable>
+// #include <sys/time.h>
+
+#include <time.h>
+// #include <string.h>
+#include <map>
+#include <LogIt.h>
+#include <sstream>
+#include <iostream>
+
+
+#include <CanModuleUtils.h>
+#include <CCanAccess.h>
 
 #include "CanStatistics.h"
 #include "CCanAccess.h"
@@ -65,7 +80,7 @@ public:
 	AnaCanScan& operator=(AnaCanScan const & other) = delete; // Disables assignment
 	virtual ~AnaCanScan();
 
-	virtual int createBus(const string name, const string parameters);
+	virtual int createBus(const std::string name, const std::string parameters);
     virtual bool sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr = false);
 	virtual bool sendMessage(CanMessage *);
 	virtual bool sendRemoteRequest(short cobID);
@@ -74,26 +89,7 @@ public:
 	void statisticsOnRecieve(int);
 	void callbackOnRecieve(CanMessage&);
 
-	static std::string canMessageToString(CanMessage &f);
-	static  std::string canMessage2ToString(short cobID, unsigned char len, unsigned char *message, bool rtr);
-
-	/**
-	 * CANCanDeviceConnectState , translate from counter
-	 * 1 = DISCONNECTED   :
-	 * 2 = CONNECTING :
-	 * 3 = CONNECTED
-	 * 4 = DISCONNECTING
-	 * 5 = NOT_INITIALIZED
-	 * b3...b27: unused
-	 *
-	 * into simple bitpattern (counter)
-	 * 0, 10, 11, 100, 101
-	 *
-	 */
-	uint32_t getPortStatus(){
-		AnaInt32 state = CANDeviceConnectState( m_UcanHandle );
-		return( state | CANMODULE_STATUS_BP_ANAGATE );
-	}
+	uint32_t getPortStatus();
 	virtual uint32_t getPortBitrate(){ return m_CanParameters.m_lBaudRate; };
 
 	virtual void setReconnectBehavior( CanModule::ReconnectAutoCondition cond, CanModule::ReconnectAction action ){
@@ -109,12 +105,12 @@ public:
 private:
 
  	int m_canPortNumber;       //The number of can port (CANA, CANB, ...) associated with this instance.
-	string  m_canIPAddress;
+ 	std::string  m_canIPAddress;
 	unsigned int m_baudRate;   //Current baud rate for statistics
 	DWORD   m_idCanScanThread; // Thread ID for the CAN update scan manager thread.
 	bool m_canCloseDevice;
-	string m_busName;
-	string m_busParameters;
+	std::string m_busName;
+	std::string m_busParameters;
 	AnaInt32 m_UcanHandle;     // handler of the can bus
 	CanStatistics m_statistics; //Instance of Can Statistics
     AnaInt32 m_timeout; 		// connect_wait time
@@ -146,20 +142,20 @@ private:
 	static std::map<int, ANAGATE_PORTDEF_t> st_canHandleMap;
 
 	static void showAnaCanScanObjectMap();
-	static int reconnectAllPorts( string ip );
+	static int reconnectAllPorts( std::string ip );
 	AnaInt32 reconnectThisPort();
 	static void addCanHandleOfPortIp(AnaInt32 handle, int port, std::string ip);
 	static void deleteCanHandleOfPortIp(int port, std::string ip);
 	static AnaInt32 getCanHandleOfPortIp(int port, std::string ip);
-	static std::map<string, bool> m_reconnectInProgress_map; // could use 1-dim vector but map is faster
-	static void setIpReconnectInProgress( string ip, bool flag );
-	static bool isIpReconnectInProgress( string ip );
+	static std::map<std::string, bool> m_reconnectInProgress_map; // could use 1-dim vector but map is faster
+	static void setIpReconnectInProgress( std::string ip, bool flag );
+	static bool isIpReconnectInProgress( std::string ip );
 	void CanReconnectionThread();               // not static, private is enough in C11
 	bool sendAnErrorMessage( AnaInt32 status );
 	std::string ipAdress(){ return(m_canIPAddress );}
 	int canPortNumber(){ return(m_canPortNumber);}
 	int handle(){ return(m_UcanHandle);}
-	int configureCanBoard(const string name,const string parameters);
+	int configureCanBoard(const std::string name,const std::string parameters);
 	int connectReceptionHandler();
 	int openCanPort();
 	int reconnect();

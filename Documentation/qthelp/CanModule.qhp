@@ -2,18 +2,18 @@
 <QtHelpProject version="1.0">
     <namespace>canmodule</namespace>
     <virtualFolder>doc</virtualFolder>
-    <customFilter name="CanModule 2.0.16">
+    <customFilter name="CanModule 2.0.22">
         <filterAttribute>CanModule</filterAttribute>
-        <filterAttribute>2.0.16</filterAttribute>
+        <filterAttribute>2.0.22</filterAttribute>
     </customFilter>
     <filterSection>
         <filterAttribute>CanModule</filterAttribute>
-        <filterAttribute>2.0.16</filterAttribute>
+        <filterAttribute>2.0.22</filterAttribute>
         <toc>
-            <section title="CanModule 2.0.16 documentation" ref="index.html">
+            <section title="CanModule 2.0.22 documentation" ref="index.html">
                 <section title="Downloading" ref="downloading.html">
                     <section title="sources" ref="downloading.html#sources"/>
-                    <section title="runtime dependencies" ref="downloading.html#runtime-dependencies"/>
+                    <section title="dependencies runtime and build" ref="downloading.html#dependencies-runtime-and-build"/>
                 </section>
                 <section title="Objective" ref="objective.html">
                     <section title="Supported OS" ref="objective.html#supported-os"/>
@@ -23,25 +23,30 @@
                 <section title="Standard API" ref="standardApi.html">
                     <section title="example snippet" ref="standardApi.html#example-snippet"/>
                 </section>
+                <section title="standard API list of methods" ref="standardApiList.html"/>
                 <section title="CAN ports" ref="canports.html">
                     <section title="port bit rate and statistics" ref="canports.html#port-bit-rate-and-statistics"/>
                     <section title="port unified status" ref="canports.html#port-unified-status"/>
                     <section title="syntax for port names" ref="canports.html#syntax-for-port-names"/>
                 </section>
-                <section title="Details on classes" ref="classestracing.html">
-                    <section title="tracing connections" ref="classestracing.html#tracing-connections"/>
+                <section title="Details on classes" ref="classesdetails.html">
+                    <section title="tracing connections" ref="classesdetails.html#tracing-connections"/>
                 </section>
                 <section title="SysTec" ref="vendors/systec.html">
+                    <section title="linux-parameters" ref="vendors/systec.html#linux-parameters"/>
+                    <section title="windows-parameters" ref="vendors/systec.html#windows-parameters"/>
                     <section title="status" ref="vendors/systec.html#status"/>
                     <section title="errors" ref="vendors/systec.html#errors"/>
                 </section>
                 <section title="AnaGate" ref="vendors/anagate.html">
+                    <section title="parameters" ref="vendors/anagate.html#parameters"/>
                     <section title="status" ref="vendors/anagate.html#status"/>
                     <section title="errors" ref="vendors/anagate.html#errors"/>
                 </section>
                 <section title="Peak" ref="vendors/peak.html">
                     <section title="windows" ref="vendors/peak.html#windows"/>
                     <section title="linux" ref="vendors/peak.html#linux">
+                        <section title="parameters" ref="vendors/peak.html#parameters"/>
                         <section title="status" ref="vendors/peak.html#status"/>
                         <section title="errors" ref="vendors/peak.html#errors"/>
                     </section>
@@ -72,46 +77,71 @@
                     <section title="Systec" ref="running.html#systec"/>
                     <section title="Peak" ref="running.html#peak"/>
                 </section>
+                <section title="error reporting and diagnostics" ref="errors.html">
+                    <section title="boost signal error messages, delivered to a connected boost handler" ref="errors.html#boost-signal-error-messages-delivered-to-a-connected-boost-handler"/>
+                    <section title="unified port status" ref="errors.html#unified-port-status"/>
+                    <section title="statistics" ref="errors.html#statistics"/>
+                    <section title="LogIt messages" ref="errors.html#logit-messages"/>
+                </section>
                 <section title="Support" ref="support.html"/>
+                <section title="doxygen source" ref="doxygen.html"/>
             </section>
         </toc>
         <keywords>
-            <keyword name="AnaCanScan (C++ class)" ref="classestracing.html#_CPPv410AnaCanScan"/>
+            <keyword name="AnaCanScan (C++ class)" ref="classesdetails.html#_CPPv410AnaCanScan"/>
             <keyword name="AnaCanScan (C++ class)" ref="vendors/anagate.html#_CPPv410AnaCanScan"/>
             <keyword name="AnaCanScan (C++ class)" ref="vendors/anagate.html#_CPPv410AnaCanScan"/>
             <keyword name="AnaCanScan::ana_canGetErrorText (C++ function)" ref="vendors/anagate.html#_CPPv4N10AnaCanScan19ana_canGetErrorTextEl"/>
-            <keyword name="AnaCanScan::getPortStatus (C++ function)" ref="classestracing.html#_CPPv4N10AnaCanScan13getPortStatusEv"/>
+            <keyword name="AnaCanScan::getPortStatus (C++ function)" ref="classesdetails.html#_CPPv4N10AnaCanScan13getPortStatusEv"/>
             <keyword name="AnaCanScan::getPortStatus (C++ function)" ref="vendors/anagate.html#_CPPv4N10AnaCanScan13getPortStatusEv"/>
-            <keyword name="AnaCanScan::sendMessage (C++ function)" ref="classestracing.html#_CPPv4N10AnaCanScan11sendMessageEshPhb"/>
-            <keyword name="CanModule::CanLibLoader (C++ class)" ref="classestracing.html#_CPPv4N9CanModule12CanLibLoaderE"/>
-            <keyword name="CanModule::CanLibLoaderLin (C++ class)" ref="classestracing.html#_CPPv4N9CanModule15CanLibLoaderLinE"/>
-            <keyword name="CanModule::CanLibLoaderWin (C++ class)" ref="classestracing.html#_CPPv4N9CanModule15CanLibLoaderWinE"/>
+            <keyword name="AnaCanScan::sendMessage (C++ function)" ref="classesdetails.html#_CPPv4N10AnaCanScan11sendMessageEshPhb"/>
+            <keyword name="CanModule::CanLibLoader (C++ class)" ref="classesdetails.html#_CPPv4N9CanModule12CanLibLoaderE"/>
+            <keyword name="CanModule::CanLibLoaderLin (C++ class)" ref="classesdetails.html#_CPPv4N9CanModule15CanLibLoaderLinE"/>
+            <keyword name="CanModule::CanLibLoaderWin (C++ class)" ref="classesdetails.html#_CPPv4N9CanModule15CanLibLoaderWinE"/>
+            <keyword name="CanModule::CanStatistics::busLoad (C++ function)" ref="standardApiList.html#_CPPv4N9CanModule13CanStatistics7busLoadEv"/>
+            <keyword name="CanModule::CanStatistics::rxRate (C++ function)" ref="standardApiList.html#_CPPv4N9CanModule13CanStatistics6rxRateEv"/>
+            <keyword name="CanModule::CanStatistics::timeSinceOpened (C++ function)" ref="standardApiList.html#_CPPv4N9CanModule13CanStatistics15timeSinceOpenedEv"/>
+            <keyword name="CanModule::CanStatistics::timeSinceReceived (C++ function)" ref="standardApiList.html#_CPPv4N9CanModule13CanStatistics17timeSinceReceivedEv"/>
+            <keyword name="CanModule::CanStatistics::timeSinceTransmitted (C++ function)" ref="standardApiList.html#_CPPv4N9CanModule13CanStatistics20timeSinceTransmittedEv"/>
+            <keyword name="CanModule::CanStatistics::txRate (C++ function)" ref="standardApiList.html#_CPPv4N9CanModule13CanStatistics6txRateEv"/>
             <keyword name="CanModule::CCanAccess (C++ class)" ref="canports.html#_CPPv4N9CanModule10CCanAccessE"/>
             <keyword name="CanModule::CCanAccess (C++ class)" ref="canports.html#_CPPv4N9CanModule10CCanAccessE"/>
             <keyword name="CanModule::CCanAccess (C++ class)" ref="canports.html#_CPPv4N9CanModule10CCanAccessE"/>
-            <keyword name="CanModule::CCanAccess (C++ class)" ref="classestracing.html#_CPPv4N9CanModule10CCanAccessE"/>
+            <keyword name="CanModule::CCanAccess (C++ class)" ref="classesdetails.html#_CPPv4N9CanModule10CCanAccessE"/>
             <keyword name="CanModule::CCanAccess (C++ class)" ref="reconnection.html#_CPPv4N9CanModule10CCanAccessE"/>
             <keyword name="CanModule::CCanAccess (C++ class)" ref="reconnection.html#_CPPv4N9CanModule10CCanAccessE"/>
+            <keyword name="CanModule::CCanAccess::createBus (C++ function)" ref="standardApiList.html#_CPPv4N9CanModule10CCanAccess9createBusEKNSt6stringEKNSt6stringE"/>
+            <keyword name="CanModule::CCanAccess::getBusName (C++ function)" ref="standardApiList.html#_CPPv4N9CanModule10CCanAccess10getBusNameEv"/>
             <keyword name="CanModule::CCanAccess::getPortBitrate (C++ function)" ref="canports.html#_CPPv4N9CanModule10CCanAccess14getPortBitrateEv"/>
+            <keyword name="CanModule::CCanAccess::getPortBitrate (C++ function)" ref="standardApiList.html#_CPPv4N9CanModule10CCanAccess14getPortBitrateEv"/>
             <keyword name="CanModule::CCanAccess::getPortStatus (C++ function)" ref="canports.html#_CPPv4N9CanModule10CCanAccess13getPortStatusEv"/>
-            <keyword name="CanModule::Diag (C++ class)" ref="classestracing.html#_CPPv4N9CanModule4DiagE"/>
-            <keyword name="CanModule::Diag::get_connections (C++ function)" ref="classestracing.html#_CPPv4N9CanModule4Diag15get_connectionsEv"/>
-            <keyword name="CSockCanScan (C++ class)" ref="classestracing.html#_CPPv412CSockCanScan"/>
+            <keyword name="CanModule::CCanAccess::getPortStatus (C++ function)" ref="standardApiList.html#_CPPv4N9CanModule10CCanAccess13getPortStatusEv"/>
+            <keyword name="CanModule::CCanAccess::getReconnectAction (C++ function)" ref="standardApiList.html#_CPPv4N9CanModule10CCanAccess18getReconnectActionEv"/>
+            <keyword name="CanModule::CCanAccess::getReconnectCondition (C++ function)" ref="standardApiList.html#_CPPv4N9CanModule10CCanAccess21getReconnectConditionEv"/>
+            <keyword name="CanModule::CCanAccess::sendMessage (C++ function)" ref="standardApiList.html#_CPPv4N9CanModule10CCanAccess11sendMessageEshPhb"/>
+            <keyword name="CanModule::CCanAccess::sendRemoteRequest (C++ function)" ref="standardApiList.html#_CPPv4N9CanModule10CCanAccess17sendRemoteRequestEs"/>
+            <keyword name="CanModule::CCanAccess::setReconnectBehavior (C++ function)" ref="standardApiList.html#_CPPv4N9CanModule10CCanAccess20setReconnectBehaviorEN9CanModule22ReconnectAutoConditionEN9CanModule15ReconnectActionE"/>
+            <keyword name="CanModule::CCanAccess::setReconnectFailedSendCount (C++ function)" ref="standardApiList.html#_CPPv4N9CanModule10CCanAccess27setReconnectFailedSendCountEj"/>
+            <keyword name="CanModule::CCanAccess::setReconnectReceptionTimeout (C++ function)" ref="standardApiList.html#_CPPv4N9CanModule10CCanAccess28setReconnectReceptionTimeoutEj"/>
+            <keyword name="CanModule::CCanAccess::stopBus (C++ function)" ref="standardApiList.html#_CPPv4N9CanModule10CCanAccess7stopBusEv"/>
+            <keyword name="CanModule::Diag (C++ class)" ref="classesdetails.html#_CPPv4N9CanModule4DiagE"/>
+            <keyword name="CanModule::Diag::get_connections (C++ function)" ref="classesdetails.html#_CPPv4N9CanModule4Diag15get_connectionsEv"/>
+            <keyword name="CSockCanScan (C++ class)" ref="classesdetails.html#_CPPv412CSockCanScan"/>
             <keyword name="CSockCanScan (C++ class)" ref="vendors/systec.html#_CPPv412CSockCanScan"/>
-            <keyword name="CSockCanScan::getPortStatus (C++ function)" ref="classestracing.html#_CPPv4N12CSockCanScan13getPortStatusEv"/>
+            <keyword name="CSockCanScan::getPortStatus (C++ function)" ref="classesdetails.html#_CPPv4N12CSockCanScan13getPortStatusEv"/>
             <keyword name="CSockCanScan::getPortStatus (C++ function)" ref="vendors/systec.html#_CPPv4N12CSockCanScan13getPortStatusEv"/>
-            <keyword name="CSockCanScan::sendMessage (C++ function)" ref="classestracing.html#_CPPv4N12CSockCanScan11sendMessageEshPhb"/>
-            <keyword name="PKCanScan (C++ class)" ref="classestracing.html#_CPPv49PKCanScan"/>
+            <keyword name="CSockCanScan::sendMessage (C++ function)" ref="classesdetails.html#_CPPv4N12CSockCanScan11sendMessageEshPhb"/>
+            <keyword name="PKCanScan (C++ class)" ref="classesdetails.html#_CPPv49PKCanScan"/>
             <keyword name="PKCanScan (C++ class)" ref="vendors/peak.html#_CPPv49PKCanScan"/>
-            <keyword name="PKCanScan::getPortStatus (C++ function)" ref="classestracing.html#_CPPv4N9PKCanScan13getPortStatusEv"/>
+            <keyword name="PKCanScan::getPortStatus (C++ function)" ref="classesdetails.html#_CPPv4N9PKCanScan13getPortStatusEv"/>
             <keyword name="PKCanScan::getPortStatus (C++ function)" ref="vendors/peak.html#_CPPv4N9PKCanScan13getPortStatusEv"/>
-            <keyword name="PKCanScan::sendMessage (C++ function)" ref="classestracing.html#_CPPv4N9PKCanScan11sendMessageEshPhb"/>
-            <keyword name="STCanScan (C++ class)" ref="classestracing.html#_CPPv49STCanScan"/>
+            <keyword name="PKCanScan::sendMessage (C++ function)" ref="classesdetails.html#_CPPv4N9PKCanScan11sendMessageEshPhb"/>
+            <keyword name="STCanScan (C++ class)" ref="classesdetails.html#_CPPv49STCanScan"/>
             <keyword name="STCanScan (C++ class)" ref="vendors/systec.html#_CPPv49STCanScan"/>
             <keyword name="STCanScan (C++ class)" ref="vendors/systec.html#_CPPv49STCanScan"/>
-            <keyword name="STCanScan::getPortStatus (C++ function)" ref="classestracing.html#_CPPv4N9STCanScan13getPortStatusEv"/>
+            <keyword name="STCanScan::getPortStatus (C++ function)" ref="classesdetails.html#_CPPv4N9STCanScan13getPortStatusEv"/>
             <keyword name="STCanScan::getPortStatus (C++ function)" ref="vendors/systec.html#_CPPv4N9STCanScan13getPortStatusEv"/>
-            <keyword name="STCanScan::sendMessage (C++ function)" ref="classestracing.html#_CPPv4N9STCanScan11sendMessageEshPhb"/>
+            <keyword name="STCanScan::sendMessage (C++ function)" ref="classesdetails.html#_CPPv4N9STCanScan11sendMessageEshPhb"/>
             <keyword name="STCanScan::STcanGetErrorText (C++ function)" ref="vendors/systec.html#_CPPv4N9STCanScan17STcanGetErrorTextEl"/>
             <keyword name="udevanalyserforpeak_ns::UdevAnalyserForPeak (C++ class)" ref="vendors/peak.html#_CPPv4N22udevanalyserforpeak_ns19UdevAnalyserForPeakE"/>
             <keyword name="udevanalyserforpeak_ns::UdevAnalyserForPeak::getInstance (C++ function)" ref="vendors/peak.html#_CPPv4N22udevanalyserforpeak_ns19UdevAnalyserForPeak11getInstanceEv"/>
@@ -121,8 +151,10 @@
         <files>
             <file>building.html</file>
             <file>canports.html</file>
-            <file>classestracing.html</file>
+            <file>classesdetails.html</file>
             <file>downloading.html</file>
+            <file>doxygen.html</file>
+            <file>errors.html</file>
             <file>genindex.html</file>
             <file>index.html</file>
             <file>logging.html</file>
@@ -130,6 +162,7 @@
             <file>reconnection.html</file>
             <file>running.html</file>
             <file>standardApi.html</file>
+            <file>standardApiList.html</file>
             <file>support.html</file>
             <file>_static/alert_info_32.png</file>
             <file>_static/alert_warning_32.png</file>

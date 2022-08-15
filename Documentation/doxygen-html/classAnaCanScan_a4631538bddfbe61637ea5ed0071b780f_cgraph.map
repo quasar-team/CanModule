@@ -1,5 +1,0 @@
-<map id="AnaCanScan::stopBus" name="AnaCanScan::stopBus">
-<area shape="rect" id="node2" href="$classAnaCanScan.html#a1b62497ac5f0edcf9895c9f8cfad6b50" title="AnaCanScan::deleteCanHandle\lOfPortIp" alt="" coords="217,5,439,46"/>
-<area shape="rect" id="node4" href="$classAnaCanScan.html#ae7ab2706bb4cd5e02409db38e73dbb3e" title="AnaCanScan::eraseReception\lHandlerFromMap" alt="" coords="223,70,433,111"/>
-<area shape="rect" id="node3" href="$classAnaCanScan.html#a9ce965955bb5eba734ed36b81945cb74" title="AnaCanScan::handle" alt="" coords="488,12,643,39"/>
-</map>

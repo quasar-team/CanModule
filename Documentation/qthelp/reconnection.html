@@ -14,7 +14,7 @@
     <link rel="prev" title="Peak" href="vendors/peak.html" /> 
   </head><body>
       <div class="header" role="banner"><h1 class="heading"><a href="index.html">
-          <span>CanModule 2.0.16 documentation</span></a></h1>
+          <span>CanModule 2.0.22 documentation</span></a></h1>
         <h2 class="heading"><span>Reconnection Behavior</span></h2>
       </div>
       <div class="topnav" role="navigation" aria-label="top navigation">
@@ -48,7 +48,7 @@ need to care about vendor details for that.</p>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N9CanModule10CCanAccessE">
 <span id="_CPPv3N9CanModule10CCanAccessE"></span><span id="_CPPv2N9CanModule10CCanAccessE"></span><span id="CanModule::CCanAccess"></span><span class="target" id="classCanModule_1_1CCanAccess"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CCanAccess</span></span></span><br /></dt>
-<dd><p>Subclassed by <a class="reference internal" href="classestracing.html#classAnaCanScan"><span class="std std-ref">AnaCanScan</span></a>, <a class="reference internal" href="vendors/systec.html#classCSockCanScan"><span class="std std-ref">CSockCanScan</span></a>, MockCanAccess, <a class="reference internal" href="vendors/peak.html#classPKCanScan"><span class="std std-ref">PKCanScan</span></a>, <a class="reference internal" href="classestracing.html#classSTCanScan"><span class="std std-ref">STCanScan</span></a></p>
+<dd><p>Subclassed by <a class="reference internal" href="classesdetails.html#classAnaCanScan"><span class="std std-ref">AnaCanScan</span></a>, <a class="reference internal" href="vendors/systec.html#classCSockCanScan"><span class="std std-ref">CSockCanScan</span></a>, MockCanAccess, <a class="reference internal" href="vendors/peak.html#classPKCanScan"><span class="std std-ref">PKCanScan</span></a>, <a class="reference internal" href="classesdetails.html#classSTCanScan"><span class="std std-ref">STCanScan</span></a></p>
 </dd></dl>
 
 <ul class="simple">
@@ -57,7 +57,7 @@ need to care about vendor details for that.</p>
 <dl class="cpp class">
 <dt class="sig sig-object cpp">
 <span class="target" id="classCanModule_1_1CCanAccess"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CCanAccess</span></span></span><br /></dt>
-<dd><p>Subclassed by <a class="reference internal" href="classestracing.html#classAnaCanScan"><span class="std std-ref">AnaCanScan</span></a>, <a class="reference internal" href="vendors/systec.html#classCSockCanScan"><span class="std std-ref">CSockCanScan</span></a>, MockCanAccess, <a class="reference internal" href="vendors/peak.html#classPKCanScan"><span class="std std-ref">PKCanScan</span></a>, <a class="reference internal" href="classestracing.html#classSTCanScan"><span class="std std-ref">STCanScan</span></a></p>
+<dd><p>Subclassed by <a class="reference internal" href="classesdetails.html#classAnaCanScan"><span class="std std-ref">AnaCanScan</span></a>, <a class="reference internal" href="vendors/systec.html#classCSockCanScan"><span class="std std-ref">CSockCanScan</span></a>, MockCanAccess, <a class="reference internal" href="vendors/peak.html#classPKCanScan"><span class="std std-ref">PKCanScan</span></a>, <a class="reference internal" href="classesdetails.html#classSTCanScan"><span class="std std-ref">STCanScan</span></a></p>
 </dd></dl>
 
 <ul class="simple">
@@ -77,11 +77,16 @@ and reconnecting a CAN bridge while it is sending and receiving. The test passes
 both sending and receiving reestablish without manual intervention (and without specific client code).</p>
 <p>Nevertheless, the client (~OPCUAserver) can choose to implement it’s own strategy: for this
 the reconnection behavior can be simply switched off completely.</p>
-<p>The reconnection behavior is implemented in such a way to provide also a NON BLOCKING senMessage() method.
+<p>The reconnection behavior is implemented in such a way to provide also a NON BLOCKING sendMessage() method.
 The whole reconnection code is run in a seperate thread for each bus, and that thread is always alive. It gets
 triggered each time there is a sending problem detected, and each time there has been no reception for more than 1 second.
 The reconnection thread then decides, according to it’s configuration, if there is something to do (condition=it checks
 counters and timeouts) and what to do (action=reset single bus or whole board or nothing).</p>
+<p>This behavior can be controlled using the classes:</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>doxygenclass: Cannot find class “CCanAccess” in doxygen xml output for project “CanModule” from directory: ./doxygen-result/xml</p>
+</div>
 <section id="anagate-an">
 <h2>anagate (“an”)</h2>
 <p>The anagate modules are identified by one or several IP addresses, depending on the module variant.
@@ -124,6 +129,8 @@ you are brave - but that is not supported for now.</p>
 if this connection is lost we need to reconnect. Reconnection works for both normal (fixed)
 and flexible datarate (FD) modules under linux, as socketcan is used, and takes less than 30sec.
 Correct port numbering is achieved (through a udevadmin call) as well.</p>
+<p>“whole module”  mode is not supported since
+the socketcan layer abstracts away the notion of a “module”.</p>
 </section>
 <section id="windows-peak">
 <h3>windows (“peak”)</h3>
@@ -146,7 +153,7 @@ can be made later, but I am not optimistic.</p>
 <p>will have various problems later during runtime.
 - Single port close/open is fully supported and works. If the sequence is too fast some messages will be lost, but the
 module recuperates correctly in the following. Port numbering is preserved.
-- whole module reconnect is not supported due to the socketcan abstraction, which abstracts the concept od a “module” away.</p>
+- whole module reconnect is not supported due to the socketcan abstraction, which abstracts the concept of a “module” away.</p>
 <p>In the case of a power loss and recovery, the driver should be automatically inserted again (dmesg | grep systec), but the network
 interfaces need to be re-activated (i.e. ifconfig can0 down; ip link set can0 type can bitrate 125000; ifconfig can0 up) on the OS level.
 For production systems using a supervisor script checking the network interfaces, and bringing them up again, is recommended.</p>
@@ -158,16 +165,7 @@ For production systems using a supervisor script checking the network interfaces
 <dl class="cpp function">
 <dt class="sig sig-object cpp">
 <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">updateInitialError</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
-<dd><p>stop the supervisor thread using the flag and close the socket. Report an error when opening a can port </p>
-</dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp">
-<span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">updateBusStatus</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
-<dd><p>update the CAN bus status IFLA from socketcan and make up a CanModule status bitpattern out from this. Each vendor has to implement this with the same bit meanings.</p>
-<p>Errors are a subset of status.</p>
-<p>std::string CSockCanScan::errorFrameToString(const struct can_frame &amp;canFrame) fabricates a string, we need a bitpattern</p>
-<p>int can_get_restart_ms(const char *name, __u32 *restart_ms); int can_get_bittiming(const char *name, struct can_bittiming *bt); int can_get_ctrlmode(const char *name, struct can_ctrlmode *cm); int can_get_state(const char *name, int *state); int can_get_clock(const char *name, struct can_clock *clock); int can_get_bittiming_const(const char *name, struct can_bittiming_const *btc); int can_get_berr_counter(const char *name, struct can_berr_counter *bc); int can_get_device_stats(const char *name, struct can_device_stats *cds); </p>
+<dd><p>Report an error when opening a can port </p>
 </dd></dl>
 
 <dl class="cpp function">
@@ -193,8 +191,7 @@ stop, set bitrate, start a CAN port, open a socket for it, set the socket to CAN
 <dl class="cpp function">
 <dt class="sig sig-object cpp">
 <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CanReconnectionThread</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
-<dd><p>reconnection behavior thread, always up</p>
-<p>Reconnection thread managing the reconnection behavior, per port. The behavior settings can not change during runtime. This thread is initialized after the main thread is up, and then listens on its cond.var as a trigger. Triggers occur in two contexts: sending and receiving problems. If there is a sending problem which lasts for a while (usually) the reconnection thread will be also triggered for each failed sending: the thread will be “hammered” by triggers. ince the reconnection takes some time, many triggers will be lost. That is in fact a desired behavior.</p>
+<dd><p>Reconnection thread managing the reconnection behavior, per port. The behavior settings can not change during runtime. This thread is initialized after the main thread is up, and then listens on its cond.var as a trigger. Triggers occur in two contexts: sending and receiving problems. If there is a sending problem which lasts for a while (usually) the reconnection thread will be also triggered for each failed sending: the thread will be “hammered” by triggers. ince the reconnection takes some time, many triggers will be lost. That is in fact a desired behavior.</p>
 <p>The parameters are all atomics for increased thread-safety, even though the documentation about the predicate is unclear on that point. Since atomics just provide a “sequential memory layout” for the variables to prevent race conditions they are good to use for this but the code still has to be threadsafe and reentrant… ;-) Doesn’t eat anything anyway on that small scale with scalars only.</p>
 <p><a class="reference external" href="https://en.cppreference.com/w/cpp/thread/condition_variable/wait">https://en.cppreference.com/w/cpp/thread/condition_variable/wait</a> </p>
 </dd></dl>
@@ -205,7 +202,7 @@ stop, set bitrate, start a CAN port, open a socket for it, set the socket to CAN
 <dl class="cpp function">
 <dt class="sig sig-object cpp">
 <span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">errorFrameToString</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="n"><span class="pre">can_frame</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">f</span></span><span class="sig-paren">)</span><br /></dt>
-<dd><p>Transforms an error frame into an error message (string format) </p>
+<dd><p>Transforms an error frame into an error message (string format): Provides textual representation of SocketCAN error. </p>
 </dd></dl>
 
 </div>
@@ -239,7 +236,7 @@ under windows” is presently stated. I tried, using the systec <a class="refere
 
     <div class="footer" role="contentinfo">
         &#169; Copyright 2020, CERN, quasar-team, BE-ICS (Michael Ludwig).
-      Last updated on 04-Mar-2022 16:37:37.
+      Last updated on 12-Aug-2022 17:30:22.
       Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
     </div>
   </body>

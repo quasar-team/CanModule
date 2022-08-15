@@ -14,7 +14,7 @@
     <link rel="prev" title="AnaGate" href="anagate.html" /> 
   </head><body>
       <div class="header" role="banner"><h1 class="heading"><a href="../index.html">
-          <span>CanModule 2.0.16 documentation</span></a></h1>
+          <span>CanModule 2.0.22 documentation</span></a></h1>
         <h2 class="heading"><span>Peak</span></h2>
       </div>
       <div class="topnav" role="navigation" aria-label="top navigation">
@@ -45,9 +45,113 @@ could be added in principle if requested.</p>
 modules with USB interface and fixed datarate (non-FD) are supported by CanModule for now. PEAK’s
 flexible datarate (FD) modules can be added later on (they need some different API-calls and more complex parameters), and also
 other interfaces like PCI are possible for windows.The implementation is based on the PCAN-Basic driver.</p>
+<dl class="cpp class">
+<dt class="sig sig-object cpp">
+<span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PKCanScan</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">CanModule</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../canports.html#_CPPv4N9CanModule10CCanAccessE" title="CanModule::CCanAccess"><span class="n"><span class="pre">CCanAccess</span></span></a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-private-functions">Private Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="n"><span class="pre">TPCANHandle</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getHandle</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">name</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>This method returns a TPCANHandle (which is in fact a specific vendor defined hex value) as a function of a human readable string. The human readable string basically codes the intefrace type (USB, ISA, PCI…) and the CAN port (1..8) so that i.e. USB3-&gt;0x53 which means USB interface 3rd channel </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">configureCanboard</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">name</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">parameters</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>method to configure peak modules. We restrict this to USB interfaces and fixed datarate (not FD) modules If needed this can relatively easily be extended to other interfaces and FD mods as well.</p>
+<p>These USB CAN bridges are “plug&amp;lplay CAN devices according to peak, so we can initialize them with only the handle and the baudrate. BUT - The handle is PER MODULE and not PER CHANNEL !!</p>
+<p>Nevertheless this is called for each BUS creation.</p>
+<p>returns: true = success false = failed </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-private-static-functions">Private Static Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="sig-name descname"><span class="pre">static</span> <span class="pre">DWORD</span> <span class="pre">WINAPI</span> <span class="pre">CanScanControlThread</span> <span class="pre">(LPVOID</span> <span class="pre">pCanScan)</span></span></dt>
+<dd><p>thread to supervise port activity </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="sig-name descname"><span class="pre">static</span> <span class="pre">DWORD</span> <span class="pre">WINAPI</span> <span class="pre">CanReconnectionThread</span> <span class="pre">(LPVOID</span> <span class="pre">pCanScan)</span></span></dt>
+<dd><p>Reconnection thread managing the reconnection behavior, per port. The behavior settings can not change during runtime. This thread is initialized after the main thread is up, and then listens on its cond.var as a trigger. Triggers occur in two contexts: sending and receiving problems.</p>
+<p><a class="reference external" href="https://en.cppreference.com/w/cpp/thread/condition_variable/wait">https://en.cppreference.com/w/cpp/thread/condition_variable/wait</a> </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<ul class="simple">
+<li><p>parameters=”p0 p1 p2 p3 p4 p5 p6” i.e. “125000 0 0 0 0 0 5000”</p></li>
+<li><p>ONLY p0 = bitrate or “baudrate” is used.</p></li>
+<li><p>“Unspecified” : the module bitrate 125000 is used as default when calling CAN_Initialize(…)</p></li>
+</ul>
 </section>
 <section id="linux">
 <h2>linux</h2>
+<section id="parameters">
+<h3>parameters</h3>
+<dl class="cpp class">
+<dt class="sig sig-object cpp">
+<span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CSockCanScan</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">CanModule</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../canports.html#_CPPv4N9CanModule10CCanAccessE" title="CanModule::CCanAccess"><span class="n"><span class="pre">CCanAccess</span></span></a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-private-functions">Private Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">updateInitialError</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Report an error when opening a can port </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">openCanPort</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Obtains a SocketCAN socket and opens it. The name of the port and parameters should have been specified by preceding call to configureCanboard()</p>
+<p>
+stop, set bitrate, start a CAN port, open a socket for it, set the socket to CAN, bind it and check any errors </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>less than zero in case of error, otherwise success</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CanScanControlThread</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd><p>The main control thread function for the CAN update scan manager: a private non-static method, which is called on the object (this) following std::thread C++11 ways.</p>
+<p>reading from socket, and supervising thread for monitoring the sockets/CAN buses. It takes an object reference (cast) and listens with a select call on that socket/object. The select runs with 1Hz, and if there is nothing to receive it should timeout. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CanReconnectionThread</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Reconnection thread managing the reconnection behavior, per port. The behavior settings can not change during runtime. This thread is initialized after the main thread is up, and then listens on its cond.var as a trigger. Triggers occur in two contexts: sending and receiving problems. If there is a sending problem which lasts for a while (usually) the reconnection thread will be also triggered for each failed sending: the thread will be “hammered” by triggers. ince the reconnection takes some time, many triggers will be lost. That is in fact a desired behavior.</p>
+<p>The parameters are all atomics for increased thread-safety, even though the documentation about the predicate is unclear on that point. Since atomics just provide a “sequential memory layout” for the variables to prevent race conditions they are good to use for this but the code still has to be threadsafe and reentrant… ;-) Doesn’t eat anything anyway on that small scale with scalars only.</p>
+<p><a class="reference external" href="https://en.cppreference.com/w/cpp/thread/condition_variable/wait">https://en.cppreference.com/w/cpp/thread/condition_variable/wait</a> </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-private-static-functions">Private Static Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">errorFrameToString</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="n"><span class="pre">can_frame</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">f</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Transforms an error frame into an error message (string format): Provides textual representation of SocketCAN error. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<ul class="simple">
+<li><p>bus name: “can” or “vcan”</p></li>
+<li><p>port number, follows bus name: “can:0” or “vcan:9”</p></li>
+<li><p>parameters=”p0 p1 p2 p3 p4 p5 p6” i.e. “125000 0 0 0 0 0 5000”</p></li>
+<li><p>ONLY p0 = bitrate or “baudrate” is used.</p></li>
+<li><p>“Unspecified” : the socket bitrate is NOT reconfigured , no stop/start sequence on the socket are done</p></li>
+</ul>
 <p>The open-source socketcan interface is used on top of peak’s open source netdev driver. Both Peak’s
 fixed and flexible datarate are working, although the fixed modules are recommended for bus compatibility.
 Only modules with USB interface are supported.
@@ -93,6 +197,7 @@ and so forth.</p>
 
 </dd></dl>
 
+</section>
 <section id="status">
 <h3>status</h3>
 <p>status information is propagated through the unified status.
@@ -161,7 +266,7 @@ documentation if available. Peak relies on a vendor provided method: CAN_GetErro
 
     <div class="footer" role="contentinfo">
         &#169; Copyright 2020, CERN, quasar-team, BE-ICS (Michael Ludwig).
-      Last updated on 04-Mar-2022 16:37:37.
+      Last updated on 12-Aug-2022 17:30:22.
       Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
     </div>
   </body>

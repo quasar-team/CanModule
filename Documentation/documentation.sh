@@ -27,8 +27,8 @@ SPHINX_BUILD=`which sphinx-build`
 
 ${SPHINX_BUILD} -b html ${DOC_ROOT}/sphinx-source ${DOC_ROOT}/html
 
-mkdir -p ${DOC_ROOT}/sphinx-result/latex
-${SPHINX_BUILD} -b latex ${DOC_ROOT}/sphinx-source ${DOC_ROOT}/sphinx-result/latex
+#mkdir -p ${DOC_ROOT}/sphinx-result/latex
+#${SPHINX_BUILD} -b latex ${DOC_ROOT}/sphinx-source ${DOC_ROOT}/sphinx-result/latex
 
 mkdir -p ${DOC_ROOT}/sphinx-result/qthelp
 ${SPHINX_BUILD} -b qthelp ${DOC_ROOT}/sphinx-source ${DOC_ROOT}/sphinx-result/qthelp
@@ -37,14 +37,14 @@ ${SPHINX_BUILD} -b qthelp ${DOC_ROOT}/sphinx-source ${DOC_ROOT}/sphinx-result/qt
 #
 # 3. pdf from latex and move
 #
-cd ${DOC_ROOT}/sphinx-result/latex && make
-mkdir -p ${DOC_ROOT}/pdf
-find ${DOC_ROOT}/sphinx-result/latex -name "*.pdf" -exec mv -v {} ${DOC_ROOT}/pdf \;
+#cd ${DOC_ROOT}/sphinx-result/latex && make
+#mkdir -p ${DOC_ROOT}/pdf
+#find ${DOC_ROOT}/sphinx-result/latex -name "*.pdf" -exec mv -v {} ${DOC_ROOT}/pdf \;
 #
 # move also the latex
-rm -rf ${DOC_ROOT}/latex
-mkdir -p ${DOC_ROOT}/latex
-mv -v ${DOC_ROOT}/sphinx-result/latex ${DOC_ROOT}
+#rm -rf ${DOC_ROOT}/latex
+#mkdir -p ${DOC_ROOT}/latex
+#mv -v ${DOC_ROOT}/sphinx-result/latex ${DOC_ROOT}
 #
 # move also the qthelp
 rm -rf ${DOC_ROOT}/qthelp
@@ -53,9 +53,9 @@ mv -v ${DOC_ROOT}/sphinx-result/qthelp ${DOC_ROOT}
 
 
 # cleanup
-rm -rfv ./sphinx-result/latex/
-rm -rfv ./sphinx-result/.doctrees/*
-rm -rfv ./sphinx-source/doxygen-result/
+rm -rf ./sphinx-result/latex/
+rm -rf ./sphinx-result/.doctrees/*
+rm -rf ./sphinx-source/doxygen-result/
 
 # results are in ${DOC_ROOT}:
 # html - sphinx generated tree

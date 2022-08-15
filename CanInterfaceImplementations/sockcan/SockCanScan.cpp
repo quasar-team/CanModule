@@ -49,7 +49,7 @@
 
 #include <LogIt.h>
 
-/* static */ std::map<string, string> CSockCanScan::m_busMap;
+/* static */ std::map<std::string, std::string> CSockCanScan::m_busMap;
 std::mutex sockReconnectMutex; // protect global m_busMap
 
 #define MLOGSOCK(LEVEL,THIS) LOG(Log::LEVEL, THIS->logItHandle()) << __FUNCTION__ << " sock bus= " << THIS->getBusName() << " "
@@ -110,12 +110,13 @@ void CSockCanScan::CanScanControlThread()
 	struct can_frame  socketMessage;
 	CSockCanScan *p_sockCanScan = this;
 	// convenience, not really needed as we call the thread as
-	// non-static private member on the object
+	// non-static private member on the object. I like it nevertheless
+	// since it explicitly makes a difference between the object (this) and this thread.
 
 	std::string _tid;
 	{
 		std::stringstream ss;
-		ss << this_thread::get_id();
+		ss << std::this_thread::get_id();
 		_tid = ss.str();
 	}
 	MLOGSOCK(TRC, p_sockCanScan) << "created main loop tid= " << _tid;
@@ -168,16 +169,6 @@ void CSockCanScan::CanScanControlThread()
 		if ( selectResult < 0 ){
 			MLOGSOCK(ERR,p_sockCanScan) << "select() failed: " << CanModuleerrnoToString()
 									<< " tid= " << _tid;
-#if 0
-			{
-				struct timespec tim, tim2;
-				tim.tv_sec = 1;
-				tim.tv_nsec = 0;
-				if(nanosleep(&tim , &tim2) < 0 ) {
-					MLOGSOCK(ERR,p_sockCanScan) << "Waiting 1s failed (nanosleep) tid= " << _tid;
-				}
-			}
-#endif
 			CanModule::ms_sleep( 1000 );
 			continue;
 		}
@@ -199,7 +190,7 @@ void CSockCanScan::CanScanControlThread()
 			} else {
 				if (status_socketcan == 0) {
 					p_sockCanScan->m_errorCode = 0;
-					timeval t = convertTimepointToTimeval( std::chrono::system_clock::now());
+					timeval t = CanModule::convertTimepointToTimeval( std::chrono::system_clock::now());
 					p_sockCanScan->canMessageError( p_sockCanScan->m_errorCode, "CAN port is recovered", t );
 				}
 			}
@@ -216,7 +207,7 @@ void CSockCanScan::CanScanControlThread()
 			// got an error from the socket
 			if (numberOfReadBytes < 0) {
 				MLOGSOCK(ERR,p_sockCanScan) << "read() error: " << CanModuleerrnoToString()<< " tid= " << _tid;;
-				timeval now = convertTimepointToTimeval( std::chrono::system_clock::now());
+				timeval now = CanModule::convertTimepointToTimeval( std::chrono::system_clock::now());
 				p_sockCanScan->canMessageError( numberOfReadBytes, ("read() error: "+CanModuleerrnoToString()).c_str(), now );
 				p_sockCanScan->m_errorCode = -1;
 
@@ -224,16 +215,6 @@ void CSockCanScan::CanScanControlThread()
 				// try close/opening on faults while port is active. This was a system error
 				do {
 					MLOGSOCK(INF,p_sockCanScan) << "Waiting 10000ms."<< " tid= " << _tid;
-#if 0
-					{
-						struct timespec tim, tim2;
-						tim.tv_sec = 10;
-						tim.tv_nsec = 0;
-						if(nanosleep(&tim , &tim2) < 0 ) {
-							MLOG(ERR,p_sockCanScan) << "Waiting 10000ms failed (nanosleep)"<< " tid= " << _tid;
-						}
-					}
-#endif
 					CanModule::ms_sleep( 10000 );
 
 					if ( sock > 0 )	{
@@ -297,7 +278,7 @@ void CSockCanScan::CanScanControlThread()
 							<< p_sockCanScan->getBusName()
 							<< " got an error, ioctl timestamp from socket failed as well, setting local time"
 							<< " ioctlReturn1 = " << ioctlReturn1;
-					c_time = convertTimepointToTimeval( std::chrono::system_clock::now());
+					c_time = CanModule::convertTimepointToTimeval( std::chrono::system_clock::now());
 				}
 				MLOGSOCK(ERR, p_sockCanScan) << "SocketCAN ioctl return: [" << ioctlReturn1
 						<< " error frame: [" << description
@@ -314,19 +295,6 @@ void CSockCanScan::CanScanControlThread()
 			CanMessage canMessage;
 			canMessage.c_rtr = socketMessage.can_id & CAN_RTR_FLAG;
 
-			/**
-			 * OPCUA-2607. Lets just stop filtering RTR out. This is only done here
-			 * anyway, all other vendor implementations don't care.
-			 */
-#if 0
-			// remote flag: ignore frame
-			if (canMessage.c_rtr) {
-				MLOGSOCK(TRC, p_sockCanScan) << " Got a remote CAN message, skipping"<< " tid= " << _tid;
-				continue;
-			}
-#else
-			// MLOGSOCK(TRC, p_sockCanScan) << " Got a remote CAN message "<< " tid= " << _tid;
-#endif
 
 			/**
 			 * reformat and buffer the message from the socket.
@@ -339,7 +307,7 @@ void CSockCanScan::CanScanControlThread()
 						<< p_sockCanScan->getBusName()
 						<< " ioctl timestamp from socket failed, setting local time"
 						<< " ioctlReturn2 = " << ioctlReturn2;
-				canMessage.c_time = convertTimepointToTimeval( std::chrono::system_clock::now());
+				canMessage.c_time = CanModule::convertTimepointToTimeval( std::chrono::system_clock::now());
 			}
 
 			MLOGSOCK(TRC, p_sockCanScan) << " SocketCAN ioctl SIOCGSTAMP return: [" << ioctlReturn2 << "]" << " tid= " << _tid;
@@ -394,7 +362,7 @@ void CSockCanScan::CanReconnectionThread()
 	std::string _tid;
 	{
 		std::stringstream ss;
-		ss << this_thread::get_id();
+		ss << std::this_thread::get_id();
 		_tid = ss.str();
 	}
 	MLOGSOCK(TRC, this ) << "created reconnection thread tid= " << _tid;
@@ -497,9 +465,9 @@ CSockCanScan::~CSockCanScan()
 	MLOGSOCK(DBG,this) << __FUNCTION__ <<" closed successfully";
 }
 
-int CSockCanScan::configureCanBoard(const string name,const string parameters)
+int CSockCanScan::configureCanBoard(const std::string name,const std::string parameters)
 {
-	string lname = name;
+	std::string lname = name;
 
 	/**
 	 * for PEAK bridges, we have a problem: the local ports are not mapped to the global socketcan
@@ -511,10 +479,10 @@ int CSockCanScan::configureCanBoard(const string name,const string parameters)
 	 * systec: name="sock:can0"
 	 * peak: name="sock:can0:device17440"
 	 */
-	if ( name.find("device") != string::npos ) {
+	if ( name.find("device") != std::string::npos ) {
 		LOG(Log::INF, m_logItHandleSock) << "found extended port identifier for PEAK " << name;
 		// get a mapping: do all the udev calls in the constructor of the singleton
-		string sockPort = udevanalyserforpeak_ns::UdevAnalyserForPeak::peakExtendedIdentifierToSocketCanDevice( name );
+		std::string sockPort = udevanalyserforpeak_ns::UdevAnalyserForPeak::peakExtendedIdentifierToSocketCanDevice( name );
 		LOG(Log::INF, m_logItHandleSock) << "portIdentifierToSocketCanDevice: name= " << name << " sockPort= " << sockPort;
 
 		// show the whole map
@@ -524,10 +492,10 @@ int CSockCanScan::configureCanBoard(const string name,const string parameters)
 		 * now, we manipulate the lname to reflect the absolute port which we found out. We do the rewiring at initialisation, like this we don't
 		 * care anymore during runtime.
 		 */
-		lname = string("sock:") + sockPort;
+		lname = std::string("sock:") + sockPort;
 		LOG(Log::INF, m_logItHandleSock) << "peak *** remapping extended port ID= " << name << " to global socketcan portID= " << lname << " *** ";
 	}
-	vector<string> parset;
+	std::vector<std::string> parset;
 	parset = parseNameAndParameters( lname, parameters );
 	m_channelName = parset[1];
 	MLOGSOCK(TRC, this) << "m_channelName= " << m_channelName ;
@@ -653,9 +621,13 @@ bool CSockCanScan::sendMessage(short cobID, unsigned char len, unsigned char *me
 	if (len > 8) {
 		messageLengthToBeProcessed = 8;
 		MLOGSOCK(DBG,this) << "The Length is more then 8 bytes: " << std::dec << len;
+		return false;
 	} else {
 		messageLengthToBeProcessed = len;
 	}
+
+	MLOGSOCK(DBG,this) << "Sending message: [" << CanModule::canMessage2ToString(cobID, len, message, rtr) << "]";
+
 	canFrame.can_dlc = messageLengthToBeProcessed;
 	memcpy(canFrame.data, message, messageLengthToBeProcessed);
 	canFrame.can_id = cobID;
@@ -673,16 +645,6 @@ bool CSockCanScan::sendMessage(short cobID, unsigned char len, unsigned char *me
 		if ( errno == ENOBUFS ) {
 			// std::cerr << "ENOBUFS; waiting a jiffy [100ms]..." << std::endl;
 			MLOGSOCK(ERR,this) << "write error ENOBUFS: waiting a jiffy [100ms]...";
-#if 0
-			{
-				struct timespec tim, tim2;
-				tim.tv_sec = 0;
-				tim.tv_nsec = 100000;
-				if(nanosleep(&tim , &tim2) < 0 ) {
-					MLOGSOCK(ERR,this) << "Waiting 100ms failed (nanosleep)";
-				}
-			}
-#endif
 			CanModule::ms_sleep( 100 );
 
 			ret = false;
@@ -736,19 +698,8 @@ bool CSockCanScan::sendRemoteRequest(short cobID)
 			if (errno == ENOBUFS)
 			{
 				MLOGSOCK(ERR,this) << "ENOBUFS; waiting a jiffy [100ms]...";
-#if 0
-				{
-					struct timespec tim, tim2;
-					tim.tv_sec = 0;
-					tim.tv_nsec = 100000;
-					if(nanosleep(&tim , &tim2) < 0 ) {
-						MLOGSOCK(ERR,this) << "Waiting 100ms failed (nanosleep)";
-					}
-				}
-#endif
 				CanModule::ms_sleep( 100 );
-
-				continue;//If this happens we sleep and start from the beggining of the loop
+				continue;
 			}
 		}
 		else
@@ -791,7 +742,7 @@ bool CSockCanScan::sendRemoteRequest(short cobID)
  * the port is erased from the connection map. when the same port is opened again later on, a (new)
  * main thread is created, and the connection is again added to the map.
  */
-int CSockCanScan::createBus(const string name, const string parameters)
+int CSockCanScan::createBus(const std::string name, const std::string parameters)
 {
 
 	LogItInstance* logItInstance = CCanAccess::getLogItInstance();
@@ -809,9 +760,9 @@ int CSockCanScan::createBus(const string name, const string parameters)
 
 		std::lock_guard<std::mutex> busMapScopedLock( sockReconnectMutex );
 
-		std::map<string, string>::iterator it = CSockCanScan::m_busMap.find( name );
+		std::map<std::string, std::string>::iterator it = CSockCanScan::m_busMap.find( name );
 		if (it == CSockCanScan::m_busMap.end()) {
-			CSockCanScan::m_busMap.insert ( std::pair<string, string>(name, parameters) );
+			CSockCanScan::m_busMap.insert ( std::pair<std::string, std::string>(name, parameters) );
 			m_busName = name;
 			MLOGSOCK(TRC,this) << "added to busMap: [" << name << "] with parameters [" << parameters << "]";
 		} else {
@@ -828,7 +779,7 @@ int CSockCanScan::createBus(const string name, const string parameters)
 	if (m_sock < 0) {
 		MLOGSOCK(ERR,this) << "Could not create bus [" << name << "] with parameters [" << parameters << "]";
 		// take it out from the map again
-		std::map<string, string>::iterator it = CSockCanScan::m_busMap.find( name );
+		std::map<std::string, std::string>::iterator it = CSockCanScan::m_busMap.find( name );
 		if (it != CSockCanScan::m_busMap.end()) {
 			CSockCanScan::m_busMap.erase ( it );
 			m_busName = "";
@@ -934,7 +885,7 @@ std::string CSockCanScan::errorFrameToString(const struct can_frame &canFrame)
 
 void CSockCanScan::clearErrorMessage()
 {
-	string errorMessage = "";
+	std::string errorMessage = "";
 	timeval c_time;
 	int ioctlReturn = ioctl(m_sock, SIOCGSTAMP, &c_time);//TODO: Return code is not checked
 	if ( ioctlReturn ){
@@ -942,7 +893,7 @@ void CSockCanScan::clearErrorMessage()
 				<< getBusName()
 				<< " ioctl timestamp from socket failed, setting local time"
 				<< " ioctlReturn = " << ioctlReturn;
-		c_time = convertTimepointToTimeval( std::chrono::system_clock::now());
+		c_time = CanModule::convertTimepointToTimeval( std::chrono::system_clock::now());
 	}
 	MLOGSOCK(TRC,this) << "ioctlReturn= " << ioctlReturn;
 	canMessageError(0, errorMessage.c_str(), c_time);
@@ -962,7 +913,7 @@ void CSockCanScan::sendErrorMessage(const char *mess)
 				<< getBusName()
 				<< " ioctl timestamp from socket failed, setting local time"
 				<< " ioctlReturn = " << ioctlReturn;
-		c_time = convertTimepointToTimeval( std::chrono::system_clock::now());
+		c_time = CanModule::convertTimepointToTimeval( std::chrono::system_clock::now());
 	}
 	MLOGSOCK(TRC,this) << "ioctlReturn= " << ioctlReturn;
 	canMessageError(-1,mess,c_time);
@@ -984,7 +935,7 @@ void CSockCanScan::stopBus ()
 	{
 		std::lock_guard<std::mutex> busMapScopedLock( sockReconnectMutex );
 
-		std::map<string, string>::iterator it = CSockCanScan::m_busMap.find( m_busName );
+		std::map<std::string, std::string>::iterator it = CSockCanScan::m_busMap.find( m_busName );
 		if (it != CSockCanScan::m_busMap.end()) {
 			m_hCanScanThread->join();
 			CSockCanScan::m_busMap.erase ( it );
@@ -1010,7 +961,7 @@ void CSockCanScan::updateInitialError ()
 	if (m_errorCode == 0) {
 		clearErrorMessage();
 	} else {
-		timeval now = convertTimepointToTimeval( std::chrono::system_clock::now());
+		timeval now = CanModule::convertTimepointToTimeval( std::chrono::system_clock::now());
 		canMessageError( m_errorCode, "Initial port state: error", now );
 	}
 }

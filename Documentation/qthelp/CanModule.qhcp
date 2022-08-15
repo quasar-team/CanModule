@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <QHelpCollectionProject version="1.0">
     <assistant>
-        <title>CanModule 2.0.16 documentation</title>
+        <title>CanModule 2.0.22 documentation</title>
         <homePage>qthelp://canmodule/doc/index.html</homePage>
         <startPage>qthelp://canmodule/doc/index.html</startPage>
     </assistant>

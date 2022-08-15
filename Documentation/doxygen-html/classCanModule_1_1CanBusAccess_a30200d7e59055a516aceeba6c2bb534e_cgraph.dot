@@ -1,0 +1,20 @@
+digraph "CanModule::CanBusAccess::closeCanBus"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="CanModule::CanBusAccess\l::closeCanBus",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="CanModule::CanLibLoader\l::closeCanBus",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classCanModule_1_1CanLibLoader.html#acd7d3af103bb72d5bd18737333d682f4",tooltip=" "];
+  Node2 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="CanModule::Diag::delete_maps",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classCanModule_1_1Diag.html#aa79c20827b6e33fa35d4106d9aa479b8",tooltip=" "];
+  Node3 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="CanModule::CCanAccess\l::getBusName",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classCanModule_1_1CCanAccess.html#ac3f5126ae36d642217425e21696d19ca",tooltip=" "];
+  Node3 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="CanModule::CanLibLoader\l::getLibName",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classCanModule_1_1CanLibLoader.html#a7b4d0043b9715fce19bca9bb4035df0a",tooltip=" "];
+  Node2 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="CanModule::CCanAccess\l::stopBus",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classCanModule_1_1CCanAccess.html#a3fabe88b8e21638afd5d9886bb9c4aeb",tooltip=" "];
+  Node1 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+}

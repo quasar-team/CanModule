@@ -39,7 +39,6 @@ if( (NOT DEFINED ANAGATE_LIB_PATH) OR (NOT DEFINED ANAGATE_HEADERS) OR (NOT DEFI
 		SET( ANAGATE_LIB_FILE "C:/3rdPartySoftware/AnaGateCAN/win64/vc8/Release/AnaGateCanDll64.lib")
 	else()
 		SET ( ANAGATE_HEADERS "/opt/3rdPartySoftware/Anagate/CAN/anagate-api-2.13/linux64/gcc4_6/include" )
-		SET ( ANAGATE_HEADERS "/opt/3rdPartySoftware/Anagate/CAN/anagate-api-2.13/linux64/gcc4_6/include" )
 		SET ( ANAGATE_LIB_PATH "/opt/3rdPartySoftware/Anagate/CAN/anagate-api-2.13/linux64/gcc4_6" )
 		SET ( ANAGATE_LIB_FILE "-lAPIRelease64 -lCANDLLRelease64" )
 	endif() 
@@ -47,21 +46,18 @@ if( (NOT DEFINED ANAGATE_LIB_PATH) OR (NOT DEFINED ANAGATE_HEADERS) OR (NOT DEFI
 	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: ANAGATE_LIB_PATH= ${ANAGATE_LIB_PATH}]")
 	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: ANAGATE_LIB_FILE= ${ANAGATE_LIB_FILE}]")
 else()
-  	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: toolchain ANAGATE_LIB_PATH= ${ANAGATE_LIB_PATH}" )
   	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: toolchain ANAGATE_HEADERS=  ${ANAGATE_HEADERS}" )
+  	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: toolchain ANAGATE_LIB_PATH= ${ANAGATE_LIB_PATH}" )
   	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: toolchain ANAGATE_LIB_FILE= ${ANAGATE_LIB_FILE}" )
 endif() 
 link_directories( ${ANAGATE_LIB_PATH} )
 include_directories ( ${ANAGATE_HEADERS} )
 
-
 set(ANAGATE_SOURCES
 	AnaCanScan.cpp
-	AnaCanScan.h
-	../../CanInterface/src/CanStatistics.cpp
-	../../CanInterface/include/CanStatistics.h	
-	../../CanInterface/src/CanModuleUtils.cpp
-	../../CanInterface/include/CanModuleUtils.h	
+	../../CanInterface/src/CanStatistics.cpp	
+	../../CanInterface/src/CanModuleUtils.cpp	
+	../../CanInterface/src/CCanAccess.cpp	
 )
 
 # you can either build the fully dynamic libs or the as-static-as-possible, 

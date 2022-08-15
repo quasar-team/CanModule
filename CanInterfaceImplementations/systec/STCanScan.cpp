@@ -26,7 +26,7 @@
 
 #include <time.h>
 #include <string.h>
-#include "CanModuleUtils.h"
+#include <CanModuleUtils.h>
 
 #include <LogIt.h>
 
@@ -114,7 +114,7 @@ DWORD WINAPI STCanScan::CanScanControlThread(LPVOID pCanScan)
 			for (int i = 0; i < 8; i++)
 				canMsgCopy.c_data[i] = readCanMessage.m_bData[i];
 
-			canMsgCopy.c_time = convertTimepointToTimeval(currentTimeTimeval());
+			canMsgCopy.c_time = CanModule::convertTimepointToTimeval(currentTimeTimeval());
 
 			stCanScanPointer->canMessageCame(canMsgCopy);
 			stCanScanPointer->m_statistics.onReceive( readCanMessage.m_bDLC );
@@ -208,7 +208,7 @@ STCanScan::~STCanScan()
  * no implemented: 1=OK, bus creation skipped since it exists already
  *
  */
-int STCanScan::createBus(const string name,const string parameters)
+int STCanScan::createBus(const std::string name,const std::string parameters)
 {	
 	LogItInstance* logItInstance = CCanAccess::getLogItInstance(); // actually calling instance method, not class
 
@@ -242,12 +242,12 @@ int STCanScan::createBus(const string name,const string parameters)
  * configures systec @ windows board
  * only G1/G2 boards
  */
-int STCanScan::configureCanBoard(const string name,const string parameters)
+int STCanScan::configureCanBoard(const std::string name,const std::string parameters)
 {
 	long baudRate = USBCAN_BAUD_125kBit;
 	m_CanParameters.m_lBaudRate = 125000;
 
-	vector<string> stringVector;
+	std::vector< std::string > stringVector;
 	stringVector = parseNameAndParameters(name, parameters);
 
 	const char *na = stringVector[1].c_str();
@@ -332,7 +332,7 @@ int STCanScan::openCanPort(tUcanInitCanParam initializationParameters)
 		MLOGST(TRC,this) << "init can port";
 		systecCallReturn = ::UcanInitHardwareEx(&canModuleHandle, m_moduleNumber, 0, 0);
 		if (systecCallReturn != USBCAN_SUCCESSFUL ) 	{
-			MLOGST(ERR,this) << "UcanInitHardwareEx, return code = [ 0x" << hex << (int) systecCallReturn << dec << "]";
+			MLOGST(ERR,this) << "UcanInitHardwareEx, return code = [ 0x" << std::hex << (int) systecCallReturn << std::dec << "]";
 			::UcanDeinitHardware(canModuleHandle);
 			return -1;
 		}
@@ -341,7 +341,7 @@ int STCanScan::openCanPort(tUcanInitCanParam initializationParameters)
 	setCanHandleInUse(m_moduleNumber,true);
 	systecCallReturn = ::UcanInitCanEx2(canModuleHandle, m_channelNumber, &initializationParameters);
 	if ( systecCallReturn != USBCAN_SUCCESSFUL )	{
-		MLOGST(ERR,this) << "UcanInitCanEx2, return code = [ 0x" << hex << (int) systecCallReturn << dec << "]";
+		MLOGST(ERR,this) << "UcanInitCanEx2, return code = [ 0x" << std::hex << (int) systecCallReturn << std::dec << "]";
 		::UcanDeinitCanEx(canModuleHandle, m_channelNumber);
 		return -1;
 	}
@@ -383,7 +383,7 @@ bool STCanScan::sendErrorCode(long status)
 	timeval ftTimeStamp; 
 	if (status != m_busStatus) {
 
-		ftTimeStamp = convertTimepointToTimeval(currentTimeTimeval());
+		ftTimeStamp = CanModule::convertTimepointToTimeval(currentTimeTimeval());
 
 		//errorCodeToString(status, errorMessage))
 		canMessageError(status, errorCodeToString( status ), ftTimeStamp);
@@ -430,7 +430,7 @@ bool STCanScan::sendErrorCode(long status)
  */
 bool STCanScan::sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr)
 {
-	MLOGST(DBG,this) << "Sending message: [" << ( message == 0  ? "" : (const char *) message) << "], cobID: [" << cobID << "], Message Length: [" << static_cast<int>(len) << "]";
+	MLOGST(DBG,this) << "Sending message: [" << CanModule::canMessage2ToString(cobID, len, message, rtr) << "]";
 
 	tCanMsgStruct canMsgToBeSent;
 	BYTE Status;

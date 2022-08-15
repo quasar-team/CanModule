@@ -22,12 +22,10 @@
  *  along with Quasar.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-
-#include <CanModuleUtils.h>
-#include "CanStatistics.h"
-
 #include <iostream>
 
+#include "CanModuleUtils.h"
+#include "CanStatistics.h"
 
 namespace CanModule
 {
@@ -50,9 +48,10 @@ namespace CanModule
 	}
 	void CanStatistics::computeDerived(unsigned int baudRate)
 	{
-		system_clock::time_point tnom = system_clock::now(); 
+		// todo: should this not be high_resultion_clock ?
+		std::chrono::system_clock::time_point tnom = std::chrono::system_clock::now();
 		auto nDiff = tnom - m_internals.m_observationStart;
-		auto period = duration_cast<seconds>(nDiff).count();
+		auto period = std::chrono::duration_cast<std::chrono::seconds>(nDiff).count();
 
 		m_internals.m_transmittedPerSec = (period != 0 ? float(m_transmitted / period) : 0);
 		m_internals.m_receivedPerSec = (period != 0 ? float(m_received / period) : 0);

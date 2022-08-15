@@ -101,7 +101,7 @@ namespace CanModule
 			LOG(Log::DBG, lh) << " loaded the dynamic library: [" << ss.str() << "]";
 			setLibName(ss.str());
 		} else {
-			string msg = string(__FUNCTION__) + string("Error: could not load the dynamic library ") + ss.str();
+			std::string msg = std::string(__FUNCTION__) + std::string("Error: could not load the dynamic library ") + ss.str();
 			LOG(Log::ERR, lh) << msg;
 			if ( ss.str() == "ancan.dll"){
 				LOG(Log::ERR, lh) << " WARNING: anagate vendor libs do not install on your system, they are just copied. Make sure the hidden dependend libs (i.e. AnaGateCan64.dll) are in your lib search path!";
@@ -127,7 +127,7 @@ namespace CanModule
 
 		// We check for errors again. If there is an error the library is released from memory.
 		if (!canAccess) {
-			throw std::runtime_error( string(__FUNCTION__) + string(": Error: could not locate the function"));
+			throw std::runtime_error( std::string(__FUNCTION__) + std::string(": Error: could not locate the function"));
 		}
 		// We call the function getHalAccess we got from the library. This will give us a pointer to an object, wich we store.
 		LOG(Log::TRC, lh) << __FUNCTION__ << ": getCanBusAccess: got an object ptr from library, OK";

@@ -1,0 +1,340 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>SysTec &#8212; CanModule 2.0.22 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/agogo.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="AnaGate" href="anagate.html" />
+    <link rel="prev" title="Details on classes" href="../classesdetails.html" /> 
+  </head><body>
+    <div class="header-wrapper" role="banner">
+      <div class="header">
+        <div class="headertitle"><a
+          href="../index.html">CanModule 2.0.22 documentation</a></div>
+        <div class="rel" role="navigation" aria-label="related navigation">
+          <a href="../classesdetails.html" title="Details on classes"
+             accesskey="P">previous</a> |
+          <a href="anagate.html" title="AnaGate"
+             accesskey="N">next</a> |
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a>
+        </div>
+       </div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="content">
+        <div class="document">
+            
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="systec">
+<h1>SysTec<a class="headerlink" href="#systec" title="Permalink to this headline">¶</a></h1>
+<p>All modules from vendor <a href="#id1"><span class="problematic" id="id2">`SysTec`__</span></a> are handled by class STCanScan (windows) or CSockCanScan (linux) which
+manage the modules through their underlying vendor specific API and provide the standard generic CanModule API.
+Here the underlying vendor specific classes and the specific parameters are documented.</p>
+<p>SysTec modules USB-CAN bridges are supported: sysWORXX 1,2,8,16</p>
+<section id="linux-parameters">
+<h2>linux-parameters<a class="headerlink" href="#linux-parameters" title="Permalink to this headline">¶</a></h2>
+<dl class="cpp class">
+<dt class="sig sig-object cpp">
+<span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CSockCanScan</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">CanModule</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../canports.html#_CPPv4N9CanModule10CCanAccessE" title="CanModule::CCanAccess"><span class="n"><span class="pre">CCanAccess</span></span></a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-private-functions">Private Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">updateInitialError</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Report an error when opening a can port </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">openCanPort</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Obtains a SocketCAN socket and opens it. The name of the port and parameters should have been specified by preceding call to configureCanboard()</p>
+<p>
+stop, set bitrate, start a CAN port, open a socket for it, set the socket to CAN, bind it and check any errors </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>less than zero in case of error, otherwise success</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CanScanControlThread</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd><p>The main control thread function for the CAN update scan manager: a private non-static method, which is called on the object (this) following std::thread C++11 ways.</p>
+<p>reading from socket, and supervising thread for monitoring the sockets/CAN buses. It takes an object reference (cast) and listens with a select call on that socket/object. The select runs with 1Hz, and if there is nothing to receive it should timeout. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CanReconnectionThread</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Reconnection thread managing the reconnection behavior, per port. The behavior settings can not change during runtime. This thread is initialized after the main thread is up, and then listens on its cond.var as a trigger. Triggers occur in two contexts: sending and receiving problems. If there is a sending problem which lasts for a while (usually) the reconnection thread will be also triggered for each failed sending: the thread will be “hammered” by triggers. ince the reconnection takes some time, many triggers will be lost. That is in fact a desired behavior.</p>
+<p>The parameters are all atomics for increased thread-safety, even though the documentation about the predicate is unclear on that point. Since atomics just provide a “sequential memory layout” for the variables to prevent race conditions they are good to use for this but the code still has to be threadsafe and reentrant… ;-) Doesn’t eat anything anyway on that small scale with scalars only.</p>
+<p><a class="reference external" href="https://en.cppreference.com/w/cpp/thread/condition_variable/wait">https://en.cppreference.com/w/cpp/thread/condition_variable/wait</a> </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-private-static-functions">Private Static Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">errorFrameToString</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="n"><span class="pre">can_frame</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">f</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Transforms an error frame into an error message (string format): Provides textual representation of SocketCAN error. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<ul class="simple">
+<li><p>bus name: “can” or “vcan”</p></li>
+<li><p>port number, follows bus name: “can:0” or “vcan:9”</p></li>
+<li><p>parameters=”p0 p1 p2 p3 p4 p5 p6” i.e. “125000 0 0 0 0 0 5000”</p></li>
+<li><p>ONLY p0 = bitrate or “baudrate” is used.</p></li>
+<li><p>p0 = m_lBaudRate</p></li>
+<li><p>“Unspecified” : the socket bitrate is NOT reconfigured , no stop/start sequence on the socket are done</p></li>
+</ul>
+</section>
+<section id="windows-parameters">
+<h2>windows-parameters<a class="headerlink" href="#windows-parameters" title="Permalink to this headline">¶</a></h2>
+<dl class="cpp class">
+<dt class="sig sig-object cpp">
+<span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">STCanScan</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">CanModule</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../canports.html#_CPPv4N9CanModule10CCanAccessE" title="CanModule::CCanAccess"><span class="n"><span class="pre">CCanAccess</span></span></a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-private-functions">Private Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">configureCanBoard</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">name</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">parameters</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>configures systec &#64; windows board only G1/G2 boards </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">openCanPort</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">tUcanInitCanParam</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">initializationParameters</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Obtains a Systec canport and opens it. The name of the port and parameters should have been specified by preceding call to configureCanboard()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>less than zero in case of error, otherwise success </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">vendorBaudRate2UserBaudRate</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">vb</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>unfortunately it is necessary to convert the vendor baudrate back to the human readable user baudrate for statistics. we use presently ONLY G1/G2 boards (see usbcan.h) </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">STcanGetErrorText</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">errCode</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>error text specific to STcan according to table24 I am just copying the whole descriptions from the doc, verbatim, wtf. you get some shakespeare from it. </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-private-static-functions">Private Static Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="sig-name descname"><span class="pre">static</span> <span class="pre">DWORD</span> <span class="pre">WINAPI</span> <span class="pre">CanScanControlThread</span> <span class="pre">(LPVOID</span> <span class="pre">pCanScan)</span></span></dt>
+<dd><p>thread to supervise port activity </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="n"><span class="pre">tUcanInitCanParam</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">createInitializationParameters</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">br</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>We create and fill initializationParameters, to pass it to openCanPort </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">reconnectAllPorts</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">tUcanHandle</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">h</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>hard reset the bridge and reconnect all ports and handlers: windows </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-private-static-attributes">Private Static Attributes</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp">
+<span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">s_isCanHandleInUseArray</span></span></span><span class="p"><span class="pre">[</span></span><span class="m"><span class="pre">256</span></span><span class="p"><span class="pre">]</span></span><br /></dt>
+<dd><p>The macro below is applicable only to this translation unit. </p>
+<p>© Copyright CERN, 2015. All rights not expressly granted are reserved.</p>
+<p>STCanScap.cpp</p>
+<p>Created on: Jul 21, 2011 Based on work by vfilimon Rework and logging done by Piotr Nikiel <a class="reference external" href="mailto:piotr&#37;&#52;&#48;nikiel&#46;info">piotr<span>&#64;</span>nikiel<span>&#46;</span>info</a> mludwig at cern dot ch</p>
+<p>This file is part of Quasar.</p>
+<p>Quasar is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public Licence as published by the Free Software Foundation, either version 3 of the Licence.</p>
+<p>Quasar is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public Licence for more details.</p>
+<p>You should have received a copy of the GNU Lesser General Public License along with Quasar. If not, see <a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<ul class="simple">
+<li><p>parameters=”p0 p1 p2 p3 p4 p5 p6” i.e. “125000 0 0 0 0 0 5000”</p></li>
+<li><p>ONLY p0 = bitrate or “baudrate” is used.</p></li>
+<li><p>“Unspecified” : the module bitrate 125000 is used as default when calling openCanBoard(). The init parameters are quite involved but only the bitrate is relevant.</p></li>
+</ul>
+</section>
+<section id="status">
+<h2>status<a class="headerlink" href="#status" title="Permalink to this headline">¶</a></h2>
+<p>status information is propagated through the unified status.
+For windows:</p>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv49STCanScan">
+<span id="_CPPv39STCanScan"></span><span id="_CPPv29STCanScan"></span><span id="STCanScan"></span><span class="target" id="classSTCanScan"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">STCanScan</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">CanModule</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../canports.html#_CPPv4N9CanModule10CCanAccessE" title="CanModule::CCanAccess"><span class="n"><span class="pre">CCanAccess</span></span></a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N9STCanScan13getPortStatusEv">
+<span id="_CPPv3N9STCanScan13getPortStatusEv"></span><span id="_CPPv2N9STCanScan13getPortStatusEv"></span><span id="STCanScan::getPortStatus"></span><span class="target" id="classSTCanScan_1a27eabd471d3bb8154dfadb677c66e1d5"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getPortStatus</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd><p>get CAN port and USB status, code it into an int &gt; 200 (for windows&#64;systec). use the API directly table19 says for CAN status: 0x0: no error 0x1: tx overrun 0x2: rx overrun 0x4: error limit1 exceeded: warning limit 0x8: error limit2 exceeded: error passive 0x10: can controller is off 0x40: rx buffer overrun 0x80: tx buffer overrun 0x400: transmit timeout, message dropped</p>
+<p>table20 says for USB status: 0x2000: module/usb got reset because of polling failure per second 0x4000: module/usb got reset because watchdog was not triggered </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<p>for linux:</p>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv412CSockCanScan">
+<span id="_CPPv312CSockCanScan"></span><span id="_CPPv212CSockCanScan"></span><span id="CSockCanScan"></span><span class="target" id="classCSockCanScan"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CSockCanScan</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">CanModule</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../canports.html#_CPPv4N9CanModule10CCanAccessE" title="CanModule::CCanAccess"><span class="n"><span class="pre">CCanAccess</span></span></a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N12CSockCanScan13getPortStatusEv">
+<span id="_CPPv3N12CSockCanScan13getPortStatusEv"></span><span id="_CPPv2N12CSockCanScan13getPortStatusEv"></span><span id="CSockCanScan::getPortStatus"></span><span class="target" id="classCSockCanScan_1ad1caa327a98bc30012d2c5010a98cb05"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getPortStatus</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd><p>return socketcan port status in vendor unified format (with implementation nibble set), from can_netlink.h do not start a new statistics run for that. enum can_state { CAN_STATE_ERROR_ACTIVE = 0, RX/TX error count &lt; 96 CAN_STATE_ERROR_WARNING, RX/TX error count &lt; 128 CAN_STATE_ERROR_PASSIVE, RX/TX error count &lt; 256 CAN_STATE_BUS_OFF, RX/TX error count &gt;= 256 CAN_STATE_STOPPED, Device is stopped CAN_STATE_SLEEPING, Device is sleeping CAN_STATE_MAX };</p>
+<p>update the CAN bus status IFLA from socketcan and make up a CanModule status bitpattern out from this.</p>
+<p>int can_get_restart_ms(const char *name, __u32 *restart_ms); int can_get_bittiming(const char *name, struct can_bittiming *bt); int can_get_ctrlmode(const char *name, struct can_ctrlmode *cm); int can_get_state(const char *name, int *state); int can_get_clock(const char *name, struct can_clock *clock); int can_get_bittiming_const(const char *name, struct can_bittiming_const *btc); int can_get_berr_counter(const char *name, struct can_berr_counter *bc); int can_get_device_stats(const char *name, struct can_device_stats *cds); </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+<section id="errors">
+<h2>errors<a class="headerlink" href="#errors" title="Permalink to this headline">¶</a></h2>
+<p>Errors and problems are available through two mechanisms:</p>
+<ul class="simple">
+<li><p>LogIt. This reports runtime errors detected by CanModule:
+set the LogIt trace level to TRC and grep for “systec”, for component “CanModule”</p></li>
+</ul>
+<p><strong>windows</strong>
+* vendor and hardware specific errors are available through connection of</p>
+<blockquote>
+<div><p>an error handler (to a boost signal carrying the error message, see standard API).</p>
+</div></blockquote>
+<dl class="cpp class">
+<dt class="sig sig-object cpp">
+<span class="target" id="classSTCanScan"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">STCanScan</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">CanModule</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../canports.html#_CPPv4N9CanModule10CCanAccessE" title="CanModule::CCanAccess"><span class="n"><span class="pre">CCanAccess</span></span></a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-private-functions">Private Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N9STCanScan17STcanGetErrorTextEl">
+<span id="_CPPv3N9STCanScan17STcanGetErrorTextEl"></span><span id="_CPPv2N9STCanScan17STcanGetErrorTextEl"></span><span id="STCanScan::STcanGetErrorText__l"></span><span class="target" id="classSTCanScan_1a794110572725db6b7c153104ee1330b3"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">STcanGetErrorText</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">errCode</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>error text specific to STcan according to table24 I am just copying the whole descriptions from the doc, verbatim, wtf. you get some shakespeare from it. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<p><strong>linux</strong>
+* the error message from the ioctl call is returned, unfortunately it is rather unspecific.</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+        </div>
+        <div class="sidebar">
+          
+          <h3>Table of Contents</h3>
+          <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../downloading.html">Downloading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../objective.html">Objective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../standardApi.html">Standard API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../standardApiList.html">standard API list of methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../canports.html">CAN ports</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../classesdetails.html">Details on classes</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">SysTec</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#linux-parameters">linux-parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#windows-parameters">windows-parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#status">status</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#errors">errors</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="anagate.html">AnaGate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="peak.html">Peak</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reconnection.html">Reconnection Behavior</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../logging.html">Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../building.html">Building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../running.html">Running</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../errors.html">error reporting and diagnostics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../support.html">Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doxygen.html">doxygen source</a></li>
+</ul>
+
+          <div role="search">
+            <h3 style="margin-top: 1.5em;">Search</h3>
+            <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" />
+                <input type="submit" value="Go" />
+            </form>
+          </div>
+
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+    <div class="footer-wrapper">
+      <div class="footer">
+        <div class="left">
+          <div role="navigation" aria-label="related navigaton">
+            <a href="../classesdetails.html" title="Details on classes"
+              >previous</a> |
+            <a href="anagate.html" title="AnaGate"
+              >next</a> |
+            <a href="../genindex.html" title="General Index"
+              >index</a>
+          </div>
+          <div role="note" aria-label="source link">
+              <br/>
+              <a href="../_sources/vendors/systec.rst.txt"
+                rel="nofollow">Show Source</a>
+          </div>
+        </div>
+
+        <div class="right">
+          
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, CERN, quasar-team, BE-ICS (Michael Ludwig).
+      Last updated on 12-Aug-2022 17:30:17.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+    </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+  </body>
+</html>

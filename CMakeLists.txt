@@ -18,7 +18,7 @@
 #  
 #
 cmake_minimum_required(VERSION 3.0)
-project( CanModule LANGUAGES C CXX  VERSION 2.0.21  )  
+project( CanModule LANGUAGES C CXX  VERSION 2.0.22  )  
 message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CanModule version= ${PROJECT_VERSION}" )
 set (CMAKE_CXX_STANDARD 11)
 
@@ -141,35 +141,27 @@ ENDIF()
 # versioning burnt into the bins, but don't overwrite in the build if exists
 if (NOT EXISTS ${PROJECT_SOURCE_DIR}/CanInterface/include/VERSION.h )
 	file(WRITE ${PROJECT_SOURCE_DIR}/CanInterface/include/VERSION.h "// VERSION.h - do not edit\n#define CanModule_VERSION \"${PROJECT_VERSION}\"" )
-	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: generated VERSION.h into ${PROJECT_BINARY_DIR}/generated")
+	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: generated VERSION.h into ${PROJECT_SOURCE_DIR}/CanInterface/include/")
 ELSE()
-	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CanModule VERSION.h exists already in ${PROJECT_BINARY_DIR}/generated, don't touch it")
+	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CanModule VERSION.h exists already in ${PROJECT_SOURCE_DIR}/CanInterface/include/, don't touch it")
 ENDIF()
 
 SET( SRCS
 		Diagnostic/src/Diag.cpp
-		Diagnostic/include/Diag.h
 		CanLibLoader/src/CanLibLoader.cpp
-		CanLibLoader/include/CanLibLoader.h
 		${CAN_LIBRARY_LOADER_PLATFORM_IMPL}
 		${CAN_LIBRARY_LOADER_PLATFORM_IMPL_HEADER}		
-		CanInterface/src/CanStatistics.cpp    
-		CanInterface/include/CanStatistics.h 
+		CanInterface/src/CanStatistics.cpp     
 		CanInterface/src/CanModuleUtils.cpp
-		CanInterface/include/CanModuleUtils.h
 		CanInterface/src/CanBusAccess.cpp
-		CanInterface/include/CanBusAccess.h
-		CanInterface/include/CanMessage.h
 		CanInterface/src/CCanAccess.cpp
-		CanInterface/include/CCanAccess.h
-		${PROJECT_SOURCE_DIR}/CanInterface/include/VERSION.h	
 )
 
-include_directories( 
-	include 
+include_directories(  
 	CanLibLoader/include
-	CanInterface/include 
+	CanInterface/include
 	Diagnostic/include 	
+	${PROJECT_SOURCE_DIR}/CanInterface/include # VERSION.h
 )
 
 

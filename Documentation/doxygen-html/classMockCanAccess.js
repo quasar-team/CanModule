@@ -3,7 +3,7 @@ var classMockCanAccess =
     [ "MockCanAccess", "classMockCanAccess.html#a5a5c76c0d3ba4276e98f56f81f8116a3", null ],
     [ "~MockCanAccess", "classMockCanAccess.html#a87261ff4a42e3b4d0f02939e7adc39d3", null ],
     [ "MockCanAccess", "classMockCanAccess.html#abd2f1e23104ec8dd5dde7bebce78efc8", null ],
-    [ "createBus", "classMockCanAccess.html#aa0b0694c0fa6409136eaa213fe129e61", null ],
+    [ "createBus", "classMockCanAccess.html#ae7cedecbb1fc4a34ddf204e6eaaedb2b", null ],
     [ "getPortBitrate", "classMockCanAccess.html#a198bd6f880c8b12c9aa98584b1c30097", null ],
     [ "getPortStatus", "classMockCanAccess.html#a24e126b0ab5c70464a05ffa7286b91e1", null ],
     [ "getReconnectAction", "classMockCanAccess.html#a489f003ba0c428037c5530f475c7c2f6", null ],

@@ -26,7 +26,9 @@ class ExecCommand {
     explicit ExecCommand( const std::string &cmd ) {
       FILE *pfd = popen( cmd.c_str(), "r" );
       if ( pfd == NULL ) {
-    	  throw std::runtime_error( "Command or process could not be executed." );
+			std::ostringstream msg;
+			msg << cmd << ": Command or process could not be executed.";
+    	  throw std::runtime_error( msg.str() );
       }
 
       while ( !feof(pfd) ) {

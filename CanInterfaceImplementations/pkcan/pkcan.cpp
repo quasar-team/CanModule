@@ -26,7 +26,7 @@
 #include "pkcan.h"
 
 #include <time.h>
-#include <string.h>
+#include <string>
 #include <thread>
 #include <mutex>
 #include <condition_variable>
@@ -35,9 +35,9 @@
 
 #include <LogIt.h>
 
-#include "CanModuleUtils.h"
+#include <CanModuleUtils.h>
 
-/* static */ std::map<string, string> PKCanScan::m_busMap;
+/* static */ std::map< std::string, std::string> PKCanScan::m_busMap;
 
 #define MLOGPK(LEVEL,THIS) LOG(Log::LEVEL, THIS->logItHandle()) << __FUNCTION__ << " " << " peak bus= " << THIS->getBusName() << " "
 
@@ -87,7 +87,7 @@ void PKCanScan::stopBus ()
 
 	{
 		peakReconnectMutex.lock();
-		std::map<string, string>::iterator it = PKCanScan::m_busMap.find( m_busName );
+		std::map< std::string, std::string>::iterator it = PKCanScan::m_busMap.find( m_busName );
 		if (it != PKCanScan::m_busMap.end()) {
 			m_idCanScanThread = 0;
 			PKCanScan::m_busMap.erase ( it );
@@ -133,6 +133,9 @@ DWORD WINAPI PKCanScan::CanScanControlThread(LPVOID pCanScan)
 			canMessage.c_dlc = tpcanMessage.LEN;
 			canMessage.c_id = tpcanMessage.ID;
 			canMessage.c_ff = tpcanMessage.MSGTYPE;
+
+			MLOGPK(DBG, pkCanScanPointer)<< __FILE__ << " " << __LINE__ << " " << __FUNCTION__
+					<< " CanModule peak received message: " << CanModule::canMessageToString( canMessage );
 
 			unsigned long long mmsec = 0xFFFFFFFFUL;
 			mmsec = mmsec *  1000;
@@ -187,7 +190,7 @@ DWORD WINAPI PKCanScan::CanScanControlThread(LPVOID pCanScan)
  * -2: could not create the thread
  * -3: sth else went wrong
  */
-int PKCanScan::createBus(const string name ,const string parameters )
+int PKCanScan::createBus(const std::string name, const std::string parameters )
 {
 	m_busName = name;
 	m_busParameters = parameters;
@@ -212,9 +215,9 @@ int PKCanScan::createBus(const string name ,const string parameters )
 	{
 		peakReconnectMutex.lock();
 		// dont create a main thread for the same bus twice
-		std::map<string, string>::iterator it = PKCanScan::m_busMap.find( name );
+		std::map<std::string, std::string>::iterator it = PKCanScan::m_busMap.find( name );
 		if (it == PKCanScan::m_busMap.end()) {
-			PKCanScan::m_busMap.insert ( std::pair<string, string>(name, parameters) );
+			PKCanScan::m_busMap.insert ( std::pair<std::string, std::string>(name, parameters) );
 			m_busName = name;
 		} else {
 			LOG(Log::WRN) << __FUNCTION__ << " bus exists already [" << name << ", " << parameters << "], not creating another main thread";
@@ -265,7 +268,7 @@ int PKCanScan::createBus(const string name ,const string parameters )
  * true = success
  * false = failed
  */
-bool PKCanScan::configureCanboard(const string name,const string parameters)
+bool PKCanScan::configureCanboard(const std::string name,const std::string parameters)
 {
 	m_sBusName = name;
 	m_baudRate = PCAN_BAUD_125K;
@@ -280,20 +283,20 @@ bool PKCanScan::configureCanboard(const string name,const string parameters)
 	//long parametersBaudRate;
 	//int	numPar;
 	//Process the parameters
-	vector<string> vectorString;
+	std::vector<std::string> vectorString;
 	vectorString = parseNameAndParameters(name, parameters);
 	MLOGPK(DBG, this) << " calling getHandle vectorString[1]= " << vectorString[1];
 
 	// peak guys start counting from 1, we start counting from 0. ugh.
 	int ich = atoi(vectorString[1].c_str());
-	stringstream channel;
+	std::stringstream channel;
 	channel << ich + 1;
 
-	string interface = "USB";
-	string humanReadableCode = interface + channel.str();
+	std::string interface = "USB";
+	std::string humanReadableCode = interface + channel.str();
 	m_pkCanHandle = getHandle( humanReadableCode.c_str() );
 	MLOGPK( DBG, this ) << "PEAK handle for vectorString[1]= " << vectorString[1]
-	      << " is m_pkCanHandle= 0x" <<hex <<  m_pkCanHandle << dec
+	      << " is m_pkCanHandle= 0x" <<std::hex <<  m_pkCanHandle << std::dec
 		  << " human readable code= " << humanReadableCode;
 
 
@@ -339,7 +342,7 @@ bool PKCanScan::configureCanboard(const string name,const string parameters)
 	} else {
 		MLOGPK(DBG, this) << "Unspecified parameters, default values will be used.";
 	}
-	MLOGPK(DBG, this) << " m_baudRate= 0x" << hex << m_baudRate << dec;
+	MLOGPK(DBG, this) << " m_baudRate= 0x" << std::hex << m_baudRate << std::dec;
 	MLOGPK(DBG, this) << " m_CanParameters.m_lBaudRate= " << m_CanParameters.m_lBaudRate;
 
 	/** FD (flexible datarate) modules.
@@ -364,23 +367,23 @@ bool PKCanScan::configureCanboard(const string name,const string parameters)
 	int counter = 10;
 	while ( tpcanStatus != PCAN_ERROR_OK && counter > 0 ){
 		tpcanStatus = CAN_Initialize(m_pkCanHandle, m_baudRate );
-		MLOGPK(TRC, this) << "CAN_Initialize returns 0x" << hex << (unsigned int) tpcanStatus << dec << " counter= " << counter;
+		MLOGPK(TRC, this) << "CAN_Initialize returns 0x" << std::hex << (unsigned int) tpcanStatus << std::dec << " counter= " << counter;
 		if ( tpcanStatus == PCAN_ERROR_OK ) {
-			MLOGPK(TRC, this) << "CAN_Initialize has returned OK 0x " << hex << (unsigned int) tpcanStatus << dec;
+			MLOGPK(TRC, this) << "CAN_Initialize has returned OK 0x " << std::hex << (unsigned int) tpcanStatus << std::dec;
 			ret = true;
 			break;
 		}
 		// for plug&play devices this is returned on the second channel of a USB module, apparently.
 		// This seems OK, so we just continue talking to the channel. Counts as success.
 		if ( tpcanStatus == PCAN_ERROR_INITIALIZE ) {
-			MLOGPK(TRC, this) << "CAN_Initialize detected module is already in use (plug&play), returned OK 0x " << hex << (unsigned int) tpcanStatus << dec;
+			MLOGPK(TRC, this) << "CAN_Initialize detected module is already in use (plug&play), returned OK 0x " << std::hex << (unsigned int) tpcanStatus << std::dec;
 			ret = true;
 			break;
 		}
 		CanModule::ms_sleep(1000);
 		MLOGPK(TRC, this) << "try again... calling Can_Uninitialize " ;
 		tpcanStatus = CAN_Uninitialize( m_pkCanHandle ); // Giving the TPCANHandle value "PCAN_NONEBUS" uninitialize all initialized channels
-		MLOGPK(TRC, this) << "CAN_Uninitialize returns " << hex << (unsigned int) tpcanStatus << dec;
+		MLOGPK(TRC, this) << "CAN_Uninitialize returns " << std::hex << (unsigned int) tpcanStatus << std::dec;
 		CanModule::ms_sleep(1000);
 		MLOGPK(TRC, this) << "try again... calling Can_Initialize " ;
 		tpcanStatus = 99;
@@ -406,7 +409,7 @@ bool PKCanScan::sendErrorCode(long status)
 {
 	if (status != m_busStatus)
 	{
-		timeval ftTimeStamp = convertTimepointToTimeval(currentTimeTimeval());
+		timeval ftTimeStamp = CanModule::convertTimepointToTimeval(currentTimeTimeval());
 		char *errorMessage;
 		getErrorMessage(status, &errorMessage);
 		canMessageError(status, errorMessage, ftTimeStamp );
@@ -427,7 +430,7 @@ bool PKCanScan::sendErrorCode(long status)
  */
 bool PKCanScan::sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr)
 {
-	MLOGPK(DBG,this) << "Sending message: [" << ( message == 0  ? "" : (const char *) message) << "], cobID: [" << cobID << "], Message Length: [" << static_cast<int>(len) << "]";
+	MLOGPK(DBG,this) << "Sending message: [" << CanModule::canMessage2ToString(cobID, len, message, rtr) << "]";
 
 	TPCANStatus tpcanStatus;
 	TPCANMsg tpcanMessage;
@@ -452,16 +455,16 @@ bool PKCanScan::sendMessage(short cobID, unsigned char len, unsigned char *messa
 
 		memcpy(tpcanMessage.DATA, message, lengthToBeSent);
 		tpcanStatus = CAN_Write(m_pkCanHandle, &tpcanMessage);
-		MLOGPK(TRC, this) << " send message returned tpcanStatus= "	<< hex << "0x" << tpcanStatus << dec;
+		MLOGPK(TRC, this) << " send message returned tpcanStatus= "	<< std::hex << "0x" << tpcanStatus << std::dec;
 		if (tpcanStatus != PCAN_ERROR_OK) {
-			MLOGPK(ERR, this) << " send message problem detected, tpcanStatus= " << hex << "0x" << tpcanStatus << dec;
+			MLOGPK(ERR, this) << " send message problem detected, tpcanStatus= " << std::hex << "0x" << tpcanStatus << std::dec;
 
 			// here we should see if we need to reconnect
 			triggerReconnectionThread();
 			return sendErrorCode(tpcanStatus);
 		} else {
 			MLOGPK(TRC, this) << " send message OK, tpcanStatus= "
-				<< hex << "0x" << tpcanStatus << dec;
+				<< std::hex << "0x" << tpcanStatus << std::dec;
 		}
 		m_statistics.onTransmit( tpcanMessage.LEN );
 		m_statistics.setTimeSinceTransmitted();
@@ -575,7 +578,7 @@ DWORD WINAPI PKCanScan::CanReconnectionThread(LPVOID pCanScan)
 	std::string _tid;
 	{
 		std::stringstream ss;
-		ss << this_thread::get_id();
+		ss << std::this_thread::get_id();
 		_tid = ss.str();
 	}
 	MLOGPK(TRC, pkCanScanPointer ) << "created reconnection thread tid= " << _tid;

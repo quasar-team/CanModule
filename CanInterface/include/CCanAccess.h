@@ -25,11 +25,10 @@
 #ifndef CCANACCESS_H_
 #define CCANACCESS_H_
 
+#include <iostream>
 #include <chrono>
 #include <thread>
 #include <string>
-#include <atomic>
-#include <mutex>
 #include <condition_variable>
 
 #include <boost/bind/bind.hpp>
@@ -37,10 +36,10 @@
 
 #include <LogIt.h>
 
-#include "CanMessage.h"
-#include "CanStatistics.h"
-#include "CanModuleUtils.h"
-#include "VERSION.h"
+#include <CanMessage.h>
+#include <CanStatistics.h>
+#include <CanModuleUtils.h>
+#include <VERSION.h>
 
 
 /*
@@ -132,19 +131,7 @@ struct CanParameters {
 			m_iSyncMode(0), m_iTimeout(6000),
 			m_iNumberOfDetectedParameters(), m_dontReconfigure(false) {}
 
-	void scanParameters(string parameters)
-	{
-		const char * canpars = parameters.c_str();
-		if (strcmp(canpars, "Unspecified") != 0) {
-#ifdef _WIN32
-			m_iNumberOfDetectedParameters = sscanf_s(canpars, "%ld %u %u %u %u %u %u", &m_lBaudRate, &m_iOperationMode, &m_iTermination, &m_iHighSpeed, &m_iTimeStamp, &m_iSyncMode, &m_iTimeout);
-#else
-			m_iNumberOfDetectedParameters = sscanf(canpars, "%ld %u %u %u %u %u %u", &m_lBaudRate, &m_iOperationMode, &m_iTermination, &m_iHighSpeed, &m_iTimeStamp, &m_iSyncMode, &m_iTimeout);
-#endif
-		} else {
-			m_dontReconfigure = true;
-		}
-	}
+	void scanParameters(std::string parameters);
 };
 
 class CCanAccess
@@ -171,7 +158,7 @@ public:
 	 * Method that sends a remote request trough the can bus channel. If the method createBus was not called before this, sendMessage will fail, as there is no
 	 * can bus channel to send the request trough. Similar to sendMessage, but it sends an special message reserved for requests.
 	 * @param cobID: Identifier that will be used for the request.
-	 * @return: Was the initialisation process successful?
+	 * @return Was the sent request successful ?
 	 */
 	virtual bool sendRemoteRequest(short cobID) = 0;
 
@@ -185,23 +172,23 @@ public:
 	 * @param parameters: Different parameters used for the initialisation. For using the parameters already in the hardware just set this to "Unspecified".
 	 * 				anagate: pass the ip number
 	 *
-	 * @return:
-	 * init OK, bus was created = OK = 0
-	 * init OK, bus was skipped because it exists already = 1
-	 * init failed = -1
+	 * @return and integer
+	 * 0 = init OK, bus was created = OK
+	 * 1 = init OK, bus was skipped because it exists already
+	 * -1 = init failed
 	 */
-	virtual int createBus(const string name, const string parameters) = 0;
+	virtual int createBus(const std::string name, const std::string parameters) = 0;
 
 
 	/**
 	 * Method that sends a message through the can bus channel. If the method createBUS was not called before this, sendMessage will fail, as there is no
-	 * can bus channel to send a message through.
+	 * can bus channel to send a message through. SendMessage is non blocking and reentrant - as far as the various vendor APIs permit this.
 	 * @param cobID: Identifier that will be used for the message.
 	 * @param len: Length of the message. If the message is bigger than 8 characters, it will be split into separate 8 characters messages.
 	 * @param message: Message to be sent through the can bus.
 	 * @param rtr: activate the Remote Transmission Request flag. Having this flag in a message with data/len is not part of the CAN standard,
 	 * but since some hardware uses it anyway, the option to use it is provided.
-	 * @return: Was the initialisation process successful?
+	 * @return: Was the message sent successfully? If not, we may reconnect.
 	 */
 	virtual bool sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr = false) = 0;
 
@@ -209,22 +196,26 @@ public:
 	{
 		if ( canm->c_id < 0 || canm->c_id > 2047 ){
 			LOG(Log::WRN, m_lh) << __FUNCTION__ << " CAN ID= 0x"
-					<< hex << canm->c_id
-					<< " outside 11 bit (standard) range detected. Truncating ID. This message will likely be lost on the CAN Bus. Extended CAN is not supported.";
-			canm->c_id = canm->c_id & 0x7FF;
+					<< std::hex << canm->c_id
+					<< " outside 11 bit (standard) range detected. Dropping message: Extended CAN is not supported.";
+			return false;
 		}
 		return sendMessage(short(canm->c_id), canm->c_dlc, canm->c_data, canm->c_rtr);
 	}
 
 	/**
-	 * Returns the can bus name
+	 * Returns the can bus name (from buffered data)
 	 */
 	std::string& getBusName() { return m_sBusName; }
 
 	/**
-	 * according to vendor and OS, acquire bus status, and return one uint32_t bitpattern which has
+	 * UNIFIED PORT status
+	 *
+	 * according to vendor and OS, acquire bus (port) status, and return one uint32_t bitpattern which has
 	 * the same rules for all vendors. In fact the status for vendors is too different to be abstracted
-	 * into a common bitpattern.
+	 * into a common bitpattern. Actually, talk to the HW, so use with parcimony while comms are ongoing:
+	 * we do not really know how well the vendors have implemented that.
+	 *
 	 *
 	 * the **implementation** occupies the highest nibble, and it is a counter (see CANMODULE_STATUS_BP_SOCK etc)
 	 * * 0x1<<28 = sock (linux)
@@ -233,7 +224,8 @@ public:
 	 * * 0x4<<28 = systec (windows)
 	 * * 0x5<<28....0xf<<28 = unused, for future use
 	 *
-	 * the **specific status** occupies bits b0..b27, and it is a (composed) implementation specific bitpattern
+	 *
+	 * the **specific_status** occupies bits b0..b27, and it is a (composed) implementation specific bitpattern
 	 *
 	 * @param sock (linux): [ see can_netlink.h  enum can_state ]
 	 * * b0: 0x1 = CAN_STATE_ERROR_ACTIVE   : RX/TX error count < 96
@@ -300,6 +292,10 @@ public:
 	 * * b13: 0x2000: module/usb got reset because of polling failure per second
 	 * * b14: 0x4000: module/usb got reset because watchdog was not triggered
 	 * * b15...b27: unused
+	 *
+	 * examples:
+	 * * 0x3000.0000.000.0040 means "peak" implementation (peak@windows) receive queue was read too late
+	 * * 0x1000.0000.000.0002 means "sock" implementation (peak or systec @linux) CAN_STATE_ERROR_WARNING
 	 */
 	virtual uint32_t getPortStatus() = 0;
 
@@ -310,12 +306,11 @@ public:
 	 * and the bitrate can only be changed at that moment. So please call this method just after you have
 	 * opened the port. But also since there is no hw interaction and it just returns a buffer, you may
 	 * call it as often as you like.
-	 * Default bitrate is always 125000bits/s if "Unspecified"
 	 */
 	virtual uint32_t getPortBitrate() = 0;
 
 	/*
-	 * Signal that will be called when a can Message arrives into the initialised can bus.
+	 * Signal that gets called when a can Message is received from the initialised can bus.
 	 * In order to process this message manually, a handler needs to be connected to the signal.
 	 *
 	 * Example: myCCanAccessPointer->canMessageCame.connect(&myMessageRecievedHandler);
@@ -326,7 +321,7 @@ public:
 
 
 	/*
-	 * Signal that will be called when a can Error arrives into the initialised can bus.
+	 * Signal that gets called when a can Error happens on the initialised can bus.
 	 * In order to process this message manually, a handler needs to be connected to the signal.
 	 *
 	 * Example: myCCanAccessPointer->canMessageError.connect(&myErrorRecievedHandler);
@@ -352,74 +347,7 @@ public:
 		return( m_logItRemoteInstance );
 	}
 
-	/* @ Parse the input parameters
-	 * @param name The parameters have a format <name component>:name chanel:options for add address parameters>
-	 * @param parameters is a string with possible 6 word describing can options
-	 * @return: the result is saved in internal variable m_sBusName and m_CanParameters
-	 */
-	inline vector<string> parseNameAndParameters(string name, string parameters){
-		LOG(Log::TRC, m_lh) << __FUNCTION__ << " name= " << name << " parameters= " << parameters;
-
-		bool isSocketCanLinux = false;
-		std::size_t s = name.find("sock");
-		if ( s != std::string::npos ){
-			isSocketCanLinux = true;
-		}
-
-		/** care for different syntax:
-		 * "sock:0" => sock:can0
-		 * "sock:can0" => "sock:can0"
-		 * "sock:vcan0" => "sock:vcan0"
-		 *
-		 * "sock:whatsoever0" => "sock:can0"
-		 * "sock:whatsoevervcan0" => "sock:vcan0"
-		 * "sock:wvcanhatso0" => "sock:vcan0"
-		 *
-		 * if you specify only an integer portnumber we default to "can"
-		 * if you specify ":can" we stay with "can"
-		 * if you specify ":vcan" we stay with "vcan"
-		 * if you specify anything else which contains a string and an integer, we use can
-		 * if you specify anything else which contains a string containing ":vcan" and an integer, we use vcan
-		 * so basically you have the freedom to call your devices as you want. Maybe this is too much freedom.
-		*/
-		std::size_t foundVcan = name.find(":vcan", 0);
-		std::size_t foundSeperator = name.find_first_of (":", 0);
-		std::size_t foundPortNumber = name.find_first_of ( "0123456789", foundSeperator );
-		if ( foundPortNumber != std::string::npos ) {
-			name.erase( foundSeperator + 1, foundPortNumber - foundSeperator - 1 );
-		} else {
-			std::string rerr = "could not decode port number (need an integer somewhere, i.e. can0 or 0) in name= " + name;
-			throw std::runtime_error( rerr );
-		}
-
-		// for socketcan, have to prefix "can" or "vcan" to port number
-		if ( isSocketCanLinux ){
-			foundSeperator = name.find_first_of (":", 0);
-			if ( foundVcan != std::string::npos ) {
-				m_sBusName = name.insert( foundSeperator + 1, "vcan");
-			} else {
-				m_sBusName = name.insert( foundSeperator + 1, "can");
-			}
-		} else {
-			m_sBusName = name;
-		}
-
-		LOG(Log::TRC, m_lh) << __FUNCTION__ << " m_sBusName= " << m_sBusName;
-
-		vector<string> stringVector;
-		istringstream nameSS(name);
-		string temporalString;
-		while (getline(nameSS, temporalString, ':')) {
-			stringVector.push_back(temporalString);
-			LOG(Log::TRC, m_lh) << __FUNCTION__ << " stringVector new element= " << temporalString;
-		}
-		m_CanParameters.scanParameters(parameters);
-		LOG(Log::TRC, m_lh) << __FUNCTION__ << " stringVector size= " << stringVector.size();
-		for(const auto& value: stringVector) {
-			LOG(Log::TRC, m_lh) << __FUNCTION__ << " " << value;
-		}
-		return stringVector;
-	}
+	std::vector<std::string> parseNameAndParameters( std::string name, std::string parameters);
 
 	// non blocking
 	void triggerReconnectionThread(){
@@ -531,17 +459,17 @@ public:
 
 protected:
 
-	string m_sBusName;
+	std::string m_sBusName;
 	CanParameters m_CanParameters;
 
 	// reconnection, reconnection thread triggering
     CanModule::ReconnectAutoCondition m_reconnectCondition;
     CanModule::ReconnectAction m_reconnectAction;
-	atomic_uint m_timeoutOnReception;
-	atomic_int m_failedSendCountdown;
-	atomic_uint m_maxFailedSendCount;
+	std::atomic_uint m_timeoutOnReception;
+	std::atomic_int m_failedSendCountdown;
+	std::atomic_uint m_maxFailedSendCount;
 	std::thread *m_hCanReconnectionThread;     // ptr thread, it's a private method of the class (virtual) // unused for peak
-	atomic_bool m_reconnectTrigger;            // trigger stuff: predicate of the condition var
+	std::atomic_bool m_reconnectTrigger;            // trigger stuff: predicate of the condition var
 	std::mutex m_reconnection_mtx;             // trigger stuff
 	std::condition_variable m_reconnection_cv; // trigger stuff
 
@@ -550,9 +478,9 @@ protected:
 	 * compared to the last received message, are we in timeout?
 	 */
 	bool hasTimeoutOnReception() {
-		m_dnow = high_resolution_clock::now();
-		duration<double, micro> time_span = duration_cast<duration<double, micro>>(m_dnow - m_dopen);
-		if ( time_span.count() / 1000 > m_timeoutOnReception ) return true;
+		m_dnow = std::chrono::high_resolution_clock::now();
+		auto delta_us = std::chrono::duration<double, std::chrono::microseconds::period>( m_dnow - m_dopen);
+		if ( delta_us.count() / 1000 > m_timeoutOnReception ) return true;
 		else return false;
 	}
 
@@ -560,17 +488,16 @@ protected:
 	 * reset the internal reconnection timeout counter
 	 */
 	void resetTimeoutOnReception() {
-		m_dreceived = high_resolution_clock::now();
+		m_dreceived = std::chrono::high_resolution_clock::now();
 	}
 	void resetTimeNow() {
-		m_dnow = high_resolution_clock::now();
+		m_dnow = std::chrono::high_resolution_clock::now();
 	}
 
 private:
 	Log::LogComponentHandle m_lh;
 	LogItInstance* m_logItRemoteInstance;
-	high_resolution_clock::time_point m_dnow, m_dreceived, m_dtransmitted, m_dopen;
-
+	std::chrono::time_point<std::chrono::high_resolution_clock> m_dnow, m_dreceived, m_dtransmitted, m_dopen;
 };
-};
+}; // namespace CanModule
 #endif /* CCANACCESS_H_ */

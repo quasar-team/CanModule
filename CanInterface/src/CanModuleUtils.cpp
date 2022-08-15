@@ -79,4 +79,32 @@ namespace CanModule
 	std::chrono::system_clock::time_point currentTimeTimeval()	{ return std::chrono::system_clock::now();}
 #endif
 
+	std::string canMessageToString(CanMessage &f)
+	{
+		std::string result;
+		result =  "[id=0x"+CanModuleUtils::toHexString(f.c_id, 3, '0')+" ";
+		if (f.c_id & f.c_rtr)
+			result += "RTR ";
+		result+="dlc=" + CanModuleUtils::toString(int(f.c_dlc)) + " data=[";
+
+		for (int i=0; i<f.c_dlc; i++)
+			result+= CanModuleUtils::toHexString((unsigned int)f.c_data[i], 2, '0')+" ";
+		result += "]]";
+		return result;
+	}
+
+	std::string canMessage2ToString(short cobID, unsigned char len, unsigned char *message, bool rtr)
+	{
+		std::string result = "";
+		result =  "[id=0x"+CanModuleUtils::toHexString(cobID, 3, '0')+" ";
+		if ( rtr )
+			result += "RTR ";
+		result+="dlc= " + CanModuleUtils::toHexString( len ) + " (hex) data= ";
+
+		for (int i=0; i< len; i++)
+			result+= CanModuleUtils::toHexString((unsigned int) message[i], 2, '0')+" ";
+		result += "]";
+		return result;
+	}
+
 }

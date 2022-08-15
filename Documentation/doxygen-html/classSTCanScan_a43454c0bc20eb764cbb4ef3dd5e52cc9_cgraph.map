@@ -1,5 +1,0 @@
-<map id="STCanScan::sendErrorCode" name="STCanScan::sendErrorCode">
-<area shape="rect" id="node2" href="$namespaceCanModule.html#a3ec3082d7d11a9c1641023cb3f53cbe5" title="CanModule::convertTimepoint\lToTimeval" alt="" coords="259,5,477,46"/>
-<area shape="rect" id="node3" href="$namespaceCanModule.html#a6d0711aac0a75de5d2bf6142997a814d" title="CanModule::currentTimeTimeval" alt="" coords="251,71,485,97"/>
-<area shape="rect" id="node4" href="$classSTCanScan.html#a54da665706336c8fab2f1c32b64056c5" title="STCanScan::errorCodeToString" alt="" coords="259,121,477,148"/>
-</map>
