@@ -4,8 +4,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 
 ### 3.0.0 todo
-- split code completely for all implementations, but provide a common API and a common buildchain. 
-	- This means that the CAN bridge vendor/implementation has to be decided at the moment of linkage
+- split code completely for all implementations, but provide a common API, global link and a common buildchain. 
 	- share common CMakeLists.txt, which clones code accordingly
 	- make a quasar CanModule module build demo
 	- static code overhead is minimal
