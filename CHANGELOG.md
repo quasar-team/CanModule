@@ -3,21 +3,6 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 
-### 3.0.0 todo
-- split code completely for all implementations, but provide a common API, global link and a common buildchain. 
-	- share common CMakeLists.txt, which clones code accordingly
-	- make a quasar CanModule module build demo
-	- static code overhead is minimal
-	- full implementation freedom for all OS specifics, cleaner code, no #ifdefs
-- implement new anagates
-- keep legacy and new implementations apart
-
-
-
-### 2.0.23 todo [oct.2023, ongoing]
-- add boost status signals for reconnection behavior everywhere, and especially to socketCan to make Piotr N happier
-- cleanup parameter parser
-
 
 ### 2.0.22 [9.aug.2022]
 - starting to merge and implement the changes proposed by piotr (based on 2.0.14) in branch piotr_canopen
