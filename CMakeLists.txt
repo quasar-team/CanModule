@@ -18,7 +18,7 @@
 #  
 #
 cmake_minimum_required(VERSION 3.0)
-project( CanModuleProject LANGUAGES C CXX  VERSION 2.0.22  )  
+project( CanModuleProject LANGUAGES C CXX  VERSION 2.0.23  )  
 message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CanModule version= ${PROJECT_VERSION}" )
 set (CMAKE_CXX_STANDARD 11)
 
@@ -170,9 +170,11 @@ include_directories(
 # - stand alone
 IF ( ( DEFINED $ENV{CANMODULE_AS_STATIC_AS_POSSIBLE} ) OR ( DEFINED CANMODULE_AS_STATIC_AS_POSSIBLE ) )
 	SET ( CANMODULE_LIB_NAME CanModule-static )
+	SET ( LINK_OPTION "STATIC" )
   	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: building static CanModule lib: ${CANMODULE_LIB_NAME}" )
 ELSE()
 	SET ( CANMODULE_LIB_NAME CanModule )
+	SET ( LINK_OPTION "SHARED" )
   	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: building shared CanModule lib: ${CANMODULE_LIB_NAME}" )
 ENDIF()
 
@@ -186,15 +188,18 @@ else()
     if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
   	    clone_LogIt()
         add_subdirectory( ${PROJECT_BINARY_DIR}/LogIt build )  
-        add_library( ${CANMODULE_LIB_NAME} SHARED ${SRCS} $<TARGET_OBJECTS:LogIt> )
+        #add_library( ${CANMODULE_LIB_NAME} SHARED ${SRCS} $<TARGET_OBJECTS:LogIt> )
+        add_library( ${CANMODULE_LIB_NAME} ${LINK_OPTION} ${SRCS} $<TARGET_OBJECTS:LogIt> )
     else()
 	    locateLogItSharedLib()
 	    message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Using LogIt library: LOGIT_LIB [${LOGIT_LIB}]")
-	    add_library( ${CANMODULE_LIB_NAME} SHARED ${SRCS} )
+	    #add_library( ${CANMODULE_LIB_NAME} SHARED ${SRCS} )
+	    add_library( ${CANMODULE_LIB_NAME} ${LINK_OPTION} ${SRCS} )
 	    target_link_libraries( ${CANMODULE_LIB_NAME} ${LOGIT_LIB} )
     endif()
     target_link_libraries( ${CANMODULE_LIB_NAME} ${BOOST_LIBS} )
 endif()
+
 
 # need boost signal/slot and timer
 message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] [BOOST_PATH_LIBS:${BOOST_PATH_LIBS}]" )
