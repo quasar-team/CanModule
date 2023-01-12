@@ -19,6 +19,8 @@
 #  
 # Authors: Viatcheslav Filimonov, Piotr Nikiel, Ben Farnham, Michael Ludwig ("the quasar team from Atlas and BE-ICS")
 #
+
+# this is a straightforward CMakeLists.txt without the need for a toolchain to build shared or static CanModule lib as a standalone
 cmake_minimum_required(VERSION 3.0)
 
 project( CanModuleStandalone LANGUAGES C CXX  VERSION 2.0.23  )  
@@ -42,6 +44,39 @@ ELSE()
 	SET ( CANMODULE_AS_STATIC_AS_POSSIBLE FALSE )
 ENDIF()
 
+#
+# LogIt
+#
+# set the LogIt options
+SET( OPCUA_TOOLKIT_BASE_DIRECTORY /opt/3rdPartySoftware/UnifiedAutomation/1.7.7-549/sdk )
+SET( LOGIT_BUILD_OPTION "LOGIT_AS_INT_SRC" CACHE STRING "LogIt is a mandatory dependency of CanModule. Inclusion options LOGIT_AS_INT_SRC, LOGIT_AS_EXT_SHARED, LOGIT_AS_EXT_STATIC")
+set_property( CACHE LOGIT_BUILD_OPTION PROPERTY STRINGS LOGIT_AS_INT_SRC LOGIT_AS_EXT_SHARED LOGIT_AS_EXT_STATIC)
+option( LOGIT_BACKEND_STDOUTLOG "The basic back-end: logs to stdout" ON )
+option( LOGIT_BACKEND_BOOSTLOG "Rotating file logger back-end: fixed size on disk based on boost logging library" ON )
+option( LOGIT_BACKEND_UATRACE "UnifiedAutomation toolkit logger" OFF ) # OPCUA-2027, rejected
+option( LOGIT_BACKEND_WINDOWS_DEBUGGER "Windows debugger logger" OFF )
+option( LOGIT_BUILD_SHARED_LIB "Build a LogIt shared library if ON (otherwise builds an object library)" ON )
+
+if ( ${LOGIT_BACKEND_UATRACE} )
+	message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: LogIt building with UATRACE]")
+	if ( NOT DEFINED OPCUA_TOOLKIT_BASE_DIRECTORY )
+		message( FATAL_ERROR "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: OPCUA_TOOLKIT_BASE_DIRECTORY is missing]")
+		# e.g.: /opt/3rdPartySoftware/UnifiedAutomation/1.5.5/sdk
+	else()
+		message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: OPCUA_TOOLKIT_BASE_DIRECTORY = ${OPCUA_TOOLKIT_BASE_DIRECTORY}]")
+		include_directories ( ${OPCUA_TOOLKIT_BASE_DIRECTORY}/include/uabasecpp ${OPCUA_TOOLKIT_BASE_DIRECTORY}/include/uastack 	) 
+		set  ( LOGIT_DEPENDENCIES "-luabase -luastack" )
+		link_directories( ${OPCUA_TOOLKIT_BASE_DIRECTORY}/lib )
+	endif()
+else()
+	message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: LogIt building without UATRACE]")
+endif()
+
+# pb with uatrace logic: to be fixed. It should be possible to build LogIt without uatrace
+include_directories ( ${OPCUA_TOOLKIT_BASE_DIRECTORY}/include/uabasecpp ${OPCUA_TOOLKIT_BASE_DIRECTORY}/include/uastack 	) 
+link_directories( ${OPCUA_TOOLKIT_BASE_DIRECTORY}/lib )
+
+
 
 # compiler/build flags
 IF (WIN32)
@@ -50,7 +85,7 @@ IF (WIN32)
 	add_definitions(-D_WIN32_WINDOWS)
 	add_definitions("/EHsc")
 	
-	# dynamic linking
+	# dynamic linking, no static yet available. Wait for v3/anagate 2023
 	SET(CMAKE_CXX_FLAGS_RELEASE "/MD")
 	SET(CMAKE_CXX_FLAGS_DEBUG "/MDd /Zi")
 	
@@ -60,7 +95,7 @@ IF (WIN32)
 	SET( CMAKE_MODULE_LINKER_FLAGS  "${CMAKE_MODULE_LINKER_FLAGS} /MACHINE:X64" )
 	
 	find_package(Threads REQUIRED)
-	set ( SYSLIBS ${LOGIT_DEPENDENCIES} ${CMAKE_THREAD_LIBS_INIT} )
+	#set ( SYSLIBS ${LOGIT_DEPENDENCIES} ${CMAKE_THREAD_LIBS_INIT} )
 ELSE()
   	message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Linux build" )
 	IF ( ${CANMODULE_AS_STATIC_AS_POSSIBLE} )
@@ -69,7 +104,7 @@ ELSE()
  	ELSE()
 		add_definitions( -Wall -Wno-deprecated -std=c++11 -Wno-literal-suffix -D_CERN_CC7 -O3 -DBOOST_LOG_DYN_LINK )
 	ENDIF()
-	set ( SYSLIBS ${LOGIT_DEPENDENCIES} "-ldl -lc -lm -lpthread")	
+	#set ( SYSLIBS ${LOGIT_DEPENDENCIES} "-ldl -lc -lm -lpthread")	
 ENDIF()
 
 
@@ -148,43 +183,6 @@ message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] build sy
 message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] build anagate [CANMODULE_BUILD_ANAGATE:${CANMODULE_BUILD_ANAGATE}]")
 message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] build peak    [CANMODULE_BUILD_PEAK:${CANMODULE_BUILD_PEAK}]")
 
-message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: [STANDALONE_BUILD:${STANDALONE_BUILD}]")
-message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: [BOOST_PATH_LIBS:${BOOST_PATH_LIBS}]" )
-message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: [BOOST_HEADERS:${BOOST_HEADERS}]" )
-message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Using boost libraries: [BOOST_LIBS:${BOOST_LIBS}]")  
-message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Using LogIt library: [LOGIT_LIB:${LOGIT_LIB}]")
-message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Using [INCLUDE_DIRECTORIES:${INCLUDE_DIRECTORIES}]")
-
-message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: PROJECT_BINARY_DIR= ${PROJECT_BINARY_DIR}]")
-
-
-#
-# LogIt
-#
-# todo: check LogIt options
-SET( OPCUA_TOOLKIT_BASE_DIRECTORY /opt/3rdPartySoftware/UnifiedAutomation/1.7.7-549/sdk )
-SET( LOGIT_BUILD_OPTION "LOGIT_AS_INT_SRC" CACHE STRING "LogIt is a mandatory dependency of CanModule. Inclusion options LOGIT_AS_INT_SRC, LOGIT_AS_EXT_SHARED, LOGIT_AS_EXT_STATIC")
-set_property( CACHE LOGIT_BUILD_OPTION PROPERTY STRINGS LOGIT_AS_INT_SRC LOGIT_AS_EXT_SHARED LOGIT_AS_EXT_STATIC)
-option( LOGIT_BACKEND_STDOUTLOG "The basic back-end: logs to stdout" ON )
-option( LOGIT_BACKEND_BOOSTLOG "Rotating file logger back-end: fixed size on disk based on boost logging library" ON )
-option( LOGIT_BACKEND_UATRACE "UnifiedAutomation toolkit logger" OFF ) # OPCUA-2027, rejected
-if ( LOGIT_BACKEND_UATRACE EQUAL "ON" )
-	message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: LogIt building with UATRACE]")
-	if ( not defined OPCUA_TOOLKIT_BASE_DIRECTORY )
-		message( FATAL_ERROR "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: OPCUA_TOOLKIT_BASE_DIRECTORY is missing]")
-		# e.g.: /opt/3rdPartySoftware/UnifiedAutomation/1.5.5/sdk
-	else()
-		message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: OPCUA_TOOLKIT_BASE_DIRECTORY = ${OPCUA_TOOLKIT_BASE_DIRECTORY}]")
-		include_directories ( ${OPCUA_TOOLKIT_BASE_DIRECTORY}/include/uabasecpp ${OPCUA_TOOLKIT_BASE_DIRECTORY}/include/uastack 	) 
-		set  ( LOGIT_DEPENDENCIES "-luabase -luastack" )
-		link_directories( ${OPCUA_TOOLKIT_BASE_DIRECTORY}/lib )
-	endif()
-endif()
-
-# pb with uatrace logic: to be fixed. It should be possible to build LogIt without uatrace
-include_directories ( ${OPCUA_TOOLKIT_BASE_DIRECTORY}/include/uabasecpp ${OPCUA_TOOLKIT_BASE_DIRECTORY}/include/uastack 	) 
-set  ( LOGIT_DEPENDENCIES "-luabase -luastack" )
-link_directories( ${OPCUA_TOOLKIT_BASE_DIRECTORY}/lib )
 
 
 message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: LogIt build option LOGIT_BUILD_OPTION [${LOGIT_BUILD_OPTION}]")
@@ -252,6 +250,5 @@ ELSE()
 	SET ( LINK_OPTION SHARED )
 ENDIF()
 
-# link_libraries ( ${TARGET_NAME} ${SYSLIBS} ${BOOST_LIBS} ${XERCES_LIBS} )
 add_library( ${TARGET_NAME} ${LINK_OPTION} ${SRCS} )
 
