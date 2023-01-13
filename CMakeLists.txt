@@ -206,6 +206,9 @@ IF (WIN32)
 	SET ( SRCS ${SRCS_ALL_OS} ${SRCS_OS_WIN} ${SRCS_DEPS} )
 ELSE()
 	SET ( SRCS ${SRCS_ALL_OS} ${SRCS_OS_LIN} ${SRCS_DEPS} )
+	# use RUNPATH instead of RPATH -Wl,--disable-new-dtags does not work on g++ (GCC) 4.8.5 20150623 (Red Hat 4.8.5-39)
+    SET( CMAKE_SKIP_RPATH TRUE )
+	SET( CANMODULE_RPATHS "-Wl,-rpath,./ -Wl,-rpath,./lib -Wl,-rpath,/usr/local/lib" )
 ENDIF()
 
 
@@ -305,11 +308,11 @@ message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] [BOOST_
 message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] [BOOST_PATH_HEADERS:${BOOST_PATH_HEADERS}]" )
 message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] [BOOST_LIBS:${BOOST_LIBS}]" )
 
-#target_link_libraries( ${CANMODULE_LIB_NAME} ${CANMODULE_RPATHS} )
 
 
 add_subdirectory(CanInterfaceImplementations) 
 add_library( ${CANMODULE_LIB_NAME} ${LINK_OPTION} ${SRCS} )
+target_link_libraries( ${CANMODULE_LIB_NAME} ${CANMODULE_RPATHS} )
 
 
 
