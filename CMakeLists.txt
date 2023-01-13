@@ -273,9 +273,11 @@ link_directories( ${BOOST_PATH_LIBS} )
 IF ( ${CANMODULE_AS_STATIC_AS_POSSIBLE} )
 	SET ( CANMODULE_LIB_NAME libCanModule-static.a )
 	SET ( LINK_OPTION STATIC )
+	SET ( BUILD_SHARED_LIBS OFF )
 ELSE()
 	SET ( CANMODULE_LIB_NAME libCanModule.so )
 	SET ( LINK_OPTION SHARED )
+	SET ( BUILD_SHARED_LIBS ON )
 ENDIF()
 
 # manage build options
@@ -295,6 +297,7 @@ ENDIF()
 # static/shared boost
 # LogIt as source or shared lib
 # vendor libs as-static-as-possible or shared
+# add_library( ${CANMODULE_LIB_NAME} OBJECT ${LINK_OPTION} ${SRCS} )
 add_library( ${CANMODULE_LIB_NAME} ${LINK_OPTION} ${SRCS} )
 
 if( NOT STANDALONE_BUILD )
