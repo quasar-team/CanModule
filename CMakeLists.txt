@@ -66,7 +66,7 @@ endfunction()
 # -- FUNCTION SECTTION END --
 
 # use env var for static-as-possible or shared linking for linux (only shared for windows)
-IF ( $ENV{CANMODULE_AS_STATIC_AS_POSSIBLE} STREQUAL "true" )
+IF ( $ENV{CANMODULE_AS_STATIC_AS_POSSIBLE} EQUAL "true" )
 	SET ( CANMODULE_AS_STATIC_AS_POSSIBLE TRUE )
 ELSE()
 	SET ( CANMODULE_AS_STATIC_AS_POSSIBLE FALSE )
