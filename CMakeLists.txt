@@ -39,6 +39,16 @@ ELSE()
 	SET ( CANMODULE_AS_STATIC_AS_POSSIBLE FALSE )
 ENDIF()
 
+# we have a mock up build without any vendor libs as well, for CI where we don't want to distribute vendor libs
+# preferably inject this from the toolchain : set ( CANMODULE_BUILD_VENDORS ON )
+# if you have nothing declared, vendors will be OFF
+
+message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: building vendor libs is ${BUILD_VENDORS}")
+if ( NOT DEFINED CANMODULE_BUILD_VENDORS )
+	set ( CANMODULE_BUILD_VENDORS OFF )
+	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] you have not specified if you want to build the vendor code or not ( CANMODULE_BUILD_VENDORS ). Set to OFF")
+endif() 
+
 # use ua toolkit trace. CanModule does NOT depend on the ua toolkit by default, so this is kept undefined. See below for expicit dealing
 # with this.
 # set (LOGIT_HAS_UATRACE true )
@@ -244,7 +254,7 @@ IF ( ${CANMODULE_AS_STATIC_AS_POSSIBLE} )
 	SET ( CANMODULE_LIB_NAME libCanModule-static.a )
 	SET ( LINK_OPTION STATIC )
 ELSE()
-	SET ( CANMODULE_LIB_NAME liCanModule.so )
+	SET ( CANMODULE_LIB_NAME libCanModule.so )
 	SET ( LINK_OPTION SHARED )
 ENDIF()
 
@@ -295,20 +305,11 @@ message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] [BOOST_
 message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] [BOOST_PATH_HEADERS:${BOOST_PATH_HEADERS}]" )
 message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] [BOOST_LIBS:${BOOST_LIBS}]" )
 
-target_link_libraries( ${CANMODULE_LIB_NAME} ${CANMODULE_RPATHS} )
+#target_link_libraries( ${CANMODULE_LIB_NAME} ${CANMODULE_RPATHS} )
 
-# build implementation shared libs (reqd at runtime - loaded dynamically)
-# we have a mock up build without any vendor libs as well, for CI where we don't want to distribute vendor libs
-# preferably inject this from the toolchain
-# if you have nothing declared, vendors will be OFF
-# set ( CANMODULE_BUILD_VENDORS "ON" )
-message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: building vendor libs is ${BUILD_VENDORS}")
-if ( NOT DEFINED CANMODULE_BUILD_VENDORS )
-	set ( CANMODULE_BUILD_VENDORS "OFF" )
-	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] you have not specified if you want to build the vendor code or not ( CANMODULE_BUILD_VENDORS ). Set to OFF")
-endif() 
 
 add_subdirectory(CanInterfaceImplementations) 
+add_library( ${CANMODULE_LIB_NAME} ${LINK_OPTION} ${SRCS} )
 
 
 
