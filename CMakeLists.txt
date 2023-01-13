@@ -241,10 +241,10 @@ link_directories( ${BOOST_PATH_LIBS} )
 #)
 
 IF ( ${CANMODULE_AS_STATIC_AS_POSSIBLE} )
-	SET ( CANMODULE_LIB_NAME CanModule_standalone_static )
+	SET ( CANMODULE_LIB_NAME libCanModule-static.a )
 	SET ( LINK_OPTION STATIC )
 ELSE()
-	SET ( CANMODULE_LIB_NAME CanModule_standalone_shared )
+	SET ( CANMODULE_LIB_NAME liCanModule.so )
 	SET ( LINK_OPTION SHARED )
 ENDIF()
 
