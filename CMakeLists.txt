@@ -271,7 +271,7 @@ link_directories( ${BOOST_PATH_LIBS} )
 #)
 
 IF ( ${CANMODULE_AS_STATIC_AS_POSSIBLE} )
-	SET ( CANMODULE_LIB_NAME libCanModule-static.a ) # expands to libCanModule-static.a
+	SET ( CANMODULE_LIB_NAME CanModule-static ) # expands to libCanModule-static.a
 	SET ( LINK_OPTION STATIC )
 	SET ( BUILD_SHARED_LIBS OFF )
 ELSE()
