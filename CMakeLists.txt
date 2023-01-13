@@ -189,7 +189,7 @@ SET ( SRCS_OS_LIN
 )
 
 
-SET ( SRCS_DEPS 
+SET ( XXSRCS_DEPS 
 	./build/LogIt/src/BoostRotatingFileLog.cpp
 	./build/LogIt/src/ComponentAttributes.cpp
 	./build/LogIt/src/LogIt.cpp
@@ -201,6 +201,23 @@ SET ( SRCS_DEPS
 	./build/LogIt/src/UaTraceSink.cpp
 	./build/LogIt/src/WindowsDebuggerSink.cpp
 )
+
+if( STANDALONE_BUILD )
+	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: LogIt sources ${RCS_DEPS} ]")  
+    if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
+  	    clone_LogIt()
+        add_subdirectory( ${PROJECT_BINARY_DIR}/LogIt build )  
+        #add_library( ${CANMODULE_LIB_NAME} SHARED ${SRCS} $<TARGET_OBJECTS:LogIt> )
+        #add_library( ${CANMODULE_LIB_NAME} ${LINK_OPTION} ${SRCS} $<TARGET_OBJECTS:LogIt> )
+        #add_library( ${TARGET_NAME} ${LINK_OPTION} ${SRCS} $<TARGET_OBJECTS:LogIt> )
+    else()
+	    locateLogItSharedLib()
+	    message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Using LogIt library: LOGIT_LIB [${LOGIT_LIB}]")
+	    #add_library( ${CANMODULE_LIB_NAME} SHARED ${SRCS} )
+	    #add_library( ${CANMODULE_LIB_NAME} ${LINK_OPTION} ${SRCS} )
+	    #target_link_libraries( ${CANMODULE_LIB_NAME} ${LOGIT_LIB} )
+    endif()
+ENDIF()
 
 IF (WIN32)
 	SET ( SRCS ${SRCS_ALL_OS} ${SRCS_OS_WIN} ${SRCS_DEPS} )
@@ -279,6 +296,7 @@ ENDIF()
 # LogIt as source or shared lib
 # vendor libs as-static-as-possible or shared
 add_library( ${CANMODULE_LIB_NAME} ${LINK_OPTION} ${SRCS} )
+
 if( NOT STANDALONE_BUILD )
 	add_library( ${TARGET_NAME} ${LINK_OPTION} ${SRCS} )
 	#add_library ( ${CANMODULE_LIB_NAME} OBJECT ${SRCS} )
@@ -288,14 +306,14 @@ else()
 	#locateBoostLibsUsingToolchainFile()
 	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Using boost libraries: BOOST_LIBS [${BOOST_LIBS}]")  
     if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
-  	    clone_LogIt()
-        add_subdirectory( ${PROJECT_BINARY_DIR}/LogIt build )  
+  	    #clone_LogIt()
+        #add_subdirectory( ${PROJECT_BINARY_DIR}/LogIt build )  
         #add_library( ${CANMODULE_LIB_NAME} SHARED ${SRCS} $<TARGET_OBJECTS:LogIt> )
         #add_library( ${CANMODULE_LIB_NAME} ${LINK_OPTION} ${SRCS} $<TARGET_OBJECTS:LogIt> )
-        add_library( ${TARGET_NAME} ${LINK_OPTION} ${SRCS} $<TARGET_OBJECTS:LogIt> )
+        add_library( ${CANMODULE_LIB_NAME} ${LINK_OPTION} ${SRCS} $<TARGET_OBJECTS:LogIt> )
     else()
-	    locateLogItSharedLib()
-	    message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Using LogIt library: LOGIT_LIB [${LOGIT_LIB}]")
+	    #locateLogItSharedLib()
+	    #message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Using LogIt library: LOGIT_LIB [${LOGIT_LIB}]")
 	    #add_library( ${CANMODULE_LIB_NAME} SHARED ${SRCS} )
 	    add_library( ${CANMODULE_LIB_NAME} ${LINK_OPTION} ${SRCS} )
 	    target_link_libraries( ${CANMODULE_LIB_NAME} ${LOGIT_LIB} )
