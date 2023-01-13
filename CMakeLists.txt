@@ -278,6 +278,7 @@ ENDIF()
 # static/shared boost
 # LogIt as source or shared lib
 # vendor libs as-static-as-possible or shared
+add_library( ${CANMODULE_LIB_NAME} ${LINK_OPTION} ${SRCS} )
 if( NOT STANDALONE_BUILD )
 	add_library( ${TARGET_NAME} ${LINK_OPTION} ${SRCS} )
 	#add_library ( ${CANMODULE_LIB_NAME} OBJECT ${SRCS} )
@@ -308,10 +309,9 @@ message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] [BOOST_
 message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] [BOOST_PATH_HEADERS:${BOOST_PATH_HEADERS}]" )
 message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] [BOOST_LIBS:${BOOST_LIBS}]" )
 
-
-
 add_subdirectory(CanInterfaceImplementations) 
-add_library( ${CANMODULE_LIB_NAME} ${LINK_OPTION} ${SRCS} )
+
+
 target_link_libraries( ${CANMODULE_LIB_NAME} ${CANMODULE_RPATHS} )
 
 
