@@ -52,7 +52,7 @@ after_build:
   - ps : Write-Output "Build completed!"
   - cmd : dir build-release\Release\*
   - ps : |
-         if ((Test-Path "build-release\Release\CanModule.dll") or (Test-Path "build-release\Release\CanModule-static.lib")
+         if ((Test-Path "build-release\Release\CanModule.dll") or (Test-Path "build-release\Release\CanModule-static.lib"))
          {
           Write-Output "Succesfully Built CanModule" ;
          }
