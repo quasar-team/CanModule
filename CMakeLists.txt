@@ -17,7 +17,7 @@
 #  GNU Lesser General Public Licence for more details <http://www.gnu.org/licenses/>.
 #  
 #
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required( VERSION 3.0 )
 project( CanModuleProject LANGUAGES C CXX  VERSION 2.0.23  )  
 message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CanModule version= ${PROJECT_VERSION}" )
 
@@ -32,7 +32,7 @@ SET( CMAKE_CXX_STANDARD_REQUIRED ON )
 SET( CMAKE_POSITION_INDEPENDENT_CODE TRUE )
 SET( CMAKE_BUILD_TYPE Release )
 
-# use env
+# use env var for static-as-possible or shared linking for linux (only shared for windows)
 IF ( $ENV{CANMODULE_AS_STATIC_AS_POSSIBLE} STREQUAL "true" )
 	SET ( CANMODULE_AS_STATIC_AS_POSSIBLE TRUE )
 ELSE()
@@ -42,16 +42,14 @@ ENDIF()
 # we have a mock up build without any vendor libs as well, for CI where we don't want to distribute vendor libs
 # preferably inject this from the toolchain : set ( CANMODULE_BUILD_VENDORS ON )
 # if you have nothing declared, vendors will be OFF
-
 message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: building vendor libs is ${BUILD_VENDORS}")
 if ( NOT DEFINED CANMODULE_BUILD_VENDORS )
 	set ( CANMODULE_BUILD_VENDORS OFF )
 	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] you have not specified if you want to build the vendor code or not ( CANMODULE_BUILD_VENDORS ). Set to OFF")
 endif() 
 
-# use ua toolkit trace. CanModule does NOT depend on the ua toolkit by default, so this is kept undefined. See below for expicit dealing
-# with this.
-# set (LOGIT_HAS_UATRACE true )
+
+
 
 # vendor build behaviour:
 # CANMODULE_BUILD_VENDORS OFF or not specified: only build mockup, do not build any vendor libs (default phony)
@@ -143,6 +141,9 @@ endfunction()
 # any options which exist are untouched (and left to the top-level project CMakeLists.txt)
 # - default statc linking via source
 # - default boost rotating log
+# use ua toolkit trace. CanModule does NOT depend on the ua toolkit by default, so this is kept undefined. See below for expicit dealing
+# with this.
+# set (LOGIT_HAS_UATRACE true )
 IF ( NOT DEFINED LOGIT_BUILD_STAND_ALONE)
 	option(STANDALONE_BUILD "Build ${PROJECT_NAME} as a stand-alone library (rather than a quasar optional module)" OFF )
 	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CanModule default STANDALONE_BUILD= [${STANDALONE_BUILD}]")
@@ -169,7 +170,7 @@ ENDIF()
 #message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: LogIt build option LOGIT_BUILD_OPTION [${LOGIT_BUILD_OPTION}]")
 
 
-# switch sources according to OS
+# switch sources according to OS. testing sources OFF, todo later
 SET ( SRCS_ALL_OS 
 	./CanInterface/src/CCanAccess.cpp
 	./CanInterface/src/CanBusAccess.cpp
@@ -189,40 +190,21 @@ SET ( SRCS_OS_LIN
 )
 
 
-SET ( XXSRCS_DEPS 
-	./build/LogIt/src/BoostRotatingFileLog.cpp
-	./build/LogIt/src/ComponentAttributes.cpp
-	./build/LogIt/src/LogIt.cpp
-	./build/LogIt/src/LogItInstance.cpp
-	./build/LogIt/src/LogLevels.cpp
-	./build/LogIt/src/LogRecord.cpp
-	./build/LogIt/src/LogSinks.cpp
-	./build/LogIt/src/StdOutLog.cpp
-	./build/LogIt/src/UaTraceSink.cpp
-	./build/LogIt/src/WindowsDebuggerSink.cpp
-)
-
 if( STANDALONE_BUILD )
-	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: LogIt sources ${RCS_DEPS} ]")  
+	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: LogIt for standalone build  ]")  
     if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
   	    clone_LogIt()
         add_subdirectory( ${PROJECT_BINARY_DIR}/LogIt build )  
-        #add_library( ${CANMODULE_LIB_NAME} SHARED ${SRCS} $<TARGET_OBJECTS:LogIt> )
-        #add_library( ${CANMODULE_LIB_NAME} ${LINK_OPTION} ${SRCS} $<TARGET_OBJECTS:LogIt> )
-        #add_library( ${TARGET_NAME} ${LINK_OPTION} ${SRCS} $<TARGET_OBJECTS:LogIt> )
     else()
 	    locateLogItSharedLib()
 	    message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Using LogIt library: LOGIT_LIB [${LOGIT_LIB}]")
-	    #add_library( ${CANMODULE_LIB_NAME} SHARED ${SRCS} )
-	    #add_library( ${CANMODULE_LIB_NAME} ${LINK_OPTION} ${SRCS} )
-	    #target_link_libraries( ${CANMODULE_LIB_NAME} ${LOGIT_LIB} )
     endif()
 ENDIF()
 
 IF (WIN32)
-	SET ( SRCS ${SRCS_ALL_OS} ${SRCS_OS_WIN} ${SRCS_DEPS} )
+	SET ( SRCS ${SRCS_ALL_OS} ${SRCS_OS_WIN}  )
 ELSE()
-	SET ( SRCS ${SRCS_ALL_OS} ${SRCS_OS_LIN} ${SRCS_DEPS} )
+	SET ( SRCS ${SRCS_ALL_OS} ${SRCS_OS_LIN}  )
 	# use RUNPATH instead of RPATH -Wl,--disable-new-dtags does not work on g++ (GCC) 4.8.5 20150623 (Red Hat 4.8.5-39)
     SET( CMAKE_SKIP_RPATH TRUE )
 	SET( CANMODULE_RPATHS "-Wl,-rpath,./ -Wl,-rpath,./lib -Wl,-rpath,/usr/local/lib" )
