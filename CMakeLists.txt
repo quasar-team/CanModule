@@ -211,17 +211,6 @@ ELSE()
 ENDIF()
 
 
-#IF (WIN32)
-#	SET( CAN_LIBRARY_LOADER_PLATFORM_IMPL CanLibLoader/src/CanLibLoaderWin.cpp)
-#	SET( CAN_LIBRARY_LOADER_PLATFORM_IMPL_HEADER CanLibLoader/include/CanLibLoaderWin.h)
-#ELSE()
-#	SET( CAN_LIBRARY_LOADER_PLATFORM_IMPL CanLibLoader/src/CanLibLoaderLin.cpp)
-#	SET( CAN_LIBRARY_LOADER_PLATFORM_IMPL_HEADER CanLibLoader/include/CanLibLoaderLin.h)
-#	# use RUNPATH instead of RPATH -Wl,--disable-new-dtags does not work on g++ (GCC) 4.8.5 20150623 (Red Hat 4.8.5-39)
-#    SET( CMAKE_SKIP_RPATH TRUE )
-#	SET( CANMODULE_RPATHS "-Wl,-rpath,./ -Wl,-rpath,./lib -Wl,-rpath,/usr/local/lib" )
-#ENDIF()
-
 # versioning burnt into the bins, but don't overwrite in the build if exists
 if (NOT EXISTS ${PROJECT_SOURCE_DIR}/CanInterface/include/VERSION.h )
 	file(WRITE ${PROJECT_SOURCE_DIR}/CanInterface/include/VERSION.h "// VERSION.h - do not edit\n#define CanModule_VERSION \"${PROJECT_VERSION}\"" )
@@ -230,28 +219,13 @@ ELSE()
 	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CanModule VERSION.h exists already in ${PROJECT_SOURCE_DIR}/CanInterface/include/, don't touch it")
 ENDIF()
 
-#SET( SRCS
-#		Diagnostic/src/Diag.cpp
-#		CanLibLoader/src/CanLibLoader.cpp
-#		${CAN_LIBRARY_LOADER_PLATFORM_IMPL}
-#		${CAN_LIBRARY_LOADER_PLATFORM_IMPL_HEADER}		
-#		CanInterface/src/CanStatistics.cpp     
-#		CanInterface/src/CanModuleUtils.cpp
-#		CanInterface/src/CanBusAccess.cpp
-#		CanInterface/src/CCanAccess.cpp
-#)
-
 include_directories( CanInterface/include CanLibLoader/include Diagnostic/include CanModuleTest/include )
 include_directories ( ${BOOST_PATH_HEADERS} )
 link_directories( ${BOOST_PATH_LIBS} )
 
-#include_directories(  
-#	CanLibLoader/include
-#	CanInterface/include
-#	Diagnostic/include 	
-#	${PROJECT_SOURCE_DIR}/CanInterface/include # VERSION.h
-#)
-
+# manage build options
+# - static as possible only  linux
+# - stand alone
 IF ( ${CANMODULE_AS_STATIC_AS_POSSIBLE} )
 	SET ( CANMODULE_LIB_NAME CanModule-static ) # expands to libCanModule-static.a
 	SET ( LINK_OPTION STATIC )
@@ -262,60 +236,26 @@ ELSE()
 	SET ( BUILD_SHARED_LIBS ON )
 ENDIF()
 
-# manage build options
-# - static as possible
-# - stand alone
-#IF ( ( DEFINED $ENV{CANMODULE_AS_STATIC_AS_POSSIBLE} ) OR ( DEFINED CANMODULE_AS_STATIC_AS_POSSIBLE ) )
-#	SET ( CANMODULE_LIB_NAME CanModule-static )
-#	SET ( LINK_OPTION "STATIC" )
-#  	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: building static CanModule lib: ${CANMODULE_LIB_NAME}" )
-#ELSE()
-#	SET ( CANMODULE_LIB_NAME CanModule )
-#	SET ( LINK_OPTION "SHARED" )
-#  	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: building shared CanModule lib: ${CANMODULE_LIB_NAME}" )
-#ENDIF()
-
-# build options
-# static/shared boost
-# LogIt as source or shared lib
-# vendor libs as-static-as-possible or shared
-# add_library( ${CANMODULE_LIB_NAME} OBJECT ${LINK_OPTION} ${SRCS} )
 add_library( ${CANMODULE_LIB_NAME} ${LINK_OPTION} ${SRCS} )
 
+# manage LogIt build options
+# LogIt as source or shared lib, standalone or quasar
 if( NOT STANDALONE_BUILD )
-	add_library( ${TARGET_NAME} ${LINK_OPTION} ${SRCS} )
-	#add_library ( ${CANMODULE_LIB_NAME} OBJECT ${SRCS} )
+	# add_library( ${TARGET_NAME} ${LINK_OPTION} ${SRCS} )
 	set( SERVER_LINK_LIBRARIES ${SERVER_LINK_LIBRARIES} ${CMAKE_DL_LIBS} PARENT_SCOPE )
 	message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: SERVER_LINK_LIBRARIES= [${SERVER_LINK_LIBRARIES}]" )
 else()
 	#locateBoostLibsUsingToolchainFile()
 	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Using boost libraries: BOOST_LIBS [${BOOST_LIBS}]")  
     if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
-  	    #clone_LogIt()
-        #add_subdirectory( ${PROJECT_BINARY_DIR}/LogIt build )  
-        #add_library( ${CANMODULE_LIB_NAME} SHARED ${SRCS} $<TARGET_OBJECTS:LogIt> )
-        #add_library( ${CANMODULE_LIB_NAME} ${LINK_OPTION} ${SRCS} $<TARGET_OBJECTS:LogIt> )
-        #add_library( ${CANMODULE_LIB_NAME} ${LINK_OPTION} ${SRCS} $<TARGET_OBJECTS:LogIt> )
-        #target_link_libraries( ${CANMODULE_LIB_NAME} ${LINK_OPTION} $<TARGET_OBJECTS:LogIt> )
         target_link_libraries( ${CANMODULE_LIB_NAME} $<TARGET_OBJECTS:LogIt> )
     else()
-	    #locateLogItSharedLib()
-	    #message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Using LogIt library: LOGIT_LIB [${LOGIT_LIB}]")
-	    #add_library( ${CANMODULE_LIB_NAME} SHARED ${SRCS} )
-	    #add_library( ${CANMODULE_LIB_NAME} ${LINK_OPTION} ${SRCS} )
 	    target_link_libraries( ${CANMODULE_LIB_NAME} ${LOGIT_LIB} )
     endif()
     target_link_libraries( ${CANMODULE_LIB_NAME} ${BOOST_LIBS} )
 endif()
 
-
-# need boost signal/slot and timer
-message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] [BOOST_PATH_LIBS:${BOOST_PATH_LIBS}]" )
-message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] [BOOST_PATH_HEADERS:${BOOST_PATH_HEADERS}]" )
-message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] [BOOST_LIBS:${BOOST_LIBS}]" )
-
 add_subdirectory(CanInterfaceImplementations) 
-
 
 target_link_libraries( ${CANMODULE_LIB_NAME} ${CANMODULE_RPATHS} )
 
