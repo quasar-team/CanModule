@@ -20,24 +20,8 @@
 cmake_minimum_required(VERSION 3.0)
 project( CanModuleProject LANGUAGES C CXX  VERSION 2.0.23  )  
 message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CanModule version= ${PROJECT_VERSION}" )
+set (CMAKE_CXX_STANDARD 11)
 
-cmake_policy(SET CMP0054 NEW)
-
-SET( CMAKE_VERBOSE_MAKEFILE ON )
-SET( CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin )
-SET( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib ) # the static lib is just thrown into build, a cmake bug, probably
-SET( CMAKE_COLOR_MAKEFILE ON )
-SET( CMAKE_CXX_STANDARD 11 ) 
-SET( CMAKE_CXX_STANDARD_REQUIRED ON )
-SET( CMAKE_POSITION_INDEPENDENT_CODE TRUE )
-SET( CMAKE_BUILD_TYPE Release )
-
-# use env
-IF ( $ENV{CANMODULE_AS_STATIC_AS_POSSIBLE} STREQUAL "true" )
-	SET ( CANMODULE_AS_STATIC_AS_POSSIBLE TRUE )
-ELSE()
-	SET ( CANMODULE_AS_STATIC_AS_POSSIBLE FALSE )
-ENDIF()
 
 # use ua toolkit trace. CanModule does NOT depend on the ua toolkit by default, so this is kept undefined. See below for expicit dealing
 # with this.
@@ -56,33 +40,16 @@ ENDIF()
 # so that the "as-static-as-possible" shared libs are used by CanModule
 #option(CANMODULE_AS_STATIC_AS_POSSIBLE "Build ${PROJECT_NAME} as-static-as-possible (default off, shared)" OFF )
 
-# compiler/build flags
+
 IF (WIN32)
-  	message( STATUS " ${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Windows build" )
-	add_definitions(-DSUPPORT_XML_CONFIG -W0 -DWIN32_LEAN_AND_MEAN )
-	add_definitions(-D_WIN32_WINDOWS)
-	add_definitions("/EHsc")
-	
-	# dynamic linking, no static yet available. Wait for v3/anagate 2023
-	SET(CMAKE_CXX_FLAGS_RELEASE "/MD")
-	SET(CMAKE_CXX_FLAGS_DEBUG "/MDd /Zi")
-	
-	SET( CMAKE_EXE_LINKER_FLAGS     "${CMAKE_EXE_LINKER_FLAGS}    /MACHINE:X64" )
-	SET( CMAKE_SHARED_LINKER_FLAGS  "${CMAKE_SHARED_LINKER_FLAGS} /MACHINE:X64" )
-	SET( CMAKE_STATIC_LINKER_FLAGS  "${CMAKE_STATIC_LINKER_FLAGS} /MACHINE:X64" )
-	SET( CMAKE_MODULE_LINKER_FLAGS  "${CMAKE_MODULE_LINKER_FLAGS} /MACHINE:X64" )
-	
-	find_package(Threads REQUIRED)
-	#set ( SYSLIBS ${LOGIT_DEPENDENCIES} ${CMAKE_THREAD_LIBS_INIT} )
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
 ELSE()
-  	message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Linux build" )
-	IF ( ${CANMODULE_AS_STATIC_AS_POSSIBLE} )
-		# still, CANX is dyn linked, just get rid of socketcan, xerces and boost
-		add_definitions( -Wall -Wno-deprecated -std=c++11 -Wno-literal-suffix -D_CERN_CC7 -O3  )
- 	ELSE()
-		add_definitions( -Wall -Wno-deprecated -std=c++11 -Wno-literal-suffix -D_CERN_CC7 -O3 -DBOOST_LOG_DYN_LINK )
+	if( DEFINED DEBUG )
+		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O2 -fPIC")
+	ELSE()
+		message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: generating linux Release build")
+		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O2 -fPIC")
 	ENDIF()
-	#set ( SYSLIBS ${LOGIT_DEPENDENCIES} "-ldl -lc -lm -lpthread")	
 ENDIF()
 
 # unsure if that works correctly
@@ -159,56 +126,17 @@ ENDIF()
 #message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: LogIt build option LOGIT_BUILD_OPTION [${LOGIT_BUILD_OPTION}]")
 
 
-# switch sources according to OS
-SET ( SRCS_ALL_OS 
-	./CanInterface/src/CCanAccess.cpp
-	./CanInterface/src/CanBusAccess.cpp
-	./CanInterface/src/CanModuleUtils.cpp
-	./CanInterface/src/CanStatistics.cpp
-	./CanLibLoader/src/CanLibLoader.cpp
-	#./CanModuleTest/src/CanModuleTest.cpp
-	#./CanModuleTest/src/main.cpp
-	./Diagnostic/src/Diag.cpp
-)
-
-SET ( SRCS_OS_WIN
-	./CanLibLoader/src/CanLibLoaderWin.cpp
-)
-SET ( SRCS_OS_LIN 
-	./CanLibLoader/src/CanLibLoaderLin.cpp
-)
-
-
-SET ( SRCS_DEPS 
-	./build/LogIt/src/BoostRotatingFileLog.cpp
-	./build/LogIt/src/ComponentAttributes.cpp
-	./build/LogIt/src/LogIt.cpp
-	./build/LogIt/src/LogItInstance.cpp
-	./build/LogIt/src/LogLevels.cpp
-	./build/LogIt/src/LogRecord.cpp
-	./build/LogIt/src/LogSinks.cpp
-	./build/LogIt/src/StdOutLog.cpp
-	./build/LogIt/src/UaTraceSink.cpp
-	./build/LogIt/src/WindowsDebuggerSink.cpp
-)
-
+# switch sources for the lib loader
 IF (WIN32)
-	SET ( SRCS ${SRCS_ALL_OS} ${SRCS_OS_WIN} ${SRCS_DEPS} )
+	SET( CAN_LIBRARY_LOADER_PLATFORM_IMPL CanLibLoader/src/CanLibLoaderWin.cpp)
+	SET( CAN_LIBRARY_LOADER_PLATFORM_IMPL_HEADER CanLibLoader/include/CanLibLoaderWin.h)
 ELSE()
-	SET ( SRCS ${SRCS_ALL_OS} ${SRCS_OS_LIN} ${SRCS_DEPS} )
+	SET( CAN_LIBRARY_LOADER_PLATFORM_IMPL CanLibLoader/src/CanLibLoaderLin.cpp)
+	SET( CAN_LIBRARY_LOADER_PLATFORM_IMPL_HEADER CanLibLoader/include/CanLibLoaderLin.h)
+	# use RUNPATH instead of RPATH -Wl,--disable-new-dtags does not work on g++ (GCC) 4.8.5 20150623 (Red Hat 4.8.5-39)
+    SET( CMAKE_SKIP_RPATH TRUE )
+	SET( CANMODULE_RPATHS "-Wl,-rpath,./ -Wl,-rpath,./lib -Wl,-rpath,/usr/local/lib" )
 ENDIF()
-
-
-#IF (WIN32)
-#	SET( CAN_LIBRARY_LOADER_PLATFORM_IMPL CanLibLoader/src/CanLibLoaderWin.cpp)
-#	SET( CAN_LIBRARY_LOADER_PLATFORM_IMPL_HEADER CanLibLoader/include/CanLibLoaderWin.h)
-#ELSE()
-#	SET( CAN_LIBRARY_LOADER_PLATFORM_IMPL CanLibLoader/src/CanLibLoaderLin.cpp)
-#	SET( CAN_LIBRARY_LOADER_PLATFORM_IMPL_HEADER CanLibLoader/include/CanLibLoaderLin.h)
-#	# use RUNPATH instead of RPATH -Wl,--disable-new-dtags does not work on g++ (GCC) 4.8.5 20150623 (Red Hat 4.8.5-39)
-#    SET( CMAKE_SKIP_RPATH TRUE )
-#	SET( CANMODULE_RPATHS "-Wl,-rpath,./ -Wl,-rpath,./lib -Wl,-rpath,/usr/local/lib" )
-#ENDIF()
 
 # versioning burnt into the bins, but don't overwrite in the build if exists
 if (NOT EXISTS ${PROJECT_SOURCE_DIR}/CanInterface/include/VERSION.h )
@@ -218,56 +146,40 @@ ELSE()
 	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CanModule VERSION.h exists already in ${PROJECT_SOURCE_DIR}/CanInterface/include/, don't touch it")
 ENDIF()
 
-#SET( SRCS
-#		Diagnostic/src/Diag.cpp
-#		CanLibLoader/src/CanLibLoader.cpp
-#		${CAN_LIBRARY_LOADER_PLATFORM_IMPL}
-#		${CAN_LIBRARY_LOADER_PLATFORM_IMPL_HEADER}		
-#		CanInterface/src/CanStatistics.cpp     
-#		CanInterface/src/CanModuleUtils.cpp
-#		CanInterface/src/CanBusAccess.cpp
-#		CanInterface/src/CCanAccess.cpp
-#)
+SET( SRCS
+		Diagnostic/src/Diag.cpp
+		CanLibLoader/src/CanLibLoader.cpp
+		${CAN_LIBRARY_LOADER_PLATFORM_IMPL}
+		${CAN_LIBRARY_LOADER_PLATFORM_IMPL_HEADER}		
+		CanInterface/src/CanStatistics.cpp     
+		CanInterface/src/CanModuleUtils.cpp
+		CanInterface/src/CanBusAccess.cpp
+		CanInterface/src/CCanAccess.cpp
+)
 
-include_directories( CanInterface/include CanLibLoader/include Diagnostic/include CanModuleTest/include )
-include_directories ( ${BOOST_PATH_HEADERS} )
-link_directories( ${BOOST_PATH_LIBS} )
+include_directories(  
+	CanLibLoader/include
+	CanInterface/include
+	Diagnostic/include 	
+	${PROJECT_SOURCE_DIR}/CanInterface/include # VERSION.h
+)
 
-#include_directories(  
-#	CanLibLoader/include
-#	CanInterface/include
-#	Diagnostic/include 	
-#	${PROJECT_SOURCE_DIR}/CanInterface/include # VERSION.h
-#)
-
-IF ( ${CANMODULE_AS_STATIC_AS_POSSIBLE} )
-	SET ( CANMODULE_LIB_NAME CanModule_standalone_static )
-	SET ( LINK_OPTION STATIC )
-ELSE()
-	SET ( CANMODULE_LIB_NAME CanModule_standalone_shared )
-	SET ( LINK_OPTION SHARED )
-ENDIF()
 
 # manage build options
 # - static as possible
 # - stand alone
-#IF ( ( DEFINED $ENV{CANMODULE_AS_STATIC_AS_POSSIBLE} ) OR ( DEFINED CANMODULE_AS_STATIC_AS_POSSIBLE ) )
-#	SET ( CANMODULE_LIB_NAME CanModule-static )
-#	SET ( LINK_OPTION "STATIC" )
-#  	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: building static CanModule lib: ${CANMODULE_LIB_NAME}" )
-#ELSE()
-#	SET ( CANMODULE_LIB_NAME CanModule )
-#	SET ( LINK_OPTION "SHARED" )
-#  	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: building shared CanModule lib: ${CANMODULE_LIB_NAME}" )
-#ENDIF()
+IF ( ( DEFINED $ENV{CANMODULE_AS_STATIC_AS_POSSIBLE} ) OR ( DEFINED CANMODULE_AS_STATIC_AS_POSSIBLE ) )
+	SET ( CANMODULE_LIB_NAME CanModule-static )
+	SET ( LINK_OPTION "STATIC" )
+  	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: building static CanModule lib: ${CANMODULE_LIB_NAME}" )
+ELSE()
+	SET ( CANMODULE_LIB_NAME CanModule )
+	SET ( LINK_OPTION "SHARED" )
+  	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: building shared CanModule lib: ${CANMODULE_LIB_NAME}" )
+ENDIF()
 
-# build options
-# static/shared boost
-# LogIt as source or shared lib
-# vendor libs as-static-as-possible or shared
-if( NOT STANDALONE_BUILD )
-	add_library( ${TARGET_NAME} ${LINK_OPTION} ${SRCS} )
-	#add_library ( ${CANMODULE_LIB_NAME} OBJECT ${SRCS} )
+if(NOT STANDALONE_BUILD)
+	add_library ( ${CANMODULE_LIB_NAME} OBJECT ${SRCS} )
 	set( SERVER_LINK_LIBRARIES ${SERVER_LINK_LIBRARIES} ${CMAKE_DL_LIBS} PARENT_SCOPE )
 	message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: SERVER_LINK_LIBRARIES= [${SERVER_LINK_LIBRARIES}]" )
 else()
@@ -277,8 +189,7 @@ else()
   	    clone_LogIt()
         add_subdirectory( ${PROJECT_BINARY_DIR}/LogIt build )  
         #add_library( ${CANMODULE_LIB_NAME} SHARED ${SRCS} $<TARGET_OBJECTS:LogIt> )
-        #add_library( ${CANMODULE_LIB_NAME} ${LINK_OPTION} ${SRCS} $<TARGET_OBJECTS:LogIt> )
-        add_library( ${TARGET_NAME} ${LINK_OPTION} ${SRCS} $<TARGET_OBJECTS:LogIt> )
+        add_library( ${CANMODULE_LIB_NAME} ${LINK_OPTION} ${SRCS} $<TARGET_OBJECTS:LogIt> )
     else()
 	    locateLogItSharedLib()
 	    message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Using LogIt library: LOGIT_LIB [${LOGIT_LIB}]")
