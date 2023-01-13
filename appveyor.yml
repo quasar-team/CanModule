@@ -56,9 +56,9 @@ after_build:
          {
           Write-Output "Succesfully Built CanModule.dll" ;
          }
-         if (Test-Path "build-release\Release\CanModule-static.lib")
+         if (Test-Path "build-release\Release\CanModule.lib")
          {
-          Write-Output "Succesfully Built CanModule-stayic-lib" ;
+          Write-Output "Succesfully Built CanModule.lib" ;
          }
          #else
          #{
