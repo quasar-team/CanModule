@@ -32,67 +32,8 @@ SET( CMAKE_CXX_STANDARD_REQUIRED ON )
 SET( CMAKE_POSITION_INDEPENDENT_CODE TRUE )
 SET( CMAKE_BUILD_TYPE Release )
 
-# use env var for static-as-possible or shared linking for linux (only shared for windows)
-IF ( $ENV{CANMODULE_AS_STATIC_AS_POSSIBLE} STREQUAL "true" )
-	SET ( CANMODULE_AS_STATIC_AS_POSSIBLE TRUE )
-ELSE()
-	SET ( CANMODULE_AS_STATIC_AS_POSSIBLE FALSE )
-ENDIF()
-
-# we have a mock up build without any vendor libs as well, for CI where we don't want to distribute vendor libs
-# preferably inject this from the toolchain : set ( CANMODULE_BUILD_VENDORS ON )
-# if you have nothing declared, vendors will be OFF
-message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: building vendor libs is ${BUILD_VENDORS}")
-if ( NOT DEFINED CANMODULE_BUILD_VENDORS )
-	set ( CANMODULE_BUILD_VENDORS OFF )
-	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] you have not specified if you want to build the vendor code or not ( CANMODULE_BUILD_VENDORS ). Set to OFF")
-endif() 
-
-
-
-
-# vendor build behaviour:
-# CANMODULE_BUILD_VENDORS OFF or not specified: only build mockup, do not build any vendor libs (default phony)
-# CANMODULE_BUILD_VENDORS ON, nothing else: build mockup and all vendor libs (default all on)
-# CANMODULE_BUILD_VENDORS ON, CANMODULE_BUILD_SYSTEC OFF: build mockup and all vendor libs except systec (drop systec)
-# CANMODULE_BUILD_VENDORS ON, CANMODULE_BUILD_ANAGATE OFF: build mockup and all vendor libs except anagate (drop anagate)
-# CANMODULE_BUILD_VENDORS ON, CANMODULE_BUILD_PEAK OFF: build mockup and all vendor libs except peak (drop peak)
-# i.e. set(CANMODULE_BUILD_VENDORS ON )
-
-# for linux, pull in as many static libs as possible. Vendor libs are not always fully static (relocatable), that is why we still end up with shared libs
-# specify -DCANMODULE_AS_STATIC_AS_POSSIBLE (environment or here) to switch the CanLibLoaderLin lib names accordingly
-# so that the "as-static-as-possible" shared libs are used by CanModule
-#option(CANMODULE_AS_STATIC_AS_POSSIBLE "Build ${PROJECT_NAME} as-static-as-possible (default off, shared)" OFF )
-
-# compiler/build flags
-IF (WIN32)
-  	message( STATUS " ${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Windows build" )
-	add_definitions(-DSUPPORT_XML_CONFIG -W0 -DWIN32_LEAN_AND_MEAN )
-	add_definitions(-D_WIN32_WINDOWS)
-	add_definitions("/EHsc")
-	
-	# dynamic linking, no static yet available. Wait for v3/anagate 2023
-	SET(CMAKE_CXX_FLAGS_RELEASE "/MD")
-	SET(CMAKE_CXX_FLAGS_DEBUG "/MDd /Zi")
-	
-	SET( CMAKE_EXE_LINKER_FLAGS     "${CMAKE_EXE_LINKER_FLAGS}    /MACHINE:X64" )
-	SET( CMAKE_SHARED_LINKER_FLAGS  "${CMAKE_SHARED_LINKER_FLAGS} /MACHINE:X64" )
-	SET( CMAKE_STATIC_LINKER_FLAGS  "${CMAKE_STATIC_LINKER_FLAGS} /MACHINE:X64" )
-	SET( CMAKE_MODULE_LINKER_FLAGS  "${CMAKE_MODULE_LINKER_FLAGS} /MACHINE:X64" )
-	
-	find_package(Threads REQUIRED)
-	#set ( SYSLIBS ${LOGIT_DEPENDENCIES} ${CMAKE_THREAD_LIBS_INIT} )
-ELSE()
-  	message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Linux build" )
-	IF ( ${CANMODULE_AS_STATIC_AS_POSSIBLE} )
-		# still, CANX is dyn linked, just get rid of socketcan, xerces and boost
-		add_definitions( -Wall -Wno-deprecated -std=c++11 -Wno-literal-suffix -D_CERN_CC7 -O3  )
- 	ELSE()
-		add_definitions( -Wall -Wno-deprecated -std=c++11 -Wno-literal-suffix -D_CERN_CC7 -O3 -DBOOST_LOG_DYN_LINK )
-	ENDIF()
-	#set ( SYSLIBS ${LOGIT_DEPENDENCIES} "-ldl -lc -lm -lpthread")	
-ENDIF()
-
+# -- FUNCTION SECTION START ---
+#
 # unsure if that works correctly
 function ( locateBoostLibsUsingToolchainFile )
   if(DEFINED CMAKE_TOOLCHAIN_FILE)
@@ -121,6 +62,70 @@ function ( locateLogItSharedLib )
     set( LOGIT_LIB ${LOGITLIB} CACHE FILEPATH "location of the LogIt library the build will use")
     message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Shared LogIt found, lib [${LOGIT_LIB}] headers [${LOGIT_INCLUDE_DIR}]")
 endfunction()
+#
+# -- FUNCTION SECTTION END --
+
+# use env var for static-as-possible or shared linking for linux (only shared for windows)
+IF ( $ENV{CANMODULE_AS_STATIC_AS_POSSIBLE} STREQUAL "true" )
+	SET ( CANMODULE_AS_STATIC_AS_POSSIBLE TRUE )
+ELSE()
+	SET ( CANMODULE_AS_STATIC_AS_POSSIBLE FALSE )
+ENDIF()
+
+IF ( ${CANMODULE_AS_STATIC_AS_POSSIBLE} )
+	SET ( CANMODULE_LIB_NAME CanModule-static ) # expands to libCanModule-static.a
+	SET ( LINK_OPTION STATIC )
+	SET ( BUILD_SHARED_LIBS OFF )
+ELSE()
+	SET ( CANMODULE_LIB_NAME CanModule ) # expands to libCanModule.so
+	SET ( LINK_OPTION SHARED )
+	SET ( BUILD_SHARED_LIBS ON )
+ENDIF()
+
+# we have a mock up build without any vendor libs as well, for CI where we don't want to distribute vendor libs
+# preferably inject this from the toolchain : set ( CANMODULE_BUILD_VENDORS ON )
+# if you have nothing declared, vendors will be OFF
+message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: building vendor libs is ${BUILD_VENDORS}")
+if ( NOT DEFINED CANMODULE_BUILD_VENDORS )
+	set ( CANMODULE_BUILD_VENDORS OFF )
+	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] you have not specified if you want to build the vendor code or not ( CANMODULE_BUILD_VENDORS ). Set to OFF")
+endif() 
+
+# vendor build behaviour from the toolchain
+# CANMODULE_BUILD_VENDORS OFF or not specified: only build mockup, do not build any vendor libs (default phony)
+# CANMODULE_BUILD_VENDORS ON, nothing else: build mockup and all vendor libs (default all on)
+# CANMODULE_BUILD_VENDORS ON, CANMODULE_BUILD_SYSTEC OFF: build mockup and all vendor libs except systec (drop systec)
+# CANMODULE_BUILD_VENDORS ON, CANMODULE_BUILD_ANAGATE OFF: build mockup and all vendor libs except anagate (drop anagate)
+# CANMODULE_BUILD_VENDORS ON, CANMODULE_BUILD_PEAK OFF: build mockup and all vendor libs except peak (drop peak)
+# i.e. set(CANMODULE_BUILD_VENDORS ON )
+
+# compiler/build flags
+IF (WIN32)
+  	message( STATUS " ${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Windows build" )
+	add_definitions(-DSUPPORT_XML_CONFIG -W0 -DWIN32_LEAN_AND_MEAN )
+	add_definitions(-D_WIN32_WINDOWS)
+	add_definitions("/EHsc")
+	
+	# dynamic linking, no static yet available. Wait for v3/anagate 2023
+	SET(CMAKE_CXX_FLAGS_RELEASE "/MD")
+	SET(CMAKE_CXX_FLAGS_DEBUG "/MDd /Zi")
+	
+	SET( CMAKE_EXE_LINKER_FLAGS     "${CMAKE_EXE_LINKER_FLAGS}    /MACHINE:X64" )
+	SET( CMAKE_SHARED_LINKER_FLAGS  "${CMAKE_SHARED_LINKER_FLAGS} /MACHINE:X64" )
+	SET( CMAKE_STATIC_LINKER_FLAGS  "${CMAKE_STATIC_LINKER_FLAGS} /MACHINE:X64" )
+	SET( CMAKE_MODULE_LINKER_FLAGS  "${CMAKE_MODULE_LINKER_FLAGS} /MACHINE:X64" )
+	
+	find_package(Threads REQUIRED)
+	#set ( SYSLIBS ${LOGIT_DEPENDENCIES} ${CMAKE_THREAD_LIBS_INIT} )
+ELSE()
+  	message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Linux build" )
+	IF ( ${CANMODULE_AS_STATIC_AS_POSSIBLE} )
+		add_definitions( -Wall -Wno-deprecated -std=c++11 -Wno-literal-suffix -D_CERN_CC7 -O3  )
+ 	ELSE()
+		add_definitions( -Wall -Wno-deprecated -std=c++11 -Wno-literal-suffix -D_CERN_CC7 -O3 -DBOOST_LOG_DYN_LINK )
+	ENDIF()	
+ENDIF()
+
 
 # pull in LogIt as sources. Don't clone if dir exists already. 
 function ( clone_LogIt ) 
@@ -139,11 +144,11 @@ endfunction()
 
 # LogIt options. If they are not set, set them to convenient defaults with minimum dependencies
 # any options which exist are untouched (and left to the top-level project CMakeLists.txt)
-# - default statc linking via source
+# - default static linking via source
 # - default boost rotating log
-# use ua toolkit trace. CanModule does NOT depend on the ua toolkit by default, so this is kept undefined. See below for expicit dealing
+# default no uatrace
+# usage of the ua toolkit trace: CanModule itself does NOT depend on the ua toolkit of course, but LogIt might. See below for expicit dealing
 # with this.
-# set (LOGIT_HAS_UATRACE true )
 IF ( NOT DEFINED LOGIT_BUILD_STAND_ALONE)
 	option(STANDALONE_BUILD "Build ${PROJECT_NAME} as a stand-alone library (rather than a quasar optional module)" OFF )
 	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CanModule default STANDALONE_BUILD= [${STANDALONE_BUILD}]")
@@ -159,16 +164,12 @@ IF ( (NOT DEFINED LOGIT_BACKEND_STDOUTLOG) AND (NOT DEFINED LOGIT_BACKEND_BOOSTL
 	option(LOGIT_BACKEND_BOOSTLOG "Build ${PROJECT_NAME} with boost log " OFF )
 	option(LOGIT_BACKEND_STDOUTLOG "Build ${PROJECT_NAME} stdout log is off " ON )
 	option(LOGIT_BACKEND_UATRACE "Build ${PROJECT_NAME} ustrace log is off " OFF )
+	# LOGIT_BUILD_STATIC_LIB OFF
+	# LOGIT_BUILD_SHARED_LIB ON
 	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CanModule default LOGIT_BACKEND_BOOSTLOG= ${LOGIT_BACKEND_BOOSTLOG}") 
 	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CanModule default LOGIT_BACKEND_STDOUTLOG= ${LOGIT_BACKEND_STDOUTLOG}") 
 	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CanModule default LOGIT_BACKEND_UATRACE= ${LOGIT_BACKEND_UATRACE}") 
 ENDIF()
-
-# seems not needed any more
-#set(LOGIT_BUILD_OPTION "LOGIT_AS_INT_SRC" CACHE STRING "LogIt is a mandatory dependency of CanModule. Inclusion options LOGIT_AS_INT_SRC, LOGIT_AS_EXT_SHARED, LOGIT_AS_EXT_STATIC")
-#set_property(CACHE LOGIT_BUILD_OPTION PROPERTY STRINGS LOGIT_AS_INT_SRC LOGIT_AS_EXT_SHARED LOGIT_AS_EXT_STATIC)
-#message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: LogIt build option LOGIT_BUILD_OPTION [${LOGIT_BUILD_OPTION}]")
-
 
 # switch sources according to OS. testing sources OFF, todo later
 SET ( SRCS_ALL_OS 
@@ -181,20 +182,18 @@ SET ( SRCS_ALL_OS
 	#./CanModuleTest/src/main.cpp
 	./Diagnostic/src/Diag.cpp
 )
-
 SET ( SRCS_OS_WIN
 	./CanLibLoader/src/CanLibLoaderWin.cpp
 )
 SET ( SRCS_OS_LIN 
 	./CanLibLoader/src/CanLibLoaderLin.cpp
 )
-
-
+# LogIt pull-in
 if( STANDALONE_BUILD )
 	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: LogIt for standalone build  ]")  
     if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
   	    clone_LogIt()
-        add_subdirectory( ${PROJECT_BINARY_DIR}/LogIt build )  
+        add_subdirectory( ${PROJECT_BINARY_DIR}/LogIt build ) # that's it !  
     else()
 	    locateLogItSharedLib()
 	    message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Using LogIt library: LOGIT_LIB [${LOGIT_LIB}]")
@@ -206,10 +205,11 @@ IF (WIN32)
 ELSE()
 	SET ( SRCS ${SRCS_ALL_OS} ${SRCS_OS_LIN}  )
 	# use RUNPATH instead of RPATH -Wl,--disable-new-dtags does not work on g++ (GCC) 4.8.5 20150623 (Red Hat 4.8.5-39)
+	# and we do not want runtime path info in the bins
     SET( CMAKE_SKIP_RPATH TRUE )
+    SET( CMAKE_SKIP_INSTALL_RPATH TRUE )
 	SET( CANMODULE_RPATHS "-Wl,-rpath,./ -Wl,-rpath,./lib -Wl,-rpath,/usr/local/lib" )
 ENDIF()
-
 
 # versioning burnt into the bins, but don't overwrite in the build if exists
 if (NOT EXISTS ${PROJECT_SOURCE_DIR}/CanInterface/include/VERSION.h )
@@ -223,19 +223,7 @@ include_directories( CanInterface/include CanLibLoader/include Diagnostic/includ
 include_directories ( ${BOOST_PATH_HEADERS} )
 link_directories( ${BOOST_PATH_LIBS} )
 
-# manage build options
-# - static as possible only  linux
-# - stand alone
-IF ( ${CANMODULE_AS_STATIC_AS_POSSIBLE} )
-	SET ( CANMODULE_LIB_NAME CanModule-static ) # expands to libCanModule-static.a
-	SET ( LINK_OPTION STATIC )
-	SET ( BUILD_SHARED_LIBS OFF )
-ELSE()
-	SET ( CANMODULE_LIB_NAME CanModule ) # expands to libCanModule.so
-	SET ( LINK_OPTION SHARED )
-	SET ( BUILD_SHARED_LIBS ON )
-ENDIF()
-
+# here we define the main lib to build
 add_library( ${CANMODULE_LIB_NAME} ${LINK_OPTION} ${SRCS} )
 
 # manage LogIt build options
@@ -255,8 +243,9 @@ else()
     target_link_libraries( ${CANMODULE_LIB_NAME} ${BOOST_LIBS} )
 endif()
 
-add_subdirectory(CanInterfaceImplementations) 
-
+add_subdirectory(CanInterfaceImplementations) # all the subdirs for the vendors are beneath
+ 
+# specify the RPATH skipping as well
 target_link_libraries( ${CANMODULE_LIB_NAME} ${CANMODULE_RPATHS} )
 
 
