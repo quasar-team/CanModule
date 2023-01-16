@@ -145,6 +145,16 @@ private:
 	void CanScanControlThread(); // not static, private is enough in C11
 	void CanReconnectionThread();// not static, private is enough in C11
 
+	// from piotr
+	bool writeWrapper (const can_frame* frame);
+	int selectWrapper ();
+#if 0
+	// get port status from kernel
+	void fetchAndPublishState ();
+	void publishStatus ();
+#endif
+	void recoverPort ();
+
 };
 
 
