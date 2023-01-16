@@ -38,6 +38,7 @@
 #include "CanStatistics.h"
 #include "libsocketcan.h"
 
+
 /*
  * This is an implementation of the abstract class CCanAccess. It serves as a can bus access layer that will communicate with socket can (Linux only)
  */
@@ -145,14 +146,13 @@ private:
 	void CanScanControlThread(); // not static, private is enough in C11
 	void CanReconnectionThread();// not static, private is enough in C11
 
-	// from piotr
+	// from piotr...
 	bool writeWrapper (const can_frame* frame);
 	int selectWrapper ();
-#if 0
+
 	// get port status from kernel
 	void fetchAndPublishState ();
-	void publishStatus ();
-#endif
+	void publishStatus ( unsigned int status, const std::string& message, bool unconditionalMessage);
 	void recoverPort ();
 
 };

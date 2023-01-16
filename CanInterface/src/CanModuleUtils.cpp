@@ -107,4 +107,20 @@ namespace CanModule
 		return result;
 	}
 
+	/* static */ std::string translateCanStateToText( CanModule::CanModuleUtils::can_state state )
+	{
+		switch (state)
+		{
+			case CanModule::CanModuleUtils::CAN_STATE_ERROR_ACTIVE: return "ERROR_ACTIVE (approximate OK)";
+			case CanModule::CanModuleUtils::CAN_STATE_ERROR_WARNING: return "ERROR_WARNING";
+			case CanModule::CanModuleUtils::CAN_STATE_ERROR_PASSIVE: return "ERROR_PASSIVE";
+			case CanModule::CanModuleUtils::CAN_STATE_BUS_OFF: return "BUS_OFF";
+			case CanModule::CanModuleUtils::CAN_STATE_STOPPED: return "CAN_STATE_STOPPED";
+			case CanModule::CanModuleUtils::CAN_STATE_SLEEPING: return "CAN_STATE_SLEEPING";
+			default:
+				return ("translateCanStateToText: Unknown state");
+				// dont throw an exception
+		}
+	}
+
 }

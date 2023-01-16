@@ -40,6 +40,20 @@ namespace CanModule
 	class CanModuleUtils
 	{
 	public:
+		/*
+		 * CAN operational and error states, from linux can_netlink.h. Lets try to have all vendors look like that or
+		 * like a subset of that.
+		 */
+		enum can_state {
+			CAN_STATE_ERROR_ACTIVE = 0,	/* RX/TX error count < 96 */
+			CAN_STATE_ERROR_WARNING,	/* RX/TX error count < 128 */
+			CAN_STATE_ERROR_PASSIVE,	/* RX/TX error count < 256 */
+			CAN_STATE_BUS_OFF,		/* RX/TX error count >= 256 */
+			CAN_STATE_STOPPED,		/* Device is stopped */
+			CAN_STATE_SLEEPING,		/* Device is sleeping */
+			CAN_STATE_MAX
+		};
+
 		template<typename T>
 		static std::string toString(const T t)
 		{
@@ -72,6 +86,7 @@ namespace CanModule
 			return x;
 		}
 
+		static  std::string translateCanStateToText( can_state state );
 	};
 
 

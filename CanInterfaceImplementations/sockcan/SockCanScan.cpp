@@ -318,7 +318,7 @@ void CSockCanScan::CanScanControlThread()
 		MLOGSOCK(DBG, this) << "got numberOfReadBytes= " << numberOfReadBytes << " tid= " << _tid;;
 		if (numberOfReadBytes < 0)
 		{
-			publishStatus(numberOfReadBytes, "read() failed: " + CanModuleerrnoToString() + " tid= " + _tid);
+			p_sockCanScan->publishStatus(numberOfReadBytes, "read() failed: " + CanModuleerrnoToString() + " tid= " + _tid, true);
 
 			// try close/opening on faults while port is active
 			recoverPort();
@@ -334,6 +334,9 @@ void CSockCanScan::CanScanControlThread()
 
 			// we just report the error and continue the thread normally
 			// got something, but wrong length and therefore obviously wrong data
+
+			p_sockCanScan->publishStatus(numberOfReadBytes, "read() wrong msg size: " + CanModuleerrnoToString() + " tid= " + _tid, true);
+
 			continue;
 		}
 
@@ -360,7 +363,7 @@ void CSockCanScan::CanScanControlThread()
 
 
 		/**
-		 * select reports that it has got something, so no timeout in this case
+		 * message is OK, no timeout in this case
 		 */
 		// if ( selectResult > 0 ) {
 
@@ -426,7 +429,7 @@ void CSockCanScan::CanScanControlThread()
 				p_sockCanScan->m_errorCode = socketMessage.can_id & ~CAN_ERR_FLAG;
 				std::string description = CSockCanScan::errorFrameToString( socketMessage );
 
-				publishStatus( p_sockCanScan->m_errorCode, description, true);
+				p_sockCanScan->publishStatus( p_sockCanScan->m_errorCode, description, true);
 
 #if 0
 
@@ -510,7 +513,7 @@ void CSockCanScan::CanScanControlThread()
 void CSockCanScan::recoverPort ()
 {
 	// pid_t _tid = gettid();
-	auto _tid = this_thread::get_id();
+	auto _tid = std::this_thread::get_id();
 	while ( m_CanScanThreadRunEnableFlag)
 	{
 		MLOGSOCK(INF, this) << "Waiting 10000ms."<< " tid= " << _tid;
@@ -547,7 +550,7 @@ void CSockCanScan::recoverPort ()
 	}
 }
 
-#if 0
+
 /**
  * obtain port status from the kernel
  */
@@ -562,24 +565,21 @@ void CSockCanScan::fetchAndPublishState ()
 		else
 			publishStatus(-1, "Can't get state via netlink", true);
 	}
-	publishStatus(obtainedState, translateCanStateToText((can_state)obtainedState));
+	publishStatus(obtainedState, CanModule::CanModuleUtils::translateCanStateToText((CanModule::CanModuleUtils::can_state)obtainedState), true);
 }
 
 
-void CSockCanScan::publishStatus (
-	unsigned int status,
-	const std::string& message,
-	bool unconditionalMessage)
+void CSockCanScan::publishStatus ( unsigned int status,	const std::string& message, bool unconditionalMessage )
 {
 	if (unconditionalMessage || (m_errorCode >= 0 && status < 0))
 	{ //! Notify about transition to error.
-		MLOGSOCK(ERR, this) << message << "tid=[" << this_thread::get_id() << "]";
+		MLOGSOCK(ERR, this) << message << "tid=[" << std::this_thread::get_id() << "]";
 	}
 	m_errorCode = status;
-	timeval now (nowAsTimeval());
+	timeval now = CanModule::convertTimepointToTimeval( std::chrono::system_clock::now()); // (nowAsTimeval());
 	canMessageError(status, message.c_str(), now);
 }
-#endif
+
 
 /**
  * Reconnection thread managing the reconnection behavior, per port. The behavior settings can not change during runtime.
