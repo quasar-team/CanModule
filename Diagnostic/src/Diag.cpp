@@ -13,12 +13,11 @@ namespace CanModule {
 /* static */ int Diag::CanLibLoader_icount = 0;
 /* static */ int Diag::CanAccess_icount = 0;
 
-#if 0
-/* static */ Log::LogComponentHandle Diag::lh = 0;
+
+// /* static */ Log::LogComponentHandle Diag::lh = 0;
 /* static */ std::map<std::string, CCanAccess *> Diag::port_map;
 /* static */ std::map<std::string, CanLibLoader *> Diag::lib_map;
 /* static */ std::map<std::string, std::string> Diag::parameter_map;
-#endif
 
 std::mutex mtx;
 
