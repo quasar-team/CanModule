@@ -7,10 +7,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 	- send remote requests also with stats, error signals and reconnection thread
 	- using wrappers for send, socket
 	- using signals for 
-		- error detection and publish
+		- message error detection and publish
 		- receiving can frames
 		- port status changes (not always errors)
 	- port status according to CAN bus definitions
+	- sendRemoteRequest: copied clarification from Piotr using the wrapper
 
 
 

@@ -388,22 +388,6 @@ void CSockCanScan::recoverPort ()
 
 }
 
-#if 0
-/**
- * we publish every status via a signal, not just status changes. That means a signal frequency of at least 1Hz per port.
- */
-void CSockCanScan::publishStatus ( unsigned int status,	const std::string& message, bool unconditionalMessage )
-{
-	if ( unconditionalMessage || ( m_errorCode >= 0 && status < 0 ))
-	{ //! Notify about transition to error.
-		MLOGSOCK(ERR, this) << message << "tid=[" << std::this_thread::get_id() << "]";
-	}
-	m_errorCode = status;
-	timeval now = CanModule::convertTimepointToTimeval( std::chrono::system_clock::now());
-	canPortStateChanged( status, message.c_str(), now ); // signal
-}
-#endif
-
 /**
  * Reconnection thread managing the reconnection behavior, per port. The behavior settings can not change during runtime.
  * This thread is initialized after the main thread is up, and then listens on its cond.var as a trigger.
