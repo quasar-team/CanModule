@@ -107,7 +107,7 @@ if( STANDALONE_BUILD )
     if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
   	    clone_LogIt()  # clones into ${PROJECT_SOURCE_DIR}/build/build/CanModule/LogIt
   	    # where did it go ?
-        message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] Logit added subdir {CANMODULE_LOGIT_CLONE_DIR}")
+        message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] Logit added subdir ${CANMODULE_LOGIT_CLONE_DIR}")
   	    
         #add_subdirectory( ${PROJECT_BINARY_DIR}/LogIt build ) # that's it !
         #add_subdirectory( ${CANMODULE_LOGIT_CLONE_DIR} build ) # that's it !
