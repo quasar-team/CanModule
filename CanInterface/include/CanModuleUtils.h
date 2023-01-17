@@ -41,17 +41,29 @@ namespace CanModule
 	{
 	public:
 		/*
-		 * CAN operational and error states, extended from linux can_netlink.h. Lets try to have all vendors look like that or
-		 * like a subset of that.
+		 * CAN operational and error states, copied from linux can_netlink.h can_state and extended. Lets try to have all vendors look like that or
+		 * like a subset of that. The CAN_STATE keep their original definitions and semantics, so if the enum is set to one of these values
+		 * they are reported as that from the vendor. The vendors which do not fully implement that take values CANMODULE_ instead. One can have a mix if
+		 * a vendor implements only CAN_STATE_ERROR_PASSIVE but not the rest.
 		 */
-		enum can_state {
+		enum CanModule_bus_state {
+			// CAN model i.e. https://www.csselectronics.com/pages/can-bus-errors-intro-tutorial. guaranteed to keep the meaning and semantics
+			// if they are set
 			CAN_STATE_ERROR_ACTIVE = 0,	/* RX/TX error count < 96 */
 			CAN_STATE_ERROR_WARNING,	/* RX/TX error count < 128 */
 			CAN_STATE_ERROR_PASSIVE,	/* RX/TX error count < 256 */
 			CAN_STATE_BUS_OFF,		/* RX/TX error count >= 256 */
 			CAN_STATE_STOPPED,		/* Device is stopped */
 			CAN_STATE_SLEEPING,		/* Device is sleeping */
-			CAN_STATE_MAX
+			CAN_STATE_MAX,
+
+			// CanModule extension, to cover non-socketcan implementations
+			CANMODULE_NOSTATE,   // could not get state
+			CANMODULE_WARNING,   // degradation but might recover
+			CANMODULE_ERROR_SW,  // error likely stemming from SW
+			CANMODULE_ERROR_HW,  // error likely stemming from HW/firmware
+			CANMODULE_TIMEOUT_OK,         // bus is fine, no traffic
+			CANMODULE_OK         // bus is fine
 		};
 
 		template<typename T>
@@ -86,7 +98,7 @@ namespace CanModule
 			return x;
 		}
 
-		static  std::string translateCanStateToText( can_state state );
+		static  std::string translateCanStateToText( CanModule_bus_state state );
 
 	};
 

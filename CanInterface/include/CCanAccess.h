@@ -320,13 +320,22 @@ public:
 	virtual ~CCanAccess() {};
 
 
-	/*
+	/**
 	 * Signal that gets called when a can Error happens on the initialised can bus.
 	 * In order to process this message manually, a handler needs to be connected to the signal.
 	 *
 	 * Example: myCCanAccessPointer->canMessageError.connect(&myErrorRecievedHandler);
 	 */
 	boost::signals2::signal<void (const int,const char *,timeval &) > canMessageError;
+
+	/**
+	 * signal gets called whenever there is a can port status change, across all vendors
+	 * the int is the  enum CanModule::CanModuleUtils::CanModule_bus_state
+	 * In order to process this message, a handler needs to be connected to the signal.
+	 *
+	 * Example: myCCanAccessPointer->canPortStateChanged.connect(&myPortSateChangedRecievedHandler);
+	 */
+	boost::signals2::signal<void (const int,const char *,timeval &) > canPortStateChanged;
 
 	// Returns the CanStatistics object.
 	virtual void getStatistics( CanStatistics & result ) = 0;
@@ -457,6 +466,21 @@ public:
 	 */
 	virtual void stopBus() = 0;
 
+	/**
+	 * we publish port status via a signal, for all vendors. This is just the standardized mechanism
+	 */
+	void publishPortStatus ( unsigned int status,	const std::string &message, bool unconditionalMessage )
+	{
+		// if ( unconditionalMessage || ( m_errorCode >= 0 && status < 0 )) {
+		// sorry, had to suppress m_errorCode for a cross vendor solution
+		// ! Notify about transition to error.
+		// 	MLOGSOCK(ERR, this) << message << "tid=[" << std::this_thread::get_id() << "]";
+		// }
+		// m_errorCode = status;
+		timeval now = CanModule::convertTimepointToTimeval( std::chrono::system_clock::now());
+		canPortStateChanged( status, message.c_str(), now ); // signal
+	}
+
 protected:
 
 	std::string m_sBusName;
@@ -498,6 +522,8 @@ private:
 	Log::LogComponentHandle m_lh;
 	LogItInstance* m_logItRemoteInstance;
 	std::chrono::time_point<std::chrono::high_resolution_clock> m_dnow, m_dreceived, m_dtransmitted, m_dopen;
+
+
 };
 }; // namespace CanModule
 #endif /* CCANACCESS_H_ */

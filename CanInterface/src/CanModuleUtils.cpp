@@ -23,6 +23,8 @@
 
 
 #include <CanModuleUtils.h>
+#include <CCanAccess.h>
+
 #include <errno.h>
 #include <string.h>
 #include <chrono>
@@ -107,7 +109,10 @@ namespace CanModule
 		return result;
 	}
 
-	/* static */ std::string translateCanStateToText( CanModule::CanModuleUtils::can_state state )
+/**
+ * translates the value of enum CanModule_bus_state  to a text, applicable for all vendors
+ */
+	/* static */ std::string translateCanBusStateToText( CanModule::CanModuleUtils::CanModule_bus_state state )
 	{
 		switch (state)
 		{
@@ -117,10 +122,19 @@ namespace CanModule
 			case CanModule::CanModuleUtils::CAN_STATE_BUS_OFF: return "BUS_OFF";
 			case CanModule::CanModuleUtils::CAN_STATE_STOPPED: return "CAN_STATE_STOPPED";
 			case CanModule::CanModuleUtils::CAN_STATE_SLEEPING: return "CAN_STATE_SLEEPING";
+
+			case CanModule::CanModuleUtils::CANMODULE_NOSTATE: return "CANMODULE_NOSTATE: could not get port state";
+			case CanModule::CanModuleUtils::CANMODULE_WARNING: return "CANMODULE_WARNING: traffic degradation but might recover";
+			case CanModule::CanModuleUtils::CANMODULE_ERROR_SW: return "CANMODULE_ERROR_SW: error likely stemming from SW";
+			case CanModule::CanModuleUtils::CANMODULE_ERROR_HW: return "CANMODULE_ERROR_HW: error likely stemming from HW/firmware";
+			case CanModule::CanModuleUtils::CANMODULE_OK: return "CANMODULE_OK: bus is fine";
+
 			default:
 				return ("translateCanStateToText: Unknown state");
 				// dont throw an exception
 		}
 	}
+
+
 
 }

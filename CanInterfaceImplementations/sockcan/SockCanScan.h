@@ -151,8 +151,8 @@ private:
 	int selectWrapper ();
 
 	// get port status from kernel
-	void fetchAndPublishState ();
-	void publishStatus ( unsigned int status, const std::string& message, bool unconditionalMessage);
+	void fetchAndPublishCanPortState ();
+	// void publishStatus ( unsigned int status, const std::string& message, bool unconditionalMessage);
 	void recoverPort ();
 
 };

@@ -144,7 +144,7 @@ void CSockCanScan::CanScanControlThread()
 	triggerReconnectionThread();
 
 	// initial port state
-	fetchAndPublishState();
+	fetchAndPublishCanPortState();
 
 	while ( p_sockCanScan->m_CanScanThreadRunEnableFlag ) {
 
@@ -205,6 +205,7 @@ void CSockCanScan::CanScanControlThread()
 		if (numberOfReadBytes < 0)
 		{
 			p_sockCanScan->publishStatus(numberOfReadBytes, "read() failed: " + CanModuleerrnoToString() + " tid= " + _tid, true);
+			//p_sockCanScan->canMessageError(numberOfReadBytes, "read() failed: " + CanModuleerrnoToString() + " tid= " + _tid, true);
 
 			// try close/opening on faults while port is active
 			recoverPort();
@@ -222,6 +223,7 @@ void CSockCanScan::CanScanControlThread()
 			// got something, but wrong length and therefore obviously wrong data
 
 			p_sockCanScan->publishStatus(numberOfReadBytes, "read() wrong msg size: " + CanModuleerrnoToString() + " tid= " + _tid, true);
+			// p_sockCanScan->canMessageError( numberOfReadBytes, "read() wrong msg size: " + CanModuleerrnoToString() + " tid= " + _tid, true);
 
 			continue;
 		}
@@ -353,7 +355,7 @@ void CSockCanScan::recoverPort ()
 /**
  * obtain port status from the kernel
  */
-void CSockCanScan::fetchAndPublishState ()
+void CSockCanScan::fetchAndPublishCanPortState ()
 {
 	int obtainedState;
 	if ( can_get_state(m_channelName.c_str(), &obtainedState) < 0 )
@@ -364,12 +366,12 @@ void CSockCanScan::fetchAndPublishState ()
 		else
 			publishStatus(-1, "Can't get state via netlink", true);
 	}
-	publishStatus(obtainedState,
-			CanModule::CanModuleUtils::translateCanStateToText((CanModule::CanModuleUtils::can_state)obtainedState),
+	CanModule::CanModuleUtils::publishStatus(obtainedState,
+			CanModule::CanModuleUtils::translateCanStateToText((CanModule::CanModuleUtils::CanModule_bus_state) obtainedState),
 			true);
 }
 
-
+#if 0
 /**
  * we publish every status via a signal, not just status changes. That means a signal frequency of at least 1Hz per port.
  */
@@ -381,8 +383,9 @@ void CSockCanScan::publishStatus ( unsigned int status,	const std::string& messa
 	}
 	m_errorCode = status;
 	timeval now = CanModule::convertTimepointToTimeval( std::chrono::system_clock::now());
-	canMessageError( status, message.c_str(), now ); // signal
+	canPortStateChanged( status, message.c_str(), now ); // signal
 }
+#endif
 
 /**
  * Reconnection thread managing the reconnection behavior, per port. The behavior settings can not change during runtime.
