@@ -73,6 +73,7 @@ function ( clone_LogIt )
 
 	  execute_process(COMMAND git clone -b ${LOGIT_VERSION} https://github.com/quasar-team/LogIt.git WORKING_DIRECTORY ${PROJECT_BINARY_DIR}  )
 	  message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: LogIt cloned into ${PROJECT_BINARY_DIR}/LogIt")
+	  SET ( CANMODULE_LOGIT_CLONE_DIR ${PROJECT_BINARY_DIR}/LogIt )
    ELSE()
 	  message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Logit is already cloned into ${PROJECT_BINARY_DIR}/LogIt" )
    ENDIF() 
@@ -106,7 +107,7 @@ if( STANDALONE_BUILD )
     if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
   	    clone_LogIt()  # clones into ${PROJECT_SOURCE_DIR}/build/build/CanModule/LogIt
         add_subdirectory( ${PROJECT_BINARY_DIR}/LogIt build ) # that's it !
-        #add_subdirectory( ${PROJECT_BINARY_DIR}/LogIt ) # that's it !
+        add_subdirectory( ${CANMODULE_LOGIT_CLONE_DIR} build ) # that's it !
         
         message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] Logit cloning PROJECT_BINARY_DIR= ${PROJECT_BINARY_DIR}")
         message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] Logit added subdir {PROJECT_BINARY_DIR}/LogIt")
