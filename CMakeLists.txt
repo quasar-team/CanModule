@@ -249,7 +249,7 @@ else()
     target_link_libraries( ${CANMODULE_LIB_NAME} ${BOOST_LIBS} )
 endif()
 
-add_subdirectory(CanInterfaceImplementations) # all the subdirs for the vendors are beneath
+add_subdirectory(CanInterfaceImplementations) # all the subdirs for the vendors are underneath
  
 # specify the RPATH skipping as well
 target_link_libraries( ${CANMODULE_LIB_NAME} ${CANMODULE_RPATHS} )

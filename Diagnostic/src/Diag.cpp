@@ -5,6 +5,7 @@
  *      Author: mludwig
  */
 
+#include <LogIt.h>
 #include "Diag.h"
 
 namespace CanModule {
