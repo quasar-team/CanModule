@@ -439,6 +439,20 @@ public:
 	virtual CanModule::ReconnectAction getReconnectAction() = 0;
 
 	/**
+	 *  stop the bus.
+	 */
+	virtual void stopBus() = 0;
+
+	/** Generally: do whatever shenanigans you need on the vendor API to get an idea of what the port is doing.
+	 * then fill in the portState accordingly, as close as possible to the semantics of the enum.
+	 * then send the port status to the canPortStateChanged signal
+	 *
+	 * We always have the CAN message error flags and their decoding to save the day, on the canMessageError signal
+	 * And we can invoke directly the getPortStatus() as well to get the unified bitpattern.
+	 */
+	virtual void fetchAndPublishCanPortState () = 0;
+
+	/**
 	 * just translate the ugly r.condition enum into a user-friendly string for convenience and logging.
 	 */
 	static std::string reconnectConditionString(CanModule::ReconnectAutoCondition c) {
@@ -461,11 +475,6 @@ public:
 		return(" unknown action");
 	}
 
-	/**
-	 *  force implementation in subclasses
-	 */
-	virtual void stopBus() = 0;
-	virtual void fetchAndPublishCanPortState () = 0;
 
 
 protected:
