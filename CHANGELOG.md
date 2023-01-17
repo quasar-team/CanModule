@@ -7,13 +7,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 	- send remote requests also with stats, error signals and reconnection thread
 	- using wrappers for send, socket
 	- using signals for 
-		- message error detection and publish
+		- can message error detection and publish
+		- port status changes (not always errors) (NEW)
 		- receiving can frames
-		- port status changes (not always errors)
 	- port status according to CAN bus definitions
+	- can message errors according to message decoding
 	- sendRemoteRequest: copied clarification from Piotr using the wrapper
+	- trigger reconnection thread when nb bytes read <0 , drop m_recoverPort() method
 
-
+- getPortStatus() (unified) remains untouched. This method can be invoked by the user.
 
 ### 2.0.23 [ 16.jan.2023 ]
 - intermediate version with fixed build chain for static/dynamic linking and standalone libs
