@@ -86,7 +86,7 @@ void Diag::insert_maps( CanLibLoader *lib, CCanAccess *acc, std::string params )
 	}
 	if ( parameter_map.find( key ) != parameter_map.end()) {
 		// LOG(Log::INF, lh )<< " key= " << key << " exists already, skip parameter insert";
-		std::cout << " key= " << key << " exists already, skip parameter insert" << std::endl
+		std::cout << " key= " << key << " exists already, skip parameter insert" << std::endl;
 	} else	{
 		std::pair<std::string, std::string> pa2 = std::pair<std::string, std::string>( key, params );
 		parameter_map.insert( pa2 );
