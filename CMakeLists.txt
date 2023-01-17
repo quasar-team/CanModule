@@ -110,9 +110,9 @@ if( STANDALONE_BUILD )
         message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] Logit added subdir {CANMODULE_LOGIT_CLONE_DIR}")
   	    
         #add_subdirectory( ${PROJECT_BINARY_DIR}/LogIt build ) # that's it !
-        add_subdirectory( ${CANMODULE_LOGIT_CLONE_DIR} build ) # that's it !
+        #add_subdirectory( ${CANMODULE_LOGIT_CLONE_DIR} build ) # that's it !
         
-        message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] Logit cloning PROJECT_BINARY_DIR= ${PROJECT_BINARY_DIR}")
+        #message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] Logit cloning PROJECT_BINARY_DIR= ${PROJECT_BINARY_DIR}")
           
         # add_subdirectory( ${PROJECT_BINARY_DIR}/build/LogIt build ) # that's it !  
     else()
