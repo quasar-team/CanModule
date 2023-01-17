@@ -67,7 +67,7 @@ extern "C" CCanAccess *getCanBusAccess()
 CSockCanScan::CSockCanScan() :
 							m_CanScanThreadRunEnableFlag(false),
 							m_sock(0),
-							m_errorCode(-1),
+							m_canMessageErrorCode(-1),
 							m_hCanScanThread( NULL ),
 							m_busName("nobus"),
 							m_logItHandleSock(0)
@@ -204,8 +204,9 @@ void CSockCanScan::CanScanControlThread()
 		MLOGSOCK(DBG, this) << "got numberOfReadBytes= " << numberOfReadBytes << " tid= " << _tid;;
 		if (numberOfReadBytes < 0)
 		{
-			p_sockCanScan->publishStatus(numberOfReadBytes, "read() failed: " + CanModuleerrnoToString() + " tid= " + _tid, true);
-			//p_sockCanScan->canMessageError(numberOfReadBytes, "read() failed: " + CanModuleerrnoToString() + " tid= " + _tid, true);
+			//p_sockCanScan->publishStatus(numberOfReadBytes, "read() failed: " + CanModuleerrnoToString() + " tid= " + _tid, true);
+			timeval now = CanModule::convertTimepointToTimeval( std::chrono::system_clock::now());
+			p_sockCanScan->canMessageError(numberOfReadBytes, ("read() failed: " + CanModuleerrnoToString() + " tid= " + _tid).c_str(), now );
 
 			// try close/opening on faults while port is active
 			recoverPort();
@@ -222,8 +223,9 @@ void CSockCanScan::CanScanControlThread()
 			// we just report the error and continue the thread normally
 			// got something, but wrong length and therefore obviously wrong data
 
-			p_sockCanScan->publishStatus(numberOfReadBytes, "read() wrong msg size: " + CanModuleerrnoToString() + " tid= " + _tid, true);
-			// p_sockCanScan->canMessageError( numberOfReadBytes, "read() wrong msg size: " + CanModuleerrnoToString() + " tid= " + _tid, true);
+			// p_sockCanScan->publishStatus(numberOfReadBytes, "read() wrong msg size: " + CanModuleerrnoToString() + " tid= " + _tid, true);
+			timeval now = CanModule::convertTimepointToTimeval( std::chrono::system_clock::now());
+			p_sockCanScan->canMessageError( numberOfReadBytes, ("read() wrong msg size: " + CanModuleerrnoToString() + " tid= " + _tid).c_str(), now );
 
 			continue;
 		}
@@ -237,7 +239,7 @@ void CSockCanScan::CanScanControlThread()
 				MLOGSOCK(ERR,p_sockCanScan) << "read() error: " << CanModuleerrnoToString()<< " tid= " << _tid;;
 				timeval now = CanModule::convertTimepointToTimeval( std::chrono::system_clock::now());
 				p_sockCanScan->canMessageError( numberOfReadBytes, ("read() error: "+CanModuleerrnoToString()).c_str(), now );
-				p_sockCanScan->m_errorCode = -1;
+				p_sockCanScan->m_canMessageErrorCode = -1;
 
 
 				/**
@@ -247,32 +249,32 @@ void CSockCanScan::CanScanControlThread()
 				continue;
 			}
 
-			// detected a CAN error
-			if (socketMessage.can_id & CAN_ERR_FLAG) {
+			// we also detect a CAN error in the can message/frame
+			if ( socketMessage.can_id & CAN_ERR_FLAG ) {
 
-				// we retrieve the timestamp and report the CAN port
-				p_sockCanScan->m_errorCode = socketMessage.can_id & ~CAN_ERR_FLAG;
+				// we retrieve the timestamp and report the error on the signal of this CAN port
+				p_sockCanScan->m_canMessageErrorCode = socketMessage.can_id & ~CAN_ERR_FLAG;
 				std::string description = CSockCanScan::errorFrameToString( socketMessage );
 
-				p_sockCanScan->publishStatus( p_sockCanScan->m_errorCode, description, true);
+				// p_sockCanScan->publishPortStatus( p_sockCanScan->m_errorCode, description, true);
+				//p_sockCanScan->publishPortStatusChanged( p_sockCanScan->m_canMessageErrorCode );
+				fetchAndPublishCanPortState();
 
-				// lets find out more by doing an ioctl call
-				{
-					timeval c_time;
-					int ioctlReturn1 = ioctl(sock, SIOCGSTAMP, &c_time);
-					if ( ioctlReturn1 ){
-						MLOGSOCK(ERR, p_sockCanScan) << "SocketCAN "
-								<< p_sockCanScan->getBusName()
-								<< " got an error, ioctl timestamp from socket failed as well, setting local time"
-								<< " ioctlReturn1 = " << ioctlReturn1;
-						c_time = CanModule::convertTimepointToTimeval( std::chrono::system_clock::now());
-					}
-					MLOGSOCK(ERR, p_sockCanScan) << "SocketCAN ioctl return: [" << ioctlReturn1
-							<< " error frame: [" << description
-							<< "], original: [" << canFrameToString(socketMessage) << "]";
-					p_sockCanScan->canMessageError( p_sockCanScan->m_errorCode, description.c_str(), c_time );
+				// lets find out the time by doing an ioctl call
+				timeval c_time;
+				int ioctlReturn1 = ioctl(sock, SIOCGSTAMP, &c_time);
+				if ( ioctlReturn1 ){
+					MLOGSOCK(ERR, p_sockCanScan) << "SocketCAN "
+							<< p_sockCanScan->getBusName()
+							<< " got an error, ioctl timestamp from socket failed as well, setting local time"
+							<< " ioctlReturn1 = " << ioctlReturn1;
+					c_time = CanModule::convertTimepointToTimeval( std::chrono::system_clock::now());
 				}
-				// we have tried to get the error, and we continue thread normally
+				MLOGSOCK(ERR, p_sockCanScan) << "SocketCAN ioctl return: [" << ioctlReturn1
+						<< " error frame: [" << description
+						<< "], original: [" << canFrameToString(socketMessage) << "]";
+
+				p_sockCanScan->canMessageError( p_sockCanScan->m_canMessageErrorCode, description.c_str(), c_time ); // signal
 				continue;
 			}
 
@@ -353,22 +355,37 @@ void CSockCanScan::recoverPort ()
 
 
 /**
- * obtain port status from the kernel
+ * sockcan specific: obtain port status from the kernel, plus an extra LogIt message if we have an error
  */
-void CSockCanScan::fetchAndPublishCanPortState ()
+/* virtual */ void CSockCanScan::fetchAndPublishCanPortState ()
 {
-	int obtainedState;
-	if ( can_get_state(m_channelName.c_str(), &obtainedState) < 0 )
+	int portState;
+	if ( can_get_state(m_channelName.c_str(), &portState) < 0 )
 	{
 		// are we in DontConfigure mode? if so, it is okay for get_state to fail
-		if (m_CanParameters.m_dontReconfigure)
+		if ( m_CanParameters.m_dontReconfigure ){
 			return;
-		else
-			publishStatus(-1, "Can't get state via netlink", true);
+		} else {
+			portState = CanModule::CanModuleUtils::CanModule_bus_state::CANMODULE_NOSTATE;
+			// publishPortStatus( CanModule::CanModuleUtils::CanModule_bus_state::CANMODULE_NOSTATE, "Can't get state via netlink", true);
+		}
 	}
-	CanModule::CanModuleUtils::publishStatus(obtainedState,
-			CanModule::CanModuleUtils::translateCanStateToText((CanModule::CanModuleUtils::CanModule_bus_state) obtainedState),
-			true);
+	switch ( portState ){
+	case CanModule::CanModuleUtils::CAN_STATE_ERROR_PASSIVE:
+	case CanModule::CanModuleUtils::CAN_STATE_BUS_OFF:
+	case CanModule::CanModuleUtils::CAN_STATE_STOPPED:
+	case CanModule::CanModuleUtils::CANMODULE_ERROR:
+	{
+		std::string msg = CanModule::CanModuleUtils::translateCanBusStateToText((CanModule::CanModuleUtils::CanModule_bus_state) portState );
+		MLOGSOCK(ERR, this) << msg << "tid=[" << std::this_thread::get_id() << "]";
+		break;
+	}
+	default: break;
+	}
+
+	// signals only if it has changed
+	publishPortStatusChanged( portState );
+
 }
 
 #if 0
@@ -622,11 +639,7 @@ int CSockCanScan::openCanPort()
 	}
 
 	// Fetch initial state of the port
-	int ret = can_get_state( m_channelName.c_str(), &m_errorCode );
-	if ( ret != 0 ) {
-		m_errorCode = ret;
-		MLOGSOCK(ERR,this) << "can_get_state() failed with error code " << ret << ", it was not possible to obtain initial port state";
-	}
+	fetchAndPublishCanPortState ();
 	updateInitialError();
 	m_statistics.setTimeSinceOpened();
 	return m_sock;
@@ -1051,13 +1064,12 @@ void CSockCanScan::getStatistics( CanStatistics & result )
  */
 void CSockCanScan::updateInitialError ()
 {
-	if (m_errorCode == 0) {
+	if ( m_canMessageErrorCode == 0 ) {
 		clearErrorMessage();
 	} else {
 		timeval now = CanModule::convertTimepointToTimeval( std::chrono::system_clock::now());
-		canMessageError( m_errorCode, "Initial port state: error", now );
+		canMessageError( m_canMessageErrorCode, "Initial port state: error", now );
 	}
 }
-
 
 

@@ -60,6 +60,8 @@ public:
 
 
 	virtual void stopBus ();
+	virtual void fetchAndPublishCanPortState (){};
+
 
 private:
 	//Instance of Can Statistics

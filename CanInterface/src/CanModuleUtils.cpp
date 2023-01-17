@@ -26,8 +26,10 @@
 #include <CCanAccess.h>
 
 #include <errno.h>
-#include <string.h>
+// #include <string.h>
 #include <chrono>
+#include <iostream>
+#include <sstream>
 
 namespace CanModule
 {
@@ -109,14 +111,15 @@ namespace CanModule
 		return result;
 	}
 
-/**
- * translates the value of enum CanModule_bus_state  to a text, applicable for all vendors
- */
+	/**
+	 * translates the value of enum CanModule_bus_state  to a text, applicable for all vendors
+	 * you can also throw any (int) value at it, that will be reported as an unknown state, but still reported
+	 */
 	/* static */ std::string translateCanBusStateToText( CanModule::CanModuleUtils::CanModule_bus_state state )
 	{
 		switch (state)
 		{
-			case CanModule::CanModuleUtils::CAN_STATE_ERROR_ACTIVE: return "ERROR_ACTIVE (approximate OK)";
+		case CanModule::CanModuleUtils::CAN_STATE_ERROR_ACTIVE: return "ERROR_ACTIVE (approximate OK)";
 			case CanModule::CanModuleUtils::CAN_STATE_ERROR_WARNING: return "ERROR_WARNING";
 			case CanModule::CanModuleUtils::CAN_STATE_ERROR_PASSIVE: return "ERROR_PASSIVE";
 			case CanModule::CanModuleUtils::CAN_STATE_BUS_OFF: return "BUS_OFF";
@@ -125,12 +128,13 @@ namespace CanModule
 
 			case CanModule::CanModuleUtils::CANMODULE_NOSTATE: return "CANMODULE_NOSTATE: could not get port state";
 			case CanModule::CanModuleUtils::CANMODULE_WARNING: return "CANMODULE_WARNING: traffic degradation but might recover";
-			case CanModule::CanModuleUtils::CANMODULE_ERROR_SW: return "CANMODULE_ERROR_SW: error likely stemming from SW";
-			case CanModule::CanModuleUtils::CANMODULE_ERROR_HW: return "CANMODULE_ERROR_HW: error likely stemming from HW/firmware";
+			case CanModule::CanModuleUtils::CANMODULE_ERROR: return "CANMODULE_ERROR: error likely stemming from SW/HW/firmware";
 			case CanModule::CanModuleUtils::CANMODULE_OK: return "CANMODULE_OK: bus is fine";
 
 			default:
-				return ("translateCanStateToText: Unknown state");
+				std::stringstream os;
+				os <<  "translateCanBusStateToText: unknown state= " << state;
+				return ( os.str() );
 				// dont throw an exception
 		}
 	}

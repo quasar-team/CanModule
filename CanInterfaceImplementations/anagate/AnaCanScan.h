@@ -101,6 +101,7 @@ public:
 	virtual CanModule::ReconnectAutoCondition getReconnectCondition() { return m_reconnectCondition; };
 	virtual CanModule::ReconnectAction getReconnectAction() { return m_reconnectAction; };
 	virtual void stopBus( void );
+	virtual void fetchAndPublishCanPortState (){};
 
 private:
 

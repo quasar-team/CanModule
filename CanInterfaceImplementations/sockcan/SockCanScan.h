@@ -122,12 +122,14 @@ public:
 	virtual CanModule::ReconnectAction getReconnectAction() { return m_reconnectAction; };
 	virtual void stopBus ();
 
+	virtual void fetchAndPublishCanPortState ();
+
 private:
 	volatile std::atomic_bool m_CanScanThreadRunEnableFlag; //Flag for running/shutting down the
 
 	// socket: CanScan thread, with compiler mem optimization switched off (~atomic) for more code safety
 	std::atomic_int m_sock;
-	int m_errorCode; // As up-to-date as possible state of the interface.
+	int m_canMessageErrorCode;  // message error code
 
 	CanStatistics m_statistics;
 	std::thread *m_hCanScanThread;
@@ -135,10 +137,11 @@ private:
 	std::string m_busName;
 	Log::LogComponentHandle m_logItHandleSock;
 
+
 	void updateInitialError () ;
 	static std::string errorFrameToString (const struct can_frame &f);
 
-	// void sendErrorMessage(const char  *);
+	void sendErrorMessage(const char  *);
 	void clearErrorMessage();
 	int configureCanBoard(const std::string name, const std::string parameters);
 	// void updateBusStatus();
@@ -151,7 +154,6 @@ private:
 	int selectWrapper ();
 
 	// get port status from kernel
-	void fetchAndPublishCanPortState ();
 	// void publishStatus ( unsigned int status, const std::string& message, bool unconditionalMessage);
 	void recoverPort ();
 

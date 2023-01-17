@@ -321,7 +321,7 @@ public:
 
 
 	/**
-	 * Signal that gets called when a can Error happens on the initialised can bus.
+	 * Signal that gets called when a can Error is detected in the message
 	 * In order to process this message manually, a handler needs to be connected to the signal.
 	 *
 	 * Example: myCCanAccessPointer->canMessageError.connect(&myErrorRecievedHandler);
@@ -462,29 +462,18 @@ public:
 	}
 
 	/**
-	 *  force implementation
+	 *  force implementation in subclasses
 	 */
 	virtual void stopBus() = 0;
+	virtual void fetchAndPublishCanPortState () = 0;
 
-	/**
-	 * we publish port status via a signal, for all vendors. This is just the standardized mechanism
-	 */
-	void publishPortStatus ( unsigned int status,	const std::string &message, bool unconditionalMessage )
-	{
-		// if ( unconditionalMessage || ( m_errorCode >= 0 && status < 0 )) {
-		// sorry, had to suppress m_errorCode for a cross vendor solution
-		// ! Notify about transition to error.
-		// 	MLOGSOCK(ERR, this) << message << "tid=[" << std::this_thread::get_id() << "]";
-		// }
-		// m_errorCode = status;
-		timeval now = CanModule::convertTimepointToTimeval( std::chrono::system_clock::now());
-		canPortStateChanged( status, message.c_str(), now ); // signal
-	}
 
 protected:
 
 	std::string m_sBusName;
 	CanParameters m_CanParameters;
+
+	unsigned int m_portStatus;  // port status
 
 	// reconnection, reconnection thread triggering
     CanModule::ReconnectAutoCondition m_reconnectCondition;
@@ -517,6 +506,21 @@ protected:
 	void resetTimeNow() {
 		m_dnow = std::chrono::high_resolution_clock::now();
 	}
+
+	/**
+	 * we publish port status via a "portStatusChanged" signal, for all vendors, if it has changed. This is just the standardized mechanism
+	 */
+	void publishPortStatusChanged ( unsigned int status )
+	{
+		if ( m_portStatus != status ){
+			std::string msg = CanModule::CanModuleUtils::translateCanBusStateToText((CanModule::CanModuleUtils::CanModule_bus_state) status);
+			timeval now = CanModule::convertTimepointToTimeval( std::chrono::system_clock::now());
+			canPortStateChanged( status, msg.c_str(), now ); // signal
+		}
+		m_portStatus = status;
+	}
+
+
 
 private:
 	Log::LogComponentHandle m_lh;
