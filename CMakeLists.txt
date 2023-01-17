@@ -62,6 +62,21 @@ function ( locateLogItSharedLib )
     set( LOGIT_LIB ${LOGITLIB} CACHE FILEPATH "location of the LogIt library the build will use")
     message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Shared LogIt found, lib [${LOGIT_LIB}] headers [${LOGIT_INCLUDE_DIR}]")
 endfunction()
+
+# pull in LogIt as sources. Don't clone if dir exists already. 
+function ( clone_LogIt ) 
+  SET (LOGIT_VERSION "master")
+  message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: cloning LogIt from github. *NOTE* cloning version [${LOGIT_VERSION}]")
+  if ( NOT EXISTS ${PROJECT_BINARY_DIR}/LogIt ) 
+	  execute_process(COMMAND git clone -b ${LOGIT_VERSION} https://github.com/quasar-team/LogIt.git WORKING_DIRECTORY ${PROJECT_BINARY_DIR}  )
+	  message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: LogIt cloned from LogIt repo into ${PROJECT_BINARY_DIR}/LogIt")
+   ELSE()
+	  message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Logit is already cloned into ${PROJECT_BINARY_DIR}/LogIt" )
+   ENDIF() 
+   set ( LOGIT_HEADERS ${PROJECT_BINARY_DIR}/LogIt/include ) # some bw compatibility, otherwise maybe useless
+   include_directories( ${PROJECT_BINARY_DIR}/LogIt/include )
+endfunction()
+
 #
 # -- FUNCTION SECTTION END --
 
@@ -127,19 +142,6 @@ ELSE()
 ENDIF()
 
 
-# pull in LogIt as sources. Don't clone if dir exists already. 
-function ( clone_LogIt ) 
-  SET (LOGIT_VERSION "master")
-  message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: cloning LogIt from github. *NOTE* cloning version [${LOGIT_VERSION}]")
-  if ( NOT EXISTS ${PROJECT_BINARY_DIR}/LogIt ) 
-	  execute_process(COMMAND git clone -b ${LOGIT_VERSION} https://github.com/quasar-team/LogIt.git WORKING_DIRECTORY ${PROJECT_BINARY_DIR}  )
-	  message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: LogIt cloned from LogIt repo into ${PROJECT_BINARY_DIR}/LogIt")
-   ELSE()
-	  message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Logit is already cloned into ${PROJECT_BINARY_DIR}/LogIt" )
-   ENDIF() 
-   set ( LOGIT_HEADERS ${PROJECT_BINARY_DIR}/LogIt/include ) # some bw compatibility, otherwise maybe useless
-   include_directories( ${PROJECT_BINARY_DIR}/LogIt/include )
-endfunction()
 
 
 # LogIt options. If they are not set, set them to convenient defaults with minimum dependencies
