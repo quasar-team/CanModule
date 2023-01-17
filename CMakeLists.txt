@@ -103,6 +103,7 @@ if( STANDALONE_BUILD )
     if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
   	    clone_LogIt()
         add_subdirectory( ${PROJECT_BINARY_DIR}/LogIt build ) # that's it !  
+        add_subdirectory( ${PROJECT_BINARY_DIR}/build/LogIt build ) # that's it !  
     else()
 	    locateLogItSharedLib()
 	    message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Using LogIt library: LOGIT_LIB [${LOGIT_LIB}]")
