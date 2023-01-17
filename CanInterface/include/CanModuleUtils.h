@@ -41,7 +41,7 @@ namespace CanModule
 	{
 	public:
 		/*
-		 * CAN operational and error states, from linux can_netlink.h. Lets try to have all vendors look like that or
+		 * CAN operational and error states, extended from linux can_netlink.h. Lets try to have all vendors look like that or
 		 * like a subset of that.
 		 */
 		enum can_state {
@@ -87,6 +87,7 @@ namespace CanModule
 		}
 
 		static  std::string translateCanStateToText( can_state state );
+
 	};
 
 

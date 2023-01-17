@@ -107,120 +107,6 @@ static std::string canFrameToString(const struct can_frame &f)
  */
 void CSockCanScan::CanScanControlThread()
 {
-#if 0
-	struct can_frame  socketMessage;
-
-	std::string _tid;
-	{
-		std::stringstream ss;
-		ss << this_thread::get_id();
-		_tid = ss.str();
-	}
-	MLOGSOCK(TRC, this) << "created main loop tid= " << _tid;
-
-	m_CanScanThreadRunEnableFlag = true;
-
-	MLOGSOCK(INF, this) << "waiting for first reception on socket " << m_sock;
-
-	int selectResult = selectWrapper();
-	if ( selectResult > 0 )
-	{
-		int numberOfReadBytes = read(m_sock, &socketMessage, sizeof(can_frame));
-		MLOGSOCK(INF, this) << "discarding first read on socket " << m_sock
-				<< " " << canFrameToString(socketMessage)
-				<< "got numberOfReadBytes= " << numberOfReadBytes << " discard them";
-	}
-
-
-	MLOGSOCK(TRC, this) << "main loop of SockCanScan starting, tid= " << _tid;
-	while ( m_CanScanThreadRunEnableFlag )
-	{
-		fetchAndPublishState();
-
-		int selectResult = selectWrapper();
-
-		/**
-		 * the select failed. that is very bad, system problem, but let's continue nevertheless.
-		 * There is not much we can do
-		 */
-		if ( selectResult < 0 )
-		{
-			publishStatus(selectResult, "select() failed: " + CanModuleerrnoToString() + " tid= " + _tid);
-			std::this_thread::sleep_for(std::chrono::seconds(1));
-			continue;
-		}
-		if (selectResult == 0)
-		{
-			MLOGSOCK(DBG, this) << "listening on " << getBusName() << " socket= " << m_sock << " (got nothing)"<< " tid= " << _tid;
-			continue;
-		}
-		/**
-		 * select reports that it has got something, so no timeout in this case
-		 */
-
-		int numberOfReadBytes = read(m_sock, &socketMessage, sizeof(can_frame));
-		MLOGSOCK(DBG, this) << "read(): " << canFrameToString(socketMessage) << " tid= " << _tid;
-		MLOGSOCK(DBG, this) << "got numberOfReadBytes= " << numberOfReadBytes << " tid= " << _tid;;
-		if (numberOfReadBytes < 0)
-		{
-			publishStatus(numberOfReadBytes, "read() failed: " + CanModuleerrnoToString() + " tid= " + _tid);
-			// try close/opening on faults while port is active
-
-			recoverPort();
-
-			/**
-			 * if we have an open socket again, and we can read numberOfReadBytes >=0 we
-			 * should be fine again and continue the thread execution normally
-			 */
-			continue;
-		}
-
-		if (numberOfReadBytes <(int) sizeof(struct can_frame)) {
-			MLOGSOCK( WRN, this ) << m_channelName << " incomplete frame received, numberOfReadBytes=[" << numberOfReadBytes << "]";
-
-			// we just report the error and continue the thread normally
-			continue;
-		}
-
-		if (socketMessage.can_id & CAN_ERR_FLAG) {
-
-			/* With this mechanism we only set the portError */
-			int code = socketMessage.can_id & ~CAN_ERR_FLAG;
-			std::string description = CSockCanScan::errorFrameToString( socketMessage );
-			publishStatus( code, description, true);
-			// we have tried to get the error, and we continue thread normally
-			continue;
-		}
-
-		/**
-		 * we have a CAN message, error free, lets digest it
-		 */
-		CanMessage canMessage;
-		canMessage.c_rtr = socketMessage.can_id & CAN_RTR_FLAG;
-
-
-		/**
-		 * reformat and buffer the message from the socket.
-		 * this actually should exclude more bits
-		 */
-		canMessage.c_id = socketMessage.can_id & ~CAN_RTR_FLAG;
-		int ioctlReturn2 = ioctl(m_sock,SIOCGSTAMP,&canMessage.c_time);   //TODO: Return code is not even checked, yeah, but...
-		MLOGSOCK(TRC, this) << " SocketCAN ioctl SIOCGSTAMP return: [" << ioctlReturn2 << "]" << " tid= " << _tid;
-		canMessage.c_dlc = socketMessage.can_dlc;
-		memcpy(&canMessage.c_data[0],&socketMessage.data[0],8);
-		MLOGSOCK(TRC, this) << " sending message id= " << canMessage.c_id << " through signal with payload";
-		canMessageCame( canMessage ); // signal with payload to trigger registered handler
-		m_statistics.onReceive( socketMessage.can_dlc );
-
-		// we can reset the reconnectionTimeout here, since we have received a message
-		//resetTimeoutOnReception(); -- TODO Piotr uncomment it later
-
-
-	}
-	MLOGSOCK(INF, this) << "main loop of SockCanScan terminated." << " tid= " << _tid;
-
-
-#endif
 	struct can_frame  socketMessage;
 	CSockCanScan *p_sockCanScan = this;
 	// convenience, not really needed as we call the thread as
@@ -257,6 +143,9 @@ void CSockCanScan::CanScanControlThread()
 	MLOGSOCK(TRC,p_sockCanScan) << "init reconnection thread " << p_sockCanScan->getBusName();
 	triggerReconnectionThread();
 
+	// initial port state
+	fetchAndPublishState();
+
 	while ( p_sockCanScan->m_CanScanThreadRunEnableFlag ) {
 
 		/**
@@ -267,15 +156,13 @@ void CSockCanScan::CanScanControlThread()
 		 * by looking at the errors when sending and receiving. Additionally, port status can be acquired
 		 * directly if neither a send nor a receive have been done since a certain time (timeout 5 seconds?)
 		 *
-		 * disabled for the moment
+		 * disable for the moment.
 		 */
-		//fetchAndPublishState();
+		// fetchAndPublishState();
 
 		int selectResult = selectWrapper();
-		/**
-		 * the select failed. that is very bad, system problem, but let's continue nevertheless.
-		 * There is not much we can do
-		 */
+
+		// the select failed. that is very bad, system problem, but let's continue nevertheless. There is not much we can do
 		if ( selectResult < 0 ){
 			MLOGSOCK(ERR,p_sockCanScan) << "select() failed: " << CanModuleerrnoToString()
 									<< " tid= " << _tid;
@@ -298,8 +185,7 @@ void CSockCanScan::CanScanControlThread()
 			 * the reception of the message part, and strictly speaking we could do the reconnection due to reception
 			 * message timeout also here.
 			 *
-			 * That is NOT the same as the "select" timeout, of course.
-			 *
+			 * That is NOT the same as the "select" timeout, of course			 *
 			 * For cleanliness, lets use that extra reconnection thread nevertheless here.
 			 */
 			MLOGSOCK(DBG,p_sockCanScan) << "trigger reconnection thread to check reception timeout " << p_sockCanScan->getBusName();
@@ -557,7 +443,7 @@ void CSockCanScan::recoverPort ()
 void CSockCanScan::fetchAndPublishState ()
 {
 	int obtainedState;
-	if (can_get_state(m_channelName.c_str(), &obtainedState) < 0)
+	if ( can_get_state(m_channelName.c_str(), &obtainedState) < 0 )
 	{
 		// are we in DontConfigure mode? if so, it is okay for get_state to fail
 		if (m_CanParameters.m_dontReconfigure)
@@ -565,21 +451,25 @@ void CSockCanScan::fetchAndPublishState ()
 		else
 			publishStatus(-1, "Can't get state via netlink", true);
 	}
-	publishStatus(obtainedState, CanModule::CanModuleUtils::translateCanStateToText((CanModule::CanModuleUtils::can_state)obtainedState), true);
+	publishStatus(obtainedState,
+			CanModule::CanModuleUtils::translateCanStateToText((CanModule::CanModuleUtils::can_state)obtainedState),
+			true);
 }
 
 
+/**
+ * we publish every status via a signal, not just status changes. That means a signal frequency of at least 1Hz per port.
+ */
 void CSockCanScan::publishStatus ( unsigned int status,	const std::string& message, bool unconditionalMessage )
 {
-	if (unconditionalMessage || (m_errorCode >= 0 && status < 0))
+	if ( unconditionalMessage || ( m_errorCode >= 0 && status < 0 ))
 	{ //! Notify about transition to error.
 		MLOGSOCK(ERR, this) << message << "tid=[" << std::this_thread::get_id() << "]";
 	}
 	m_errorCode = status;
-	timeval now = CanModule::convertTimepointToTimeval( std::chrono::system_clock::now()); // (nowAsTimeval());
-	canMessageError(status, message.c_str(), now);
+	timeval now = CanModule::convertTimepointToTimeval( std::chrono::system_clock::now());
+	canMessageError( status, message.c_str(), now ); // signal
 }
-
 
 /**
  * Reconnection thread managing the reconnection behavior, per port. The behavior settings can not change during runtime.
