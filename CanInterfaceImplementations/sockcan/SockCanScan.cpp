@@ -226,32 +226,9 @@ void CSockCanScan::CanScanControlThread()
 			continue;
 		}
 
-#if 0
-		// get the port status
-		if ( p_sockCanScan->m_errorCode ) {
-
-			/** The preceding call took either 'timeout' time, or there is frame received --
-			 * perfect time to attempt to clean error frame.
-			 */
-			int status_socketcan = -1;
-			int ret = can_get_state( p_sockCanScan->m_channelName.c_str(), &status_socketcan);
-			if (ret != 0) {
-				MLOGSOCK(ERR,p_sockCanScan) << "can_get_state failed, " << " tid= " << _tid;
-			} else {
-				if (status_socketcan == 0) {
-					p_sockCanScan->m_errorCode = 0;
-					timeval t = CanModule::convertTimepointToTimeval( std::chrono::system_clock::now());
-					p_sockCanScan->canMessageError( p_sockCanScan->m_errorCode, "CAN port is recovered", t );
-				}
-			}
-		}
-#endif
-
-
 		/**
 		 * message is OK, no timeout in this case
 		 */
-		// if ( selectResult > 0 ) {
 
 			// got an error from the socket
 			if (numberOfReadBytes < 0) {
@@ -260,46 +237,6 @@ void CSockCanScan::CanScanControlThread()
 				p_sockCanScan->canMessageError( numberOfReadBytes, ("read() error: "+CanModuleerrnoToString()).c_str(), now );
 				p_sockCanScan->m_errorCode = -1;
 
-#if 0
-				// recoverPort()
-
-				// try close/opening on faults while port is active. This was a system error
-				do {
-					MLOGSOCK(INF,p_sockCanScan) << "Waiting 10000ms."<< " tid= " << _tid;
-					CanModule::ms_sleep( 10000 );
-
-					if ( sock > 0 )	{
-						// try closing the socket
-						MLOGSOCK(INF,p_sockCanScan) << "Closing socket."<< " tid= " << _tid;
-						if (close(sock) < 0) {
-							MLOGSOCK(ERR,p_sockCanScan) << "Socket close error!"<< " tid= " << _tid;
-						} else {
-							sock = -1;
-						}
-					}
-
-					/**
-					 * try to re-open the socket.
-					 * only reopen the socket if we still need it.
-					 * If we need to shutdown the thread, leave it closed and
-					 * terminate main loop.
-					 */
-					if ( p_sockCanScan->m_CanScanThreadRunEnableFlag ) {
-						MLOGSOCK(INF,p_sockCanScan) << " tid= " << _tid << " Now port will be reopened.";
-						if ((sock = p_sockCanScan->openCanPort()) < 0) {
-							MLOGSOCK(ERR,p_sockCanScan) << " tid= " << _tid << "openCanPort() failed.";
-						} else {
-						 MLOGSOCK(INF,p_sockCanScan) << " tid= " << _tid << "Port reopened.";
-						}
-
-						// the reception handler is still connected to it's signal, by the calling task
-
-					} else {
-					 MLOGSOCK(INF,p_sockCanScan) << " tid= " << _tid << "Leaving Port closed, thread and port needed any more.";
-					}
-				} // do...while ... we still have an error
-				while ( p_sockCanScan->m_CanScanThreadRunEnableFlag && sock < 0 );
-#endif
 
 				/**
 				 * if we have an open socket again, and we can read numberOfReadBytes >=0 we
@@ -317,22 +254,22 @@ void CSockCanScan::CanScanControlThread()
 
 				p_sockCanScan->publishStatus( p_sockCanScan->m_errorCode, description, true);
 
-#if 0
-
-				timeval c_time;
-				int ioctlReturn1 = ioctl(sock, SIOCGSTAMP, &c_time);
-				if ( ioctlReturn1 ){
-					MLOGSOCK(ERR, p_sockCanScan) << "SocketCAN "
-							<< p_sockCanScan->getBusName()
-							<< " got an error, ioctl timestamp from socket failed as well, setting local time"
-							<< " ioctlReturn1 = " << ioctlReturn1;
-					c_time = CanModule::convertTimepointToTimeval( std::chrono::system_clock::now());
+				// lets find out more by doing an ioctl call
+				{
+					timeval c_time;
+					int ioctlReturn1 = ioctl(sock, SIOCGSTAMP, &c_time);
+					if ( ioctlReturn1 ){
+						MLOGSOCK(ERR, p_sockCanScan) << "SocketCAN "
+								<< p_sockCanScan->getBusName()
+								<< " got an error, ioctl timestamp from socket failed as well, setting local time"
+								<< " ioctlReturn1 = " << ioctlReturn1;
+						c_time = CanModule::convertTimepointToTimeval( std::chrono::system_clock::now());
+					}
+					MLOGSOCK(ERR, p_sockCanScan) << "SocketCAN ioctl return: [" << ioctlReturn1
+							<< " error frame: [" << description
+							<< "], original: [" << canFrameToString(socketMessage) << "]";
+					p_sockCanScan->canMessageError( p_sockCanScan->m_errorCode, description.c_str(), c_time );
 				}
-				MLOGSOCK(ERR, p_sockCanScan) << "SocketCAN ioctl return: [" << ioctlReturn1
-						<< " error frame: [" << description
-						<< "], original: [" << canFrameToString(socketMessage) << "]";
-				p_sockCanScan->canMessageError( p_sockCanScan->m_errorCode, description.c_str(), c_time );
-#endif
 				// we have tried to get the error, and we continue thread normally
 				continue;
 			}
@@ -368,30 +305,6 @@ void CSockCanScan::CanScanControlThread()
 			// we can reset the reconnectionTimeout here, since we have received a message
 			p_sockCanScan->resetTimeoutOnReception();
 
-		// }
-#if 0
-		else {
-			/**
-			 * the select got nothing to read, this was just a timeout, all is fine. Unless the reconnect timeout has something to do.
-			 */
-			MLOGSOCK(DBG,p_sockCanScan) << "listening on " << p_sockCanScan->getBusName()
-									<< " socket= " << p_sockCanScan->m_sock << " (got nothing)"<< " tid= " << _tid;
-
-
-			/**
-			 * the reconnect behavior happens in an extra thread so that the sendMessage becomes non blocking. This is
-			 * the reception of the message part, and strictly speaking we could do the reconnection due to reception
-			 * message timeout also here.
-			 *
-			 * That is NOT the same as the "select" timeout, of course.
-			 *
-			 * For cleanliness, lets use that extra reconnection thread nevertheless here.
-			 */
-			MLOGSOCK(DBG,p_sockCanScan) << "trigger reconnection thread to check reception timeout " << p_sockCanScan->getBusName();
-			triggerReconnectionThread();
-		} // 		if ( selectResult > 0 ) .. else..
-
-#endif
 	} // while ( p_sockCanScan->m_CanScanThreadRunEnableFlag )
 	MLOGSOCK(INF,p_sockCanScan) << "main loop of SockCanScan terminated." << " tid= " << _tid;
 }
@@ -760,85 +673,22 @@ bool CSockCanScan::sendMessage(short cobID, unsigned char len, unsigned char *me
 	}
 
 	bool success = writeWrapper(&canFrame);
-	if (success) {
+	if ( success ) {
 		m_statistics.onTransmit( canFrame.can_dlc );
 		m_statistics.onTransmit( canFrame.can_dlc );
 		m_statistics.setTimeSinceTransmitted();
 		resetSendFailedCountdown();
+	} else {
+		// trigger the reconnection thread once since there was a send fail. If this repeats N times successively, the
+		// m_triggerCounter == 0 and the reconnection thread will do sth.
+		MLOGSOCK(WRN,this) << "sendMessage fail detected. Trigger reconnection thread and return (no block).";
+
+		decreaseSendFailedCountdown();
+		triggerReconnectionThread();
 	}
 	return success;
 }
 
-#if 0
-bool CSockCanScan::sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr)
-{
-
-	// we should skip this if the port is "closed" already
-	if ( !m_CanScanThreadRunEnableFlag ){
-		MLOGSOCK(TRC,this) << __FUNCTION__ << " bus is already closed, sending refused";
-		return false;
-	}
-
-	bool ret = true;
-	int messageLengthToBeProcessed;
-	struct can_frame canFrame = CSockCanScan::emptyCanFrame();
-	if (len > 8) {
-		messageLengthToBeProcessed = 8;
-		MLOGSOCK(DBG,this) << "The Length is more then 8 bytes: " << std::dec << len;
-		return false;
-	} else {
-		messageLengthToBeProcessed = len;
-	}
-
-	MLOGSOCK(DBG,this) << "Sending message: [" << CanModule::canMessage2ToString(cobID, len, message, rtr) << "]";
-
-	canFrame.can_dlc = messageLengthToBeProcessed;
-	memcpy(canFrame.data, message, messageLengthToBeProcessed);
-	canFrame.can_id = cobID;
-	if (rtr) {
-		canFrame.can_id |= CAN_RTR_FLAG;
-	}
-	ssize_t numberOfWrittenBytes = write(m_sock, &canFrame, sizeof(struct can_frame));
-	MLOGSOCK(TRC,this) << "write(): " << canFrameToString(canFrame) << " bytes written=" << numberOfWrittenBytes;
-	m_statistics.setTimeSinceTransmitted();
-
-	//if (( numberOfWrittenBytes < 0) ||	(numberOfWrittenBytes < (int)sizeof(struct can_frame))) { /* ERROR */
-	// qa: redundant
-	if (numberOfWrittenBytes < (int)sizeof(struct can_frame)) { /* ERROR */
-		MLOGSOCK(ERR,this) << "While write() :" << CanModuleerrnoToString();
-		if ( errno == ENOBUFS ) {
-			// std::cerr << "ENOBUFS; waiting a jiffy [100ms]..." << std::endl;
-			MLOGSOCK(ERR,this) << "write error ENOBUFS: waiting a jiffy [100ms]...";
-			CanModule::ms_sleep( 100 );
-
-			ret = false;
-		}
-		if ( numberOfWrittenBytes < (int)sizeof(struct can_frame)){
-			MLOGSOCK(ERR,this) << "Error: Incorrect number of bytes [" << numberOfWrittenBytes << "] written when sending a message.";
-			ret = false;
-		}
-
-		// trigger the reconnection thread once since there was a send fail. If this repeats N times successively, the
-		// m_triggerCounter == 0 and the reconnection thread will do sth.
-		MLOGSOCK(WRN,this) << "sendMessage fail detected ( bytes [" << numberOfWrittenBytes
-				<< "] written). Trigger reconnection thread and return (no block).";
-
-		decreaseSendFailedCountdown();
-		triggerReconnectionThread();
-		// return immediately, non blocking
-		ret = false;
-	} else {
-		// no error
-		m_statistics.onTransmit( canFrame.can_dlc );
-		m_statistics.setTimeSinceTransmitted();
-
-		// reset
-		resetSendFailedCountdown();
-		// m_failedSendCountdown = m_maxFailedSendCount;
-	}
-	return ( ret );
-}
-#endif
 
 int CSockCanScan::selectWrapper ()
 {
@@ -856,6 +706,12 @@ int CSockCanScan::selectWrapper ()
 	return select( m_sock+1, &readSet, nullptr, &exceptSet, &timeout ); // TODO: we should have two FDSETs for this select call
 }
 
+/**
+ * write can frame to socket
+ * returns:
+ * true=OK
+ * false= error, either buffer fault or less bytes than expected or other problem
+ */
 bool CSockCanScan::writeWrapper (const can_frame* frame)
 {
 	ssize_t numberOfWrittenBytes;
@@ -883,6 +739,7 @@ bool CSockCanScan::writeWrapper (const can_frame* frame)
 /**
  * Method that sends a remote request trough the can bus channel. If the method createBUS was not called before this, sendMessage will fail, as there is no
  * can bus channel to send the request trough. Similar to sendMessage, but it sends an special message reserved for requests.
+ * we treat the remote request like all other send messages, including stats, error signals and reconnection on the bus.
  * @param cobID: Identifier that will be used for the request.
  * @return: Was the initialisation process successful?
  *
@@ -892,7 +749,22 @@ bool CSockCanScan::sendRemoteRequest(short cobID)
 {
 	struct can_frame canFrame (emptyCanFrame());
 	canFrame.can_id = cobID + CAN_RTR_FLAG	;
-	return writeWrapper(&canFrame);
+
+	bool success = writeWrapper(&canFrame);
+	if ( success ) {
+		m_statistics.onTransmit( canFrame.can_dlc );
+		m_statistics.onTransmit( canFrame.can_dlc );
+		m_statistics.setTimeSinceTransmitted();
+		resetSendFailedCountdown();
+	} else {
+		// trigger the reconnection thread once since there was a send fail. If this repeats N times successively, the
+		// m_triggerCounter == 0 and the reconnection thread will do sth.
+		MLOGSOCK(WRN,this) << "sendMessage fail detected. Trigger reconnection thread and return (no block).";
+
+		decreaseSendFailedCountdown();
+		triggerReconnectionThread();
+	}
+	return ( success );
 }
 
 #if 0
@@ -965,7 +837,6 @@ bool CSockCanScan::sendRemoteRequest(short cobID)
  */
 int CSockCanScan::createBus(const std::string name, const std::string parameters)
 {
-
 	LogItInstance* logItInstance = CCanAccess::getLogItInstance();
 	if ( !LogItInstance::setInstance(logItInstance))
 		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
@@ -1021,8 +892,6 @@ int CSockCanScan::createBus(const std::string name, const std::string parameters
 	 * start a reconnection thread
 	 */
 	m_hCanReconnectionThread = new std::thread( &CSockCanScan::CanReconnectionThread, this);
-
-
 	return( 0 );
 }
 

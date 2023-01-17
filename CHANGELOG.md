@@ -2,7 +2,18 @@
 All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+### 2.0.24 [ 17.jan.2023 ]
+- socketcan reworks for CanOpenNG server integration:
+	- send remote requests also with stats, error signals and reconnection thread
+	- using wrappers for send, socket
+	- using signals for error detection
+	- report port status as error signal if port status is not ok
+	- port status according to CAN bus definitions
 
+
+
+### 2.0.23 [ 16.jan.2023 ]
+- intermediate version with fixed build chain for static/dynamic linking and standalone libs
 
 ### 2.0.22 [9.aug.2022]
 - starting to merge and implement the changes proposed by piotr (based on 2.0.14) in branch piotr_canopen
