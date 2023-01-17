@@ -97,6 +97,18 @@ ELSE()
 	SET ( BUILD_SHARED_LIBS ON )
 ENDIF()
 
+# LogIt pull-in
+if( STANDALONE_BUILD )
+	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: LogIt for standalone build  ]")  
+    if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
+  	    clone_LogIt()
+        add_subdirectory( ${PROJECT_BINARY_DIR}/LogIt build ) # that's it !  
+    else()
+	    locateLogItSharedLib()
+	    message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Using LogIt library: LOGIT_LIB [${LOGIT_LIB}]")
+    endif()
+ENDIF()
+
 # we have a mock up build without any vendor libs as well, for CI where we don't want to distribute vendor libs
 # preferably inject this from the toolchain : set ( CANMODULE_BUILD_VENDORS ON )
 # if you have nothing declared, vendors will be OFF
@@ -190,17 +202,6 @@ SET ( SRCS_OS_WIN
 SET ( SRCS_OS_LIN 
 	./CanLibLoader/src/CanLibLoaderLin.cpp
 )
-# LogIt pull-in
-if( STANDALONE_BUILD )
-	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: LogIt for standalone build  ]")  
-    if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
-  	    clone_LogIt()
-        add_subdirectory( ${PROJECT_BINARY_DIR}/LogIt build ) # that's it !  
-    else()
-	    locateLogItSharedLib()
-	    message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Using LogIt library: LOGIT_LIB [${LOGIT_LIB}]")
-    endif()
-ENDIF()
 
 IF (WIN32)
 	SET ( SRCS ${SRCS_ALL_OS} ${SRCS_OS_WIN}  )
