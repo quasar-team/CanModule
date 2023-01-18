@@ -25,6 +25,7 @@
  */
 
 #include "AnaCanScan.h"
+#include <CanModuleUtils.h>
 
 #ifdef _WIN32
 #define DLLEXPORTFLAG __declspec(dllexport)
