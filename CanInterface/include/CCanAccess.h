@@ -524,30 +524,7 @@ protected:
 		if ( m_portStatus != status ){
 			std::string msg = CanModule::CanModuleUtils::translateCanBusStateToText((CanModule::CanModuleUtils::CanModule_bus_state) status);
 
-#if 0
-			/**
-			 *
-			 * m:\jenkins\workspace\canx-devel.w2016s\canmodule\caninterface\include\ccanaccess.h(526): error C2664:
-			 * 'timeval CanModule::convertTimepointToTimeval(const std::chrono::steady_clock::time_point &)': cannot
-			 * convert argument 1 from 'std::chrono::system_clock::time_point' to
-			 * 'const std::chrono::steady_clock::time_point &' [M:\jenkins\workspace\CANX-devel.w2016s\CanModule\CanModule.vcxproj]
-			 *
-			 *
-			 *
-			 * timeval ftTimeStamp;
-	if (status != 0) {
-		auto now = std::chrono::system_clock::now();
-		auto nMicrosecs =
-				std::chrono::duration_cast<std::chrono::microseconds>( now.time_since_epoch());
-		ftTimeStamp.tv_sec = nMicrosecs.count() / 1000000L;
-		ftTimeStamp.tv_usec = (nMicrosecs.count() % 1000000L) ;
-
-		canMessageError(status, errorCodeToString( (long int) status), ftTimeStamp);
-			*/
-
-			timeval now = CanModule::convertTimepointToTimeval( std::chrono::system_clock::now());
-			canPortStateChanged( status, msg.c_str(), now ); // signal
-#endif
+			// got to be compatible with boost1.59.0 for windows
 			timeval ftTimeStamp;
 			auto now = std::chrono::system_clock::now();
 			auto nMicrosecs = std::chrono::duration_cast<std::chrono::microseconds>( now.time_since_epoch());
