@@ -78,6 +78,52 @@ CSockCanScan::CSockCanScan() :
 }
 
 
+/* virtual */ void CSockCanScan::setReconnectBehavior( CanModule::ReconnectAutoCondition cond, CanModule::ReconnectAction action ){
+	m_reconnectCondition = cond;
+	m_reconnectAction = action;
+};
+
+/**
+ * (virtual) forced implementation. Generally: do whatever shenanigans you need on the vendor API and fill in the portState accordingly, stay
+ * close to the semantics of the enum.
+ *
+ * sockcan specific implementation: obtain port status from the kernel, plus an extra LogIt message if we have an error
+ */
+/* virtual */ void CSockCanScan::fetchAndPublishCanPortState ()
+{
+	// we could also use the unified port status for this and strip off the implementation bits
+	// but using can_get_state directly is less complex and has less dependencies
+
+
+	int portState;
+	if ( can_get_state(m_channelName.c_str(), &portState) < 0 )
+	{
+		// are we in DontConfigure mode? if so, it is okay for get_state to fail
+		if ( m_CanParameters.m_dontReconfigure ){
+			return;
+		} else {
+			portState = CanModule::CanModuleUtils::CanModule_bus_state::CANMODULE_NOSTATE;
+			// publishPortStatus( CanModule::CanModuleUtils::CanModule_bus_state::CANMODULE_NOSTATE, "Can't get state via netlink", true);
+		}
+	}
+	// we LogIt the real errors
+	switch ( portState ){
+	case CanModule::CanModuleUtils::CAN_STATE_ERROR_PASSIVE:
+	case CanModule::CanModuleUtils::CAN_STATE_BUS_OFF:
+	case CanModule::CanModuleUtils::CAN_STATE_STOPPED:
+	case CanModule::CanModuleUtils::CANMODULE_ERROR:
+	{
+		std::string msg = CanModule::CanModuleUtils::translateCanBusStateToText((CanModule::CanModuleUtils::CanModule_bus_state) portState );
+		MLOGSOCK(ERR, this) << msg << "tid=[" << std::this_thread::get_id() << "]";
+		break;
+	}
+	default: break;
+	}
+
+	// signals only if it has changed
+	publishPortStatusChanged( portState );
+}
+
 static std::string canFrameToString(const struct can_frame &f)
 {
 	std::string result;
@@ -317,46 +363,6 @@ void CSockCanScan::m_CanScanControlThread()
 	MLOGSOCK(INF,p_sockCanScan) << "main loop of SockCanScan terminated." << " tid= " << _tid;
 }
 
-/**
- * (virtual) forced implementation. Generally: do whatever shenanigans you need on the vendor API and fill in the portState accordingly, stay
- * close to the semantics of the enum.
- *
- * sockcan specific implementation: obtain port status from the kernel, plus an extra LogIt message if we have an error
- */
-/* virtual */ void CSockCanScan::fetchAndPublishCanPortState ()
-{
-	// we could also use the unified port status for this and strip off the implementation bits
-	// but using can_get_state directly is less complex and has less dependencies
-
-
-	int portState;
-	if ( can_get_state(m_channelName.c_str(), &portState) < 0 )
-	{
-		// are we in DontConfigure mode? if so, it is okay for get_state to fail
-		if ( m_CanParameters.m_dontReconfigure ){
-			return;
-		} else {
-			portState = CanModule::CanModuleUtils::CanModule_bus_state::CANMODULE_NOSTATE;
-			// publishPortStatus( CanModule::CanModuleUtils::CanModule_bus_state::CANMODULE_NOSTATE, "Can't get state via netlink", true);
-		}
-	}
-	// we LogIt the real errors
-	switch ( portState ){
-	case CanModule::CanModuleUtils::CAN_STATE_ERROR_PASSIVE:
-	case CanModule::CanModuleUtils::CAN_STATE_BUS_OFF:
-	case CanModule::CanModuleUtils::CAN_STATE_STOPPED:
-	case CanModule::CanModuleUtils::CANMODULE_ERROR:
-	{
-		std::string msg = CanModule::CanModuleUtils::translateCanBusStateToText((CanModule::CanModuleUtils::CanModule_bus_state) portState );
-		MLOGSOCK(ERR, this) << msg << "tid=[" << std::this_thread::get_id() << "]";
-		break;
-	}
-	default: break;
-	}
-
-	// signals only if it has changed
-	publishPortStatusChanged( portState );
-}
 
 /**
  * Reconnection thread managing the reconnection behavior, per port. The behavior settings can not change during runtime.
@@ -982,10 +988,6 @@ void CSockCanScan::m_updateInitialError ()
 	}
 }
 
-/* virtual */ void CSockCanScan::setReconnectBehavior( CanModule::ReconnectAutoCondition cond, CanModule::ReconnectAction action ){
-	m_reconnectCondition = cond;
-	m_reconnectAction = action;
-};
 
 /* static */ can_frame CSockCanScan::emptyCanFrame( void ){
 	can_frame f;

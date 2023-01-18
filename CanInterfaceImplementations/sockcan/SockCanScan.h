@@ -77,8 +77,8 @@ private:
 
 	// socket: CanScan thread, with compiler mem optimization switched off (~atomic) for more code safety
 	std::atomic_int m_sock;
-	int m_canMessageErrorCode;  // message error code
 
+	int m_canMessageErrorCode;
 	CanStatistics m_statistics;
 	std::thread *m_hCanScanThread;
 	std::string m_channelName;
@@ -96,7 +96,6 @@ private:
 	void m_CanReconnectionThread();// not static, private is enough in C11
 	bool m_writeWrapper (const can_frame* frame);
 	int m_selectWrapper ();
-	// void m_recoverPort ();
 };
 
 

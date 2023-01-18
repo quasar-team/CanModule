@@ -38,7 +38,7 @@ std::recursive_mutex anagateReconnectMutex;
 
 /* static */ std::map<int, AnaCanScan::ANAGATE_PORTDEF_t> AnaCanScan::st_canHandleMap; // map handles to  {ports, ip}
 /* static */ Log::LogComponentHandle AnaCanScan::st_logItHandleAnagate = 0;
-/* static */ std::map< std::string,bool > AnaCanScan::m_reconnectInProgress_map;
+/* static */ std::map< std::string,bool > AnaCanScan::st_reconnectInProgress_map;
 
 /** global map of connection-objects: the map-key is the handle. Since handles are allocated by the OS
  * the keys are getting changed as well when we reconnect, so that we do not keep the stale keys(=handles) in
@@ -101,32 +101,88 @@ AnaCanScan::~AnaCanScan()
 	MLOGANA(DBG,this) << __FUNCTION__ <<" closed successfully";
 }
 
+/**
+ * (virtual) forced implementation. Generally: do whatever shenanigans you need on the vendor API and fill in the portState accordingly, stay
+ * close to the semantics of the enum.
+ *
+ * sockcan specific implementation: obtain port status from the kernel, plus an extra LogIt message if we have an error
+ */
+/* virtual */ void AnaCanScan::fetchAndPublishCanPortState ()
+{
+	// we could also use the unified port status for this and strip off the implementation bits
+	// but using can_get_state directly is less complex and has less dependencies
+
+	int portState;
+	AnaInt32 ana_state = CANDeviceConnectState( m_UcanHandle );
+
+	// translate the ana_state ( AnaGateAPI.v2 from  2014-12-10 applies to 2.06-25.03.2021 CANDeviceConnectState )
+	// into the standardized enum CanModule::CanModuleUtils::CanModule_bus_state
+	// anagate does not give tx/rx error counts
+	switch ( ana_state ){
+	case ANAGATE_API_V2_DEVICE_CONNECTION_STATE::DISCONNECTED : {
+		portState = CanModule::CanModuleUtils::CanModule_bus_state::CAN_STATE_STOPPED;
+		std::string msg = CanModule::CanModuleUtils::translateCanBusStateToText((CanModule::CanModuleUtils::CanModule_bus_state) portState );
+		MLOGANA(WRN, this) << msg << "tid=[" << std::this_thread::get_id() << "]";
+		break;
+	}
+	case ANAGATE_API_V2_DEVICE_CONNECTION_STATE::CONNECTING : {
+		portState = CanModule::CanModuleUtils::CanModule_bus_state::CANMODULE_WARNING;
+		std::string msg = CanModule::CanModuleUtils::translateCanBusStateToText((CanModule::CanModuleUtils::CanModule_bus_state) portState );
+		MLOGANA(WRN, this) << msg << "tid=[" << std::this_thread::get_id() << "]";
+		break;
+	}
+	case ANAGATE_API_V2_DEVICE_CONNECTION_STATE::CONNECTED : {
+		portState = CanModule::CanModuleUtils::CanModule_bus_state::CANMODULE_OK;
+		break;
+	}
+	case ANAGATE_API_V2_DEVICE_CONNECTION_STATE::DISCONNECTING : {
+		portState = CanModule::CanModuleUtils::CanModule_bus_state::CANMODULE_WARNING;
+		std::string msg = CanModule::CanModuleUtils::translateCanBusStateToText((CanModule::CanModuleUtils::CanModule_bus_state) portState );
+		MLOGANA(WRN, this) << msg << "tid=[" << std::this_thread::get_id() << "]";
+		break;
+	}
+	case ANAGATE_API_V2_DEVICE_CONNECTION_STATE::NOT_INITIALIZED : {
+		portState = CanModule::CanModuleUtils::CanModule_bus_state::CANMODULE_NOSTATE;
+		break;
+	}
+	default: {
+		portState = CanModule::CanModuleUtils::CanModule_bus_state::CANMODULE_NOSTATE;
+		std::string msg = CanModule::CanModuleUtils::translateCanBusStateToText((CanModule::CanModuleUtils::CanModule_bus_state) portState );
+		MLOGANA(WRN, this) << msg << "tid=[" << std::this_thread::get_id() << "]";
+		break;
+	}
+	} // switch
+	// signals only if it has changed
+	publishPortStatusChanged( portState );
+}
+
+
 void AnaCanScan::stopBus ()
 {
 	if (!m_busStopped){
 		MLOGANA(TRC,this) << __FUNCTION__ << " stopping anagate m_busName= " <<  m_busName << " m_canPortNumber= " << m_canPortNumber;
 		CANSetCallback(m_UcanHandle, 0);
 		CANCloseDevice(m_UcanHandle);
-		deleteCanHandleOfPortIp( m_canPortNumber, m_canIPAddress );
+		m_deleteCanHandleOfPortIp( m_canPortNumber, m_canIPAddress );
 		eraseReceptionHandlerFromMap( m_UcanHandle );
 	}
 	m_busStopped = true;
 }
 
 
-/* static */ void AnaCanScan::setIpReconnectInProgress( std::string ip, bool flag ){
+/* static */ void AnaCanScan::st_setIpReconnectInProgress( std::string ip, bool flag ){
 	// only called inside the locked mutex
-	std::map< std::string, bool >::iterator it = AnaCanScan::m_reconnectInProgress_map.find( ip );
+	std::map< std::string, bool >::iterator it = AnaCanScan::st_reconnectInProgress_map.find( ip );
 
 	if ( flag ){
 		// mark as in progress if not yet exists/marked
-		if ( it == AnaCanScan::m_reconnectInProgress_map.end() ) {
-			AnaCanScan::m_reconnectInProgress_map.insert ( std::pair< std::string, bool >( ip, true ) );
+		if ( it == AnaCanScan::st_reconnectInProgress_map.end() ) {
+			AnaCanScan::st_reconnectInProgress_map.insert ( std::pair< std::string, bool >( ip, true ) );
 		}
 	} else {
 		// erase existing if still exists/marked
-		if ( it != AnaCanScan::m_reconnectInProgress_map.end() ) {
-			AnaCanScan::m_reconnectInProgress_map.erase( it );
+		if ( it != AnaCanScan::st_reconnectInProgress_map.end() ) {
+			AnaCanScan::st_reconnectInProgress_map.erase( it );
 		}
 	}
 }
@@ -135,10 +191,10 @@ void AnaCanScan::stopBus ()
  * checks if a reconnection is already in progress for the bridge at that IP. Several ports can (and will) fail
  * at the same time, but the bridge should be reset only once, and not again for each port.
  */
-/* static */ bool AnaCanScan::isIpReconnectInProgress( std::string ip ){
+/* static */ bool AnaCanScan::st_isIpReconnectInProgress( std::string ip ){
 	// only called inside the locked mutex
-	std::map< std::string, bool >::iterator it = AnaCanScan::m_reconnectInProgress_map.find( ip );
-	if ( it == AnaCanScan::m_reconnectInProgress_map.end() )
+	std::map< std::string, bool >::iterator it = AnaCanScan::st_reconnectInProgress_map.find( ip );
+	if ( it == AnaCanScan::st_reconnectInProgress_map.end() )
 		return( false );
 	else
 		return( true );
@@ -259,6 +315,7 @@ int AnaCanScan::createBus(const std::string name, const std::string parameters)
 	}
 	MLOGANA(DBG,this) << " OK, Bus created with name= " << name << " parameters= " << parameters;
 	m_busStopped = false;
+
 	return 0;
 }
 
@@ -355,7 +412,7 @@ int AnaCanScan::configureCanBoard(const std::string name,const std::string param
 /**
  * add a can handle into the map if it does not yet exist
  */
-/* static */ void AnaCanScan::addCanHandleOfPortIp(AnaInt32 handle, int port, std::string ip) {
+/* static */ void AnaCanScan::m_addCanHandleOfPortIp(AnaInt32 handle, int port, std::string ip) {
 	std::map<AnaInt32, ANAGATE_PORTDEF_t>::iterator it = st_canHandleMap.find( handle );
 	if ( it != st_canHandleMap.end() ){
 		LOG(Log::WRN, AnaCanScan::st_logItHandleAnagate) << __FUNCTION__
@@ -373,7 +430,7 @@ int AnaCanScan::configureCanBoard(const std::string name,const std::string param
  * find and erase a map entry handle->{port, ip}
  * todo: mutex protect, work on copy
  */
-/* static */ void AnaCanScan::deleteCanHandleOfPortIp(int port, std::string ip){
+/* static */ void AnaCanScan::m_deleteCanHandleOfPortIp(int port, std::string ip){
 	ANAGATE_PORTDEF_t pd;
 	pd.ip = ip;
 	pd.port = port;
@@ -398,7 +455,7 @@ int AnaCanScan::configureCanBoard(const std::string name,const std::string param
  * find the handle from port, ip
  * we have to search through the whole map to know
  */
-/* static */ AnaInt32 AnaCanScan::getCanHandleOfPortIp(int port, std::string ip) {
+/* static */ AnaInt32 AnaCanScan::m_getCanHandleOfPortIp(int port, std::string ip) {
 
 	LOG(Log::TRC, AnaCanScan::st_logItHandleAnagate) << __FUNCTION__
 			<< " port= " << port << " ip= " << ip;
@@ -429,7 +486,7 @@ int AnaCanScan::openCanPort()
 	/**
 	 * check if that anagate bridge (ip) is already initialized, if not we create it.
 	 */
-	canModuleHandle = getCanHandleOfPortIp(m_canPortNumber, m_canIPAddress );
+	canModuleHandle = m_getCanHandleOfPortIp(m_canPortNumber, m_canIPAddress );
 	if ( canModuleHandle < 0 ){
 		MLOGANA(DBG, this) << "calling CANOpenDevice with port= " << m_canPortNumber << " ip= " << m_canIPAddress
 				<< " canModuleHandle= " << canModuleHandle
@@ -486,12 +543,16 @@ int AnaCanScan::openCanPort()
 	}
 
 	// bookkeeping in maps for {port, ip} and object pointers
-	addCanHandleOfPortIp( canModuleHandle, m_canPortNumber, m_canIPAddress );
+	m_addCanHandleOfPortIp( canModuleHandle, m_canPortNumber, m_canIPAddress );
 	g_AnaCanScanObjectMap[canModuleHandle] = this; // gets added
 	m_UcanHandle = canModuleHandle;
 
 	// keep some hardcore debugging
 	// AnaCanScan::showAnaCanScanObjectMap();
+
+	// initial port state
+	fetchAndPublishCanPortState();
+
 	return 0;
 }
 
@@ -594,13 +655,16 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 		m_statistics.onTransmit(messageLengthToBeProcessed);
 		m_statistics.setTimeSinceTransmitted();
 	}
+	// port state update
+	fetchAndPublishCanPortState();
+
 	return sendAnErrorMessage(anaCallReturn);
 }
 
 /**
  * display the handle->object map, and using the object, show more details
  */
-/* static */ void AnaCanScan::showAnaCanScanObjectMap(){
+/* static */ void AnaCanScan::st_showAnaCanScanObjectMap(){
 	uint32_t size = g_AnaCanScanObjectMap.size();
 	LOG(Log::TRC, AnaCanScan::st_logItHandleAnagate  ) << __FUNCTION__ << " RECEIVE obj. map size= " << size << " : ";
 	for (std::map<AnaInt32, AnaCanScan*>::iterator it=g_AnaCanScanObjectMap.begin(); it!=g_AnaCanScanObjectMap.end(); it++){
@@ -616,9 +680,9 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 
 
 /**
- * only reconnect this object's port and make dure the callback map entry is updated as well
+ * only reconnect this object's port and make sure the callback map entry is updated as well
  */
-AnaInt32 AnaCanScan::reconnectThisPort(){
+AnaInt32 AnaCanScan::m_reconnectThisPort(){
 	// a sending on one port failed miserably, and we reset just that port.
 	AnaInt32 anaCallReturn0 = reconnect();
 	while ( anaCallReturn0 < 0 ){
@@ -627,7 +691,7 @@ AnaInt32 AnaCanScan::reconnectThisPort(){
 		CanModule::ms_sleep( 5000 );
 		anaCallReturn0 = reconnect();
 	}
-	showAnaCanScanObjectMap();
+	st_showAnaCanScanObjectMap();
 	anaCallReturn0 = connectReceptionHandler();
 	LOG(Log::TRC, AnaCanScan::st_logItHandleAnagate ) << __FUNCTION__ << " " __FILE__ << " " << __LINE__
 			<< " reconnect reception handler for port= " << m_canPortNumber
@@ -649,6 +713,10 @@ AnaInt32 AnaCanScan::reconnectThisPort(){
 			g_AnaCanScanObjectMap.erase( it->first );
 		}
 	}
+
+	// port state update
+	fetchAndPublishCanPortState();
+
 	return( anaCallReturn0 );
 }
 
@@ -670,19 +738,19 @@ AnaInt32 AnaCanScan::reconnectThisPort(){
  * -1 = cant open / reconnect CAN ports
  * +1 = ignore, since another thread is doing the reconnect already
  */
-/* static */ AnaInt32 AnaCanScan::reconnectAllPorts( std::string ip ){
+/* static */ AnaInt32 AnaCanScan::st_reconnectAllPorts( std::string ip ){
 
 	// protect against several calls on the same ip, recursive_mutex needed
 	{
 		anagateReconnectMutex.lock();
-		if ( AnaCanScan::isIpReconnectInProgress( ip ) ) {
+		if ( AnaCanScan::st_isIpReconnectInProgress( ip ) ) {
 			LOG(Log::WRN, AnaCanScan::st_logItHandleAnagate ) << "reconnecting all ports for ip= " << ip
 					<< " is already in progress, skipping.";
 			CanModule::ms_sleep( 10000 );
 			anagateReconnectMutex.unlock();
 			return(1);
 		}
-		AnaCanScan::setIpReconnectInProgress( ip, true );
+		AnaCanScan::st_setIpReconnectInProgress( ip, true );
 		LOG(Log::TRC, AnaCanScan::st_logItHandleAnagate ) << "reconnecting all ports for ip= " << ip
 				<< " is now in progress.";
 		anagateReconnectMutex.unlock();
@@ -724,7 +792,7 @@ AnaInt32 AnaCanScan::reconnectThisPort(){
 
 		CanModule::ms_sleep( 10000 );
 
-		AnaCanScan::setIpReconnectInProgress( ip, false );
+		AnaCanScan::st_setIpReconnectInProgress( ip, false );
 		LOG(Log::TRC, AnaCanScan::st_logItHandleAnagate ) << "reconnecting all ports for ip= " << ip
 				<< " cancel.";
 		return(-1);
@@ -735,7 +803,7 @@ AnaInt32 AnaCanScan::reconnectThisPort(){
 	std::map<AnaInt32, AnaCanScan*> lmap = g_AnaCanScanObjectMap;
 	LOG(Log::TRC, AnaCanScan::st_logItHandleAnagate) << __FUNCTION__ << " " __FILE__ << " " << __LINE__
 			<< " receive handler map map before reconnect for ip= " << ip;
-	AnaCanScan::showAnaCanScanObjectMap();
+	AnaCanScan::st_showAnaCanScanObjectMap();
 
 	for (std::map<AnaInt32, AnaCanScan*>::iterator it=lmap.begin(); it!=lmap.end(); it++){
 		if ( ip == it->second->ipAdress() ){
@@ -764,14 +832,14 @@ AnaInt32 AnaCanScan::reconnectThisPort(){
 						<< " for object handle= " << it->second->handle() << " from obj. map";
 				g_AnaCanScanObjectMap.erase( it->first );
 			}
-			AnaCanScan::setIpReconnectInProgress( ip, false ); // all done, may fail another time
+			AnaCanScan::st_setIpReconnectInProgress( ip, false ); // all done, may fail another time
 			LOG(Log::INF, AnaCanScan::st_logItHandleAnagate ) << "reconnecting all ports for ip= " << ip
 					<< " is done and OK.";
 		}
 	}
 	//LOG(Log::TRC, AnaCanScan::st_logItHandleAnagate) << __FUNCTION__ << " " __FILE__ << " " << __LINE__
 	//		<< " receive handler map after reconnect for ip= " << ip;
-	AnaCanScan::showAnaCanScanObjectMap();
+	AnaCanScan::st_showAnaCanScanObjectMap();
 
 	// be easy on the switch
 	CanModule::ms_sleep( 100 );
@@ -828,6 +896,10 @@ AnaInt32 AnaCanScan::connectReceptionHandler(){
 	MLOGANA(DBG,this) << "RECEIVE handler looks good, handle= " << m_UcanHandle
 			<< " CAN port= " << m_canPortNumber
 			<< " ip= " << m_canIPAddress << " Congratulations.";
+
+	// port state update
+	fetchAndPublishCanPortState();
+
 	return( anaCallReturn );
 }
 
@@ -919,7 +991,7 @@ int AnaCanScan::reconnect(){
 			MLOGANA(WRN, this) << "device is already closed, try reopen. stale handle= " << m_UcanHandle;
 		}
 		//setCanHandleInUse( m_UcanHandle, false );
-		deleteCanHandleOfPortIp( m_canPortNumber, m_canIPAddress );
+		m_deleteCanHandleOfPortIp( m_canPortNumber, m_canIPAddress );
 
 		MLOGANA(TRC,this) << "try CANOpenDevice m_canPortNumber= " << m_canPortNumber
 				<< " m_UcanHandle= " << m_UcanHandle
@@ -934,7 +1006,7 @@ int AnaCanScan::reconnect(){
 				<< " canModuleHandle= " << canModuleHandle
 				<< " ip= " << m_canIPAddress << " timeout= " << m_timeout << " reconnect for SEND looks good";
 
-		addCanHandleOfPortIp( canModuleHandle, m_canPortNumber, m_canIPAddress );
+		m_addCanHandleOfPortIp( canModuleHandle, m_canPortNumber, m_canIPAddress );
 		m_UcanHandle = canModuleHandle;
 		m_canCloseDevice = false;
 		// object in object map stays the same
@@ -942,6 +1014,10 @@ int AnaCanScan::reconnect(){
 	}
 	}
 	CanModule::ms_sleep( 100 );
+
+	// port state update
+	fetchAndPublishCanPortState();
+
 	return( 0 ); // OK
 }
 
@@ -986,7 +1062,7 @@ bool AnaCanScan::sendRemoteRequest(short cobID)
 }
 
 /**
- * give back the error message fro the code, from appendixA
+ * give back the error message from the code, from appendixA
  */
 std::string AnaCanScan::ana_canGetErrorText( long errorCode ){
 	switch( errorCode ){
@@ -1102,9 +1178,9 @@ void AnaCanScan::CanReconnectionThread()
 			MLOGANA(INF, this) << " reconnect condition " << reconnectConditionString(m_reconnectCondition)
 										<< " triggered action " << reconnectActionString(m_reconnectAction);
 
-			AnaInt32 ret = reconnectThisPort();
+			AnaInt32 ret = m_reconnectThisPort();
 			MLOGANA(INF, this) << "reconnected one CAN port ip= " << m_canIPAddress << " ret= " << ret;
-			showAnaCanScanObjectMap();
+			AnaCanScan::st_showAnaCanScanObjectMap();
 			break;
 		}
 
@@ -1117,7 +1193,7 @@ void AnaCanScan::CanReconnectionThread()
 			std::string ip = ipAdress();
 			MLOGANA(INF, this) << " reconnect condition " << reconnectConditionString(m_reconnectCondition)
 										<< " triggered action " << reconnectActionString(m_reconnectAction);
-			AnaCanScan::reconnectAllPorts( ip );
+			AnaCanScan::st_reconnectAllPorts( ip );
 			MLOGANA(TRC, this) << " reconnect all ports of ip=  " << ip << this->getBusName();
 			break;
 		}

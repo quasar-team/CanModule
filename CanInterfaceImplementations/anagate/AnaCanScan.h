@@ -29,10 +29,7 @@
 #include <thread>
 #include <mutex>
 #include <condition_variable>
-// #include <sys/time.h>
-
 #include <time.h>
-// #include <string.h>
 #include <map>
 #include <LogIt.h>
 #include <sstream>
@@ -75,6 +72,15 @@ class AnaCanScan: public CanModule::CCanAccess
 {
 
 public:
+
+	// Returns the current network connection state. The following values are possible:
+	enum ANAGATE_API_V2_DEVICE_CONNECTION_STATE {
+		DISCONNECTED = 1, //  The connection to the AnaGate is disconnected.
+		CONNECTING, // : The connection is connecting.
+		CONNECTED, // : The connection is established.
+		DISCONNECTING, //: The connection is disonnecting.
+		NOT_INITIALIZED }; //: The network protocol is not successfully initialized.
+
 	AnaCanScan();//Constructor of the class. Will initiate the statistics.
 	AnaCanScan(AnaCanScan const & other) = delete;  //Disables copy constructor
 	AnaCanScan& operator=(AnaCanScan const & other) = delete; // Disables assignment
@@ -101,7 +107,7 @@ public:
 	virtual CanModule::ReconnectAutoCondition getReconnectCondition() { return m_reconnectCondition; };
 	virtual CanModule::ReconnectAction getReconnectAction() { return m_reconnectAction; };
 	virtual void stopBus( void );
-	virtual void fetchAndPublishCanPortState (){};
+	virtual void fetchAndPublishCanPortState ();
 
 private:
 
@@ -141,16 +147,17 @@ private:
 		std::string ip;
 	} ANAGATE_PORTDEF_t;
 	static std::map<int, ANAGATE_PORTDEF_t> st_canHandleMap;
+	static std::map<std::string, bool> st_reconnectInProgress_map; // could use 1-dim vector but map is faster
 
-	static void showAnaCanScanObjectMap();
-	static int reconnectAllPorts( std::string ip );
-	AnaInt32 reconnectThisPort();
-	static void addCanHandleOfPortIp(AnaInt32 handle, int port, std::string ip);
-	static void deleteCanHandleOfPortIp(int port, std::string ip);
-	static AnaInt32 getCanHandleOfPortIp(int port, std::string ip);
-	static std::map<std::string, bool> m_reconnectInProgress_map; // could use 1-dim vector but map is faster
-	static void setIpReconnectInProgress( std::string ip, bool flag );
-	static bool isIpReconnectInProgress( std::string ip );
+	static void st_showAnaCanScanObjectMap();
+	static int st_reconnectAllPorts( std::string ip );
+	static void st_setIpReconnectInProgress( std::string ip, bool flag );
+	static bool st_isIpReconnectInProgress( std::string ip );
+
+	AnaInt32 m_reconnectThisPort();
+	static void m_addCanHandleOfPortIp(AnaInt32 handle, int port, std::string ip);
+	static void m_deleteCanHandleOfPortIp(int port, std::string ip);
+	static AnaInt32 m_getCanHandleOfPortIp(int port, std::string ip);
 	void CanReconnectionThread();               // not static, private is enough in C11
 	bool sendAnErrorMessage( AnaInt32 status );
 	std::string ipAdress(){ return(m_canIPAddress );}
