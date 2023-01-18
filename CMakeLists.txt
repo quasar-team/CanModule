@@ -75,7 +75,7 @@ function ( clone_LogIt )
    ENDIF() 
    set ( LOGIT_HEADERS ${PROJECT_BINARY_DIR}/LogIt/include ) # some bw compatibility, otherwise maybe useless
    include_directories( ${PROJECT_BINARY_DIR}/LogIt/include )
-   add_directory( ${PROJECT_BINARY_DIR}/LogIt )
+   add_subdirectory( ${PROJECT_BINARY_DIR}/LogIt )
 endfunction()
 
 #
