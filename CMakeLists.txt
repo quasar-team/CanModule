@@ -225,7 +225,8 @@ ELSE()
 	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CanModule VERSION.h exists already in ${PROJECT_SOURCE_DIR}/CanInterface/include/, don't touch it")
 ENDIF()
 
-include_directories( CanInterface/include CanLibLoader/include Diagnostic/include CanModuleTest/include )
+#include_directories( CanInterface/include CanLibLoader/include Diagnostic/include CanModuleTest/include )
+include_directories( CanInterface/include CanLibLoader/include Diagnostic/include )
 include_directories ( ${BOOST_PATH_HEADERS} )
 link_directories( ${BOOST_PATH_LIBS} )
 
