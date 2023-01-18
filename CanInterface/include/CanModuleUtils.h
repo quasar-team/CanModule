@@ -123,6 +123,6 @@ namespace CanModule
 	std::string CanModuleerrnoToString();
 	std::string canMessageToString(CanMessage &f);
 	std::string canMessage2ToString(short cobID, unsigned char len, unsigned char *message, bool rtr);
-	std::string translateCanBusStateToText( CanModule::CanModule_bus_state state );
+	std::string translateCanBusStateToText( CanModule::CanModule_bus_state state ); // static public in-class declaration does not work for windows
 }
 #endif /* UTILS_H_ */
