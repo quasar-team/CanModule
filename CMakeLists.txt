@@ -22,7 +22,7 @@ project( CanModuleProject LANGUAGES C CXX  VERSION 2.0.24  )
 message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CanModule version= ${PROJECT_VERSION}" )
 
 cmake_policy(SET CMP0054 NEW)
-cmake_policy(SET CMP0002 OLD)
+cmake_policy(SET CMP0002 NEW)
 
 SET( CMAKE_VERBOSE_MAKEFILE ON )
 SET( CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin )
@@ -81,7 +81,7 @@ function ( clone_LogIt )
    ENDIF() 
    set ( LOGIT_HEADERS ${PROJECT_BINARY_DIR}/LogIt/include ) # some bw compatibility, otherwise maybe useless
    include_directories( ${PROJECT_BINARY_DIR}/LogIt/include )
-   add_subdirectory( ${PROJECT_BINARY_DIR}/LogIt ${PROJECT_BINARY_DIR}/LogIt/build )
+   #add_subdirectory( ${PROJECT_BINARY_DIR}/LogIt ${PROJECT_BINARY_DIR}/LogIt/build )
    
 endfunction()
 
