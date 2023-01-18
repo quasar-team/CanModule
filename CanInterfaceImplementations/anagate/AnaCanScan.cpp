@@ -121,34 +121,34 @@ AnaCanScan::~AnaCanScan()
 	// anagate does not give tx/rx error counts
 	switch ( ana_state ){
 	case ANAGATE_API_V2_DEVICE_CONNECTION_STATE::DISCONNECTED : {
-		portState = CanModule::CanModuleUtils::CanModule_bus_state::CAN_STATE_STOPPED;
-		std::string msg = CanModule::CanModuleUtils::translateCanBusStateToText((CanModule::CanModuleUtils::CanModule_bus_state) portState );
+		portState = CanModule::CanModule_bus_state::CAN_STATE_STOPPED;
+		std::string msg = CanModule::translateCanBusStateToText((CanModule::CanModule_bus_state) portState );
 		MLOGANA(WRN, this) << msg << "tid=[" << std::this_thread::get_id() << "]";
 		break;
 	}
 	case ANAGATE_API_V2_DEVICE_CONNECTION_STATE::CONNECTING : {
-		portState = CanModule::CanModuleUtils::CanModule_bus_state::CANMODULE_WARNING;
-		std::string msg = CanModule::CanModuleUtils::translateCanBusStateToText((CanModule::CanModuleUtils::CanModule_bus_state) portState );
+		portState = CanModule::CanModule_bus_state::CANMODULE_WARNING;
+		std::string msg = CanModule::translateCanBusStateToText((CanModule::CanModule_bus_state) portState );
 		MLOGANA(WRN, this) << msg << "tid=[" << std::this_thread::get_id() << "]";
 		break;
 	}
 	case ANAGATE_API_V2_DEVICE_CONNECTION_STATE::CONNECTED : {
-		portState = CanModule::CanModuleUtils::CanModule_bus_state::CANMODULE_OK;
+		portState = CanModule::CanModule_bus_state::CANMODULE_OK;
 		break;
 	}
 	case ANAGATE_API_V2_DEVICE_CONNECTION_STATE::DISCONNECTING : {
-		portState = CanModule::CanModuleUtils::CanModule_bus_state::CANMODULE_WARNING;
-		std::string msg = CanModule::CanModuleUtils::translateCanBusStateToText((CanModule::CanModuleUtils::CanModule_bus_state) portState );
+		portState = CanModule::CanModule_bus_state::CANMODULE_WARNING;
+		std::string msg = CanModule::translateCanBusStateToText((CanModule::CanModule_bus_state) portState );
 		MLOGANA(WRN, this) << msg << "tid=[" << std::this_thread::get_id() << "]";
 		break;
 	}
 	case ANAGATE_API_V2_DEVICE_CONNECTION_STATE::NOT_INITIALIZED : {
-		portState = CanModule::CanModuleUtils::CanModule_bus_state::CANMODULE_NOSTATE;
+		portState = CanModule::CanModule_bus_state::CANMODULE_NOSTATE;
 		break;
 	}
 	default: {
-		portState = CanModule::CanModuleUtils::CanModule_bus_state::CANMODULE_NOSTATE;
-		std::string msg = CanModule::CanModuleUtils::translateCanBusStateToText((CanModule::CanModuleUtils::CanModule_bus_state) portState );
+		portState = CanModule::CanModule_bus_state::CANMODULE_NOSTATE;
+		std::string msg = CanModule::translateCanBusStateToText((CanModule::CanModule_bus_state) portState );
 		MLOGANA(WRN, this) << msg << "tid=[" << std::this_thread::get_id() << "]";
 		break;
 	}

@@ -522,7 +522,8 @@ protected:
 	void publishPortStatusChanged ( unsigned int status )
 	{
 		if ( m_portStatus != status ){
-			std::string msg = CanModule::CanModuleUtils::translateCanBusStateToText((CanModule::CanModuleUtils::CanModule_bus_state) status);
+			// std::string msg = CanModule::CanModuleUtils::translateCanBusStateToText((CanModule::CanModuleUtils::CanModule_bus_state) status);
+			std::string msg = CanModule::translateCanBusStateToText((CanModule::CanModule_bus_state) status);
 
 			// got to be compatible with boost1.59.0 for windows
 			timeval ftTimeStamp;

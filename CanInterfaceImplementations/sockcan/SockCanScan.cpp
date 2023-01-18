@@ -102,18 +102,18 @@ CSockCanScan::CSockCanScan() :
 		if ( m_CanParameters.m_dontReconfigure ){
 			return;
 		} else {
-			portState = CanModule::CanModuleUtils::CanModule_bus_state::CANMODULE_NOSTATE;
+			portState = CanModule::CanModule_bus_state::CANMODULE_NOSTATE;
 			// publishPortStatus( CanModule::CanModuleUtils::CanModule_bus_state::CANMODULE_NOSTATE, "Can't get state via netlink", true);
 		}
 	}
 	// we LogIt the real errors
 	switch ( portState ){
-	case CanModule::CanModuleUtils::CAN_STATE_ERROR_PASSIVE:
-	case CanModule::CanModuleUtils::CAN_STATE_BUS_OFF:
-	case CanModule::CanModuleUtils::CAN_STATE_STOPPED:
-	case CanModule::CanModuleUtils::CANMODULE_ERROR:
+	case CanModule::CAN_STATE_ERROR_PASSIVE:
+	case CanModule::CAN_STATE_BUS_OFF:
+	case CanModule::CAN_STATE_STOPPED:
+	case CanModule::CANMODULE_ERROR:
 	{
-		std::string msg = CanModule::CanModuleUtils::translateCanBusStateToText((CanModule::CanModuleUtils::CanModule_bus_state) portState );
+		std::string msg = CanModule::translateCanBusStateToText((CanModule::CanModule_bus_state) portState );
 		MLOGSOCK(ERR, this) << msg << "tid=[" << std::this_thread::get_id() << "]";
 		break;
 	}
@@ -216,7 +216,7 @@ void CSockCanScan::m_CanScanControlThread()
 
 			// report "other error" on port status: this might stem from a kernel/driver problem and not
 			// from the hw port itself. But we don't know for sure.
-			publishPortStatusChanged( CanModule::CanModuleUtils::CANMODULE_ERROR );
+			publishPortStatusChanged( CanModule::CANMODULE_ERROR );
 			continue;
 		}
 
@@ -239,7 +239,7 @@ void CSockCanScan::m_CanScanControlThread()
 			triggerReconnectionThread();
 
 			// shall we report that timeout in the port status? yes!
-			publishPortStatusChanged( CanModule::CanModuleUtils::CANMODULE_TIMEOUT_OK );
+			publishPortStatusChanged( CanModule::CANMODULE_TIMEOUT_OK );
 			continue;
 		}
 
@@ -254,7 +254,7 @@ void CSockCanScan::m_CanScanControlThread()
 		{
 			timeval now = CanModule::convertTimepointToTimeval( std::chrono::system_clock::now());
 			p_sockCanScan->canMessageError(numberOfReadBytes, ("read() failed: " + CanModuleerrnoToString() + " tid= " + _tid).c_str(), now );
-			publishPortStatusChanged( CanModule::CanModuleUtils::CANMODULE_WARNING );
+			publishPortStatusChanged( CanModule::CANMODULE_WARNING );
 
 			MLOGSOCK(DBG,p_sockCanScan) << "trigger reconnection thread since we only read " << numberOfReadBytes << " <0 bytes from socket " << p_sockCanScan->getBusName();
 			triggerReconnectionThread();
@@ -271,7 +271,7 @@ void CSockCanScan::m_CanScanControlThread()
 			timeval now = CanModule::convertTimepointToTimeval( std::chrono::system_clock::now());
 			p_sockCanScan->canMessageError( numberOfReadBytes, ("read() wrong msg size: " + CanModuleerrnoToString() + " tid= " + _tid).c_str(), now );
 
-			publishPortStatusChanged( CanModule::CanModuleUtils::CANMODULE_WARNING );
+			publishPortStatusChanged( CanModule::CANMODULE_WARNING );
 			continue;
 		}
 
@@ -286,7 +286,7 @@ void CSockCanScan::m_CanScanControlThread()
 			p_sockCanScan->canMessageError( numberOfReadBytes, ("read() error: "+CanModuleerrnoToString()).c_str(), now );
 			p_sockCanScan->m_canMessageErrorCode = -1;
 
-			publishPortStatusChanged( CanModule::CanModuleUtils::CANMODULE_WARNING );
+			publishPortStatusChanged( CanModule::CANMODULE_WARNING );
 
 			/**
 			 * if we have an open socket again, and we can read numberOfReadBytes >=0 we
@@ -302,7 +302,7 @@ void CSockCanScan::m_CanScanControlThread()
 			p_sockCanScan->m_canMessageErrorCode = socketMessage.can_id & ~CAN_ERR_FLAG;
 			std::string description = CSockCanScan::m_canMessageErrorFrameToString( socketMessage );
 
-			publishPortStatusChanged( CanModule::CanModuleUtils::CANMODULE_WARNING ); // it is just a CAN error flag, should recover
+			publishPortStatusChanged( CanModule::CANMODULE_WARNING ); // it is just a CAN error flag, should recover
 
 			// lets find out the time by doing an ioctl call
 			timeval c_time;
