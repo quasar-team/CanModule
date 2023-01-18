@@ -97,15 +97,19 @@ ELSE()
 	SET ( BUILD_SHARED_LIBS ON )
 ENDIF()
 
+
+#include_directories( CanInterface/include CanLibLoader/include Diagnostic/include CanModuleTest/include )
+include_directories( CanInterface/include CanLibLoader/include Diagnostic/include )
+include_directories ( ${BOOST_PATH_HEADERS} )
+link_directories( ${BOOST_PATH_LIBS} )
+
 # LogIt pull-in
 if( STANDALONE_BUILD )
 	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: LogIt for standalone build  ]")  
     if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
   	    clone_LogIt()  # clones into ${PROJECT_SOURCE_DIR}/build/build/CanModule/LogIt
         message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] PROJECT_BINARY_DIR= ${PROJECT_BINARY_DIR}")          
-        add_subdirectory( ${PROJECT_BINARY_DIR}/LogIt build ) # that's it !
-          
-        # add_subdirectory( ${PROJECT_BINARY_DIR}/build/LogIt build ) # that's it !  
+        add_subdirectory( ${PROJECT_BINARY_DIR}/LogIt build ) 
     else()
 	    locateLogItSharedLib()
 	    message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Using LogIt library: LOGIT_LIB [${LOGIT_LIB}]")
@@ -225,10 +229,6 @@ ELSE()
 	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CanModule VERSION.h exists already in ${PROJECT_SOURCE_DIR}/CanInterface/include/, don't touch it")
 ENDIF()
 
-#include_directories( CanInterface/include CanLibLoader/include Diagnostic/include CanModuleTest/include )
-include_directories( CanInterface/include CanLibLoader/include Diagnostic/include )
-include_directories ( ${BOOST_PATH_HEADERS} )
-link_directories( ${BOOST_PATH_LIBS} )
 
 # here we define the main lib to build
 add_library( ${CANMODULE_LIB_NAME} ${LINK_OPTION} ${SRCS} )
