@@ -80,9 +80,13 @@ function ( clone_LogIt )
 	  #message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Logit is already cloned into ${PROJECT_BINARY_DIR}/LogIt" )
 	  message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Logit is already cloned into ./build/CanModule/LogIt" )
    ENDIF() 
+   #set ( LOGIT_HEADERS ${PROJECT_BINARY_DIR}/LogIt/include ) # some bw compatibility, otherwise maybe useless
+   #include_directories( ${PROJECT_BINARY_DIR}/LogIt/include )
+   #add_subdirectory( ${PROJECT_BINARY_DIR}/LogIt )
    set ( LOGIT_HEADERS ${PROJECT_BINARY_DIR}/LogIt/include ) # some bw compatibility, otherwise maybe useless
-   include_directories( ${PROJECT_BINARY_DIR}/LogIt/include )
-   add_subdirectory( ${PROJECT_BINARY_DIR}/LogIt )
+   include_directories( ./build/CanModule/LogIt/include )
+   add_subdirectory( ./build/CanModule/LogIt )
+   
 endfunction()
 
 #
