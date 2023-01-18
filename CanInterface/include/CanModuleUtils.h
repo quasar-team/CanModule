@@ -102,7 +102,7 @@ namespace CanModule
 			return x;
 		}
 
-		static  std::string translateCanBusStateToText( CanModule_bus_state state );
+		static  std::string translateCanBusStateToText( CanModule::CanModuleUtils::CanModule_bus_state state );
 
 	};
 

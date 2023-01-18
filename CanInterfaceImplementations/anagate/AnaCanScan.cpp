@@ -148,9 +148,7 @@ AnaCanScan::~AnaCanScan()
 	}
 	default: {
 		portState = CanModule::CanModuleUtils::CanModule_bus_state::CANMODULE_NOSTATE;
-		// fails under windows... ?!?
-		// std::string msg = CanModule::CanModuleUtils::translateCanBusStateToText((CanModule::CanModuleUtils::CanModule_bus_state) portState );
-		std::string msg = "unknown state, setting to NOSTATE";
+		std::string msg = CanModule::CanModuleUtils::translateCanBusStateToText((CanModule::CanModuleUtils::CanModule_bus_state) portState );
 		MLOGANA(WRN, this) << msg << "tid=[" << std::this_thread::get_id() << "]";
 		break;
 	}
