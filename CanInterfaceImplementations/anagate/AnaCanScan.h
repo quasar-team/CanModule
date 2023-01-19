@@ -153,13 +153,16 @@ private:
 	static int st_reconnectAllPorts( std::string ip );
 	static void st_setIpReconnectInProgress( std::string ip, bool flag );
 	static bool st_isIpReconnectInProgress( std::string ip );
+	//static std::string ana_canGetErrorText( long errorCode );
 
 	AnaInt32 m_reconnectThisPort();
 	static void m_addCanHandleOfPortIp(AnaInt32 handle, int port, std::string ip);
 	static void m_deleteCanHandleOfPortIp(int port, std::string ip);
 	static AnaInt32 m_getCanHandleOfPortIp(int port, std::string ip);
 	void CanReconnectionThread();               // not static, private is enough in C11
-	bool sendAnErrorMessage( AnaInt32 status );
+	// bool sendAnErrorMessage( AnaInt32 status );
+	void signalErrorMessage( int code, std::string msg );
+
 	std::string ipAdress(){ return(m_canIPAddress );}
 	int canPortNumber(){ return(m_canPortNumber);}
 	int handle(){ return(m_UcanHandle);}
@@ -167,9 +170,8 @@ private:
 	int connectReceptionHandler();
 	int openCanPort();
 	int reconnect();
-	const char * errorCodeToString(long error) {return( ana_canGetErrorText( error ).c_str() ); }
+	// const char * errorCodeToString(long error) {return( ana_canGetErrorText( error ).c_str() ); }
 	void eraseReceptionHandlerFromMap( AnaInt32 h );
-	std::string ana_canGetErrorText( long errorCode );
 
 };
 

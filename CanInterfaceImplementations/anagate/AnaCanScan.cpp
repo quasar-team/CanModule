@@ -310,8 +310,10 @@ int AnaCanScan::createBus(const std::string name, const std::string parameters)
 	}
 
 	AnaCanScan::st_logItHandleAnagate = myHandle;
-	int returnCode = configureCanBoard(name, parameters);
+	int returnCode = configureCanBoard( name, parameters );
 	if ( returnCode < 0 ) {
+		signalErrorMessage( -1, "createBus: configureCanBoard: problem configuring. ip= " + m_canIPAddress +
+				" name= " + name + " parameters= " + parameters );
 		return -1;
 	}
 	MLOGANA(DBG,this) << " OK, Bus created with name= " << name << " parameters= " << parameters;
@@ -347,6 +349,8 @@ int AnaCanScan::configureCanBoard(const std::string name,const std::string param
 		for ( unsigned i = 0; i < stringVector.size(); i++ ){
 			MLOGANA(ERR, this) << " stringVector[" << i << "]= " << stringVector[ i ];
 		}
+		signalErrorMessage( -1, "configureCanBoard: need exactly 3 parameters i.e.  `an:0:128.141.159.194` . ip= " + m_canIPAddress +
+				" name= " + name + " parameters= " + parameters );
 		return(-1);
 	} else {
 		for ( unsigned i = 0; i < stringVector.size(); i++ ){
@@ -494,7 +498,9 @@ int AnaCanScan::openCanPort()
 				<< " m_timeout= " << m_timeout;
 		anaCallReturn = CANOpenDevice(&canModuleHandle, FALSE, TRUE, m_canPortNumber, m_canIPAddress.c_str(), m_timeout);
 		if (anaCallReturn != 0) {
-			// fill out initialisation struct
+			std::stringstream os;
+			os << " openCanPort: Error for port= " << m_canPortNumber << " ip= " << m_canIPAddress;
+			signalErrorMessage( anaCallReturn, os.str().c_str() );
 			MLOGANA(ERR,this) << "Error in CANOpenDevice, return code = [0x" << std::hex << anaCallReturn << std::dec << "]";
 			return -1;
 		}
@@ -518,18 +524,22 @@ int AnaCanScan::openCanPort()
 	case 0:{ break; }
 	case 0x30000: {
 		MLOGANA(ERR,this) << "Connection to TCP/IP partner can't be established or is disconnected. Lost TCP/IP: 0x" << std::hex << anaCallReturn << std::dec;
+		signalErrorMessage( anaCallReturn, " openCanPort: CANSetGlobals: Connection to TCP/IP partner can't be established or is disconnected. Lost TCP/IP." );
 		return -1;
 	}
 	case 0x40000: {
 		MLOGANA(ERR,this) << "No  answer  was  received  from	TCP/IP partner within the defined timeout. Lost TCP/IP: 0x" << std::hex << anaCallReturn << std::dec;
+		signalErrorMessage( anaCallReturn, " openCanPort: CANSetGlobals: No  answer  was  received  from	TCP/IP partner within the defined timeout. Lost TCP/IP." );
 		return -1;
 	}
 	case 0x900000: {
 		MLOGANA(ERR,this) << "Invalid device handle. Lost TCP/IP: 0x" << std::hex << anaCallReturn << std::dec;
+		signalErrorMessage( anaCallReturn, " openCanPort: CANSetGlobals: Invalid device handle. Lost TCP/IP." );
 		return -1;
 	}
 	default : {
 		MLOGANA(ERR,this) << "Other Error in CANSetGlobals: 0x" << std::hex << anaCallReturn << std::dec;
+		signalErrorMessage( anaCallReturn, " openCanPort: CANSetGlobals: Other Error in CANSetGlobals." );
 		return -1;
 	}
 	}
@@ -538,6 +548,7 @@ int AnaCanScan::openCanPort()
 	anaCallReturn = CANSetCallbackEx(canModuleHandle, InternalCallback);
 	if (anaCallReturn != 0) {
 		MLOGANA(ERR,this) << "Error in CANSetCallbackEx, return code = [" << anaCallReturn << "]";
+		signalErrorMessage( anaCallReturn, " openCanPort: CANSetCallbackEx: Error in CANSetCallbackEx." );
 		return -1;
 	} else {
 		MLOGANA(TRC,this) << "OK CANSetCallbackEx, return code = [" << anaCallReturn << "]";
@@ -557,9 +568,17 @@ int AnaCanScan::openCanPort()
 	return 0;
 }
 
+
+#if 0
+implement this directly in the code
 /**
- * if sending had a problem invoke the error handler with a message.
- * Ultimately, this sends a boost::signal to a connected boost::slot in the client's code.
+ * invoke the error handler with a message.
+ * this sends a boost::signal to a connected boost::slot in the client's code.
+ *
+ *
+ * 			p_sockCanScan->canMessageError( numberOfReadBytes, ("read() wrong msg size: " + CanModuleerrnoToString() + " tid= " + _tid).c_str(), now );
+ *
+ *
  */
 bool AnaCanScan::sendAnErrorMessage(AnaInt32 status)
 {
@@ -575,7 +594,26 @@ bool AnaCanScan::sendAnErrorMessage(AnaInt32 status)
 	}
 	return true;
 }
+#endif
 
+
+/**
+ * wrapper to send an error code plus message down the signal. Can send any code with any text.
+ * use ana_canGetErrorText for ana error codes as well
+ *
+ * boost::signals2::signal<void (const int,const char *,timeval &) > canMessageError;
+ */
+void AnaCanScan::signalErrorMessage( int code, std::string msg )
+{
+	timeval ftTimeStamp;
+	auto now = std::chrono::system_clock::now();
+	auto nMicrosecs =
+			std::chrono::duration_cast<std::chrono::microseconds>( now.time_since_epoch());
+	ftTimeStamp.tv_sec = nMicrosecs.count() / 1000000L;
+	ftTimeStamp.tv_usec = (nMicrosecs.count() % 1000000L) ;
+
+	canMessageError( code, msg.c_str(), ftTimeStamp);
+}
 
 /**
  * send a CAN message frame (8 byte) for anagate
@@ -592,13 +630,14 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 
 	if ( m_canCloseDevice || m_busStopped ){
 		MLOGANA(WRN,this) << __FUNCTION__ << " bus is closed, skipping [ closed= " << m_canCloseDevice << " stopped= " << m_busStopped << "]";
+		signalErrorMessage( -1, "sendMessage: the bus is closed or stopped, skipping send. ip= " + m_canIPAddress);
 		return( false );
 	}
 
 	// /* static */ std::string AnaCanScan::canMessageToString(CanMessage &f)
 	// MLOGANA(DBG,this) << "Sending message: [" << ( message == 0  ? "" : (const char *) message) << "], cobID: [" << cobID << "], Message Length: [" << static_cast<int>(len) << "]";
 
-	MLOGANA(DBG,this) << "Sending message: [" << CanModule::canMessage2ToString(cobID, len, message, rtr) << "]";
+	MLOGANA(DBG,this) << __FUNCTION__ << " Sending message: [" << CanModule::canMessage2ToString(cobID, len, message, rtr) << "]";
 	AnaInt32 anaCallReturn = 0;
 	unsigned char *messageToBeSent[8];
 	AnaInt32 flags = 0x0;
@@ -610,7 +649,8 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 	//If there is more than 8 characters to process, we process 8 of them in this iteration of the loop
 	if (len > 8) {
 		messageLengthToBeProcessed = 8;
-		MLOGANA(DBG, this) << "The length is more than 8 bytes, ignoring overhead " << len;
+		MLOGANA( ERR, this) << __FUNCTION__ << " The length is more than 8 bytes, ignoring overhead " << len;
+		signalErrorMessage( -2, "sendMessage: the CAN message length to send exceeds 8 bytes, ignoring overhead. ip= " + m_canIPAddress);
 	} else {
 		messageLengthToBeProcessed = len;
 	}
@@ -622,11 +662,11 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 	 * the thread anymore.
 	 */
 	if ( getReconnectCondition() == CanModule::ReconnectAutoCondition::timeoutOnReception && hasTimeoutOnReception()) {
-		MLOGANA(WRN, this) << " m_canPortNumber= " << m_canPortNumber << " skipping send, detected "
+		MLOGANA(WRN, this) << __FUNCTION__ << " m_canPortNumber= " << m_canPortNumber << " skipping send, detected "
 				<< reconnectConditionString(m_reconnectCondition);
 
 		//send a reconnection thread trigger
-		MLOGANA(DBG, this) << "trigger reconnection thread to check reception timeout " << getBusName();
+		MLOGANA(DBG, this) << __FUNCTION__ << " trigger reconnection thread to check reception timeout " << getBusName();
 		triggerReconnectionThread();
 
 	} else {
@@ -635,22 +675,25 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 		 *  we can send now
 		 */
 		memcpy(messageToBeSent, message, messageLengthToBeProcessed);
-		MLOGANA(TRC, this) << " m_canPortNumber= " << m_canPortNumber
+		MLOGANA(TRC, this) << __FUNCTION__<< " m_canPortNumber= " << m_canPortNumber
 				<< " cobID= " << cobID
 				<< " length = " << messageLengthToBeProcessed
 				<< " flags= " << flags << " m_UcanHandle= " << m_UcanHandle;
 		anaCallReturn = CANWrite(m_UcanHandle, cobID, reinterpret_cast<char*>(messageToBeSent), messageLengthToBeProcessed, flags);
+		if (anaCallReturn != 0) {
+			signalErrorMessage( anaCallReturn, "sendMessage: CANWrite: problem writing message. ip= " + m_canIPAddress);
+		}
 	}
 
 	if (anaCallReturn != 0) {
-		MLOGANA(ERR, this) << "There was a problem when sending/receiving timeout with CANWrite or a reconnect condition: 0x"
+		MLOGANA(ERR, this) << __FUNCTION__ << " There was a problem when sending/receiving timeout with CANWrite or a reconnect condition: 0x"
 				<< std::hex << anaCallReturn << std::dec
 				<< " ip= " << m_canIPAddress;
 		m_canCloseDevice = false;
 		decreaseSendFailedCountdown();
 
 		//send a reconnection thread trigger
-		MLOGANA(DBG, this) << "trigger reconnection thread since a send failed " << getBusName();
+		MLOGANA(DBG, this) << __FUNCTION__ << " trigger reconnection thread since a send failed " << getBusName();
 		triggerReconnectionThread();
 	} else {
 		m_statistics.onTransmit(messageLengthToBeProcessed);
@@ -659,7 +702,7 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 	// port state update
 	fetchAndPublishCanPortState();
 
-	return sendAnErrorMessage(anaCallReturn);
+	return ( true );
 }
 
 /**
@@ -687,8 +730,14 @@ AnaInt32 AnaCanScan::m_reconnectThisPort(){
 	// a sending on one port failed miserably, and we reset just that port.
 	AnaInt32 anaCallReturn0 = reconnect();
 	while ( anaCallReturn0 < 0 ){
-		MLOGANA(WRN, this) << "failed to reconnect CAN port " << m_canPortNumber
+		MLOGANA(WRN, this) << __FUNCTION__<< " failed to reconnect CAN port " << m_canPortNumber
 				<< " ip= " << m_canIPAddress << ",  try again";
+
+		std::stringstream os;
+		os << __FUNCTION__ << " failed to reconnect CAN port " << m_canPortNumber
+				<< " ip= " << m_canIPAddress << ",  try again";
+
+		signalErrorMessage( anaCallReturn0, os.str().c_str() );
 		CanModule::ms_sleep( 5000 );
 		anaCallReturn0 = reconnect();
 	}
@@ -780,7 +829,16 @@ AnaInt32 AnaCanScan::m_reconnectThisPort(){
 						<< " found ip= " << ip
 						<< " for CAN port= " << it->second->canPortNumber()
 						<< " failed to reconnect";
+
+				std::stringstream os;
+				os << __FUNCTION__
+						<< " key= " << it->first
+						<< " found ip= " << ip
+						<< " for CAN port= " << it->second->canPortNumber()
+						<< " failed to reconnect";
+				it->second->signalErrorMessage( ret, os.str().c_str() );
 				reconnectFailed = true;
+
 			}
 			nbCANportsOnModule++;
 		}
@@ -858,6 +916,11 @@ AnaInt32 AnaCanScan::connectReceptionHandler(){
 	// this is needed otherwise the bridge hangs in a bad state
 	anaCallReturn = CANSetGlobals(m_UcanHandle, m_CanParameters.m_lBaudRate, m_CanParameters.m_iOperationMode,
 			m_CanParameters.m_iTermination, m_CanParameters.m_iHighSpeed, m_CanParameters.m_iTimeStamp);
+	if ( anaCallReturn ){
+		std::stringstream os;
+		os << __FUNCTION__ 	<< " CANSetGlobals returned an error. ip= " << m_canIPAddress;
+		signalErrorMessage( anaCallReturn, os.str().c_str() );
+	}
 	switch ( anaCallReturn ){
 	case 0:{ break; }
 	case 0x30000: {
@@ -885,8 +948,13 @@ AnaInt32 AnaCanScan::connectReceptionHandler(){
 		MLOGANA(ERR,this) << "failed CANSetCallbackEx, return code = [" << anaCallReturn << "]"
 				<< " canModuleHandle= " << m_UcanHandle
 				<< " in a reconnect! Can't fix this, maybe hardware/firmware problem.";
-		// that is very schlecht, need a good idea (~check keepalive and sending fake messages)
-		// to detect and possibly recuperate from that. Does this case happen actually?
+		std::stringstream os;
+		os << __FUNCTION__ 	<< " failed CANSetCallbackEx, return code = [" << anaCallReturn << "]"
+				<< " canModuleHandle= " << m_UcanHandle
+				<< " in a reconnect! Can't fix this, maybe hardware/firmware problem.";
+		signalErrorMessage( anaCallReturn, os.str().c_str() );
+
+		// that is very schlecht. This can be mitigated by using reconnection behavior for reception timeout.
 	}
 	MLOGANA(DBG,this) << "adding RECEIVE handler, handle= " << m_UcanHandle
 			<< " CAN port= " << m_canPortNumber
@@ -1001,6 +1069,10 @@ int AnaCanScan::reconnect(){
 		if (anaCallReturn != 0) {
 			MLOGANA(ERR,this) << "CANOpenDevice failed: 0x" << std::hex << anaCallReturn << std::dec;
 			m_canCloseDevice = false;
+
+			std::stringstream os;
+			os << __FUNCTION__ 	<< "CANOpenDevice failed: 0x" << std::hex << anaCallReturn << std::dec;
+			signalErrorMessage( anaCallReturn, os.str().c_str() );
 			return(-1);
 		}
 		MLOGANA(DBG,this) << "CANOpenDevice m_canPortNumber= " << m_canPortNumber
@@ -1022,21 +1094,6 @@ int AnaCanScan::reconnect(){
 	return( 0 ); // OK
 }
 
-#if 0
-/**
- *
- * testing/debugging stuff. keep it in for the moment
- *
- * set a connection specific timeout value.
- * Global timeout is 6000, set by CanOpenDevice
- * In order to make this specific timeout apply we have to reconnect
- */
-void AnaCanScan::setTimeoutAndReconnect( int timeout_ms ){
-	m_timeout = timeout_ms;
-	MLOGANA(WRN,this) << "reconnect CANOpenDevice m_UcanHandle= " << m_UcanHandle << " to apply new timeout= " << m_timeout;
-	reconnect();
-}
-#endif
 
 bool AnaCanScan::sendMessage(CanMessage *canm)
 {
@@ -1058,10 +1115,15 @@ bool AnaCanScan::sendRemoteRequest(short cobID)
 	anaCallReturn = CANWrite(m_UcanHandle,cobID,NULL, 0, flags);
 	if (anaCallReturn != 0) {
 		MLOGANA(ERR,this) << "There was a problem when sending a message with CANWrite";
+
+		std::stringstream os;
+		os << __FUNCTION__ 	<< "There was a problem when sending a message with CANWrite";
+		signalErrorMessage( anaCallReturn, os.str().c_str() );
 	}
-	return sendAnErrorMessage(anaCallReturn);
+	return ( true ); //sendAnErrorMessage(anaCallReturn);
 }
 
+#if 0
 /**
  * give back the error message from the code, from appendixA
  */
@@ -1090,7 +1152,7 @@ std::string AnaCanScan::ana_canGetErrorText( long errorCode ){
 		return("unknown error code");
 	}
 }
-
+#endif
 
 void AnaCanScan::getStatistics( CanStatistics & result )
 {

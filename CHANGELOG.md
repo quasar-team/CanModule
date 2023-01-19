@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### 2.0.24 [ 17.jan.2023 ]
-- socketcan reworks for CanOpenNG server integration, keeping compatibility with other implementations
+- socketcan: reworks for CanOpenNG server integration, keeping compatibility with other implementations
 	- send remote requests also with stats, error signals and reconnection thread
 	- using wrappers for send, socket
 	- using signals for 
@@ -27,6 +27,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 - getPortStatus() (unified) remains untouched. This method can be invoked by the user. This goes out to the hardware for any
   vendor, acquires the port state and returns the bit-pattern plus implementation encoding "sugar" in the highest nibble. This is
   always a straight-down-to-the-hardware method. If you invoke it too often you might slow sown / mess up the hw actually.
+  
+- anagate: reworks for CanOpenNG server integration, keeping compatibility with other implementations
+	- error messages signalling much more extensive
+	- port status change signals (NEW) as common defined standard
+	
 
 ### 2.0.23 [ 16.jan.2023 ]
 - intermediate version with fixed build chain for static/dynamic linking and standalone libs
