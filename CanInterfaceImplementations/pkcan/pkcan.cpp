@@ -660,6 +660,7 @@ DWORD WINAPI PKCanScan::CanReconnectionThread(LPVOID pCanScan)
 
 std::string m_translatePeakPortStatusBitpatternToText( unsigned int bp ){
 	std::string msg = "peak port status message: ";
+#if 0
 	if ( bp & PCAN_ERROR_OK ) msg += "No error. Success. (000000) ";
 	if ( bp & PCAN_ERROR_XMTFULL ) msg += "PCAN_ERROR_XMTFULL (000001) Transmit buffer in CAN controller is full. ";
 	if ( bp & PCAN_ERROR_OVERRUN ) msg += "PCAN_ERROR_OVERRUN (000002) CAN controller was read too late. ";
@@ -689,6 +690,7 @@ std::string m_translatePeakPortStatusBitpatternToText( unsigned int bp ){
 	if ( bp & PCAN_ERROR_CAUTION ) msg += "PCAN_ERROR_CAUTION (33554432) Operation succeeded but with irregularities. ";
 	if ( bp & PCAN_ERROR_INITIALIZE ) msg += "PCAN_ERROR_INITIALIZE (67108864) Channel is not initialized. ";
 	if ( bp & PCAN_ERROR_ILLOPERATION ) msg += "PCAN_ERROR_ILLOPERATION (134217728) Invalid operation ";
+#endif
 	return ( msg );
 }
 
@@ -783,6 +785,7 @@ std::string m_translatePeakPortStatusBitpatternToText( unsigned int bp ){
 	// into the standardized enum CanModule::CanModuleUtils::CanModule_bus_state. we have to do bitwise testing. If we get more than one bit set we
 	// do a signal for each bit.
 	switch ( peak_state ){
+#if 0
 	case PCAN_ERROR_OK : {
 		portState = CanModule::CanModule_bus_state::CANMODULE_OK;
 		std::string msg = CanModule::translateCanBusStateToText((CanModule::CanModule_bus_state) portState );
@@ -790,7 +793,7 @@ std::string m_translatePeakPortStatusBitpatternToText( unsigned int bp ){
 		break;
 
 	}
-
+#endif
 #if 0
 	case ANAGATE_API_V2_DEVICE_CONNECTION_STATE::DISCONNECTED : {
 		portState = CanModule::CanModule_bus_state::CAN_STATE_STOPPED;
