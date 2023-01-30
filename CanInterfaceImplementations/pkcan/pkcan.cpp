@@ -658,7 +658,7 @@ DWORD WINAPI PKCanScan::CanReconnectionThread(LPVOID pCanScan)
 }
 
 
-std::string m_translatePeakPortStatusBitpatternToText( unsigned int bp ){
+std::string m_translatePeakPortStatusBitpatternToText( TPCANStatus bp ){
 	std::string msg = "peak port status message: ";
 #if 0
 	if ( bp & PCAN_ERROR_OK ) msg += "No error. Success. (000000) ";
