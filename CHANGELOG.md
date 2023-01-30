@@ -35,9 +35,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 - peak: 
     - do proper versioning of the windows vendor libs, 17.nov2017 and 16.july.2022, see CanInterfaceImplementations/peak/CMakeLists.txt, 
       as defaults. Use toolchain of course
-    - translate the wonderful error-bitpatterns from peak into new enum, and add the peak specific test to the error message which is sent down the signal
-    - for each error bit changed, send a signal to the err handler, which then may send 2 signals on the same enum change but with different texts. 
-      The handler implementation should decide what to display, then.
+    - translate the wonderful error-bitpatterns from peak into new enum, and add the peak specific text to the error message which is LogIt'ed
+    - for each status change, send a signal to the err handler, but suppress bitpattern details at this stage
+
 
 ### 2.0.23 [ 16.jan.2023 ]
 - intermediate version with fixed build chain for static/dynamic linking and standalone libs

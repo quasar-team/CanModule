@@ -660,7 +660,7 @@ DWORD WINAPI PKCanScan::CanReconnectionThread(LPVOID pCanScan)
 
 std::string m_translatePeakPortStatusBitpatternToText( TPCANStatus bp ){
 	std::string msg = "peak port status message: ";
-#if 0
+
 	if ( bp & PCAN_ERROR_OK ) msg += "No error. Success. (000000) ";
 	if ( bp & PCAN_ERROR_XMTFULL ) msg += "PCAN_ERROR_XMTFULL (000001) Transmit buffer in CAN controller is full. ";
 	if ( bp & PCAN_ERROR_OVERRUN ) msg += "PCAN_ERROR_OVERRUN (000002) CAN controller was read too late. ";
@@ -670,6 +670,7 @@ std::string m_translatePeakPortStatusBitpatternToText( TPCANStatus bp ){
 	if ( bp & PCAN_ERROR_BUSPASSIVE ) msg += "PCAN_ERROR_BUSPASSIVE (262144) Bus error: the CAN controller is error passive. ";
 	if ( bp & PCAN_ERROR_BUSOFF ) msg += "PCAN_ERROR_BUSOFF (000016)  Bus error: the CAN controller is in bus-off state. ";
 	if ( bp & PCAN_ERROR_ANYBUSERR ) msg += "PCAN_ERROR_ANYBUSERR (262172) Mask for all bus errors. "; // used ?
+
 	if ( bp & PCAN_ERROR_QRCVEMPTY ) msg += "PCAN_ERROR_QRCVEMPTY (000032) Receive queue is empty. ";
 	if ( bp & PCAN_ERROR_QOVERRUN ) msg += "PCAN_ERROR_QOVERRUN (000064) Receive queue was read too late. ";
 	if ( bp & PCAN_ERROR_QXMTFULL ) msg += "PCAN_ERROR_QXMTFULL (000128) Transmit queue is full. ";
@@ -690,7 +691,7 @@ std::string m_translatePeakPortStatusBitpatternToText( TPCANStatus bp ){
 	if ( bp & PCAN_ERROR_CAUTION ) msg += "PCAN_ERROR_CAUTION (33554432) Operation succeeded but with irregularities. ";
 	if ( bp & PCAN_ERROR_INITIALIZE ) msg += "PCAN_ERROR_INITIALIZE (67108864) Channel is not initialized. ";
 	if ( bp & PCAN_ERROR_ILLOPERATION ) msg += "PCAN_ERROR_ILLOPERATION (134217728) Invalid operation ";
-#endif
+
 	return ( msg );
 }
 
@@ -718,9 +719,15 @@ std::string m_translatePeakPortStatusBitpatternToText( TPCANStatus bp ){
  * PCAN_ERROR_BUSPASSIVE 0x40000 (262144) Bus error: the CAN controller is error passive.
  * PCAN_ERROR_BUSOFF 0x00010 (000016)  Bus error: the CAN controller is in bus-off state.
  * PCAN_ERROR_ANYBUSERR 0x4001C (262172) Mask for all bus errors.
+ *
+ * ok:
  * PCAN_ERROR_QRCVEMPTY 0x00020 (000032) Receive queue is empty.
+ *
+ * warning:
  * PCAN_ERROR_QOVERRUN 0x00040 (000064) Receive queue was read too late.
  * PCAN_ERROR_QXMTFULL 0x00080 (000128) Transmit queue is full.
+ *
+ * error:
  * PCAN_ERROR_REGTEST 0x00100 (000256) Test of the CAN controller hardware registers failed (no hardware found).
  * PCAN_ERROR_NODRIVER 0x00200 (000512) Driver not loaded.
  * PCAN_ERROR_HWINUSE 0x00400 (001024) PCAN-Hardware already in use by a PCAN-Net.
@@ -729,108 +736,126 @@ std::string m_translatePeakPortStatusBitpatternToText( TPCANStatus bp ){
  * PCAN_ERROR_ILLNET 0x01800 (006144) PCAN-Net handle is invalid.
  * PCAN_ERROR_ILLCLIENT 0x01C00 (007168) PCAN-Client handle is invalid.
  * PCAN_ERROR_ILLHANDLE 0x01C00 (007168) Mask for all handle errors.
+ *
+ * error:
  * PCAN_ERROR_RESOURCE 0x02000 (008192) Resource (FIFO, Client, timeout) cannot be created.
  * PCAN_ERROR_ILLPARAMTYPE 0x04000  (016384) Invalid parameter.
  * PCAN_ERROR_ILLPARAMVAL 0x08000 (032768) Invalid parameter value.
  * PCAN_ERROR_UNKNOWN 0x10000 (065536) Unknown error
  * PCAN_ERROR_ILLDATA 0x20000 (131072) Invalid data, function, or action.
  * PCAN_ERROR_ILLMODE 0x80000 (524288) Driver object state is wrong for the attempted operation.
+ *
+ * warning:
  * PCAN_ERROR_CAUTION 0x2000000 (33554432) Operation succeeded but with irregularities.
+ *
+ * error:
  * PCAN_ERROR_INITIALIZE* 0x4000000 (67108864) Channel is not initialized.
  * PCAN_ERROR_ILLOPERATION* 0x8000000 (134217728) Invalid operation
- *
- * #define PCAN_ERROR_OK 0x00000
- * #define PCAN_ERROR_XMTFULL 0x00001
- * #define PCAN_ERROR_OVERRUN 0x00002
- * #define PCAN_ERROR_BUSLIGHT 0x00004
- * #define PCAN_ERROR_BUSHEAVY 0x00008
- * #define PCAN_ERROR_BUSWARNING PCAN_ERROR_BUSHEAVY
- * #define PCAN_ERROR_BUSPASSIVE 0x40000
- * #define PCAN_ERROR_BUSOFF 0x00010
- * #define PCAN_ERROR_ANYBUSERR (PCAN_ERROR_BUSWARNING | PCAN_ERROR_B
- * #define PCAN_ERROR_QRCVEMPTY 0x00020
- * #define PCAN_ERROR_QOVERRUN 0x00040
- * #define PCAN_ERROR_QXMTFULL 0x00080
- * #define PCAN_ERROR_REGTEST 0x00100
- * #define PCAN_ERROR_NODRIVER 0x00200
- * #define PCAN_ERROR_HWINUSE 0x00400
- * #define PCAN_ERROR_NETINUSE 0x00800
- * #define PCAN_ERROR_ILLHW 0x01400
- * #define PCAN_ERROR_ILLNET 0x01800
- * #define PCAN_ERROR_ILLCLIENT 0x01C00
- * #define PCAN_ERROR_ILLHANDLE (PCAN_ERROR_ILLHW | PCAN_ERROR_ILLNET
- * #define PCAN_ERROR_RESOURCE 0x02000
- * #define PCAN_ERROR_ILLPARAMTYPE 0x04000
- * #define PCAN_ERROR_ILLPARAMVAL 0x08000
- * #define PCAN_ERROR_UNKNOWN 0x10000
- * #define PCAN_ERROR_ILLDATA 0x20000
- * #define PCAN_ERROR_ILLMODE 0x80000
- * #define PCAN_ERROR_CAUTION 0x2000000
- * #define PCAN_ERROR_INITIALIZE 0x4000000
- * #define PCAN_ERROR_ILLOPERATION 0x8000000
  */
 /* virtual */ void PKCanScan::fetchAndPublishCanPortState ()
 {
 	// we could also use the unified port status for this and strip off the implementation bits
 	// but using can_get_state directly is less complex and has less dependencies
 
-	int portState;
+	int portState = CanModule::CanModule_bus_state::CANMODULE_NOSTATE;
 	TPCANStatus peak_state = CAN_GetStatus( m_pkCanHandle );
-
-
-
-
 
 	// translate the peak_state
 	// into the standardized enum CanModule::CanModuleUtils::CanModule_bus_state. we have to do bitwise testing. If we get more than one bit set we
-	// do a signal for each bit.
-	switch ( peak_state ){
+
+	// CAN bus errors: they are exclusive. Of course peak is slightly different. Lets use the bus mask from peak for that.
 #if 0
+	 CAN_STATE_ERROR_ACTIVE = 0,	/* RX/TX error count < 96 */
+			CAN_STATE_ERROR_WARNING,	/* RX/TX error count < 128 */
+			CAN_STATE_ERROR_PASSIVE,	/* RX/TX error count < 256 */
+			CAN_STATE_BUS_OFF,		/* RX/TX error count >= 256 */
+			CAN_STATE_STOPPED,		/* Device is stopped */
+			CAN_STATE_SLEEPING,		/* Device is sleeping */
+			CAN_STATE_MAX,
+#endif
+
+	switch ( peak_state & PCAN_ERROR_ANYBUSERR ){
+	default: {
+		// leave it alone: we do not have a classical CAN error
+		break;
+	}
 	case PCAN_ERROR_OK : {
 		portState = CanModule::CanModule_bus_state::CANMODULE_OK;
-		std::string msg = CanModule::translateCanBusStateToText((CanModule::CanModule_bus_state) portState );
-		MLOGPK(WRN, this) << msg << "tid=[" << std::this_thread::get_id() << "]";
 		break;
+	}
+	case PCAN_ERROR_BUSLIGHT : {
+		portState = CanModule::CanModule_bus_state::CAN_STATE_ERROR_ACTIVE;
+		break;
+	}
+	case PCAN_ERROR_BUSHEAVY : {
+		portState = CanModule::CanModule_bus_state::CAN_STATE_MAX;
+		break;
+	}
+	case PCAN_ERROR_BUSWARNING : {
+		portState = CanModule::CanModule_bus_state::CAN_STATE_ERROR_WARNING;
 
-	}
-#endif
-#if 0
-	case ANAGATE_API_V2_DEVICE_CONNECTION_STATE::DISCONNECTED : {
-		portState = CanModule::CanModule_bus_state::CAN_STATE_STOPPED;
-		std::string msg = CanModule::translateCanBusStateToText((CanModule::CanModule_bus_state) portState );
-		MLOGANA(WRN, this) << msg << "tid=[" << std::this_thread::get_id() << "]";
 		break;
 	}
-	case ANAGATE_API_V2_DEVICE_CONNECTION_STATE::CONNECTING : {
-		portState = CanModule::CanModule_bus_state::CANMODULE_WARNING;
-		std::string msg = CanModule::translateCanBusStateToText((CanModule::CanModule_bus_state) portState );
-		MLOGANA(WRN, this) << msg << "tid=[" << std::this_thread::get_id() << "]";
+	case PCAN_ERROR_BUSPASSIVE : {
+		portState = CanModule::CanModule_bus_state::CAN_STATE_ERROR_PASSIVE;
 		break;
 	}
-	case ANAGATE_API_V2_DEVICE_CONNECTION_STATE::CONNECTED : {
-		portState = CanModule::CanModule_bus_state::CANMODULE_OK;
+	case PCAN_ERROR_BUSOFF : {
+		portState = CanModule::CanModule_bus_state::CAN_STATE_BUS_OFF;
 		break;
 	}
-	case ANAGATE_API_V2_DEVICE_CONNECTION_STATE::DISCONNECTING : {
-		portState = CanModule::CanModule_bus_state::CANMODULE_WARNING;
-		std::string msg = CanModule::translateCanBusStateToText((CanModule::CanModule_bus_state) portState );
-		MLOGANA(WRN, this) << msg << "tid=[" << std::this_thread::get_id() << "]";
-		break;
 	}
-	case ANAGATE_API_V2_DEVICE_CONNECTION_STATE::NOT_INITIALIZED : {
-		portState = CanModule::CanModule_bus_state::CANMODULE_NOSTATE;
-		break;
-	}
-#endif
-	default: {
-		portState = CanModule::CanModule_bus_state::CANMODULE_NOSTATE;
-		std::string msg = CanModule::translateCanBusStateToText((CanModule::CanModule_bus_state) portState );
+	// send it if it was just a CAN bus error, if it changed. No need to go further
+	if ( portState != CanModule::CanModule_bus_state::CANMODULE_NOSTATE ){
+		std::string msg = CanModule::translateCanBusStateToText((CanModule::CanModule_bus_state) portState ) + m_translatePeakPortStatusBitpatternToText( peak_state );
 		MLOGPK(WRN, this) << msg << "tid=[" << std::this_thread::get_id() << "]";
-		break;
+		publishPortStatusChanged( portState );
+		return;
 	}
-	} // switch
-	// signals only if it has changed
+	/** if we reach here, lets translate all other errors into
+	 // CanModule extension, to cover non-socketcan implementations
+		CANMODULE_NOSTATE,   // could not get state
+		CANMODULE_WARNING,   // degradation but might recover
+		CANMODULE_ERROR,     // error likely stemming from SW/HW/firmware
+		CANMODULE_TIMEOUT_OK, // bus is fine, no traffic
+		CANMODULE_OK         // bus is fine
+*/
 
+	// ok
+	if ( peak_state & PCAN_ERROR_QRCVEMPTY ){
+		portState = CanModule::CanModule_bus_state::CANMODULE_TIMEOUT_OK;
+		std::string msg = CanModule::translateCanBusStateToText((CanModule::CanModule_bus_state) portState ) + m_translatePeakPortStatusBitpatternToText( peak_state );
+		MLOGPK(INF, this) << msg << "tid=[" << std::this_thread::get_id() << "]";
+		publishPortStatusChanged( portState );
+		return;
+	}
+
+	// warnings
+	if ( (peak_state & PCAN_ERROR_QOVERRUN) || (peak_state & PCAN_ERROR_QXMTFULL) || (peak_state & PCAN_ERROR_CAUTION) ){
+		portState = CanModule::CanModule_bus_state::CANMODULE_WARNING;
+		std::string msg = CanModule::translateCanBusStateToText((CanModule::CanModule_bus_state) portState ) + m_translatePeakPortStatusBitpatternToText( peak_state );
+		MLOGPK(WRN, this) << msg << "tid=[" << std::this_thread::get_id() << "]";
+		publishPortStatusChanged( portState );
+		return;
+	}
+
+	// all the rest are errors
+	if ( peak_state != PCAN_ERROR_OK ){
+		portState = CanModule::CanModule_bus_state::CANMODULE_ERROR;
+		std::string msg = CanModule::translateCanBusStateToText((CanModule::CanModule_bus_state) portState ) + m_translatePeakPortStatusBitpatternToText( peak_state );
+		MLOGPK(ERR, this) << msg << "tid=[" << std::this_thread::get_id() << "]";
+		publishPortStatusChanged( portState );
+		return;
+	}
+
+	// ok but don't know why. Lets overwrite NOSTATE. mais bon.
+	portState = CanModule::CanModule_bus_state::CANMODULE_OK;
+	std::string msg = CanModule::translateCanBusStateToText((CanModule::CanModule_bus_state) portState ) + m_translatePeakPortStatusBitpatternToText( peak_state );
+	MLOGPK(DBG, this) << msg << "tid=[" << std::this_thread::get_id() << "]";
 	publishPortStatusChanged( portState );
+
+	/** as a consequence of this coding the
+	CanModule::CanModule_bus_state::CANMODULE_NOSTATE;
+	never occurs. fine with me. */
 }
 
