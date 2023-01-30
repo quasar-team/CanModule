@@ -118,6 +118,11 @@ private:
 	HANDLE m_PeakReconnectionThread;
     DWORD           m_idCanScanThread;
     DWORD           m_idPeakReconnectionThread;
+
+    std::string m_translatePeakPortStatusBitpatternToText( unsigned int bp ){
+
+
+
 };
 
 #endif

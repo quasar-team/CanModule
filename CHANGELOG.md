@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
-### 2.0.24 [ 17.jan.2023 ]
+### 2.0.24 [ 30.jan.2023 ]
 - socketcan: reworks for CanOpenNG server integration, keeping compatibility with other implementations
 	- send remote requests also with stats, error signals and reconnection thread
 	- using wrappers for send, socket
@@ -33,7 +33,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 	- port status change signals (NEW) as common defined standard
 	
 - peak: 
-    - do proper versioning of the windows vendor libs, 17.nov2017 and 16.july.2022, see CanInterfaceImplementations/peak/CMakeLists.txt, as defaults. Use toolchain of course
+    - do proper versioning of the windows vendor libs, 17.nov2017 and 16.july.2022, see CanInterfaceImplementations/peak/CMakeLists.txt, 
+      as defaults. Use toolchain of course
     - translate the wonderful error-bitpatterns from peak into new enum, and add the peak specific test to the error message which is sent down the signal
     - for each error bit changed, send a signal to the err handler, which then may send 2 signals on the same enum change but with different texts. 
       The handler implementation should decide what to display, then.

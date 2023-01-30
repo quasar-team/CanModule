@@ -657,6 +657,29 @@ DWORD WINAPI PKCanScan::CanReconnectionThread(LPVOID pCanScan)
 	return 0;
 }
 
+
+std::string m_translatePeakPortStatusBitpatternToText( unsigned int bp ){
+	std::string msg = "peak port status message: ";
+	if ( bp & PCAN_ERROR_OK ) msg += "No error. Success. (000000) ";
+	if ( bp & PCAN_ERROR_XMTFULL ) msg += "(000001) Transmit buffer in CAN controller is full. ";
+	if ( bp & PCAN_ERROR_OVERRUN ) msg += "(000002) CAN controller was read too late. ";
+	if ( bp & PCAN_ERROR_BUSLIGHT ) msg += "(000004) Bus error: an error counter reached the 'light' limit. ";
+	if ( bp & PCAN_ERROR_BUSHEAVY ) msg += "Bus error: an error counter reached the 'heavy' limit. ";
+	if ( bp & PCAN_ERROR_OK ) msg += "No error. Success. (000000) ";
+	if ( bp & PCAN_ERROR_OK ) msg += "No error. Success. (000000) ";
+	if ( bp & PCAN_ERROR_OK ) msg += "No error. Success. (000000) ";
+	if ( bp & PCAN_ERROR_OK ) msg += "No error. Success. (000000) ";
+	if ( bp & PCAN_ERROR_OK ) msg += "No error. Success. (000000) ";
+	if ( bp & PCAN_ERROR_OK ) msg += "No error. Success. (000000) ";
+	if ( bp & PCAN_ERROR_OK ) msg += "No error. Success. (000000) ";
+	if ( bp & PCAN_ERROR_OK ) msg += "No error. Success. (000000) ";
+	if ( bp & PCAN_ERROR_OK ) msg += "No error. Success. (000000) ";
+	if ( bp & PCAN_ERROR_OK ) msg += "No error. Success. (000000) ";
+	if ( bp & PCAN_ERROR_OK ) msg += "No error. Success. (000000) ";
+	if ( bp & PCAN_ERROR_OK ) msg += "No error. Success. (000000) ";
+	if ( bp & PCAN_ERROR_OK ) msg += "No error. Success. (000000) ";
+}
+
 /**
  * (virtual) forced implementation. Generally: do whatever shenanigans you need on the vendor API and fill in the portState accordingly, stay
  * close to the semantics of the enum.
