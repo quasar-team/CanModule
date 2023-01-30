@@ -661,23 +661,35 @@ DWORD WINAPI PKCanScan::CanReconnectionThread(LPVOID pCanScan)
 std::string m_translatePeakPortStatusBitpatternToText( unsigned int bp ){
 	std::string msg = "peak port status message: ";
 	if ( bp & PCAN_ERROR_OK ) msg += "No error. Success. (000000) ";
-	if ( bp & PCAN_ERROR_XMTFULL ) msg += "(000001) Transmit buffer in CAN controller is full. ";
-	if ( bp & PCAN_ERROR_OVERRUN ) msg += "(000002) CAN controller was read too late. ";
-	if ( bp & PCAN_ERROR_BUSLIGHT ) msg += "(000004) Bus error: an error counter reached the 'light' limit. ";
-	if ( bp & PCAN_ERROR_BUSHEAVY ) msg += "Bus error: an error counter reached the 'heavy' limit. ";
-	if ( bp & PCAN_ERROR_OK ) msg += "No error. Success. (000000) ";
-	if ( bp & PCAN_ERROR_OK ) msg += "No error. Success. (000000) ";
-	if ( bp & PCAN_ERROR_OK ) msg += "No error. Success. (000000) ";
-	if ( bp & PCAN_ERROR_OK ) msg += "No error. Success. (000000) ";
-	if ( bp & PCAN_ERROR_OK ) msg += "No error. Success. (000000) ";
-	if ( bp & PCAN_ERROR_OK ) msg += "No error. Success. (000000) ";
-	if ( bp & PCAN_ERROR_OK ) msg += "No error. Success. (000000) ";
-	if ( bp & PCAN_ERROR_OK ) msg += "No error. Success. (000000) ";
-	if ( bp & PCAN_ERROR_OK ) msg += "No error. Success. (000000) ";
-	if ( bp & PCAN_ERROR_OK ) msg += "No error. Success. (000000) ";
-	if ( bp & PCAN_ERROR_OK ) msg += "No error. Success. (000000) ";
-	if ( bp & PCAN_ERROR_OK ) msg += "No error. Success. (000000) ";
-	if ( bp & PCAN_ERROR_OK ) msg += "No error. Success. (000000) ";
+	if ( bp & PCAN_ERROR_XMTFULL ) msg += "PCAN_ERROR_XMTFULL (000001) Transmit buffer in CAN controller is full. ";
+	if ( bp & PCAN_ERROR_OVERRUN ) msg += "PCAN_ERROR_OVERRUN (000002) CAN controller was read too late. ";
+	if ( bp & PCAN_ERROR_BUSLIGHT ) msg += "PCAN_ERROR_BUSLIGHT (000004) Bus error: an error counter reached the 'light' limit. ";
+	if ( bp & PCAN_ERROR_BUSHEAVY ) msg += "PCAN_ERROR_BUSHEAVY  (000008) Bus error: an error counter reached the 'heavy' limit. ";
+	if ( bp & PCAN_ERROR_BUSWARNING ) msg += "PCAN_ERROR_BUSWARNING (000008) Bus error: an error counter reached the 'warning' limit. ";
+	if ( bp & PCAN_ERROR_BUSPASSIVE ) msg += "PCAN_ERROR_BUSPASSIVE (262144) Bus error: the CAN controller is error passive. ";
+	if ( bp & PCAN_ERROR_BUSOFF ) msg += "PCAN_ERROR_BUSOFF (000016)  Bus error: the CAN controller is in bus-off state. ";
+	if ( bp & PCAN_ERROR_ANYBUSERR ) msg += "PCAN_ERROR_ANYBUSERR (262172) Mask for all bus errors. "; // used ?
+	if ( bp & PCAN_ERROR_QRCVEMPTY ) msg += "PCAN_ERROR_QRCVEMPTY (000032) Receive queue is empty. ";
+	if ( bp & PCAN_ERROR_QOVERRUN ) msg += "PCAN_ERROR_QOVERRUN (000064) Receive queue was read too late. ";
+	if ( bp & PCAN_ERROR_QXMTFULL ) msg += "PCAN_ERROR_QXMTFULL (000128) Transmit queue is full. ";
+	if ( bp & PCAN_ERROR_REGTEST ) msg += "PCAN_ERROR_REGTEST (000256) Test of the CAN controller hardware registers failed (no hardware found). ";
+	if ( bp & PCAN_ERROR_NODRIVER ) msg += "PCAN_ERROR_NODRIVER (000512) Driver not loaded. ";
+	if ( bp & PCAN_ERROR_HWINUSE ) msg += "PCAN_ERROR_HWINUSE (001024) PCAN-Hardware already in use by a PCAN-Net. ";
+	if ( bp & PCAN_ERROR_NETINUSE ) msg += "PCAN_ERROR_NETINUSE (002048) A PCAN-Client is already connected to the PCAN-Net. ";
+	if ( bp & PCAN_ERROR_ILLHW ) msg += "PCAN_ERROR_ILLHW (005120) PCAN-Hardware handle is invalid. ";
+	if ( bp & PCAN_ERROR_ILLNET ) msg += "PCAN_ERROR_ILLNET(006144) PCAN-Net handle is invalid. ";
+
+	if ( bp & PCAN_ERROR_ILLCLIENT ) msg += "PCAN_ERROR_ILLCLIENT (007168) PCAN-Client handle is invalid. ";
+	if ( bp & PCAN_ERROR_ILLHANDLE ) msg += "PCAN_ERROR_ILLHANDLE (007168) Mask for all handle errors. "; // used ?
+	if ( bp & PCAN_ERROR_RESOURCE ) msg += "PCAN_ERROR_RESOURCE (008192) Resource (FIFO, Client, timeout) cannot be created. ";
+	if ( bp & PCAN_ERROR_ILLPARAMTYPE ) msg += "PCAN_ERROR_ILLPARAMTYPE (016384) Invalid parameter. ";
+	if ( bp & PCAN_ERROR_UNKNOWN ) msg += "PCAN_ERROR_UNKNOWN (065536) Unknown error ";
+	if ( bp & PCAN_ERROR_ILLDATA ) msg += "PCAN_ERROR_ILLDATA (131072) Invalid data, function, or action. ";
+	if ( bp & PCAN_ERROR_ILLMODE ) msg += "PCAN_ERROR_ILLMODE (524288) Driver object state is wrong for the attempted operation. ";
+	if ( bp & PCAN_ERROR_CAUTION ) msg += "PCAN_ERROR_CAUTION (33554432) Operation succeeded but with irregularities. ";
+	if ( bp & PCAN_ERROR_INITIALIZE ) msg += "PCAN_ERROR_INITIALIZE (67108864) Channel is not initialized. ";
+	if ( bp & PCAN_ERROR_ILLOPERATION ) msg += "PCAN_ERROR_ILLOPERATION (134217728) Invalid operation ";
+	return ( msg );
 }
 
 /**
