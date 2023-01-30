@@ -657,3 +657,60 @@ DWORD WINAPI PKCanScan::CanReconnectionThread(LPVOID pCanScan)
 	return 0;
 }
 
+/**
+ * (virtual) forced implementation. Generally: do whatever shenanigans you need on the vendor API and fill in the portState accordingly, stay
+ * close to the semantics of the enum.
+ *
+ * windows peak specific implementation: we get USB and CAN status from the API
+ */
+/* virtual */ void PKCanScan::::fetchAndPublishCanPortState ()
+{
+	// we could also use the unified port status for this and strip off the implementation bits
+	// but using can_get_state directly is less complex and has less dependencies
+
+	int portState;
+#if 0
+	AnaInt32 ana_state = CANDeviceConnectState( m_UcanHandle );
+
+	// translate the ana_state ( AnaGateAPI.v2 from  2014-12-10 applies to 2.06-25.03.2021 CANDeviceConnectState )
+	// into the standardized enum CanModule::CanModuleUtils::CanModule_bus_state
+	// anagate does not give tx/rx error counts
+	switch ( ana_state ){
+	case ANAGATE_API_V2_DEVICE_CONNECTION_STATE::DISCONNECTED : {
+		portState = CanModule::CanModule_bus_state::CAN_STATE_STOPPED;
+		std::string msg = CanModule::translateCanBusStateToText((CanModule::CanModule_bus_state) portState );
+		MLOGANA(WRN, this) << msg << "tid=[" << std::this_thread::get_id() << "]";
+		break;
+	}
+	case ANAGATE_API_V2_DEVICE_CONNECTION_STATE::CONNECTING : {
+		portState = CanModule::CanModule_bus_state::CANMODULE_WARNING;
+		std::string msg = CanModule::translateCanBusStateToText((CanModule::CanModule_bus_state) portState );
+		MLOGANA(WRN, this) << msg << "tid=[" << std::this_thread::get_id() << "]";
+		break;
+	}
+	case ANAGATE_API_V2_DEVICE_CONNECTION_STATE::CONNECTED : {
+		portState = CanModule::CanModule_bus_state::CANMODULE_OK;
+		break;
+	}
+	case ANAGATE_API_V2_DEVICE_CONNECTION_STATE::DISCONNECTING : {
+		portState = CanModule::CanModule_bus_state::CANMODULE_WARNING;
+		std::string msg = CanModule::translateCanBusStateToText((CanModule::CanModule_bus_state) portState );
+		MLOGANA(WRN, this) << msg << "tid=[" << std::this_thread::get_id() << "]";
+		break;
+	}
+	case ANAGATE_API_V2_DEVICE_CONNECTION_STATE::NOT_INITIALIZED : {
+		portState = CanModule::CanModule_bus_state::CANMODULE_NOSTATE;
+		break;
+	}
+	default: {
+		portState = CanModule::CanModule_bus_state::CANMODULE_NOSTATE;
+		std::string msg = CanModule::translateCanBusStateToText((CanModule::CanModule_bus_state) portState );
+		MLOGANA(WRN, this) << msg << "tid=[" << std::this_thread::get_id() << "]";
+		break;
+	}
+	} // switch
+	// signals only if it has changed
+#endif
+	publishPortStatusChanged( portState );
+}
+

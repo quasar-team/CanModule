@@ -84,7 +84,7 @@ public:
 	virtual CanModule::ReconnectAction getReconnectAction() { return m_reconnectAction; };
 
 	virtual void stopBus();
-	virtual void fetchAndPublishCanPortState (){};
+	virtual void fetchAndPublishCanPortState ();
 
 	int getFailedSendCountdown() { return m_failedSendCountdown; }
 	TPCANHandle	getTPCANHandle() { return m_pkCanHandle;	}
