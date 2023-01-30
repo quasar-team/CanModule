@@ -663,7 +663,7 @@ DWORD WINAPI PKCanScan::CanReconnectionThread(LPVOID pCanScan)
  *
  * windows peak specific implementation: we get USB and CAN status from the API
  */
-/* virtual */ void PKCanScan::::fetchAndPublishCanPortState ()
+/* virtual */ void PKCanScan::fetchAndPublishCanPortState ()
 {
 	// we could also use the unified port status for this and strip off the implementation bits
 	// but using can_get_state directly is less complex and has less dependencies
