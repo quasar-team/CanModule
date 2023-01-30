@@ -661,7 +661,76 @@ DWORD WINAPI PKCanScan::CanReconnectionThread(LPVOID pCanScan)
  * (virtual) forced implementation. Generally: do whatever shenanigans you need on the vendor API and fill in the portState accordingly, stay
  * close to the semantics of the enum.
  *
- * windows peak specific implementation: we get USB and CAN status from the API
+ * windows peak specific implementation: we get USB and CAN status from the API PCAN-Basic API 26.july.2022 https://www.peak-system.com.
+ * This is very complete ;-). So we use the standardized CanModule::CanModule_bus_state:: and ADD the specific text message from peak so that we do not
+ * loose anything.
+ *
+ * Note that the values of the different PCAN-Status definitions are able to be bitwise combined. In
+ * some cases it is possible to get more than one error code as result of calling a function.
+ * Note that the values of PCAN_ERROR_INITIALIZE and PCAN_ERROR_ILLOPERATION were
+ * changed!
+ * PCAN_ERROR_INITIALIZE changed from 0x40000 to 0x4000000
+ * PCAN_ERROR_ILLOPERATION changed from 0x80000 to 0x8000000
+ *
+ * PCAN_ERROR_OK 0x00000 No error. Success. (000000)
+ * PCAN_ERROR_XMTFULL 0x00001 (000001) Transmit buffer in CAN controller is full.
+ * PCAN_ERROR_OVERRUN 0x00002 (000002) CAN controller was read too late.
+ * PCAN_ERROR_BUSLIGHT 0x00004 (000004) Bus error: an error counter reached the 'light' limit.
+ * PCAN_ERROR_BUSHEAVY 0x00008 (000008) Bus error: an error counter reached the 'heavy' limit.
+ * PCAN_ERROR_BUSWARNING 0x00008 (000008) Bus error: an error counter reached the 'warning' limit.
+ * PCAN_ERROR_BUSPASSIVE 0x40000 (262144) Bus error: the CAN controller is error passive.
+ * PCAN_ERROR_BUSOFF 0x00010 (000016)  Bus error: the CAN controller is in bus-off state.
+ * PCAN_ERROR_ANYBUSERR 0x4001C (262172) Mask for all bus errors.
+ * PCAN_ERROR_QRCVEMPTY 0x00020 (000032) Receive queue is empty.
+ * PCAN_ERROR_QOVERRUN 0x00040 (000064) Receive queue was read too late.
+ * PCAN_ERROR_QXMTFULL 0x00080 (000128) Transmit queue is full.
+ * PCAN_ERROR_REGTEST 0x00100 (000256) Test of the CAN controller hardware registers failed (no hardware found).
+ * PCAN_ERROR_NODRIVER 0x00200 (000512) Driver not loaded.
+ * PCAN_ERROR_HWINUSE 0x00400 (001024) PCAN-Hardware already in use by a PCAN-Net.
+ * PCAN_ERROR_NETINUSE 0x00800 (002048) A PCAN-Client is already connected to the PCAN-Net.
+ * PCAN_ERROR_ILLHW 0x01400 (005120) PCAN-Hardware handle is invalid.
+ * PCAN_ERROR_ILLNET 0x01800 (006144) PCAN-Net handle is invalid.
+ * PCAN_ERROR_ILLCLIENT 0x01C00 (007168) PCAN-Client handle is invalid.
+ * PCAN_ERROR_ILLHANDLE 0x01C00 (007168) Mask for all handle errors.
+ * PCAN_ERROR_RESOURCE 0x02000 (008192) Resource (FIFO, Client, timeout) cannot be created.
+ * PCAN_ERROR_ILLPARAMTYPE 0x04000  (016384) Invalid parameter.
+ * PCAN_ERROR_ILLPARAMVAL 0x08000 (032768) Invalid parameter value.
+ * PCAN_ERROR_UNKNOWN 0x10000 (065536) Unknown error
+ * PCAN_ERROR_ILLDATA 0x20000 (131072) Invalid data, function, or action.
+ * PCAN_ERROR_ILLMODE 0x80000 (524288) Driver object state is wrong for the attempted operation.
+ * PCAN_ERROR_CAUTION 0x2000000 (33554432) Operation succeeded but with irregularities.
+ * PCAN_ERROR_INITIALIZE* 0x4000000 (67108864) Channel is not initialized.
+ * PCAN_ERROR_ILLOPERATION* 0x8000000 (134217728) Invalid operation
+ *
+ * #define PCAN_ERROR_OK 0x00000
+ * #define PCAN_ERROR_XMTFULL 0x00001
+ * #define PCAN_ERROR_OVERRUN 0x00002
+ * #define PCAN_ERROR_BUSLIGHT 0x00004
+ * #define PCAN_ERROR_BUSHEAVY 0x00008
+ * #define PCAN_ERROR_BUSWARNING PCAN_ERROR_BUSHEAVY
+ * #define PCAN_ERROR_BUSPASSIVE 0x40000
+ * #define PCAN_ERROR_BUSOFF 0x00010
+ * #define PCAN_ERROR_ANYBUSERR (PCAN_ERROR_BUSWARNING | PCAN_ERROR_B
+ * #define PCAN_ERROR_QRCVEMPTY 0x00020
+ * #define PCAN_ERROR_QOVERRUN 0x00040
+ * #define PCAN_ERROR_QXMTFULL 0x00080
+ * #define PCAN_ERROR_REGTEST 0x00100
+ * #define PCAN_ERROR_NODRIVER 0x00200
+ * #define PCAN_ERROR_HWINUSE 0x00400
+ * #define PCAN_ERROR_NETINUSE 0x00800
+ * #define PCAN_ERROR_ILLHW 0x01400
+ * #define PCAN_ERROR_ILLNET 0x01800
+ * #define PCAN_ERROR_ILLCLIENT 0x01C00
+ * #define PCAN_ERROR_ILLHANDLE (PCAN_ERROR_ILLHW | PCAN_ERROR_ILLNET
+ * #define PCAN_ERROR_RESOURCE 0x02000
+ * #define PCAN_ERROR_ILLPARAMTYPE 0x04000
+ * #define PCAN_ERROR_ILLPARAMVAL 0x08000
+ * #define PCAN_ERROR_UNKNOWN 0x10000
+ * #define PCAN_ERROR_ILLDATA 0x20000
+ * #define PCAN_ERROR_ILLMODE 0x80000
+ * #define PCAN_ERROR_CAUTION 0x2000000
+ * #define PCAN_ERROR_INITIALIZE 0x4000000
+ * #define PCAN_ERROR_ILLOPERATION 0x8000000
  */
 /* virtual */ void PKCanScan::fetchAndPublishCanPortState ()
 {
@@ -669,13 +738,25 @@ DWORD WINAPI PKCanScan::CanReconnectionThread(LPVOID pCanScan)
 	// but using can_get_state directly is less complex and has less dependencies
 
 	int portState;
-#if 0
-	AnaInt32 ana_state = CANDeviceConnectState( m_UcanHandle );
+	TPCANStatus peak_state = CAN_GetStatus( m_pkCanHandle );
 
-	// translate the ana_state ( AnaGateAPI.v2 from  2014-12-10 applies to 2.06-25.03.2021 CANDeviceConnectState )
-	// into the standardized enum CanModule::CanModuleUtils::CanModule_bus_state
-	// anagate does not give tx/rx error counts
-	switch ( ana_state ){
+
+
+
+
+	// translate the peak_state
+	// into the standardized enum CanModule::CanModuleUtils::CanModule_bus_state. we have to do bitwise testing. If we get more than one bit set we
+	// do a signal for each bit.
+	switch ( peak_state ){
+	case PCAN_ERROR_OK : {
+		portState = CanModule::CanModule_bus_state::CANMODULE_OK;
+		std::string msg = CanModule::translateCanBusStateToText((CanModule::CanModule_bus_state) portState );
+		MLOGPK(WRN, this) << msg << "tid=[" << std::this_thread::get_id() << "]";
+		break;
+
+	}
+
+#if 0
 	case ANAGATE_API_V2_DEVICE_CONNECTION_STATE::DISCONNECTED : {
 		portState = CanModule::CanModule_bus_state::CAN_STATE_STOPPED;
 		std::string msg = CanModule::translateCanBusStateToText((CanModule::CanModule_bus_state) portState );
@@ -702,15 +783,16 @@ DWORD WINAPI PKCanScan::CanReconnectionThread(LPVOID pCanScan)
 		portState = CanModule::CanModule_bus_state::CANMODULE_NOSTATE;
 		break;
 	}
+#endif
 	default: {
 		portState = CanModule::CanModule_bus_state::CANMODULE_NOSTATE;
 		std::string msg = CanModule::translateCanBusStateToText((CanModule::CanModule_bus_state) portState );
-		MLOGANA(WRN, this) << msg << "tid=[" << std::this_thread::get_id() << "]";
+		MLOGPK(WRN, this) << msg << "tid=[" << std::this_thread::get_id() << "]";
 		break;
 	}
 	} // switch
 	// signals only if it has changed
-#endif
+
 	publishPortStatusChanged( portState );
 }
 
