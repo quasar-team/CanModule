@@ -119,7 +119,7 @@ private:
     DWORD           m_idCanScanThread;
     DWORD           m_idPeakReconnectionThread;
 
-    std::string m_translatePeakPortStatusBitpatternToText( unsigned int bp ){
+    std::string m_translatePeakPortStatusBitpatternToText( TPCANStatus bp );
 
 
 
