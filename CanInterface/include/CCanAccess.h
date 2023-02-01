@@ -29,7 +29,6 @@
 #include <thread>
 #include <string>
 
-#include <boost/bind/bind.hpp>
 #include <boost/signals2.hpp>
 
 #include <LogIt.h>
