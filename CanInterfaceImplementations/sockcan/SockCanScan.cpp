@@ -277,6 +277,7 @@ int CSockCanScan::configureCanBoard(const string name,const string parameters)
 	}
 
 	m_channelName = this->getNetworkInterfaceName(lname);
+	m_sBusName = m_channelName;
 	m_CanParameters.scanParameters(parameters);
 	
 	MLOGSOCK(TRC, this) << "m_channelName= " << m_channelName ;
