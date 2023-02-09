@@ -794,11 +794,14 @@ std::string m_translatePeakPortStatusBitpatternToText( TPCANStatus bp ){
 		portState = CanModule::CanModule_bus_state::CAN_STATE_MAX;
 		break;
 	}
+#if 0
+	// double declaration in API 17.nov.2017
 	case PCAN_ERROR_BUSWARNING : {
 		portState = CanModule::CanModule_bus_state::CAN_STATE_ERROR_WARNING;
 
 		break;
 	}
+#endif
 	case PCAN_ERROR_BUSPASSIVE : {
 		portState = CanModule::CanModule_bus_state::CAN_STATE_ERROR_PASSIVE;
 		break;
