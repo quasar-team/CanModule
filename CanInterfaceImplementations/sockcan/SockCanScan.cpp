@@ -97,7 +97,8 @@ CSockCanScan::CSockCanScan() :
 							m_errorCode(-1),
 							m_hCanScanThread( NULL ),
 							m_busName("nobus"),
-							m_logItHandleSock(0)
+							m_logItHandleSock(0),
+							m_lastStateCheck(std::chrono::steady_clock::now())
 {
 	//m_statistics.setTimeSinceOpened(); -- TODO Piotr Uncomment it later
 	m_statistics.beginNewRun();
@@ -154,8 +155,16 @@ void CSockCanScan::backgroundThread()
 	MLOGSOCK(TRC, this) << "main loop of SockCanScan starting, tid= " << _tid;
 	while ( m_CanScanThreadRunEnableFlag )
 	{
-		fetchAndPublishState();
-
+		//! Check state, possibly emitting that port is back to good, but not too frequently (CPU consumption of can_get_state...)
+		std::chrono::steady_clock::time_point now = std::chrono::steady_clock::now();
+		unsigned int millisecondsSinceLastStateCheck = 
+			std::chrono::duration_cast<std::chrono::milliseconds> (now - m_lastStateCheck).count();
+		if (millisecondsSinceLastStateCheck > 1000)
+		{
+			fetchAndPublishState();
+			m_lastStateCheck = now;
+		}
+		
 		int selectResult = selectWrapper();
 
 		/**
@@ -164,7 +173,7 @@ void CSockCanScan::backgroundThread()
 		 */
 		if ( selectResult < 0 )
 		{
-			publishStatus(selectResult, "select() failed: " + CanModuleerrnoToString() + " tid= " + _tid);
+			publishState(selectResult, "select() failed: " + CanModuleerrnoToString() + " tid= " + _tid);
 			std::this_thread::sleep_for(std::chrono::seconds(1));
 			continue;
 		}
@@ -182,7 +191,7 @@ void CSockCanScan::backgroundThread()
 		MLOGSOCK(DBG, this) << "got numberOfReadBytes= " << numberOfReadBytes << " tid= " << _tid;;
 		if (numberOfReadBytes < 0)
 		{
-			publishStatus(numberOfReadBytes, "read() failed: " + CanModuleerrnoToString() + " tid= " + _tid);
+			publishState(numberOfReadBytes, "read() failed: " + CanModuleerrnoToString() + " tid= " + _tid);
 			// try close/opening on faults while port is active
 
 			recoverPort();
@@ -206,7 +215,7 @@ void CSockCanScan::backgroundThread()
 			/* With this mechanism we only set the portError */
 			int code = socketMessage.can_id & ~CAN_ERR_FLAG;
 			std::string description = CSockCanScan::errorFrameToString( socketMessage );
-			publishStatus( code, description, true);
+			publishState( code, description, true);
 			// we have tried to get the error, and we continue thread normally
 			continue;
 		}
@@ -706,7 +715,7 @@ void CSockCanScan::recoverPort ()
 	} 
 }
 
-void CSockCanScan::publishStatus (
+void CSockCanScan::publishState (
 	unsigned int status,
 	const std::string& message,
 	bool unconditionalMessage)
@@ -729,9 +738,9 @@ void CSockCanScan::fetchAndPublishState ()
 		if (m_CanParameters.m_dontReconfigure)
 			return;
 		else
-			publishStatus(-1, "Can't get state via netlink", true);
+			publishState(-1, "Can't get state via netlink", true);
 	}
-	publishStatus(obtainedState, translateCanStateToText((can_state)obtainedState));
+	publishState(obtainedState, translateCanStateToText((can_state)obtainedState));
 }
 
 //! Piotr's reimplementation of parseNameAndParameters

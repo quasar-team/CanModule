@@ -99,6 +99,8 @@ private:
 	std::string m_busName; // this is the whole given name, e.g.: "sock:vcan0"
 	Log::LogComponentHandle m_logItHandleSock;
 
+	//! This will help us run can_get_state not so frequently.
+	std::chrono::steady_clock::time_point m_lastStateCheck;
 
 	/**
 	 * stop the supervisor thread using the flag and close the socket.
@@ -138,9 +140,10 @@ private:
 	//! Assuming that port went into severe problem, try to recover it by reopening and/or reconfiguring it.
 	void recoverPort ();
 
-	//! This function is to be used whenever status changes (and sends notifications!)
-	void publishStatus (unsigned int status, const std::string& message, bool unconditionalMessage=false);
+	//! This function is to be used whenever you push new status (either changed or not) (and sends notifications!)
+	void publishState (unsigned int status, const std::string& message, bool unconditionalMessage=false);
 
+	//! Uses SocketCAN netlink to fetch state and then publish -- note! CPU intensive!
 	void fetchAndPublishState ();
 
 	//! Takes the bus name in the form: "provider:channel" (e.g. sock:can3 or sock:1) and returns the channel name (here: can3 and can1 respectively)
