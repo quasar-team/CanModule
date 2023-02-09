@@ -122,7 +122,7 @@ DWORD WINAPI PKCanScan::CanScanControlThread(LPVOID pCanScan)
 	MLOGPK(DBG,pkCanScanPointer) << "CanScanControlThread Started. m_CanScanThreadShutdownFlag = [" << pkCanScanPointer->m_CanScanThreadRunEnableFlag <<"]";
 	pkCanScanPointer->m_CanScanThreadRunEnableFlag = true;
 	while ( pkCanScanPointer->m_CanScanThreadRunEnableFlag ) {
-		fetchAndPublishCanPortState ();
+		pkCanScanPointer->fetchAndPublishCanPortState ();
 
 		TPCANMsg tpcanMessage;
 		TPCANTimestamp tpcanTimestamp;
@@ -164,7 +164,7 @@ DWORD WINAPI PKCanScan::CanScanControlThread(LPVOID pCanScan)
 		}
 	}
 	MLOGPK(TRC, pkCanScanPointer) << "exiting thread...(in 2 secs)";
-	fetchAndPublishCanPortState ();
+	pkCanScanPointer->fetchAndPublishCanPortState ();
 	CanModule::ms_sleep( 2000 );
 	ExitThread(0);
 	return 0;
