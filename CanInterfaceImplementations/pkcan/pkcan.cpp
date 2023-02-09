@@ -206,7 +206,7 @@ int PKCanScan::createBus(const std::string name, const std::string parameters )
 
 	MLOGPK(DBG, this) << " name= " << name << " parameters= " << parameters << ", configuring CAN board";
 
-	if ( !configureCanboard(name,parameters) ) {
+	if ( !m_configureCanboard(name,parameters) ) {
 		MLOGPK( ERR, this ) << " name= " << name << " parameters= " << parameters << ", failed to configure CAN board";
 		return (-1);
 	}
@@ -268,7 +268,7 @@ int PKCanScan::createBus(const std::string name, const std::string parameters )
  * true = success
  * false = failed
  */
-bool PKCanScan::configureCanboard(const std::string name,const std::string parameters)
+bool PKCanScan::m_configureCanboard(const std::string name,const std::string parameters)
 {
 	m_sBusName = name;
 	m_baudRate = PCAN_BAUD_125K;
@@ -405,7 +405,7 @@ bool PKCanScan::configureCanboard(const std::string name,const std::string param
 }
 
 
-bool PKCanScan::sendErrorCode(long status)
+bool PKCanScan::m_sendErrorCode(long status)
 {
 	if (status != m_busStatus)
 	{
@@ -461,7 +461,7 @@ bool PKCanScan::sendMessage(short cobID, unsigned char len, unsigned char *messa
 
 			// here we should see if we need to reconnect
 			triggerReconnectionThread();
-			return sendErrorCode(tpcanStatus);
+			return m_sendErrorCode(tpcanStatus);
 		} else {
 			MLOGPK(TRC, this) << " send message OK, tpcanStatus= "
 				<< std::hex << "0x" << tpcanStatus << std::dec;
@@ -472,7 +472,7 @@ bool PKCanScan::sendMessage(short cobID, unsigned char len, unsigned char *messa
 		message = message + lengthToBeSent;
 	}
 	while (lengthOfUnsentData > 8);
-	return sendErrorCode(tpcanStatus);
+	return m_sendErrorCode(tpcanStatus);
 }
 
 bool PKCanScan::sendRemoteRequest(short cobID)
@@ -481,7 +481,7 @@ bool PKCanScan::sendRemoteRequest(short cobID)
 	tpcanMessage.ID = cobID;
 	tpcanMessage.MSGTYPE = PCAN_MESSAGE_RTR;
 	TPCANStatus tpcanStatus = CAN_Write(m_pkCanHandle, &tpcanMessage);
-	return sendErrorCode(tpcanStatus);
+	return m_sendErrorCode(tpcanStatus);
 }
 
 bool PKCanScan::getErrorMessage(long error, char **message)
