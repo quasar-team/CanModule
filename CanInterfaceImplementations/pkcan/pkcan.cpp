@@ -687,7 +687,10 @@ std::string m_translatePeakPortStatusBitpatternToText( TPCANStatus bp ){
 	if ( bp & PCAN_ERROR_ILLPARAMTYPE ) msg += "PCAN_ERROR_ILLPARAMTYPE (016384) Invalid parameter. ";
 	if ( bp & PCAN_ERROR_UNKNOWN ) msg += "PCAN_ERROR_UNKNOWN (065536) Unknown error ";
 	if ( bp & PCAN_ERROR_ILLDATA ) msg += "PCAN_ERROR_ILLDATA (131072) Invalid data, function, or action. ";
+#if 0
+	// not in API 17.nov.2017
 	if ( bp & PCAN_ERROR_ILLMODE ) msg += "PCAN_ERROR_ILLMODE (524288) Driver object state is wrong for the attempted operation. ";
+#endif
 	if ( bp & PCAN_ERROR_CAUTION ) msg += "PCAN_ERROR_CAUTION (33554432) Operation succeeded but with irregularities. ";
 	if ( bp & PCAN_ERROR_INITIALIZE ) msg += "PCAN_ERROR_INITIALIZE (67108864) Channel is not initialized. ";
 	if ( bp & PCAN_ERROR_ILLOPERATION ) msg += "PCAN_ERROR_ILLOPERATION (134217728) Invalid operation ";
