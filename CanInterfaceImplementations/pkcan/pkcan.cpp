@@ -84,7 +84,7 @@ void PKCanScan::stopBus ()
 	MLOGPK(TRC, this) << " try finishing thread...calling CAN_Uninitialize";
 	TPCANStatus tpcanStatus = CAN_Uninitialize(m_pkCanHandle);
 	MLOGPK(TRC, this) << "CAN_Uninitialize returns " << (int) tpcanStatus;
-
+	fetchAndPublishCanPortState ();
 	{
 		peakReconnectMutex.lock();
 		std::map< std::string, std::string>::iterator it = PKCanScan::m_busMap.find( m_busName );
@@ -122,6 +122,8 @@ DWORD WINAPI PKCanScan::CanScanControlThread(LPVOID pCanScan)
 	MLOGPK(DBG,pkCanScanPointer) << "CanScanControlThread Started. m_CanScanThreadShutdownFlag = [" << pkCanScanPointer->m_CanScanThreadRunEnableFlag <<"]";
 	pkCanScanPointer->m_CanScanThreadRunEnableFlag = true;
 	while ( pkCanScanPointer->m_CanScanThreadRunEnableFlag ) {
+		fetchAndPublishCanPortState ();
+
 		TPCANMsg tpcanMessage;
 		TPCANTimestamp tpcanTimestamp;
 		TPCANStatus tpcanStatus = CAN_Read(tpcanHandler,&tpcanMessage,&tpcanTimestamp);
@@ -162,6 +164,7 @@ DWORD WINAPI PKCanScan::CanScanControlThread(LPVOID pCanScan)
 		}
 	}
 	MLOGPK(TRC, pkCanScanPointer) << "exiting thread...(in 2 secs)";
+	fetchAndPublishCanPortState ();
 	CanModule::ms_sleep( 2000 );
 	ExitThread(0);
 	return 0;
@@ -210,6 +213,7 @@ int PKCanScan::createBus(const std::string name, const std::string parameters )
 		MLOGPK( ERR, this ) << " name= " << name << " parameters= " << parameters << ", failed to configure CAN board";
 		return (-1);
 	}
+	fetchAndPublishCanPortState ();
 
 	bool skipMainThreadCreation = false;
 	{
@@ -404,7 +408,7 @@ bool PKCanScan::m_configureCanboard(const std::string name,const std::string par
 	return ret;
 }
 
-
+// send an error message down the error signal
 bool PKCanScan::m_sendErrorCode(long status)
 {
 	if (status != m_busStatus)
@@ -455,6 +459,8 @@ bool PKCanScan::sendMessage(short cobID, unsigned char len, unsigned char *messa
 
 		memcpy(tpcanMessage.DATA, message, lengthToBeSent);
 		tpcanStatus = CAN_Write(m_pkCanHandle, &tpcanMessage);
+		fetchAndPublishCanPortState ();
+
 		MLOGPK(TRC, this) << " send message returned tpcanStatus= "	<< std::hex << "0x" << tpcanStatus << std::dec;
 		if (tpcanStatus != PCAN_ERROR_OK) {
 			MLOGPK(ERR, this) << " send message problem detected, tpcanStatus= " << std::hex << "0x" << tpcanStatus << std::dec;
@@ -598,6 +604,8 @@ DWORD WINAPI PKCanScan::CanReconnectionThread(LPVOID pCanScan)
 			<< " action " << reconnectActionString(pkCanScanPointer->getReconnectAction())
 			<< " is checked, m_failedSendCountdown= "
 			<< pkCanScanPointer->getFailedSendCountdown();
+
+		fetchAndPublishCanPortState ();
 
 		// condition
 		switch ( rcondition ){
@@ -757,25 +765,8 @@ std::string PKCanScan::m_translatePeakPortStatusBitpatternToText( TPCANStatus bp
  */
 /* virtual */ void PKCanScan::fetchAndPublishCanPortState ()
 {
-	// we could also use the unified port status for this and strip off the implementation bits
-	// but using can_get_state directly is less complex and has less dependencies
-
 	int portState = CanModule::CanModule_bus_state::CANMODULE_NOSTATE;
 	TPCANStatus peak_state = CAN_GetStatus( m_pkCanHandle );
-
-	// translate the peak_state
-	// into the standardized enum CanModule::CanModuleUtils::CanModule_bus_state. we have to do bitwise testing. If we get more than one bit set we
-
-	// CAN bus errors: they are exclusive. Of course peak is slightly different. Lets use the bus mask from peak for that.
-#if 0
-	 CAN_STATE_ERROR_ACTIVE = 0,	/* RX/TX error count < 96 */
-			CAN_STATE_ERROR_WARNING,	/* RX/TX error count < 128 */
-			CAN_STATE_ERROR_PASSIVE,	/* RX/TX error count < 256 */
-			CAN_STATE_BUS_OFF,		/* RX/TX error count >= 256 */
-			CAN_STATE_STOPPED,		/* Device is stopped */
-			CAN_STATE_SLEEPING,		/* Device is sleeping */
-			CAN_STATE_MAX,
-#endif
 
 	switch ( peak_state & PCAN_ERROR_ANYBUSERR ){
 	default: {
@@ -818,14 +809,14 @@ std::string PKCanScan::m_translatePeakPortStatusBitpatternToText( TPCANStatus bp
 		publishPortStatusChanged( portState );
 		return;
 	}
-	/** if we reach here, lets translate all other errors into
-	 // CanModule extension, to cover non-socketcan implementations
+	/** if we reach here, lets translate all other errors into (excluding)
+	  CanModule extension, to cover non-socketcan implementations
 		CANMODULE_NOSTATE,   // could not get state
 		CANMODULE_WARNING,   // degradation but might recover
 		CANMODULE_ERROR,     // error likely stemming from SW/HW/firmware
 		CANMODULE_TIMEOUT_OK, // bus is fine, no traffic
 		CANMODULE_OK         // bus is fine
-*/
+	 */
 
 	// ok
 	if ( peak_state & PCAN_ERROR_QRCVEMPTY ){
