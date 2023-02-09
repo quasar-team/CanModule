@@ -285,7 +285,7 @@ bool PKCanScan::m_configureCanboard(const std::string name,const std::string par
 	//Process the parameters
 	std::vector<std::string> vectorString;
 	vectorString = parseNameAndParameters(name, parameters);
-	MLOGPK(DBG, this) << " calling getHandle vectorString[1]= " << vectorString[1];
+	MLOGPK(DBG, this) << " calling m_getHandle vectorString[1]= " << vectorString[1];
 
 	// peak guys start counting from 1, we start counting from 0. ugh.
 	int ich = atoi(vectorString[1].c_str());
@@ -294,7 +294,7 @@ bool PKCanScan::m_configureCanboard(const std::string name,const std::string par
 
 	std::string interface = "USB";
 	std::string humanReadableCode = interface + channel.str();
-	m_pkCanHandle = getHandle( humanReadableCode.c_str() );
+	m_pkCanHandle = m_getHandle( humanReadableCode.c_str() );
 	MLOGPK( DBG, this ) << "PEAK handle for vectorString[1]= " << vectorString[1]
 	      << " is m_pkCanHandle= 0x" <<std::hex <<  m_pkCanHandle << std::dec
 		  << " human readable code= " << humanReadableCode;
@@ -304,7 +304,7 @@ bool PKCanScan::m_configureCanboard(const std::string name,const std::string par
 	{
 		//numPar = sscanf_s(canpars, "%d %d %d %d %d %d", &parametersBaudRate, &parametersTseg1, &parametersTseg2, &parametersSjw, &parametersNoSamp, &parametersSyncmode);
 		//Get the can object handler
-		m_pkCanHandle = getHandle( humanReadableCode.c_str() /* vectorString[1].c_str() */ );
+		m_pkCanHandle = m_getHandle( humanReadableCode.c_str() /* vectorString[1].c_str() */ );
 		//Process the baudRate if needed
 		if (m_CanParameters.m_iNumberOfDetectedParameters == 1)
 		{
@@ -498,7 +498,7 @@ bool PKCanScan::getErrorMessage(long error, char **message)
  * readable string. The human readable string basically codes the intefrace type (USB, ISA, PCI...) and the CAN port (1..8)
  * so that i.e. USB3->0x53 which means USB interface 3rd channel
  */
-TPCANHandle PKCanScan::getHandle(const char *name)
+TPCANHandle PKCanScan::m_getHandle(const char *name)
 {
 	const char *channelNameArray[] = {
 			"ISA1","ISA2","ISA3","ISA4","ISA5","ISA6","ISA7","ISA8",
