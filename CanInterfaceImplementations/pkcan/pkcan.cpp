@@ -605,7 +605,7 @@ DWORD WINAPI PKCanScan::CanReconnectionThread(LPVOID pCanScan)
 			<< " is checked, m_failedSendCountdown= "
 			<< pkCanScanPointer->getFailedSendCountdown();
 
-		fetchAndPublishCanPortState ();
+		pkCanScanPointer->fetchAndPublishCanPortState ();
 
 		// condition
 		switch ( rcondition ){
