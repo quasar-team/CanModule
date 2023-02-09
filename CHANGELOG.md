@@ -35,6 +35,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 - peak: 
     - do proper versioning of the windows vendor libs, 17.nov2017 and 16.july.2022, see CanInterfaceImplementations/peak/CMakeLists.txt, 
       as defaults. Use toolchain of course
+    - fix (trivial) inconsistencies between API versions so that we have one code only
     - translate the wonderful error-bitpatterns from peak into new enum, and add the peak specific text to the error message which is LogIt'ed
     - for each status change, send a signal to the err handler, but suppress bitpattern details at this stage
 
