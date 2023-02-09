@@ -108,7 +108,7 @@ namespace CanModule
 		CAN_STATE_BUS_OFF,		/* RX/TX error count >= 256 */
 		CAN_STATE_STOPPED,		/* Device is stopped */
 		CAN_STATE_SLEEPING,		/* Device is sleeping */
-		CAN_STATE_MAX,
+		CAN_STATE_MAX,          /* Rx or Tx queue full, overrun */
 
 		// CanModule extension, to cover non-socketcan implementations
 		CANMODULE_NOSTATE,   // could not get state

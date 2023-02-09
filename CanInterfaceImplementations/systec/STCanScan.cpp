@@ -377,6 +377,7 @@ uint32_t STCanScan::getPortStatus(){
 	return( stat2 | CANMODULE_STATUS_BP_SYSTEC );
 }
 
+// send error code and message down the signal
 bool STCanScan::sendErrorCode(long status)
 {
 	char errorMessage[120];
@@ -396,7 +397,7 @@ bool STCanScan::sendErrorCode(long status)
  * hard reset the bridge and reconnect all ports and handlers: windows
  */
 /* static */ int STCanScan::reconnectAllPorts( tUcanHandle h ){
-	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " hard reset not yet implemented";
+	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " hard reset not implemented";
 #if 0
 	/// have to call these two API methods
 	BYTE ret0 = ::UcanDeinitHardware ( m_UcanHandle );
@@ -688,5 +689,103 @@ void STCanScan::getStatistics( CanStatistics & result )
 	m_statistics.computeDerived (m_baudRate);
 	result = m_statistics;  // copy whole structure
 	m_statistics.beginNewRun();
+}
+
+
+/**
+ * (virtual) forced implementation. Generally: do whatever shenanigans you need on the vendor API and fill in the portState accordingly, stay
+ * close to the semantics of the enum.
+ *
+ * windows systec specific implementation: we get USB and CAN status from the API. So we use
+ * the standardized CanModule::CanModule_bus_state:: and ADD the specific text message from systec so that we do not loose anything.
+ * Quite similar to peak@windows.
+ *
+ * get CAN port and USB status
+ * use the API directly
+ * table19 says for CAN status and table20 says for USB status
+ *
+  // CAN status flags (is returned with function UcanGetStatus() or UcanGetStatusEx() )
+#define USBCAN_CANERR_OK                    0x0000              // no error
+#define USBCAN_CANERR_XMTFULL               0x0001              // Tx-buffer of the CAN controller is full
+#define USBCAN_CANERR_OVERRUN               0x0002              // Rx-buffer of the CAN controller is full
+#define USBCAN_CANERR_BUSLIGHT              0x0004              // Bus error: Error Limit 1 exceeded (refer to SJA1000 manual)
+#define USBCAN_CANERR_BUSHEAVY              0x0008              // Bus error: Error Limit 2 exceeded (refer to SJA1000 manual)
+#define USBCAN_CANERR_BUSOFF                0x0010              // Bus error: CAN controllerhas gone into Bus-Off state
+#define USBCAN_CANERR_QRCVEMPTY             0x0020              // RcvQueue is empty
+#define USBCAN_CANERR_QOVERRUN              0x0040              // RcvQueue overrun
+#define USBCAN_CANERR_QXMTFULL              0x0080              // transmit queue is full
+#define USBCAN_CANERR_REGTEST               0x0100              // Register test of the SJA1000 failed
+#define USBCAN_CANERR_MEMTEST               0x0200              // Memory test failed
+#define USBCAN_CANERR_TXMSGLOST             0x0400              // transmit CAN message was automatically deleted by firmware
+                                                                // (because transmit timeout run over)
+
+// USB error messages (is returned with UcanGetStatus..() )
+#define USBCAN_USBERR_OK                    0x0000              // no error
+#define USBCAN_USBERR_STATUS_TIMEOUT        0x2000              // restet because status timeout (device reconnected via USB)
+#define USBCAN_USBERR_WATCHDOG_TIMEOUT      0x4000              // restet because watchdog timeout (device reconnected via USB)
+
+*/
+/* virtual */ void STCanScan::fetchAndPublishCanPortState ()
+{
+	uint32_t statCan = 0;
+	uint32_t statUsb = 0;
+
+	tStatusStruct stat;
+	::UcanGetStatus( m_UcanHandle, &stat );
+	statCan = stat.m_wCanStatus;
+	statUsb = stat.m_wUsbStatus;
+
+
+	/* several bits from systec can occur together. We'll translate that into the enum as good as we can (pun intended).
+	 * we will test the benign bits first, and the serious bits last, like this we always get the "most serious"
+	 * error interpretation
+	 */
+	int portState = CanModule::CanModule_bus_state::CANMODULE_NOSTATE;
+
+	// CAN bus status
+	if (( statCan & USBCAN_CANERR_OK ) || ( statCan & USBCAN_USBERR_OK )){
+		portState = CanModule::CanModule_bus_state::CANMODULE_OK;
+	}
+	if ( statCan & USBCAN_CANERR_QRCVEMPTY )  {
+		portState = CanModule::CanModule_bus_state::CANMODULE_TIMEOUT_OK;
+	}
+	if ( statCan & USBCAN_CANERR_BUSLIGHT )  {
+		portState = CanModule::CanModule_bus_state::CAN_STATE_ERROR_WARNING;
+	}
+	if ( statCan & USBCAN_CANERR_BUSHEAVY )  {
+		portState = CanModule::CanModule_bus_state::CAN_STATE_ERROR_PASSIVE;
+	}
+	if ( statCan & USBCAN_CANERR_TXMSGLOST ){
+		portState = CanModule::CanModule_bus_state::CAN_STATE_SLEEPING;
+	}
+	if ( ( statCan & USBCAN_CANERR_XMTFULL ) || ( statCan & USBCAN_CANERR_OVERRUN ) || ( statCan & USBCAN_CANERR_QOVERRUN )  || ( statCan & USBCAN_CANERR_QXMTFULL )) {
+		portState = CanModule::CanModule_bus_state::CAN_STATE_MAX;
+	}
+
+	if ( statCan & USBCAN_CANERR_BUSOFF )  {
+		portState = CanModule::CanModule_bus_state::CAN_STATE_BUS_OFF;
+	}
+
+	// warnings, from USB, might recover
+	if (( statUsb & USBCAN_USBERR_STATUS_TIMEOUT ) || ( statCan & USBCAN_USBERR_WATCHDOG_TIMEOUT )){
+		portState = CanModule::CanModule_bus_state::CANMODULE_WARNING;
+	}
+	// errors
+	if (( statCan & USBCAN_CANERR_REGTEST ) || ( statCan & USBCAN_CANERR_MEMTEST )){
+		portState = CanModule::CanModule_bus_state::CANMODULE_ERROR;
+	}
+
+
+	// ok but don't know why. Lets overwrite NOSTATE. mais bon.
+	portState = CanModule::CanModule_bus_state::CANMODULE_OK;
+	std::string msg = CanModule::translateCanBusStateToText((CanModule::CanModule_bus_state) portState ); // + m_translatePeakPortStatusBitpatternToText( peak_state );
+	MLOGST(DBG, this) << msg << "tid=[" << std::this_thread::get_id() << "]";
+	publishPortStatusChanged( portState );
+
+	/** as a consequence of this coding the
+	CanModule::CanModule_bus_state::CANMODULE_NOSTATE;
+	never occurs. fine with me. */
+
+
 }
 
