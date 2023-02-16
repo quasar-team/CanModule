@@ -69,6 +69,7 @@ function ( clone_LogIt )
   SET (LOGIT_VERSION "master")
   message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: cloning LogIt from github. *NOTE* cloning version [${LOGIT_VERSION}]")
   if ( NOT EXISTS ${PROJECT_BINARY_DIR}/LogIt )
+  	  execute_process(COMMAND mkdir -p ${PROJECT_BINARY_DIR} ) 
   	  execute_process(COMMAND pwd ) 
 	  execute_process(COMMAND git clone -b ${LOGIT_VERSION} https://github.com/quasar-team/LogIt.git WORKING_DIRECTORY ${PROJECT_BINARY_DIR}  )
 	  
@@ -106,10 +107,6 @@ ELSE()
 ENDIF()
 
 
-#include_directories( CanInterface/include CanLibLoader/include Diagnostic/include CanModuleTest/include )
-include_directories( CanInterface/include CanLibLoader/include Diagnostic/include )
-include_directories ( ${BOOST_PATH_HEADERS} )
-link_directories( ${BOOST_PATH_LIBS} )
 
 # LogIt pull-in
 if( STANDALONE_BUILD )
@@ -123,6 +120,11 @@ if( STANDALONE_BUILD )
 	    message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Using LogIt library: LOGIT_LIB [${LOGIT_LIB}]")
     endif()
 ENDIF()
+
+#include_directories( CanInterface/include CanLibLoader/include Diagnostic/include CanModuleTest/include )
+include_directories( CanInterface/include CanLibLoader/include Diagnostic/include )
+include_directories ( ${BOOST_PATH_HEADERS} )
+link_directories( ${BOOST_PATH_LIBS} )
 
 # we have a mock up build without any vendor libs as well, for CI where we don't want to distribute vendor libs
 # preferably inject this from the toolchain : set ( CANMODULE_BUILD_VENDORS ON )
