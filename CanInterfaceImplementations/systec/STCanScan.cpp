@@ -101,8 +101,9 @@ DWORD WINAPI STCanScan::CanScanControlThread(LPVOID pCanScan)
 	tCanMsgStruct readCanMessage;
 	STCanScan *stCanScanPointer = reinterpret_cast<STCanScan *>(pCanScan);
 	MLOGST(DBG,stCanScanPointer) << "CanScanControlThread Started. m_CanScanThreadShutdownFlag = [" << stCanScanPointer->m_CanScanThreadShutdownFlag <<"]";
-	while (stCanScanPointer->m_CanScanThreadShutdownFlag) {
+	while ( stCanScanPointer->m_CanScanThreadShutdownFlag ) {
 
+		stCanScanPointer->fetchAndPublishCanPortState ();
 		status = UcanReadCanMsgEx(stCanScanPointer->m_UcanHandle, (BYTE *)&stCanScanPointer->m_channelNumber, &readCanMessage, 0);
 		if (status == USBCAN_SUCCESSFUL) {
 			if (readCanMessage.m_bFF == USBCAN_MSG_FF_RTR)
@@ -162,6 +163,7 @@ DWORD WINAPI STCanScan::CanScanControlThread(LPVOID pCanScan)
 			}
 		}
 	}
+	stCanScanPointer->fetchAndPublishCanPortState ();
 	ExitThread(0);
 	return 0;
 }
@@ -227,6 +229,7 @@ int STCanScan::createBus(const std::string name,const std::string parameters)
 	if (returnCode < 0) {
 		return (-1);
 	}
+	fetchAndPublishCanPortState ();
 
 	// After the canboard is configured and started, we start the scan control thread
 	m_hCanScanThread = CreateThread(NULL, 0, CanScanControlThread, this, 0, &m_idCanScanThread);
@@ -348,6 +351,7 @@ int STCanScan::openCanPort(tUcanInitCanParam initializationParameters)
 	setCanHandle(m_moduleNumber, canModuleHandle);
 	m_UcanHandle = canModuleHandle;
 	m_statistics.setTimeSinceOpened();
+	fetchAndPublishCanPortState ();
 	return 0;
 }
 
@@ -454,6 +458,9 @@ bool STCanScan::sendMessage(short cobID, unsigned char len, unsigned char *messa
 			MLOGST(DBG, this) << "The length is less then 8 bytes, process only. len= " << len;
 		}
 	}
+
+	fetchAndPublishCanPortState ();
+
 	canMsgToBeSent.m_bDLC = messageLengthToBeProcessed;
 	memcpy(canMsgToBeSent.m_bData, message, messageLengthToBeProcessed);
 	//	MLOG(TRC,this) << "Channel Number: [" << m_channelNumber << "], cobID: [" << canMsgToBeSent.m_dwID << "], Message Length: [" << static_cast<int>(canMsgToBeSent.m_bDLC) << "]";
@@ -518,6 +525,8 @@ bool STCanScan::sendRemoteRequest(short cobID)
 	canMsg.m_dwID = cobID;
 	canMsg.m_bDLC = 0;
 	canMsg.m_bFF = USBCAN_MSG_FF_RTR;	//Needed for send message rtr
+
+	fetchAndPublishCanPortState ();
 
 	Status = UcanWriteCanMsgEx(m_UcanHandle, m_channelNumber, &canMsg, NULL);
 	return sendErrorCode(Status);
