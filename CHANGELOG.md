@@ -40,6 +40,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
     - for each status change, send a signal to the err handler, but suppress bitpattern details at this stage
 
 - cal9 build with new beta.v6 anagate API lib, for a try
+- fix logit pull-in
 
 ### 2.0.23 [ 16.jan.2023 ]
 - intermediate version with fixed build chain for static/dynamic linking and standalone libs
