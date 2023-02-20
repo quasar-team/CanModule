@@ -40,7 +40,7 @@ CanLibLoaderLin::CanLibLoaderLin(const std::string& libName)
 {
 	LOG(Log::TRC, lh) << "inherited logItComponentHandle= " << lh;
 
-	// dynamicallyLoadLib(libName);
+	dynamicallyLoadLib(libName);
 
 	// createCanAccess();
 }
