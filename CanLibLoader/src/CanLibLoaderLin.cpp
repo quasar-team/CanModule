@@ -39,7 +39,8 @@ CanLibLoaderLin::CanLibLoaderLin(const std::string& libName)
 : CanLibLoader(libName), p_dynamicLibrary(0)
 {
 	LOG(Log::TRC, lh) << "inherited logItComponentHandle= " << lh;
-	dynamicallyLoadLib(libName);
+
+	// dynamicallyLoadLib(libName);
 
 	// createCanAccess();
 }
