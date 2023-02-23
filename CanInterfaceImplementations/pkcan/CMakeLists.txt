@@ -65,18 +65,19 @@ set(PEAKCAN_SOURCES
 	../../CanInterface/src/CCanAccess.cpp	
 )
 
+SET ( PEAKCAN_LIB_NAME "pcan" )
 
-#if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
-	add_library( pkcan SHARED ${PEAKCAN_SOURCES} $<TARGET_OBJECTS:LogIt>)
-#else()
-#	add_library( pkcan SHARED ${PEAKCAN_SOURCES} )
-#	target_link_libraries( pkcan ${LOGIT_LIB} )
-#endif()
+if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
+	add_library( ${PEAKCAN_LIB_NAME} SHARED ${PEAKCAN_SOURCES} $<TARGET_OBJECTS:LogIt>)
+else()
+	add_library( ${PEAKCAN_LIB_NAME} SHARED ${PEAKCAN_SOURCES} )
+	target_link_libraries( pkcan ${LOGIT_LIB} )
+endif()
 
-target_link_libraries ( pkcan ${BOOST_LIBS} ${PEAK_LIB_FILE} )
+target_link_libraries ( ${PEAKCAN_LIB_NAME} ${BOOST_LIBS} ${PEAK_LIB_FILE} )
 
-set_property(TARGET pkcan PROPERTY POSITION_INDEPENDENT_CODE TRUE)
-set_property(TARGET pkcan PROPERTY LINKER_LANGUAGE CXX)
+set_property(TARGET ${PEAKCAN_LIB_NAME} PROPERTY POSITION_INDEPENDENT_CODE TRUE)
+set_property(TARGET ${PEAKCAN_LIB_NAME} PROPERTY LINKER_LANGUAGE CXX)
 
 message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] peak [BOOST_PATH_LIBS:${BOOST_PATH_LIBS}]" )
 message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] peak [BOOST_HEADERS:${BOOST_HEADERS}]" )
