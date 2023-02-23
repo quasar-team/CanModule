@@ -48,7 +48,7 @@ set(SOCKCAN_SOURCES
 
 # you can either build the fully dynamic libs or the as-static-as-possible, 
 # but not both in one go, we profit and also link the linux socketcan static if specified
-SET ( ANAGATE_LIB_NAME "sockcan" )
+SET ( SOCK_LIB_NAME "sockcan" )
 IF ( $ENV{CANMODULE_AS_STATIC_AS_POSSIBLE} )
 	add_library( ${SOCK_LIB_NAME} STATIC ${SOCKCAN_SOURCES} $<TARGET_OBJECTS:LogIt>)
 	target_link_libraries( ${SOCK_LIB_NAME} ${LOGIT_LIB} ${BOOST_LIBS} libsocketcan.a )
