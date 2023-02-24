@@ -69,6 +69,7 @@ namespace CanModule
 	CanLibLoaderWin::CanLibLoaderWin(const std::string& libName)
 		: CanLibLoader(libName), m_pDynamicLibrary(0)
 	{
+		std::cout  << __FUNCTION__ << std::endl;
 		LOG(Log::TRC, lh) << "inherited logItComponentHandle= " << lh;
 		dynamicallyLoadLib(libName);
 	}
@@ -87,10 +88,10 @@ namespace CanModule
 	 */
 	void CanLibLoaderWin::dynamicallyLoadLib(const std::string& libName)
 	{
+		std::cout  << __FUNCTION__ << std::endl;
 		std::ostringstream ss;
 		ss << libName << "can.dll";
 
-		//LOG(Log::DBG) << "Proceeding to load library " << ss.str();
 		//m_pDynamicLibrary = ::LoadLibrary(ss.str().c_str());
 
 		std::cout  << "Proceeding to ExA load library " << ss.str() << std::endl;
