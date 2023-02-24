@@ -80,10 +80,8 @@ function ( clone_LogIt )
    ELSE()
 	  message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Logit is already cloned into ${PROJECT_BINARY_DIR}/LogIt" )
    ENDIF() 
-   set ( LOGIT_HEADERS ${PROJECT_BINARY_DIR}/LogIt/include ) # some bw compatibility, otherwise maybe useless
-   include_directories( ${PROJECT_BINARY_DIR}/LogIt/include )
-   #add_subdirectory( ${PROJECT_BINARY_DIR}/LogIt ${PROJECT_BINARY_DIR}/LogIt/build )
-   #add_subdirectory( ${PROJECT_BINARY_DIR}/LogIt ${PROJECT_BINARY_DIR}/build/LogIt )
+   set ( LOGIT_HEADERS ${PROJECT_BINARY_DIR}/build/LogIt/include ) # some bw compatibility, otherwise maybe useless
+   include_directories( ${PROJECT_BINARY_DIR}/build/LogIt/include )
    
 endfunction()
 
