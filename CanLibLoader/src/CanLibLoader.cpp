@@ -38,9 +38,13 @@ namespace CanModule
 // called by factory
 CanLibLoader::CanLibLoader(const std::string& libName)
 {
+	std::cout << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " constructor " << libName << std::endl;
 	LogItInstance *logIt = LogItInstance::getInstance();
+	std::cout << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " constructor " << libName << std::endl;
 	logIt->getComponentHandle( CanModule::LogItComponentName, lh );
+	std::cout << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " constructor " << libName << std::endl;
 }
+
 
 CanLibLoader::~CanLibLoader() {}
 
