@@ -93,6 +93,7 @@ namespace CanModule
 		//LOG(Log::DBG) << "Proceeding to load library " << ss.str();
 		//m_pDynamicLibrary = ::LoadLibrary(ss.str().c_str());
 
+		std::cout  << "Proceeding to ExA load library " << ss.str() << std::endl;
 		LOG(Log::DBG, lh) << "Proceeding to ExA load library " << ss.str();
 		m_pDynamicLibrary = ::LoadLibraryExA(ss.str().c_str(), NULL, 0x00000010 /* LOAD_IGNORE_CODE_AUTHZ_LEVEL */);
 
