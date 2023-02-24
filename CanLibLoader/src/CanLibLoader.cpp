@@ -41,8 +41,12 @@ CanLibLoader::CanLibLoader(const std::string& libName)
 	std::cout << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " constructor " << libName << std::endl;
 	LogItInstance *logIt = LogItInstance::getInstance();
 	std::cout << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " constructor " << libName << std::endl;
-	logIt->getComponentHandle( CanModule::LogItComponentName, lh );
-	std::cout << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " constructor " << libName << std::endl;
+	if ( logIt != NULL ){
+		logIt->getComponentHandle( CanModule::LogItComponentName, lh );
+		std::cout << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " constructor " << libName << std::endl;
+	} else {
+		std::cout << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " logIt instance is NULL" << std::endl;
+	}
 }
 
 
