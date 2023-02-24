@@ -83,7 +83,7 @@ function ( clone_LogIt )
    set ( LOGIT_HEADERS ${PROJECT_BINARY_DIR}/LogIt/include ) # some bw compatibility, otherwise maybe useless
    include_directories( ${PROJECT_BINARY_DIR}/LogIt/include )
    #add_subdirectory( ${PROJECT_BINARY_DIR}/LogIt ${PROJECT_BINARY_DIR}/LogIt/build )
-   add_subdirectory( ${PROJECT_BINARY_DIR}/LogIt ${PROJECT_BINARY_DIR}/build/LogIt )
+   #add_subdirectory( ${PROJECT_BINARY_DIR}/LogIt ${PROJECT_BINARY_DIR}/build/LogIt )
    
 endfunction()
 
