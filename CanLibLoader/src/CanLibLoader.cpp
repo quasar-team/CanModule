@@ -47,10 +47,10 @@ CanLibLoader::~CanLibLoader() {}
 CanLibLoader* CanLibLoader::createInstance(const std::string& libName)	{
 	CanLibLoader* libPtr = 0;
 #ifdef WIN32
-	LOG(Log::TRC, lh ) << __FUNCTION__ << " calling CanLibLoaderWin " << libname;;
+	std::cout << __FUNCTION__ << " calling CanLibLoaderWin " << libname < std::endl;
 	libPtr = new CanLibLoaderWin(libName);
 #else
-	LOG(Log::TRC, lh ) << __FUNCTION__ << " calling CanLibLoaderLin " << libname;;
+	std::cout << __FUNCTION__ << " calling CanLibLoaderLin " << libname < std::endl;
 	libPtr = new CanLibLoaderLin(libName);
 #endif
 	return libPtr;
