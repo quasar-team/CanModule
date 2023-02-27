@@ -1,4 +1,4 @@
-/** © Copyright CERN, 2015. All rights not expressly granted are reserved.
+﻿/** © Copyright CERN, 2015. All rights not expressly granted are reserved.
  *
  * STCanScap.cpp
  *
@@ -29,6 +29,7 @@
 #include <CanModuleUtils.h>
 
 #include <LogIt.h>
+#include <Usbcan32.h
 
 //! The macro below is applicable only to this translation unit
 bool STCanScan::s_isCanHandleInUseArray[256];
