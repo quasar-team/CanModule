@@ -715,24 +715,24 @@ void STCanScan::getStatistics( CanStatistics & result )
  * table19 says for CAN status and table20 says for USB status
  *
   // CAN status flags (is returned with function UcanGetStatus() or UcanGetStatusEx() )
-#define USBCAN_CANERR_OK                    0x0000              // no error
-#define USBCAN_CANERR_XMTFULL               0x0001              // Tx-buffer of the CAN controller is full
-#define USBCAN_CANERR_OVERRUN               0x0002              // Rx-buffer of the CAN controller is full
-#define USBCAN_CANERR_BUSLIGHT              0x0004              // Bus error: Error Limit 1 exceeded (refer to SJA1000 manual)
-#define USBCAN_CANERR_BUSHEAVY              0x0008              // Bus error: Error Limit 2 exceeded (refer to SJA1000 manual)
-#define USBCAN_CANERR_BUSOFF                0x0010              // Bus error: CAN controllerhas gone into Bus-Off state
-#define USBCAN_CANERR_QRCVEMPTY             0x0020              // RcvQueue is empty
-#define USBCAN_CANERR_QOVERRUN              0x0040              // RcvQueue overrun
-#define USBCAN_CANERR_QXMTFULL              0x0080              // transmit queue is full
-#define USBCAN_CANERR_REGTEST               0x0100              // Register test of the SJA1000 failed
-#define USBCAN_CANERR_MEMTEST               0x0200              // Memory test failed
-#define USBCAN_CANERR_TXMSGLOST             0x0400              // transmit CAN message was automatically deleted by firmware
+// #define USBCAN_CANERR_OK                    0x0000              // no error
+// #define USBCAN_CANERR_XMTFULL               0x0001              // Tx-buffer of the CAN controller is full
+// #define USBCAN_CANERR_OVERRUN               0x0002              // Rx-buffer of the CAN controller is full
+// #define USBCAN_CANERR_BUSLIGHT              0x0004              // Bus error: Error Limit 1 exceeded (refer to SJA1000 manual)
+// #define USBCAN_CANERR_BUSHEAVY              0x0008              // Bus error: Error Limit 2 exceeded (refer to SJA1000 manual)
+// #define USBCAN_CANERR_BUSOFF                0x0010              // Bus error: CAN controllerhas gone into Bus-Off state
+// #define USBCAN_CANERR_QRCVEMPTY             0x0020              // RcvQueue is empty
+// #define USBCAN_CANERR_QOVERRUN              0x0040              // RcvQueue overrun
+// #define USBCAN_CANERR_QXMTFULL              0x0080              // transmit queue is full
+// #define USBCAN_CANERR_REGTEST               0x0100              // Register test of the SJA1000 failed
+// #define USBCAN_CANERR_MEMTEST               0x0200              // Memory test failed
+// #define USBCAN_CANERR_TXMSGLOST             0x0400              // transmit CAN message was automatically deleted by firmware
                                                                 // (because transmit timeout run over)
 
 // USB error messages (is returned with UcanGetStatus..() )
-#define USBCAN_USBERR_OK                    0x0000              // no error
-#define USBCAN_USBERR_STATUS_TIMEOUT        0x2000              // restet because status timeout (device reconnected via USB)
-#define USBCAN_USBERR_WATCHDOG_TIMEOUT      0x4000              // restet because watchdog timeout (device reconnected via USB)
+// #define USBCAN_USBERR_OK                    0x0000              // no error
+// #define USBCAN_USBERR_STATUS_TIMEOUT        0x2000              // restet because status timeout (device reconnected via USB)
+// #define USBCAN_USBERR_WATCHDOG_TIMEOUT      0x4000              // restet because watchdog timeout (device reconnected via USB)
 
 */
 /* virtual */ void STCanScan::fetchAndPublishCanPortState ()
