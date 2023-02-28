@@ -46,9 +46,9 @@
 // specific vendor
 
 #ifdef _WIN32
-#include <AnaGate.h>
-//#include <AnaGateDLL.h>
-//#include <AnaGateDllCan.h>
+// #include <AnaGate.h>
+#include <AnaGateDLL.h>
+#include <AnaGateDllCan.h>
 #else
 #include "AnaGateDLL.h"
 #include "AnaGateDllCan.h"
