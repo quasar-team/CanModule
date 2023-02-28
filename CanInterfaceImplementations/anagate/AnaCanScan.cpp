@@ -65,11 +65,6 @@ AnaCanScan::AnaCanScan():
 	m_timeout ( 6000 ),
 	m_busStopped( false )
 {
-
-	bool ret = Log::initializeLogging( Log::TRC );
-	if (ret) std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " LogIt initialized OK" << std::endl;
-	else std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " LogIt problem at initialisation" << std::endl;
-
 	m_statistics.setTimeSinceOpened();
 	m_statistics.beginNewRun();
 	m_failedSendCountdown = m_maxFailedSendCount;
