@@ -42,9 +42,19 @@
 #include "CanStatistics.h"
 #include "CCanAccess.h"
 #include "CanMessage.h"
-#include "AnaGateErrors.h"
+
+// specific vendor
+
+#ifdef _WIN32
+#include <AnaGate.h>
+#include <AnaGateDLL.h>
+#include <AnaGateDllCan.h>
+#else
 #include "AnaGateDLL.h"
 #include "AnaGateDllCan.h"
+#endif
+
+#include "AnaGateErrors.h"
 
 #ifdef _WIN32
 
