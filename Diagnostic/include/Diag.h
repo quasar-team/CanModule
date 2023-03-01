@@ -18,7 +18,7 @@
 #include <iostream>
 #include <mutex>
 
-#include <LogIt.h>
+// #include <LogIt.h>
 
 #include <CCanAccess.h>
 #include <CanLibLoader.h>

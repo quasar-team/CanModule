@@ -39,6 +39,7 @@ CanLibLoaderLin::CanLibLoaderLin(const std::string& libName)
 : CanLibLoader(libName), p_dynamicLibrary(0)
 {
 	LOG(Log::TRC, lh) << "inherited logItComponentHandle= " << lh;
+
 	dynamicallyLoadLib(libName);
 
 	// createCanAccess();
@@ -52,6 +53,7 @@ void CanLibLoaderLin::dynamicallyLoadLib(const std::string& libName)
 	// The library is loaded through dlopen (Linux API)
 	std::ostringstream ss;
 	ss << "lib" << libName << "can.so";
+	std::cout  << "Proceeding to load library " << ss.str() << std::endl;
 	LOG(Log::DBG, lh) << "Proceeding to load library " << ss.str();
 	p_dynamicLibrary = dlopen(ss.str().c_str(), RTLD_NOW);
 

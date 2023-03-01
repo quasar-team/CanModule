@@ -5,13 +5,16 @@
  *      Author: mludwig
  */
 
+// #include <LogIt.h>
 #include "Diag.h"
 
 namespace CanModule {
 
 /* static */ int Diag::CanLibLoader_icount = 0;
 /* static */ int Diag::CanAccess_icount = 0;
-/* static */ Log::LogComponentHandle Diag::lh = 0;
+
+
+// /* static */ Log::LogComponentHandle Diag::lh = 0;
 /* static */ std::map<std::string, CCanAccess *> Diag::port_map;
 /* static */ std::map<std::string, CanLibLoader *> Diag::lib_map;
 /* static */ std::map<std::string, std::string> Diag::parameter_map;
@@ -20,8 +23,10 @@ std::mutex mtx;
 
 Diag::Diag()
 {
+#if 0
 	LogItInstance *logIt = LogItInstance::getInstance();
 	logIt->getComponentHandle( CanModule::LogItComponentName, lh );
+#endif
 };
 
 void Diag::delete_maps(CanLibLoader *lib, CCanAccess *acc ){
@@ -65,19 +70,22 @@ void Diag::insert_maps( CanLibLoader *lib, CCanAccess *acc, std::string params )
 	std::string key = c0 + "::" + c1;
 	mtx.lock();
 	if ( lib_map.find( key ) != lib_map.end()) {
-		LOG(Log::INF, lh )<< " key= " << key << " exists already, skip lib insert";
+		std::cout  << " key= " << key << " exists already, skip lib insert" << std::endl;
+		//LOG(Log::INF, lh )<< " key= " << key << " exists already, skip lib insert";
 	} else	{
 		std::pair<std::string, CanLibLoader *> pa0 = std::pair<std::string, CanLibLoader *>( key, lib );
 		lib_map.insert( pa0 );
 	}
 	if ( port_map.find( key ) != port_map.end()) {
-		LOG(Log::INF, lh )<< " key= " << key << " exists already, skip port insert";
+		//LOG(Log::INF, lh )<< " key= " << key << " exists already, skip port insert";
+		std::cout  << " key= " << key << " exists already, skip port insert" << std::endl;
 	} else	{
 		std::pair<std::string, CCanAccess *> pa1 = std::pair<std::string, CCanAccess *>( key, acc );
 		port_map.insert( pa1 );
 	}
 	if ( parameter_map.find( key ) != parameter_map.end()) {
-		LOG(Log::INF, lh )<< " key= " << key << " exists already, skip parameter insert";
+		// LOG(Log::INF, lh )<< " key= " << key << " exists already, skip parameter insert";
+		std::cout << " key= " << key << " exists already, skip parameter insert" << std::endl;
 	} else	{
 		std::pair<std::string, std::string> pa2 = std::pair<std::string, std::string>( key, params );
 		parameter_map.insert( pa2 );

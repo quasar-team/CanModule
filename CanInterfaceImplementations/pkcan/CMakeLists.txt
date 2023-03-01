@@ -33,11 +33,15 @@ if( (NOT DEFINED PEAK_LIB_PATH) OR (NOT DEFINED PEAK_HEADERS) OR (NOT DEFINED PE
 	message(WARNING "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Required variable PEAK_LIB_FILE has not been defined." )
 	message(WARNING "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: assuming default locations and libs for peak and windows" )
 	if(WIN32)
-		SET(PEAK_HEADERS "C:/3rdPartySoftware/PeakCAN/pcan-basic/PCAN-Basic API/Include")
-		SET(PEAK_LIB_PATH "C:/3rdPartySoftware/PeakCAN/pcan-basic/PCAN-Basic API/x64/VC_LIB")
+		#SET(PEAK_HEADERS "C:/3rdPartySoftware/PeakCAN/pcan-basic/PCAN-Basic API/Include")
+		#SET(PEAK_LIB_PATH "C:/3rdPartySoftware/PeakCAN/pcan-basic/PCAN-Basic API/x64/VC_LIB")
+		SET(PEAK_HEADERS "C:/3rdPartySoftware/PCAN-Basic API/17.nov.2017/Include")
+		SET(PEAK_LIB_PATH "C:/3rdPartySoftware/PCAN-Basic API/17.nov.2017/x64/VC_LIB")
+		#
+		# latest
+		# SET(PEAK_HEADERS "C:/3rdPartySoftware/PCAN-Basic API/16.july.2022/Include")
+		# SET(PEAK_LIB_PATH "C:/3rdPartySoftware/PCAN-Basic API/16.july.2022/x64/VC_LIB")
 		SET(PEAK_LIB_FILE "PCANBasic.lib")
-		# for 32 bit 
-		# SET(PEAK_LIB_PATH "C:/3rdPartySoftware/PeakCAN/pcan-basic/PCAN-Basic API/x32/VC_LIB")
 
 		message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: windows PEAK_LIB_PATH= ${PEAK_LIB_PATH}]")
  		message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: windows PEAK_HEADERS=  ${PEAK_HEADERS}]")
@@ -61,18 +65,19 @@ set(PEAKCAN_SOURCES
 	../../CanInterface/src/CCanAccess.cpp	
 )
 
+SET ( PEAKCAN_LIB_NAME "pcan" )
 
-#if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
-	add_library( pkcan SHARED ${PEAKCAN_SOURCES} $<TARGET_OBJECTS:LogIt>)
-#else()
-#	add_library( pkcan SHARED ${PEAKCAN_SOURCES} )
-#	target_link_libraries( pkcan ${LOGIT_LIB} )
-#endif()
+if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
+	add_library( ${PEAKCAN_LIB_NAME} SHARED ${PEAKCAN_SOURCES} $<TARGET_OBJECTS:LogIt>)
+else()
+	add_library( ${PEAKCAN_LIB_NAME} SHARED ${PEAKCAN_SOURCES} )
+	target_link_libraries( pkcan ${LOGIT_LIB} )
+endif()
 
-target_link_libraries ( pkcan ${BOOST_LIBS} ${PEAK_LIB_FILE} )
+target_link_libraries ( ${PEAKCAN_LIB_NAME} ${BOOST_LIBS} ${PEAK_LIB_FILE} )
 
-set_property(TARGET pkcan PROPERTY POSITION_INDEPENDENT_CODE TRUE)
-set_property(TARGET pkcan PROPERTY LINKER_LANGUAGE CXX)
+set_property(TARGET ${PEAKCAN_LIB_NAME} PROPERTY POSITION_INDEPENDENT_CODE TRUE)
+set_property(TARGET ${PEAKCAN_LIB_NAME} PROPERTY LINKER_LANGUAGE CXX)
 
 message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] peak [BOOST_PATH_LIBS:${BOOST_PATH_LIBS}]" )
 message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] peak [BOOST_HEADERS:${BOOST_HEADERS}]" )

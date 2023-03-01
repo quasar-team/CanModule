@@ -18,10 +18,11 @@
 #  
 #
 cmake_minimum_required( VERSION 3.0 )
-project( CanModuleProject LANGUAGES C CXX  VERSION 2.0.23  )  
+project( CanModuleProject LANGUAGES C CXX  VERSION 2.0.24  )  
 message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CanModule version= ${PROJECT_VERSION}" )
 
 cmake_policy(SET CMP0054 NEW)
+cmake_policy(SET CMP0002 NEW)
 
 SET( CMAKE_VERBOSE_MAKEFILE ON )
 SET( CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin )
@@ -62,6 +63,28 @@ function ( locateLogItSharedLib )
     set( LOGIT_LIB ${LOGITLIB} CACHE FILEPATH "location of the LogIt library the build will use")
     message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Shared LogIt found, lib [${LOGIT_LIB}] headers [${LOGIT_INCLUDE_DIR}]")
 endfunction()
+
+# pull in LogIt as sources. Don't clone if dir exists already. 
+function ( clone_LogIt ) 
+  SET (LOGIT_VERSION "master")
+  message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: cloning LogIt from github. *NOTE* cloning version [${LOGIT_VERSION}]")
+  if ( NOT EXISTS ${PROJECT_BINARY_DIR}/LogIt )
+  	  execute_process(COMMAND mkdir -p ${PROJECT_BINARY_DIR} ) 
+  	  execute_process(COMMAND pwd ) 
+	  execute_process(COMMAND git clone -b ${LOGIT_VERSION} https://github.com/quasar-team/LogIt.git WORKING_DIRECTORY ${PROJECT_BINARY_DIR}  )
+	  
+	  #execute_process(COMMAND git clone -b ${LOGIT_VERSION} https://github.com/quasar-team/LogIt.git WORKING_DIRECTORY ./build  )
+	  message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: PROJECT_BINARY_DIR= ${PROJECT_BINARY_DIR}")
+	  #message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: LogIt cloned into ${PROJECT_BINARY_DIR}/../LogIt")
+	  #message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: LogIt cloned into ./build/LogIt")
+   ELSE()
+	  message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Logit is already cloned into ${PROJECT_BINARY_DIR}/LogIt" )
+   ENDIF() 
+   #set ( LOGIT_HEADERS ${PROJECT_BINARY_DIR}/LogIt/include ) # some bw compatibility, otherwise maybe useless
+   include_directories( ${PROJECT_BINARY_DIR}/LogIt/include )
+   
+endfunction()
+
 #
 # -- FUNCTION SECTTION END --
 
@@ -81,6 +104,26 @@ ELSE()
 	SET ( LINK_OPTION SHARED )
 	SET ( BUILD_SHARED_LIBS ON )
 ENDIF()
+
+
+
+# LogIt pull-in
+if( STANDALONE_BUILD )
+	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: LogIt for standalone build  ]")  
+    if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
+  	    clone_LogIt()  # clones into ${PROJECT_SOURCE_DIR}/build/build/CanModule/LogIt
+        message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] PROJECT_BINARY_DIR= ${PROJECT_BINARY_DIR}")          
+        add_subdirectory( ${PROJECT_BINARY_DIR}/LogIt build ) 
+    else()
+	    locateLogItSharedLib()
+	    message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Using LogIt library: LOGIT_LIB [${LOGIT_LIB}]")
+    endif()
+ENDIF()
+
+#include_directories( CanInterface/include CanLibLoader/include Diagnostic/include CanModuleTest/include )
+include_directories( CanInterface/include CanLibLoader/include Diagnostic/include )
+include_directories ( ${BOOST_PATH_HEADERS} )
+link_directories( ${BOOST_PATH_LIBS} )
 
 # we have a mock up build without any vendor libs as well, for CI where we don't want to distribute vendor libs
 # preferably inject this from the toolchain : set ( CANMODULE_BUILD_VENDORS ON )
@@ -127,19 +170,6 @@ ELSE()
 ENDIF()
 
 
-# pull in LogIt as sources. Don't clone if dir exists already. 
-function ( clone_LogIt ) 
-  SET (LOGIT_VERSION "master")
-  message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: cloning LogIt from github. *NOTE* cloning version [${LOGIT_VERSION}]")
-  if ( NOT EXISTS ${PROJECT_BINARY_DIR}/LogIt ) 
-	  execute_process(COMMAND git clone -b ${LOGIT_VERSION} https://github.com/quasar-team/LogIt.git WORKING_DIRECTORY ${PROJECT_BINARY_DIR}  )
-	  message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: LogIt cloned from LogIt repo into ${PROJECT_BINARY_DIR}/LogIt")
-   ELSE()
-	  message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Logit is already cloned into ${PROJECT_BINARY_DIR}/LogIt" )
-   ENDIF() 
-   set ( LOGIT_HEADERS ${PROJECT_BINARY_DIR}/LogIt/include ) # some bw compatibility, otherwise maybe useless
-   include_directories( ${PROJECT_BINARY_DIR}/LogIt/include )
-endfunction()
 
 
 # LogIt options. If they are not set, set them to convenient defaults with minimum dependencies
@@ -188,17 +218,6 @@ SET ( SRCS_OS_WIN
 SET ( SRCS_OS_LIN 
 	./CanLibLoader/src/CanLibLoaderLin.cpp
 )
-# LogIt pull-in
-if( STANDALONE_BUILD )
-	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: LogIt for standalone build  ]")  
-    if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
-  	    clone_LogIt()
-        add_subdirectory( ${PROJECT_BINARY_DIR}/LogIt build ) # that's it !  
-    else()
-	    locateLogItSharedLib()
-	    message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Using LogIt library: LOGIT_LIB [${LOGIT_LIB}]")
-    endif()
-ENDIF()
 
 IF (WIN32)
 	SET ( SRCS ${SRCS_ALL_OS} ${SRCS_OS_WIN}  )
@@ -219,9 +238,6 @@ ELSE()
 	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CanModule VERSION.h exists already in ${PROJECT_SOURCE_DIR}/CanInterface/include/, don't touch it")
 ENDIF()
 
-include_directories( CanInterface/include CanLibLoader/include Diagnostic/include CanModuleTest/include )
-include_directories ( ${BOOST_PATH_HEADERS} )
-link_directories( ${BOOST_PATH_LIBS} )
 
 # here we define the main lib to build
 add_library( ${CANMODULE_LIB_NAME} ${LINK_OPTION} ${SRCS} )
@@ -243,7 +259,7 @@ else()
     target_link_libraries( ${CANMODULE_LIB_NAME} ${BOOST_LIBS} )
 endif()
 
-add_subdirectory(CanInterfaceImplementations) # all the subdirs for the vendors are beneath
+add_subdirectory(CanInterfaceImplementations) # all the subdirs for the vendors are underneath
  
 # specify the RPATH skipping as well
 target_link_libraries( ${CANMODULE_LIB_NAME} ${CANMODULE_RPATHS} )

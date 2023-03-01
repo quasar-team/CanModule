@@ -38,17 +38,28 @@ namespace CanModule
 // called by factory
 CanLibLoader::CanLibLoader(const std::string& libName)
 {
+	bool ret = Log::initializeLogging(Log::TRC);
+	if (ret) std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " LogIt initialized OK" << std::endl;
+	else std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " LogIt problem at initialisation" << std::endl;
 	LogItInstance *logIt = LogItInstance::getInstance();
-	logIt->getComponentHandle( CanModule::LogItComponentName, lh );
+	if ( logIt != NULL ){
+		logIt->getComponentHandle( CanModule::LogItComponentName, lh );
+		std::cout << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " constructor " << libName << std::endl;
+	} else {
+		std::cout << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " logIt instance is NULL" << std::endl;
+	}
 }
+
 
 CanLibLoader::~CanLibLoader() {}
 
 CanLibLoader* CanLibLoader::createInstance(const std::string& libName)	{
 	CanLibLoader* libPtr = 0;
 #ifdef WIN32
+	std::cout << __FUNCTION__ << " calling CanLibLoaderWin " << libName << std::endl;
 	libPtr = new CanLibLoaderWin(libName);
 #else
+	std::cout << __FUNCTION__ << " calling CanLibLoaderLin " << libName << std::endl;
 	libPtr = new CanLibLoaderLin(libName);
 #endif
 	return libPtr;

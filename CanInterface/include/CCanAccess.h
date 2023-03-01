@@ -320,13 +320,22 @@ public:
 	virtual ~CCanAccess() {};
 
 
-	/*
-	 * Signal that gets called when a can Error happens on the initialised can bus.
+	/**
+	 * Signal that gets called when a can Error is detected in the message
 	 * In order to process this message manually, a handler needs to be connected to the signal.
 	 *
 	 * Example: myCCanAccessPointer->canMessageError.connect(&myErrorRecievedHandler);
 	 */
 	boost::signals2::signal<void (const int,const char *,timeval &) > canMessageError;
+
+	/**
+	 * signal gets called whenever there is a can port status change, across all vendors
+	 * the int is the  enum CanModule::CanModuleUtils::CanModule_bus_state
+	 * In order to process this message, a handler needs to be connected to the signal.
+	 *
+	 * Example: myCCanAccessPointer->canPortStateChanged.connect(&myPortSateChangedRecievedHandler);
+	 */
+	boost::signals2::signal<void (const int,const char *,timeval &) > canPortStateChanged;
 
 	// Returns the CanStatistics object.
 	virtual void getStatistics( CanStatistics & result ) = 0;
@@ -430,6 +439,20 @@ public:
 	virtual CanModule::ReconnectAction getReconnectAction() = 0;
 
 	/**
+	 *  stop the bus.
+	 */
+	virtual void stopBus() = 0;
+
+	/** Generally: do whatever shenanigans you need on the vendor API to get an idea of what the port is doing.
+	 * then fill in the portState accordingly, as close as possible to the semantics of the enum.
+	 * then send the port status to the canPortStateChanged signal
+	 *
+	 * We always have the CAN message error flags and their decoding to save the day, on the canMessageError signal
+	 * And we can invoke directly the getPortStatus() as well to get the unified bitpattern.
+	 */
+	virtual void fetchAndPublishCanPortState () = 0;
+
+	/**
 	 * just translate the ugly r.condition enum into a user-friendly string for convenience and logging.
 	 */
 	static std::string reconnectConditionString(CanModule::ReconnectAutoCondition c) {
@@ -452,15 +475,14 @@ public:
 		return(" unknown action");
 	}
 
-	/**
-	 *  force implementation
-	 */
-	virtual void stopBus() = 0;
+
 
 protected:
 
 	std::string m_sBusName;
 	CanParameters m_CanParameters;
+
+	unsigned int m_portStatus;  // port status
 
 	// reconnection, reconnection thread triggering
     CanModule::ReconnectAutoCondition m_reconnectCondition;
@@ -494,10 +516,34 @@ protected:
 		m_dnow = std::chrono::high_resolution_clock::now();
 	}
 
+	/**
+	 * we publish port status via a "portStatusChanged" signal, for all vendors, if it has changed. This is just the standardized mechanism
+	 */
+	void publishPortStatusChanged ( unsigned int status )
+	{
+		if ( m_portStatus != status ){
+			// std::string msg = CanModule::CanModuleUtils::translateCanBusStateToText((CanModule::CanModuleUtils::CanModule_bus_state) status);
+			std::string msg = CanModule::translateCanBusStateToText((CanModule::CanModule_bus_state) status);
+
+			// got to be compatible with boost1.59.0 for windows
+			timeval ftTimeStamp;
+			auto now = std::chrono::system_clock::now();
+			auto nMicrosecs = std::chrono::duration_cast<std::chrono::microseconds>( now.time_since_epoch());
+			ftTimeStamp.tv_sec = nMicrosecs.count() / 1000000L;
+			ftTimeStamp.tv_usec = (nMicrosecs.count() % 1000000L) ;
+			canPortStateChanged( status, msg.c_str(), ftTimeStamp ); // signal
+		}
+		m_portStatus = status;
+	}
+
+
+
 private:
 	Log::LogComponentHandle m_lh;
 	LogItInstance* m_logItRemoteInstance;
 	std::chrono::time_point<std::chrono::high_resolution_clock> m_dnow, m_dreceived, m_dtransmitted, m_dopen;
+
+
 };
 }; // namespace CanModule
 #endif /* CCANACCESS_H_ */

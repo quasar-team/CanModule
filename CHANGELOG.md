@@ -2,7 +2,48 @@
 All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+### 2.0.24 [ 30.jan.2023 ]
+- socketcan: reworks for CanOpenNG server integration, keeping compatibility with other implementations
+	- send remote requests also with stats, error signals and reconnection thread
+	- using wrappers for send, socket
+	- using signals for 
+		- can message error detection and publish
+		  detect error flags in the can message frame and decode them into text. For socketcan, this should be
+		  identical to can_get_state. For other implementations this would be the only way.
+		- port status changes (not always errors) (NEW)
+		  extends the can_get_state (socketcan) with 	
+		  -	CANMODULE_NOSTATE,   // could not get state
+		  -	CANMODULE_WARNING,   // degradation but might recover
+		  - CANMODULE_ERROR,     // error likely stemming from SW/HW/firmware
+		  -	CANMODULE_TIMEOUT_OK, // bus is fine, no traffic
+		  - CANMODULE_OK         // bus is fine
+		  so that this covers other vendors as well, at least approximatively, and sends that through a signal
+		- receiving can frames
+		  send the received CAN frames down the according port signal as usual
+	- sendRemoteRequest: copied clarification from Piotr using the wrapper
+	- trigger reconnection thread when nb bytes read <0 , drop m_recoverPort() method for that
+	- moved code out from header files to implementation
 
+- getPortStatus() (unified) remains untouched. This method can be invoked by the user. This goes out to the hardware for any
+  vendor, acquires the port state and returns the bit-pattern plus implementation encoding "sugar" in the highest nibble. This is
+  always a straight-down-to-the-hardware method. If you invoke it too often you might slow sown / mess up the hw actually.
+  
+- anagate: reworks for CanOpenNG server integration, keeping compatibility with other implementations
+	- error messages signalling much more extensive
+	- port status change signals (NEW) as common defined standard
+	
+- peak: 
+    - do proper versioning of the windows vendor libs, 17.nov2017 and 16.july.2022, see CanInterfaceImplementations/peak/CMakeLists.txt, 
+      as defaults. Use toolchain of course
+    - fix (trivial) inconsistencies between API versions so that we have one code only
+    - translate the wonderful error-bitpatterns from peak into new enum, and add the peak specific text to the error message which is LogIt'ed
+    - for each status change, send a signal to the err handler, but suppress bitpattern details at this stage
+
+- cal9 build with new beta.v6 anagate API lib, for a try
+- fix logit pull-in
+
+### 2.0.23 [ 16.jan.2023 ]
+- intermediate version with fixed build chain for static/dynamic linking and standalone libs
 
 ### 2.0.22 [9.aug.2022]
 - starting to merge and implement the changes proposed by piotr (based on 2.0.14) in branch piotr_canopen

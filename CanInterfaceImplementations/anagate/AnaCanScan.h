@@ -29,10 +29,7 @@
 #include <thread>
 #include <mutex>
 #include <condition_variable>
-// #include <sys/time.h>
-
 #include <time.h>
-// #include <string.h>
 #include <map>
 #include <LogIt.h>
 #include <sstream>
@@ -45,9 +42,19 @@
 #include "CanStatistics.h"
 #include "CCanAccess.h"
 #include "CanMessage.h"
-#include "AnaGateErrors.h"
+
+// specific vendor
+
+#ifdef _WIN32
+// #include <AnaGate.h>
+#include <AnaGateDLL.h>
+#include <AnaGateDllCan.h>
+#else
 #include "AnaGateDLL.h"
 #include "AnaGateDllCan.h"
+#endif
+
+#include "AnaGateErrors.h"
 
 #ifdef _WIN32
 
@@ -75,6 +82,15 @@ class AnaCanScan: public CanModule::CCanAccess
 {
 
 public:
+
+	// Returns the current network connection state. The following values are possible:
+	enum ANAGATE_API_V2_DEVICE_CONNECTION_STATE {
+		DISCONNECTED = 1, //  The connection to the AnaGate is disconnected.
+		CONNECTING, // : The connection is connecting.
+		CONNECTED, // : The connection is established.
+		DISCONNECTING, //: The connection is disonnecting.
+		NOT_INITIALIZED }; //: The network protocol is not successfully initialized.
+
 	AnaCanScan();//Constructor of the class. Will initiate the statistics.
 	AnaCanScan(AnaCanScan const & other) = delete;  //Disables copy constructor
 	AnaCanScan& operator=(AnaCanScan const & other) = delete; // Disables assignment
@@ -101,6 +117,7 @@ public:
 	virtual CanModule::ReconnectAutoCondition getReconnectCondition() { return m_reconnectCondition; };
 	virtual CanModule::ReconnectAction getReconnectAction() { return m_reconnectAction; };
 	virtual void stopBus( void );
+	virtual void fetchAndPublishCanPortState ();
 
 private:
 
@@ -140,28 +157,26 @@ private:
 		std::string ip;
 	} ANAGATE_PORTDEF_t;
 	static std::map<int, ANAGATE_PORTDEF_t> st_canHandleMap;
+	static std::map<std::string, bool> st_reconnectInProgress_map; // could use 1-dim vector but map is faster
+	static void st_showAnaCanScanObjectMap();
+	static int st_reconnectAllPorts( std::string ip );
+	static void st_setIpReconnectInProgress( std::string ip, bool flag );
+	static bool st_isIpReconnectInProgress( std::string ip );
+	static void st_addCanHandleOfPortIp(AnaInt32 handle, int port, std::string ip);
+	static void st_deleteCanHandleOfPortIp(int port, std::string ip);
+	static AnaInt32 st_getCanHandleOfPortIp(int port, std::string ip);
 
-	static void showAnaCanScanObjectMap();
-	static int reconnectAllPorts( std::string ip );
-	AnaInt32 reconnectThisPort();
-	static void addCanHandleOfPortIp(AnaInt32 handle, int port, std::string ip);
-	static void deleteCanHandleOfPortIp(int port, std::string ip);
-	static AnaInt32 getCanHandleOfPortIp(int port, std::string ip);
-	static std::map<std::string, bool> m_reconnectInProgress_map; // could use 1-dim vector but map is faster
-	static void setIpReconnectInProgress( std::string ip, bool flag );
-	static bool isIpReconnectInProgress( std::string ip );
-	void CanReconnectionThread();               // not static, private is enough in C11
-	bool sendAnErrorMessage( AnaInt32 status );
-	std::string ipAdress(){ return(m_canIPAddress );}
-	int canPortNumber(){ return(m_canPortNumber);}
-	int handle(){ return(m_UcanHandle);}
-	int configureCanBoard(const std::string name,const std::string parameters);
-	int connectReceptionHandler();
-	int openCanPort();
-	int reconnect();
-	const char * errorCodeToString(long error) {return( ana_canGetErrorText( error ).c_str() ); }
-	void eraseReceptionHandlerFromMap( AnaInt32 h );
-	std::string ana_canGetErrorText( long errorCode );
+	AnaInt32 m_reconnectThisPort();
+	void m_eraseReceptionHandlerFromMap( AnaInt32 h );
+	void m_CanReconnectionThread();               // not static, private is enough in C11
+	void m_signalErrorMessage( int code, std::string msg );
+	std::string m_ipAddress(){ return(m_canIPAddress );}
+	int m_CanPortNumber(){ return(m_canPortNumber);}
+	int m_handle(){ return(m_UcanHandle);}
+	int m_configureCanBoard(const std::string name,const std::string parameters);
+	int m_connectReceptionHandler();
+	int m_openCanPort();
+	int m_reconnect();
 
 };
 

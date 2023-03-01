@@ -61,20 +61,21 @@ set(STCAN_SOURCES
 	../../CanInterface/src/CCanAccess.cpp	
 )
 
-#if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
-	add_library( stcan SHARED ${STCAN_SOURCES} $<TARGET_OBJECTS:LogIt>)
-#else()
-#	add_library( stcan SHARED ${STCAN_SOURCES} )
-#	target_link_libraries( stcan ${LOGIT_LIB} )
-#endif()
+SET ( SYSTEC_LIB_NAME "stcan" )
+if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
+	add_library( ${SYSTEC_LIB_NAME} SHARED ${STCAN_SOURCES} $<TARGET_OBJECTS:LogIt>)
+else()
+	add_library( ${SYSTEC_LIB_NAME} SHARED ${STCAN_SOURCES} )
+	target_link_libraries( ${SYSTEC_LIB_NAME} ${LOGIT_LIB} )
+endif()
 
 message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] systec [BOOST_PATH_LIBS:${BOOST_PATH_LIBS}]" )
 message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] systec [BOOST_HEADERS:${BOOST_HEADERS}]" )
 message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] systec [BOOST_LIBS:${BOOST_LIBS}]" )
 link_directories( ${BOOST_PATH_LIBS} )
 
-target_link_libraries ( stcan ${BOOST_LIBS} ${SYSTEC_LIB_FILE})
-set_property(TARGET stcan PROPERTY POSITION_INDEPENDENT_CODE TRUE)
-set_property(TARGET stcan PROPERTY LINKER_LANGUAGE CXX)
+target_link_libraries ( ${SYSTEC_LIB_NAME} ${BOOST_LIBS} ${SYSTEC_LIB_FILE})
+set_property(TARGET ${SYSTEC_LIB_NAME} PROPERTY POSITION_INDEPENDENT_CODE TRUE)
+set_property(TARGET ${SYSTEC_LIB_NAME} PROPERTY LINKER_LANGUAGE CXX)
 
 

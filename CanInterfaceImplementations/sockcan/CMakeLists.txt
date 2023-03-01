@@ -46,16 +46,16 @@ set(SOCKCAN_SOURCES
 	../../CanInterface/include/CanStatistics.h	
 )
 
-# we profit and also link the linux socketcan static if specified
+# you can either build the fully dynamic libs or the as-static-as-possible, 
+# but not both in one go, we profit and also link the linux socketcan static if specified
+SET ( SOCK_LIB_NAME "sockcan" )
 IF ( $ENV{CANMODULE_AS_STATIC_AS_POSSIBLE} )
-	SET ( SOCK_LIB_NAME "sockcan-static" )
 	add_library( ${SOCK_LIB_NAME} STATIC ${SOCKCAN_SOURCES} $<TARGET_OBJECTS:LogIt>)
 	target_link_libraries( ${SOCK_LIB_NAME} ${LOGIT_LIB} ${BOOST_LIBS} libsocketcan.a )
 ELSE()
-	SET ( SOCK_LIB_NAME "sockcan" )
 	add_library( ${SOCK_LIB_NAME} SHARED ${SOCKCAN_SOURCES} $<TARGET_OBJECTS:LogIt>)
 	target_link_libraries( ${SOCK_LIB_NAME} ${LOGIT_LIB} ${BOOST_LIBS} -lsocketcan )
-ENDIF()
+ENDIF()	
 
 set_property(TARGET ${SOCK_LIB_NAME} PROPERTY POSITION_INDEPENDENT_CODE TRUE)
 set_property(TARGET ${SOCK_LIB_NAME} PROPERTY LINKER_LANGUAGE CXX)

@@ -40,6 +40,7 @@ namespace CanModule
 	class CanModuleUtils
 	{
 	public:
+
 		template<typename T>
 		static std::string toString(const T t)
 		{
@@ -72,6 +73,8 @@ namespace CanModule
 			return x;
 		}
 
+	//	static  std::string translateCanBusStateToText( CanModule::CanModuleUtils::CanModule_bus_state state );
+
 	};
 
 
@@ -84,9 +87,42 @@ namespace CanModule
 	std::chrono::system_clock::time_point convertTimevalToTimepoint(const timeval &t1);
 	std::chrono::system_clock::time_point currentTimeTimeval();
 #endif
+
+	/*
+	 * CAN operational and error states, copied from linux can_netlink.h can_state and extended.
+	 *
+	 * Lets try to have all vendors look like that or like a subset of that.
+	 * The CAN_STATE keep their original definitions and semantics, so if the enum is set to one of these values
+	 * they are reported as that from the vendor.
+	 *
+	 * The vendors which do not fully implement that take values CANMODULE_ instead. One can have a mix if
+	 * a vendor e.g. implements only CAN_STATE_ERROR_ACTIVE but not the rest.
+	 *
+	 */
+	enum CanModule_bus_state {
+		// CAN model i.e. https://www.csselectronics.com/pages/can-bus-errors-intro-tutorial. guaranteed to keep the meaning and semantics
+		// if they are set
+		CAN_STATE_ERROR_ACTIVE = 0,	/* RX/TX error count < 96 */
+		CAN_STATE_ERROR_WARNING,	/* RX/TX error count < 128 */
+		CAN_STATE_ERROR_PASSIVE,	/* RX/TX error count < 256 */
+		CAN_STATE_BUS_OFF,		/* RX/TX error count >= 256 */
+		CAN_STATE_STOPPED,		/* Device is stopped */
+		CAN_STATE_SLEEPING,		/* Device is sleeping */
+		CAN_STATE_MAX,          /* Rx or Tx queue full, overrun */
+
+		// CanModule extension, to cover non-socketcan implementations
+		CANMODULE_NOSTATE,   // could not get state
+		CANMODULE_WARNING,   // degradation but might recover
+		CANMODULE_ERROR,     // error likely stemming from SW/HW/firmware
+		CANMODULE_TIMEOUT_OK, // bus is fine, no traffic
+		CANMODULE_OK         // bus is fine
+	};
+
+
+
 	std::string CanModuleerrnoToString();
 	std::string canMessageToString(CanMessage &f);
 	std::string canMessage2ToString(short cobID, unsigned char len, unsigned char *message, bool rtr);
-
+	std::string translateCanBusStateToText( CanModule::CanModule_bus_state state ); // static public in-class declaration does not work for windows
 }
 #endif /* UTILS_H_ */

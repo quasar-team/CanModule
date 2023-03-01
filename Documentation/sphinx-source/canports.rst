@@ -48,6 +48,13 @@ the implementations.
    :project: CanModule
    :members: openCanBus, closeCanBus
 
+* port status changes are reported through the signal "canPortStaeChanged" at
+- stop bus
+- before waiting for each reception
+- after exiting the reception thread
+- during port creation after the board has been configured
+- after each message send
+- during reconnection attempts
 
 
 .. _CANX: https://gitlab.cern.ch/mludwig/canx.git
