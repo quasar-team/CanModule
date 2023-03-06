@@ -73,6 +73,8 @@ function ( clone_LogIt )
   	  execute_process(COMMAND pwd ) 
 	  execute_process(COMMAND git clone -b ${LOGIT_VERSION} https://github.com/quasar-team/LogIt.git WORKING_DIRECTORY ${PROJECT_BINARY_DIR}  )
 	  
+	  add_subdirectory( ${PROJECT_BINARY_DIR}/LogIt build )
+	  
 	  #execute_process(COMMAND git clone -b ${LOGIT_VERSION} https://github.com/quasar-team/LogIt.git WORKING_DIRECTORY ./build  )
 	  message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: PROJECT_BINARY_DIR= ${PROJECT_BINARY_DIR}")
 	  #message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: LogIt cloned into ${PROJECT_BINARY_DIR}/../LogIt")
@@ -129,7 +131,7 @@ link_directories( ${BOOST_PATH_LIBS} )
 # we have a mock up build without any vendor libs as well, for CI where we don't want to distribute vendor libs
 # preferably inject this from the toolchain : set ( CANMODULE_BUILD_VENDORS ON )
 # if you have nothing declared, vendors will be OFF
-message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: building vendor libs is ${BUILD_VENDORS}")
+message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: building vendor libs CANMODULE_BUILD_VENDORS= ${CANMODULE_BUILD_VENDORS}")
 if ( NOT DEFINED CANMODULE_BUILD_VENDORS )
 	set ( CANMODULE_BUILD_VENDORS OFF )
 	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] you have not specified if you want to build the vendor code or not ( CANMODULE_BUILD_VENDORS ). Set to OFF")
