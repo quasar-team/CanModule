@@ -114,6 +114,7 @@ if( STANDALONE_BUILD )
   	    clone_LogIt()  # clones into ${PROJECT_SOURCE_DIR}/build/build/CanModule/LogIt
         message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] PROJECT_BINARY_DIR= ${PROJECT_BINARY_DIR}")          
         add_subdirectory( ${PROJECT_BINARY_DIR}/LogIt build ) 
+        message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] added LogIt subdir to build: ${PROJECT_BINARY_DIR}/LogIt")          
     else()
 	    locateLogItSharedLib()
 	    message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Using LogIt library: LOGIT_LIB [${LOGIT_LIB}]")
