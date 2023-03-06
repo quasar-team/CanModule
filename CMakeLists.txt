@@ -74,6 +74,7 @@ function ( clone_LogIt )
 	  execute_process(COMMAND git clone -b ${LOGIT_VERSION} https://github.com/quasar-team/LogIt.git WORKING_DIRECTORY ${PROJECT_BINARY_DIR}  )
 	  
 	  #add_subdirectory( ${PROJECT_BINARY_DIR}/LogIt build )
+	  include_directories( ${PROJECT_BINARY_DIR}/LogIt/include build )
 	  
 	  #execute_process(COMMAND git clone -b ${LOGIT_VERSION} https://github.com/quasar-team/LogIt.git WORKING_DIRECTORY ./build  )
 	  message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: PROJECT_BINARY_DIR= ${PROJECT_BINARY_DIR}")
