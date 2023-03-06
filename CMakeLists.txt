@@ -70,10 +70,10 @@ function ( clone_LogIt )
   message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: cloning LogIt from github. *NOTE* cloning version [${LOGIT_VERSION}]")
   if ( NOT EXISTS ${PROJECT_BINARY_DIR}/LogIt )
   	  execute_process(COMMAND mkdir -p ${PROJECT_BINARY_DIR} ) 
-  	  execute_process(COMMAND pwd ) 
+  	  #execute_process(COMMAND pwd ) 
 	  execute_process(COMMAND git clone -b ${LOGIT_VERSION} https://github.com/quasar-team/LogIt.git WORKING_DIRECTORY ${PROJECT_BINARY_DIR}  )
 	  
-	  add_subdirectory( ${PROJECT_BINARY_DIR}/LogIt build )
+	  #add_subdirectory( ${PROJECT_BINARY_DIR}/LogIt build )
 	  
 	  #execute_process(COMMAND git clone -b ${LOGIT_VERSION} https://github.com/quasar-team/LogIt.git WORKING_DIRECTORY ./build  )
 	  message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: PROJECT_BINARY_DIR= ${PROJECT_BINARY_DIR}")
