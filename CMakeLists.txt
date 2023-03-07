@@ -71,8 +71,11 @@ function ( clone_LogIt )
   if ( NOT EXISTS ${PROJECT_BINARY_DIR}/LogIt )
   	  execute_process(COMMAND mkdir -p ${PROJECT_BINARY_DIR} ) 
   	  #execute_process(COMMAND pwd ) 
-	  execute_process(COMMAND git clone -b ${LOGIT_VERSION} https://github.com/quasar-team/LogIt.git WORKING_DIRECTORY ${PROJECT_BINARY_DIR}  )
-	  
+	  #execute_process(COMMAND git clone -b ${LOGIT_VERSION} https://github.com/quasar-team/LogIt.git WORKING_DIRECTORY ${PROJECT_BINARY_DIR}  )
+	  #xxxx 
+	  execute_process(COMMAND git clone -b ${LOGIT_VERSION} https://github.com/quasar-team/LogIt.git ${PROJECT_BINARY_DIR}/LogIt WORKING_DIRECTORY ${PROJECT_BINARY_DIR}  )
+
+
 	  #add_subdirectory( ${PROJECT_BINARY_DIR}/LogIt build )
 	  include_directories( ${PROJECT_BINARY_DIR}/LogIt/include build )
 	  
