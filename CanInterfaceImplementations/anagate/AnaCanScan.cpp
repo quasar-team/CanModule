@@ -500,7 +500,7 @@ int AnaCanScan::m_openCanPort()
 		if (anaCallReturn != 0) {
 			std::stringstream os;
 			os << " openCanPort: Error for port= " << m_canPortNumber << " ip= " << m_canIPAddress;
-			m_signalErrorMessage( anaCallReturn, os.str().c_str() );
+			m_signalErrorMessage( anaCallReturn, os.str().c_str() ); // most likely the handler is not yet connected and we don't have a canbus object
 			MLOGANA(ERR,this) << "Error in CANOpenDevice, return code = [0x" << std::hex << anaCallReturn << std::dec << "]";
 			return -1;
 		}

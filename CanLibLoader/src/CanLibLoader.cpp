@@ -65,6 +65,17 @@ CanLibLoader* CanLibLoader::createInstance(const std::string& libName)	{
 	return libPtr;
 }
 
+/* static */ timeval CanLibLoader::timevalNow()
+{
+	timeval ftTimeStamp;
+	auto now = std::chrono::system_clock::now();
+	auto nMicrosecs =
+			std::chrono::duration_cast<std::chrono::microseconds>( now.time_since_epoch());
+	ftTimeStamp.tv_sec = nMicrosecs.count() / 1000000L;
+	ftTimeStamp.tv_usec = (nMicrosecs.count() % 1000000L) ;
+	return( ftTimeStamp );
+}
+
 /**
  * close a CAN bus
  */
@@ -114,21 +125,24 @@ CCanAccess* CanLibLoader::openCanBus(std::string name, std::string parameters) {
 	}
 	case 1:{
 		LOG(Log::DBG, lh ) << __FUNCTION__ << " OK: createBus Skipping existing CCanAccess to the map for: " << name;
+		timeval ftTimeStamp = CanLibLoader::timevalNow();
+		globalError(-1, "test error 98", ftTimeStamp );
+
 		return tcca; // keep lib object, but only the already existing bus
 		break;
 	}
 	case -1:{
-		LOG(Log::ERR, lh ) << __FUNCTION__ << " Problem opening canBus for: " << name << " : returning NULL";
+		LOG(Log::ERR, lh ) << __FUNCTION__ << " Problem opening canBus for: " << name;
 		/** we could do 3 things here:
 		 * 1. throw an exception and stop everything
 		 *   throw std::runtime_error("CanLibLoader::openCanBus: createBus Problem when opening canBus. stop." );
 		 * 2. try again looping
 		 *   this would go on forever if the bus does not come up
-		 * 3. ignore the bus and return 0
-		 *   we return NULL in this case and the client has to check the pointer of course
+		 * 3. ignore the bus in the map
+		 *   we return the can access nevertheless in this case and the client has to check the pointer of course
 		 *   we decided to do that 6.april.2021 quasar meeting, related to https://its.cern.ch/jira/browse/OPCUA-2248
 		 */
-		return NULL;
+		return tcca;
 		break;
 	}
 	default:{
