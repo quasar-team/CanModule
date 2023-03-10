@@ -125,7 +125,7 @@ CCanAccess* CanLibLoader::openCanBus(std::string name, std::string parameters) {
 	}
 	case 1:{
 		LOG(Log::DBG, lh ) << __FUNCTION__ << " OK: createBus Skipping existing CCanAccess to the map for: " << name;
-		timeval ftTimeStamp = CanLibLoader::timevalNow();
+		timeval ftTimeStamp = timevalNow();
 		globalError(-1, "test error 98", ftTimeStamp );
 
 		return tcca; // keep lib object, but only the already existing bus
