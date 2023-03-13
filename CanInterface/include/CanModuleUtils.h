@@ -52,16 +52,16 @@ private:
 	~GlobalErrorSignaler(){
 		globalErrorSignal.disconnect_all_slots();
 	}
-	static GlobalErrorSignaler *instancePtr;
+	static GlobalErrorSignaler *instancePtr = NULL;
 
 public:
 	GlobalErrorSignaler(const GlobalErrorSignaler& obj) = delete;
 	static GlobalErrorSignaler* getInstance() {
-		if (instancePtr == NULL) {
-			instancePtr = new GlobalErrorSignaler();
-			return instancePtr;
+		if ( GlobalErrorSignaler::instancePtr == NULL) {
+			GlobalErrorSignaler::instancePtr = new GlobalErrorSignaler();
+			return GlobalErrorSignaler::instancePtr;
 		} else {
-			return instancePtr;
+			return GlobalErrorSignaler::instancePtr;
 		}
 	}
 
