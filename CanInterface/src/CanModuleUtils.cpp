@@ -31,6 +31,9 @@
 #include <iostream>
 #include <sstream>
 
+
+/*	static */ CanModule::GlobalErrorSignaler::instancePtr = 0;
+
 namespace CanModule
 {
 	std::string CanModuleerrnoToString()
