@@ -49,17 +49,6 @@
 namespace CanModule
 {
 
-/**
- * a global signal for errors independent of bus. This is needed to listen to bus opening/creation errors where the bus does not yet exist.
- * All buses and errors go into this signal.
- *
- * The recommendation is:
- *    connect a handler to the global signal
- *    open the bus
- *    if successful, connect bus specific handlers for errors, receptions, port status changes, then disconnect global handler
- *    if not successful, keep global handler and try again (server logic)
- */
-boost::signals2::signal<void (const int,const char *,timeval &) > globalError;
 
 const std::string LogItComponentName = "CanModule";
 #define MLOG(LEVEL,THIS) LOG(Log::LEVEL) << __FUNCTION__ << " " << CanModule::LogItComponentName << " bus= " << THIS->getBusName() << " "
