@@ -54,17 +54,6 @@ private:
 	}
 	static GlobalErrorSignaler *instancePtr;
 
-public:
-	GlobalErrorSignaler(const GlobalErrorSignaler& obj) = delete;
-	static GlobalErrorSignaler* getInstance() {
-		if ( GlobalErrorSignaler::instancePtr == NULL) {
-			GlobalErrorSignaler::instancePtr = new GlobalErrorSignaler();
-			return GlobalErrorSignaler::instancePtr;
-		} else {
-			return GlobalErrorSignaler::instancePtr;
-		}
-	}
-
 	/**
 	 * one (singleton) global signal for errors independent of bus. This is needed to listen to bus opening/creation errors where the bus does not yet exist.
 	 * All buses and errors go into this signal.
@@ -76,6 +65,21 @@ public:
 	 *    if not successful, keep global handler and try again (server logic)
 	 */
 	boost::signals2::signal<void (const int,const char *,timeval &) > globalErrorSignal;
+
+public:
+	GlobalErrorSignaler(const GlobalErrorSignaler& obj) = delete;
+	static GlobalErrorSignaler* getInstance() {
+		if ( GlobalErrorSignaler::instancePtr == NULL) {
+			GlobalErrorSignaler::instancePtr = new GlobalErrorSignaler();
+			return GlobalErrorSignaler::instancePtr;
+		} else {
+			return GlobalErrorSignaler::instancePtr;
+		}
+	}
+	void connect(const int code, const char *msg,timeval &tv ){
+		globalErrorSignal.connect( code, msg, tv );
+	}
+
 };
 
 

@@ -26,13 +26,9 @@
 #include <CCanAccess.h>
 
 #include <errno.h>
-// #include <string.h>
 #include <chrono>
 #include <iostream>
 #include <sstream>
-
-
-// /*	static */ CanModule::GlobalErrorSignaler::instancePtr = 0;
 
 namespace CanModule
 {
