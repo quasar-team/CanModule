@@ -349,7 +349,7 @@ public:
 	 *    if successful, connect bus specific handlers for errors, receptions, port status changes, then disconnect global handler
 	 *    if not successful, keep global handler and try again (server logic)
 	 */
-	boost::signals2::signal<void (const int,const char *,timeval &) > globalErrorSignal;
+	static boost::signals2::signal<void (const int,const char *,timeval &) > globalErrorSignal;
 
 	// Returns the CanStatistics object.
 	virtual void getStatistics( CanStatistics & result ) = 0;
