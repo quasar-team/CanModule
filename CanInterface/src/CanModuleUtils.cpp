@@ -32,7 +32,7 @@
 #include <sstream>
 
 
-/*	static */ CanModule::GlobalErrorSignaler::instancePtr = 0;
+// /*	static */ CanModule::GlobalErrorSignaler::instancePtr = 0;
 
 namespace CanModule
 {
