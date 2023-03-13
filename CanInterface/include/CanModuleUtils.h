@@ -52,7 +52,7 @@ private:
 	~GlobalErrorSignaler(){
 		globalErrorSignal.disconnect_all_slots();
 	}
-	static GlobalErrorSignaler *instancePtr = NULL;
+	static GlobalErrorSignaler *instancePtr;
 
 public:
 	GlobalErrorSignaler(const GlobalErrorSignaler& obj) = delete;
