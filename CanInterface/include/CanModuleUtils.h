@@ -76,9 +76,10 @@ public:
 			return GlobalErrorSignaler::instancePtr;
 		}
 	}
-	void connect(const int code, const char *msg,timeval &tv ){
-		globalErrorSignal.connect( code, msg, tv );
-	}
+
+	//void connect(const int code, const char *msg,timeval &tv ){
+	//	globalErrorSignal.connect( code, msg, tv );
+	//}
 
 };
 
