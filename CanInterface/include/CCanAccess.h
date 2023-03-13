@@ -340,7 +340,7 @@ public:
 	boost::signals2::signal<void (const int,const char *,timeval &) > canPortStateChanged;
 
 	/**
-	 * a global signal for errors independent of bus. This is needed to listen to bus opening/creation errors where the bus does not yet exist.
+	 * one (static) global signal for errors independent of bus. This is needed to listen to bus opening/creation errors where the bus does not yet exist.
 	 * All buses and errors go into this signal.
 	 *
 	 * The recommendation is:
@@ -349,7 +349,7 @@ public:
 	 *    if successful, connect bus specific handlers for errors, receptions, port status changes, then disconnect global handler
 	 *    if not successful, keep global handler and try again (server logic)
 	 */
-	static boost::signals2::signal<void (const int,const char *,timeval &) > globalErrorSignal;
+	boost::signals2::signal<void (const int,const char *,timeval &) > globalErrorSignal;
 
 	// Returns the CanStatistics object.
 	virtual void getStatistics( CanStatistics & result ) = 0;
