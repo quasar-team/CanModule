@@ -28,16 +28,7 @@
 #include <map>
 #include <string>
 
-//#include <boost/signals2.hpp>
-
-
-#pragma once
-
-using namespace std;
-
-namespace CanModule
-{
-
+#include <boost/signals2.hpp>
 /**
  * a global signal for errors independent of bus. This is needed to listen to bus opening/creation errors where the bus does not yet exist.
  * All buses and errors go into this signal.
@@ -49,6 +40,15 @@ namespace CanModule
  *    if not successful, keep global handler and try again (server logic)
  */
 //boost::signals2::signal<void (const int,const char *,timeval &) > globalError;
+
+
+#pragma once
+
+using namespace std;
+
+namespace CanModule
+{
+
 
 /**
  * CanBusAccess class ensure a connection to can hardware.
