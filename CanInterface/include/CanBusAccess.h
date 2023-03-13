@@ -28,7 +28,7 @@
 #include <map>
 #include <string>
 
-#include <boost/signals2.hpp>
+//#include <boost/signals2.hpp>
 
 
 #pragma once
@@ -48,7 +48,7 @@ namespace CanModule
  *    if successful, connect bus specific handlers for errors, receptions, port status changes, then disconnect global handler
  *    if not successful, keep global handler and try again (server logic)
  */
-boost::signals2::signal<void (const int,const char *,timeval &) > globalError;
+//boost::signals2::signal<void (const int,const char *,timeval &) > globalError;
 
 /**
  * CanBusAccess class ensure a connection to can hardware.
