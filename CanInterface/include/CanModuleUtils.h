@@ -41,6 +41,10 @@
 namespace CanModule
 {
 
+/**
+ * boost::signal2 need implicit this-> pointers to work, that means they only work as methods of existing objects. So we need a class
+ * for specifically implementing the globalErrorSignal, which is independent of the existence of lib and bus instances.
+ */
 class GlobalErrorSignaler /* singleton */
 {
 private:
