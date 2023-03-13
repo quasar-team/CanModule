@@ -46,8 +46,8 @@ class GlobalErrorSignaler /* singleton */
 private:
 	GlobalErrorSignaler(){};
 	~GlobalErrorSignaler(){
-		globalErrorSignal.disconnect_all_slots()
-	};
+		globalErrorSignal.disconnect_all_slots();
+	}
 	static GlobalErrorSignaler *instancePtr;
 
 public:
