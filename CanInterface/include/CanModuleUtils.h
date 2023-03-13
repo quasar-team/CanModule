@@ -33,6 +33,9 @@
 #include <string>
 #include <chrono>
 
+#include <boost/bind/bind.hpp>
+#include <boost/signals2.hpp>
+
 #include "CanMessage.h"
 
 namespace CanModule
