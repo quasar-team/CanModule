@@ -40,6 +40,18 @@ namespace CanModule
 	class CanModuleUtils
 	{
 	public:
+		/**
+		 * one (static) global signal for errors independent of bus. This is needed to listen to bus opening/creation errors where the bus does not yet exist.
+		 * All buses and errors go into this signal.
+		 *
+		 * The recommendation is:
+		 *    connect a handler to the global signal
+		 *    open the bus
+		 *    if successful, connect bus specific handlers for errors, receptions, port status changes, then disconnect global handler
+		 *    if not successful, keep global handler and try again (server logic)
+		 */
+		static boost::signals2::signal<void (const int,const char *,timeval &) > globalErrorSignal;
+
 
 		template<typename T>
 		static std::string toString(const T t)
