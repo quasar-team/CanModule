@@ -75,7 +75,7 @@ GlobalErrorSignaler* GlobalErrorSignaler::getInstance() {
  * connect the handler provided by "the user": void myHandler( int code, const char *myMessage )
  */
 void GlobalErrorSignaler::connectHandler( void (*fcnPtr)( int, const char* ) ){
-	globalErrorSignal.connect( fcnPtr );
+	globalErrorSignal.connect( &fcnPtr );
 }
 
 
