@@ -78,20 +78,24 @@ GlobalErrorSignaler* GlobalErrorSignaler::getInstance() {
  *  connect/disconnect a given handler to the signal of the singleton. function pointer is the argument.
  *  Can have as many connected handlers as you want, but they will all be disconnected when the object goes out of scope (dtor).
  */
-void GlobalErrorSignaler::connectHandler( void (*fcnPtr)( int, const char*, timeval ) ){
+bool GlobalErrorSignaler::connectHandler( void (*fcnPtr)( int, const char*, timeval ) ){
 	if ( fcnPtr != NULL ){
 		globalErrorSignal.connect( fcnPtr );
 		LOG( Log::INF, GlobalErrorSignaler::m_st_lh ) << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " connect handler to signal.";
+		return true;
 	} else {
 		LOG( Log::ERR, GlobalErrorSignaler::m_st_lh ) << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " cannot connect NULL handler to signal. skipping...";
+		return false;
 	}
 }
-void GlobalErrorSignaler::disconnectHandler( void (*fcnPtr)( int, const char*, timeval ) ){
+bool GlobalErrorSignaler::disconnectHandler( void (*fcnPtr)( int, const char*, timeval ) ){
 	if ( fcnPtr != NULL ){
 		globalErrorSignal.disconnect( fcnPtr );
 		LOG( Log::INF, GlobalErrorSignaler::m_st_lh ) << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " disconnect handler from signal.";
+		return true;
 	} else {
 		LOG( Log::ERR, GlobalErrorSignaler::m_st_lh ) << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " cannot disconnect NULL handler to signal. skipping...";
+		return false;
 	}
 }
 void GlobalErrorSignaler::disconnectAllHandlers() {
@@ -105,7 +109,7 @@ void GlobalErrorSignaler::fireSignal( const int code, const char *msg ){
 	auto nMicrosecs = std::chrono::duration_cast<std::chrono::microseconds>( now.time_since_epoch());
 	ftTimeStamp.tv_sec = nMicrosecs.count() / 1000000L;
 	ftTimeStamp.tv_usec = (nMicrosecs.count() % 1000000L) ;
-	globalErrorSignal(code, msg, ftTimeStamp );
+	globalErrorSignal( code, msg, ftTimeStamp );
 }
 
 

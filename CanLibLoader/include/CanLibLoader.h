@@ -58,16 +58,11 @@ private:
 	boost::signals2::signal<void (const int,const char *,timeval &) > globalErrorSignal;
 
 public:
-	// boost::signals2::signal<void (const int,const char *,timeval &) > globalErrorSignal;
 	SHARED_LIB_EXPORT_DEFN static GlobalErrorSignaler* getInstance();
-
-	void connectHandler( void (*fcnPtr)( int, const char*, timeval  ) );
-	void disconnectHandler( void (*fcnPtr)( int, const char*, timeval  ) );
-	void disconnectAllHandlers();
-
-	// fire the signal with payload. Timestamp done internally
-	void fireSignal( const int code, const char *msg );
-
+	SHARED_LIB_EXPORT_DEFN bool connectHandler( void (*fcnPtr)( int, const char*, timeval  ) );
+	SHARED_LIB_EXPORT_DEFN bool disconnectHandler( void (*fcnPtr)( int, const char*, timeval  ) );
+	SHARED_LIB_EXPORT_DEFN void disconnectAllHandlers();
+	SHARED_LIB_EXPORT_DEFN void fireSignal( const int code, const char *msg );
 };
 
 class CanLibLoader 	{
