@@ -55,10 +55,10 @@ private:
 	static GlobalErrorSignaler *instancePtr;
 	static LogItInstance *m_st_logIt;
 	static Log::LogComponentHandle m_st_lh;
-	// boost::signals2::signal<void (const int,const char *,timeval &) > globalErrorSignal;
+	boost::signals2::signal<void (const int,const char *,timeval &) > globalErrorSignal;
 
 public:
-	boost::signals2::signal<void (const int,const char *,timeval &) > globalErrorSignal;
+	// boost::signals2::signal<void (const int,const char *,timeval &) > globalErrorSignal;
 	SHARED_LIB_EXPORT_DEFN static GlobalErrorSignaler* getInstance();
 
 	void connectHandler( void (*fcnPtr)( int, const char*, timeval  ) );
