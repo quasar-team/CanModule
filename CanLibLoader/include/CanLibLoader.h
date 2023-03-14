@@ -40,7 +40,7 @@ class GlobalErrorSignaler /* singleton */
 {
 
 protected:
-	GlobalErrorSignaler();
+	GlobalErrorSignaler(){};
 	~GlobalErrorSignaler(){
 		globalErrorSignal.disconnect_all_slots();
 	}
