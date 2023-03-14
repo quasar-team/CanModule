@@ -59,10 +59,10 @@ private:
 
 public:
 	boost::signals2::signal<void (const int,const char *,timeval &) > globalErrorSignal;
-
-//	static GlobalErrorSignaler *instancePtr;
 	SHARED_LIB_EXPORT_DEFN static GlobalErrorSignaler* getInstance();
 
+	// connect a given gandler to the signal of the singleton. function pointer is the argument
+	bool connect( int (*fcnPtr)() );
 
 
 };
