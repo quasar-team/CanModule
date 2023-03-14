@@ -77,7 +77,11 @@ GlobalErrorSignaler* GlobalErrorSignaler::getInstance() {
  */
 void GlobalErrorSignaler::connectHandler( int (*fcnPtr)( int, const char*, timeval ) ){
 	//int (*fcnPtr)( int, const char* );
-	globalErrorSignal.connect( fcnPtr );
+	if ( fcnPtr != NULL ){
+		globalErrorSignal.connect( fcnPtr );
+	} else {
+		LOG(Log::ERR, lh ) << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " cannot connect NULL handler to signal. skipping...";
+	}
 }
 
 
