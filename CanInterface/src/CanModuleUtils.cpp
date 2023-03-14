@@ -32,6 +32,9 @@
 
 namespace CanModule
 {
+
+/* static */ GlobalErrorSignaler *instancePtr;
+
 	std::string CanModuleerrnoToString()
 	{
 		const int max_len = 1000;
