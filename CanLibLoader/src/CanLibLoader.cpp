@@ -80,7 +80,7 @@ void GlobalErrorSignaler::connectHandler( int (*fcnPtr)( int, const char*, timev
 	if ( fcnPtr != NULL ){
 		globalErrorSignal.connect( fcnPtr );
 	} else {
-		LOG(Log::ERR, lh ) << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " cannot connect NULL handler to signal. skipping...";
+		LOG( Log::ERR, GlobalErrorSignaler::m_st_lh ) << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " cannot connect NULL handler to signal. skipping...";
 	}
 }
 
