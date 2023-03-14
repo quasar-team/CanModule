@@ -51,7 +51,8 @@ class GlobalErrorSignaler /* singleton */
 private:
 	GlobalErrorSignaler(){};
 	~GlobalErrorSignaler();
-#if 0{
+#if 0
+	{
 		globalErrorSignal.disconnect_all_slots();
 	}
 #endif
