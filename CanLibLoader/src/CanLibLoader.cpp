@@ -37,7 +37,7 @@ namespace CanModule
 
 /* static */ GlobalErrorSignaler *GlobalErrorSignaler::instancePtr = NULL;
 
-GlobalErrorSignaler* getInstance() {
+GlobalErrorSignaler* GlobalErrorSignaler::getInstance() {
 	if ( GlobalErrorSignaler::instancePtr == NULL) {
 		GlobalErrorSignaler::instancePtr = new GlobalErrorSignaler();
 		return GlobalErrorSignaler::instancePtr;
