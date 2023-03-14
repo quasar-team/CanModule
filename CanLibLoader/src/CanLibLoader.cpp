@@ -35,7 +35,7 @@
 namespace CanModule
 {
 
-/* static */ GlobalErrorSignaler *instancePtr;
+/* static */ GlobalErrorSignaler *instancePtr = NULL;
 
 // called by factory
 CanLibLoader::CanLibLoader(const std::string& libName)
