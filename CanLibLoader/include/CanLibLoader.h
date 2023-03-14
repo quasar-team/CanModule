@@ -61,13 +61,11 @@ public:
 	boost::signals2::signal<void (const int,const char *,timeval &) > globalErrorSignal;
 	SHARED_LIB_EXPORT_DEFN static GlobalErrorSignaler* getInstance();
 
-
-	// connect a given handler to the signal of the singleton. function pointer is the argument. Can have as amny connected handler as you want, but
-	// they will all be disconnected when the object goes out of scope (dtor)
 	void connectHandler( void (*fcnPtr)( int, const char*, timeval  ) );
 	void disconnectHandler( void (*fcnPtr)( int, const char*, timeval  ) );
+	void disconnectAllHandlers();
 
-	// fire the signal with payload
+	// fire the signal with payload. Timestamp done internally
 	void fireSignal( const int code, const char *msg );
 
 };
