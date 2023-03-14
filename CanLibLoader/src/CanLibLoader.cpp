@@ -37,6 +37,15 @@ namespace CanModule
 
 /* static */ GlobalErrorSignaler *instancePtr = NULL;
 
+GlobalErrorSignaler::GlobalErrorSignaler* getInstance() {
+	if ( GlobalErrorSignaler::instancePtr == NULL) {
+		GlobalErrorSignaler::instancePtr = new GlobalErrorSignaler();
+		return GlobalErrorSignaler::instancePtr;
+	} else {
+		return GlobalErrorSignaler::instancePtr;
+	}
+}
+
 // called by factory
 CanLibLoader::CanLibLoader(const std::string& libName)
 {

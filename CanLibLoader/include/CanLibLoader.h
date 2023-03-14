@@ -61,7 +61,9 @@ public:
 	// GlobalErrorSignaler(const GlobalErrorSignaler& obj) = delete;
 
 	static GlobalErrorSignaler *instancePtr;
-	SHARED_LIB_EXPORT_DEFN static GlobalErrorSignaler* getInstance() {
+	SHARED_LIB_EXPORT_DEFN static GlobalErrorSignaler* getInstance();
+#if 0
+	{
 		if ( GlobalErrorSignaler::instancePtr == NULL) {
 			GlobalErrorSignaler::instancePtr = new GlobalErrorSignaler();
 			return GlobalErrorSignaler::instancePtr;
@@ -69,7 +71,7 @@ public:
 			return GlobalErrorSignaler::instancePtr;
 		}
 	}
-
+#endif
 	//void connect(const int code, const char *msg,timeval &tv ){
 	//	globalErrorSignal.connect( code, msg, tv );
 	//}
