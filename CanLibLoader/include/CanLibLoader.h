@@ -64,7 +64,7 @@ public:
 
 	// connect a given handler to the signal of the singleton. function pointer is the argument. Can have as amny connected handler as you want, but
 	// they will all be disconnected when the object goes out of scope (dtor)
-	void connectHandler( int (*fcnPtr)( int, const char*, timeval  ) );
+	void connectHandler( void (*fcnPtr)( int, const char*, timeval  ) );
 
 	// fire the signal with payload
 	void fireSignal( const int code, const char *msg );
