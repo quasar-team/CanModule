@@ -39,7 +39,7 @@ namespace CanModule
 class GlobalErrorSignaler /* singleton */
 {
 
-protected:
+private:
 	GlobalErrorSignaler(){};
 	~GlobalErrorSignaler(){
 		globalErrorSignal.disconnect_all_slots();
@@ -70,9 +70,6 @@ public:
 		}
 	}
 
-	//void connect(const int code, const char *msg,timeval &tv ){
-	//	globalErrorSignal.connect( code, msg, tv );
-	//}
 
 };
 
