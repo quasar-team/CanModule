@@ -73,9 +73,11 @@ public:
 	}
 #endif
 
-//private:
-//	LogItInstance *logIt;
-//	Log::LogComponentHandle lh;
+
+
+private:
+	LogItInstance *m_logIt;
+	Log::LogComponentHandle m_lh;
 
 
 };
