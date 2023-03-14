@@ -70,6 +70,10 @@ GlobalErrorSignaler* GlobalErrorSignaler::getInstance() {
 	return GlobalErrorSignaler::instancePtr;
 }
 
+bool GlobalErrorSignaler::connectHandler( void (*fcnPtr)( int, const char* ) ){
+	return true;
+}
+
 
 // called by factory
 CanLibLoader::CanLibLoader(const std::string& libName)
