@@ -41,6 +41,7 @@ namespace CanModule
 
 GlobalErrorSignaler::~GlobalErrorSignaler(){
 	globalErrorSignal.disconnect_all_slots();
+	LOG( Log::TRC, GlobalErrorSignaler::m_st_lh ) << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " disconnected all handlers from signal.";
 }
 
 /**
@@ -73,15 +74,25 @@ GlobalErrorSignaler* GlobalErrorSignaler::getInstance() {
 
 
 /**
- * connect the handler provided by "the user": void myHandler( int code, const char *myMessage )
+ * connect/disconnect the handler provided by "the user": void myHandler( int code, const char *myMessage )
  */
 void GlobalErrorSignaler::connectHandler( void (*fcnPtr)( int, const char*, timeval ) ){
-	//int (*fcnPtr)( int, const char* );
 	if ( fcnPtr != NULL ){
 		globalErrorSignal.connect( fcnPtr );
 	} else {
 		LOG( Log::ERR, GlobalErrorSignaler::m_st_lh ) << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " cannot connect NULL handler to signal. skipping...";
 	}
+}
+void GlobalErrorSignaler::disconnectHandler( void (*fcnPtr)( int, const char*, timeval ) ){
+	if ( fcnPtr != NULL ){
+		globalErrorSignal.disconnect( fcnPtr );
+	} else {
+		LOG( Log::ERR, GlobalErrorSignaler::m_st_lh ) << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " cannot disconnect NULL handler to signal. skipping...";
+	}
+}
+void GlobalErrorSignaler::disconnectAllHandlers() {
+		globalErrorSignal.disconnect_all_slots();
+		LOG( Log::INF, GlobalErrorSignaler::m_st_lh ) << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " disconnected all handlers from signal.";
 }
 
 
