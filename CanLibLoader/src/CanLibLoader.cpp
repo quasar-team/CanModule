@@ -39,19 +39,22 @@ namespace CanModule
 
 GlobalErrorSignaler* GlobalErrorSignaler::getInstance() {
 
-	bool ret = Log::initializeLogging(Log::TRC);
-	if (ret) std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " LogIt initialized OK" << std::endl;
-	else std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " LogIt problem at initialisation" << std::endl;
-	LogItInstance *logIt = LogItInstance::getInstance();
-	if ( logIt != NULL ){
-		logIt->getComponentHandle( CanModule::LogItComponentName, lh );
-	} else {
-		std::cout << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " logIt instance is NULL" << std::endl;
-	}
 
 	if ( GlobalErrorSignaler::instancePtr == NULL) {
 		GlobalErrorSignaler::instancePtr = new GlobalErrorSignaler();
-		LOG(Log::TRC, lh ) << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << "created singleton instance of GlobalErrorSignaler";
+
+		// all this for one LogIt message...
+		bool ret = Log::initializeLogging(Log::TRC);
+		if (ret) std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " LogIt initialized OK" << std::endl;
+		else std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " LogIt problem at initialisation" << std::endl;
+		LogItInstance *logIt = LogItInstance::getInstance();
+		Log::LogComponentHandle lh = 0;
+		if ( logIt != NULL ){
+			logIt->getComponentHandle( CanModule::LogItComponentName, lh );
+			LOG(Log::TRC, lh ) << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << "created singleton instance of GlobalErrorSignaler";
+		} else {
+			std::cout << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " logIt instance is NULL" << std::endl;
+		}
 	}
 	return GlobalErrorSignaler::instancePtr;
 }
