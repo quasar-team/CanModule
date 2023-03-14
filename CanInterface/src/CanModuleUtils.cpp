@@ -33,7 +33,6 @@
 namespace CanModule
 {
 
-/* static */ GlobalErrorSignaler *instancePtr;
 
 	std::string CanModuleerrnoToString()
 	{

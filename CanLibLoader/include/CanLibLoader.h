@@ -31,6 +31,47 @@
 
 namespace CanModule 
 {
+/**
+ * boost::signal2 need implicit this-> pointers to work, that means they only work as methods of existing objects. So we need a class
+ * for specifically implementing the globalErrorSignal, which is independent of the existence of lib and bus instances.
+ */
+class GlobalErrorSignaler /* singleton */
+{
+private:
+	GlobalErrorSignaler(){};
+	~GlobalErrorSignaler(){
+		globalErrorSignal.disconnect_all_slots();
+	}
+	static GlobalErrorSignaler *instancePtr;
+
+	/**
+	 * one (singleton) global signal for errors independent of bus. This is needed to listen to bus opening/creation errors where the bus does not yet exist.
+	 * All buses and errors go into this signal.
+	 *
+	 * The recommendation is:
+	 *    connect a handler to the global signal
+	 *    open the bus
+	 *    if successful, connect bus specific handlers for errors, receptions, port status changes, then disconnect global handler
+	 *    if not successful, keep global handler and try again (server logic)
+	 */
+	boost::signals2::signal<void (const int,const char *,timeval &) > globalErrorSignal;
+
+public:
+	GlobalErrorSignaler(const GlobalErrorSignaler& obj) = delete;
+	static GlobalErrorSignaler* getInstance() {
+		if ( GlobalErrorSignaler::instancePtr == NULL) {
+			GlobalErrorSignaler::instancePtr = new GlobalErrorSignaler();
+			return GlobalErrorSignaler::instancePtr;
+		} else {
+			return GlobalErrorSignaler::instancePtr;
+		}
+	}
+
+	//void connect(const int code, const char *msg,timeval &tv ){
+	//	globalErrorSignal.connect( code, msg, tv );
+	//}
+
+};
 
 class CanLibLoader 	{
 
