@@ -36,6 +36,8 @@ namespace CanModule
 {
 
 /* static */ GlobalErrorSignaler *GlobalErrorSignaler::instancePtr = NULL;
+/* static */ LogItInstance * GlobalErrorSignaler::m_st_logIt = NULL;
+/* static */ Log::LogComponentHandle GlobalErrorSignaler::m_st_lh = 0;
 
 GlobalErrorSignaler* GlobalErrorSignaler::getInstance() {
 
@@ -52,6 +54,10 @@ GlobalErrorSignaler* GlobalErrorSignaler::getInstance() {
 		if ( logIt != NULL ){
 			logIt->getComponentHandle( CanModule::LogItComponentName, lh );
 			LOG(Log::TRC, lh ) << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << "created singleton instance of GlobalErrorSignaler";
+
+			GlobalErrorSignaler::m_st_logIt = logIt;
+			GlobalErrorSignaler::m_st_lh = lh;
+
 		} else {
 			std::cout << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " logIt instance is NULL" << std::endl;
 		}

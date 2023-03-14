@@ -76,8 +76,8 @@ public:
 
 
 private:
-	LogItInstance *m_logIt;
-	Log::LogComponentHandle m_lh;
+	static LogItInstance *m_st_logIt;
+	static Log::LogComponentHandle m_st_lh;
 
 
 };
