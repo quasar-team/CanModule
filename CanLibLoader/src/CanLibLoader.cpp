@@ -77,7 +77,7 @@ GlobalErrorSignaler* GlobalErrorSignaler::getInstance() {
  */
 void GlobalErrorSignaler::connectHandler( int (*fcnPtr)( int, const char*, timeval ) ){
 	//int (*fcnPtr)( int, const char* );
-	globalErrorSignal.connect( $fcnPtr );
+	globalErrorSignal.connect( fcnPtr );
 }
 
 
