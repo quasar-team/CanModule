@@ -99,11 +99,10 @@ void GlobalErrorSignaler::disconnectAllHandlers() {
 		LOG( Log::INF, GlobalErrorSignaler::m_st_lh ) << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " disconnected all handlers from signal.";
 }
 // fire the signal with payload. Timestamp done internally
-void fireSignal( const int code, const char *msg ){
+void GlobalErrorSignaler::fireSignal( const int code, const char *msg ){
 	timeval ftTimeStamp;
 	auto now = std::chrono::system_clock::now();
-	auto nMicrosecs =
-			std::chrono::duration_cast<std::chrono::microseconds>( now.time_since_epoch());
+	auto nMicrosecs = std::chrono::duration_cast<std::chrono::microseconds>( now.time_since_epoch());
 	ftTimeStamp.tv_sec = nMicrosecs.count() / 1000000L;
 	ftTimeStamp.tv_usec = (nMicrosecs.count() % 1000000L) ;
 	globalErrorSignal(code, msg, ftTimeStamp );
