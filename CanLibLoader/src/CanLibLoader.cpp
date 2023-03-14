@@ -43,9 +43,10 @@ GlobalErrorSignaler::~GlobalErrorSignaler(){
 	globalErrorSignal.disconnect_all_slots();
 }
 
+/**
+ * singleton fabricator. We have one global signal only which is neither lib/vendor nor port specific, per task.
+ */
 GlobalErrorSignaler* GlobalErrorSignaler::getInstance() {
-
-
 	if ( GlobalErrorSignaler::instancePtr == NULL) {
 		GlobalErrorSignaler::instancePtr = new GlobalErrorSignaler();
 
@@ -70,8 +71,11 @@ GlobalErrorSignaler* GlobalErrorSignaler::getInstance() {
 	return GlobalErrorSignaler::instancePtr;
 }
 
-bool GlobalErrorSignaler::connectHandler( void (*fcnPtr)( int, const char* ) ){
-	return true;
+/**
+ * connect the handler provided by "the user": void myHandler( int code, const char *myMessage )
+ */
+void GlobalErrorSignaler::connectHandler( void (*fcnPtr)( int, const char* ) ){
+	globalErrorSignal.connect( fcnPtr );
 }
 
 
