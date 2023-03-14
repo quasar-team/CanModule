@@ -39,7 +39,7 @@ namespace CanModule
 class GlobalErrorSignaler /* singleton */
 {
 
-public:
+private:
 	GlobalErrorSignaler(){};
 	~GlobalErrorSignaler(){
 		globalErrorSignal.disconnect_all_slots();
@@ -62,16 +62,6 @@ public:
 
 	static GlobalErrorSignaler *instancePtr;
 	SHARED_LIB_EXPORT_DEFN static GlobalErrorSignaler* getInstance();
-#if 0
-	{
-		if ( GlobalErrorSignaler::instancePtr == NULL) {
-			GlobalErrorSignaler::instancePtr = new GlobalErrorSignaler();
-			return GlobalErrorSignaler::instancePtr;
-		} else {
-			return GlobalErrorSignaler::instancePtr;
-		}
-	}
-#endif
 
 
 
