@@ -39,6 +39,10 @@ namespace CanModule
 /* static */ LogItInstance * GlobalErrorSignaler::m_st_logIt = NULL;
 /* static */ Log::LogComponentHandle GlobalErrorSignaler::m_st_lh = 0;
 
+GlobalErrorSignaler::~GlobalErrorSignaler(){
+	globalErrorSignal.disconnect_all_slots();
+}
+
 GlobalErrorSignaler* GlobalErrorSignaler::getInstance() {
 
 

@@ -50,20 +50,25 @@ class GlobalErrorSignaler /* singleton */
 
 private:
 	GlobalErrorSignaler(){};
-	~GlobalErrorSignaler(){
+	~GlobalErrorSignaler();
+#if 0{
 		globalErrorSignal.disconnect_all_slots();
 	}
+#endif
 	static GlobalErrorSignaler *instancePtr;
 	static LogItInstance *m_st_logIt;
 	static Log::LogComponentHandle m_st_lh;
+	boost::signals2::signal<void (const int,const char *,timeval &) > globalErrorSignal;
 
 public:
-	boost::signals2::signal<void (const int,const char *,timeval &) > globalErrorSignal;
+	//boost::signals2::signal<void (const int,const char *,timeval &) > globalErrorSignal;
 	SHARED_LIB_EXPORT_DEFN static GlobalErrorSignaler* getInstance();
 
-	// connect a given gandler to the signal of the singleton. function pointer is the argument
-	bool connect( int (*fcnPtr)() );
-
+	// connect a given handler to the signal of the singleton. function pointer is the argument. Can have as amny connected handler as you want, but
+	// they will all be disconnected when the object goes out of scope (dtor)
+	bool connectHandler( int (*fcnPtr)() );
+	// fire the signal with payload
+	void fireSignal( const int code, const char *msg );
 
 };
 
