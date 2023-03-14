@@ -71,15 +71,15 @@ GlobalErrorSignaler* GlobalErrorSignaler::getInstance() {
 	return GlobalErrorSignaler::instancePtr;
 }
 
-#if 0
+
 /**
  * connect the handler provided by "the user": void myHandler( int code, const char *myMessage )
  */
-void GlobalErrorSignaler::connectHandler( int (*fcnPtr)( int, const char* ) ){
+void GlobalErrorSignaler::connectHandler( int (*fcnPtr)( int, const char*, timeval ) ){
 	//int (*fcnPtr)( int, const char* );
-	globalErrorSignal.connect( fcnPtr );
+	globalErrorSignal.connect( $fcnPtr );
 }
-#endif
+
 
 // called by factory
 CanLibLoader::CanLibLoader(const std::string& libName)
