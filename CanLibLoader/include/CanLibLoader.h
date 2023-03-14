@@ -73,6 +73,11 @@ public:
 	}
 #endif
 
+private:
+	LogItInstance *logIt;
+	Log::LogComponentHandle lh;
+
+
 };
 
 class CanLibLoader 	{

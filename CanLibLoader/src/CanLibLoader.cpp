@@ -38,12 +38,22 @@ namespace CanModule
 /* static */ GlobalErrorSignaler *GlobalErrorSignaler::instancePtr = NULL;
 
 GlobalErrorSignaler* GlobalErrorSignaler::getInstance() {
+
+	bool ret = Log::initializeLogging(Log::TRC);
+	if (ret) std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " LogIt initialized OK" << std::endl;
+	else std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " LogIt problem at initialisation" << std::endl;
+	LogItInstance *logIt = LogItInstance::getInstance();
+	if ( logIt != NULL ){
+		logIt->getComponentHandle( CanModule::LogItComponentName, lh );
+	} else {
+		std::cout << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " logIt instance is NULL" << std::endl;
+	}
+
 	if ( GlobalErrorSignaler::instancePtr == NULL) {
 		GlobalErrorSignaler::instancePtr = new GlobalErrorSignaler();
-		return GlobalErrorSignaler::instancePtr;
-	} else {
-		return GlobalErrorSignaler::instancePtr;
+		LOG(Log::TRC, lh ) << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << "created singleton instance of GlobalErrorSignaler";
 	}
+	return GlobalErrorSignaler::instancePtr;
 }
 
 
