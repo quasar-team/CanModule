@@ -655,7 +655,13 @@ bool CSockCanScan::writeWrapper (const can_frame* frame)
 		}
 		else
 		{
-			MLOGSOCK(ERR, this) << "write: " << CanModuleerrnoToString();
+			if (m_errorCode != 0)
+			{
+				/* As per OPCUA-3022 we already know that the port is broken, so log it at TRC, to avoid #errors */
+				MLOGSOCK(TRC, this) << "write: " << CanModuleerrnoToString();
+			}
+			else
+				MLOGSOCK(ERR, this) << "write: " << CanModuleerrnoToString();
 			return false;
 		}
 	}
