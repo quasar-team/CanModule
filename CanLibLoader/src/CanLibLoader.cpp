@@ -163,7 +163,8 @@ CanLibLoader* CanLibLoader::createInstance(const std::string& libName)	{
 	ftTimeStamp.tv_usec = (nMicrosecs.count() % 1000000L) ;
 	return( ftTimeStamp );
 }
-~endif
+#endif
+
 /**
  * close a CAN bus
  */
