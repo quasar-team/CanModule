@@ -152,18 +152,6 @@ CanLibLoader* CanLibLoader::createInstance(const std::string& libName)	{
 #endif
 	return libPtr;
 }
-#if 0
-/* static */ timeval CanLibLoader::timevalNow()
-{
-	timeval ftTimeStamp;
-	auto now = std::chrono::system_clock::now();
-	auto nMicrosecs =
-			std::chrono::duration_cast<std::chrono::microseconds>( now.time_since_epoch());
-	ftTimeStamp.tv_sec = nMicrosecs.count() / 1000000L;
-	ftTimeStamp.tv_usec = (nMicrosecs.count() % 1000000L) ;
-	return( ftTimeStamp );
-}
-#endif
 
 /**
  * close a CAN bus
@@ -185,7 +173,11 @@ CCanAccess* CanLibLoader::openCanBus(std::string name, std::string parameters) {
 	CCanAccess *tcca = createCanAccess();
 
 	if ( !tcca ){
-		LOG(Log::ERR, lh ) << __FUNCTION__ << " failed to create CCanAccess name= " << name << " parameters= " << parameters;
+		std::stringstream msg;
+		msg << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " failed createCanAccess name= " << name << " parameters= " << parameters;
+		LOG(Log::ERR, lh ) << msg.str();
+		m_gsig->fireSignal( 003, msg.str().c_str() );
+
 		throw std::runtime_error("CanLibLoader::openCanBus: createBus Problem when loading lib " + name );
 	} else {
 		LOG(Log::DBG, lh ) << __FUNCTION__ << " created CCanAccess name= " << name << " parameters= " << parameters;
@@ -214,14 +206,16 @@ CCanAccess* CanLibLoader::openCanBus(std::string name, std::string parameters) {
 	}
 	case 1:{
 		LOG(Log::DBG, lh ) << __FUNCTION__ << " OK: createBus Skipping existing CCanAccess to the map for: " << name;
-		// timeval ftTimeStamp = timevalNow();
-		//globalError(-1, "test error 98", ftTimeStamp );
-
 		return tcca; // keep lib object, but only the already existing bus
 		break;
 	}
 	case -1:{
-		LOG(Log::ERR, lh ) << __FUNCTION__ << " Problem opening canBus for: " << name;
+
+		std::stringstream msg;
+		msg << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " Problem opening canBus for: " << name;
+		LOG(Log::ERR, lh ) << msg.str();
+		m_gsig->fireSignal( 004, msg.str().c_str() );
+
 		/** we could do 3 things here:
 		 * 1. throw an exception and stop everything
 		 *   throw std::runtime_error("CanLibLoader::openCanBus: createBus Problem when opening canBus. stop." );
@@ -235,13 +229,21 @@ CCanAccess* CanLibLoader::openCanBus(std::string name, std::string parameters) {
 		break;
 	}
 	default:{
-		LOG(Log::WRN, lh ) << __FUNCTION__ << " something else went wrong for: " << name << " : returning NULL";
+		std::stringstream msg;
+		msg << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " something else went wrong for: " << name << " : returning NULL";
+		LOG(Log::ERR, lh ) << msg.str();
+		m_gsig->fireSignal( 005, msg.str().c_str() );
 		return NULL;
 		break;
 	}
 	} // switch
 
-	// never reached
+	// never reached ;-)
+	std::stringstream msg;
+	msg << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " something else went seriously wrong for: " << name << " : returning NULL";
+	LOG(Log::ERR, lh ) << msg.str();
+	m_gsig->fireSignal( 006, msg.str().c_str() );
+
 	return NULL;
 }
 }

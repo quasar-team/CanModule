@@ -89,8 +89,6 @@ public:
 	void setLibName( std::string ln ){ m_libName = ln; }
 	std::string getLibName(){ return (m_libName);}
 
-	// static timeval timevalNow();
-
 protected:
 	//Load a dynamic library.
 	virtual void dynamicallyLoadLib(const std::string& libName) = 0;
