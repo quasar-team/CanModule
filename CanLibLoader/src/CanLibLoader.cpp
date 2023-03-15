@@ -122,7 +122,7 @@ CanLibLoader::CanLibLoader(const std::string& libName)
 		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " LogIt initialized OK" << std::endl;
 	} else {
 		std::stringstream msg
-		msg << __FILE__ + " " + __LINE__ + " " __FUNCTION__ + " LogIt problem at initialisation";
+		msg << __FILE__ + " " + __LINE__ + " " << __FUNCTION__ + " LogIt problem at initialisation";
 		std::cout << msg.str() << std::endl;
 		m_gsig->fireSignal( 001, msg.str().c_str() );
 	}
@@ -132,7 +132,7 @@ CanLibLoader::CanLibLoader(const std::string& libName)
 		std::cout << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " constructor " << libName << std::endl;
 	} else {
 		std::stringstream msg;
-		msg << __FILE__ << " " << __LINE__ << " " __FUNCTION__ << " LogIt instance is NULL";
+		msg << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " LogIt instance is NULL";
 		std::cout << msg.str() << std::endl;
 		m_gsig->fireSignal( 002, msg.str().c_str() );
 	}
