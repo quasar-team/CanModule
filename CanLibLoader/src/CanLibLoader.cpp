@@ -110,6 +110,9 @@ void GlobalErrorSignaler::fireSignal( const int code, const char *msg ){
 	ftTimeStamp.tv_sec = nMicrosecs.count() / 1000000L;
 	ftTimeStamp.tv_usec = (nMicrosecs.count() % 1000000L) ;
 	globalErrorSignal( code, msg, ftTimeStamp );
+
+	// would like to throw out always an ERR log as well, but the signal should work also if LogIt is bad, independently
+	// LOG( Log::ERR, GlobalErrorSignaler::m_st_lh ) << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " code= " << code << " " << msg;
 }
 
 
@@ -159,9 +162,14 @@ CanLibLoader* CanLibLoader::createInstance(const std::string& libName)	{
 void CanLibLoader::closeCanBus(CCanAccess *cInter) {
 	LOG(Log::TRC, lh ) << __FUNCTION__;
 	if ( cInter ) {
+		std::stringstream msg;
+		msg << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " CanBus name to be deleted: " << cInter->getBusName();
+		m_gsig->fireSignal( 003, msg.str().c_str() );
+
 		LOG(Log::DBG, lh ) << __FUNCTION__<< " CanBus name to be deleted: " << cInter->getBusName();
 		Diag::delete_maps( this, cInter );
 		cInter->stopBus(); // call each specific stopBus, but dtors are left until objects are out of scope
+
 	}
 }
 
@@ -176,7 +184,7 @@ CCanAccess* CanLibLoader::openCanBus(std::string name, std::string parameters) {
 		std::stringstream msg;
 		msg << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " failed createCanAccess name= " << name << " parameters= " << parameters;
 		LOG(Log::ERR, lh ) << msg.str();
-		m_gsig->fireSignal( 003, msg.str().c_str() );
+		m_gsig->fireSignal( 004, msg.str().c_str() );
 
 		throw std::runtime_error("CanLibLoader::openCanBus: createBus Problem when loading lib " + name );
 	} else {
@@ -214,7 +222,7 @@ CCanAccess* CanLibLoader::openCanBus(std::string name, std::string parameters) {
 		std::stringstream msg;
 		msg << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " Problem opening canBus for: " << name;
 		LOG(Log::ERR, lh ) << msg.str();
-		m_gsig->fireSignal( 004, msg.str().c_str() );
+		m_gsig->fireSignal( 005, msg.str().c_str() );
 
 		/** we could do 3 things here:
 		 * 1. throw an exception and stop everything
@@ -232,7 +240,7 @@ CCanAccess* CanLibLoader::openCanBus(std::string name, std::string parameters) {
 		std::stringstream msg;
 		msg << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " something else went wrong for: " << name << " : returning NULL";
 		LOG(Log::ERR, lh ) << msg.str();
-		m_gsig->fireSignal( 005, msg.str().c_str() );
+		m_gsig->fireSignal( 006, msg.str().c_str() );
 		return NULL;
 		break;
 	}
@@ -242,7 +250,7 @@ CCanAccess* CanLibLoader::openCanBus(std::string name, std::string parameters) {
 	std::stringstream msg;
 	msg << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " something else went seriously wrong for: " << name << " : returning NULL";
 	LOG(Log::ERR, lh ) << msg.str();
-	m_gsig->fireSignal( 006, msg.str().c_str() );
+	m_gsig->fireSignal( 007, msg.str().c_str() );
 
 	return NULL;
 }
