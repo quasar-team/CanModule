@@ -116,15 +116,23 @@ void GlobalErrorSignaler::fireSignal( const int code, const char *msg ){
 // called by factory
 CanLibLoader::CanLibLoader(const std::string& libName)
 {
+	m_gsig = GlobalErrorSignaler::getInstance();
 	bool ret = Log::initializeLogging(Log::TRC);
-	if (ret) std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " LogIt initialized OK" << std::endl;
-	else std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " LogIt problem at initialisation" << std::endl;
+	if (ret) {
+		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " LogIt initialized OK" << std::endl;
+	} else {
+		std::string msg = __FILE__ + " " + __LINE__ + " " __FUNCTION__ + " LogIt problem at initialisation";
+		std::cout << msg << std::endl;
+		m_gsig->fireSignal( 001, msg.c_str() );
+	}
 	LogItInstance *logIt = LogItInstance::getInstance();
 	if ( logIt != NULL ){
 		logIt->getComponentHandle( CanModule::LogItComponentName, lh );
 		std::cout << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " constructor " << libName << std::endl;
 	} else {
-		std::cout << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " logIt instance is NULL" << std::endl;
+		std::string msg = __FILE__ + " " + __LINE__ + " " __FUNCTION__ + " LogIt instance is NULL";
+		std::cout << msg << std::endl;
+		m_gsig->fireSignal( 002, msg.c_str() );
 	}
 }
 
@@ -142,7 +150,7 @@ CanLibLoader* CanLibLoader::createInstance(const std::string& libName)	{
 #endif
 	return libPtr;
 }
-
+#if 0
 /* static */ timeval CanLibLoader::timevalNow()
 {
 	timeval ftTimeStamp;
@@ -153,7 +161,7 @@ CanLibLoader* CanLibLoader::createInstance(const std::string& libName)	{
 	ftTimeStamp.tv_usec = (nMicrosecs.count() % 1000000L) ;
 	return( ftTimeStamp );
 }
-
+~endif
 /**
  * close a CAN bus
  */

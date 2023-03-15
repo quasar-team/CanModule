@@ -31,6 +31,7 @@
 
 namespace CanModule 
 {
+
 /**
  * one (singleton) global signal for errors independent of bus. This is needed to listen to bus opening/creation errors where the bus does not yet exist.
  * All buses and errors go into this signal.
@@ -88,7 +89,7 @@ public:
 	void setLibName( std::string ln ){ m_libName = ln; }
 	std::string getLibName(){ return (m_libName);}
 
-	static timeval timevalNow();
+	// static timeval timevalNow();
 
 protected:
 	//Load a dynamic library.
@@ -98,6 +99,6 @@ protected:
 
 private:
 	std::string m_libName;
-
+	GlobalErrorSignaler *m_gsig;
 };
 }
