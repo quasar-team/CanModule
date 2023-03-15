@@ -121,18 +121,20 @@ CanLibLoader::CanLibLoader(const std::string& libName)
 	if (ret) {
 		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " LogIt initialized OK" << std::endl;
 	} else {
-		std::string msg = __FILE__ + " " + __LINE__ + " " __FUNCTION__ + " LogIt problem at initialisation";
-		std::cout << msg << std::endl;
-		m_gsig->fireSignal( 001, msg.c_str() );
+		std::stringstream msg
+		msg << __FILE__ + " " + __LINE__ + " " __FUNCTION__ + " LogIt problem at initialisation";
+		std::cout << msg.str() << std::endl;
+		m_gsig->fireSignal( 001, msg.str().c_str() );
 	}
 	LogItInstance *logIt = LogItInstance::getInstance();
 	if ( logIt != NULL ){
 		logIt->getComponentHandle( CanModule::LogItComponentName, lh );
 		std::cout << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " constructor " << libName << std::endl;
 	} else {
-		std::string msg = __FILE__ + " " + __LINE__ + " " __FUNCTION__ + " LogIt instance is NULL";
-		std::cout << msg << std::endl;
-		m_gsig->fireSignal( 002, msg.c_str() );
+		std::stringstream msg;
+		msg << __FILE__ << " " << __LINE__ << " " __FUNCTION__ << " LogIt instance is NULL";
+		std::cout << msg.str() << std::endl;
+		m_gsig->fireSignal( 002, msg.str().c_str() );
 	}
 }
 
