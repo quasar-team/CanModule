@@ -90,6 +90,11 @@ bool GlobalErrorSignaler::connectHandler( void (*fcnPtr)( int, const char*, time
 }
 bool GlobalErrorSignaler::disconnectHandler( void (*fcnPtr)( int, const char*, timeval ) ){
 	if ( fcnPtr != NULL ){
+
+		std::stringstream msg;
+		msg << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " disconnecting handler from signal";
+		fireSignal( 000, msg.str().c_str() );
+
 		globalErrorSignal.disconnect( fcnPtr );
 		LOG( Log::INF, GlobalErrorSignaler::m_st_lh ) << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " disconnect handler from signal.";
 		return true;
@@ -99,8 +104,12 @@ bool GlobalErrorSignaler::disconnectHandler( void (*fcnPtr)( int, const char*, t
 	}
 }
 void GlobalErrorSignaler::disconnectAllHandlers() {
-		globalErrorSignal.disconnect_all_slots();
-		LOG( Log::INF, GlobalErrorSignaler::m_st_lh ) << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " disconnected all handlers from signal.";
+	std::stringstream msg;
+	msg << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " disconnecting all handlers from signal";
+	fireSignal( 000, msg.str().c_str() );
+
+	globalErrorSignal.disconnect_all_slots();
+	LOG( Log::INF, GlobalErrorSignaler::m_st_lh ) << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " disconnected all handlers from signal.";
 }
 // fire the signal with payload. Timestamp done internally
 void GlobalErrorSignaler::fireSignal( const int code, const char *msg ){
