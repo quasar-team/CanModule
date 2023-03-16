@@ -110,6 +110,55 @@ void CanParameters::scanParameters(std::string parameters)
     }
 }
 
+/**
+ * compared to the last received message, are we in timeout?
+ */
+bool CCanAccess::hasTimeoutOnReception() {
+	m_dnow = std::chrono::high_resolution_clock::now();
+	auto delta_us = std::chrono::duration<double, std::chrono::microseconds::period>( m_dnow - m_dopen);
+	if ( delta_us.count() / 1000 > m_timeoutOnReception ) return true;
+	else return false;
+}
+
+
+
+
+/**
+ * we publish port status via a "portStatusChanged" signal, for all vendors, if it has changed, or if a new handler got connected.
+ * When a port is created we get a port status, and we can fire a signal, but no handler is yet connected. So we fire again if the
+ * connection count has increased.
+ * This is just the standardized mechanism
+ */
+void CCanAccess::publishPortStatusChanged ( unsigned int status )
+{
+	// std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " port_status_change status=  " << status << " m_portStatus= " << m_portStatus << std::endl;
+	bool fireSignal = false;
+	m_canPortStateChanged_nbSlots_current = canPortStateChanged.num_slots();
+	if ( m_canPortStateChanged_nbSlots_current > m_canPortStateChanged_nbSlots_previous ){
+		fireSignal = true;
+		LOG(Log::TRC, m_lh) << __FUNCTION__ << " new handler got connected, sending a canPortStateChanged signal (" << canPortStateChanged.num_slots() << " handlers connected)";
+	}
+	m_canPortStateChanged_nbSlots_previous = m_canPortStateChanged_nbSlots_current;
+	if ( m_portStatus != status ){
+		fireSignal = true;
+		LOG(Log::TRC, m_lh) << __FUNCTION__ << " port status has changed, sending a canPortStateChanged signal";
+	}
+	if ( fireSignal ){
+		std::string msg = CanModule::translateCanBusStateToText((CanModule::CanModule_bus_state) status);
+
+		timeval ftTimeStamp;
+		auto now = std::chrono::system_clock::now();
+		auto nMicrosecs = std::chrono::duration_cast<std::chrono::microseconds>( now.time_since_epoch());
+		ftTimeStamp.tv_sec = nMicrosecs.count() / 1000000L;
+		ftTimeStamp.tv_usec = (nMicrosecs.count() % 1000000L) ;
+		canPortStateChanged( status, msg.c_str(), ftTimeStamp ); // signal
+
+		LOG(Log::TRC, m_lh) << __FUNCTION__ << " sent canPortStateChanged signal (" << canPortStateChanged.num_slots() << " handlers connected)";
+	}
+	m_portStatus = status;
+}
+
+
 std::vector<std::string> CCanAccess::parseNameAndParameters(std::string name, std::string parameters)
 {
 	LOG(Log::INF) << "******";
