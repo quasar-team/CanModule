@@ -182,7 +182,9 @@ public:
 		m_maxFailedSendCount( 10 ),
 		m_lh(0),
 		m_logItRemoteInstance( NULL ),
-		m_portStatus( 999999999 ) // unlikely!
+		m_portStatus( 0 ),
+		m_canPortStateChanged_nbSlots_current( 0 ),
+		m_canPortStateChanged_nbSlots_previous( 0 )
 {
 		resetTimeoutOnReception();
 		resetTimeNow();
@@ -355,14 +357,13 @@ public:
 
 	virtual ~CCanAccess() {};
 
-
 	/**
 	 * Signal that gets called when a can Error is detected in the message
 	 * In order to process this message manually, a handler needs to be connected to the signal.
 	 *
 	 * Example: myCCanAccessPointer->canMessageError.connect(&myErrorRecievedHandler);
 	 */
-	boost::signals2::signal<void (const int,const char *,timeval &) > canMessageError;
+	boost::signals2::signal<void (const int, const char *, timeval &) > canMessageError;
 
 	/**
 	 * signal gets called whenever there is a can port status change, across all vendors
@@ -371,7 +372,7 @@ public:
 	 *
 	 * Example: myCCanAccessPointer->canPortStateChanged.connect(&myPortSateChangedRecievedHandler);
 	 */
-	boost::signals2::signal<void (const int,const char *,timeval &) > canPortStateChanged;
+	boost::signals2::signal<void (const int, const char *, timeval &) > canPortStateChanged;
 
 	// Returns the CanStatistics object.
 	virtual void getStatistics( CanStatistics & result ) = 0;
@@ -541,6 +542,7 @@ protected:
 		else return false;
 	}
 
+
 	/**
 	 * reset the internal reconnection timeout counter
 	 */
@@ -552,21 +554,36 @@ protected:
 	}
 
 	/**
-	 * we publish port status via a "portStatusChanged" signal, for all vendors, if it has changed. This is just the standardized mechanism
+	 * we publish port status via a "portStatusChanged" signal, for all vendors, if it has changed, or if a new handler got connected.
+	 * When a port is created we get a port status, and we can fire a signal, but no handler is yet connected. So we fire again if the
+	 * connection count has increased.
+	 * This is just the standardized mechanism
 	 */
 	void publishPortStatusChanged ( unsigned int status )
 	{
+		// std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " port_status_change status=  " << status << " m_portStatus= " << m_portStatus << std::endl;
+		bool fireSignal = false;
+		m_canPortStateChanged_nbSlots_current = canPortStateChanged.num_slots();
+		if ( m_canPortStateChanged_nbSlots_current > m_canPortStateChanged_nbSlots_previous ){
+			fireSignal = true;
+			LOG(Log::TRC, m_lh) << __FUNCTION__ << " new handler got connected, sending a canPortStateChanged signal (" << canPortStateChanged.num_slots() << " handlers connected)";
+		}
+		m_canPortStateChanged_nbSlots_previous = m_canPortStateChanged_nbSlots_current;
 		if ( m_portStatus != status ){
-			// std::string msg = CanModule::CanModuleUtils::translateCanBusStateToText((CanModule::CanModuleUtils::CanModule_bus_state) status);
+			fireSignal = true;
+			LOG(Log::TRC, m_lh) << __FUNCTION__ << " port status has changed, sending a canPortStateChanged signal";
+		}
+		if ( fireSignal ){
 			std::string msg = CanModule::translateCanBusStateToText((CanModule::CanModule_bus_state) status);
 
-			// got to be compatible with boost1.59.0 for windows
 			timeval ftTimeStamp;
 			auto now = std::chrono::system_clock::now();
 			auto nMicrosecs = std::chrono::duration_cast<std::chrono::microseconds>( now.time_since_epoch());
 			ftTimeStamp.tv_sec = nMicrosecs.count() / 1000000L;
 			ftTimeStamp.tv_usec = (nMicrosecs.count() % 1000000L) ;
 			canPortStateChanged( status, msg.c_str(), ftTimeStamp ); // signal
+
+			LOG(Log::TRC, m_lh) << __FUNCTION__ << " sent canPortStateChanged signal (" << canPortStateChanged.num_slots() << " handlers connected)";
 		}
 		m_portStatus = status;
 	}
@@ -578,6 +595,9 @@ private:
 	LogItInstance* m_logItRemoteInstance;
 	std::chrono::time_point<std::chrono::high_resolution_clock> m_dnow, m_dreceived, m_dtransmitted, m_dopen;
 	unsigned int m_portStatus;
+	// keep track of connected handlers. If the number changes, send a signal so that all handlers are updated
+	unsigned int m_canPortStateChanged_nbSlots_current;
+	unsigned int m_canPortStateChanged_nbSlots_previous;
 
 
 };

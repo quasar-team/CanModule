@@ -2,6 +2,15 @@
 All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+
+### 2.0.25 [ 16.march.2023 ]
+we have 4 types of signals
+- 1-bus specific message sending (CAN message transmission)
+- 2-bus specific errors (classical bus error detection)
+- 3-bus specific port status changes (ecah time status or nb. of handler connection changes, not neccessarily an error)
+- 4-global errors, non bus specific (e.g. port opening problems, lib problems, high level global problems, NOT port specific)
+
+
 ### 2.0.24 [ 30.jan.2023 ]
 - socketcan: reworks for CanOpenNG server integration, keeping compatibility with other implementations
 	- send remote requests also with stats, error signals and reconnection thread

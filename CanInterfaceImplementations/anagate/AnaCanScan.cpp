@@ -116,6 +116,8 @@ AnaCanScan::~AnaCanScan()
 	unsigned int portState;
 	AnaInt32 ana_state = CANDeviceConnectState( m_UcanHandle );
 
+	// MLOGANA(TRC,this) << __FUNCTION__ << " port_status_change ana_state= " << ana_state;
+
 	// translate the ana_state ( AnaGateAPI.v2 from  2014-12-10 applies to 2.06-25.03.2021 CANDeviceConnectState )
 	// into the standardized enum CanModule::CanModuleUtils::CanModule_bus_state
 	// anagate does not give tx/rx error counts
