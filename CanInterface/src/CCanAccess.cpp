@@ -5,6 +5,95 @@ using namespace std;
 namespace CanModule
 {
 
+/* static */ GlobalErrorSignaler *GlobalErrorSignaler::instancePtr = NULL;
+/* static */ LogItInstance * GlobalErrorSignaler::m_st_logIt = NULL;
+/* static */ Log::LogComponentHandle GlobalErrorSignaler::m_st_lh = 0;
+
+GlobalErrorSignaler::~GlobalErrorSignaler(){
+	globalErrorSignal.disconnect_all_slots();
+	LOG( Log::TRC, GlobalErrorSignaler::m_st_lh ) << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " disconnected all handlers from signal.";
+}
+
+/**
+ * singleton fabricator. We have one global signal only which is neither lib/vendor nor port specific, per task.
+ */
+GlobalErrorSignaler* GlobalErrorSignaler::getInstance() {
+	if ( GlobalErrorSignaler::instancePtr == NULL) {
+		GlobalErrorSignaler::instancePtr = new GlobalErrorSignaler();
+
+		bool ret = Log::initializeLogging(Log::TRC);
+		if ( ret ) {
+			std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " LogIt initialized OK" << std::endl;
+			LogItInstance *logIt = LogItInstance::getInstance();
+			Log::LogComponentHandle lh = 0;
+			if ( logIt != NULL ){
+				logIt->getComponentHandle( CanModule::LogItComponentName, lh );
+				LOG(Log::TRC, lh ) << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << "created singleton instance of GlobalErrorSignaler";
+
+				GlobalErrorSignaler::m_st_logIt = logIt;
+				GlobalErrorSignaler::m_st_lh = lh;
+			} else {
+				std::cout << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " logIt instance is NULL" << std::endl;
+			}
+		} else {
+			std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " LogIt problem at initialisation" << std::endl;
+		}
+	}
+	return GlobalErrorSignaler::instancePtr;
+}
+
+
+/**
+ * connect/disconnect the handler provided by "the user": void myHandler( int code, const char *myMessage )
+ *  connect/disconnect a given handler to the signal of the singleton. function pointer is the argument.
+ *  Can have as many connected handlers as you want, but they will all be disconnected when the object goes out of scope (dtor).
+ */
+bool GlobalErrorSignaler::connectHandler( void (*fcnPtr)( int, const char*, timeval ) ){
+	if ( fcnPtr != NULL ){
+		globalErrorSignal.connect( fcnPtr );
+		LOG( Log::INF, GlobalErrorSignaler::m_st_lh ) << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " connect handler to signal.";
+		return true;
+	} else {
+		LOG( Log::ERR, GlobalErrorSignaler::m_st_lh ) << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " cannot connect NULL handler to signal. skipping...";
+		return false;
+	}
+}
+bool GlobalErrorSignaler::disconnectHandler( void (*fcnPtr)( int, const char*, timeval ) ){
+	if ( fcnPtr != NULL ){
+
+		std::stringstream msg;
+		msg << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " disconnecting handler from signal";
+		fireSignal( 000, msg.str().c_str() );
+
+		globalErrorSignal.disconnect( fcnPtr );
+		LOG( Log::INF, GlobalErrorSignaler::m_st_lh ) << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " disconnect handler from signal.";
+		return true;
+	} else {
+		LOG( Log::ERR, GlobalErrorSignaler::m_st_lh ) << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " cannot disconnect NULL handler to signal. skipping...";
+		return false;
+	}
+}
+void GlobalErrorSignaler::disconnectAllHandlers() {
+	std::stringstream msg;
+	msg << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " disconnecting all handlers from signal";
+	fireSignal( 000, msg.str().c_str() );
+
+	globalErrorSignal.disconnect_all_slots();
+	LOG( Log::INF, GlobalErrorSignaler::m_st_lh ) << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " disconnected all handlers from signal.";
+}
+// fire the signal with payload. Timestamp done internally
+void GlobalErrorSignaler::fireSignal( const int code, const char *msg ){
+	timeval ftTimeStamp;
+	auto now = std::chrono::system_clock::now();
+	auto nMicrosecs = std::chrono::duration_cast<std::chrono::microseconds>( now.time_since_epoch());
+	ftTimeStamp.tv_sec = nMicrosecs.count() / 1000000L;
+	ftTimeStamp.tv_usec = (nMicrosecs.count() % 1000000L) ;
+	globalErrorSignal( code, msg, ftTimeStamp );
+
+	// would like to throw out always an ERR log as well, but the signal should work also if LogIt is bad, independently
+	// LOG( Log::ERR, GlobalErrorSignaler::m_st_lh ) << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " code= " << code << " " << msg;
+}
+
 // TODO: rewrite this -- from Piotr
 void CanParameters::scanParameters(std::string parameters)
 {
