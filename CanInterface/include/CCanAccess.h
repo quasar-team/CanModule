@@ -181,7 +181,8 @@ public:
 		m_failedSendCountdown( 10 ),
 		m_maxFailedSendCount( 10 ),
 		m_lh(0),
-		m_logItRemoteInstance( NULL )
+		m_logItRemoteInstance( NULL ),
+		m_portStatus( 999999999 ) // unlikely!
 {
 		resetTimeoutOnReception();
 		resetTimeNow();
@@ -517,7 +518,6 @@ protected:
 	std::string m_sBusName;
 	CanParameters m_CanParameters;
 
-	unsigned int m_portStatus;  // port status
 
 	// reconnection, reconnection thread triggering
     CanModule::ReconnectAutoCondition m_reconnectCondition;
@@ -577,6 +577,7 @@ private:
 	Log::LogComponentHandle m_lh;
 	LogItInstance* m_logItRemoteInstance;
 	std::chrono::time_point<std::chrono::high_resolution_clock> m_dnow, m_dreceived, m_dtransmitted, m_dopen;
+	unsigned int m_portStatus;
 
 
 };

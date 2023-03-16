@@ -113,7 +113,7 @@ AnaCanScan::~AnaCanScan()
 	// we could also use the unified port status for this and strip off the implementation bits
 	// but using can_get_state directly is less complex and has less dependencies
 
-	int portState;
+	unsigned int portState;
 	AnaInt32 ana_state = CANDeviceConnectState( m_UcanHandle );
 
 	// translate the ana_state ( AnaGateAPI.v2 from  2014-12-10 applies to 2.06-25.03.2021 CANDeviceConnectState )
