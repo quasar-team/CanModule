@@ -591,7 +591,7 @@ void AnaCanScan::m_signalErrorMessage( int code, std::string msg )
 			std::chrono::duration_cast<std::chrono::microseconds>( now.time_since_epoch());
 	ftTimeStamp.tv_sec = nMicrosecs.count() / 1000000L;
 	ftTimeStamp.tv_usec = (nMicrosecs.count() % 1000000L) ;
-
+	msg = getBusName() + msg; // force prefix bus name in all erors
 	canMessageError( code, msg.c_str(), ftTimeStamp);
 }
 
