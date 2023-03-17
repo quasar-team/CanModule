@@ -135,7 +135,7 @@ namespace CanModule
 
 		default:
 			std::stringstream os;
-			os <<  "translateCanBusStateToText: unknown state= " << state;
+			os <<  "translateCanBusStateToText: (very bad) unknown state= " << state;
 			return ( os.str() );
 			// dont throw an exception
 		}
