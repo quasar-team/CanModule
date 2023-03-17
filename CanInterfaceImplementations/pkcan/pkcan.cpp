@@ -167,7 +167,7 @@ DWORD WINAPI PKCanScan::CanScanControlThread(LPVOID pCanScan)
 		// don't slow down the reception too much, but check sometimes
 		static int calls = 100;
 		if ( !calls-- ) {
-			fetchAndPublishCanPortState();
+			pkCanScanPointer->fetchAndPublishCanPortState();
 			calls = 100;
 		}
 

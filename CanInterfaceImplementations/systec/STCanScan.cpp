@@ -167,7 +167,7 @@ DWORD WINAPI STCanScan::CanScanControlThread(LPVOID pCanScan)
 		// don't slow down the reception too much, but check sometimes
 		static int calls = 100;
 		if ( !calls-- ) {
-			fetchAndPublishCanPortState();
+			stCanScanPointer->fetchAndPublishCanPortState();
 			calls = 100;
 		}
 	}
