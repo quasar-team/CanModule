@@ -53,6 +53,7 @@ CanLibLoader::CanLibLoader(const std::string& libName)
 	if ( logIt != NULL ){
 		logIt->getComponentHandle( CanModule::LogItComponentName, lh );
 		std::cout << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " constructor " << libName << std::endl;
+		LOG(Log::TRC, lh ) << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " constructor " << libName;
 	} else {
 		std::stringstream msg;
 		msg << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " LogIt instance is NULL";
