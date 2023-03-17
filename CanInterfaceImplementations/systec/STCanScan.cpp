@@ -163,6 +163,13 @@ DWORD WINAPI STCanScan::CanScanControlThread(LPVOID pCanScan)
 				stCanScanPointer->sendErrorCode(status);
 			}
 		}
+
+		// don't slow down the reception too much, but check sometimes
+		static int calls = 100;
+		if ( !calls-- ) {
+			fetchAndPublishCanPortState();
+			calls = 100;
+		}
 	}
 	stCanScanPointer->fetchAndPublishCanPortState ();
 	ExitThread(0);
@@ -174,6 +181,7 @@ STCanScan::~STCanScan()
 	m_CanScanThreadShutdownFlag = false;
 	DWORD result = WaitForSingleObject(m_hCanScanThread, INFINITE); 	//Shut down can scan thread
 	::UcanDeinitCanEx (m_UcanHandle,(BYTE)m_channelNumber);
+	fetchAndPublishCanPortState ();
 	MLOGST(DBG,this) << __FUNCTION__ <<" closed successfully";
 }
 
@@ -404,6 +412,7 @@ bool STCanScan::sendErrorCode(long status)
 /* static */ int STCanScan::reconnectAllPorts( tUcanHandle h ){
 	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " hard reset not implemented";
 #if 0
+	// this does not seem to work
 	/// have to call these two API methods
 	BYTE ret0 = ::UcanDeinitHardware ( m_UcanHandle );
 	if ( ret0 != USBCAN_SUCCESSFUL) {
@@ -460,8 +469,6 @@ bool STCanScan::sendMessage(short cobID, unsigned char len, unsigned char *messa
 		}
 	}
 
-	fetchAndPublishCanPortState ();
-
 	canMsgToBeSent.m_bDLC = messageLengthToBeProcessed;
 	memcpy(canMsgToBeSent.m_bData, message, messageLengthToBeProcessed);
 	//	MLOG(TRC,this) << "Channel Number: [" << m_channelNumber << "], cobID: [" << canMsgToBeSent.m_dwID << "], Message Length: [" << static_cast<int>(canMsgToBeSent.m_bDLC) << "]";
@@ -516,6 +523,15 @@ bool STCanScan::sendMessage(short cobID, unsigned char len, unsigned char *messa
 		m_statistics.onTransmit( canMsgToBeSent.m_bDLC );
 		m_statistics.setTimeSinceTransmitted();
 	}
+
+
+	// port state update, decrease load on the board a bit
+	static int calls = 5;
+	if ( !calls-- ) {
+		fetchAndPublishCanPortState();
+		calls = 5;
+	}
+
 	return sendErrorCode(Status);
 }
 

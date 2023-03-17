@@ -99,6 +99,7 @@ void PKCanScan::stopBus ()
 		peakReconnectMutex.unlock();
 	}
 	CanModule::ms_sleep( 2000 );
+	fetchAndPublishCanPortState();
 	MLOGPK(DBG,this) << __FUNCTION__ << " finished";
 }
 
@@ -162,6 +163,15 @@ DWORD WINAPI PKCanScan::CanScanControlThread(LPVOID pCanScan)
 				pkCanScanPointer->triggerReconnectionThread();
 			}
 		}
+
+		// don't slow down the reception too much, but check sometimes
+		static int calls = 100;
+		if ( !calls-- ) {
+			fetchAndPublishCanPortState();
+			calls = 100;
+		}
+
+
 	}
 	MLOGPK(TRC, pkCanScanPointer) << "exiting thread...(in 2 secs)";
 	pkCanScanPointer->fetchAndPublishCanPortState ();
@@ -213,7 +223,7 @@ int PKCanScan::createBus(const std::string name, const std::string parameters )
 		MLOGPK( ERR, this ) << " name= " << name << " parameters= " << parameters << ", failed to configure CAN board";
 		return (-1);
 	}
-	fetchAndPublishCanPortState ();
+	fetchAndPublishCanPortState();
 
 	bool skipMainThreadCreation = false;
 	{
@@ -459,7 +469,6 @@ bool PKCanScan::sendMessage(short cobID, unsigned char len, unsigned char *messa
 
 		memcpy(tpcanMessage.DATA, message, lengthToBeSent);
 		tpcanStatus = CAN_Write(m_pkCanHandle, &tpcanMessage);
-		fetchAndPublishCanPortState ();
 
 		MLOGPK(TRC, this) << " send message returned tpcanStatus= "	<< std::hex << "0x" << tpcanStatus << std::dec;
 		if (tpcanStatus != PCAN_ERROR_OK) {
@@ -476,6 +485,14 @@ bool PKCanScan::sendMessage(short cobID, unsigned char len, unsigned char *messa
 		m_statistics.setTimeSinceTransmitted();
 
 		message = message + lengthToBeSent;
+
+
+		// port state update, decrease load on the board a bit
+		static int calls = 5;
+		if ( !calls-- ) {
+			fetchAndPublishCanPortState();
+			calls = 5;
+		}
 	}
 	while (lengthOfUnsentData > 8);
 	return m_sendErrorCode(tpcanStatus);
@@ -605,7 +622,7 @@ DWORD WINAPI PKCanScan::CanReconnectionThread(LPVOID pCanScan)
 			<< " is checked, m_failedSendCountdown= "
 			<< pkCanScanPointer->getFailedSendCountdown();
 
-		pkCanScanPointer->fetchAndPublishCanPortState ();
+		pkCanScanPointer->fetchAndPublishCanPortState();
 
 		// condition
 		switch ( rcondition ){
@@ -660,6 +677,7 @@ DWORD WINAPI PKCanScan::CanReconnectionThread(LPVOID pCanScan)
 		} // switch
 	} // while
 	MLOGPK(TRC, pkCanScanPointer) << "exiting thread...(in 2 secs)";
+	pkCanScanPointer->fetchAndPublishCanPortState();
 	CanModule::ms_sleep( 2000 );
 	ExitThread(0);
 	return 0;

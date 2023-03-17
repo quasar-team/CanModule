@@ -255,7 +255,7 @@ void AnaCanScan::statisticsOnRecieve(int bytes)
 /**
  *  callback API: sends a boost signal with payload
  */
-void AnaCanScan::callbackOnRecieve(CanMessage& msg)
+void AnaCanScan::callbackOnRecieve( CanMessage& msg )
 {
 	canMessageCame( msg );
 	if ( m_reconnectCondition == ReconnectAutoCondition::timeoutOnReception ){
@@ -324,6 +324,7 @@ int AnaCanScan::createBus(const std::string name, const std::string parameters)
 	}
 	MLOGANA(DBG,this) << " OK, Bus created with name= " << name << " parameters= " << parameters;
 	m_busStopped = false;
+	fetchAndPublishCanPortState();
 
 	return 0;
 }
