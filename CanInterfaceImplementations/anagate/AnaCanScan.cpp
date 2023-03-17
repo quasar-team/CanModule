@@ -68,10 +68,6 @@ AnaCanScan::AnaCanScan():
 	m_statistics.setTimeSinceOpened();
 	m_statistics.beginNewRun();
 	m_failedSendCountdown = m_maxFailedSendCount;
-
-	/**
-	 * start a reconnection thread
-	 */
 	m_hCanReconnectionThread = new std::thread( &AnaCanScan::m_CanReconnectionThread, this);
 }
 
@@ -106,7 +102,7 @@ AnaCanScan::~AnaCanScan()
  * (virtual) forced implementation. Generally: do whatever shenanigans you need on the vendor API and fill in the portState accordingly, stay
  * close to the semantics of the enum.
  *
- * sockcan specific implementation: obtain port status from the kernel, plus an extra LogIt message if we have an error
+ * anagate specific implementation: obtain port status from the vendor, which is VERY sparse
  */
 /* virtual */ void AnaCanScan::fetchAndPublishCanPortState ()
 {
@@ -155,7 +151,6 @@ AnaCanScan::~AnaCanScan()
 		break;
 	}
 	} // switch
-	// signals only if it has changed
 	publishPortStatusChanged( portState );
 }
 
@@ -164,12 +159,15 @@ void AnaCanScan::stopBus ()
 {
 	if (!m_busStopped){
 		MLOGANA(TRC,this) << __FUNCTION__ << " stopping anagate m_busName= " <<  m_busName << " m_canPortNumber= " << m_canPortNumber;
-		CANSetCallback(m_UcanHandle, 0);
-		CANCloseDevice(m_UcanHandle);
+		CANSetCallback( m_UcanHandle, 0);
+		CANCloseDevice( m_UcanHandle);
+
+		fetchAndPublishCanPortState();
+
 		st_deleteCanHandleOfPortIp( m_canPortNumber, m_canIPAddress );
 		m_eraseReceptionHandlerFromMap( m_UcanHandle );
 	}
-	m_busStopped = true;
+	m_busStopped = true; // we keep the object. we can re-open the bus
 }
 
 
@@ -262,6 +260,12 @@ void AnaCanScan::callbackOnRecieve(CanMessage& msg)
 	canMessageCame( msg );
 	if ( m_reconnectCondition == ReconnectAutoCondition::timeoutOnReception ){
 		resetTimeoutOnReception();
+	}
+
+	static int calls = 100;
+	if ( !calls-- ) {
+		fetchAndPublishCanPortState();
+		calls = 100;
 	}
 }
 
@@ -413,7 +417,9 @@ int AnaCanScan::m_configureCanBoard(const std::string name,const std::string par
 	MLOGANA(TRC, this) << __FUNCTION__ << " m_iTimeStamp= " << m_CanParameters.m_iTimeStamp;
 	MLOGANA(TRC, this) << __FUNCTION__ << " m_iSyncMode= " << m_CanParameters.m_iSyncMode;
 	MLOGANA(TRC, this) << __FUNCTION__ << " m_iTimeout= " << m_CanParameters.m_iTimeout;
-	return m_openCanPort();
+	// no hw interaction up to this point
+
+	return m_openCanPort(); // hw interaction
 }
 
 /**
@@ -571,34 +577,6 @@ int AnaCanScan::m_openCanPort()
 }
 
 
-#if 0
-implement this directly in the code
-/**
- * invoke the error handler with a message.
- * this sends a boost::signal to a connected boost::slot in the client's code.
- *
- *
- * 			p_sockCanScan->canMessageError( numberOfReadBytes, ("read() wrong msg size: " + CanModuleerrnoToString() + " tid= " + _tid).c_str(), now );
- *
- *
- */
-bool AnaCanScan::sendAnErrorMessage(AnaInt32 status)
-{
-	timeval ftTimeStamp; 
-	if (status != 0) {
-		auto now = std::chrono::system_clock::now();
-		auto nMicrosecs =
-				std::chrono::duration_cast<std::chrono::microseconds>( now.time_since_epoch());
-		ftTimeStamp.tv_sec = nMicrosecs.count() / 1000000L;
-		ftTimeStamp.tv_usec = (nMicrosecs.count() % 1000000L) ;
-
-		canMessageError(status, errorCodeToString( (long int) status), ftTimeStamp);
-	}
-	return true;
-}
-#endif
-
-
 /**
  * wrapper to send an error code plus message down the signal. Can send any code with any text.
  * use ana_canGetErrorText for ana error codes as well
@@ -701,9 +679,12 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 		m_statistics.onTransmit(messageLengthToBeProcessed);
 		m_statistics.setTimeSinceTransmitted();
 	}
-	// port state update
-	fetchAndPublishCanPortState();
-
+	// port state update, decrease load on the board a bit
+	static int calls = 5;
+	if ( !calls-- ) {
+		fetchAndPublishCanPortState();
+		calls = 5;
+	}
 	return ( true );
 }
 
@@ -726,7 +707,7 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 
 
 /**
- * only reconnect this object's port and make sure the callback map entry is updated as well
+ * only reconnect this object's port and make sure the callback map entry is updated as well. deal with the handler
  */
 AnaInt32 AnaCanScan::m_reconnectThisPort(){
 	// a sending on one port failed miserably, and we reset just that port.
@@ -840,7 +821,6 @@ AnaInt32 AnaCanScan::m_reconnectThisPort(){
 						<< " failed to reconnect";
 				it->second->m_signalErrorMessage( ret, os.str().c_str() );
 				reconnectFailed = true;
-
 			}
 			nbCANportsOnModule++;
 		}
@@ -1124,37 +1104,6 @@ bool AnaCanScan::sendRemoteRequest(short cobID)
 	}
 	return ( true ); //sendAnErrorMessage(anaCallReturn);
 }
-
-#if 0
-/**
- * give back the error message from the code, from appendixA
- */
-std::string AnaCanScan::ana_canGetErrorText( long errorCode ){
-	switch( errorCode ){
-	case ANA_ERR_NONE: return("No errors");
-	case ANA_ERR_OPEN_MAX_CONN: return("Open failed, maximal count of connections reached.");
-	case ANA_ERR_OP_CMD_FAILED: return("Command failed with unknown failure");
-	case ANA_ERR_TCPIP_SOCKET: return("Socket error in TCP/IP layer occured.");
-	case ANA_ERR_TCPIP_NOTCONNECTED: return("Connection to TCP/IP partner can't\
-			established or is disconnected.");
-	case ANA_ERR_TCPIP_TIMEOUT: return("No answer received from TCP/IP\
-            partner within the defined timeout");
-	case ANA_ERR_TCPIP_CALLNOTALLOWED: return("Command is not allowed at this time.");
-	case ANA_ERR_TCPIP_NOT_INITIALIZED: return("TCP/IP-Stack can't be initialized.");
-	case ANA_ERR_INVALID_CRC: return("AnaGate TCP/IP telegram has incorrect checksum (CRC).");
-	case ANA_ERR_INVALID_CONF: return("AnaGate TCP/IP telegram wasn't\
-            receipted from partner.");
-	case ANA_ERR_INVALID_CONF_DATA: return("AnaGate TCP/IP telegram wasn't\
-            receipted correct from partner.");
-	case ANA_ERR_INVALID_DEVICE_HANDLE: return("Invalid device handle");
-	case ANA_ERR_INVALID_DEVICE_TYPE: return("Function can't be executed on this\
-			device handle, as she is assigned\
-			to another device type of AnaGate series.");
-	default:
-		return("unknown error code");
-	}
-}
-#endif
 
 void AnaCanScan::getStatistics( CanStatistics & result )
 {
