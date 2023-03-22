@@ -796,8 +796,7 @@ void STCanScan::getStatistics( CanStatistics & result )
 	}
 
 	// warnings, from USB, might recover
-	// if (( statUsb & USBCAN_USBERR_STATUS_TIMEOUT ) || ( statCan & USBCAN_USBERR_WATCHDOG_TIMEOUT )){
-	else if ( statUsb ) { // any other bit
+	else if (( statUsb | USBCAN_USBERR_STATUS_TIMEOUT ) || ( statCan | USBCAN_USBERR_WATCHDOG_TIMEOUT )){
 		portState = CanModule::CanModule_bus_state::CANMODULE_WARNING;
 	}
 	// errors
@@ -805,6 +804,7 @@ void STCanScan::getStatistics( CanStatistics & result )
 		portState = CanModule::CanModule_bus_state::CANMODULE_ERROR;
 	}
 
+	MLOGST(TRC, this) << "portState= " << portState;
 
 	std::string msg = CanModule::translateCanBusStateToText((CanModule::CanModule_bus_state) portState ); // + m_translatePeakPortStatusBitpatternToText( peak_state );
 	MLOGST(DBG, this) << msg << " tid=[" << std::this_thread::get_id() << "]";
