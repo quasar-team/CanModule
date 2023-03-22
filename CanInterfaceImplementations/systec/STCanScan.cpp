@@ -797,7 +797,7 @@ void STCanScan::getStatistics( CanStatistics & result )
 
 	// warnings, from USB, might recover
 	// else if (( statUsb | USBCAN_USBERR_STATUS_TIMEOUT ) || ( statCan | USBCAN_USBERR_WATCHDOG_TIMEOUT )){
-	else if ( statUsb != USBCAN_USBERR_OK )
+	else if ( statUsb != USBCAN_USBERR_OK ) {
 		portState = CanModule::CanModule_bus_state::CANMODULE_WARNING;
 	}
 	// errors
