@@ -761,9 +761,8 @@ void STCanScan::getStatistics( CanStatistics & result )
 	statCan = stat.m_wCanStatus;
 	statUsb = stat.m_wUsbStatus;
 
-	MLOGST(TRC, this) << "statCan= 0x" << std::hex << (unsigned int) statCan << std::dec;
-	MLOGST(TRC, this) << "statUsb= 0x" << std::hex << (unsigned int) statUsb << std::dec;
-
+	//MLOGST(TRC, this) << "statCan= 0x" << std::hex << (unsigned int) statCan << std::dec;
+	//MLOGST(TRC, this) << "statUsb= 0x" << std::hex << (unsigned int) statUsb << std::dec;
 
 	/* several bits from systec can occur together. We'll translate that into the enum as good as we can (pun intended).
 	 * we will test the benign bits first, and the serious bits last, like this we always get the "most serious"
@@ -805,10 +804,10 @@ void STCanScan::getStatistics( CanStatistics & result )
 		portState = CanModule::CanModule_bus_state::CANMODULE_ERROR;
 	}
 
-	MLOGST(TRC, this) << "portState= " << portState;
+	//MLOGST(TRC, this) << "portState= " << portState;
 
 	std::string msg = CanModule::translateCanBusStateToText((CanModule::CanModule_bus_state) portState ); // + m_translatePeakPortStatusBitpatternToText( peak_state );
-	MLOGST(DBG, this) << msg << " tid=[" << std::this_thread::get_id() << "]";
+	MLOGST(TRC, this) << msg << " tid=[" << std::this_thread::get_id() << "]";
 	publishPortStatusChanged( portState );
 
 	/** as a consequence of this coding the
