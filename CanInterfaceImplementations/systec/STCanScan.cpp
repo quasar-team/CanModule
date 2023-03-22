@@ -761,6 +761,9 @@ void STCanScan::getStatistics( CanStatistics & result )
 	statCan = stat.m_wCanStatus;
 	statUsb = stat.m_wUsbStatus;
 
+	MLOGST(TRC, this) << "statCan= " << (unsigned int)statCan;
+	MLOGST(TRC, this) << "statUsb= " << (unsigned int)statUsb;
+
 
 	/* several bits from systec can occur together. We'll translate that into the enum as good as we can (pun intended).
 	 * we will test the benign bits first, and the serious bits last, like this we always get the "most serious"
