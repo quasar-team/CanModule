@@ -772,7 +772,7 @@ void STCanScan::getStatistics( CanStatistics & result )
 	int portState = CanModule::CanModule_bus_state::CANMODULE_NOSTATE;
 
 	// CAN bus status
-	if (( statCan & USBCAN_CANERR_OK ) || ( statCan & USBCAN_USBERR_OK )){
+	if (( statCan & USBCAN_CANERR_OK ) && ( statCan & USBCAN_USBERR_OK )){
 		portState = CanModule::CanModule_bus_state::CANMODULE_OK;
 	}
 	else if ( statCan & USBCAN_CANERR_QRCVEMPTY )  {
