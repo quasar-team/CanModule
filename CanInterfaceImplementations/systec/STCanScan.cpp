@@ -772,36 +772,36 @@ void STCanScan::getStatistics( CanStatistics & result )
 	int portState = CanModule::CanModule_bus_state::CANMODULE_NOSTATE;
 
 	// CAN bus status
-	if (( statCan & USBCAN_CANERR_OK ) && ( statCan & USBCAN_USBERR_OK )){
+	if (( statCan ^ USBCAN_CANERR_OK ) && ( statCan ^ USBCAN_USBERR_OK )){
 		portState = CanModule::CanModule_bus_state::CANMODULE_OK;
 	}
-	else if ( statCan & USBCAN_CANERR_QRCVEMPTY )  {
+	else if ( statCan | USBCAN_CANERR_QRCVEMPTY )  {
 		portState = CanModule::CanModule_bus_state::CANMODULE_TIMEOUT_OK;
 	}
-	else if ( statCan & USBCAN_CANERR_BUSLIGHT )  {
+	else if ( statCan | USBCAN_CANERR_BUSLIGHT )  {
 		portState = CanModule::CanModule_bus_state::CAN_STATE_ERROR_WARNING;
 	}
-	else if ( statCan & USBCAN_CANERR_BUSHEAVY )  {
+	else if ( statCan | USBCAN_CANERR_BUSHEAVY )  {
 		portState = CanModule::CanModule_bus_state::CAN_STATE_ERROR_PASSIVE;
 	}
-	else if ( statCan & USBCAN_CANERR_TXMSGLOST ){
+	else if ( statCan | USBCAN_CANERR_TXMSGLOST ){
 		portState = CanModule::CanModule_bus_state::CAN_STATE_SLEEPING;
 	}
-	else if ( ( statCan & USBCAN_CANERR_XMTFULL ) || ( statCan & USBCAN_CANERR_OVERRUN ) || ( statCan & USBCAN_CANERR_QOVERRUN )  || ( statCan & USBCAN_CANERR_QXMTFULL )) {
+	else if ( ( statCan | USBCAN_CANERR_XMTFULL ) || ( statCan & USBCAN_CANERR_OVERRUN ) || ( statCan & USBCAN_CANERR_QOVERRUN )  || ( statCan & USBCAN_CANERR_QXMTFULL )) {
 		portState = CanModule::CanModule_bus_state::CAN_STATE_MAX;
 	}
 
-	else if ( statCan & USBCAN_CANERR_BUSOFF )  {
+	else if ( statCan | USBCAN_CANERR_BUSOFF )  {
 		portState = CanModule::CanModule_bus_state::CAN_STATE_BUS_OFF;
 	}
 
 	// warnings, from USB, might recover
 	// if (( statUsb & USBCAN_USBERR_STATUS_TIMEOUT ) || ( statCan & USBCAN_USBERR_WATCHDOG_TIMEOUT )){
-	else if ( statUsb & ~USBCAN_USBERR_OK ) {
+	else if ( statUsb ) { // any other bit
 		portState = CanModule::CanModule_bus_state::CANMODULE_WARNING;
 	}
 	// errors
-	else if (( statCan & USBCAN_CANERR_REGTEST ) || ( statCan & USBCAN_CANERR_MEMTEST )){
+	else if (( statCan | USBCAN_CANERR_REGTEST ) || ( statCan | USBCAN_CANERR_MEMTEST )){
 		portState = CanModule::CanModule_bus_state::CANMODULE_ERROR;
 	}
 
