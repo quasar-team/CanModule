@@ -28,8 +28,7 @@
 #include "windows.h"
 #include <string>
 #include "CanStatistics.h"
-// #include <Usbcan32.h>
-#include <Usbcan64.h>
+#include <Usbcan32.h>
 #include "CCanAccess.h"
 
 using namespace CanModule;
