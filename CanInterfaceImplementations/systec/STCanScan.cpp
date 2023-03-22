@@ -761,8 +761,8 @@ void STCanScan::getStatistics( CanStatistics & result )
 	statCan = stat.m_wCanStatus;
 	statUsb = stat.m_wUsbStatus;
 
-	MLOGST(TRC, this) << "statCan= " << (unsigned int)statCan;
-	MLOGST(TRC, this) << "statUsb= " << (unsigned int)statUsb;
+	MLOGST(TRC, this) << "statCan= 0x" << std::hex << (unsigned int) statCan << std::dec;
+	MLOGST(TRC, this) << "statUsb= 0x" << std::hex << (unsigned int) statUsb << std::dec;
 
 
 	/* several bits from systec can occur together. We'll translate that into the enum as good as we can (pun intended).
