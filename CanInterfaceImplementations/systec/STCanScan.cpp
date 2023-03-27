@@ -476,6 +476,13 @@ bool STCanScan::sendMessage(short cobID, unsigned char len, unsigned char *messa
 	if ( Status != USBCAN_SUCCESSFUL ) {
 		MLOGST(ERR,this) << "There was a problem when sending a message.";
 
+		timeval ftTimeStamp;
+		auto now = std::chrono::system_clock::now();
+		auto nMicrosecs = std::chrono::duration_cast<std::chrono::microseconds>(now.time_since_epoch());
+		ftTimeStamp.tv_sec = nMicrosecs.count() / 1000000L;
+		ftTimeStamp.tv_usec = (nMicrosecs.count() % 1000000L);
+		canMessageError( Status, "= Status, there was a problem when sending a message.", ftTimeStamp); // signal
+
 		switch( m_reconnectCondition ){
 		case CanModule::ReconnectAutoCondition::sendFail: {
 			MLOGST(WRN, this) << " detected a sendFail, triggerCounter= " << m_failedSendCountdown
