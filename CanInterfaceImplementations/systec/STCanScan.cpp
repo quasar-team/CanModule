@@ -481,7 +481,7 @@ bool STCanScan::sendMessage(short cobID, unsigned char len, unsigned char *messa
 		auto nMicrosecs = std::chrono::duration_cast<std::chrono::microseconds>(now.time_since_epoch());
 		ftTimeStamp.tv_sec = nMicrosecs.count() / 1000000L;
 		ftTimeStamp.tv_usec = (nMicrosecs.count() % 1000000L);
-		canMessageError( Status, "= Status, there was a problem when sending a message.", ftTimeStamp); // signal
+		canMessageError( (unsigned int) Status, "= Status, there was a problem when sending a message.", ftTimeStamp); // signal
 
 		switch( m_reconnectCondition ){
 		case CanModule::ReconnectAutoCondition::sendFail: {
