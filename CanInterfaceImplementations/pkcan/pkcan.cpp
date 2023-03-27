@@ -686,8 +686,7 @@ DWORD WINAPI PKCanScan::CanReconnectionThread(LPVOID pCanScan)
 
 std::string PKCanScan::m_translatePeakPortStatusBitpatternToText( TPCANStatus bp ){
 	std::string msg = " peak port status message: ";
-	PKCanScan* pkCanScanPointer = reinterpret_cast<PKCanScan*>(pCanScan);
-	MLOGPK(TRC, pkCanScanPointer) << " TPCANStatus= 0x" << hex << bp;
+	MLOGPK(TRC, this) << " TPCANStatus= 0x" << hex << bp;
 
 	if ( bp | PCAN_ERROR_OK ) msg += "No error. Success. (000000) ";
 	if ( bp | PCAN_ERROR_XMTFULL ) msg += "PCAN_ERROR_XMTFULL (000001) Transmit buffer in CAN controller is full. ";
