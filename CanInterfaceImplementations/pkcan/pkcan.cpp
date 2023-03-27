@@ -811,7 +811,7 @@ std::string PKCanScan::m_translatePeakPortStatusBitpatternToText( TPCANStatus bp
 	// send it if it was a CAN bus error, and thats it.
 	if ( canerror ) {
 		std::string msg = CanModule::translateCanBusStateToText((CanModule::CanModule_bus_state)portState) + m_translatePeakPortStatusBitpatternToText(peak_state);
-		MLOGPK(WRN, this) << msg << "tid=[" << std::this_thread::get_id() << "]";
+		MLOGPK(TRC, this) << msg << "tid=[" << std::this_thread::get_id() << "]";
 		publishPortStatusChanged(portState);
 		return;
 	}
