@@ -814,7 +814,7 @@ void STCanScan::getStatistics( CanStatistics & result )
 	//MLOGST(TRC, this) << "portState= " << portState;
 
 	std::string msg = CanModule::translateCanBusStateToText((CanModule::CanModule_bus_state) portState ); // + m_translatePeakPortStatusBitpatternToText( peak_state );
-	MLOGST(TRC, this) << msg << " tid=[" << std::this_thread::get_id() << "]";
+	MLOGST(TRC, this) << " statCan= " << statCan << " statUsb= " << statUsb << " " << msg << " tid=[" << std::this_thread::get_id() << "]";
 	publishPortStatusChanged( portState );
 
 	/** as a consequence of this coding the
