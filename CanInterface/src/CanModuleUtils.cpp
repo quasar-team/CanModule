@@ -121,23 +121,23 @@ namespace CanModule
 	{
 		switch (state)
 		{
-		case CanModule::CAN_STATE_ERROR_ACTIVE: return "CAN_STATE_ERROR_ACTIVE: RX/TX error count < 96  (quite OK)";
-		case CanModule::CAN_STATE_ERROR_WARNING: return "CAN_STATE_ERROR_WARNING: RX/TX error count < 128";
-		case CanModule::CAN_STATE_ERROR_PASSIVE: return "CAN_STATE_ERROR_PASSIVE: RX/TX error count < 256";
-		case CanModule::CAN_STATE_BUS_OFF: return "CAN_STATE_BUS_OFF: RX/TX error count >= 256";
-		case CanModule::CAN_STATE_STOPPED: return "CAN_STATE_STOPPED: Device is stopped ";
-		case CanModule::CAN_STATE_SLEEPING: return "CAN_STATE_SLEEPING: Device is sleeping ";
-		case CanModule::CAN_STATE_MAX: return "CAN_STATE_MAX: Rx or Tx queue full, overrun";
+		case CanModule::CAN_STATE_ERROR_ACTIVE: return " CAN_STATE_ERROR_ACTIVE: RX/TX error count < 96  (OK) ";
+		case CanModule::CAN_STATE_ERROR_WARNING: return " CAN_STATE_ERROR_WARNING: RX/TX error count < 128 ";
+		case CanModule::CAN_STATE_ERROR_PASSIVE: return " CAN_STATE_ERROR_PASSIVE: RX/TX error count < 256 ";
+		case CanModule::CAN_STATE_BUS_OFF: return " CAN_STATE_BUS_OFF: RX/TX error count >= 256 ";
+		case CanModule::CAN_STATE_STOPPED: return " CAN_STATE_STOPPED: Device is stopped ";
+		case CanModule::CAN_STATE_SLEEPING: return " CAN_STATE_SLEEPING: Device is sleeping ";
+		case CanModule::CAN_STATE_MAX: return " CAN_STATE_MAX: Rx or Tx queue full, overrun ";
 
-		case CanModule::CANMODULE_NOSTATE: return "CANMODULE_NOSTATE: could not get port state";
-		case CanModule::CANMODULE_WARNING: return "CANMODULE_WARNING: traffic degradation but might recover";
-		case CanModule::CANMODULE_ERROR: return "CANMODULE_ERROR: error likely stemming from SW/HW/firmware";
-		case CanModule::CANMODULE_TIMEOUT_OK: return "CANMODULE_TIMEOUT_OK: bus is fine, no traffic";
-		case CanModule::CANMODULE_OK: return "CANMODULE_OK: bus is fine";
+		case CanModule::CANMODULE_NOSTATE: return " CANMODULE_NOSTATE: could not get port state ";
+		case CanModule::CANMODULE_WARNING: return " CANMODULE_WARNING: traffic degradation but might recover ";
+		case CanModule::CANMODULE_ERROR: return " CANMODULE_ERROR: error likely stemming from SW/HW/firmware ";
+		case CanModule::CANMODULE_TIMEOUT_OK: return " CANMODULE_TIMEOUT_OK: bus is fine, no traffic ";
+		case CanModule::CANMODULE_OK: return " CANMODULE_OK: bus is fine ";
 
 		default:
 			std::stringstream os;
-			os <<  "translateCanBusStateToText: (very bad) unknown state= " << state;
+			os <<  " translateCanBusStateToText: (very bad) unknown state= " << state;
 			return ( os.str() );
 			// dont throw an exception
 		}
