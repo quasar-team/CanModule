@@ -163,6 +163,13 @@ DWORD WINAPI STCanScan::CanScanControlThread(LPVOID pCanScan)
 				stCanScanPointer->sendErrorCode(status);
 			}
 		}
+
+		// don't slow down the reception too much, but check sometimes
+		static int calls = 100;
+		if ( !calls-- ) {
+			stCanScanPointer->fetchAndPublishCanPortState();
+			calls = 100;
+		}
 	}
 	stCanScanPointer->fetchAndPublishCanPortState ();
 	ExitThread(0);
@@ -174,6 +181,7 @@ STCanScan::~STCanScan()
 	m_CanScanThreadShutdownFlag = false;
 	DWORD result = WaitForSingleObject(m_hCanScanThread, INFINITE); 	//Shut down can scan thread
 	::UcanDeinitCanEx (m_UcanHandle,(BYTE)m_channelNumber);
+	fetchAndPublishCanPortState ();
 	MLOGST(DBG,this) << __FUNCTION__ <<" closed successfully";
 }
 
@@ -404,6 +412,7 @@ bool STCanScan::sendErrorCode(long status)
 /* static */ int STCanScan::reconnectAllPorts( tUcanHandle h ){
 	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " hard reset not implemented";
 #if 0
+	// this does not seem to work
 	/// have to call these two API methods
 	BYTE ret0 = ::UcanDeinitHardware ( m_UcanHandle );
 	if ( ret0 != USBCAN_SUCCESSFUL) {
@@ -460,14 +469,19 @@ bool STCanScan::sendMessage(short cobID, unsigned char len, unsigned char *messa
 		}
 	}
 
-	fetchAndPublishCanPortState ();
-
 	canMsgToBeSent.m_bDLC = messageLengthToBeProcessed;
 	memcpy(canMsgToBeSent.m_bData, message, messageLengthToBeProcessed);
 	//	MLOG(TRC,this) << "Channel Number: [" << m_channelNumber << "], cobID: [" << canMsgToBeSent.m_dwID << "], Message Length: [" << static_cast<int>(canMsgToBeSent.m_bDLC) << "]";
 	Status = UcanWriteCanMsgEx(m_UcanHandle, m_channelNumber, &canMsgToBeSent, NULL);
 	if ( Status != USBCAN_SUCCESSFUL ) {
 		MLOGST(ERR,this) << "There was a problem when sending a message.";
+
+		timeval ftTimeStamp;
+		auto now = std::chrono::system_clock::now();
+		auto nMicrosecs = std::chrono::duration_cast<std::chrono::microseconds>(now.time_since_epoch());
+		ftTimeStamp.tv_sec = nMicrosecs.count() / 1000000L;
+		ftTimeStamp.tv_usec = (nMicrosecs.count() % 1000000L);
+		canMessageError( (int) Status, "= Status, there was a problem when sending a message.", ftTimeStamp); // signal
 
 		switch( m_reconnectCondition ){
 		case CanModule::ReconnectAutoCondition::sendFail: {
@@ -516,6 +530,15 @@ bool STCanScan::sendMessage(short cobID, unsigned char len, unsigned char *messa
 		m_statistics.onTransmit( canMsgToBeSent.m_bDLC );
 		m_statistics.setTimeSinceTransmitted();
 	}
+
+
+	// port state update, decrease load on the board a bit
+	static int calls = 5;
+	if ( !calls-- ) {
+		fetchAndPublishCanPortState();
+		calls = 5;
+	}
+
 	return sendErrorCode(Status);
 }
 
@@ -745,6 +768,8 @@ void STCanScan::getStatistics( CanStatistics & result )
 	statCan = stat.m_wCanStatus;
 	statUsb = stat.m_wUsbStatus;
 
+	//MLOGST(TRC, this) << "statCan= 0x" << std::hex << (unsigned int) statCan << std::dec;
+	//MLOGST(TRC, this) << "statUsb= 0x" << std::hex << (unsigned int) statUsb << std::dec;
 
 	/* several bits from systec can occur together. We'll translate that into the enum as good as we can (pun intended).
 	 * we will test the benign bits first, and the serious bits last, like this we always get the "most serious"
@@ -753,44 +778,43 @@ void STCanScan::getStatistics( CanStatistics & result )
 	int portState = CanModule::CanModule_bus_state::CANMODULE_NOSTATE;
 
 	// CAN bus status
-	if (( statCan & USBCAN_CANERR_OK ) || ( statCan & USBCAN_USBERR_OK )){
+	if ( ( statCan == USBCAN_CANERR_OK ) && ( statCan == USBCAN_USBERR_OK ) ){
 		portState = CanModule::CanModule_bus_state::CANMODULE_OK;
 	}
-	if ( statCan & USBCAN_CANERR_QRCVEMPTY )  {
+	else if ( statCan | USBCAN_CANERR_QRCVEMPTY )  {
 		portState = CanModule::CanModule_bus_state::CANMODULE_TIMEOUT_OK;
 	}
-	if ( statCan & USBCAN_CANERR_BUSLIGHT )  {
+	else if ( statCan | USBCAN_CANERR_BUSLIGHT )  {
 		portState = CanModule::CanModule_bus_state::CAN_STATE_ERROR_WARNING;
 	}
-	if ( statCan & USBCAN_CANERR_BUSHEAVY )  {
+	else if ( statCan | USBCAN_CANERR_BUSHEAVY )  {
 		portState = CanModule::CanModule_bus_state::CAN_STATE_ERROR_PASSIVE;
 	}
-	if ( statCan & USBCAN_CANERR_TXMSGLOST ){
+	else if ( statCan | USBCAN_CANERR_TXMSGLOST ){
 		portState = CanModule::CanModule_bus_state::CAN_STATE_SLEEPING;
 	}
-	if ( ( statCan & USBCAN_CANERR_XMTFULL ) || ( statCan & USBCAN_CANERR_OVERRUN ) || ( statCan & USBCAN_CANERR_QOVERRUN )  || ( statCan & USBCAN_CANERR_QXMTFULL )) {
+	else if ( ( statCan | USBCAN_CANERR_XMTFULL ) || ( statCan & USBCAN_CANERR_OVERRUN ) || ( statCan & USBCAN_CANERR_QOVERRUN )  || ( statCan & USBCAN_CANERR_QXMTFULL )) {
 		portState = CanModule::CanModule_bus_state::CAN_STATE_MAX;
 	}
 
-	if ( statCan & USBCAN_CANERR_BUSOFF )  {
+	else if ( statCan | USBCAN_CANERR_BUSOFF )  {
 		portState = CanModule::CanModule_bus_state::CAN_STATE_BUS_OFF;
 	}
 
 	// warnings, from USB, might recover
-	// if (( statUsb & USBCAN_USBERR_STATUS_TIMEOUT ) || ( statCan & USBCAN_USBERR_WATCHDOG_TIMEOUT )){
-        if ( statUsb & ~USBCAN_USBERR_OK ) {
+	// else if (( statUsb | USBCAN_USBERR_STATUS_TIMEOUT ) || ( statCan | USBCAN_USBERR_WATCHDOG_TIMEOUT )){
+	else if ( statUsb != USBCAN_USBERR_OK ) {
 		portState = CanModule::CanModule_bus_state::CANMODULE_WARNING;
 	}
 	// errors
-	if (( statCan & USBCAN_CANERR_REGTEST ) || ( statCan & USBCAN_CANERR_MEMTEST )){
+	else if (( statCan | USBCAN_CANERR_REGTEST ) || ( statCan | USBCAN_CANERR_MEMTEST )){
 		portState = CanModule::CanModule_bus_state::CANMODULE_ERROR;
 	}
 
+	//MLOGST(TRC, this) << "portState= " << portState;
 
-	// ok but don't know why. Lets overwrite NOSTATE. mais bon.
-	portState = CanModule::CanModule_bus_state::CANMODULE_OK;
 	std::string msg = CanModule::translateCanBusStateToText((CanModule::CanModule_bus_state) portState ); // + m_translatePeakPortStatusBitpatternToText( peak_state );
-	MLOGST(DBG, this) << msg << "tid=[" << std::this_thread::get_id() << "]";
+	MLOGST(TRC, this) << " statCan= " << statCan << " statUsb= " << statUsb << " " << msg << " tid=[" << std::this_thread::get_id() << "]";
 	publishPortStatusChanged( portState );
 
 	/** as a consequence of this coding the

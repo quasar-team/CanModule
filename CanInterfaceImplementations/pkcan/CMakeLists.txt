@@ -65,13 +65,13 @@ set(PEAKCAN_SOURCES
 	../../CanInterface/src/CCanAccess.cpp	
 )
 
-SET ( PEAKCAN_LIB_NAME "pcan" )
+SET ( PEAKCAN_LIB_NAME "pkcan" )
 
 if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
 	add_library( ${PEAKCAN_LIB_NAME} SHARED ${PEAKCAN_SOURCES} $<TARGET_OBJECTS:LogIt>)
 else()
 	add_library( ${PEAKCAN_LIB_NAME} SHARED ${PEAKCAN_SOURCES} )
-	target_link_libraries( pkcan ${LOGIT_LIB} )
+	target_link_libraries( ${PEAKCAN_LIB_NAME} ${LOGIT_LIB} )
 endif()
 
 target_link_libraries ( ${PEAKCAN_LIB_NAME} ${BOOST_LIBS} ${PEAK_LIB_FILE} )

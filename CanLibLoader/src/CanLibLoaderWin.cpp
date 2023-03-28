@@ -96,6 +96,7 @@ namespace CanModule
 
 		std::cout  << "Proceeding to ExA load library " << ss.str() << std::endl;
 		LOG(Log::DBG, lh) << "Proceeding to ExA load library " << ss.str();
+		LOG(Log::INF, lh) << "dynamic vendor libs must be present, as configured by the build";
 		m_pDynamicLibrary = ::LoadLibraryExA(ss.str().c_str(), NULL, 0x00000010 /* LOAD_IGNORE_CODE_AUTHZ_LEVEL */);
 
 		//We check for errors while loading the library
