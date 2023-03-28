@@ -150,11 +150,13 @@ void UdevAnalyserForPeak::m_createUdevPortMap( void ){
 	std::string cmd0 = "ls -l /dev/pcanusb* | grep -v \" -> \" | awk '{print $10}' ";
 	execcommand_ns::ExecCommand exec0( cmd0 );
 	const execcommand_ns::ExecCommand::CmdResults results0 = exec0.getResults();
-	LOG(Log::TRC, m_logItHandleSock) << "peak " << exec0;
+	LOG(Log::TRC, m_logItHandleSock) << "peak exec0= " << exec0;
+	LOG(Log::TRC, m_logItHandleSock) << "peak results0= " << results0;
 
 	// get the symlinks for each device and the first port
 	for ( unsigned int i = 0; i < results0.size(); i++ ){
 		std::string cmd1 = std::string("/sbin/udevadm info -q symlink ") + results0[ i ] + std::string(" | grep \"devid=\"");
+		LOG(Log::TRC, m_logItHandleSock) << "peak cmd1= " << cmd1;
 		execcommand_ns::ExecCommand exec1( cmd1 );
 		execcommand_ns::ExecCommand::CmdResults results1 = exec1.getResults();
 		LOG(Log::TRC, m_logItHandleSock) << "peak " << exec1;
@@ -166,6 +168,7 @@ void UdevAnalyserForPeak::m_createUdevPortMap( void ){
 	// get the links of the other ports
 	for ( unsigned int i = 0; i < results0.size(); i++ ){
 		std::string cmd2 = std::string("/sbin/udevadm info -q symlink ") + results0[ i ] + std::string(" | grep -v \"devid=\"");
+		LOG(Log::TRC, m_logItHandleSock) << "peak cmd2= " << cmd2;
 		execcommand_ns::ExecCommand exec2( cmd2 );
 		execcommand_ns::ExecCommand::CmdResults results2 = exec2.getResults();
 		LOG(Log::TRC, m_logItHandleSock) << "peak " << exec2;
