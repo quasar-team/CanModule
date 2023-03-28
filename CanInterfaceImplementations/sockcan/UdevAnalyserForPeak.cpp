@@ -234,7 +234,7 @@ unsigned int UdevAnalyserForPeak::m_peakDriverNumber( std::string s ){
 	std::string sub2 = sub1.substr( pos2, std::string::npos );
 	//	std::cout << __FILE__ << " " << __LINE__ << " sub2= " << sub2 << std::endl;
 	std::string sub3 = sub2.substr( 0, sub2.find(" ") );
-	std::cout << __FILE__ << " " << __LINE__ << " DEBUG sub3= " << sub3 << " stoi(sub3)= " << std::stoi( sub3 ) << std::endl;
+	std::cout << __FILE__ << " " << __LINE__ << " DEBUG sub3= " << sub3 << " stoi(sub3)= " << std::stoi( (const char *) sub3.c_str() ) << std::endl;
 	return( std::stoi( (const char *) sub3.c_str() ));
 
 }
