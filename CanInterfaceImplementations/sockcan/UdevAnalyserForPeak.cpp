@@ -158,7 +158,6 @@ void UdevAnalyserForPeak::m_createUdevPortMap( void ){
 		LOG(Log::TRC, m_logItHandleSock) << "peak cmd1= " << cmd1;
 		execcommand_ns::ExecCommand exec1( cmd1 );
 		execcommand_ns::ExecCommand::CmdResults results1 = exec1.getResults();
-		LOG(Log::TRC, m_logItHandleSock) << "peak " << exec1;
 		for ( unsigned k = 0; k < results1.size(); k++ ){
 			links1.push_back( results1[ k ] );
 			LOG(Log::TRC, m_logItHandleSock) << "peak results1[ " << k << "]=" << results1[ k ];
@@ -170,7 +169,6 @@ void UdevAnalyserForPeak::m_createUdevPortMap( void ){
 		LOG(Log::TRC, m_logItHandleSock) << "peak cmd2= " << cmd2;
 		execcommand_ns::ExecCommand exec2( cmd2 );
 		execcommand_ns::ExecCommand::CmdResults results2 = exec2.getResults();
-		LOG(Log::TRC, m_logItHandleSock) << "peak " << exec2;
 		for ( unsigned k = 0; k < results2.size(); k++ ){
 			links2.push_back( results2[ k ] );
 			LOG(Log::TRC, m_logItHandleSock) << "peak results2[ " << k << "]="  << results2[ k ];
@@ -234,6 +232,8 @@ unsigned int UdevAnalyserForPeak::m_peakDeviceIdFromSystemDeviceIndex( unsigned 
  *
  * cal9 reports differently:
  * pcan32 pcanusbpfd32 pcan-usb_pro_fd/0/can0 pcan-usb_pro_fd/devid=9054
+ * pcan-usb_pro_fd/devid=9054 pcan32 pcan-usb_pro_fd/0/can0 pcanusbpfd32
+ *
  */
 unsigned int UdevAnalyserForPeak::m_peakDriverNumber( std::string s ){
 	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " extracting peak driver number from " << s << std::endl;
