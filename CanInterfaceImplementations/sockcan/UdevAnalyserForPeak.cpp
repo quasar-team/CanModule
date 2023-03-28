@@ -160,6 +160,7 @@ void UdevAnalyserForPeak::m_createUdevPortMap( void ){
 		LOG(Log::TRC, m_logItHandleSock) << "peak " << exec1;
 		for ( unsigned k = 0; k < results1.size(); k++ ){
 			links1.push_back( results1[ k ] );
+			LOG(Log::TRC, m_logItHandleSock) << "peak part1 " << results1[ k ];
 		}
 	}
 	// get the links of the other ports
@@ -170,6 +171,7 @@ void UdevAnalyserForPeak::m_createUdevPortMap( void ){
 		LOG(Log::TRC, m_logItHandleSock) << "peak " << exec2;
 		for ( unsigned k = 0; k < results2.size(); k++ ){
 			links2.push_back( results2[ k ] );
+			LOG(Log::TRC, m_logItHandleSock) << "peak part22 " << results2[ k ];
 		}
 	}
 
@@ -229,7 +231,7 @@ unsigned int UdevAnalyserForPeak::m_peakDeviceIdFromSystemDeviceIndex( unsigned 
 unsigned int UdevAnalyserForPeak::m_peakDriverNumber( std::string s ){
 	size_t pos1 = s.find( "devid=" ) + 6;
 	std::string sub1 = s.substr( pos1, std::string::npos );
-	//	std::cout << __FILE__ << " " << __LINE__ << " sub1= " << sub1 << std::endl;
+	std::cout << __FILE__ << " " << __LINE__ << " sub1= " << sub1 << std::endl;
 	size_t pos2 = sub1.find( " pcan" ) + 5;
 	std::string sub2 = sub1.substr( pos2, std::string::npos );
 	std::cout << __FILE__ << " " << __LINE__ << " sub2= " << sub2 << std::endl;
