@@ -161,7 +161,7 @@ void UdevAnalyserForPeak::m_createUdevPortMap( void ){
 		LOG(Log::TRC, m_logItHandleSock) << "peak " << exec1;
 		for ( unsigned k = 0; k < results1.size(); k++ ){
 			links1.push_back( results1[ k ] );
-			LOG(Log::TRC, m_logItHandleSock) << "peak part1 " << results1[ k ];
+			LOG(Log::TRC, m_logItHandleSock) << "peak results1[ " << k << "]=" << results1[ k ];
 		}
 	}
 	// get the links of the other ports
@@ -173,7 +173,7 @@ void UdevAnalyserForPeak::m_createUdevPortMap( void ){
 		LOG(Log::TRC, m_logItHandleSock) << "peak " << exec2;
 		for ( unsigned k = 0; k < results2.size(); k++ ){
 			links2.push_back( results2[ k ] );
-			LOG(Log::TRC, m_logItHandleSock) << "peak part22 " << results2[ k ];
+			LOG(Log::TRC, m_logItHandleSock) << "peak results2[ " << k << "]="  << results2[ k ];
 		}
 	}
 
