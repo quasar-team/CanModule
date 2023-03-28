@@ -228,7 +228,12 @@ unsigned int UdevAnalyserForPeak::m_peakDeviceIdFromSystemDeviceIndex( unsigned 
 
 /**
  * get the local socket nb of the devices: "32"
+ *
+ * cc7:
  * pcan-usb_pro_fd/0/can0 pcan-usb_pro_fd/devid=9054 pcan32 pcanusbpfd32
+ *
+ * cal9 reports differently:
+ * pcan32 pcanusbpfd32 pcan-usb_pro_fd/0/can0 pcan-usb_pro_fd/devid=9054
  */
 unsigned int UdevAnalyserForPeak::m_peakDriverNumber( std::string s ){
 	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " extracting peak driver number from " << s << std::endl;
@@ -236,10 +241,11 @@ unsigned int UdevAnalyserForPeak::m_peakDriverNumber( std::string s ){
 
 	size_t pos1 = s.find( "devid=" ) + 6;
 	std::string sub1 = s.substr( pos1, std::string::npos );
-	std::cout << __FILE__ << " " << __LINE__ << " sub1= " << sub1 << std::endl;
-	size_t pos2 = sub1.find( " pcan" ) + 5;
+	std::cout << __FILE__ << " " << __LINE__ << " extended device id devid= " << sub1 << std::endl;
+
+	size_t pos2 = s.find( "pcan" ) + 5;
 	std::string sub2 = sub1.substr( pos2, std::string::npos );
-	std::cout << __FILE__ << " " << __LINE__ << " sub2= " << sub2 << std::endl;
+	std::cout << __FILE__ << " " << __LINE__ << " driver number sub2= " << sub2 << std::endl;
 	std::string sub3 = sub2.substr( 0, sub2.find(" ") );
 	std::cout << __FILE__ << " " << __LINE__ << " DEBUG sub3= " << sub3 << " stoi(sub3)= " << std::stoi( sub3 ) << std::endl;
 	unsigned int i4 = std::stoi( sub3 );
