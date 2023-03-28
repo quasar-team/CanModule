@@ -243,8 +243,9 @@ unsigned int UdevAnalyserForPeak::m_peakDriverNumber( std::string s ){
 	std::string sub1 = s.substr( pos1, std::string::npos );
 	std::cout << __FILE__ << " " << __LINE__ << " extended device id devid= " << sub1 << std::endl;
 
-	size_t pos2 = s.find( "pcan" ) + 5;
-	std::string sub2 = sub1.substr( pos2, std::string::npos );
+	size_t pos2 = s.find( "pcan" ) + 4;
+	//std::string sub2 = sub1.substr( pos2, std::string::npos );
+	std::string sub2 = sub1.substr( pos2, 2 ); // two digit driver numbers
 	std::cout << __FILE__ << " " << __LINE__ << " driver number sub2= " << sub2 << std::endl;
 	std::string sub3 = sub2.substr( 0, sub2.find(" ") );
 	std::cout << __FILE__ << " " << __LINE__ << " DEBUG sub3= " << sub3 << " stoi(sub3)= " << std::stoi( sub3 ) << std::endl;
