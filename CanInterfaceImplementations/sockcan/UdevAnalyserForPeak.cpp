@@ -249,10 +249,10 @@ unsigned int UdevAnalyserForPeak::m_peakDriverNumber( std::string s ){
 	std::cout << __FILE__ << " " << __LINE__ << " driver number sub2= " << sub2 << std::endl;
 	std::string sub3 = sub2.substr( 0, sub2.find(" ") );
 	std::cout << __FILE__ << " " << __LINE__ << " DEBUG sub3= " << sub3 << " stoi(sub3)= " << std::stoi( sub3 ) << std::endl;
-	int i4 = std::stoi( sub3, 0, 10 );
-	std::cout << __FILE__ << " " << __LINE__ << " DEBUG i4= " << i4 << std::endl;
+	int ii = std::stoi( sub3, 0, 10 );
+	std::cout << __FILE__ << " " << __LINE__ << " DEBUG i4= " << ii << std::endl;
 
-	return( (unsigned int) i4 );
+	return( (unsigned int) ii );
 
 }
 
@@ -294,7 +294,8 @@ unsigned int UdevAnalyserForPeak::m_peakSystemDeviceIndex( std::string s ){
 	size_t pos1 = s.find( "/" ) + 1;
 	std::string sub1 = s.substr( pos1, std::string::npos );
 	std::string sub2 = sub1.substr( 0, sub1.find("/") );
-	return( std::stoi( sub2 ));
+	int ii = std::stoi( sub2, 0, 10 );
+	return( (unsigned int) ii );
 }
 
 
