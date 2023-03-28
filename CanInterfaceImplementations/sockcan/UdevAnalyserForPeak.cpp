@@ -279,7 +279,8 @@ unsigned int UdevAnalyserForPeak::m_peakDeviceId( std::string s ){
 	size_t pos1 = s.find( devid ) + std::string( devid ).length();
 	std::string sub1 = s.substr( pos1, std::string::npos );
 	std::string sub2 = sub1.substr( 0, sub1.find(" ") );
-	return( std::stoi( sub2 ));
+	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " sub2= " << sub2 << std::endl;
+	return( std::stoi( sub2.c_str() ));
 }
 
 /**
