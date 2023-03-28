@@ -151,7 +151,6 @@ void UdevAnalyserForPeak::m_createUdevPortMap( void ){
 	execcommand_ns::ExecCommand exec0( cmd0 );
 	const execcommand_ns::ExecCommand::CmdResults results0 = exec0.getResults();
 	LOG(Log::TRC, m_logItHandleSock) << "peak exec0= " << exec0;
-	LOG(Log::TRC, m_logItHandleSock) << "peak results0= " << results0;
 
 	// get the symlinks for each device and the first port
 	for ( unsigned int i = 0; i < results0.size(); i++ ){
