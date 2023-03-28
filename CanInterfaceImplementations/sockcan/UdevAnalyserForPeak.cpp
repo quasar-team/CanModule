@@ -267,7 +267,7 @@ unsigned int UdevAnalyserForPeak::m_peakLocalCanPort( std::string s ){
 	std::string sub2 = sub1.substr( pos2, sub1.find(" ") - 2 );
 	std::string sub3 = sub2.substr( 3, std::string::npos );
 	//std::cout << __FILE__ << " " << __LINE__ << " sub3= " << sub3 << std::endl;
-	int ii = std::stoi( sub3, 0, 10 )
+	int ii = std::stoi( sub3, 0, 10 );
 	return( (unsigned int) ii );
 }
 
