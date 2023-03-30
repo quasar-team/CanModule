@@ -99,9 +99,9 @@ std::string UdevAnalyserForPeak::peakExtendedIdentifierToSocketCanDevice( std::s
 			<< " localPort= " << localPort;
 
 	for ( unsigned int i = 0; i < m_peak_v.size(); i++ ){
-		//LOG(Log::TRC, m_logItHandleSock) << "peak comparing " << i
-		//		<< " deviceID= " << m_peak_v[ i ].deviceID
-		//		<< " localCanPort= " <<  m_peak_v[ i ].localCanPort;
+		LOG(Log::TRC, m_logItHandleSock) << "peak comparing " << i
+				<< " deviceID= " << m_peak_v[ i ].deviceID
+				<< " localCanPort= " <<  m_peak_v[ i ].localCanPort;
 
 		if (( m_peak_v[ i ].deviceID == deviceId ) && ( m_peak_v[ i ].localCanPort == localPort )){
 			LOG(Log::TRC, m_logItHandleSock) << "peak found "
@@ -230,8 +230,7 @@ unsigned int UdevAnalyserForPeak::m_peakDeviceIdFromSystemDeviceIndex( unsigned 
  * cc7:
  * pcan-usb_pro_fd/0/can0 pcan-usb_pro_fd/devid=9054 pcan32 pcanusbpfd32
  *
- * cal9 reports differently:
- * pcan32 pcanusbpfd32 pcan-usb_pro_fd/0/can0 pcan-usb_pro_fd/devid=9054
+ * cal9:
  * pcan-usb_pro_fd/devid=9054 pcan32 pcan-usb_pro_fd/0/can0 pcanusbpfd32
  *
  */
@@ -248,7 +247,11 @@ unsigned int UdevAnalyserForPeak::m_peakDriverNumber( std::string s ){
 
 /**
  * get the local can port of the devices: the "0" of "can0"
+ *
+ * cc7:
  * pcan-usb_pro_fd/0/can0 pcan-usb_pro_fd/devid=9054 pcan32 pcanusbpfd32
+ *
+ * cal9:
  */
 unsigned int UdevAnalyserForPeak::m_peakLocalCanPort( std::string s ){
 	size_t pos1 = s.find( "/" ) + 1;
@@ -264,7 +267,12 @@ unsigned int UdevAnalyserForPeak::m_peakLocalCanPort( std::string s ){
 
 /**
  * get the devids of the devices "9054"
+ *
+ * cc7:
  * pcan-usb_pro_fd/0/can0 pcan-usb_pro_fd/devid=9054 pcan32 pcanusbpfd32
+ *
+ * cal9:
+ *
  */
 unsigned int UdevAnalyserForPeak::m_peakDeviceId( std::string s ){
 	const std::string devid = "devid=";
@@ -279,7 +287,11 @@ unsigned int UdevAnalyserForPeak::m_peakDeviceId( std::string s ){
 
 /**
  * get the global device index "0"
+ *
+ * cc7:
  * pcan-usb_pro_fd/0/can0 pcan-usb_pro_fd/devid=9054 pcan32 pcanusbpfd32
+ *
+ * cal9:
  */
 unsigned int UdevAnalyserForPeak::m_peakSystemDeviceIndex( std::string s ){
 	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " " << s << std::endl;
