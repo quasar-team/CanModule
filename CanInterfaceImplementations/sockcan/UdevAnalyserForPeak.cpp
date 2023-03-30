@@ -295,17 +295,28 @@ unsigned int UdevAnalyserForPeak::m_peakDeviceId( std::string s ){
  * pcan-usb_pro_fd/devid=9054 pcan32 pcanusbpfd32 pcan-usb_pro_fd/0/can0
  *
  * => lets look for "/can" and take the number before that
+ * => lets look for "/" number "/"
  */
 unsigned int UdevAnalyserForPeak::m_peakSystemDeviceIndex( std::string s ){
 	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " " << s << std::endl;
+	for ( int i = 0; i < s.length(); i++){
+		std::cout << s.at(i) << std::endl;
+	}
+
+
+
+#if 0
+
 	size_t pos1 = s.find( "/can" ) - 8;
-	std::string sub1 = s.substr( pos1, std::string::npos ); // ro_fd/0/can0 plus tail
-	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " sub1= " << sub1 << std::endl;
+	std::string sub1 = s.substr( pos1, std::string::npos );
+	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " sub1= " << sub1 << std::endl;// pro_fd/0/can0 pcan32 pcan-usb_pro_fd/devid=9054
 	std::string sub2 = sub1.substr( 0, sub1.find("/") );
 	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " sub2= " << sub2 << std::endl;
 	unsigned int ii = std::stoul( sub2, 0, 10 );
 	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " ii= " << ii << std::endl;
 	return( ii );
+
+#endif
 }
 
 
