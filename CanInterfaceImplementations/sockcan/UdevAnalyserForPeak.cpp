@@ -250,7 +250,7 @@ unsigned int UdevAnalyserForPeak::m_peakDriverNumber( std::string s ){
 	std::size_t pos2 = s.find( "pcanusbpfd" );
 	//std::string sub2 = sub1.substr( pos2, std::string::npos );
 	std::string sub2 = sub1.substr( pos2, 2  ); // two digit driver numbers
-	std::cout << __FILE__ << " " << __LINE__ << " driver number sub2= " << sub2 << std::endl;s
+	std::cout << __FILE__ << " " << __LINE__ << " driver number sub2= " << sub2 << std::endl;
 	std::size_t foundNum = sub2.find_first_of( "0123456789" );
 	std::string sub3 = sub2.substr( foundNum, 10 );
 	std::cout << __FILE__ << " " << __LINE__ << " DEBUG sub3= " << sub3 << " stoi(sub3)= " << std::stoi( sub3 ) << std::endl;
