@@ -252,10 +252,10 @@ unsigned int UdevAnalyserForPeak::m_peakDriverNumber( std::string s ){
 	std::cout << __FILE__ << " " << __LINE__ << " driver number sub2= " << sub2 << std::endl;
 	std::string sub3 = sub2.substr( 0, sub2.find(" ") );
 	std::cout << __FILE__ << " " << __LINE__ << " DEBUG sub3= " << sub3 << " stoi(sub3)= " << std::stoi( sub3 ) << std::endl;
-	int ii = std::stoi( sub3, 0, 10 );
+	unsigned int ii = std::stoul( sub3, 0, 10 );
 	std::cout << __FILE__ << " " << __LINE__ << " DEBUG i4= " << ii << std::endl;
 
-	return( (unsigned int) ii );
+	return( ii );
 
 }
 
@@ -270,9 +270,9 @@ unsigned int UdevAnalyserForPeak::m_peakLocalCanPort( std::string s ){
 	std::string sub2 = sub1.substr( pos2, sub1.find(" ") - 2 );
 	std::string sub3 = sub2.substr( 3, std::string::npos );
 	std::cout << __FILE__ << " " << __LINE__ << " sub3= " << sub3 << std::endl;
-	int ii = std::stoi( sub3, 0, 10 );
+	unsigned int ii = std::stoul( sub3, 0, 10 );
 	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " ii= " << ii << std::endl;
-	return( (unsigned int) ii );
+	return( ii );
 }
 
 /**
@@ -285,9 +285,9 @@ unsigned int UdevAnalyserForPeak::m_peakDeviceId( std::string s ){
 	std::string sub1 = s.substr( pos1, std::string::npos );
 	std::string sub2 = sub1.substr( 0, sub1.find(" ") );
 	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " sub2= " << sub2 << std::endl;
-	int ii = std::stoi( sub2, 0, 10 );
+	unsigned int ii = std::stoul( sub2, 0, 10 );
 	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " ii= " << ii << std::endl;
-	return( (unsigned int) ii );
+	return( ii );
 }
 
 /**
@@ -299,9 +299,9 @@ unsigned int UdevAnalyserForPeak::m_peakSystemDeviceIndex( std::string s ){
 	std::string sub1 = s.substr( pos1, std::string::npos );
 	std::string sub2 = sub1.substr( 0, sub1.find("/") );
 	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " sub2= " << sub2 << std::endl;
-	int ii = std::stoi( sub2, 0, 10 );
+	unsigned int ii = std::stoul( sub2, 0, 10 );
 	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " ii= " << ii << std::endl;
-	return( (unsigned int) ii );
+	return( ii );
 }
 
 
