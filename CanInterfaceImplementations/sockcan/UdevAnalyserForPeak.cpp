@@ -72,12 +72,12 @@ std::string UdevAnalyserForPeak::peakExtendedIdentifierToSocketCanDevice( std::s
 	// first, sift out the device ID as given
 	size_t pos1 = extPortId.find( ":" ) + 1;
 	std::string sub1 = extPortId.substr( pos1, std::string::npos );
-	//std::cout << __FILE__ << " " << __LINE__ << " sub1= " << sub1 << std::endl;
+	std::cout << __FILE__ << " " << __LINE__ << " sub1= " << sub1 << std::endl;
 
 	size_t pos2 = sub1.find( ":device" ) + 7;
 	std::string sub2 = sub1.substr( pos2, std::string::npos );
-	//std::cout << __FILE__ << " " << __LINE__ << " sub2= " << sub2 << std::endl;
-	int deviceId =  std::stoi( sub2 );
+	std::cout << __FILE__ << " " << __LINE__ << " sub2= " << sub2 << std::endl;
+	unsigned int deviceId =  std::stoul( sub2, 0, 10 );
 
 	// second, sift out the local port number as well
 	//	size_t pos3 = sub1.find( ":" );
