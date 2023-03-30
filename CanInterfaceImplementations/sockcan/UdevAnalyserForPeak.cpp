@@ -236,46 +236,14 @@ unsigned int UdevAnalyserForPeak::m_peakDeviceIdFromSystemDeviceIndex( unsigned 
  *
  */
 unsigned int UdevAnalyserForPeak::m_peakDriverNumber( std::string s ){
-	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " extracting peak driver number from: " << s << std::endl;
 	// pcan-usb_pro_fd/0/can0 pcan-usb_pro_fd/devid=9054 pcan32 pcanusbpfd32
 	size_t pos1 = s.find( "pcanusbpfd" );
 	std::string sub1 = s.substr( pos1, std::string::npos );
-	std::cout << __FILE__ << " " << __LINE__ << " sub1 pcanusbpfd " << sub1 << std::endl;
-
 	std::size_t pos2 = sub1.find_first_of( "0123456789" );
 	std::string sub2 = sub1.substr( pos2, 3 ); // 3 digits
-	std::cout << __FILE__ << " " << __LINE__ << " sub2 " << sub2 << std::endl;
-
 	unsigned int ii = std::stoul( sub2, 0, 10 );
-	std::cout << __FILE__ << " " << __LINE__ << " ii= " << ii << std::endl;
-
+	LOG(Log::TRC, m_logItHandleSock) << s << " extracted m_peakDriverNumber= " << ii;
 	return( ii );
-
-
-#if 0
-
-	size_t pos1 = s.find( "devid=" ) + 6;
-	std::string sub1 = s.substr( pos1, std::string::npos );
-	std::cout << __FILE__ << " " << __LINE__ << " extended device id devid= " << sub1 << std::endl;
-
-
-	// pcan-usb_pro_fd/0/can0 pcan32 pcan-usb_pro_fd/devid=9054 pcanusbpfd32
-
-
-	std::size_t pos2 = s.find( "pcanusbpfd" );
-	//std::string sub2 = sub1.substr( pos2, std::string::npos );
-	std::string sub2 = sub1.substr( pos2, 2  ); // two digit driver numbers
-	std::cout << __FILE__ << " " << __LINE__ << " driver number sub2= " << sub2 << std::endl;
-	std::size_t foundNum = sub2.find_first_of( "0123456789" );
-	std::string sub3 = sub2.substr( foundNum, 10 );
-	std::cout << __FILE__ << " " << __LINE__ << " DEBUG sub3= " << sub3 << " stoi(sub3)= " << std::stoi( sub3 ) << std::endl;
-	unsigned int ii = std::stoul( sub3, 0, 10 );
-	std::cout << __FILE__ << " " << __LINE__ << " DEBUG i4= " << ii << std::endl;
-
-	return( ii );
-
-#endif
-
 }
 
 /**
@@ -314,6 +282,7 @@ unsigned int UdevAnalyserForPeak::m_peakDeviceId( std::string s ){
  * pcan-usb_pro_fd/0/can0 pcan-usb_pro_fd/devid=9054 pcan32 pcanusbpfd32
  */
 unsigned int UdevAnalyserForPeak::m_peakSystemDeviceIndex( std::string s ){
+	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " " << s << std::endl;
 	size_t pos1 = s.find( "/" ) + 1;
 	std::string sub1 = s.substr( pos1, std::string::npos );
 	std::string sub2 = sub1.substr( 0, sub1.find("/") );
