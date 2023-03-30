@@ -243,11 +243,11 @@ unsigned int UdevAnalyserForPeak::m_peakDriverNumber( std::string s ){
 	std::cout << __FILE__ << " " << __LINE__ << " sub1 pcanusbpfd " << sub1 << std::endl;
 
 	std::size_t pos2 = sub1.find_first_of( "0123456789" );
-	std::string sub2 = sub1.substr( pos2, 2 ); // 2 digits
+	std::string sub2 = sub1.substr( pos2, 3 ); // 3 digits
 	std::cout << __FILE__ << " " << __LINE__ << " sub2 " << sub2 << std::endl;
 
 	unsigned int ii = std::stoul( sub2, 0, 10 );
-	std::cout << __FILE__ << " " << __LINE__ << " DEBUG ii= " << ii << std::endl;
+	std::cout << __FILE__ << " " << __LINE__ << " ii= " << ii << std::endl;
 
 	return( ii );
 
