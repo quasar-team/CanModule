@@ -309,7 +309,9 @@ unsigned int UdevAnalyserForPeak::m_peakSystemDeviceIndex( std::string s ){
 		v0.push_back( s.substr(start, end - start));
 	}
 
-	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " v0= " << v0 << std::endl;
+	for ( unsigned int i = 0; i < v0.size(); i++ ){
+	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " v0= " << v0[ i ] << std::endl;
+	}
 
 
 
