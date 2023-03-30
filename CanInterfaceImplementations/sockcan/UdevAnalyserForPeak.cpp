@@ -315,7 +315,7 @@ unsigned int UdevAnalyserForPeak::m_peakSystemDeviceIndex( std::string s ){
 
 		// find the vector element which starts with a number
 		std::size_t pos0 = v0[i].find_first_of( "0123456789" );
-		if ( pos0 != std::string::npos ){
+		if ( pos0 == 1 ){
 			devId = stoul( v0[i], 0, 10 );
 		}
 	}
