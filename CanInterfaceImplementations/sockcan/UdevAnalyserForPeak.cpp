@@ -309,18 +309,19 @@ unsigned int UdevAnalyserForPeak::m_peakSystemDeviceIndex( std::string s ){
 		v0.push_back( s.substr(start, end - start));
 	}
 
-	unsigned int devId = 0;
+	unsigned int globalDevId = 0;
 	for ( unsigned int i = 0; i < v0.size(); i++ ){
 		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " v0= " << v0[ i ] << std::endl;
 
 		// find the vector element which starts with a number
 		std::size_t pos0 = v0[i].find_first_of( "0123456789" );
+		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " pos0= " << pos0 << std::endl;
 		if ( pos0 == 1 ){
-			devId = stoul( v0[i], 0, 10 );
+			globalDevId = stoul( v0[i], 0, 10 );
 		}
 	}
 	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " devId= " << devId << std::endl;
-	return ( devId );
+	return ( globalDevId );
 
 
 
