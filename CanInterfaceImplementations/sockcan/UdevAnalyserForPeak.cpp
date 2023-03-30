@@ -299,6 +299,8 @@ unsigned int UdevAnalyserForPeak::m_peakDeviceId( std::string s ){
  */
 unsigned int UdevAnalyserForPeak::m_peakSystemDeviceIndex( std::string s ){
 	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " " << s << std::endl;
+
+	s += "\0";
 	for ( std::string::iterator it=s.begin(); it!=s.end(); ++it)
 		std::cout << __FUNCTION__ << " " << *it << std::endl;
 
