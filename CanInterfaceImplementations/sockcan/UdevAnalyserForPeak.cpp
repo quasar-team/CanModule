@@ -320,7 +320,7 @@ unsigned int UdevAnalyserForPeak::m_peakSystemDeviceIndex( std::string s ){
 			globalDevId = stoul( v0[i], 0, 10 );
 		}
 	}
-	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " devId= " << devId << std::endl;
+	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " globalDevId= " << globalDevId << std::endl;
 	return ( globalDevId );
 
 
