@@ -300,9 +300,19 @@ unsigned int UdevAnalyserForPeak::m_peakDeviceId( std::string s ){
 unsigned int UdevAnalyserForPeak::m_peakSystemDeviceIndex( std::string s ){
 	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " " << s << std::endl;
 
-	s += "\0";
-	for ( std::string::iterator it=s.begin(); it!=s.end(); ++it)
-		std::cout << __FUNCTION__ << " " << *it << std::endl;
+	std::vector<std::string> v0;
+	size_t start;
+	size_t end = 0;
+	const char delim = '/';
+	while ((start = s.find_first_not_of( delim, end)) != std::string::npos)  {
+		end = s.find( delim, start);
+		v0.push_back( s.substr(start, end - start));
+	}
+
+	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " v0= " << v0 << std::endl;
+
+
+
 
 
 
