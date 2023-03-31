@@ -255,16 +255,16 @@ unsigned int UdevAnalyserForPeak::m_peakDriverNumber( std::string s ){
  * cal9:
  */
 unsigned int UdevAnalyserForPeak::m_peakLocalCanPort( std::string s ){
-	//std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " " << s << std::endl;
+	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " " << s << std::endl;
 
 	size_t pos1 = s.find( "/" ) + 1;
 	std::string sub1 = s.substr( pos1, std::string::npos );
 	size_t pos2 = sub1.find( "/" ) + 1;
 	std::string sub2 = sub1.substr( pos2, sub1.find(" ") - 2 );
 	std::string sub3 = sub2.substr( 3, std::string::npos );
-	//std::cout << __FILE__ << " " << __LINE__ << " sub3= " << sub3 << std::endl;
+	std::cout << __FILE__ << " " << __LINE__ << " sub3= " << sub3 << std::endl;
 	unsigned int ii = std::stoul( sub3, 0, 10 );
-	//std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " ii= " << ii << std::endl;
+	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " ii= " << ii << std::endl;
 	return( ii );
 }
 
