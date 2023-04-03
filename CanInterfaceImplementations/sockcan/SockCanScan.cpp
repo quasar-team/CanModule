@@ -576,7 +576,7 @@ int CSockCanScan::m_openCanPort()
 	strncpy(ifr.ifr_name, m_channelName.c_str(), sizeof(ifr.ifr_name)-1);
 
 
-	MLOGSOCK(TRC,this) << "calling index ioctl SIOCGIFINDEX for " << m_sock ";
+	MLOGSOCK(TRC,this) << "calling index ioctl SIOCGIFINDEX for " << m_sock;
 	int ret0 = ioctl(m_sock, SIOCGIFINDEX, &ifr);
 	MLOGSOCK(TRC,this) << "ioctl SIOCGIFINDEX ret0= " << ret0;
 
