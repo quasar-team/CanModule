@@ -566,19 +566,27 @@ int CSockCanScan::m_openCanPort()
 		return -1;
 	}
 	struct ifreq ifr;
-	memset(&ifr.ifr_name, 0, sizeof(ifr.ifr_name));
-	if (m_channelName.length() > sizeof ifr.ifr_name-1)
+	memset( &ifr.ifr_name, 0, sizeof(ifr.ifr_name ));
+	if ( m_channelName.length() > sizeof ifr.ifr_name-1)
 	{
 		MLOGSOCK(ERR,this) << "Given name of the port exceeds operating-system imposed limit";
 		return -1;
 	}
+	MLOGSOCK(INF,this) << " ioctl set channel name to " << m_channelName;
 	strncpy(ifr.ifr_name, m_channelName.c_str(), sizeof(ifr.ifr_name)-1);
 
-	if (ioctl(m_sock, SIOCGIFINDEX, &ifr) < 0)
+
+	MLOGSOCK(TRC,this) << "calling index ioctl SIOCGIFINDEX for " << m_sock ";
+	int ret0 = ioctl(m_sock, SIOCGIFINDEX, &ifr);
+	MLOGSOCK(TRC,this) << "ioctl SIOCGIFINDEX ret0= " << ret0 ";
+
+	// if (ioctl(m_sock, SIOCGIFINDEX, &ifr) < 0)
+	if ( ret0 )
 	{
 		MLOGSOCK(ERR,this) << "ioctl SIOCGIFINDEX failed. " << CanModuleerrnoToString();
 		return -1;
 	}
+
 
 	can_err_mask_t err_mask = 0x1ff;
 	if( setsockopt(m_sock, SOL_CAN_RAW, CAN_RAW_ERR_FILTER, &err_mask, sizeof err_mask) < 0 )
