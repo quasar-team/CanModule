@@ -262,7 +262,32 @@ unsigned int UdevAnalyserForPeak::m_peakDriverNumber( std::string s ){
 unsigned int UdevAnalyserForPeak::m_peakLocalCanPort( std::string s ){
 	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " " << s << std::endl;
 
-	size_t pos1 = s.find( "/can" ) + 4;
+
+	std::vector<std::string> v0;
+	size_t start;
+	size_t end = 0;
+	std::string delim = "/can";
+	while (( start = s.find_first_not_of( delim, end)) != std::string::npos )  {
+		end = s.find( delim, start );
+		v0.push_back( s.substr(start, end - start));
+	}
+
+	unsigned int localCanport = 999999;
+	for ( unsigned int i = 0; i < v0.size(); i++ ){
+		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " v0= " << v0[ i ] << std::endl;
+
+		// find the vector element which starts with a number
+		std::size_t pos0 = v0[i].find_first_of( "0123456789" );
+		//std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " pos0= " << pos0 << std::endl;
+		if ( pos0 == 0 ){
+			localCanport = stoul( v0[i], 0, 10 );
+		}
+	}
+	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " localCanport= " << localCanport << std::endl;
+	return ( localCanport );
+
+#if 0
+	size_t pos1 = s.find( "/can" ) - 4;
 	std::string sub1 = s.substr( pos1, std::string::npos );
 	std::cout << __FILE__ << " " << __LINE__ << " sub1= " << sub1 << std::endl;
 
@@ -275,6 +300,7 @@ unsigned int UdevAnalyserForPeak::m_peakLocalCanPort( std::string s ){
 	unsigned int ii = std::stoul( sub3, 0, 10 );
 	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " ii= " << ii << std::endl;
 	return( ii );
+#endif
 }
 
 /**
