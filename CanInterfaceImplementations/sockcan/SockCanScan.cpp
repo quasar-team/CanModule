@@ -578,7 +578,7 @@ int CSockCanScan::m_openCanPort()
 
 	MLOGSOCK(TRC,this) << "calling index ioctl SIOCGIFINDEX for " << m_sock ";
 	int ret0 = ioctl(m_sock, SIOCGIFINDEX, &ifr);
-	MLOGSOCK(TRC,this) << "ioctl SIOCGIFINDEX ret0= " << ret0 ";
+	MLOGSOCK(TRC,this) << "ioctl SIOCGIFINDEX ret0= " << ret0;
 
 	// if (ioctl(m_sock, SIOCGIFINDEX, &ifr) < 0)
 	if ( ret0 )
