@@ -319,6 +319,7 @@ void CSockCanScan::m_CanScanControlThread()
 					<< "], original: [" << canFrameToString(socketMessage) << "]";
 
 			p_sockCanScan->canMessageError( p_sockCanScan->m_canMessageErrorCode, description.c_str(), c_time ); // signal
+
 			continue;
 		}
 
@@ -572,16 +573,17 @@ int CSockCanScan::m_openCanPort()
 		MLOGSOCK(ERR,this) << "Given name of the port exceeds operating-system imposed limit";
 		return -1;
 	}
-	MLOGSOCK(INF,this) << " ioctl set channel name to " << m_channelName;
+	MLOGSOCK(INF,this) << " ioctl setting channel name to " << m_channelName;
 	strncpy(ifr.ifr_name, m_channelName.c_str(), sizeof(ifr.ifr_name)-1);
 
-
-	MLOGSOCK(TRC,this) << "calling index ioctl SIOCGIFINDEX for " << m_sock;
-	int ret0 = ioctl(m_sock, SIOCGIFINDEX, &ifr);
-	MLOGSOCK(TRC,this) << "ioctl SIOCGIFINDEX ret0= " << ret0;
-
-	// if (ioctl(m_sock, SIOCGIFINDEX, &ifr) < 0)
-	if ( ret0 )
+	/** if this fails, crate and configure your socketcan devices properly using
+	 *ip link set can0 type can bitrate 250000
+	 * ifconfig can0 up
+	 *
+	 * Retrieve the interface index of the interface into ifr_ifindex.
+	 *  https://www.man7.org/linux/man-pages/man7/netdevice.7.html
+	 */
+	if (ioctl(m_sock, SIOCGIFINDEX, &ifr) < 0)
 	{
 		MLOGSOCK(ERR,this) << "ioctl SIOCGIFINDEX failed. " << CanModuleerrnoToString();
 		return -1;
