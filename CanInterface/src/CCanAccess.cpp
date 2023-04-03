@@ -217,7 +217,7 @@ std::vector<std::string> CCanAccess::parseNameAndParameters(std::string name, st
 		m_sBusName = name;
 	}
 
-	LOG(Log::INF) << __FUNCTION__ << " m_sBusName= " << m_sBusName;
+	LOG(Log::DBG) << __FUNCTION__ << " m_sBusName= " << m_sBusName;
 
 	vector<string> stringVector;
 	istringstream nameSS(name);
@@ -225,10 +225,10 @@ std::vector<std::string> CCanAccess::parseNameAndParameters(std::string name, st
 	while (getline(nameSS, temporalString, ':'))
 	{
 		stringVector.push_back(temporalString);
-		LOG(Log::TRC, m_lh) << __FUNCTION__ << " stringVector new element= " << temporalString;
+		//LOG(Log::TRC, m_lh) << __FUNCTION__ << " stringVector new element= " << temporalString;
 	}
 	m_CanParameters.scanParameters(parameters);
-	LOG(Log::INF) << __FUNCTION__ << " stringVector size= " << stringVector.size();
+	LOG(Log::DBG) << __FUNCTION__ << " stringVector size= " << stringVector.size();
 	for (const auto &value : stringVector)
 	{
 		LOG(Log::INF) << __FUNCTION__ << " " << value;
