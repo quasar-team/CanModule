@@ -9,6 +9,8 @@ we have 4 types of signals
 - 2-bus specific errors (classical bus error detection)
 - 3-bus specific port status changes (ecah time status or nb. of handler connection changes, not neccessarily an error)
 - 4-global errors, non bus specific (e.g. port opening problems, lib problems, high level global problems, NOT port specific)
+- peak for cal9 (kernel5) and cc7 (kernel3): fixed udev calls, found a common solution for both kernel versions
+- peak: kernel3 driver 8.8.1, kernel5 driver 8.15.2. If you use 8.15.2 on a cc7 you get a kernel corruption
 
 
 ### 2.0.24 [ 30.jan.2023 ]

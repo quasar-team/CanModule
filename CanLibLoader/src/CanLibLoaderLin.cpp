@@ -64,6 +64,10 @@ void CanLibLoaderLin::dynamicallyLoadLib(const std::string& libName)
 			std::ostringstream msg;
 			msg << "Error: could not load library ["<<ss.str()<<"], current working directory ["<<boost::filesystem::current_path()<<"] error: "<<err;
 			LOG(Log::ERR, lh) << msg.str();
+
+			m_gsig->fireSignal( 010, msg.str().c_str() );
+
+			// this might be caught by the client, so we do not neccessarily stop execution here.
 			throw std::runtime_error(msg.str());
 		}
 	}	
@@ -86,6 +90,9 @@ CCanAccess*  CanLibLoaderLin::createCanAccess()
 		std::ostringstream msg;
 		msg << "Error: could not locate the function 'getCanBusAccess', error: [" << err << "]";
 		LOG(Log::ERR, lh) << msg.str();
+
+		m_gsig->fireSignal( 011, msg.str().c_str() );
+
 		throw std::runtime_error( msg.str() );
 	}
 	if (!canAccess)
@@ -94,6 +101,9 @@ CCanAccess*  CanLibLoaderLin::createCanAccess()
 		std::ostringstream msg;
 		msg << "Error: could not locate the function 'canAccess', error: [" << err << "]";
 		LOG(Log::ERR, lh) << msg.str();
+
+		m_gsig->fireSignal( 012, msg.str().c_str() );
+
 		throw std::runtime_error( msg.str() );
 	}
 	// We call the function getHalAccess we got from the library. This will give us a pointer to an object, which we store.

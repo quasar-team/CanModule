@@ -111,6 +111,9 @@ namespace CanModule
 				LOG(Log::ERR, lh) << " WARNING: easiest solution: copy them into the same directory as the CANX-tester binary";
 			}
 			ErrorExit(TEXT( "Error: could not load the dynamic library " ));
+
+			m_gsig->fireSignal( 020, (const char *) msg.str().c_str() );
+
 			throw std::runtime_error( msg.c_str() );
 		}
 	}
@@ -130,6 +133,9 @@ namespace CanModule
 
 		// We check for errors again. If there is an error the library is released from memory.
 		if (!canAccess) {
+			std::string msg = std::string(__FUNCTION__) + std::string(": Error: could not locate the function getCanBusAccess");
+			m_gsig->fireSignal( 020, (const char *) msg.str().c_str() );
+
 			throw std::runtime_error( std::string(__FUNCTION__) + std::string(": Error: could not locate the function"));
 		}
 		// We call the function getHalAccess we got from the library. This will give us a pointer to an object, wich we store.
