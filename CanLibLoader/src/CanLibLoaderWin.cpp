@@ -69,8 +69,9 @@ namespace CanModule
 	CanLibLoaderWin::CanLibLoaderWin(const std::string& libName)
 		: CanLibLoader(libName), m_pDynamicLibrary(0)
 	{
-		std::cout  << __FUNCTION__ << std::endl;
 		LOG(Log::TRC, lh) << "inherited logItComponentHandle= " << lh;
+		m_gsig = GlobalErrorSignaler::getInstance();
+
 		dynamicallyLoadLib(libName);
 	}
 

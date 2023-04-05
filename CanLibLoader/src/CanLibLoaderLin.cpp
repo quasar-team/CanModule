@@ -39,6 +39,7 @@ CanLibLoaderLin::CanLibLoaderLin(const std::string& libName)
 : CanLibLoader(libName), p_dynamicLibrary(0)
 {
 	LOG(Log::TRC, lh) << "inherited logItComponentHandle= " << lh;
+	m_gsig = GlobalErrorSignaler::getInstance();
 
 	dynamicallyLoadLib(libName);
 
