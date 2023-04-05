@@ -150,28 +150,28 @@ void UdevAnalyserForPeak::m_createUdevPortMap( void ){
 	std::string cmd0 = "ls -l /dev/pcanusb* | grep -v \" -> \" | awk '{print $10}' ";
 	execcommand_ns::ExecCommand exec0( cmd0 );
 	const execcommand_ns::ExecCommand::CmdResults results0 = exec0.getResults();
-	LOG(Log::TRC, m_logItHandleSock) << "peak exec0= " << exec0;
+	//LOG(Log::TRC, m_logItHandleSock) << "peak exec0= " << exec0;
 
 	// get the symlinks for each device and the first port
 	for ( unsigned int i = 0; i < results0.size(); i++ ){
 		std::string cmd1 = std::string("/sbin/udevadm info -q symlink ") + results0[ i ] + std::string(" | grep \"devid=\"");
-		LOG(Log::TRC, m_logItHandleSock) << "peak cmd1= " << cmd1;
+		//LOG(Log::TRC, m_logItHandleSock) << "peak cmd1= " << cmd1;
 		execcommand_ns::ExecCommand exec1( cmd1 );
 		execcommand_ns::ExecCommand::CmdResults results1 = exec1.getResults();
 		for ( unsigned k = 0; k < results1.size(); k++ ){
 			links1.push_back( results1[ k ] );
-			LOG(Log::TRC, m_logItHandleSock) << "peak results1[ " << k << "]=" << results1[ k ];
+			//LOG(Log::TRC, m_logItHandleSock) << "peak results1[ " << k << "]=" << results1[ k ];
 		}
 	}
 	// get the links of the other ports
 	for ( unsigned int i = 0; i < results0.size(); i++ ){
 		std::string cmd2 = std::string("/sbin/udevadm info -q symlink ") + results0[ i ] + std::string(" | grep -v \"devid=\"");
-		LOG(Log::TRC, m_logItHandleSock) << "peak cmd2= " << cmd2;
+		//LOG(Log::TRC, m_logItHandleSock) << "peak cmd2= " << cmd2;
 		execcommand_ns::ExecCommand exec2( cmd2 );
 		execcommand_ns::ExecCommand::CmdResults results2 = exec2.getResults();
 		for ( unsigned k = 0; k < results2.size(); k++ ){
 			links2.push_back( results2[ k ] );
-			LOG(Log::TRC, m_logItHandleSock) << "peak results2[ " << k << "]="  << results2[ k ];
+			//LOG(Log::TRC, m_logItHandleSock) << "peak results2[ " << k << "]="  << results2[ k ];
 		}
 	}
 

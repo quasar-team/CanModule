@@ -341,19 +341,20 @@ void CSockCanScan::m_CanScanControlThread()
 		canMessage.c_id = socketMessage.can_id & ~CAN_RTR_FLAG;
 		int ioctlReturn2 = ioctl(sock,SIOCGSTAMP,&canMessage.c_time);
 		if ( ioctlReturn2 ){
-			MLOGSOCK(ERR, p_sockCanScan) << "SocketCAN "
+			// actually we do not treat that as an error
+			MLOGSOCK(TRC, p_sockCanScan) << "SocketCAN "
 					<< p_sockCanScan->getBusName()
 					<< " ioctl timestamp from socket failed, setting local time"
 					<< " ioctlReturn2 = " << ioctlReturn2;
 			canMessage.c_time = CanModule::convertTimepointToTimeval( std::chrono::system_clock::now());
 		}
 
-		MLOGSOCK(TRC, p_sockCanScan) << " SocketCAN ioctl SIOCGSTAMP return: [" << ioctlReturn2 << "]" << " tid= " << _tid;
+		//MLOGSOCK(TRC, p_sockCanScan) << " SocketCAN ioctl SIOCGSTAMP return: [" << ioctlReturn2 << "]" << " tid= " << _tid;
 
 		// send the CAN message through it's port signal
 		canMessage.c_dlc = socketMessage.can_dlc;
 		memcpy(&canMessage.c_data[0],&socketMessage.data[0],8);
-		MLOGSOCK(TRC, p_sockCanScan) << " sending message id= " << canMessage.c_id << " through signal with payload";
+		//MLOGSOCK(TRC, p_sockCanScan) << " sending message id= " << canMessage.c_id << " through signal with payload";
 		p_sockCanScan->canMessageCame( canMessage ); // signal with payload to trigger registered handler
 		p_sockCanScan->m_statistics.onReceive( socketMessage.can_dlc );
 
