@@ -414,10 +414,7 @@ public:
 		LOG(Log::TRC, m_lh) << __FUNCTION__ << " decrease m_failedSendCountdown= " << m_failedSendCountdown;
 	}
 
-	void resetSendFailedCountdown(){
-		m_failedSendCountdown = m_maxFailedSendCount;
-		LOG(Log::TRC, m_lh) << __FUNCTION__ << " reset internal m_failedSendCountdown= " << m_failedSendCountdown;
-	}
+	void resetSendFailedCountdown(){ m_failedSendCountdown = m_maxFailedSendCount; 	}
 
 
 
