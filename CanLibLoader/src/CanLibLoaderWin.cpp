@@ -113,7 +113,7 @@ namespace CanModule
 			}
 			ErrorExit(TEXT( "Error: could not load the dynamic library " ));
 
-			m_gsig->fireSignal( 020, (const char *) msg.str().c_str() );
+			m_gsig->fireSignal( 020, msg.c_str() );
 
 			throw std::runtime_error( msg.c_str() );
 		}
