@@ -135,13 +135,12 @@ namespace CanModule
 		// We check for errors again. If there is an error the library is released from memory.
 		if (!canAccess) {
 			std::string msg = std::string(__FUNCTION__) + std::string(": Error: could not locate the function getCanBusAccess");
-			m_gsig->fireSignal( 020, (const char *) msg.str().c_str() );
+			m_gsig->fireSignal( 020, msg.c_str() );
 
-			throw std::runtime_error( std::string(__FUNCTION__) + std::string(": Error: could not locate the function"));
+			throw std::runtime_error( msg.c_str() );
 		}
 		// We call the function getHalAccess we got from the library. This will give us a pointer to an object, wich we store.
 		LOG(Log::TRC, lh) << __FUNCTION__ << ": getCanBusAccess: got an object ptr from library, OK";
-
 
 		return (CCanAccess*)(canAccess());
 	}
