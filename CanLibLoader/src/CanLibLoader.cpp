@@ -43,6 +43,13 @@ CanLibLoader::CanLibLoader(const std::string& libName)
 	m_gsig = GlobalErrorSignaler::getInstance();
 	m_loglevel = Log::TRC;
 
+
+	LogItInstance* logItInstance = CCanAccess::getLogItInstance(); // actually calling instance method, not class
+	if (!Log::initializeDllLogging( logItInstance )){
+		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
+				<< " could not DLL init remote LogIt instance " << std::endl;
+	}
+
 #if 0
 	bool ret = Log::initializeLogging(Log::TRC);
 	if ( ret ) {
