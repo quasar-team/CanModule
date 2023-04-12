@@ -41,7 +41,7 @@ namespace CanModule
 CanLibLoader::CanLibLoader(const std::string& libName)
 {
 	m_gsig = GlobalErrorSignaler::getInstance();
-	m_loglevel = Log::TRC;
+	// m_loglevel = Log::TRC;
 
 #if 0
 	bool ret = Log::initializeLogging(Log::TRC);
@@ -65,6 +65,7 @@ CanLibLoader::CanLibLoader(const std::string& libName)
 		logIt->getComponentHandle( CanModule::LogItComponentName, lh );
 		std::cout << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " constructor " << libName << std::endl;
 		LOG(Log::TRC, lh ) << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " constructor " << libName;
+
 	} else {
 		std::stringstream msg;
 		msg << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " LogIt instance is NULL";

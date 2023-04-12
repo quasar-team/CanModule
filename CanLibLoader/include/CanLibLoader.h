@@ -71,6 +71,6 @@ protected:
 private:
 	std::string m_libName;
 	GlobalErrorSignaler *m_gsig;
-	Log::LOG_LEVEL m_loglevel;
+	// Log::LOG_LEVEL m_loglevel;
 };
 }
