@@ -131,8 +131,7 @@ CCanAccess* CanLibLoader::openCanBus(std::string name, std::string parameters) {
 		std::cout << __FILE__ << " " << __LINE__ << " " << " got " << CanModule::LogItComponentName << " loglevel= " << loglevel << std::endl;
 	} else {
 		std::cout << __FILE__ << " " << __LINE__ << " " << " component " << CanModule::LogItComponentName << " does not exist, set loglevel= " << loglevel << std::endl;
-		Log::LOG_LEVEL loglevel = Log::TRC;
-
+		loglevel = Log::TRC;
 	}
 	logInstance->registerLoggingComponent( CanModule::LogItComponentName, loglevel );
 
