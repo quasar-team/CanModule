@@ -128,7 +128,7 @@ CCanAccess* CanLibLoader::openCanBus(std::string name, std::string parameters) {
 	Log::LogComponentHandle handle = getComponentHandle( CanModule::LogItComponentName );
 	Log::getComponentLogLevel( handle, loglevel );
 	// logInstance->registerLoggingComponent( CanModule::LogItComponentName, Log::TRC );
-	logInstance->registerLoggingComponent( CanModule::LogItComponentName, logLevel );
+	logInstance->registerLoggingComponent( CanModule::LogItComponentName, loglevel );
 
 
 	LOG(Log::DBG, lh ) << __FUNCTION__ << " calling createBus. name= " << name << " parameters= " << parameters;
