@@ -21,7 +21,9 @@ GlobalErrorSignaler* GlobalErrorSignaler::getInstance() {
 	if ( GlobalErrorSignaler::instancePtr == NULL) {
 		GlobalErrorSignaler::instancePtr = new GlobalErrorSignaler();
 
-		bool ret = Log::initializeLogging(Log::TRC);
+		LogItInstance *logInstance = LogItInstance::getInstance() ;
+		// bool ret = Log::initializeLogging( Log::TRC );
+		bool ret = Log::initializeDllLogging( logInstance );
 		if ( ret ) {
 			std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " LogIt initialized OK" << std::endl;
 			LogItInstance *logIt = LogItInstance::getInstance();
