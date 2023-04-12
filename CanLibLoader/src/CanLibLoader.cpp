@@ -121,7 +121,13 @@ CCanAccess* CanLibLoader::openCanBus(std::string name, std::string parameters) {
 	//The Logit instance of the executable is handled to the DLL at this point, so the instance is shared.
 	LogItInstance *logInstance = LogItInstance::getInstance() ;
 	tcca->initialiseLogging( logInstance );
-	logInstance->registerLoggingComponent( CanModule::LogItComponentName, Log::TRC );
+
+	// set the level when registering
+	Log::LOG_LEVEL loglevel = Log::TRC;
+	Log::getComponentLogLevel( CanModule::LogItComponentName, loglevel );
+	// logInstance->registerLoggingComponent( CanModule::LogItComponentName, Log::TRC );
+	logInstance->registerLoggingComponent( CanModule::LogItComponentName, logLevel );
+
 
 	LOG(Log::DBG, lh ) << __FUNCTION__ << " calling createBus. name= " << name << " parameters= " << parameters;
 	/** @param name: Name of the can bus channel. The specific mapping will change depending on the interface used. For example, accessing channel 0 for the
