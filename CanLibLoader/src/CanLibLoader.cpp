@@ -124,7 +124,9 @@ CCanAccess* CanLibLoader::openCanBus(std::string name, std::string parameters) {
 
 	// set the level when registering
 	Log::LOG_LEVEL loglevel = Log::TRC;
-	Log::getComponentLogLevel( CanModule::LogItComponentName, loglevel );
+
+	Log::LogComponentHandle handle = getComponentHandle( CanModule::LogItComponentName );
+	Log::getComponentLogLevel( handle, loglevel );
 	// logInstance->registerLoggingComponent( CanModule::LogItComponentName, Log::TRC );
 	logInstance->registerLoggingComponent( CanModule::LogItComponentName, logLevel );
 
