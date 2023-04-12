@@ -43,7 +43,7 @@ CanLibLoader::CanLibLoader(const std::string& libName)
 	m_gsig = GlobalErrorSignaler::getInstance();
 	m_loglevel = Log::TRC;
 
-
+#if 0
 	bool ret = Log::initializeLogging(Log::TRC);
 	if ( ret ) {
 		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " LogIt initialized OK" << std::endl;
@@ -53,6 +53,7 @@ CanLibLoader::CanLibLoader(const std::string& libName)
 		std::cout << msg.str() << std::endl;
 		m_gsig->fireSignal( 001, msg.str().c_str() );
 	}
+#endif
 
 	LogItInstance *logIt = LogItInstance::getInstance();
 	if ( logIt != NULL ){
