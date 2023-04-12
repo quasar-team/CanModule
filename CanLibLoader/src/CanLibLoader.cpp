@@ -36,19 +36,27 @@ namespace CanModule
 {
 
 
+/* static */ bool initializeLogging( LogItInstance* remoteInstance ){
+	Log::initializeDllLogging( remoteInstance );
+}
+
 // called by factory
 CanLibLoader::CanLibLoader(const std::string& libName)
 {
 	m_gsig = GlobalErrorSignaler::getInstance();
+	m_loglevel = Log::TRC;
+
+
 	bool ret = Log::initializeLogging(Log::TRC);
-	if (ret) {
+	if ( ret ) {
 		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " LogIt initialized OK" << std::endl;
 	} else {
 		std::stringstream msg;
-		msg << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " LogIt problem at initialisation";
+		msg << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " LogIt problem at initialisation, please pass LogIt ptr to CanLibLoader::initializeLogging first";
 		std::cout << msg.str() << std::endl;
 		m_gsig->fireSignal( 001, msg.str().c_str() );
 	}
+
 	LogItInstance *logIt = LogItInstance::getInstance();
 	if ( logIt != NULL ){
 		logIt->getComponentHandle( CanModule::LogItComponentName, lh );
