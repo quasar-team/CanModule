@@ -36,9 +36,6 @@ namespace CanModule
 {
 
 
-/* static */ bool initializeLogging( LogItInstance* remoteInstance ){
-	Log::initializeDllLogging( remoteInstance );
-}
 
 // called by factory
 CanLibLoader::CanLibLoader(const std::string& libName)
