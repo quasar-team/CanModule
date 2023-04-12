@@ -122,19 +122,18 @@ CCanAccess* CanLibLoader::openCanBus(std::string name, std::string parameters) {
 	LogItInstance *logInstance = LogItInstance::getInstance() ;
 	tcca->initialiseLogging( logInstance );
 
-#if 0
+
 	// set the level when registering, component "CanModule"
-	Log::LOG_LEVEL loglevel = Log::ERR;
+	// we check if the component is registered and the loglevel is set
+	Log::LOG_LEVEL loglevel = Log::TRC;
 	Log::LogComponentHandle handle = Log::getComponentHandle( CanModule::LogItComponentName );
 	bool ret = Log::getComponentLogLevel( handle, loglevel );
 	if ( ret ) {
-		std::cout << __FILE__ << " " << __LINE__ << " " << " got " << CanModule::LogItComponentName << " loglevel= " << loglevel << std::endl;
+		LOG(Log::DBG, lh ) << " got " << CanModule::LogItComponentName << " loglevel= " << loglevel;
 	} else {
-		std::cout << __FILE__ << " " << __LINE__ << " " << " component " << CanModule::LogItComponentName << " does not exist, set loglevel= " << loglevel << std::endl;
-		loglevel = Log::TRC;
+		LOG(Log::WRN, lh ) << " component " << CanModule::LogItComponentName << " does not exist, register it and set loglevel= " << loglevel;
+		logInstance->registerLoggingComponent( CanModule::LogItComponentName, loglevel );
 	}
-	logInstance->registerLoggingComponent( CanModule::LogItComponentName, loglevel );
-#endif
 
 	LOG(Log::DBG, lh ) << __FUNCTION__ << " calling createBus. name= " << name << " parameters= " << parameters;
 	/** @param name: Name of the can bus channel. The specific mapping will change depending on the interface used. For example, accessing channel 0 for the
