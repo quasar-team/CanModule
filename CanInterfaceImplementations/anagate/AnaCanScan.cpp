@@ -304,6 +304,10 @@ int AnaCanScan::createBus(const std::string name, const std::string parameters)
 	// calling base class to get the instance from there
 	Log::LogComponentHandle myHandle;
 	LogItInstance* logItInstance = CCanAccess::getLogItInstance(); // actually calling instance method, not class
+	if (!Log::initializeDllLogging( logItInstance )){
+		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
+				<< " could not DLL init remote LogIt instance " << std::endl;
+	}
 
 	// register anagate component for logging
 	if ( !LogItInstance::setInstance(logItInstance)) {
