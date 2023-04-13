@@ -28,6 +28,7 @@
 
 #include "CCanAccess.h"
 #include "ExportDefinition.h"
+#include "LogIt.h"
 
 namespace CanModule 
 {
