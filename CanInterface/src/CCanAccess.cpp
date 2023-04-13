@@ -21,11 +21,10 @@ GlobalErrorSignaler* GlobalErrorSignaler::getInstance() {
 	if ( GlobalErrorSignaler::instancePtr == NULL) {
 		GlobalErrorSignaler::instancePtr = new GlobalErrorSignaler();
 
-		LogItInstance *logInstance = LogItInstance::getInstance() ;
-		bool ret = Log::initializeDllLogging( logInstance );
+		LogItInstance *logIt = CCanAccess::getLogItInstance();
+		bool ret = Log::initializeDllLogging( logIt );
 		if ( ret ) {
-			std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " LogIt initialized OK" << std::endl;
-			LogItInstance *logIt = LogItInstance::getInstance();
+			// std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " LogIt Dll initialized OK" << std::endl;
 			Log::LogComponentHandle lh = 0;
 			if ( logIt != NULL ){
 				logIt->getComponentHandle( CanModule::LogItComponentName, lh );
