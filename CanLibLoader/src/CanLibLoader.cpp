@@ -35,7 +35,7 @@
 namespace CanModule
 {
 
-/* static */ Log::LogItInstance *CanLibLoader::st_logIt = NULL;
+/* static */ LogItInstance *CanLibLoader::st_logIt = NULL;
 
 // called by factory
 CanLibLoader::CanLibLoader(const std::string& libName)
