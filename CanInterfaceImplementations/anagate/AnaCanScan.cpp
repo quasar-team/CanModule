@@ -300,7 +300,29 @@ int AnaCanScan::createBus(const std::string name, const std::string parameters)
 {	
 	m_busName = name;
 	m_busParameters = parameters;
+	m_gsig = GlobalErrorSignaler::getInstance();
 
+	LogItInstance *logIt = LogItInstance::getInstance();
+	Log::LogComponentHandle myHandle;
+	if ( logIt != NULL ){
+		if (!Log::initializeDllLogging( logIt )){
+			std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
+					<< " could not DLL init remote LogIt instance " << std::endl;
+		}
+
+		logIt->getComponentHandle( CanModule::LogItComponentName, myHandle );
+		std::cout << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " myHandle= " << myHandle << std::endl;
+		LOG(Log::TRC, myHandle ) << __FUNCTION__ << " " << __FILE__ << " " << __LINE__;
+
+	} else {
+		std::stringstream msg;
+		msg << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " LogIt instance is NULL";
+		std::cout << msg.str() << std::endl;
+		m_gsig->fireSignal( 002, msg.str().c_str() );
+	}
+
+
+#if 0
 	// calling base class to get the instance from there
 	Log::LogComponentHandle myHandle;
 	LogItInstance* logItInstance = CCanAccess::getLogItInstance(); // actually calling instance method, not class
@@ -318,6 +340,8 @@ int AnaCanScan::createBus(const std::string name, const std::string parameters)
 		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
 				<< " could not get LogIt component handle for " << LogItComponentName << std::endl;
 	}
+
+#endif
 
 	AnaCanScan::st_logItHandleAnagate = myHandle;
 	int returnCode = m_configureCanBoard( name, parameters );
