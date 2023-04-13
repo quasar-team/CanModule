@@ -55,7 +55,7 @@ CanLibLoader::CanLibLoader(const std::string& libName)
 	std::cout << __FILE__ << " " << __LINE__ << " *** " << " LogIt Log::DBG= " << Log::DBG << std::endl;
 	std::cout << __FILE__ << " " << __LINE__ << " *** " << " LogIt Log::TRC= " << Log::TRC << std::endl;
 
-	std::cout << __FILE__ << " " << __LINE__ << " *** " << log_comp_map.length() << std::endl;
+	std::cout << __FILE__ << " " << __LINE__ << " *** " << log_comp_map.size() << std::endl;
 
 	for ( it = log_comp_map.begin(); it != log_comp_map.end(); it++ )
 	{
