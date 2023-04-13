@@ -29,11 +29,10 @@
 #include "CCanAccess.h"
 #include "ExportDefinition.h"
 #include "LogIt.h"
+#include "LogItInstance.h"
 
 namespace CanModule 
 {
-
-using LogItInstance;
 
 class CanLibLoader 	{
 
