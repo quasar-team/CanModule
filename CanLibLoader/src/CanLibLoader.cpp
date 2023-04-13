@@ -37,7 +37,7 @@ namespace CanModule
 
 /* static */ LogItInstance *CanLibLoader::st_remoteLogIt = NULL;
 
-/* static */ void initializeLogging( LogItInstance* remoteInstance ) {
+/* static */ void CanLibLoader::initializeLogging( LogItInstance* remoteInstance ) {
 	Log::initializeDllLogging( remoteInstance );
 	CanLibLoader::st_remoteLogIt = remoteInstance;
 }
