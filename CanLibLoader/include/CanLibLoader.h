@@ -33,6 +33,7 @@
 namespace CanModule 
 {
 
+// Will cleanup the loaded dynamic library
 class CanLibLoader 	{
 
 protected:
@@ -40,25 +41,18 @@ protected:
 	CanLibLoader(const std::string& libName);
 
 public:
-	//Will cleanup the loaded dynamic library
 	virtual ~CanLibLoader();
-	/**
-	 * creates an instance
-	 */
+
 	SHARED_LIB_EXPORT_DEFN static CanLibLoader* createInstance(const std::string& libName);
+	SHARED_LIB_EXPORT_DEFN static void initializeLogging( LogItInstance* remoteInstance );
 
 	SHARED_LIB_EXPORT_DEFN CanModule::CCanAccess * openCanBus(std::string name, std::string parameters);
 	SHARED_LIB_EXPORT_DEFN	void closeCanBus(CanModule::CCanAccess *cca);
 
-	SHARED_LIB_EXPORT_DEFN static void initializeLogging( LogItInstance* remoteInstance ) {
-		Log::initializeDllLogging( remoteInstance );
-		CanLibLoader::st_remoteLogIt = remoteInstance;
-	}
-
 
 	// LogIt
 	Log::LogComponentHandle lh;
-	SHARED_LIB_EXPORT_DEFN static LogItInstance *st_remoteLogIt;
+	static LogItInstance *st_remoteLogIt;
 	void setLibName( std::string ln ){ m_libName = ln; }
 	std::string getLibName(){ return m_libName; }
 
