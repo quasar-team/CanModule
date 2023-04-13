@@ -21,7 +21,7 @@
  *  along with Quasar.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "CanLibLoader.h"
-#include "LogIt.h"
+// #include "LogIt.h"
 #include <string>
 #include <stdexcept>
 #ifdef _WIN32
@@ -93,10 +93,10 @@ CanLibLoader::CanLibLoader(const std::string& libName)
 
 	std::cout << __FILE__ << " " << __LINE__ << " *** " << log_comp_map.size() << std::endl;
 
+	Log::LOG_LEVEL level;
 	for ( it = log_comp_map.begin(); it != log_comp_map.end(); it++ )
 	{
-		Log::LOG_LEVEL level;
-		Log::getComponentLogLevel( it->first, level);
+		Log::getComponentLogLevel( it->first, level );
 		std::cout << __FILE__ << " " << __LINE__ << " *** " << " LogIt component " << it->second << " level= " << level << std::endl;
 	}
 
