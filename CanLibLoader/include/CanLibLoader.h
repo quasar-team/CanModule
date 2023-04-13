@@ -21,7 +21,11 @@
  *  along with Quasar.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+// #pragma once
+
+#ifndef CANMODULE_CANLIBLOADER_H_
+#define CANMODULE_CANLIBLOADER_H_
+
 #include <string>
 #include <map>
 
@@ -70,3 +74,5 @@ private:
 
 };
 }
+
+#endif // CANMODULE_CANLIBLOADER_H_

@@ -302,8 +302,13 @@ int AnaCanScan::createBus(const std::string name, const std::string parameters)
 	m_busParameters = parameters;
 	m_gsig = GlobalErrorSignaler::getInstance();
 
-	// LogIt: initialize shared lib. The logging levels for the component logging is kept
-	// LogItInstance *logIt = LogItInstance::getInstance();
+	/** LogIt: initialize shared lib. The logging levels for the component logging is kept, we are talking still to
+	 * the same master object "from the exe". We get the logIt ptr
+	 * acquired down from the superclass, which keeps it as a static, and being itself a shared lib. we are inside
+	 * another shared lib - 2nd stage - so we need to Dll initialize as well. Since we have many CAN ports we just acquire
+	 * the handler to go with the logIt object and keep that as a static. we do not do per-port component logging.
+	 * we do, however, stamp the logging messages specifically for each vendor using the macro.
+	 */
 	LogItInstance *logIt = getLogItInstance(); //CCanAccess
 	Log::LogComponentHandle myHandle;
 	if ( logIt != NULL ){
@@ -312,9 +317,8 @@ int AnaCanScan::createBus(const std::string name, const std::string parameters)
 					<< " could not DLL init remote LogIt instance " << std::endl;
 		}
 		logIt->getComponentHandle( CanModule::LogItComponentName, myHandle );
-		std::cout << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " myHandle= " << myHandle << std::endl;
 		LOG(Log::INF, myHandle ) << CanModule::LogItComponentName << " Dll logging initialized OK";
-
+		AnaCanScan::st_logItHandleAnagate = myHandle;
 	} else {
 		std::stringstream msg;
 		msg << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " LogIt instance is NULL";
@@ -327,14 +331,7 @@ int AnaCanScan::createBus(const std::string name, const std::string parameters)
 	 */
 	std::map<Log::LogComponentHandle, std::string> log_comp_map = Log::getComponentLogsList();
 	std::map<Log::LogComponentHandle, std::string>::iterator it;
-	std::cout << __FILE__ << " " << __LINE__ << " *** " << " LogIt Log::ERR= " << Log::ERR << std::endl;
-	std::cout << __FILE__ << " " << __LINE__ << " *** " << " LogIt Log::WRN= " << Log::WRN << std::endl;
-	std::cout << __FILE__ << " " << __LINE__ << " *** " << " LogIt Log::INF= " << Log::INF << std::endl;
-	std::cout << __FILE__ << " " << __LINE__ << " *** " << " LogIt Log::DBG= " << Log::DBG << std::endl;
-	std::cout << __FILE__ << " " << __LINE__ << " *** " << " LogIt Log::TRC= " << Log::TRC << std::endl;
-
 	std::cout << __FILE__ << " " << __LINE__ << " *** " << log_comp_map.size() << std::endl;
-
 	for ( it = log_comp_map.begin(); it != log_comp_map.end(); it++ )
 	{
 		Log::LOG_LEVEL level;
@@ -342,28 +339,7 @@ int AnaCanScan::createBus(const std::string name, const std::string parameters)
 		std::cout << __FILE__ << " " << __LINE__ << " *** " << " LogIt component " << it->second << " level= " << level << std::endl;
 	}
 
-#if 0
-	// calling base class to get the instance from there
-	Log::LogComponentHandle myHandle;
-	LogItInstance* logItInstance = CCanAccess::getLogItInstance(); // actually calling instance method, not class
-	if (!Log::initializeDllLogging( logItInstance )){
-		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
-				<< " could not DLL init remote LogIt instance " << std::endl;
-	}
-
-	// register anagate component for logging
-	if ( !LogItInstance::setInstance(logItInstance)) {
-		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
-				<< " could not set LogIt instance" << std::endl;
-	}
-	if (!logItInstance->getComponentHandle(CanModule::LogItComponentName, myHandle)){
-		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
-				<< " could not get LogIt component handle for " << LogItComponentName << std::endl;
-	}
-
-#endif
-
-	AnaCanScan::st_logItHandleAnagate = myHandle;
+	// board configuration
 	int returnCode = m_configureCanBoard( name, parameters );
 	if ( returnCode < 0 ) {
 		m_signalErrorMessage( -1, "createBus: configureCanBoard: problem configuring. ip= " + m_canIPAddress +
