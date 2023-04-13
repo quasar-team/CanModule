@@ -145,6 +145,7 @@ private:
      * mutex protection for now.
      */
     static Log::LogComponentHandle st_logItHandleAnagate;
+    LogItInstance *m_logIt;
 
 	/**
 	 * can handle map: handles are unique on one host and depend on {port, ip}. We can use the handle as a key

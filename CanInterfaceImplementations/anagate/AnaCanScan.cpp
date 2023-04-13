@@ -302,8 +302,9 @@ int AnaCanScan::createBus(const std::string name, const std::string parameters)
 	m_busParameters = parameters;
 	m_gsig = GlobalErrorSignaler::getInstance();
 
-	// LogIt. The logging levels for the component logging is kept
-	LogItInstance *logIt = LogItInstance::getInstance();
+	// LogIt: initialize shared lib. The logging levels for the component logging is kept
+	// LogItInstance *logIt = LogItInstance::getInstance();
+	m_logIt = getLogItInstance(); //CCanAccess
 	Log::LogComponentHandle myHandle;
 	if ( logIt != NULL ){
 		if (!Log::initializeDllLogging( logIt )){

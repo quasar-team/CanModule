@@ -158,13 +158,11 @@ CCanAccess* CanLibLoader::openCanBus(std::string name, std::string parameters) {
 	}
 
 	// The Logit instance of the executable is handled to the DLL at this point, so the instance is shared.
-	//LogItInstance *logInstance = LogItInstance::getInstance() ;
-	//tcca->initialiseLogging( logInstance );
+	// the global logIt instance is kept as private var of the superclass CCanAccess accessible via classical methods
 	tcca->initialiseLogging( CanLibLoader::st_remoteLogIt );
 
 
-	// set the level when registering, component "CanModule"
-	// we check if the component is registered and the loglevel is set
+	// we check if the component "CanModule" is registered and the loglevel is set
 	Log::LOG_LEVEL loglevel = Log::TRC; // default
 	Log::LogComponentHandle handle = Log::getComponentHandle( CanModule::LogItComponentName );
 	bool ret = Log::getComponentLogLevel( handle, loglevel );
