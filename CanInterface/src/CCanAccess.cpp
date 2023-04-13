@@ -25,6 +25,9 @@ GlobalErrorSignaler* GlobalErrorSignaler::getInstance() {
 		GlobalErrorSignaler::instancePtr = new GlobalErrorSignaler();
 
 		LogItInstance *logIt = CanLibLoader::st_getLogItInstance();
+		// the CCanAcccess has not yet been called but we need the handler already:
+		// use the static LibLoader method instead. not very nice but works
+
 		if ( logIt != NULL ){
 			bool ret = Log::initializeDllLogging( logIt );
 			if ( ret ) {
