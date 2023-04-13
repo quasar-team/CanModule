@@ -791,15 +791,13 @@ bool CSockCanScan::m_writeWrapper (const can_frame* frame)
 	 * we do, however, stamp the logging messages specifically for each vendor using the macro.
 	 */
 	LogItInstance *logIt = CCanAccess::getLogItInstance();
-	Log::LogComponentHandle myHandle;
 	if ( logIt != NULL ){
 		if (!Log::initializeDllLogging( logIt )){
 			std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
 					<< " could not DLL init remote LogIt instance " << std::endl;
 		}
-		logIt->getComponentHandle( CanModule::LogItComponentName, myHandle );
-		LOG(Log::INF, myHandle ) << CanModule::LogItComponentName << " Dll logging initialized OK";
-		AnaCanScan::st_logItHandleAnagate = myHandle;
+		logIt->getComponentHandle( CanModule::LogItComponentName, m_logItHandleSock );
+		LOG(Log::INF, m_logItHandleSock ) << CanModule::LogItComponentName << " Dll logging initialized OK";
 	} else {
 		std::stringstream msg;
 		msg << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " LogIt instance is NULL";
