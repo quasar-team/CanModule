@@ -55,7 +55,8 @@ public:
 		Log::initializeDllLogging( remoteInstance );
 		CanLibLoader::st_remoteLogIt = remoteInstance;
 	}
-	SHARED_LIB_EXPORT_DEFN static LogItInstance *st_remoteLogIt;
+
+	static LogItInstance::LogItInstance *st_remoteLogIt;
 
 	// LogIt handle
 	Log::LogComponentHandle lh;
