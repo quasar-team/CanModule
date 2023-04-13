@@ -55,14 +55,14 @@ public:
 		Log::initializeDllLogging( remoteInstance );
 		CanLibLoader::st_remoteLogIt = remoteInstance;
 	}
+	SHARED_LIB_EXPORT_DEFN static LogItInstance *st_remoteLogIt;
 
 	// LogIt handle
 	Log::LogComponentHandle lh;
 
 	void setLibName( std::string ln ){ m_libName = ln; }
-	std::string getLibName(){ return (m_libName);}
+	std::string getLibName(){ return m_libName; }
 
-	static LogItInstance *st_remoteLogIt;
 
 protected:
 	//Load a dynamic library.
