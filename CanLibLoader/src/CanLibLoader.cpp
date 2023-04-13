@@ -35,7 +35,7 @@
 namespace CanModule
 {
 
-/* static */ LogItInstance *CanLibLoader::st_logIt = NULL;
+/* static */ LogItInstance *CanLibLoader::st_remoteLogIt = NULL;
 
 // called by factory
 CanLibLoader::CanLibLoader(const std::string& libName)
@@ -60,14 +60,15 @@ CanLibLoader::CanLibLoader(const std::string& libName)
 	//st_logIt = LogItInstance::getInstance();
 #endif
 
-	if ( CanLibLoader::st_logIt != NULL ){
+	// must be set by client, check it here
+	if ( CanLibLoader::st_remoteLogIt != NULL ){
 #if 0
 		if (!Log::initializeDllLogging( st_logIt )){
 			std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
 					<< " could not DLL init remote LogIt instance " << std::endl;
 		}
 #endif
-		CanLibLoader::st_logIt->getComponentHandle( CanModule::LogItComponentName, lh );
+		CanLibLoader::st_remoteLogIt->getComponentHandle( CanModule::LogItComponentName, lh );
 		std::cout << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " constructor " << libName << std::endl;
 		LOG(Log::TRC, lh ) << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " constructor " << libName;
 
@@ -152,8 +153,9 @@ CCanAccess* CanLibLoader::openCanBus(std::string name, std::string parameters) {
 	}
 
 	// The Logit instance of the executable is handled to the DLL at this point, so the instance is shared.
-	LogItInstance *logInstance = LogItInstance::getInstance() ;
-	tcca->initialiseLogging( logInstance );
+	//LogItInstance *logInstance = LogItInstance::getInstance() ;
+	//tcca->initialiseLogging( logInstance );
+	tcca->initialiseLogging( CanLibLoader::st_remoteLogIt );
 
 
 	// set the level when registering, component "CanModule"

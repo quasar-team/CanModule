@@ -53,7 +53,7 @@ public:
 
 	SHARED_LIB_EXPORT_DEFN static void initializeLogging( LogItInstance* remoteInstance ) {
 		Log::initializeDllLogging( remoteInstance );
-		CanLibLoader::st_logIt = remoteInstance;
+		CanLibLoader::st_remoteLogIt = remoteInstance;
 	}
 
 	// LogIt handle
@@ -62,7 +62,7 @@ public:
 	void setLibName( std::string ln ){ m_libName = ln; }
 	std::string getLibName(){ return (m_libName);}
 
-	static LogItInstance *st_logIt;
+	static LogItInstance *st_remoteLogIt;
 
 protected:
 	//Load a dynamic library.
