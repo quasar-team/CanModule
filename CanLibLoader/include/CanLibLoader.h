@@ -56,7 +56,7 @@ public:
 		CanLibLoader::st_remoteLogIt = remoteInstance;
 	}
 
-	static Log::LogItInstance *st_remoteLogIt;
+	static LogItInstance *st_remoteLogIt;
 
 	// LogIt handle
 	Log::LogComponentHandle lh;
