@@ -509,6 +509,7 @@ public:
 		return(" unknown action");
 	}
 
+	static  LogItInstance* st_getLogItInstance();
 
 
 protected:
