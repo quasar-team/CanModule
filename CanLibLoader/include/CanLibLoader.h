@@ -33,7 +33,7 @@
 namespace CanModule 
 {
 
-using class LogItInstance;
+using LogItInstance;
 
 class CanLibLoader 	{
 
