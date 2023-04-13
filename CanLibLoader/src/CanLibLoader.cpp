@@ -43,8 +43,9 @@ CanLibLoader::CanLibLoader(const std::string& libName)
 	m_gsig = GlobalErrorSignaler::getInstance();
 	// m_loglevel = Log::TRC;
 
-#if 0
-	bool ret = Log::initializeLogging(Log::TRC);
+	// we are in a shared lib.
+	// for windows, we must initialize logging here. for linux, it does not matter. anyway, initializeLogging can be called as many times as you like.
+	bool ret = Log::initializeLogging( Log::TRC );
 	if ( ret ) {
 		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " LogIt initialized OK" << std::endl;
 	} else {
@@ -53,8 +54,8 @@ CanLibLoader::CanLibLoader(const std::string& libName)
 		std::cout << msg.str() << std::endl;
 		m_gsig->fireSignal( 001, msg.str().c_str() );
 	}
-#endif
 
+	// returns NULL for windows without the initializeLogging call above
 	LogItInstance *logIt = LogItInstance::getInstance();
 	if ( logIt != NULL ){
 		if (!Log::initializeDllLogging( logIt )){

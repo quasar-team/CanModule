@@ -302,6 +302,7 @@ int AnaCanScan::createBus(const std::string name, const std::string parameters)
 	m_busParameters = parameters;
 	m_gsig = GlobalErrorSignaler::getInstance();
 
+	// LogIt. The logging levels for the component logging is kept
 	LogItInstance *logIt = LogItInstance::getInstance();
 	Log::LogComponentHandle myHandle;
 	if ( logIt != NULL ){
@@ -309,10 +310,9 @@ int AnaCanScan::createBus(const std::string name, const std::string parameters)
 			std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
 					<< " could not DLL init remote LogIt instance " << std::endl;
 		}
-
 		logIt->getComponentHandle( CanModule::LogItComponentName, myHandle );
 		std::cout << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " myHandle= " << myHandle << std::endl;
-		LOG(Log::TRC, myHandle ) << __FUNCTION__ << " " << __FILE__ << " " << __LINE__;
+		LOG(Log::INF, myHandle ) << CanModule::LogItComponentName << " Dll logging initialized OK";
 
 	} else {
 		std::stringstream msg;
@@ -322,21 +322,17 @@ int AnaCanScan::createBus(const std::string name, const std::string parameters)
 	}
 
 	/**
-	 * lets get clear about the Logit components
+	 * lets get clear about the Logit components and their levels at this point
 	 */
 	std::map<Log::LogComponentHandle, std::string> log_comp_map = Log::getComponentLogsList();
 	std::map<Log::LogComponentHandle, std::string>::iterator it;
-
 	std::cout << __FILE__ << " " << __LINE__ << " *** " << " LogIt Log::ERR= " << Log::ERR << std::endl;
 	std::cout << __FILE__ << " " << __LINE__ << " *** " << " LogIt Log::WRN= " << Log::WRN << std::endl;
 	std::cout << __FILE__ << " " << __LINE__ << " *** " << " LogIt Log::INF= " << Log::INF << std::endl;
 	std::cout << __FILE__ << " " << __LINE__ << " *** " << " LogIt Log::DBG= " << Log::DBG << std::endl;
 	std::cout << __FILE__ << " " << __LINE__ << " *** " << " LogIt Log::TRC= " << Log::TRC << std::endl;
-
 	for ( it = log_comp_map.begin(); it != log_comp_map.end(); it++ )
 	{
-	    //std::cout << it->first;  // handle
-	    //std::cout << it->second;  // component name
 		Log::LOG_LEVEL level;
 		Log::getComponentLogLevel( it->first, level);
 		std::cout << __FILE__ << " " << __LINE__ << " *** " << " LogIt component " << it->second << " level= " << level << std::endl;
