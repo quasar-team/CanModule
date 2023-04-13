@@ -24,7 +24,9 @@ GlobalErrorSignaler* GlobalErrorSignaler::getInstance() {
 	if ( GlobalErrorSignaler::instancePtr == NULL) {
 		GlobalErrorSignaler::instancePtr = new GlobalErrorSignaler();
 
-		LogItInstance *logIt = CanLibLoader::st_CLgetLogItInstance();
+		LogItInstance *logIt = CCanAccess::st_getLogItInstance();
+
+		// LogItInstance *logIt = CanLibLoader::st_CLgetLogItInstance();
 		// the CCanAcccess has not yet been called but we need the handler already:
 		// use the static LibLoader method instead. not very nice but works
 
