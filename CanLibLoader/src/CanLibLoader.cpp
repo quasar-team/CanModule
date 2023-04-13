@@ -35,7 +35,7 @@
 namespace CanModule
 {
 
-
+/* static */ Log::LogItInstance *CanLibLoader::st_logIt = NULL;
 
 // called by factory
 CanLibLoader::CanLibLoader(const std::string& libName)
@@ -43,7 +43,7 @@ CanLibLoader::CanLibLoader(const std::string& libName)
 	m_gsig = GlobalErrorSignaler::getInstance();
 	// m_loglevel = Log::TRC;
 
-
+#if 0
 	// we are in a shared lib.
 	// for windows, we must initialize logging here. for linux, it does not matter. anyway, initializeLogging can be called as many times as you like.
 	bool ret = Log::initializeLogging( Log::TRC );
@@ -57,14 +57,17 @@ CanLibLoader::CanLibLoader(const std::string& libName)
 	}
 
 	// returns NULL for windows without the initializeLogging call above
-	LogItInstance *logIt = LogItInstance::getInstance();
-	if ( logIt != NULL ){
-		if (!Log::initializeDllLogging( logIt )){
+	//st_logIt = LogItInstance::getInstance();
+#endif
+
+	if ( st_logIt != NULL ){
+#if 0
+		if (!Log::initializeDllLogging( st_logIt )){
 			std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
 					<< " could not DLL init remote LogIt instance " << std::endl;
 		}
-
-		logIt->getComponentHandle( CanModule::LogItComponentName, lh );
+#endif
+		st_logIt->getComponentHandle( CanModule::LogItComponentName, lh );
 		std::cout << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " constructor " << libName << std::endl;
 		LOG(Log::TRC, lh ) << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " constructor " << libName;
 

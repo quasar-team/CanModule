@@ -52,7 +52,8 @@ public:
 
 	SHARED_LIB_EXPORT_DEFN static void initializeLogging( LogItInstance* remoteInstance ) {
 		Log::initializeDllLogging( remoteInstance );
-	} // pass main LogIt ptr
+		st_logIt = remoteInstance;
+	}
 
 	// LogIt handle
 	Log::LogComponentHandle lh;
@@ -60,7 +61,7 @@ public:
 	void setLibName( std::string ln ){ m_libName = ln; }
 	std::string getLibName(){ return (m_libName);}
 
-
+	static Log::LogItInstance *CanLibLoader::st_logIt;
 
 protected:
 	//Load a dynamic library.
@@ -71,6 +72,6 @@ protected:
 private:
 	std::string m_libName;
 	GlobalErrorSignaler *m_gsig;
-	// Log::LOG_LEVEL m_loglevel;
+
 };
 }
