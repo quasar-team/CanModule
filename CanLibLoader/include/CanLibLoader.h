@@ -55,9 +55,9 @@ public:
 		Log::initializeDllLogging( remoteInstance );
 		CanLibLoader::st_remoteLogIt = remoteInstance;
 	}
-	static LogItInstance *st_remoteLogIt;
 
-	// LogIt handle
+
+	// LogIt
 	Log::LogComponentHandle lh;
 	static LogItInstance *st_remoteLogIt;
 	void setLibName( std::string ln ){ m_libName = ln; }
