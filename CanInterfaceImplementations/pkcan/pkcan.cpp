@@ -236,7 +236,7 @@ int PKCanScan::createBus(const std::string name, const std::string parameters )
 	 */
 	std::map<Log::LogComponentHandle, std::string> log_comp_map = Log::getComponentLogsList();
 	std::map<Log::LogComponentHandle, std::string>::iterator it;
-	LMLOGPK(DBG, this) << " *** nb of LogIt components= " << log_comp_map.size() << std::endl;
+	MLOGPK(DBG, this) << " *** nb of LogIt components= " << log_comp_map.size() << std::endl;
 	for ( it = log_comp_map.begin(); it != log_comp_map.end(); it++ )
 	{
 		Log::LOG_LEVEL level;
