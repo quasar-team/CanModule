@@ -1,6 +1,5 @@
 #include <CCanAccess.h>
 #include <CanLibLoader.h>
-
 using namespace std;
 
 namespace CanModule
@@ -9,6 +8,8 @@ namespace CanModule
 /* static */ GlobalErrorSignaler *GlobalErrorSignaler::instancePtr = NULL;
 /* static */ LogItInstance * GlobalErrorSignaler::m_st_logIt = NULL;
 /* static */ Log::LogComponentHandle GlobalErrorSignaler::m_st_lh = 0;
+
+/* static */ LogItInstance* CCanAccess::st_logItRemoteInstance = NULL;
 
 
 GlobalErrorSignaler::~GlobalErrorSignaler(){

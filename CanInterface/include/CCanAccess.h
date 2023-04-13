@@ -538,6 +538,8 @@ protected:
 
 
 private:
+	static LogItInstance* st_logItRemoteInstance;
+
 	Log::LogComponentHandle m_lh;
 	LogItInstance* m_logItRemoteInstance;
 	std::chrono::time_point<std::chrono::high_resolution_clock> m_dnow, m_dreceived, m_dtransmitted, m_dopen;
