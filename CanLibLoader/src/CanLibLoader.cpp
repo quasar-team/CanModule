@@ -42,6 +42,10 @@ namespace CanModule
 	CanLibLoader::st_remoteLogIt = remoteInstance;
 }
 
+/* static */ LogItInstance *CanLibLoader::st_getLogItInstance(){
+	return ( CanLibLoader::st_remoteLogIt );
+}
+
 // called by factory
 CanLibLoader::CanLibLoader(const std::string& libName)
 {

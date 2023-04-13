@@ -1,4 +1,5 @@
 #include <CCanAccess.h>
+#include <CanlibLoader.h>
 
 using namespace std;
 
@@ -9,7 +10,6 @@ namespace CanModule
 /* static */ LogItInstance * GlobalErrorSignaler::m_st_logIt = NULL;
 /* static */ Log::LogComponentHandle GlobalErrorSignaler::m_st_lh = 0;
 
-/* static */ LogItInstance* CCanAccess::st_logItRemoteInstance = NULL;
 
 GlobalErrorSignaler::~GlobalErrorSignaler(){
 	globalErrorSignal.disconnect_all_slots();
@@ -23,22 +23,26 @@ GlobalErrorSignaler* GlobalErrorSignaler::getInstance() {
 	if ( GlobalErrorSignaler::instancePtr == NULL) {
 		GlobalErrorSignaler::instancePtr = new GlobalErrorSignaler();
 
-		LogItInstance *logIt = CCanAccess::st_getLogItInstance();
-		bool ret = Log::initializeDllLogging( logIt );
-		if ( ret ) {
-			// std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " LogIt Dll initialized OK" << std::endl;
-			Log::LogComponentHandle lh = 0;
-			if ( logIt != NULL ){
-				logIt->getComponentHandle( CanModule::LogItComponentName, lh );
-				LOG(Log::TRC, lh ) << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << "created singleton instance of GlobalErrorSignaler";
+		LogItInstance *logIt = CanLibLoader::st_getLogItInstance();
+		if ( logIt != NULL ){
+			bool ret = Log::initializeDllLogging( logIt );
+			if ( ret ) {
+				// std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " LogIt Dll initialized OK" << std::endl;
+				Log::LogComponentHandle lh = 0;
+				if ( logIt != NULL ){
+					logIt->getComponentHandle( CanModule::LogItComponentName, lh );
+					LOG(Log::TRC, lh ) << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << "created singleton instance of GlobalErrorSignaler";
 
-				GlobalErrorSignaler::m_st_logIt = logIt;
-				GlobalErrorSignaler::m_st_lh = lh;
+					GlobalErrorSignaler::m_st_logIt = logIt;
+					GlobalErrorSignaler::m_st_lh = lh;
+				} else {
+					std::cout << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " logIt instance is NULL" << std::endl;
+				}
 			} else {
-				std::cout << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " logIt instance is NULL" << std::endl;
+				std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " LogIt problem1 at initialisation" << std::endl;
 			}
 		} else {
-			std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " LogIt problem at initialisation" << std::endl;
+			std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " LogIt problem2 at initialisation" << std::endl;
 		}
 	}
 	return GlobalErrorSignaler::instancePtr;
