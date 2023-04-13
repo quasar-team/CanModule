@@ -304,7 +304,7 @@ int AnaCanScan::createBus(const std::string name, const std::string parameters)
 
 	// LogIt: initialize shared lib. The logging levels for the component logging is kept
 	// LogItInstance *logIt = LogItInstance::getInstance();
-	m_logIt = getLogItInstance(); //CCanAccess
+	LogItInstance *logIt = getLogItInstance(); //CCanAccess
 	Log::LogComponentHandle myHandle;
 	if ( logIt != NULL ){
 		if (!Log::initializeDllLogging( logIt )){
