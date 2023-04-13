@@ -35,7 +35,7 @@
 namespace CanModule
 {
 
-/* static */ LogItInstance *CanLibLoader::st_remoteLogIt = NULL;
+/* static */ SHARED_LIB_EXPORT_DEFN LogItInstance *CanLibLoader::st_remoteLogIt = NULL;
 
 // called by factory
 CanLibLoader::CanLibLoader(const std::string& libName)

@@ -24,7 +24,6 @@
 #pragma once
 #include <string>
 #include <map>
-// #include <boost/thread/thread.hpp>
 
 #include "CCanAccess.h"
 #include "ExportDefinition.h"
@@ -59,7 +58,7 @@ public:
 
 	// LogIt
 	Log::LogComponentHandle lh;
-	static LogItInstance *st_remoteLogIt;
+	SHARED_LIB_EXPORT_DEFN static LogItInstance *st_remoteLogIt;
 	void setLibName( std::string ln ){ m_libName = ln; }
 	std::string getLibName(){ return m_libName; }
 
