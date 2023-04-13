@@ -236,12 +236,12 @@ int PKCanScan::createBus(const std::string name, const std::string parameters )
 	 */
 	std::map<Log::LogComponentHandle, std::string> log_comp_map = Log::getComponentLogsList();
 	std::map<Log::LogComponentHandle, std::string>::iterator it;
-	LOG(Log::TRC, myHandle ) << " *** Lnb of LogIt components= " << log_comp_map.size() << std::endl;
+	LMLOGPK(DBG, this) << " *** nb of LogIt components= " << log_comp_map.size() << std::endl;
 	for ( it = log_comp_map.begin(); it != log_comp_map.end(); it++ )
 	{
 		Log::LOG_LEVEL level;
 		Log::getComponentLogLevel( it->first, level);
-		LOG(Log::TRC, myHandle )  << " *** " << " LogIt component " << it->second << " level= " << level;
+		MLOGPK(DBG, this) << " *** " << " LogIt component " << it->second << " level= " << level;
 	}
 
 	MLOGPK(DBG, this) << " name= " << name << " parameters= " << parameters << ", configuring CAN board";

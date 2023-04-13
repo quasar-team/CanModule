@@ -810,26 +810,13 @@ bool CSockCanScan::m_writeWrapper (const can_frame* frame)
 	 */
 	std::map<Log::LogComponentHandle, std::string> log_comp_map = Log::getComponentLogsList();
 	std::map<Log::LogComponentHandle, std::string>::iterator it;
-	LOG(Log::TRC, myHandle ) << " *** Lnb of LogIt components= " << log_comp_map.size() << std::endl;
+	MLOGSOCK(TRC,this)<< " *** Lnb of LogIt components= " << log_comp_map.size() << std::endl;
 	for ( it = log_comp_map.begin(); it != log_comp_map.end(); it++ )
 	{
 		Log::LOG_LEVEL level;
 		Log::getComponentLogLevel( it->first, level);
-		LOG(Log::TRC, myHandle )  << " *** " << " LogIt component " << it->second << " level= " << level;
+		MLOGSOCK(TRC,this) << " *** " << " LogIt component " << it->second << " level= " << level;
 	}
-
-#if 0
-
-
-	LogItInstance* logItInstance = CCanAccess::getLogItInstance();
-	if ( !LogItInstance::setInstance(logItInstance))
-		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
-		<< " could not set LogIt instance" << std::endl;
-
-	if (!logItInstance->getComponentHandle(CanModule::LogItComponentName, m_logItHandleSock))
-		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
-		<< " could not get LogIt component handle for " << LogItComponentName << std::endl;
-#endif
 
 	// protect against creating the same bus twice
 	bool skip = false;
