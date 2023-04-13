@@ -33,6 +33,7 @@
 namespace CanModule 
 {
 
+using class LogItInstance;
 
 class CanLibLoader 	{
 
@@ -55,11 +56,11 @@ public:
 		Log::initializeDllLogging( remoteInstance );
 		CanLibLoader::st_remoteLogIt = remoteInstance;
 	}
-
+	static LogItInstance *st_remoteLogIt;
 
 	// LogIt handle
 	Log::LogComponentHandle lh;
-
+	static LogItInstance *st_remoteLogIt;
 	void setLibName( std::string ln ){ m_libName = ln; }
 	std::string getLibName(){ return m_libName; }
 
@@ -73,7 +74,7 @@ protected:
 private:
 	std::string m_libName;
 	GlobalErrorSignaler *m_gsig;
-	static LogItInstance *st_remoteLogIt;
+
 
 };
 }

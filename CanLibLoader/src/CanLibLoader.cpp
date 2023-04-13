@@ -21,7 +21,7 @@
  *  along with Quasar.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "CanLibLoader.h"
-#include "LogIt.h"
+// #include "LogIt.h"
 #include <string>
 #include <stdexcept>
 #ifdef _WIN32
