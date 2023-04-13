@@ -62,7 +62,7 @@ public:
 	void setLibName( std::string ln ){ m_libName = ln; }
 	std::string getLibName(){ return (m_libName);}
 
-	static Log::LogItInstance *st_logIt;
+	static LogItInstance *st_logIt;
 
 protected:
 	//Load a dynamic library.
