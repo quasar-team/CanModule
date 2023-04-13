@@ -53,7 +53,7 @@ public:
 	SHARED_LIB_EXPORT_DEFN CanModule::CCanAccess * openCanBus(std::string name, std::string parameters);
 	SHARED_LIB_EXPORT_DEFN	void closeCanBus(CanModule::CCanAccess *cca);
 
-	static LogItInstance *st_getLogItInstance();
+	static LogItInstance *st_CLgetLogItInstance();
 
 	// LogIt
 	Log::LogComponentHandle lh;

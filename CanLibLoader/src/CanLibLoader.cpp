@@ -42,7 +42,7 @@ namespace CanModule
 	CanLibLoader::st_remoteLogIt = remoteInstance;
 }
 
-/* static */ LogItInstance *CanLibLoader::st_getLogItInstance(){
+/* static */ LogItInstance *CanLibLoader::st_CLgetLogItInstance(){
 	return ( CanLibLoader::st_remoteLogIt );
 }
 
