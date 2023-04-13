@@ -321,6 +321,26 @@ int AnaCanScan::createBus(const std::string name, const std::string parameters)
 		m_gsig->fireSignal( 002, msg.str().c_str() );
 	}
 
+	/**
+	 * lets get clear about the Logit components
+	 */
+	std::map<Log::LogComponentHandle, std::string> log_comp_map = Log::getComponentLogsList();
+	std::map<Log::LogComponentHandle, std::string>::iterator it;
+
+	std::cout << __FILE__ << " " << __LINE__ << " *** " << " LogIt Log::ERR= " << Log::ERR << std::endl;
+	std::cout << __FILE__ << " " << __LINE__ << " *** " << " LogIt Log::WRN= " << Log::WRN << std::endl;
+	std::cout << __FILE__ << " " << __LINE__ << " *** " << " LogIt Log::INF= " << Log::INF << std::endl;
+	std::cout << __FILE__ << " " << __LINE__ << " *** " << " LogIt Log::DBG= " << Log::DBG << std::endl;
+	std::cout << __FILE__ << " " << __LINE__ << " *** " << " LogIt Log::TRC= " << Log::TRC << std::endl;
+
+	for ( it = log_comp_map.begin(); it != log_comp_map.end(); it++ )
+	{
+	    //std::cout << it->first;  // handle
+	    //std::cout << it->second;  // component name
+		Log::LOG_LEVEL level;
+		Log::getComponentLogLevel( it->first, level);
+		std::cout << __FILE__ << " " << __LINE__ << " *** " << " LogIt component " << it->second << " level= " << level << std::endl;
+	}
 
 #if 0
 	// calling base class to get the instance from there
