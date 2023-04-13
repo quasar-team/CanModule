@@ -9,6 +9,8 @@ namespace CanModule
 /* static */ LogItInstance * GlobalErrorSignaler::m_st_logIt = NULL;
 /* static */ Log::LogComponentHandle GlobalErrorSignaler::m_st_lh = 0;
 
+/* static */ LogItInstance* CCanAccess::st_logItRemoteInstance = NULL;
+
 GlobalErrorSignaler::~GlobalErrorSignaler(){
 	globalErrorSignal.disconnect_all_slots();
 	LOG( Log::TRC, GlobalErrorSignaler::m_st_lh ) << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " disconnected all handlers from signal.";
@@ -21,7 +23,7 @@ GlobalErrorSignaler* GlobalErrorSignaler::getInstance() {
 	if ( GlobalErrorSignaler::instancePtr == NULL) {
 		GlobalErrorSignaler::instancePtr = new GlobalErrorSignaler();
 
-		LogItInstance *logIt = CCanAccess::getLogItInstance();
+		LogItInstance *logIt = CCanAccess::st_getLogItInstance();
 		bool ret = Log::initializeDllLogging( logIt );
 		if ( ret ) {
 			// std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " LogIt Dll initialized OK" << std::endl;
@@ -108,6 +110,11 @@ void CanParameters::scanParameters(std::string parameters)
     } else {
         m_dontReconfigure = true;
     }
+}
+
+/* static */ LogItInstance* CCanAccess::st_getLogItInstance()
+{
+	return( CCanAccess::st_logItRemoteInstance );
 }
 
 /**
