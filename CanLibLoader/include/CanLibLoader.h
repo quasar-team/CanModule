@@ -56,7 +56,6 @@ public:
 		CanLibLoader::st_remoteLogIt = remoteInstance;
 	}
 
-	static LogItInstance *st_remoteLogIt;
 
 	// LogIt handle
 	Log::LogComponentHandle lh;
@@ -74,6 +73,7 @@ protected:
 private:
 	std::string m_libName;
 	GlobalErrorSignaler *m_gsig;
+	static LogItInstance *st_remoteLogIt;
 
 };
 }
