@@ -46,65 +46,31 @@ namespace CanModule
 CanLibLoader::CanLibLoader(const std::string& libName)
 {
 	m_gsig = GlobalErrorSignaler::getInstance();
-	// m_loglevel = Log::TRC;
 
-#if 0
-	// we are in a shared lib.
-	// for windows, we must initialize logging here. for linux, it does not matter. anyway, initializeLogging can be called as many times as you like.
-	bool ret = Log::initializeLogging( Log::TRC );
-	if ( ret ) {
-		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " LogIt initialized OK" << std::endl;
-	} else {
-		std::stringstream msg;
-		msg << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " LogIt problem at initialisation, please pass LogIt ptr to CanLibLoader::initializeLogging first";
-		std::cout << msg.str() << std::endl;
-		m_gsig->fireSignal( 001, msg.str().c_str() );
-	}
-
-	// returns NULL for windows without the initializeLogging call above
-	//st_logIt = LogItInstance::getInstance();
-#endif
-
-	// must be set by client, check it here
+	// must be set by client since we are in a shared lib, using the static methos for that. check it here
 	if ( CanLibLoader::st_remoteLogIt != NULL ){
-#if 0
-		if (!Log::initializeDllLogging( st_logIt )){
-			std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
-					<< " could not DLL init remote LogIt instance " << std::endl;
-		}
-#endif
 		CanLibLoader::st_remoteLogIt->getComponentHandle( CanModule::LogItComponentName, lh );
-		std::cout << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " constructor " << libName << std::endl;
-		LOG(Log::TRC, lh ) << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " constructor " << libName;
-
+		LOG(Log::TRC, lh ) << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " constructor LogIt remote seems all fine for " << libName;
 	} else {
 		std::stringstream msg;
-		msg << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " LogIt instance is NULL";
+		msg << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " LogIt instance is NULL for " << libName;
 		std::cout << msg.str() << std::endl;
 		m_gsig->fireSignal( 002, msg.str().c_str() );
 	}
-
 
 	/**
 	 * lets get clear about the Logit components and their levels at this point
 	 */
 	std::map<Log::LogComponentHandle, std::string> log_comp_map = Log::getComponentLogsList();
 	std::map<Log::LogComponentHandle, std::string>::iterator it;
-	std::cout << __FILE__ << " " << __LINE__ << " *** " << " LogIt Log::ERR= " << Log::ERR << std::endl;
-	std::cout << __FILE__ << " " << __LINE__ << " *** " << " LogIt Log::WRN= " << Log::WRN << std::endl;
-	std::cout << __FILE__ << " " << __LINE__ << " *** " << " LogIt Log::INF= " << Log::INF << std::endl;
-	std::cout << __FILE__ << " " << __LINE__ << " *** " << " LogIt Log::DBG= " << Log::DBG << std::endl;
-	std::cout << __FILE__ << " " << __LINE__ << " *** " << " LogIt Log::TRC= " << Log::TRC << std::endl;
-
-	std::cout << __FILE__ << " " << __LINE__ << " *** " << log_comp_map.size() << std::endl;
+	LOG(Log::TRC, lh ) << " *** nb of LogIt components= " << log_comp_map.size() << std::endl;
 
 	Log::LOG_LEVEL level;
 	for ( it = log_comp_map.begin(); it != log_comp_map.end(); it++ )
 	{
 		Log::getComponentLogLevel( it->first, level );
-		std::cout << __FILE__ << " " << __LINE__ << " *** " << " LogIt component " << it->second << " level= " << level << std::endl;
+		LOG(Log::TRC, lh )<< " *** " << " LogIt component " << it->second << " level= " << level << std::endl;
 	}
-
 }
 
 
@@ -157,12 +123,15 @@ CCanAccess* CanLibLoader::openCanBus(std::string name, std::string parameters) {
 		LOG(Log::DBG, lh ) << __FUNCTION__ << " created CCanAccess name= " << name << " parameters= " << parameters;
 	}
 
-	// The Logit instance of the executable is handled to the DLL at this point, so the instance is shared.
-	// the global logIt instance is kept as private var of the superclass CCanAccess accessible via classical methods
+	/** The LogIt instance of the executable is handled to the DLL at this point, so the instance is shared.
+	 * the global logIt instance is kept as private var of the superclass CCanAccess accessible via classical methods
+	 * so that the CAN port (~vendor class objects) can use it.
+	 */
 	tcca->initialiseLogging( CanLibLoader::st_remoteLogIt );
 
-
-	// we check if the component "CanModule" is registered and the loglevel is set
+	/** we check if the component "CanModule" is registered and the loglevel is set. If not, sth is wrong, but we can
+	 * still register it and set it to TRC: bad luck.
+	 */
 	Log::LOG_LEVEL loglevel = Log::TRC; // default
 	Log::LogComponentHandle handle = Log::getComponentHandle( CanModule::LogItComponentName );
 	bool ret = Log::getComponentLogLevel( handle, loglevel );
@@ -170,7 +139,6 @@ CCanAccess* CanLibLoader::openCanBus(std::string name, std::string parameters) {
 		LOG(Log::DBG, lh ) << " got " << CanModule::LogItComponentName << " loglevel= " << loglevel;
 	} else {
 		LOG(Log::WRN, lh ) << " component " << CanModule::LogItComponentName << " does not exist, register it and set loglevel= " << loglevel;
-		// logInstance->registerLoggingComponent( CanModule::LogItComponentName, loglevel );
 		CanLibLoader::st_remoteLogIt->registerLoggingComponent( CanModule::LogItComponentName, loglevel );
 	}
 

@@ -70,7 +70,8 @@ CSockCanScan::CSockCanScan() :
 							m_canMessageErrorCode(-1),
 							m_hCanScanThread( NULL ),
 							m_busName("nobus"),
-							m_logItHandleSock(0)
+							m_logItHandleSock(0),
+							m_gsig( NULL )
 {
 	m_statistics.setTimeSinceOpened();
 	m_statistics.beginNewRun();
@@ -780,6 +781,48 @@ bool CSockCanScan::m_writeWrapper (const can_frame* frame)
  */
 /* virtual */ int CSockCanScan::createBus(const std::string name, const std::string parameters)
 {
+	m_gsig = GlobalErrorSignaler::getInstance();
+
+	/** LogIt: initialize shared lib. The logging levels for the component logging is kept, we are talking still to
+	 * the same master object "from the exe". We get the logIt ptr
+	 * acquired down from the superclass, which keeps it as a static, and being itself a shared lib. we are inside
+	 * another shared lib - 2nd stage - so we need to Dll initialize as well. Since we have many CAN ports we just acquire
+	 * the handler to go with the logIt object and keep that as a static. we do not do per-port component logging.
+	 * we do, however, stamp the logging messages specifically for each vendor using the macro.
+	 */
+	LogItInstance *logIt = CCanAccess::getLogItInstance();
+	Log::LogComponentHandle myHandle;
+	if ( logIt != NULL ){
+		if (!Log::initializeDllLogging( logIt )){
+			std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
+					<< " could not DLL init remote LogIt instance " << std::endl;
+		}
+		logIt->getComponentHandle( CanModule::LogItComponentName, myHandle );
+		LOG(Log::INF, myHandle ) << CanModule::LogItComponentName << " Dll logging initialized OK";
+		AnaCanScan::st_logItHandleAnagate = myHandle;
+	} else {
+		std::stringstream msg;
+		msg << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " LogIt instance is NULL";
+		std::cout << msg.str() << std::endl;
+		m_gsig->fireSignal( 002, msg.str().c_str() );
+	}
+
+	/**
+	 * lets get clear about the Logit components and their levels at this point
+	 */
+	std::map<Log::LogComponentHandle, std::string> log_comp_map = Log::getComponentLogsList();
+	std::map<Log::LogComponentHandle, std::string>::iterator it;
+	LOG(Log::TRC, myHandle ) << " *** Lnb of LogIt components= " << log_comp_map.size() << std::endl;
+	for ( it = log_comp_map.begin(); it != log_comp_map.end(); it++ )
+	{
+		Log::LOG_LEVEL level;
+		Log::getComponentLogLevel( it->first, level);
+		LOG(Log::TRC, myHandle )  << " *** " << " LogIt component " << it->second << " level= " << level;
+	}
+
+#if 0
+
+
 	LogItInstance* logItInstance = CCanAccess::getLogItInstance();
 	if ( !LogItInstance::setInstance(logItInstance))
 		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
@@ -788,6 +831,7 @@ bool CSockCanScan::m_writeWrapper (const can_frame* frame)
 	if (!logItInstance->getComponentHandle(CanModule::LogItComponentName, m_logItHandleSock))
 		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
 		<< " could not get LogIt component handle for " << LogItComponentName << std::endl;
+#endif
 
 	// protect against creating the same bus twice
 	bool skip = false;

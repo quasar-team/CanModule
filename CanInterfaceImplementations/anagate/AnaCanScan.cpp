@@ -63,7 +63,8 @@ AnaCanScan::AnaCanScan():
 	m_busParameters(""),
 	m_UcanHandle(0),
 	m_timeout ( 6000 ),
-	m_busStopped( false )
+	m_busStopped( false ),
+	m_gsig( NULL )
 {
 	m_statistics.setTimeSinceOpened();
 	m_statistics.beginNewRun();
@@ -309,7 +310,7 @@ int AnaCanScan::createBus(const std::string name, const std::string parameters)
 	 * the handler to go with the logIt object and keep that as a static. we do not do per-port component logging.
 	 * we do, however, stamp the logging messages specifically for each vendor using the macro.
 	 */
-	LogItInstance *logIt = getLogItInstance(); //CCanAccess
+	LogItInstance *logIt = CCanAccess::getLogItInstance();
 	Log::LogComponentHandle myHandle;
 	if ( logIt != NULL ){
 		if (!Log::initializeDllLogging( logIt )){
@@ -331,12 +332,12 @@ int AnaCanScan::createBus(const std::string name, const std::string parameters)
 	 */
 	std::map<Log::LogComponentHandle, std::string> log_comp_map = Log::getComponentLogsList();
 	std::map<Log::LogComponentHandle, std::string>::iterator it;
-	std::cout << __FILE__ << " " << __LINE__ << " *** " << log_comp_map.size() << std::endl;
+	LOG(Log::TRC, myHandle ) << " *** Lnb of LogIt components= " << log_comp_map.size() << std::endl;
 	for ( it = log_comp_map.begin(); it != log_comp_map.end(); it++ )
 	{
 		Log::LOG_LEVEL level;
 		Log::getComponentLogLevel( it->first, level);
-		std::cout << __FILE__ << " " << __LINE__ << " *** " << " LogIt component " << it->second << " level= " << level << std::endl;
+		LOG(Log::TRC, myHandle )  << " *** " << " LogIt component " << it->second << " level= " << level;
 	}
 
 	// board configuration
