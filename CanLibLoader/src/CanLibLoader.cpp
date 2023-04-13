@@ -44,26 +44,6 @@ CanLibLoader::CanLibLoader(const std::string& libName)
 	// m_loglevel = Log::TRC;
 
 
-	/**
-	 * lets get clear about the Logit components and their levels at this point
-	 */
-	std::map<Log::LogComponentHandle, std::string> log_comp_map = Log::getComponentLogsList();
-	std::map<Log::LogComponentHandle, std::string>::iterator it;
-	std::cout << __FILE__ << " " << __LINE__ << " *** " << " LogIt Log::ERR= " << Log::ERR << std::endl;
-	std::cout << __FILE__ << " " << __LINE__ << " *** " << " LogIt Log::WRN= " << Log::WRN << std::endl;
-	std::cout << __FILE__ << " " << __LINE__ << " *** " << " LogIt Log::INF= " << Log::INF << std::endl;
-	std::cout << __FILE__ << " " << __LINE__ << " *** " << " LogIt Log::DBG= " << Log::DBG << std::endl;
-	std::cout << __FILE__ << " " << __LINE__ << " *** " << " LogIt Log::TRC= " << Log::TRC << std::endl;
-
-	std::cout << __FILE__ << " " << __LINE__ << " *** " << log_comp_map.size() << std::endl;
-
-	for ( it = log_comp_map.begin(); it != log_comp_map.end(); it++ )
-	{
-		Log::LOG_LEVEL level;
-		Log::getComponentLogLevel( it->first, level);
-		std::cout << __FILE__ << " " << __LINE__ << " *** " << " LogIt component " << it->second << " level= " << level << std::endl;
-	}
-
 	// we are in a shared lib.
 	// for windows, we must initialize logging here. for linux, it does not matter. anyway, initializeLogging can be called as many times as you like.
 	bool ret = Log::initializeLogging( Log::TRC );
@@ -94,6 +74,28 @@ CanLibLoader::CanLibLoader(const std::string& libName)
 		std::cout << msg.str() << std::endl;
 		m_gsig->fireSignal( 002, msg.str().c_str() );
 	}
+
+
+	/**
+	 * lets get clear about the Logit components and their levels at this point
+	 */
+	std::map<Log::LogComponentHandle, std::string> log_comp_map = Log::getComponentLogsList();
+	std::map<Log::LogComponentHandle, std::string>::iterator it;
+	std::cout << __FILE__ << " " << __LINE__ << " *** " << " LogIt Log::ERR= " << Log::ERR << std::endl;
+	std::cout << __FILE__ << " " << __LINE__ << " *** " << " LogIt Log::WRN= " << Log::WRN << std::endl;
+	std::cout << __FILE__ << " " << __LINE__ << " *** " << " LogIt Log::INF= " << Log::INF << std::endl;
+	std::cout << __FILE__ << " " << __LINE__ << " *** " << " LogIt Log::DBG= " << Log::DBG << std::endl;
+	std::cout << __FILE__ << " " << __LINE__ << " *** " << " LogIt Log::TRC= " << Log::TRC << std::endl;
+
+	std::cout << __FILE__ << " " << __LINE__ << " *** " << log_comp_map.size() << std::endl;
+
+	for ( it = log_comp_map.begin(); it != log_comp_map.end(); it++ )
+	{
+		Log::LOG_LEVEL level;
+		Log::getComponentLogLevel( it->first, level);
+		std::cout << __FILE__ << " " << __LINE__ << " *** " << " LogIt component " << it->second << " level= " << level << std::endl;
+	}
+
 }
 
 
