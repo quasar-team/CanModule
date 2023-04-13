@@ -60,14 +60,14 @@ CanLibLoader::CanLibLoader(const std::string& libName)
 	//st_logIt = LogItInstance::getInstance();
 #endif
 
-	if ( st_logIt != NULL ){
+	if ( CanLibLoader::st_logIt != NULL ){
 #if 0
 		if (!Log::initializeDllLogging( st_logIt )){
 			std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
 					<< " could not DLL init remote LogIt instance " << std::endl;
 		}
 #endif
-		st_logIt->getComponentHandle( CanModule::LogItComponentName, lh );
+		CanLibLoader::st_logIt->getComponentHandle( CanModule::LogItComponentName, lh );
 		std::cout << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " constructor " << libName << std::endl;
 		LOG(Log::TRC, lh ) << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " constructor " << libName;
 

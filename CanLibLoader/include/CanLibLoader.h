@@ -52,7 +52,7 @@ public:
 
 	SHARED_LIB_EXPORT_DEFN static void initializeLogging( LogItInstance* remoteInstance ) {
 		Log::initializeDllLogging( remoteInstance );
-		st_logIt = remoteInstance;
+		CanLibLoader::st_logIt = remoteInstance;
 	}
 
 	// LogIt handle
