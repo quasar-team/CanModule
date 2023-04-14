@@ -130,7 +130,7 @@ bool CCanAccess::initialiseLogging(LogItInstance* remoteInstance)
 /**
  * just translate the ugly r.condition enum into a user-friendly string for convenience and logging.
  */
-static std::string CCanAccess::reconnectConditionString(CanModule::ReconnectAutoCondition c) {
+/* static */ std::string CCanAccess::reconnectConditionString(CanModule::ReconnectAutoCondition c) {
 	switch (c) {
 	case ReconnectAutoCondition::sendFail: return(" sendFail");
 	case ReconnectAutoCondition::timeoutOnReception: return(" timeoutOnReception");
@@ -142,7 +142,7 @@ static std::string CCanAccess::reconnectConditionString(CanModule::ReconnectAuto
 /**
  * just translate the ugly r.action enum into a user-friendly string for convenience and logging.
  */
-static std::string CCanAccess::reconnectActionString(CanModule::ReconnectAction c) {
+/* static */ std::string CCanAccess::reconnectActionString(CanModule::ReconnectAction c) {
 	switch (c) {
 	case ReconnectAction::allBusesOnBridge: return(" allBusesOnBridge");
 	case ReconnectAction::singleBus: return(" singleBus");
