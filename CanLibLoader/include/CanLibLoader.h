@@ -61,9 +61,14 @@ public:
 
 
 protected: // not public but inherited
-	//Load a dynamic library.
+	/**
+	 * Load a dynamic vendor library.
+	 * */
 	virtual void dynamicallyLoadLib(const std::string& libName) = 0;
-	//Uses the loaded library to create a HAL object and store it in p_halInstance
+
+	/**
+	 * create an object to open a CAN port
+	 */
 	virtual CCanAccess* createCanAccess() = 0;
 
 
