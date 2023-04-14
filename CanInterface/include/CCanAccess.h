@@ -177,7 +177,7 @@ struct CanParameters {
 class CCanAccess
 {
 
-public:
+public: // accessible API
 	CCanAccess():
 		m_reconnectCondition( CanModule::ReconnectAutoCondition::sendFail ),
 		m_reconnectAction( CanModule::ReconnectAction::singleBus ),
@@ -444,7 +444,6 @@ public:
 	 */
 	boost::signals2::signal<void (const int, const char *, timeval &) > canPortStateChanged;
 
-
 	std::string& getBusName();
 	bool initialiseLogging(LogItInstance* remoteInstance);
 	LogItInstance* getLogItInstance();
@@ -454,24 +453,11 @@ public:
 	void decreaseSendFailedCountdown();
 	void resetSendFailedCountdown(){ m_failedSendCountdown = m_maxFailedSendCount; 	}
 
-
-
-
-
-
-	/**
-	 * just translate the ugly r.condition enum into a user-friendly string for convenience and logging.
-	 */
 	static std::string reconnectConditionString(CanModule::ReconnectAutoCondition c);
-
-	/**
-	 * just translate the ugly r.action enum into a user-friendly string for convenience and logging.
-	 */
 	static std::string reconnectActionString(CanModule::ReconnectAction c);
 
 
-protected:
-
+protected: // not public, but inherited
 	std::string m_sBusName;
 	CanParameters m_CanParameters;
 
@@ -486,19 +472,14 @@ protected:
 	std::mutex m_reconnection_mtx;             // trigger stuff
 	std::condition_variable m_reconnection_cv; // trigger stuff
 
-
-
 	bool hasTimeoutOnReception();
-
 	void resetTimeoutOnReception() { m_dreceived = std::chrono::high_resolution_clock::now(); } // reset the internal reconnection timeout counter
 	void resetTimeNow() { m_dnow = std::chrono::high_resolution_clock::now(); }
-
 	void publishPortStatusChanged ( unsigned int status );
 
 
-private:
+private: // object scope
 	static LogItInstance* st_logItRemoteInstance;
-
 	Log::LogComponentHandle m_lh;
 	LogItInstance* m_logItRemoteInstance;
 	std::chrono::time_point<std::chrono::high_resolution_clock> m_dnow, m_dreceived, m_dtransmitted, m_dopen;
