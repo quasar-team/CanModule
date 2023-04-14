@@ -17,7 +17,7 @@ GlobalErrorSignaler::~GlobalErrorSignaler(){
 	LOG( Log::TRC, GlobalErrorSignaler::m_st_lh ) << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " disconnected all handlers from signal.";
 }
 
-static void GlobalErrorSignaler::initializeLogIt(LogItInstance *remoteInstance) {
+static void GlobalErrorSignaler::xxxinitializeLogIt(LogItInstance *remoteInstance) {
 	if ( remoteInstance != NULL ){
 		// GlobalErrorSignaler::m_st_logIt = remoteInstance;
 		bool ret = Log::initializeDllLogging( remoteInstance );

@@ -82,7 +82,9 @@ public:
 	SHARED_LIB_EXPORT_DEFN void disconnectAllHandlers();
 	SHARED_LIB_EXPORT_DEFN void fireSignal( const int code, const char *msg );
 
-	static void initializeLogIt(LogItInstance *remoteInstance);
+
+	static void xxxinitializeLogIt(LogItInstance *remoteInstance);
+
 
 };
 
