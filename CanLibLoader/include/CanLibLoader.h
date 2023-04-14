@@ -49,18 +49,16 @@ public:
 
 	SHARED_LIB_EXPORT_DEFN static CanLibLoader* createInstance(const std::string& libName);
 	SHARED_LIB_EXPORT_DEFN static void initializeLogging( LogItInstance* remoteInstance );
-
 	SHARED_LIB_EXPORT_DEFN CanModule::CCanAccess * openCanBus(std::string name, std::string parameters);
 	SHARED_LIB_EXPORT_DEFN	void closeCanBus(CanModule::CCanAccess *cca);
 
-	// static LogItInstance *st_CLgetLogItInstance();
-
+#if 0
 	// LogIt
 	Log::LogComponentHandle lh;
 	static LogItInstance *st_remoteLogIt;
 	void setLibName( std::string ln ){ m_libName = ln; }
 	std::string getLibName(){ return m_libName; }
-
+#endif
 
 protected:
 	//Load a dynamic library.
@@ -71,6 +69,12 @@ protected:
 private:
 	std::string m_libName;
 	GlobalErrorSignaler *m_gsig;
+
+	// LogIt
+	Log::LogComponentHandle lh;
+	static LogItInstance *st_remoteLogIt;
+	void setLibName( std::string ln ){ m_libName = ln; }
+	std::string getLibName(){ return m_libName; }
 
 
 };

@@ -37,7 +37,9 @@ namespace CanModule
 
 /* static */ LogItInstance *CanLibLoader::st_remoteLogIt = NULL;
 
-/** initialze LogIt so that it can be used with all components from the shared lib
+/**
+ *  initialze LogIt so that it can be used with all components from the shared lib
+ */
 /* static */ void CanLibLoader::initializeLogging( LogItInstance* remoteInstance ) {
 	Log::initializeDllLogging( remoteInstance );
 	CanLibLoader::st_remoteLogIt = remoteInstance;
@@ -46,12 +48,6 @@ namespace CanModule
 	GlobalErrorSignaler::initializeLogIt( remoteInstance );
 }
 
-#if 0
-/* static */ LogItInstance *CanLibLoader::st_CLgetLogItInstance(){
-	std::cout <<  __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << std::endl;
-	return ( CanLibLoader::st_remoteLogIt );
-}
-#endif
 // called by factory
 CanLibLoader::CanLibLoader(const std::string& libName)
 {
