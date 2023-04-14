@@ -52,13 +52,13 @@ public:
 	SHARED_LIB_EXPORT_DEFN CanModule::CCanAccess * openCanBus(std::string name, std::string parameters);
 	SHARED_LIB_EXPORT_DEFN	void closeCanBus(CanModule::CCanAccess *cca);
 
-#if 0
+
 	// LogIt
-	Log::LogComponentHandle lh;
-	static LogItInstance *st_remoteLogIt;
+	//Log::LogComponentHandle lh;
+	//static LogItInstance *st_remoteLogIt;
 	void setLibName( std::string ln ){ m_libName = ln; }
 	std::string getLibName(){ return m_libName; }
-#endif
+
 
 protected: // not public but inherited
 	//Load a dynamic library.
@@ -69,8 +69,8 @@ protected: // not public but inherited
 	// LogIt
 	Log::LogComponentHandle lh;
 	static LogItInstance *st_remoteLogIt;
-	void setLibName( std::string ln ){ m_libName = ln; }
-	std::string getLibName(){ return m_libName; }
+	//void setLibName( std::string ln ){ m_libName = ln; }
+	//std::string getLibName(){ return m_libName; }
 
 private:
 	std::string m_libName;
