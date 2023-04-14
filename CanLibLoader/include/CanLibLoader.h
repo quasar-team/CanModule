@@ -61,6 +61,10 @@ public:
 
 
 protected: // not public but inherited
+	// LogIt
+	Log::LogComponentHandle lh;
+	static LogItInstance *st_remoteLogIt;
+
 	/**
 	 * Load a dynamic vendor library.
 	 * */
@@ -76,9 +80,6 @@ private:
 	std::string m_libName;
 	GlobalErrorSignaler *m_gsig;
 
-	// LogIt
-	Log::LogComponentHandle lh;
-	static LogItInstance *st_remoteLogIt;
 	//void setLibName( std::string ln ){ m_libName = ln; }
 	//std::string getLibName(){ return m_libName; }
 
