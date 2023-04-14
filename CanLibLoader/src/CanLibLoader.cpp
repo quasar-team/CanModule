@@ -41,6 +41,10 @@ namespace CanModule
 	std::cout <<  __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << std::endl;
 	Log::initializeDllLogging( remoteInstance );
 	CanLibLoader::st_remoteLogIt = remoteInstance;
+
+
+	// set the logging instance to the global error handling as well so that we can use it
+	GlobalErrorSignaler::initializeLogIt( remoteInstance );
 }
 
 /* static */ LogItInstance *CanLibLoader::st_CLgetLogItInstance(){
