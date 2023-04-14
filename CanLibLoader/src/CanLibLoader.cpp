@@ -38,13 +38,13 @@ namespace CanModule
 /* static */ LogItInstance *CanLibLoader::st_remoteLogIt = NULL;
 
 /* static */ void CanLibLoader::initializeLogging( LogItInstance* remoteInstance ) {
-	LOG(Log::TRC, lh ) << __FUNCTION__ << " " << __FILE__ << " " << __LINE__;
+	std::cout <<  __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << std::endl;
 	Log::initializeDllLogging( remoteInstance );
 	CanLibLoader::st_remoteLogIt = remoteInstance;
 }
 
 /* static */ LogItInstance *CanLibLoader::st_CLgetLogItInstance(){
-	LOG(Log::TRC, lh ) << __FUNCTION__ << " " << __FILE__ << " " << __LINE__;
+	std::cout <<  __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << std::endl;
 	return ( CanLibLoader::st_remoteLogIt );
 }
 
