@@ -121,7 +121,8 @@ void CanParameters::scanParameters(std::string parameters)
 	return( CCanAccess::st_logItRemoteInstance );
 }
 #endif
-inline bool CCanAccess::initialiseLogging(LogItInstance* remoteInstance)
+
+bool CCanAccess::initialiseLogging(LogItInstance* remoteInstance)
 {
 	bool ret = Log::initializeDllLogging(remoteInstance);
 	m_logItRemoteInstance = remoteInstance;

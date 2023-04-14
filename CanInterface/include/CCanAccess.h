@@ -382,7 +382,7 @@ public:
 	// Returns the CanStatistics object.
 	virtual void getStatistics( CanStatistics & result ) = 0;
 
-	inline bool initialiseLogging(LogItInstance* remoteInstance);
+	bool initialiseLogging(LogItInstance* remoteInstance);
 
 	/**
 	 * the LogIt instance is NOT shared by inheritance in windows, the instance has to be passed explicitly

@@ -310,7 +310,7 @@ int AnaCanScan::createBus(const std::string name, const std::string parameters)
 	 * the handler to go with the logIt object and keep that as a static. we do not do per-port component logging.
 	 * we do, however, stamp the logging messages specifically for each vendor using the macro.
 	 */
-	LogItInstance *logIt = getLogItInstance(); // CCanAccess inherited
+	LogItInstance *logIt = getLogItInstance(); // CCanAccess inherited method
 	// LogItInstance *logIt = CCanAccess::st_getLogItInstance();
 	Log::LogComponentHandle myHandle;
 	if ( logIt != NULL ){
