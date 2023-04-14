@@ -382,13 +382,7 @@ public:
 	// Returns the CanStatistics object.
 	virtual void getStatistics( CanStatistics & result ) = 0;
 
-	inline bool initialiseLogging(LogItInstance* remoteInstance)
-	{
-		bool ret = Log::initializeDllLogging(remoteInstance);
-		m_logItRemoteInstance = remoteInstance;
-		CCanAccess::st_logItRemoteInstance = remoteInstance;
-		return ret;
-	}
+	inline bool initialiseLogging(LogItInstance* remoteInstance);
 
 	/**
 	 * the LogIt instance is NOT shared by inheritance in windows, the instance has to be passed explicitly
@@ -514,7 +508,7 @@ public:
 		return(" unknown action");
 	}
 
-	static  LogItInstance* st_getLogItInstance();
+	// static  LogItInstance* st_getLogItInstance();
 
 
 protected:

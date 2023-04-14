@@ -22,10 +22,9 @@ GlobalErrorSignaler::~GlobalErrorSignaler(){
 	if ( remoteInstance != NULL ){
 		bool ret = Log::initializeDllLogging( remoteInstance );
 		if ( ret ) {
-			// std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " LogIt Dll initialized OK" << std::endl;
 			Log::LogComponentHandle lh = 0;
 			remoteInstance->getComponentHandle( CanModule::LogItComponentName, lh );
-			LOG(Log::TRC, lh ) << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << "created singleton instance of GlobalErrorSignaler";
+			LOG(Log::INF, lh ) << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << "created singleton instance of GlobalErrorSignaler with LogIt Dll initialized. Nice.";
 
 			GlobalErrorSignaler::m_st_logIt = remoteInstance;
 			GlobalErrorSignaler::m_st_lh = lh;
@@ -116,10 +115,18 @@ void CanParameters::scanParameters(std::string parameters)
         m_dontReconfigure = true;
     }
 }
-
+#if 0
 /* static */ LogItInstance* CCanAccess::st_getLogItInstance()
 {
 	return( CCanAccess::st_logItRemoteInstance );
+}
+#endif
+inline bool CCanAccess::initialiseLogging(LogItInstance* remoteInstance)
+{
+	bool ret = Log::initializeDllLogging(remoteInstance);
+	m_logItRemoteInstance = remoteInstance;
+	CCanAccess::st_logItRemoteInstance = remoteInstance;
+	return ret;
 }
 
 /**
