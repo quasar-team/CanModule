@@ -197,6 +197,10 @@ bool CCanAccess::hasTimeoutOnReception() {
 }
 
 
+/**
+ * Returns the can bus name (from buffered data)
+ */
+std::string& CCanAccess::getBusName() { return m_sBusName; }
 
 
 /**

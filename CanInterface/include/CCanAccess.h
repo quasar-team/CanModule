@@ -178,7 +178,6 @@ class CCanAccess
 {
 
 public:
-
 	CCanAccess():
 		m_reconnectCondition( CanModule::ReconnectAutoCondition::sendFail ),
 		m_reconnectAction( CanModule::ReconnectAction::singleBus ),
@@ -196,6 +195,7 @@ public:
 		CanModule::version();
 };
 
+	virtual ~CCanAccess() {};
 
 	/**
 	 * Method that sends a remote request trough the can bus channel. If the method createBus was not called before this, sendMessage will fail, as there is no
@@ -204,7 +204,6 @@ public:
 	 * @return Was the sent request successful ?
 	 */
 	virtual bool sendRemoteRequest(short cobID) = 0;
-
 
 	/**
 	 * Method that initialises a can bus channel. The following methods called upon the same object will be using this initialised channel.
@@ -234,7 +233,6 @@ public:
 	 * @return: Was the message sent successfully? If not, we may reconnect.
 	 */
 	virtual bool sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr = false) = 0;
-
 	virtual bool sendMessage(CanMessage *canm)
 	{
 		if ( canm->c_id < 0 || canm->c_id > 2047 ){
@@ -246,10 +244,6 @@ public:
 		return sendMessage(short(canm->c_id), canm->c_dlc, canm->c_data, canm->c_rtr);
 	}
 
-	/**
-	 * Returns the can bus name (from buffered data)
-	 */
-	std::string& getBusName() { return m_sBusName; }
 
 	/**
 	 * UNIFIED PORT status
@@ -352,50 +346,10 @@ public:
 	 */
 	virtual uint32_t getPortBitrate() = 0;
 
-	/*
-	 * Signal that gets called when a can Message is received from the initialised can bus.
-	 * In order to process this message manually, a handler needs to be connected to the signal.
-	 *
-	 * Example: myCCanAccessPointer->canMessageCame.connect(&myMessageRecievedHandler);
-	 */
-	boost::signals2::signal<void (const CanMessage &) > canMessageCame;
-
-	virtual ~CCanAccess() {};
-
 	/**
-	 * Signal that gets called when a can Error is detected in the message
-	 * In order to process this message manually, a handler needs to be connected to the signal.
-	 *
-	 * Example: myCCanAccessPointer->canMessageError.connect(&myErrorRecievedHandler);
+	 *  Returns the CanStatistics object, which contains bus statistics, bus load, counters and time stamps
 	 */
-	boost::signals2::signal<void (const int, const char *, timeval &) > canMessageError;
-
-	/**
-	 * signal gets called whenever there is a can port status change, across all vendors
-	 * the int is the  enum CanModule::CanModuleUtils::CanModule_bus_state
-	 * In order to process this message, a handler needs to be connected to the signal.
-	 *
-	 * Example: myCCanAccessPointer->canPortStateChanged.connect(&myPortSateChangedRecievedHandler);
-	 */
-	boost::signals2::signal<void (const int, const char *, timeval &) > canPortStateChanged;
-
-	// Returns the CanStatistics object.
 	virtual void getStatistics( CanStatistics & result ) = 0;
-
-	bool initialiseLogging(LogItInstance* remoteInstance);
-
-
-	LogItInstance* getLogItInstance();
-
-	std::vector<std::string> parseNameAndParameters( std::string name, std::string parameters);
-
-
-	void triggerReconnectionThread();
-	void waitForReconnectionThreadTrigger();
-	void decreaseSendFailedCountdown();
-	void resetSendFailedCountdown(){ m_failedSendCountdown = m_maxFailedSendCount; 	}
-
-
 
 	/**
 	 * configuring the reconnection behavior: a condition triggers an action. The implementation is implementation-specific
@@ -463,6 +417,47 @@ public:
 	 * And we can invoke directly the getPortStatus() as well to get the unified bitpattern.
 	 */
 	virtual void fetchAndPublishCanPortState () = 0;
+
+	/*
+	 * Signal that gets called when a can Message is received from the initialised can bus.
+	 * In order to process this message manually, a handler needs to be connected to the signal.
+	 *
+	 * Example: myCCanAccessPointer->canMessageCame.connect(&myMessageRecievedHandler);
+	 */
+	boost::signals2::signal<void (const CanMessage &) > canMessageCame;
+
+
+	/**
+	 * Signal that gets called when a can Error is detected in the message
+	 * In order to process this message manually, a handler needs to be connected to the signal.
+	 *
+	 * Example: myCCanAccessPointer->canMessageError.connect(&myErrorRecievedHandler);
+	 */
+	boost::signals2::signal<void (const int, const char *, timeval &) > canMessageError;
+
+	/**
+	 * signal gets called whenever there is a can port status change, across all vendors
+	 * the int is the  enum CanModule::CanModuleUtils::CanModule_bus_state
+	 * In order to process this message, a handler needs to be connected to the signal.
+	 *
+	 * Example: myCCanAccessPointer->canPortStateChanged.connect(&myPortSateChangedRecievedHandler);
+	 */
+	boost::signals2::signal<void (const int, const char *, timeval &) > canPortStateChanged;
+
+
+	std::string& getBusName();
+	bool initialiseLogging(LogItInstance* remoteInstance);
+	LogItInstance* getLogItInstance();
+	std::vector<std::string> parseNameAndParameters( std::string name, std::string parameters);
+	void triggerReconnectionThread();
+	void waitForReconnectionThreadTrigger();
+	void decreaseSendFailedCountdown();
+	void resetSendFailedCountdown(){ m_failedSendCountdown = m_maxFailedSendCount; 	}
+
+
+
+
+
 
 	/**
 	 * just translate the ugly r.condition enum into a user-friendly string for convenience and logging.
