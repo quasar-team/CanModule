@@ -115,19 +115,39 @@ void CanParameters::scanParameters(std::string parameters)
         m_dontReconfigure = true;
     }
 }
-#if 0
-/* static */ LogItInstance* CCanAccess::st_getLogItInstance()
-{
-	return( CCanAccess::st_logItRemoteInstance );
-}
-#endif
 
+/**
+ * initialize Dll logging inside shared lib CanModule. PLogIt ptr "rmoteInstance" has to be handed down
+ */
 bool CCanAccess::initialiseLogging(LogItInstance* remoteInstance)
 {
 	bool ret = Log::initializeDllLogging(remoteInstance);
 	m_logItRemoteInstance = remoteInstance;
 	CCanAccess::st_logItRemoteInstance = remoteInstance;
 	return ret;
+}
+
+/**
+ * just translate the ugly r.condition enum into a user-friendly string for convenience and logging.
+ */
+static std::string CCanAccess::reconnectConditionString(CanModule::ReconnectAutoCondition c) {
+	switch (c) {
+	case ReconnectAutoCondition::sendFail: return(" sendFail");
+	case ReconnectAutoCondition::timeoutOnReception: return(" timeoutOnReception");
+	case ReconnectAutoCondition::never: return(" never");
+	}
+	return(" unknown condition");
+}
+
+/**
+ * just translate the ugly r.action enum into a user-friendly string for convenience and logging.
+ */
+static std::string CCanAccess::reconnectActionString(CanModule::ReconnectAction c) {
+	switch (c) {
+	case ReconnectAction::allBusesOnBridge: return(" allBusesOnBridge");
+	case ReconnectAction::singleBus: return(" singleBus");
+	}
+	return(" unknown action");
 }
 
 /**

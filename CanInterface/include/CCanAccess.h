@@ -382,6 +382,9 @@ public:
 	// Returns the CanStatistics object.
 	virtual void getStatistics( CanStatistics & result ) = 0;
 
+	/**
+	 * initLogIt for Dll
+	 */
 	bool initialiseLogging(LogItInstance* remoteInstance);
 
 	/**
@@ -488,27 +491,12 @@ public:
 	/**
 	 * just translate the ugly r.condition enum into a user-friendly string for convenience and logging.
 	 */
-	static std::string reconnectConditionString(CanModule::ReconnectAutoCondition c) {
-		switch (c) {
-		case ReconnectAutoCondition::sendFail: return(" sendFail");
-		case ReconnectAutoCondition::timeoutOnReception: return(" timeoutOnReception");
-		case ReconnectAutoCondition::never: return(" never");
-		}
-		return(" unknown condition");
-	}
+	static std::string reconnectConditionString(CanModule::ReconnectAutoCondition c);
 
 	/**
 	 * just translate the ugly r.action enum into a user-friendly string for convenience and logging.
 	 */
-	static std::string reconnectActionString(CanModule::ReconnectAction c) {
-		switch (c) {
-		case ReconnectAction::allBusesOnBridge: return(" allBusesOnBridge");
-		case ReconnectAction::singleBus: return(" singleBus");
-		}
-		return(" unknown action");
-	}
-
-	// static  LogItInstance* st_getLogItInstance();
+	static std::string reconnectActionString(CanModule::ReconnectAction c);
 
 
 protected:
