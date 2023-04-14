@@ -128,6 +128,15 @@ bool CCanAccess::initialiseLogging(LogItInstance* remoteInstance)
 }
 
 /**
+ * the LogIt instance is NOT shared by inheritance in windows, the instance has to be passed explicitly
+ * from the parent
+ */
+LogItInstance* CCanAccess::getLogItInstance()
+{
+	return( m_logItRemoteInstance );
+}
+
+/**
  * just translate the ugly r.condition enum into a user-friendly string for convenience and logging.
  */
 /* static */ std::string CCanAccess::reconnectConditionString(CanModule::ReconnectAutoCondition c) {
@@ -148,6 +157,33 @@ bool CCanAccess::initialiseLogging(LogItInstance* remoteInstance)
 	case ReconnectAction::singleBus: return(" singleBus");
 	}
 	return(" unknown action");
+}
+
+/**
+ * non blocking, trigger the reconnection thread
+ */
+void CCanAccess::triggerReconnectionThread(){
+	m_reconnectTrigger = true;
+	m_reconnection_cv.notify_one();
+}
+
+/**
+ * blocking, wait until a triger is received inside the reconnection thread
+ *
+ */
+void CCanAccess::waitForReconnectionThreadTrigger(){
+	std::unique_lock<std::mutex> lk(m_reconnection_mtx);
+	while  ( !m_reconnectTrigger ) m_reconnection_cv.wait( lk );
+	m_reconnectTrigger = false;
+}
+
+/**
+ * we usually wait a few fails before doing anything: we make a countdown.
+ */
+void CCanAccess::decreaseSendFailedCountdown(){
+	if ( m_failedSendCountdown > 0 )
+      		m_failedSendCountdown--;
+	LOG(Log::TRC, m_lh) << __FUNCTION__ << " decrease m_failedSendCountdown= " << m_failedSendCountdown;
 }
 
 /**

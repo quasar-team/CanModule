@@ -382,41 +382,17 @@ public:
 	// Returns the CanStatistics object.
 	virtual void getStatistics( CanStatistics & result ) = 0;
 
-	/**
-	 * initLogIt for Dll
-	 */
 	bool initialiseLogging(LogItInstance* remoteInstance);
 
-	/**
-	 * the LogIt instance is NOT shared by inheritance in windows, the instance has to be passed explicitly
-	 * from the parent
-	 */
-	LogItInstance* getLogItInstance()
-	{
-		return( m_logItRemoteInstance );
-	}
+
+	LogItInstance* getLogItInstance();
 
 	std::vector<std::string> parseNameAndParameters( std::string name, std::string parameters);
 
-	// non blocking
-	void triggerReconnectionThread(){
-		m_reconnectTrigger = true;
-		m_reconnection_cv.notify_one();
-	}
 
-	// blocking
-	void waitForReconnectionThreadTrigger(){
-		std::unique_lock<std::mutex> lk(m_reconnection_mtx);
-		while  ( !m_reconnectTrigger ) m_reconnection_cv.wait( lk );
-		m_reconnectTrigger = false;
-	}
-
-	void decreaseSendFailedCountdown(){
-		if ( m_failedSendCountdown > 0 )
-          		m_failedSendCountdown--;
-		LOG(Log::TRC, m_lh) << __FUNCTION__ << " decrease m_failedSendCountdown= " << m_failedSendCountdown;
-	}
-
+	void triggerReconnectionThread();
+	void waitForReconnectionThreadTrigger();
+	void decreaseSendFailedCountdown();
 	void resetSendFailedCountdown(){ m_failedSendCountdown = m_maxFailedSendCount; 	}
 
 
