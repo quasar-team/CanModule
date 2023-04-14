@@ -17,8 +17,8 @@ GlobalErrorSignaler::~GlobalErrorSignaler(){
 	LOG( Log::TRC, GlobalErrorSignaler::m_st_lh ) << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " disconnected all handlers from signal.";
 }
 
-#if 0
-static void GlobalErrorSignaler::xxxinitializeLogIt(LogItInstance *remoteInstance) {
+
+/* static */ void GlobalErrorSignaler::xxxinitializeLogIt(LogItInstance *remoteInstance) {
 	if ( remoteInstance != NULL ){
 		// GlobalErrorSignaler::m_st_logIt = remoteInstance;
 		bool ret = Log::initializeDllLogging( remoteInstance );
@@ -37,7 +37,7 @@ static void GlobalErrorSignaler::xxxinitializeLogIt(LogItInstance *remoteInstanc
 		std::cout << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " remote logIt instance is NULL" << std::endl;
 	}
 }
-#endif
+
 /**
  * singleton fabricator. We have one global signal only which is neither lib/vendor nor port specific, per task.
  */
