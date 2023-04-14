@@ -19,6 +19,7 @@ GlobalErrorSignaler::~GlobalErrorSignaler(){
 
 
 /* static */ void GlobalErrorSignaler::initializeLogIt(LogItInstance *remoteInstance) {
+	LOG(Log::TRC, lh ) << __FUNCTION__ << " " << __FILE__ << " " << __LINE__;
 	if ( remoteInstance != NULL ){
 		// GlobalErrorSignaler::m_st_logIt = remoteInstance;
 		bool ret = Log::initializeDllLogging( remoteInstance );
@@ -42,6 +43,7 @@ GlobalErrorSignaler::~GlobalErrorSignaler(){
  * singleton fabricator. We have one global signal only which is neither lib/vendor nor port specific, per task.
  */
 GlobalErrorSignaler* GlobalErrorSignaler::getInstance() {
+	LOG(Log::TRC, lh ) << __FUNCTION__ << " " << __FILE__ << " " << __LINE__;
 	if ( GlobalErrorSignaler::instancePtr == NULL) {
 		GlobalErrorSignaler::instancePtr = new GlobalErrorSignaler();
 

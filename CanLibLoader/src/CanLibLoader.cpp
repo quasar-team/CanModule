@@ -38,11 +38,13 @@ namespace CanModule
 /* static */ LogItInstance *CanLibLoader::st_remoteLogIt = NULL;
 
 /* static */ void CanLibLoader::initializeLogging( LogItInstance* remoteInstance ) {
+	LOG(Log::TRC, lh ) << __FUNCTION__ << " " << __FILE__ << " " << __LINE__;
 	Log::initializeDllLogging( remoteInstance );
 	CanLibLoader::st_remoteLogIt = remoteInstance;
 }
 
 /* static */ LogItInstance *CanLibLoader::st_CLgetLogItInstance(){
+	LOG(Log::TRC, lh ) << __FUNCTION__ << " " << __FILE__ << " " << __LINE__;
 	return ( CanLibLoader::st_remoteLogIt );
 }
 
@@ -67,13 +69,13 @@ CanLibLoader::CanLibLoader(const std::string& libName)
 	 */
 	std::map<Log::LogComponentHandle, std::string> log_comp_map = Log::getComponentLogsList();
 	std::map<Log::LogComponentHandle, std::string>::iterator it;
-	LOG(Log::TRC, lh ) << " *** nb of LogIt components= " << log_comp_map.size() << std::endl;
+	LOG(Log::TRC, lh ) << " *** nb of LogIt components= " << log_comp_map.size();
 
 	Log::LOG_LEVEL level;
 	for ( it = log_comp_map.begin(); it != log_comp_map.end(); it++ )
 	{
 		Log::getComponentLogLevel( it->first, level );
-		LOG(Log::TRC, lh )<< " *** " << " LogIt component " << it->second << " level= " << level << std::endl;
+		LOG(Log::TRC, lh )<< " *** " << " LogIt component " << it->second << " level= " << level;
 	}
 }
 
