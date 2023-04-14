@@ -19,9 +19,7 @@ GlobalErrorSignaler::~GlobalErrorSignaler(){
 
 
 /* static */ void GlobalErrorSignaler::initializeLogIt(LogItInstance *remoteInstance) {
-	std::cout <<  __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << std::endl;
 	if ( remoteInstance != NULL ){
-		// GlobalErrorSignaler::m_st_logIt = remoteInstance;
 		bool ret = Log::initializeDllLogging( remoteInstance );
 		if ( ret ) {
 			// std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " LogIt Dll initialized OK" << std::endl;
@@ -46,35 +44,6 @@ GlobalErrorSignaler* GlobalErrorSignaler::getInstance() {
 	std::cout <<  __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << std::endl;
 	if ( GlobalErrorSignaler::instancePtr == NULL) {
 		GlobalErrorSignaler::instancePtr = new GlobalErrorSignaler();
-
-#if 0
-		LogItInstance *logIt = CCanAccess::st_getLogItInstance();
-
-		// LogItInstance *logIt = CanLibLoader::st_CLgetLogItInstance();
-		// the CCanAcccess has not yet been called but we need the handler already:
-		// use the static LibLoader method instead. not very nice but works
-
-		if ( logIt != NULL ){
-			bool ret = Log::initializeDllLogging( logIt );
-			if ( ret ) {
-				// std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " LogIt Dll initialized OK" << std::endl;
-				Log::LogComponentHandle lh = 0;
-				if ( logIt != NULL ){
-					logIt->getComponentHandle( CanModule::LogItComponentName, lh );
-					LOG(Log::TRC, lh ) << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << "created singleton instance of GlobalErrorSignaler";
-
-					GlobalErrorSignaler::m_st_logIt = logIt;
-					GlobalErrorSignaler::m_st_lh = lh;
-				} else {
-					std::cout << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " logIt instance is NULL" << std::endl;
-				}
-			} else {
-				std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " LogIt problem1 at initialisation" << std::endl;
-			}
-		} else {
-			std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " LogIt problem2 at initialisation" << std::endl;
-		}
-#endif
 	}
 	return GlobalErrorSignaler::instancePtr;
 }
@@ -119,6 +88,7 @@ void GlobalErrorSignaler::disconnectAllHandlers() {
 	globalErrorSignal.disconnect_all_slots();
 	LOG( Log::INF, GlobalErrorSignaler::m_st_lh ) << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " disconnected all handlers from signal.";
 }
+
 // fire the signal with payload. Timestamp done internally
 void GlobalErrorSignaler::fireSignal( const int code, const char *msg ){
 	timeval ftTimeStamp;
@@ -129,7 +99,7 @@ void GlobalErrorSignaler::fireSignal( const int code, const char *msg ){
 	globalErrorSignal( code, msg, ftTimeStamp );
 
 	// would like to throw out always an ERR log as well, but the signal should work also if LogIt is bad, independently
-	// LOG( Log::ERR, GlobalErrorSignaler::m_st_lh ) << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " code= " << code << " " << msg;
+	LOG( Log::ERR, GlobalErrorSignaler::m_st_lh ) << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " fire an ERR signal: code= " << code << " " << msg;
 }
 
 // TODO: rewrite this -- from Piotr
