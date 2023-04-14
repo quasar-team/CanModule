@@ -5,7 +5,6 @@
  *      Author: mludwig
  */
 
-// #include <LogIt.h>
 #include "Diag.h"
 
 namespace CanModule {
@@ -21,13 +20,7 @@ namespace CanModule {
 
 std::mutex mtx;
 
-Diag::Diag()
-{
-#if 0
-	LogItInstance *logIt = LogItInstance::getInstance();
-	logIt->getComponentHandle( CanModule::LogItComponentName, lh );
-#endif
-};
+Diag::Diag() {};
 
 void Diag::delete_maps(CanLibLoader *lib, CCanAccess *acc ){
 
@@ -53,7 +46,6 @@ void Diag::delete_maps(CanLibLoader *lib, CCanAccess *acc ){
 		if ( it != parameter_map.end() )
 			parameter_map.erase( key );
 	}
-
 	mtx.unlock();
 }
 
@@ -68,6 +60,7 @@ void Diag::insert_maps( CanLibLoader *lib, CCanAccess *acc, std::string params )
 	std::string c0 = lib->getLibName() + "_" + std::to_string( CanLibLoader_icount );
 	std::string c1 = acc->getBusName() + "_" + std::to_string( CanAccess_icount );
 	std::string key = c0 + "::" + c1;
+
 	mtx.lock();
 	if ( lib_map.find( key ) != lib_map.end()) {
 		std::cout  << " key= " << key << " exists already, skip lib insert" << std::endl;

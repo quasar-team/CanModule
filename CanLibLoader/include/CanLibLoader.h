@@ -60,7 +60,7 @@ public:
 	std::string getLibName(){ return m_libName; }
 #endif
 
-protected:
+protected: // not public but inherited
 	//Load a dynamic library.
 	virtual void dynamicallyLoadLib(const std::string& libName) = 0;
 	//Uses the loaded library to create a HAL object and store it in p_halInstance
