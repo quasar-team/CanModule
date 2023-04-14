@@ -18,7 +18,7 @@ GlobalErrorSignaler::~GlobalErrorSignaler(){
 }
 
 
-/* static */ void GlobalErrorSignaler::xxxinitializeLogIt(LogItInstance *remoteInstance) {
+/* static */ void GlobalErrorSignaler::initializeLogIt(LogItInstance *remoteInstance) {
 	if ( remoteInstance != NULL ){
 		// GlobalErrorSignaler::m_st_logIt = remoteInstance;
 		bool ret = Log::initializeDllLogging( remoteInstance );
