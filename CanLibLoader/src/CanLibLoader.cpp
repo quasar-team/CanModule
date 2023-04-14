@@ -51,13 +51,13 @@ CanLibLoader::CanLibLoader(const std::string& libName)
 {
 	m_gsig = GlobalErrorSignaler::getInstance();
 
-	// must be set by client since we are in a shared lib, using the static methos for that. check it here
+	// must be set by client since we are in a shared lib, using the static method for that. check it here
 	if ( CanLibLoader::st_remoteLogIt != NULL ){
 		CanLibLoader::st_remoteLogIt->getComponentHandle( CanModule::LogItComponentName, lh );
 		LOG(Log::TRC, lh ) << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " constructor LogIt remote seems all fine for " << libName;
 	} else {
 		std::stringstream msg;
-		msg << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " LogIt instance is NULL for " << libName;
+		msg << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " LogIt remote instance is NULL for " << libName;
 		std::cout << msg.str() << std::endl;
 		m_gsig->fireSignal( 002, msg.str().c_str() );
 	}
@@ -105,7 +105,6 @@ void CanLibLoader::closeCanBus(CCanAccess *cInter) {
 		LOG(Log::DBG, lh ) << __FUNCTION__<< " CanBus name to be deleted: " << cInter->getBusName();
 		Diag::delete_maps( this, cInter );
 		cInter->stopBus(); // call each specific stopBus, but dtors are left until objects are out of scope
-
 	}
 }
 

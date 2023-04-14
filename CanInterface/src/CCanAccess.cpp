@@ -17,6 +17,26 @@ GlobalErrorSignaler::~GlobalErrorSignaler(){
 	LOG( Log::TRC, GlobalErrorSignaler::m_st_lh ) << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " disconnected all handlers from signal.";
 }
 
+static void GlobalErrorSignaler::initializeLogIt(LogItInstance *remoteInstance) {
+	if ( remoteInstance != NULL ){
+		// GlobalErrorSignaler::m_st_logIt = remoteInstance;
+		bool ret = Log::initializeDllLogging( remoteInstance );
+		if ( ret ) {
+			// std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " LogIt Dll initialized OK" << std::endl;
+			Log::LogComponentHandle lh = 0;
+			remoteInstance->getComponentHandle( CanModule::LogItComponentName, lh );
+			LOG(Log::TRC, lh ) << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << "created singleton instance of GlobalErrorSignaler";
+
+			GlobalErrorSignaler::m_st_logIt = remoteInstance;
+			GlobalErrorSignaler::m_st_lh = lh;
+		} else {
+			std::cout << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " remote logIt instance Dll init failed" << std::endl;
+		}
+	} else {
+		std::cout << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " remote logIt instance is NULL" << std::endl;
+	}
+}
+
 /**
  * singleton fabricator. We have one global signal only which is neither lib/vendor nor port specific, per task.
  */
@@ -24,6 +44,7 @@ GlobalErrorSignaler* GlobalErrorSignaler::getInstance() {
 	if ( GlobalErrorSignaler::instancePtr == NULL) {
 		GlobalErrorSignaler::instancePtr = new GlobalErrorSignaler();
 
+#if 0
 		LogItInstance *logIt = CCanAccess::st_getLogItInstance();
 
 		// LogItInstance *logIt = CanLibLoader::st_CLgetLogItInstance();
@@ -50,6 +71,7 @@ GlobalErrorSignaler* GlobalErrorSignaler::getInstance() {
 		} else {
 			std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " LogIt problem2 at initialisation" << std::endl;
 		}
+#endif
 	}
 	return GlobalErrorSignaler::instancePtr;
 }
