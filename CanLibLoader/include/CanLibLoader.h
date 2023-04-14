@@ -66,16 +66,16 @@ protected: // not public but inherited
 	//Uses the loaded library to create a HAL object and store it in p_halInstance
 	virtual CCanAccess* createCanAccess() = 0;
 
-	// LogIt
-	Log::LogComponentHandle lh;
-	static LogItInstance *st_remoteLogIt;
-	//void setLibName( std::string ln ){ m_libName = ln; }
-	//std::string getLibName(){ return m_libName; }
 
 private:
 	std::string m_libName;
 	GlobalErrorSignaler *m_gsig;
 
+	// LogIt
+	Log::LogComponentHandle lh;
+	static LogItInstance *st_remoteLogIt;
+	//void setLibName( std::string ln ){ m_libName = ln; }
+	//std::string getLibName(){ return m_libName; }
 
 
 };
