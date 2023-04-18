@@ -40,7 +40,6 @@ namespace CanModule
 
 	void CanStatistics::beginNewRun()
 	{
-		// m_internals.m_observationStart = std::chrono::system_clock::now();
 		m_internals.m_observationStart = std::chrono::high_resolution_clock::now();
 		m_transmitted = 0;
 		m_received = 0;
@@ -51,7 +50,6 @@ namespace CanModule
 	{
 		// todo: should this not be high_resultion_clock ?
 		std::chrono::high_resolution_clock::time_point tnom = std::chrono::high_resolution_clock::now();
-		// std::chrono::system_clock::time_point tnom = std::chrono::system_clock::now();
 		auto nDiff = tnom - m_internals.m_observationStart;
 		auto period = std::chrono::duration_cast<std::chrono::seconds>(nDiff).count();
 

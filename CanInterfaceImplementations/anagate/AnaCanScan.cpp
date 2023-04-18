@@ -613,7 +613,6 @@ int AnaCanScan::m_openCanPort()
 void AnaCanScan::m_signalErrorMessage( int code, std::string msg )
 {
 	timeval ftTimeStamp;
-	// auto now = std::chrono::system_clock::now();
 	auto now = std::chrono::high_resolution_clock::now();
 	auto nMicrosecs =
 			std::chrono::duration_cast<std::chrono::microseconds>( now.time_since_epoch());

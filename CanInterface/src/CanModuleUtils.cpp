@@ -51,7 +51,7 @@ namespace CanModule
 #ifdef _WIN32
 	timeval convertTimepointToTimeval(const std::chrono::steady_clock::time_point &t1)
 #else
-	timeval convertTimepointToTimeval(const std::chrono::system_clock::time_point &t1)
+	timeval convertTimepointToTimeval(const std::chrono::high_resolution_clock::time_point &t1)
 #endif
 	{
 		timeval dest;
@@ -69,14 +69,6 @@ namespace CanModule
 		return tp;
 	}
 #else
-	/**
-	std::chrono::system_clock::time_point convertTimevalToTimepoint(const timeval &t1)
-	{
-		auto d = std::chrono::seconds(t1.tv_sec) + std::chrono::nanoseconds(t1.tv_usec);
-		std::chrono::system_clock::time_point tp(std::chrono::duration_cast<std::chrono::system_clock::duration>(d));
-		return tp;
-	}
-	*/
 	std::chrono::high_resolution_clock::time_point convertTimevalToTimepoint(const timeval &t1)
 	{
 		auto d = std::chrono::seconds(t1.tv_sec) + std::chrono::nanoseconds(t1.tv_usec);
@@ -89,8 +81,7 @@ namespace CanModule
 #ifdef _WIN32
 	std::chrono::steady_clock::time_point currentTimeTimeval()	{ return std::chrono::steady_clock::now();}
 #else
-	// std::chrono::system_clock::time_point currentTimeTimeval()	{ return std::chrono::system_clock::now();}
-	std::chrono::high_resolution_clock::time_point currentTimeTimeval()	{ return std::chrono::system_clock::now();}
+	std::chrono::high_resolution_clock::time_point currentTimeTimeval()	{ return std::chrono::high_resolution_clock::now();}
 #endif
 
 	std::string canMessageToString(CanMessage &f)
