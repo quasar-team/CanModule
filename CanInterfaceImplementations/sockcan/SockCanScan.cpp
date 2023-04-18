@@ -662,7 +662,7 @@ int CSockCanScan::m_openCanPort()
 
 	bool success = m_writeWrapper(&canFrame);
 	if ( success ) {
-		m_statistics.onTransmit( canFrame.can_dlc );
+		// m_statistics.onTransmit( canFrame.can_dlc );
 		m_statistics.onTransmit( canFrame.can_dlc );
 		m_statistics.setTimeSinceTransmitted();
 		resetSendFailedCountdown();
@@ -740,7 +740,7 @@ bool CSockCanScan::m_writeWrapper (const can_frame* frame)
 
 	bool success = m_writeWrapper(&canFrame);
 	if ( success ) {
-		m_statistics.onTransmit( canFrame.can_dlc );
+		//m_statistics.onTransmit( canFrame.can_dlc );
 		m_statistics.onTransmit( canFrame.can_dlc );
 		m_statistics.setTimeSinceTransmitted();
 		resetSendFailedCountdown();
@@ -1010,7 +1010,7 @@ void CSockCanScan::sendErrorMessage(const char *mess)
 
 /* virtual */ void CSockCanScan::getStatistics( CanStatistics & result )
 {
-	m_statistics.computeDerived (m_CanParameters.m_lBaudRate);
+	m_statistics.computeDerived ( m_CanParameters.m_lBaudRate );
 	result = m_statistics;  // copy whole structure
 	m_statistics.beginNewRun();
 }
