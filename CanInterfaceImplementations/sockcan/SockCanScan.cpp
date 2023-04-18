@@ -316,7 +316,7 @@ void CSockCanScan::m_CanScanControlThread()
 						<< p_sockCanScan->getBusName()
 						<< " got an error, ioctl timestamp from socket failed as well, setting local time"
 						<< " ioctlReturn1 = " << ioctlReturn1;
-				/ c_time = CanModule::convertTimepointToTimeval( std::chrono::system_clock::now());
+				// c_time = CanModule::convertTimepointToTimeval( std::chrono::system_clock::now());
 				c_time = CanModule::convertTimepointToTimeval( std::chrono::high_resolution_clock::now());
 			}
 			MLOGSOCK(ERR, p_sockCanScan) << "SocketCAN ioctl return: [" << ioctlReturn1
