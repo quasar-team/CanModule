@@ -112,6 +112,7 @@ private:
 	HANDLE m_PeakReconnectionThread;
     DWORD           m_idCanScanThread;
     DWORD           m_idPeakReconnectionThread;
+	GlobalErrorSignaler *m_gsig;
 
 	TPCANHandle m_getHandle(const char *name);
 	bool m_sendErrorCode(long);

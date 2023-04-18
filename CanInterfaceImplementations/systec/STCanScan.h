@@ -89,6 +89,9 @@ private:
     HANDLE	m_hCanScanThread;
     // Thread ID for the CAN update scan manager thread.
     DWORD   m_idCanScanThread;
+
+    GlobalErrorSignaler *m_gsig;
+
     // The main control thread function for the CAN update scan manager.
 	static DWORD WINAPI CanScanControlThread(LPVOID pCanScan);
 	static tUcanInitCanParam createInitializationParameters( unsigned int br );

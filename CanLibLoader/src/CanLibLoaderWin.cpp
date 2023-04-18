@@ -69,8 +69,9 @@ namespace CanModule
 	CanLibLoaderWin::CanLibLoaderWin(const std::string& libName)
 		: CanLibLoader(libName), m_pDynamicLibrary(0)
 	{
-		std::cout  << __FUNCTION__ << std::endl;
 		LOG(Log::TRC, lh) << "inherited logItComponentHandle= " << lh;
+		m_gsig = GlobalErrorSignaler::getInstance();
+
 		dynamicallyLoadLib(libName);
 	}
 
@@ -96,6 +97,7 @@ namespace CanModule
 
 		std::cout  << "Proceeding to ExA load library " << ss.str() << std::endl;
 		LOG(Log::DBG, lh) << "Proceeding to ExA load library " << ss.str();
+		LOG(Log::INF, lh) << "dynamic vendor libs must be present, as configured by the build";
 		m_pDynamicLibrary = ::LoadLibraryExA(ss.str().c_str(), NULL, 0x00000010 /* LOAD_IGNORE_CODE_AUTHZ_LEVEL */);
 
 		//We check for errors while loading the library
@@ -110,6 +112,9 @@ namespace CanModule
 				LOG(Log::ERR, lh) << " WARNING: easiest solution: copy them into the same directory as the CANX-tester binary";
 			}
 			ErrorExit(TEXT( "Error: could not load the dynamic library " ));
+
+			m_gsig->fireSignal( 020, msg.c_str() );
+
 			throw std::runtime_error( msg.c_str() );
 		}
 	}
@@ -129,11 +134,13 @@ namespace CanModule
 
 		// We check for errors again. If there is an error the library is released from memory.
 		if (!canAccess) {
-			throw std::runtime_error( std::string(__FUNCTION__) + std::string(": Error: could not locate the function"));
+			std::string msg = std::string(__FUNCTION__) + std::string(": Error: could not locate the function getCanBusAccess");
+			m_gsig->fireSignal( 020, msg.c_str() );
+
+			throw std::runtime_error( msg.c_str() );
 		}
 		// We call the function getHalAccess we got from the library. This will give us a pointer to an object, wich we store.
 		LOG(Log::TRC, lh) << __FUNCTION__ << ": getCanBusAccess: got an object ptr from library, OK";
-
 
 		return (CCanAccess*)(canAccess());
 	}

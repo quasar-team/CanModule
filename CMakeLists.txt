@@ -18,7 +18,7 @@
 #  
 #
 cmake_minimum_required( VERSION 3.0 )
-project( CanModuleProject LANGUAGES C CXX  VERSION 2.0.24  )  
+project( CanModuleProject LANGUAGES C CXX  VERSION 2.0.25  )  
 message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CanModule version= ${PROJECT_VERSION}" )
 
 cmake_policy(SET CMP0054 NEW)
@@ -70,8 +70,14 @@ function ( clone_LogIt )
   message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: cloning LogIt from github. *NOTE* cloning version [${LOGIT_VERSION}]")
   if ( NOT EXISTS ${PROJECT_BINARY_DIR}/LogIt )
   	  execute_process(COMMAND mkdir -p ${PROJECT_BINARY_DIR} ) 
-  	  execute_process(COMMAND pwd ) 
-	  execute_process(COMMAND git clone -b ${LOGIT_VERSION} https://github.com/quasar-team/LogIt.git WORKING_DIRECTORY ${PROJECT_BINARY_DIR}  )
+  	  #execute_process(COMMAND pwd ) 
+	  #execute_process(COMMAND git clone -b ${LOGIT_VERSION} https://github.com/quasar-team/LogIt.git WORKING_DIRECTORY ${PROJECT_BINARY_DIR}  )
+	  #xxxx 
+	  execute_process(COMMAND git clone -b ${LOGIT_VERSION} https://github.com/quasar-team/LogIt.git ${PROJECT_BINARY_DIR}/LogIt WORKING_DIRECTORY ${PROJECT_BINARY_DIR}  )
+
+
+	  #add_subdirectory( ${PROJECT_BINARY_DIR}/LogIt build )
+	  include_directories( ${PROJECT_BINARY_DIR}/LogIt/include build )
 	  
 	  #execute_process(COMMAND git clone -b ${LOGIT_VERSION} https://github.com/quasar-team/LogIt.git WORKING_DIRECTORY ./build  )
 	  message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: PROJECT_BINARY_DIR= ${PROJECT_BINARY_DIR}")
@@ -114,6 +120,7 @@ if( STANDALONE_BUILD )
   	    clone_LogIt()  # clones into ${PROJECT_SOURCE_DIR}/build/build/CanModule/LogIt
         message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] PROJECT_BINARY_DIR= ${PROJECT_BINARY_DIR}")          
         add_subdirectory( ${PROJECT_BINARY_DIR}/LogIt build ) 
+        message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] added LogIt subdir to build: ${PROJECT_BINARY_DIR}/LogIt")          
     else()
 	    locateLogItSharedLib()
 	    message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Using LogIt library: LOGIT_LIB [${LOGIT_LIB}]")
@@ -128,7 +135,7 @@ link_directories( ${BOOST_PATH_LIBS} )
 # we have a mock up build without any vendor libs as well, for CI where we don't want to distribute vendor libs
 # preferably inject this from the toolchain : set ( CANMODULE_BUILD_VENDORS ON )
 # if you have nothing declared, vendors will be OFF
-message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: building vendor libs is ${BUILD_VENDORS}")
+message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: building vendor libs CANMODULE_BUILD_VENDORS= ${CANMODULE_BUILD_VENDORS}")
 if ( NOT DEFINED CANMODULE_BUILD_VENDORS )
 	set ( CANMODULE_BUILD_VENDORS OFF )
 	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] you have not specified if you want to build the vendor code or not ( CANMODULE_BUILD_VENDORS ). Set to OFF")

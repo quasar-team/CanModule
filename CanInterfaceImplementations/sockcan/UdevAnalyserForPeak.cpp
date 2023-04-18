@@ -77,7 +77,7 @@ std::string UdevAnalyserForPeak::peakExtendedIdentifierToSocketCanDevice( std::s
 	size_t pos2 = sub1.find( ":device" ) + 7;
 	std::string sub2 = sub1.substr( pos2, std::string::npos );
 	//std::cout << __FILE__ << " " << __LINE__ << " sub2= " << sub2 << std::endl;
-	int deviceId =  std::stoi( sub2 );
+	unsigned int deviceId =  std::stoul( sub2, 0, 10 );
 
 	// second, sift out the local port number as well
 	//	size_t pos3 = sub1.find( ":" );
@@ -99,9 +99,9 @@ std::string UdevAnalyserForPeak::peakExtendedIdentifierToSocketCanDevice( std::s
 			<< " localPort= " << localPort;
 
 	for ( unsigned int i = 0; i < m_peak_v.size(); i++ ){
-		//LOG(Log::TRC, m_logItHandleSock) << "peak comparing " << i
-		//		<< " deviceID= " << m_peak_v[ i ].deviceID
-		//		<< " localCanPort= " <<  m_peak_v[ i ].localCanPort;
+		LOG(Log::TRC, m_logItHandleSock) << "peak comparing " << i
+				<< " deviceID= " << m_peak_v[ i ].deviceID
+				<< " localCanPort= " <<  m_peak_v[ i ].localCanPort;
 
 		if (( m_peak_v[ i ].deviceID == deviceId ) && ( m_peak_v[ i ].localCanPort == localPort )){
 			LOG(Log::TRC, m_logItHandleSock) << "peak found "
@@ -150,26 +150,28 @@ void UdevAnalyserForPeak::m_createUdevPortMap( void ){
 	std::string cmd0 = "ls -l /dev/pcanusb* | grep -v \" -> \" | awk '{print $10}' ";
 	execcommand_ns::ExecCommand exec0( cmd0 );
 	const execcommand_ns::ExecCommand::CmdResults results0 = exec0.getResults();
-	//LOG(Log::TRC, m_logItHandleSock) << "peak " << exec0;
+	//LOG(Log::TRC, m_logItHandleSock) << "peak exec0= " << exec0;
 
 	// get the symlinks for each device and the first port
 	for ( unsigned int i = 0; i < results0.size(); i++ ){
 		std::string cmd1 = std::string("/sbin/udevadm info -q symlink ") + results0[ i ] + std::string(" | grep \"devid=\"");
+		//LOG(Log::TRC, m_logItHandleSock) << "peak cmd1= " << cmd1;
 		execcommand_ns::ExecCommand exec1( cmd1 );
 		execcommand_ns::ExecCommand::CmdResults results1 = exec1.getResults();
-		//LOG(Log::TRC, m_logItHandleSock) << "peak " << exec1;
 		for ( unsigned k = 0; k < results1.size(); k++ ){
 			links1.push_back( results1[ k ] );
+			//LOG(Log::TRC, m_logItHandleSock) << "peak results1[ " << k << "]=" << results1[ k ];
 		}
 	}
 	// get the links of the other ports
 	for ( unsigned int i = 0; i < results0.size(); i++ ){
 		std::string cmd2 = std::string("/sbin/udevadm info -q symlink ") + results0[ i ] + std::string(" | grep -v \"devid=\"");
+		//LOG(Log::TRC, m_logItHandleSock) << "peak cmd2= " << cmd2;
 		execcommand_ns::ExecCommand exec2( cmd2 );
 		execcommand_ns::ExecCommand::CmdResults results2 = exec2.getResults();
-		//LOG(Log::TRC, m_logItHandleSock) << "peak " << exec2;
 		for ( unsigned k = 0; k < results2.size(); k++ ){
 			links2.push_back( results2[ k ] );
+			//LOG(Log::TRC, m_logItHandleSock) << "peak results2[ " << k << "]="  << results2[ k ];
 		}
 	}
 
@@ -209,7 +211,7 @@ void UdevAnalyserForPeak::m_createUdevPortMap( void ){
 	for ( unsigned i = 0; i < m_peak_v.size(); i++ ){
 		m_peak_v[ i ].socketNumber = i;
 	}
-	// showMap();
+	showMap();
 }
 
 /**
@@ -224,55 +226,142 @@ unsigned int UdevAnalyserForPeak::m_peakDeviceIdFromSystemDeviceIndex( unsigned 
 
 /**
  * get the local socket nb of the devices: "32"
+ *
+ * cc7:
  * pcan-usb_pro_fd/0/can0 pcan-usb_pro_fd/devid=9054 pcan32 pcanusbpfd32
+ *
+ * cal9:
+ * pcan-usb_pro_fd/devid=9054 pcan32 pcan-usb_pro_fd/0/can0 pcanusbpfd32
+ *
  */
 unsigned int UdevAnalyserForPeak::m_peakDriverNumber( std::string s ){
-	size_t pos1 = s.find( "devid=" ) + 6;
+	//std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " " << s << std::endl;
+
+	size_t pos1 = s.find( "pcanusbpfd" );
 	std::string sub1 = s.substr( pos1, std::string::npos );
-	//	std::cout << __FILE__ << " " << __LINE__ << " sub1= " << sub1 << std::endl;
-	size_t pos2 = sub1.find( " pcan" ) + 5;
-	std::string sub2 = sub1.substr( pos2, std::string::npos );
-	//	std::cout << __FILE__ << " " << __LINE__ << " sub2= " << sub2 << std::endl;
-	std::string sub3 = sub2.substr( 0, sub2.find(" ") );
-	//	std::cout << __FILE__ << " " << __LINE__ << " sub3= " << sub3 << std::endl;
-	return( std::stoi( sub3 ));
+	std::size_t pos2 = sub1.find_first_of( "0123456789" );
+	std::string sub2 = sub1.substr( pos2, 3 ); // 3 digits
+	unsigned int ii = std::stoul( sub2, 0, 10 );
+	LOG(Log::TRC, m_logItHandleSock) << s << " extracted m_peakDriverNumber= " << ii;
+	return( ii );
 }
 
 /**
- * get the local can port of the devices: the "0" of "can0"
+ * get the local can port of the devices: the "0" of "can0" (NOT the device number)
+ * ls -l /dev/pcan-usb_pro_fd/0
+ *    can0
+ *    can1
+ *
+ *
+ * cc7:
  * pcan-usb_pro_fd/0/can0 pcan-usb_pro_fd/devid=9054 pcan32 pcanusbpfd32
+ *
+ * cal9:
+ * pcanusbpfd32 pcan-usb_pro_fd/devid=9054 pcan32 pcan-usb_pro_fd/0/can0
  */
 unsigned int UdevAnalyserForPeak::m_peakLocalCanPort( std::string s ){
-	size_t pos1 = s.find( "/" ) + 1;
+	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " " << s << std::endl;
+
+
+	std::vector<std::string> v0;
+	size_t start;
+	size_t end = 0;
+	std::string delim = "/can";
+	while (( start = s.find_first_not_of( delim, end)) != std::string::npos )  {
+		end = s.find( delim, start );
+		v0.push_back( s.substr(start, end - start));
+	}
+
+	unsigned int localCanport = 999999;
+	for ( unsigned int i = 0; i < v0.size(); i++ ){
+		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " v0= " << v0[ i ] << std::endl;
+
+		// find the vector element which starts with a number
+		std::size_t pos0 = v0[i].find_first_of( "0123456789" );
+		//std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " pos0= " << pos0 << std::endl;
+		if ( pos0 == 0 ){
+			localCanport = stoul( v0[i], 0, 10 );
+		}
+	}
+	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " localCanport= " << localCanport << std::endl;
+	return ( localCanport );
+
+#if 0
+	size_t pos1 = s.find( "/can" ) - 4;
 	std::string sub1 = s.substr( pos1, std::string::npos );
+	std::cout << __FILE__ << " " << __LINE__ << " sub1= " << sub1 << std::endl;
+
+
+
 	size_t pos2 = sub1.find( "/" ) + 1;
 	std::string sub2 = sub1.substr( pos2, sub1.find(" ") - 2 );
 	std::string sub3 = sub2.substr( 3, std::string::npos );
-	//std::cout << __FILE__ << " " << __LINE__ << " sub3= " << sub3 << std::endl;
-	return( std::stoi( sub3 ));
+	std::cout << __FILE__ << " " << __LINE__ << " sub3= " << sub3 << std::endl;
+	unsigned int ii = std::stoul( sub3, 0, 10 );
+	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " ii= " << ii << std::endl;
+	return( ii );
+#endif
 }
 
 /**
  * get the devids of the devices "9054"
+ *
+ * cc7:
  * pcan-usb_pro_fd/0/can0 pcan-usb_pro_fd/devid=9054 pcan32 pcanusbpfd32
+ *
+ * cal9:
+ *
  */
 unsigned int UdevAnalyserForPeak::m_peakDeviceId( std::string s ){
+	//std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " " << s << std::endl;
+
 	const std::string devid = "devid=";
 	size_t pos1 = s.find( devid ) + std::string( devid ).length();
 	std::string sub1 = s.substr( pos1, std::string::npos );
 	std::string sub2 = sub1.substr( 0, sub1.find(" ") );
-	return( std::stoi( sub2 ));
+	//std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " sub2= " << sub2 << std::endl;
+	unsigned int ii = std::stoul( sub2, 0, 10 );
+	//std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " ii= " << ii << std::endl;
+	return( ii );
 }
 
 /**
- * get the global device index "0"
+ * get the global device index "0" from:
+ *
+ * cc7:
  * pcan-usb_pro_fd/0/can0 pcan-usb_pro_fd/devid=9054 pcan32 pcanusbpfd32
+ *
+ * cal9:
+ * pcan-usb_pro_fd/devid=9054 pcan32 pcanusbpfd32 pcan-usb_pro_fd/0/can0
+ *
+ * => lets look for "/can" and take the number before that
+ * => lets look for "/" number "/"
  */
 unsigned int UdevAnalyserForPeak::m_peakSystemDeviceIndex( std::string s ){
-	size_t pos1 = s.find( "/" ) + 1;
-	std::string sub1 = s.substr( pos1, std::string::npos );
-	std::string sub2 = sub1.substr( 0, sub1.find("/") );
-	return( std::stoi( sub2 ));
+	//std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " " << s << std::endl;
+
+	std::vector<std::string> v0;
+	size_t start;
+	size_t end = 0;
+	std::string delim = "/";
+	while (( start = s.find_first_not_of( delim, end)) != std::string::npos )  {
+		end = s.find( delim, start );
+		v0.push_back( s.substr(start, end - start));
+	}
+
+	unsigned int globalDevId = 0;
+	for ( unsigned int i = 0; i < v0.size(); i++ ){
+		//std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " v0= " << v0[ i ] << std::endl;
+
+		// find the vector element which starts with a number
+		std::size_t pos0 = v0[i].find_first_of( "0123456789" );
+		//std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " pos0= " << pos0 << std::endl;
+		if ( pos0 == 0 ){
+			globalDevId = stoul( v0[i], 0, 10 );
+		}
+	}
+	//std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " globalDevId= " << globalDevId << std::endl;
+	return ( globalDevId );
 }
 
 

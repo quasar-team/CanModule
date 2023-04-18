@@ -26,13 +26,14 @@
 #include <CCanAccess.h>
 
 #include <errno.h>
-// #include <string.h>
 #include <chrono>
 #include <iostream>
 #include <sstream>
 
 namespace CanModule
 {
+
+
 	std::string CanModuleerrnoToString()
 	{
 		const int max_len = 1000;
@@ -50,7 +51,7 @@ namespace CanModule
 #ifdef _WIN32
 	timeval convertTimepointToTimeval(const std::chrono::steady_clock::time_point &t1)
 #else
-	timeval convertTimepointToTimeval(const std::chrono::system_clock::time_point &t1)
+	timeval convertTimepointToTimeval(const std::chrono::high_resolution_clock::time_point &t1)
 #endif
 	{
 		timeval dest;
@@ -68,10 +69,10 @@ namespace CanModule
 		return tp;
 	}
 #else
-	std::chrono::system_clock::time_point convertTimevalToTimepoint(const timeval &t1)
+	std::chrono::high_resolution_clock::time_point convertTimevalToTimepoint(const timeval &t1)
 	{
 		auto d = std::chrono::seconds(t1.tv_sec) + std::chrono::nanoseconds(t1.tv_usec);
-		std::chrono::system_clock::time_point tp(std::chrono::duration_cast<std::chrono::system_clock::duration>(d));
+		std::chrono::high_resolution_clock::time_point tp(std::chrono::duration_cast<std::chrono::high_resolution_clock::duration>(d));
 		return tp;
 	}
 #endif
@@ -80,7 +81,7 @@ namespace CanModule
 #ifdef _WIN32
 	std::chrono::steady_clock::time_point currentTimeTimeval()	{ return std::chrono::steady_clock::now();}
 #else
-	std::chrono::system_clock::time_point currentTimeTimeval()	{ return std::chrono::system_clock::now();}
+	std::chrono::high_resolution_clock::time_point currentTimeTimeval()	{ return std::chrono::high_resolution_clock::now();}
 #endif
 
 	std::string canMessageToString(CanMessage &f)
@@ -120,21 +121,23 @@ namespace CanModule
 	{
 		switch (state)
 		{
-		case CanModule::CAN_STATE_ERROR_ACTIVE: return "ERROR_ACTIVE (approximate OK)";
-		case CanModule::CAN_STATE_ERROR_WARNING: return "ERROR_WARNING";
-		case CanModule::CAN_STATE_ERROR_PASSIVE: return "ERROR_PASSIVE";
-		case CanModule::CAN_STATE_BUS_OFF: return "BUS_OFF";
-		case CanModule::CAN_STATE_STOPPED: return "CAN_STATE_STOPPED";
-		case CanModule::CAN_STATE_SLEEPING: return "CAN_STATE_SLEEPING";
+		case CanModule::CAN_STATE_ERROR_ACTIVE: return " CAN_STATE_ERROR_ACTIVE: RX/TX error count < 96  (OK) ";
+		case CanModule::CAN_STATE_ERROR_WARNING: return " CAN_STATE_ERROR_WARNING: RX/TX error count < 128 ";
+		case CanModule::CAN_STATE_ERROR_PASSIVE: return " CAN_STATE_ERROR_PASSIVE: RX/TX error count < 256 ";
+		case CanModule::CAN_STATE_BUS_OFF: return " CAN_STATE_BUS_OFF: RX/TX error count >= 256 ";
+		case CanModule::CAN_STATE_STOPPED: return " CAN_STATE_STOPPED: Device is stopped ";
+		case CanModule::CAN_STATE_SLEEPING: return " CAN_STATE_SLEEPING: Device is sleeping ";
+		case CanModule::CAN_STATE_MAX: return " CAN_STATE_MAX: Rx or Tx queue full, overrun ";
 
-		case CanModule::CANMODULE_NOSTATE: return "CANMODULE_NOSTATE: could not get port state";
-		case CanModule::CANMODULE_WARNING: return "CANMODULE_WARNING: traffic degradation but might recover";
-		case CanModule::CANMODULE_ERROR: return "CANMODULE_ERROR: error likely stemming from SW/HW/firmware";
-		case CanModule::CANMODULE_OK: return "CANMODULE_OK: bus is fine";
+		case CanModule::CANMODULE_NOSTATE: return " CANMODULE_NOSTATE: could not get port state ";
+		case CanModule::CANMODULE_WARNING: return " CANMODULE_WARNING: traffic degradation but might recover ";
+		case CanModule::CANMODULE_ERROR: return " CANMODULE_ERROR: error likely stemming from SW/HW/firmware ";
+		case CanModule::CANMODULE_TIMEOUT_OK: return " CANMODULE_TIMEOUT_OK: bus is fine, no traffic ";
+		case CanModule::CANMODULE_OK: return " CANMODULE_OK: bus is fine ";
 
 		default:
 			std::stringstream os;
-			os <<  "translateCanBusStateToText: unknown state= " << state;
+			os <<  " translateCanBusStateToText: (very bad) unknown state= " << state;
 			return ( os.str() );
 			// dont throw an exception
 		}

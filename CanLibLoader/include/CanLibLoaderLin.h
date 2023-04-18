@@ -25,22 +25,21 @@
 
 namespace CanModule 
 {
-    class CanLibLoaderLin : public CanLibLoader
-    {
-     public:
-	//Empty constructor
-	CanLibLoaderLin(const std::string& libName);
+class CanLibLoaderLin : public CanLibLoader
+{
+public:
 
-	//Will cleanup the loaded dynamic library
+	CanLibLoaderLin(const std::string& libName);
 	virtual ~CanLibLoaderLin();
-     protected:
-	//Load a dynamic library.
+
+protected:
 	virtual void dynamicallyLoadLib(const std::string& libName);
-	//Uses the loaded library to create a HAL object and store it in p_halInstance
 	virtual CCanAccess*  createCanAccess();
-     private:
+
+private:
 	//Pointer to the dynamic library stored on the memory
 	void *p_dynamicLibrary;
+	GlobalErrorSignaler *m_gsig;
 
-    };
+};
 }

@@ -28,28 +28,31 @@
 #include <map>
 #include <string>
 
+
 #pragma once
 
 using namespace std;
 
 namespace CanModule
 {
-	/**
-	 * CanBusAccess class ensure a connection to can hardware.
-	 * it can create the connection to different hardware at same time
-	 * the syntax of the name is "name of component:name of the channel"
-	 */
-	class CanBusAccess {
 
-	public:
-		CanBusAccess() : m_libLoader_map(), m_canAccess_map() {};
-		CCanAccess * openCanBus(string name, string parameters);
-		void closeCanBus(CCanAccess *cca);
 
-	private:
-		bool isCanPortOpen(string pn) { return (m_canAccess_map.find(pn) != m_canAccess_map.end()); }
-		map<string, CanLibLoader *> m_libLoader_map;
-		map<string, CCanAccess *> m_canAccess_map;
-	};
+/**
+ * CanBusAccess class ensure a connection to can hardware.
+ * it can create the connection to different hardware at same time
+ * the syntax of the name is "name of component:name of the channel"
+ */
+class CanBusAccess {
+
+public:
+	CanBusAccess() : m_libLoader_map(), m_canAccess_map() {};
+	CCanAccess * openCanBus(string name, string parameters);
+	void closeCanBus(CCanAccess *cca);
+
+private:
+	bool isCanPortOpen(string pn) { return (m_canAccess_map.find(pn) != m_canAccess_map.end()); }
+	map<string, CanLibLoader *> m_libLoader_map;
+	map<string, CCanAccess *> m_canAccess_map;
+};
 }
 #endif // CANBUSACCESS_H

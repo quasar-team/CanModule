@@ -63,15 +63,12 @@ AnaCanScan::AnaCanScan():
 	m_busParameters(""),
 	m_UcanHandle(0),
 	m_timeout ( 6000 ),
-	m_busStopped( false )
+	m_busStopped( false ),
+	m_gsig( NULL )
 {
 	m_statistics.setTimeSinceOpened();
 	m_statistics.beginNewRun();
 	m_failedSendCountdown = m_maxFailedSendCount;
-
-	/**
-	 * start a reconnection thread
-	 */
 	m_hCanReconnectionThread = new std::thread( &AnaCanScan::m_CanReconnectionThread, this);
 }
 
@@ -106,15 +103,17 @@ AnaCanScan::~AnaCanScan()
  * (virtual) forced implementation. Generally: do whatever shenanigans you need on the vendor API and fill in the portState accordingly, stay
  * close to the semantics of the enum.
  *
- * sockcan specific implementation: obtain port status from the kernel, plus an extra LogIt message if we have an error
+ * anagate specific implementation: obtain port status from the vendor, which is VERY sparse
  */
 /* virtual */ void AnaCanScan::fetchAndPublishCanPortState ()
 {
 	// we could also use the unified port status for this and strip off the implementation bits
 	// but using can_get_state directly is less complex and has less dependencies
 
-	int portState;
+	unsigned int portState;
 	AnaInt32 ana_state = CANDeviceConnectState( m_UcanHandle );
+
+	// MLOGANA(TRC,this) << __FUNCTION__ << " port_status_change ana_state= " << ana_state;
 
 	// translate the ana_state ( AnaGateAPI.v2 from  2014-12-10 applies to 2.06-25.03.2021 CANDeviceConnectState )
 	// into the standardized enum CanModule::CanModuleUtils::CanModule_bus_state
@@ -153,7 +152,6 @@ AnaCanScan::~AnaCanScan()
 		break;
 	}
 	} // switch
-	// signals only if it has changed
 	publishPortStatusChanged( portState );
 }
 
@@ -162,12 +160,15 @@ void AnaCanScan::stopBus ()
 {
 	if (!m_busStopped){
 		MLOGANA(TRC,this) << __FUNCTION__ << " stopping anagate m_busName= " <<  m_busName << " m_canPortNumber= " << m_canPortNumber;
-		CANSetCallback(m_UcanHandle, 0);
-		CANCloseDevice(m_UcanHandle);
+		CANSetCallback( m_UcanHandle, 0);
+		CANCloseDevice( m_UcanHandle);
+
+		fetchAndPublishCanPortState();
+
 		st_deleteCanHandleOfPortIp( m_canPortNumber, m_canIPAddress );
 		m_eraseReceptionHandlerFromMap( m_UcanHandle );
 	}
-	m_busStopped = true;
+	m_busStopped = true; // we keep the object. we can re-open the bus
 }
 
 
@@ -255,11 +256,17 @@ void AnaCanScan::statisticsOnRecieve(int bytes)
 /**
  *  callback API: sends a boost signal with payload
  */
-void AnaCanScan::callbackOnRecieve(CanMessage& msg)
+void AnaCanScan::callbackOnRecieve( CanMessage& msg )
 {
 	canMessageCame( msg );
 	if ( m_reconnectCondition == ReconnectAutoCondition::timeoutOnReception ){
 		resetTimeoutOnReception();
+	}
+
+	static int calls = 100;
+	if ( !calls-- ) {
+		fetchAndPublishCanPortState();
+		calls = 100;
 	}
 }
 
@@ -294,22 +301,47 @@ int AnaCanScan::createBus(const std::string name, const std::string parameters)
 {	
 	m_busName = name;
 	m_busParameters = parameters;
+	m_gsig = GlobalErrorSignaler::getInstance();
 
-	// calling base class to get the instance from there
+	/** LogIt: initialize shared lib. The logging levels for the component logging is kept, we are talking still to
+	 * the same master object "from the exe". We get the logIt ptr
+	 * acquired down from the superclass, which keeps it as a static, and being itself a shared lib. we are inside
+	 * another shared lib - 2nd stage - so we need to Dll initialize as well. Since we have many CAN ports we just acquire
+	 * the handler to go with the logIt object and keep that as a static. we do not do per-port component logging.
+	 * we do, however, stamp the logging messages specifically for each vendor using the macro.
+	 */
+	LogItInstance *logIt = getLogItInstance(); // CCanAccess inherited method
+	// LogItInstance *logIt = CCanAccess::st_getLogItInstance();
 	Log::LogComponentHandle myHandle;
-	LogItInstance* logItInstance = CCanAccess::getLogItInstance(); // actually calling instance method, not class
-
-	// register anagate component for logging
-	if ( !LogItInstance::setInstance(logItInstance)) {
-		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
-				<< " could not set LogIt instance" << std::endl;
+	if ( logIt != NULL ){
+		if (!Log::initializeDllLogging( logIt )){
+			std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
+					<< " could not DLL init remote LogIt instance " << std::endl;
+		}
+		logIt->getComponentHandle( CanModule::LogItComponentName, myHandle );
+		LOG(Log::INF, myHandle ) << CanModule::LogItComponentName << " Dll logging initialized OK";
+		AnaCanScan::st_logItHandleAnagate = myHandle;
+	} else {
+		std::stringstream msg;
+		msg << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " LogIt instance is NULL";
+		std::cout << msg.str() << std::endl;
+		m_gsig->fireSignal( 002, msg.str().c_str() );
 	}
-	if (!logItInstance->getComponentHandle(CanModule::LogItComponentName, myHandle)){
-		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
-				<< " could not get LogIt component handle for " << LogItComponentName << std::endl;
+
+	/**
+	 * lets get clear about the Logit components and their levels at this point
+	 */
+	std::map<Log::LogComponentHandle, std::string> log_comp_map = Log::getComponentLogsList();
+	std::map<Log::LogComponentHandle, std::string>::iterator it;
+	LOG(Log::TRC, myHandle ) << " *** Lnb of LogIt components= " << log_comp_map.size() << std::endl;
+	for ( it = log_comp_map.begin(); it != log_comp_map.end(); it++ )
+	{
+		Log::LOG_LEVEL level;
+		Log::getComponentLogLevel( it->first, level);
+		LOG(Log::TRC, myHandle )  << " *** " << " LogIt component " << it->second << " level= " << level;
 	}
 
-	AnaCanScan::st_logItHandleAnagate = myHandle;
+	// board configuration
 	int returnCode = m_configureCanBoard( name, parameters );
 	if ( returnCode < 0 ) {
 		m_signalErrorMessage( -1, "createBus: configureCanBoard: problem configuring. ip= " + m_canIPAddress +
@@ -318,6 +350,7 @@ int AnaCanScan::createBus(const std::string name, const std::string parameters)
 	}
 	MLOGANA(DBG,this) << " OK, Bus created with name= " << name << " parameters= " << parameters;
 	m_busStopped = false;
+	fetchAndPublishCanPortState();
 
 	return 0;
 }
@@ -411,7 +444,9 @@ int AnaCanScan::m_configureCanBoard(const std::string name,const std::string par
 	MLOGANA(TRC, this) << __FUNCTION__ << " m_iTimeStamp= " << m_CanParameters.m_iTimeStamp;
 	MLOGANA(TRC, this) << __FUNCTION__ << " m_iSyncMode= " << m_CanParameters.m_iSyncMode;
 	MLOGANA(TRC, this) << __FUNCTION__ << " m_iTimeout= " << m_CanParameters.m_iTimeout;
-	return m_openCanPort();
+	// no hw interaction up to this point
+
+	return m_openCanPort(); // hw interaction
 }
 
 /**
@@ -500,7 +535,7 @@ int AnaCanScan::m_openCanPort()
 		if (anaCallReturn != 0) {
 			std::stringstream os;
 			os << " openCanPort: Error for port= " << m_canPortNumber << " ip= " << m_canIPAddress;
-			m_signalErrorMessage( anaCallReturn, os.str().c_str() );
+			m_signalErrorMessage( anaCallReturn, os.str().c_str() ); // most likely the handler is not yet connected and we don't have a canbus object
 			MLOGANA(ERR,this) << "Error in CANOpenDevice, return code = [0x" << std::hex << anaCallReturn << std::dec << "]";
 			return -1;
 		}
@@ -569,34 +604,6 @@ int AnaCanScan::m_openCanPort()
 }
 
 
-#if 0
-implement this directly in the code
-/**
- * invoke the error handler with a message.
- * this sends a boost::signal to a connected boost::slot in the client's code.
- *
- *
- * 			p_sockCanScan->canMessageError( numberOfReadBytes, ("read() wrong msg size: " + CanModuleerrnoToString() + " tid= " + _tid).c_str(), now );
- *
- *
- */
-bool AnaCanScan::sendAnErrorMessage(AnaInt32 status)
-{
-	timeval ftTimeStamp; 
-	if (status != 0) {
-		auto now = std::chrono::system_clock::now();
-		auto nMicrosecs =
-				std::chrono::duration_cast<std::chrono::microseconds>( now.time_since_epoch());
-		ftTimeStamp.tv_sec = nMicrosecs.count() / 1000000L;
-		ftTimeStamp.tv_usec = (nMicrosecs.count() % 1000000L) ;
-
-		canMessageError(status, errorCodeToString( (long int) status), ftTimeStamp);
-	}
-	return true;
-}
-#endif
-
-
 /**
  * wrapper to send an error code plus message down the signal. Can send any code with any text.
  * use ana_canGetErrorText for ana error codes as well
@@ -606,12 +613,12 @@ bool AnaCanScan::sendAnErrorMessage(AnaInt32 status)
 void AnaCanScan::m_signalErrorMessage( int code, std::string msg )
 {
 	timeval ftTimeStamp;
-	auto now = std::chrono::system_clock::now();
+	auto now = std::chrono::high_resolution_clock::now();
 	auto nMicrosecs =
 			std::chrono::duration_cast<std::chrono::microseconds>( now.time_since_epoch());
 	ftTimeStamp.tv_sec = nMicrosecs.count() / 1000000L;
 	ftTimeStamp.tv_usec = (nMicrosecs.count() % 1000000L) ;
-
+	msg = getBusName() + msg; // force prefix bus name in all erors
 	canMessageError( code, msg.c_str(), ftTimeStamp);
 }
 
@@ -699,9 +706,12 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 		m_statistics.onTransmit(messageLengthToBeProcessed);
 		m_statistics.setTimeSinceTransmitted();
 	}
-	// port state update
-	fetchAndPublishCanPortState();
-
+	// port state update, decrease load on the board a bit
+	static int calls = 5;
+	if ( !calls-- ) {
+		fetchAndPublishCanPortState();
+		calls = 5;
+	}
 	return ( true );
 }
 
@@ -724,7 +734,7 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 
 
 /**
- * only reconnect this object's port and make sure the callback map entry is updated as well
+ * only reconnect this object's port and make sure the callback map entry is updated as well. deal with the handler
  */
 AnaInt32 AnaCanScan::m_reconnectThisPort(){
 	// a sending on one port failed miserably, and we reset just that port.
@@ -838,7 +848,6 @@ AnaInt32 AnaCanScan::m_reconnectThisPort(){
 						<< " failed to reconnect";
 				it->second->m_signalErrorMessage( ret, os.str().c_str() );
 				reconnectFailed = true;
-
 			}
 			nbCANportsOnModule++;
 		}
@@ -1122,37 +1131,6 @@ bool AnaCanScan::sendRemoteRequest(short cobID)
 	}
 	return ( true ); //sendAnErrorMessage(anaCallReturn);
 }
-
-#if 0
-/**
- * give back the error message from the code, from appendixA
- */
-std::string AnaCanScan::ana_canGetErrorText( long errorCode ){
-	switch( errorCode ){
-	case ANA_ERR_NONE: return("No errors");
-	case ANA_ERR_OPEN_MAX_CONN: return("Open failed, maximal count of connections reached.");
-	case ANA_ERR_OP_CMD_FAILED: return("Command failed with unknown failure");
-	case ANA_ERR_TCPIP_SOCKET: return("Socket error in TCP/IP layer occured.");
-	case ANA_ERR_TCPIP_NOTCONNECTED: return("Connection to TCP/IP partner can't\
-			established or is disconnected.");
-	case ANA_ERR_TCPIP_TIMEOUT: return("No answer received from TCP/IP\
-            partner within the defined timeout");
-	case ANA_ERR_TCPIP_CALLNOTALLOWED: return("Command is not allowed at this time.");
-	case ANA_ERR_TCPIP_NOT_INITIALIZED: return("TCP/IP-Stack can't be initialized.");
-	case ANA_ERR_INVALID_CRC: return("AnaGate TCP/IP telegram has incorrect checksum (CRC).");
-	case ANA_ERR_INVALID_CONF: return("AnaGate TCP/IP telegram wasn't\
-            receipted from partner.");
-	case ANA_ERR_INVALID_CONF_DATA: return("AnaGate TCP/IP telegram wasn't\
-            receipted correct from partner.");
-	case ANA_ERR_INVALID_DEVICE_HANDLE: return("Invalid device handle");
-	case ANA_ERR_INVALID_DEVICE_TYPE: return("Function can't be executed on this\
-			device handle, as she is assigned\
-			to another device type of AnaGate series.");
-	default:
-		return("unknown error code");
-	}
-}
-#endif
 
 void AnaCanScan::getStatistics( CanStatistics & result )
 {

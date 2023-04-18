@@ -99,6 +99,7 @@ void PKCanScan::stopBus ()
 		peakReconnectMutex.unlock();
 	}
 	CanModule::ms_sleep( 2000 );
+	fetchAndPublishCanPortState();
 	MLOGPK(DBG,this) << __FUNCTION__ << " finished";
 }
 
@@ -162,6 +163,15 @@ DWORD WINAPI PKCanScan::CanScanControlThread(LPVOID pCanScan)
 				pkCanScanPointer->triggerReconnectionThread();
 			}
 		}
+
+		// don't slow down the reception too much, but check sometimes
+		static int calls = 100;
+		if ( !calls-- ) {
+			pkCanScanPointer->fetchAndPublishCanPortState();
+			calls = 100;
+		}
+
+
 	}
 	MLOGPK(TRC, pkCanScanPointer) << "exiting thread...(in 2 secs)";
 	pkCanScanPointer->fetchAndPublishCanPortState ();
@@ -197,23 +207,49 @@ int PKCanScan::createBus(const std::string name, const std::string parameters )
 {
 	m_busName = name;
 	m_busParameters = parameters;
+	m_gsig = GlobalErrorSignaler::getInstance();
 
-	LogItInstance* logItInstance = CCanAccess::getLogItInstance(); // actually calling instance method, not class
-	if (!LogItInstance::setInstance(logItInstance))
-		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
-		<< " could not set LogIt instance" << std::endl;
+	/** LogIt: initialize shared lib. The logging levels for the component logging is kept, we are talking still to
+	 * the same master object "from the exe". We get the logIt ptr
+	 * acquired down from the superclass, which keeps it as a static, and being itself a shared lib. we are inside
+	 * another shared lib - 2nd stage - so we need to Dll initialize as well. Since we have many CAN ports we just acquire
+	 * the handler to go with the logIt object and keep that as a static. we do not do per-port component logging.
+	 * we do, however, stamp the logging messages specifically for each vendor using the macro.
+	 */
+	LogItInstance *logIt = CCanAccess::getLogItInstance();
+	if ( logIt != NULL ){
+		if (!Log::initializeDllLogging( logIt )){
+			std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
+					<< " could not DLL init remote LogIt instance " << std::endl;
+		}
+		logIt->getComponentHandle( CanModule::LogItComponentName, m_logItHandlePk );
+		LOG(Log::INF, m_logItHandlePk ) << CanModule::LogItComponentName << " Dll logging initialized OK";
+	} else {
+		std::stringstream msg;
+		msg << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " LogIt instance is NULL";
+		std::cout << msg.str() << std::endl;
+		m_gsig->fireSignal( 002, msg.str().c_str() );
+	}
 
-	if (!logItInstance->getComponentHandle( CanModule::LogItComponentName, m_logItHandlePk))
-		std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
-		<< " could not get LogIt component handle for " << LogItComponentName << std::endl;
+	/**
+	 * lets get clear about the Logit components and their levels at this point
+	 */
+	std::map<Log::LogComponentHandle, std::string> log_comp_map = Log::getComponentLogsList();
+	std::map<Log::LogComponentHandle, std::string>::iterator it;
+	MLOGPK(DBG, this) << " *** nb of LogIt components= " << log_comp_map.size() << std::endl;
+	for ( it = log_comp_map.begin(); it != log_comp_map.end(); it++ )
+	{
+		Log::LOG_LEVEL level;
+		Log::getComponentLogLevel( it->first, level);
+		MLOGPK(DBG, this) << " *** " << " LogIt component " << it->second << " level= " << level;
+	}
 
 	MLOGPK(DBG, this) << " name= " << name << " parameters= " << parameters << ", configuring CAN board";
-
 	if ( !m_configureCanboard(name,parameters) ) {
 		MLOGPK( ERR, this ) << " name= " << name << " parameters= " << parameters << ", failed to configure CAN board";
 		return (-1);
 	}
-	fetchAndPublishCanPortState ();
+	fetchAndPublishCanPortState();
 
 	bool skipMainThreadCreation = false;
 	{
@@ -459,7 +495,6 @@ bool PKCanScan::sendMessage(short cobID, unsigned char len, unsigned char *messa
 
 		memcpy(tpcanMessage.DATA, message, lengthToBeSent);
 		tpcanStatus = CAN_Write(m_pkCanHandle, &tpcanMessage);
-		fetchAndPublishCanPortState ();
 
 		MLOGPK(TRC, this) << " send message returned tpcanStatus= "	<< std::hex << "0x" << tpcanStatus << std::dec;
 		if (tpcanStatus != PCAN_ERROR_OK) {
@@ -476,6 +511,14 @@ bool PKCanScan::sendMessage(short cobID, unsigned char len, unsigned char *messa
 		m_statistics.setTimeSinceTransmitted();
 
 		message = message + lengthToBeSent;
+
+
+		// port state update, decrease load on the board a bit
+		static int calls = 5;
+		if ( !calls-- ) {
+			fetchAndPublishCanPortState();
+			calls = 5;
+		}
 	}
 	while (lengthOfUnsentData > 8);
 	return m_sendErrorCode(tpcanStatus);
@@ -605,7 +648,7 @@ DWORD WINAPI PKCanScan::CanReconnectionThread(LPVOID pCanScan)
 			<< " is checked, m_failedSendCountdown= "
 			<< pkCanScanPointer->getFailedSendCountdown();
 
-		pkCanScanPointer->fetchAndPublishCanPortState ();
+		pkCanScanPointer->fetchAndPublishCanPortState();
 
 		// condition
 		switch ( rcondition ){
@@ -660,6 +703,7 @@ DWORD WINAPI PKCanScan::CanReconnectionThread(LPVOID pCanScan)
 		} // switch
 	} // while
 	MLOGPK(TRC, pkCanScanPointer) << "exiting thread...(in 2 secs)";
+	pkCanScanPointer->fetchAndPublishCanPortState();
 	CanModule::ms_sleep( 2000 );
 	ExitThread(0);
 	return 0;
@@ -667,9 +711,10 @@ DWORD WINAPI PKCanScan::CanReconnectionThread(LPVOID pCanScan)
 
 
 std::string PKCanScan::m_translatePeakPortStatusBitpatternToText( TPCANStatus bp ){
-	std::string msg = "peak port status message: ";
+	std::string msg = " peak port status message: ";
+	MLOGPK(TRC, this) << " TPCANStatus= 0x" << std::hex << bp << std::dec;
 
-	if ( bp & PCAN_ERROR_OK ) msg += "No error. Success. (000000) ";
+	if ( bp == PCAN_ERROR_OK ) msg += "PCAN_ERROR_OK (000000) No error. Success. "; 
 	if ( bp & PCAN_ERROR_XMTFULL ) msg += "PCAN_ERROR_XMTFULL (000001) Transmit buffer in CAN controller is full. ";
 	if ( bp & PCAN_ERROR_OVERRUN ) msg += "PCAN_ERROR_OVERRUN (000002) CAN controller was read too late. ";
 	if ( bp & PCAN_ERROR_BUSLIGHT ) msg += "PCAN_ERROR_BUSLIGHT (000004) Bus error: an error counter reached the 'light' limit. ";
@@ -768,48 +813,25 @@ std::string PKCanScan::m_translatePeakPortStatusBitpatternToText( TPCANStatus bp
 	int portState = CanModule::CanModule_bus_state::CANMODULE_NOSTATE;
 	TPCANStatus peak_state = CAN_GetStatus( m_pkCanHandle );
 
-	switch ( peak_state & PCAN_ERROR_ANYBUSERR ){
-	default: {
-		// leave it alone: we do not have a classical CAN error
-		break;
+	if (peak_state == PCAN_ERROR_OK) {
+		portState = CanModule::CanModule_bus_state::CANMODULE_OK; 
+		publishPortStatusChanged(portState);
+		return; // no further decoding needed
 	}
-	case PCAN_ERROR_OK : {
-		portState = CanModule::CanModule_bus_state::CANMODULE_OK;
-		break;
-	}
-	case PCAN_ERROR_BUSLIGHT : {
+	else if ( peak_state & PCAN_ERROR_BUSLIGHT ) {
 		portState = CanModule::CanModule_bus_state::CAN_STATE_ERROR_ACTIVE;
-		break;
 	}
-	case PCAN_ERROR_BUSHEAVY : {
+	else if (peak_state & PCAN_ERROR_BUSHEAVY) {
 		portState = CanModule::CanModule_bus_state::CAN_STATE_MAX;
-		break;
 	}
-#if 0
-	// double declaration in API 17.nov.2017
-	case PCAN_ERROR_BUSWARNING : {
-		portState = CanModule::CanModule_bus_state::CAN_STATE_ERROR_WARNING;
-
-		break;
-	}
-#endif
-	case PCAN_ERROR_BUSPASSIVE : {
+	else if (peak_state & PCAN_ERROR_BUSPASSIVE) {
 		portState = CanModule::CanModule_bus_state::CAN_STATE_ERROR_PASSIVE;
-		break;
 	}
-	case PCAN_ERROR_BUSOFF : {
+	else if (peak_state & PCAN_ERROR_BUSOFF) {
 		portState = CanModule::CanModule_bus_state::CAN_STATE_BUS_OFF;
-		break;
 	}
-	}
-	// send it if it was just a CAN bus error, if it changed. No need to go further
-	if ( portState != CanModule::CanModule_bus_state::CANMODULE_NOSTATE ){
-		std::string msg = CanModule::translateCanBusStateToText((CanModule::CanModule_bus_state) portState ) + m_translatePeakPortStatusBitpatternToText( peak_state );
-		MLOGPK(WRN, this) << msg << "tid=[" << std::this_thread::get_id() << "]";
-		publishPortStatusChanged( portState );
-		return;
-	}
-	/** if we reach here, lets translate all other errors into (excluding)
+
+	/** if we reach here, means we might be OK. Lets translate all other errors into (excluding)
 	  CanModule extension, to cover non-socketcan implementations
 		CANMODULE_NOSTATE,   // could not get state
 		CANMODULE_WARNING,   // degradation but might recover
@@ -818,7 +840,7 @@ std::string PKCanScan::m_translatePeakPortStatusBitpatternToText( TPCANStatus bp
 		CANMODULE_OK         // bus is fine
 	 */
 
-	// ok
+	// info, still ok
 	if ( peak_state & PCAN_ERROR_QRCVEMPTY ){
 		portState = CanModule::CanModule_bus_state::CANMODULE_TIMEOUT_OK;
 		std::string msg = CanModule::translateCanBusStateToText((CanModule::CanModule_bus_state) portState ) + m_translatePeakPortStatusBitpatternToText( peak_state );
@@ -845,14 +867,10 @@ std::string PKCanScan::m_translatePeakPortStatusBitpatternToText( TPCANStatus bp
 		return;
 	}
 
-	// ok but don't know why. Lets overwrite NOSTATE. mais bon.
-	portState = CanModule::CanModule_bus_state::CANMODULE_OK;
+	// normally: never reached
+	portState = CanModule::CanModule_bus_state::CANMODULE_NOSTATE;
 	std::string msg = CanModule::translateCanBusStateToText((CanModule::CanModule_bus_state) portState ) + m_translatePeakPortStatusBitpatternToText( peak_state );
-	MLOGPK(DBG, this) << msg << "tid=[" << std::this_thread::get_id() << "]";
+	MLOGPK(TRC, this) << msg << "tid=[" << std::this_thread::get_id() << "]";
 	publishPortStatusChanged( portState );
-
-	/** as a consequence of this coding the
-	CanModule::CanModule_bus_state::CANMODULE_NOSTATE;
-	never occurs. fine with me. */
 }
 

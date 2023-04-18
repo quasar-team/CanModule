@@ -48,6 +48,7 @@ namespace CanModule
 	private:
 		//Pointer to the dynamic library stored on the memory
 		HMODULE m_pDynamicLibrary; 
+		GlobalErrorSignaler *m_gsig;
 
 };
 }

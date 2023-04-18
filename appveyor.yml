@@ -7,7 +7,8 @@ build:
 notifications:
 - provider: Email
   to:
-  - quasar-developers@cern.ch
+  - michael.ludwig@cern.ch
+  #- quasar-developers@cern.ch
   subject: quasar windows build status changed
   on_build_success: false
   on_build_failure: false

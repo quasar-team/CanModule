@@ -42,12 +42,52 @@
 #include <VERSION.h>
 
 
+
 /*
  * CCanAccess is an abstract class that defines the interface for controlling a canbus. Different implementations for different hardware and platforms should
  * inherit this class and implement the pure virtual methods.
  */
 namespace CanModule
 {
+/**
+ * one (singleton) global signal for errors independent of bus. This is needed to listen to bus opening/creation errors where the bus does not yet exist.
+ * All buses and errors go into this signal.
+ *
+ * The recommendation is:
+ *    connect a handler to the global signal
+ *    open the bus
+ *    if successful, connect bus specific handlers for errors, receptions, port status changes
+ *    if not successful, keep global handler and try again (server logic)
+ *    of course you can keep the global handler connected as well, but you might also disconnect it (let the sigleton object go out of scope)
+ *
+ * boost::signal2 need implicit this-> pointers to work, that means they only work as methods of existing objects. So we need a class
+ * for specifically implementing the globalErrorSignal, which is independent of the existence of lib and bus instances.
+ */
+class GlobalErrorSignaler /* singleton */
+{
+
+private:
+	GlobalErrorSignaler(){};
+	~GlobalErrorSignaler();
+
+	static GlobalErrorSignaler *instancePtr;
+	static LogItInstance *m_st_logIt;
+	static Log::LogComponentHandle m_st_lh;
+	boost::signals2::signal<void (const int,const char *,timeval &) > globalErrorSignal;
+
+public:
+	SHARED_LIB_EXPORT_DEFN static GlobalErrorSignaler* getInstance();
+	SHARED_LIB_EXPORT_DEFN bool connectHandler( void (*fcnPtr)( int, const char*, timeval  ) );
+	SHARED_LIB_EXPORT_DEFN bool disconnectHandler( void (*fcnPtr)( int, const char*, timeval  ) );
+	SHARED_LIB_EXPORT_DEFN void disconnectAllHandlers();
+	SHARED_LIB_EXPORT_DEFN void fireSignal( const int code, const char *msg );
+
+
+	static void initializeLogIt(LogItInstance *remoteInstance);
+
+
+};
+
 
 const std::string LogItComponentName = "CanModule";
 #define MLOG(LEVEL,THIS) LOG(Log::LEVEL) << __FUNCTION__ << " " << CanModule::LogItComponentName << " bus= " << THIS->getBusName() << " "
@@ -137,8 +177,7 @@ struct CanParameters {
 class CCanAccess
 {
 
-public:
-
+public: // accessible API
 	CCanAccess():
 		m_reconnectCondition( CanModule::ReconnectAutoCondition::sendFail ),
 		m_reconnectAction( CanModule::ReconnectAction::singleBus ),
@@ -146,13 +185,17 @@ public:
 		m_failedSendCountdown( 10 ),
 		m_maxFailedSendCount( 10 ),
 		m_lh(0),
-		m_logItRemoteInstance( NULL )
+		m_logItRemoteInstance( NULL ),
+		m_portStatus( 0 ),
+		m_canPortStateChanged_nbSlots_current( 0 ),
+		m_canPortStateChanged_nbSlots_previous( 0 )
 {
 		resetTimeoutOnReception();
 		resetTimeNow();
 		CanModule::version();
 };
 
+	virtual ~CCanAccess() {};
 
 	/**
 	 * Method that sends a remote request trough the can bus channel. If the method createBus was not called before this, sendMessage will fail, as there is no
@@ -161,7 +204,6 @@ public:
 	 * @return Was the sent request successful ?
 	 */
 	virtual bool sendRemoteRequest(short cobID) = 0;
-
 
 	/**
 	 * Method that initialises a can bus channel. The following methods called upon the same object will be using this initialised channel.
@@ -191,7 +233,6 @@ public:
 	 * @return: Was the message sent successfully? If not, we may reconnect.
 	 */
 	virtual bool sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr = false) = 0;
-
 	virtual bool sendMessage(CanMessage *canm)
 	{
 		if ( canm->c_id < 0 || canm->c_id > 2047 ){
@@ -203,10 +244,6 @@ public:
 		return sendMessage(short(canm->c_id), canm->c_dlc, canm->c_data, canm->c_rtr);
 	}
 
-	/**
-	 * Returns the can bus name (from buffered data)
-	 */
-	std::string& getBusName() { return m_sBusName; }
 
 	/**
 	 * UNIFIED PORT status
@@ -309,81 +346,10 @@ public:
 	 */
 	virtual uint32_t getPortBitrate() = 0;
 
-	/*
-	 * Signal that gets called when a can Message is received from the initialised can bus.
-	 * In order to process this message manually, a handler needs to be connected to the signal.
-	 *
-	 * Example: myCCanAccessPointer->canMessageCame.connect(&myMessageRecievedHandler);
-	 */
-	boost::signals2::signal<void (const CanMessage &) > canMessageCame;
-
-	virtual ~CCanAccess() {};
-
-
 	/**
-	 * Signal that gets called when a can Error is detected in the message
-	 * In order to process this message manually, a handler needs to be connected to the signal.
-	 *
-	 * Example: myCCanAccessPointer->canMessageError.connect(&myErrorRecievedHandler);
+	 *  Returns the CanStatistics object, which contains bus statistics, bus load, counters and time stamps
 	 */
-	boost::signals2::signal<void (const int,const char *,timeval &) > canMessageError;
-
-	/**
-	 * signal gets called whenever there is a can port status change, across all vendors
-	 * the int is the  enum CanModule::CanModuleUtils::CanModule_bus_state
-	 * In order to process this message, a handler needs to be connected to the signal.
-	 *
-	 * Example: myCCanAccessPointer->canPortStateChanged.connect(&myPortSateChangedRecievedHandler);
-	 */
-	boost::signals2::signal<void (const int,const char *,timeval &) > canPortStateChanged;
-
-	// Returns the CanStatistics object.
 	virtual void getStatistics( CanStatistics & result ) = 0;
-
-	inline bool initialiseLogging(LogItInstance* remoteInstance)
-	{
-		bool ret = Log::initializeDllLogging(remoteInstance);
-		m_logItRemoteInstance = remoteInstance;
-		return ret;
-	}
-
-	/**
-	 * the LogIt instance is NOT shared by inheritance in windows, the instance has to be passed explicitly
-	 * from the parent
-	 */
-	LogItInstance* getLogItInstance()
-	{
-		return( m_logItRemoteInstance );
-	}
-
-	std::vector<std::string> parseNameAndParameters( std::string name, std::string parameters);
-
-	// non blocking
-	void triggerReconnectionThread(){
-		// std::cout << "==> trigger reconnection thread " << getBusName() << std::endl;
-		m_reconnectTrigger = true;
-		m_reconnection_cv.notify_one();
-	}
-
-	// blocking
-	void waitForReconnectionThreadTrigger(){
-		std::unique_lock<std::mutex> lk(m_reconnection_mtx);
-		while  ( !m_reconnectTrigger ) m_reconnection_cv.wait( lk );
-		m_reconnectTrigger = false;
-	}
-
-	void decreaseSendFailedCountdown(){
-		if ( m_failedSendCountdown > 0 )
-          		m_failedSendCountdown--;
-		LOG(Log::TRC, m_lh) << __FUNCTION__ << " decrease m_failedSendCountdown= " << m_failedSendCountdown;
-	}
-
-	void resetSendFailedCountdown(){
-		m_failedSendCountdown = m_maxFailedSendCount;
-		LOG(Log::TRC, m_lh) << __FUNCTION__ << " reset internal m_failedSendCountdown= " << m_failedSendCountdown;
-	}
-
-
 
 	/**
 	 * configuring the reconnection behavior: a condition triggers an action. The implementation is implementation-specific
@@ -452,37 +418,48 @@ public:
 	 */
 	virtual void fetchAndPublishCanPortState () = 0;
 
-	/**
-	 * just translate the ugly r.condition enum into a user-friendly string for convenience and logging.
+	/*
+	 * Signal that gets called when a can Message is received from the initialised can bus.
+	 * In order to process this message manually, a handler needs to be connected to the signal.
+	 *
+	 * Example: myCCanAccessPointer->canMessageCame.connect(&myMessageRecievedHandler);
 	 */
-	static std::string reconnectConditionString(CanModule::ReconnectAutoCondition c) {
-		switch (c) {
-		case ReconnectAutoCondition::sendFail: return(" sendFail");
-		case ReconnectAutoCondition::timeoutOnReception: return(" timeoutOnReception");
-		case ReconnectAutoCondition::never: return(" never");
-		}
-		return(" unknown condition");
-	}
+	boost::signals2::signal<void (const CanMessage &) > canMessageCame;
+
 
 	/**
-	 * just translate the ugly r.action enum into a user-friendly string for convenience and logging.
+	 * Signal that gets called when a can Error is detected in the message
+	 * In order to process this message manually, a handler needs to be connected to the signal.
+	 *
+	 * Example: myCCanAccessPointer->canMessageError.connect(&myErrorRecievedHandler);
 	 */
-	static std::string reconnectActionString(CanModule::ReconnectAction c) {
-		switch (c) {
-		case ReconnectAction::allBusesOnBridge: return(" allBusesOnBridge");
-		case ReconnectAction::singleBus: return(" singleBus");
-		}
-		return(" unknown action");
-	}
+	boost::signals2::signal<void (const int, const char *, timeval &) > canMessageError;
+
+	/**
+	 * signal gets called whenever there is a can port status change, across all vendors
+	 * the int is the  enum CanModule::CanModuleUtils::CanModule_bus_state
+	 * In order to process this message, a handler needs to be connected to the signal.
+	 *
+	 * Example: myCCanAccessPointer->canPortStateChanged.connect(&myPortSateChangedRecievedHandler);
+	 */
+	boost::signals2::signal<void (const int, const char *, timeval &) > canPortStateChanged;
+
+	std::string& getBusName();
+	bool initialiseLogging(LogItInstance* remoteInstance);
+	LogItInstance* getLogItInstance();
+	std::vector<std::string> parseNameAndParameters( std::string name, std::string parameters);
+	void triggerReconnectionThread();
+	void waitForReconnectionThreadTrigger();
+	void decreaseSendFailedCountdown();
+	void resetSendFailedCountdown(){ m_failedSendCountdown = m_maxFailedSendCount; 	}
+
+	static std::string reconnectConditionString(CanModule::ReconnectAutoCondition c);
+	static std::string reconnectActionString(CanModule::ReconnectAction c);
 
 
-
-protected:
-
+protected: // not public, but inherited
 	std::string m_sBusName;
 	CanParameters m_CanParameters;
-
-	unsigned int m_portStatus;  // port status
 
 	// reconnection, reconnection thread triggering
     CanModule::ReconnectAutoCondition m_reconnectCondition;
@@ -495,53 +472,21 @@ protected:
 	std::mutex m_reconnection_mtx;             // trigger stuff
 	std::condition_variable m_reconnection_cv; // trigger stuff
 
-
-	/**
-	 * compared to the last received message, are we in timeout?
-	 */
-	bool hasTimeoutOnReception() {
-		m_dnow = std::chrono::high_resolution_clock::now();
-		auto delta_us = std::chrono::duration<double, std::chrono::microseconds::period>( m_dnow - m_dopen);
-		if ( delta_us.count() / 1000 > m_timeoutOnReception ) return true;
-		else return false;
-	}
-
-	/**
-	 * reset the internal reconnection timeout counter
-	 */
-	void resetTimeoutOnReception() {
-		m_dreceived = std::chrono::high_resolution_clock::now();
-	}
-	void resetTimeNow() {
-		m_dnow = std::chrono::high_resolution_clock::now();
-	}
-
-	/**
-	 * we publish port status via a "portStatusChanged" signal, for all vendors, if it has changed. This is just the standardized mechanism
-	 */
-	void publishPortStatusChanged ( unsigned int status )
-	{
-		if ( m_portStatus != status ){
-			// std::string msg = CanModule::CanModuleUtils::translateCanBusStateToText((CanModule::CanModuleUtils::CanModule_bus_state) status);
-			std::string msg = CanModule::translateCanBusStateToText((CanModule::CanModule_bus_state) status);
-
-			// got to be compatible with boost1.59.0 for windows
-			timeval ftTimeStamp;
-			auto now = std::chrono::system_clock::now();
-			auto nMicrosecs = std::chrono::duration_cast<std::chrono::microseconds>( now.time_since_epoch());
-			ftTimeStamp.tv_sec = nMicrosecs.count() / 1000000L;
-			ftTimeStamp.tv_usec = (nMicrosecs.count() % 1000000L) ;
-			canPortStateChanged( status, msg.c_str(), ftTimeStamp ); // signal
-		}
-		m_portStatus = status;
-	}
+	bool hasTimeoutOnReception();
+	void resetTimeoutOnReception() { m_dreceived = std::chrono::high_resolution_clock::now(); } // reset the internal reconnection timeout counter
+	void resetTimeNow() { m_dnow = std::chrono::high_resolution_clock::now(); }
+	void publishPortStatusChanged ( unsigned int status );
 
 
-
-private:
+private: // object scope
+	static LogItInstance* st_logItRemoteInstance;
 	Log::LogComponentHandle m_lh;
 	LogItInstance* m_logItRemoteInstance;
 	std::chrono::time_point<std::chrono::high_resolution_clock> m_dnow, m_dreceived, m_dtransmitted, m_dopen;
+	unsigned int m_portStatus;
+	// keep track of connected handlers. If the number changes, send a signal so that all handlers are updated
+	unsigned int m_canPortStateChanged_nbSlots_current;
+	unsigned int m_canPortStateChanged_nbSlots_previous;
 
 
 };

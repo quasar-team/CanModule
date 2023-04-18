@@ -21,17 +21,23 @@
  *  along with Quasar.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+// #pragma once
+
+#ifndef CANMODULE_CANLIBLOADER_H_
+#define CANMODULE_CANLIBLOADER_H_
+
 #include <string>
 #include <map>
-// #include <boost/thread/thread.hpp>
 
 #include "CCanAccess.h"
 #include "ExportDefinition.h"
+#include "LogIt.h"
+#include "LogItInstance.h"
 
 namespace CanModule 
 {
 
+// Will cleanup the loaded dynamic library
 class CanLibLoader 	{
 
 protected:
@@ -39,31 +45,38 @@ protected:
 	CanLibLoader(const std::string& libName);
 
 public:
-	//Will cleanup the loaded dynamic library
 	virtual ~CanLibLoader();
-	/**
-	 * creates an instance
-	 */
-	SHARED_LIB_EXPORT_DEFN static CanLibLoader* createInstance(const std::string& libName);
 
+	SHARED_LIB_EXPORT_DEFN static CanLibLoader* createInstance(const std::string& libName);
+	SHARED_LIB_EXPORT_DEFN static void initializeLogging( LogItInstance* remoteInstance );
 	SHARED_LIB_EXPORT_DEFN CanModule::CCanAccess * openCanBus(std::string name, std::string parameters);
 	SHARED_LIB_EXPORT_DEFN	void closeCanBus(CanModule::CCanAccess *cca);
 
-	// LogIt handle
-	Log::LogComponentHandle lh;
-
 	void setLibName( std::string ln ){ m_libName = ln; }
-	std::string getLibName(){ return (m_libName);}
+	std::string getLibName(){ return m_libName; }
 
 
-protected:
-	//Load a dynamic library.
+protected: // not public but inherited
+
+	Log::LogComponentHandle lh;
+	static LogItInstance *st_remoteLogIt;
+
+	/**
+	 * Load a dynamic vendor library.
+	 */
 	virtual void dynamicallyLoadLib(const std::string& libName) = 0;
-	//Uses the loaded library to create a HAL object and store it in p_halInstance
+
+	/**
+	 * create an object to open a CAN port
+	 */
 	virtual CCanAccess* createCanAccess() = 0;
+
 
 private:
 	std::string m_libName;
+	GlobalErrorSignaler *m_gsig;
 
 };
 }
+
+#endif // CANMODULE_CANLIBLOADER_H_

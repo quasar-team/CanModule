@@ -132,6 +132,7 @@ private:
 	CanStatistics m_statistics; //Instance of Can Statistics
     AnaInt32 m_timeout; 		// connect_wait time
     bool m_busStopped;
+	GlobalErrorSignaler *m_gsig;
 
 
     /**
@@ -144,6 +145,7 @@ private:
      * mutex protection for now.
      */
     static Log::LogComponentHandle st_logItHandleAnagate;
+
 
 	/**
 	 * can handle map: handles are unique on one host and depend on {port, ip}. We can use the handle as a key

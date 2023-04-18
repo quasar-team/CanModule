@@ -84,6 +84,7 @@ private:
 	std::string m_channelName;
 	std::string m_busName;
 	Log::LogComponentHandle m_logItHandleSock;
+	GlobalErrorSignaler *m_gsig;
 
 	static std::string m_canMessageErrorFrameToString (const struct can_frame &f);
 

@@ -35,18 +35,47 @@
 namespace CanModule
 {
 
+/* static */ LogItInstance *CanLibLoader::st_remoteLogIt = NULL;
+
+/**
+ *  initialze LogIt so that it can be used with all components from the shared lib
+ */
+/* static */ void CanLibLoader::initializeLogging( LogItInstance* remoteInstance ) {
+	Log::initializeDllLogging( remoteInstance );
+	CanLibLoader::st_remoteLogIt = remoteInstance;
+
+	// set the logging instance to the global error handling as well so that we can use it
+	GlobalErrorSignaler::initializeLogIt( remoteInstance );
+}
+
 // called by factory
 CanLibLoader::CanLibLoader(const std::string& libName)
 {
-	bool ret = Log::initializeLogging(Log::TRC);
-	if (ret) std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " LogIt initialized OK" << std::endl;
-	else std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " LogIt problem at initialisation" << std::endl;
-	LogItInstance *logIt = LogItInstance::getInstance();
-	if ( logIt != NULL ){
-		logIt->getComponentHandle( CanModule::LogItComponentName, lh );
-		std::cout << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " constructor " << libName << std::endl;
+	m_gsig = GlobalErrorSignaler::getInstance();
+
+	// must be set by client since we are in a shared lib, using the static method for that. check it here
+	if ( CanLibLoader::st_remoteLogIt != NULL ){
+		CanLibLoader::st_remoteLogIt->getComponentHandle( CanModule::LogItComponentName, lh );
+		LOG(Log::TRC, lh ) << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " constructor LogIt remote seems all fine for " << libName;
 	} else {
-		std::cout << __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << " logIt instance is NULL" << std::endl;
+		std::stringstream msg;
+		msg << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " LogIt remote instance is NULL for " << libName;
+		std::cout << msg.str() << std::endl;
+		m_gsig->fireSignal( 002, msg.str().c_str() );
+	}
+
+	/**
+	 * lets get clear about the Logit components and their levels at this point
+	 */
+	std::map<Log::LogComponentHandle, std::string> log_comp_map = Log::getComponentLogsList();
+	std::map<Log::LogComponentHandle, std::string>::iterator it;
+	LOG(Log::TRC, lh ) << " *** nb of LogIt components= " << log_comp_map.size();
+
+	Log::LOG_LEVEL level;
+	for ( it = log_comp_map.begin(); it != log_comp_map.end(); it++ )
+	{
+		Log::getComponentLogLevel( it->first, level );
+		LOG(Log::TRC, lh )<< " *** " << " LogIt component " << it->second << " level= " << level;
 	}
 }
 
@@ -71,6 +100,10 @@ CanLibLoader* CanLibLoader::createInstance(const std::string& libName)	{
 void CanLibLoader::closeCanBus(CCanAccess *cInter) {
 	LOG(Log::TRC, lh ) << __FUNCTION__;
 	if ( cInter ) {
+		std::stringstream msg;
+		msg << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " CanBus name to be deleted: " << cInter->getBusName();
+		m_gsig->fireSignal( 003, msg.str().c_str() );
+
 		LOG(Log::DBG, lh ) << __FUNCTION__<< " CanBus name to be deleted: " << cInter->getBusName();
 		Diag::delete_maps( this, cInter );
 		cInter->stopBus(); // call each specific stopBus, but dtors are left until objects are out of scope
@@ -85,16 +118,34 @@ CCanAccess* CanLibLoader::openCanBus(std::string name, std::string parameters) {
 	CCanAccess *tcca = createCanAccess();
 
 	if ( !tcca ){
-		LOG(Log::ERR, lh ) << __FUNCTION__ << " failed to create CCanAccess name= " << name << " parameters= " << parameters;
+		std::stringstream msg;
+		msg << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " failed createCanAccess name= " << name << " parameters= " << parameters;
+		LOG(Log::ERR, lh ) << msg.str();
+		m_gsig->fireSignal( 004, msg.str().c_str() );
+
 		throw std::runtime_error("CanLibLoader::openCanBus: createBus Problem when loading lib " + name );
 	} else {
 		LOG(Log::DBG, lh ) << __FUNCTION__ << " created CCanAccess name= " << name << " parameters= " << parameters;
 	}
 
-	//The Logit instance of the executable is handled to the DLL at this point, so the instance is shared.
-	LogItInstance *logInstance = LogItInstance::getInstance() ;
-	tcca->initialiseLogging( logInstance );
-	logInstance->registerLoggingComponent( CanModule::LogItComponentName, Log::TRC );
+	/** The LogIt instance of the executable is handled to the DLL at this point, so the instance is shared.
+	 * the global logIt instance is kept as private var of the superclass CCanAccess accessible via classical methods
+	 * so that the CAN port (~vendor class objects) can use it.
+	 */
+	tcca->initialiseLogging( CanLibLoader::st_remoteLogIt );
+
+	/** we check if the component "CanModule" is registered and the loglevel is set. If not, sth is wrong, but we can
+	 * still register it and set it to TRC: bad luck.
+	 */
+	Log::LOG_LEVEL loglevel = Log::TRC; // default
+	Log::LogComponentHandle handle = Log::getComponentHandle( CanModule::LogItComponentName );
+	bool ret = Log::getComponentLogLevel( handle, loglevel );
+	if ( ret ) {
+		LOG(Log::DBG, lh ) << " got " << CanModule::LogItComponentName << " loglevel= " << loglevel;
+	} else {
+		LOG(Log::WRN, lh ) << " component " << CanModule::LogItComponentName << " does not exist, register it and set loglevel= " << loglevel;
+		CanLibLoader::st_remoteLogIt->registerLoggingComponent( CanModule::LogItComponentName, loglevel );
+	}
 
 	LOG(Log::DBG, lh ) << __FUNCTION__ << " calling createBus. name= " << name << " parameters= " << parameters;
 	/** @param name: Name of the can bus channel. The specific mapping will change depending on the interface used. For example, accessing channel 0 for the
@@ -118,27 +169,40 @@ CCanAccess* CanLibLoader::openCanBus(std::string name, std::string parameters) {
 		break;
 	}
 	case -1:{
-		LOG(Log::ERR, lh ) << __FUNCTION__ << " Problem opening canBus for: " << name << " : returning NULL";
+
+		std::stringstream msg;
+		msg << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " Problem opening canBus for: " << name;
+		LOG(Log::ERR, lh ) << msg.str();
+		m_gsig->fireSignal( 005, msg.str().c_str() );
+
 		/** we could do 3 things here:
 		 * 1. throw an exception and stop everything
 		 *   throw std::runtime_error("CanLibLoader::openCanBus: createBus Problem when opening canBus. stop." );
 		 * 2. try again looping
 		 *   this would go on forever if the bus does not come up
-		 * 3. ignore the bus and return 0
-		 *   we return NULL in this case and the client has to check the pointer of course
+		 * 3. ignore the bus in the map
+		 *   we return the can access nevertheless in this case and the client has to check the pointer of course
 		 *   we decided to do that 6.april.2021 quasar meeting, related to https://its.cern.ch/jira/browse/OPCUA-2248
 		 */
-		return NULL;
+		return tcca;
 		break;
 	}
 	default:{
-		LOG(Log::WRN, lh ) << __FUNCTION__ << " something else went wrong for: " << name << " : returning NULL";
+		std::stringstream msg;
+		msg << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " something else went wrong for: " << name << " : returning NULL";
+		LOG(Log::ERR, lh ) << msg.str();
+		m_gsig->fireSignal( 006, msg.str().c_str() );
 		return NULL;
 		break;
 	}
 	} // switch
 
-	// never reached
+	// never reached ;-)
+	std::stringstream msg;
+	msg << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " something else went seriously wrong for: " << name << " : returning NULL";
+	LOG(Log::ERR, lh ) << msg.str();
+	m_gsig->fireSignal( 007, msg.str().c_str() );
+
 	return NULL;
 }
 }
