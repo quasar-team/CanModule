@@ -4,15 +4,27 @@ error reporting and diagnostics
 
 for error reporting and diagnostics, we have:
 
-boost signal error messages, delivered to a connected boost handler
--------------------------------------------------------------------
-A boost signal is sent with an error message to a subscibing error handler
+boost signal port error
+-----------------------
+A port specific boost signal is sent with an error message to a subscibing error handler
 
 - anagate: used in sendMessage() and sendRemoteMessage()
 - peak: sendErrorCode() sends an error code (not a message) at sendMessage(), triggerReconnectionThread() and sendRemoteRequest()
 - systec: sendErrorCode() sends an error code (not a message) at message reception with USB error AND the return code of sendMessage (also if it is OK)
 - sock: no wrapper method (defined but not used), error messages are sent when: socket recovers, error reading from socket, a CAN error was flagged from the socket (plus message and socket timestamp if possible), when opening a CAN port produces an error
     
+boost signal port status change
+-------------------------------
+a boost signal is sent for each open port whenever the port status changes, as detected
+
+
+boost signal global errors
+--------------------------
+a boost signal (one global instance) is sent whenever something non-port specific goes wrong, e.g. loading a shared library. This might be still vendor specific 
+
+boost signal with received CAN frame
+------------------------------------
+CAN frame reception 
 
 unified port status
 -------------------
