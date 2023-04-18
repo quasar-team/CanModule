@@ -253,7 +253,8 @@ void CSockCanScan::m_CanScanControlThread()
 		MLOGSOCK(DBG, this) << "got numberOfReadBytes= " << numberOfReadBytes << " tid= " << _tid;;
 		if (numberOfReadBytes < 0)
 		{
-			timeval now = CanModule::convertTimepointToTimeval( std::chrono::system_clock::now());
+			// timeval now = CanModule::convertTimepointToTimeval( std::chrono::system_clock::now());
+			timeval now = CanModule::convertTimepointToTimeval( std::chrono::high_resolution_clock::now());
 			p_sockCanScan->canMessageError(numberOfReadBytes, ("read() failed: " + CanModuleerrnoToString() + " tid= " + _tid).c_str(), now );
 			publishPortStatusChanged( CanModule::CANMODULE_WARNING );
 
@@ -269,7 +270,8 @@ void CSockCanScan::m_CanScanControlThread()
 			// we just report the error and continue the thread normally
 			// got something, but wrong length and therefore obviously wrong data
 
-			timeval now = CanModule::convertTimepointToTimeval( std::chrono::system_clock::now());
+			// timeval now = CanModule::convertTimepointToTimeval( std::chrono::system_clock::now());
+			timeval now = CanModule::convertTimepointToTimeval( std::chrono::high_resolution_clock::now());
 			p_sockCanScan->canMessageError( numberOfReadBytes, ("read() wrong msg size: " + CanModuleerrnoToString() + " tid= " + _tid).c_str(), now );
 
 			publishPortStatusChanged( CanModule::CANMODULE_WARNING );
@@ -283,7 +285,8 @@ void CSockCanScan::m_CanScanControlThread()
 		// got an error from the socket
 		if ( numberOfReadBytes < 0 ) {
 			MLOGSOCK(ERR,p_sockCanScan) << "read() error: " << CanModuleerrnoToString()<< " tid= " << _tid;;
-			timeval now = CanModule::convertTimepointToTimeval( std::chrono::system_clock::now());
+			// timeval now = CanModule::convertTimepointToTimeval( std::chrono::system_clock::now());
+			timeval now = CanModule::convertTimepointToTimeval( std::chrono::high_resolution_clock::now());
 			p_sockCanScan->canMessageError( numberOfReadBytes, ("read() error: "+CanModuleerrnoToString()).c_str(), now );
 			p_sockCanScan->m_canMessageErrorCode = -1;
 
@@ -313,7 +316,8 @@ void CSockCanScan::m_CanScanControlThread()
 						<< p_sockCanScan->getBusName()
 						<< " got an error, ioctl timestamp from socket failed as well, setting local time"
 						<< " ioctlReturn1 = " << ioctlReturn1;
-				c_time = CanModule::convertTimepointToTimeval( std::chrono::system_clock::now());
+				/ c_time = CanModule::convertTimepointToTimeval( std::chrono::system_clock::now());
+				c_time = CanModule::convertTimepointToTimeval( std::chrono::high_resolution_clock::now());
 			}
 			MLOGSOCK(ERR, p_sockCanScan) << "SocketCAN ioctl return: [" << ioctlReturn1
 					<< " error frame: [" << description
@@ -347,7 +351,8 @@ void CSockCanScan::m_CanScanControlThread()
 					<< p_sockCanScan->getBusName()
 					<< " ioctl timestamp from socket failed, setting local time"
 					<< " ioctlReturn2 = " << ioctlReturn2;
-			canMessage.c_time = CanModule::convertTimepointToTimeval( std::chrono::system_clock::now());
+			// canMessage.c_time = CanModule::convertTimepointToTimeval( std::chrono::system_clock::now());
+			canMessage.c_time = CanModule::convertTimepointToTimeval( std::chrono::high_resolution_clock::now());
 		}
 
 		//MLOGSOCK(TRC, p_sockCanScan) << " SocketCAN ioctl SIOCGSTAMP return: [" << ioctlReturn2 << "]" << " tid= " << _tid;
@@ -955,32 +960,12 @@ void CSockCanScan::m_clearErrorMessage()
 				<< getBusName()
 				<< " ioctl timestamp from socket failed, setting local time"
 				<< " ioctlReturn = " << ioctlReturn;
-		c_time = CanModule::convertTimepointToTimeval( std::chrono::system_clock::now());
+		// c_time = CanModule::convertTimepointToTimeval( std::chrono::system_clock::now());
+		c_time = CanModule::convertTimepointToTimeval( std::chrono::high_resolution_clock::now());
 	}
 	MLOGSOCK(TRC,this) << "ioctlReturn= " << ioctlReturn;
 	canMessageError(0, errorMessage.c_str(), c_time);
 }
-
-#if 0
-// this method is not used, instead, code is implemented directly everywhere
-/**
- * send a timestamped error message, get time from the socket or from chrono
- */
-void CSockCanScan::sendErrorMessage(const char *mess)
-{
-	timeval c_time;
-	int ioctlReturn = ioctl(m_sock,SIOCGSTAMP,&c_time);//TODO: Return code is not checked
-	if ( ioctlReturn ){
-		MLOGSOCK(ERR, this) << "SocketCAN "
-				<< getBusName()
-				<< " ioctl timestamp from socket failed, setting local time"
-				<< " ioctlReturn = " << ioctlReturn;
-		c_time = CanModule::convertTimepointToTimeval( std::chrono::system_clock::now());
-	}
-	MLOGSOCK(TRC,this) << "ioctlReturn= " << ioctlReturn;
-	canMessageError(-1,mess,c_time);
-}
-#endif
 
 /**
  * notify the main thread to finish and delete the bus from the map of connections
@@ -1023,7 +1008,8 @@ void CSockCanScan::m_updateInitialError ()
 	if ( m_canMessageErrorCode == 0 ) {
 		m_clearErrorMessage();
 	} else {
-		timeval now = CanModule::convertTimepointToTimeval( std::chrono::system_clock::now());
+		// timeval now = CanModule::convertTimepointToTimeval( std::chrono::system_clock::now());
+		timeval now = CanModule::convertTimepointToTimeval( std::chrono::high_resolution_clock::now());
 		canMessageError( m_canMessageErrorCode, "Initial port state: error", now );
 	}
 }

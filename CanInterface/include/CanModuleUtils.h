@@ -88,9 +88,15 @@ timeval convertTimepointToTimeval(const std::chrono::steady_clock::time_point &t
 std::chrono::steady_clock::time_point convertTimevalToTimepoint(const timeval &t1);
 std::chrono::steady_clock::time_point currentTimeTimeval();
 #else
-timeval convertTimepointToTimeval(const std::chrono::system_clock::time_point &t1);
-std::chrono::system_clock::time_point convertTimevalToTimepoint(const timeval &t1);
-std::chrono::system_clock::time_point currentTimeTimeval();
+
+//timeval convertTimepointToTimeval(const std::chrono::system_clock::time_point &t1);
+//std::chrono::system_clock::time_point convertTimevalToTimepoint(const timeval &t1);
+//std::chrono::system_clock::time_point currentTimeTimeval();
+
+timeval convertTimepointToTimeval(const std::chrono::high_resolution_clock::time_point &t1);
+std::chrono::high_resolution_clock::time_point convertTimevalToTimepoint(const timeval &t1);
+std::chrono::high_resolution_clock::time_point currentTimeTimeval();
+
 #endif
 
 /*

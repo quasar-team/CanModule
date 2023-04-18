@@ -91,7 +91,8 @@ void GlobalErrorSignaler::disconnectAllHandlers() {
 // fire the signal with payload. Timestamp done internally
 void GlobalErrorSignaler::fireSignal( const int code, const char *msg ){
 	timeval ftTimeStamp;
-	auto now = std::chrono::system_clock::now();
+//	auto now = std::chrono::system_clock::now();
+	auto now = std::chrono::high_resolution_clock::now();
 	auto nMicrosecs = std::chrono::duration_cast<std::chrono::microseconds>( now.time_since_epoch());
 	ftTimeStamp.tv_sec = nMicrosecs.count() / 1000000L;
 	ftTimeStamp.tv_usec = (nMicrosecs.count() % 1000000L) ;
@@ -227,7 +228,8 @@ void CCanAccess::publishPortStatusChanged ( unsigned int status )
 		std::string msg = CanModule::translateCanBusStateToText((CanModule::CanModule_bus_state) status);
 
 		timeval ftTimeStamp;
-		auto now = std::chrono::system_clock::now();
+		// auto now = std::chrono::system_clock::now();
+		auto now = std::chrono::high_resolution_clock::now();
 		auto nMicrosecs = std::chrono::duration_cast<std::chrono::microseconds>( now.time_since_epoch());
 		ftTimeStamp.tv_sec = nMicrosecs.count() / 1000000L;
 		ftTimeStamp.tv_usec = (nMicrosecs.count() % 1000000L) ;

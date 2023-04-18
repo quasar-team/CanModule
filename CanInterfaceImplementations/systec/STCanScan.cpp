@@ -506,7 +506,8 @@ bool STCanScan::sendMessage(short cobID, unsigned char len, unsigned char *messa
 		MLOGST(ERR,this) << "There was a problem when sending a message.";
 
 		timeval ftTimeStamp;
-		auto now = std::chrono::system_clock::now();
+		// auto now = std::chrono::system_clock::now();
+		auto now = std::chrono::high_resolution_clock::now();
 		auto nMicrosecs = std::chrono::duration_cast<std::chrono::microseconds>(now.time_since_epoch());
 		ftTimeStamp.tv_sec = nMicrosecs.count() / 1000000L;
 		ftTimeStamp.tv_usec = (nMicrosecs.count() % 1000000L);

@@ -126,7 +126,8 @@ private:
 		float m_receivedPerSec;
 		//! Bus load derived from #TX and #RX packages
 		float m_busLoad;
-		std::chrono::system_clock::time_point m_observationStart;
+		// std::chrono::system_clock::time_point m_observationStart;
+		std::chrono::high_resolution_clock::time_point m_observationStart;
 	};
 	Internals m_internals;
 
