@@ -34,14 +34,14 @@ Diag::Diag() {};
 	return false;
 }
 
-/* private */ Diag::PORT_LOG_ITEM_t m_createEmptyItem(){
+/* private */ Diag::PORT_LOG_ITEM_t Diag::m_createEmptyItem(){
 	Diag::PORT_LOG_ITEM_t item;
 	item.message = "no port log message";
 	item.timestamp = 0;
 	return item;
 }
 
-/* private */ Diag::HARDWARE_DIAG_t m_createEmptyDiag(){
+/* private */ Diag::HARDWARE_DIAG_t Diag::m_createEmptyDiag(){
 	Diag::HARDWARE_DIAG_t d;
 	d.temperature = 0;
 	d.uptime = 0;
