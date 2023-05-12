@@ -40,7 +40,7 @@ if( (NOT DEFINED ANAGATE2_LIB_PATH) OR (NOT DEFINED ANAGATE2_HEADERS) OR (NOT DE
 	else()
 		SET ( ANAGATE2_HEADERS "/opt/3rdPartySoftware/CAN/cal9/anagate/beta.v6/include" )
 		SET ( ANAGATE2_LIB_PATH "/opt/3rdPartySoftware/CAN/cal9/anagate/beta.v6/lib" )
-		SET ( ANAGATE2_LIB_FILE "-lAnaGateStaticRelease  -lCANDLLStaticRelease64" )
+		SET ( ANAGATE2_LIB_FILE "-lAnaGateExtStaticRelease -lAnaGateStaticRelease -lCANDLLStaticRelease64" )
 	endif() 
 	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: ANAGATE2_HEADERS=  ${ANAGATE2_HEADERS}]")
 	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: ANAGATE2_LIB_PATH= ${ANAGATE2_LIB_PATH}]")
