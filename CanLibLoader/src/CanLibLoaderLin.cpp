@@ -28,7 +28,7 @@
 #include <LogIt.h>
 
 #include "dlfcn.h"
-//typedef void* (*f_CCanAccess)();
+
 
 namespace CanModule
 {
@@ -42,9 +42,8 @@ CanLibLoaderLin::CanLibLoaderLin(const std::string& libName)
 	m_gsig = GlobalErrorSignaler::getInstance();
 
 	dynamicallyLoadLib(libName);
-
-	// createCanAccess();
 }
+
 CanLibLoaderLin::~CanLibLoaderLin() {
 	dlclose(p_dynamicLibrary);
 }
