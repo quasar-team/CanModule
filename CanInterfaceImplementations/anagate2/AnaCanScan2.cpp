@@ -38,7 +38,7 @@
 using namespace CanModule;
 std::recursive_mutex anagateReconnectMutex;
 
-/* static */ std::map<int, AnaCanScan2::ANAGATE_PORTDEF_t> AnaCanScan::st_canHandleMap; // map handles to  {ports, ip}
+/* static */ std::map<int, AnaCanScan2::ANAGATE_PORTDEF_t> AnaCanScan2::st_canHandleMap; // map handles to  {ports, ip}
 /* static */ Log::LogComponentHandle AnaCanScan2::st_logItHandleAnagate = 0;
 /* static */ std::map< std::string,bool > AnaCanScan2::st_reconnectInProgress_map;
 
