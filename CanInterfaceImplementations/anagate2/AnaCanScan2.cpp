@@ -456,7 +456,7 @@ int AnaCanScan2::m_configureCanBoard(const std::string name,const std::string pa
 /* static */ void AnaCanScan2::st_addCanHandleOfPortIp(AnaInt32 handle, int port, std::string ip) {
 	std::map<AnaInt32, ANAGATE_PORTDEF_t>::iterator it = st_canHandleMap.find( handle );
 	if ( it != st_canHandleMap.end() ){
-		LOG(Log::WRN, AnaCanScan::st_logItHandleAnagate) << __FUNCTION__
+		LOG(Log::WRN, AnaCanScan2::st_logItHandleAnagate) << __FUNCTION__
 				<< " " << handle << " is opened already on "
 				<< " port= " << port << " ip= " << ip;
 	} else {
@@ -486,7 +486,7 @@ int AnaCanScan2::m_configureCanBoard(const std::string name,const std::string pa
 	if ( handle > -1 ) {
 		st_canHandleMap.erase( handle );
 	} else {
-		LOG(Log::TRC, AnaCanScan::st_logItHandleAnagate) << __FUNCTION__
+		LOG(Log::TRC, AnaCanScan2::st_logItHandleAnagate) << __FUNCTION__
 				<< " could not erase handle= " << handle
 				<< " for port= " << port << " ip= " << ip;
 	}
@@ -498,7 +498,7 @@ int AnaCanScan2::m_configureCanBoard(const std::string name,const std::string pa
  */
 /* static */ AnaInt32 AnaCanScan2::st_getCanHandleOfPortIp(int port, std::string ip) {
 
-	LOG(Log::TRC, AnaCanScan::st_logItHandleAnagate) << __FUNCTION__
+	LOG(Log::TRC, AnaCanScan2::st_logItHandleAnagate) << __FUNCTION__
 			<< " port= " << port << " ip= " << ip;
 	std::map<AnaInt32, ANAGATE_PORTDEF_t>::iterator it = st_canHandleMap.begin();
 	while ( it != st_canHandleMap.end() ){
