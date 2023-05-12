@@ -825,7 +825,7 @@ AnaInt32 AnaCanScan2::m_reconnectThisPort(){
 	int nbCANportsOnModule = 0;
 	bool reconnectFailed = false;
 	// show the old handle on that ip
-	for (std::map<AnaInt32, AnaCanScan*>::iterator it=g_AnaCanScanObjectMap.begin(); it!=g_AnaCanScanObjectMap.end(); it++){
+	for (std::map<AnaInt32, AnaCanScan2*>::iterator it=g_AnaCanScanObjectMap.begin(); it!=g_AnaCanScanObjectMap.end(); it++){
 		if ( ip == it->second->m_ipAddress() ){
 			LOG(Log::TRC, AnaCanScan2::st_logItHandleAnagate ) << __FUNCTION__
 					<< " key= " << it->first
@@ -869,12 +869,12 @@ AnaInt32 AnaCanScan2::m_reconnectThisPort(){
 
 	// register the new handler with the obj. map and connect the reception handler. Cleanup the stale handlers
 	// use a local copy of the map, in order not to change the map we are iterating on
-	std::map<AnaInt32, AnaCanScan*> lmap = g_AnaCanScanObjectMap;
+	std::map<AnaInt32, AnaCanScan2*> lmap = g_AnaCanScanObjectMap;
 	LOG(Log::TRC, AnaCanScan2::st_logItHandleAnagate) << __FUNCTION__ << " " __FILE__ << " " << __LINE__
 			<< " receive handler map map before reconnect for ip= " << ip;
 	AnaCanScan2::st_showAnaCanScanObjectMap();
 
-	for (std::map<AnaInt32, AnaCanScan*>::iterator it=lmap.begin(); it!=lmap.end(); it++){
+	for (std::map<AnaInt32, AnaCanScan2*>::iterator it=lmap.begin(); it!=lmap.end(); it++){
 		if ( ip == it->second->m_ipAddress() ){
 			anaRet = it->second->m_connectReceptionHandler();
 			if ( anaRet != 0 ){
