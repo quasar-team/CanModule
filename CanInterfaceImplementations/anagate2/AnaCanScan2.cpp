@@ -1222,7 +1222,7 @@ void AnaCanScan2::m_CanReconnectionThread()
 
 			AnaInt32 ret = m_reconnectThisPort();
 			MLOGANA2(INF, this) << "reconnected one CAN port ip= " << m_canIPAddress << " ret= " << ret;
-			AnaCanScan::st_showAnaCanScanObjectMap();
+			AnaCanScan2::st_showAnaCanScanObjectMap();
 			break;
 		}
 
@@ -1235,7 +1235,7 @@ void AnaCanScan2::m_CanReconnectionThread()
 			std::string ip = m_ipAddress();
 			MLOGANA2(INF, this) << " reconnect condition " << reconnectConditionString(m_reconnectCondition)
 										<< " triggered action " << reconnectActionString(m_reconnectAction);
-			AnaCanScan::st_reconnectAllPorts( ip );
+			AnaCanScan2::st_reconnectAllPorts( ip );
 			MLOGANA2(TRC, this) << " reconnect all ports of ip=  " << ip << this->getBusName();
 			break;
 		}
