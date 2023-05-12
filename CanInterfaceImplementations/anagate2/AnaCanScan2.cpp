@@ -722,7 +722,7 @@ bool AnaCanScan2::sendMessage(short cobID, unsigned char len, unsigned char *mes
 /* static */ void AnaCanScan2::st_showAnaCanScanObjectMap(){
 	uint32_t size = g_AnaCanScanObjectMap.size();
 	LOG(Log::TRC, AnaCanScan2::st_logItHandleAnagate  ) << __FUNCTION__ << " RECEIVE obj. map size= " << size << " : ";
-	for (std::map<AnaInt32, AnaCanScan*>::iterator it=g_AnaCanScanObjectMap.begin(); it!=g_AnaCanScanObjectMap.end(); it++){
+	for (std::map<AnaInt32, AnaCanScan2*>::iterator it=g_AnaCanScanObjectMap.begin(); it!=g_AnaCanScanObjectMap.end(); it++){
 		LOG(Log::TRC, AnaCanScan2::st_logItHandleAnagate ) << __FUNCTION__ << " obj. map "
 				<< " key= " << it->first
 				<< " ip= " << it->second->m_ipAddress()
@@ -760,8 +760,8 @@ AnaInt32 AnaCanScan2::m_reconnectThisPort(){
 			<< " looking good= " << anaCallReturn0;
 
 	// erase stale map entry for the old reception handler
-	std::map<AnaInt32, AnaCanScan*> lmap = g_AnaCanScanObjectMap;
-	for (std::map<AnaInt32, AnaCanScan*>::iterator it=lmap.begin(); it!=lmap.end(); it++){
+	std::map<AnaInt32, AnaCanScan2*> lmap = g_AnaCanScanObjectMap;
+	for (std::map<AnaInt32, AnaCanScan2*>::iterator it=lmap.begin(); it!=lmap.end(); it++){
 		/**
 		 * delete the map elements where the key is different from the handle, since we reassigned handles
 		 * in the living objects like:
