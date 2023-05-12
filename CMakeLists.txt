@@ -18,7 +18,7 @@
 #  
 #
 cmake_minimum_required( VERSION 3.0 )
-project( CanModuleProject LANGUAGES C CXX  VERSION 2.0.25  )  
+project( CanModuleProject LANGUAGES C CXX  VERSION 2.1.2  )  
 message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CanModule version= ${PROJECT_VERSION}" )
 
 cmake_policy(SET CMP0054 NEW)
@@ -70,23 +70,12 @@ function ( clone_LogIt )
   message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: cloning LogIt from github. *NOTE* cloning version [${LOGIT_VERSION}]")
   if ( NOT EXISTS ${PROJECT_BINARY_DIR}/LogIt )
   	  execute_process(COMMAND mkdir -p ${PROJECT_BINARY_DIR} ) 
-  	  #execute_process(COMMAND pwd ) 
-	  #execute_process(COMMAND git clone -b ${LOGIT_VERSION} https://github.com/quasar-team/LogIt.git WORKING_DIRECTORY ${PROJECT_BINARY_DIR}  )
-	  #xxxx 
-	  execute_process(COMMAND git clone -b ${LOGIT_VERSION} https://github.com/quasar-team/LogIt.git ${PROJECT_BINARY_DIR}/LogIt WORKING_DIRECTORY ${PROJECT_BINARY_DIR}  )
-
-
-	  #add_subdirectory( ${PROJECT_BINARY_DIR}/LogIt build )
+ 	  execute_process(COMMAND git clone -b ${LOGIT_VERSION} https://github.com/quasar-team/LogIt.git ${PROJECT_BINARY_DIR}/LogIt WORKING_DIRECTORY ${PROJECT_BINARY_DIR}  )
 	  include_directories( ${PROJECT_BINARY_DIR}/LogIt/include build )
-	  
-	  #execute_process(COMMAND git clone -b ${LOGIT_VERSION} https://github.com/quasar-team/LogIt.git WORKING_DIRECTORY ./build  )
 	  message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: PROJECT_BINARY_DIR= ${PROJECT_BINARY_DIR}")
-	  #message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: LogIt cloned into ${PROJECT_BINARY_DIR}/../LogIt")
-	  #message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: LogIt cloned into ./build/LogIt")
    ELSE()
 	  message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Logit is already cloned into ${PROJECT_BINARY_DIR}/LogIt" )
    ENDIF() 
-   #set ( LOGIT_HEADERS ${PROJECT_BINARY_DIR}/LogIt/include ) # some bw compatibility, otherwise maybe useless
    include_directories( ${PROJECT_BINARY_DIR}/LogIt/include )
    
 endfunction()
@@ -215,8 +204,6 @@ SET ( SRCS_ALL_OS
 	./CanInterface/src/CanModuleUtils.cpp
 	./CanInterface/src/CanStatistics.cpp
 	./CanLibLoader/src/CanLibLoader.cpp
-	#./CanModuleTest/src/CanModuleTest.cpp
-	#./CanModuleTest/src/main.cpp
 	./Diagnostic/src/Diag.cpp
 )
 SET ( SRCS_OS_WIN

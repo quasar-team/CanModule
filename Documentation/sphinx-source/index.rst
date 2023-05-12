@@ -22,7 +22,6 @@ CanModule reference documentation
    building
    running
    errors
-   testing
    support
    doxygen
 

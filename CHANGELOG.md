@@ -2,6 +2,14 @@
 All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+### 2.1.2
+- read bitrate from socketcan for "Unsepcified" parameters, so that the statistics works. If 0, stats do not work entirely
+
+
+### 2.1.1 [ 18.april.2023 ]
+- validated version for CanOpenNG
+- lots of features and changes
+
 
 ### 2.0.25 [ 16.march.2023 ]
 we have 4 types of signals

@@ -559,6 +559,14 @@ int CSockCanScan::m_openCanPort()
 		}
 	} else {
 		MLOGSOCK(INF,this) << "did NOT reconfigure (stop, set bitrate, start) the CAN port";
+		struct can_bittiming bt;
+		int ret = can_get_bittiming (m_channelName.c_str(), &bt);
+		if ( ret == 0 && bt.bitrate > 0 ){
+			MLOGSOCK(INF,this) << "successfully read bitrate from socketcan, statistics will work, bitrate= " << bt.bitrate;
+			m_CanParameters.m_lBaudRate = bt.bitrate;
+		} else {
+			MLOGSOCK(WRN,this) << "could not read bitrate from socketcan, statistics will not fully work, bitrate= " << bt.bitrate;
+		}
 	}
 
 	m_sock = socket(PF_CAN, SOCK_RAW, CAN_RAW);
