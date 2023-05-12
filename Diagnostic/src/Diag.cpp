@@ -20,7 +20,37 @@ namespace CanModule {
 
 std::mutex mtx;
 
+// should be a forced singleton
 Diag::Diag() {};
+
+/**
+ * find out id the implementation has advanced port diags, from the bus name. Currently only
+ * anagate2 has this kind of diags. Other implementations have some of it as well, notably the statistics.
+ * Nevertheless, this is from the hardware.
+ */
+/* private */ bool Diag::m_implemenationHasDiags( CCanAccess *acc ){
+	std::string busName = acc->getBusName();
+	if ( busName.find("an2") != std::string::npos ) return true;
+	return false;
+}
+
+/* private */ Diag::PORT_LOG_ITEM_t m_createEmptyItem(){
+	Diag::PORT_LOG_ITEM_t item;
+	item.message = "no port log message";
+	item.timestamp = 0;
+	return item;
+}
+
+/* private */ Diag::HARDWARE_DIAG_t m_createEmptyDiag(){
+	Diag::HARDWARE_DIAG_t d;
+	d.temperature = 0;
+	d.uptime = 0;
+	d.clientCount = 0;
+	d.clientIps.push_back("000.000.000.000");
+	d.clientPorts.push_back(0);
+	d.clientConnectionTimestamps.push_back( 0 );
+	return d;
+}
 
 void Diag::delete_maps(CanLibLoader *lib, CCanAccess *acc ){
 
@@ -101,6 +131,57 @@ std::vector<Diag::CONNECTION_DIAG_t> Diag::get_connections(){
 		vreturn.push_back( c );
 	}
 	return( vreturn );
+};
+
+
+Diag::PORT_LOG_ITEM_t Diag::get_lastPortLogItem( CCanAccess *acc ){
+	Diag::PORT_LOG_ITEM_t item;
+	if ( Diag::m_implemenationHasDiags( acc ) ){
+		// it is an anagate2: go out and fill the data
+		/**	AnaInt32 CANGetLog(AnaInt32 hHandle, AnaUInt32 * nLogID, AnaUInt32
+		 * pnCurrentID, AnaUInt32 * pnLogCount, AnaInt64 * pnLogDate, char
+		pcBuffer[]);
+		 */
+	} else {
+		item.message = "no port log message";
+		item.timestamp = 0;
+	}
+	return item;
+};
+
+Diag::PORT_LOG_ALL_t get_allPortLogItems( CCanAccess *acc ){
+	Diag::PORT_LOG_ALL_t log;
+	if ( Diag::m_implemenationHasDiags( acc ) ){
+		// it is an anagate2: go out and fill the data
+		/**	AnaInt32 CANGetLog(AnaInt32 hHandle, AnaUInt32 * nLogID, AnaUInt32
+		 * pnCurrentID, AnaUInt32 * pnLogCount, AnaInt64 * pnLogDate, char
+		pcBuffer[]);
+		 */
+	} else {
+		log.portLog.push_back( Diag::m_createEmptyItem() );
+	}
+	return log;
+};
+
+Diag::HARDWARE_DIAG_t get_hardwareDiag( CCanAccess *acc ){
+	Diag::HARDWARE_DIAG_t diag;
+	if ( Diag::m_implemenationHasDiags( acc ) ){
+		/**
+		 * 	AnaInt32 CANGetDiagData(AnaInt32 hHandle, AnaInt32 * pnTemperature,
+		 * 			AnaInt32 * pnUptime);int temperature; // in deg C
+		 *
+		 * 	AnaInt32 CANGetClientList(AnaInt32 hHandle, AnaUInt32 * pnClientCount,
+		 * 				AnaUInt32 pnIPaddress[], AnaUInt32 pnPort[], AnaInt64 pnConnectDate[]);
+		 */
+		//int uptime;      // in seconds
+		//unsigned int clientCount; // connected clients for this IP/module/submodule
+		//std::vector<std::string> clientIps; // decoded into strings, from unsigned int
+		//std::vector<unsigned int> clientPorts; // array of client ports
+		//std::vector<long int> clientConnectionTimestamps; // (Unix time) of initial client connection
+	} else {
+		diag = m_createEmptyDiag();
+	}
+	return diag;
 };
 
 
