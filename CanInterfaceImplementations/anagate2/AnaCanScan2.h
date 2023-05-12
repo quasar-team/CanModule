@@ -91,10 +91,10 @@ public:
 		DISCONNECTING, //: The connection is disonnecting.
 		NOT_INITIALIZED }; //: The network protocol is not successfully initialized.
 
-	AnaCanScan();//Constructor of the class. Will initiate the statistics.
-	AnaCanScan(AnaCanScan const & other) = delete;  //Disables copy constructor
-	AnaCanScan& operator=(AnaCanScan const & other) = delete; // Disables assignment
-	virtual ~AnaCanScan();
+	AnaCanScan2();//Constructor of the class. Will initiate the statistics.
+	AnaCanScan2(AnaCanScan2 const & other) = delete;  //Disables copy constructor
+	AnaCanScan2& operator=(AnaCanScan2 const & other) = delete; // Disables assignment
+	virtual ~AnaCanScan2();
 
 	virtual int createBus(const std::string name, const std::string parameters);
     virtual bool sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr = false);
