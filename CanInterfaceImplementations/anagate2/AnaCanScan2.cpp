@@ -986,7 +986,7 @@ AnaInt32 AnaCanScan2::m_connectReceptionHandler(){
  * todo: protect with mutex, work on copy
  */
 void AnaCanScan2::m_eraseReceptionHandlerFromMap( AnaInt32 h ){
-	std::map<AnaInt32, AnaCanScan *>::iterator it = g_AnaCanScanObjectMap.find( h );
+	std::map<AnaInt32, AnaCanScan2*>::iterator it = g_AnaCanScanObjectMap.find( h );
 	if (it != g_AnaCanScanObjectMap.end()) {
 		g_AnaCanScanObjectMap.erase ( it );
 		m_busName = "nobus";
