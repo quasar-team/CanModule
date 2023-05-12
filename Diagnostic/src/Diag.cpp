@@ -149,7 +149,7 @@ Diag::PORT_LOG_ITEM_t Diag::get_lastPortLogItem( CCanAccess *acc ){
 	return item;
 };
 
-Diag::PORT_LOG_ALL_t get_allPortLogItems( CCanAccess *acc ){
+Diag::PORT_LOG_ALL_t Diag::get_allPortLogItems( CCanAccess *acc ){
 	Diag::PORT_LOG_ALL_t log;
 	if ( Diag::m_implemenationHasDiags( acc ) ){
 		// it is an anagate2: go out and fill the data
@@ -163,7 +163,7 @@ Diag::PORT_LOG_ALL_t get_allPortLogItems( CCanAccess *acc ){
 	return log;
 };
 
-Diag::HARDWARE_DIAG_t get_hardwareDiag( CCanAccess *acc ){
+Diag::HARDWARE_DIAG_t Diag::get_hardwareDiag( CCanAccess *acc ){
 	Diag::HARDWARE_DIAG_t diag;
 	if ( Diag::m_implemenationHasDiags( acc ) ){
 		/**
