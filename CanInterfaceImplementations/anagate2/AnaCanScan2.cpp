@@ -596,7 +596,7 @@ int AnaCanScan2::m_openCanPort()
 	m_UcanHandle = canModuleHandle;
 
 	// keep some hardcore debugging
-	// AnaCanScan::showAnaCanScanObjectMap();
+	// AnaCanScan2::showAnaCanScanObjectMap();
 
 	// initial port state
 	fetchAndPublishCanPortState();
@@ -642,7 +642,7 @@ bool AnaCanScan2::sendMessage(short cobID, unsigned char len, unsigned char *mes
 		return( false );
 	}
 
-	// /* static */ std::string AnaCanScan::canMessageToString(CanMessage &f)
+	// /* static */ std::string AnaCanScan2::canMessageToString(CanMessage &f)
 	// MLOGANA2(DBG,this) << "Sending message: [" << ( message == 0  ? "" : (const char *) message) << "], cobID: [" << cobID << "], Message Length: [" << static_cast<int>(len) << "]";
 
 	MLOGANA2(DBG,this) << __FUNCTION__ << " Sending message: [" << CanModule::canMessage2ToString(cobID, len, message, rtr) << "]";
@@ -721,9 +721,9 @@ bool AnaCanScan2::sendMessage(short cobID, unsigned char len, unsigned char *mes
  */
 /* static */ void AnaCanScan2::st_showAnaCanScanObjectMap(){
 	uint32_t size = g_AnaCanScanObjectMap.size();
-	LOG(Log::TRC, AnaCanScan::st_logItHandleAnagate  ) << __FUNCTION__ << " RECEIVE obj. map size= " << size << " : ";
+	LOG(Log::TRC, AnaCanScan2::st_logItHandleAnagate  ) << __FUNCTION__ << " RECEIVE obj. map size= " << size << " : ";
 	for (std::map<AnaInt32, AnaCanScan*>::iterator it=g_AnaCanScanObjectMap.begin(); it!=g_AnaCanScanObjectMap.end(); it++){
-		LOG(Log::TRC, AnaCanScan::st_logItHandleAnagate ) << __FUNCTION__ << " obj. map "
+		LOG(Log::TRC, AnaCanScan2::st_logItHandleAnagate ) << __FUNCTION__ << " obj. map "
 				<< " key= " << it->first
 				<< " ip= " << it->second->m_ipAddress()
 				<< " CAN port= " << it->second->m_CanPortNumber()
@@ -754,7 +754,7 @@ AnaInt32 AnaCanScan2::m_reconnectThisPort(){
 	}
 	st_showAnaCanScanObjectMap();
 	anaCallReturn0 = m_connectReceptionHandler();
-	LOG(Log::TRC, AnaCanScan::st_logItHandleAnagate ) << __FUNCTION__ << " " __FILE__ << " " << __LINE__
+	LOG(Log::TRC, AnaCanScan2::st_logItHandleAnagate ) << __FUNCTION__ << " " __FILE__ << " " << __LINE__
 			<< " reconnect reception handler for port= " << m_canPortNumber
 			<< " ip= " << m_canIPAddress
 			<< " looking good= " << anaCallReturn0;
@@ -768,7 +768,7 @@ AnaInt32 AnaCanScan2::m_reconnectThisPort(){
 		 * 	g_AnaCanScanPointerMap[ m_UcanHandle ] = this;
 		 */
 		if ( it->first != it->second->m_handle()){
-			LOG(Log::TRC, AnaCanScan::st_logItHandleAnagate) << __FUNCTION__ << " " __FILE__ << " " << __LINE__
+			LOG(Log::TRC, AnaCanScan2::st_logItHandleAnagate) << __FUNCTION__ << " " __FILE__ << " " << __LINE__
 					<< " erasing stale handler " << it->first
 					<< " for object handle= " << it->second->m_handle() << " from obj. map";
 			g_AnaCanScanObjectMap.erase( it->first );
@@ -804,15 +804,15 @@ AnaInt32 AnaCanScan2::m_reconnectThisPort(){
 	// protect against several calls on the same ip, recursive_mutex needed
 	{
 		anagateReconnectMutex.lock();
-		if ( AnaCanScan::st_isIpReconnectInProgress( ip ) ) {
-			LOG(Log::WRN, AnaCanScan::st_logItHandleAnagate ) << "reconnecting all ports for ip= " << ip
+		if ( AnaCanScan2::st_isIpReconnectInProgress( ip ) ) {
+			LOG(Log::WRN, AnaCanScan2::st_logItHandleAnagate ) << "reconnecting all ports for ip= " << ip
 					<< " is already in progress, skipping.";
 			CanModule::ms_sleep( 10000 );
 			anagateReconnectMutex.unlock();
 			return(1);
 		}
-		AnaCanScan::st_setIpReconnectInProgress( ip, true );
-		LOG(Log::TRC, AnaCanScan::st_logItHandleAnagate ) << "reconnecting all ports for ip= " << ip
+		AnaCanScan2::st_setIpReconnectInProgress( ip, true );
+		LOG(Log::TRC, AnaCanScan2::st_logItHandleAnagate ) << "reconnecting all ports for ip= " << ip
 				<< " is now in progress.";
 		anagateReconnectMutex.unlock();
 	}
@@ -827,7 +827,7 @@ AnaInt32 AnaCanScan2::m_reconnectThisPort(){
 	// show the old handle on that ip
 	for (std::map<AnaInt32, AnaCanScan*>::iterator it=g_AnaCanScanObjectMap.begin(); it!=g_AnaCanScanObjectMap.end(); it++){
 		if ( ip == it->second->m_ipAddress() ){
-			LOG(Log::TRC, AnaCanScan::st_logItHandleAnagate ) << __FUNCTION__
+			LOG(Log::TRC, AnaCanScan2::st_logItHandleAnagate ) << __FUNCTION__
 					<< " key= " << it->first
 					<< " found ip= " << ip
 					<< " for CAN port= " << it->second->m_CanPortNumber()
@@ -835,7 +835,7 @@ AnaInt32 AnaCanScan2::m_reconnectThisPort(){
 
 			ret = it->second->m_reconnect();
 			if ( ret ){
-				LOG(Log::WRN, AnaCanScan::st_logItHandleAnagate) << __FUNCTION__
+				LOG(Log::WRN, AnaCanScan2::st_logItHandleAnagate) << __FUNCTION__
 						<< " key= " << it->first
 						<< " found ip= " << ip
 						<< " for CAN port= " << it->second->m_CanPortNumber()
@@ -853,16 +853,16 @@ AnaInt32 AnaCanScan2::m_reconnectThisPort(){
 			nbCANportsOnModule++;
 		}
 	}
-	LOG(Log::TRC, AnaCanScan::st_logItHandleAnagate) << " CAN bridge at ip= " << ip << " uses  nbCANportsOnModule= " << nbCANportsOnModule;
+	LOG(Log::TRC, AnaCanScan2::st_logItHandleAnagate) << " CAN bridge at ip= " << ip << " uses  nbCANportsOnModule= " << nbCANportsOnModule;
 
 	if ( reconnectFailed ) {
-		LOG(Log::WRN, AnaCanScan::st_logItHandleAnagate ) << " Problem reconnecting CAN ports for ip= " << ip
+		LOG(Log::WRN, AnaCanScan2::st_logItHandleAnagate ) << " Problem reconnecting CAN ports for ip= " << ip
 				<< " last ret= " << ret << ". Just abandoning and trying again in 10 secs, module might not be ready yet.";
 
 		CanModule::ms_sleep( 10000 );
 
-		AnaCanScan::st_setIpReconnectInProgress( ip, false );
-		LOG(Log::TRC, AnaCanScan::st_logItHandleAnagate ) << "reconnecting all ports for ip= " << ip
+		AnaCanScan2::st_setIpReconnectInProgress( ip, false );
+		LOG(Log::TRC, AnaCanScan2::st_logItHandleAnagate ) << "reconnecting all ports for ip= " << ip
 				<< " cancel.";
 		return(-1);
 	}
@@ -870,21 +870,21 @@ AnaInt32 AnaCanScan2::m_reconnectThisPort(){
 	// register the new handler with the obj. map and connect the reception handler. Cleanup the stale handlers
 	// use a local copy of the map, in order not to change the map we are iterating on
 	std::map<AnaInt32, AnaCanScan*> lmap = g_AnaCanScanObjectMap;
-	LOG(Log::TRC, AnaCanScan::st_logItHandleAnagate) << __FUNCTION__ << " " __FILE__ << " " << __LINE__
+	LOG(Log::TRC, AnaCanScan2::st_logItHandleAnagate) << __FUNCTION__ << " " __FILE__ << " " << __LINE__
 			<< " receive handler map map before reconnect for ip= " << ip;
-	AnaCanScan::st_showAnaCanScanObjectMap();
+	AnaCanScan2::st_showAnaCanScanObjectMap();
 
 	for (std::map<AnaInt32, AnaCanScan*>::iterator it=lmap.begin(); it!=lmap.end(); it++){
 		if ( ip == it->second->m_ipAddress() ){
 			anaRet = it->second->m_connectReceptionHandler();
 			if ( anaRet != 0 ){
-				LOG(Log::ERR, AnaCanScan::st_logItHandleAnagate) << __FUNCTION__ << " " __FILE__ << " " << __LINE__
+				LOG(Log::ERR, AnaCanScan2::st_logItHandleAnagate) << __FUNCTION__ << " " __FILE__ << " " << __LINE__
 						<< " failed to reconnect reception handler for ip= " << ip
 						<< " handle= " << it->second->m_handle()
 						<< " port= " << it->second->m_CanPortNumber()
 						<< " anaRet= " << anaRet;
 			} else {
-				LOG(Log::TRC, AnaCanScan::st_logItHandleAnagate ) << __FUNCTION__ << " " __FILE__ << " " << __LINE__
+				LOG(Log::TRC, AnaCanScan2::st_logItHandleAnagate ) << __FUNCTION__ << " " __FILE__ << " " << __LINE__
 						<< " reconnect reception handler for ip= " << ip
 						<< " handle= " << it->second->m_handle()
 						<< " looking good= " << anaRet;
@@ -896,19 +896,19 @@ AnaInt32 AnaCanScan2::m_reconnectThisPort(){
 			 * 	g_AnaCanScanPointerMap[ m_UcanHandle ] = this;
 			 */
 			if ( it->first != it->second->m_handle()){
-				LOG(Log::TRC, AnaCanScan::st_logItHandleAnagate) << __FUNCTION__ << " " __FILE__ << " " << __LINE__
+				LOG(Log::TRC, AnaCanScan2::st_logItHandleAnagate) << __FUNCTION__ << " " __FILE__ << " " << __LINE__
 						<< " erasing stale handler " << it->first
 						<< " for object handle= " << it->second->m_handle() << " from obj. map";
 				g_AnaCanScanObjectMap.erase( it->first );
 			}
-			AnaCanScan::st_setIpReconnectInProgress( ip, false ); // all done, may fail another time
-			LOG(Log::INF, AnaCanScan::st_logItHandleAnagate ) << "reconnecting all ports for ip= " << ip
+			AnaCanScan2::st_setIpReconnectInProgress( ip, false ); // all done, may fail another time
+			LOG(Log::INF, AnaCanScan2::st_logItHandleAnagate ) << "reconnecting all ports for ip= " << ip
 					<< " is done and OK.";
 		}
 	}
-	//LOG(Log::TRC, AnaCanScan::st_logItHandleAnagate) << __FUNCTION__ << " " __FILE__ << " " << __LINE__
+	//LOG(Log::TRC, AnaCanScan2::st_logItHandleAnagate) << __FUNCTION__ << " " __FILE__ << " " << __LINE__
 	//		<< " receive handler map after reconnect for ip= " << ip;
-	AnaCanScan::st_showAnaCanScanObjectMap();
+	AnaCanScan2::st_showAnaCanScanObjectMap();
 
 	// be easy on the switch
 	CanModule::ms_sleep( 100 );
@@ -1133,7 +1133,7 @@ bool AnaCanScan2::sendRemoteRequest(short cobID)
 	return ( true ); //sendAnErrorMessage(anaCallReturn);
 }
 
-void AnaCanScan::getStatistics( CanStatistics & result )
+void AnaCanScan2::getStatistics( CanStatistics & result )
 {
 	m_statistics.computeDerived (m_baudRate);
 	result = m_statistics;  // copy whole structure
