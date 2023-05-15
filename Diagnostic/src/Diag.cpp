@@ -137,6 +137,9 @@ std::vector<Diag::CONNECTION_DIAG_t> Diag::get_connections(){
 };
 
 
+/**
+ * read from hw the last log entries, 10 or less (or none)
+ */
 std::vector<Diag::PORT_LOG_ITEM_t> Diag::get_last10PortLogItems( CCanAccess *acc ){
 	std::vector<Diag::PORT_LOG_ITEM_t> items;
 	int count = 10;
@@ -150,8 +153,8 @@ std::vector<Diag::PORT_LOG_ITEM_t> Diag::get_last10PortLogItems( CCanAccess *acc
 
 
 	} else {
-		item.message = "no port log message";
-		item.timestamp = 0;
+		//item.message = "no port log message";
+		/item.timestamp = 0;
 	}
 	return items;
 };
