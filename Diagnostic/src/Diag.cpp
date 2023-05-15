@@ -151,17 +151,14 @@ std::vector<Diag::PORT_LOG_ITEM_t> Diag::get_last10PortLogItems( CCanAccess *acc
 		 */
 
 
-
-	} else {
-		//item.message = "no port log message";
-		//item.timestamp = 0;
+		return items;
 	}
 	return items;
 };
 
 std::vector<Diag::PORT_LOG_ITEM_t> Diag::get_allPortLogItems( CCanAccess *acc ){
 	std::vector<Diag::PORT_LOG_ITEM_t> items;
-	int count = 10;
+	// int count = 10;
 	if ( Diag::m_implemenationHasDiags( acc ) ){
 		// it is an anagate2: go out and fill the data
 		/**	AnaInt32 CANGetLog(AnaInt32 hHandle, AnaUInt32 * nLogID, AnaUInt32
@@ -170,10 +167,7 @@ std::vector<Diag::PORT_LOG_ITEM_t> Diag::get_allPortLogItems( CCanAccess *acc ){
 		 */
 
 
-
-	} else {
-		//item.message = "no port log message";
-		//item.timestamp = 0;
+		return items;
 	}
 	return items;
 
