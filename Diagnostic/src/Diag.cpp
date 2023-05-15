@@ -138,7 +138,7 @@ std::vector<Diag::CONNECTION_DIAG_t> Diag::get_connections(){
 
 
 std::vector<Diag::PORT_LOG_ITEM_t> Diag::get_last10PortLogItems( CCanAccess *acc ){
-	Diag::PORT_LOG_ITEM_t item;
+	std::vector<Diag::PORT_LOG_ITEM_t> items;
 	int count = 10;
 	if ( Diag::m_implemenationHasDiags( acc ) ){
 		// it is an anagate2: go out and fill the data
@@ -153,7 +153,7 @@ std::vector<Diag::PORT_LOG_ITEM_t> Diag::get_last10PortLogItems( CCanAccess *acc
 		item.message = "no port log message";
 		item.timestamp = 0;
 	}
-	return item;
+	return items;
 };
 
 std::vector<Diag::PORT_LOG_ITEM_t> Diag::get_allPortLogItems( CCanAccess *acc ){
