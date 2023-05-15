@@ -154,7 +154,7 @@ std::vector<Diag::PORT_LOG_ITEM_t> Diag::get_last10PortLogItems( CCanAccess *acc
 
 	} else {
 		//item.message = "no port log message";
-		/item.timestamp = 0;
+		//item.timestamp = 0;
 	}
 	return items;
 };
@@ -172,8 +172,8 @@ std::vector<Diag::PORT_LOG_ITEM_t> Diag::get_allPortLogItems( CCanAccess *acc ){
 
 
 	} else {
-		item.message = "no port log message";
-		item.timestamp = 0;
+		//item.message = "no port log message";
+		//item.timestamp = 0;
 	}
 	return items;
 
