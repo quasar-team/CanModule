@@ -27,6 +27,9 @@ Diag::Diag() {};
  * find out id the implementation has advanced port diags, from the bus name. Currently only
  * anagate2 has this kind of diags. Other implementations have some of it as well, notably the statistics.
  * Nevertheless, this is from the hardware.
+ *
+ * can't force that as private static virtual = 0 method: windows actually compiles this differently. So,
+ * implement it here explicitly scanning for the implementation name, here: only "an2" has it for the moment.
  */
 /* private */ bool Diag::m_implemenationHasDiags( CCanAccess *acc ){
 	std::string busName = acc->getBusName();
@@ -134,14 +137,18 @@ std::vector<Diag::CONNECTION_DIAG_t> Diag::get_connections(){
 };
 
 
-Diag::PORT_LOG_ITEM_t Diag::get_lastPortLogItem( CCanAccess *acc ){
+std::vector<Diag::PORT_LOG_ITEM_t> Diag::get_last10PortLogItems( CCanAccess *acc ){
 	Diag::PORT_LOG_ITEM_t item;
+	int count = 10;
 	if ( Diag::m_implemenationHasDiags( acc ) ){
 		// it is an anagate2: go out and fill the data
 		/**	AnaInt32 CANGetLog(AnaInt32 hHandle, AnaUInt32 * nLogID, AnaUInt32
 		 * pnCurrentID, AnaUInt32 * pnLogCount, AnaInt64 * pnLogDate, char
 		pcBuffer[]);
 		 */
+
+
+
 	} else {
 		item.message = "no port log message";
 		item.timestamp = 0;
@@ -149,7 +156,7 @@ Diag::PORT_LOG_ITEM_t Diag::get_lastPortLogItem( CCanAccess *acc ){
 	return item;
 };
 
-Diag::PORT_LOG_ALL_t Diag::get_allPortLogItems( CCanAccess *acc ){
+std::vector<Diag::PORT_LOG_ITEM_t> Diag::get_allPortLogItems( CCanAccess *acc ){
 	Diag::PORT_LOG_ALL_t log;
 	if ( Diag::m_implemenationHasDiags( acc ) ){
 		// it is an anagate2: go out and fill the data
