@@ -157,17 +157,23 @@ std::vector<Diag::PORT_LOG_ITEM_t> Diag::get_last10PortLogItems( CCanAccess *acc
 };
 
 std::vector<Diag::PORT_LOG_ITEM_t> Diag::get_allPortLogItems( CCanAccess *acc ){
-	Diag::PORT_LOG_ALL_t log;
+	std::vector<Diag::PORT_LOG_ITEM_t> items;
+	int count = 10;
 	if ( Diag::m_implemenationHasDiags( acc ) ){
 		// it is an anagate2: go out and fill the data
 		/**	AnaInt32 CANGetLog(AnaInt32 hHandle, AnaUInt32 * nLogID, AnaUInt32
 		 * pnCurrentID, AnaUInt32 * pnLogCount, AnaInt64 * pnLogDate, char
 		pcBuffer[]);
 		 */
+
+
+
 	} else {
-		log.portLog.push_back( Diag::m_createEmptyItem() );
+		item.message = "no port log message";
+		item.timestamp = 0;
 	}
-	return log;
+	return items;
+
 };
 
 Diag::HARDWARE_DIAG_t Diag::get_hardwareDiag( CCanAccess *acc ){
