@@ -1147,7 +1147,7 @@ void AnaCanScan2::getStatistics( CanStatistics & result )
 std::vector<CanModule::PORT_LOG_ITEM_t> AnaCanScan2::getHwLogMessages ( int n ){
 	std::vector<CanModule::PORT_LOG_ITEM_t> log;
 	CanModule::PORT_LOG_ITEM_t item;
-	AnaUInt32 nLogID;
+	AnaUInt32 nLogID = 0;
 	AnaUInt32 pnCurrentID;
 	AnaUInt32 pnLogCount;
 	AnaInt64 pnLogDate;
