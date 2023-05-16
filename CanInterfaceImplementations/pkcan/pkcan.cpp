@@ -77,8 +77,8 @@ PKCanScan::~PKCanScan()
  * does not get called because advanced diag is not available for this implementation.
  * But we provide a proper return type nevertheless
  */
-/* virtual */ std::vector<Diag::PORT_LOG_ITEM_t> PKCanScan::getHwLogMessages ( int n ){
-	std::vector<Diag::PORT_LOG_ITEM_t> log;
+/* virtual */ std::vector<PORT_LOG_ITEM_t> PKCanScan::getHwLogMessages ( int n ){
+	std::vector<PORT_LOG_ITEM_t> log;
 	return log;
 }
 

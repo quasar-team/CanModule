@@ -37,7 +37,7 @@ Diag::Diag() {};
 	return false;
 }
 
-/* private */ Diag::PORT_LOG_ITEM_t Diag::m_createEmptyItem(){
+/* private */ PORT_LOG_ITEM_t Diag::m_createEmptyItem(){
 	PORT_LOG_ITEM_t item;
 	item.message = "no port log message";
 	item.timestamp = 0;
@@ -143,8 +143,8 @@ std::vector<Diag::CONNECTION_DIAG_t> Diag::get_connections(){
  * n=1 : get the last
  * n>1 && n<100 : get n or less
  */
-std::vector<Diag::PORT_LOG_ITEM_t> Diag::get_portLogItems( CCanAccess *acc, int n ){
-	std::vector<Diag::PORT_LOG_ITEM_t> items;
+std::vector<PORT_LOG_ITEM_t> Diag::get_portLogItems( CCanAccess *acc, int n ){
+	std::vector<PORT_LOG_ITEM_t> items;
 	// int count = 10;
 	if ( Diag::m_implemenationHasDiags( acc ) ){
 		// it is an anagate2: go out and fill the data

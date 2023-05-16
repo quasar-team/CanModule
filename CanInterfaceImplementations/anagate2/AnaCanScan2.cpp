@@ -1141,9 +1141,9 @@ void AnaCanScan2::getStatistics( CanStatistics & result )
 }
 
 
-std::vector<Diag::PORT_LOG_ITEM_t> AnaCanScan2::getHwLogMessages ( int n ){
-	std::vector<Diag::PORT_LOG_ITEM_t> log;
-	Diag::PORT_LOG_ITEM_t item;
+std::vector<PORT_LOG_ITEM_t> AnaCanScan2::getHwLogMessages ( int n ){
+	std::vector<PORT_LOG_ITEM_t> log;
+	PORT_LOG_ITEM_t item;
 	return log;
 }
 
