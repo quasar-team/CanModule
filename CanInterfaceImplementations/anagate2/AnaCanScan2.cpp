@@ -1141,9 +1141,21 @@ void AnaCanScan2::getStatistics( CanStatistics & result )
 }
 
 
+/**
+ * the "ideal CAN bridge". We get the n newest logs, n=0 for all
+ */
 std::vector<CanModule::PORT_LOG_ITEM_t> AnaCanScan2::getHwLogMessages ( int n ){
 	std::vector<CanModule::PORT_LOG_ITEM_t> log;
 	CanModule::PORT_LOG_ITEM_t item;
+	AnaUInt32 nLogID;
+	AnaUInt32 pnCurrentID;
+	AnaUInt32 pnLogCount;
+	AnaInt64 pnLogDate;
+	char pcBuffer[ 1000 ];
+
+	// first call to get the nb of logs
+	AnaInt32 ret = CANGetLog(m_UcanHandle, &nLogID, &pnCurrentID, &pnLogCount, &pnLogDate, pcBuffer );
+
 	return log;
 }
 
