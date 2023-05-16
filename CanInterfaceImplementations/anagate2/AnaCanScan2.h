@@ -43,6 +43,8 @@
 #include "CCanAccess.h"
 #include "CanMessage.h"
 
+#include <Diag.h>
+
 // specific vendor
 
 #ifdef _WIN32
@@ -119,7 +121,7 @@ public:
 	virtual void stopBus( void );
 	virtual void fetchAndPublishCanPortState ();
 
-	virtual std::vector<CanModule::PORT_LOG_ITEM_t> getHwLogMessages ( int n );
+	virtual std::vector<Diag::PORT_LOG_ITEM_t> getHwLogMessages ( int n );
 
 private:
 

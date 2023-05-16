@@ -174,6 +174,7 @@ struct CanParameters {
 	void scanParameters(std::string parameters);
 };
 
+
 class CCanAccess
 {
 
