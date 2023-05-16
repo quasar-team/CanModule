@@ -37,7 +37,7 @@ Diag::Diag() {};
 	return false;
 }
 
-/* private */ PORT_LOG_ITEM_t Diag::m_createEmptyItem(){
+/* private */ Diag::PORT_LOG_ITEM_t Diag::m_createEmptyItem(){
 	PORT_LOG_ITEM_t item;
 	item.message = "no port log message";
 	item.timestamp = 0;
