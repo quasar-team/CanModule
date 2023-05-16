@@ -488,7 +488,7 @@ public: // accessible API
 	/**
 	 * advanced diagnostics from the hardware. They can only be implemented for some implementations
 	 */
-	virtual std::vector<PORT_LOG_ITEM_t> getHwLogMessages ( int n );
+	virtual std::vector<CanModule::PORT_LOG_ITEM_t> getHwLogMessages ( int n );
 
 	std::string& getBusName();
 	bool initialiseLogging(LogItInstance* remoteInstance);
