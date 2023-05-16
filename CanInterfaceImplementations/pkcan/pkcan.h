@@ -29,6 +29,7 @@
 #include <PCANBasic.h>
 #include "CCanAccess.h"
 #include "CanStatistics.h"
+#include <Diag.h>
 
 using namespace CanModule;
 

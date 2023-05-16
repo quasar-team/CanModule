@@ -30,6 +30,7 @@
 #include "CanStatistics.h"
 #include <Usbcan32.h>
 #include "CCanAccess.h"
+#include <Diag.h>
 
 using namespace CanModule;
 

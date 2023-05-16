@@ -37,6 +37,7 @@
 #include "CCanAccess.h"
 #include "CanStatistics.h"
 #include "libsocketcan.h"
+#include <Diag.h>
 
 
 /*

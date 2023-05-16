@@ -42,6 +42,7 @@
 #include "CanStatistics.h"
 #include "CCanAccess.h"
 #include "CanMessage.h"
+#include <Diag.h>
 
 // specific vendor
 
