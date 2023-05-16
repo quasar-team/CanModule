@@ -119,6 +119,8 @@ public:
 	virtual void stopBus( void );
 	virtual void fetchAndPublishCanPortState ();
 
+	virtual std::vector<CanModule::Diag::PORT_LOG_ITEM_t> getHwLogMessages ( int n ){};
+
 private:
 
  	int m_canPortNumber;       //The number of can port (CANA, CANB, ...) associated with this instance.

@@ -69,6 +69,8 @@ public:
 	virtual void stopBus ();
 	virtual void fetchAndPublishCanPortState ();
 
+	virtual std::vector<CanModule::Diag::PORT_LOG_ITEM_t> getHwLogMessages ( int n ){};
+
 	int getHandler() { return m_sock; }
 	Log::LogComponentHandle logItHandle() { return m_logItHandleSock; }
 

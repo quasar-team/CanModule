@@ -1140,6 +1140,13 @@ void AnaCanScan2::getStatistics( CanStatistics & result )
 	m_statistics.beginNewRun();
 }
 
+
+std::vector<CanModule::PORT_LOG_ITEM_t> AnaCanScan2::getHwLogMessages ( int n ){
+	std::vector<CanModule::PORT_LOG_ITEM_t> log;
+	CanModule::PORT_LOG_ITEM_t item;
+	return log;
+}
+
 /**
  * Reconnection thread managing the reconnection behavior, per port. The behavior settings can not change during runtime.
  * This thread is initialized after the main thread is up, and then listens on its cond.var as a trigger.
