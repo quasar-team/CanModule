@@ -1156,6 +1156,26 @@ std::vector<CanModule::PORT_LOG_ITEM_t> AnaCanScan2::getHwLogMessages ( int n ){
 	// first call to get the nb of logs
 	AnaInt32 ret = CANGetLog(m_UcanHandle, nLogID, &pnCurrentID, &pnLogCount, &pnLogDate, pcBuffer );
 	if ( ret != ANA_ERR_NONE ){
+		MLOGANA2(ERR,this) << "There was a problem getting the HW logs " << ret
+
+		std::stringstream os;
+		os << __FUNCTION__ 	<< "There was a problem getting the HW logs " << ret;
+		m_signalErrorMessage( anaCallReturn, os.str().c_str() );
+	}
+
+	// how many can we return?
+	int nLogs = 0;
+	if ( pnLogCount >= n ){
+		nLogs = n;
+	} else {
+		nLogs = pnLogCount;
+	}
+	if ( n == 0 ) {
+		nLogs = pnLogCount;
+	}
+	nLogID = pnCurrentID;
+	for ( int i = 0; i < nLogs; i++ ){
+		AnaInt32 ret = CANGetLog( m_UcanHandle, nLogID, &pnCurrentID, &pnLogCount, &pnLogDate, pcBuffer );
 
 	}
 	return log;
