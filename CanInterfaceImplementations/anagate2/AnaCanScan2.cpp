@@ -1154,7 +1154,7 @@ std::vector<CanModule::PORT_LOG_ITEM_t> AnaCanScan2::getHwLogMessages ( int n ){
 	char pcBuffer[ 1000 ];
 
 	// first call to get the nb of logs
-	AnaInt32 ret = CANGetLog(m_UcanHandle, &nLogID, &pnCurrentID, &pnLogCount, &pnLogDate, pcBuffer );
+	AnaInt32 ret = CANGetLog(m_UcanHandle, nLogID, &pnCurrentID, &pnLogCount, &pnLogDate, pcBuffer );
 
 	return log;
 }
