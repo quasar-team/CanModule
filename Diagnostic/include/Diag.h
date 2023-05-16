@@ -55,7 +55,7 @@ public:
 	 * this is also why you get rather unmodern typedef struct data as well, returned as values.
 	*/
 	static std::vector<CanModule::PORT_LOG_ITEM_t> get_portLogItems( CCanAccess *acc, int n );
-	static HARDWARE_DIAG_t get_hardwareDiag( CCanAccess *acc );
+	static CanModule::HARDWARE_DIAG_t get_hardwareDiag( CCanAccess *acc );
 
 	static int CanLibLoader_icount;
 	static int CanAccess_icount;
