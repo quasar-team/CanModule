@@ -490,7 +490,7 @@ public: // accessible API
 	 * but all implementations must have a dummy
 	 */
 	virtual std::vector<CanModule::PORT_LOG_ITEM_t> getHwLogMessages ( int n ) = 0;
-	// virtual CanModule::HARDWARE_DIAG_t getHwDiagnostics () = 0;
+	virtual CanModule::HARDWARE_DIAG_t getHwDiagnostics () = 0;
 
 	std::string& getBusName();
 	bool initialiseLogging(LogItInstance* remoteInstance);

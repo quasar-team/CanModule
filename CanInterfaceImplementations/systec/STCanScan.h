@@ -74,6 +74,7 @@ public:
 	virtual void fetchAndPublishCanPortState ();
 
 	virtual std::vector<CanModule::PORT_LOG_ITEM_t> getHwLogMessages ( int n );
+	virtual CanModule::HARDWARE_DIAG_t getHwDiagnostics ();
 
 private:
 
