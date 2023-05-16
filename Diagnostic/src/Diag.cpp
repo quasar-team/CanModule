@@ -44,8 +44,8 @@ Diag::Diag() {};
 	return item;
 }
 
-/* private */ Diag::HARDWARE_DIAG_t Diag::m_createEmptyDiag(){
-	Diag::HARDWARE_DIAG_t d;
+/* private */ HARDWARE_DIAG_t Diag::m_createEmptyDiag(){
+	HARDWARE_DIAG_t d;
 	d.temperature = 0;
 	d.uptime = 0;
 	d.clientCount = 0;
