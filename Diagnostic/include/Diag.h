@@ -70,7 +70,7 @@ private:
 
 	static bool m_implemenationHasDiags( CCanAccess *acc );
 	static CanModule::PORT_LOG_ITEM_t m_createEmptyItem();
-	static HARDWARE_DIAG_t m_createEmptyDiag();
+	static CanModule::HARDWARE_DIAG_t m_createEmptyDiag();
 
 };
 

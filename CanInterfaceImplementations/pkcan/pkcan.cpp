@@ -81,6 +81,10 @@ PKCanScan::~PKCanScan()
 	std::vector<CanModule::PORT_LOG_ITEM_t> log;
 	return log;
 }
+CanModule::HARDWARE_DIAG_t PKCanScan::getHwDiagnostics (){
+	HARDWARE_DIAG_t d;
+	return d;
+}
 
 /**
  * notify the main thread to finish and delete the bus from the map of connections

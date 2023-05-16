@@ -43,6 +43,11 @@ std::vector<CanModule::PORT_LOG_ITEM_t> MockCanAccess::getHwLogMessages ( int n 
 	std::vector<CanModule::PORT_LOG_ITEM_t> log;
 	return log;
 }
+CanModule::HARDWARE_DIAG_t MockCanAccess::getHwDiagnostics (){
+	HARDWARE_DIAG_t d;
+	return d;
+}
+
 
 MockCanAccess::~MockCanAccess()
 {
