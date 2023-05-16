@@ -59,7 +59,8 @@ PKCanScan::PKCanScan():
 				m_idPeakReconnectionThread(0),
 				m_CanScanThreadRunEnableFlag(false),
 				m_logItHandlePk(0),
-				m_pkCanHandle(0)
+				m_pkCanHandle(0),
+				m_gsig( NULL )
 {
 	m_statistics.setTimeSinceOpened();
 	m_statistics.beginNewRun();
@@ -71,6 +72,14 @@ PKCanScan::~PKCanScan()
 {
 	MLOGPK(DBG,this) << __FUNCTION__ <<" specific destructor calling stopBus()";
 	stopBus();
+}
+/**
+ * does not get called because advanced diag is not available for this implementation.
+ * But we provide a proper return type nevertheless
+ */
+/* virtual */ std::vector<Diag::PORT_LOG_ITEM_t> PKCanScan::getHwLogMessages ( int n ){
+	std::vector<Diag::PORT_LOG_ITEM_t> log;
+	return log;
 }
 
 /**

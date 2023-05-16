@@ -120,7 +120,7 @@ public:
 	virtual void stopBus( void );
 	virtual void fetchAndPublishCanPortState ();
 
-	virtual std::vector<Diag::PORT_LOG_ITEM_t> getHwLogMessages ( int n ){};
+	virtual std::vector<Diag::PORT_LOG_ITEM_t> getHwLogMessages ( int n );
 
 private:
 

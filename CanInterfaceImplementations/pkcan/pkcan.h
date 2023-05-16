@@ -87,7 +87,7 @@ public:
 	virtual void stopBus();
 	virtual void fetchAndPublishCanPortState ();
 
-	virtual std::vector<Diag::PORT_LOG_ITEM_t> getHwLogMessages ( int n ){};
+	virtual std::vector<Diag::PORT_LOG_ITEM_t> getHwLogMessages ( int n );
 
 	int getFailedSendCountdown() { return m_failedSendCountdown; }
 	TPCANHandle	getTPCANHandle() { return m_pkCanHandle;	}
