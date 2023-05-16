@@ -533,7 +533,7 @@ int AnaCanScan2::m_openCanPort()
 				<< " canModuleHandle= " << canModuleHandle
 				<< " m_timeout= " << m_timeout;
 		anaCallReturn = CANOpenDevice(&canModuleHandle, FALSE, TRUE, m_canPortNumber, m_canIPAddress.c_str(), m_timeout);
-		if (anaCallReturn != 0) {
+		if (anaCallReturn != ANA_ERR_NONE) {
 			std::stringstream os;
 			os << " openCanPort: Error for port= " << m_canPortNumber << " ip= " << m_canIPAddress;
 			m_signalErrorMessage( anaCallReturn, os.str().c_str() ); // most likely the handler is not yet connected and we don't have a canbus object
@@ -582,7 +582,7 @@ int AnaCanScan2::m_openCanPort()
 	// set handler for managing incoming messages
 	MLOGANA2(TRC,this) << "calling CANSetCallbackEx handle= " << canModuleHandle;
 	anaCallReturn = CANSetCallbackEx(canModuleHandle, InternalCallback);
-	if (anaCallReturn != 0) {
+	if (anaCallReturn != ANA_ERR_NONE) {
 		MLOGANA2(ERR,this) << "Error in CANSetCallbackEx, return code = [" << anaCallReturn << "]";
 		m_signalErrorMessage( anaCallReturn, " openCanPort: CANSetCallbackEx: Error in CANSetCallbackEx." );
 		return -1;
@@ -688,12 +688,12 @@ bool AnaCanScan2::sendMessage(short cobID, unsigned char len, unsigned char *mes
 				<< " length = " << messageLengthToBeProcessed
 				<< " flags= " << flags << " m_UcanHandle= " << m_UcanHandle;
 		anaCallReturn = CANWrite(m_UcanHandle, cobID, reinterpret_cast<char*>(messageToBeSent), messageLengthToBeProcessed, flags);
-		if (anaCallReturn != 0) {
+		if (anaCallReturn != ANA_ERR_NONE) {
 			m_signalErrorMessage( anaCallReturn, "sendMessage: CANWrite: problem writing message. ip= " + m_canIPAddress);
 		}
 	}
 
-	if (anaCallReturn != 0) {
+	if (anaCallReturn != ANA_ERR_NONE) {
 		MLOGANA2(ERR, this) << __FUNCTION__ << " There was a problem when sending/receiving timeout with CANWrite or a reconnect condition: 0x"
 				<< std::hex << anaCallReturn << std::dec
 				<< " ip= " << m_canIPAddress;
@@ -877,7 +877,7 @@ AnaInt32 AnaCanScan2::m_reconnectThisPort(){
 	for (std::map<AnaInt32, AnaCanScan2*>::iterator it=lmap.begin(); it!=lmap.end(); it++){
 		if ( ip == it->second->m_ipAddress() ){
 			anaRet = it->second->m_connectReceptionHandler();
-			if ( anaRet != 0 ){
+			if ( anaRet != ANA_ERR_NONE ){
 				LOG(Log::ERR, AnaCanScan2::st_logItHandleAnagate) << __FUNCTION__ << " " __FILE__ << " " << __LINE__
 						<< " failed to reconnect reception handler for ip= " << ip
 						<< " handle= " << it->second->m_handle()
@@ -926,7 +926,7 @@ AnaInt32 AnaCanScan2::m_connectReceptionHandler(){
 	// this is needed otherwise the bridge hangs in a bad state
 	anaCallReturn = CANSetGlobals(m_UcanHandle, m_CanParameters.m_lBaudRate, m_CanParameters.m_iOperationMode,
 			m_CanParameters.m_iTermination, m_CanParameters.m_iHighSpeed, m_CanParameters.m_iTimeStamp);
-	if ( anaCallReturn ){
+	if ( anaCallReturn != ANA_ERR_NONE){
 		std::stringstream os;
 		os << __FUNCTION__ 	<< " CANSetGlobals returned an error. ip= " << m_canIPAddress;
 		m_signalErrorMessage( anaCallReturn, os.str().c_str() );
@@ -1059,7 +1059,7 @@ int AnaCanScan2::m_reconnect(){
 			anaCallReturn = CANCloseDevice( m_UcanHandle );
 			MLOGANA2(WRN, this) << "closed device m_UcanHandle= " << m_UcanHandle
 					<< " anaCallReturn= 0x" << std::hex << anaCallReturn << std::dec;
-			if ( anaCallReturn != 0 ) {
+			if ( anaCallReturn != ANA_ERR_NONE ) {
 				MLOGANA2(WRN, this) << "could not close device m_UcanHandle= " << m_UcanHandle
 						<< " anaCallReturn= 0x" << std::hex << anaCallReturn << std::dec;
 				// return(-3);
@@ -1076,7 +1076,7 @@ int AnaCanScan2::m_reconnect(){
 				<< " m_UcanHandle= " << m_UcanHandle
 				<< " ip= " << m_canIPAddress << " timeout= " << m_timeout;
 		anaCallReturn = CANOpenDevice(&canModuleHandle, FALSE, TRUE, m_canPortNumber, m_canIPAddress.c_str(), m_timeout);
-		if (anaCallReturn != 0) {
+		if (anaCallReturn != ANA_ERR_NONE) {
 			MLOGANA2(ERR,this) << "CANOpenDevice failed: 0x" << std::hex << anaCallReturn << std::dec;
 			m_canCloseDevice = false;
 
@@ -1123,7 +1123,7 @@ bool AnaCanScan2::sendRemoteRequest(short cobID)
 	AnaInt32 flags = 2;// Bit 1: If set, the telegram is marked as remote frame.
 
 	anaCallReturn = CANWrite(m_UcanHandle,cobID,NULL, 0, flags);
-	if (anaCallReturn != 0) {
+	if (anaCallReturn != ANA_ERR_NONE) {
 		MLOGANA2(ERR,this) << "There was a problem when sending a message with CANWrite";
 
 		std::stringstream os;
@@ -1155,7 +1155,9 @@ std::vector<CanModule::PORT_LOG_ITEM_t> AnaCanScan2::getHwLogMessages ( int n ){
 
 	// first call to get the nb of logs
 	AnaInt32 ret = CANGetLog(m_UcanHandle, nLogID, &pnCurrentID, &pnLogCount, &pnLogDate, pcBuffer );
+	if ( ret != ANA_ERR_NONE ){
 
+	}
 	return log;
 }
 
