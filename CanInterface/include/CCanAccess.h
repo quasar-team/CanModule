@@ -39,6 +39,7 @@
 #include <CanMessage.h>
 #include <CanStatistics.h>
 #include <CanModuleUtils.h>
+#include <Diag.h>
 #include <VERSION.h>
 
 
@@ -444,6 +445,11 @@ public: // accessible API
 	 * Example: myCCanAccessPointer->canPortStateChanged.connect(&myPortSateChangedRecievedHandler);
 	 */
 	boost::signals2::signal<void (const int, const char *, timeval &) > canPortStateChanged;
+
+	/**
+	 * advanced diagnostics from the hardware. They can only be implemented for some implementations
+	 */
+	virtual std::vector<Diag::PORT_LOG_ITEM_t> getHwLogMessages ( int n );
 
 	std::string& getBusName();
 	bool initialiseLogging(LogItInstance* remoteInstance);
