@@ -94,8 +94,7 @@ public:
 	 * even if this would be better for the performance. So: this will actually use HW resources, use sparingly.
 	 * this is also why you get rather unmodern typedef struct data as well, returned as values.
 	*/
-	static std::vector<PORT_LOG_ITEM_t> get_last10PortLogItems( CCanAccess *acc );
-	static std::vector<PORT_LOG_ITEM_t> get_allPortLogItems( CCanAccess *acc );
+	static std::vector<PORT_LOG_ITEM_t> get_portLogItems( CCanAccess *acc, int n );
 	static HARDWARE_DIAG_t get_hardwareDiag( CCanAccess *acc );
 
 	static int CanLibLoader_icount;

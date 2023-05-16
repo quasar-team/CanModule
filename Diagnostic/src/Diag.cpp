@@ -138,26 +138,13 @@ std::vector<Diag::CONNECTION_DIAG_t> Diag::get_connections(){
 
 
 /**
- * read from hw the last log entries, 10 or less (or none)
+ * get at max n logs from the hardware
+ * n=0 : get all
+ * n=1 : get the last
+ * n>1 && n<100 : get n or less
  */
-std::vector<PORT_LOG_ITEM_t> Diag::get_last10PortLogItems( CCanAccess *acc ){
-	std::vector<PORT_LOG_ITEM_t> items;
-	int count = 10;
-	if ( Diag::m_implemenationHasDiags( acc ) ){
-		// it is an anagate2: go out and fill the data
-		/**	AnaInt32 CANGetLog(AnaInt32 hHandle, AnaUInt32 * nLogID, AnaUInt32
-		 * pnCurrentID, AnaUInt32 * pnLogCount, AnaInt64 * pnLogDate, char
-		pcBuffer[]);
-		 */
-
-
-		return items;
-	}
-	return items;
-};
-
-std::vector<PORT_LOG_ITEM_t> Diag::get_allPortLogItems( CCanAccess *acc ){
-	std::vector<PORT_LOG_ITEM_t> items;
+std::vector<Diag::PORT_LOG_ITEM_t> Diag::get_portLogItems( CCanAccess *acc, int n ){
+	std::vector<Diag::PORT_LOG_ITEM_t> items;
 	// int count = 10;
 	if ( Diag::m_implemenationHasDiags( acc ) ){
 		// it is an anagate2: go out and fill the data
@@ -165,7 +152,7 @@ std::vector<PORT_LOG_ITEM_t> Diag::get_allPortLogItems( CCanAccess *acc ){
 		 * pnCurrentID, AnaUInt32 * pnLogCount, AnaInt64 * pnLogDate, char
 		pcBuffer[]);
 		 */
-
+		items = acc->getHwLogMessages ( n );
 
 		return items;
 	}
