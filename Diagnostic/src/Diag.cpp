@@ -160,8 +160,8 @@ std::vector<PORT_LOG_ITEM_t> Diag::get_portLogItems( CCanAccess *acc, int n ){
 
 };
 
-Diag::HARDWARE_DIAG_t Diag::get_hardwareDiag( CCanAccess *acc ){
-	Diag::HARDWARE_DIAG_t diag;
+HARDWARE_DIAG_t Diag::get_hardwareDiag( CCanAccess *acc ){
+	HARDWARE_DIAG_t diag;
 	if ( Diag::m_implemenationHasDiags( acc ) ){
 		/**
 		 * 	AnaInt32 CANGetDiagData(AnaInt32 hHandle, AnaInt32 * pnTemperature,
