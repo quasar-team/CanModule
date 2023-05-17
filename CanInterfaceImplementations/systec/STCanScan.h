@@ -75,6 +75,7 @@ public:
 
 	virtual std::vector<CanModule::PORT_LOG_ITEM_t> getHwLogMessages ( unsigned int n );
 	virtual CanModule::HARDWARE_DIAG_t getHwDiagnostics ();
+	virtual CanModule::PORT_COUNTERS_t getHwCounters ();
 
 private:
 

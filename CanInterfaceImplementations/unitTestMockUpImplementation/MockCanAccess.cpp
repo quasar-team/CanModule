@@ -43,9 +43,13 @@ std::vector<CanModule::PORT_LOG_ITEM_t> MockCanAccess::getHwLogMessages ( unsign
 	std::vector<CanModule::PORT_LOG_ITEM_t> log;
 	return log;
 }
-CanModule::HARDWARE_DIAG_t MockCanAccess::getHwDiagnostics (){
-	HARDWARE_DIAG_t d;
+/* virtual */  CanModule::HARDWARE_DIAG_t MockCanAccess::getHwDiagnostics (){
+	CanModule::HARDWARE_DIAG_t d;
 	return d;
+}
+/* virtual */ CanModule::PORT_COUNTERS_t MockCanAccess::getHwCounters (){
+	CanModule::PORT_COUNTERS_t c;
+	return c;
 }
 
 

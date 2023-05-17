@@ -1154,7 +1154,7 @@ std::vector<CanModule::PORT_LOG_ITEM_t> AnaCanScan2::getHwLogMessages ( unsigned
 	char pcBuffer[ 1000 ];
 
 	// first call to get the nb of logs
-	AnaInt32 ret = CANGetLog(m_UcanHandle, nLogID, &pnCurrentID, &pnLogCount, &pnLogDate, pcBuffer );
+	AnaInt32 ret = CANGetLog( m_UcanHandle, nLogID, &pnCurrentID, &pnLogCount, &pnLogDate, pcBuffer );
 	if ( ret != ANA_ERR_NONE ){
 		MLOGANA2(ERR,this) << "There was a problem getting the HW logs " << ret << " . Abandoning HW log retrieval ";
 
@@ -1195,8 +1195,37 @@ std::vector<CanModule::PORT_LOG_ITEM_t> AnaCanScan2::getHwLogMessages ( unsigned
 }
 
 CanModule::HARDWARE_DIAG_t AnaCanScan2::getHwDiagnostics (){
-	HARDWARE_DIAG_t d;
-	return d;
+	HARDWARE_DIAG_t c;
+	return c;
+}
+
+CanModule::PORT_COUNTERS_t AnaCanScan2::getHwCounters (){
+	PORT_COUNTERS_t c;
+
+
+	/** AnaInt32 CANGetCounters(AnaInt32 hHandle, AnaUInt32 * pnCountTCPRx,
+	AnaUInt32 * pnCountTCPTx, AnaUInt32 * pnCountCANRx, AnaUInt32 *
+	pnCountCANTx, AnaUInt32 * pnCountCANRxErr, AnaUInt32 * pnCountCANTxErr,
+	AnaUInt32 * pnCountCANRxDisc, AnaUInt32 * pnCountCANTxDisc, AnaUInt32
+	* pnCountCANTimeout);
+	*/
+	AnaUInt32 countTCPRx, countTCPTx, countCANRx, countCANTx, countCANRxErr, countCANTxErr, countCANRxDisc, countCANTxDisc, countCANTimeout;
+	AnaInt32 ret = CANGetCounters( m_UcanHandle, &countTCPRx,
+		&countTCPTx, &countCANRx, &countCANTx, &countCANRxErr, &countCANTxErr,
+		&countCANRxDisc, &countCANTxDisc, &countCANTimeout);
+	if ( ret != ANA_ERR_NONE ){
+		MLOGANA2(ERR,this) << "There was a problem getting the HW counters " << ret << " . Abandoning HW counters retrieval ";
+
+		std::stringstream os;
+		os << __FUNCTION__ 	<< "There was a problem getting the HW counters " << ret << " . Abandoning HW counters retrieval ";
+		m_signalErrorMessage( ret, os.str().c_str() );
+		return c;
+	} else {
+		// c.
+	}
+
+
+	return c;
 }
 
 /**

@@ -86,9 +86,13 @@ CSockCanScan::CSockCanScan() :
 	std::vector<CanModule::PORT_LOG_ITEM_t> log;
 	return log;
 }
-CanModule::HARDWARE_DIAG_t CSockCanScan::getHwDiagnostics (){
-	HARDWARE_DIAG_t d;
+/* virtual */  CanModule::HARDWARE_DIAG_t CSockCanScan::getHwDiagnostics (){
+	CanModule::HARDWARE_DIAG_t d;
 	return d;
+}
+/* virtual */ CanModule::PORT_COUNTERS_t CSockCanScan::getHwCounters (){
+	CanModule::PORT_COUNTERS_t c;
+	return c;
 }
 
 /* virtual */ void CSockCanScan::setReconnectBehavior( CanModule::ReconnectAutoCondition cond, CanModule::ReconnectAction action ){

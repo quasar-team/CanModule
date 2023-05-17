@@ -98,6 +98,14 @@ uint32_t AnaCanScan::getPortStatus(){
 	std::vector<CanModule::PORT_LOG_ITEM_t> log;
 	return log;
 }
+/* virtual */  CanModule::HARDWARE_DIAG_t getHwDiagnostics (){
+	CanModule::HARDWARE_DIAG_t d;
+	return d;
+}
+/* virtual */ CanModule::PORT_COUNTERS_t getHwCounters (){
+	CanModule::PORT_COUNTERS_t c;
+	return c;
+}
 
 /**
  * Shut down can scan thread
