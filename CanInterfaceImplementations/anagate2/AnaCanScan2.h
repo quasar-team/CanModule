@@ -185,7 +185,7 @@ private:
 	int m_connectReceptionHandler();
 	int m_openCanPort();
 	int m_reconnect();
-
+	std::string m_decodeNetworkByteOrder_ip_toString( unsigned int ip );
 };
 
 #endif //CCANANASCAN_H_

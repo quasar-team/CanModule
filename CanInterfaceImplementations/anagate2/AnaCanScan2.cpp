@@ -1195,14 +1195,13 @@ std::vector<CanModule::PORT_LOG_ITEM_t> AnaCanScan2::getHwLogMessages ( unsigned
 
 CanModule::HARDWARE_DIAG_t AnaCanScan2::getHwDiagnostics (){
 	HARDWARE_DIAG_t d;
-
-	AnaUInt32 clientCount;
-	unsigned int ips[ 6 ];
-	unsigned int ports[ 6 ];
-	long int dates[ 6 ];
+	const unsigned int sz = 6;
+	unsigned int ips[ sz ];
+	unsigned int ports[ sz ];
+	long int dates[ sz ];
 
 	AnaInt32 ret = CANGetDiagData( m_UcanHandle, &d.temperature, &d.uptime );
-	ret += CANGetClientList( m_UcanHandle, &clientCount, ips, ports, dates );
+	ret += CANGetClientList( m_UcanHandle, &d.clientCount, ips, ports, dates );
 	if ( ret != ANA_ERR_NONE ){
 		MLOGANA2(ERR,this) << "There was a problem getting the HW DiagData and/or client list " << ret << " . Abandoning HW DiagData and client list retrieval ";
 		std::stringstream os;
@@ -1210,7 +1209,20 @@ CanModule::HARDWARE_DIAG_t AnaCanScan2::getHwDiagnostics (){
 		m_signalErrorMessage( ret, os.str().c_str() );
 		return Diag::createEmptyDiag();
 	}
+	for ( unsigned int i = 0; i < sz; i++ ){
+		std::string sip = m_decodeNetworkByteOrder_ip_toString( ips[ i ] );
+		d.clientIps.push_back( sip );
+		d.clientPorts.push_back( ports[ i ] );
+		d.clientConnectionTimestamps.push_back( dates[ i ] );
+	}
 	return d;
+}
+/**
+ * decodes  client IP addresse in network byte order, e.g. 0x0201A8C0, into 192.168.1.2
+ */
+std::string AnaCanScan2::m_decodeNetworkByteOrder_ip_toString( unsigned int nip ){
+	std::string sip;
+	return sip;
 }
 
 CanModule::PORT_COUNTERS_t AnaCanScan2::getHwCounters (){
