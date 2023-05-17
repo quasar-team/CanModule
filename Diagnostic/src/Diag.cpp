@@ -37,14 +37,14 @@ Diag::Diag() {};
 	return false;
 }
 
-/* private */ CanModule::PORT_LOG_ITEM_t Diag::m_createEmptyItem(){
+CanModule::PORT_LOG_ITEM_t Diag::createEmptyItem(){
 	CanModule::PORT_LOG_ITEM_t item;
 	item.message = "no port log message";
 	item.timestamp = 0;
 	return item;
 }
 
-/* private */ HARDWARE_DIAG_t Diag::m_createEmptyDiag(){
+HARDWARE_DIAG_t Diag::createEmptyDiag(){
 	HARDWARE_DIAG_t d;
 	d.temperature = 0;
 	d.uptime = 0;
@@ -175,8 +175,35 @@ CanModule::HARDWARE_DIAG_t Diag::get_hardwareDiag( CCanAccess *acc ){
 		//std::vector<std::string> clientIps; // decoded into strings, from unsigned int
 		//std::vector<unsigned int> clientPorts; // array of client ports
 		//std::vector<long int> clientConnectionTimestamps; // (Unix time) of initial client connection
+
+		diag = acc->getHwDiagnostics();
+
 	} else {
-		diag = m_createEmptyDiag();
+		diag = createEmptyDiag();
+	}
+	return diag;
+};
+
+CanModule::PORT_COUNTERS_t Diag::get_portCounters( CCanAccess *acc ){
+	CanModule::PORT_COUNTERS_t counters;
+	if ( Diag::m_implemenationHasDiags( acc ) ){
+		/**
+		 * 	AnaInt32 CANGetDiagData(AnaInt32 hHandle, AnaInt32 * pnTemperature,
+		 * 			AnaInt32 * pnUptime);int temperature; // in deg C
+		 *
+		 * 	AnaInt32 CANGetClientList(AnaInt32 hHandle, AnaUInt32 * pnClientCount,
+		 * 				AnaUInt32 pnIPaddress[], AnaUInt32 pnPort[], AnaInt64 pnConnectDate[]);
+		 */
+		//int uptime;      // in seconds
+		//unsigned int clientCount; // connected clients for this IP/module/submodule
+		//std::vector<std::string> clientIps; // decoded into strings, from unsigned int
+		//std::vector<unsigned int> clientPorts; // array of client ports
+		//std::vector<long int> clientConnectionTimestamps; // (Unix time) of initial client connection
+
+		counters = acc->getHwCounters();
+
+	} else {
+		diag = createEmptyDiag();
 	}
 	return diag;
 };

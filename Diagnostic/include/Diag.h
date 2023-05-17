@@ -40,9 +40,6 @@ public:
 		std::string parameter;
 	} CONNECTION_DIAG_t;
 
-
-
-
 	static void insert_maps( CanLibLoader *lib, CCanAccess *acc, std::string params );
 	static void delete_maps( CanLibLoader *lib, CCanAccess *acc );
 	static std::vector<Diag::CONNECTION_DIAG_t> get_connections();
@@ -56,6 +53,7 @@ public:
 	*/
 	static std::vector<CanModule::PORT_LOG_ITEM_t> get_portLogItems( CCanAccess *acc, int n );
 	static CanModule::HARDWARE_DIAG_t get_hardwareDiag( CCanAccess *acc );
+	static CanModule::PORT_COUNTERS_t get_portCounters( CCanAccess *acc );
 
 	static int CanLibLoader_icount;
 	static int CanAccess_icount;
@@ -64,13 +62,14 @@ public:
 	static std::map<std::string, CanLibLoader *> lib_map;
 	static std::map<std::string, std::string> parameter_map;
 
+	static CanModule::PORT_LOG_ITEM_t createEmptyItem();
+	static CanModule::HARDWARE_DIAG_t createEmptyDiag();
+
 private:
 	Diag();
 	~Diag(){};
 
 	static bool m_implemenationHasDiags( CCanAccess *acc );
-	static CanModule::PORT_LOG_ITEM_t m_createEmptyItem();
-	static CanModule::HARDWARE_DIAG_t m_createEmptyDiag();
 
 };
 
