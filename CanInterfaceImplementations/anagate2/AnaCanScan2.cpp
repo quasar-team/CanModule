@@ -1156,11 +1156,12 @@ std::vector<CanModule::PORT_LOG_ITEM_t> AnaCanScan2::getHwLogMessages ( unsigned
 	// first call to get the nb of logs
 	AnaInt32 ret = CANGetLog(m_UcanHandle, nLogID, &pnCurrentID, &pnLogCount, &pnLogDate, pcBuffer );
 	if ( ret != ANA_ERR_NONE ){
-		MLOGANA2(ERR,this) << "There was a problem getting the HW logs " << ret;
+		MLOGANA2(ERR,this) << "There was a problem getting the HW logs " << ret << " . Abandoning HW log retrieval ";
 
 		std::stringstream os;
-		os << __FUNCTION__ 	<< "There was a problem getting the HW logs " << ret;
+		os << __FUNCTION__ 	<< "There was a problem getting the HW logs " << ret << " . Abandoning HW log retrieval ";
 		m_signalErrorMessage( ret, os.str().c_str() );
+		return log;
 	}
 
 	// how many can we return?
@@ -1174,9 +1175,21 @@ std::vector<CanModule::PORT_LOG_ITEM_t> AnaCanScan2::getHwLogMessages ( unsigned
 		nLogs = pnLogCount;
 	}
 	nLogID = pnCurrentID;
-	for ( int i = 0; i < nLogs; i++ ){
-		AnaInt32 ret = CANGetLog( m_UcanHandle, nLogID, &pnCurrentID, &pnLogCount, &pnLogDate, pcBuffer );
-
+	for ( unsigned int i = 0; i < nLogs; i++ ){
+		AnaInt32 ret0 = CANGetLog( m_UcanHandle, nLogID, &pnCurrentID, &pnLogCount, &pnLogDate, pcBuffer );
+		if ( ret0 != ANA_ERR_NONE ){
+			MLOGANA2(ERR,this) << "There was a problem getting HW log nLogID= " << nLogID << " ..skipping this entry" <<  ret ;
+			std::stringstream os;
+			os << __FUNCTION__ 	<< "There was a problem getting the HW logs " << ret;
+			m_signalErrorMessage( ret, os.str().c_str() );
+			nLogID++;
+		} else {
+			item.message = std::string ( pcBuffer );
+			item.timestamp = pnLogDate;
+			MLOGANA2(TRC,this) << "found log item nLogID= " << nLogID << " " << item.timestamp << " " << item.message << ret;
+			log.push_back( item );
+			nLogID++;
+		}
 	}
 	return log;
 }
