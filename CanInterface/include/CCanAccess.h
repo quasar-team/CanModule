@@ -489,7 +489,7 @@ public: // accessible API
 	 * advanced diagnostics from the hardware. They can only be implemented for some implementations,
 	 * but all implementations must have a dummy
 	 */
-	virtual std::vector<CanModule::PORT_LOG_ITEM_t> getHwLogMessages ( int n ) = 0;
+	virtual std::vector<CanModule::PORT_LOG_ITEM_t> getHwLogMessages ( unsigned int n ) = 0;
 	virtual CanModule::HARDWARE_DIAG_t getHwDiagnostics () = 0;
 
 	std::string& getBusName();
