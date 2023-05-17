@@ -1203,7 +1203,7 @@ CanModule::PORT_COUNTERS_t AnaCanScan2::getHwCounters (){
 	PORT_COUNTERS_t c;
 	AnaInt32 ret = CANGetCounters( m_UcanHandle, &c.countTCPRx,
 		&c.countTCPTx, &c.countCANRx, &c.countCANTx, &c.countCANRxErr, &c.countCANTxErr,
-		&c.countCANRxDisc, &c.countCANTxDisc, &cc.ountCANTimeout);
+		&c.countCANRxDisc, &c.countCANTxDisc, &c.countCANTimeout);
 	if ( ret != ANA_ERR_NONE ){
 		MLOGANA2(ERR,this) << "There was a problem getting the HW counters " << ret << " . Abandoning HW counters retrieval ";
 		std::stringstream os;
