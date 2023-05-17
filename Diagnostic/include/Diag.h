@@ -64,7 +64,7 @@ public:
 
 	static CanModule::PORT_LOG_ITEM_t createEmptyItem();
 	static CanModule::HARDWARE_DIAG_t createEmptyDiag();
-	static CanModule::HARDWARE_DIAG_t createEmptyCounters();
+	static CanModule::PORT_COUNTERS_t createEmptyCounters();
 
 private:
 	Diag();
