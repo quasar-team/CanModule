@@ -39,7 +39,7 @@ void MockCanAccess::stopBus (){
 	LOG(Log::TRC) << __FUNCTION__ << " implementation specific (doing nothing in this case)";
 }
 
-std::vector<CanModule::PORT_LOG_ITEM_t> MockCanAccess::getHwLogMessages ( int n ){
+std::vector<CanModule::PORT_LOG_ITEM_t> MockCanAccess::getHwLogMessages ( unsigned int n ){
 	std::vector<CanModule::PORT_LOG_ITEM_t> log;
 	return log;
 }

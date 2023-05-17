@@ -1144,7 +1144,7 @@ void AnaCanScan2::getStatistics( CanStatistics & result )
 /**
  * the "ideal CAN bridge". We get the n newest logs, n=0 for all
  */
-std::vector<CanModule::PORT_LOG_ITEM_t> AnaCanScan2::getHwLogMessages ( int n ){
+std::vector<CanModule::PORT_LOG_ITEM_t> AnaCanScan2::getHwLogMessages ( unsigned int n ){
 	std::vector<CanModule::PORT_LOG_ITEM_t> log;
 	CanModule::PORT_LOG_ITEM_t item;
 	AnaUInt32 nLogID = 0;
@@ -1160,7 +1160,7 @@ std::vector<CanModule::PORT_LOG_ITEM_t> AnaCanScan2::getHwLogMessages ( int n ){
 
 		std::stringstream os;
 		os << __FUNCTION__ 	<< "There was a problem getting the HW logs " << ret;
-		m_signalErrorMessage( anaCallReturn, os.str().c_str() );
+		m_signalErrorMessage( ret, os.str().c_str() );
 	}
 
 	// how many can we return?
