@@ -1156,7 +1156,7 @@ std::vector<CanModule::PORT_LOG_ITEM_t> AnaCanScan2::getHwLogMessages ( int n ){
 	// first call to get the nb of logs
 	AnaInt32 ret = CANGetLog(m_UcanHandle, nLogID, &pnCurrentID, &pnLogCount, &pnLogDate, pcBuffer );
 	if ( ret != ANA_ERR_NONE ){
-		MLOGANA2(ERR,this) << "There was a problem getting the HW logs " << ret
+		MLOGANA2(ERR,this) << "There was a problem getting the HW logs " << ret;
 
 		std::stringstream os;
 		os << __FUNCTION__ 	<< "There was a problem getting the HW logs " << ret;
