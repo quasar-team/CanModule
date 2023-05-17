@@ -44,7 +44,7 @@ CanModule::PORT_LOG_ITEM_t Diag::createEmptyItem(){
 	return item;
 }
 
-HARDWARE_DIAG_t Diag::createEmptyDiag(){
+CanModule::HARDWARE_DIAG_t Diag::createEmptyDiag(){
 	HARDWARE_DIAG_t d;
 	d.temperature = 0;
 	d.uptime = 0;
@@ -53,6 +53,20 @@ HARDWARE_DIAG_t Diag::createEmptyDiag(){
 	d.clientPorts.push_back(0);
 	d.clientConnectionTimestamps.push_back( 0 );
 	return d;
+}
+
+CanModule::PORT_COUNTERS_t Diag::createEmptyCounters(){
+	PORT_COUNTERS_t c;
+	c.countTCPRx = 0;
+	c.countTCPTx = 0;
+	c.countCANRx = 0;
+	c.countCANTx = 0;
+	c.countCANRxErr = 0;
+	c.countCANTxErr = 0;
+	c.countCANRxDisc = 0;
+	c.countCANTxDisc = 0;
+	c.countCANTimeout = 0;
+	return c;
 }
 
 void Diag::delete_maps(CanLibLoader *lib, CCanAccess *acc ){

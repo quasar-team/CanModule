@@ -1146,7 +1146,7 @@ void AnaCanScan2::getStatistics( CanStatistics & result )
  */
 std::vector<CanModule::PORT_LOG_ITEM_t> AnaCanScan2::getHwLogMessages ( unsigned int n ){
 	std::vector<CanModule::PORT_LOG_ITEM_t> log;
-	CanModule::PORT_LOG_ITEM_t item;
+	CanModule::PORT_LOG_ITEM_t item = Diag::createEmptyItem();
 	AnaUInt32 nLogID = 0;
 	AnaUInt32 pnCurrentID;
 	AnaUInt32 pnLogCount;
@@ -1208,8 +1208,7 @@ CanModule::HARDWARE_DIAG_t AnaCanScan2::getHwDiagnostics (){
 		std::stringstream os;
 		os << __FUNCTION__ 	<< "There was a problem getting the HW DiagData and/or client list" << ret << " . Abandoning HW DiagData and client list retrieval ";
 		m_signalErrorMessage( ret, os.str().c_str() );
-		HARDWARE_DIAG_t d0;
-		return d0;
+		return Diag::createEmptyDiag();
 	}
 	return d;
 }
@@ -1224,8 +1223,7 @@ CanModule::PORT_COUNTERS_t AnaCanScan2::getHwCounters (){
 		std::stringstream os;
 		os << __FUNCTION__ 	<< "There was a problem getting the HW counters " << ret << " . Abandoning HW counters retrieval ";
 		m_signalErrorMessage( ret, os.str().c_str() );
-		PORT_COUNTERS_t c0;
-		return c0;
+		return Diag::createEmptyCounters();
 	}
 	return c;
 }
