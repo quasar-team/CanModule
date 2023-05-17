@@ -1201,7 +1201,7 @@ CanModule::HARDWARE_DIAG_t AnaCanScan2::getHwDiagnostics (){
 	const unsigned int sz = 6;
 	unsigned int ips[ sz ];
 	unsigned int ports[ sz ];
-	AnaInt64 int dates[ sz ];
+	AnaInt64 dates[ sz ];
 
 	AnaInt32 ret = CANGetDiagData( m_UcanHandle, &d.temperature, &d.uptime );
 	ret += CANGetClientList( m_UcanHandle, &d.clientCount, ips, ports, dates );
