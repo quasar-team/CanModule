@@ -1193,6 +1193,9 @@ std::vector<CanModule::PORT_LOG_ITEM_t> AnaCanScan2::getHwLogMessages ( unsigned
 	return log;
 }
 
+/**
+ * get diagnostic data and the client list plus connected ips.
+ */
 CanModule::HARDWARE_DIAG_t AnaCanScan2::getHwDiagnostics (){
 	HARDWARE_DIAG_t d;
 	const unsigned int sz = 6;
@@ -1210,18 +1213,22 @@ CanModule::HARDWARE_DIAG_t AnaCanScan2::getHwDiagnostics (){
 		return Diag::createEmptyDiag();
 	}
 	for ( unsigned int i = 0; i < sz; i++ ){
-		std::string sip = m_decodeNetworkByteOrder_ip_toString( ips[ i ] );
-		d.clientIps.push_back( sip );
+		d.clientIps.push_back( m_decodeNetworkByteOrder_ip_toString( ips[ i ] ) );
 		d.clientPorts.push_back( ports[ i ] );
 		d.clientConnectionTimestamps.push_back( dates[ i ] );
 	}
 	return d;
 }
+
+
 /**
- * decodes  client IP addresse in network byte order, e.g. 0x0201A8C0, into 192.168.1.2
+ * decodes  client IP addresse in network byte order, e.g. 0x0201A8C0 ( 0x 02.01.A8.C0 ), into 192.168.1.2
  */
 std::string AnaCanScan2::m_decodeNetworkByteOrder_ip_toString( unsigned int nip ){
-	std::string sip;
+	std::stringstream os;
+	os << std::dec << (nip & 0xff) << "." << (nip & 0xff00) << "." << (nip & 0xff00000) << "." << (nip & 0xff000000);
+	std::string sip = os.str();
+	MLOGANA2(TRC,this) << __FUNCTION__ << " nip= " << nip << " sip= " << sip;
 	return sip;
 }
 
