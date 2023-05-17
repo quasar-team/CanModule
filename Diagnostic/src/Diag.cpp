@@ -217,9 +217,9 @@ CanModule::PORT_COUNTERS_t Diag::get_portCounters( CCanAccess *acc ){
 		counters = acc->getHwCounters();
 
 	} else {
-		diag = createEmptyDiag();
+		counters = createEmptyCounters();
 	}
-	return diag;
+	return counters;
 };
 
 

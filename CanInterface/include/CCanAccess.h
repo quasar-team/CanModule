@@ -488,6 +488,7 @@ public: // accessible API
 	 */
 	virtual std::vector<CanModule::PORT_LOG_ITEM_t> getHwLogMessages ( unsigned int n ) = 0;
 	virtual CanModule::HARDWARE_DIAG_t getHwDiagnostics () = 0;
+	virtual CanModule::PORT_COUNTERS_t getHwCounters () = 0;
 
 	std::string& getBusName();
 	bool initialiseLogging(LogItInstance* remoteInstance);
