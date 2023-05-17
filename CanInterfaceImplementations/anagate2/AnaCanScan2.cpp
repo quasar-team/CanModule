@@ -1201,30 +1201,17 @@ CanModule::HARDWARE_DIAG_t AnaCanScan2::getHwDiagnostics (){
 
 CanModule::PORT_COUNTERS_t AnaCanScan2::getHwCounters (){
 	PORT_COUNTERS_t c;
-
-
-	/** AnaInt32 CANGetCounters(AnaInt32 hHandle, AnaUInt32 * pnCountTCPRx,
-	AnaUInt32 * pnCountTCPTx, AnaUInt32 * pnCountCANRx, AnaUInt32 *
-	pnCountCANTx, AnaUInt32 * pnCountCANRxErr, AnaUInt32 * pnCountCANTxErr,
-	AnaUInt32 * pnCountCANRxDisc, AnaUInt32 * pnCountCANTxDisc, AnaUInt32
-	* pnCountCANTimeout);
-	*/
-	AnaUInt32 countTCPRx, countTCPTx, countCANRx, countCANTx, countCANRxErr, countCANTxErr, countCANRxDisc, countCANTxDisc, countCANTimeout;
-	AnaInt32 ret = CANGetCounters( m_UcanHandle, &countTCPRx,
-		&countTCPTx, &countCANRx, &countCANTx, &countCANRxErr, &countCANTxErr,
-		&countCANRxDisc, &countCANTxDisc, &countCANTimeout);
+	AnaInt32 ret = CANGetCounters( m_UcanHandle, &c.countTCPRx,
+		&c.countTCPTx, &c.countCANRx, &c.countCANTx, &c.countCANRxErr, &c.countCANTxErr,
+		&c.countCANRxDisc, &c.countCANTxDisc, &cc.ountCANTimeout);
 	if ( ret != ANA_ERR_NONE ){
 		MLOGANA2(ERR,this) << "There was a problem getting the HW counters " << ret << " . Abandoning HW counters retrieval ";
-
 		std::stringstream os;
 		os << __FUNCTION__ 	<< "There was a problem getting the HW counters " << ret << " . Abandoning HW counters retrieval ";
 		m_signalErrorMessage( ret, os.str().c_str() );
-		return c;
-	} else {
-		// c.
+		PORT_COUNTERS_t c0;
+		return c0;
 	}
-
-
 	return c;
 }
 
