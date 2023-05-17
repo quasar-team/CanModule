@@ -1164,7 +1164,7 @@ std::vector<CanModule::PORT_LOG_ITEM_t> AnaCanScan2::getHwLogMessages ( int n ){
 	}
 
 	// how many can we return?
-	int nLogs = 0;
+	unsigned int nLogs = 0;
 	if ( pnLogCount >= n ){
 		nLogs = n;
 	} else {
