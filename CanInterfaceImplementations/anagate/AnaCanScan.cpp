@@ -98,11 +98,11 @@ uint32_t AnaCanScan::getPortStatus(){
 	std::vector<CanModule::PORT_LOG_ITEM_t> log;
 	return log;
 }
-/* virtual */  CanModule::HARDWARE_DIAG_t getHwDiagnostics (){
+/* virtual */  CanModule::HARDWARE_DIAG_t AnaCanScan::getHwDiagnostics (){
 	CanModule::HARDWARE_DIAG_t d;
 	return d;
 }
-/* virtual */ CanModule::PORT_COUNTERS_t getHwCounters (){
+/* virtual */ CanModule::PORT_COUNTERS_t AnaCanScan::getHwCounters (){
 	CanModule::PORT_COUNTERS_t c;
 	return c;
 }
