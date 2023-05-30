@@ -188,7 +188,7 @@ struct PORT_COUNTERS_t {
 	unsigned int countCANRxDisc; // CAN Discarded Rx Full Queue counter.
 	unsigned int countCANTxDisc; // CAN Discarded Tx Full Queue counter.
 	unsigned int countCANTimeout; // CAN Transmit Timeout counter.
-}
+};
 // } PORT_COUNTERS_t;
 
 
