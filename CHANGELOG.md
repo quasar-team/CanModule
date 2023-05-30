@@ -4,7 +4,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### 2.2
 - add new diagnostic functionality based on 3 structs which acquire from hardware when invoked:
-
+   PORT_COUNTERS_t
+   PORT_LOG_ITEM_t
+   HARDWARE_DIAG_t
+the calls return by value. If the implementation supports it there are meaningful results. If not, tresults are legal, valid but empty.
 
 
 ### 2.1.2

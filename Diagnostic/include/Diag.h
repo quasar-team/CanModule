@@ -62,9 +62,9 @@ public:
 	static std::map<std::string, CanLibLoader *> lib_map;
 	static std::map<std::string, std::string> parameter_map;
 
-	static CanModule::PORT_LOG_ITEM_t createEmptyItem();
-	static CanModule::HARDWARE_DIAG_t createEmptyDiag();
-	static CanModule::PORT_COUNTERS_t createEmptyCounters();
+	SHARED_LIB_EXPORT_DEFN static CanModule::PORT_LOG_ITEM_t createEmptyItem();
+	SHARED_LIB_EXPORT_DEFN static CanModule::HARDWARE_DIAG_t createEmptyDiag();
+	SHARED_LIB_EXPORT_DEFN static CanModule::PORT_COUNTERS_t createEmptyCounters();
 
 private:
 	Diag();
