@@ -178,7 +178,7 @@ from the web interface. A detailed description of the counters is available in t
 device status chapter of the AnaGate CAN F series manual.
  */
 // SHARED_LIB_EXPORT_DEFN typedef struct {
-struct PORT_COUNTERS_t {
+SHARED_LIB_EXPORT_DEFN struct PORT_COUNTERS_t {
 	unsigned int countTCPRx; // TCP Received counter.
 	unsigned int countTCPTx; // TCP Transmitted counter.
 	unsigned int countCANRx; // CAN Received counter.
@@ -202,14 +202,14 @@ struct PORT_COUNTERS_t {
  *
  */
 //SHARED_LIB_EXPORT_DEFN typedef struct {
-struct  PORT_LOG_ITEM_t {
+SHARED_LIB_EXPORT_DEFN struct  PORT_LOG_ITEM_t {
 	std::string message;
 	long int timestamp;
 };
 // } PORT_LOG_ITEM_t;
 
 // SHARED_LIB_EXPORT_DEFN typedef struct {
-struct HARDWARE_DIAG_t {
+SHARED_LIB_EXPORT_DEFN struct HARDWARE_DIAG_t {
 	int temperature; // in deg C
 	int uptime;      // in seconds
 	unsigned int clientCount; // connected clients for this IP/module/submodule

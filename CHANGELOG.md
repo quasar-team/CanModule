@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+### 2.2
+- add new diagnostic functionality based on 3 structs which acquire from hardware when invoked:
+
+
+
 ### 2.1.2
 - read bitrate from socketcan for "Unsepcified" parameters, so that the statistics works. If 0, stats do not work entirely
 
