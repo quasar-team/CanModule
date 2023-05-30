@@ -25,7 +25,7 @@
  */
 
 #include "AnaCanScan2.h"
-
+#include <Diag.h>
 #include <CanModuleUtils.h>
 
 #ifdef _WIN32
