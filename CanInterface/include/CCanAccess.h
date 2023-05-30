@@ -176,8 +176,9 @@ struct CanParameters {
 The AnaGate CAN F series models can provide all nine TCP, CAN and error counters
 from the web interface. A detailed description of the counters is available in the
 device status chapter of the AnaGate CAN F series manual.
-*/
-SHARED_LIB_EXPORT_DEFN typedef struct {
+ */
+// SHARED_LIB_EXPORT_DEFN typedef struct {
+struct PORT_COUNTERS_t {
 	unsigned int countTCPRx; // TCP Received counter.
 	unsigned int countTCPTx; // TCP Transmitted counter.
 	unsigned int countCANRx; // CAN Received counter.
@@ -187,7 +188,8 @@ SHARED_LIB_EXPORT_DEFN typedef struct {
 	unsigned int countCANRxDisc; // CAN Discarded Rx Full Queue counter.
 	unsigned int countCANTxDisc; // CAN Discarded Tx Full Queue counter.
 	unsigned int countCANTimeout; // CAN Transmit Timeout counter.
-} PORT_COUNTERS_t;
+}
+// } PORT_COUNTERS_t;
 
 
 /**
@@ -199,19 +201,23 @@ SHARED_LIB_EXPORT_DEFN typedef struct {
  * we drop any buffer overflow.
  *
  */
-SHARED_LIB_EXPORT_DEFN typedef struct {
+//SHARED_LIB_EXPORT_DEFN typedef struct {
+struct  PORT_LOG_ITEM_t {
 	std::string message;
 	long int timestamp;
-} PORT_LOG_ITEM_t;
+};
+// } PORT_LOG_ITEM_t;
 
-SHARED_LIB_EXPORT_DEFN typedef struct {
+// SHARED_LIB_EXPORT_DEFN typedef struct {
+struct HARDWARE_DIAG_t {
 	int temperature; // in deg C
 	int uptime;      // in seconds
 	unsigned int clientCount; // connected clients for this IP/module/submodule
 	std::vector<std::string> clientIps; // decoded into strings, from unsigned int
 	std::vector<unsigned int> clientPorts; // array of client ports
 	std::vector<long int> clientConnectionTimestamps; // (Unix time) of initial client connection
-} HARDWARE_DIAG_t;
+};
+// } HARDWARE_DIAG_t;
 
 class CCanAccess
 {
