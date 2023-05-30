@@ -189,6 +189,7 @@ SHARED_LIB_EXPORT_DEFN typedef struct {
 	unsigned int countCANTimeout; // CAN Transmit Timeout counter.
 } PORT_COUNTERS_t;
 
+
 /**
  * a (hardware) logging item generally has a message and a timestamp. Keep it simple.
  *
