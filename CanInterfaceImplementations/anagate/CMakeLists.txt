@@ -58,6 +58,7 @@ set(ANAGATE_SOURCES
 	../../CanInterface/src/CanStatistics.cpp	
 	../../CanInterface/src/CanModuleUtils.cpp	
 	../../CanInterface/src/CCanAccess.cpp	
+	../../Diagnostic/src/Diag.cpp	
 )
 
 # you can either build the fully dynamic libs or the as-static-as-possible, 
