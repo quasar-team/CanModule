@@ -6,7 +6,7 @@
  */
 
 #include "Diag.h"
-#include <CCanAccess.h>
+// #include <CCanAccess.h>
 
 namespace CanModule {
 
