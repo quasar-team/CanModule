@@ -177,7 +177,7 @@ The AnaGate CAN F series models can provide all nine TCP, CAN and error counters
 from the web interface. A detailed description of the counters is available in the
 device status chapter of the AnaGate CAN F series manual.
 */
-typedef struct {
+SHARED_LIB_EXPORT_DEFN typedef struct {
 	unsigned int countTCPRx; // TCP Received counter.
 	unsigned int countTCPTx; // TCP Transmitted counter.
 	unsigned int countCANRx; // CAN Received counter.
@@ -198,12 +198,12 @@ typedef struct {
  * we drop any buffer overflow.
  *
  */
-typedef struct {
+SHARED_LIB_EXPORT_DEFN typedef struct {
 	std::string message;
 	long int timestamp;
 } PORT_LOG_ITEM_t;
 
-typedef struct {
+SHARED_LIB_EXPORT_DEFN typedef struct {
 	int temperature; // in deg C
 	int uptime;      // in seconds
 	unsigned int clientCount; // connected clients for this IP/module/submodule
