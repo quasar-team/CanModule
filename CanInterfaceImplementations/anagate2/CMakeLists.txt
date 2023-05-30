@@ -59,7 +59,7 @@ set(ANAGATE2_SOURCES
 	../../CanInterface/src/CanModuleUtils.cpp	
 	../../CanInterface/src/CCanAccess.cpp	
 )	../../Diagnostic/src/Diag.cpp	
-)
+
 
 # you can either build the fully dynamic libs or the as-static-as-possible, 
 # but not both in one go
