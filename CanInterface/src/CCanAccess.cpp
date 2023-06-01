@@ -40,7 +40,7 @@ GlobalErrorSignaler::~GlobalErrorSignaler(){
  * singleton fabricator. We have one global signal only which is neither lib/vendor nor port specific, per task.
  */
 GlobalErrorSignaler* GlobalErrorSignaler::getInstance() {
-	std::cout <<  __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << std::endl;
+	// std::cout <<  __FUNCTION__ << " " << __FILE__ << " " << __LINE__ << std::endl;
 	if ( GlobalErrorSignaler::instancePtr == NULL) {
 		GlobalErrorSignaler::instancePtr = new GlobalErrorSignaler();
 	}
