@@ -1197,6 +1197,7 @@ std::vector<CanModule::PORT_LOG_ITEM_t> AnaCanScan2::getHwLogMessages ( unsigned
  * get diagnostic data and the client list plus connected ips.
  */
 CanModule::HARDWARE_DIAG_t AnaCanScan2::getHwDiagnostics (){
+	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << std::endl;
 	HARDWARE_DIAG_t d;
 	const unsigned int sz = 6;
 	unsigned int ips[ sz ];
@@ -1204,8 +1205,10 @@ CanModule::HARDWARE_DIAG_t AnaCanScan2::getHwDiagnostics (){
 	AnaInt64 dates[ sz ];
 
 	AnaInt32 ret = CANGetDiagData( m_UcanHandle, &d.temperature, &d.uptime );
-	ret += CANGetClientList( m_UcanHandle, &d.clientCount, ips, ports, dates );
-	if ( ret != ANA_ERR_NONE ){
+	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " ret= " << ret << std::endl;
+	AnaInt32 ret1 = CANGetClientList( m_UcanHandle, &d.clientCount, ips, ports, dates );
+	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " ret1= " << ret1 << std::endl;
+	if ( ret != ANA_ERR_NONE || ret1 != ANA_ERR_NONE ){
 		MLOGANA2(ERR,this) << "There was a problem getting the HW DiagData and/or client list " << ret << " . Abandoning HW DiagData and client list retrieval ";
 		std::stringstream os;
 		os << __FUNCTION__ 	<< "There was a problem getting the HW DiagData and/or client list" << ret << " . Abandoning HW DiagData and client list retrieval ";
