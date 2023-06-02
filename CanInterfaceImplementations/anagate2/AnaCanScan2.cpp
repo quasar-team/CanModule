@@ -1145,7 +1145,9 @@ void AnaCanScan2::getStatistics( CanStatistics & result )
 
 
 /**
- * the "ideal CAN bridge". We get the n newest logs, n=0 for all
+ * the "ideal CAN bridge" logs. We get the n newest logs, n=0 for all
+ * Ech log entry has a timestamp and a message, both as strings. The hw timestamp is in
+ * fact an uint64 which we convert into a human readable string.
  */
 std::vector<CanModule::PORT_LOG_ITEM_t> AnaCanScan2::getHwLogMessages ( unsigned int n ){
 	std::vector<CanModule::PORT_LOG_ITEM_t> log;
