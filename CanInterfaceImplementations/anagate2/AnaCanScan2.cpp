@@ -1238,7 +1238,12 @@ CanModule::HARDWARE_DIAG_t AnaCanScan2::getHwDiagnostics (){
 	for ( unsigned int i = 0; i < sz; i++ ){
 		d.clientIps.push_back( m_decodeNetworkByteOrder_ip_toString( ips[ i ] ) );
 		d.clientPorts.push_back( ports[ i ] );
-		d.clientConnectionTimestamps.push_back( dates[ i ] );
+
+		std::tm tm = *std::localtime( &dates[ i ] );
+		std::stringstream out;
+		out << std::put_time( &tm, "%c %Z" );
+		d.clientConnectionTimestamps.push_back( out.str() );
+		//d.clientConnectionTimestamps.push_back( dates[ i ] );
 	}
 	return d;
 }

@@ -215,7 +215,8 @@ SHARED_LIB_EXPORT_DEFN struct HARDWARE_DIAG_t {
 	unsigned int clientCount; // connected clients for this IP/module/submodule
 	std::vector<std::string> clientIps; // decoded into strings, from unsigned int
 	std::vector<unsigned int> clientPorts; // array of client ports
-	std::vector<long int> clientConnectionTimestamps; // (Unix time) of initial client connection
+	// std::vector<long int> clientConnectionTimestamps; // (Unix time) of initial client connection
+	std::vector<std::string> clientConnectionTimestamps; // time of initial client connection
 };
 // } HARDWARE_DIAG_t;
 
