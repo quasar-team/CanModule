@@ -1204,6 +1204,12 @@ CanModule::HARDWARE_DIAG_t AnaCanScan2::getHwDiagnostics (){
 	unsigned int ports[ sz ];
 	AnaInt64 dates[ sz ];
 
+	for ( int i = 0; i < sz; i++ ){
+		ips[ i ] = 0;
+		ports[ i ] = 0;
+		dates[ i  ] = 0;
+	}
+
 	AnaInt32 p0, p1;
 	AnaInt32 ret = CANGetDiagData( m_UcanHandle, &p0, &p1 );
 	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " ret= 0x" << std::hex << ret << std::dec << std::endl;
