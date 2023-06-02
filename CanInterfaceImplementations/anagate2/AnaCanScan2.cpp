@@ -1252,7 +1252,7 @@ std::string AnaCanScan2::m_decodeNetworkByteOrder_ip_toString( unsigned int nip 
 	std::stringstream os;
 	os << std::dec << (nip & 0xff) << "." << ((nip & 0xff00)>>8) << "." << ((nip & 0xff0000)>>16) << "." << ((nip & 0xff000000)>>24);
 	std::string sip = os.str();
-	MLOGANA2(TRC,this) << __FUNCTION__ << " nip= " << nip << " sip= " << sip;
+	// MLOGANA2(TRC,this) << __FUNCTION__ << " nip= " << nip << " sip= " << sip;
 	return sip;
 }
 
