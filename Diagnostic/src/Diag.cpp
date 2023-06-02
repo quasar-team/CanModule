@@ -41,7 +41,7 @@ Diag::Diag() {};
 CanModule::PORT_LOG_ITEM_t Diag::createEmptyItem(){
 	CanModule::PORT_LOG_ITEM_t item;
 	item.message = "no port log message";
-	item.timestamp = 0;
+	item.timestamp = "no timestamp";
 	return item;
 }
 
