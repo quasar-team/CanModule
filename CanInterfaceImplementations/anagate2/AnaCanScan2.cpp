@@ -1176,6 +1176,7 @@ std::vector<CanModule::PORT_LOG_ITEM_t> AnaCanScan2::getHwLogMessages ( unsigned
 	if ( n == 0 ) {
 		nLogs = pnLogCount;
 	}
+	nLogs--; // the pnLogCount counter points to the next log to write. FW error
 	MLOGANA2(TRC,this) << "we can retrieve " << nLogs << " logs from the hw, with pnLogCount= " << pnLogCount;
 	nLogID = pnCurrentID;
 	for ( unsigned int i = 0; i < nLogs; i++ ){
