@@ -1198,7 +1198,7 @@ std::vector<CanModule::PORT_LOG_ITEM_t> AnaCanScan2::getHwLogMessages ( unsigned
  */
 CanModule::HARDWARE_DIAG_t AnaCanScan2::getHwDiagnostics (){
 	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << std::endl;
-	HARDWARE_DIAG_t d;
+	HARDWARE_DIAG_t d = CanModule::Diag::createEmptyDiag();
 	const unsigned int sz = 6;
 	unsigned int ips[ sz ];
 	unsigned int ports[ sz ];
