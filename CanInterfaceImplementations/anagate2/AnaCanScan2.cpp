@@ -1204,7 +1204,7 @@ CanModule::HARDWARE_DIAG_t AnaCanScan2::getHwDiagnostics (){
 	unsigned int ports[ sz ];
 	AnaInt64 dates[ sz ];
 
-	for ( int i = 0; i < sz; i++ ){
+	for ( unsigned int i = 0; i < sz; i++ ){
 		ips[ i ] = 0;
 		ports[ i ] = 0;
 		dates[ i  ] = 0;

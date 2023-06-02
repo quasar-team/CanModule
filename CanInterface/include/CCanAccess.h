@@ -204,7 +204,7 @@ SHARED_LIB_EXPORT_DEFN struct PORT_COUNTERS_t {
 //SHARED_LIB_EXPORT_DEFN typedef struct {
 SHARED_LIB_EXPORT_DEFN struct  PORT_LOG_ITEM_t {
 	std::string message;
-	long int timestamp;
+	std::string timestamp;
 };
 // } PORT_LOG_ITEM_t;
 
