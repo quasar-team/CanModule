@@ -1243,7 +1243,6 @@ CanModule::HARDWARE_DIAG_t AnaCanScan2::getHwDiagnostics (){
 		std::stringstream out;
 		out << std::put_time( &tm, "%c %Z" );
 		d.clientConnectionTimestamps.push_back( out.str() );
-		//d.clientConnectionTimestamps.push_back( dates[ i ] );
 	}
 	return d;
 }
