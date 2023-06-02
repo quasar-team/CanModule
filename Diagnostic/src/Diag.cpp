@@ -50,9 +50,9 @@ CanModule::HARDWARE_DIAG_t Diag::createEmptyDiag(){
 	d.temperature = 0;
 	d.uptime = 0;
 	d.clientCount = 0;
-	d.clientIps.push_back("000.000.000.000");
-	d.clientPorts.push_back(0);
-	d.clientConnectionTimestamps.push_back( 0 );
+	d.clientIps.clear();
+	d.clientPorts.clear();
+	d.clientConnectionTimestamps.clear();
 	return d;
 }
 
