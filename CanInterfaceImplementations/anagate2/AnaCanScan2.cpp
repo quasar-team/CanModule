@@ -1223,7 +1223,7 @@ CanModule::HARDWARE_DIAG_t AnaCanScan2::getHwDiagnostics (){
 	AnaInt32 p0, p1;
 	AnaInt32 ret = CANGetDiagData( m_UcanHandle, &p0, &p1 );
 	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " ret= 0x" << std::hex << ret << std::dec << std::endl;
-	d.temperature = p0;
+	d.temperature = (float) p0/10;
 	d.uptime = p1;
 
 	AnaInt32 ret1 = CANGetClientList( m_UcanHandle, &d.clientCount, ips, ports, dates );

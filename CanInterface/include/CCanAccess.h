@@ -210,7 +210,7 @@ SHARED_LIB_EXPORT_DEFN struct  PORT_LOG_ITEM_t {
 
 // SHARED_LIB_EXPORT_DEFN typedef struct {
 SHARED_LIB_EXPORT_DEFN struct HARDWARE_DIAG_t {
-	int temperature; // in deg C
+	float temperature; // in deg C
 	int uptime;      // in seconds
 	unsigned int clientCount; // connected clients for this IP/module/submodule
 	std::vector<std::string> clientIps; // decoded into strings, from unsigned int
