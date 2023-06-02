@@ -1193,10 +1193,8 @@ std::vector<CanModule::PORT_LOG_ITEM_t> AnaCanScan2::getHwLogMessages ( unsigned
 			std::stringstream out;
 			out << std::put_time( &tm, "%c %Z" );
 			item.timestamp = out.str();
-			//item.timestamp = std::string ( std::put_time( &tm, "%c %Z" ) );
-			// item.timestamp = pnLogDate;
 
-			MLOGANA2(TRC,this) << "found log item nLogID= " << nLogID << " " << item.timestamp << " " << item.message << ret;
+			MLOGANA2(TRC,this) << "found log item i= " << i << " nLogID= " << nLogID << " " << item.timestamp << " " << item.message << ret;
 			log.push_back( item );
 			nLogID++;
 		}
