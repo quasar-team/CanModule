@@ -1156,7 +1156,8 @@ std::vector<CanModule::PORT_LOG_ITEM_t> AnaCanScan2::getHwLogMessages ( unsigned
 	AnaUInt32 pnCurrentID;
 	AnaUInt32 pnLogCount;
 	AnaInt64 pnLogDate;
-	char pcBuffer[ 110 ];
+	const unsigned int sz = 110;
+	char pcBuffer[ sz ];
 
 	// first call to get the nb of logs
 	AnaInt32 ret = CANGetLog( m_UcanHandle, nLogID, &pnCurrentID, &pnLogCount, &pnLogDate, pcBuffer );
@@ -1186,7 +1187,9 @@ std::vector<CanModule::PORT_LOG_ITEM_t> AnaCanScan2::getHwLogMessages ( unsigned
 	for ( unsigned int i = 0; i < nLogs; i++ ){
 		MLOGANA2(TRC,this) << "retrieving nLogID= " << nLogID << " from the hw";
 
-		pcBuffer = "\0";
+		for ( unsigned int k = 0; k < sz; k++ ){
+			pcBuffer[ k ] = "";
+		}
 
 		AnaInt32 ret0 = CANGetLog( m_UcanHandle, nLogID, &pnCurrentID, &pnLogCount, &pnLogDate, pcBuffer );
 		if ( ret0 != ANA_ERR_NONE ){
