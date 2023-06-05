@@ -1146,7 +1146,7 @@ void AnaCanScan2::getStatistics( CanStatistics & result )
 
 /**
  * the "ideal CAN bridge" logs. We get the n newest logs, n=0 for all
- * Ech log entry has a timestamp and a message, both as strings. The hw timestamp is in
+ * Each log entry has a timestamp and a message, both as strings. The hw timestamp is in
  * fact an uint64 which we convert into a human readable string.
  */
 std::vector<CanModule::PORT_LOG_ITEM_t> AnaCanScan2::getHwLogMessages ( unsigned int n ){
@@ -1167,6 +1167,7 @@ std::vector<CanModule::PORT_LOG_ITEM_t> AnaCanScan2::getHwLogMessages ( unsigned
 		m_signalErrorMessage( ret, os.str().c_str() );
 		return log;
 	}
+	MLOGANA2(TRC,this) << "found " << pnLogCount << " HW log messages.";
 
 	// how many can we return?
 	unsigned int nLogs = 0;
@@ -1181,7 +1182,7 @@ std::vector<CanModule::PORT_LOG_ITEM_t> AnaCanScan2::getHwLogMessages ( unsigned
 	nLogs--; // the pnLogCount counter points to the next log to write. FW error
 	MLOGANA2(TRC,this) << "we can retrieve " << nLogs << " logs from the hw, with pnLogCount= " << pnLogCount;
 	nLogID = pnCurrentID;
-	for ( unsigned int i = 0; i < nLogs; i++ ){
+	for ( unsigned int i = nLogs; i < 0; i-- ){
 		AnaInt32 ret0 = CANGetLog( m_UcanHandle, nLogID, &pnCurrentID, &pnLogCount, &pnLogDate, pcBuffer );
 		if ( ret0 != ANA_ERR_NONE ){
 			MLOGANA2(ERR,this) << "There was a problem getting HW log nLogID= " << nLogID << " ..skipping this entry" <<  ret ;
