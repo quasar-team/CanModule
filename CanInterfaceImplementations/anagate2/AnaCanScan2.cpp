@@ -1183,7 +1183,7 @@ std::vector<CanModule::PORT_LOG_ITEM_t> AnaCanScan2::getHwLogMessages ( unsigned
 	// the youngest log has the highest index
 	MLOGANA2(TRC,this) << "we can retrieve " << nLogs << " logs from the hw, with pnLogCount= " << pnLogCount << " and pnCurrentID= " << pnCurrentID;
 	nLogID = pnCurrentID;
-	for ( unsigned int i = nLogs; i < 0; i-- ){
+	for ( unsigned int i = 0; i < nLogs; i++ ){
 		MLOGANA2(TRC,this) << "retrieving nLogID= " << nLogID << " from the hw";
 		AnaInt32 ret0 = CANGetLog( m_UcanHandle, nLogID, &pnCurrentID, &pnLogCount, &pnLogDate, pcBuffer );
 		if ( ret0 != ANA_ERR_NONE ){
