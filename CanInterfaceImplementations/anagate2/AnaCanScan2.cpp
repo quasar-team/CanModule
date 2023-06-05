@@ -1180,7 +1180,7 @@ std::vector<CanModule::PORT_LOG_ITEM_t> AnaCanScan2::getHwLogMessages ( unsigned
 		nLogs = pnLogCount;
 	}
 
-	// the youngest log has usually the highest index
+	// the youngest log has the highest index
 	MLOGANA2(TRC,this) << "we can retrieve " << nLogs << " logs from the hw, with pnLogCount= " << pnLogCount;
 	nLogID = pnCurrentID;
 	for ( unsigned int i = nLogs; i < 0; i-- ){
