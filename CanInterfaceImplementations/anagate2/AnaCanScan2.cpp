@@ -1185,6 +1185,9 @@ std::vector<CanModule::PORT_LOG_ITEM_t> AnaCanScan2::getHwLogMessages ( unsigned
 	nLogID = pnCurrentID;
 	for ( unsigned int i = 0; i < nLogs; i++ ){
 		MLOGANA2(TRC,this) << "retrieving nLogID= " << nLogID << " from the hw";
+
+		pcBuffer = "\0";
+
 		AnaInt32 ret0 = CANGetLog( m_UcanHandle, nLogID, &pnCurrentID, &pnLogCount, &pnLogDate, pcBuffer );
 		if ( ret0 != ANA_ERR_NONE ){
 			MLOGANA2(ERR,this) << "There was a problem getting HW log nLogID= " << nLogID << " ..skipping this entry" <<  ret ;
