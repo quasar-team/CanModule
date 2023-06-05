@@ -1187,10 +1187,10 @@ std::vector<CanModule::PORT_LOG_ITEM_t> AnaCanScan2::getHwLogMessages ( unsigned
 	for ( unsigned int i = 0; i < nLogs; i++ ){
 		MLOGANA2(TRC,this) << "retrieving nLogID= " << nLogID << " from the hw";
 
-		for ( unsigned int k = 0; k < sz - 1; k++ ){
+		for ( unsigned int k = 0; k < sz; k++ ){
 			pcBuffer[ k ] = ' ';
 		}
-		pcBuffer[ sz -1  ] = '\0';
+		// pcBuffer[ sz -1  ] = '\0';
 
 		AnaInt32 ret0 = CANGetLog( m_UcanHandle, nLogID, &pnCurrentID, &pnLogCount, &pnLogDate, pcBuffer );
 		if ( ret0 != ANA_ERR_NONE ){
