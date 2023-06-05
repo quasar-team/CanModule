@@ -1179,7 +1179,8 @@ std::vector<CanModule::PORT_LOG_ITEM_t> AnaCanScan2::getHwLogMessages ( unsigned
 	if ( n == 0 ) {
 		nLogs = pnLogCount;
 	}
-	// nLogs--; // the pnLogCount counter points to the next log to write. FW error
+
+	// the youngest log has usually the highest index
 	MLOGANA2(TRC,this) << "we can retrieve " << nLogs << " logs from the hw, with pnLogCount= " << pnLogCount;
 	nLogID = pnCurrentID;
 	for ( unsigned int i = nLogs; i < 0; i-- ){
@@ -1189,7 +1190,6 @@ std::vector<CanModule::PORT_LOG_ITEM_t> AnaCanScan2::getHwLogMessages ( unsigned
 			std::stringstream os;
 			os << __FUNCTION__ 	<< "There was a problem getting the HW logs " << ret;
 			m_signalErrorMessage( ret, os.str().c_str() );
-			nLogID++;
 		} else {
 			item.message = std::string ( pcBuffer );
 
@@ -1200,8 +1200,8 @@ std::vector<CanModule::PORT_LOG_ITEM_t> AnaCanScan2::getHwLogMessages ( unsigned
 
 			MLOGANA2(TRC,this) << "found log item i= " << i << " nLogID= " << nLogID << " " << item.timestamp << " " << item.message << ret;
 			log.push_back( item );
-			nLogID++;
 		}
+		nLogID--;
 	}
 	return log;
 }
