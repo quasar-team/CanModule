@@ -1216,6 +1216,11 @@ std::vector<CanModule::PORT_LOG_ITEM_t> AnaCanScan2::getHwLogMessages ( unsigned
 
 /**
  * get diagnostic data and the client list plus connected ips.
+ * we get:
+ * - list of connected ip numbers (as a ip string, very useful)
+ * - list of client ports, high random ports usually above 30000 (very useful)
+ * - list of timestamps when the connection of each client was made (very useful)
+ * - the count of connected clients, max. 6 per port
  */
 CanModule::HARDWARE_DIAG_t AnaCanScan2::getHwDiagnostics (){
 	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << std::endl;
@@ -1270,6 +1275,11 @@ std::string AnaCanScan2::m_decodeNetworkByteOrder_ip_toString( unsigned int nip 
 	return sip;
 }
 
+
+/**
+ * we acquire all Tx and Rx counters from the hardware, plus error counters etc. All you ever needed to know about your CAN bus performance
+ * and state
+ */
 CanModule::PORT_COUNTERS_t AnaCanScan2::getHwCounters (){
 	PORT_COUNTERS_t c;
 	AnaInt32 ret = CANGetCounters( m_UcanHandle, &c.countTCPRx,
