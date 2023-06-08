@@ -1,6 +1,6 @@
 DOXYFILE_ENCODING = UTF-8
 PROJECT_NAME = "CanModule"
-PROJECT_NUMBER = 2.0
+PROJECT_NUMBER = 2.2.1
 PROJECT_BRIEF = "CanModule SW abstraction layer"
 PROJECT_LOGO =
 OUTPUT_DIRECTORY = Documentation/sphinx-source/doxygen-result
