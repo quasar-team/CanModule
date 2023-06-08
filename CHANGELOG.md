@@ -2,6 +2,19 @@
 All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+### 2.2
+- add new diagnostic functionality based on 3 structs which acquire from hardware when invoked:
+   PORT_COUNTERS_t
+   PORT_LOG_ITEM_t
+   HARDWARE_DIAG_t
+- the method calls return by value. If the implementation supports it there are meaningful results. If not, tresults are legal, valid but empty.
+- new anagate diagnostic functionality for implementation "an2"
+- new diag methods callable for all implementations but returning <empty> for non "an2"
+- abstraction of new diagnostics simple but should be general enough
+- diags tested, found extremely useful
+- firmware bug in anagate 3.10/1.3.0 for DHCP requests: needs fixing
+- merging api therefore, but go untagged for the moment because of firmware bug
+
 ### 2.1.2
 - read bitrate from socketcan for "Unsepcified" parameters, so that the statistics works. If 0, stats do not work entirely
 

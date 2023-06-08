@@ -1,6 +1,6 @@
 /** © Copyright CERN, 2015. All rights not expressly granted are reserved.
  *
- * AnaCanScan.h
+ * AnaCanScan2.h
  *
  *  Created on: Feb 22, 2012
  *      Author: vfilimon, quasar team
@@ -21,8 +21,8 @@
  *  along with Quasar.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef CCANANASCAN_H_
-#define CCANANASCAN_H_
+#ifndef CCANANASCAN2_H_
+#define CCANANASCAN2_H_
 
 
 #include <string>
@@ -42,6 +42,7 @@
 #include "CanStatistics.h"
 #include "CCanAccess.h"
 #include "CanMessage.h"
+
 #include <Diag.h>
 
 // specific vendor
@@ -55,7 +56,7 @@
 #include "AnaGateDllCan.h"
 #endif
 
-#include "AnaGateErrors.h"
+#include "AnaGateErrors2.h"
 
 #ifdef _WIN32
 
@@ -79,7 +80,7 @@ using namespace CanModule;
  * one CAN port on an anagate bridge, an anagate bridge is an ip number. There
  * are (physical) bridges with several ip numbers: we treat them as separated modules.
  */
-class AnaCanScan: public CanModule::CCanAccess
+class AnaCanScan2: public CanModule::CCanAccess
 {
 
 public:
@@ -92,10 +93,10 @@ public:
 		DISCONNECTING, //: The connection is disonnecting.
 		NOT_INITIALIZED }; //: The network protocol is not successfully initialized.
 
-	AnaCanScan();//Constructor of the class. Will initiate the statistics.
-	AnaCanScan(AnaCanScan const & other) = delete;  //Disables copy constructor
-	AnaCanScan& operator=(AnaCanScan const & other) = delete; // Disables assignment
-	virtual ~AnaCanScan();
+	AnaCanScan2();//Constructor of the class. Will initiate the statistics.
+	AnaCanScan2(AnaCanScan2 const & other) = delete;  //Disables copy constructor
+	AnaCanScan2& operator=(AnaCanScan2 const & other) = delete; // Disables assignment
+	virtual ~AnaCanScan2();
 
 	virtual int createBus(const std::string name, const std::string parameters);
     virtual bool sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr = false);
@@ -184,7 +185,7 @@ private:
 	int m_connectReceptionHandler();
 	int m_openCanPort();
 	int m_reconnect();
-
+	std::string m_decodeNetworkByteOrder_ip_toString( unsigned int ip );
 };
 
 #endif //CCANANASCAN_H_

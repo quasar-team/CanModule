@@ -39,6 +39,7 @@
 #include <CanMessage.h>
 #include <CanStatistics.h>
 #include <CanModuleUtils.h>
+
 #include <VERSION.h>
 
 
@@ -82,10 +83,7 @@ public:
 	SHARED_LIB_EXPORT_DEFN void disconnectAllHandlers();
 	SHARED_LIB_EXPORT_DEFN void fireSignal( const int code, const char *msg );
 
-
 	static void initializeLogIt(LogItInstance *remoteInstance);
-
-
 };
 
 
@@ -173,6 +171,48 @@ struct CanParameters {
 
 	void scanParameters(std::string parameters);
 };
+
+/** beta.v6 "an2" CANGetCounters anagate
+The AnaGate CAN F series models can provide all nine TCP, CAN and error counters
+from the web interface. A detailed description of the counters is available in the
+device status chapter of the AnaGate CAN F series manual.
+ */
+SHARED_LIB_EXPORT_DEFN struct PORT_COUNTERS_t {
+	unsigned int countTCPRx; // TCP Received counter.
+	unsigned int countTCPTx; // TCP Transmitted counter.
+	unsigned int countCANRx; // CAN Received counter.
+	unsigned int countCANTx; // CAN Transmitted counter.
+	unsigned int countCANRxErr; // CAN Bus Receive Error counter.
+	unsigned int countCANTxErr; // CAN Bus Transmit Error counter.
+	unsigned int countCANRxDisc; // CAN Discarded Rx Full Queue counter.
+	unsigned int countCANTxDisc; // CAN Discarded Tx Full Queue counter.
+	unsigned int countCANTimeout; // CAN Transmit Timeout counter.
+};
+
+
+/**
+ * a (hardware) logging item generally has a message and a timestamp. Keep it simple.
+ *
+ * a log entry history of one port has many log items. anagate2 hw limits this to 100 but there is no reason to limit the vector size here
+ * we can in fact keep a looooong history. we will just limit the max history to a reasonable value to avoid a coded mem hole.
+ * Lets say portLog_max = 5000.
+ * we drop any buffer overflow.
+ *
+ */
+SHARED_LIB_EXPORT_DEFN struct  PORT_LOG_ITEM_t {
+	std::string message;
+	std::string timestamp;
+};
+
+SHARED_LIB_EXPORT_DEFN struct HARDWARE_DIAG_t {
+	float temperature; // in deg C
+	int uptime;      // in seconds
+	unsigned int clientCount; // connected clients for this IP/module/submodule
+	std::vector<std::string> clientIps; // decoded into strings, from unsigned int
+	std::vector<unsigned int> clientPorts; // array of client ports
+	std::vector<std::string> clientConnectionTimestamps; // time of initial client connection
+};
+
 
 class CCanAccess
 {
@@ -443,6 +483,14 @@ public: // accessible API
 	 * Example: myCCanAccessPointer->canPortStateChanged.connect(&myPortSateChangedRecievedHandler);
 	 */
 	boost::signals2::signal<void (const int, const char *, timeval &) > canPortStateChanged;
+
+	/**
+	 * advanced diagnostics from the hardware. They can only be implemented for some implementations,
+	 * but all implementations must have a dummy
+	 */
+	virtual std::vector<CanModule::PORT_LOG_ITEM_t> getHwLogMessages ( unsigned int n ) = 0;
+	virtual CanModule::HARDWARE_DIAG_t getHwDiagnostics () = 0;
+	virtual CanModule::PORT_COUNTERS_t getHwCounters () = 0;
 
 	std::string& getBusName();
 	bool initialiseLogging(LogItInstance* remoteInstance);

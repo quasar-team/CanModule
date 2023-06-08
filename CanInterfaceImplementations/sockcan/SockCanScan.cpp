@@ -78,6 +78,22 @@ CSockCanScan::CSockCanScan() :
 	m_failedSendCountdown = m_maxFailedSendCount;
 }
 
+/**
+ * does not get called because advanced diag is not available for this implementation.
+ * But we provide a proper return type nevertheless
+ */
+/* virtual */ std::vector<CanModule::PORT_LOG_ITEM_t> CSockCanScan::getHwLogMessages ( unsigned int n ){
+	std::vector<CanModule::PORT_LOG_ITEM_t> log;
+	return log;
+}
+/* virtual */  CanModule::HARDWARE_DIAG_t CSockCanScan::getHwDiagnostics (){
+	CanModule::HARDWARE_DIAG_t d;
+	return d;
+}
+/* virtual */ CanModule::PORT_COUNTERS_t CSockCanScan::getHwCounters (){
+	CanModule::PORT_COUNTERS_t c;
+	return c;
+}
 
 /* virtual */ void CSockCanScan::setReconnectBehavior( CanModule::ReconnectAutoCondition cond, CanModule::ReconnectAction action ){
 	m_reconnectCondition = cond;

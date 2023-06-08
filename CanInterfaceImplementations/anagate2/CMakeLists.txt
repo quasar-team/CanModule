@@ -24,37 +24,37 @@ project( ancan LANGUAGES C CXX )
 
 SET( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib )
 
-# check if toolchain injection was correct for anagate
+# check if toolchain injection was correct for anagate2
 # anagate libs are not installed using a default installer/location. In fact these libs are 
 # convenience libs to wrap the tcp specific telegrams needed for anagate into a nice API. 
 # and this needs no driver install etc. Spec for anagate libs 
 # is at http://www.anagate.de/download/Manual-AnaGate-TCPIP-V1.2.6-EN.pdf 
-if( (NOT DEFINED ANAGATE_LIB_PATH) OR (NOT DEFINED ANAGATE_HEADERS) OR (NOT DEFINED ANAGATE_LIB_FILE)  )
-	message(WARNING "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: at least one of the required variables ANAGATE_LIB_PATH, ANAGATE_HEADERS, ANAGATE_LIB_FILE has not been defined." )
+if( (NOT DEFINED ANAGATE2_LIB_PATH) OR (NOT DEFINED ANAGATE2_HEADERS) OR (NOT DEFINED ANAGATE2_LIB_FILE)  )
+	message(WARNING "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: at least one of the required variables ANAGATE2_LIB_PATH, ANAGATE2_HEADERS, ANAGATE2_LIB_FILE has not been defined." )
 	message(WARNING "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: assuming default locations and libs for anagate (linux, windows)" )
-	message(WARNING "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: since anagate does not have an installer the default locations are likely to be wrong" )
+	message(WARNING "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: since anagate2 does not have an installer the default locations are likely to be wrong" )
 	if(WIN32)  
-		SET( ANAGATE_HEADERS "C:/3rdPartySoftware/AnaGateCAN/win64/vc8/include")
-		SET( ANAGATE_LIB_PATH "C:/3rdPartySoftware/AnaGateCAN/win64/vc8/Release")
-		SET( ANAGATE_LIB_FILE "C:/3rdPartySoftware/AnaGateCAN/win64/vc8/Release/AnaGateCanDll64.lib")
+		SET( ANAGATE2_HEADERS "C:/3rdPartySoftware/CAN/windows/anagate/beta.v6/include")
+		SET( ANAGATE2_LIB_PATH "C:/3rdPartySoftware/CAN/windows/anagate/beta.v6/lib")
+		SET( ANAGATE2_LIB_FILE "C:/3rdPartySoftware/CAN/windows/anagate/beta.v6/AnaGateCanDll64.lib")
 	else()
-		SET ( ANAGATE_HEADERS "/opt/3rdPartySoftware/Anagate/CAN/anagate-api-2.13/linux64/gcc4_6/include" )
-		SET ( ANAGATE_LIB_PATH "/opt/3rdPartySoftware/Anagate/CAN/anagate-api-2.13/linux64/gcc4_6" )
-		SET ( ANAGATE_LIB_FILE "-lAPIRelease64 -lCANDLLRelease64" )
+		SET ( ANAGATE2_HEADERS "/opt/3rdPartySoftware/CAN/cal9/anagate/beta.v6/include" )
+		SET ( ANAGATE2_LIB_PATH "/opt/3rdPartySoftware/CAN/cal9/anagate/beta.v6/lib" )
+		SET ( ANAGATE2_LIB_FILE "-lAnaGateExtStaticRelease -lAnaGateStaticRelease -lCANDLLStaticRelease64" )
 	endif() 
-	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: ANAGATE_HEADERS=  ${ANAGATE_HEADERS}]")
-	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: ANAGATE_LIB_PATH= ${ANAGATE_LIB_PATH}]")
-	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: ANAGATE_LIB_FILE= ${ANAGATE_LIB_FILE}]")
+	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: ANAGATE2_HEADERS=  ${ANAGATE2_HEADERS}]")
+	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: ANAGATE2_LIB_PATH= ${ANAGATE2_LIB_PATH}]")
+	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: ANAGATE2_LIB_FILE= ${ANAGATE2_LIB_FILE}]")
 else()
-  	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: toolchain ANAGATE_HEADERS=  ${ANAGATE_HEADERS}" )
-  	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: toolchain ANAGATE_LIB_PATH= ${ANAGATE_LIB_PATH}" )
-  	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: toolchain ANAGATE_LIB_FILE= ${ANAGATE_LIB_FILE}" )
+  	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: toolchain ANAGATE2_HEADERS=  ${ANAGATE2_HEADERS}" )
+  	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: toolchain ANAGATE2_LIB_PATH= ${ANAGATE2_LIB_PATH}" )
+  	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: toolchain ANAGATE2_LIB_FILE= ${ANAGATE2_LIB_FILE}" )
 endif() 
-link_directories( ${ANAGATE_LIB_PATH} )
-include_directories ( ${ANAGATE_HEADERS} )
+link_directories( ${ANAGATE2_LIB_PATH} )
+include_directories ( ${ANAGATE2_HEADERS} )
 
-set(ANAGATE_SOURCES
-	AnaCanScan.cpp
+set(ANAGATE2_SOURCES
+	AnaCanScan2.cpp
 	../../CanInterface/src/CanStatistics.cpp	
 	../../CanInterface/src/CanModuleUtils.cpp	
 	../../CanInterface/src/CCanAccess.cpp	
@@ -70,11 +70,11 @@ ELSE()
 	SET ( CANMODULE_LINKAGE SHARED )
 ENDIF()	
 message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CANMODULE_LINKAGE=  ${CANMODULE_LINKAGE}" )
-SET ( ANAGATE_LIB_NAME "ancan" )
-add_library( ${ANAGATE_LIB_NAME} ${CANMODULE_LINKAGE} ${ANAGATE_SOURCES} $<TARGET_OBJECTS:LogIt>)
+SET ( ANAGATE2_LIB_NAME "an2can" )
+add_library( ${ANAGATE2_LIB_NAME} ${CANMODULE_LINKAGE} ${ANAGATE2_SOURCES} $<TARGET_OBJECTS:LogIt>)
 	
-target_link_libraries ( ${ANAGATE_LIB_NAME}  ${BOOST_LIBS}	${ANAGATE_LIB_FILE} )
-set_property(TARGET ${ANAGATE_LIB_NAME} PROPERTY POSITION_INDEPENDENT_CODE TRUE)
-set_property(TARGET ${ANAGATE_LIB_NAME} PROPERTY LINKER_LANGUAGE CXX)
+target_link_libraries ( ${ANAGATE2_LIB_NAME}  ${BOOST_LIBS}	${ANAGATE2_LIB_FILE} )
+set_property(TARGET ${ANAGATE2_LIB_NAME} PROPERTY POSITION_INDEPENDENT_CODE TRUE)
+set_property(TARGET ${ANAGATE2_LIB_NAME} PROPERTY LINKER_LANGUAGE CXX)
 link_directories( ${BOOST_PATH_LIBS} )
 

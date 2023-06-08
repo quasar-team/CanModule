@@ -23,7 +23,8 @@ parameters
    :no-link:
 
 
-* "Unspecified" the internal CanModule parameters are set to
+* "Unspecified": we use the values which are present in the harware, without actually knowing them.
+Most of the time the internal CanModule parameters are set to
 	*		m_CanParameters.m_lBaudRate = 125000;
 	*		m_CanParameters.m_iOperationMode = 0;
 	*		m_CanParameters.m_iTermination = 1 ;// ENS-26903: default is terminated
@@ -37,12 +38,9 @@ parameters
 	* CANOpenDevice() 
 	* CANSetGlobals()
 	
-* explicit parameter set like "125000 0 1 0 0 0 6000"
+* explicit parameter set like "125000 0 1 0 0 0 6000", that is the recommended way
 	
-the parameters are written to hardware. The "Unspecified" works as default.
-
-
-
+the parameters are written to hardware.
 
 
 status
@@ -65,6 +63,13 @@ Errors and problems are available through two mechanisms:
   The messages and error codes originate from the vendor api/implementation and are
   reported as is without further processing. Messages are taken from the vendor's API
   documentation if available.
+  
+* port specific error handlers
+
+* global error handlers
+
+* extended diagnostics (if available, see anagate2)
+
 
 .. doxygenclass:: AnaCanScan 
    :project: CanModule
