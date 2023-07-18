@@ -68,9 +68,14 @@ public:
 	float rxRate() { return m_internals.m_receivedPerSec; }
 
 	/**
-	 * bus load in 0...1 ( % * 100 ) of max bus speed (baudrate)
+	 * bus load
 	 */
 	float busLoad() { return m_internals.m_busLoad; }
+
+	/**
+	 * bus load in percent of max bit rate, calculating the CAN bits transmitted
+	 */
+	float hardwareBusLoad() { return m_internals.m_hardwareBusLoad; }
 
 	/**
 	 * time since the last message was received in milliseconds with microseconds precision
@@ -129,7 +134,7 @@ private:
 		//! Bus load derived from #TX and #RX packages
 		float m_busLoad;
 
-		// bits/sec in percent/100 from max bitrate. relly count the bits on the CAN bus
+		// bits/sec in percent/100 from max bitrate. really count the bits on the CAN bus
 		float m_hardwareBusLoad;
 		std::chrono::high_resolution_clock::time_point m_observationStart;
 	};
