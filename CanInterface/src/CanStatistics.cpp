@@ -58,9 +58,18 @@ namespace CanModule
 
 		if (baudRate > 0)
 		{ // baud rate is known
-			unsigned int octets = m_transmittedOctets.load() + m_receivedOctets.load();
+			// bus load as percent * 100 of maximum achievable transmission rate, where both tx and rx
+			// add up equally. Even though in practice the acievable max tx and max rx might be different.
+			unsigned int octetsPerSecond = ( m_transmittedOctets.load() + m_receivedOctets.load() / period) ;
+
+			// this is wrong, since the number of octets transmitted depends on the time span of the current stats run.
+			// the stats run is reset after each stat read (invoked by the client). The time duration
+			// of a stats run is therefore flexible, depending on the invocation times. Dividing a
+			// timeless variable, octets, through a rate is incorrect.
+			// unsigned int octets = m_transmittedOctets.load() + m_receivedOctets.load();
 			float maxOctetsInSecond = float(baudRate / 8.0);
-			m_internals.m_busLoad = float(octets / maxOctetsInSecond);
+			// m_internals.m_busLoad = float(octets / maxOctetsInSecond); // wrong
+			m_internals.m_busLoad = float(octetsPerSecond / maxOctetsInSecond);
 		} else {
 			m_internals.m_busLoad = 0;
 		}
