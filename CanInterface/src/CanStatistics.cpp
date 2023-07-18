@@ -77,7 +77,7 @@ namespace CanModule
 		m_totalTransmitted++;
 		m_transmitted++;
 		m_transmittedOctets += 2 + 1 + dataLength + 2; /* ID, DLC, USER DATA, CRC */
-		m_transmittedBits += 47 + dataLength * 8; // standard msg
+		m_transmittedBits += 48 + dataLength * 8; // standard msg base frame
 	}
 
 	void CanStatistics::onReceive(unsigned int dataLength)
@@ -85,7 +85,7 @@ namespace CanModule
 		m_totalReceived++;
 		m_received++;
 		m_receivedOctets += 2 + 1 + dataLength + 2; /* ID, DLC, USER DATA, CRC */
-		m_receivedBits += 47 + dataLength * 8; // standard msg
+		m_receivedBits += 48 + dataLength * 8; // standard msg base frame
 		setTimeSinceReceived();
 	}
 
