@@ -59,7 +59,7 @@ namespace CanModule
 		if (baudRate > 0)
 		{ // baud rate is known
 			// bus load as percent * 100 of maximum achievable transmission rate, where both tx and rx
-			// add up equally. Even though in practice the acievable max tx and max rx might be different.
+			// add up equally. Even though in practice the achievable max tx and max rx might be different.
 			unsigned int octetsPerSecond = (period != 0 ? ( m_transmittedOctets.load() + m_receivedOctets.load() / period) : 0);
 
 			// this is wrong, since the number of octets transmitted depends on the time span of the current stats run.
