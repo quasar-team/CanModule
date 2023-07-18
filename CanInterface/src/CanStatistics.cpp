@@ -64,11 +64,11 @@ namespace CanModule
 			float maxOctetsInSecond = float(baudRate / 8.0);
 			m_internals.m_busLoad = float(octets / maxOctetsInSecond); // wrong
 
-			unsigned int bitsPerSecond = (period != 0 ? (( m_transmittedBits.load() + m_receivedBits.load() ) / period) : 0);
-			m_internals.m_hardwareBusLoad = float( bitsPerSecond / baudRate);
+			float bitsPerSecond = (period != 0 ? (( m_transmittedBits.load() + m_receivedBits.load() ) / period) : 0);
+			m_internals.m_hardwareBusLoad = bitsPerSecond / (float ) baudRate;
 		} else {
 			m_internals.m_busLoad = 0;
-			m_internals.m_hardwareBusLoad = 0;
+			m_internals.m_hardwareBusLoad = 0.0;
 		}
 	}
 
