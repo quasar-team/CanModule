@@ -10,7 +10,7 @@ general dependencies
 --------------------
 * CanModule.dll/.so
 * LogIt (cloned from github during cmake)
-* boost 1.73.0 or similar (depending on your build)
+* boost 1.75.0 or similar (depending on your build)
 * xerces 3.2 (xerces-c_3_2D.dll)
 
 Anagate
@@ -18,6 +18,12 @@ Anagate
 * libancan.dll/.so  (standard API)
 * linux: libAPIRelease64.so, libCANDLLRelease64.so, libAnaGateExtRelease.so, libAnaGateRelease.so
 * windows: ANAGATECAN64.dll
+
+Anagate2 (post july 2023)
+--------
+* liban2can.dll/.so
+* linux: libAnaGateExtStaticRelease.so, libAnaGateStaticRelease.so, libCANDLLStaticRelease64.so
+* windows: AnaGateCan64.dll, AnaGateCanDll64.dll 
 
 Systec
 ------
