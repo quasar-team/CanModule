@@ -44,7 +44,9 @@ namespace CanModule
 		m_transmitted = 0;
 		m_received = 0;
 		m_transmittedOctets = 0;
+		m_transmittedBits = 0;
 		m_receivedOctets = 0;
+		m_receivedBits = 0;
 	}
 	void CanStatistics::computeDerived(unsigned int baudRate)
 	{
@@ -57,21 +59,16 @@ namespace CanModule
 		m_internals.m_receivedPerSec = (period != 0 ? float(m_received / period) : 0);
 
 		if (baudRate > 0)
-		{ // baud rate is known
-			// bus load as percent * 100 of maximum achievable transmission rate, where both tx and rx
-			// add up equally. Even though in practice the achievable max tx and max rx might be different.
-			unsigned int octetsPerSecond = (period != 0 ? ( m_transmittedOctets.load() + m_receivedOctets.load() / period) : 0);
-
-			// this is wrong, since the number of octets transmitted depends on the time span of the current stats run.
-			// the stats run is reset after each stat read (invoked by the client). The time duration
-			// of a stats run is therefore flexible, depending on the invocation times. Dividing a
-			// timeless variable, octets, through a rate is incorrect.
-			// unsigned int octets = m_transmittedOctets.load() + m_receivedOctets.load();
+		{
+			unsigned int octets = m_transmittedOctets.load() + m_receivedOctets.load();
 			float maxOctetsInSecond = float(baudRate / 8.0);
-			// m_internals.m_busLoad = float(octets / maxOctetsInSecond); // wrong
-			m_internals.m_busLoad = float(octetsPerSecond / maxOctetsInSecond);
+			m_internals.m_busLoad = float(octets / maxOctetsInSecond); // wrong
+
+			unsigned int bitsPerSecond = (period != 0 ? (( m_transmittedBits.load() + m_receivedBits.load() ) / period) : 0);
+			m_internals.m_hardwareBusLoad = float( bitsPerSecond / baudRate);
 		} else {
 			m_internals.m_busLoad = 0;
+			m_internals.m_hardwareBusLoad = 0;
 		}
 	}
 
@@ -80,6 +77,7 @@ namespace CanModule
 		m_totalTransmitted++;
 		m_transmitted++;
 		m_transmittedOctets += 2 + 1 + dataLength + 2; /* ID, DLC, USER DATA, CRC */
+		m_transmittedBits += 50 + dataLength * 8; // 114 standard msg
 	}
 
 	void CanStatistics::onReceive(unsigned int dataLength)
@@ -87,6 +85,7 @@ namespace CanModule
 		m_totalReceived++;
 		m_received++;
 		m_receivedOctets += 2 + 1 + dataLength + 2; /* ID, DLC, USER DATA, CRC */
+		m_receivedBits += 50 + dataLength * 8; // 114 standard msg
 		setTimeSinceReceived();
 	}
 
@@ -97,7 +96,9 @@ namespace CanModule
 		this->m_transmitted = other.m_transmitted.load();
 		this->m_totalTransmitted = other.m_totalTransmitted.load();
 		this->m_transmittedOctets = other.m_transmittedOctets.load();
+		this->m_transmittedBits = other.m_transmittedBits.load();
 		this->m_receivedOctets = other.m_receivedOctets.load();
+		this->m_receivedBits = other.m_receivedBits.load();
 		this->m_internals = other.m_internals;
 
 		this->m_hrreceived = other.m_hrreceived;

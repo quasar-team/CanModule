@@ -115,6 +115,8 @@ private:
 	std::atomic_uint_least32_t m_received;
 	std::atomic_uint_least32_t m_transmittedOctets;
 	std::atomic_uint_least32_t m_receivedOctets;
+	std::atomic_uint_least32_t m_transmittedBits;
+	std::atomic_uint_least32_t m_receivedBits;
 
 	std::chrono::high_resolution_clock::time_point m_hrnow, m_hrreceived, m_hrtransmitted, m_hropen;
 
@@ -126,6 +128,9 @@ private:
 		float m_receivedPerSec;
 		//! Bus load derived from #TX and #RX packages
 		float m_busLoad;
+
+		// bits/sec in percent/100 from max bitrate. relly count the bits on the CAN bus
+		float m_hardwareBusLoad;
 		std::chrono::high_resolution_clock::time_point m_observationStart;
 	};
 	Internals m_internals;
