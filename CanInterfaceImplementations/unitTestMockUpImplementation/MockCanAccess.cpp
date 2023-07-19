@@ -65,6 +65,11 @@ int MockCanAccess::createBus(const std::string name, const std::string parameter
 	m_sBusName = name;
 	return 0;
 }
+int MockCanAccess::createBus(const std::string name, const std::string parameters, bool lossless )
+{
+	m_lossless = lossless;
+	return( createBus( name, parameters) );
+}
 
 
 bool MockCanAccess::sendRemoteRequest(short cobID)

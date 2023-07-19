@@ -238,6 +238,11 @@ STCanScan::~STCanScan()
  * no implemented: 1=OK, bus creation skipped since it exists already
  *
  */
+int STCanScan::createBus(const std::string name, const std::string parameters, bool lossless )
+{
+	m_lossless = lossless;
+	return( createBus( name, parameters) );
+}
 int STCanScan::createBus(const std::string name,const std::string parameters)
 {	
 	m_gsig = GlobalErrorSignaler::getInstance();

@@ -802,6 +802,11 @@ bool CSockCanScan::m_writeWrapper (const can_frame* frame)
  * the port is erased from the connection map. when the same port is opened again later on, a (new)
  * main thread is created, and the connection is again added to the map.
  */
+int CSockCanScan::createBus(const std::string name, const std::string parameters, bool lossless )
+{
+	m_lossless = lossless;
+	return( createBus( name, parameters) );
+}
 /* virtual */ int CSockCanScan::createBus(const std::string name, const std::string parameters)
 {
 	m_gsig = GlobalErrorSignaler::getInstance();

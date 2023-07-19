@@ -314,6 +314,12 @@ void AnaCanScan::callbackOnRecieve( CanMessage& msg )
  * 1: existing bus, OK, do not add
  * -1: error
  */
+int AnaCanScan::createBus(const std::string name, const std::string parameters, bool lossless )
+{
+	m_lossless = lossless;
+	return( createBus( name, parameters) );
+}
+
 int AnaCanScan::createBus(const std::string name, const std::string parameters)
 {	
 	m_busName = name;
