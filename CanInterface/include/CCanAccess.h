@@ -260,6 +260,7 @@ public: // accessible API
 	 * -1 = init failed
 	 */
 	virtual int createBus(const std::string name, const std::string parameters) = 0;
+	virtual int createBus(const std::string name, const std::string parameters, bool throttleFramerate) = 0;
 
 
 	/**
