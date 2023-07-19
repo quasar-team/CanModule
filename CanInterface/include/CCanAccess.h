@@ -228,7 +228,9 @@ public: // accessible API
 		m_logItRemoteInstance( NULL ),
 		m_portStatus( 0 ),
 		m_canPortStateChanged_nbSlots_current( 0 ),
-		m_canPortStateChanged_nbSlots_previous( 0 )
+		m_canPortStateChanged_nbSlots_previous( 0 ),
+		m_lossless( false ),
+		m_sendThrottleDelay( 0 )
 {
 		resetTimeoutOnReception();
 		resetTimeNow();
@@ -509,6 +511,7 @@ protected: // not public, but inherited
 	std::string m_sBusName;
 	CanParameters m_CanParameters;
 	bool m_lossless;  // if true, throttle the message sending so that the hw-bitrate <1 for sustained sending
+	int m_sendThrottleDelay; // in us
 
 	// reconnection, reconnection thread triggering
     CanModule::ReconnectAutoCondition m_reconnectCondition;

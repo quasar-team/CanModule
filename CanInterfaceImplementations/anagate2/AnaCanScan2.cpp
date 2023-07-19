@@ -438,7 +438,7 @@ int AnaCanScan2::m_configureCanBoard(const std::string name,const std::string pa
 	} else	{
 		// Unspecified: we use defaults "125000 0 1 0 0 0 6000"
 		MLOGANA2(INF, this) << "Unspecified parameters, default values (termination=1) will be used.";
-		m_CanParameters.m_lBaudRate = 125000;
+		m_CanParameters.m_lBaudRate = 125000; // its a f***ing bit rate !
 		m_CanParameters.m_iOperationMode = 0;
 		m_CanParameters.m_iTermination = 1 ;// ENS-26903: default is terminated
 		m_CanParameters.m_iHighSpeed = 0;
@@ -453,6 +453,38 @@ int AnaCanScan2::m_configureCanBoard(const std::string name,const std::string pa
 	MLOGANA2(TRC, this) << __FUNCTION__ << " m_iTimeStamp= " << m_CanParameters.m_iTimeStamp;
 	MLOGANA2(TRC, this) << __FUNCTION__ << " m_iSyncMode= " << m_CanParameters.m_iSyncMode;
 	MLOGANA2(TRC, this) << __FUNCTION__ << " m_iTimeout= " << m_CanParameters.m_iTimeout;
+
+	/**
+	 * we check the lossles flag. If it is set, we throttle the sending frame rate so that it is about 0.9 * below
+	 * half of the theoretical maximum (bitrate / 111). We need a hw_bitrate of <1 (<100%) .
+	 * Here we assume the worst case, that sending
+	 * and receiving is done on the same port fully interleaved at 50/50 rate.
+	 * We do this with a simple delay which we set here for once, and the calculation is a bit of
+	 * black magic based on measurements in the lab, staying on the safe side of things. Nevertheless this is a bit
+	 * vendor specific, so don't expect the same delays for everyone.
+	 *
+	 * Of course the max frame rate depends on the cabling and the installation as well: we could further fine-tune that.
+	 * But I think it is not a good idea to bother the users with this, since a wrong setting is not great here and it needs
+	 * a bit of detailed understanding. So I opt for a static solution where you just say "yes or no to lossless".
+	 */
+	m_sendThrottleDelay = 0;
+	if ( m_lossless ){
+		m_sendThrottleDelay = 4000; // <250Hz super slow for stone-age devices.
+		// e.g. we need delay=800us for 125000 etc. see lab measurement. These delays are definitely on the safe side. We could
+		// try to calculate them as well but the formula would be quite non-linear due to sw delays. Keep
+		// it simple and stupid, this will do nicely. And this protects also against super-fast CPUs and networking ;-)
+		if ( m_CanParameters.m_lBaudRate > 50000 && m_CanParameters.m_lBaudRate <= 1250000 ){
+			m_sendThrottleDelay = 800; // 1kHz
+		} else if ( m_CanParameters.m_lBaudRate > 125000 && m_CanParameters.m_lBaudRate <= 250000 ){
+			m_sendThrottleDelay = 300; // 2kHz
+		} else if ( m_CanParameters.m_lBaudRate > 250000 && m_CanParameters.m_lBaudRate <= 750000 ){
+			m_sendThrottleDelay = 90;  // more..
+		} else if ( m_CanParameters.m_lBaudRate >= 750000 ){
+			m_sendThrottleDelay = 0; // 6kHz and that's it. 0.7MHz
+		}
+		MLOGANA2(TRC, this) << "the flag for lossless frame rate was selected, the frame sending delay is " << m_sendThrottleDelay << " us";
+	}
+
 	// no hw interaction up to this point
 
 	return m_openCanPort(); // hw interaction
