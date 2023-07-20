@@ -219,6 +219,9 @@ class CCanAccess
 
 public: // accessible API
 	CCanAccess():
+		m_sBusName(""),
+		m_lossless( false ),
+		m_sendThrottleDelay( 0 ),
 		m_reconnectCondition( CanModule::ReconnectAutoCondition::sendFail ),
 		m_reconnectAction( CanModule::ReconnectAction::singleBus ),
 		m_timeoutOnReception( 120 ),
@@ -228,9 +231,8 @@ public: // accessible API
 		m_logItRemoteInstance( NULL ),
 		m_portStatus( 0 ),
 		m_canPortStateChanged_nbSlots_current( 0 ),
-		m_canPortStateChanged_nbSlots_previous( 0 ),
-		m_lossless( false ),
-		m_sendThrottleDelay( 0 )
+		m_canPortStateChanged_nbSlots_previous( 0 )
+
 {
 		resetTimeoutOnReception();
 		resetTimeNow();
