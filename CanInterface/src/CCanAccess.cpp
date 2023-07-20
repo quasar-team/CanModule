@@ -316,4 +316,10 @@ std::vector<std::string> CCanAccess::parseNameAndParameters(std::string name, st
 	return stringVector;
 }
 
+void CCanAccess::us_sleep( int us ){ // microseconds
+	std::chrono::microseconds delay( us );
+	std::this_thread::sleep_for( delay );
+}
+
+
 }

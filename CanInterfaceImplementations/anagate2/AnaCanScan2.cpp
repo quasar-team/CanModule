@@ -718,6 +718,10 @@ bool AnaCanScan2::sendMessage(short cobID, unsigned char len, unsigned char *mes
 		triggerReconnectionThread();
 
 	} else {
+		// throttle the speed to avoid frame losses
+		if ( m_lossless && m_sendThrottleDelay > 0 ) {
+			us_sleep( m_sendThrottleDelay );
+		}
 
 		/**
 		 *  we can send now

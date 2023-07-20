@@ -528,7 +528,7 @@ protected: // not public, but inherited
 	void resetTimeoutOnReception() { m_dreceived = std::chrono::high_resolution_clock::now(); } // reset the internal reconnection timeout counter
 	void resetTimeNow() { m_dnow = std::chrono::high_resolution_clock::now(); }
 	void publishPortStatusChanged ( unsigned int status );
-
+	void us_sleep( int us );
 
 private: // object scope
 	static LogItInstance* st_logItRemoteInstance;
