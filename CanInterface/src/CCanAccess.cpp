@@ -116,7 +116,7 @@ void CanParameters::scanParameters(std::string parameters)
     } else {
         m_dontReconfigure = true;
     }
-	std::cout << " detected " << m_iNumberOfDetectedParameters << " parameters from " << parameters << std::endl;
+	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " detected " << m_iNumberOfDetectedParameters << " parameters from " << parameters << std::endl;
 
 }
 
