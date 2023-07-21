@@ -26,7 +26,6 @@
 
 #include <iomanip>
 
-
 #include "AnaCanScan2.h"
 #include <Diag.h>
 #include <CanModuleUtils.h>
@@ -1247,7 +1246,8 @@ std::vector<CanModule::PORT_LOG_ITEM_t> AnaCanScan2::getHwLogMessages ( unsigned
 
 			std::tm tm = *std::localtime( &pnLogDate );
 			std::stringstream out;
-			out << std::put_time( &tm, "%c %Z" );
+			// out << std::put_time( &tm, "%c %Z" ); // for CC7 this is not in std::
+			out << put_time( &tm, "%c %Z" );
 			item.timestamp = out.str();
 
 			MLOGANA2(TRC,this) << "found log item i= " << i << " nLogID= " << nLogID << " " << item.timestamp << " " << item.message << ret;
