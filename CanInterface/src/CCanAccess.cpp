@@ -116,7 +116,7 @@ void CanParameters::scanParameters(std::string parameters)
     } else {
         m_dontReconfigure = true;
     }
-	LOG( Log::TRC, GlobalErrorSignaler::m_st_lh ) << " detected " << m_iNumberOfDetectedParameters << " parameters from " << parameters;
+	std::cout << " detected " << m_iNumberOfDetectedParameters << " parameters from " << parameters << std::endl;
 
 }
 
