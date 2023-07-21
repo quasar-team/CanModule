@@ -116,8 +116,7 @@ void CanParameters::scanParameters(std::string parameters)
     } else {
         m_dontReconfigure = true;
     }
-	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " detected " << m_iNumberOfDetectedParameters << " parameters from " << parameters << std::endl;
-
+	//std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " detected " << m_iNumberOfDetectedParameters << " parameters from " << parameters << std::endl;
 }
 
 /**
@@ -309,9 +308,8 @@ std::vector<std::string> CCanAccess::parseNameAndParameters(std::string name, st
 	while (getline(nameSS, temporalString, ':'))
 	{
 		stringVector.push_back(temporalString);
-		//LOG(Log::TRC, m_lh) << __FUNCTION__ << " stringVector new element= " << temporalString;
 	}
-	m_CanParameters.scanParameters(parameters);
+	m_CanParameters.scanParameters( parameters );
 
 	/**
 	LOG(Log::DBG) << __FUNCTION__ << " stringVector size= " << stringVector.size();

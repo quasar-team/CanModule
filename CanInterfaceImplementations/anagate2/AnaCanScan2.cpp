@@ -455,7 +455,10 @@ int AnaCanScan2::m_configureCanBoard(const std::string name,const std::string pa
 	MLOGANA2(TRC, this) << __FUNCTION__ << " m_iTimeout= " << m_CanParameters.m_iTimeout;
 
 	/**
-	 * we check the lossles flag. If it is set, we throttle the sending frame rate so that it is about 0.9 * below
+	 * we check the lossles flag, which is passed as an overload argument to int AnaCanScan2::createBus(const std::string name, const std::string parameters, bool lossless )
+	 * and is dependent on the vendor-implementation.
+	 *
+	 * If it is set, we throttle the sending frame rate so that it is about 0.9 * below
 	 * half of the theoretical maximum (bitrate / 111). We need a hw_bitrate of <1 (<100%) .
 	 * Here we assume the worst case, that sending
 	 * and receiving is done on the same port fully interleaved at 50/50 rate.
