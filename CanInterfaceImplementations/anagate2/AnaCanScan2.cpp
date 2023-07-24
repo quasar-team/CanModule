@@ -1305,7 +1305,14 @@ CanModule::HARDWARE_DIAG_t AnaCanScan2::getHwDiagnostics (){
 
 		std::tm tm = *std::localtime( &dates[ i ] );
 		std::stringstream out;
-		out << std::put_time( &tm, "%c %Z" );
+#if 0
+		// not for cc7: put_time not available
+		out << std::put_time( &tm, "%c %Z" ); // for CC7 this is not in std::
+#endif
+		char mbstr[100];
+		if (std::strftime(mbstr, sizeof(mbstr), "%A %c", &tm )) {
+			out << mbstr;
+		}
 		d.clientConnectionTimestamps.push_back( out.str() );
 	}
 	return d;
