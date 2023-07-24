@@ -1251,7 +1251,7 @@ std::vector<CanModule::PORT_LOG_ITEM_t> AnaCanScan2::getHwLogMessages ( unsigned
 			item.timestamp = out.str();
 #endif
 			char mbstr[100];
-			if (std::strftime(mbstr, sizeof(mbstr), "%A %c", tm )) {
+			if (std::strftime(mbstr, sizeof(mbstr), "%A %c", &tm )) {
 				out << mbstr;
 			}
 			MLOGANA2(TRC,this) << "found log item i= " << i << " nLogID= " << nLogID << " " << item.timestamp << " " << item.message << ret;
