@@ -59,6 +59,7 @@ public:
 	virtual bool sendRemoteRequest(short cobID);
 	virtual int createBus(const std::string name, std::string parameters );
 	virtual int createBus(const std::string name, const std::string parameters, bool lossless );
+	virtual int createBus(const std::string name, const std::string parameters, float factor );
 	virtual bool sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr = false);
 	virtual void getStatistics( CanStatistics & result );
 	virtual uint32_t getPortStatus();

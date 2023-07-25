@@ -68,6 +68,13 @@ int MockCanAccess::createBus(const std::string name, const std::string parameter
 int MockCanAccess::createBus(const std::string name, const std::string parameters, bool lossless )
 {
 	m_lossless = lossless;
+	m_losslessFactor = 1.0;
+	return( createBus( name, parameters) );
+}
+int MockCanAccess::createBus(const std::string name, const std::string parameters, float factor )
+{
+	m_lossless = true;
+	m_losslessFactor = factor;
 	return( createBus( name, parameters) );
 }
 

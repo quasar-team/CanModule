@@ -46,6 +46,7 @@ public:
 
 	virtual int createBus(const std::string name,const std::string parameters);
 	virtual int createBus(const std::string name, const std::string parameters, bool lossless );
+	virtual int createBus(const std::string name, const std::string parameters, float factor );
 
 	/*
 	 * Method that sends a message trough the can bus channel. If the method createBus was not called before this, sendMessage will fail, as there is no
