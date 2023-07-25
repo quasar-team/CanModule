@@ -303,6 +303,13 @@ void AnaCanScan2::callbackOnRecieve( CanMessage& msg )
 int AnaCanScan2::createBus(const std::string name, const std::string parameters, bool lossless )
 {
 	m_lossless = lossless;
+	m_losslessFactor = 1.0;
+	return( createBus( name, parameters) );
+}
+int AnaCanScan2::createBus(const std::string name, const std::string parameters, float fact )
+{
+	m_lossless = true;
+	m_losslessFactor = fact;
 	return( createBus( name, parameters) );
 }
 int AnaCanScan2::createBus(const std::string name, const std::string parameters)
@@ -454,7 +461,8 @@ int AnaCanScan2::m_configureCanBoard(const std::string name,const std::string pa
 	MLOGANA2(TRC, this) << __FUNCTION__ << " m_iTimeout= " << m_CanParameters.m_iTimeout;
 
 	/**
-	 * we check the lossles flag, which is passed as an overload argument to int AnaCanScan2::createBus(const std::string name, const std::string parameters, bool lossless )
+	 * we check the lossless flag, which is passed as an overload argument to int
+	 * AnaCanScan2::createBus(const std::string name, const std::string parameters, bool lossless )
 	 * and is dependent on the vendor-implementation.
 	 *
 	 * If it is set, we throttle the sending frame rate so that it is about 0.9 * below
@@ -484,7 +492,9 @@ int AnaCanScan2::m_configureCanBoard(const std::string name,const std::string pa
 		} else if ( m_CanParameters.m_lBaudRate >= 750000 ){
 			m_sendThrottleDelay = 0; // 6kHz and that's it. 0.7MHz
 		}
-		MLOGANA2(TRC, this) << "the flag for lossless frame rate was selected, the frame sending delay is " << m_sendThrottleDelay << " us";
+		m_sendThrottleDelay = m_sendThrottleDelay * m_losslessFactor;
+		MLOGANA2(TRC, this) << "the flag for lossless frame rate was selected, the frame sending delay is "
+				<< m_sendThrottleDelay << " us, factor= " << m_losslessFactor;
 	}
 
 	// no hw interaction up to this point

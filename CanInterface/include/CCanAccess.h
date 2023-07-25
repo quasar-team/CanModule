@@ -265,6 +265,7 @@ public: // accessible API
 	 */
 	virtual int createBus(const std::string name, const std::string parameters) = 0;
 	virtual int createBus(const std::string name, const std::string parameters, bool lossless ) = 0;
+	virtual int createBus(const std::string name, const std::string parameters, float factor ) = 0; // lossless == true in this case
 
 	/**
 	 * Method that sends a message through the can bus channel. If the method createBUS was not called before this, sendMessage will fail, as there is no
@@ -513,6 +514,7 @@ protected: // not public, but inherited
 	std::string m_sBusName;
 	CanParameters m_CanParameters;
 	bool m_lossless;  // if true, throttle the message sending so that the hw-bitrate <1 for sustained sending
+	float m_losslessFactor;  // multiply the delays with this if you like
 	int m_sendThrottleDelay; // in us
 
 	// reconnection, reconnection thread triggering
