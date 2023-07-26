@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 ### 2.2.1
 - add hardwareBusLoad to statistics: calculate bits/sec bus load on the transmitted CAN frames, in percent of max. bitrate, per port
 - the existing "busLoad" calculation is wrong because it calculated based on bytes and the stat run time window is not taken into account. It is not a "bus load" therefore but rather a "bus usage". leave it in for the moment, but this should be suppressed.
+- lossless with factor
+- showStatistics improved, hwBitRate
+
+todo
+----
+- need to adjust lossless factor during runtime
+- CAN frame and CAN message cleanup: specifying frames in xml, generating random and fixed frames
+
 
 ### 2.2
 - add new diagnostic functionality based on 3 structs which acquire from hardware when invoked:

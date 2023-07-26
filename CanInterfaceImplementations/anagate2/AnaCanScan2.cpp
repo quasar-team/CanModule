@@ -483,14 +483,14 @@ int AnaCanScan2::m_configureCanBoard(const std::string name,const std::string pa
 		// e.g. we need delay=800us for 125000 etc. see lab measurement. These delays are definitely on the safe side. We could
 		// try to calculate them as well but the formula would be quite non-linear due to sw delays. Keep
 		// it simple and stupid, this will do nicely. And this protects also against super-fast CPUs and networking ;-)
-		if ( m_CanParameters.m_lBaudRate > 50000 && m_CanParameters.m_lBaudRate <= 1250000 ){
-			m_sendThrottleDelay = 800; // 1kHz
+		if ( m_CanParameters.m_lBaudRate > 50000 && m_CanParameters.m_lBaudRate <= 125000 ){
+			m_sendThrottleDelay = 1600;
 		} else if ( m_CanParameters.m_lBaudRate > 125000 && m_CanParameters.m_lBaudRate <= 250000 ){
-			m_sendThrottleDelay = 300; // 2kHz
+			m_sendThrottleDelay = 700;
 		} else if ( m_CanParameters.m_lBaudRate > 250000 && m_CanParameters.m_lBaudRate <= 750000 ){
-			m_sendThrottleDelay = 90;  // more..
+			m_sendThrottleDelay = 200;
 		} else if ( m_CanParameters.m_lBaudRate >= 750000 ){
-			m_sendThrottleDelay = 0; // 6kHz and that's it. 0.7MHz
+			m_sendThrottleDelay = 10;
 		}
 		m_sendThrottleDelay = m_sendThrottleDelay * m_losslessFactor;
 		MLOGANA2(TRC, this) << "the flag for lossless frame rate was selected, the frame sending delay is "
@@ -730,9 +730,17 @@ bool AnaCanScan2::sendMessage(short cobID, unsigned char len, unsigned char *mes
 		triggerReconnectionThread();
 
 	} else {
-		// throttle the speed to avoid frame losses
+		// throttle the speed to avoid frame losses. we just wait the minimum time needed
 		if ( m_lossless && m_sendThrottleDelay > 0 ) {
-			us_sleep( m_sendThrottleDelay );
+			m_now = boost::posix_time::microsec_clock::local_time();
+			int remaining_sleep_us = m_sendThrottleDelay - (m_now - m_previous).total_microseconds();
+			if ( remaining_sleep_us > m_sendThrottleDelay ){
+				remaining_sleep_us = m_sendThrottleDelay
+			}
+			if ( remaining_sleep_us > 0 ){
+				us_sleep( remaining_sleep_us );
+			}
+			m_previous = boost::posix_time::microsec_clock::local_time();
 		}
 
 		/**
