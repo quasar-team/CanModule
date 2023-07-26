@@ -83,7 +83,7 @@ int MockCanAccess::createBus(const std::string name, const std::string parameter
 		if ( m_losslessFactor >= 0.0 ){
 			m_sendThrottleDelay = m_sendThrottleDelay * m_losslessFactor;
 		}
-		LOG(Log::TRC, this) << "the flag for lossless frame rate was selected, the frame sending delay is "
+		LOG(Log::TRC) << __FUNCTION__  << " the flag for lossless frame rate was selected, the frame sending delay is "
 				<< m_sendThrottleDelay << " us, factor= " << m_losslessFactor;
 	}
 
