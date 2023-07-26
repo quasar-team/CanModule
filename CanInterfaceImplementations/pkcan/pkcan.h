@@ -31,6 +31,9 @@
 #include "CanStatistics.h"
 #include <Diag.h>
 
+#include <boost/date_time/posix_time/posix_time.hpp>
+using namespace boost::posix_time;
+
 using namespace CanModule;
 
 /*
@@ -120,6 +123,7 @@ private:
     DWORD           m_idCanScanThread;
     DWORD           m_idPeakReconnectionThread;
 	GlobalErrorSignaler *m_gsig;
+	boost::posix_time::ptime m_now, m_previous;
 
 	TPCANHandle m_getHandle(const char *name);
 	bool m_sendErrorCode(long);

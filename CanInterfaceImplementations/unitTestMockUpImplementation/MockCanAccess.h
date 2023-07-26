@@ -24,6 +24,9 @@ typedef unsigned long DWORD;
 
 #endif
 
+#include <boost/date_time/posix_time/posix_time.hpp>
+using namespace boost::posix_time;
+
 #define CAN_ECHO_MSG (unsigned char*)("0000EC40")
 
 /*
@@ -74,6 +77,7 @@ private:
 
 	//Current baud rate
 	unsigned int m_baudRate;
+	boost::posix_time::ptime m_now, m_previous;
 
 	static int st_CCanAccess_icount;
 };

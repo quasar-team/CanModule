@@ -39,6 +39,8 @@
 #include "libsocketcan.h"
 #include <Diag.h>
 
+#include <boost/date_time/posix_time/posix_time.hpp>
+using namespace boost::posix_time;
 
 /*
  * This is an implementation of the abstract class CCanAccess. It serves as a can bus access layer that will communicate with socket can (Linux only)
@@ -92,6 +94,7 @@ private:
 	std::string m_busName;
 	Log::LogComponentHandle m_logItHandleSock;
 	GlobalErrorSignaler *m_gsig;
+	boost::posix_time::ptime m_now, m_previous;
 
 	static std::string m_canMessageErrorFrameToString (const struct can_frame &f);
 

@@ -72,6 +72,7 @@ typedef unsigned long DWORD;
 
 #include <boost/date_time/posix_time/posix_time.hpp>
 using namespace boost::posix_time;
+
 /**
  * This is an implementation of the abstract class CCanAccess. It serves as a can bus
  * access layer that will communicate with AnaGate bridges over TCP/IP, Linux and Windows.

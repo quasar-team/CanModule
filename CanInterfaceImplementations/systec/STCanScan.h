@@ -32,6 +32,9 @@
 #include "CCanAccess.h"
 #include <Diag.h>
 
+#include <boost/date_time/posix_time/posix_time.hpp>
+using namespace boost::posix_time;
+
 using namespace CanModule;
 
 /*
@@ -98,6 +101,7 @@ private:
     DWORD   m_idCanScanThread;
 
     GlobalErrorSignaler *m_gsig;
+	boost::posix_time::ptime m_now, m_previous;
 
     // The main control thread function for the CAN update scan manager.
 	static DWORD WINAPI CanScanControlThread(LPVOID pCanScan);

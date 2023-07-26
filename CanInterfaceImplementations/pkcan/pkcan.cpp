@@ -470,6 +470,30 @@ bool PKCanScan::m_configureCanboard(const std::string name,const std::string par
 	 */
 	// TPCANStatus tpcanStatus = CAN_Initialize(m_canObjHandler, m_baudRate,256,3); // one param missing ? 
 	// return tpcanStatus;
+
+	// find a lossless delay for frame rate
+	m_sendThrottleDelay = 0;
+	if ( m_lossless ){
+		m_sendThrottleDelay = 4000; // <250Hz super slow for stone-age devices.
+		// e.g. we need delay=800us for 125000 etc. see lab measurement. These delays are definitely on the safe side. We could
+		// try to calculate them as well but the formula would be quite non-linear due to sw delays. Keep
+		// it simple and stupid, this will do nicely. And this protects also against super-fast CPUs and networking ;-)
+		if ( m_CanParameters.m_lBaudRate > 50000 && m_CanParameters.m_lBaudRate <= 125000 ){
+			m_sendThrottleDelay = 1600;
+		} else if ( m_CanParameters.m_lBaudRate > 125000 && m_CanParameters.m_lBaudRate <= 250000 ){
+			m_sendThrottleDelay = 700;
+		} else if ( m_CanParameters.m_lBaudRate > 250000 && m_CanParameters.m_lBaudRate <= 750000 ){
+			m_sendThrottleDelay = 200;
+		} else if ( m_CanParameters.m_lBaudRate >= 750000 ){
+			m_sendThrottleDelay = 10;
+		}
+		if ( m_losslessFactor >= 0.0 ){
+			m_sendThrottleDelay = m_sendThrottleDelay * m_losslessFactor;
+		}
+		MLOGPK(TRC, this) << "the flag for lossless frame rate was selected, the frame sending delay is "
+				<< m_sendThrottleDelay << " us, factor= " << m_losslessFactor;
+	}
+
 	return ret;
 }
 
@@ -499,6 +523,21 @@ bool PKCanScan::m_sendErrorCode(long status)
  */
 bool PKCanScan::sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr)
 {
+
+
+	// throttle the speed to avoid frame losses. we just wait the minimum time needed
+	if ( m_lossless && m_sendThrottleDelay > 0 ) {
+		m_now = boost::posix_time::microsec_clock::local_time();
+		int remaining_sleep_us = m_sendThrottleDelay - (m_now - m_previous).total_microseconds();
+		if ( remaining_sleep_us > m_sendThrottleDelay ){
+			remaining_sleep_us = m_sendThrottleDelay;
+		}
+		if ( remaining_sleep_us > 0 ){
+			us_sleep( remaining_sleep_us );
+		}
+		m_previous = boost::posix_time::microsec_clock::local_time();
+	}
+
 	MLOGPK(DBG,this) << "Sending message: [" << CanModule::canMessage2ToString(cobID, len, message, rtr) << "]";
 
 	TPCANStatus tpcanStatus;
@@ -511,7 +550,7 @@ bool PKCanScan::sendMessage(short cobID, unsigned char len, unsigned char *messa
 	int lengthOfUnsentData, lengthToBeSent;
 	lengthOfUnsentData = len;
 	do {
-		//In every iteration of this loop a piece of message is sent of maximun 8 chars
+		//In every iteration of this loop a piece of message is sent of maximum 8 chars
 		//To keep track of how much message is left we use vars lengthOfUnsentData and lengthToBeSent
 		if (lengthOfUnsentData > 8) {
 			lengthToBeSent = 8;

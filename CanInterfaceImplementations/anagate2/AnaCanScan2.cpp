@@ -492,7 +492,9 @@ int AnaCanScan2::m_configureCanBoard(const std::string name,const std::string pa
 		} else if ( m_CanParameters.m_lBaudRate >= 750000 ){
 			m_sendThrottleDelay = 10;
 		}
-		m_sendThrottleDelay = m_sendThrottleDelay * m_losslessFactor;
+		if ( m_losslessFactor >= 0.0 ){
+			m_sendThrottleDelay = m_sendThrottleDelay * m_losslessFactor;
+		}
 		MLOGANA2(TRC, this) << "the flag for lossless frame rate was selected, the frame sending delay is "
 				<< m_sendThrottleDelay << " us, factor= " << m_losslessFactor;
 	}
