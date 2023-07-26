@@ -735,7 +735,7 @@ bool AnaCanScan2::sendMessage(short cobID, unsigned char len, unsigned char *mes
 			m_now = boost::posix_time::microsec_clock::local_time();
 			int remaining_sleep_us = m_sendThrottleDelay - (m_now - m_previous).total_microseconds();
 			if ( remaining_sleep_us > m_sendThrottleDelay ){
-				remaining_sleep_us = m_sendThrottleDelay
+				remaining_sleep_us = m_sendThrottleDelay;
 			}
 			if ( remaining_sleep_us > 0 ){
 				us_sleep( remaining_sleep_us );
