@@ -1274,7 +1274,8 @@ std::vector<CanModule::PORT_LOG_ITEM_t> AnaCanScan2::getHwLogMessages ( unsigned
 			if (std::strftime(mbstr, sizeof(mbstr), "%A %c", &tm )) {
 				out << mbstr;
 			}
-			MLOGANA2(TRC,this) << "found log item i= " << i << " nLogID= " << nLogID << " " << item.timestamp << " " << item.message << ret;
+			item.timestamp = out.str();
+#			MLOGANA2(TRC,this) << "found log item i= " << i << " nLogID= " << nLogID << " " << item.timestamp << " " << item.message << ret;
 			log.push_back( item );
 		}
 		nLogID--;
