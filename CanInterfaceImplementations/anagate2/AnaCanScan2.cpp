@@ -1249,11 +1249,9 @@ std::vector<CanModule::PORT_LOG_ITEM_t> AnaCanScan2::getHwLogMessages ( unsigned
 	for ( unsigned int i = 0; i < nLogs; i++ ){
 		// MLOGANA2(TRC,this) << "retrieving nLogID= " << nLogID << " from the hw";
 
-		for ( unsigned int k = 0; k < sz - 1; k++ ){
+		for ( unsigned int k = 0; k < sz; k++ ){
 			pcBuffer[ k ] = ' ';
 		}
-		pcBuffer[ sz -1  ] = '\0';
-
 		AnaInt32 ret0 = CANGetLog( m_UcanHandle, nLogID, &pnCurrentID, &pnLogCount, &pnLogDate, pcBuffer );
 		if ( ret0 != ANA_ERR_NONE ){
 			MLOGANA2(ERR,this) << "There was a problem getting HW log nLogID= " << nLogID << " ..skipping this entry" <<  ret ;
@@ -1261,7 +1259,7 @@ std::vector<CanModule::PORT_LOG_ITEM_t> AnaCanScan2::getHwLogMessages ( unsigned
 			os << __FUNCTION__ 	<< "There was a problem getting the HW logs " << ret;
 			m_signalErrorMessage( ret, os.str().c_str() );
 		} else {
-			item.message = std::string ( pcBuffer );
+			item.message = std::string ( pcBuffer ).pop_back();
 			std::tm tm = *std::localtime( &pnLogDate ); // adjusted for timezone +2h
 			std::stringstream out;
 			char mbstr[100];
