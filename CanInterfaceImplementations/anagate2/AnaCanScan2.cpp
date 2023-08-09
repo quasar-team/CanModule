@@ -1263,13 +1263,8 @@ std::vector<CanModule::PORT_LOG_ITEM_t> AnaCanScan2::getHwLogMessages ( unsigned
 			m_signalErrorMessage( ret, os.str().c_str() );
 		} else {
 			item.message = std::string ( pcBuffer );
-			std::tm tm = *std::localtime( &pnLogDate );
+			std::tm tm = *std::localtime( &pnLogDate ); // adjusted for timezone +2h
 			std::stringstream out;
-#if 0
-			// not for cc7: put_time not available
-			out << std::put_time( &tm, "%c %Z" ); // for CC7 this is not in std::
-			item.timestamp = out.str();
-#endif
 			char mbstr[100];
 			if (std::strftime(mbstr, sizeof(mbstr), "%A %c", &tm )) {
 				out << mbstr;
