@@ -1286,7 +1286,6 @@ std::vector<CanModule::PORT_LOG_ITEM_t> AnaCanScan2::getHwLogMessages ( unsigned
  * - the count of connected clients, max. 6 per port
  */
 CanModule::HARDWARE_DIAG_t AnaCanScan2::getHwDiagnostics (){
-	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << std::endl;
 	HARDWARE_DIAG_t d = CanModule::Diag::createEmptyDiag();
 	const unsigned int sz = 6;
 	unsigned int ips[ sz ];
@@ -1296,15 +1295,11 @@ CanModule::HARDWARE_DIAG_t AnaCanScan2::getHwDiagnostics (){
 	for ( unsigned int i = 0; i < sz; i++ ){
 		ips[ i ] = 0;
 		ports[ i ] = 0;
-		dates[ i  ] = 0;
+		dates[ i ] = 0;
 	}
 
 	AnaInt32 p0, p1;
 	AnaInt32 ret = CANGetDiagData( m_UcanHandle, &p0, &p1 );
-	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " ret= 0x" << std::hex << ret << std::dec << std::endl;
-	d.temperature = (float) p0/10;
-	d.uptime = p1;
-
 	AnaInt32 ret1 = CANGetClientList( m_UcanHandle, &d.clientCount, ips, ports, dates );
 	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " ret1= 0x" << std::hex << ret1 << std::dec << std::endl;
 	if ( ret != ANA_ERR_NONE || ret1 != ANA_ERR_NONE ){
@@ -1314,16 +1309,14 @@ CanModule::HARDWARE_DIAG_t AnaCanScan2::getHwDiagnostics (){
 		m_signalErrorMessage( ret, os.str().c_str() );
 		return Diag::createEmptyDiag();
 	}
+	d.temperature = (float) p0/10;
+	d.uptime = p1;
 	for ( unsigned int i = 0; i < sz; i++ ){
 		d.clientIps.push_back( m_decodeNetworkByteOrder_ip_toString( ips[ i ] ) );
 		d.clientPorts.push_back( ports[ i ] );
 
 		std::tm tm = *std::localtime( &dates[ i ] );
 		std::stringstream out;
-#if 0
-		// not for cc7: put_time not available
-		out << std::put_time( &tm, "%c %Z" ); // for CC7 this is not in std::
-#endif
 		char mbstr[100];
 		if (std::strftime(mbstr, sizeof(mbstr), "%A %c", &tm )) {
 			out << mbstr;
@@ -1341,7 +1334,6 @@ std::string AnaCanScan2::m_decodeNetworkByteOrder_ip_toString( unsigned int nip 
 	std::stringstream os;
 	os << std::dec << (nip & 0xff) << "." << ((nip & 0xff00)>>8) << "." << ((nip & 0xff0000)>>16) << "." << ((nip & 0xff000000)>>24);
 	std::string sip = os.str();
-	// MLOGANA2(TRC,this) << __FUNCTION__ << " nip= " << nip << " sip= " << sip;
 	return sip;
 }
 
