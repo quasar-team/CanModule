@@ -1301,7 +1301,6 @@ CanModule::HARDWARE_DIAG_t AnaCanScan2::getHwDiagnostics (){
 	AnaInt32 p0, p1;
 	AnaInt32 ret = CANGetDiagData( m_UcanHandle, &p0, &p1 );
 	AnaInt32 ret1 = CANGetClientList( m_UcanHandle, &d.clientCount, ips, ports, dates );
-	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " ret1= 0x" << std::hex << ret1 << std::dec << std::endl;
 	if ( ret != ANA_ERR_NONE || ret1 != ANA_ERR_NONE ){
 		MLOGANA2(ERR,this) << "There was a problem getting the HW DiagData and/or client list " << ret << " . Abandoning HW DiagData and client list retrieval ";
 		std::stringstream os;
