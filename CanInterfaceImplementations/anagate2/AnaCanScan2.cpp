@@ -1259,7 +1259,9 @@ std::vector<CanModule::PORT_LOG_ITEM_t> AnaCanScan2::getHwLogMessages ( unsigned
 			os << __FUNCTION__ 	<< "There was a problem getting the HW logs " << ret;
 			m_signalErrorMessage( ret, os.str().c_str() );
 		} else {
-			item.message = std::string ( pcBuffer ).pop_back();
+			std::string ss = std::string ( pcBuffer );
+			ss.erase (ss.end()-1, ss.end());
+			item.message = ss;
 			std::tm tm = *std::localtime( &pnLogDate ); // adjusted for timezone +2h
 			std::stringstream out;
 			char mbstr[100];
