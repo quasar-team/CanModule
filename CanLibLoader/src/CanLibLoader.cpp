@@ -111,7 +111,7 @@ void CanLibLoader::closeCanBus(CCanAccess *cInter) {
 }
 
 /**
- * opens a can bus
+ * opens a can bus: creates lib access,
  */
 CCanAccess* CanLibLoader::openCanBus(std::string name, std::string parameters) {
 	LOG(Log::DBG, lh ) << __FUNCTION__ << " Creating CCanAccess: name= " << name << " parameters= " << parameters;
