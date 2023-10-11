@@ -11,6 +11,7 @@ CanModule reference documentation
    standardApi
    standardApiList
    canports
+   frameratelimitation
    classesdetails
    vendors/systec
    vendors/anagate
