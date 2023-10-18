@@ -490,6 +490,11 @@ bool PKCanScan::m_configureCanboard(const std::string name,const std::string par
 		if ( m_losslessFactor >= 0.0 ){
 			m_sendThrottleDelay = m_sendThrottleDelay * m_losslessFactor;
 		}
+
+		// --- hack, until the delays are established
+		m_sendThrottleDelay = (int) m_losslessFactor;
+		// ---
+
 		MLOGPK(TRC, this) << "the flag for lossless frame rate was selected, the frame sending delay is "
 				<< m_sendThrottleDelay << " us, factor= " << m_losslessFactor;
 	}

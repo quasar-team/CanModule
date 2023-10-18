@@ -374,6 +374,10 @@ int STCanScan::configureCanBoard(const std::string name,const std::string parame
 		if ( m_losslessFactor >= 0.0 ){
 			m_sendThrottleDelay = m_sendThrottleDelay * m_losslessFactor;
 		}
+		// --- hack, until the delays are established
+		m_sendThrottleDelay = (int) m_losslessFactor;
+		// ---
+
 		MLOGST(TRC, this) << "the flag for lossless frame rate was selected, the frame sending delay is "
 				<< m_sendThrottleDelay << " us, factor= " << m_losslessFactor;
 	}
