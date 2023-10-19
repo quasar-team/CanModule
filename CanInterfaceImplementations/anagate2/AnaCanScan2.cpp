@@ -465,48 +465,27 @@ int AnaCanScan2::m_configureCanBoard(const std::string name,const std::string pa
 	 * AnaCanScan2::createBus(const std::string name, const std::string parameters, bool lossless )
 	 * and is dependent on the vendor-implementation.
 	 *
-	 * If it is set, we throttle the sending frame rate so that it is about 0.9 * below
-	 * half of the theoretical maximum (bitrate / 111). We need a hw_bitrate of <1 (<100%) .
-	 * Here we assume the worst case, that sending
-	 * and receiving is done on the same port fully interleaved at 50/50 rate.
-	 * We do this with a simple delay which we set here for once, and the calculation is a bit of
-	 * black magic based on measurements in the lab, staying on the safe side of things. Nevertheless this is a bit
-	 * vendor specific, so don't expect the same delays for everyone.
-	 *
-	 * Of course the max frame rate depends on the cabling and the installation as well: we could further fine-tune that.
-	 * But I think it is not a good idea to bother the users with this, since a wrong setting is not great here and it needs
-	 * a bit of detailed understanding. So I opt for a static solution where you just say "yes or no to lossless".
+	 * Of course the max frame rate depends on the cabling and the installation as well: this is why there is a factor.
+	 * Once set, this protects also against super fast CPUs or networking renovation.
 	 */
 	m_sendThrottleDelay = 0;
 	if ( m_lossless ){
-		m_sendThrottleDelay = 4000; // <250Hz super slow for stone-age devices.
-		// e.g. we need delay=800us for 125000 etc. see lab measurement. These delays are definitely on the safe side. We could
-		// try to calculate them as well but the formula would be quite non-linear due to sw delays. Keep
-		// it simple and stupid, this will do nicely. And this protects also against super-fast CPUs and networking ;-)
+		m_sendThrottleDelay = 15000; // <250Hz super slow for stone-age devices.
 		if ( m_CanParameters.m_lBaudRate > 50000 && m_CanParameters.m_lBaudRate <= 125000 ){
-			m_sendThrottleDelay = 1600;
+			m_sendThrottleDelay = 2133;
 		} else if ( m_CanParameters.m_lBaudRate > 125000 && m_CanParameters.m_lBaudRate <= 250000 ){
-			m_sendThrottleDelay = 700;
-		} else if ( m_CanParameters.m_lBaudRate > 250000 && m_CanParameters.m_lBaudRate <= 750000 ){
-			m_sendThrottleDelay = 200;
-		} else if ( m_CanParameters.m_lBaudRate >= 750000 ){
-			m_sendThrottleDelay = 10;
+			m_sendThrottleDelay = 933;
+		} else if ( m_CanParameters.m_lBaudRate > 250000 && m_CanParameters.m_lBaudRate <= 500000 ){
+			m_sendThrottleDelay = 1333;
+		} else if ( m_CanParameters.m_lBaudRate >= 500000 ){
+			m_sendThrottleDelay = 2000;
 		}
 		if ( m_losslessFactor >= 0.0 ){
 			m_sendThrottleDelay = m_sendThrottleDelay * m_losslessFactor;
 		}
-
-
-		// --- hack, until the delays are established
-		m_sendThrottleDelay = (int) m_losslessFactor;
-		// ---
-
 		MLOGANA2(TRC, this) << "the flag for lossless frame rate was selected, the frame sending delay is "
 				<< m_sendThrottleDelay << " us, factor= " << m_losslessFactor;
 	}
-
-	// no hw interaction up to this point
-
 	return m_openCanPort(); // hw interaction
 }
 
