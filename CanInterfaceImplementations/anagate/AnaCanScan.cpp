@@ -483,6 +483,7 @@ int AnaCanScan::m_configureCanBoard(const std::string name,const std::string par
 	 * Of course the max frame rate depends on the cabling and the installation as well: this is why there is a factor.
 	 * Once set, this protects also against super fast CPUs or networking renovation.
 	 */
+	xxx
 	m_sendThrottleDelay = 0;
 	if ( m_lossless ){
 		m_sendThrottleDelay = 8000;
