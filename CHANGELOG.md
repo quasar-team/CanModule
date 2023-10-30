@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 - add hardwareBusLoad to statistics: calculate bits/sec bus load on the transmitted CAN frames, in percent of max. bitrate, per port
 - the existing "busLoad" calculation is wrong because it calculated based on bytes and the stat run time window is not taken into account. It is not a "bus load" therefore but rather a "bus usage". leave it in for the moment, but this should be suppressed.
 - lossless with factor
+- add framerate lossless limit delays to all imple,entations. Hardcode also the correct delays for all bitrates for a
+  dual port reference scenario.
   
 
 todo
