@@ -140,6 +140,7 @@ private:
     AnaInt32 m_timeout; 		// connect_wait time
     bool m_busStopped;
 	GlobalErrorSignaler *m_gsig;
+	boost::posix_time::ptime m_now, m_previous;
 
 
     /**
