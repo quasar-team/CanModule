@@ -470,7 +470,7 @@ int AnaCanScan2::m_configureCanBoard(const std::string name,const std::string pa
 	 */
 	m_sendThrottleDelay = 0;
 	if ( m_lossless ){
-		m_sendThrottleDelay = 15000; // <250Hz super slow for stone-age devices.
+		m_sendThrottleDelay = 8000; 
 		if ( m_CanParameters.m_lBaudRate > 50000 && m_CanParameters.m_lBaudRate <= 125000 ){
 			m_sendThrottleDelay = 2133;
 		} else if ( m_CanParameters.m_lBaudRate > 125000 && m_CanParameters.m_lBaudRate <= 250000 ){
