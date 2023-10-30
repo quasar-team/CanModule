@@ -483,7 +483,6 @@ int AnaCanScan::m_configureCanBoard(const std::string name,const std::string par
 	 * Of course the max frame rate depends on the cabling and the installation as well: this is why there is a factor.
 	 * Once set, this protects also against super fast CPUs or networking renovation.
 	 */
-	xxx
 	m_sendThrottleDelay = 0;
 	if ( m_lossless ){
 		m_sendThrottleDelay = 8000;
@@ -734,6 +733,18 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 		triggerReconnectionThread();
 
 	} else {
+		// throttle the speed to avoid frame losses. we just wait the minimum time needed
+		if ( m_lossless && m_sendThrottleDelay > 0 ) {
+			m_now = boost::posix_time::microsec_clock::local_time();
+			int remaining_sleep_us = m_sendThrottleDelay - (m_now - m_previous).total_microseconds();
+			if ( remaining_sleep_us > m_sendThrottleDelay ){
+				remaining_sleep_us = m_sendThrottleDelay;
+			}
+			if ( remaining_sleep_us > 0 ){
+				us_sleep( remaining_sleep_us );
+			}
+			m_previous = boost::posix_time::microsec_clock::local_time();
+		}
 
 		/**
 		 *  we can send now
