@@ -513,8 +513,6 @@ public: // accessible API
 protected: // not public, but inherited
 	std::string m_sBusName;
 	CanParameters m_CanParameters;
-	bool m_lossless;  // if true, throttle the message sending so that the hw-bitrate <1 for sustained sending
-	float m_losslessFactor;  // multiply the delays with this if you like. less nodes means got faster means factor < 1.0. depends on specific bus cabling layout
 	int m_sendThrottleDelay; // in us. With this delay we loose no frames with all ports (2..16) of the module connected to one bus at the given bitrate
 
 	// reconnection, reconnection thread triggering
