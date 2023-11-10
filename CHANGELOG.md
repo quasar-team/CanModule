@@ -8,13 +8,6 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 - lossless with factor
 - add framerate lossless limit delays to all implementations.
   
-
-todo
-----
-- need to adjust lossless factor during runtime
-- CAN frame and CAN message cleanup: specifying frames in xml, generating random and fixed frames
-
-
 ### 2.2
 - add new diagnostic functionality based on 3 structs which acquire from hardware when invoked:
    PORT_COUNTERS_t
