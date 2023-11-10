@@ -314,16 +314,10 @@ void AnaCanScan::callbackOnRecieve( CanMessage& msg )
  * 1: existing bus, OK, do not add
  * -1: error
  */
-int AnaCanScan::createBus(const std::string name, const std::string parameters, bool lossless )
-{
-	m_lossless = lossless;
-	m_losslessFactor = 1.0;
-	return( createBus( name, parameters) );
-}
 int AnaCanScan::createBus(const std::string name, const std::string parameters, float factor )
 {
-	m_lossless = true;
-	m_losslessFactor = factor;
+	m_sendThrottleDelay = (int) factor;
+	MLOGANA(TRC, this) << "the frame sending delay is "	<< m_sendThrottleDelay << " us";
 	return( createBus( name, parameters) );
 }
 
@@ -475,8 +469,6 @@ int AnaCanScan::m_configureCanBoard(const std::string name,const std::string par
 	MLOGANA(TRC, this) << __FUNCTION__ << " m_iSyncMode= " << m_CanParameters.m_iSyncMode;
 	MLOGANA(TRC, this) << __FUNCTION__ << " m_iTimeout= " << m_CanParameters.m_iTimeout;
 
-	m_sendThrottleDelay = (int) m_losslessFactor;
-	MLOGANA(TRC, this) << "the frame sending delay is "	<< m_sendThrottleDelay << " us";
 
 	return m_openCanPort(); // hw interaction
 }
