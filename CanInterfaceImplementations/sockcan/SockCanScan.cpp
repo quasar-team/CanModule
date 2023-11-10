@@ -537,10 +537,6 @@ int CSockCanScan::m_configureCanBoard(const std::string name,const std::string p
 	parset = parseNameAndParameters( lname, parameters );
 	m_channelName = parset[1];
 	MLOGSOCK(TRC, this) << "m_channelName= " << m_channelName ;
-
-	m_sendThrottleDelay = (int) m_losslessFactor;
-	MLOGSOCK(TRC, this) << "the frame sending delay is " << m_sendThrottleDelay << " us";
-
 	return m_openCanPort();
 }
 
@@ -819,16 +815,10 @@ bool CSockCanScan::m_writeWrapper (const can_frame* frame)
  * the port is erased from the connection map. when the same port is opened again later on, a (new)
  * main thread is created, and the connection is again added to the map.
  */
-int CSockCanScan::createBus(const std::string name, const std::string parameters, bool lossless )
-{
-	m_lossless = lossless;
-	m_losslessFactor =  1.0;
-	return( createBus( name, parameters) );
-}
 int CSockCanScan::createBus(const std::string name, const std::string parameters, float factor )
 {
-	m_lossless = true;
-	m_losslessFactor =  factor;
+	m_sendThrottleDelay = (int) factor;
+	MLOGSOCK(TRC, this) << "the frame sending delay is " << m_sendThrottleDelay << " us";
 	return( createBus( name, parameters) );
 }
 /* virtual */ int CSockCanScan::createBus(const std::string name, const std::string parameters)
