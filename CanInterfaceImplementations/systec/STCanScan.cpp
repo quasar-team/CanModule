@@ -238,15 +238,8 @@ STCanScan::~STCanScan()
  * no implemented: 1=OK, bus creation skipped since it exists already
  *
  */
-int STCanScan::createBus(const std::string name, const std::string parameters, bool lossless )
-{
-	m_lossless = lossless;
-	m_losslessFactor = 1.0;
-	return( createBus( name, parameters) );
-}
 int STCanScan::createBus(const std::string name, const std::string parameters, float factor )
 {
-	m_lossless = true;
 	m_losslessFactor = factor;
 	return( createBus( name, parameters) );
 }
@@ -354,33 +347,8 @@ int STCanScan::configureCanBoard(const std::string name,const std::string parame
 	m_baudRate = baudRate;
 	m_CanParameters.m_lBaudRate = vendorBaudRate2UserBaudRate( baudRate );
 
-
-	// find a lossless delay for frame rate
-	m_sendThrottleDelay = 0;
-	if ( m_lossless ){
-		m_sendThrottleDelay = 4000; // <250Hz super slow for stone-age devices.
-		// e.g. we need delay=800us for 125000 etc. see lab measurement. These delays are definitely on the safe side. We could
-		// try to calculate them as well but the formula would be quite non-linear due to sw delays. Keep
-		// it simple and stupid, this will do nicely. And this protects also against super-fast CPUs and networking ;-)
-		if ( m_CanParameters.m_lBaudRate > 50000 && m_CanParameters.m_lBaudRate <= 125000 ){
-			m_sendThrottleDelay = 1600;
-		} else if ( m_CanParameters.m_lBaudRate > 125000 && m_CanParameters.m_lBaudRate <= 250000 ){
-			m_sendThrottleDelay = 700;
-		} else if ( m_CanParameters.m_lBaudRate > 250000 && m_CanParameters.m_lBaudRate <= 750000 ){
-			m_sendThrottleDelay = 200;
-		} else if ( m_CanParameters.m_lBaudRate >= 750000 ){
-			m_sendThrottleDelay = 10;
-		}
-		if ( m_losslessFactor >= 0.0 ){
-			m_sendThrottleDelay = m_sendThrottleDelay * m_losslessFactor;
-		}
-		// --- hack, until the delays are established
-		m_sendThrottleDelay = (int) m_losslessFactor;
-		// ---
-
-		MLOGST(TRC, this) << "the flag for lossless frame rate was selected, the frame sending delay is "
-				<< m_sendThrottleDelay << " us, factor= " << m_losslessFactor;
-	}
+	m_sendThrottleDelay = (int) m_losslessFactor;
+	MLOGST(TRC, this) << "the frame sending delay is " << m_sendThrottleDelay << " us";
 
 	return openCanPort( createInitializationParameters( m_baudRate ) );
 }
@@ -534,7 +502,7 @@ bool STCanScan::sendErrorCode(long status)
 bool STCanScan::sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr)
 {
 	// throttle the speed to avoid frame losses. we just wait the minimum time needed
-	if ( m_lossless && m_sendThrottleDelay > 0 ) {
+	if ( m_sendThrottleDelay > 0 ) {
 		m_now = boost::posix_time::microsec_clock::local_time();
 		int remaining_sleep_us = m_sendThrottleDelay - (m_now - m_previous).total_microseconds();
 		if ( remaining_sleep_us > m_sendThrottleDelay ){

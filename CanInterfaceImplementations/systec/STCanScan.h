@@ -49,7 +49,6 @@ public:
 	virtual ~STCanScan();
 
 	virtual int createBus(const std::string name ,const std::string parameters);
-	virtual int createBus(const std::string name, const std::string parameters, bool lossless );
 	virtual int createBus(const std::string name, const std::string parameters, float factor );
     virtual bool sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr = false);
 

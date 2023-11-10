@@ -475,32 +475,8 @@ int AnaCanScan::m_configureCanBoard(const std::string name,const std::string par
 	MLOGANA(TRC, this) << __FUNCTION__ << " m_iSyncMode= " << m_CanParameters.m_iSyncMode;
 	MLOGANA(TRC, this) << __FUNCTION__ << " m_iTimeout= " << m_CanParameters.m_iTimeout;
 
-	/**
-	 * we check the lossless flag, which is passed as an overload argument to int
-	 * AnaCanScan::createBus(const std::string name, const std::string parameters, bool lossless )
-	 * and is dependent on the vendor-implementation.
-	 *
-	 * Of course the max frame rate depends on the cabling and the installation as well: this is why there is a factor.
-	 * Once set, this protects also against super fast CPUs or networking renovation.
-	 */
-	m_sendThrottleDelay = 0;
-	if ( m_lossless ){
-		m_sendThrottleDelay = 8000;
-		if ( m_CanParameters.m_lBaudRate > 50000 && m_CanParameters.m_lBaudRate <= 125000 ){
-			m_sendThrottleDelay = 2133;
-		} else if ( m_CanParameters.m_lBaudRate > 125000 && m_CanParameters.m_lBaudRate <= 250000 ){
-			m_sendThrottleDelay = 933;
-		} else if ( m_CanParameters.m_lBaudRate > 250000 && m_CanParameters.m_lBaudRate <= 500000 ){
-			m_sendThrottleDelay = 1333;
-		} else if ( m_CanParameters.m_lBaudRate >= 500000 ){
-			m_sendThrottleDelay = 2000;
-		}
-		if ( m_losslessFactor >= 0.0 ){
-			m_sendThrottleDelay = m_sendThrottleDelay * m_losslessFactor;
-		}
-		MLOGANA(TRC, this) << "the flag for lossless frame rate was selected, the frame sending delay is "
-				<< m_sendThrottleDelay << " us, factor= " << m_losslessFactor;
-	}
+	m_sendThrottleDelay = (int) m_losslessFactor;
+	MLOGANA(TRC, this) << "the frame sending delay is "	<< m_sendThrottleDelay << " us";
 
 	return m_openCanPort(); // hw interaction
 }
@@ -734,7 +710,7 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 
 	} else {
 		// throttle the speed to avoid frame losses. we just wait the minimum time needed
-		if ( m_lossless && m_sendThrottleDelay > 0 ) {
+		if ( m_sendThrottleDelay > 0 ) {
 			m_now = boost::posix_time::microsec_clock::local_time();
 			int remaining_sleep_us = m_sendThrottleDelay - (m_now - m_previous).total_microseconds();
 			if ( remaining_sleep_us > m_sendThrottleDelay ){

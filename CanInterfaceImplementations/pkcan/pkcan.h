@@ -48,7 +48,6 @@ public:
 	virtual ~PKCanScan();
 
 	virtual int createBus(const std::string name,const std::string parameters);
-	virtual int createBus(const std::string name, const std::string parameters, bool lossless );
 	virtual int createBus(const std::string name, const std::string parameters, float factor );
 
 	/*
