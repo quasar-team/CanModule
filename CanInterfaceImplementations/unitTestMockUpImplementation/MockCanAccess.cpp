@@ -63,7 +63,16 @@ int MockCanAccess::createBus(const std::string name, const std::string parameter
 {	
 	LOG(Log::INF) << __FUNCTION__ << " name [" << name << "] parameters [" << parameters << "]";
 	m_sBusName = name;
+
+	// find a lossless delay for frame rate
+	m_sendThrottleDelay = 0;
+
 	return 0;
+}
+int MockCanAccess::createBus(const std::string name, const std::string parameters, float factor )
+{
+	m_sendThrottleDelay = factor;
+	return( createBus( name, parameters) );
 }
 
 
@@ -76,6 +85,19 @@ bool MockCanAccess::sendRemoteRequest(short cobID)
 
 bool MockCanAccess::sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr)
 {
+	// throttle the speed to avoid frame losses. we just wait the minimum time needed
+	if ( m_sendThrottleDelay > 0 ) {
+		m_now = boost::posix_time::microsec_clock::local_time();
+		int remaining_sleep_us = m_sendThrottleDelay - (m_now - m_previous).total_microseconds();
+		if ( remaining_sleep_us > m_sendThrottleDelay ){
+			remaining_sleep_us = m_sendThrottleDelay;
+		}
+		if ( remaining_sleep_us > 0 ){
+			us_sleep( remaining_sleep_us );
+		}
+		m_previous = boost::posix_time::microsec_clock::local_time();
+	}
+
 	LOG(Log::DBG) << __FUNCTION__ << " Sending message: [" << ( message == 0  ? "" : (const char *) message) << "], cobID: [" << cobID << "], Message Length: [" << static_cast<int>(len) << "]";
 	m_statistics.onTransmit(len);
 

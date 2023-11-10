@@ -683,6 +683,19 @@ int CSockCanScan::m_openCanPort()
 		canFrame.can_id |= CAN_RTR_FLAG;
 	}
 
+	// throttle the speed to avoid frame losses. we just wait the minimum time needed
+	if ( m_sendThrottleDelay > 0 ) {
+		m_now = boost::posix_time::microsec_clock::local_time();
+		int remaining_sleep_us = m_sendThrottleDelay - (m_now - m_previous).total_microseconds();
+		if ( remaining_sleep_us > m_sendThrottleDelay ){
+			remaining_sleep_us = m_sendThrottleDelay;
+		}
+		if ( remaining_sleep_us > 0 ){
+			us_sleep( remaining_sleep_us );
+		}
+		m_previous = boost::posix_time::microsec_clock::local_time();
+	}
+
 	bool success = m_writeWrapper(&canFrame);
 	if ( success ) {
 		// m_statistics.onTransmit( canFrame.can_dlc );
@@ -802,6 +815,12 @@ bool CSockCanScan::m_writeWrapper (const can_frame* frame)
  * the port is erased from the connection map. when the same port is opened again later on, a (new)
  * main thread is created, and the connection is again added to the map.
  */
+int CSockCanScan::createBus(const std::string name, const std::string parameters, float factor )
+{
+	m_sendThrottleDelay = (int) factor;
+	MLOGSOCK(TRC, this) << "the frame sending delay is " << m_sendThrottleDelay << " us";
+	return( createBus( name, parameters) );
+}
 /* virtual */ int CSockCanScan::createBus(const std::string name, const std::string parameters)
 {
 	m_gsig = GlobalErrorSignaler::getInstance();

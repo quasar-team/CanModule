@@ -219,6 +219,8 @@ class CCanAccess
 
 public: // accessible API
 	CCanAccess():
+		m_sBusName(""),
+		m_sendThrottleDelay( 0 ),
 		m_reconnectCondition( CanModule::ReconnectAutoCondition::sendFail ),
 		m_reconnectAction( CanModule::ReconnectAction::singleBus ),
 		m_timeoutOnReception( 120 ),
@@ -229,6 +231,7 @@ public: // accessible API
 		m_portStatus( 0 ),
 		m_canPortStateChanged_nbSlots_current( 0 ),
 		m_canPortStateChanged_nbSlots_previous( 0 )
+
 {
 		resetTimeoutOnReception();
 		resetTimeNow();
@@ -260,7 +263,7 @@ public: // accessible API
 	 * -1 = init failed
 	 */
 	virtual int createBus(const std::string name, const std::string parameters) = 0;
-
+	virtual int createBus(const std::string name, const std::string parameters, float factor ) = 0;
 
 	/**
 	 * Method that sends a message through the can bus channel. If the method createBUS was not called before this, sendMessage will fail, as there is no
@@ -508,6 +511,7 @@ public: // accessible API
 protected: // not public, but inherited
 	std::string m_sBusName;
 	CanParameters m_CanParameters;
+	int m_sendThrottleDelay; // in us.
 
 	// reconnection, reconnection thread triggering
     CanModule::ReconnectAutoCondition m_reconnectCondition;
@@ -524,7 +528,7 @@ protected: // not public, but inherited
 	void resetTimeoutOnReception() { m_dreceived = std::chrono::high_resolution_clock::now(); } // reset the internal reconnection timeout counter
 	void resetTimeNow() { m_dnow = std::chrono::high_resolution_clock::now(); }
 	void publishPortStatusChanged ( unsigned int status );
-
+	void us_sleep( int us );
 
 private: // object scope
 	static LogItInstance* st_logItRemoteInstance;

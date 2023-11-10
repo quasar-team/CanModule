@@ -24,6 +24,9 @@ typedef unsigned long DWORD;
 
 #endif
 
+#include <boost/date_time/posix_time/posix_time.hpp>
+using namespace boost::posix_time;
+
 #define CAN_ECHO_MSG (unsigned char*)("0000EC40")
 
 /*
@@ -43,6 +46,7 @@ public:
 	 * Required overrides of abstract base class CCanAccess
 	 */
 	virtual int createBus(const std::string name, const std::string parameters);
+	virtual int createBus(const std::string name, const std::string parameters, float factor );
 	virtual bool sendRemoteRequest(short cobID);
     virtual bool sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr = false);
 	virtual void getStatistics( CanModule::CanStatistics & result );
@@ -72,6 +76,7 @@ private:
 
 	//Current baud rate
 	unsigned int m_baudRate;
+	boost::posix_time::ptime m_now, m_previous;
 
 	static int st_CCanAccess_icount;
 };

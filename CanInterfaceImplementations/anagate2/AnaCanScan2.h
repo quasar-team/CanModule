@@ -70,6 +70,9 @@
 typedef unsigned long DWORD;
 #endif
 
+#include <boost/date_time/posix_time/posix_time.hpp>
+using namespace boost::posix_time;
+
 /**
  * This is an implementation of the abstract class CCanAccess. It serves as a can bus
  * access layer that will communicate with AnaGate bridges over TCP/IP, Linux and Windows.
@@ -99,6 +102,7 @@ public:
 	virtual ~AnaCanScan2();
 
 	virtual int createBus(const std::string name, const std::string parameters);
+	virtual int createBus(const std::string name, const std::string parameters, float factor );
     virtual bool sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr = false);
 	virtual bool sendMessage(CanMessage *);
 	virtual bool sendRemoteRequest(short cobID);
@@ -139,7 +143,7 @@ private:
     AnaInt32 m_timeout; 		// connect_wait time
     bool m_busStopped;
 	GlobalErrorSignaler *m_gsig;
-
+	boost::posix_time::ptime m_now, m_previous;
 
     /**
      * we would like to keep logging from a few static methods as well, since one IP

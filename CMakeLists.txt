@@ -18,7 +18,7 @@
 #  
 #
 cmake_minimum_required( VERSION 3.0 )
-project( CanModuleProject LANGUAGES C CXX  VERSION 2.1.2  )  
+project( CanModuleProject LANGUAGES C CXX  VERSION 2.2.1  )  
 message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CanModule version= ${PROJECT_VERSION}" )
 
 cmake_policy(SET CMP0054 NEW)
@@ -68,7 +68,9 @@ endfunction()
 function ( clone_LogIt ) 
   SET (LOGIT_VERSION "master")
   message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: cloning LogIt from github. *NOTE* cloning version [${LOGIT_VERSION}]")
-  if ( NOT EXISTS ${PROJECT_BINARY_DIR}/LogIt )
+
+  if ( NOT EXISTS ${PROJECT_SOURCE_DIR}/build/build/CanModule/LogIt )
+  #if ( NOT EXISTS ${PROJECT_BINARY_DIR}/LogIt )
   	  execute_process(COMMAND mkdir -p ${PROJECT_BINARY_DIR} ) 
  	  execute_process(COMMAND git clone -b ${LOGIT_VERSION} https://github.com/quasar-team/LogIt.git ${PROJECT_BINARY_DIR}/LogIt WORKING_DIRECTORY ${PROJECT_BINARY_DIR}  )
 	  include_directories( ${PROJECT_BINARY_DIR}/LogIt/include build )
@@ -226,7 +228,7 @@ ENDIF()
 
 # versioning burnt into the bins, but don't overwrite in the build if exists
 if (NOT EXISTS ${PROJECT_SOURCE_DIR}/CanInterface/include/VERSION.h )
-	file(WRITE ${PROJECT_SOURCE_DIR}/CanInterface/include/VERSION.h "// VERSION.h - do not edit\n#define CanModule_VERSION \"${PROJECT_VERSION}\"" )
+	file(WRITE ${PROJECT_SOURCE_DIR}/CanInterface/include/VERSION.h "// VERSION.h - do not edit\n#define CanModule_VERSION \"${PROJECT_VERSION}\"\n" )
 	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: generated VERSION.h into ${PROJECT_SOURCE_DIR}/CanInterface/include/")
 ELSE()
 	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CanModule VERSION.h exists already in ${PROJECT_SOURCE_DIR}/CanInterface/include/, don't touch it")

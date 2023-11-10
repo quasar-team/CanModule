@@ -220,6 +220,18 @@ DWORD WINAPI PKCanScan::CanScanControlThread(LPVOID pCanScan)
  * -2: could not create the thread
  * -3: sth else went wrong
  */
+int PKCanScan::createBus(const std::string name, const std::string parameters, bool lossless )
+{
+	m_lossless = lossless;
+	m_losslessFactor = 1.0;
+	return( createBus( name, parameters) );
+}
+int PKCanScan::createBus(const std::string name, const std::string parameters, float factor )
+{
+	m_lossless = true;
+	m_losslessFactor = factor;
+	return( createBus( name, parameters) );
+}
 int PKCanScan::createBus(const std::string name, const std::string parameters )
 {
 	m_busName = name;
@@ -458,6 +470,11 @@ bool PKCanScan::m_configureCanboard(const std::string name,const std::string par
 	 */
 	// TPCANStatus tpcanStatus = CAN_Initialize(m_canObjHandler, m_baudRate,256,3); // one param missing ? 
 	// return tpcanStatus;
+
+	m_sendThrottleDelay = (int) m_losslessFactor;
+	MLOGPK(TRC, this) << "the frame sending delay is " << m_sendThrottleDelay << " us";
+
+
 	return ret;
 }
 
@@ -487,6 +504,21 @@ bool PKCanScan::m_sendErrorCode(long status)
  */
 bool PKCanScan::sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr)
 {
+
+
+	// throttle the speed to avoid frame losses. we just wait the minimum time needed
+	if ( m_sendThrottleDelay > 0 ) {
+		m_now = boost::posix_time::microsec_clock::local_time();
+		int remaining_sleep_us = m_sendThrottleDelay - (m_now - m_previous).total_microseconds();
+		if ( remaining_sleep_us > m_sendThrottleDelay ){
+			remaining_sleep_us = m_sendThrottleDelay;
+		}
+		if ( remaining_sleep_us > 0 ){
+			us_sleep( remaining_sleep_us );
+		}
+		m_previous = boost::posix_time::microsec_clock::local_time();
+	}
+
 	MLOGPK(DBG,this) << "Sending message: [" << CanModule::canMessage2ToString(cobID, len, message, rtr) << "]";
 
 	TPCANStatus tpcanStatus;
@@ -499,7 +531,7 @@ bool PKCanScan::sendMessage(short cobID, unsigned char len, unsigned char *messa
 	int lengthOfUnsentData, lengthToBeSent;
 	lengthOfUnsentData = len;
 	do {
-		//In every iteration of this loop a piece of message is sent of maximun 8 chars
+		//In every iteration of this loop a piece of message is sent of maximum 8 chars
 		//To keep track of how much message is left we use vars lengthOfUnsentData and lengthToBeSent
 		if (lengthOfUnsentData > 8) {
 			lengthToBeSent = 8;

@@ -238,6 +238,11 @@ STCanScan::~STCanScan()
  * no implemented: 1=OK, bus creation skipped since it exists already
  *
  */
+int STCanScan::createBus(const std::string name, const std::string parameters, float factor )
+{
+	m_losslessFactor = factor;
+	return( createBus( name, parameters) );
+}
 int STCanScan::createBus(const std::string name,const std::string parameters)
 {	
 	m_gsig = GlobalErrorSignaler::getInstance();
@@ -341,6 +346,10 @@ int STCanScan::configureCanBoard(const std::string name,const std::string parame
 	}
 	m_baudRate = baudRate;
 	m_CanParameters.m_lBaudRate = vendorBaudRate2UserBaudRate( baudRate );
+
+	m_sendThrottleDelay = (int) m_losslessFactor;
+	MLOGST(TRC, this) << "the frame sending delay is " << m_sendThrottleDelay << " us";
+
 	return openCanPort( createInitializationParameters( m_baudRate ) );
 }
 
@@ -492,6 +501,19 @@ bool STCanScan::sendErrorCode(long status)
  */
 bool STCanScan::sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr)
 {
+	// throttle the speed to avoid frame losses. we just wait the minimum time needed
+	if ( m_sendThrottleDelay > 0 ) {
+		m_now = boost::posix_time::microsec_clock::local_time();
+		int remaining_sleep_us = m_sendThrottleDelay - (m_now - m_previous).total_microseconds();
+		if ( remaining_sleep_us > m_sendThrottleDelay ){
+			remaining_sleep_us = m_sendThrottleDelay;
+		}
+		if ( remaining_sleep_us > 0 ){
+			us_sleep( remaining_sleep_us );
+		}
+		m_previous = boost::posix_time::microsec_clock::local_time();
+	}
+
 	MLOGST(DBG,this) << "Sending message: [" << CanModule::canMessage2ToString(cobID, len, message, rtr) << "]";
 
 	tCanMsgStruct canMsgToBeSent;

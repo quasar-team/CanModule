@@ -314,6 +314,13 @@ void AnaCanScan::callbackOnRecieve( CanMessage& msg )
  * 1: existing bus, OK, do not add
  * -1: error
  */
+int AnaCanScan::createBus(const std::string name, const std::string parameters, float factor )
+{
+	m_sendThrottleDelay = (int) factor;
+	MLOGANA(TRC, this) << "the frame sending delay is "	<< m_sendThrottleDelay << " us";
+	return( createBus( name, parameters) );
+}
+
 int AnaCanScan::createBus(const std::string name, const std::string parameters)
 {	
 	m_busName = name;
@@ -461,7 +468,7 @@ int AnaCanScan::m_configureCanBoard(const std::string name,const std::string par
 	MLOGANA(TRC, this) << __FUNCTION__ << " m_iTimeStamp= " << m_CanParameters.m_iTimeStamp;
 	MLOGANA(TRC, this) << __FUNCTION__ << " m_iSyncMode= " << m_CanParameters.m_iSyncMode;
 	MLOGANA(TRC, this) << __FUNCTION__ << " m_iTimeout= " << m_CanParameters.m_iTimeout;
-	// no hw interaction up to this point
+
 
 	return m_openCanPort(); // hw interaction
 }
@@ -694,6 +701,18 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 		triggerReconnectionThread();
 
 	} else {
+		// throttle the speed to avoid frame losses. we just wait the minimum time needed
+		if ( m_sendThrottleDelay > 0 ) {
+			m_now = boost::posix_time::microsec_clock::local_time();
+			int remaining_sleep_us = m_sendThrottleDelay - (m_now - m_previous).total_microseconds();
+			if ( remaining_sleep_us > m_sendThrottleDelay ){
+				remaining_sleep_us = m_sendThrottleDelay;
+			}
+			if ( remaining_sleep_us > 0 ){
+				us_sleep( remaining_sleep_us );
+			}
+			m_previous = boost::posix_time::microsec_clock::local_time();
+		}
 
 		/**
 		 *  we can send now

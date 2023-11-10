@@ -32,6 +32,9 @@
 #include "CCanAccess.h"
 #include <Diag.h>
 
+#include <boost/date_time/posix_time/posix_time.hpp>
+using namespace boost::posix_time;
+
 using namespace CanModule;
 
 /*
@@ -46,6 +49,7 @@ public:
 	virtual ~STCanScan();
 
 	virtual int createBus(const std::string name ,const std::string parameters);
+	virtual int createBus(const std::string name, const std::string parameters, float factor );
     virtual bool sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr = false);
 
     /*
@@ -96,6 +100,7 @@ private:
     DWORD   m_idCanScanThread;
 
     GlobalErrorSignaler *m_gsig;
+	boost::posix_time::ptime m_now, m_previous;
 
     // The main control thread function for the CAN update scan manager.
 	static DWORD WINAPI CanScanControlThread(LPVOID pCanScan);

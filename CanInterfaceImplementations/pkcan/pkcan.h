@@ -31,6 +31,9 @@
 #include "CanStatistics.h"
 #include <Diag.h>
 
+#include <boost/date_time/posix_time/posix_time.hpp>
+using namespace boost::posix_time;
+
 using namespace CanModule;
 
 /*
@@ -45,6 +48,7 @@ public:
 	virtual ~PKCanScan();
 
 	virtual int createBus(const std::string name,const std::string parameters);
+	virtual int createBus(const std::string name, const std::string parameters, float factor );
 
 	/*
 	 * Method that sends a message trough the can bus channel. If the method createBus was not called before this, sendMessage will fail, as there is no
@@ -118,6 +122,7 @@ private:
     DWORD           m_idCanScanThread;
     DWORD           m_idPeakReconnectionThread;
 	GlobalErrorSignaler *m_gsig;
+	boost::posix_time::ptime m_now, m_previous;
 
 	TPCANHandle m_getHandle(const char *name);
 	bool m_sendErrorCode(long);

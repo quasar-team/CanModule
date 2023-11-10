@@ -26,7 +26,6 @@
 
 #include <iomanip>
 
-
 #include "AnaCanScan2.h"
 #include <Diag.h>
 #include <CanModuleUtils.h>
@@ -301,6 +300,12 @@ void AnaCanScan2::callbackOnRecieve( CanMessage& msg )
  * 1: existing bus, OK, do not add
  * -1: error
  */
+int AnaCanScan2::createBus(const std::string name, const std::string parameters, float factor )
+{
+	m_sendThrottleDelay = (int) factor;
+	MLOGANA2(TRC, this) << "the frame sending delay is " << m_sendThrottleDelay << " us";
+	return( createBus( name, parameters) );
+}
 int AnaCanScan2::createBus(const std::string name, const std::string parameters)
 {	
 	m_busName = name;
@@ -337,7 +342,7 @@ int AnaCanScan2::createBus(const std::string name, const std::string parameters)
 	 */
 	std::map<Log::LogComponentHandle, std::string> log_comp_map = Log::getComponentLogsList();
 	std::map<Log::LogComponentHandle, std::string>::iterator it;
-	LOG(Log::TRC, myHandle ) << " *** Lnb of LogIt components= " << log_comp_map.size() << std::endl;
+	LOG(Log::TRC, myHandle ) << " *** nb of LogIt components= " << log_comp_map.size() << std::endl;
 	for ( it = log_comp_map.begin(); it != log_comp_map.end(); it++ )
 	{
 		Log::LOG_LEVEL level;
@@ -433,7 +438,7 @@ int AnaCanScan2::m_configureCanBoard(const std::string name,const std::string pa
 	} else	{
 		// Unspecified: we use defaults "125000 0 1 0 0 0 6000"
 		MLOGANA2(INF, this) << "Unspecified parameters, default values (termination=1) will be used.";
-		m_CanParameters.m_lBaudRate = 125000;
+		m_CanParameters.m_lBaudRate = 125000; // its a f***ing bit rate !
 		m_CanParameters.m_iOperationMode = 0;
 		m_CanParameters.m_iTermination = 1 ;// ENS-26903: default is terminated
 		m_CanParameters.m_iHighSpeed = 0;
@@ -448,7 +453,6 @@ int AnaCanScan2::m_configureCanBoard(const std::string name,const std::string pa
 	MLOGANA2(TRC, this) << __FUNCTION__ << " m_iTimeStamp= " << m_CanParameters.m_iTimeStamp;
 	MLOGANA2(TRC, this) << __FUNCTION__ << " m_iSyncMode= " << m_CanParameters.m_iSyncMode;
 	MLOGANA2(TRC, this) << __FUNCTION__ << " m_iTimeout= " << m_CanParameters.m_iTimeout;
-	// no hw interaction up to this point
 
 	return m_openCanPort(); // hw interaction
 }
@@ -681,6 +685,18 @@ bool AnaCanScan2::sendMessage(short cobID, unsigned char len, unsigned char *mes
 		triggerReconnectionThread();
 
 	} else {
+		// throttle the speed to avoid frame losses. we just wait the minimum time needed
+		if ( m_sendThrottleDelay > 0 ) {
+			m_now = boost::posix_time::microsec_clock::local_time();
+			int remaining_sleep_us = m_sendThrottleDelay - (m_now - m_previous).total_microseconds();
+			if ( remaining_sleep_us > m_sendThrottleDelay ){
+				remaining_sleep_us = m_sendThrottleDelay;
+			}
+			if ( remaining_sleep_us > 0 ){
+				us_sleep( remaining_sleep_us );
+			}
+			m_previous = boost::posix_time::microsec_clock::local_time();
+		}
 
 		/**
 		 *  we can send now
@@ -1168,7 +1184,6 @@ std::vector<CanModule::PORT_LOG_ITEM_t> AnaCanScan2::getHwLogMessages ( unsigned
 		m_signalErrorMessage( ret, os.str().c_str() );
 		return log;
 	}
-	MLOGANA2(TRC,this) << "found " << pnLogCount << " HW log messages.";
 
 	// how many can we return?
 	unsigned int nLogs = 0;
@@ -1185,13 +1200,11 @@ std::vector<CanModule::PORT_LOG_ITEM_t> AnaCanScan2::getHwLogMessages ( unsigned
 	MLOGANA2(TRC,this) << "we can retrieve " << nLogs << " logs from the hw, with pnLogCount= " << pnLogCount << " and pnCurrentID= " << pnCurrentID;
 	nLogID = pnCurrentID;
 	for ( unsigned int i = 0; i < nLogs; i++ ){
-		MLOGANA2(TRC,this) << "retrieving nLogID= " << nLogID << " from the hw";
+		// MLOGANA2(TRC,this) << "retrieving nLogID= " << nLogID << " from the hw";
 
 		for ( unsigned int k = 0; k < sz; k++ ){
-			pcBuffer[ k ] = ' ';
+			pcBuffer[ k ] = (char) 0;
 		}
-		// pcBuffer[ sz -1  ] = '\0';
-
 		AnaInt32 ret0 = CANGetLog( m_UcanHandle, nLogID, &pnCurrentID, &pnLogCount, &pnLogDate, pcBuffer );
 		if ( ret0 != ANA_ERR_NONE ){
 			MLOGANA2(ERR,this) << "There was a problem getting HW log nLogID= " << nLogID << " ..skipping this entry" <<  ret ;
@@ -1199,13 +1212,16 @@ std::vector<CanModule::PORT_LOG_ITEM_t> AnaCanScan2::getHwLogMessages ( unsigned
 			os << __FUNCTION__ 	<< "There was a problem getting the HW logs " << ret;
 			m_signalErrorMessage( ret, os.str().c_str() );
 		} else {
-			item.message = std::string ( pcBuffer );
-
-			std::tm tm = *std::localtime( &pnLogDate );
+			std::string ss = std::string ( pcBuffer );
+			ss.erase (ss.end()-1, ss.end());
+			item.message = ss;
+			std::tm tm = *std::localtime( &pnLogDate ); // adjusted for timezone +2h
 			std::stringstream out;
-			out << std::put_time( &tm, "%c %Z" );
+			char mbstr[100];
+			if (std::strftime(mbstr, sizeof(mbstr), "%A %c", &tm )) {
+				out << mbstr;
+			}
 			item.timestamp = out.str();
-
 			MLOGANA2(TRC,this) << "found log item i= " << i << " nLogID= " << nLogID << " " << item.timestamp << " " << item.message << ret;
 			log.push_back( item );
 		}
@@ -1223,7 +1239,6 @@ std::vector<CanModule::PORT_LOG_ITEM_t> AnaCanScan2::getHwLogMessages ( unsigned
  * - the count of connected clients, max. 6 per port
  */
 CanModule::HARDWARE_DIAG_t AnaCanScan2::getHwDiagnostics (){
-	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << std::endl;
 	HARDWARE_DIAG_t d = CanModule::Diag::createEmptyDiag();
 	const unsigned int sz = 6;
 	unsigned int ips[ sz ];
@@ -1233,17 +1248,12 @@ CanModule::HARDWARE_DIAG_t AnaCanScan2::getHwDiagnostics (){
 	for ( unsigned int i = 0; i < sz; i++ ){
 		ips[ i ] = 0;
 		ports[ i ] = 0;
-		dates[ i  ] = 0;
+		dates[ i ] = 0;
 	}
 
 	AnaInt32 p0, p1;
 	AnaInt32 ret = CANGetDiagData( m_UcanHandle, &p0, &p1 );
-	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " ret= 0x" << std::hex << ret << std::dec << std::endl;
-	d.temperature = (float) p0/10;
-	d.uptime = p1;
-
 	AnaInt32 ret1 = CANGetClientList( m_UcanHandle, &d.clientCount, ips, ports, dates );
-	std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " ret1= 0x" << std::hex << ret1 << std::dec << std::endl;
 	if ( ret != ANA_ERR_NONE || ret1 != ANA_ERR_NONE ){
 		MLOGANA2(ERR,this) << "There was a problem getting the HW DiagData and/or client list " << ret << " . Abandoning HW DiagData and client list retrieval ";
 		std::stringstream os;
@@ -1251,13 +1261,18 @@ CanModule::HARDWARE_DIAG_t AnaCanScan2::getHwDiagnostics (){
 		m_signalErrorMessage( ret, os.str().c_str() );
 		return Diag::createEmptyDiag();
 	}
+	d.temperature = (float) p0/10;
+	d.uptime = p1;
 	for ( unsigned int i = 0; i < sz; i++ ){
 		d.clientIps.push_back( m_decodeNetworkByteOrder_ip_toString( ips[ i ] ) );
 		d.clientPorts.push_back( ports[ i ] );
 
 		std::tm tm = *std::localtime( &dates[ i ] );
 		std::stringstream out;
-		out << std::put_time( &tm, "%c %Z" );
+		char mbstr[100];
+		if (std::strftime(mbstr, sizeof(mbstr), "%A %c", &tm )) {
+			out << mbstr;
+		}
 		d.clientConnectionTimestamps.push_back( out.str() );
 	}
 	return d;
@@ -1271,7 +1286,6 @@ std::string AnaCanScan2::m_decodeNetworkByteOrder_ip_toString( unsigned int nip 
 	std::stringstream os;
 	os << std::dec << (nip & 0xff) << "." << ((nip & 0xff00)>>8) << "." << ((nip & 0xff0000)>>16) << "." << ((nip & 0xff000000)>>24);
 	std::string sip = os.str();
-	// MLOGANA2(TRC,this) << __FUNCTION__ << " nip= " << nip << " sip= " << sip;
 	return sip;
 }
 

@@ -107,13 +107,16 @@ void CanParameters::scanParameters(std::string parameters)
     const char * canpars = parameters.c_str();
     if (strcmp(canpars, "Unspecified") != 0) {
 #ifdef _WIN32
-        m_iNumberOfDetectedParameters = sscanf_s(canpars, "%ld %u %u %u %u %u %u", &m_lBaudRate, &m_iOperationMode, &m_iTermination, &m_iHighSpeed, &m_iTimeStamp, &m_iSyncMode, &m_iTimeout);
+        m_iNumberOfDetectedParameters = sscanf_s(canpars, "%ld %u %u %u %u %u %u",
+        		&m_lBaudRate, &m_iOperationMode, &m_iTermination, &m_iHighSpeed, &m_iTimeStamp, &m_iSyncMode, &m_iTimeout);
 #else
-        m_iNumberOfDetectedParameters = sscanf(canpars, "%ld %u %u %u %u %u %u", &m_lBaudRate, &m_iOperationMode, &m_iTermination, &m_iHighSpeed, &m_iTimeStamp, &m_iSyncMode, &m_iTimeout);
+        m_iNumberOfDetectedParameters = sscanf(canpars, "%ld %u %u %u %u %u %u",
+        		&m_lBaudRate, &m_iOperationMode, &m_iTermination, &m_iHighSpeed, &m_iTimeStamp, &m_iSyncMode, &m_iTimeout);
 #endif
     } else {
         m_dontReconfigure = true;
     }
+	//std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << " detected " << m_iNumberOfDetectedParameters << " parameters from " << parameters << std::endl;
 }
 
 /**
@@ -305,15 +308,23 @@ std::vector<std::string> CCanAccess::parseNameAndParameters(std::string name, st
 	while (getline(nameSS, temporalString, ':'))
 	{
 		stringVector.push_back(temporalString);
-		//LOG(Log::TRC, m_lh) << __FUNCTION__ << " stringVector new element= " << temporalString;
 	}
-	m_CanParameters.scanParameters(parameters);
+	m_CanParameters.scanParameters( parameters );
+
+	/**
 	LOG(Log::DBG) << __FUNCTION__ << " stringVector size= " << stringVector.size();
 	for (const auto &value : stringVector)
 	{
 		LOG(Log::INF) << __FUNCTION__ << " " << value;
 	}
+	*/
 	return stringVector;
 }
+
+void CCanAccess::us_sleep( int us ){ // microseconds
+	std::chrono::microseconds delay( us );
+	std::this_thread::sleep_for( delay );
+}
+
 
 }

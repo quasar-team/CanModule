@@ -39,6 +39,8 @@
 #include "libsocketcan.h"
 #include <Diag.h>
 
+#include <boost/date_time/posix_time/posix_time.hpp>
+using namespace boost::posix_time;
 
 /*
  * This is an implementation of the abstract class CCanAccess. It serves as a can bus access layer that will communicate with socket can (Linux only)
@@ -58,6 +60,7 @@ public:
 
 	virtual bool sendRemoteRequest(short cobID);
 	virtual int createBus(const std::string name, std::string parameters );
+	virtual int createBus(const std::string name, const std::string parameters, float factor );
 	virtual bool sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr = false);
 	virtual void getStatistics( CanStatistics & result );
 	virtual uint32_t getPortStatus();
@@ -90,6 +93,7 @@ private:
 	std::string m_busName;
 	Log::LogComponentHandle m_logItHandleSock;
 	GlobalErrorSignaler *m_gsig;
+	boost::posix_time::ptime m_now, m_previous;
 
 	static std::string m_canMessageErrorFrameToString (const struct can_frame &f);
 
