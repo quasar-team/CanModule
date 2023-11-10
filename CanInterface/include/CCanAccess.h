@@ -511,7 +511,7 @@ public: // accessible API
 protected: // not public, but inherited
 	std::string m_sBusName;
 	CanParameters m_CanParameters;
-	int m_sendThrottleDelay; // in us. With this delay we loose no frames with all ports (2..16) of the module connected to one bus at the given bitrate
+	int m_sendThrottleDelay; // in us.
 
 	// reconnection, reconnection thread triggering
     CanModule::ReconnectAutoCondition m_reconnectCondition;
