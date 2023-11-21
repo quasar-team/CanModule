@@ -222,7 +222,6 @@ DWORD WINAPI PKCanScan::CanScanControlThread(LPVOID pCanScan)
  */
 int PKCanScan::createBus(const std::string name, const std::string parameters, float factor )
 {
-	m_lossless = true;
 	m_losslessFactor = factor;
 	return( createBus( name, parameters) );
 }
