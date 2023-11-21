@@ -220,12 +220,6 @@ DWORD WINAPI PKCanScan::CanScanControlThread(LPVOID pCanScan)
  * -2: could not create the thread
  * -3: sth else went wrong
  */
-int PKCanScan::createBus(const std::string name, const std::string parameters, bool lossless )
-{
-	m_lossless = lossless;
-	m_losslessFactor = 1.0;
-	return( createBus( name, parameters) );
-}
 int PKCanScan::createBus(const std::string name, const std::string parameters, float factor )
 {
 	m_lossless = true;
