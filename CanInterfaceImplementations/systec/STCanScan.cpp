@@ -240,7 +240,7 @@ STCanScan::~STCanScan()
  */
 int STCanScan::createBus(const std::string name, const std::string parameters, float factor )
 {
-	m_losslessFactor = factor;
+	m_sendThrottleDelay = (int) factor;
 	return( createBus( name, parameters) );
 }
 int STCanScan::createBus(const std::string name,const std::string parameters)
@@ -347,7 +347,6 @@ int STCanScan::configureCanBoard(const std::string name,const std::string parame
 	m_baudRate = baudRate;
 	m_CanParameters.m_lBaudRate = vendorBaudRate2UserBaudRate( baudRate );
 
-	m_sendThrottleDelay = (int) m_losslessFactor;
 	MLOGST(TRC, this) << "the frame sending delay is " << m_sendThrottleDelay << " us";
 
 	return openCanPort( createInitializationParameters( m_baudRate ) );
