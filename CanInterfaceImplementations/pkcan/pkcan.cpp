@@ -220,16 +220,9 @@ DWORD WINAPI PKCanScan::CanScanControlThread(LPVOID pCanScan)
  * -2: could not create the thread
  * -3: sth else went wrong
  */
-int PKCanScan::createBus(const std::string name, const std::string parameters, bool lossless )
-{
-	m_lossless = lossless;
-	m_losslessFactor = 1.0;
-	return( createBus( name, parameters) );
-}
 int PKCanScan::createBus(const std::string name, const std::string parameters, float factor )
 {
-	m_lossless = true;
-	m_losslessFactor = factor;
+	m_sendThrottleDelay = (int) factor;
 	return( createBus( name, parameters) );
 }
 int PKCanScan::createBus(const std::string name, const std::string parameters )
@@ -459,22 +452,7 @@ bool PKCanScan::m_configureCanboard(const std::string name,const std::string par
 		ret = false;
 		counter--;
 	}
-
-	/** fixed data rate, non plug-and-play
-	 * static TPCANStatus Initialize(
-	 * TPCANHandle Channel,
-	 * TPCANBaudrate Btr0Btr1,
-	 * TPCANType HwType,
-	 * UInt32 IOPort,
-	 * UInt16 Interrupt);
-	 */
-	// TPCANStatus tpcanStatus = CAN_Initialize(m_canObjHandler, m_baudRate,256,3); // one param missing ? 
-	// return tpcanStatus;
-
-	m_sendThrottleDelay = (int) m_losslessFactor;
 	MLOGPK(TRC, this) << "the frame sending delay is " << m_sendThrottleDelay << " us";
-
-
 	return ret;
 }
 
