@@ -18,7 +18,7 @@
 #  
 #
 cmake_minimum_required( VERSION 3.0 )
-project( CanModuleProject LANGUAGES C CXX  VERSION 2.2.2  )  
+project( CanModuleProject LANGUAGES C CXX  VERSION 2.2.3  )  
 message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: CanModule version= ${PROJECT_VERSION}" )
 
 cmake_policy(SET CMP0054 NEW)
