@@ -403,6 +403,7 @@ int STCanScan::openCanPort(tUcanInitCanParam initializationParameters)
 			::UcanDeinitHardware(canModuleHandle);
 			return -1;
 		}
+		MLOGST(ERR,this) << "UcanInitHardwareEx, seems OKreturn code = [ 0x" << std::hex << (int) systecCallReturn << std::dec << "]";
 	}
 
 	setCanHandleInUse(m_moduleNumber,true);
@@ -888,7 +889,5 @@ void STCanScan::getStatistics( CanStatistics & result )
 	/** as a consequence of this coding the
 	CanModule::CanModule_bus_state::CANMODULE_NOSTATE;
 	never occurs. fine with me. */
-
-
 }
 
