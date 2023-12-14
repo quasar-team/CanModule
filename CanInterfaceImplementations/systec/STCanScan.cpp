@@ -396,9 +396,9 @@ int STCanScan::openCanPort(tUcanInitCanParam initializationParameters)
 		MLOGST(WRN,this) << "trying to open a can port which is in use, reuse handle, skipping UCanDeinitHardware";
 	} else {
 		//Otherwise we create it.
-		MLOGST(TRC,this) << "init can port module number= " << m_moduleNumber;
+		MLOGST(TRC,this) << "init can port module number= " << m_moduleNumber << " calling UcanInitHardwareEx DEBUG0";
 		systecCallReturn = ::UcanInitHardwareEx(&canModuleHandle, m_moduleNumber, 0, 0);
-		MLOGST(INF,this) << "systecCallReturn= " << systecCallReturn;
+		MLOGST(INF,this) << "systecCallReturn= " << systecCallReturn << " after calling UcanInitHardwareEx DEBUG0";
 		if (systecCallReturn != USBCAN_SUCCESSFUL ) 	{
 			MLOGST(ERR,this) << "UcanInitHardwareEx, return code = [ 0x" << std::hex << (int) systecCallReturn << std::dec << "]";
 			::UcanDeinitHardware(canModuleHandle);
