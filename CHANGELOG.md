@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+### 2.2.2 , 2.2.3
+- suppressed the interactive message box in CanLibLoaderWin.ccp:61 https://its.cern.ch/jira/browse/ENS-27467
+
+
+
 ### 2.2.1
 - add hardwareBusLoad to statistics: calculate bits/sec bus load on the transmitted CAN frames, in percent of max. bitrate, per port
 - the existing "busLoad" calculation is wrong because it calculated based on bytes and the stat run time window is not taken into account. It is not a "bus load" therefore but rather a "bus usage". leave it in for the moment, but this should be suppressed.
