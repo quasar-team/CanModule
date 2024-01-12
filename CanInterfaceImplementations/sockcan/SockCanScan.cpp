@@ -67,7 +67,7 @@ extern "C" CCanAccess *getCanBusAccess()
 CSockCanScan::CSockCanScan() :
 							m_CanScanThreadRunEnableFlag(false),
 							m_sock(0),
-							m_canMessageErrorCode(-1),
+							m_canMessageErrorCode(0),
 							m_hCanScanThread( NULL ),
 							m_busName("nobus"),
 							m_logItHandleSock(0),
@@ -537,6 +537,30 @@ int CSockCanScan::m_configureCanBoard(const std::string name,const std::string p
 	parset = parseNameAndParameters( lname, parameters );
 	m_channelName = parset[1];
 	MLOGSOCK(TRC, this) << "m_channelName= " << m_channelName ;
+
+	// find a lossless delay for frame rate
+	m_sendThrottleDelay = 0;
+	if ( m_lossless ){
+		m_sendThrottleDelay = 4000; // <250Hz super slow for stone-age devices.
+		// e.g. we need delay=800us for 125000 etc. see lab measurement. These delays are definitely on the safe side. We could
+		// try to calculate them as well but the formula would be quite non-linear due to sw delays. Keep
+		// it simple and stupid, this will do nicely. And this protects also against super-fast CPUs and networking ;-)
+		if ( m_CanParameters.m_lBaudRate > 50000 && m_CanParameters.m_lBaudRate <= 125000 ){
+			m_sendThrottleDelay = 1600;
+		} else if ( m_CanParameters.m_lBaudRate > 125000 && m_CanParameters.m_lBaudRate <= 250000 ){
+			m_sendThrottleDelay = 700;
+		} else if ( m_CanParameters.m_lBaudRate > 250000 && m_CanParameters.m_lBaudRate <= 750000 ){
+			m_sendThrottleDelay = 200;
+		} else if ( m_CanParameters.m_lBaudRate >= 750000 ){
+			m_sendThrottleDelay = 10;
+		}
+		if ( m_losslessFactor >= 0.0 ){
+			m_sendThrottleDelay = m_sendThrottleDelay * m_losslessFactor;
+		}
+		MLOGSOCK(TRC, this) << "the flag for lossless frame rate was selected, the frame sending delay is "
+				<< m_sendThrottleDelay << " us, factor= " << m_losslessFactor;
+	}
+
 	return m_openCanPort();
 }
 
@@ -635,7 +659,7 @@ int CSockCanScan::m_openCanPort()
 
 	// initial state of the port
 	fetchAndPublishCanPortState ();
-	m_updateInitialError();
+	updateInitialError();
 	m_statistics.setTimeSinceOpened();
 	return m_sock;
 }
@@ -684,7 +708,7 @@ int CSockCanScan::m_openCanPort()
 	}
 
 	// throttle the speed to avoid frame losses. we just wait the minimum time needed
-	if ( m_sendThrottleDelay > 0 ) {
+	if ( m_lossless && m_sendThrottleDelay > 0 ) {
 		m_now = boost::posix_time::microsec_clock::local_time();
 		int remaining_sleep_us = m_sendThrottleDelay - (m_now - m_previous).total_microseconds();
 		if ( remaining_sleep_us > m_sendThrottleDelay ){
@@ -815,10 +839,16 @@ bool CSockCanScan::m_writeWrapper (const can_frame* frame)
  * the port is erased from the connection map. when the same port is opened again later on, a (new)
  * main thread is created, and the connection is again added to the map.
  */
+int CSockCanScan::createBus(const std::string name, const std::string parameters, bool lossless )
+{
+	m_lossless = lossless;
+	m_losslessFactor =  1.0;
+	return( createBus( name, parameters) );
+}
 int CSockCanScan::createBus(const std::string name, const std::string parameters, float factor )
 {
-	m_sendThrottleDelay = (int) factor;
-	MLOGSOCK(TRC, this) << "the frame sending delay is " << m_sendThrottleDelay << " us";
+	m_lossless = true;
+	m_losslessFactor =  factor;
 	return( createBus( name, parameters) );
 }
 /* virtual */ int CSockCanScan::createBus(const std::string name, const std::string parameters)
@@ -1039,7 +1069,7 @@ void CSockCanScan::m_clearErrorMessage()
 /**
  * Report an error when opening a can port
  */
-void CSockCanScan::m_updateInitialError ()
+void CSockCanScan::updateInitialError ()
 {
 	if ( m_canMessageErrorCode == 0 ) {
 		m_clearErrorMessage();
