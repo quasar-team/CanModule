@@ -85,23 +85,9 @@ endfunction()
 #
 # -- FUNCTION SECTTION END --
 
-# use env var for static-as-possible or shared linking for linux (only shared for windows)
-IF ( $ENV{CANMODULE_AS_STATIC_AS_POSSIBLE} MATCHES "true" )
-	SET ( CANMODULE_AS_STATIC_AS_POSSIBLE TRUE )
-ELSE()
-	SET ( CANMODULE_AS_STATIC_AS_POSSIBLE FALSE )
-ENDIF()
-
-IF ( ${CANMODULE_AS_STATIC_AS_POSSIBLE} )
-	SET ( CANMODULE_LIB_NAME CanModule-static ) # expands to libCanModule-static.a
-	SET ( LINK_OPTION STATIC )
-	SET ( BUILD_SHARED_LIBS OFF )
-ELSE()
-	SET ( CANMODULE_LIB_NAME CanModule ) # expands to libCanModule.so
-	SET ( LINK_OPTION SHARED )
-	SET ( BUILD_SHARED_LIBS ON )
-ENDIF()
-
+SET ( CANMODULE_LIB_NAME CanModule )
+SET ( LINK_OPTION STATIC )
+SET ( BUILD_SHARED_LIBS OFF )
 
 
 # LogIt pull-in
