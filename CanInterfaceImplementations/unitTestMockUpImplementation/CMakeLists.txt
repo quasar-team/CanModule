@@ -11,7 +11,9 @@ set(MOCK_SOURCES
 	MockCanAccess.cpp
 	MockCanAccess.h
 	../../CanInterface/src/CanStatistics.cpp
-	../../CanInterface/include/CanStatistics.h	
+	../../CanInterface/include/CanStatistics.h
+	../../CanInterface/src/CCanAccess.cpp
+	../../CanInterface/src/CanModuleUtils.cpp
 )
 
 IF ( DEFINED CANMODULE_AS_STATIC_AS_POSSIBLE )
