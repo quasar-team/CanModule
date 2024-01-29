@@ -68,8 +68,7 @@ STCanScan::STCanScan():
 				m_baudRate(0),
 				m_idCanScanThread(0),
 				m_logItHandleSt(0),
-				m_gsig ( NULL ),
-				m_sendThrottleDelay(-1)
+				m_gsig ( NULL )
 {
 	m_statistics.setTimeSinceOpened();
 	m_statistics.beginNewRun();
