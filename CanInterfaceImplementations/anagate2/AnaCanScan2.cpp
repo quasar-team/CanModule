@@ -67,7 +67,8 @@ AnaCanScan2::AnaCanScan2():
 	m_UcanHandle(0),
 	m_timeout ( 6000 ),
 	m_busStopped( false ),
-	m_gsig( NULL )
+	m_gsig( NULL ),
+	m_sendThrottleDelay(-1)
 {
 	m_statistics.setTimeSinceOpened();
 	m_statistics.beginNewRun();
@@ -293,6 +294,9 @@ void AnaCanScan2::callbackOnRecieve( CanMessage& msg )
  * 				      for baud rates > 125000 this flag is needed, and it is set automatically for you if you forgot it (WRN)
  * 				* p4: TimeStamp: 0=deactivated (default), 1=activated. If activated, a timestamp is added to the CAN frame. Not all modules support this.
  *				  i.e. "250000 0 1 0 0"
+ *				*  p5 = sync mode
+ * 				*  p6 = timeout/ms
+ *
  * 				(see anagate manual for more details)
  *
  * @return
