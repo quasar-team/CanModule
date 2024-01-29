@@ -60,6 +60,7 @@ public:
 
 	virtual bool sendRemoteRequest(short cobID);
 	virtual int createBus(const std::string name, std::string parameters );
+	virtual int createBus(const std::string name, const std::string parameters, bool lossless );
 	virtual int createBus(const std::string name, const std::string parameters, float factor );
 	virtual bool sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr = false);
 	virtual void getStatistics( CanStatistics & result );
@@ -79,6 +80,7 @@ public:
 
 	int getHandler() { return m_sock; }
 	Log::LogComponentHandle logItHandle() { return m_logItHandleSock; }
+	void updateInitialError () ; // public again
 
 private:
 	volatile std::atomic_bool m_CanScanThreadRunEnableFlag; //Flag for running/shutting down the
@@ -97,7 +99,6 @@ private:
 
 	static std::string m_canMessageErrorFrameToString (const struct can_frame &f);
 
-	void m_updateInitialError () ;
 	void m_sendErrorMessage(const char  *);
 	void m_clearErrorMessage();
 	int m_configureCanBoard(const std::string name, const std::string parameters);

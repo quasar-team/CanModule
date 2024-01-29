@@ -396,13 +396,15 @@ int STCanScan::openCanPort(tUcanInitCanParam initializationParameters)
 		MLOGST(WRN,this) << "trying to open a can port which is in use, reuse handle, skipping UCanDeinitHardware";
 	} else {
 		//Otherwise we create it.
-		MLOGST(TRC,this) << "init can port";
+		MLOGST(TRC,this) << "init can port module number= " << m_moduleNumber << " calling UcanInitHardwareEx DEBUG0";
 		systecCallReturn = ::UcanInitHardwareEx(&canModuleHandle, m_moduleNumber, 0, 0);
+		MLOGST(INF,this) << "systecCallReturn= 0x" << std::hex << (unsigned int) systecCallReturn << std::dec << " after calling UcanInitHardwareEx DEBUG0";
 		if (systecCallReturn != USBCAN_SUCCESSFUL ) 	{
 			MLOGST(ERR,this) << "UcanInitHardwareEx, return code = [ 0x" << std::hex << (int) systecCallReturn << std::dec << "]";
 			::UcanDeinitHardware(canModuleHandle);
 			return -1;
 		}
+		MLOGST(ERR,this) << "UcanInitHardwareEx, seems OKreturn code = [ 0x" << std::hex << (int) systecCallReturn << std::dec << "]";
 	}
 
 	setCanHandleInUse(m_moduleNumber,true);
@@ -888,7 +890,5 @@ void STCanScan::getStatistics( CanStatistics & result )
 	/** as a consequence of this coding the
 	CanModule::CanModule_bus_state::CANMODULE_NOSTATE;
 	never occurs. fine with me. */
-
-
 }
 

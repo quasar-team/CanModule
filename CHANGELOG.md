@@ -2,6 +2,15 @@
 All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+### 2.2.3
+- suppressed the interactive message box in CanLibLoaderWin.ccp:61 https://its.cern.ch/jira/browse/ENS-27467
+- made m_updateInitialError () ; public again and renamed it to updateInitialError() accordingly, OPCUA-2602. 
+  also initialize it to 0 at init.
+
+### 2.2.2
+- minor cleanup of debugging
+
+
 ### 2.2.1
 - add hardwareBusLoad to statistics: calculate bits/sec bus load on the transmitted CAN frames, in percent of max. bitrate, per port
 - the existing "busLoad" calculation is wrong because it calculated based on bytes and the stat run time window is not taken into account. It is not a "bus load" therefore but rather a "bus usage". leave it in for the moment, but this should be suppressed.
@@ -13,7 +22,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
    PORT_COUNTERS_t
    PORT_LOG_ITEM_t
    HARDWARE_DIAG_t
-- the method calls return by value. If the implementation supports it there are meaningful results. If not, tresults are legal, valid but empty.
+- the method calls return by value. If the implementation supports it there are meaningful results. If not, results are legal, valid but empty.
 - new anagate diagnostic functionality for implementation "an2"
 - new diag methods callable for all implementations but returning <empty> for non "an2"
 - abstraction of new diagnostics simple but should be general enough
