@@ -40,7 +40,7 @@
 #include <CanStatistics.h>
 #include <CanModuleUtils.h>
 
-#include <VERSION.h>
+#include "VERSION.h"
 
 
 
