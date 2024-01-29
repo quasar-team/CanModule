@@ -71,8 +71,7 @@ CSockCanScan::CSockCanScan() :
 							m_hCanScanThread( NULL ),
 							m_busName("nobus"),
 							m_logItHandleSock(0),
-							m_gsig( NULL ),
-							m_sendThrottleDelay(-1)
+							m_gsig( NULL )
 {
 	m_statistics.setTimeSinceOpened();
 	m_statistics.beginNewRun();

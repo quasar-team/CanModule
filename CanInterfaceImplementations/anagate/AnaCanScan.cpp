@@ -64,8 +64,7 @@ AnaCanScan::AnaCanScan():
 	m_UcanHandle(0),
 	m_timeout ( 6000 ),
 	m_busStopped( false ),
-	m_gsig( NULL ),
-	m_sendThrottleDelay(-1)
+	m_gsig( NULL )
 {
 	m_statistics.setTimeSinceOpened();
 	m_statistics.beginNewRun();

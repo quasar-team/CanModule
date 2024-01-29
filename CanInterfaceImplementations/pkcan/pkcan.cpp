@@ -60,9 +60,7 @@ PKCanScan::PKCanScan():
 				m_CanScanThreadRunEnableFlag(false),
 				m_logItHandlePk(0),
 				m_pkCanHandle(0),
-				m_gsig( NULL ),
-				m_sendThrottleDelay(-1)
-
+				m_gsig( NULL )
 {
 	m_statistics.setTimeSinceOpened();
 	m_statistics.beginNewRun();
