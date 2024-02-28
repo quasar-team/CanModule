@@ -17,53 +17,62 @@
 #include <sstream>
 #include <iostream>
 
-namespace execcommand_ns {
+namespace execcommand_ns
+{
 
-class ExecCommand {
+  class ExecCommand
+  {
   public:
     typedef std::vector<std::string> CmdResults;
-
-    ExecCommand( const std::string &cmd ) {
-      FILE *pfd = popen( cmd.c_str(), "r" );
-      if ( pfd <= 0 ) {
-    	  throw std::runtime_error( "Command or process could not be executed." );
+    // hicpp-explicit-conversions
+    explicit ExecCommand(const std::string &cmd)
+    {
+      FILE *pfd = popen(cmd.c_str(), "r");
+      if (pfd == NULL)
+      {
+        std::ostringstream msg;
+        msg << cmd << ": Command or process could not be executed.";
+        throw std::runtime_error(msg.str());
       }
 
-      while ( !feof(pfd) ) {
-        char buf[ 1024 ] = {0};
+      while (!feof(pfd))
+      {
+        char buf[1024] = {0};
 
-        if ( fgets(buf, sizeof(buf), pfd) > 0 ) {
+        if (fgets(buf, sizeof(buf), pfd) != NULL)
+        {
           std::string str(buf);
-          m_results.push_back( str.substr(0, str.length()-1) );
+          m_results.push_back(str.substr(0, str.length() - 1));
         }
       }
-      pclose( pfd );
+      pclose(pfd);
     }
 
-    const CmdResults getResults() const { return m_results;  }
+    const CmdResults getResults() const { return m_results; }
 
     /// uuh oh, elegant !
-    friend std::ostream & operator<<( std::ostream &os, const ExecCommand &exec ) {
-      std::for_each( exec.m_results.begin(), exec.m_results.end(), ExecCommand::Displayer(os) );
+    friend std::ostream &operator<<(std::ostream &os, const ExecCommand &exec)
+    {
+      std::for_each(exec.m_results.begin(), exec.m_results.end(), ExecCommand::Displayer(os));
       return os;
     }
 
   private:
-    class Displayer {
-      public:
-        Displayer( std::ostream &os ) : m_os(os) {}
+    class Displayer
+    {
+    public:
+      Displayer(std::ostream &os) : m_os(os) {}
 
-        void operator()( const std::string &str ) {
-          m_os << str << std::endl;
-        }
+      void operator()(const std::string &str)
+      {
+        m_os << str << std::endl;
+      }
 
-      private:
-        std::ostream &m_os;
+    private:
+      std::ostream &m_os;
     };
     CmdResults m_results;
-};
-
-
+  };
 
 } /* namespace execcommand_ns */
 
