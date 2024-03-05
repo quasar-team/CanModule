@@ -21,7 +21,7 @@
  *  You should have received a copy of the GNU Lesser General Public License
  *  along with Quasar.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include <SockCanScan.h>
+#include "SockCanScan.h"
 #include <UdevAnalyserForPeak.h>
 
 #include <thread>
