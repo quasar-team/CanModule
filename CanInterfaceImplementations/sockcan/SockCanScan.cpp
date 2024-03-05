@@ -22,7 +22,7 @@
  *  along with Quasar.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "SockCanScan.h"
-#include <UdevAnalyserForPeak.h>
+#include "UdevAnalyserForPeak.h
 
 #include <thread>
 #include <mutex>
