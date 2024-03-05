@@ -21,8 +21,8 @@
  *  You should have received a copy of the GNU Lesser General Public License
  *  along with Quasar.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "SockCanScan.h"
-#include "UdevAnalyserForPeak.h"
+#include <SockCanScan.h>
+#include <UdevAnalyserForPeak.h>
 
 #include <thread>
 #include <mutex>
@@ -466,8 +466,8 @@ void CSockCanScan::m_CanReconnectionThread()
 		switch ( m_reconnectAction ){
 		case CanModule::ReconnectAction::singleBus: {
 
-			MLOGSOCK(INF, this) << " reconnect condition " << CCanAccess::reconnectConditionString(m_reconnectCondition)
-										<< " triggered action " << CCanAccess::reconnectActionString(m_reconnectAction);
+			MLOGSOCK(INF, this) << " reconnect condition " << reconnectConditionString(m_reconnectCondition)
+										<< " triggered action " << reconnectActionString(m_reconnectAction);
 			close( m_sock );
 			int return0 = m_openCanPort();
 			MLOGSOCK(TRC, this) << "reconnect openCanPort() ret= " << return0;

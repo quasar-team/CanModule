@@ -26,7 +26,7 @@
 
 #include <iomanip>
 
-#include "AnaCanScan2.h"
+#include <AnaCanScan2.h>
 #include <Diag.h>
 #include <CanModuleUtils.h>
 
