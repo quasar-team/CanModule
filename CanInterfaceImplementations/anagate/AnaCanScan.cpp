@@ -24,7 +24,7 @@
  * Here the Anagate ethernet-CAN bridges are implemented
  */
 
-#include <AnaCanScan.h>
+#include "AnaCanScan.h"
 #include <CanModuleUtils.h>
 
 #ifdef _WIN32
