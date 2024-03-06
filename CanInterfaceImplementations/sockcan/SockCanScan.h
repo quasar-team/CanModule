@@ -34,10 +34,13 @@
 #include <sys/socket.h>
 #include <linux/can.h>
 
-#include "CCanAccess.h"
-#include "CanStatistics.h"
-#include "libsocketcan.h"
+#include <libsocketcan.h>
+#include <CCanAccess.h>
+#include <CanStatistics.h>
 #include <Diag.h>
+// #include <CanModuleUtils.h>
+// #include <CanMessage.h>
+
 
 #include <boost/date_time/posix_time/posix_time.hpp>
 using namespace boost::posix_time;
@@ -65,11 +68,6 @@ public:
 	virtual void getStatistics( CanStatistics & result );
 	virtual uint32_t getPortStatus();
 	virtual uint32_t getPortBitrate(){ return m_CanParameters.m_lBaudRate; };
-	virtual void setReconnectBehavior( CanModule::ReconnectAutoCondition cond, CanModule::ReconnectAction action );
-	virtual void setReconnectReceptionTimeout( unsigned int timeout ){ 	m_timeoutOnReception = timeout;	};
-	virtual void setReconnectFailedSendCount( unsigned int c ){	m_maxFailedSendCount = m_failedSendCountdown = c;	}
-	virtual CanModule::ReconnectAutoCondition getReconnectCondition() { return m_reconnectCondition; };
-	virtual CanModule::ReconnectAction getReconnectAction() { return m_reconnectAction; };
 	virtual void stopBus ();
 	virtual void fetchAndPublishCanPortState ();
 

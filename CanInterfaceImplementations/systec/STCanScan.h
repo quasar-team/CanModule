@@ -27,12 +27,17 @@
 #include "Winsock2.h"
 #include "windows.h"
 #include <string>
-#include "CanStatistics.h"
-#include <Usbcan32.h>
-#include "CCanAccess.h"
-#include <Diag.h>
 
 #include <boost/date_time/posix_time/posix_time.hpp>
+
+#include <Usbcan32.h>
+//#include <CanModuleUtils.h>
+#include <CCanAccess.h>
+#include <CanStatistics.h>
+//#include <CanMessage.h>
+#include <Diag.h>
+
+
 using namespace boost::posix_time;
 
 using namespace CanModule;
@@ -66,14 +71,7 @@ public:
 	virtual uint32_t getPortBitrate(){ return m_CanParameters.m_lBaudRate; };
 
 	Log::LogComponentHandle logItHandle(){ return m_logItHandleSt; }
-	virtual void setReconnectBehavior( CanModule::ReconnectAutoCondition cond, CanModule::ReconnectAction action ){
-		m_reconnectCondition = cond;
-		m_reconnectAction = action;
-	};
-	virtual void setReconnectReceptionTimeout( unsigned int timeout ){ 	m_timeoutOnReception = timeout;	};
-	virtual void setReconnectFailedSendCount( unsigned int c ){ m_maxFailedSendCount = m_failedSendCountdown = c;	}
-	virtual CanModule::ReconnectAutoCondition getReconnectCondition() { return m_reconnectCondition; };
-	virtual CanModule::ReconnectAction getReconnectAction() { return m_reconnectAction; };
+
 	virtual void stopBus();
 	virtual void fetchAndPublishCanPortState ();
 

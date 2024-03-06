@@ -32,18 +32,18 @@ if( (NOT DEFINED SOCKETCAN_LIB_PATH) OR (NOT DEFINED SOCKETCAN_HEADERS) OR (NOT 
 	message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Required variable SOCKETCAN_HEADERS has not been defined. assuming ${SOCKETCAN_HEADERS} " )
 	message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Required variable SOCKETCAN_LIB_FILE has not been defined. assuming ${SOCKETCAN_LIBS} " )
 endif() 
-include_directories( ${SOCKETCAN_HEADERS} )
+include_directories( ${SOCKETCAN_HEADERS}  )
 link_directories( ${SOCKETCAN_LIB_PATH} )
+
 
 set(SOCKCAN_SOURCES
 	ExecCommand.cpp
-	ExecCommand.h
 	UdevAnalyserForPeak.cpp
-	UdevAnalyserForPeak.h
 	SockCanScan.cpp
-	SockCanScan.h
-	../../CanInterface/src/CanStatistics.cpp
-	../../CanInterface/include/CanStatistics.h	
+	../../CanInterface/src/CanStatistics.cpp	
+	../../CanInterface/src/CanModuleUtils.cpp	
+	../../CanInterface/src/CCanAccess.cpp	
+	../../Diagnostic/src/Diag.cpp	
 )
 
 # you can either build the fully dynamic libs or the as-static-as-possible, 

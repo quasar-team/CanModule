@@ -38,16 +38,13 @@
 
 #include <CanModuleUtils.h>
 #include <CCanAccess.h>
-
-#include "CanStatistics.h"
-#include "CCanAccess.h"
-#include "CanMessage.h"
+#include <CanStatistics.h>
+#include <CanMessage.h>
 #include <Diag.h>
 
 // specific vendor
 
 #ifdef _WIN32
-// #include <AnaGate.h>
 #include <AnaGateDLL.h>
 #include <AnaGateDllCan.h>
 #else
@@ -112,15 +109,6 @@ public:
 
 	uint32_t getPortStatus();
 	virtual uint32_t getPortBitrate(){ return m_CanParameters.m_lBaudRate; };
-
-	virtual void setReconnectBehavior( CanModule::ReconnectAutoCondition cond, CanModule::ReconnectAction action ){
-		m_reconnectCondition = cond;
-		m_reconnectAction = action;
-	};
-	virtual void setReconnectReceptionTimeout( unsigned int timeout ){ 	m_timeoutOnReception = timeout;	};
-	virtual void setReconnectFailedSendCount( unsigned int c ){ m_maxFailedSendCount = m_failedSendCountdown = c;	}
-	virtual CanModule::ReconnectAutoCondition getReconnectCondition() { return m_reconnectCondition; };
-	virtual CanModule::ReconnectAction getReconnectAction() { return m_reconnectAction; };
 	virtual void stopBus( void );
 	virtual void fetchAndPublishCanPortState ();
 

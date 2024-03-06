@@ -1214,8 +1214,8 @@ void AnaCanScan::m_CanReconnectionThread()
 		waitForReconnectionThreadTrigger();
 		MLOGANA(TRC, this)
 			<< " reconnection thread tid= " << _tid
-			<< " condition "<< reconnectConditionString(getReconnectCondition() )
-			<< " action " << reconnectActionString(getReconnectAction())
+			<< " condition "<< CCanAccess::reconnectConditionString(getReconnectCondition() )
+			<< " action " << CCanAccess::reconnectActionString(getReconnectAction())
 			<< " is checked, m_failedSendCountdown= "
 			<< m_failedSendCountdown;
 
@@ -1252,8 +1252,8 @@ void AnaCanScan::m_CanReconnectionThread()
 		// to avoid lots of useless triggers at each send message.
 		switch ( getReconnectAction() ){
 		case CanModule::ReconnectAction::singleBus: {
-			MLOGANA(INF, this) << " reconnect condition " << reconnectConditionString(m_reconnectCondition)
-										<< " triggered action " << reconnectActionString(m_reconnectAction);
+			MLOGANA(INF, this) << " reconnect condition " << CCanAccess::reconnectConditionString(m_reconnectCondition)
+										<< " triggered action " << CCanAccess::reconnectActionString(m_reconnectAction);
 
 			AnaInt32 ret = m_reconnectThisPort();
 			MLOGANA(INF, this) << "reconnected one CAN port ip= " << m_canIPAddress << " ret= " << ret;
@@ -1268,8 +1268,8 @@ void AnaCanScan::m_CanReconnectionThread()
 		 */
 		case CanModule::ReconnectAction::allBusesOnBridge: {
 			std::string ip = m_ipAddress();
-			MLOGANA(INF, this) << " reconnect condition " << reconnectConditionString(m_reconnectCondition)
-										<< " triggered action " << reconnectActionString(m_reconnectAction);
+			MLOGANA(INF, this) << " reconnect condition " << CCanAccess::reconnectConditionString(m_reconnectCondition)
+										<< " triggered action " << CCanAccess::reconnectActionString(m_reconnectAction);
 			AnaCanScan::st_reconnectAllPorts( ip );
 			MLOGANA(TRC, this) << " reconnect all ports of ip=  " << ip << this->getBusName();
 			break;
@@ -1277,7 +1277,7 @@ void AnaCanScan::m_CanReconnectionThread()
 		default: {
 			// we have a runtime bug
 			MLOGANA(ERR, this) << "reconnection action "
-					<< (int) m_reconnectAction << reconnectActionString( m_reconnectAction )
+					<< (int) m_reconnectAction << CCanAccess::reconnectActionString( m_reconnectAction )
 					<< " unknown. Check your config & see documentation. No action.";
 			break;
 		}

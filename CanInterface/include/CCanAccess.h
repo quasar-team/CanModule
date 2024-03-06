@@ -424,28 +424,17 @@ public: // accessible API
 	 * 			If a bridge is shared between multiple tasks, all channels across tasks are reset, affecting all tasks connected to
 	 * 			that bridge. Evidently, a given channel must only be used by at most one task.
 	 * 				 */
-	virtual void setReconnectBehavior( CanModule::ReconnectAutoCondition cond, CanModule::ReconnectAction action ) = 0;
 
-	/**
-	 * set the timout interval for message reception, for the reconnection behaviour. Units is seconds, default is 120.
-	 */
-	virtual void setReconnectReceptionTimeout( unsigned int timeout ) = 0;
+	void setReconnectBehavior( CanModule::ReconnectAutoCondition cond, CanModule::ReconnectAction action ){
+		std::cout <<__FUNCTION__ << " " << __FILE__ << " " << __LINE__ << std::endl;
+		m_reconnectCondition = cond;
+		m_reconnectAction = action;
+	};
+	void setReconnectReceptionTimeout( unsigned int timeout ){ 	m_timeoutOnReception = timeout;	};
+	void setReconnectFailedSendCount( unsigned int c ){ m_maxFailedSendCount = m_failedSendCountdown = c;	}
+	CanModule::ReconnectAutoCondition getReconnectCondition() { return m_reconnectCondition; };
+	CanModule::ReconnectAction getReconnectAction() { return m_reconnectAction; };
 
-	/**
-	 * set the counter for failed consecutive sending attempts, for reconnection. default is 10.
-	 */
-	virtual void setReconnectFailedSendCount( unsigned int c ) = 0;
-
-
-	/**
-	 * read back the r.condition
-	 */
-	virtual CanModule::ReconnectAutoCondition getReconnectCondition() = 0;
-
-	/**
-	 * read back the r.action
-	 */
-	virtual CanModule::ReconnectAction getReconnectAction() = 0;
 
 	/**
 	 *  stop the bus.
