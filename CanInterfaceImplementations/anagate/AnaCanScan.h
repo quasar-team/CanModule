@@ -38,16 +38,13 @@
 
 #include <CanModuleUtils.h>
 #include <CCanAccess.h>
-
-#include "CanStatistics.h"
-#include "CCanAccess.h"
-#include "CanMessage.h"
+#include <CanStatistics.h>
+#include <CanMessage.h>
 #include <Diag.h>
 
 // specific vendor
 
 #ifdef _WIN32
-// #include <AnaGate.h>
 #include <AnaGateDLL.h>
 #include <AnaGateDllCan.h>
 #else

@@ -38,11 +38,8 @@
 
 #include <CanModuleUtils.h>
 #include <CCanAccess.h>
-
-#include "CanStatistics.h"
-#include "CCanAccess.h"
-#include "CanMessage.h"
-
+#include <CanStatistics.h>
+#include <CanMessage.h>
 #include <Diag.h>
 
 // specific vendor

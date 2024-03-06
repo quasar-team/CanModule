@@ -27,12 +27,17 @@
 #include "Winsock2.h"
 #include "windows.h"
 #include <string>
-#include "CanStatistics.h"
-#include <Usbcan32.h>
-#include "CCanAccess.h"
-#include <Diag.h>
 
 #include <boost/date_time/posix_time/posix_time.hpp>
+
+#include <Usbcan32.h>
+//#include <CanModuleUtils.h>
+#include <CCanAccess.h>
+#include <CanStatistics.h>
+//#include <CanMessage.h>
+#include <Diag.h>
+
+
 using namespace boost::posix_time;
 
 using namespace CanModule;
