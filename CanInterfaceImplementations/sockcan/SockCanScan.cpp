@@ -414,7 +414,7 @@ void CSockCanScan::m_CanReconnectionThread()
 	 * Like his we do not have to pollute the "sendMessage" like for anagate, and that is cleaner.
 	 */
 	CanModule::ReconnectAutoCondition rcond = getReconnectCondition();
-	CanModule::ReconnectAction ract = getReconnectAction();
+	// CanModule::ReconnectAction ract = getReconnectAction();
 
 	MLOGSOCK(TRC, this) << "initialized reconnection thread tid= " << _tid << ", entering loop";
 	while ( true ) {
