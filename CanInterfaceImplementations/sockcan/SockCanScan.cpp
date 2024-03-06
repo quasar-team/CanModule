@@ -94,12 +94,12 @@ CSockCanScan::CSockCanScan() :
 	CanModule::PORT_COUNTERS_t c;
 	return c;
 }
-
+#if 0
 /* virtual */ void CSockCanScan::setReconnectBehavior( CanModule::ReconnectAutoCondition cond, CanModule::ReconnectAction action ){
 	m_reconnectCondition = cond;
 	m_reconnectAction = action;
 };
-
+#endif
 /**
  * (virtual) forced implementation. Generally: do whatever shenanigans you need on the vendor API and fill in the portState accordingly, stay
  * close to the semantics of the enum.
