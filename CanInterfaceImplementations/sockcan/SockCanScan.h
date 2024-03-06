@@ -34,9 +34,9 @@
 #include <sys/socket.h>
 #include <linux/can.h>
 
-#include "CCanAccess.h"
-#include "CanStatistics.h"
-#include "libsocketcan.h"
+#include <CCanAccess.h>
+#include <CanStatistics.h>
+#include <libsocketcan.h>
 #include <Diag.h>
 
 #include <boost/date_time/posix_time/posix_time.hpp>

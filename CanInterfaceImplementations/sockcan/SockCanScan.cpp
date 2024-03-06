@@ -425,7 +425,7 @@ void CSockCanScan::m_CanReconnectionThread()
 		MLOGSOCK(TRC, this)
 		<< " reconnection thread tid= " << _tid
 		<< " condition "<< reconnectConditionString(rcond)
-		<< " action " << reconnectActionString(ract)
+		<< " action " << CCanAccess::reconnectActionString(ract)
 		<< " is checked, m_failedSendCountdown= "
 		<< m_failedSendCountdown;
 
@@ -466,8 +466,8 @@ void CSockCanScan::m_CanReconnectionThread()
 		switch ( m_reconnectAction ){
 		case CanModule::ReconnectAction::singleBus: {
 
-			MLOGSOCK(INF, this) << " reconnect condition " << reconnectConditionString(m_reconnectCondition)
-										<< " triggered action " << reconnectActionString(m_reconnectAction);
+			MLOGSOCK(INF, this) << " reconnect condition " << CCanAccess::reconnectConditionString(m_reconnectCondition)
+										<< " triggered action " << CCanAccess::reconnectActionString(m_reconnectAction);
 			close( m_sock );
 			int return0 = m_openCanPort();
 			MLOGSOCK(TRC, this) << "reconnect openCanPort() ret= " << return0;
@@ -489,7 +489,7 @@ void CSockCanScan::m_CanReconnectionThread()
 			 * CanModule::ReconnectAction::allBusesOnBridge is not implemented for sock
 			 */
 			MLOGSOCK(WRN, this) << "reconnection action "
-					<< (int) m_reconnectAction << reconnectActionString( m_reconnectAction )
+					<< (int) m_reconnectAction << CCanAccess::reconnectActionString( m_reconnectAction )
 					<< " is not available for the socketcan/linux implementation. Check your config & see documentation. No action.";
 			break;
 		}
