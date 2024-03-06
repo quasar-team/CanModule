@@ -461,7 +461,7 @@ void CSockCanScan::m_CanReconnectionThread()
 		case CanModule::ReconnectAction::singleBus: {
 
 			MLOGSOCK(INF, this)
-					<< " reconnect condition " << CCanAccess::reconnectConditionString(m_reconnectCondition);
+					<< " reconnect condition " << CCanAccess::reconnectConditionString(m_reconnectCondition)
 					<< " triggered action " << CCanAccess::reconnectActionString(m_reconnectAction);
 			close( m_sock );
 			int return0 = m_openCanPort();
