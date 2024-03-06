@@ -436,30 +436,6 @@ public: // accessible API
 	CanModule::ReconnectAction getReconnectAction() { return m_reconnectAction; };
 
 
-#if 0
-	virtual void setReconnectBehavior( CanModule::ReconnectAutoCondition cond, CanModule::ReconnectAction action ) = 0;
-
-	/**
-	 * set the timout interval for message reception, for the reconnection behaviour. Units is seconds, default is 120.
-	 */
-	virtual void setReconnectReceptionTimeout( unsigned int timeout ) = 0;
-
-	/**
-	 * set the counter for failed consecutive sending attempts, for reconnection. default is 10.
-	 */
-	virtual void setReconnectFailedSendCount( unsigned int c ) = 0;
-
-
-	/**
-	 * read back the r.condition
-	 */
-	virtual CanModule::ReconnectAutoCondition getReconnectCondition() = 0;
-
-	/**
-	 * read back the r.action
-	 */
-	virtual CanModule::ReconnectAction getReconnectAction() = 0;
-#endif
 	/**
 	 *  stop the bus.
 	 */

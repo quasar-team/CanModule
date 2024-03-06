@@ -72,16 +72,6 @@ public:
 
 	Log::LogComponentHandle logItHandle(){ return m_logItHandleSt; }
 
-#if 0
-	virtual void setReconnectBehavior( CanModule::ReconnectAutoCondition cond, CanModule::ReconnectAction action ){
-		m_reconnectCondition = cond;
-		m_reconnectAction = action;
-	};
-	virtual void setReconnectReceptionTimeout( unsigned int timeout ){ 	m_timeoutOnReception = timeout;	};
-	virtual void setReconnectFailedSendCount( unsigned int c ){ m_maxFailedSendCount = m_failedSendCountdown = c;	}
-	virtual CanModule::ReconnectAutoCondition getReconnectCondition() { return m_reconnectCondition; };
-	virtual CanModule::ReconnectAction getReconnectAction() { return m_reconnectAction; };
-#endif
 	virtual void stopBus();
 	virtual void fetchAndPublishCanPortState ();
 

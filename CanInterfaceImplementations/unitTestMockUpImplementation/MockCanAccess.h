@@ -53,15 +53,6 @@ public:
 	virtual bool initialiseLogging(LogItInstance* remoteInstance);
 
 	static std::string getCanMessageDataAsString(const unsigned char* data, const unsigned char& len = 8);
-
-#if 0
-	virtual void setReconnectBehavior( CanModule::ReconnectAutoCondition cond, CanModule::ReconnectAction action ){}
-	virtual void setReconnectReceptionTimeout( unsigned int timeout ){ 	m_timeoutOnReception = timeout;	};
-	virtual void setReconnectFailedSendCount( unsigned int c ){ m_maxFailedSendCount = m_failedSendCountdown = c;	}
-	virtual CanModule::ReconnectAutoCondition getReconnectCondition() { return m_reconnectCondition; };
-	virtual CanModule::ReconnectAction getReconnectAction() { return m_reconnectAction; };
-#endif
-
 	virtual uint32_t getPortStatus(){ return 0xbebecaca; };
 	virtual uint32_t getPortBitrate(){ return m_CanParameters.m_lBaudRate; };
 

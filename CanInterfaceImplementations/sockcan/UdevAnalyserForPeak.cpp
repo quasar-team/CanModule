@@ -290,9 +290,6 @@ unsigned int UdevAnalyserForPeak::m_peakLocalCanPort( std::string s ){
 	size_t pos1 = s.find( "/can" ) - 4;
 	std::string sub1 = s.substr( pos1, std::string::npos );
 	std::cout << __FILE__ << " " << __LINE__ << " sub1= " << sub1 << std::endl;
-
-
-
 	size_t pos2 = sub1.find( "/" ) + 1;
 	std::string sub2 = sub1.substr( pos2, sub1.find(" ") - 2 );
 	std::string sub3 = sub2.substr( 3, std::string::npos );
