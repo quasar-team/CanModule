@@ -424,6 +424,18 @@ public: // accessible API
 	 * 			If a bridge is shared between multiple tasks, all channels across tasks are reset, affecting all tasks connected to
 	 * 			that bridge. Evidently, a given channel must only be used by at most one task.
 	 * 				 */
+
+	void setReconnectBehavior( CanModule::ReconnectAutoCondition cond, CanModule::ReconnectAction action ){
+		m_reconnectCondition = cond;
+		m_reconnectAction = action;
+	};
+	void setReconnectReceptionTimeout( unsigned int timeout ){ 	m_timeoutOnReception = timeout;	};
+	void setReconnectFailedSendCount( unsigned int c ){ m_maxFailedSendCount = m_failedSendCountdown = c;	}
+	CanModule::ReconnectAutoCondition getReconnectCondition() { return m_reconnectCondition; };
+	CanModule::ReconnectAction getReconnectAction() { return m_reconnectAction; };
+
+
+#if 0
 	virtual void setReconnectBehavior( CanModule::ReconnectAutoCondition cond, CanModule::ReconnectAction action ) = 0;
 
 	/**
@@ -446,7 +458,7 @@ public: // accessible API
 	 * read back the r.action
 	 */
 	virtual CanModule::ReconnectAction getReconnectAction() = 0;
-
+#endif
 	/**
 	 *  stop the bus.
 	 */
