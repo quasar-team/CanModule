@@ -670,8 +670,8 @@ DWORD WINAPI PKCanScan::CanReconnectionThread(LPVOID pCanScan)
 		pkCanScanPointer->waitForReconnectionThreadTrigger();
 		MLOGPK(TRC, pkCanScanPointer)
 			<< " reconnection thread tid= " << _tid
-			<< " condition "<< reconnectConditionString(pkCanScanPointer->getReconnectCondition() )
-			<< " action " << reconnectActionString(pkCanScanPointer->getReconnectAction())
+			<< " condition "<< CCanAccess::reconnectConditionString(pkCanScanPointer->getReconnectCondition() )
+			<< " action " << CCanAccess::reconnectActionString(pkCanScanPointer->getReconnectAction())
 			<< " is checked, m_failedSendCountdown= "
 			<< pkCanScanPointer->getFailedSendCountdown();
 
@@ -706,8 +706,8 @@ DWORD WINAPI PKCanScan::CanReconnectionThread(LPVOID pCanScan)
 		// action
 		switch ( raction ){
 		case CanModule::ReconnectAction::singleBus: {
-			MLOGPK(INF, pkCanScanPointer) << " reconnect condition " << reconnectConditionString( rcondition )
-										<< " triggered action " << reconnectActionString( raction );
+			MLOGPK(INF, pkCanScanPointer) << " reconnect condition " << CCanAccess::reconnectConditionString( rcondition )
+										<< " triggered action " << CCanAccess::reconnectActionString( raction );
 
 
 				CAN_Initialize(pkCanScanPointer->getTPCANHandle(), pkCanScanPointer->getBaudRate() );
@@ -716,14 +716,14 @@ DWORD WINAPI PKCanScan::CanReconnectionThread(LPVOID pCanScan)
 		}
 
 		case CanModule::ReconnectAction::allBusesOnBridge: {
-			MLOGPK(INF, pkCanScanPointer) << " reconnect condition " << reconnectConditionString( rcondition )
-				<< " triggered action " << reconnectActionString( raction );
+			MLOGPK(INF, pkCanScanPointer) << " reconnect condition " << CCanAccess::reconnectConditionString( rcondition )
+				<< " triggered action " << CCanAccess::reconnectActionString( raction );
 			break;
 		}
 		default: {
 			// we have a runtime bug
 			MLOGPK(ERR, pkCanScanPointer) << "reconnection action "
-					<< (int) raction << reconnectActionString( raction )
+					<< (int) raction << CCanAccess::reconnectActionString( raction )
 					<< " unknown. Check your config & see documentation. No action.";
 			break;
 		}

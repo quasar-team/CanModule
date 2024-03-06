@@ -1351,8 +1351,8 @@ void AnaCanScan2::m_CanReconnectionThread()
 		waitForReconnectionThreadTrigger();
 		MLOGANA2(TRC, this)
 			<< " reconnection thread tid= " << _tid
-			<< " condition "<< reconnectConditionString(getReconnectCondition() )
-			<< " action " << reconnectActionString(getReconnectAction())
+			<< " condition "<< CCanAccess::reconnectConditionString(getReconnectCondition() )
+			<< " action " << CCanAccess::reconnectActionString(getReconnectAction())
 			<< " is checked, m_failedSendCountdown= "
 			<< m_failedSendCountdown;
 
@@ -1389,8 +1389,8 @@ void AnaCanScan2::m_CanReconnectionThread()
 		// to avoid lots of useless triggers at each send message.
 		switch ( getReconnectAction() ){
 		case CanModule::ReconnectAction::singleBus: {
-			MLOGANA2(INF, this) << " reconnect condition " << reconnectConditionString(m_reconnectCondition)
-										<< " triggered action " << reconnectActionString(m_reconnectAction);
+			MLOGANA2(INF, this) << " reconnect condition " << CCanAccess::reconnectConditionString(m_reconnectCondition)
+										<< " triggered action " << CCanAccess::reconnectActionString(m_reconnectAction);
 
 			AnaInt32 ret = m_reconnectThisPort();
 			MLOGANA2(INF, this) << "reconnected one CAN port ip= " << m_canIPAddress << " ret= " << ret;
@@ -1405,8 +1405,8 @@ void AnaCanScan2::m_CanReconnectionThread()
 		 */
 		case CanModule::ReconnectAction::allBusesOnBridge: {
 			std::string ip = m_ipAddress();
-			MLOGANA2(INF, this) << " reconnect condition " << reconnectConditionString(m_reconnectCondition)
-										<< " triggered action " << reconnectActionString(m_reconnectAction);
+			MLOGANA2(INF, this) << " reconnect condition " << CCanAccess::reconnectConditionString(m_reconnectCondition)
+										<< " triggered action " << CCanAccess::reconnectActionString(m_reconnectAction);
 			AnaCanScan2::st_reconnectAllPorts( ip );
 			MLOGANA2(TRC, this) << " reconnect all ports of ip=  " << ip << this->getBusName();
 			break;
