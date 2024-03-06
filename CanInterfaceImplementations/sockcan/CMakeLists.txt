@@ -35,13 +35,26 @@ endif()
 include_directories( ${SOCKETCAN_HEADERS}  )
 link_directories( ${SOCKETCAN_LIB_PATH} )
 
+
 set(SOCKCAN_SOURCES
+	ExecCommand.cpp
+	UdevAnalyserForPeak.cpp
+	SockCanScan.cpp
+	../../CanInterface/src/CanStatistics.cpp	
+	../../CanInterface/src/CanModuleUtils.cpp	
+	../../CanInterface/src/CCanAccess.cpp	
+	../../Diagnostic/src/Diag.cpp	
+)
+
+set(XXXSOCKCAN_SOURCES
 	ExecCommand.cpp
 	#ExecCommand.h
 	UdevAnalyserForPeak.cpp
 	#UdevAnalyserForPeak.h
 	SockCanScan.cpp
 	#SockCanScan.h
+	CCanAccess.cpp
+	#CCanAccess.h
 	../../CanInterface/src/CanStatistics.cpp
 	#../../CanInterface/include/CanStatistics.h	
 )

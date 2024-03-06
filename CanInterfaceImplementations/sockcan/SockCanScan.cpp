@@ -691,7 +691,7 @@ int CSockCanScan::m_openCanPort()
 			remaining_sleep_us = m_sendThrottleDelay;
 		}
 		if ( remaining_sleep_us > 0 ){
-			CCanAccess::us_sleep( remaining_sleep_us );
+			us_sleep( remaining_sleep_us );
 		}
 		m_previous = boost::posix_time::microsec_clock::local_time();
 	}
