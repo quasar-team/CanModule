@@ -156,9 +156,10 @@ DWORD WINAPI STCanScan::CanScanControlThread(LPVOID pCanScan)
 				if ( rcond == CanModule::ReconnectAutoCondition::timeoutOnReception && stCanScanPointer->hasTimeoutOnReception()) {
 					if ( ract == CanModule::ReconnectAction::singleBus ){
 						MLOGST(INF, stCanScanPointer) << " reconnect condition " << (int) rcond
-								<< stCanScanPointer->reconnectConditionString(rcond)
+								//<< stCanScanPointer->reconnectConditionString(rcond)
+								<< CCanAccess::reconnectConditionString(rcond)
 								<< " triggered action " << (int) ract
-								<< stCanScanPointer->reconnectActionString(ract);
+								<< CCanAccess::reconnectActionString(ract);
 						stCanScanPointer->resetTimeoutOnReception();  // renew timeout while reconnect is in progress
 
 						// deinit single bus and reopen
@@ -171,7 +172,8 @@ DWORD WINAPI STCanScan::CanScanControlThread(LPVOID pCanScan)
 						MLOGST(TRC, stCanScanPointer) << "reconnect one CAN port  m_UcanHandle= " << stCanScanPointer->m_UcanHandle;
 					} else {
 						MLOGST(INF, stCanScanPointer) << "reconnect action " << (int) ract
-								<< stCanScanPointer->reconnectActionString(ract)
+								//<< stCanScanPointer->reconnectActionString(ract)
+								<< CCanAccess::reconnectActionString(ract)
 								<< " is not implemented for systec";
 					}
 				}  // reconnect condition
