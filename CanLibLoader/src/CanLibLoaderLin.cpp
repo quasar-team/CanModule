@@ -70,7 +70,9 @@ void CanLibLoaderLin::dynamicallyLoadLib(const std::string& libName)
 			// this might be caught by the client, so we do not neccessarily stop execution here.
 			throw std::runtime_error(msg.str());
 		}
-	}	
+	} else {
+		LOG(Log::DBG, lh) << ss.str() << " is loaded OK
+	}
 	setLibName(ss.str());
 }
 
