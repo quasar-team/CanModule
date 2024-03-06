@@ -1414,7 +1414,7 @@ void AnaCanScan2::m_CanReconnectionThread()
 		default: {
 			// we have a runtime bug
 			MLOGANA2(ERR, this) << "reconnection action "
-					<< (int) m_reconnectAction << reconnectActionString( m_reconnectAction )
+					<< (int) m_reconnectAction << CCanAccess::reconnectActionString( m_reconnectAction )
 					<< " unknown. Check your config & see documentation. No action.";
 			break;
 		}
