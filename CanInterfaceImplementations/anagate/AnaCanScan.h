@@ -113,6 +113,7 @@ public:
 	uint32_t getPortStatus();
 	virtual uint32_t getPortBitrate(){ return m_CanParameters.m_lBaudRate; };
 
+#if 0
 	virtual void setReconnectBehavior( CanModule::ReconnectAutoCondition cond, CanModule::ReconnectAction action ){
 		m_reconnectCondition = cond;
 		m_reconnectAction = action;
@@ -121,6 +122,7 @@ public:
 	virtual void setReconnectFailedSendCount( unsigned int c ){ m_maxFailedSendCount = m_failedSendCountdown = c;	}
 	virtual CanModule::ReconnectAutoCondition getReconnectCondition() { return m_reconnectCondition; };
 	virtual CanModule::ReconnectAction getReconnectAction() { return m_reconnectAction; };
+#endif
 	virtual void stopBus( void );
 	virtual void fetchAndPublishCanPortState ();
 
