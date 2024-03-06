@@ -423,8 +423,7 @@ void CSockCanScan::m_CanReconnectionThread()
 		MLOGSOCK(TRC, this) << "waiting reconnection thread tid= " << _tid;
 		waitForReconnectionThreadTrigger();
 		MLOGSOCK(TRC, this)
-		<< " reconnection thread tid= " << _tid
-		<< " condition "<< reconnectConditionString(rcond)
+		<< " condition "<< CCanAccess::reconnectConditionString(rcond)
 		<< " action " << CCanAccess::reconnectActionString(ract)
 		<< " is checked, m_failedSendCountdown= "
 		<< m_failedSendCountdown;
@@ -466,8 +465,9 @@ void CSockCanScan::m_CanReconnectionThread()
 		switch ( m_reconnectAction ){
 		case CanModule::ReconnectAction::singleBus: {
 
-			MLOGSOCK(INF, this) << " reconnect condition " << CCanAccess::reconnectConditionString(m_reconnectCondition)
-										<< " triggered action " << CCanAccess::reconnectActionString(m_reconnectAction);
+			MLOGSOCK(INF, this)
+					<< " reconnect condition " << CCanAccess::reconnectConditionString(m_reconnectCondition)
+					<< " triggered action " << CCanAccess::reconnectActionString(m_reconnectAction);
 			close( m_sock );
 			int return0 = m_openCanPort();
 			MLOGSOCK(TRC, this) << "reconnect openCanPort() ret= " << return0;
