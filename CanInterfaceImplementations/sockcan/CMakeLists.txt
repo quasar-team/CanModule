@@ -37,13 +37,13 @@ link_directories( ${SOCKETCAN_LIB_PATH} )
 
 set(SOCKCAN_SOURCES
 	ExecCommand.cpp
-	ExecCommand.h
+	#ExecCommand.h
 	UdevAnalyserForPeak.cpp
-	UdevAnalyserForPeak.h
+	#UdevAnalyserForPeak.h
 	SockCanScan.cpp
-	SockCanScan.h
+	#SockCanScan.h
 	../../CanInterface/src/CanStatistics.cpp
-	../../CanInterface/include/CanStatistics.h	
+	#../../CanInterface/include/CanStatistics.h	
 )
 
 # you can either build the fully dynamic libs or the as-static-as-possible, 
