@@ -46,19 +46,6 @@ set(SOCKCAN_SOURCES
 	../../Diagnostic/src/Diag.cpp	
 )
 
-set(XXXSOCKCAN_SOURCES
-	ExecCommand.cpp
-	#ExecCommand.h
-	UdevAnalyserForPeak.cpp
-	#UdevAnalyserForPeak.h
-	SockCanScan.cpp
-	#SockCanScan.h
-	CCanAccess.cpp
-	#CCanAccess.h
-	../../CanInterface/src/CanStatistics.cpp
-	#../../CanInterface/include/CanStatistics.h	
-)
-
 # you can either build the fully dynamic libs or the as-static-as-possible, 
 # but not both in one go, we profit and also link the linux socketcan static if specified
 SET ( SOCK_LIB_NAME "sockcan" )

@@ -94,12 +94,7 @@ CSockCanScan::CSockCanScan() :
 	CanModule::PORT_COUNTERS_t c;
 	return c;
 }
-#if 0
-/* virtual */ void CSockCanScan::setReconnectBehavior( CanModule::ReconnectAutoCondition cond, CanModule::ReconnectAction action ){
-	m_reconnectCondition = cond;
-	m_reconnectAction = action;
-};
-#endif
+
 /**
  * (virtual) forced implementation. Generally: do whatever shenanigans you need on the vendor API and fill in the portState accordingly, stay
  * close to the semantics of the enum.
@@ -414,7 +409,7 @@ void CSockCanScan::m_CanReconnectionThread()
 	 * Like his we do not have to pollute the "sendMessage" like for anagate, and that is cleaner.
 	 */
 	CanModule::ReconnectAutoCondition rcond = getReconnectCondition();
-	// CanModule::ReconnectAction ract = getReconnectAction();
+	CanModule::ReconnectAction ract = getReconnectAction();
 
 	MLOGSOCK(TRC, this) << "initialized reconnection thread tid= " << _tid << ", entering loop";
 	while ( true ) {
@@ -424,7 +419,7 @@ void CSockCanScan::m_CanReconnectionThread()
 		waitForReconnectionThreadTrigger();
 		MLOGSOCK(TRC, this)
 		<< " condition "<< CCanAccess::reconnectConditionString(rcond)
-		//<< " action " << CCanAccess::reconnectActionString(ract)
+		<< " action " << CCanAccess::reconnectActionString(ract)
 		<< " is checked, m_failedSendCountdown= "
 		<< m_failedSendCountdown;
 
@@ -467,7 +462,7 @@ void CSockCanScan::m_CanReconnectionThread()
 
 			MLOGSOCK(INF, this)
 					<< " reconnect condition " << CCanAccess::reconnectConditionString(m_reconnectCondition);
-					//<< " triggered action " << CCanAccess::reconnectActionString(m_reconnectAction);
+					<< " triggered action " << CCanAccess::reconnectActionString(m_reconnectAction);
 			close( m_sock );
 			int return0 = m_openCanPort();
 			MLOGSOCK(TRC, this) << "reconnect openCanPort() ret= " << return0;
@@ -489,7 +484,7 @@ void CSockCanScan::m_CanReconnectionThread()
 			 * CanModule::ReconnectAction::allBusesOnBridge is not implemented for sock
 			 */
 			MLOGSOCK(WRN, this) << "reconnection action "
-					//<< (int) m_reconnectAction << CCanAccess::reconnectActionString( m_reconnectAction )
+					<< (int) m_reconnectAction << CCanAccess::reconnectActionString( m_reconnectAction )
 					<< " is not available for the socketcan/linux implementation. Check your config & see documentation. No action.";
 			break;
 		}
