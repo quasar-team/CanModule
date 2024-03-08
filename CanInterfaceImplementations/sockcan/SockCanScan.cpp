@@ -501,6 +501,8 @@ CSockCanScan::~CSockCanScan()
 int CSockCanScan::m_configureCanBoard(const std::string name,const std::string parameters)
 {
 	std::string lname = name;
+	MLOGSOCK(TRC, this) << "name= " << name ;
+
 
 	/**
 	 * for PEAK bridges, we have a problem: the local ports are not mapped to the global socketcan
