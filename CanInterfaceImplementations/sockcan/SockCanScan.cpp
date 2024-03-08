@@ -823,7 +823,7 @@ int CSockCanScan::createBus(const std::string name, const std::string parameters
 {
 	m_gsig = GlobalErrorSignaler::getInstance();
 
-	MLOGSOCK(TRC,this)<< " name= " << name << " parameters= " << parameters << " factor= " << factor;
+	MLOGSOCK(TRC,this)<< " name= " << name << " parameters= " << parameters;
 
 	/** LogIt: initialize shared lib. The logging levels for the component logging is kept, we are talking still to
 	 * the same master object "from the exe". We get the logIt ptr
