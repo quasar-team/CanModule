@@ -2,13 +2,14 @@
 All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
-### 2.2.4 [6.march.2024, skip 2.2.3]
+### 2.2.4 [22.march.2024, skip 2.2.3]
 - suppressed the interactive message box in CanLibLoaderWin.ccp:61 https://its.cern.ch/jira/browse/ENS-27467
 - made m_updateInitialError () ; public again and renamed it to updateInitialError() accordingly, OPCUA-2602. 
   also initialize it to 0 at init.
 - fixed a silly bug in the build chain for socketcan: some sources were missing. 
 - code around reconnection behavior based on superclass methods everywhere now. Hope this works for windows
-- jenkins seems to be gone
+- do the inits for extended hw diags correctly for sock
+- some extra debugging messages
 
 
 ### 2.2.2
