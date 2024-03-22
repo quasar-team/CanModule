@@ -91,7 +91,7 @@ CSockCanScan::CSockCanScan() :
 	CanModule::HARDWARE_DIAG_t d;
 	d.clientCount = 0;
 	d.clientIps = {};
-	d.clientPorts = 0;
+	d.clientPorts = {};
 	d.temperature = 0;
 	d.uptime = 0;
 	return d;
