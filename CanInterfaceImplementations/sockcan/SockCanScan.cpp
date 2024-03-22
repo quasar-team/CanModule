@@ -90,7 +90,7 @@ CSockCanScan::CSockCanScan() :
 /* virtual */  CanModule::HARDWARE_DIAG_t CSockCanScan::getHwDiagnostics (){
 	CanModule::HARDWARE_DIAG_t d;
 	d.clientCount = 0;
-	d.clientIps = "";
+	d.clientIps = {};
 	d.clientPorts = 0;
 	d.temperature = 0;
 	d.uptime = 0;
