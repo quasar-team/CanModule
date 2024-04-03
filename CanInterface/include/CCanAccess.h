@@ -496,6 +496,8 @@ public: // accessible API
 	static std::string reconnectConditionString(CanModule::ReconnectAutoCondition c);
 	static std::string reconnectActionString(CanModule::ReconnectAction c);
 
+	// convenience
+	float getFramerateDelay(){ return m_sendThrottleDelay; }
 
 protected: // not public, but inherited
 	std::string m_sBusName;
