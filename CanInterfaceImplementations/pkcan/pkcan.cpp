@@ -333,8 +333,8 @@ int PKCanScan::createBus(const std::string name, const std::string parameters )
 bool PKCanScan::m_configureCanboard(const std::string name,const std::string parameters)
 {
 	m_sBusName = name;
-	m_baudRate = PCAN_BAUD_125K;
-	m_CanParameters.m_lBaudRate = 125000;
+	m_baudRate = PCAN_BAUD_125K;  // default
+	m_CanParameters.m_lBaudRate = 125000;  // default
 
 	// for FD modules
 	//unsigned int parametersTseg1 = 0;
@@ -344,10 +344,13 @@ bool PKCanScan::m_configureCanboard(const std::string name,const std::string par
 	//unsigned int parametersSyncmode = 0;
 	//long parametersBaudRate;
 	//int	numPar;
-	//Process the parameters
+
+	// Process the parameters. Returns the result as a vecotor, and for bw compatibility puts it into m_CanParameters as well
 	std::vector<std::string> vectorString;
 	vectorString = parseNameAndParameters(name, parameters);
-	MLOGPK(DBG, this) << " calling m_getHandle vectorString[1]= " << vectorString[1];
+	MLOGPK(DBG, this) << __FUNCTION__ << " vectorString[0]= " << vectorString[0];
+	MLOGPK(DBG, this) << __FUNCTION__ << " vectorString[1]= " << vectorString[1];
+	MLOGPK(DBG, this) << __FUNCTION__ << " m_CanParameters.m_lBaudRate= " << m_CanParameters.m_lBaudRate;
 
 	// peak guys start counting from 1, we start counting from 0. ugh.
 	int ich = atoi(vectorString[1].c_str());
