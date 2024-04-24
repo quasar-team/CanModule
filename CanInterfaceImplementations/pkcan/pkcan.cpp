@@ -345,7 +345,7 @@ bool PKCanScan::m_configureCanboard(const std::string name,const std::string par
 	//long parametersBaudRate;
 	//int	numPar;
 
-	// Process the parameters. Returns the result as a vecotor, and for bw compatibility puts it into m_CanParameters as well
+	// Process the parameters. Returns the result as a vector, and for bw compatibility puts bitrate into m_CanParameters as well
 	std::vector<std::string> vectorString;
 	vectorString = parseNameAndParameters(name, parameters);
 	MLOGPK(DBG, this) << __FUNCTION__ << " vectorString[0]= " << vectorString[0];
