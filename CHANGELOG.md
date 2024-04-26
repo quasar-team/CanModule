@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+
+### 2.2.6 [april.2024, skip 2.2.5]
+- added cca->getFramerateDelay() for easier stats output 
+
+
 ### 2.2.4 [22.march.2024, skip 2.2.3]
 - suppressed the interactive message box in CanLibLoaderWin.ccp:61 https://its.cern.ch/jira/browse/ENS-27467
 - made m_updateInitialError () ; public again and renamed it to updateInitialError() accordingly, OPCUA-2602. 
