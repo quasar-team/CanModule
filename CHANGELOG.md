@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+### 2.2.7 [2.may.2024]
+- correct systec Usbcan32.lib for w22 (64bit does not work)
+- link against msvc-141 boost_1_66_0 bianry distribution
+
 
 ### 2.2.6 [april.2024, skip 2.2.5]
 - added cca->getFramerateDelay() for easier stats output 
