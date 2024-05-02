@@ -32,7 +32,8 @@ if( (NOT DEFINED SYSTEC_LIB_PATH) OR (NOT DEFINED SYSTEC_HEADERS) OR (NOT DEFINE
 	message(WARNING "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Required variable SYSTEC_LIB_PATH has not been defined." )
 	message(WARNING "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: Required variable SYSTEC_LIB_FILE has not been defined." )
 	message(WARNING "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: assuming default locations and libs for systec and windows" )
-	if(WIN32)
+	if(_WIN32)
+	if ( False )
 		SET(SYSTEC_HEADERS "C:/Program Files (x86)/SYSTEC-electronic/USB-CANmodul Utility Disk/Examples/Include")
 		SET(SYSTEC_LIB_PATH "C:/Program Files (x86)/SYSTEC-electronic/USB-CANmodul Utility Disk/Examples/Lib")
 		#SET(SYSTEC_LIB_FILE "USBCAN64.lib")
@@ -41,6 +42,7 @@ if( (NOT DEFINED SYSTEC_LIB_PATH) OR (NOT DEFINED SYSTEC_HEADERS) OR (NOT DEFINE
 		message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: windows SYSTEC_LIB_PATH= ${SYSTEC_LIB_PATH}]")
  		message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: windows SYSTEC_HEADERS=  ${SYSTEC_HEADERS}]")
  		message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: windows SYSTEC_LIB_FILE= ${SYSTEC_LIB_FILE}]")
+ 	endif()
 	else()
 	    # since we use socketcan for linux for systec, we are in the wrong directory
 		message( FATAL_ERROR "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: linux uses socketcan (directory sockcan) for systec, you are building the wrong directory." )
