@@ -349,8 +349,10 @@ bool PKCanScan::m_configureCanboard(const std::string name,const std::string par
 	// and the bitrate, into m_CanParameters as well
 	std::vector<std::string> vectorString;
 	vectorString = parseNameAndParameters(name, parameters);
-	MLOGPK(DBG, this) << __FUNCTION__ << " vectorString[0]= " << vectorString[0];
-	MLOGPK(DBG, this) << __FUNCTION__ << " vectorString[1]= " << vectorString[1];
+
+	for (auto & element : vectorString) {
+		MLOGPK(DBG, this) << __FUNCTION__ << " element= " << element;
+	}
 	MLOGPK(DBG, this) << __FUNCTION__ << " m_CanParameters.m_lBaudRate= " << m_CanParameters.m_lBaudRate;
 
 	// peak guys start counting from 1, we start counting from 0. ugh.
