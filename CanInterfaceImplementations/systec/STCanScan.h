@@ -30,7 +30,7 @@
 
 #include <boost/date_time/posix_time/posix_time.hpp>
 
-#include <Usbcan32.h>
+#include "Usbcan32.h"
 //#include <CanModuleUtils.h>
 #include <CCanAccess.h>
 #include <CanStatistics.h>
