@@ -426,7 +426,6 @@ public: // accessible API
 	 * 				 */
 
 	void setReconnectBehavior( CanModule::ReconnectAutoCondition cond, CanModule::ReconnectAction action ){
-		std::cout <<__FUNCTION__ << " " << __FILE__ << " " << __LINE__ << std::endl;
 		m_reconnectCondition = cond;
 		m_reconnectAction = action;
 	};
