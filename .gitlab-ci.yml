@@ -22,8 +22,6 @@ variables:
 documentation:
    stage: documentation
    image: $CI_REGISTRY/jcopfw/qa/ics-fd-qa:ubuntu2404.doc
-   tags:
-     - docker
    script:
      - cd $CI_PROJECT_DIR/Documentation && ./documentation.sh
    allow_failure: true
