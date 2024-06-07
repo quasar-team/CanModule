@@ -239,8 +239,8 @@ void WINAPI InternalCallback(AnaUInt32 nIdentifier, const char * pcBuffer, AnaIn
 	//		<< endl;
 	// MLOGANA2(TRC, g_AnaCanScanPointerMap[hHandle] ) << "read(): " << canMessageToString(canMsgCopy);
 
-	LOG( Log::TRC ) << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
-			<< " CanModule anagate " << CanModule::canMessageToString(canMsgCopy);
+	//LOG( Log::TRC ) << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
+		//	<< " CanModule anagate " << CanModule::canMessageToString(canMsgCopy);
 
 	g_AnaCanScanObjectMap[hHandle]->callbackOnRecieve(canMsgCopy);
 	g_AnaCanScanObjectMap[hHandle]->statisticsOnRecieve( nBufferLen );
