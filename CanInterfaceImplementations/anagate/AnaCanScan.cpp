@@ -25,6 +25,13 @@
  */
 
 #include "AnaCanScan.h"
+#ifdef _WINDOWS
+ #include <winsock.h>
+#else
+ #include <arpa/inet.h>
+#endif 
+#include <boost/date_time/posix_time/posix_time.hpp>
+#include <boost/date_time/posix_time/posix_time_io.hpp>
 #include <CanModuleUtils.h>
 
 #ifdef _WIN32
@@ -100,10 +107,67 @@ uint32_t AnaCanScan::getPortStatus(){
 }
 /* virtual */  CanModule::HARDWARE_DIAG_t AnaCanScan::getHwDiagnostics (){
 	CanModule::HARDWARE_DIAG_t d;
+
+	AnaInt32 temperature, uptime = 0;
+	CANGetDiagData(m_UcanHandle, &temperature, &uptime);
+	d.temperature = static_cast<float>(temperature);
+	d.uptime = uptime;
+
+	static const size_t max_sz_client = 6;
+	AnaUInt32 clientCount = 0;
+	AnaUInt32 ips[max_sz_client] = {0}, ports[max_sz_client] = {0};
+    AnaInt64 timestamps[max_sz_client] = {0};
+	CANGetClientList(m_UcanHandle, &clientCount, ips, ports, timestamps);
+
+	static auto toIpQuad = [] (const AnaUInt32& ip) -> std::string {
+		const AnaUInt32 ipOrdered = ntohl(ip);
+		std::array<uint8_t, 4> bytes = {
+			static_cast<uint8_t>((ipOrdered >> 24) & 0xFF),
+			static_cast<uint8_t>((ipOrdered >> 16) & 0xFF),
+			static_cast<uint8_t>((ipOrdered >> 8) & 0xFF),
+			static_cast<uint8_t>(ipOrdered & 0xFF)
+		};
+
+		std::ostringstream oss;
+		oss << static_cast<int>(bytes[0]) << "."
+			<< static_cast<int>(bytes[1]) << "."
+			<< static_cast<int>(bytes[2]) << "."
+			<< static_cast<int>(bytes[3]);
+
+		return oss.str();
+	};
+
+	static auto toISO860 = [] (const AnaInt64& unixTimestamp) -> std::string {
+		const boost::posix_time::ptime pt(boost::posix_time::from_time_t(static_cast<std::time_t>(unixTimestamp)));
+		std::ostringstream oss;
+		oss << boost::posix_time::to_iso_extended_string(pt) << "Z";
+		return oss.str();
+	};
+
+	d.clientCount = static_cast<unsigned int>(clientCount);
+	for (AnaUInt32 i = 0; i < clientCount; ++i)
+	{
+		d.clientIps[i] = toIpQuad(ips[i]);
+		d.clientPorts[i] = static_cast<unsigned int>(ports[i]);
+		d.clientConnectionTimestamps[i] = toISO860(timestamps[i]);
+	}
+
 	return d;
 }
 /* virtual */ CanModule::PORT_COUNTERS_t AnaCanScan::getHwCounters (){
 	CanModule::PORT_COUNTERS_t c;
+	AnaUInt32 countTCPRx, countTCPTx, countCANRx, countCANTx, countCANRxErr, countCANTxErr, countCANRxDisc, countCANTxDisc, countCANTimeout = 0;
+	CANGetCounters(m_UcanHandle, &countTCPRx, &countTCPTx, &countCANRx, &countCANTx, &countCANRxErr, &countCANTxErr, &countCANRxDisc, &countCANTxDisc, &countCANTimeout);
+	c.countTCPRx      = static_cast<unsigned int>(countTCPRx);
+	c.countTCPTx      = static_cast<unsigned int>(countTCPTx);
+	c.countCANTx      = static_cast<unsigned int>(countTCPTx);
+	c.countCANRx      = static_cast<unsigned int>(countCANRx);
+	c.countCANTx      = static_cast<unsigned int>(countCANTx);
+	c.countCANRxErr   = static_cast<unsigned int>(countCANRxErr);
+	c.countCANTxErr   = static_cast<unsigned int>(countCANTxErr);
+	c.countCANRxDisc  = static_cast<unsigned int>(countCANRxDisc);
+	c.countCANTxDisc  = static_cast<unsigned int>(countCANTxDisc);
+	c.countCANTimeout = static_cast<unsigned int>(countCANTimeout);
 	return c;
 }
 
