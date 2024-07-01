@@ -26,7 +26,8 @@
 
 #include "AnaCanScan.h"
 #ifdef _WINDOWS
- #include <winsock.h>
+ #include <winsock2.h>
+ #pragma comment(lib, "ws2_32.lib")
 #else
  #include <arpa/inet.h>
 #endif 
