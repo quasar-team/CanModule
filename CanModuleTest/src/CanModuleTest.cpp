@@ -47,7 +47,7 @@ CanModuleTest::MsgRcvdFunctor::~MsgRcvdFunctor()
 void CanModuleTest::MsgRcvdFunctor::operator()(const CanMessage& msg)
 {
 	const string dataAsString(std::string(msg.c_data, msg.c_data + (msg.c_dlc*sizeof(unsigned char))));
-	LOG(Log::INF) << __FUNCTION__ << " ID ["<<msg.c_id<<"] len ["<<(unsigned int)msg.c_dlc<<"] message [0x"<<dataAsString<<"] rtr ["<<msg.c_rtr<<"]";
+	LOG(Log::INF) << __FUNCTION__ << " ID ["<<msg.c_id<<"] len ["<<(unsigned int)msg.c_dlc<<"] message [0x"<<dataAsString<<"] rtr ["<<msg.c_rtr<<msg.c_eff<<"]";
 	boost::shared_ptr<CanMessage> msgClone(new CanMessage());
 
 	msgClone->c_id = msg.c_id;
@@ -57,6 +57,7 @@ void CanModuleTest::MsgRcvdFunctor::operator()(const CanMessage& msg)
 	msgClone->c_time.tv_sec = msg.c_time.tv_sec;
 	msgClone->c_time.tv_usec = msg.c_time.tv_usec;
 	msgClone->c_rtr = msg.c_rtr;
+	msgClone->c_eff = msg.c_eff;
 	m_msgsRecvd.push_back(msgClone);
 }
 

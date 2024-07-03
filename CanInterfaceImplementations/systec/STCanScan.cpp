@@ -500,6 +500,7 @@ bool STCanScan::sendErrorCode(long status)
  * @param len Length of the message. If the message is bigger than 8 characters, it will be split into separate 8 characters messages.
  * @param message Message to be sent trough the can bus.
  * @param rtr is the message a remote transmission request?
+ * @param eff: indicate if we should use extended id for the message CAN 2.0B
  * @return Was the sending process successful?
  */
 bool STCanScan::sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr, bool eff)

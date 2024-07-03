@@ -273,6 +273,7 @@ public: // accessible API
 	 * @param message: Message to be sent through the can bus.
 	 * @param rtr: activate the Remote Transmission Request flag. Having this flag in a message with data/len is not part of the CAN standard,
 	 * but since some hardware uses it anyway, the option to use it is provided.
+	 * @param eff: indicate if we should use extended id for the message CAN 2.0B
 	 * @return: Was the message sent successfully? If not, we may reconnect.
 	 */
 	virtual bool sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr = false, bool eff = false) = 0;

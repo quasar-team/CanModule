@@ -664,6 +664,7 @@ int CSockCanScan::m_openCanPort()
  * @param len Length of the message. If the message is bigger than 8 characters, it will be split into separate 8 characters messages.
  * @param message Message to be sent trough the can bus.
  * @param rtr is the message a remote transmission request?
+ * @param eff: indicate if we should use extended id for the message CAN 2.0B
  * @return Was the initialisation process successful?
  *
  * OPCUA-2604: sendMessage must be non blocking. The reconnection behavior therefore must be managed in a separate thread.
