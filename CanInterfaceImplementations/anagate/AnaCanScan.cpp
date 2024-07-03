@@ -654,9 +654,10 @@ void AnaCanScan::m_signalErrorMessage( int code, std::string msg )
  * @param len: Length of the message. If the message is bigger than 8 characters, it will be split into separate 8 characters messages.
  * @param message: Message to be sent trough the can bus.
  * @param rtr: is the message a remote transmission request?
+ * @param eff: is the id extended?
  * @return Was the sending process successful?
  */
-bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr)
+bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr, bool eff)
 {
 
 	if ( m_canCloseDevice || m_busStopped ){
@@ -671,10 +672,17 @@ bool AnaCanScan::sendMessage(short cobID, unsigned char len, unsigned char *mess
 	MLOGANA(DBG,this) << __FUNCTION__ << " Sending message: [" << CanModule::canMessage2ToString(cobID, len, message, rtr) << "]";
 	AnaInt32 anaCallReturn = 0;
 	unsigned char *messageToBeSent[8];
+
 	AnaInt32 flags = 0x0;
-	if (rtr) {
-		flags = 2; // Bit 1: If set, the telegram is marked as remote frame.
-	}
+
+	// Set Bit 0 of flags if eff is true
+	if (eff)
+		flags |= (1 << 0); // Set Bit 0
+
+	// Set Bit 1 of flags if rtr is true
+	if (rtr)
+		flags |= (1 << 1); // Set Bit 1
+
 	int  messageLengthToBeProcessed;
 
 	//If there is more than 8 characters to process, we process 8 of them in this iteration of the loop

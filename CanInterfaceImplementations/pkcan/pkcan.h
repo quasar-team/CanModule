@@ -64,7 +64,7 @@ public:
 	 * @param rtr: is the message a remote transmission request?
 	 * @return: Was the sending process successful?
 	 */
-    virtual bool sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr = false);
+    virtual bool sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr = false, bool eff = false);
     /*
 	 * Method that sends a remote request trough the can bus channel. If the method createBus was not called before this, sendMessage will fail, as there is no
 	 * can bus channel to send the request trough. Similar to sendMessage, but it sends an special message reserved for requests.

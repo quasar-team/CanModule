@@ -31,13 +31,16 @@ typedef struct CanMsgStruct
 	struct timeval	c_time;
 	//Is the message a remote Transmission request? Must be true for remote request frames and false for data frames
 	bool c_rtr;
+	// Does this message use extended IDs
+	bool c_eff;
 #ifdef __cplusplus
 public:
 	CanMsgStruct() :
 		c_id(0),
 		c_ff(0),
 		c_dlc(0),
-		c_rtr(false)
+		c_rtr(false),
+		c_eff(false)
 		{
 			/// todo memset, and message length > 8 for extended CAN
 			for (int i=0; i<8; i++)

@@ -275,16 +275,16 @@ public: // accessible API
 	 * but since some hardware uses it anyway, the option to use it is provided.
 	 * @return: Was the message sent successfully? If not, we may reconnect.
 	 */
-	virtual bool sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr = false) = 0;
+	virtual bool sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr = false, bool eff = false) = 0;
 	virtual bool sendMessage(CanMessage *canm)
 	{
-		if ( canm->c_id < 0 || canm->c_id > 2047 ){
+		if (canm->c_eff && ( canm->c_id < 0 || canm->c_id > 2047 )){
 			LOG(Log::WRN, m_lh) << __FUNCTION__ << " CAN ID= 0x"
 					<< std::hex << canm->c_id
-					<< " outside 11 bit (standard) range detected. Dropping message: Extended CAN is not supported.";
+					<< " outside 11 bit (standard) range detected. Dropping message: Extended ID detected, but EFF flag false.";
 			return false;
 		}
-		return sendMessage(short(canm->c_id), canm->c_dlc, canm->c_data, canm->c_rtr);
+		return sendMessage(short(canm->c_id), canm->c_dlc, canm->c_data, canm->c_rtr, canm->c_eff);
 	}
 
 

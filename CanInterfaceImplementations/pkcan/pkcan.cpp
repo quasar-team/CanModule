@@ -508,10 +508,15 @@ bool PKCanScan::sendMessage(short cobID, unsigned char len, unsigned char *messa
 	TPCANStatus tpcanStatus;
 	TPCANMsg tpcanMessage;
 	tpcanMessage.ID = cobID;
+
 	tpcanMessage.MSGTYPE = PCAN_MESSAGE_STANDARD;
-	if(rtr) {
-		tpcanMessage.MSGTYPE = PCAN_MESSAGE_RTR;
-	}
+
+	if (rtr)
+		tpcanMessage.MSGTYPE |= PCAN_MESSAGE_RTR;
+
+	if (eff) 
+		tpcanMessage.MSGTYPE |= PCAN_MESSAGE_EXTENDED;
+
 	int lengthOfUnsentData, lengthToBeSent;
 	lengthOfUnsentData = len;
 	do {

@@ -670,7 +670,7 @@ int CSockCanScan::m_openCanPort()
  *
  * returns: true for success, otherwise false
  */
-/* virtual */ bool CSockCanScan::sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr)
+/* virtual */ bool CSockCanScan::sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr, bool eff)
 {
 	int messageLengthToBeProcessed;
 
@@ -692,9 +692,12 @@ int CSockCanScan::m_openCanPort()
 	canFrame.can_dlc = messageLengthToBeProcessed;
 	memcpy(canFrame.data, message, len);
 	canFrame.can_id = cobID;
-	if (rtr) {
+
+	if (rtr) 
 		canFrame.can_id |= CAN_RTR_FLAG;
-	}
+
+	if (eff) 
+		canFrame.can_id |= CAN_EFF_FLAG;
 
 	// throttle the speed to avoid frame losses. we just wait the minimum time needed
 	if ( m_sendThrottleDelay > 0 ) {

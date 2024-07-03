@@ -502,7 +502,7 @@ bool STCanScan::sendErrorCode(long status)
  * @param rtr is the message a remote transmission request?
  * @return Was the sending process successful?
  */
-bool STCanScan::sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr)
+bool STCanScan::sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr, bool eff)
 {
 	// throttle the speed to avoid frame losses. we just wait the minimum time needed
 	if ( m_sendThrottleDelay > 0 ) {
@@ -524,10 +524,14 @@ bool STCanScan::sendMessage(short cobID, unsigned char len, unsigned char *messa
 
 	canMsgToBeSent.m_dwID = cobID;
 	canMsgToBeSent.m_bDLC = len;
-	canMsgToBeSent.m_bFF = 0;
-	if (rtr) {
-		canMsgToBeSent.m_bFF = USBCAN_MSG_FF_RTR;
-	}
+
+	canMsgToBeSent.m_bFF = USBCAN_MSG_FF_STD; // Equivalent to 0x0 (no flags active)
+	if (rtr) 
+		canMsgToBeSent.m_bFF |= USBCAN_MSG_FF_RTR;
+	
+	if (eff)
+		canMsgToBeSent.m_bFF |= USBCAN_MSG_FF_EXT;
+
 	int  messageLengthToBeProcessed;
 	//If there is more than 8 characters to process, we process 8 of them in this iteration of the loop
 	if (len > 8) {

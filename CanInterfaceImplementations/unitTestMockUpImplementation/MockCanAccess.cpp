@@ -83,7 +83,7 @@ bool MockCanAccess::sendRemoteRequest(short cobID)
 	return true;
 }
 
-bool MockCanAccess::sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr)
+bool MockCanAccess::sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr, bool eff)
 {
 	// throttle the speed to avoid frame losses. we just wait the minimum time needed
 	if ( m_sendThrottleDelay > 0 ) {

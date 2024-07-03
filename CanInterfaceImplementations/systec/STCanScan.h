@@ -55,7 +55,7 @@ public:
 
 	virtual int createBus(const std::string name ,const std::string parameters);
 	virtual int createBus(const std::string name, const std::string parameters, float factor );
-    virtual bool sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr = false);
+    virtual bool sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr = false, bool eff = false);
 
     /*
 	 * Method that sends a remote request trough the can bus channel. If the method createBUS was not called before this, sendMessage will fail, as there is no
