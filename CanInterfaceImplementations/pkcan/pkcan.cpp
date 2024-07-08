@@ -486,7 +486,7 @@ bool PKCanScan::m_sendErrorCode(long status)
  * and we talk only over USB to fixed bitrate modules. The flexible bitrate (FD) modules can be implemented later
  * as well: for this we need more parameters to pass and a switch between CAN_Write and CAN_WriteFD.
  */
-bool PKCanScan::sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr)
+bool PKCanScan::sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr, bool eff)
 {
 
 
