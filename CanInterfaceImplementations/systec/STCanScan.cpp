@@ -503,7 +503,7 @@ bool STCanScan::sendErrorCode(long status)
  * @param eff: indicate if we should use extended id for the message CAN 2.0B
  * @return Was the sending process successful?
  */
-bool STCanScan::sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr, bool eff)
+bool STCanScan::sendMessage(uint32_t cobID, unsigned char len, unsigned char *message, bool rtr, bool eff)
 {
 	// throttle the speed to avoid frame losses. we just wait the minimum time needed
 	if ( m_sendThrottleDelay > 0 ) {
@@ -518,7 +518,7 @@ bool STCanScan::sendMessage(short cobID, unsigned char len, unsigned char *messa
 		m_previous = boost::posix_time::microsec_clock::local_time();
 	}
 
-	MLOGST(DBG,this) << "Sending message: [" << CanModule::canMessage2ToString(cobID, len, message, rtr) << "]";
+	MLOGST(DBG,this) << "Sending message: [" << CanModule::canMessage2ToString(cobID, len, message, rtr, eff) << "]";
 
 	tCanMsgStruct canMsgToBeSent;
 	BYTE Status;
@@ -619,7 +619,7 @@ bool STCanScan::sendMessage(short cobID, unsigned char len, unsigned char *messa
 	return sendErrorCode(Status);
 }
 
-bool STCanScan::sendRemoteRequest(short cobID)
+bool STCanScan::sendRemoteRequest(uint32_t cobID)
 {
 	tCanMsgStruct canMsg;
 	BYTE Status;

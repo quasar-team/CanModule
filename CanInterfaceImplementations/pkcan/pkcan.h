@@ -65,14 +65,14 @@ public:
 	 * @param eff: indicate if we should use extended id for the message CAN 2.0B
 	 * @return: Was the sending process successful?
 	 */
-    virtual bool sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr = false, bool eff = false);
+    virtual bool sendMessage(uint32_t cobID, unsigned char len, unsigned char *message, bool rtr = false, bool eff = false);
     /*
 	 * Method that sends a remote request trough the can bus channel. If the method createBus was not called before this, sendMessage will fail, as there is no
 	 * can bus channel to send the request trough. Similar to sendMessage, but it sends an special message reserved for requests.
 	 * @param cobID: Identifier that will be used for the request.
 	 * @return: Was the initialisation process successful?
 	 */
-	virtual bool sendRemoteRequest(short cobID);
+	virtual bool sendRemoteRequest(uint32_t cobID);
 	//Returns the instance of the CanStatistics object
 	virtual void getStatistics( CanStatistics & result );
 	virtual uint32_t getPortStatus();

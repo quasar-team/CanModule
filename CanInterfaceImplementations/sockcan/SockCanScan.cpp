@@ -671,7 +671,7 @@ int CSockCanScan::m_openCanPort()
  *
  * returns: true for success, otherwise false
  */
-/* virtual */ bool CSockCanScan::sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr, bool eff)
+/* virtual */ bool CSockCanScan::sendMessage(uint32_t cobID, unsigned char len, unsigned char *message, bool rtr, bool eff)
 {
 	int messageLengthToBeProcessed;
 
@@ -787,7 +787,7 @@ bool CSockCanScan::m_writeWrapper (const can_frame* frame)
  *
  * Used in the CANopen NG server and other applications.
  */
-/* virtual */ bool CSockCanScan::sendRemoteRequest(short cobID)
+/* virtual */ bool CSockCanScan::sendRemoteRequest(uint32_t cobID)
 {
 	struct can_frame canFrame (emptyCanFrame());
 	canFrame.can_id = cobID + CAN_RTR_FLAG	;

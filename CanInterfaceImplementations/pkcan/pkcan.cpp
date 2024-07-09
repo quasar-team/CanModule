@@ -486,7 +486,7 @@ bool PKCanScan::m_sendErrorCode(long status)
  * and we talk only over USB to fixed bitrate modules. The flexible bitrate (FD) modules can be implemented later
  * as well: for this we need more parameters to pass and a switch between CAN_Write and CAN_WriteFD.
  */
-bool PKCanScan::sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr)
+bool PKCanScan::sendMessage(uint32_t cobID, unsigned char len, unsigned char *message, bool rtr, bool eff)
 {
 
 
@@ -503,7 +503,7 @@ bool PKCanScan::sendMessage(short cobID, unsigned char len, unsigned char *messa
 		m_previous = boost::posix_time::microsec_clock::local_time();
 	}
 
-	MLOGPK(DBG,this) << "Sending message: [" << CanModule::canMessage2ToString(cobID, len, message, rtr) << "]";
+	MLOGPK(DBG,this) << "Sending message: [" << CanModule::canMessage2ToString(cobID, len, message, rtr, eff) << "]";
 
 	TPCANStatus tpcanStatus;
 	TPCANMsg tpcanMessage;
@@ -562,7 +562,7 @@ bool PKCanScan::sendMessage(short cobID, unsigned char len, unsigned char *messa
 	return m_sendErrorCode(tpcanStatus);
 }
 
-bool PKCanScan::sendRemoteRequest(short cobID)
+bool PKCanScan::sendRemoteRequest(uint32_t cobID)
 {
 	TPCANMsg    tpcanMessage;
 	tpcanMessage.ID = cobID;

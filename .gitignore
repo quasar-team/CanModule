@@ -35,3 +35,5 @@ build/
 **/*.BASE.*
 **/*.LOCAL.*
 **/*.REMOTE.*
+.vscode
+CanInterface/include/VERSION.h

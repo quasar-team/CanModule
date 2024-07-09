@@ -20,7 +20,7 @@
 typedef struct CanMsgStruct
 {
 	//Identifier of the message
-	long c_id;
+	uint32_t c_id;
 	//Flags activated in the message
 	unsigned char c_ff;
 	//Length of the message

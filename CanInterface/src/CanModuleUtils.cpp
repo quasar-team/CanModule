@@ -87,7 +87,7 @@ namespace CanModule
 	std::string canMessageToString(CanMessage &f)
 	{
 		std::string result;
-		result =  "[id=0x"+CanModuleUtils::toHexString(f.c_id, 3, '0')+" ";
+		result =  "[id=0x"+CanModuleUtils::toHexString(f.c_id, 8, '0')+" ";
 		if (f.c_id & f.c_rtr)
 			result += "RTR ";
 		result+="dlc=" + CanModuleUtils::toString(int(f.c_dlc)) + " data=[";
@@ -98,12 +98,14 @@ namespace CanModule
 		return result;
 	}
 
-	std::string canMessage2ToString(short cobID, unsigned char len, unsigned char *message, bool rtr)
+	std::string canMessage2ToString(uint32_t cobID, unsigned char len, unsigned char *message, bool rtr, bool eff)
 	{
 		std::string result = "";
-		result =  "[id=0x"+CanModuleUtils::toHexString(cobID, 3, '0')+" ";
+		result =  "[id=0x"+CanModuleUtils::toHexString(cobID, 8, '0')+" ";
 		if ( rtr )
 			result += "RTR ";
+		if ( eff )
+			result += "EFF ";
 		result+="dlc= " + CanModuleUtils::toHexString( len ) + " (hex) data= ";
 
 		for (int i=0; i< len; i++)

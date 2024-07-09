@@ -76,14 +76,14 @@ int MockCanAccess::createBus(const std::string name, const std::string parameter
 }
 
 
-bool MockCanAccess::sendRemoteRequest(short cobID)
+bool MockCanAccess::sendRemoteRequest(uint32_t cobID)
 {
 	LOG(Log::DBG) << __FUNCTION__ << " Sending cobID: ["<<cobID <<"]";
 	m_statistics.onTransmit(sizeof(cobID));
 	return true;
 }
 
-bool MockCanAccess::sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr, bool eff)
+bool MockCanAccess::sendMessage(uint32_t cobID, unsigned char len, unsigned char *message, bool rtr, bool eff)
 {
 	// throttle the speed to avoid frame losses. we just wait the minimum time needed
 	if ( m_sendThrottleDelay > 0 ) {

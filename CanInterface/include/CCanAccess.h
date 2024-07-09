@@ -246,7 +246,7 @@ public: // accessible API
 	 * @param cobID: Identifier that will be used for the request.
 	 * @return Was the sent request successful ?
 	 */
-	virtual bool sendRemoteRequest(short cobID) = 0;
+	virtual bool sendRemoteRequest(uint32_t cobID) = 0;
 
 	/**
 	 * Method that initialises a can bus channel. The following methods called upon the same object will be using this initialised channel.
@@ -276,16 +276,16 @@ public: // accessible API
 	 * @param eff: indicate if we should use extended id for the message CAN 2.0B
 	 * @return: Was the message sent successfully? If not, we may reconnect.
 	 */
-	virtual bool sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr = false, bool eff = false) = 0;
-	virtual bool sendMessage(CanMessage *canm)
+	virtual bool sendMessage(uint32_t cobID, unsigned char len, unsigned char *message, bool rtr = false, bool eff = false) = 0;
+	bool sendMessage(CanMessage *canm)
 	{
-		if (canm->c_eff && ( canm->c_id < 0 || canm->c_id > 2047 )){
+		if (!canm->c_eff && ( canm->c_id < 0 || canm->c_id > 2047 )){
 			LOG(Log::WRN, m_lh) << __FUNCTION__ << " CAN ID= 0x"
 					<< std::hex << canm->c_id
 					<< " outside 11 bit (standard) range detected. Dropping message: Extended ID detected, but EFF flag false.";
 			return false;
 		}
-		return sendMessage(short(canm->c_id), canm->c_dlc, canm->c_data, canm->c_rtr, canm->c_eff);
+		return sendMessage(canm->c_id, canm->c_dlc, canm->c_data, canm->c_rtr, canm->c_eff);
 	}
 
 
