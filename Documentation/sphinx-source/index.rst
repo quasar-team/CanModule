@@ -15,7 +15,6 @@ CanModule reference documentation
    classesdetails
    vendors/systec
    vendors/anagate
-   vendors/anagate2
    vendors/peak
    reconnection   
    multitasking

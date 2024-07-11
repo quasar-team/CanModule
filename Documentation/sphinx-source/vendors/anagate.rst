@@ -68,7 +68,7 @@ Errors and problems are available through two mechanisms:
 
 * global error handlers
 
-* extended diagnostics (if available, see anagate2)
+* extended diagnostics (if available)
 
 
 .. doxygenclass:: AnaCanScan 
