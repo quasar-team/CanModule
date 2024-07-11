@@ -83,13 +83,11 @@ STCanScan::STCanScan():
 	std::vector<CanModule::PORT_LOG_ITEM_t> log;
 	return log;
 }
-/* virtual */  CanModule::HARDWARE_DIAG_t STCanScan::getHwDiagnostics (){
-	CanModule::HARDWARE_DIAG_t d;
-	return d;
+/* virtual */  std::optional<CanModule::HARDWARE_DIAG_t> STCanScan::getHwDiagnostics (){
+	return {};
 }
-/* virtual */ CanModule::PORT_COUNTERS_t STCanScan::getHwCounters (){
-	CanModule::PORT_COUNTERS_t c;
-	return c;
+/* virtual */ std::optional<CanModule::PORT_COUNTERS_t> STCanScan::getHwCounters (){
+	return {};
 }
 
 /**

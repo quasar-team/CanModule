@@ -20,9 +20,13 @@
 # Authors: Viatcheslav Filimonov, Piotr Nikiel, Ben Farnham, Michael Ludwig ("the quasar team from Atlas and BE-ICS")
 #
 cmake_minimum_required(VERSION 3.0)
+
 project( ancan LANGUAGES C CXX )
 
 SET( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib )
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # check if toolchain injection was correct for anagate2
 # anagate libs are not installed using a default installer/location. In fact these libs are 

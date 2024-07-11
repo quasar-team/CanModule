@@ -30,6 +30,7 @@
 #include <thread>
 #include <string>
 #include <condition_variable>
+#include <optional>
 
 #include <boost/bind/bind.hpp>
 #include <boost/signals2.hpp>
@@ -481,8 +482,8 @@ public: // accessible API
 	 * but all implementations must have a dummy
 	 */
 	virtual std::vector<CanModule::PORT_LOG_ITEM_t> getHwLogMessages ( unsigned int n ) = 0;
-	virtual CanModule::HARDWARE_DIAG_t getHwDiagnostics () = 0;
-	virtual CanModule::PORT_COUNTERS_t getHwCounters () = 0;
+	virtual std::optional<CanModule::HARDWARE_DIAG_t> getHwDiagnostics () = 0;
+	virtual std::optional<CanModule::PORT_COUNTERS_t> getHwCounters () = 0;
 
 	std::string& getBusName();
 	bool initialiseLogging(LogItInstance* remoteInstance);

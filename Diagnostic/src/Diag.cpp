@@ -56,20 +56,6 @@ CanModule::HARDWARE_DIAG_t Diag::createEmptyDiag(){
 	return d;
 }
 
-CanModule::PORT_COUNTERS_t Diag::createEmptyCounters(){
-	PORT_COUNTERS_t c;
-	c.countTCPRx = 0;
-	c.countTCPTx = 0;
-	c.countCANRx = 0;
-	c.countCANTx = 0;
-	c.countCANRxErr = 0;
-	c.countCANTxErr = 0;
-	c.countCANRxDisc = 0;
-	c.countCANTxDisc = 0;
-	c.countCANTimeout = 0;
-	return c;
-}
-
 void Diag::delete_maps(CanLibLoader *lib, CCanAccess *acc ){
 
 	std::string c0 = lib->getLibName() + "_" + std::to_string( CanLibLoader_icount );
@@ -175,8 +161,8 @@ std::vector<CanModule::PORT_LOG_ITEM_t> Diag::get_portLogItems( CCanAccess *acc,
 
 };
 
-CanModule::HARDWARE_DIAG_t Diag::get_hardwareDiag( CCanAccess *acc ){
-	CanModule::HARDWARE_DIAG_t diag;
+std::optional<CanModule::HARDWARE_DIAG_t> Diag::get_hardwareDiag( CCanAccess *acc ){
+	std::optional<CanModule::HARDWARE_DIAG_t> diag;
 	if ( Diag::m_implemenationHasDiags( acc ) ){
 		/**
 		 * 	AnaInt32 CANGetDiagData(AnaInt32 hHandle, AnaInt32 * pnTemperature,
@@ -194,13 +180,13 @@ CanModule::HARDWARE_DIAG_t Diag::get_hardwareDiag( CCanAccess *acc ){
 		diag = acc->getHwDiagnostics();
 
 	} else {
-		diag = createEmptyDiag();
+		diag = {};
 	}
 	return diag;
 };
 
-CanModule::PORT_COUNTERS_t Diag::get_portCounters( CCanAccess *acc ){
-	CanModule::PORT_COUNTERS_t counters;
+std::optional<CanModule::PORT_COUNTERS_t> Diag::get_portCounters( CCanAccess *acc ){
+	std::optional<CanModule::PORT_COUNTERS_t> counters;
 	if ( Diag::m_implemenationHasDiags( acc ) ){
 		/**
 		 * 	AnaInt32 CANGetDiagData(AnaInt32 hHandle, AnaInt32 * pnTemperature,
@@ -218,7 +204,7 @@ CanModule::PORT_COUNTERS_t Diag::get_portCounters( CCanAccess *acc ){
 		counters = acc->getHwCounters();
 
 	} else {
-		counters = createEmptyCounters();
+		counters = {};
 	}
 	return counters;
 };

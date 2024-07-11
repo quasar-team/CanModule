@@ -87,28 +87,11 @@ CSockCanScan::CSockCanScan() :
 	log.clear();
 	return log;
 }
-/* virtual */  CanModule::HARDWARE_DIAG_t CSockCanScan::getHwDiagnostics (){
-	CanModule::HARDWARE_DIAG_t d;
-	d.clientCount = 0;
-	d.clientIps = {};
-	d.clientPorts = {};
-	d.temperature = 0;
-	d.uptime = 0;
-	return d;
+/* virtual */  std::optional<CanModule::HARDWARE_DIAG_t> CSockCanScan::getHwDiagnostics (){
+	return {};
 }
-/* virtual */ CanModule::PORT_COUNTERS_t CSockCanScan::getHwCounters (){
-	CanModule::PORT_COUNTERS_t c;
-
-	c.countTCPRx = 0; // TCP Received counter.
-	c.countTCPTx = 0; // TCP Transmitted counter.
-	c.countCANRx = 0; // CAN Received counter.
-	c.countCANTx = 0; // CAN Transmitted counter.
-	c.countCANRxErr = 0; // CAN Bus Receive Error counter.
-	c.countCANTxErr = 0; // CAN Bus Transmit Error counter.
-	c.countCANRxDisc = 0; // CAN Discarded Rx Full Queue counter.
-	c.countCANTxDisc = 0; // CAN Discarded Tx Full Queue counter.
-	c.countCANTimeout = 0; // CAN Transmit Timeout counter.
-	return c;
+/* virtual */ std::optional<CanModule::PORT_COUNTERS_t> CSockCanScan::getHwCounters (){
+	return {};
 }
 
 /**
