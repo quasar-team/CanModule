@@ -44,6 +44,8 @@
 #include "VERSION.h"
 
 
+template <typename T>
+using OptionalVector = std::optional<std::vector<T>>;
 
 /*
  * CCanAccess is an abstract class that defines the interface for controlling a canbus. Different implementations for different hardware and platforms should
@@ -481,7 +483,7 @@ public: // accessible API
 	 * advanced diagnostics from the hardware. They can only be implemented for some implementations,
 	 * but all implementations must have a dummy
 	 */
-	virtual std::vector<CanModule::PORT_LOG_ITEM_t> getHwLogMessages ( unsigned int n ) = 0;
+	virtual OptionalVector<CanModule::PORT_LOG_ITEM_t> getHwLogMessages ( unsigned int n ) = 0;
 	virtual std::optional<CanModule::HARDWARE_DIAG_t> getHwDiagnostics () = 0;
 	virtual std::optional<CanModule::PORT_COUNTERS_t> getHwCounters () = 0;
 

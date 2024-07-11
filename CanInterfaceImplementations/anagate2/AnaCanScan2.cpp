@@ -1171,9 +1171,9 @@ void AnaCanScan2::getStatistics( CanStatistics & result )
  * Each log entry has a timestamp and a message, both as strings. The hw timestamp is in
  * fact an uint64 which we convert into a human readable string.
  */
-std::vector<CanModule::PORT_LOG_ITEM_t> AnaCanScan2::getHwLogMessages ( unsigned int n ){
-	std::vector<CanModule::PORT_LOG_ITEM_t> log;
-	CanModule::PORT_LOG_ITEM_t item = Diag::createEmptyItem();
+OptionalVector<CanModule::PORT_LOG_ITEM_t> AnaCanScan2::getHwLogMessages ( unsigned int n ){
+	std::vector<CanModule::PORT_LOG_ITEM_t> log = {};
+	CanModule::PORT_LOG_ITEM_t item;
 	AnaUInt32 nLogID = 0;
 	AnaUInt32 pnCurrentID;
 	AnaUInt32 pnLogCount;
@@ -1188,7 +1188,7 @@ std::vector<CanModule::PORT_LOG_ITEM_t> AnaCanScan2::getHwLogMessages ( unsigned
 		std::stringstream os;
 		os << __FUNCTION__ 	<< "There was a problem getting the HW logs " << ret << " . Abandoning HW log retrieval ";
 		m_signalErrorMessage( ret, os.str().c_str() );
-		return log;
+		return {};
 	}
 
 	// how many can we return?

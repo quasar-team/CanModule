@@ -94,9 +94,8 @@ uint32_t AnaCanScan::getPortStatus(){
  * does not get called because advanced diag is not available for this implementation.
  * But we provide a proper return type nevertheless
  */
-/* virtual */ std::vector<CanModule::PORT_LOG_ITEM_t> AnaCanScan::getHwLogMessages ( unsigned int n ){
-	std::vector<CanModule::PORT_LOG_ITEM_t> log;
-	return log;
+/* virtual */ OptionalVector<CanModule::PORT_LOG_ITEM_t> AnaCanScan::getHwLogMessages ( unsigned int n ){
+	return {};
 }
 /* virtual */  std::optional<CanModule::HARDWARE_DIAG_t> AnaCanScan::getHwDiagnostics (){
 	return {};

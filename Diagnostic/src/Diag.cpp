@@ -38,12 +38,6 @@ Diag::Diag() {};
 	return false;
 }
 
-CanModule::PORT_LOG_ITEM_t Diag::createEmptyItem(){
-	CanModule::PORT_LOG_ITEM_t item;
-	item.message = "no port log message";
-	item.timestamp = "no timestamp";
-	return item;
-}
 
 CanModule::HARDWARE_DIAG_t Diag::createEmptyDiag(){
 	HARDWARE_DIAG_t d;
@@ -144,8 +138,8 @@ std::vector<Diag::CONNECTION_DIAG_t> Diag::get_connections(){
  * n=1 : get the last
  * n>1 && n<100 : get n or less
  */
-std::vector<CanModule::PORT_LOG_ITEM_t> Diag::get_portLogItems( CCanAccess *acc, int n ){
-	std::vector<CanModule::PORT_LOG_ITEM_t> items;
+OptionalVector<CanModule::PORT_LOG_ITEM_t> Diag::get_portLogItems( CCanAccess *acc, int n ){
+	OptionalVector<CanModule::PORT_LOG_ITEM_t> items;
 	// int count = 10;
 	if ( Diag::m_implemenationHasDiags( acc ) ){
 		// it is an anagate2: go out and fill the data
@@ -157,7 +151,7 @@ std::vector<CanModule::PORT_LOG_ITEM_t> Diag::get_portLogItems( CCanAccess *acc,
 
 		return items;
 	}
-	return items;
+	return {};
 
 };
 

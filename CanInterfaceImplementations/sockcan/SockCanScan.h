@@ -71,7 +71,7 @@ public:
 	virtual void stopBus ();
 	virtual void fetchAndPublishCanPortState ();
 
-	virtual std::vector<CanModule::PORT_LOG_ITEM_t> getHwLogMessages ( unsigned int n );
+	virtual OptionalVector<CanModule::PORT_LOG_ITEM_t> getHwLogMessages ( unsigned int n );
 	virtual std::optional<CanModule::HARDWARE_DIAG_t> getHwDiagnostics ();
 	virtual std::optional<CanModule::PORT_COUNTERS_t> getHwCounters ();
 
