@@ -1,6 +1,6 @@
 /** © Copyright CERN, 2015. All rights not expressly granted are reserved.
  *
- * AnaCanScan2.h
+ * AnaCanScan.h
  *
  *  Created on: Feb 22, 2012
  *      Author: vfilimon, quasar team
@@ -53,7 +53,7 @@
 #include "AnaGateDllCan.h"
 //#endif
 
-#include "AnaGateErrors2.h"
+#include "AnaGateErrors.h"
 
 #ifdef _WIN32
 
@@ -80,7 +80,7 @@ using namespace CanModule;
  * one CAN port on an anagate bridge, an anagate bridge is an ip number. There
  * are (physical) bridges with several ip numbers: we treat them as separated modules.
  */
-class AnaCanScan2: public CanModule::CCanAccess
+class AnaCanScan: public CanModule::CCanAccess
 {
 
 public:
@@ -93,10 +93,10 @@ public:
 		DISCONNECTING, //: The connection is disonnecting.
 		NOT_INITIALIZED }; //: The network protocol is not successfully initialized.
 
-	AnaCanScan2();//Constructor of the class. Will initiate the statistics.
-	AnaCanScan2(AnaCanScan2 const & other) = delete;  //Disables copy constructor
-	AnaCanScan2& operator=(AnaCanScan2 const & other) = delete; // Disables assignment
-	virtual ~AnaCanScan2();
+	AnaCanScan();//Constructor of the class. Will initiate the statistics.
+	AnaCanScan(AnaCanScan const & other) = delete;  //Disables copy constructor
+	AnaCanScan& operator=(AnaCanScan const & other) = delete; // Disables assignment
+	virtual ~AnaCanScan();
 
 	virtual int createBus(const std::string name, const std::string parameters);
 	virtual int createBus(const std::string name, const std::string parameters, float factor );
