@@ -178,6 +178,17 @@ private:
 	int m_openCanPort();
 	int m_reconnect();
 	std::string m_decodeNetworkByteOrder_ip_toString( unsigned int ip );
+
+	// Holds most recent return codes of diagnostics queries 
+	struct DiagnosticsReturnCodes
+	{
+		DiagnosticsReturnCodes();
+		AnaInt32 m_log;
+		AnaInt32 m_diagData;
+		AnaInt32 m_clientList;
+		AnaInt32 m_counters;
+	}
+	m_diagnosticsReturnCodes;
 };
 
 #endif //CCANANASCAN_H_
