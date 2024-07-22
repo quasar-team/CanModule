@@ -94,6 +94,20 @@ uint32_t AnaCanScan::getPortStatus(){
 }
 
 /**
+ * does not get called because advanced diag is not available for this implementation.
+ * But we provide a proper return type nevertheless
+ */
+/* virtual */ OptionalVector<CanModule::PORT_LOG_ITEM_t> AnaCanScan::getHwLogMessages ( unsigned int n ){
+	return {};
+}
+/* virtual */  std::optional<CanModule::HARDWARE_DIAG_t> AnaCanScan::getHwDiagnostics (){
+	return {};
+}
+/* virtual */ std::optional<CanModule::PORT_COUNTERS_t> AnaCanScan::getHwCounters (){
+	return {};
+}
+
+/**
  * Shut down can scan thread
  */
 AnaCanScan::~AnaCanScan()
@@ -656,10 +670,9 @@ bool AnaCanScan::sendMessage(uint32_t cobID, unsigned char len, unsigned char *m
 	// /* static */ std::string AnaCanScan::canMessageToString(CanMessage &f)
 	// MLOGANA2(DBG,this) << "Sending message: [" << ( message == 0  ? "" : (const char *) message) << "], cobID: [" << cobID << "], Message Length: [" << static_cast<int>(len) << "]";
 
-	MLOGANA2(DBG,this) << __FUNCTION__ << " Sending message: [" << CanModule::canMessage2ToString(cobID, len, message, rtr, eff) << "]";
 	AnaInt32 anaCallReturn = 0;
 	unsigned char *messageToBeSent[8];
-	
+
 	AnaInt32 flags = 0x0;
 
 	// Set Bit 0 of flags if eff is true
@@ -1133,7 +1146,6 @@ int AnaCanScan::m_reconnect(){
 
 	return( 0 ); // OK
 }
-
 
 /**
  * Method that sends a remote request trough the can bus channel.
