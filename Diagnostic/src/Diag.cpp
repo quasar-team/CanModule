@@ -24,21 +24,6 @@ std::mutex mtx;
 // should be a forced singleton
 Diag::Diag() {};
 
-/**
- * find out id the implementation has advanced port diags, from the bus name. Currently only
- * anagate2 has this kind of diags. Other implementations have some of it as well, notably the statistics.
- * Nevertheless, this is from the hardware.
- *
- * can't force that as private static virtual = 0 method: windows actually compiles this differently. So,
- * implement it here explicitly scanning for the implementation name, here: only "an2" has it for the moment.
- */
-/* private */ bool Diag::m_implemenationHasDiags( CCanAccess *acc ){
-	std::string busName = acc->getBusName();
-	if ( busName.find("an2") != std::string::npos ) return true;
-	return false;
-}
-
-
 CanModule::HARDWARE_DIAG_t Diag::createEmptyDiag(){
 	HARDWARE_DIAG_t d;
 	d.temperature = 0;
@@ -139,68 +124,15 @@ std::vector<Diag::CONNECTION_DIAG_t> Diag::get_connections(){
  * n>1 && n<100 : get n or less
  */
 OptionalVector<CanModule::PORT_LOG_ITEM_t> Diag::get_portLogItems( CCanAccess *acc, int n ){
-	OptionalVector<CanModule::PORT_LOG_ITEM_t> items;
-	// int count = 10;
-	if ( Diag::m_implemenationHasDiags( acc ) ){
-		// it is an anagate2: go out and fill the data
-		/**	AnaInt32 CANGetLog(AnaInt32 hHandle, AnaUInt32 * nLogID, AnaUInt32
-		 * pnCurrentID, AnaUInt32 * pnLogCount, AnaInt64 * pnLogDate, char
-		pcBuffer[]);
-		 */
-		items = acc->getHwLogMessages ( n );
-
-		return items;
-	}
-	return {};
-
+	return acc->getHwLogMessages ( n );
 };
 
 std::optional<CanModule::HARDWARE_DIAG_t> Diag::get_hardwareDiag( CCanAccess *acc ){
-	std::optional<CanModule::HARDWARE_DIAG_t> diag;
-	if ( Diag::m_implemenationHasDiags( acc ) ){
-		/**
-		 * 	AnaInt32 CANGetDiagData(AnaInt32 hHandle, AnaInt32 * pnTemperature,
-		 * 			AnaInt32 * pnUptime);int temperature; // in deg C
-		 *
-		 * 	AnaInt32 CANGetClientList(AnaInt32 hHandle, AnaUInt32 * pnClientCount,
-		 * 				AnaUInt32 pnIPaddress[], AnaUInt32 pnPort[], AnaInt64 pnConnectDate[]);
-		 */
-		//int uptime;      // in seconds
-		//unsigned int clientCount; // connected clients for this IP/module/submodule
-		//std::vector<std::string> clientIps; // decoded into strings, from unsigned int
-		//std::vector<unsigned int> clientPorts; // array of client ports
-		//std::vector<long int> clientConnectionTimestamps; // (Unix time) of initial client connection
-
-		diag = acc->getHwDiagnostics();
-
-	} else {
-		diag = {};
-	}
-	return diag;
+	return acc->getHwDiagnostics();
 };
 
 std::optional<CanModule::PORT_COUNTERS_t> Diag::get_portCounters( CCanAccess *acc ){
-	std::optional<CanModule::PORT_COUNTERS_t> counters;
-	if ( Diag::m_implemenationHasDiags( acc ) ){
-		/**
-		 * 	AnaInt32 CANGetDiagData(AnaInt32 hHandle, AnaInt32 * pnTemperature,
-		 * 			AnaInt32 * pnUptime);int temperature; // in deg C
-		 *
-		 * 	AnaInt32 CANGetClientList(AnaInt32 hHandle, AnaUInt32 * pnClientCount,
-		 * 				AnaUInt32 pnIPaddress[], AnaUInt32 pnPort[], AnaInt64 pnConnectDate[]);
-		 */
-		//int uptime;      // in seconds
-		//unsigned int clientCount; // connected clients for this IP/module/submodule
-		//std::vector<std::string> clientIps; // decoded into strings, from unsigned int
-		//std::vector<unsigned int> clientPorts; // array of client ports
-		//std::vector<long int> clientConnectionTimestamps; // (Unix time) of initial client connection
-
-		counters = acc->getHwCounters();
-
-	} else {
-		counters = {};
-	}
-	return counters;
+	return acc->getHwCounters();
 };
 
 

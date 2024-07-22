@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+### 2.2.8 [in progress]
+- Anagate2 is the default Anagate ("an2" becomes "an", deprecating existing "an")
+
 ### 2.2.7 [2.may.2024]
 - correct systec Usbcan32.lib for w22 (64bit does not work) and driver version V6.08r1
 - link against msvc-141 boost_1_66_0 bianry distribution

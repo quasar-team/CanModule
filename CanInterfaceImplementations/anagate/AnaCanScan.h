@@ -21,8 +21,8 @@
  *  along with Quasar.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef CCANANASCAN_H_
-#define CCANANASCAN_H_
+#ifndef CCANANASCAN2_H_
+#define CCANANASCAN2_H_
 
 
 #include <string>
@@ -44,13 +44,14 @@
 
 // specific vendor
 
-#ifdef _WIN32
-#include <AnaGateDLL.h>
-#include <AnaGateDllCan.h>
-#else
+//#ifdef _WIN32
+// #include <AnaGate.h>
+//#include <AnaGateDLL.h>
+//#include <AnaGateDllCan.h>
+//#else
 #include "AnaGateDLL.h"
 #include "AnaGateDllCan.h"
-#endif
+//#endif
 
 #include "AnaGateErrors.h"
 
@@ -108,6 +109,7 @@ public:
 
 	uint32_t getPortStatus();
 	virtual uint32_t getPortBitrate(){ return m_CanParameters.m_lBaudRate; };
+
 	virtual void stopBus( void );
 	virtual void fetchAndPublishCanPortState ();
 
@@ -130,7 +132,6 @@ private:
     bool m_busStopped;
 	GlobalErrorSignaler *m_gsig;
 	boost::posix_time::ptime m_now, m_previous;
-
 
     /**
      * we would like to keep logging from a few static methods as well, since one IP
@@ -176,7 +177,7 @@ private:
 	int m_connectReceptionHandler();
 	int m_openCanPort();
 	int m_reconnect();
-
+	std::string m_decodeNetworkByteOrder_ip_toString( unsigned int ip );
 };
 
 #endif //CCANANASCAN_H_

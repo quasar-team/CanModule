@@ -175,7 +175,7 @@ struct CanParameters {
 	void scanParameters(std::string parameters);
 };
 
-/** beta.v6 "an2" CANGetCounters anagate
+/** beta.v6 "an" CANGetCounters anagate
 The AnaGate CAN F series models can provide all nine TCP, CAN and error counters
 from the web interface. A detailed description of the counters is available in the
 device status chapter of the AnaGate CAN F series manual.
@@ -196,7 +196,7 @@ SHARED_LIB_EXPORT_DEFN struct PORT_COUNTERS_t {
 /**
  * a (hardware) logging item generally has a message and a timestamp. Keep it simple.
  *
- * a log entry history of one port has many log items. anagate2 hw limits this to 100 but there is no reason to limit the vector size here
+ * a log entry history of one port has many log items. anagate hw limits this to 100 but there is no reason to limit the vector size here
  * we can in fact keep a looooong history. we will just limit the max history to a reasonable value to avoid a coded mem hole.
  * Lets say portLog_max = 5000.
  * we drop any buffer overflow.

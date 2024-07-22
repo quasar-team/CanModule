@@ -69,9 +69,6 @@ public:
 private:
 	Diag();
 	~Diag(){};
-
-	static bool m_implemenationHasDiags( CCanAccess *acc );
-
 };
 
 } /* namespace  */

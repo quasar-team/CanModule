@@ -20,9 +20,13 @@
 # Authors: Viatcheslav Filimonov, Piotr Nikiel, Ben Farnham, Michael Ludwig ("the quasar team from Atlas and BE-ICS")
 #
 cmake_minimum_required(VERSION 3.0)
+
 project( ancan LANGUAGES C CXX )
 
 SET( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib )
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # check if toolchain injection was correct for anagate
 # anagate libs are not installed using a default installer/location. In fact these libs are 
@@ -34,13 +38,13 @@ if( (NOT DEFINED ANAGATE_LIB_PATH) OR (NOT DEFINED ANAGATE_HEADERS) OR (NOT DEFI
 	message(WARNING "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: assuming default locations and libs for anagate (linux, windows)" )
 	message(WARNING "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: since anagate does not have an installer the default locations are likely to be wrong" )
 	if(WIN32)  
-		SET( ANAGATE_HEADERS "C:/3rdPartySoftware/AnaGateCAN/win64/vc8/include")
-		SET( ANAGATE_LIB_PATH "C:/3rdPartySoftware/AnaGateCAN/win64/vc8/Release")
-		SET( ANAGATE_LIB_FILE "C:/3rdPartySoftware/AnaGateCAN/win64/vc8/Release/AnaGateCanDll64.lib")
+		SET( ANAGATE_HEADERS "C:/3rdPartySoftware/CAN/windows/anagate/beta.v6/include")
+		SET( ANAGATE_LIB_PATH "C:/3rdPartySoftware/CAN/windows/anagate/beta.v6/lib")
+		SET( ANAGATE_LIB_FILE "C:/3rdPartySoftware/CAN/windows/anagate/beta.v6/AnaGateCanDll64.lib")
 	else()
-		SET ( ANAGATE_HEADERS "/opt/3rdPartySoftware/Anagate/CAN/anagate-api-2.13/linux64/gcc4_6/include" )
-		SET ( ANAGATE_LIB_PATH "/opt/3rdPartySoftware/Anagate/CAN/anagate-api-2.13/linux64/gcc4_6" )
-		SET ( ANAGATE_LIB_FILE "-lAPIRelease64 -lCANDLLRelease64" )
+		SET ( ANAGATE_HEADERS "/opt/3rdPartySoftware/CAN/cal9/anagate/beta.v6/include" )
+		SET ( ANAGATE_LIB_PATH "/opt/3rdPartySoftware/CAN/cal9/anagate/beta.v6/lib" )
+		SET ( ANAGATE_LIB_FILE "-lAnaGateExtStaticRelease -lAnaGateStaticRelease -lCANDLLStaticRelease64" )
 	endif() 
 	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: ANAGATE_HEADERS=  ${ANAGATE_HEADERS}]")
 	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: ANAGATE_LIB_PATH= ${ANAGATE_LIB_PATH}]")

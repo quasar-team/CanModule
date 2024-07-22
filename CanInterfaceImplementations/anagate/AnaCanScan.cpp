@@ -24,7 +24,10 @@
  * Here the Anagate ethernet-CAN bridges are implemented
  */
 
+#include <iomanip>
+
 #include "AnaCanScan.h"
+#include <Diag.h>
 #include <CanModuleUtils.h>
 
 #ifdef _WIN32
@@ -51,7 +54,7 @@ std::recursive_mutex anagateReconnectMutex;
  */
 std::map<AnaInt32, AnaCanScan*> g_AnaCanScanObjectMap; // map handles to objects
 
-#define MLOGANA(LEVEL,THIS) LOG( Log::LEVEL, AnaCanScan::st_logItHandleAnagate) << __FUNCTION__ << " " << " anagate bus= " << THIS->getBusName() << " "
+#define MLOGANA2(LEVEL,THIS) LOG( Log::LEVEL, AnaCanScan::st_logItHandleAnagate) << __FUNCTION__ << " " << " anagate bus= " << THIS->getBusName() << " "
 
 AnaCanScan::AnaCanScan():
 	m_canPortNumber(0),
@@ -91,26 +94,12 @@ uint32_t AnaCanScan::getPortStatus(){
 }
 
 /**
- * does not get called because advanced diag is not available for this implementation.
- * But we provide a proper return type nevertheless
- */
-/* virtual */ OptionalVector<CanModule::PORT_LOG_ITEM_t> AnaCanScan::getHwLogMessages ( unsigned int n ){
-	return {};
-}
-/* virtual */  std::optional<CanModule::HARDWARE_DIAG_t> AnaCanScan::getHwDiagnostics (){
-	return {};
-}
-/* virtual */ std::optional<CanModule::PORT_COUNTERS_t> AnaCanScan::getHwCounters (){
-	return {};
-}
-
-/**
  * Shut down can scan thread
  */
 AnaCanScan::~AnaCanScan()
 {
 	stopBus();
-	MLOGANA(DBG,this) << __FUNCTION__ <<" closed successfully";
+	MLOGANA2(DBG,this) << __FUNCTION__ <<" closed successfully";
 }
 
 /**
@@ -127,7 +116,7 @@ AnaCanScan::~AnaCanScan()
 	unsigned int portState;
 	AnaInt32 ana_state = CANDeviceConnectState( m_UcanHandle );
 
-	// MLOGANA(TRC,this) << __FUNCTION__ << " port_status_change ana_state= " << ana_state;
+	// MLOGANA2(TRC,this) << __FUNCTION__ << " port_status_change ana_state= " << ana_state;
 
 	// translate the ana_state ( AnaGateAPI.v2 from  2014-12-10 applies to 2.06-25.03.2021 CANDeviceConnectState )
 	// into the standardized enum CanModule::CanModuleUtils::CanModule_bus_state
@@ -136,13 +125,13 @@ AnaCanScan::~AnaCanScan()
 	case ANAGATE_API_V2_DEVICE_CONNECTION_STATE::DISCONNECTED : {
 		portState = CanModule::CanModule_bus_state::CAN_STATE_STOPPED;
 		std::string msg = CanModule::translateCanBusStateToText((CanModule::CanModule_bus_state) portState );
-		MLOGANA(WRN, this) << msg << "tid=[" << std::this_thread::get_id() << "]";
+		MLOGANA2(WRN, this) << msg << "tid=[" << std::this_thread::get_id() << "]";
 		break;
 	}
 	case ANAGATE_API_V2_DEVICE_CONNECTION_STATE::CONNECTING : {
 		portState = CanModule::CanModule_bus_state::CANMODULE_WARNING;
 		std::string msg = CanModule::translateCanBusStateToText((CanModule::CanModule_bus_state) portState );
-		MLOGANA(WRN, this) << msg << "tid=[" << std::this_thread::get_id() << "]";
+		MLOGANA2(WRN, this) << msg << "tid=[" << std::this_thread::get_id() << "]";
 		break;
 	}
 	case ANAGATE_API_V2_DEVICE_CONNECTION_STATE::CONNECTED : {
@@ -152,7 +141,7 @@ AnaCanScan::~AnaCanScan()
 	case ANAGATE_API_V2_DEVICE_CONNECTION_STATE::DISCONNECTING : {
 		portState = CanModule::CanModule_bus_state::CANMODULE_WARNING;
 		std::string msg = CanModule::translateCanBusStateToText((CanModule::CanModule_bus_state) portState );
-		MLOGANA(WRN, this) << msg << "tid=[" << std::this_thread::get_id() << "]";
+		MLOGANA2(WRN, this) << msg << "tid=[" << std::this_thread::get_id() << "]";
 		break;
 	}
 	case ANAGATE_API_V2_DEVICE_CONNECTION_STATE::NOT_INITIALIZED : {
@@ -162,7 +151,7 @@ AnaCanScan::~AnaCanScan()
 	default: {
 		portState = CanModule::CanModule_bus_state::CANMODULE_NOSTATE;
 		std::string msg = CanModule::translateCanBusStateToText((CanModule::CanModule_bus_state) portState );
-		MLOGANA(WRN, this) << msg << "tid=[" << std::this_thread::get_id() << "]";
+		MLOGANA2(WRN, this) << msg << "tid=[" << std::this_thread::get_id() << "]";
 		break;
 	}
 	} // switch
@@ -173,7 +162,7 @@ AnaCanScan::~AnaCanScan()
 void AnaCanScan::stopBus ()
 {
 	if (!m_busStopped){
-		MLOGANA(TRC,this) << __FUNCTION__ << " stopping anagate m_busName= " <<  m_busName << " m_canPortNumber= " << m_canPortNumber;
+		MLOGANA2(TRC,this) << __FUNCTION__ << " stopping anagate m_busName= " <<  m_busName << " m_canPortNumber= " << m_canPortNumber;
 		CANSetCallback( m_UcanHandle, 0);
 		CANCloseDevice( m_UcanHandle);
 
@@ -248,7 +237,7 @@ void WINAPI InternalCallback(AnaUInt32 nIdentifier, const char * pcBuffer, AnaIn
 	//		<< " anagate message reception hHandle= " << hHandle
 	//		<< " nIdentifier= " << nIdentifier
 	//		<< endl;
-	// MLOGANA(TRC, g_AnaCanScanPointerMap[hHandle] ) << "read(): " << canMessageToString(canMsgCopy);
+	// MLOGANA2(TRC, g_AnaCanScanPointerMap[hHandle] ) << "read(): " << canMessageToString(canMsgCopy);
 
 	//LOG( Log::TRC ) << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
 		//	<< " CanModule anagate " << CanModule::canMessageToString(canMsgCopy);
@@ -304,6 +293,9 @@ void AnaCanScan::callbackOnRecieve( CanMessage& msg )
  * 				      for baud rates > 125000 this flag is needed, and it is set automatically for you if you forgot it (WRN)
  * 				* p4: TimeStamp: 0=deactivated (default), 1=activated. If activated, a timestamp is added to the CAN frame. Not all modules support this.
  *				  i.e. "250000 0 1 0 0"
+ *				*  p5 = sync mode
+ * 				*  p6 = timeout/ms
+ *
  * 				(see anagate manual for more details)
  *
  * @return
@@ -314,10 +306,9 @@ void AnaCanScan::callbackOnRecieve( CanMessage& msg )
 int AnaCanScan::createBus(const std::string name, const std::string parameters, float factor )
 {
 	m_sendThrottleDelay = (int) factor;
-	MLOGANA(TRC, this) << "the frame sending delay is "	<< m_sendThrottleDelay << " us";
+	MLOGANA2(TRC, this) << "the frame sending delay is " << m_sendThrottleDelay << " us";
 	return( createBus( name, parameters) );
 }
-
 int AnaCanScan::createBus(const std::string name, const std::string parameters)
 {	
 	m_busName = name;
@@ -354,7 +345,7 @@ int AnaCanScan::createBus(const std::string name, const std::string parameters)
 	 */
 	std::map<Log::LogComponentHandle, std::string> log_comp_map = Log::getComponentLogsList();
 	std::map<Log::LogComponentHandle, std::string>::iterator it;
-	LOG(Log::TRC, myHandle ) << " *** Lnb of LogIt components= " << log_comp_map.size() << std::endl;
+	LOG(Log::TRC, myHandle ) << " *** nb of LogIt components= " << log_comp_map.size() << std::endl;
 	for ( it = log_comp_map.begin(); it != log_comp_map.end(); it++ )
 	{
 		Log::LOG_LEVEL level;
@@ -369,7 +360,7 @@ int AnaCanScan::createBus(const std::string name, const std::string parameters)
 				" name= " + name + " parameters= " + parameters );
 		return -1;
 	}
-	MLOGANA(DBG,this) << " OK, Bus created with name= " << name << " parameters= " << parameters;
+	MLOGANA2(DBG,this) << " OK, Bus created with name= " << name << " parameters= " << parameters;
 	m_busStopped = false;
 	fetchAndPublishCanPortState();
 
@@ -391,66 +382,66 @@ int AnaCanScan::createBus(const std::string name, const std::string parameters)
  */
 int AnaCanScan::m_configureCanBoard(const std::string name,const std::string parameters)
 {
-	MLOGANA(DBG, this) << "(user supplied) name= " << name << " parameters= " << parameters;
+	MLOGANA2(DBG, this) << "(user supplied) name= " << name << " parameters= " << parameters;
 	std::vector< std::string > stringVector;
 	stringVector = parseNameAndParameters(name, parameters);
 
 	// we should decode 3 elements from this:0="an" for anagate library, 1=can port, 2=ip number
 	// like  "an:0:128.141.159.194"
 	if ( stringVector.size() != 3 ){
-		MLOGANA(ERR, this) << " need exactly 3 elements delimited by \":\" like \"an:0:128.141.159.194\", got "
+		MLOGANA2(ERR, this) << " need exactly 3 elements delimited by \":\" like \"an:0:128.141.159.194\", got "
 				<< stringVector.size();
 		for ( unsigned i = 0; i < stringVector.size(); i++ ){
-			MLOGANA(ERR, this) << " stringVector[" << i << "]= " << stringVector[ i ];
+			MLOGANA2(ERR, this) << " stringVector[" << i << "]= " << stringVector[ i ];
 		}
 		m_signalErrorMessage( -1, "configureCanBoard: need exactly 3 parameters i.e.  `an:0:128.141.159.194` . ip= " + m_canIPAddress +
 				" name= " + name + " parameters= " + parameters );
 		return(-1);
 	} else {
 		for ( unsigned i = 0; i < stringVector.size(); i++ ){
-			MLOGANA(TRC, this) << "(cleaned up) stringVector[" << i << "]= " << stringVector[ i ];
+			MLOGANA2(TRC, this) << "(cleaned up) stringVector[" << i << "]= " << stringVector[ i ];
 		}
 		m_canPortNumber = atoi(stringVector[1].c_str());
 		m_canIPAddress = (char *) stringVector[2].c_str();
 	}
-	MLOGANA(TRC, this) << "(cleaned up) canPortNumber= " << m_canPortNumber << " ip= " << m_canIPAddress;
+	MLOGANA2(TRC, this) << "(cleaned up) canPortNumber= " << m_canPortNumber << " ip= " << m_canIPAddress;
 
 	// handle up to 7 parameter, assume defaults if needed
 	m_baudRate = 125000L;
 
 	if (strcmp(parameters.c_str(), "Unspecified") != 0) {
-		MLOGANA(TRC, this) << "m_CanParameters.m_iNumberOfDetectedParameters " << m_CanParameters.m_iNumberOfDetectedParameters;
+		MLOGANA2(TRC, this) << "m_CanParameters.m_iNumberOfDetectedParameters " << m_CanParameters.m_iNumberOfDetectedParameters;
 		if ( m_CanParameters.m_iNumberOfDetectedParameters >= 1 )	{
 			m_baudRate = m_CanParameters.m_lBaudRate; // just for the statistics
 
 			if (( m_CanParameters.m_lBaudRate > 125000L ) && ( ! m_CanParameters.m_iHighSpeed )){
-				MLOGANA(WRN, this) << "baud rate is above 125000bits/s, and the high speed flag is not set, but needed. Setting high speed flag for you. To avoid this warning set the high speed flag properly in your configuration";
+				MLOGANA2(WRN, this) << "baud rate is above 125000bits/s, and the high speed flag is not set, but needed. Setting high speed flag for you. To avoid this warning set the high speed flag properly in your configuration";
 				m_CanParameters.m_iHighSpeed = 1;
 			}
 
 			if ( m_CanParameters.m_iNumberOfDetectedParameters >= 7 )	{
 				m_timeout = m_CanParameters.m_iTimeout; // here we set it: CANT-44
-				MLOGANA(TRC, this) << "anagate: picked up from 7th parameter: m_timeout= " << m_timeout;
+				MLOGANA2(TRC, this) << "anagate: picked up from 7th parameter: m_timeout= " << m_timeout;
 			}
 
 			// any other parameters are already set, either to 0 by init,
 			// or by decoding. They are always used.
 		} else {
-			MLOGANA(ERR, this) << "Error while parsing parameters: this syntax is incorrect: [" << parameters << "]";
-			MLOGANA(ERR, this) << "you need up to 7 numbers separated by whitespaces, i.e. \"125000 0 1 0 0 0 6000\" \"p0 p1 p2 p3 p4 p5 p6\"";
-			MLOGANA(ERR, this) << "  p0 = baud rate, 125000 or whatever the module supports";
-			MLOGANA(ERR, this) << "  p1 = operation mode";
-			MLOGANA(ERR, this) << "  p2 = termination";
-			MLOGANA(ERR, this) << "  p3 = high speed";
-			MLOGANA(ERR, this) << "  p4 = time stamp";
-			MLOGANA(ERR, this) << "  p5 = sync mode";
-			MLOGANA(ERR, this) << "  p6 = timeout/ms";
+			MLOGANA2(ERR, this) << "Error while parsing parameters: this syntax is incorrect: [" << parameters << "]";
+			MLOGANA2(ERR, this) << "you need up to 7 numbers separated by whitespaces, i.e. \"125000 0 1 0 0 0 6000\" \"p0 p1 p2 p3 p4 p5 p6\"";
+			MLOGANA2(ERR, this) << "  p0 = baud rate, 125000 or whatever the module supports";
+			MLOGANA2(ERR, this) << "  p1 = operation mode";
+			MLOGANA2(ERR, this) << "  p2 = termination";
+			MLOGANA2(ERR, this) << "  p3 = high speed";
+			MLOGANA2(ERR, this) << "  p4 = time stamp";
+			MLOGANA2(ERR, this) << "  p5 = sync mode";
+			MLOGANA2(ERR, this) << "  p6 = timeout/ms";
 			return -1;
 		}
 	} else	{
 		// Unspecified: we use defaults "125000 0 1 0 0 0 6000"
-		MLOGANA(INF, this) << "Unspecified parameters, default values (termination=1) will be used.";
-		m_CanParameters.m_lBaudRate = 125000;
+		MLOGANA2(INF, this) << "Unspecified parameters, default values (termination=1) will be used.";
+		m_CanParameters.m_lBaudRate = 125000; // its a f***ing bit rate !
 		m_CanParameters.m_iOperationMode = 0;
 		m_CanParameters.m_iTermination = 1 ;// ENS-26903: default is terminated
 		m_CanParameters.m_iHighSpeed = 0;
@@ -458,14 +449,13 @@ int AnaCanScan::m_configureCanBoard(const std::string name,const std::string par
 		m_CanParameters.m_iSyncMode = 0;
 		m_CanParameters.m_iTimeout = 6000; // CANT-44: can be set
 	}
-	MLOGANA(TRC, this) << __FUNCTION__ << " m_lBaudRate= " << m_CanParameters.m_lBaudRate;
-	MLOGANA(TRC, this) << __FUNCTION__ << " m_iOperationMode= " << m_CanParameters.m_iOperationMode;
-	MLOGANA(TRC, this) << __FUNCTION__ << " m_iTermination= " << m_CanParameters.m_iTermination;
-	MLOGANA(TRC, this) << __FUNCTION__ << " m_iHighSpeed= " << m_CanParameters.m_iHighSpeed;
-	MLOGANA(TRC, this) << __FUNCTION__ << " m_iTimeStamp= " << m_CanParameters.m_iTimeStamp;
-	MLOGANA(TRC, this) << __FUNCTION__ << " m_iSyncMode= " << m_CanParameters.m_iSyncMode;
-	MLOGANA(TRC, this) << __FUNCTION__ << " m_iTimeout= " << m_CanParameters.m_iTimeout;
-
+	MLOGANA2(TRC, this) << __FUNCTION__ << " m_lBaudRate= " << m_CanParameters.m_lBaudRate;
+	MLOGANA2(TRC, this) << __FUNCTION__ << " m_iOperationMode= " << m_CanParameters.m_iOperationMode;
+	MLOGANA2(TRC, this) << __FUNCTION__ << " m_iTermination= " << m_CanParameters.m_iTermination;
+	MLOGANA2(TRC, this) << __FUNCTION__ << " m_iHighSpeed= " << m_CanParameters.m_iHighSpeed;
+	MLOGANA2(TRC, this) << __FUNCTION__ << " m_iTimeStamp= " << m_CanParameters.m_iTimeStamp;
+	MLOGANA2(TRC, this) << __FUNCTION__ << " m_iSyncMode= " << m_CanParameters.m_iSyncMode;
+	MLOGANA2(TRC, this) << __FUNCTION__ << " m_iTimeout= " << m_CanParameters.m_iTimeout;
 
 	return m_openCanPort(); // hw interaction
 }
@@ -549,25 +539,25 @@ int AnaCanScan::m_openCanPort()
 	 */
 	canModuleHandle = st_getCanHandleOfPortIp(m_canPortNumber, m_canIPAddress );
 	if ( canModuleHandle < 0 ){
-		MLOGANA(DBG, this) << "calling CANOpenDevice with port= " << m_canPortNumber << " ip= " << m_canIPAddress
+		MLOGANA2(DBG, this) << "calling CANOpenDevice with port= " << m_canPortNumber << " ip= " << m_canIPAddress
 				<< " canModuleHandle= " << canModuleHandle
 				<< " m_timeout= " << m_timeout;
 		anaCallReturn = CANOpenDevice(&canModuleHandle, FALSE, TRUE, m_canPortNumber, m_canIPAddress.c_str(), m_timeout);
-		if (anaCallReturn != 0) {
+		if (anaCallReturn != ANA_ERR_NONE) {
 			std::stringstream os;
 			os << " openCanPort: Error for port= " << m_canPortNumber << " ip= " << m_canIPAddress;
 			m_signalErrorMessage( anaCallReturn, os.str().c_str() ); // most likely the handler is not yet connected and we don't have a canbus object
-			MLOGANA(ERR,this) << "Error in CANOpenDevice, return code = [0x" << std::hex << anaCallReturn << std::dec << "]";
+			MLOGANA2(ERR,this) << "Error in CANOpenDevice, return code = [0x" << std::hex << anaCallReturn << std::dec << "]";
 			return -1;
 		}
 	} else {
-		MLOGANA(DBG, this) << "port= " << m_canPortNumber << " ip= " << m_canIPAddress
+		MLOGANA2(DBG, this) << "port= " << m_canPortNumber << " ip= " << m_canIPAddress
 				<< " is open already, got handle= "
 				<< canModuleHandle;
 	}
 
 	// initialize CAN interface
-	MLOGANA(TRC,this) << "calling CANSetGlobals with m_lBaudRate= "
+	MLOGANA2(TRC,this) << "calling CANSetGlobals with m_lBaudRate= "
 			<< m_CanParameters.m_lBaudRate
 			<< " m_iOperationMode= " << m_CanParameters.m_iOperationMode
 			<< " m_iTermination= " << m_CanParameters.m_iTermination
@@ -579,35 +569,35 @@ int AnaCanScan::m_openCanPort()
 	switch ( anaCallReturn ){
 	case 0:{ break; }
 	case 0x30000: {
-		MLOGANA(ERR,this) << "Connection to TCP/IP partner can't be established or is disconnected. Lost TCP/IP: 0x" << std::hex << anaCallReturn << std::dec;
+		MLOGANA2(ERR,this) << "Connection to TCP/IP partner can't be established or is disconnected. Lost TCP/IP: 0x" << std::hex << anaCallReturn << std::dec;
 		m_signalErrorMessage( anaCallReturn, " openCanPort: CANSetGlobals: Connection to TCP/IP partner can't be established or is disconnected. Lost TCP/IP." );
 		return -1;
 	}
 	case 0x40000: {
-		MLOGANA(ERR,this) << "No  answer  was  received  from	TCP/IP partner within the defined timeout. Lost TCP/IP: 0x" << std::hex << anaCallReturn << std::dec;
+		MLOGANA2(ERR,this) << "No  answer  was  received  from	TCP/IP partner within the defined timeout. Lost TCP/IP: 0x" << std::hex << anaCallReturn << std::dec;
 		m_signalErrorMessage( anaCallReturn, " openCanPort: CANSetGlobals: No  answer  was  received  from	TCP/IP partner within the defined timeout. Lost TCP/IP." );
 		return -1;
 	}
 	case 0x900000: {
-		MLOGANA(ERR,this) << "Invalid device handle. Lost TCP/IP: 0x" << std::hex << anaCallReturn << std::dec;
+		MLOGANA2(ERR,this) << "Invalid device handle. Lost TCP/IP: 0x" << std::hex << anaCallReturn << std::dec;
 		m_signalErrorMessage( anaCallReturn, " openCanPort: CANSetGlobals: Invalid device handle. Lost TCP/IP." );
 		return -1;
 	}
 	default : {
-		MLOGANA(ERR,this) << "Other Error in CANSetGlobals: 0x" << std::hex << anaCallReturn << std::dec;
+		MLOGANA2(ERR,this) << "Other Error in CANSetGlobals: 0x" << std::hex << anaCallReturn << std::dec;
 		m_signalErrorMessage( anaCallReturn, " openCanPort: CANSetGlobals: Other Error in CANSetGlobals." );
 		return -1;
 	}
 	}
 	// set handler for managing incoming messages
-	MLOGANA(TRC,this) << "calling CANSetCallbackEx handle= " << canModuleHandle;
+	MLOGANA2(TRC,this) << "calling CANSetCallbackEx handle= " << canModuleHandle;
 	anaCallReturn = CANSetCallbackEx(canModuleHandle, InternalCallback);
-	if (anaCallReturn != 0) {
-		MLOGANA(ERR,this) << "Error in CANSetCallbackEx, return code = [" << anaCallReturn << "]";
+	if (anaCallReturn != ANA_ERR_NONE) {
+		MLOGANA2(ERR,this) << "Error in CANSetCallbackEx, return code = [" << anaCallReturn << "]";
 		m_signalErrorMessage( anaCallReturn, " openCanPort: CANSetCallbackEx: Error in CANSetCallbackEx." );
 		return -1;
 	} else {
-		MLOGANA(TRC,this) << "OK CANSetCallbackEx, return code = [" << anaCallReturn << "]";
+		MLOGANA2(TRC,this) << "OK CANSetCallbackEx, return code = [" << anaCallReturn << "]";
 	}
 
 	// bookkeeping in maps for {port, ip} and object pointers
@@ -651,20 +641,20 @@ void AnaCanScan::m_signalErrorMessage( int code, std::string msg )
  * @param len: Length of the message. If the message is bigger than 8 characters, it will be split into separate 8 characters messages.
  * @param message: Message to be sent trough the can bus.
  * @param rtr: is the message a remote transmission request?
- * @param eff: is the id extended?
+ * @param eff: indicate if we should use extended id for the message CAN 2.0B
  * @return Was the sending process successful?
  */
 bool AnaCanScan::sendMessage(uint32_t cobID, unsigned char len, unsigned char *message, bool rtr, bool eff)
 {
 
 	if ( m_canCloseDevice || m_busStopped ){
-		MLOGANA(WRN,this) << __FUNCTION__ << " bus is closed, skipping [ closed= " << m_canCloseDevice << " stopped= " << m_busStopped << "]";
+		MLOGANA2(WRN,this) << __FUNCTION__ << " bus is closed, skipping [ closed= " << m_canCloseDevice << " stopped= " << m_busStopped << "]";
 		m_signalErrorMessage( -1, "sendMessage: the bus is closed or stopped, skipping send. ip= " + m_canIPAddress);
 		return( false );
 	}
 
 	// /* static */ std::string AnaCanScan::canMessageToString(CanMessage &f)
-	// MLOGANA(DBG,this) << "Sending message: [" << ( message == 0  ? "" : (const char *) message) << "], cobID: [" << cobID << "], Message Length: [" << static_cast<int>(len) << "]";
+	// MLOGANA2(DBG,this) << "Sending message: [" << ( message == 0  ? "" : (const char *) message) << "], cobID: [" << cobID << "], Message Length: [" << static_cast<int>(len) << "]";
 
 	AnaInt32 anaCallReturn = 0;
 	unsigned char *messageToBeSent[8];
@@ -679,14 +669,12 @@ bool AnaCanScan::sendMessage(uint32_t cobID, unsigned char len, unsigned char *m
 	if (rtr)
 		flags |= (1 << 1); // Set Bit 1
 
-	MLOGANA(DBG,this) << __FUNCTION__ << " Sending message: [" << CanModule::canMessage2ToString(cobID, len, message, rtr, eff) << "]";
-
 	int  messageLengthToBeProcessed;
 
 	//If there is more than 8 characters to process, we process 8 of them in this iteration of the loop
 	if (len > 8) {
 		messageLengthToBeProcessed = 8;
-		MLOGANA( ERR, this) << __FUNCTION__ << " The length is more than 8 bytes, ignoring overhead " << len;
+		MLOGANA2( ERR, this) << __FUNCTION__ << " The length is more than 8 bytes, ignoring overhead " << len;
 		m_signalErrorMessage( -2, "sendMessage: the CAN message length to send exceeds 8 bytes, ignoring overhead. ip= " + m_canIPAddress);
 	} else {
 		messageLengthToBeProcessed = len;
@@ -699,11 +687,11 @@ bool AnaCanScan::sendMessage(uint32_t cobID, unsigned char len, unsigned char *m
 	 * the thread anymore.
 	 */
 	if ( getReconnectCondition() == CanModule::ReconnectAutoCondition::timeoutOnReception && hasTimeoutOnReception()) {
-		MLOGANA(WRN, this) << __FUNCTION__ << " m_canPortNumber= " << m_canPortNumber << " skipping send, detected "
+		MLOGANA2(WRN, this) << __FUNCTION__ << " m_canPortNumber= " << m_canPortNumber << " skipping send, detected "
 				<< reconnectConditionString(m_reconnectCondition);
 
 		//send a reconnection thread trigger
-		MLOGANA(DBG, this) << __FUNCTION__ << " trigger reconnection thread to check reception timeout " << getBusName();
+		MLOGANA2(DBG, this) << __FUNCTION__ << " trigger reconnection thread to check reception timeout " << getBusName();
 		triggerReconnectionThread();
 
 	} else {
@@ -724,25 +712,25 @@ bool AnaCanScan::sendMessage(uint32_t cobID, unsigned char len, unsigned char *m
 		 *  we can send now
 		 */
 		memcpy(messageToBeSent, message, messageLengthToBeProcessed);
-		MLOGANA(TRC, this) << __FUNCTION__<< " m_canPortNumber= " << m_canPortNumber
+		MLOGANA2(TRC, this) << __FUNCTION__<< " m_canPortNumber= " << m_canPortNumber
 				<< " cobID= " << cobID
 				<< " length = " << messageLengthToBeProcessed
 				<< " flags= " << flags << " m_UcanHandle= " << m_UcanHandle;
 		anaCallReturn = CANWrite(m_UcanHandle, cobID, reinterpret_cast<char*>(messageToBeSent), messageLengthToBeProcessed, flags);
-		if (anaCallReturn != 0) {
+		if (anaCallReturn != ANA_ERR_NONE) {
 			m_signalErrorMessage( anaCallReturn, "sendMessage: CANWrite: problem writing message. ip= " + m_canIPAddress);
 		}
 	}
 
-	if (anaCallReturn != 0) {
-		MLOGANA(ERR, this) << __FUNCTION__ << " There was a problem when sending/receiving timeout with CANWrite or a reconnect condition: 0x"
+	if (anaCallReturn != ANA_ERR_NONE) {
+		MLOGANA2(ERR, this) << __FUNCTION__ << " There was a problem when sending/receiving timeout with CANWrite or a reconnect condition: 0x"
 				<< std::hex << anaCallReturn << std::dec
 				<< " ip= " << m_canIPAddress;
 		m_canCloseDevice = false;
 		decreaseSendFailedCountdown();
 
 		//send a reconnection thread trigger
-		MLOGANA(DBG, this) << __FUNCTION__ << " trigger reconnection thread since a send failed " << getBusName();
+		MLOGANA2(DBG, this) << __FUNCTION__ << " trigger reconnection thread since a send failed " << getBusName();
 		triggerReconnectionThread();
 	} else {
 		m_statistics.onTransmit(messageLengthToBeProcessed);
@@ -782,7 +770,7 @@ AnaInt32 AnaCanScan::m_reconnectThisPort(){
 	// a sending on one port failed miserably, and we reset just that port.
 	AnaInt32 anaCallReturn0 = m_reconnect();
 	while ( anaCallReturn0 < 0 ){
-		MLOGANA(WRN, this) << __FUNCTION__<< " failed to reconnect CAN port " << m_canPortNumber
+		MLOGANA2(WRN, this) << __FUNCTION__<< " failed to reconnect CAN port " << m_canPortNumber
 				<< " ip= " << m_canIPAddress << ",  try again";
 
 		std::stringstream os;
@@ -918,7 +906,7 @@ AnaInt32 AnaCanScan::m_reconnectThisPort(){
 	for (std::map<AnaInt32, AnaCanScan*>::iterator it=lmap.begin(); it!=lmap.end(); it++){
 		if ( ip == it->second->m_ipAddress() ){
 			anaRet = it->second->m_connectReceptionHandler();
-			if ( anaRet != 0 ){
+			if ( anaRet != ANA_ERR_NONE ){
 				LOG(Log::ERR, AnaCanScan::st_logItHandleAnagate) << __FUNCTION__ << " " __FILE__ << " " << __LINE__
 						<< " failed to reconnect reception handler for ip= " << ip
 						<< " handle= " << it->second->m_handle()
@@ -967,7 +955,7 @@ AnaInt32 AnaCanScan::m_connectReceptionHandler(){
 	// this is needed otherwise the bridge hangs in a bad state
 	anaCallReturn = CANSetGlobals(m_UcanHandle, m_CanParameters.m_lBaudRate, m_CanParameters.m_iOperationMode,
 			m_CanParameters.m_iTermination, m_CanParameters.m_iHighSpeed, m_CanParameters.m_iTimeStamp);
-	if ( anaCallReturn ){
+	if ( anaCallReturn != ANA_ERR_NONE){
 		std::stringstream os;
 		os << __FUNCTION__ 	<< " CANSetGlobals returned an error. ip= " << m_canIPAddress;
 		m_signalErrorMessage( anaCallReturn, os.str().c_str() );
@@ -975,28 +963,28 @@ AnaInt32 AnaCanScan::m_connectReceptionHandler(){
 	switch ( anaCallReturn ){
 	case 0:{ break; }
 	case 0x30000: {
-		MLOGANA(ERR,this) << "Connection to TCP/IP partner can't be established or is disconnected. Lost TCP/IP: 0x" << std::hex << anaCallReturn << std::dec;
+		MLOGANA2(ERR,this) << "Connection to TCP/IP partner can't be established or is disconnected. Lost TCP/IP: 0x" << std::hex << anaCallReturn << std::dec;
 		return -1;
 	}
 	case 0x40000: {
-		MLOGANA(ERR,this) << "No  answer  was  received  from	TCP/IP partner within the defined timeout. Lost TCP/IP: 0x" << std::hex << anaCallReturn << std::dec;
+		MLOGANA2(ERR,this) << "No  answer  was  received  from	TCP/IP partner within the defined timeout. Lost TCP/IP: 0x" << std::hex << anaCallReturn << std::dec;
 		return -1;
 	}
 	case 0x900000: {
-		MLOGANA(ERR,this) << "Invalid device handle. Lost TCP/IP: 0x" << std::hex << anaCallReturn << std::dec;
+		MLOGANA2(ERR,this) << "Invalid device handle. Lost TCP/IP: 0x" << std::hex << anaCallReturn << std::dec;
 		return -1;
 	}
 	default : {
-		MLOGANA(ERR,this) << "Other Error in CANSetGlobals: 0x" << std::hex << anaCallReturn << std::dec;
+		MLOGANA2(ERR,this) << "Other Error in CANSetGlobals: 0x" << std::hex << anaCallReturn << std::dec;
 		return -1;
 	}
 	}
 
-	MLOGANA(WRN,this) << "connecting RECEIVE canModuleHandle= " << m_UcanHandle
+	MLOGANA2(WRN,this) << "connecting RECEIVE canModuleHandle= " << m_UcanHandle
 			<< " ip= " << m_canIPAddress;
 	anaCallReturn = CANSetCallbackEx(m_UcanHandle, InternalCallback);
 	if (anaCallReturn != 0) {
-		MLOGANA(ERR,this) << "failed CANSetCallbackEx, return code = [" << anaCallReturn << "]"
+		MLOGANA2(ERR,this) << "failed CANSetCallbackEx, return code = [" << anaCallReturn << "]"
 				<< " canModuleHandle= " << m_UcanHandle
 				<< " in a reconnect! Can't fix this, maybe hardware/firmware problem.";
 		std::stringstream os;
@@ -1007,13 +995,13 @@ AnaInt32 AnaCanScan::m_connectReceptionHandler(){
 
 		// that is very schlecht. This can be mitigated by using reconnection behavior for reception timeout.
 	}
-	MLOGANA(DBG,this) << "adding RECEIVE handler, handle= " << m_UcanHandle
+	MLOGANA2(DBG,this) << "adding RECEIVE handler, handle= " << m_UcanHandle
 			<< " CAN port= " << m_canPortNumber
 			<< " ip= " << m_canIPAddress << " to obj.map.";
 	g_AnaCanScanObjectMap[ m_UcanHandle ] = this;
 	// setCanHandleInUse( m_UcanHandle, true );
 
-	MLOGANA(DBG,this) << "RECEIVE handler looks good, handle= " << m_UcanHandle
+	MLOGANA2(DBG,this) << "RECEIVE handler looks good, handle= " << m_UcanHandle
 			<< " CAN port= " << m_canPortNumber
 			<< " ip= " << m_canIPAddress << " Congratulations.";
 
@@ -1027,12 +1015,12 @@ AnaInt32 AnaCanScan::m_connectReceptionHandler(){
  * todo: protect with mutex, work on copy
  */
 void AnaCanScan::m_eraseReceptionHandlerFromMap( AnaInt32 h ){
-	std::map<AnaInt32, AnaCanScan *>::iterator it = g_AnaCanScanObjectMap.find( h );
+	std::map<AnaInt32, AnaCanScan*>::iterator it = g_AnaCanScanObjectMap.find( h );
 	if (it != g_AnaCanScanObjectMap.end()) {
 		g_AnaCanScanObjectMap.erase ( it );
 		m_busName = "nobus";
 	} else {
-		MLOGANA(TRC,this) << " handler " << h << " not found in map, not erased";
+		MLOGANA2(TRC,this) << " handler " << h << " not found in map, not erased";
 	}
 }
 
@@ -1052,7 +1040,7 @@ int AnaCanScan::m_reconnect(){
 	// we are not too fast. sleep to wait for network and don't hammer the switch
 	CanModule::ms_sleep( 100 );
 
-	MLOGANA(WRN, this) << "try to reconnect ip= " << m_canIPAddress
+	MLOGANA2(WRN, this) << "try to reconnect ip= " << m_canIPAddress
 			<< " m_canPortNumber= " << m_canPortNumber
 			<< " m_UcanHandle= " << m_UcanHandle;
 
@@ -1063,7 +1051,7 @@ int AnaCanScan::m_reconnect(){
 		// todo: we should probably drop this, if the handle isn't valid anyway
 		state = CANDeviceConnectState( m_UcanHandle );
 	}
-	MLOGANA(TRC, this) << "CANDeviceConnectState: device connect state= 0x" << std::hex << state << std::dec;
+	MLOGANA2(TRC, this) << "CANDeviceConnectState: device connect state= 0x" << std::hex << state << std::dec;
 	/**
 	•
 	1 = DISCONNECTED
@@ -1084,12 +1072,12 @@ int AnaCanScan::m_reconnect(){
 
 	switch ( state ){
 	case 2: {
-		MLOGANA(INF,this) << "device is in state CONNECTING, don't try to reconnect for now, skip.";
+		MLOGANA2(INF,this) << "device is in state CONNECTING, don't try to reconnect for now, skip.";
 		break;
 	}
 
 	case 3: {
-		MLOGANA(INF,this) << "device is in state CONNECTED, don't try to reconnect, just skip.";
+		MLOGANA2(INF,this) << "device is in state CONNECTED, don't try to reconnect, just skip.";
 		break;
 	}
 	default:
@@ -1098,27 +1086,27 @@ int AnaCanScan::m_reconnect(){
 	case 5:{
 		if ( !m_canCloseDevice ) {
 			anaCallReturn = CANCloseDevice( m_UcanHandle );
-			MLOGANA(WRN, this) << "closed device m_UcanHandle= " << m_UcanHandle
+			MLOGANA2(WRN, this) << "closed device m_UcanHandle= " << m_UcanHandle
 					<< " anaCallReturn= 0x" << std::hex << anaCallReturn << std::dec;
-			if ( anaCallReturn != 0 ) {
-				MLOGANA(WRN, this) << "could not close device m_UcanHandle= " << m_UcanHandle
+			if ( anaCallReturn != ANA_ERR_NONE ) {
+				MLOGANA2(WRN, this) << "could not close device m_UcanHandle= " << m_UcanHandle
 						<< " anaCallReturn= 0x" << std::hex << anaCallReturn << std::dec;
 				// return(-3);
 			}
 			m_canCloseDevice = true;
-			MLOGANA(TRC, this) << "device is closed. stale handle= " << m_UcanHandle;
+			MLOGANA2(TRC, this) << "device is closed. stale handle= " << m_UcanHandle;
 		} else {
-			MLOGANA(WRN, this) << "device is already closed, try reopen. stale handle= " << m_UcanHandle;
+			MLOGANA2(WRN, this) << "device is already closed, try reopen. stale handle= " << m_UcanHandle;
 		}
 		//setCanHandleInUse( m_UcanHandle, false );
 		st_deleteCanHandleOfPortIp( m_canPortNumber, m_canIPAddress );
 
-		MLOGANA(TRC,this) << "try CANOpenDevice m_canPortNumber= " << m_canPortNumber
+		MLOGANA2(TRC,this) << "try CANOpenDevice m_canPortNumber= " << m_canPortNumber
 				<< " m_UcanHandle= " << m_UcanHandle
 				<< " ip= " << m_canIPAddress << " timeout= " << m_timeout;
 		anaCallReturn = CANOpenDevice(&canModuleHandle, FALSE, TRUE, m_canPortNumber, m_canIPAddress.c_str(), m_timeout);
-		if (anaCallReturn != 0) {
-			MLOGANA(ERR,this) << "CANOpenDevice failed: 0x" << std::hex << anaCallReturn << std::dec;
+		if (anaCallReturn != ANA_ERR_NONE) {
+			MLOGANA2(ERR,this) << "CANOpenDevice failed: 0x" << std::hex << anaCallReturn << std::dec;
 			m_canCloseDevice = false;
 
 			std::stringstream os;
@@ -1126,7 +1114,7 @@ int AnaCanScan::m_reconnect(){
 			m_signalErrorMessage( anaCallReturn, os.str().c_str() );
 			return(-1);
 		}
-		MLOGANA(DBG,this) << "CANOpenDevice m_canPortNumber= " << m_canPortNumber
+		MLOGANA2(DBG,this) << "CANOpenDevice m_canPortNumber= " << m_canPortNumber
 				<< " canModuleHandle= " << canModuleHandle
 				<< " ip= " << m_canIPAddress << " timeout= " << m_timeout << " reconnect for SEND looks good";
 
@@ -1158,8 +1146,8 @@ bool AnaCanScan::sendRemoteRequest(uint32_t cobID)
 	AnaInt32 flags = 2;// Bit 1: If set, the telegram is marked as remote frame.
 
 	anaCallReturn = CANWrite(m_UcanHandle,cobID,NULL, 0, flags);
-	if (anaCallReturn != 0) {
-		MLOGANA(ERR,this) << "There was a problem when sending a message with CANWrite";
+	if (anaCallReturn != ANA_ERR_NONE) {
+		MLOGANA2(ERR,this) << "There was a problem when sending a message with CANWrite";
 
 		std::stringstream os;
 		os << __FUNCTION__ 	<< "There was a problem when sending a message with CANWrite";
@@ -1173,6 +1161,156 @@ void AnaCanScan::getStatistics( CanStatistics & result )
 	m_statistics.computeDerived (m_baudRate);
 	result = m_statistics;  // copy whole structure
 	m_statistics.beginNewRun();
+}
+
+
+/**
+ * the "ideal CAN bridge" logs. We get the n newest logs, n=0 for all
+ * Each log entry has a timestamp and a message, both as strings. The hw timestamp is in
+ * fact an uint64 which we convert into a human readable string.
+ */
+OptionalVector<CanModule::PORT_LOG_ITEM_t> AnaCanScan::getHwLogMessages ( unsigned int n ){
+	std::vector<CanModule::PORT_LOG_ITEM_t> log = {};
+	CanModule::PORT_LOG_ITEM_t item;
+	AnaUInt32 nLogID = 0;
+	AnaUInt32 pnCurrentID;
+	AnaUInt32 pnLogCount;
+	AnaInt64 pnLogDate;
+	const unsigned int sz = 110;
+	char pcBuffer[ sz ];
+
+	// first call to get the nb of logs
+	AnaInt32 ret = CANGetLog( m_UcanHandle, nLogID, &pnCurrentID, &pnLogCount, &pnLogDate, pcBuffer );
+	if ( ret != ANA_ERR_NONE ){
+		MLOGANA2(ERR,this) << "There was a problem getting the HW logs " << ret << " . Abandoning HW log retrieval ";
+		std::stringstream os;
+		os << __FUNCTION__ 	<< "There was a problem getting the HW logs " << ret << " . Abandoning HW log retrieval ";
+		m_signalErrorMessage( ret, os.str().c_str() );
+		return {};
+	}
+
+	// how many can we return?
+	unsigned int nLogs = 0;
+	if ( pnLogCount >= n ){
+		nLogs = n;
+	} else {
+		nLogs = pnLogCount;
+	}
+	if ( n == 0 ) {
+		nLogs = pnLogCount;
+	}
+
+	// the youngest log has the highest index
+	MLOGANA2(TRC,this) << "we can retrieve " << nLogs << " logs from the hw, with pnLogCount= " << pnLogCount << " and pnCurrentID= " << pnCurrentID;
+	nLogID = pnCurrentID;
+	for ( unsigned int i = 0; i < nLogs; i++ ){
+		// MLOGANA2(TRC,this) << "retrieving nLogID= " << nLogID << " from the hw";
+
+		for ( unsigned int k = 0; k < sz; k++ ){
+			pcBuffer[ k ] = (char) 0;
+		}
+		AnaInt32 ret0 = CANGetLog( m_UcanHandle, nLogID, &pnCurrentID, &pnLogCount, &pnLogDate, pcBuffer );
+		if ( ret0 != ANA_ERR_NONE ){
+			MLOGANA2(ERR,this) << "There was a problem getting HW log nLogID= " << nLogID << " ..skipping this entry" <<  ret ;
+			std::stringstream os;
+			os << __FUNCTION__ 	<< "There was a problem getting the HW logs " << ret;
+			m_signalErrorMessage( ret, os.str().c_str() );
+		} else {
+			std::string ss = std::string ( pcBuffer );
+			ss.erase (ss.end()-1, ss.end());
+			item.message = ss;
+			std::tm tm = *std::localtime( &pnLogDate ); // adjusted for timezone +2h
+			std::stringstream out;
+			char mbstr[100];
+			if (std::strftime(mbstr, sizeof(mbstr), "%A %c", &tm )) {
+				out << mbstr;
+			}
+			item.timestamp = out.str();
+			MLOGANA2(TRC,this) << "found log item i= " << i << " nLogID= " << nLogID << " " << item.timestamp << " " << item.message << ret;
+			log.push_back( item );
+		}
+		nLogID--;
+	}
+	return log;
+}
+
+/**
+ * get diagnostic data and the client list plus connected ips.
+ * we get:
+ * - list of connected ip numbers (as a ip string, very useful)
+ * - list of client ports, high random ports usually above 30000 (very useful)
+ * - list of timestamps when the connection of each client was made (very useful)
+ * - the count of connected clients, max. 6 per port
+ */
+std::optional<CanModule::HARDWARE_DIAG_t> AnaCanScan::getHwDiagnostics (){
+	HARDWARE_DIAG_t d = CanModule::Diag::createEmptyDiag();
+	const unsigned int sz = 6;
+	unsigned int ips[ sz ];
+	unsigned int ports[ sz ];
+	AnaInt64 dates[ sz ];
+
+	for ( unsigned int i = 0; i < sz; i++ ){
+		ips[ i ] = 0;
+		ports[ i ] = 0;
+		dates[ i ] = 0;
+	}
+
+	AnaInt32 p0, p1;
+	AnaInt32 ret = CANGetDiagData( m_UcanHandle, &p0, &p1 );
+	AnaInt32 ret1 = CANGetClientList( m_UcanHandle, &d.clientCount, ips, ports, dates );
+	if ( ret != ANA_ERR_NONE || ret1 != ANA_ERR_NONE ){
+		MLOGANA2(ERR,this) << "There was a problem getting the HW DiagData and/or client list " << ret << " . Abandoning HW DiagData and client list retrieval ";
+		std::stringstream os;
+		os << __FUNCTION__ 	<< "There was a problem getting the HW DiagData and/or client list" << ret << " . Abandoning HW DiagData and client list retrieval ";
+		m_signalErrorMessage( ret, os.str().c_str() );
+		return {};
+	}
+	d.temperature = (float) p0/10;
+	d.uptime = p1;
+	for ( unsigned int i = 0; i < sz; i++ ){
+		d.clientIps.push_back( m_decodeNetworkByteOrder_ip_toString( ips[ i ] ) );
+		d.clientPorts.push_back( ports[ i ] );
+
+		std::tm tm = *std::localtime( &dates[ i ] );
+		std::stringstream out;
+		char mbstr[100];
+		if (std::strftime(mbstr, sizeof(mbstr), "%A %c", &tm )) {
+			out << mbstr;
+		}
+		d.clientConnectionTimestamps.push_back( out.str() );
+	}
+	return d;
+}
+
+
+/**
+ * decodes  client IP addresse in network byte order, e.g. 0x0201A8C0 ( 0x 02.01.A8.C0 ), into 192.168.1.2
+ */
+std::string AnaCanScan::m_decodeNetworkByteOrder_ip_toString( unsigned int nip ){
+	std::stringstream os;
+	os << std::dec << (nip & 0xff) << "." << ((nip & 0xff00)>>8) << "." << ((nip & 0xff0000)>>16) << "." << ((nip & 0xff000000)>>24);
+	std::string sip = os.str();
+	return sip;
+}
+
+
+/**
+ * we acquire all Tx and Rx counters from the hardware, plus error counters etc. All you ever needed to know about your CAN bus performance
+ * and state
+ */
+std::optional<CanModule::PORT_COUNTERS_t> AnaCanScan::getHwCounters (){
+	PORT_COUNTERS_t c;
+	AnaInt32 ret = CANGetCounters( m_UcanHandle, &c.countTCPRx,
+		&c.countTCPTx, &c.countCANRx, &c.countCANTx, &c.countCANRxErr, &c.countCANTxErr,
+		&c.countCANRxDisc, &c.countCANTxDisc, &c.countCANTimeout);
+	if ( ret != ANA_ERR_NONE ){
+		MLOGANA2(ERR,this) << "There was a problem getting the HW counters " << ret << " . Abandoning HW counters retrieval ";
+		std::stringstream os;
+		os << __FUNCTION__ 	<< "There was a problem getting the HW counters " << ret << " . Abandoning HW counters retrieval ";
+		m_signalErrorMessage( ret, os.str().c_str() );
+		return {};
+	}
+	return c;
 }
 
 /**
@@ -1196,7 +1334,7 @@ void AnaCanScan::m_CanReconnectionThread()
 		ss << std::this_thread::get_id();
 		_tid = ss.str();
 	}
-	MLOGANA(TRC, this ) << "created reconnection thread tid= " << _tid;
+	MLOGANA2(TRC, this ) << "created reconnection thread tid= " << _tid;
 
 	// need some sync to the main thread to be sure it is up and the sock is created: wait first time for init
 	waitForReconnectionThreadTrigger();
@@ -1206,13 +1344,13 @@ void AnaCanScan::m_CanReconnectionThread()
 	 * close/open the socket again since the underlying hardware is hidden by socketcan abstraction.
 	 * Like his we do not have to pollute the "sendMessage" like for anagate, and that is cleaner.
 	 */
-	MLOGANA(TRC, this) << "initialized reconnection thread tid= " << _tid << ", entering loop";
+	MLOGANA2(TRC, this) << "initialized reconnection thread tid= " << _tid << ", entering loop";
 	while ( true ) {
 
 		// wait for sync: need a condition sync to step that thread once: a "trigger".
-		MLOGANA(TRC, this) << "waiting reconnection thread tid= " << _tid;
+		MLOGANA2(TRC, this) << "waiting reconnection thread tid= " << _tid;
 		waitForReconnectionThreadTrigger();
-		MLOGANA(TRC, this)
+		MLOGANA2(TRC, this)
 			<< " reconnection thread tid= " << _tid
 			<< " condition "<< CCanAccess::reconnectConditionString(getReconnectCondition() )
 			<< " action " << CCanAccess::reconnectActionString(getReconnectAction())
@@ -1252,11 +1390,11 @@ void AnaCanScan::m_CanReconnectionThread()
 		// to avoid lots of useless triggers at each send message.
 		switch ( getReconnectAction() ){
 		case CanModule::ReconnectAction::singleBus: {
-			MLOGANA(INF, this) << " reconnect condition " << CCanAccess::reconnectConditionString(m_reconnectCondition)
+			MLOGANA2(INF, this) << " reconnect condition " << CCanAccess::reconnectConditionString(m_reconnectCondition)
 										<< " triggered action " << CCanAccess::reconnectActionString(m_reconnectAction);
 
 			AnaInt32 ret = m_reconnectThisPort();
-			MLOGANA(INF, this) << "reconnected one CAN port ip= " << m_canIPAddress << " ret= " << ret;
+			MLOGANA2(INF, this) << "reconnected one CAN port ip= " << m_canIPAddress << " ret= " << ret;
 			AnaCanScan::st_showAnaCanScanObjectMap();
 			break;
 		}
@@ -1268,15 +1406,15 @@ void AnaCanScan::m_CanReconnectionThread()
 		 */
 		case CanModule::ReconnectAction::allBusesOnBridge: {
 			std::string ip = m_ipAddress();
-			MLOGANA(INF, this) << " reconnect condition " << CCanAccess::reconnectConditionString(m_reconnectCondition)
+			MLOGANA2(INF, this) << " reconnect condition " << CCanAccess::reconnectConditionString(m_reconnectCondition)
 										<< " triggered action " << CCanAccess::reconnectActionString(m_reconnectAction);
 			AnaCanScan::st_reconnectAllPorts( ip );
-			MLOGANA(TRC, this) << " reconnect all ports of ip=  " << ip << this->getBusName();
+			MLOGANA2(TRC, this) << " reconnect all ports of ip=  " << ip << this->getBusName();
 			break;
 		}
 		default: {
 			// we have a runtime bug
-			MLOGANA(ERR, this) << "reconnection action "
+			MLOGANA2(ERR, this) << "reconnection action "
 					<< (int) m_reconnectAction << CCanAccess::reconnectActionString( m_reconnectAction )
 					<< " unknown. Check your config & see documentation. No action.";
 			break;
