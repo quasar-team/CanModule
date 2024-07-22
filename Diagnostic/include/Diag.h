@@ -51,9 +51,9 @@ public:
 	 * even if this would be better for the performance. So: this will actually use HW resources, use sparingly.
 	 * this is also why you get rather unmodern typedef struct data as well, returned as values.
 	*/
-	static std::vector<CanModule::PORT_LOG_ITEM_t> get_portLogItems( CCanAccess *acc, int n );
-	static CanModule::HARDWARE_DIAG_t get_hardwareDiag( CCanAccess *acc );
-	static CanModule::PORT_COUNTERS_t get_portCounters( CCanAccess *acc );
+	static OptionalVector<CanModule::PORT_LOG_ITEM_t> get_portLogItems( CCanAccess *acc, int n );
+	static std::optional<CanModule::HARDWARE_DIAG_t> get_hardwareDiag( CCanAccess *acc );
+	static std::optional<CanModule::PORT_COUNTERS_t> get_portCounters( CCanAccess *acc );
 
 	static int CanLibLoader_icount;
 	static int CanAccess_icount;

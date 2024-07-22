@@ -1171,9 +1171,9 @@ void AnaCanScan2::getStatistics( CanStatistics & result )
  * Each log entry has a timestamp and a message, both as strings. The hw timestamp is in
  * fact an uint64 which we convert into a human readable string.
  */
-std::vector<CanModule::PORT_LOG_ITEM_t> AnaCanScan2::getHwLogMessages ( unsigned int n ){
-	std::vector<CanModule::PORT_LOG_ITEM_t> log;
-	CanModule::PORT_LOG_ITEM_t item = Diag::createEmptyItem();
+OptionalVector<CanModule::PORT_LOG_ITEM_t> AnaCanScan2::getHwLogMessages ( unsigned int n ){
+	std::vector<CanModule::PORT_LOG_ITEM_t> log = {};
+	CanModule::PORT_LOG_ITEM_t item;
 	AnaUInt32 nLogID = 0;
 	AnaUInt32 pnCurrentID;
 	AnaUInt32 pnLogCount;
@@ -1188,7 +1188,7 @@ std::vector<CanModule::PORT_LOG_ITEM_t> AnaCanScan2::getHwLogMessages ( unsigned
 		std::stringstream os;
 		os << __FUNCTION__ 	<< "There was a problem getting the HW logs " << ret << " . Abandoning HW log retrieval ";
 		m_signalErrorMessage( ret, os.str().c_str() );
-		return log;
+		return {};
 	}
 
 	// how many can we return?
@@ -1244,7 +1244,7 @@ std::vector<CanModule::PORT_LOG_ITEM_t> AnaCanScan2::getHwLogMessages ( unsigned
  * - list of timestamps when the connection of each client was made (very useful)
  * - the count of connected clients, max. 6 per port
  */
-CanModule::HARDWARE_DIAG_t AnaCanScan2::getHwDiagnostics (){
+std::optional<CanModule::HARDWARE_DIAG_t> AnaCanScan2::getHwDiagnostics (){
 	HARDWARE_DIAG_t d = CanModule::Diag::createEmptyDiag();
 	const unsigned int sz = 6;
 	unsigned int ips[ sz ];
@@ -1265,7 +1265,7 @@ CanModule::HARDWARE_DIAG_t AnaCanScan2::getHwDiagnostics (){
 		std::stringstream os;
 		os << __FUNCTION__ 	<< "There was a problem getting the HW DiagData and/or client list" << ret << " . Abandoning HW DiagData and client list retrieval ";
 		m_signalErrorMessage( ret, os.str().c_str() );
-		return Diag::createEmptyDiag();
+		return {};
 	}
 	d.temperature = (float) p0/10;
 	d.uptime = p1;
@@ -1300,7 +1300,7 @@ std::string AnaCanScan2::m_decodeNetworkByteOrder_ip_toString( unsigned int nip 
  * we acquire all Tx and Rx counters from the hardware, plus error counters etc. All you ever needed to know about your CAN bus performance
  * and state
  */
-CanModule::PORT_COUNTERS_t AnaCanScan2::getHwCounters (){
+std::optional<CanModule::PORT_COUNTERS_t> AnaCanScan2::getHwCounters (){
 	PORT_COUNTERS_t c;
 	AnaInt32 ret = CANGetCounters( m_UcanHandle, &c.countTCPRx,
 		&c.countTCPTx, &c.countCANRx, &c.countCANTx, &c.countCANRxErr, &c.countCANTxErr,
@@ -1310,7 +1310,7 @@ CanModule::PORT_COUNTERS_t AnaCanScan2::getHwCounters (){
 		std::stringstream os;
 		os << __FUNCTION__ 	<< "There was a problem getting the HW counters " << ret << " . Abandoning HW counters retrieval ";
 		m_signalErrorMessage( ret, os.str().c_str() );
-		return Diag::createEmptyCounters();
+		return {};
 	}
 	return c;
 }
