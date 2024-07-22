@@ -656,9 +656,10 @@ bool AnaCanScan::sendMessage(uint32_t cobID, unsigned char len, unsigned char *m
 	// /* static */ std::string AnaCanScan::canMessageToString(CanMessage &f)
 	// MLOGANA2(DBG,this) << "Sending message: [" << ( message == 0  ? "" : (const char *) message) << "], cobID: [" << cobID << "], Message Length: [" << static_cast<int>(len) << "]";
 
+	MLOGANA2(DBG,this) << __FUNCTION__ << " Sending message: [" << CanModule::canMessage2ToString(cobID, len, message, rtr, eff) << "]";
 	AnaInt32 anaCallReturn = 0;
 	unsigned char *messageToBeSent[8];
-
+	
 	AnaInt32 flags = 0x0;
 
 	// Set Bit 0 of flags if eff is true
@@ -1133,6 +1134,7 @@ int AnaCanScan::m_reconnect(){
 	return( 0 ); // OK
 }
 
+
 /**
  * Method that sends a remote request trough the can bus channel.
  * If the method createBus was not called before this, sendMessage will fail, as there is no
@@ -1181,16 +1183,11 @@ OptionalVector<CanModule::PORT_LOG_ITEM_t> AnaCanScan::getHwLogMessages ( unsign
 
 	// first call to get the nb of logs
 	AnaInt32 ret = CANGetLog( m_UcanHandle, nLogID, &pnCurrentID, &pnLogCount, &pnLogDate, pcBuffer );
-	if ( ret != ANA_ERR_NONE)
-	{
-		if(ret != m_diagnosticsReturnCodes.m_log)
-		{
-			m_diagnosticsReturnCodes.m_log = ret;
-			MLOGANA2(ERR,this) << "There was a problem getting the HW logs " << ret << " . Abandoning HW log retrieval ";
-			std::stringstream os;
-			os << __FUNCTION__ 	<< "There was a problem getting the HW logs " << ret << " . Abandoning HW log retrieval ";
-			m_signalErrorMessage( ret, os.str().c_str() );
-		}
+	if ( ret != ANA_ERR_NONE ){
+		MLOGANA2(ERR,this) << "There was a problem getting the HW logs " << ret << " . Abandoning HW log retrieval ";
+		std::stringstream os;
+		os << __FUNCTION__ 	<< "There was a problem getting the HW logs " << ret << " . Abandoning HW log retrieval ";
+		m_signalErrorMessage( ret, os.str().c_str() );
 		return {};
 	}
 
@@ -1215,16 +1212,11 @@ OptionalVector<CanModule::PORT_LOG_ITEM_t> AnaCanScan::getHwLogMessages ( unsign
 			pcBuffer[ k ] = (char) 0;
 		}
 		AnaInt32 ret0 = CANGetLog( m_UcanHandle, nLogID, &pnCurrentID, &pnLogCount, &pnLogDate, pcBuffer );
-		if ( ret != ANA_ERR_NONE){
-			if(ret != m_diagnosticsReturnCodes.m_log)
-			{
-				m_diagnosticsReturnCodes.m_log = ret;
-				MLOGANA2(ERR,this) << "There was a problem getting HW log nLogID= " << nLogID << " ..skipping this entry" <<  ret ;
-				std::stringstream os;
-				os << __FUNCTION__ 	<< "There was a problem getting the HW logs " << ret;
-				m_signalErrorMessage( ret, os.str().c_str() );
-			}
-
+		if ( ret0 != ANA_ERR_NONE ){
+			MLOGANA2(ERR,this) << "There was a problem getting HW log nLogID= " << nLogID << " ..skipping this entry" <<  ret ;
+			std::stringstream os;
+			os << __FUNCTION__ 	<< "There was a problem getting the HW logs " << ret;
+			m_signalErrorMessage( ret, os.str().c_str() );
 		} else {
 			std::string ss = std::string ( pcBuffer );
 			ss.erase (ss.end()-1, ss.end());
@@ -1268,17 +1260,11 @@ std::optional<CanModule::HARDWARE_DIAG_t> AnaCanScan::getHwDiagnostics (){
 	AnaInt32 p0, p1;
 	AnaInt32 ret = CANGetDiagData( m_UcanHandle, &p0, &p1 );
 	AnaInt32 ret1 = CANGetClientList( m_UcanHandle, &d.clientCount, ips, ports, dates );
-	if (ret != ANA_ERR_NONE || ret1 != ANA_ERR_NONE) {
-		if(ret != m_diagnosticsReturnCodes.m_diagData || ret1 != m_diagnosticsReturnCodes.m_clientList)
-		{
-			m_diagnosticsReturnCodes.m_diagData = ret;
-			m_diagnosticsReturnCodes.m_clientList = ret1;
-			MLOGANA2(ERR,this) << "There was a problem getting the HW DiagData ["<<ret<<"] and/or client list ["<<ret1<<"]. Abandoning HW DiagData and client list retrieval ";
-			std::stringstream os;
-			os << __FUNCTION__ 	<< "There was a problem getting the HW DiagData ["<<ret<<"] and/or client list ["<<ret1<<"]. Abandoning HW DiagData and client list retrieval ";
-			m_signalErrorMessage( ret, os.str().c_str() );
-		}
-
+	if ( ret != ANA_ERR_NONE || ret1 != ANA_ERR_NONE ){
+		MLOGANA2(ERR,this) << "There was a problem getting the HW DiagData and/or client list " << ret << " . Abandoning HW DiagData and client list retrieval ";
+		std::stringstream os;
+		os << __FUNCTION__ 	<< "There was a problem getting the HW DiagData and/or client list" << ret << " . Abandoning HW DiagData and client list retrieval ";
+		m_signalErrorMessage( ret, os.str().c_str() );
 		return {};
 	}
 	d.temperature = (float) p0/10;
@@ -1319,16 +1305,11 @@ std::optional<CanModule::PORT_COUNTERS_t> AnaCanScan::getHwCounters (){
 	AnaInt32 ret = CANGetCounters( m_UcanHandle, &c.countTCPRx,
 		&c.countTCPTx, &c.countCANRx, &c.countCANTx, &c.countCANRxErr, &c.countCANTxErr,
 		&c.countCANRxDisc, &c.countCANTxDisc, &c.countCANTimeout);
-	if ( ret != ANA_ERR_NONE){
-		if(ret != m_diagnosticsReturnCodes.m_counters)
-		{
-			m_diagnosticsReturnCodes.m_counters = ret;
-			MLOGANA2(ERR,this) << "There was a problem getting the HW counters " << ret << " . Abandoning HW counters retrieval ";
-			std::stringstream os;
-			os << __FUNCTION__ 	<< "There was a problem getting the HW counters " << ret << " . Abandoning HW counters retrieval ";
-			m_signalErrorMessage( ret, os.str().c_str() );
-		}
-
+	if ( ret != ANA_ERR_NONE ){
+		MLOGANA2(ERR,this) << "There was a problem getting the HW counters " << ret << " . Abandoning HW counters retrieval ";
+		std::stringstream os;
+		os << __FUNCTION__ 	<< "There was a problem getting the HW counters " << ret << " . Abandoning HW counters retrieval ";
+		m_signalErrorMessage( ret, os.str().c_str() );
 		return {};
 	}
 	return c;
@@ -1444,6 +1425,4 @@ void AnaCanScan::m_CanReconnectionThread()
 	} // while
 }
 
-AnaCanScan::DiagnosticsReturnCodes::DiagnosticsReturnCodes()
-:m_log(-1), m_diagData(-1), m_clientList(-1), m_counters(-1)
-{}
+
