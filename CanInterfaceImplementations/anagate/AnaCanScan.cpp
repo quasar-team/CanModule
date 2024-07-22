@@ -656,10 +656,9 @@ bool AnaCanScan::sendMessage(uint32_t cobID, unsigned char len, unsigned char *m
 	// /* static */ std::string AnaCanScan::canMessageToString(CanMessage &f)
 	// MLOGANA2(DBG,this) << "Sending message: [" << ( message == 0  ? "" : (const char *) message) << "], cobID: [" << cobID << "], Message Length: [" << static_cast<int>(len) << "]";
 
-	MLOGANA2(DBG,this) << __FUNCTION__ << " Sending message: [" << CanModule::canMessage2ToString(cobID, len, message, rtr, eff) << "]";
 	AnaInt32 anaCallReturn = 0;
 	unsigned char *messageToBeSent[8];
-	
+
 	AnaInt32 flags = 0x0;
 
 	// Set Bit 0 of flags if eff is true
@@ -1134,7 +1133,6 @@ int AnaCanScan::m_reconnect(){
 	return( 0 ); // OK
 }
 
-
 /**
  * Method that sends a remote request trough the can bus channel.
  * If the method createBus was not called before this, sendMessage will fail, as there is no
@@ -1226,6 +1224,7 @@ OptionalVector<CanModule::PORT_LOG_ITEM_t> AnaCanScan::getHwLogMessages ( unsign
 				os << __FUNCTION__ 	<< "There was a problem getting the HW logs " << ret;
 				m_signalErrorMessage( ret, os.str().c_str() );
 			}
+
 		} else {
 			std::string ss = std::string ( pcBuffer );
 			ss.erase (ss.end()-1, ss.end());
@@ -1279,6 +1278,7 @@ std::optional<CanModule::HARDWARE_DIAG_t> AnaCanScan::getHwDiagnostics (){
 			os << __FUNCTION__ 	<< "There was a problem getting the HW DiagData ["<<ret<<"] and/or client list ["<<ret1<<"]. Abandoning HW DiagData and client list retrieval ";
 			m_signalErrorMessage( ret, os.str().c_str() );
 		}
+
 		return {};
 	}
 	d.temperature = (float) p0/10;
@@ -1328,6 +1328,7 @@ std::optional<CanModule::PORT_COUNTERS_t> AnaCanScan::getHwCounters (){
 			os << __FUNCTION__ 	<< "There was a problem getting the HW counters " << ret << " . Abandoning HW counters retrieval ";
 			m_signalErrorMessage( ret, os.str().c_str() );
 		}
+
 		return {};
 	}
 	return c;

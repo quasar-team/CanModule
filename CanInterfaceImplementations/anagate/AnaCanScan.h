@@ -189,6 +189,7 @@ private:
 		AnaInt32 m_counters;
 	}
 	m_diagnosticsReturnCodes;
+
 };
 
 #endif //CCANANASCAN_H_
