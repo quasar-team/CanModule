@@ -500,9 +500,10 @@ bool STCanScan::sendErrorCode(long status)
  * @param len Length of the message. If the message is bigger than 8 characters, it will be split into separate 8 characters messages.
  * @param message Message to be sent trough the can bus.
  * @param rtr is the message a remote transmission request?
+ * @param eff: indicate if we should use extended id for the message CAN 2.0B
  * @return Was the sending process successful?
  */
-bool STCanScan::sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr)
+bool STCanScan::sendMessage(uint32_t cobID, unsigned char len, unsigned char *message, bool rtr, bool eff)
 {
 	// throttle the speed to avoid frame losses. we just wait the minimum time needed
 	if ( m_sendThrottleDelay > 0 ) {
@@ -517,17 +518,21 @@ bool STCanScan::sendMessage(short cobID, unsigned char len, unsigned char *messa
 		m_previous = boost::posix_time::microsec_clock::local_time();
 	}
 
-	MLOGST(DBG,this) << "Sending message: [" << CanModule::canMessage2ToString(cobID, len, message, rtr) << "]";
+	MLOGST(DBG,this) << "Sending message: [" << CanModule::canMessage2ToString(cobID, len, message, rtr, eff) << "]";
 
 	tCanMsgStruct canMsgToBeSent;
 	BYTE Status;
 
 	canMsgToBeSent.m_dwID = cobID;
 	canMsgToBeSent.m_bDLC = len;
-	canMsgToBeSent.m_bFF = 0;
-	if (rtr) {
-		canMsgToBeSent.m_bFF = USBCAN_MSG_FF_RTR;
-	}
+
+	canMsgToBeSent.m_bFF = USBCAN_MSG_FF_STD; // Equivalent to 0x0 (no flags active)
+	if (rtr) 
+		canMsgToBeSent.m_bFF |= USBCAN_MSG_FF_RTR;
+	
+	if (eff)
+		canMsgToBeSent.m_bFF |= USBCAN_MSG_FF_EXT;
+
 	int  messageLengthToBeProcessed;
 	//If there is more than 8 characters to process, we process 8 of them in this iteration of the loop
 	if (len > 8) {
@@ -614,7 +619,7 @@ bool STCanScan::sendMessage(short cobID, unsigned char len, unsigned char *messa
 	return sendErrorCode(Status);
 }
 
-bool STCanScan::sendRemoteRequest(short cobID)
+bool STCanScan::sendRemoteRequest(uint32_t cobID)
 {
 	tCanMsgStruct canMsg;
 	BYTE Status;

@@ -127,7 +127,7 @@ enum CanModule_bus_state {
 
 std::string CanModuleerrnoToString();
 std::string canMessageToString(CanMessage &f);
-std::string canMessage2ToString(short cobID, unsigned char len, unsigned char *message, bool rtr);
+std::string canMessage2ToString(uint32_t cobID, unsigned char len, unsigned char *message, bool rtr, bool eff);
 std::string translateCanBusStateToText( CanModule::CanModule_bus_state state ); // static public in-class declaration does not work for windows
 }
 #endif /* UTILS_H_ */

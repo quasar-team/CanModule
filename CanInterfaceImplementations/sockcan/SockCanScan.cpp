@@ -664,13 +664,14 @@ int CSockCanScan::m_openCanPort()
  * @param len Length of the message. If the message is bigger than 8 characters, it will be split into separate 8 characters messages.
  * @param message Message to be sent trough the can bus.
  * @param rtr is the message a remote transmission request?
+ * @param eff: indicate if we should use extended id for the message CAN 2.0B
  * @return Was the initialisation process successful?
  *
  * OPCUA-2604: sendMessage must be non blocking. The reconnection behavior therefore must be managed in a separate thread.
  *
  * returns: true for success, otherwise false
  */
-/* virtual */ bool CSockCanScan::sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr)
+/* virtual */ bool CSockCanScan::sendMessage(uint32_t cobID, unsigned char len, unsigned char *message, bool rtr, bool eff)
 {
 	int messageLengthToBeProcessed;
 
@@ -692,9 +693,12 @@ int CSockCanScan::m_openCanPort()
 	canFrame.can_dlc = messageLengthToBeProcessed;
 	memcpy(canFrame.data, message, len);
 	canFrame.can_id = cobID;
-	if (rtr) {
+
+	if (rtr) 
 		canFrame.can_id |= CAN_RTR_FLAG;
-	}
+
+	if (eff) 
+		canFrame.can_id |= CAN_EFF_FLAG;
 
 	// throttle the speed to avoid frame losses. we just wait the minimum time needed
 	if ( m_sendThrottleDelay > 0 ) {
@@ -783,7 +787,7 @@ bool CSockCanScan::m_writeWrapper (const can_frame* frame)
  *
  * Used in the CANopen NG server and other applications.
  */
-/* virtual */ bool CSockCanScan::sendRemoteRequest(short cobID)
+/* virtual */ bool CSockCanScan::sendRemoteRequest(uint32_t cobID)
 {
 	struct can_frame canFrame (emptyCanFrame());
 	canFrame.can_id = cobID + CAN_RTR_FLAG	;
