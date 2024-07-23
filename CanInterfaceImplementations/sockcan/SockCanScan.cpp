@@ -340,7 +340,7 @@ void CSockCanScan::m_CanScanControlThread()
 
 		CanMessage canMessage;
 		canMessage.c_rtr = socketMessage.can_id & CAN_RTR_FLAG;
-
+		canMessage.c_eff = socketMessage.can_id & CAN_EFF_FLAG;
 
 		/**
 		 * reformat and buffer the message from the socket.

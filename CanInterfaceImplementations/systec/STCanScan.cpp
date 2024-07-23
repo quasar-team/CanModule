@@ -129,6 +129,9 @@ DWORD WINAPI STCanScan::CanScanControlThread(LPVOID pCanScan)
 			canMsgCopy.c_id = readCanMessage.m_dwID;
 			canMsgCopy.c_dlc = readCanMessage.m_bDLC;
 			canMsgCopy.c_ff = readCanMessage.m_bFF;
+			canMsgCopy.c_eff = readCanMessage.m_bFF & USBCAN_MSG_FF_EXT;
+			canMsgCopy.c_rtr = readCanMessage.m_bFF & USBCAN_MSG_FF_RTR;
+			
 			for (int i = 0; i < 8; i++)
 				canMsgCopy.c_data[i] = readCanMessage.m_bData[i];
 

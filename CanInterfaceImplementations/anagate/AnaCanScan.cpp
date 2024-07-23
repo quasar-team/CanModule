@@ -227,11 +227,14 @@ void WINAPI InternalCallback(AnaUInt32 nIdentifier, const char * pcBuffer, AnaIn
 	canMsgCopy.c_id = nIdentifier;
 	canMsgCopy.c_dlc = nBufferLen;
 	canMsgCopy.c_ff = nFlags;
+	canMsgCopy.c_rtr = (nFlags & 0x02);  // Check if bit 1 is set
+	canMsgCopy.c_eff = (nFlags & 0x01);  // Check if bit 0 is set
 	for (int i = 0; i < nBufferLen; i++)
 		canMsgCopy.c_data[i] = pcBuffer[i];
 
 	canMsgCopy.c_time = CanModule::convertTimepointToTimeval(currentTimeTimeval());
-
+	
+	//std::cout << canMessageToString(canMsgCopy) << std::endl;
 	// more hardcode debugging, leave it in
 	//cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__
 	//		<< " anagate message reception hHandle= " << hHandle

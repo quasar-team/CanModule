@@ -90,6 +90,8 @@ namespace CanModule
 		result =  "[id=0x"+CanModuleUtils::toHexString(f.c_id, 8, '0')+" ";
 		if (f.c_id & f.c_rtr)
 			result += "RTR ";
+		if (f.c_id & f.c_eff)
+			result += "EFF ";
 		result+="dlc=" + CanModuleUtils::toString(int(f.c_dlc)) + " data=[";
 
 		for (int i=0; i<f.c_dlc; i++)
