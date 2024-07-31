@@ -21,6 +21,13 @@ set(SOURCES
 
 add_library(CanCommon ${SOURCES})
 
+# Treat warnings as errors
+if (CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+    target_compile_options(CanCommon PRIVATE -Wall -Wextra -Werror)
+elseif (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
+    target_compile_options(CanCommon PRIVATE /W4 /WX)
+endif()
+
 # GOOGLE TESTS SECTION
 
 enable_testing()
