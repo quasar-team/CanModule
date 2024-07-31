@@ -1,12 +1,34 @@
 #include "CanFrame.h"
 
-CanFrame::CanFrame(uint32_t id, uint32_t requested_length, uint32_t flags) {
-  invalid_frame(id, requested_length, message, flags);
+void CanFrame::validate_frame() {
+  if (!is_29_bits_id()) {
+    return;
+  }
+
+  if (is_29_bits_id() && !is_11_bits_id() &&
+      !(m_flags & CanFlags::EXTENDED_ID)) {
+    return;
+  }
+
+  if (m_message.size() > 8) {
+    return;
+  }
+
+  if (m_requested_length > 0 && !(m_flags & CanFlags::REMOTE_REQUEST)) {
+    return;
+  }
+
+  if (m_message.size() > 0 && (m_flags & CanFlags::REMOTE_REQUEST)) {
+    return;
+  }
+
+  if (m_requested_length > 8) {
+    return;
+  }
+
+  if (m_message.size() > 0 && m_requested_length > 0) {
+    return;
+  }
+
+  m_valid = true;
 }
-
-CanFrame::CanFrame(uint32_t id, const std::vector<char> &message,
-                   uint32_t flags) {}
-
-bool CanFrame::is_id_standard(uint32_t id) { return (id & 0xFFFFF800) == 0; }
-
-bool CanFrame::is_id_extended(uint32_t id) { return (id & 0xE0000000) == 0; }
