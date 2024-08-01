@@ -1,9 +1,14 @@
 
+# Developer Guide
+
 ## Development environment
 
 - Alma 9
 - Visual Studio Code
-- Extension VS: TestMate C++ (optional)
+- Extension VS: TestMate C++
+
+Windows works too for development, installing all dependencies with Chocolatey, but you cannot
+compile (nor debug) any issues with SocketCan.
 
 ## Setup pre-commit hooks
 
@@ -15,4 +20,12 @@ pre-commit install-hooks
 pre-commit install
 ```
 
-Install `cppcheck` in your system
+You will also need `cppcheck` in your system (`dnf install cppcheck`)
+
+## Python Bindings
+
+Install `pybind11` if you wish to have the python bindings compiled
+
+- `pip install pybind11`
+- `dnf install python3-devel`
+- `pip install pytest`

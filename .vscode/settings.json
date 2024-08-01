@@ -67,5 +67,7 @@
         "typeinfo": "cpp",
         "variant": "cpp"
     },
-    "cmake.ctest.testExplorerIntegrationEnabled": false
+    "cmake.ctest.testExplorerIntegrationEnabled": false,
+    "python.testing.pytestEnabled": true
+
 }
