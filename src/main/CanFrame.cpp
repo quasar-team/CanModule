@@ -1,5 +1,13 @@
 #include "CanFrame.h"
-
+/**
+ * @brief Validates the CAN frame based on various conditions.
+ *
+ * This function checks multiple conditions to determine if the CAN frame is
+ * valid. It sets the `m_valid` member variable to `true` if all conditions are
+ * met. Otherwise, it returns early without modifying `m_valid`.
+ *
+ * @return void This function does not return a value.
+ */
 void CanFrame::validate_frame() {
   if (!is_29_bits_id()) {
     return;
