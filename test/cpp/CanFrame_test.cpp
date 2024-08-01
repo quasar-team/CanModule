@@ -14,18 +14,20 @@ TEST_F(CanFrameTest, ConstructorWithIdAndMessage) {
   std::vector<char> message = {'H', 'e', 'l', 'l', 'o'};
   CanFrame frame(id, message);
   ASSERT_TRUE(frame.is_valid());
-  ASSERT_TRUE(frame.id() == id);
-  ASSERT_TRUE(frame.message() == message);
+  ASSERT_EQ(frame.id(), id);
+  ASSERT_EQ(frame.message(), message);
   ASSERT_EQ(frame.message().size(), message.size());
   ASSERT_TRUE(frame.is_standard_id());
-}  // Test for CanFrame constructor with id and message
+}
+
+// Test for CanFrame constructor with id extended and message
 TEST_F(CanFrameTest, ConstructorWithIdExtendedAndMessage) {
   uint32_t id = 1 << 28;
   std::vector<char> message = {'H', 'e', 'l', 'l', 'o'};
   CanFrame frame(id, message);
   ASSERT_TRUE(frame.is_valid());
-  ASSERT_TRUE(frame.id() == id);
-  ASSERT_TRUE(frame.message() == message);
+  ASSERT_EQ(frame.id(), id);
+  ASSERT_EQ(frame.message(), message);
   ASSERT_EQ(frame.message().size(), message.size());
   ASSERT_TRUE(frame.is_extended_id());
 }
@@ -45,6 +47,7 @@ TEST_F(CanFrameTest, ConstructorWithIdAndMessageInvalid) {
   CanFrame frame(id, message);
   ASSERT_FALSE(frame.is_valid());
 }
+
 // Test for CanFrame constructor with id and requested_length
 TEST_F(CanFrameTest, ConstructorWithIdAndRequestedLength) {
   uint32_t id = 1;
@@ -52,10 +55,9 @@ TEST_F(CanFrameTest, ConstructorWithIdAndRequestedLength) {
   CanFrame frame(id, requested_length);
   ASSERT_EQ(frame.flags(), CanFlags::STANDARD_ID | CanFlags::REMOTE_REQUEST);
   ASSERT_TRUE(frame.is_valid());
-  ASSERT_TRUE(frame.id() == id);
-  ASSERT_TRUE(frame.flags() == CanFlags::STANDARD_ID |
-              CanFlags::REMOTE_REQUEST);
-  ASSERT_TRUE(frame.length() == requested_length);
+  ASSERT_EQ(frame.id(), id);
+  ASSERT_EQ(frame.flags(), CanFlags::STANDARD_ID | CanFlags::REMOTE_REQUEST);
+  ASSERT_EQ(frame.length(), requested_length);
   ASSERT_TRUE(frame.message().empty());
   ASSERT_TRUE(frame.is_remote_request());
 }
@@ -76,7 +78,7 @@ TEST_F(CanFrameTest, ConstructorWithIdRequestedLengthAndFlags) {
   CanFrame frame(id, requested_length, flags);
   ASSERT_TRUE(frame.is_valid());
   ASSERT_EQ(frame.length(), 8);
-  ASSERT_TRUE(frame.id() == id);
+  ASSERT_EQ(frame.id(), id);
 }
 
 // Test for CanFrame constructor with id, message, and flags
@@ -85,10 +87,10 @@ TEST_F(CanFrameTest, ConstructorWithIdMessageAndFlags) {
   std::vector<char> message = {'H', 'e', 'l', 'l', 'o'};
   uint32_t flags = CanFlags::EXTENDED_ID;
   CanFrame frame(id, message, flags);
-  ASSERT_TRUE(frame.message() == message);
+  ASSERT_EQ(frame.message(), message);
   ASSERT_TRUE(frame.is_valid());
-  ASSERT_TRUE(frame.id() == id);
-  ASSERT_TRUE(frame.flags() == CanFlags::EXTENDED_ID);
+  ASSERT_EQ(frame.id(), id);
+  ASSERT_EQ(frame.flags(), CanFlags::EXTENDED_ID);
 }
 
 TEST_F(CanFrameTest, ConstructorWithIdExtendedMessageAndFlagsStandard) {
