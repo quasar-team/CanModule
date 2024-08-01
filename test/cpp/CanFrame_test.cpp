@@ -61,12 +61,22 @@ TEST_F(CanFrameTest, ConstructorWithIdAndRequestedLength) {
 }
 
 // Test for CanFrame constructor with id, requested_length, and flags
-TEST_F(CanFrameTest, ConstructorWithIdRequestedLengthAndFlags) {
+TEST_F(CanFrameTest, ConstructorWithIdRequestedLengthAndFlagsIncomplete) {
   uint32_t id = 1;
   uint32_t requested_length = 8;
   uint32_t flags = CanFlags::STANDARD_ID;
   CanFrame frame(id, requested_length, flags);
-  ASSERT_TRUE(false);
+  ASSERT_FALSE(frame.is_valid());
+}
+
+TEST_F(CanFrameTest, ConstructorWithIdRequestedLengthAndFlags) {
+  uint32_t id = 1;
+  uint32_t requested_length = 8;
+  uint32_t flags = CanFlags::STANDARD_ID | CanFlags::REMOTE_REQUEST;
+  CanFrame frame(id, requested_length, flags);
+  ASSERT_TRUE(frame.is_valid());
+  ASSERT_EQ(frame.length(), 8);
+  ASSERT_TRUE(frame.id() == id);
 }
 
 // Test for CanFrame constructor with id, message, and flags
@@ -75,7 +85,37 @@ TEST_F(CanFrameTest, ConstructorWithIdMessageAndFlags) {
   std::vector<char> message = {'H', 'e', 'l', 'l', 'o'};
   uint32_t flags = CanFlags::EXTENDED_ID;
   CanFrame frame(id, message, flags);
-  ASSERT_TRUE(false);
+  ASSERT_TRUE(frame.message() == message);
+  ASSERT_TRUE(frame.is_valid());
+  ASSERT_TRUE(frame.id() == id);
+  ASSERT_TRUE(frame.flags() == CanFlags::EXTENDED_ID);
+}
+
+TEST_F(CanFrameTest, ConstructorWithIdExtendedMessageAndFlagsStandard) {
+  uint32_t id = 1 << 28;
+  std::vector<char> message = {'H', 'e', 'l', 'l', 'o'};
+  uint32_t flags = CanFlags::STANDARD_ID;
+  CanFrame frame(id, message, flags);
+  ASSERT_FALSE(frame.is_valid());
+}
+
+TEST_F(CanFrameTest, ConstructorWithIdMessageAndFlagsRTR) {
+  uint32_t id = 1 << 28;
+  std::vector<char> message = {'H', 'e', 'l', 'l', 'o'};
+  uint32_t flags = CanFlags::REMOTE_REQUEST;
+  CanFrame frame(id, message, flags);
+  ASSERT_FALSE(frame.is_valid());
+}
+
+TEST_F(CanFrameTest, ConstructorWithIdOnly) {
+  uint32_t id = 1 << 28;
+  CanFrame frame(id);
+  ASSERT_TRUE(frame.is_valid());
+  ASSERT_EQ(frame.id(), id);
+  ASSERT_TRUE(frame.message().empty());
+  ASSERT_EQ(frame.length(), 0);
+  ASSERT_TRUE(frame.is_extended_id());
+  ASSERT_TRUE(frame.is_remote_request());
 }
 
 int main(int argc, char **argv) {
