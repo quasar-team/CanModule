@@ -6,7 +6,7 @@ repos:
         args: ["-style=Google"]
       - id: cppcheck
       - id: cpplint
-        args: ["--filter=-legal/copyright,-build/header_guard"]
+        args: ["--filter=-legal/copyright"]
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.6.0

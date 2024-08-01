@@ -1,3 +1,5 @@
+#ifndef SRC_INCLUDE_CANFRAME_H_
+#define SRC_INCLUDE_CANFRAME_H_
 #include <cstdint>
 #include <vector>
 
@@ -63,3 +65,5 @@ struct CanFrame {
   static bool is_11_bits(uint32_t id) { return (id & 0xFFFFF800) == 0; }
   static bool is_29_bits(uint32_t id) { return (id & 0xE0000000) == 0; }
 };
+
+#endif  // SRC_INCLUDE_CANFRAME_H_
