@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.26)
 
-project(CanCommon LANGUAGES CXX)
+project(CanModule LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -19,13 +19,13 @@ set(SOURCES
     src/main/CanVendorSocketCan.cpp
 )
 
-add_library(CanCommon ${SOURCES})
+add_library(CanModule ${SOURCES})
 
 # Treat warnings as errors
 if (CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
-    target_compile_options(CanCommon PRIVATE -Wall -Wextra -Werror)
+    target_compile_options(CanModule PRIVATE -Wall -Wextra -Werror)
 elseif (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
-    target_compile_options(CanCommon PRIVATE /W4 /WX)
+    target_compile_options(CanModule PRIVATE /W4 /WX)
 endif()
 
 # GOOGLE TESTS SECTION
@@ -49,11 +49,11 @@ set(TEST_SOURCES
     test/cpp/CanStats_test.cpp
 )
 
-add_executable(CanCommon_test ${TEST_SOURCES})
+add_executable(CanModule_test ${TEST_SOURCES})
 
 target_link_libraries(
-  CanCommon_test CanCommon gtest_main
+  CanModule_test CanModule gtest_main
 )
 
 include(GoogleTest)
-gtest_discover_tests(CanCommon_test)
+gtest_discover_tests(CanModule_test)
