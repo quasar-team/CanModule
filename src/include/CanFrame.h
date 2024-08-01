@@ -12,6 +12,9 @@ struct CanFrame {
   CanFrame(const uint32_t id, const uint32_t requested_length,
            const uint32_t flags)
       : m_id(id), m_requested_length(requested_length), m_flags(flags) {
+    if (!is_remote_request()) {
+      return;
+    }
     validate_frame();
   }
   CanFrame(const uint32_t id, const uint32_t requested_length)
@@ -19,6 +22,7 @@ struct CanFrame {
                  CanFlags::REMOTE_REQUEST |
                      (is_11_bits(id) ? CanFlags::STANDARD_ID
                                      : CanFlags::EXTENDED_ID)) {}
+  explicit CanFrame(const uint32_t id) : CanFrame(id, 0) {}
   CanFrame(const uint32_t id, const std::vector<char>& message)
       : CanFrame(
             id, message,
