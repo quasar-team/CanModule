@@ -1,4 +1,5 @@
 #include "CanFrame.h"
+
 /**
  * @brief Validates the CAN frame based on various conditions.
  *
