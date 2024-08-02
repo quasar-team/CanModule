@@ -28,8 +28,8 @@ struct CanDevice {
   virtual int vendor_close() = 0;
   virtual int vendor_send(const CanFrame& frame) = 0;
 
-  const std::string m_configuration;
   const std::string m_vendor;
+  const std::string m_configuration;
 };
 
 #endif /* SRC_INCLUDE_CANDEVICE_H_ */

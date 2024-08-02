@@ -12,7 +12,7 @@ struct CanVendorDummy : CanDevice {
  protected:
   int vendor_open() override { return 0; }
   int vendor_close() override { return 0; }
-  int vendor_send(const CanFrame &frame) override { return 0; }
+  int vendor_send(const CanFrame &frame) override { return frame.is_valid(); }
 };
 
 #endif /* SRC_INCLUDE_CANVENDORDUMMY_H_ */

@@ -35,14 +35,18 @@ std::vector<int> CanDevice::send(const std::vector<CanFrame> &frames) {
 
 std::unique_ptr<CanDevice> CanDevice::create(std::string_view vendor,
                                              std::string_view configuration) {
-  std::unique_ptr<CanDevice> device{};
+  if (vendor == "dummy") {
+    return std::make_unique<CanVendorDummy>(configuration);
+  }
+#ifndef _WIN32
+  if (vendor == "socketcan") {
+    return std::make_unique<CanVendorSocketCan>(configuration);
+  }
+#endif
 
   if (vendor == "anagate") {
-    device = std::make_unique<CanVendorAnagate>(configuration);
-  } else if (vendor == "socketcan") {
-    device = std::make_unique<CanVendorSocketCan>(configuration);
-  } else if (vendor == "dummy") {
-    device = std::make_unique<CanVendorDummy>(configuration);
+    return std::make_unique<CanVendorAnagate>(configuration);
   }
-  return device;
+
+  return nullptr;
 }
