@@ -1,6 +1,7 @@
 #ifndef SRC_INCLUDE_CANDEVICE_H_
 #define SRC_INCLUDE_CANDEVICE_H_
 
+#include <functional>
 #include <map>
 #include <memory>
 #include <string>
@@ -9,9 +10,15 @@
 #include "CanFrame.h"
 
 struct CanDevice {
-  int open() { return vendor_open(); }
-  int close() { return vendor_close(); }
-  int send(const CanFrame& frame);
+  inline int open(std::function<void(const CanFrame&)> receiver = nullptr) {
+    m_receiver = receiver;
+    return vendor_open();
+  }
+  inline int close() {
+    m_receiver = nullptr;
+    return vendor_close();
+  }
+  inline int send(const CanFrame& frame);
   std::vector<int> send(const std::vector<CanFrame>& frames);
 
   inline std::string vendor_name() const { return m_vendor; }
@@ -30,6 +37,9 @@ struct CanDevice {
 
   const std::string m_vendor;
   const std::string m_configuration;
+
+ private:
+  std::function<void(const CanFrame&)> m_receiver;
 };
 
 #endif /* SRC_INCLUDE_CANDEVICE_H_ */
