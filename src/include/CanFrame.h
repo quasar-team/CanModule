@@ -82,37 +82,39 @@ struct CanFrame {
    * @brief Checks if the CAN frame is valid.
    * @return True if the frame is valid, false otherwise.
    */
-  bool is_valid() const { return m_valid; }
+  inline bool is_valid() const { return m_valid; }
 
   /**
    * @brief Gets the identifier of the CAN frame.
    * @return The identifier of the CAN frame.
    */
-  uint32_t id() const { return m_id; }
+  inline uint32_t id() const { return m_id; }
 
   /**
    * @brief Gets the message content of the CAN frame.
    * @return The message content of the CAN frame.
    */
-  std::vector<char> message() const { return m_message; }
+  inline std::vector<char> message() const { return m_message; }
 
   /**
    * @brief Gets the flags associated with the CAN frame.
    * @return The flags associated with the CAN frame.
    */
-  uint32_t flags() const { return m_flags; }
+  inline uint32_t flags() const { return m_flags; }
 
   /**
    * @brief Checks if the CAN frame is an error frame.
    * @return True if the frame is an error frame, false otherwise.
    */
-  bool is_error_frame() const { return (m_flags & CanFlags::ERROR_FRAME) != 0; }
+  inline bool is_error_frame() const {
+    return (m_flags & CanFlags::ERROR_FRAME) != 0;
+  }
 
   /**
    * @brief Checks if the CAN frame is a remote request.
    * @return True if the frame is a remote request, false otherwise.
    */
-  bool is_remote_request() const {
+  inline bool is_remote_request() const {
     return (m_flags & CanFlags::REMOTE_REQUEST) != 0;
   }
   /**
@@ -120,20 +122,22 @@ struct CanFrame {
    * @return True if the frame uses a standard 11-bit identifier, false
    * otherwise.
    */
-  bool is_standard_id() const { return !is_extended_id(); }
+  inline bool is_standard_id() const { return !is_extended_id(); }
 
   /**
    * @brief Checks if the CAN frame uses an extended 29-bit identifier.
    * @return True if the frame uses an extended 29-bit identifier, false
    * otherwise.
    */
-  bool is_extended_id() const { return (m_flags & CanFlags::EXTENDED_ID) != 0; }
+  inline bool is_extended_id() const {
+    return (m_flags & CanFlags::EXTENDED_ID) != 0;
+  }
 
   /**
    * @brief Gets the length of the CAN frame.
    * @return The length of the CAN frame.
    */
-  uint32_t length() const {
+  inline uint32_t length() const {
     return (m_flags & CanFlags::REMOTE_REQUEST) ? m_requested_length
                                                 : m_message.size();
   }

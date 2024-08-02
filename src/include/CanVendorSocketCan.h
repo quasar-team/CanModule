@@ -4,7 +4,7 @@
 #include "CanVendorDummy.h"
 
 struct CanVendorSocketCan : CanVendorDummy {
-  CanVendorSocketCan(std::string_view configuration)
+  explicit CanVendorSocketCan(std::string_view configuration)
       : CanVendorDummy(configuration) {}
 };
 

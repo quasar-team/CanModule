@@ -19,10 +19,17 @@
  * @return A vector of integers where each integer represents the result of
  * sending the corresponding CanFrame.
  */
-std::vector<int> CanDevice::send(const std::vector<CanFrame>& frames) {
+int CanDevice::send(const CanFrame &frame) {
+  if (frame.is_valid()) {
+    return vendor_send(frame);
+  }
+  return 1;
+}
+
+std::vector<int> CanDevice::send(const std::vector<CanFrame> &frames) {
   std::vector<int> result(frames.size());
-  std::transform(frames.begin(), frames.end(), std::back_inserter(result),
-                 [this](const CanFrame& frame) { return send(frame); });
+  std::transform(frames.begin(), frames.end(), result.begin(),
+                 [this](const CanFrame &frame) { return send(frame); });
   return result;
 }
 

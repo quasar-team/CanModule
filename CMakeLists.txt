@@ -20,11 +20,11 @@ set(SOURCES
 add_library(CanModuleMain ${SOURCES})
 
 # Treat warnings as errors
-# if (CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
-#     target_compile_options(CanModuleMain PRIVATE -Wall -Wextra -Werror)
-# elseif (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
-#     target_compile_options(CanModuleMain PRIVATE /W4 /WX)
-# endif()
+if (CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+    target_compile_options(CanModuleMain PRIVATE -Wall -Wextra -Werror)
+elseif (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
+    target_compile_options(CanModuleMain PRIVATE /W4 /WX)
+endif()
 
 include(CMakeLists.gtest.txt)
 include(CMakeLists.pybind11.txt)

@@ -5,7 +5,7 @@
 #include "CanVendorDummy.h"
 
 struct CanVendorAnagate : CanVendorDummy {
-  CanVendorAnagate(std::string_view configuration)
+  explicit CanVendorAnagate(std::string_view configuration)
       : CanVendorDummy(configuration) {}
 };
 
