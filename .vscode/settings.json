@@ -1,6 +1,4 @@
 {
-
     "cmake.ctest.testExplorerIntegrationEnabled": false,
     "python.testing.pytestEnabled": true
-
 }
