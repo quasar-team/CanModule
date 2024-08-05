@@ -11,9 +11,9 @@
 #include "CanFrame.h"
 
 struct CanDevice {
-  inline int open() { return vendor_open(); }
-  inline int close() { return vendor_close(); }
-  inline int send(const CanFrame& frame);
+  int open();
+  int close();
+  int send(const CanFrame& frame);
   std::vector<int> send(const std::vector<CanFrame>& frames);
 
   inline std::string vendor_name() const { return m_vendor; }

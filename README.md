@@ -29,3 +29,9 @@ Install `pybind11` if you wish to have the python bindings compiled
 - `pip install pybind11`
 - `dnf install python3-devel`
 - `pip install pytest`
+
+## Documentation
+
+Install `doxygen`, enter in the directory `docs/` and run `doxygen`.
+
+The output is located at `build/docs`.
