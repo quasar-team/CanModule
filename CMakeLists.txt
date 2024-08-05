@@ -12,12 +12,18 @@ set(SOURCES
     src/main/CanDevice.cpp
     src/main/CanStats.cpp
     src/main/CanExtra.cpp
-    src/main/CanVendorAnagate.cpp
     src/main/CanVendorLoopback.cpp
-    src/main/CanVendorSocketCan.cpp
 )
 
-add_library(CanModuleMain ${SOURCES})
+set(VENDOR_SOURCES
+    src/main/CanVendorAnagate.cpp
+)
+
+if (UNIX)
+    list(APPEND VENDOR_SOURCES src/main/CanVendorSocketCan.cpp)
+endif()
+
+add_library(CanModuleMain ${SOURCES} ${VENDOR_SOURCES})
 
 # Treat warnings as errors
 if (CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
