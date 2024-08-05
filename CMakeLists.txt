@@ -13,7 +13,7 @@ set(SOURCES
     src/main/CanStats.cpp
     src/main/CanExtra.cpp
     src/main/CanVendorAnagate.cpp
-    src/main/CanVendorDummy.cpp
+    src/main/CanVendorLoopback.cpp
     src/main/CanVendorSocketCan.cpp
 )
 

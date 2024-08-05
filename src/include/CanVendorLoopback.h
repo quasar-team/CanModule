@@ -1,13 +1,13 @@
-#ifndef SRC_INCLUDE_CANVENDORDUMMY_H_
-#define SRC_INCLUDE_CANVENDORDUMMY_H_
+#ifndef SRC_INCLUDE_CANVENDORLOOPBACK_H_
+#define SRC_INCLUDE_CANVENDORLOOPBACK_H_
 
 #include <string>
 
 #include "CanDevice.h"
 #include "CanDeviceConfig.h"
 
-struct CanVendorDummy : CanDevice {
-  explicit CanVendorDummy(const CanDeviceConfig &configuration)
+struct CanVendorLoopback : CanDevice {
+  explicit CanVendorLoopback(const CanDeviceConfig &configuration)
       : CanDevice("dummy", configuration) {}
 
  protected:
@@ -16,4 +16,4 @@ struct CanVendorDummy : CanDevice {
   int vendor_send(const CanFrame &frame) override;
 };
 
-#endif /* SRC_INCLUDE_CANVENDORDUMMY_H_ */
+#endif /* SRC_INCLUDE_CANVENDORLOOPBACK_H_ */

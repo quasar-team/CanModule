@@ -2,11 +2,11 @@
 #define SRC_INCLUDE_CANVENDORANAGATE_H_
 
 #include "CanDevice.h"
-#include "CanVendorDummy.h"
+#include "CanVendorLoopback.h"
 
-struct CanVendorAnagate : CanVendorDummy {
+struct CanVendorAnagate : CanVendorLoopback {
   explicit CanVendorAnagate(const CanDeviceConfig &configuration)
-      : CanVendorDummy(configuration) {}
+      : CanVendorLoopback(configuration) {}
 };
 
 #endif /* SRC_INCLUDE_CANVENDORANAGATE_H_ */

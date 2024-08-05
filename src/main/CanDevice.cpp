@@ -6,7 +6,7 @@
 #include <vector>
 
 #include "CanVendorAnagate.h"
-#include "CanVendorDummy.h"
+#include "CanVendorLoopback.h"
 #include "CanVendorSocketCan.h"
 
 /**
@@ -36,7 +36,7 @@ std::vector<int> CanDevice::send(const std::vector<CanFrame> &frames) {
 std::unique_ptr<CanDevice> CanDevice::create(
     std::string_view vendor, const CanDeviceConfig &configuration) {
   if (vendor == "dummy") {
-    return std::make_unique<CanVendorDummy>(configuration);
+    return std::make_unique<CanVendorLoopback>(configuration);
   }
 #ifndef _WIN32
   if (vendor == "socketcan") {

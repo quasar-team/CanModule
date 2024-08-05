@@ -4,7 +4,7 @@
 
 #include <iostream>
 
-#include "CanVendorDummy.h"
+#include "CanVendorLoopback.h"
 
 // Test fixture for CanFrame
 class CanDeviceTest : public ::testing::Test {
@@ -13,7 +13,7 @@ class CanDeviceTest : public ::testing::Test {
 };
 
 // Test for CanFrame constructor with id and message
-TEST_F(CanDeviceTest, CreationDummyDevice) {
+TEST_F(CanDeviceTest, CreationLoopbackDevice) {
   auto dummy_cb_ = [](const CanFrame& frame) {};
   auto myDevice =
       CanDevice::create("dummy", CanDeviceConfig{"dummy config", dummy_cb_});
@@ -23,7 +23,7 @@ TEST_F(CanDeviceTest, CreationDummyDevice) {
 }
 
 // Test for CanFrame constructor with id and message
-TEST_F(CanDeviceTest, DummyDeviceMessageTransmission) {
+TEST_F(CanDeviceTest, LoopbackDeviceMessageTransmission) {
   std::vector<CanFrame> outFrames;
   std::vector<CanFrame> inFrames;
 
