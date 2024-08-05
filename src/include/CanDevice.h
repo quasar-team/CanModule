@@ -11,14 +11,8 @@
 #include "CanFrame.h"
 
 struct CanDevice {
-  inline int open(std::function<void(const CanFrame&)> receiver = nullptr) {
-    m_receiver = receiver;
-    return vendor_open();
-  }
-  inline int close() {
-    m_receiver = nullptr;
-    return vendor_close();
-  }
+  inline int open() { return vendor_open(); }
+  inline int close() { return vendor_close(); }
   inline int send(const CanFrame& frame);
   std::vector<int> send(const std::vector<CanFrame>& frames);
 
@@ -37,12 +31,11 @@ struct CanDevice {
   virtual int vendor_open() = 0;
   virtual int vendor_close() = 0;
   virtual int vendor_send(const CanFrame& frame) = 0;
-
-  const std::string m_vendor;
-  const CanDeviceConfig m_configuration;
+  void received(const CanFrame& frame) { m_configuration.receiver(frame); }
 
  private:
-  std::function<void(const CanFrame&)> m_receiver;
+  const std::string m_vendor;
+  const CanDeviceConfig m_configuration;
 };
 
 #endif /* SRC_INCLUDE_CANDEVICE_H_ */

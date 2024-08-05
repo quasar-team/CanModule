@@ -1,9 +1,6 @@
 #include "CanVendorLoopback.h"
 
-#include <iostream>
-
 int CanVendorLoopback::vendor_send(const CanFrame &frame) {
-  std::cout << "Receive CAN frame: " << std::endl;
-  m_configuration.receiver(frame);
+  received(frame);
   return 0;
 }
