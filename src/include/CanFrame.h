@@ -142,6 +142,25 @@ struct CanFrame {
                                                 : m_message.size();
   }
 
+  /**
+   * @brief Comparison operator to check if two CanFrame objects are equal.
+   * @param other The other CanFrame object to compare with.
+   * @return True if the CanFrame objects are equal, false otherwise.
+   */
+  bool operator==(const CanFrame& other) const {
+    return m_id == other.m_id &&
+           m_requested_length == other.m_requested_length &&
+           m_message == other.m_message && m_flags == other.m_flags &&
+           m_valid == other.m_valid;
+  }
+
+  /**
+   * @brief Comparison operator to check if two CanFrame objects are not equal.
+   * @param other The other CanFrame object to compare with.
+   * @return True if the CanFrame objects are not equal, false otherwise.
+   */
+  bool operator!=(const CanFrame& other) const { return !(*this == other); }
+
  private:
   const uint32_t m_id{0};  ///< The identifier of the CAN frame.
   const uint32_t m_requested_length{

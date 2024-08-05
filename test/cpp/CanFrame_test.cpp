@@ -120,6 +120,19 @@ TEST_F(CanFrameTest, ConstructorWithIdOnly) {
   ASSERT_TRUE(frame.is_remote_request());
 }
 
+TEST_F(CanFrameTest, TestEqual) {
+  uint32_t id = 1 << 28;
+  CanFrame frame1(id);
+  CanFrame frame2(id);
+  ASSERT_EQ(frame1, frame2);
+}
+
+TEST_F(CanFrameTest, TestNotEqual) {
+  CanFrame frame1(1 << 28);
+  CanFrame frame2(1);
+  ASSERT_NE(frame1, frame2);
+}
+
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

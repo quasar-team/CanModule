@@ -14,27 +14,39 @@ class CanDeviceTest : public ::testing::Test {
 
 // Test for CanFrame constructor with id and message
 TEST_F(CanDeviceTest, CreationDummyDevice) {
-  auto myDevice = CanDevice::create("dummy", "dummy config");
+  auto dummy_cb_ = [](const CanFrame& frame) {};
+  auto myDevice =
+      CanDevice::create("dummy", CanDeviceConfig{"dummy config", dummy_cb_});
   ASSERT_NE(myDevice, nullptr);
   ASSERT_EQ(myDevice->vendor_name(), "dummy");
-  ASSERT_EQ(myDevice->configuration(), "dummy config");
+  ASSERT_EQ(myDevice->configuration().vendor_config, "dummy config");
 }
 
 // Test for CanFrame constructor with id and message
 TEST_F(CanDeviceTest, DummyDeviceMessageTransmission) {
-  auto myDevice = CanDevice::create("dummy", "dummy config");
   std::vector<CanFrame> outFrames;
   std::vector<CanFrame> inFrames;
+
+  auto dummy_cb_ = [&inFrames](const CanFrame& frame) {
+    inFrames.push_back(frame);
+  };
+  auto myDevice =
+      CanDevice::create("dummy", CanDeviceConfig{"dummy config", dummy_cb_});
 
   for (uint32_t i = 0; i < 10; ++i) {
     outFrames.push_back(CanFrame{i});
   }
 
-  myDevice->open(
-      [&inFrames](const CanFrame& frame) { inFrames.push_back(frame); });
+  myDevice->send(outFrames);
 
-  // Generate Google test assertions to check if the transmitted frames are
-  // received correctly for (int i = 0; i < 10; ++i) {
-  //   ASSERT_EQ(outFrames[i].id(), inFrames[i].id());
-  // }
+  ASSERT_EQ(outFrames.size(), 10);
+  ASSERT_EQ(inFrames.size(), 10);
+
+  for (int i = 0; i < 10; ++i) {
+    ASSERT_EQ(outFrames[i], inFrames[i]);
+    ASSERT_EQ(outFrames[i].id(), inFrames[i].id());
+    ASSERT_EQ(outFrames[i].message(), inFrames[i].message());
+    ASSERT_EQ(outFrames[i].is_remote_request(),
+              inFrames[i].is_remote_request());
+  }
 }

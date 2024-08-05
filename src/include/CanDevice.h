@@ -7,6 +7,7 @@
 #include <string>
 #include <vector>
 
+#include "CanDeviceConfig.h"
 #include "CanFrame.h"
 
 struct CanDevice {
@@ -22,13 +23,15 @@ struct CanDevice {
   std::vector<int> send(const std::vector<CanFrame>& frames);
 
   inline std::string vendor_name() const { return m_vendor; }
-  inline std::string configuration() const { return m_configuration; }
+  inline const CanDeviceConfig& configuration() const {
+    return m_configuration;
+  }
 
-  static std::unique_ptr<CanDevice> create(std::string_view vendor,
-                                           std::string_view configuration);
+  static std::unique_ptr<CanDevice> create(
+      std::string_view vendor, const CanDeviceConfig& configuration);
 
  protected:
-  CanDevice(std::string_view vendor_name, std::string_view configuration)
+  CanDevice(std::string_view vendor_name, const CanDeviceConfig& configuration)
       : m_vendor{vendor_name}, m_configuration{configuration} {}
 
   virtual int vendor_open() = 0;
@@ -36,7 +39,7 @@ struct CanDevice {
   virtual int vendor_send(const CanFrame& frame) = 0;
 
   const std::string m_vendor;
-  const std::string m_configuration;
+  const CanDeviceConfig m_configuration;
 
  private:
   std::function<void(const CanFrame&)> m_receiver;

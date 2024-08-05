@@ -33,8 +33,8 @@ std::vector<int> CanDevice::send(const std::vector<CanFrame> &frames) {
   return result;
 }
 
-std::unique_ptr<CanDevice> CanDevice::create(std::string_view vendor,
-                                             std::string_view configuration) {
+std::unique_ptr<CanDevice> CanDevice::create(
+    std::string_view vendor, const CanDeviceConfig &configuration) {
   if (vendor == "dummy") {
     return std::make_unique<CanVendorDummy>(configuration);
   }
