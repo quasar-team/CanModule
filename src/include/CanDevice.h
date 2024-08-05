@@ -11,8 +11,6 @@
 #include "CanFrame.h"
 
 struct CanDevice {
-  ~CanDevice() { close(); }
-
   int open();
   int close();
   int send(const CanFrame& frame);

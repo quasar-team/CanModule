@@ -33,14 +33,3 @@ gtest_discover_tests(CanModuleTest)
 
 find_program(LCOV lcov)
 find_program(GENHTML genhtml)
-
-if(LCOV AND GENHTML)
-  add_custom_target(coverage
-    COMMAND ${LCOV} --capture --directory . --output-file coverage.info
-    COMMAND ${LCOV} --remove coverage.info '/usr/*' --output-file coverage.info
-    COMMAND ${GENHTML} coverage.info --output-directory coverage
-    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
-    COMMENT "Generating coverage report"
-    VERBATIM
-  )
-endif()

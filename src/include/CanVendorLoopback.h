@@ -8,7 +8,7 @@
 
 struct CanVendorLoopback : CanDevice {
   explicit CanVendorLoopback(const CanDeviceConfig &configuration)
-      : CanDevice("dummy", configuration) {}
+      : CanDevice("loopback", configuration) {}
 
  protected:
   /* A hardware-specific will implement vendor_open, vendor_close, and

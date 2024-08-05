@@ -78,7 +78,7 @@ std::vector<int> CanDevice::send(const std::vector<CanFrame> &frames) {
  */
 std::unique_ptr<CanDevice> CanDevice::create(
     std::string_view vendor, const CanDeviceConfig &configuration) {
-  if (vendor == "dummy") {
+  if (vendor == "loopback") {
     return std::make_unique<CanVendorLoopback>(configuration);
   }
 #ifndef _WIN32
