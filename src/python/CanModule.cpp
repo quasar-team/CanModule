@@ -1,7 +1,10 @@
-#include "CanFrame.h"
-
+#include <pybind11/functional.h>
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
+
+#include "CanDevice.h"
+#include "CanDeviceConfig.h"
+#include "CanFrame.h"
 
 namespace py = pybind11;
 
@@ -34,4 +37,26 @@ PYBIND11_MODULE(canmodule, m) {
   can_flags.attr("EXTENDED_ID") = CanFlags::EXTENDED_ID;
   can_flags.attr("ERROR_FRAME") = CanFlags::ERROR_FRAME;
   can_flags.attr("REMOTE_REQUEST") = CanFlags::REMOTE_REQUEST;
+
+  // Bindings for CanDevice class
+  py::class_<CanDevice>(m, "CanDevice")
+      .def("open", &CanDevice::open)
+      .def("close", &CanDevice::close)
+      .def("send", py::overload_cast<const CanFrame&>(&CanDevice::send))
+      .def("send",
+           py::overload_cast<const std::vector<CanFrame>&>(&CanDevice::send))
+      .def("vendor_name", &CanDevice::vendor_name)
+      .def("configuration", &CanDevice::configuration)
+      .def_static("create", &CanDevice::create);
+
+  py::class_<CanDeviceConfig>(m, "CanDeviceConfig")
+      .def(py::init<const std::string&,
+                    const std::function<void(const CanFrame&)>&>())
+      .def_readonly("vendor_config", &CanDeviceConfig::vendor_config)
+      .def("set_receiver",
+           [](CanDeviceConfig& self,
+              const std::function<void(const CanFrame&)>& recv) {
+             const_cast<std::function<void(const CanFrame&)>&>(self.receiver) =
+                 recv;
+           });
 }

@@ -1,6 +1,8 @@
 
+# CMakeLists to generate python bindings for CanModule
+
 set(PYTHON_SOURCES
-    src/python/CanFrame.cpp
+    src/python/CanModule.cpp
 )
 
 # Check if pybind11 is installed using pip

@@ -1,9 +1,11 @@
 cmake_minimum_required(VERSION 3.26)
+include(FetchContent)
 
 project(CanModule LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 include_directories(src/include)
 
@@ -23,7 +25,15 @@ if (UNIX)
     list(APPEND VENDOR_SOURCES src/main/CanVendorSocketCan.cpp)
 endif()
 
+FetchContent_Declare(
+  LogIt
+  GIT_REPOSITORY https://github.com/quasar-team/LogIt.git
+  GIT_TAG        feature/remove-boost-dependency-base
+)
+FetchContent_MakeAvailable(LogIt)
+
 add_library(CanModuleMain ${SOURCES} ${VENDOR_SOURCES})
+target_include_directories(CanModuleMain PRIVATE ${logit_SOURCE_DIR}/include)
 
 # Treat warnings as errors
 if (CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
@@ -32,5 +42,5 @@ elseif (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
     target_compile_options(CanModuleMain PRIVATE /W4 /WX)
 endif()
 
-include(CMakeLists.gtest.txt)
 include(CMakeLists.pybind11.txt)
+include(CMakeLists.gtest.txt)
