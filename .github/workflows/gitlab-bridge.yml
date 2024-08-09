@@ -6,6 +6,10 @@ jobs:
   Gitlab_Trigger_Pipeline:
     runs-on: cern:gitlab-ci
     container: ghcr.io/miguensone/github-gitlab-sync:latest
+    env:
+      GITLAB_URL: ${{ vars.GITLAB_URL }}
+      PROJECT_ID: ${{ vars.PROJECT_ID }}
+      GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
     outputs:
       job_matrix: ${{ steps.set-matrix.outputs.job_matrix }}
     steps:
@@ -24,6 +28,10 @@ jobs:
     needs: Gitlab_Trigger_Pipeline
     runs-on: cern:gitlab-ci
     container: ghcr.io/miguensone/github-gitlab-sync:latest
+    env:
+      GITLAB_URL: ${{ vars.GITLAB_URL }}
+      PROJECT_ID: ${{ vars.PROJECT_ID }}
+      GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
     strategy:
       matrix:
         run_id: ${{ fromJson(needs.generate-jobs.outputs.job_matrix) }}
@@ -38,6 +46,10 @@ jobs:
     needs: [Gitlab_Pipeline_Jobs]
     runs-on: cern:gitlab-ci
     container: ghcr.io/miguensone/github-gitlab-sync:latest
+    env:
+      GITLAB_URL: ${{ vars.GITLAB_URL }}
+      PROJECT_ID: ${{ vars.PROJECT_ID }}
+      GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
     steps:
       - name: Final Gitlab Pipeline Status
         run: |
