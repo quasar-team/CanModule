@@ -24,6 +24,7 @@ jobs:
           export LIST_JOBS=$(python /opt/bridge/retrieve-jobs.py)
           job_matrix=$(echo $LIST_JOBS | tr ',' '\n' | jq -R -s -c 'split("\n") | map(select(length > 0))')
           echo "job_matrix=$job_matrix" >> $GITHUB_ENV
+          echo "job_matrix=$job_matrix" >> $GITHUB_OUTPUT
           echo Jobs detected: $job_matrix
 
   Gitlab_Pipeline_Jobs:
@@ -36,7 +37,7 @@ jobs:
       GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
     strategy:
       matrix:
-        run_id: ${{ fromJson(needs.generate-jobs.outputs.job_matrix) }}
+        run_id: ${{ fromJson(needs.Gitlab_Trigger_Pipeline.outputs.job_matrix) }}
     steps:
       - name: Set RUN_ID and JOB_NAME
         run: |
