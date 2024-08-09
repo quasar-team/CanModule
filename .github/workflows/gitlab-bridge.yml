@@ -19,6 +19,7 @@ jobs:
           python /opt/bridge/sync-repository.py
           python /opt/bridge/create-temp-branch.py
           PIPELINE_ID=$(python /opt/bridge/trigger-pipeline.py)
+          echo "PIPELINE_ID is set to: ${PIPELINE_ID}"
           echo "PIPELINE_ID=${PIPELINE_ID}" >> $GITHUB_ENV
           python /opt/bridge/retrieve-jobs.py > list_of_jobs.txt
           job_matrix=$(cat list_of_jobs.txt | awk -F: '{ print $1 }' | jq -R -s -c 'split("\n") | map(select(length > 0))')
@@ -53,4 +54,5 @@ jobs:
     steps:
       - name: Final Gitlab Pipeline Status
         run: |
-          python /opt/bridge/wait-pipeline.py
+          python /opt/bridge/wait-end-pipeline.py
+          python /opt/bridge/delete-temp-branch.py
