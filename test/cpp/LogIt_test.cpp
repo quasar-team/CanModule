@@ -8,7 +8,7 @@
 namespace LogIt {
 static const bool InitLogIt = Log::initializeLogging();
 static const Log::LogComponentHandle myHandle =
-    Log::registerLoggingComponent("CanModule", Log::INF);
+    Log::registerLoggingComponent("CanModuleTest", Log::INF);
 }  // namespace LogIt
 
 // Define a lambda that sleep for 2 seconds and returns "Hello World!"
