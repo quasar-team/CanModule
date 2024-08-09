@@ -18,6 +18,7 @@ jobs:
           echo $GITLAB_URL
           python /opt/bridge/sync-repository.py
           echo "COMMIT_REF=${{ github.sha }}" >> $GITHUB_ENV
+          python /opt/bridge/create-temp-branch.py
           PIPELINE_ID=$(python /opt/bridge/trigger-pipeline.py)
           echo "PIPELINE_ID=${PIPELINE_ID}" >> $GITHUB_ENV
           python /opt/bridge/retrieve-jobs.py > list_of_jobs.txt
