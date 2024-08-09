@@ -10,14 +10,13 @@ jobs:
       GITLAB_URL: ${{ vars.GITLAB_URL }}
       PROJECT_ID: ${{ vars.PROJECT_ID }}
       GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
+      COMMIT_REF: ${{ github.sha }}
     outputs:
       job_matrix: ${{ steps.set-matrix.outputs.job_matrix }}
     steps:
       - name: Trigger Gitlab Pipeline
         run: |
-          echo $GITLAB_URL
           python /opt/bridge/sync-repository.py
-          echo "COMMIT_REF=${{ github.sha }}" >> $GITHUB_ENV
           python /opt/bridge/create-temp-branch.py
           PIPELINE_ID=$(python /opt/bridge/trigger-pipeline.py)
           echo "PIPELINE_ID=${PIPELINE_ID}" >> $GITHUB_ENV
