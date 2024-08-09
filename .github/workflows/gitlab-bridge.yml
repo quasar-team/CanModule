@@ -45,7 +45,7 @@ jobs:
           python /opt/bridge/retrieve-job.py
 
   Gitlab_Pipeline_Final_Status:
-    needs: [Gitlab_Pipeline_Jobs]
+    needs: [Job]
     runs-on: cern:gitlab-ci
     container: ghcr.io/miguensone/github-gitlab-sync:latest
     env:
