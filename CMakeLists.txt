@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.26)
+cmake_minimum_required(VERSION 3.11)
 include(FetchContent)
 
 project(CanModule LANGUAGES CXX)
@@ -28,7 +28,8 @@ endif()
 FetchContent_Declare(
   LogIt
   GIT_REPOSITORY https://github.com/quasar-team/LogIt.git
-  GIT_TAG        feature/remove-boost-dependency-base
+  GIT_TAG        master
+  DOWNLOAD_EXTRACT_TIMESTAMP True
 )
 FetchContent_MakeAvailable(LogIt)
 
@@ -42,5 +43,5 @@ elseif (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
     target_compile_options(CanModuleMain PRIVATE /W4 /WX)
 endif()
 
-include(CMakeLists.pybind11.txt)
-include(CMakeLists.gtest.txt)
+include(CMakeLists.pybind11.cmake)
+include(CMakeLists.gtest.cmake)
