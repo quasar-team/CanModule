@@ -71,5 +71,6 @@
         "cinttypes": "cpp",
         "typeindex": "cpp",
         "valarray": "cpp"
-    }
+    },
+    "cmake.configureOnOpen": false
 }
