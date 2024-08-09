@@ -41,7 +41,7 @@ jobs:
     steps:
       - name: ${{ matrix.run_id }}
         run: |
-          export JOB_ID=${{ matrix.run_id.split('#')[1] }}
+          export JOB_ID=${{ matrix.run_id }}
           python /opt/bridge/retrieve-job.py
 
   Gitlab_Pipeline_Final_Status:
