@@ -1,3 +1,5 @@
+image: gitlab-registry.cern.ch/linuxsupport/alma9-base:latest
+
 stages:
   - unstagged
 
