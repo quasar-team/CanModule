@@ -41,7 +41,7 @@ jobs:
     steps:
       - name: ${{ matrix.run_id }}
         run: |
-          export JOB_ID=${{ matrix.run_id }}
+          export JOB_ID=$(echo "${{ matrix.run_id }}" | awk -F'#' '{print $2}')
           python /opt/bridge/retrieve-job.py
 
   Gitlab_Pipeline_Final_Status:
