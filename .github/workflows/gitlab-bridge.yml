@@ -15,6 +15,7 @@ jobs:
       job_matrix: ${{ steps.set-matrix.outputs.job_matrix }}
     steps:
       - name: Trigger Gitlab Pipeline
+        id: set-matrix
         run: |
           python /opt/bridge/sync-repository.py
           python /opt/bridge/create-temp-branch.py
