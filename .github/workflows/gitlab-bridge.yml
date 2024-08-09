@@ -40,7 +40,7 @@ jobs:
       matrix:
         run_id: ${{ fromJson(needs.Gitlab_Trigger_Pipeline.outputs.job_matrix) }}
     steps:
-      - name: Set RUN_ID and JOB_NAME
+      - name: ${{ matrix.run_id }}
         run: |
           export JOB_ID=${{ matrix.run_id }}
           python /opt/bridge/retrieve-job.py
