@@ -11,6 +11,7 @@ jobs:
     steps:
       - name: Trigger Gitlab Pipeline
         run: |
+          env
           python /opt/bridge/sync-repository.py
           echo "COMMIT_REF=${{ github.sha }}" >> $GITHUB_ENV
           PIPELINE_ID=$(python /opt/bridge/trigger-pipeline.py)
