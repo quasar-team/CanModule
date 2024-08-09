@@ -4,7 +4,7 @@ on: [push]
 
 jobs:
   Gitlab_Trigger_Pipeline:
-    runs-on: cern:gitlab-ci
+    runs-on: ["self-hosted", "cern:gitlab-ci"]
     container: ghcr.io/miguensone/github-gitlab-sync:latest
     outputs:
       job_matrix: ${{ steps.set-matrix.outputs.job_matrix }}
@@ -20,7 +20,7 @@ jobs:
 
   Gitlab_Pipeline_Jobs:
     needs: Gitlab_Trigger_Pipeline
-    runs-on: cern:gitlab-ci
+    runs-on: ["self-hosted", "cern:gitlab-ci"]
     container: ghcr.io/miguensone/github-gitlab-sync:latest
     strategy:
       matrix:
@@ -33,7 +33,8 @@ jobs:
           echo "JOB_NAME=$(echo Hello_$RANDOM" >> $GITHUB_ENV
 
   Gitlab_Pipeline_Final_Status:
-    runs-on: cern:gitlab-ci
+    needs: [Gitlab_Pipeline_Jobs]
+    runs-on: ["self-hosted", "cern:gitlab-ci"]
     container: ghcr.io/miguensone/github-gitlab-sync:latest
     steps:
       - name: Final Gitlab Pipeline Status
