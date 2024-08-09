@@ -19,7 +19,7 @@ jobs:
           echo "::set-output name=job_matrix::$job_matrix"
 
   Gitlab_Pipeline_Jobs:
-    needs: generate-jobs
+    needs: Gitlab_Trigger_Pipeline
     runs-on: cern:gitlab-ci
     container: ghcr.io/miguensone/github-gitlab-sync:latest
     strategy:
