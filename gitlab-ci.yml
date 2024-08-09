@@ -1,0 +1,61 @@
+stages:
+  - unstagged
+
+Compile on Windows:
+  stage: unstagged
+  script:
+    - echo "Compiling on Windows..."
+    # Add your Windows compilation commands here
+  artifacts:
+    paths:
+      - windows_compiled_artifacts/
+
+Compile on Linux:
+  stage: unstagged
+  script:
+    - echo "Compiling on Linux..."
+    # Add your Linux compilation commands here
+  artifacts:
+    paths:
+      - linux_compiled_artifacts/
+
+Unit Test on Windows:
+  stage: unstagged
+  needs:
+    - Compile on Windows
+  script:
+    - echo "Running Unit Tests on Windows..."
+    # Add your Windows unit test commands here
+
+Unit Test on Linux:
+  stage: unstagged
+  needs:
+    - Compile on Linux
+  script:
+    - echo "Running Unit Tests on Linux..."
+    # Add your Linux unit test commands here
+
+Build Documentation:
+  stage: unstagged
+  script:
+    - echo "Building Documentation..."
+    # Add your documentation build commands here
+
+Run Sanity Checks:
+  stage: unstagged
+  script:
+    - echo "Running Sanity Checks..."
+    # Add your sanity check commands here
+
+Create Release:
+  stage: unstagged
+  needs:
+    - Compile on Windows
+    - Compile on Linux
+  script:
+    - echo "Creating Release..."
+    # Combine the compiled artifacts from Windows and Linux
+    # Add your release creation commands here
+  artifacts:
+    paths:
+      - release/
