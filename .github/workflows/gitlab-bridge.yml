@@ -57,6 +57,7 @@ jobs:
     steps:
       - name: Final Gitlab Pipeline Status
         run: |
+          echo $PIPELINE_ID
           python /opt/bridge/wait-end-pipeline.py
           python /opt/bridge/delete-temp-branch.py
           python /opt/bridge/status-end-pipeline.py
