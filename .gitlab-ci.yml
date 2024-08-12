@@ -3,6 +3,10 @@ image: gitlab-registry.cern.ch/linuxsupport/alma9-base:latest
 stages:
   - unstagged
 
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+
 Compile on Windows:
   stage: unstagged
   script:
