@@ -7,6 +7,23 @@ workflow:
   rules:
     - if: $CI_PIPELINE_SOURCE == "api"
 
+Docker Image Alma 9:
+  stage: unstagged
+  image:
+    name: gcr.io/kaniko-project/executor:v1.23.2-debug
+    entrypoint: [""]
+  script:
+    - /kaniko/executor
+      --context "${CI_PROJECT_DIR}"/ci/docker/alma9/
+      --dockerfile "${CI_PROJECT_DIR}"/ci/docker/alma9/Dockerfile
+      --destination "${CI_REGISTRY_IMAGE}/alma9-build:${CI_COMMIT_TAG}"
+      --destionation "${CI_REGISTRY_IMAGE}/alma9-build:latest"
+  before_script:
+    - echo "{\"auths\":{\"${CI_REGISTRY}\":{\"auth\":\"$(printf "%s:%s" "${CI_REGISTRY_USER}" "${CI_REGISTRY_PASSWORD}" | base64 | tr -d '\n')\"},\"$(echo -n $CI_DEPENDENCY_PROXY_SERVER | awk -F[:] '{print $1}')\":{\"auth\":\"$(printf "%s:%s" ${CI_DEPENDENCY_PROXY_USER} "${CI_DEPENDENCY_PROXY_PASSWORD}" | base64 | tr -d '\n')\"}}}" > /kaniko/.docker/config.json
+  rules:
+    - changes:
+        - ci/docker/alma9/trigger
+
 Compile on Windows:
   stage: unstagged
   script:
@@ -17,6 +34,9 @@ Compile on Windows:
       - windows_compiled_artifacts/
 
 Compile on Linux:
+  needs:
+    - job: Docker Image Alma 9
+      optional: true
   stage: unstagged
   script:
     - sleep 30s && echo "Compiling on Linux..."
