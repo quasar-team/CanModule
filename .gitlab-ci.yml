@@ -24,9 +24,9 @@ Compile on Linux:
 Unit Test on Windows:
   stage: unstagged
   needs:
-    - sleep 120s && Compile on Windows
+    - Compile on Windows
   script:
-    - echo "Running Unit Tests on Windows..."
+    - sleep 120s && echo "Running Unit Tests on Windows..."
     # Add your Windows unit test commands here
 
 Unit Test on Linux:
