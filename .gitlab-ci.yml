@@ -6,7 +6,7 @@ stages:
 Compile on Windows:
   stage: unstagged
   script:
-    - echo "Compiling on Windows..."
+    - sleep 45s && echo "Compiling on Windows..."
     # Add your Windows compilation commands here
   artifacts:
     paths:
@@ -15,7 +15,7 @@ Compile on Windows:
 Compile on Linux:
   stage: unstagged
   script:
-    - echo "Compiling on Linux..."
+    - sleep 30s && echo "Compiling on Linux..."
     # Add your Linux compilation commands here
   artifacts:
     paths:
@@ -24,7 +24,7 @@ Compile on Linux:
 Unit Test on Windows:
   stage: unstagged
   needs:
-    - Compile on Windows
+    - sleep 120s && Compile on Windows
   script:
     - echo "Running Unit Tests on Windows..."
     # Add your Windows unit test commands here
@@ -40,13 +40,14 @@ Unit Test on Linux:
 Build Documentation:
   stage: unstagged
   script:
-    - echo "Building Documentation..."
+    - echo "Building Documentation..." && exit 1
     # Add your documentation build commands here
 
 Run Sanity Checks:
   stage: unstagged
+  allow_failure: true
   script:
-    - echo "Running Sanity Checks..."
+    - echo "Running Sanity Checks..." && exit 1
     # Add your sanity check commands here
 
 Create Release:
