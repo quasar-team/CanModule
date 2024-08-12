@@ -16,7 +16,7 @@ Docker Image Alma 9:
     - /kaniko/executor
       --context "${CI_PROJECT_DIR}"/ci/docker/alma9/
       --dockerfile "${CI_PROJECT_DIR}"/ci/docker/alma9/Dockerfile
-      --destination "${CI_REGISTRY_IMAGE}/alma9-build:${CI_COMMIT_TAG}"
+      --destination "${CI_REGISTRY_IMAGE}/alma9-build:${CI_COMMIT_SHORT_SHA}"
       --destination "${CI_REGISTRY_IMAGE}/alma9-build:latest"
   before_script:
         - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
@@ -31,9 +31,9 @@ Docker Image Windows 2022:
     - powershell-win2022
   script:
     - docker login -u $env:CI_REGISTRY_USER -p $env:CI_REGISTRY_PASSWORD $env:CI_REGISTRY
-    - docker build --no-cache -t $env:CI_REGISTRY_IMAGE/win2022-build:$env:CI_COMMIT_TAG .
-    - docker tag $env:CI_REGISTRY_IMAGE/win2022-build:$env:CI_COMMIT_TAG $env:CI_REGISTRY_IMAGE/win2022-build:$env:latest
-    - docker push $env:CI_REGISTRY_IMAGE/win2022-build:$env:CI_COMMIT_TAG
+    - docker build --no-cache -t $env:CI_REGISTRY_IMAGE/win2022-build:$env:CI_COMMIT_SHORT_SHA  .
+    - docker tag $env:CI_REGISTRY_IMAGE/win2022-build:$env:CI_COMMIT_SHORT_SHA  $env:CI_REGISTRY_IMAGE/win2022-build:$env:latest
+    - docker push $env:CI_REGISTRY_IMAGE/win2022-build:$env:CI_COMMIT_SHORT_SHA
     - docker push $env:CI_REGISTRY_IMAGE/win2022-build:latest
   rules:
     - changes:
