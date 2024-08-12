@@ -5,7 +5,7 @@ stages:
 
 workflow:
   rules:
-    - if: $CI_PIPELINE_SOURCE == "trigger"
+    - if: $CI_PIPELINE_SOURCE == "api"
 
 Compile on Windows:
   stage: unstagged
