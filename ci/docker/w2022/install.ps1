@@ -12,10 +12,8 @@ choco install -y --no-progress ninja
 
 # Visual Studio 2019 Build Tools
 choco install -y --no-progress visualstudio2022buildtools
-
-# C++ Component for Visual Studio 2022 with all extras
 choco install -y --no-progress visualstudio2022-workload-vctools
 
-# Clean-up
-Remove-Item -Path "C:\Program Files (x86)\Microsoft Visual Studio\Installer" -Recurse -Force
-Remove-Item -Path "C:\Users\ContainerAdministrator\AppData\Local\Temp\chocolatey" -Recurse -Force
+# Clean up
+choco cache remove
+choco optimize
