@@ -37,6 +37,7 @@ Compile on Linux:
   needs:
     - job: Docker Image Alma 9
       optional: true
+  image: ${CI_REGISTRY_IMAGE}/alma9-build:latest
   stage: unstagged
   script:
     - sleep 30s && echo "Compiling on Linux..."
