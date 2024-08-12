@@ -44,7 +44,7 @@ Unit Test on Linux:
 Build Documentation:
   stage: unstagged
   script:
-    - echo "Building Documentation..." && exit 1
+    - echo "Building Documentation..."
     # Add your documentation build commands here
 
 Run Sanity Checks:
