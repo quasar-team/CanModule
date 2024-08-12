@@ -25,6 +25,7 @@ jobs:
           job_matrix=$(echo $LIST_JOBS | tr ',' '\n' | jq -R -s -c 'split("\n") | map(select(length > 0))')
           echo "pipeline_id=${PIPELINE_ID}" >> $GITHUB_OUTPUT
           echo "job_matrix=$job_matrix" >> $GITHUB_OUTPUT
+          echo "Pipeline number: " $PIPELINE_ID
           echo Jobs detected: $job_matrix
 
   Job:
