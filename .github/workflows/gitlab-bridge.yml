@@ -13,6 +13,7 @@ jobs:
       COMMIT_REF: ${{ github.sha }}
     outputs:
       job_matrix: ${{ steps.set-matrix.outputs.job_matrix }}
+      pipeline_id: ${{ steps.set-matrix.outputs.pipeline_id }}
     steps:
       - name: Trigger Gitlab Pipeline
         id: set-matrix
@@ -20,10 +21,9 @@ jobs:
           python /opt/bridge/sync-repository.py
           python /opt/bridge/create-temp-branch.py
           export PIPELINE_ID=$(python /opt/bridge/trigger-pipeline.py)
-          echo "PIPELINE_ID is set to: ${PIPELINE_ID}"
-          echo "PIPELINE_ID=${PIPELINE_ID}" >> $GITHUB_ENV
           export LIST_JOBS=$(python /opt/bridge/retrieve-jobs.py)
           job_matrix=$(echo $LIST_JOBS | tr ',' '\n' | jq -R -s -c 'split("\n") | map(select(length > 0))')
+          echo "pipeline_id=${PIPELINE_ID}" >> $GITHUB_OUTPUT
           echo "job_matrix=$job_matrix" >> $GITHUB_OUTPUT
           echo Jobs detected: $job_matrix
 
@@ -38,6 +38,7 @@ jobs:
     strategy:
       matrix:
         run_id: ${{ fromJson(needs.Gitlab_Trigger_Pipeline.outputs.job_matrix) }}
+      fail-fast: false
     steps:
       - name: ${{ matrix.run_id }}
         run: |
@@ -52,8 +53,10 @@ jobs:
       GITLAB_URL: ${{ vars.GITLAB_URL }}
       PROJECT_ID: ${{ vars.PROJECT_ID }}
       GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
+      PIPELINE_ID: ${{ needs.Gitlab_Trigger_Pipeline.outputs.pipeline_id }}
     steps:
       - name: Final Gitlab Pipeline Status
         run: |
           python /opt/bridge/wait-end-pipeline.py
           python /opt/bridge/delete-temp-branch.py
+          python /opt/bridge/status-end-pipeline.py
