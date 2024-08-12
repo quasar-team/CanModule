@@ -23,9 +23,31 @@ Docker Image Alma 9:
   rules:
     - changes:
         - ci/docker/alma9/trigger
+    - when: never
+
+Docker Image Windows 2022:
+  stage: unstagged
+  tags:
+    - powershell-win2022
+  script:
+    - docker login -u $env:CI_REGISTRY_USER -p $env:CI_REGISTRY_PASSWORD $env:CI_REGISTRY
+    - docker build --no-cache -t $env:CI_REGISTRY_IMAGE/win2022-build:$env:CI_COMMIT_TAG .
+    - docker tag $env:CI_REGISTRY_IMAGE/win2022-build:$env:CI_COMMIT_TAG $env:CI_REGISTRY_IMAGE/win2022-build:$env:latest
+    - docker push $env:CI_REGISTRY_IMAGE/win2022-build:$env:CI_COMMIT_TAG
+    - docker push $env:CI_REGISTRY_IMAGE/win2022-build:latest
+  rules:
+    - changes:
+        - ci/docker/w2022/trigger
+    - when: never
 
 Compile on Windows:
+  needs:
+    - job: Docker Image Windows 2022
+      optional: true
   stage: unstagged
+  image: $CI_REGISTRY_IMAGE/win2022-build:latest
+  tags:
+    - win2022-container
   script:
     - sleep 45s && echo "Compiling on Windows..."
     # Add your Windows compilation commands here
@@ -37,7 +59,7 @@ Compile on Linux:
   needs:
     - job: Docker Image Alma 9
       optional: true
-  image: ${CI_REGISTRY_IMAGE}/alma9-build:latest
+  image: $CI_REGISTRY_IMAGE/alma9-build:latest
   stage: unstagged
   script:
     - sleep 30s && echo "Compiling on Linux..."
