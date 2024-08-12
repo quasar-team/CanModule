@@ -50,11 +50,11 @@ Compile on Windows:
   tags:
     - win2022-container
   script:
-    - sleep 45s && echo "Compiling on Windows..."
-    # Add your Windows compilation commands here
+    - cmake -B build
+    - cmake --build build --config Release
   artifacts:
     paths:
-      - windows_compiled_artifacts/
+      - build/
 
 Compile on Linux:
   needs:
@@ -63,27 +63,25 @@ Compile on Linux:
   image: $CI_REGISTRY_IMAGE/alma9-build:latest
   stage: unstagged
   script:
-    - sleep 30s && echo "Compiling on Linux..."
-    # Add your Linux compilation commands here
+    - cmake -B build
+    - cmake --build build --config Release
   artifacts:
     paths:
-      - linux_compiled_artifacts/
+      - build/
 
-Unit Test on Windows:
+Google Tests on Windows:
   stage: unstagged
   needs:
     - Compile on Windows
   script:
-    - sleep 120s && echo "Running Unit Tests on Windows..."
-    # Add your Windows unit test commands here
+    - ctest --test-dir build
 
-Unit Test on Linux:
+Google Tests on Linux:
   stage: unstagged
   needs:
     - Compile on Linux
   script:
-    - echo "Running Unit Tests on Linux..."
-    # Add your Linux unit test commands here
+    - ctest --test-dir build
 
 Build Documentation:
   stage: unstagged
