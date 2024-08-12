@@ -35,7 +35,7 @@ Docker Image Windows 2022:
     - cd ci/docker/w2022/
     - docker login -u $env:CI_REGISTRY_USER -p $env:CI_REGISTRY_PASSWORD $env:CI_REGISTRY
     - docker build --no-cache -t $env:CI_REGISTRY_IMAGE/win2022-build:$env:CI_COMMIT_SHORT_SHA  .
-    - docker tag $env:CI_REGISTRY_IMAGE/win2022-build:$env:CI_COMMIT_SHORT_SHA  $env:CI_REGISTRY_IMAGE/win2022-build:$env:latest
+    - docker tag $env:CI_REGISTRY_IMAGE/win2022-build:$env:CI_COMMIT_SHORT_SHA  $env:CI_REGISTRY_IMAGE/win2022-build:latest
     - docker push $env:CI_REGISTRY_IMAGE/win2022-build:$env:CI_COMMIT_SHORT_SHA
     - docker push $env:CI_REGISTRY_IMAGE/win2022-build:latest
   rules:
