@@ -1,6 +1,8 @@
 name: Gitlab Pipeline Integration
 
-on: push
+on:
+  push:
+  workflow_dispatch:
 
 jobs:
   Gitlab_Trigger_Pipeline:
