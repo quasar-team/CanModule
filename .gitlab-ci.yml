@@ -22,7 +22,9 @@ Docker Image Alma 9:
         - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
   rules:
     - changes:
-        - ci/docker/alma9/trigger
+        paths:
+          - ci/docker/alma9/trigger
+        compare_to: "main"
     - when: never
 
 Docker Image Windows 2022:
@@ -38,7 +40,9 @@ Docker Image Windows 2022:
     - docker push $env:CI_REGISTRY_IMAGE/win2022-build:latest
   rules:
     - changes:
-        - ci/docker/w2022/trigger
+        paths:
+          - ci/docker/w2022/trigger
+        compare_to: "main"
     - when: never
 
 Compile on Windows:
