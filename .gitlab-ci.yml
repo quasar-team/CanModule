@@ -49,9 +49,8 @@ Build Documentation:
 
 Run Sanity Checks:
   stage: unstagged
-  allow_failure: true
   script:
-    - echo "Running Sanity Checks..." && exit 1
+    - echo "Running Sanity Checks..."
     # Add your sanity check commands here
 
 Create Release:
