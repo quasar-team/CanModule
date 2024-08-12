@@ -55,10 +55,10 @@ jobs:
       PROJECT_ID: ${{ vars.PROJECT_ID }}
       GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
       PIPELINE_ID: ${{ needs.Gitlab_Trigger_Pipeline.outputs.pipeline_id }}
+      COMMIT_REF: ${{ github.sha }}
     steps:
       - name: Final Gitlab Pipeline Status
         run: |
-          echo $PIPELINE_ID
           python /opt/bridge/wait-end-pipeline.py
           python /opt/bridge/delete-temp-branch.py
           python /opt/bridge/status-end-pipeline.py
