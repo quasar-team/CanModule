@@ -22,9 +22,7 @@ Docker Image Alma 9:
         - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
   rules:
     - changes:
-        paths:
-          - ci/docker/alma9
-        compare_to: 'main'
+        - ci/docker/alma9/trigger
 
 Compile on Windows:
   stage: unstagged
