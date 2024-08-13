@@ -20,6 +20,7 @@ struct CanDevice {
   inline const CanDeviceConfig& configuration() const {
     return m_configuration;
   }
+  virtual ~CanDevice() = default;
 
   static std::unique_ptr<CanDevice> create(
       std::string_view vendor, const CanDeviceConfig& configuration);
@@ -28,7 +29,6 @@ struct CanDevice {
   CanDevice(std::string_view vendor_name, const CanDeviceConfig& configuration)
       : m_vendor{vendor_name}, m_configuration{configuration} {}
 
-  virtual ~CanDevice() = default;
   virtual int vendor_open() = 0;
   virtual int vendor_close() = 0;
   virtual int vendor_send(const CanFrame& frame) = 0;
