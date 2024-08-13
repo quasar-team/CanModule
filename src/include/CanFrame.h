@@ -138,8 +138,12 @@ struct CanFrame {
    * @return The length of the CAN frame.
    */
   inline uint32_t length() const {
-    return (m_flags & CanFlags::REMOTE_REQUEST) ? m_requested_length
-                                                : m_message.size();
+    static_assert(sizeof(std::vector<char>::size_type) > sizeof(uint32_t),
+                  "m_message is larger than uint32_t");
+
+    return (m_flags & CanFlags::REMOTE_REQUEST)
+               ? m_requested_length
+               : static_cast<uint32_t>(m_message.size());
   }
 
   /**
