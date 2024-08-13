@@ -8,4 +8,4 @@ struct CanVendorSocketCan : CanVendorLoopback {
       : CanVendorLoopback(configuration) {}
 };
 
-#endif /* SRC_INCLUDE_CANVENDORSOCKETCAN_H_ */
+#endif  // SRC_INCLUDE_CANVENDORSOCKETCAN_H_

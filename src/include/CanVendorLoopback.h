@@ -10,7 +10,8 @@ struct CanVendorLoopback : CanDevice {
   explicit CanVendorLoopback(const CanDeviceConfig &configuration)
       : CanDevice("loopback", configuration) {}
 
- protected:
+ protected:  // It should be private once Anagate and SocketCan is not derived
+             // from here.
   /* A hardware-specific will implement vendor_open, vendor_close, and
    * vendor_send. It will use received(const CanFrame &frame) to communicate
    * incoming CAN frames.
@@ -20,4 +21,4 @@ struct CanVendorLoopback : CanDevice {
   int vendor_send(const CanFrame &frame) override;
 };
 
-#endif /* SRC_INCLUDE_CANVENDORLOOPBACK_H_ */
+#endif  // SRC_INCLUDE_CANVENDORLOOPBACK_H_

@@ -34,4 +34,4 @@ struct CanDeviceConfig {
   const std::function<void(const CanFrame&)> receiver;
 };
 
-#endif /* SRC_INCLUDE_CANDEVICECONFIG_H_ */
+#endif  // SRC_INCLUDE_CANDEVICECONFIG_H_

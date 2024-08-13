@@ -4,12 +4,11 @@
 #include "CanDevice.h"
 #include "CanVendorLoopback.h"
 
-struct CanVendorAnagate : CanDevice {
+struct CanVendorAnagate : CanVendorLoopback {
   explicit CanVendorAnagate(const CanDeviceConfig &configuration)
-      : CanDevice("anagate", configuration) {}
+      : CanVendorLoopback(configuration) {}
 
- private:
-  AnaInt32 m_handler{nullptr};
+  // AnaInt32 m_handler{nullptr};
 };
 
-#endif /* SRC_INCLUDE_CANVENDORANAGATE_H_ */
+#endif  // SRC_INCLUDE_CANVENDORANAGATE_H_

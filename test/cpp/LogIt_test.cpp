@@ -27,7 +27,8 @@ TEST_F(LogItTest, LogItSetup) {
   testing::internal::CaptureStdout();
   LOG(Log::INF, LogIt::myHandle) << "Hello World!";
   std::string output = testing::internal::GetCapturedStdout();
-  EXPECT_NE(output.find(", INF, CanModule] Hello World!"), std::string::npos);
+  EXPECT_NE(output.find(", INF, CanModuleTest] Hello World!"),
+            std::string::npos);
 }
 
 TEST_F(LogItTest, LogItSlowFunctionInfo) {

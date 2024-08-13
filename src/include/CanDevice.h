@@ -38,4 +38,4 @@ struct CanDevice {
   const CanDeviceConfig m_configuration;
 };
 
-#endif /* SRC_INCLUDE_CANDEVICE_H_ */
+#endif  // SRC_INCLUDE_CANDEVICE_H_

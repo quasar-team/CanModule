@@ -1,6 +1,6 @@
 #include "CanVendorAnagate.h"
 
-#include <AnaGateDllCan.h>
+// #include <AnaGateDllCan.h>
 
 /*
 
@@ -34,25 +34,27 @@ codes
 ).
 */
 
-int vendor_open() {
-  int CanVendorAnagate::vendor_open() {
-    AnaInt32 handle;
-    AnaInt32 bSendDataConfirm =
-        TRUE;  // Assuming we want confirmations for this example
-    AnaInt32 bSendDataInd =
-        TRUE;               // Assuming we want to receive incoming telegrams
-    AnaInt32 nCANPort = 0;  // Example CAN port number
-    const char *pcIPAddress = "192.168.1.1";  // Example IP address
-    AnaInt32 nTimeout = 1000;                 // Example timeout in milliseconds
+// int vendor_open() {
+// int CanVendorAnagate::vendor_open() {
+//   AnaInt32 handle;
+//   AnaInt32 bSendDataConfirm =
+//       TRUE;  // Assuming we want confirmations for this example
+//   AnaInt32 bSendDataInd =
+//       TRUE;               // Assuming we want to receive incoming telegrams
+//   AnaInt32 nCANPort = 0;  // Example CAN port number
+//   const char *pcIPAddress = "192.168.1.1";  // Example IP address
+//   AnaInt32 nTimeout = 1000;                 // Example timeout in
+//   milliseconds
 
-    AnaInt32 result = CANOpenDevice(&handle, bSendDataConfirm, bSendDataInd,
-                                    nCANPort, pcIPAddress, nTimeout);
-    if (result == 0) {
-      // Save the handle or perform additional setup if needed
-      return 0;  // Success
-    } else {
-      // Handle the error accordingly
-      return result;  // Return the error code
-    }
-  }
-}
+//   AnaInt32 result = CANOpenDevice(&handle, bSendDataConfirm, bSendDataInd,
+//                                   nCANPort, pcIPAddress, nTimeout);
+//   if (result == 0) {
+//     // Save the handle or perform additional setup if needed
+//     return 0;  // Success
+//   } else {
+//     // Handle the error accordingly
+//     return result;  // Return the error code
+//   }
+// }
+// return 0;  // Placeholder for actual implementation
+// }

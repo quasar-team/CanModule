@@ -9,7 +9,6 @@
 namespace py = pybind11;
 
 PYBIND11_MODULE(canmodule, m) {
-  // Bindings for CanFrame class
   py::class_<CanFrame>(m, "CanFrame")
       .def(py::init<const uint32_t, const uint32_t, const uint32_t>(),
            py::arg("id"), py::arg("requested_length"), py::arg("flags"))
@@ -30,7 +29,6 @@ PYBIND11_MODULE(canmodule, m) {
       .def("is_extended_id", &CanFrame::is_extended_id)
       .def("length", &CanFrame::length);
 
-  // Bindings for CanFlags namespace
   py::module_ can_flags =
       m.def_submodule("CanFlags", "Namespace for CAN frame flags");
   can_flags.attr("STANDARD_ID") = CanFlags::STANDARD_ID;
@@ -38,7 +36,6 @@ PYBIND11_MODULE(canmodule, m) {
   can_flags.attr("ERROR_FRAME") = CanFlags::ERROR_FRAME;
   can_flags.attr("REMOTE_REQUEST") = CanFlags::REMOTE_REQUEST;
 
-  // Bindings for CanDevice class
   py::class_<CanDevice>(m, "CanDevice")
       .def("open", &CanDevice::open)
       .def("close", &CanDevice::close)
