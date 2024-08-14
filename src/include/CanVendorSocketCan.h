@@ -19,14 +19,14 @@
  * device. It extends the CanVendorLoopback class and overrides the necessary
  * methods to open, close, and send CAN frames using the SocketCAN interface.
  */
-struct CanVendorSocketCan : CanVendorLoopback {
+struct CanVendorSocketCan : CanDevice {
   /**
    * @brief Constructor for CanVendorSocketCan.
    *
    * @param configuration The configuration details for the CAN device.
    */
   explicit CanVendorSocketCan(const CanDeviceConfig &configuration)
-      : CanVendorLoopback(configuration) {}
+      : CanDevice("socketcan", configuration) {}
 
  private:
   /**

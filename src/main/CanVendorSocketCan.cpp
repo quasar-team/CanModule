@@ -20,7 +20,7 @@ int CanVendorSocketCan::vendor_open() {
   // Set up the CAN interface
   struct ifreq ifr;
   strcpy(ifr.ifr_name,  // NOLINT: Recipe from Offical SocketCan documentation
-         "can0");
+         configuration().vendor_config.c_str());
   if (ioctl(socket_fd, SIOCGIFINDEX, &ifr) < 0) {
     ::close(socket_fd);
     return -1;  // Failed to get interface index
@@ -89,7 +89,6 @@ int CanVendorSocketCan::vendor_send(const CanFrame &frame) {
 
   return 0;  // Success
 }
-
 struct can_frame CanVendorSocketCan::translate(const CanFrame &frame) {
   struct can_frame canFrame;
   canFrame.can_id = frame.id();
@@ -121,7 +120,7 @@ int CanVendorSocketCan::subscriber() {
     for (int i = 0; i < nfds; ++i) {
       if (events[i].data.fd == socket_fd) {
         struct can_frame canFrame;
-        int nbytes = ::read(socket_fd, &canFrame, sizeof(canFrame));
+        int nbytes = ::read(socket_fd, &canFrame, sizeof(struct can_frame));
         if (nbytes < 0) {
           return -1;  // Error reading from socket
         }

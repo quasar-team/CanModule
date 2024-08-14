@@ -17,9 +17,9 @@ TEST_F(CanDeviceTest, CreationLoopbackDevice) {
   auto dummy_cb_ = [](const CanFrame& frame) { return; };
   auto myDevice =
       CanDevice::create("loopback", CanDeviceConfig{"dummy config", dummy_cb_});
-  // ASSERT_NE(myDevice, nullptr);
-  // ASSERT_EQ(myDevice->vendor_name(), "loopback");
-  // ASSERT_EQ(myDevice->configuration().vendor_config, "dummy config");
+  ASSERT_NE(myDevice, nullptr);
+  ASSERT_EQ(myDevice->vendor_name(), "loopback");
+  ASSERT_EQ(myDevice->configuration().vendor_config, "dummy config");
 }
 
 // Test for CanFrame constructor with id and message
