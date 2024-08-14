@@ -42,4 +42,30 @@ The output is located at `build/docs`.
 - Run the target `coverage`
 - Use the VS Code extension: Gcov Viewer from Jacques Lucke to highligh the covered code
 
-# Trigger Pipeline 1
+## SocketCan setup
+
+In Linux it is convenient to use Virtual Can to test SocketCan implementation.
+
+Install:
+```
+sudo dnf install iproute kernel-modules-extra
+sudo dnf groupinstall "Development Tools"
+sudo dnf install kernel-devel kernel-headers elfutils-libelf-devel
+sudo dnf install --source kernel
+```
+
+Extract the `rpm --install` and go to `/root/rpmbuild/SOURCES/[your linux version]/drivers/net/can`
+
+Execute:
+```
+sudo make -C /lib/modules/$(uname -r)/build M=$(pwd) modules
+sudo cp vcan.ko /lib/modules/$(uname -r)/kernel/drivers/net/can/
+```
+
+
+Configure:
+```
+sudo modprobe vcan
+sudo ip link add dev vcan0 type vcan
+sudo ip link set up vcan0
+```

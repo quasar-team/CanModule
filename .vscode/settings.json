@@ -70,7 +70,10 @@
         "variant": "cpp",
         "cinttypes": "cpp",
         "typeindex": "cpp",
-        "valarray": "cpp"
+        "valarray": "cpp",
+        "strstream": "cpp",
+        "complex": "cpp",
+        "cfenv": "cpp"
     },
     "cmake.configureOnOpen": false
 }
