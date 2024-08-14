@@ -106,7 +106,7 @@ struct CanFrame {
    * @brief Checks if the CAN frame is an error frame.
    * @return True if the frame is an error frame, false otherwise.
    */
-  inline bool is_error_frame() const {
+  inline bool is_error() const {
     return (m_flags & CanFlags::ERROR_FRAME) != 0;
   }
 

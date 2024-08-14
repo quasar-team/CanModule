@@ -23,7 +23,7 @@ PYBIND11_MODULE(canmodule, m) {
       .def("id", &CanFrame::id)
       .def("message", &CanFrame::message)
       .def("flags", &CanFrame::flags)
-      .def("is_error_frame", &CanFrame::is_error_frame)
+      .def("is_error", &CanFrame::is_error)
       .def("is_remote_request", &CanFrame::is_remote_request)
       .def("is_standard_id", &CanFrame::is_standard_id)
       .def("is_extended_id", &CanFrame::is_extended_id)

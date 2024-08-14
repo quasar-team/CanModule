@@ -107,7 +107,7 @@ struct can_frame CanVendorSocketCan::translate(const CanFrame &frame) {
   if (frame.is_extended_id()) {
     canFrame.can_id |= CAN_EFF_FLAG;
   }
-  if (frame.is_error_frame()) {
+  if (frame.is_error()) {
     canFrame.can_id |= CAN_ERR_FLAG;
   }
 
