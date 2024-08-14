@@ -7,7 +7,10 @@
 
 #include "CanVendorAnagate.h"
 #include "CanVendorLoopback.h"
+
+#ifndef _WIN32
 #include "CanVendorSocketCan.h"
+#endif
 
 /**
  * @brief Opens the CAN device for communication.

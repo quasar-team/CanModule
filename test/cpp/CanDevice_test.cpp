@@ -3,8 +3,7 @@
 #include <gtest/gtest.h>
 
 #include <iostream>
-
-#include "CanVendorLoopback.h"
+#include <thread>  // NOLINT
 
 // Test fixture for CanFrame
 class CanDeviceTest : public ::testing::Test {

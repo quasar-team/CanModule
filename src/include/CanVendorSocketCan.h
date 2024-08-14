@@ -28,6 +28,8 @@ struct CanVendorSocketCan : CanDevice {
   explicit CanVendorSocketCan(const CanDeviceConfig &configuration)
       : CanDevice("socketcan", configuration) {}
 
+  ~CanVendorSocketCan() { vendor_close(); }
+
  private:
   /**
    * @brief Opens the SocketCAN device and initializes the epoll instance.
@@ -76,7 +78,7 @@ struct CanVendorSocketCan : CanDevice {
    * @param message The SocketCAN frame to be translated.
    * @return The translated CanFrame.
    */
-  static CanFrame translate(const struct can_frame &message);
+  static const CanFrame translate(const struct can_frame &message);
 
   /**
    * @brief Translates a CanFrame to a SocketCAN frame.
@@ -91,6 +93,8 @@ struct CanVendorSocketCan : CanDevice {
   int socket_fd;                  // File descriptor for the SocketCAN device
   int epoll_fd;                   // File descriptor for the epoll instance
   std::thread subscriber_thread;  // Thread for the subscriber loop
+  bool m_subcriber_run{
+      false};  // Flag to indicate that the subscriber loop should run
 };
 
 #endif  // SRC_INCLUDE_CANVENDORSOCKETCAN_H_

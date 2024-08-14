@@ -10,6 +10,8 @@
 
 #include <cstring>
 #include <thread>  // NOLINT
+
+#include "CanFrame.h"
 int CanVendorSocketCan::vendor_open() {
   // Open the SocketCAN device
   socket_fd = socket(PF_CAN, SOCK_RAW, CAN_RAW);
@@ -54,22 +56,21 @@ int CanVendorSocketCan::vendor_open() {
   }
 
   // Start the subscriber thread
+  m_subcriber_run = true;
   subscriber_thread = std::thread(&CanVendorSocketCan::subscriber, this);
 
   return 0;  // Success
 }
 
 int CanVendorSocketCan::vendor_close() {
+  m_subcriber_run = false;
+
   // Stop the subscriber thread
   if (subscriber_thread.joinable()) {
-    // Signal the subscriber thread to stop
-    // This can be done by closing the epoll file descriptor
-    // which will cause the epoll_wait to return and the thread to exit
-    ::close(epoll_fd);
     subscriber_thread.join();
   }
 
-  // Close the SocketCAN device
+  ::close(epoll_fd);
   if (socket_fd >= 0) {
     ::close(socket_fd);
   }
@@ -92,23 +93,51 @@ int CanVendorSocketCan::vendor_send(const CanFrame &frame) {
 struct can_frame CanVendorSocketCan::translate(const CanFrame &frame) {
   struct can_frame canFrame;
   canFrame.can_id = frame.id();
-  canFrame.can_dlc = frame.message().size();
-  std::copy(frame.message().begin(), frame.message().end(), canFrame.data);
+  canFrame.len = frame.length();
+
+  if (frame.is_remote_request() == false) {
+    for (auto i = 0u; i < frame.length(); ++i) {
+      canFrame.data[i] = frame.message()[i];
+    }
+  }
+
+  if (frame.is_remote_request()) {
+    canFrame.can_id |= CAN_RTR_FLAG;
+  }
+  if (frame.is_extended_id()) {
+    canFrame.can_id |= CAN_EFF_FLAG;
+  }
+  if (frame.is_error_frame()) {
+    canFrame.can_id |= CAN_ERR_FLAG;
+  }
+
   return canFrame;
 }
 
-CanFrame CanVendorSocketCan::translate(const struct can_frame &canFrame) {
-  CanFrame frame(
-      canFrame.can_id,
-      std::vector<char>(canFrame.data, canFrame.data + canFrame.can_dlc));
-  return frame;
+const CanFrame CanVendorSocketCan::translate(const struct can_frame &canFrame) {
+  const auto id = canFrame.can_id & CAN_EFF_MASK;
+  const auto length = static_cast<uint32_t>(canFrame.len);
+  const auto rtr = (canFrame.can_id & CAN_RTR_FLAG);
+  const auto error = (canFrame.can_id & CAN_ERR_FLAG);
+  const auto eff = (canFrame.can_id & CAN_EFF_FLAG);
+  const auto data = std::vector<char>(canFrame.data, canFrame.data + length);
+
+  uint32_t flags{0};
+  flags |= rtr ? CanFlags::REMOTE_REQUEST : 0;
+  flags |= error ? CanFlags::ERROR_FRAME : 0;
+  flags |= eff ? CanFlags::EXTENDED_ID : 0;
+
+  if (rtr) {
+    return CanFrame{id, length, flags};
+  }
+  return CanFrame{id, data, flags};
 }
 
 int CanVendorSocketCan::subscriber() {
   struct epoll_event events[10];  // Array to hold epoll events
-  while (true) {
+  while (m_subcriber_run) {
     int nfds =
-        epoll_wait(epoll_fd, events, 10, -1);  // Wait indefinitely for events
+        epoll_wait(epoll_fd, events, 10, 1000);  // Wait indefinitely for events
     if (nfds < 0) {
       if (errno == EINTR) {
         continue;  // Interrupted by signal, continue waiting
