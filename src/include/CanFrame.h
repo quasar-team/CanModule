@@ -1,9 +1,3 @@
-/**
- * @file CanFrame.h
- * @brief Defines the CanFrame class and related constants for CAN
- * communication.
- */
-
 #ifndef SRC_INCLUDE_CANFRAME_H_
 #define SRC_INCLUDE_CANFRAME_H_
 

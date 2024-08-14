@@ -12,6 +12,19 @@
 #include <thread>  // NOLINT
 
 #include "CanFrame.h"
+
+// Constant defining how long the epoll wait cycle should be in milliseconds.
+constexpr auto EPOLL_WAIT_CYCLE_MS = 1000;
+
+/**
+ * @brief Opens the SocketCAN device and sets up the necessary configurations.
+ *
+ * This function initializes the SocketCAN device by opening a socket, setting
+ * up the CAN interface, binding the socket, creating an epoll instance, and
+ * starting a subscriber thread to handle incoming CAN frames.
+ *
+ * @return int Returns 0 on success, or -1 on failure.
+ */
 int CanVendorSocketCan::vendor_open() {
   // Open the SocketCAN device
   socket_fd = socket(PF_CAN, SOCK_RAW, CAN_RAW);
@@ -62,6 +75,14 @@ int CanVendorSocketCan::vendor_open() {
   return 0;  // Success
 }
 
+/**
+ * @brief Closes the SocketCAN device and cleans up resources.
+ *
+ * This function stops the subscriber thread, closes the epoll instance, and
+ * closes the socket.
+ *
+ * @return int Returns 0 on success.
+ */
 int CanVendorSocketCan::vendor_close() {
   m_subcriber_run = false;
 
@@ -78,6 +99,17 @@ int CanVendorSocketCan::vendor_close() {
   return 0;  // Success
 }
 
+/**
+ * @brief Sends a CAN frame over the SocketCAN interface.
+ *
+ * This function translates a CanFrame object to a struct can_frame and sends it
+ * over the SocketCAN interface.
+ *
+ * @param frame The CanFrame object to be sent.
+ *
+ * @return int Returns 0 on success, or -1 if the entire frame could not be
+ * sent.
+ */
 int CanVendorSocketCan::vendor_send(const CanFrame &frame) {
   // Translate CanFrame to struct can_frame
   struct can_frame canFrame = translate(frame);
@@ -90,6 +122,16 @@ int CanVendorSocketCan::vendor_send(const CanFrame &frame) {
 
   return 0;  // Success
 }
+/**
+ * @brief Translates a CanFrame object to a struct can_frame.
+ *
+ * This function converts a CanFrame object into a struct can_frame, which is
+ * used for sending CAN frames over the SocketCAN interface.
+ *
+ * @param frame The CanFrame object to be translated.
+ *
+ * @return struct can_frame The translated CAN frame.
+ */
 struct can_frame CanVendorSocketCan::translate(const CanFrame &frame) {
   struct can_frame canFrame;
   canFrame.can_id = frame.id();
@@ -114,6 +156,17 @@ struct can_frame CanVendorSocketCan::translate(const CanFrame &frame) {
   return canFrame;
 }
 
+/**
+ * @brief Translates a struct can_frame to a CanFrame object.
+ *
+ * This function converts a struct can_frame, which is received from the
+ * SocketCAN interface, into a CanFrame object that can be used within the
+ * application.
+ *
+ * @param canFrame The struct can_frame to be translated.
+ *
+ * @return CanFrame The translated CanFrame object.
+ */
 const CanFrame CanVendorSocketCan::translate(const struct can_frame &canFrame) {
   const auto id = canFrame.can_id & CAN_EFF_MASK;
   const auto length = static_cast<uint32_t>(canFrame.len);
@@ -133,11 +186,20 @@ const CanFrame CanVendorSocketCan::translate(const struct can_frame &canFrame) {
   return CanFrame{id, data, flags};
 }
 
+/**
+ * @brief Handles incoming CAN frames using epoll for event-driven I/O.
+ *
+ * This function runs in a loop, waiting for events on the CAN socket using
+ * epoll. When a CAN frame is received, it reads the frame, translates it to a
+ * CanFrame object, and calls the received method with the translated frame.
+ *
+ * @return int Returns 0 on success, or -1 if an error occurs during epoll_wait
+ * or reading from the socket.
+ */
 int CanVendorSocketCan::subscriber() {
-  struct epoll_event events[10];  // Array to hold epoll events
+  struct epoll_event events[1];
   while (m_subcriber_run) {
-    int nfds =
-        epoll_wait(epoll_fd, events, 10, 1000);  // Wait indefinitely for events
+    int nfds = epoll_wait(epoll_fd, events, 1, EPOLL_WAIT_CYCLE_MS);
     if (nfds < 0) {
       if (errno == EINTR) {
         continue;  // Interrupted by signal, continue waiting

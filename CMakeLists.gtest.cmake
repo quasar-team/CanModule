@@ -1,8 +1,3 @@
-if(CMAKE_COMPILER_IS_GNUCXX AND COVERAGE)
-  add_compile_options(--coverage)
-  add_link_options(--coverage)
-endif()
-
 enable_testing()
 
 FetchContent_Declare(

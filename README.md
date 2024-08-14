@@ -36,12 +36,6 @@ Install `doxygen`, enter in the directory `docs/` and run `doxygen`.
 
 The output is located at `build/docs`.
 
-## Coverage (optional)
-
-- `dnf install gcov`
-- Run the target `coverage`
-- Use the VS Code extension: Gcov Viewer from Jacques Lucke to highligh the covered code
-
 ## SocketCan setup (optional)
 
 ### Virtual SocketCan
