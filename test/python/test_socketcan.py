@@ -11,10 +11,10 @@ def test_socketcan_single_message():
     received_frames_dev2 = []
 
     myDevice1 = CanDevice.create(
-        "socketcan", CanDeviceConfig(DEVICE_ONE, received_frames_dev1.append)
+        "socketcan", CanDeviceArguments(DEVICE_ONE, received_frames_dev1.append)
     )
     myDevice2 = CanDevice.create(
-        "socketcan", CanDeviceConfig(DEVICE_TWO, received_frames_dev2.append)
+        "socketcan", CanDeviceArguments(DEVICE_TWO, received_frames_dev2.append)
     )
     myDevice1.open()
     myDevice2.open()
@@ -35,10 +35,10 @@ def test_socketcan_multiple_messages():
     received_frames_dev2 = []
 
     myDevice1 = CanDevice.create(
-        "socketcan", CanDeviceConfig(DEVICE_ONE, received_frames_dev1.append)
+        "socketcan", CanDeviceArguments(DEVICE_ONE, received_frames_dev1.append)
     )
     myDevice2 = CanDevice.create(
-        "socketcan", CanDeviceConfig(DEVICE_TWO, received_frames_dev2.append)
+        "socketcan", CanDeviceArguments(DEVICE_TWO, received_frames_dev2.append)
     )
     myDevice1.open()
     myDevice2.open()

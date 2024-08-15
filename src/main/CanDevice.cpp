@@ -74,13 +74,13 @@ std::vector<int> CanDevice::send(const std::vector<CanFrame> &frames) {
  *
  * @param vendor A string view representing the vendor name. Supported values
  * are "dummy", "socketcan" (on non-Windows platforms), and "anagate".
- * @param configuration A reference to a CanDeviceConfig object that contains
+ * @param configuration A reference to a CanDeviceArguments object that contains
  * the configuration settings for the CAN device.
  * @return std::unique_ptr<CanDevice> A unique pointer to the created CAN device
  * object. Returns nullptr if the vendor is not recognized.
  */
 std::unique_ptr<CanDevice> CanDevice::create(
-    std::string_view vendor, const CanDeviceConfig &configuration) {
+    std::string_view vendor, const CanDeviceArguments &configuration) {
   if (vendor == "loopback") {
     return std::make_unique<CanVendorLoopback>(configuration);
   }

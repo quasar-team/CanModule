@@ -4,14 +4,13 @@
 #include <string>
 
 #include "CanDevice.h"
-#include "CanDeviceConfig.h"
+#include "CanDeviceArguments.h"
 
 struct CanVendorLoopback : CanDevice {
-  explicit CanVendorLoopback(const CanDeviceConfig &configuration)
+  explicit CanVendorLoopback(const CanDeviceArguments &configuration)
       : CanDevice("loopback", configuration) {}
 
- protected:  // It should be private once Anagate and SocketCan is not derived
-             // from here.
+ private:
   /* A hardware-specific will implement vendor_open, vendor_close, and
    * vendor_send. It will use received(const CanFrame &frame) to communicate
    * incoming CAN frames.

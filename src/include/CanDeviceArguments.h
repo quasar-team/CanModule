@@ -1,5 +1,5 @@
-#ifndef SRC_INCLUDE_CANDEVICECONFIG_H_
-#define SRC_INCLUDE_CANDEVICECONFIG_H_
+#ifndef SRC_INCLUDE_CANDEVICEARGUMENTS_H_
+#define SRC_INCLUDE_CANDEVICEARGUMENTS_H_
 
 #include <functional>
 #include <string>
@@ -13,7 +13,7 @@
  * the vendor-specific configuration and a callback function to handle received
  * CAN frames.
  */
-struct CanDeviceConfig {
+struct CanDeviceArguments {
   /**
    * @brief Vendor-specific configuration string.
    *
@@ -34,4 +34,4 @@ struct CanDeviceConfig {
   const std::function<void(const CanFrame&)> receiver;
 };
 
-#endif  // SRC_INCLUDE_CANDEVICECONFIG_H_
+#endif  // SRC_INCLUDE_CANDEVICEARGUMENTS_H_

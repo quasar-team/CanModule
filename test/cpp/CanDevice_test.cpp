@@ -14,8 +14,8 @@ class CanDeviceTest : public ::testing::Test {
 // Test for CanFrame constructor with id and message
 TEST_F(CanDeviceTest, CreationLoopbackDevice) {
   auto dummy_cb_ = [](const CanFrame& frame) { return; };
-  auto myDevice =
-      CanDevice::create("loopback", CanDeviceConfig{"dummy config", dummy_cb_});
+  auto myDevice = CanDevice::create(
+      "loopback", CanDeviceArguments{"dummy config", dummy_cb_});
   ASSERT_NE(myDevice, nullptr);
   ASSERT_EQ(myDevice->vendor_name(), "loopback");
   ASSERT_EQ(myDevice->configuration().vendor_config, "dummy config");
@@ -29,8 +29,8 @@ TEST_F(CanDeviceTest, LoopbackDeviceMessageTransmission) {
   auto dummy_cb_ = [&inFrames](const CanFrame& frame) {
     inFrames.push_back(frame);
   };
-  auto myDevice =
-      CanDevice::create("loopback", CanDeviceConfig{"dummy config", dummy_cb_});
+  auto myDevice = CanDevice::create(
+      "loopback", CanDeviceArguments{"dummy config", dummy_cb_});
 
   for (uint32_t i = 0; i < 10; ++i) {
     outFrames.push_back(CanFrame{i});

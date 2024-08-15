@@ -7,7 +7,7 @@
 #include <string>
 #include <vector>
 
-#include "CanDeviceConfig.h"
+#include "CanDeviceArguments.h"
 #include "CanFrame.h"
 
 struct CanDevice {
@@ -17,16 +17,17 @@ struct CanDevice {
   std::vector<int> send(const std::vector<CanFrame>& frames);
 
   inline std::string vendor_name() const { return m_vendor; }
-  inline const CanDeviceConfig& configuration() const {
+  inline const CanDeviceArguments& configuration() const {
     return m_configuration;
   }
   virtual ~CanDevice() = default;
 
   static std::unique_ptr<CanDevice> create(
-      std::string_view vendor, const CanDeviceConfig& configuration);
+      std::string_view vendor, const CanDeviceArguments& configuration);
 
  protected:
-  CanDevice(std::string_view vendor_name, const CanDeviceConfig& configuration)
+  CanDevice(std::string_view vendor_name,
+            const CanDeviceArguments& configuration)
       : m_vendor{vendor_name}, m_configuration{configuration} {}
 
   virtual int vendor_open() = 0;
@@ -36,7 +37,7 @@ struct CanDevice {
 
  private:
   const std::string m_vendor;
-  const CanDeviceConfig m_configuration;
+  const CanDeviceArguments m_configuration;
 };
 
 #endif  // SRC_INCLUDE_CANDEVICE_H_

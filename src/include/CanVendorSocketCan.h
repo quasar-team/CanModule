@@ -25,7 +25,7 @@ struct CanVendorSocketCan : CanDevice {
    *
    * @param configuration The configuration details for the CAN device.
    */
-  explicit CanVendorSocketCan(const CanDeviceConfig &configuration)
+  explicit CanVendorSocketCan(const CanDeviceArguments &configuration)
       : CanDevice("socketcan", configuration) {}
 
   ~CanVendorSocketCan() { vendor_close(); }

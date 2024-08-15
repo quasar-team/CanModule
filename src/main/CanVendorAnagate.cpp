@@ -1,6 +1,6 @@
 #include "CanVendorAnagate.h"
 
-// #include <AnaGateDllCan.h>
+#include <AnaGateDllCan.h>
 
 /*
 
@@ -34,6 +34,19 @@ codes
 ).
 */
 
+int CanVendorAnagate::vendor_open() {
+  const AnaInt32 result = CANOpenDevice(
+      &m_handle, TRUE, TRUE, 0, configuration().vendor_config.c_str(), 1000);
+  return static_cast<int>(result);
+}
+
+int CanVendorAnagate::vendor_send(const CanFrame &frame) {
+  frame.id();
+  return 0;
+}
+
+int CanVendorAnagate::vendor_close() { return 0; }
+
 // int vendor_open() {
 // int CanVendorAnagate::vendor_open() {
 //   AnaInt32 handle;
@@ -58,3 +71,11 @@ codes
 // }
 // return 0;  // Placeholder for actual implementation
 // }
+
+// vendor_send() {
+//  AnaInt32 CANWrite(AnaInt32 hHandle, AnaInt32 nIdentifier, const char *
+// pcBuffer, AnaInt32 nBufferLen, AnaInt32 nFlags);}
+
+// vendor_receive() {}
+
+// vendor_close() {}

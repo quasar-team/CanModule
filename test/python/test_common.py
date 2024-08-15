@@ -36,7 +36,7 @@ def test_full_frame():
 def test_loopback_single_message():
     received_frames = []
     myDevice = CanDevice.create(
-        "loopback", CanDeviceConfig("no config", received_frames.append)
+        "loopback", CanDeviceArguments("no config", received_frames.append)
     )
     myDevice.open()
     myDevice.send(CanFrame(1, ["H", "e", "l", "l", "o"]))
@@ -52,7 +52,7 @@ def test_loopback_multiple_messages():
     ]
     received_frames = []
     myDevice = CanDevice.create(
-        "loopback", CanDeviceConfig("no config", received_frames.append)
+        "loopback", CanDeviceArguments("no config", received_frames.append)
     )
     myDevice.open()
     myDevice.send(send_frames)

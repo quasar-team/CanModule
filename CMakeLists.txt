@@ -17,6 +17,8 @@ set(SOURCES
     src/main/CanVendorLoopback.cpp
 )
 
+include(cmake/env.cmake)
+
 execute_process(
     COMMAND git rev-parse --short HEAD
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
@@ -45,16 +47,15 @@ if (UNIX)
     list(APPEND VENDOR_SOURCES src/main/CanVendorSocketCan.cpp)
 endif()
 
-FetchContent_Declare(
-  LogIt
-  GIT_REPOSITORY https://github.com/quasar-team/LogIt.git
-  GIT_TAG        master
-  DOWNLOAD_EXTRACT_TIMESTAMP True
-)
-FetchContent_MakeAvailable(LogIt)
+include(cmake/logit.cmake)
+include(cmake/anagate.cmake)
 
 add_library(CanModuleMain ${SOURCES} ${VENDOR_SOURCES})
-target_include_directories(CanModuleMain PRIVATE ${logit_SOURCE_DIR}/include)
+target_include_directories(CanModuleMain PRIVATE ${logit_SOURCE_DIR}/include ${anagate_SOURCE_DIR}/include)
+target_link_libraries(CanModuleMain PRIVATE
+                        ${anagate_SOURCE_DIR}/lib/libAnaGateExtStaticRelease.so
+                        ${anagate_SOURCE_DIR}/lib/libAnaGateStaticRelease.so
+                        ${anagate_SOURCE_DIR}/lib/libCANDLLStaticRelease64.so)
 
 # Treat warnings as errors
 if (CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
@@ -63,5 +64,5 @@ elseif (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
     target_compile_options(CanModuleMain PRIVATE /W4 /WX)
 endif()
 
-include(CMakeLists.pybind11.cmake)
-include(CMakeLists.gtest.cmake)
+include(cmake/pybind11.cmake)
+include(cmake/gtest.cmake)

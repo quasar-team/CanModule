@@ -8,7 +8,10 @@
 - Extension VS: TestMate C++ (recommended)
 
 Windows works too for development, installing all dependencies with Chocolatey, but you cannot
-compile (nor debug) any issues with SocketCan.
+compile (nor debug) with SocketCan support.
+
+Add the variable `ICS_REPO_DEPS_TOKEN=[value]` to your environment (`.env` file) with the value that you can obtain
+in the group `jcop-opc-ua` configuration of Gitlab CI/CD (gitlab.cern.ch).
 
 ## Setup pre-commit hooks (recommended)
 

@@ -3,7 +3,7 @@
 #include <pybind11/stl.h>
 
 #include "CanDevice.h"
-#include "CanDeviceConfig.h"
+#include "CanDeviceArguments.h"
 #include "CanFrame.h"
 
 namespace py = pybind11;
@@ -46,12 +46,12 @@ PYBIND11_MODULE(canmodule, m) {
       .def("configuration", &CanDevice::configuration)
       .def_static("create", &CanDevice::create);
 
-  py::class_<CanDeviceConfig>(m, "CanDeviceConfig")
+  py::class_<CanDeviceArguments>(m, "CanDeviceArguments")
       .def(py::init<const std::string&,
                     const std::function<void(const CanFrame&)>&>())
-      .def_readonly("vendor_config", &CanDeviceConfig::vendor_config)
+      .def_readonly("vendor_config", &CanDeviceArguments::vendor_config)
       .def("set_receiver",
-           [](CanDeviceConfig& self,
+           [](CanDeviceArguments& self,
               const std::function<void(const CanFrame&)>& recv) {
              const_cast<std::function<void(const CanFrame&)>&>(self.receiver) =
                  recv;
