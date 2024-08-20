@@ -15,10 +15,11 @@ class CanDeviceTest : public ::testing::Test {
 TEST_F(CanDeviceTest, CreationLoopbackDevice) {
   auto dummy_cb_ = [](const CanFrame& frame) { return; };
   auto myDevice = CanDevice::create(
-      "loopback", CanDeviceArguments{"dummy config", dummy_cb_});
+      "loopback",
+      CanDeviceArguments{CanDeviceConfiguration{"dummy"}, dummy_cb_});
   ASSERT_NE(myDevice, nullptr);
   ASSERT_EQ(myDevice->vendor_name(), "loopback");
-  ASSERT_EQ(myDevice->configuration().vendor_config, "dummy config");
+  ASSERT_EQ(myDevice->args().config.bus_name.value(), "dummy");
 }
 
 // Test for CanFrame constructor with id and message
@@ -30,7 +31,8 @@ TEST_F(CanDeviceTest, LoopbackDeviceMessageTransmission) {
     inFrames.push_back(frame);
   };
   auto myDevice = CanDevice::create(
-      "loopback", CanDeviceArguments{"dummy config", dummy_cb_});
+      "loopback",
+      CanDeviceArguments{CanDeviceConfiguration{"dummy"}, dummy_cb_});
 
   for (uint32_t i = 0; i < 10; ++i) {
     outFrames.push_back(CanFrame{i});

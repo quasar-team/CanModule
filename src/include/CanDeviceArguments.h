@@ -4,6 +4,7 @@
 #include <functional>
 #include <string>
 
+#include "CanDeviceConfiguration.h"
 #include "CanFrame.h"
 
 /**
@@ -20,7 +21,7 @@ struct CanDeviceArguments {
    * This string contains configuration details specific to the vendor of the
    * CAN device.
    */
-  const std::string vendor_config;
+  CanDeviceConfiguration config;
 
   /**
    * @brief Callback function to handle received CAN frames.

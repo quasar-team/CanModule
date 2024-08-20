@@ -27,7 +27,7 @@ struct CanDeviceConfiguration {
    * This parameter is used for Anagate devices. It is ignored for SocketCAN
    * devices.
    */
-  std::optional<std::string> bus_address;
+  std::optional<uint32_t> bus_address;
 
   /**
    * @brief The host address for the CAN device.

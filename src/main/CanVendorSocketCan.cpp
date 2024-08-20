@@ -35,7 +35,7 @@ int CanVendorSocketCan::vendor_open() {
   // Set up the CAN interface
   struct ifreq ifr;
   strcpy(ifr.ifr_name,  // NOLINT: Recipe from Offical SocketCan documentation
-         configuration().vendor_config.c_str());
+         args().config.bus_name.value().c_str());
   if (ioctl(socket_fd, SIOCGIFINDEX, &ifr) < 0) {
     ::close(socket_fd);
     return -1;  // Failed to get interface index

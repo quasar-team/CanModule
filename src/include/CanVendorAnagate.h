@@ -33,6 +33,7 @@ namespace AnagateConstants {
 constexpr int EXTENDED_ID = 1 << 0;
 constexpr int REMOTE_REQUEST = 1 << 1;
 constexpr char empty_message[8] = {0};
+constexpr uint32_t default_timeout = 6000;
 }  // namespace AnagateConstants
 
 #endif  // SRC_INCLUDE_CANVENDORANAGATE_H_

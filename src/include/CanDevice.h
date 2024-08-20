@@ -17,27 +17,24 @@ struct CanDevice {
   std::vector<int> send(const std::vector<CanFrame>& frames);
 
   inline std::string vendor_name() const { return m_vendor; }
-  inline const CanDeviceArguments& configuration() const {
-    return m_configuration;
-  }
+  inline const CanDeviceArguments& args() const { return m_args; }
   virtual ~CanDevice() = default;
 
   static std::unique_ptr<CanDevice> create(
       std::string_view vendor, const CanDeviceArguments& configuration);
 
  protected:
-  CanDevice(std::string_view vendor_name,
-            const CanDeviceArguments& configuration)
-      : m_vendor{vendor_name}, m_configuration{configuration} {}
+  CanDevice(std::string_view vendor_name, const CanDeviceArguments& args)
+      : m_vendor{vendor_name}, m_args{args} {}
 
   virtual int vendor_open() = 0;
   virtual int vendor_close() = 0;
   virtual int vendor_send(const CanFrame& frame) = 0;
-  void received(const CanFrame& frame) { m_configuration.receiver(frame); }
+  void received(const CanFrame& frame) { m_args.receiver(frame); }
 
  private:
   const std::string m_vendor;
-  const CanDeviceArguments m_configuration;
+  const CanDeviceArguments m_args;
 };
 
 #endif  // SRC_INCLUDE_CANDEVICE_H_

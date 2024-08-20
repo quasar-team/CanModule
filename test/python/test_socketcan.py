@@ -2,8 +2,10 @@ from time import sleep
 import pytest
 from common import *
 
-DEVICE_ONE = "vcan0"
-DEVICE_TWO = "vcan0"
+DEVICE_ONE = CanDeviceConfiguration()
+DEVICE_ONE.bus_name = "vcan0"
+DEVICE_TWO = CanDeviceConfiguration()
+DEVICE_TWO.bus_name = "vcan0"
 
 
 def test_socketcan_single_message():

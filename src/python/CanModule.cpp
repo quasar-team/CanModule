@@ -42,14 +42,14 @@ PYBIND11_MODULE(canmodule, m) {
       .def("send", py::overload_cast<const CanFrame&>(&CanDevice::send))
       .def("send",
            py::overload_cast<const std::vector<CanFrame>&>(&CanDevice::send))
-      .def("vendor_name", &CanDevice::vendor_name)
-      .def("configuration", &CanDevice::configuration)
+      .def("args", &CanDevice::args)
       .def_static("create", &CanDevice::create);
 
   py::class_<CanDeviceArguments>(m, "CanDeviceArguments")
-      .def(py::init<const std::string&,
-                    const std::function<void(const CanFrame&)>&>())
-      .def_readonly("vendor_config", &CanDeviceArguments::vendor_config)
+      .def(py::init<const CanDeviceConfiguration&,
+                    const std::function<void(const CanFrame&)>&>(),
+           py::arg("config"), py::arg("receiver"))
+      .def_readwrite("config", &CanDeviceArguments::config)
       .def("set_receiver",
            [](CanDeviceArguments& self,
               const std::function<void(const CanFrame&)>& recv) {

@@ -62,7 +62,9 @@ void anagate_receive(AnaInt32 nIdentifier, const char *pcBuffer,
 
 int CanVendorAnagate::vendor_open() {
   const AnaInt32 result = CANOpenDevice(
-      &m_handle, false, true, 0, configuration().vendor_config.c_str(), 1000);
+      &m_handle, true, true, args().config.bus_address.value(),
+      args().config.host.value().c_str(),
+      args().config.timeout.value_or(AnagateConstants::default_timeout));
   CANSetCallback(m_handle, reinterpret_cast<CAN_PF_CALLBACK>(anagate_receive));
   std::lock_guard<std::mutex> guard(CanVendorAnagate::m_handles_lock);
   CanVendorAnagate::m_handles[m_handle] = this;
