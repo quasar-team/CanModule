@@ -56,4 +56,14 @@ PYBIND11_MODULE(canmodule, m) {
              const_cast<std::function<void(const CanFrame&)>&>(self.receiver) =
                  recv;
            });
+
+  py::class_<CanDeviceConfiguration>(m, "CanDeviceConfiguration")
+      .def(py::init<>())
+      .def_readwrite("bus_name", &CanDeviceConfiguration::bus_name)
+      .def_readwrite("bus_address", &CanDeviceConfiguration::bus_address)
+      .def_readwrite("host", &CanDeviceConfiguration::host)
+      .def_readwrite("bitrate", &CanDeviceConfiguration::bitrate)
+      .def_readwrite("enable_termination",
+                     &CanDeviceConfiguration::enable_termination)
+      .def_readwrite("timeout", &CanDeviceConfiguration::timeout);
 }

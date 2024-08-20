@@ -2,6 +2,9 @@
 
 #include <AnaGateDllCan.h>
 
+#include <iostream>
+#include <memory>
+#include <mutex>  // NOLINT
 /*
 
 CANOpenDevice — Opens an network connection (TCP)
@@ -34,18 +37,59 @@ codes
 ).
 */
 
+std::mutex CanVendorAnagate::m_handles_lock;
+std::map<int, CanVendorAnagate *> CanVendorAnagate::m_handles;
+
+void anagate_receive(AnaInt32 nIdentifier, const char *pcBuffer,
+                     AnaInt32 nBufferLen, AnaInt32 nFlags, AnaInt32 hHandle) {
+  uint32_t flags{0};
+  (nFlags & AnagateConstants::EXTENDED_ID) ? flags |= CanFlags::EXTENDED_ID : 0;
+  (nFlags & AnagateConstants::REMOTE_REQUEST)
+      ? flags |= CanFlags::REMOTE_REQUEST
+      : 0;
+  auto o = CanVendorAnagate::m_handles[hHandle];
+  if (o != nullptr) {
+    if (flags & CanFlags::REMOTE_REQUEST) {
+      o->received(CanFrame{static_cast<uint32_t>(nIdentifier),
+                           static_cast<uint32_t>(nBufferLen), flags});
+    } else {
+      o->received(CanFrame{static_cast<uint32_t>(nIdentifier),
+                           std::vector<char>(pcBuffer, pcBuffer + nBufferLen),
+                           flags});
+    }
+  }
+}
+
 int CanVendorAnagate::vendor_open() {
   const AnaInt32 result = CANOpenDevice(
-      &m_handle, TRUE, TRUE, 0, configuration().vendor_config.c_str(), 1000);
+      &m_handle, false, true, 0, configuration().vendor_config.c_str(), 1000);
+  CANSetCallback(m_handle, reinterpret_cast<CAN_PF_CALLBACK>(anagate_receive));
+  std::lock_guard<std::mutex> guard(CanVendorAnagate::m_handles_lock);
+  CanVendorAnagate::m_handles[m_handle] = this;
   return static_cast<int>(result);
 }
 
 int CanVendorAnagate::vendor_send(const CanFrame &frame) {
-  frame.id();
-  return 0;
+  int anagate_flags{0};
+  anagate_flags |= frame.is_extended_id() ? AnagateConstants::EXTENDED_ID : 0;
+  anagate_flags |=
+      frame.is_remote_request() ? AnagateConstants::REMOTE_REQUEST : 0;
+
+  const int sent_status =
+      frame.is_remote_request()
+          ? CANWrite(m_handle, frame.id(), AnagateConstants::empty_message,
+                     frame.length(), anagate_flags)
+          : CANWrite(m_handle, frame.id(), frame.message().data(),
+                     frame.length(), anagate_flags);
+  return sent_status;
 }
 
-int CanVendorAnagate::vendor_close() { return 0; }
+int CanVendorAnagate::vendor_close() {
+  const int r = CANCloseDevice(m_handle);
+  std::lock_guard<std::mutex> guard(CanVendorAnagate::m_handles_lock);
+  CanVendorAnagate::m_handles.erase(m_handle);
+  return r;
+}
 
 // int vendor_open() {
 // int CanVendorAnagate::vendor_open() {
