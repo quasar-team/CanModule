@@ -60,6 +60,9 @@ if (UNIX)
 else()
     target_link_libraries(CanModuleMain PRIVATE
                             ${anagate_SOURCE_DIR}/lib/AnaGateCanDll64.lib)
+    set(DLL_PATH ${anagate_SOURCE_DIR}/lib/AnaGateCan64.dll)
+    set(BINARY_DLL_PATH ${CMAKE_BINARY_DIR}/AnaGateCan64.dll)
+    configure_file(${DLL_PATH} ${BINARY_DLL_PATH} COPYONLY)
 endif()
 
 # Treat warnings as errors
