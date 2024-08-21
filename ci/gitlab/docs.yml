@@ -1,4 +1,4 @@
-Build Documentation:
+pages: # Build documentation, the name is a requirement from Gitlab Pages
   stage: unstagged
   image: $CI_REGISTRY_IMAGE/alma9-build:latest
   script:
