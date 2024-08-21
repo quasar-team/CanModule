@@ -3,7 +3,7 @@ FROM gitlab-registry.cern.ch/linuxsupport/alma9-base:latest
 ADD trigger /trigger
 RUN dnf install -y epel-release &&\
     dnf update -y &&\
-    dnf install -y cmake ninja-build g++ cppcheck nano git git-lfs python-pip &&\
+    dnf install -y cmake ninja-build g++ cppcheck nano git git-lfs python-pip doxygen &&\
     dnf clean all
 RUN pip install pre-commit clang-format
 
