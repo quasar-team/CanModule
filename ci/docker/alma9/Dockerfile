@@ -1,7 +1,10 @@
 FROM gitlab-registry.cern.ch/linuxsupport/alma9-base:latest
 
 ADD trigger /trigger
-RUN dnf install -y cmake ninja-build g++ nano git git-lfs
+RUN dnf install -y cmake ninja-build g++ nano git git-lfs python-pip &&\
+    dnf clean all
+RUN pip install pre-commit
+
 RUN echo Triggered at: $(cat /trigger) >> /ISSUE &&\
     echo "*******************" >> /ISSUE &&\
     g++ --version &> /ISSUE &&\
