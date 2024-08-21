@@ -8,8 +8,7 @@
 #include "CanDevice.h"
 #include "CanVendorLoopback.h"
 
-struct CanVendorAnagate : CanDevice,
-                          std::enable_shared_from_this<CanVendorAnagate> {
+struct CanVendorAnagate : CanDevice {
   friend void anagate_receive(AnaInt32 nIdentifier, const char *pcBuffer,
                               AnaInt32 nBufferLen, AnaInt32 nFlags,
                               AnaInt32 hHandle);

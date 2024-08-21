@@ -1,6 +1,12 @@
 
 # Developer Guide
 
+## Dependencies
+
+- In Linux, you must install the `libsocketcan-devel` package.
+- Other dependencies are resolved automatically after setting the variable `ICS_REPO_DEPS_TOKEN=[value]` to
+your environment (`.env` file). The value is in the group `jcop-opc-ua` configuration of Gitlab CI/CD (gitlab.cern.ch).
+
 ## Development environment
 
 - Alma 9
@@ -9,9 +15,6 @@
 
 Windows works too for development, installing all dependencies with Chocolatey, but you cannot
 compile (nor debug) with SocketCan support.
-
-Add the variable `ICS_REPO_DEPS_TOKEN=[value]` to your environment (`.env` file) with the value that you can obtain
-in the group `jcop-opc-ua` configuration of Gitlab CI/CD (gitlab.cern.ch).
 
 ## Setup pre-commit hooks (recommended)
 

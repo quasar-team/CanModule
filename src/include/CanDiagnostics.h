@@ -1,5 +1,5 @@
-#ifndef SRC_INCLUDE_CANDIAGNOSTIC_H_
-#define SRC_INCLUDE_CANDIAGNOSTIC_H_
+#ifndef SRC_INCLUDE_CANDIAGNOSTICS_H_
+#define SRC_INCLUDE_CANDIAGNOSTICS_H_
 
 #include <optional>
 #include <string>
@@ -16,7 +16,7 @@ using optional_uint32_vector_t = std::optional<std::vector<u_int32_t>>;
  * to CAN communication. The fields are wrapped in std::optional to indicate
  * that they may not always be available.
  */
-struct CanDiagnostic {
+struct CanDiagnostics {
   optional_string_vector_t log_entries;  ///< Optional vector of log entries.
 
   optional_string_t name;     ///< Optional SocketCAN device name.
@@ -71,4 +71,4 @@ struct CanDiagnostic {
                                              ///< counter for Anagate devices.
 };
 
-#endif  // SRC_INCLUDE_CANDIAGNOSTIC_H_
+#endif  // SRC_INCLUDE_CANDIAGNOSTICS_H_

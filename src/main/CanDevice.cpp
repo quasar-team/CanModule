@@ -61,6 +61,20 @@ std::vector<int> CanDevice::send(const std::vector<CanFrame> &frames) {
 }
 
 /**
+ * @brief Retrieves diagnostic information from the CAN device.
+ *
+ * This function retrieves and returns diagnostic information from the CAN
+ * device using the vendor-specific implementation. The returned object contains
+ * various parameters such as error counters, bus status, and other relevant
+ * diagnostic data.
+ *
+ * @return CanDiagnostics A structure containing diagnostic information.
+ * The structure is defined in the CanDiagnostics.h header file. Each field is
+ * optional and depends on the vendor-specific implementation.
+ */
+// CanDiagnostics CanDevice::diagnostics() { return vendor_diagnostics(); }
+
+/**
  * @brief Creates a CAN device instance based on the specified vendor.
  *
  * This function creates and returns a unique pointer to a CAN device object

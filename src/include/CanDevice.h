@@ -8,6 +8,7 @@
 #include <vector>
 
 #include "CanDeviceArguments.h"
+#include "CanDiagnostics.h"
 #include "CanFrame.h"
 
 struct CanDevice {
@@ -15,6 +16,7 @@ struct CanDevice {
   int close();
   int send(const CanFrame& frame);
   std::vector<int> send(const std::vector<CanFrame>& frames);
+  // CanDiagnostics diagnostics();
 
   inline std::string vendor_name() const { return m_vendor; }
   inline const CanDeviceArguments& args() const { return m_args; }
@@ -30,6 +32,8 @@ struct CanDevice {
   virtual int vendor_open() = 0;
   virtual int vendor_close() = 0;
   virtual int vendor_send(const CanFrame& frame) = 0;
+  // virtual CanDiagnostics vendor_diagnostics() = 0;
+
   void received(const CanFrame& frame) { m_args.receiver(frame); }
 
  private:
