@@ -7,7 +7,6 @@ include:
   - local: ci/gitlab/normal.yml
     rules:
       - if: $DOCKER_GENERATION != "true"
-        when: never
   - local: ci/gitlab/docker.yml
     rules:
       - if: $DOCKER_GENERATION == "true"
