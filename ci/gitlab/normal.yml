@@ -1,7 +1,3 @@
-workflow:
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "api"
-
 Compile on Windows:
   stage: unstagged
   image: $CI_REGISTRY_IMAGE/win2022-build:latest
