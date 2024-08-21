@@ -18,4 +18,5 @@ include:
 empty:
   stage: unstagged
   script: exit 1
-  when: never
+  rules:
+    - when: never
