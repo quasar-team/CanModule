@@ -1,6 +1,3 @@
-stages:
-  - unstagged
-
 workflow:
   rules:
     - if: $CI_PIPELINE_SOURCE == "api"
