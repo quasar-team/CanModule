@@ -32,6 +32,8 @@ Compile on Linux:
 Google Tests on Windows:
   stage: unstagged
   image: $CI_REGISTRY_IMAGE/win2022-build:latest
+  tags:
+    - win2022-container
   needs:
     - Compile on Windows
   script:
