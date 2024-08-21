@@ -1,3 +1,6 @@
+stages:
+  - unstagged
+
 Docker Image Alma 9:
   stage: unstagged
   image:
