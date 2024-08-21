@@ -1,7 +1,7 @@
 #ifndef SRC_INCLUDE_CANFRAME_H_
 #define SRC_INCLUDE_CANFRAME_H_
 
-#include <cstdint>
+#include <stdexcept>
 #include <vector>
 
 /**
@@ -31,7 +31,7 @@ struct CanFrame {
            const uint32_t flags)
       : m_id(id), m_requested_length(requested_length), m_flags(flags) {
     if (!is_remote_request()) {
-      return;
+      throw std::invalid_argument("Invalid CAN frame: Remote Flag is not set.");
     }
     validate_frame();
   }
@@ -71,12 +71,6 @@ struct CanFrame {
       : m_id(id), m_message(message), m_flags(flags) {
     validate_frame();
   }
-
-  /**
-   * @brief Checks if the CAN frame is valid.
-   * @return True if the frame is valid, false otherwise.
-   */
-  inline bool is_valid() const { return m_valid; }
 
   /**
    * @brief Gets the identifier of the CAN frame.
@@ -148,8 +142,7 @@ struct CanFrame {
   bool operator==(const CanFrame& other) const {
     return m_id == other.m_id &&
            m_requested_length == other.m_requested_length &&
-           m_message == other.m_message && m_flags == other.m_flags &&
-           m_valid == other.m_valid;
+           m_message == other.m_message && m_flags == other.m_flags;
   }
 
   /**
@@ -165,7 +158,6 @@ struct CanFrame {
       0};  ///< The requested length of the CAN frame.
   const std::vector<char> m_message;  ///< The message content of the CAN frame.
   const uint32_t m_flags{};  ///< The flags associated with the CAN frame.
-  bool m_valid{false};       ///< Indicates if the CAN frame is valid.
 
   /**
    * @brief Checks if the identifier fits in 11 bits.

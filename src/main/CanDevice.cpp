@@ -39,12 +39,7 @@ int CanDevice::close() { return vendor_close(); }
  * @param frame The CAN frame to be sent. It must be a valid frame.
  * @return int Returns 0 on success, or a non-zero error code on failure.
  */
-int CanDevice::send(const CanFrame &frame) {
-  if (frame.is_valid()) {
-    return vendor_send(frame);
-  }
-  return 1;
-}
+int CanDevice::send(const CanFrame &frame) { return vendor_send(frame); }
 
 /**
  * @brief Sends multiple CAN frames.

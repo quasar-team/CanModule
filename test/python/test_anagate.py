@@ -2,8 +2,13 @@ from time import sleep
 import pytest
 from common import *
 
-DEVICE_ONE = "128.141.159.236,0"
-DEVICE_TWO = "128.141.159.236,1"
+DEVICE_ONE = CanDeviceConfiguration()
+DEVICE_ONE.host = "128.141.159.236"
+DEVICE_ONE.bus_address = 0
+
+DEVICE_TWO = CanDeviceConfiguration()
+DEVICE_TWO.host = "128.141.159.236"
+DEVICE_TWO.bus_address = 1
 
 
 def test_anagate_single_message():
@@ -11,16 +16,16 @@ def test_anagate_single_message():
     received_frames_dev2 = []
 
     myDevice1 = CanDevice.create(
-        "anagate", CanDeviceArguments("128.141.159.236", received_frames_dev1.append)
+        "anagate", CanDeviceArguments(DEVICE_ONE, received_frames_dev1.append)
     )
 
     myDevice2 = CanDevice.create(
-        "anagate", CanDeviceArguments("128.141.159.236", received_frames_dev2.append)
+        "anagate", CanDeviceArguments(DEVICE_TWO, received_frames_dev2.append)
     )
-    print(f"Open Device 1: {myDevice1.open()}")
-    print(f"Open Device 2: {myDevice2.open()}")
+    myDevice1.open()
+    myDevice2.open()
 
-    print(f"Send message: {myDevice1.send(CanFrame(123, ['H', 'e', 'l', 'l', 'o']))}")
+    myDevice1.send(CanFrame(123, ["H", "e", "l", "l", "o"]))
 
     sleep(0.1)
 
@@ -36,15 +41,14 @@ def test_anagate_multiple_messages():
     received_frames_dev2 = []
 
     myDevice1 = CanDevice.create(
-        "anagate", CanDeviceArguments("128.141.159.236", received_frames_dev1.append)
+        "anagate", CanDeviceArguments(DEVICE_ONE, received_frames_dev1.append)
     )
 
     myDevice2 = CanDevice.create(
-        "anagate", CanDeviceArguments("128.141.159.236", received_frames_dev2.append)
+        "anagate", CanDeviceArguments(DEVICE_TWO, received_frames_dev2.append)
     )
-    print(f"Open Device 1: {myDevice1.open()}")
-    print(f"Open Device 2: {myDevice2.open()}")
-
+    myDevice1.open()
+    myDevice2.open()
     send_frames = [
         CanFrame(123, ["H", "e", "l", "l", "o"]),
         CanFrame(234, ["W", "o", "r", "l", "d"]),

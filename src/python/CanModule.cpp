@@ -19,7 +19,6 @@ PYBIND11_MODULE(canmodule, m) {
            py::arg("message"))
       .def(py::init<const uint32_t, const std::vector<char>&, const uint32_t>(),
            py::arg("id"), py::arg("message"), py::arg("flags"))
-      .def("is_valid", &CanFrame::is_valid)
       .def("id", &CanFrame::id)
       .def("message", &CanFrame::message)
       .def("flags", &CanFrame::flags)
