@@ -1,7 +1,7 @@
 FROM gitlab-registry.cern.ch/linuxsupport/alma9-base:latest
 
 ADD trigger /trigger
-RUN dnf install epel-release &&\
+RUN dnf install -y epel-release &&\
     dnf update &&\
     dnf install -y cmake ninja-build g++ cppcheck nano git git-lfs python-pip &&\
     dnf clean all
