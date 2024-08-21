@@ -61,7 +61,9 @@ target_link_libraries(CanModuleMain PRIVATE
 if (CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
     target_compile_options(CanModuleMain PRIVATE -Wall -Wextra -Werror)
 elseif (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
-    target_compile_options(CanModuleMain PRIVATE /W4 /WX)
+    # target_compile_options(CanModuleMain PRIVATE /W4 /WX)
+    # I need to disable that feature due to a macro redefinition
+    # in the header of Anagate software
 endif()
 
 include(cmake/pybind11.cmake)

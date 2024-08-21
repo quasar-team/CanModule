@@ -7,7 +7,7 @@
 
 using optional_string_vector_t = std::optional<std::vector<std::string>>;
 using optional_string_t = std::optional<std::string>;
-using optional_uint32_vector_t = std::optional<std::vector<u_int32_t>>;
+using optional_uint32_vector_t = std::optional<std::vector<uint32_t>>;
 
 /**
  * @brief CanDiagnostic struct to store diagnostic information.
@@ -25,7 +25,7 @@ struct CanDiagnostics {
       mode;  ///< Optional mode for both SocketCAN and Anagate devices.
   optional_string_t
       state;  ///< Optional state for both SocketCAN and Anagate devices.
-  std::optional<u_int32_t>
+  std::optional<uint32_t>
       bitrate;  ///< Optional bitrate for both SocketCAN and Anagate devices.
 
   optional_string_vector_t
@@ -37,38 +37,36 @@ struct CanDiagnostics {
   optional_uint32_vector_t
       connected_clients_ports;  ///< Optional vector of connected clients' ports
                                 ///< for Anagate devices.
-  std::optional<u_int32_t>
+  std::optional<uint32_t>
       number_connected_clients;  ///< Optional number of connected clients for
                                  ///< Anagate devices.
 
   std::optional<float>
       temperature;  ///< Optional temperature reading for Anagate devices.
-  std::optional<u_int32_t> uptime;  ///< Optional uptime for Anagate devices.
+  std::optional<uint32_t> uptime;  ///< Optional uptime for Anagate devices.
 
-  std::optional<u_int32_t> countTCPRx;  ///< Optional TCP Received counter for
-                                        ///< both SocketCAN and Anagate devices.
-  std::optional<u_int32_t>
-      countTCPTx;  ///< Optional TCP Transmitted counter for both SocketCAN and
-                   ///< Anagate devices.
-  std::optional<u_int32_t> countCANRx;  ///< Optional CAN Received counter for
-                                        ///< both SocketCAN and Anagate devices.
-  std::optional<u_int32_t>
-      countCANTx;  ///< Optional CAN Transmitted counter for both SocketCAN and
-                   ///< Anagate devices.
-  std::optional<u_int32_t>
+  std::optional<uint32_t> countTCPRx;  ///< Optional TCP Received counter for
+                                       ///< both SocketCAN and Anagate devices.
+  std::optional<uint32_t> countTCPTx;  ///< Optional TCP Transmitted counter for
+                                       ///< both SocketCAN and Anagate devices.
+  std::optional<uint32_t> countCANRx;  ///< Optional CAN Received counter for
+                                       ///< both SocketCAN and Anagate devices.
+  std::optional<uint32_t> countCANTx;  ///< Optional CAN Transmitted counter for
+                                       ///< both SocketCAN and Anagate devices.
+  std::optional<uint32_t>
       countCANRxErr;  ///< Optional CAN Bus Receive Error counter for both
                       ///< SocketCAN and Anagate devices.
-  std::optional<u_int32_t>
+  std::optional<uint32_t>
       countCANTxErr;  ///< Optional CAN Bus Transmit Error counter for both
                       ///< SocketCAN and Anagate devices.
-  std::optional<u_int32_t>
+  std::optional<uint32_t>
       countCANRxDisc;  ///< Optional CAN Discarded Rx Full Queue counter for
                        ///< Anagate devices.
-  std::optional<u_int32_t>
+  std::optional<uint32_t>
       countCANTxDisc;  ///< Optional CAN Discarded Tx Full Queue counter for
                        ///< Anagate devices.
-  std::optional<u_int32_t> countCANTimeout;  ///< Optional CAN Transmit Timeout
-                                             ///< counter for Anagate devices.
+  std::optional<uint32_t> countCANTimeout;  ///< Optional CAN Transmit Timeout
+                                            ///< counter for Anagate devices.
 };
 
 #endif  // SRC_INCLUDE_CANDIAGNOSTICS_H_
