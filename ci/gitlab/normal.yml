@@ -44,13 +44,6 @@ Google Tests on Linux:
   script:
     - ctest --test-dir build
 
-Build Documentation:
-  stage: unstagged
-  image: $CI_REGISTRY_IMAGE/alma9-build:latest
-  script:
-    - echo "Building Documentation..."
-    # Add your documentation build commands here
-
 Run Sanity Checks:
   stage: unstagged
   image: $CI_REGISTRY_IMAGE/alma9-build:latest
