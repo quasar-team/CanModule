@@ -52,10 +52,16 @@ include(cmake/anagate.cmake)
 
 add_library(CanModuleMain ${SOURCES} ${VENDOR_SOURCES})
 target_include_directories(CanModuleMain PRIVATE ${logit_SOURCE_DIR}/include ${anagate_SOURCE_DIR}/include)
-target_link_libraries(CanModuleMain PRIVATE
-                        ${anagate_SOURCE_DIR}/lib/libAnaGateExtStaticRelease.so
-                        ${anagate_SOURCE_DIR}/lib/libAnaGateStaticRelease.so
-                        ${anagate_SOURCE_DIR}/lib/libCANDLLStaticRelease64.so)
+if (UNIX)
+    target_link_libraries(CanModuleMain PRIVATE
+                            ${anagate_SOURCE_DIR}/lib/libAnaGateExtStaticRelease.so
+                            ${anagate_SOURCE_DIR}/lib/libAnaGateStaticRelease.so
+                            ${anagate_SOURCE_DIR}/lib/libCANDLLStaticRelease64.so)
+else()
+    target_link_libraries(CanModuleMain PRIVATE
+                            ${anagate_SOURCE_DIR}/lib/AnaGateCanDll64.lib
+                            ${anagate_SOURCE_DIR}/lib/AnaGateCan64.dll)
+endif()
 
 # Treat warnings as errors
 if (CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
