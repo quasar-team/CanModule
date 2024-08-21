@@ -1,5 +1,3 @@
-image: gitlab-registry.cern.ch/linuxsupport/alma9-base:latest
-
 stages:
   - unstagged
 
@@ -7,48 +5,7 @@ workflow:
   rules:
     - if: $CI_PIPELINE_SOURCE == "api"
 
-# Docker Image Alma 9:
-#   stage: unstagged
-#   image:
-#     name: gcr.io/kaniko-project/executor:v1.23.2-debug
-#     entrypoint: [""]
-#   script:
-#     - /kaniko/executor
-#       --context "${CI_PROJECT_DIR}"/ci/docker/alma9/
-#       --dockerfile "${CI_PROJECT_DIR}"/ci/docker/alma9/Dockerfile
-#       --destination "${CI_REGISTRY_IMAGE}/alma9-build:${CI_COMMIT_SHORT_SHA}"
-#       --destination "${CI_REGISTRY_IMAGE}/alma9-build:latest"
-#   before_script:
-#         - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
-#   rules:
-#     - changes:
-#         paths:
-#           - ci/docker/alma9/trigger
-#         compare_to: "main"
-#     - when: never
-
-# Docker Image Windows 2022:
-#   stage: unstagged
-#   tags:
-#     - powershell-win2022
-#   script:
-#     - cd ci/docker/w2022/
-#     - docker login -u $env:CI_REGISTRY_USER -p $env:CI_REGISTRY_PASSWORD $env:CI_REGISTRY
-#     - docker build --no-cache -t $env:CI_REGISTRY_IMAGE/win2022-build:$env:CI_COMMIT_SHORT_SHA  .
-#     - docker tag $env:CI_REGISTRY_IMAGE/win2022-build:$env:CI_COMMIT_SHORT_SHA  $env:CI_REGISTRY_IMAGE/win2022-build:latest
-#     - docker push $env:CI_REGISTRY_IMAGE/win2022-build:$env:CI_COMMIT_SHORT_SHA
-#     - docker push $env:CI_REGISTRY_IMAGE/win2022-build:latest
-#   rules:
-#     - changes:
-#         paths:
-#           - ci/docker/w2022/trigger
-#         compare_to: "main"
-#     - when: never
-
 Compile on Windows:
-  # needs:
-  #   - job: Docker Image Windows 2022
-  #     optional: true
   stage: unstagged
   image: $CI_REGISTRY_IMAGE/win2022-build:latest
   tags:
@@ -59,22 +16,22 @@ Compile on Windows:
   artifacts:
     paths:
       - build/
+    when: always
 
 Compile on Linux:
-  # needs:
-  #   - job: Docker Image Alma 9
-  #     optional: true
-  image: $CI_REGISTRY_IMAGE/alma9-build:latest
   stage: unstagged
+  image: $CI_REGISTRY_IMAGE/alma9-build:latest
   script:
     - cmake -B build
     - cmake --build build --config Release
   artifacts:
     paths:
       - build/
+    when: always
 
 Google Tests on Windows:
   stage: unstagged
+  image: $CI_REGISTRY_IMAGE/win2022-build:latest
   needs:
     - Compile on Windows
   script:
@@ -82,6 +39,7 @@ Google Tests on Windows:
 
 Google Tests on Linux:
   stage: unstagged
+  image: $CI_REGISTRY_IMAGE/alma9-build:latest
   needs:
     - Compile on Linux
   script:
@@ -89,25 +47,14 @@ Google Tests on Linux:
 
 Build Documentation:
   stage: unstagged
+  image: $CI_REGISTRY_IMAGE/alma9-build:latest
   script:
     - echo "Building Documentation..."
     # Add your documentation build commands here
 
 Run Sanity Checks:
   stage: unstagged
+  image: $CI_REGISTRY_IMAGE/alma9-build:latest
   script:
-    - echo "Running Sanity Checks..."
-    # Add your sanity check commands here
-
-Create Release:
-  stage: unstagged
-  needs:
-    - Compile on Windows
-    - Compile on Linux
-  script:
-    - echo "Creating Release..."
-    # Combine the compiled artifacts from Windows and Linux
-    # Add your release creation commands here
-  artifacts:
-    paths:
-      - release/
+    - pip install pre-commit
+    - pre-commit run --all-files

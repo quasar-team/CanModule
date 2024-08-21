@@ -1,0 +1,37 @@
+# Docker Image Alma 9:
+#   stage: unstagged
+#   image:
+#     name: gcr.io/kaniko-project/executor:v1.23.2-debug
+#     entrypoint: [""]
+#   script:
+#     - /kaniko/executor
+#       --context "${CI_PROJECT_DIR}"/ci/docker/alma9/
+#       --dockerfile "${CI_PROJECT_DIR}"/ci/docker/alma9/Dockerfile
+#       --destination "${CI_REGISTRY_IMAGE}/alma9-build:${CI_COMMIT_SHORT_SHA}"
+#       --destination "${CI_REGISTRY_IMAGE}/alma9-build:latest"
+#   before_script:
+#         - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
+#   rules:
+#     - changes:
+#         paths:
+#           - ci/docker/alma9/trigger
+#         compare_to: "main"
+#     - when: never
+
+# Docker Image Windows 2022:
+#   stage: unstagged
+#   tags:
+#     - powershell-win2022
+#   script:
+#     - cd ci/docker/w2022/
+#     - docker login -u $env:CI_REGISTRY_USER -p $env:CI_REGISTRY_PASSWORD $env:CI_REGISTRY
+#     - docker build --no-cache -t $env:CI_REGISTRY_IMAGE/win2022-build:$env:CI_COMMIT_SHORT_SHA  .
+#     - docker tag $env:CI_REGISTRY_IMAGE/win2022-build:$env:CI_COMMIT_SHORT_SHA  $env:CI_REGISTRY_IMAGE/win2022-build:latest
+#     - docker push $env:CI_REGISTRY_IMAGE/win2022-build:$env:CI_COMMIT_SHORT_SHA
+#     - docker push $env:CI_REGISTRY_IMAGE/win2022-build:latest
+#   rules:
+#     - changes:
+#         paths:
+#           - ci/docker/w2022/trigger
+#         compare_to: "main"
+#     - when: never
