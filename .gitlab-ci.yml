@@ -1,0 +1,20 @@
+image: gitlab-registry.cern.ch/linuxsupport/alma9-base:latest
+
+stages:
+  - unstagged
+
+include:
+  - local: ci/gitlab/docs.yml
+    rules:
+      - if: $DOCUMENTATION_GENERATION == "true" && $CI_PIPELINE_SOURCE == "schedule"
+  - local: ci/gitlab/normal.yml
+    rules:
+      - if: $CI_PIPELINE_SOURCE == "api"  # Source Github-Gitlab bridge
+  - local: ci/gitlab/docker.yml
+    rules:
+      - if: $DOCKER_GENERATION == "true" && $CI_PIPELINE_SOURCE == "schedule"
+
+# Empty job, as gitlab-ci requires at least one job
+empty:
+  stage: unstagged
+  script: exit 0

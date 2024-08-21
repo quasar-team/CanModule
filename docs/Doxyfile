@@ -1,0 +1,12 @@
+# Doxyfile
+
+PROJECT_NAME           = "CanModule"
+OUTPUT_DIRECTORY       = ../public/
+HTML_OUTPUT            = .
+INPUT                  = ../src ../README.md
+RECURSIVE              = YES
+GENERATE_LATEX         = NO
+GENERATE_HTML          = YES
+GENERATE_MAN           = NO
+GENERATE_XML           = NO
+USE_MDFILE_AS_MAINPAGE = ../README.md

@@ -1,0 +1,8 @@
+Build Documentation:
+  stage: unstagged
+  image: $CI_REGISTRY_IMAGE/alma9-build:latest
+  script:
+    - cd docs && doxygen
+  artifacts:
+    paths:
+      - public/

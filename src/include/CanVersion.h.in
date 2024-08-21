@@ -1,0 +1,11 @@
+#ifndef SRC_INCLUDE_CANVERSION_H_
+#define SRC_INCLUDE_CANVERSION_H_
+
+#include <string>
+
+namespace CanModule::Version {
+    constexpr std::string_view value{"@GIT_COMMIT_HASH@"};
+    constexpr std::string_view date{"@GIT_COMMIT_DATE@"};
+};
+
+#endif  // SRC_INCLUDE_CANVERSION_H_

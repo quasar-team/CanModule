@@ -1,0 +1,48 @@
+Compile on Windows:
+  stage: unstagged
+  image: $CI_REGISTRY_IMAGE/win2022-build:latest
+  tags:
+    - win2022-container
+  script:
+    - cmake -B build
+    - cmake --build build --config Release
+  artifacts:
+    paths:
+      - build/
+    when: always
+
+Compile on Linux:
+  stage: unstagged
+  image: $CI_REGISTRY_IMAGE/alma9-build:latest
+  script:
+    - cmake -B build
+    - cmake --build build --config Release
+  artifacts:
+    paths:
+      - build/
+    when: always
+
+Google Tests on Windows:
+  stage: unstagged
+  image: $CI_REGISTRY_IMAGE/win2022-build:latest
+  tags:
+    - win2022-container
+  needs:
+    - Compile on Windows
+  script:
+    - ctest --test-dir build
+
+Google Tests on Linux:
+  stage: unstagged
+  image: $CI_REGISTRY_IMAGE/alma9-build:latest
+  needs:
+    - Compile on Linux
+  script:
+    - ctest --test-dir build
+
+Run Sanity Checks:
+  stage: unstagged
+  image: $CI_REGISTRY_IMAGE/alma9-build:latest
+  script:
+    - pip install pre-commit
+    - pre-commit run --all-files
