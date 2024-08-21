@@ -17,4 +17,5 @@ include:
 # Empty job, as gitlab-ci requires at least one job
 empty:
   stage: unstagged
-  script: exit 0
+  script: exit 1
+  when: never
