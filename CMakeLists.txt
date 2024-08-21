@@ -59,8 +59,7 @@ if (UNIX)
                             ${anagate_SOURCE_DIR}/lib/libCANDLLStaticRelease64.so)
 else()
     target_link_libraries(CanModuleMain PRIVATE
-                            ${anagate_SOURCE_DIR}/lib/AnaGateCanDll64.lib
-                            ${anagate_SOURCE_DIR}/lib/AnaGateCan64.dll)
+                            ${anagate_SOURCE_DIR}/lib/AnaGateCanDll64.lib)
 endif()
 
 # Treat warnings as errors
