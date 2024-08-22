@@ -15,7 +15,6 @@ Compile on Linux:
   stage: unstagged
   image: $CI_REGISTRY_IMAGE/alma9-build:latest
   script:
-    - dnf install -y libsocketcan-devel
     - cmake -B build
     - cmake --build build --config Release
   artifacts:

@@ -2,12 +2,28 @@
 
 #include <AnaGateDllCan.h>
 
+#include <iomanip>
 #include <iostream>
 #include <memory>
 #include <mutex>  // NOLINT
 
 std::mutex CanVendorAnagate::m_handles_lock;
 std::map<int, CanVendorAnagate *> CanVendorAnagate::m_handles;
+
+auto anagate_convert_timestamp = [](AnaInt64 timestamp) {
+  std::time_t time = static_cast<std::time_t>(timestamp);
+  std::tm *local_time = std::localtime(&time);
+  std::ostringstream timestamp_stream;
+  timestamp_stream << std::put_time(local_time, "%Y-%m-%d %H:%M:%S");
+  return timestamp_stream.str();
+};
+
+auto anagate_convert_ip = [](AnaUInt32 ip) {
+  std::ostringstream ip_stream;
+  ip_stream << ((ip >> 24) & 0xFF) << "." << ((ip >> 16) & 0xFF) << "."
+            << ((ip >> 8) & 0xFF) << "." << (ip & 0xFF);
+  return ip_stream.str();
+};
 
 /**
  * @brief Callback function to handle incoming CAN frames from the AnaGate DLL.
@@ -113,7 +129,102 @@ int CanVendorAnagate::vendor_send(const CanFrame &frame) {
  * capabilities of the associated Anagate.
  */
 CanDiagnostics CanVendorAnagate::vendor_diagnostics() {
-  return CanDiagnostics();
+  CanDiagnostics diagnostics{};
+
+  constexpr AnaUInt32 nLogID{0};
+  AnaUInt32 pnCurrentID{0};
+  AnaUInt32 total_entries{0};
+  AnaUInt32 pnLogCount{0};
+  AnaInt64 pnLogDate{0};
+  constexpr unsigned int kBufferSize = 110;
+  char pcBuffer[kBufferSize];
+
+  if (CANGetLog(m_handle, nLogID, &pnCurrentID, &total_entries, &pnLogDate,
+                pcBuffer) != 0) {
+    diagnostics.log_entries.emplace(total_entries);
+    for (AnaUInt32 i{0}; i < total_entries; ++i) {
+      if (CANGetLog(m_handle, nLogID, &pnCurrentID, &pnLogCount, &pnLogDate,
+                    pcBuffer) != 0) {
+        std::ostringstream log_entry_stream;
+        log_entry_stream << anagate_convert_timestamp(pnLogDate) << " - "
+                         << pcBuffer;
+        std::string log_entry = log_entry_stream.str();
+
+        (*diagnostics.log_entries)[i] = log_entry;
+      }
+    }
+  }
+
+  AnaInt32 temp{0}, uptime{0};
+  if (CANGetDiagData(m_handle, &temp, &uptime) != 0) {
+    diagnostics.temperature = temp / 10.0f;
+    diagnostics.uptime = uptime;
+  }
+
+  constexpr unsigned int kMaxClients = 6;
+  AnaUInt32 client_count{0};
+  AnaUInt32 ip_addresses[kMaxClients];
+  AnaUInt32 ports[kMaxClients];
+  AnaInt64 connect_dates[kMaxClients];
+
+  if (CANGetClientList(m_handle, &client_count, ip_addresses, ports,
+                       connect_dates) != 0) {
+    diagnostics.connected_clients_addresses.emplace(client_count);
+    diagnostics.connected_clients_ports.emplace(client_count);
+    diagnostics.connected_clients_timestamps.emplace(client_count);
+
+    for (AnaUInt32 i{0}; i < client_count; ++i) {
+      (*diagnostics.connected_clients_addresses)[i] =
+          anagate_convert_ip(ip_addresses[i]);
+      (*diagnostics.connected_clients_ports)[i] = ports[i];
+      (*diagnostics.connected_clients_timestamps)[i] =
+          anagate_convert_timestamp(connect_dates[i]);
+    }
+  }
+
+  AnaUInt32 pnCountTCPRx{0}, pnCountTCPTx{0}, pnCountCANRx{0}, pnCountCANTx{0},
+      pnCountCANRxErr{0}, pnCountCANTxErr{0}, pnCountCANRxDisc{0},
+      pnCountCANTxDisc{0}, pnCountCANTimeout{0};
+  if (CANGetCounters(m_handle, &pnCountTCPRx, &pnCountTCPTx, &pnCountCANRx,
+                     &pnCountCANTx, &pnCountCANRxErr, &pnCountCANTxErr,
+                     &pnCountCANRxDisc, &pnCountCANTxDisc,
+                     &pnCountCANTimeout) != 0) {
+    diagnostics.tcp_rx = pnCountTCPRx;
+    diagnostics.tcp_tx = pnCountTCPTx;
+    diagnostics.rx = pnCountCANRx;
+    diagnostics.tx = pnCountCANTx;
+    diagnostics.rx_error = pnCountCANRxErr;
+    diagnostics.tx_error = pnCountCANTxErr;
+    diagnostics.rx_drop = pnCountCANRxDisc;
+    diagnostics.tx_drop = pnCountCANTxDisc;
+    diagnostics.tx_timeout = pnCountCANTimeout;
+  }
+
+  AnaUInt32 bitrate{0};
+  AnaUInt8 operating_mode{0};
+  AnaInt32 pbTermination{0}, pbHighSpeed{0}, pbTimestampOn{0};
+  if (CANGetGlobals(m_handle, &bitrate, &operating_mode, &pbTermination,
+                    &pbHighSpeed, &pbTimestampOn) != 0) {
+    diagnostics.bitrate = bitrate;
+    switch (operating_mode) {
+      case 0:
+        diagnostics.mode = "NORMAL";
+        break;
+      case 1:
+        diagnostics.mode = "LOOPBACK";
+        break;
+      case 2:
+        diagnostics.mode = "LISTEN ONLY";
+        break;
+      case 3:
+        diagnostics.mode = "OFFILINE";
+        break;
+      default:
+        break;
+    }
+  }
+
+  return diagnostics;
 }
 
 /**
