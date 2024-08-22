@@ -6,8 +6,16 @@
 
 #include "AnaGateDllCan.h"
 #include "CanDevice.h"
+#include "CanDiagnostics.h"
 #include "CanVendorLoopback.h"
 
+/**
+ * @brief A concrete implementation of CanDevice for the Anagate CAN interface.
+ *
+ * This class provides methods for opening, closing, sending, and receiving CAN
+ * frames using the Anagate CAN interface. It also provides diagnostics
+ * information.
+ */
 struct CanVendorAnagate : CanDevice {
   friend void anagate_receive(AnaInt32 nIdentifier, const char *pcBuffer,
                               AnaInt32 nBufferLen, AnaInt32 nFlags,
@@ -21,6 +29,7 @@ struct CanVendorAnagate : CanDevice {
   int vendor_open() override;
   int vendor_close() override;
   int vendor_send(const CanFrame &frame) override;
+  CanDiagnostics vendor_diagnostics() override;
 
   static std::mutex m_handles_lock;
   static std::map<int, CanVendorAnagate *> m_handles;

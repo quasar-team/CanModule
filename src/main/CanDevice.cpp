@@ -72,7 +72,7 @@ std::vector<int> CanDevice::send(const std::vector<CanFrame> &frames) {
  * The structure is defined in the CanDiagnostics.h header file. Each field is
  * optional and depends on the vendor-specific implementation.
  */
-// CanDiagnostics CanDevice::diagnostics() { return vendor_diagnostics(); }
+CanDiagnostics CanDevice::diagnostics() { return vendor_diagnostics(); }
 
 /**
  * @brief Creates a CAN device instance based on the specified vendor.
@@ -82,7 +82,8 @@ std::vector<int> CanDevice::send(const std::vector<CanFrame> &frames) {
  * using the provided configuration.
  *
  * @param vendor A string view representing the vendor name. Supported values
- * are "dummy", "socketcan" (on non-Windows platforms), and "anagate".
+ * are "loopback", "socketcan" (only Linux platforms or Windows with WSL), and
+ * "anagate".
  * @param configuration A reference to a CanDeviceArguments object that contains
  * the configuration settings for the CAN device.
  * @return std::unique_ptr<CanDevice> A unique pointer to the created CAN device

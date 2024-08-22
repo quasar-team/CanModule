@@ -2,6 +2,7 @@
 #define SRC_INCLUDE_CANFRAME_H_
 
 #include <stdexcept>
+#include <string>
 #include <vector>
 
 /**
@@ -151,6 +152,8 @@ struct CanFrame {
    * @return True if the CanFrame objects are not equal, false otherwise.
    */
   bool operator!=(const CanFrame& other) const { return !(*this == other); }
+
+  std::string to_string() const;
 
  private:
   const uint32_t m_id{0};  ///< The identifier of the CAN frame.

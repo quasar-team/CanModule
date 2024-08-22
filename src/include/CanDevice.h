@@ -11,12 +11,18 @@
 #include "CanDiagnostics.h"
 #include "CanFrame.h"
 
+/**
+ * @brief This struct represents a CAN device.
+ *
+ * It provides methods for opening, closing, sending, and receiving CanFrame,
+ * as well as accessing device information and diagnostics.
+ */
 struct CanDevice {
   int open();
   int close();
   int send(const CanFrame& frame);
   std::vector<int> send(const std::vector<CanFrame>& frames);
-  // CanDiagnostics diagnostics();
+  CanDiagnostics diagnostics();
 
   inline std::string vendor_name() const { return m_vendor; }
   inline const CanDeviceArguments& args() const { return m_args; }
@@ -32,7 +38,7 @@ struct CanDevice {
   virtual int vendor_open() = 0;
   virtual int vendor_close() = 0;
   virtual int vendor_send(const CanFrame& frame) = 0;
-  // virtual CanDiagnostics vendor_diagnostics() = 0;
+  virtual CanDiagnostics vendor_diagnostics() = 0;
 
   void received(const CanFrame& frame) { m_args.receiver(frame); }
 

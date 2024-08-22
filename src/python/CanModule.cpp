@@ -38,6 +38,7 @@ PYBIND11_MODULE(canmodule, m) {
   py::class_<CanDevice>(m, "CanDevice")
       .def("open", &CanDevice::open)
       .def("close", &CanDevice::close)
+      .def("diagnostics", &CanDevice::diagnostics)
       .def("send", py::overload_cast<const CanFrame&>(&CanDevice::send))
       .def("send",
            py::overload_cast<const std::vector<CanFrame>&>(&CanDevice::send))
@@ -64,5 +65,41 @@ PYBIND11_MODULE(canmodule, m) {
       .def_readwrite("bitrate", &CanDeviceConfiguration::bitrate)
       .def_readwrite("enable_termination",
                      &CanDeviceConfiguration::enable_termination)
-      .def_readwrite("timeout", &CanDeviceConfiguration::timeout);
+      .def_readwrite("timeout", &CanDeviceConfiguration::timeout)
+      .def_readwrite("sent_acknowledgement",
+                     &CanDeviceConfiguration::sent_acknowledgement);
+
+  py::class_<CanDiagnostics>(m, "CanDiagnostics")
+      .def(py::init<>())
+      .def_readonly("log_entries", &CanDiagnostics::log_entries)
+      .def_readonly("name", &CanDiagnostics::name)
+      .def_readonly("handle", &CanDiagnostics::handle)
+      .def_readonly("mode", &CanDiagnostics::mode)
+      .def_readonly("state", &CanDiagnostics::state)
+      .def_readonly("bitrate", &CanDiagnostics::bitrate)
+      .def_readonly("connected_clients_addresses",
+                    &CanDiagnostics::connected_clients_addresses)
+      .def_readonly("connected_clients_timestamps",
+                    &CanDiagnostics::connected_clients_timestamps)
+      .def_readonly("connected_clients_ports",
+                    &CanDiagnostics::connected_clients_ports)
+      .def_readonly("number_connected_clients",
+                    &CanDiagnostics::number_connected_clients)
+      .def_readonly("temperature", &CanDiagnostics::temperature)
+      .def_readonly("uptime", &CanDiagnostics::uptime)
+      .def_readonly("tcp_rx", &CanDiagnostics::tcp_rx)
+      .def_readonly("tcp_tx", &CanDiagnostics::tcp_tx)
+      .def_readonly("rx", &CanDiagnostics::rx)
+      .def_readonly("tx", &CanDiagnostics::tx)
+      .def_readonly("rx_error", &CanDiagnostics::rx_error)
+      .def_readonly("tx_error", &CanDiagnostics::tx_error)
+      .def_readonly("rx_drop", &CanDiagnostics::rx_drop)
+      .def_readonly("tx_drop", &CanDiagnostics::tx_drop)
+      .def_readonly("tx_timeout", &CanDiagnostics::tx_timeout)
+      .def_readonly("bus_error", &CanDiagnostics::bus_error)
+      .def_readonly("error_warning", &CanDiagnostics::error_warning)
+      .def_readonly("error_passive", &CanDiagnostics::error_passive)
+      .def_readonly("bus_off", &CanDiagnostics::bus_off)
+      .def_readonly("arbitration_lost", &CanDiagnostics::arbitration_lost)
+      .def_readonly("restarts", &CanDiagnostics::restarts);
 }
