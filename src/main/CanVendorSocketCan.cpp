@@ -1,5 +1,6 @@
 #include "CanVendorSocketCan.h"
 
+#include <libsocketcan.h>
 #include <linux/can.h>
 #include <linux/can/raw.h>
 #include <net/if.h>
@@ -15,6 +16,8 @@
 
 // Constant defining how long the epoll wait cycle should be in milliseconds.
 constexpr auto EPOLL_WAIT_CYCLE_MS = 1000;
+constexpr auto LIBSOCKETCAN_ERROR = -1;
+constexpr auto LIBSOCKETCAN_SUCCESS = 0;
 
 /**
  * @brief Opens the SocketCAN device and sets up the necessary configurations.
@@ -26,6 +29,28 @@ constexpr auto EPOLL_WAIT_CYCLE_MS = 1000;
  * @return int Returns 0 on success, or -1 on failure.
  */
 int CanVendorSocketCan::vendor_open() {
+  if (args().config.bitrate.has_value()) {
+    if (can_do_stop(args().config.bus_name.value().c_str()) ==
+        LIBSOCKETCAN_ERROR) {
+      return -1;  // Failed to stop CAN bus
+    }
+    if (can_set_bitrate(args().config.bus_name.value().c_str(),
+                        args().config.bitrate.value()) == LIBSOCKETCAN_ERROR) {
+      return -1;  // Failed to set bitrate
+    }
+    if (can_set_restart_ms(args().config.bus_name.value().c_str(),
+                           args().config.timeout.value_or(0)) ==
+        LIBSOCKETCAN_ERROR) {
+      // Failed to set restart delay
+    }
+    if (can_do_start(args().config.bus_name.value().c_str()) ==
+        LIBSOCKETCAN_ERROR) {
+      return -1;  // Failed to start CAN bus
+    }
+  } else {
+    // Not reconfigure socketcan device
+  }
+
   // Open the SocketCAN device
   socket_fd = socket(PF_CAN, SOCK_RAW, CAN_RAW);
   if (socket_fd < 0) {

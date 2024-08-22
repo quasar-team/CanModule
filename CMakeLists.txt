@@ -15,6 +15,7 @@ set(SOURCES
     src/main/CanStats.cpp
     src/main/CanExtra.cpp
     src/main/CanVendorLoopback.cpp
+    src/main/CanDeviceConfiguration.cpp
 )
 
 include(cmake/env.cmake)
@@ -56,7 +57,8 @@ if (UNIX)
     target_link_libraries(CanModuleMain PRIVATE
                             ${anagate_SOURCE_DIR}/lib/libAnaGateExtStaticRelease.so
                             ${anagate_SOURCE_DIR}/lib/libAnaGateStaticRelease.so
-                            ${anagate_SOURCE_DIR}/lib/libCANDLLStaticRelease64.so)
+                            ${anagate_SOURCE_DIR}/lib/libCANDLLStaticRelease64.so
+                            socketcan)
 else()
     target_link_libraries(CanModuleMain PRIVATE
                             ${anagate_SOURCE_DIR}/lib/AnaGateCanDll64.lib)
@@ -64,6 +66,7 @@ else()
     set(BINARY_DLL_PATH ${CMAKE_BINARY_DIR}/AnaGateCan64.dll)
     configure_file(${DLL_PATH} ${BINARY_DLL_PATH} COPYONLY)
 endif()
+
 
 # Treat warnings as errors
 if (CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")

@@ -82,7 +82,8 @@ std::vector<int> CanDevice::send(const std::vector<CanFrame> &frames) {
  * using the provided configuration.
  *
  * @param vendor A string view representing the vendor name. Supported values
- * are "dummy", "socketcan" (on non-Windows platforms), and "anagate".
+ * are "loopback", "socketcan" (only Linux platforms or Windows with WSL), and
+ * "anagate".
  * @param configuration A reference to a CanDeviceArguments object that contains
  * the configuration settings for the CAN device.
  * @return std::unique_ptr<CanDevice> A unique pointer to the created CAN device

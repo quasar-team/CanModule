@@ -1,6 +1,7 @@
 #ifndef SRC_INCLUDE_CANDEVICECONFIGURATION_H_
 #define SRC_INCLUDE_CANDEVICECONFIGURATION_H_
 
+#include <iostream>
 #include <optional>
 #include <string>
 
@@ -59,9 +60,20 @@ struct CanDeviceConfiguration {
    *
    * This parameter is optional for both Anagate and SocketCAN devices. For
    * Anagate devices, it defaults to 6000 milliseconds. For SocketCAN devices,
-   * it specifies the restart-ms value for the SocketCAN API.
+   * it specifies the restart-ms value and it defaults to 0.
    */
   std::optional<uint32_t> timeout;
+
+  /**
+   * @brief The sent acknowledgement flag for Anagate.
+   *
+   * This parameter is optional for Anagate and it defaults to false.
+   * If turned on, the Anagate API waits for the message to be acknowledge
+   * by the device before ending the call. By default the message is only sent.
+   */
+  std::optional<uint32_t> sent_acknowledgement;
+
+  std::string to_string() const;
 };
 
 #endif  // SRC_INCLUDE_CANDEVICECONFIGURATION_H_
