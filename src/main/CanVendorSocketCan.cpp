@@ -3,6 +3,7 @@
 #include <libsocketcan.h>
 #include <linux/can.h>
 #include <linux/can/raw.h>
+#include <linux/if_link.h>
 #include <net/if.h>
 #include <sys/epoll.h>
 #include <sys/ioctl.h>
@@ -13,7 +14,6 @@
 #include <thread>  // NOLINT
 
 #include "CanFrame.h"
-
 // Constant defining how long the epoll wait cycle should be in milliseconds.
 constexpr auto EPOLL_WAIT_CYCLE_MS = 1000;
 constexpr auto LIBSOCKETCAN_ERROR = -1;
@@ -147,6 +147,89 @@ int CanVendorSocketCan::vendor_send(const CanFrame &frame) {
 
   return 0;  // Success
 }
+
+/**
+ * @brief Retrieves diagnostic information from the CAN device associated with
+ * the current instance.
+ *
+ * This function retrieves diagnostic information from the CAN device associated
+ * with the current instance. The diagnostic information is returned as a
+ * CanDiagnostics object, which contains various parameters such as error
+ * counters, bus status, and other relevant diagnostic data.
+ *
+ * @return A CanDiagnostics object containing the diagnostic information.
+ *
+ * @note The specific implementation of this function may vary depending on the
+ * capabilities of the associated SocketCan device.
+ */
+CanDiagnostics CanVendorSocketCan::vendor_diagnostics() {
+  CanDiagnostics diagnostics;
+
+  diagnostics.name = args().config.bus_name.value();
+
+  // Retrieve CAN interface state
+  int state;
+  if (can_get_state(args().config.bus_name.value().c_str(), &state) ==
+      LIBSOCKETCAN_SUCCESS) {
+    switch (state) {
+      case CAN_STATE_ERROR_ACTIVE:
+        diagnostics.state = "ERROR_ACTIVE";
+        break;
+      case CAN_STATE_ERROR_WARNING:
+        diagnostics.state = "ERROR_WARNING";
+        break;
+      case CAN_STATE_ERROR_PASSIVE:
+        diagnostics.state = "ERROR_PASSIVE";
+        break;
+      case CAN_STATE_BUS_OFF:
+        diagnostics.state = "BUS_OFF";
+        break;
+      case CAN_STATE_STOPPED:
+        diagnostics.state = "STOPPED";
+        break;
+      case CAN_STATE_SLEEPING:
+        diagnostics.state = "SLEEPING";
+        break;
+      default:
+        diagnostics.state = "UNKNOWN";
+        break;
+    }
+  }
+
+  // Retrieve link statistics
+  struct rtnl_link_stats64 stats;
+  if (can_get_link_stats(args().config.bus_name.value().c_str(), &stats) ==
+      LIBSOCKETCAN_SUCCESS) {
+    diagnostics.rx = stats.rx_bytes;
+    diagnostics.tx = stats.tx_bytes;
+    diagnostics.rx_error = stats.rx_errors;
+    diagnostics.tx_error = stats.tx_errors;
+    diagnostics.rx_drop = stats.rx_dropped;
+    diagnostics.tx_drop = stats.tx_dropped;
+  }
+
+  // Retrieve bit timing
+  struct can_bittiming bittiming;
+  if (can_get_bittiming(args().config.bus_name.value().c_str(), &bittiming) ==
+      LIBSOCKETCAN_SUCCESS) {
+    diagnostics.bitrate = bittiming.bitrate;
+  }
+
+  // Retrieve device statistics
+  struct can_device_stats device_stats;
+  if (can_get_device_stats(args().config.bus_name.value().c_str(),
+                           &device_stats) == LIBSOCKETCAN_SUCCESS) {
+    diagnostics.bus_error = device_stats.bus_error;
+    diagnostics.error_warning = device_stats.error_warning;
+    diagnostics.error_passive = device_stats.error_passive;
+    diagnostics.bus_off = device_stats.bus_off;
+    diagnostics.arbitration_lost = device_stats.arbitration_lost;
+    diagnostics.restarts = device_stats.restarts;
+  }
+
+  return diagnostics;
+}
+
 /**
  * @brief Translates a CanFrame object to a struct can_frame.
  *

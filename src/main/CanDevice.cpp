@@ -72,7 +72,7 @@ std::vector<int> CanDevice::send(const std::vector<CanFrame> &frames) {
  * The structure is defined in the CanDiagnostics.h header file. Each field is
  * optional and depends on the vendor-specific implementation.
  */
-// CanDiagnostics CanDevice::diagnostics() { return vendor_diagnostics(); }
+CanDiagnostics CanDevice::diagnostics() { return vendor_diagnostics(); }
 
 /**
  * @brief Creates a CAN device instance based on the specified vendor.

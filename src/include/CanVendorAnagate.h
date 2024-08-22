@@ -6,6 +6,7 @@
 
 #include "AnaGateDllCan.h"
 #include "CanDevice.h"
+#include "CanDiagnostics.h"
 #include "CanVendorLoopback.h"
 
 struct CanVendorAnagate : CanDevice {
@@ -21,6 +22,7 @@ struct CanVendorAnagate : CanDevice {
   int vendor_open() override;
   int vendor_close() override;
   int vendor_send(const CanFrame &frame) override;
+  CanDiagnostics vendor_diagnostics() override;
 
   static std::mutex m_handles_lock;
   static std::map<int, CanVendorAnagate *> m_handles;

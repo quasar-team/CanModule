@@ -99,6 +99,24 @@ int CanVendorAnagate::vendor_send(const CanFrame &frame) {
 }
 
 /**
+ * @brief Retrieves diagnostic information from the CAN device associated with
+ * the current instance.
+ *
+ * This function retrieves diagnostic information from the CAN device associated
+ * with the current instance. The diagnostic information is returned as a
+ * CanDiagnostics object, which contains various parameters such as error
+ * counters, bus status, and other relevant diagnostic data.
+ *
+ * @return A CanDiagnostics object containing the diagnostic information.
+ *
+ * @note The specific implementation of this function may vary depending on the
+ * capabilities of the associated Anagate.
+ */
+CanDiagnostics CanVendorAnagate::vendor_diagnostics() {
+  return CanDiagnostics();
+}
+
+/**
  * @brief Closes the CAN device associated with the current instance.
  *
  * This function closes the CAN device associated with the current instance by

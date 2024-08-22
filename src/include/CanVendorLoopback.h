@@ -5,6 +5,7 @@
 
 #include "CanDevice.h"
 #include "CanDeviceArguments.h"
+#include "CanDiagnostics.h"
 
 struct CanVendorLoopback : CanDevice {
   explicit CanVendorLoopback(const CanDeviceArguments &configuration)
@@ -18,6 +19,7 @@ struct CanVendorLoopback : CanDevice {
   int vendor_open() override { return 0; }
   int vendor_close() override { return 0; }
   int vendor_send(const CanFrame &frame) override;
+  CanDiagnostics vendor_diagnostics() override { return CanDiagnostics{}; }
 };
 
 #endif  // SRC_INCLUDE_CANVENDORLOOPBACK_H_
