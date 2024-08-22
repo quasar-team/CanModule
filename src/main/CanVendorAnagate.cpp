@@ -3,9 +3,9 @@
 #include <AnaGateDllCan.h>
 
 #include <iomanip>
-#include <iostream>
 #include <memory>
 #include <mutex>  // NOLINT
+#include <sstream>
 
 std::mutex CanVendorAnagate::m_handles_lock;
 std::map<int, CanVendorAnagate *> CanVendorAnagate::m_handles;
