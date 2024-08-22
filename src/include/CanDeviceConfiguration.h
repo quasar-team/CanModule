@@ -6,7 +6,7 @@
 #include <string>
 
 /**
- * @brief Configuration structure for a CAN device.
+ * @brief Configuration structure for a CanDevice.
  *
  * This structure holds the configuration details for a CAN device. It supports
  * different configurations for various types of CAN devices, such as SocketCAN

@@ -11,6 +11,12 @@
 #include "CanDiagnostics.h"
 #include "CanFrame.h"
 
+/**
+ * @brief This struct represents a CAN device.
+ *
+ * It provides methods for opening, closing, sending, and receiving CanFrame,
+ * as well as accessing device information and diagnostics.
+ */
 struct CanDevice {
   int open();
   int close();

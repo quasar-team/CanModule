@@ -15,7 +15,7 @@
 
 /**
  * @struct CanVendorSocketCan
- * @brief Represents a SocketCAN vendor implementation of a CAN device.
+ * @brief Represents a SocketCAN vendor implementation of a CanDevice.
  *
  * This class provides the implementation for interacting with a SocketCAN
  * device. It extends the CanVendorLoopback class and overrides the necessary

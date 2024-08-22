@@ -9,6 +9,13 @@
 #include "CanDiagnostics.h"
 #include "CanVendorLoopback.h"
 
+/**
+ * @brief A concrete implementation of CanDevice for the Anagate CAN interface.
+ *
+ * This class provides methods for opening, closing, sending, and receiving CAN
+ * frames using the Anagate CAN interface. It also provides diagnostics
+ * information.
+ */
 struct CanVendorAnagate : CanDevice {
   friend void anagate_receive(AnaInt32 nIdentifier, const char *pcBuffer,
                               AnaInt32 nBufferLen, AnaInt32 nFlags,

@@ -7,6 +7,9 @@
 #include "CanDeviceArguments.h"
 #include "CanDiagnostics.h"
 
+/**
+ * @brief A dummy implementation of CanDevice for a loopback device.
+ */
 struct CanVendorLoopback : CanDevice {
   explicit CanVendorLoopback(const CanDeviceArguments &configuration)
       : CanDevice("loopback", configuration) {}

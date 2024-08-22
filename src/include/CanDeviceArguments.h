@@ -8,7 +8,7 @@
 #include "CanFrame.h"
 
 /**
- * @brief Configuration structure for a CAN device.
+ * @brief Configuration structure for a CanDevice.
  *
  * This structure holds the configuration details for a CAN device, including
  * the vendor-specific configuration and a callback function to handle received
@@ -24,7 +24,7 @@ struct CanDeviceArguments {
   CanDeviceConfiguration config;
 
   /**
-   * @brief Callback function to handle received CAN frames.
+   * @brief Callback function to handle received CanFrame.
    *
    * This function is called whenever a CAN frame is received. It takes a
    * reference to a CanFrame object as its parameter.
