@@ -89,3 +89,36 @@ def test_anagate_multiple_messages():
     assert received_frames_dev2[4].is_extended_id() is True
     assert received_frames_dev2[4].is_remote_request() is False
     assert received_frames_dev2[4].is_error() is False
+
+
+def test_anagate_diagnostics():
+    myDevice1 = CanDevice.create("anagate", CanDeviceArguments(DEVICE_ONE, None))
+    myDevice1.open()
+    diag = myDevice1.diagnostics()
+    assert diag.log_entries is not None
+    assert diag.name is None
+    assert diag.handle is not None
+    assert diag.mode == "NORMAL"
+    assert diag.state is None
+    assert diag.bitrate > 0
+    assert len(diag.connected_clients_addresses) > 0
+    assert len(diag.connected_clients_timestamps) > 0
+    assert len(diag.connected_clients_ports) > 0
+    assert diag.number_connected_clients > 0
+    assert diag.temperature > 10
+    assert diag.uptime > 0
+    assert diag.tcp_rx > 5
+    assert diag.tcp_tx >= 0
+    assert diag.rx >= 0
+    assert diag.tx >= 5
+    assert diag.rx_error >= 0
+    assert diag.tx_error >= 0
+    assert diag.rx_drop >= 0
+    assert diag.tx_drop >= 0
+    assert diag.tx_timeout >= 0
+    assert diag.bus_error is None
+    assert diag.error_warning is None
+    assert diag.error_passive is None
+    assert diag.bus_off is None
+    assert diag.arbitration_lost is None
+    assert diag.restarts is None
