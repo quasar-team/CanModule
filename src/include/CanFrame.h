@@ -193,4 +193,6 @@ struct CanFrame {
   static bool is_29_bits(uint32_t id) { return (id & 0xE0000000) == 0; }
 };
 
+std::ostream& operator<<(std::ostream& os, const CanFrame& frame);
+
 #endif  // SRC_INCLUDE_CANFRAME_H_

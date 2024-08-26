@@ -5,6 +5,7 @@
 #include "CanDevice.h"
 #include "CanDeviceArguments.h"
 #include "CanFrame.h"
+#include "CanLogIt.h"
 
 namespace py = pybind11;
 
@@ -26,7 +27,8 @@ PYBIND11_MODULE(canmodule, m) {
       .def("is_remote_request", &CanFrame::is_remote_request)
       .def("is_standard_id", &CanFrame::is_standard_id)
       .def("is_extended_id", &CanFrame::is_extended_id)
-      .def("length", &CanFrame::length);
+      .def("length", &CanFrame::length)
+      .def("__str__", &CanFrame::to_string);
 
   py::module_ can_flags =
       m.def_submodule("CanFlags", "Namespace for CAN frame flags");
@@ -34,6 +36,33 @@ PYBIND11_MODULE(canmodule, m) {
   can_flags.attr("EXTENDED_ID") = CanFlags::EXTENDED_ID;
   can_flags.attr("ERROR_FRAME") = CanFlags::ERROR_FRAME;
   can_flags.attr("REMOTE_REQUEST") = CanFlags::REMOTE_REQUEST;
+
+  py::module_ can_device_error =
+      m.def_submodule("CanDeviceError", "Namespace for CAN device error codes");
+  can_device_error.attr("NO_ERROR") = CanDeviceError::NO_ERROR;
+  can_device_error.attr("SUCCESS") = CanDeviceError::SUCCESS;
+  can_device_error.attr("UNKNOWN_OPEN_ERROR") =
+      CanDeviceError::UNKNOWN_OPEN_ERROR;
+  can_device_error.attr("SOCKET_ERROR") = CanDeviceError::SOCKET_ERROR;
+  can_device_error.attr("TOO_MANY_CONNECTIONS") =
+      CanDeviceError::TOO_MANY_CONNECTIONS;
+  can_device_error.attr("TIMEOUT") = CanDeviceError::TIMEOUT;
+  can_device_error.attr("NOT_CONNECTED") = CanDeviceError::NOT_CONNECTED;
+  can_device_error.attr("UNACKNOWLEDMENT") = CanDeviceError::UNACKNOWLEDMENT;
+  can_device_error.attr("INTERNAL_API_ERROR") =
+      CanDeviceError::INTERNAL_API_ERROR;
+  can_device_error.attr("UNKNOWN_SEND_ERROR") =
+      CanDeviceError::UNKNOWN_SEND_ERROR;
+  can_device_error.attr("CAN_NACK") = CanDeviceError::CAN_NACK;
+  can_device_error.attr("CAN_TX_ERROR") = CanDeviceError::CAN_TX_ERROR;
+  can_device_error.attr("CAN_TX_BUFFER_OVERFLOW") =
+      CanDeviceError::CAN_TX_BUFFER_OVERFLOW;
+  can_device_error.attr("CAN_LOST_ARBITRATION") =
+      CanDeviceError::CAN_LOST_ARBITRATION;
+  can_device_error.attr("CAN_INVALID_BITRATE") =
+      CanDeviceError::CAN_INVALID_BITRATE;
+  can_device_error.attr("UNKNOWN_CLOSE_ERROR") =
+      CanDeviceError::UNKNOWN_CLOSE_ERROR;
 
   py::class_<CanDevice>(m, "CanDevice")
       .def("open", &CanDevice::open)
@@ -49,25 +78,20 @@ PYBIND11_MODULE(canmodule, m) {
       .def(py::init<const CanDeviceConfiguration&,
                     const std::function<void(const CanFrame&)>&>(),
            py::arg("config"), py::arg("receiver"))
-      .def_readwrite("config", &CanDeviceArguments::config)
-      .def("set_receiver",
-           [](CanDeviceArguments& self,
-              const std::function<void(const CanFrame&)>& recv) {
-             const_cast<std::function<void(const CanFrame&)>&>(self.receiver) =
-                 recv;
-           });
+      .def_readonly("config", &CanDeviceArguments::config);
 
   py::class_<CanDeviceConfiguration>(m, "CanDeviceConfiguration")
       .def(py::init<>())
       .def_readwrite("bus_name", &CanDeviceConfiguration::bus_name)
-      .def_readwrite("bus_address", &CanDeviceConfiguration::bus_address)
+      .def_readwrite("bus_number", &CanDeviceConfiguration::bus_number)
       .def_readwrite("host", &CanDeviceConfiguration::host)
       .def_readwrite("bitrate", &CanDeviceConfiguration::bitrate)
       .def_readwrite("enable_termination",
                      &CanDeviceConfiguration::enable_termination)
       .def_readwrite("timeout", &CanDeviceConfiguration::timeout)
       .def_readwrite("sent_acknowledgement",
-                     &CanDeviceConfiguration::sent_acknowledgement);
+                     &CanDeviceConfiguration::sent_acknowledgement)
+      .def("__str__", &CanDeviceConfiguration::to_string);
 
   py::class_<CanDiagnostics>(m, "CanDiagnostics")
       .def(py::init<>())

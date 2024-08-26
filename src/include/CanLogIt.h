@@ -1,15 +1,15 @@
 #ifndef SRC_INCLUDE_CANLOGIT_H_
 #define SRC_INCLUDE_CANLOGIT_H_
 
+#include "CanVersion.h"
 #include "LogIt.h"
 
-namespace CanModule::LogIt {
+namespace CanLogIt {
 static const bool InitLogIt = Log::initializeLogging();
-static const Log::LogComponentHandle log_handle =
-    Log::registerLoggingComponent("CanModule", Log::INF);
-LOG(CanModule::LogIt::log_handle, Log::DBG)
-    << "CanModule initialized successfully";
-
-}  // namespace CanModule::LogIt
+static const Log::LogComponentHandle h =
+    Log::registerLoggingComponent("CanModule");
+bool print_version();
+static const bool print_version_init = print_version();
+}  // namespace CanLogIt
 
 #endif  // SRC_INCLUDE_CANLOGIT_H_

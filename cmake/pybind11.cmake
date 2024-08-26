@@ -27,6 +27,6 @@ if(pybind11_installed EQUAL 0)
   find_package(Python3 REQUIRED COMPONENTS Development)
 
   pybind11_add_module(canmodule ${PYTHON_SOURCES})
-
-  target_link_libraries(canmodule PRIVATE CanModuleMain pybind11::module ${PYTHON_LIBRARIES})
+  target_include_directories(canmodule PRIVATE ${logit_SOURCE_DIR}/include)
+  target_link_libraries(canmodule PRIVATE CanModuleMain pybind11::module LogIt ${PYTHON_LIBRARIES})
 endif()

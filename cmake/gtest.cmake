@@ -16,8 +16,8 @@ set(TEST_SOURCES
     test/cpp/CanExtra_test.cpp
     test/cpp/CanStats_test.cpp
     test/cpp/LogIt_test.cpp
+    test/cpp/CanVersion_test.cpp
 )
-
 
 add_executable(CanModuleTest ${TEST_SOURCES})
 

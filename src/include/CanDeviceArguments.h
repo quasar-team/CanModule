@@ -21,7 +21,7 @@ struct CanDeviceArguments {
    * This string contains configuration details specific to the vendor of the
    * CAN device.
    */
-  CanDeviceConfiguration config;
+  const CanDeviceConfiguration config;
 
   /**
    * @brief Callback function to handle received CanFrame.

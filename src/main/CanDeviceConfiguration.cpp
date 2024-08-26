@@ -24,9 +24,9 @@ std::string CanDeviceConfiguration::to_string() const {
     first = false;
   }
 
-  if (bus_address.has_value()) {
+  if (bus_number.has_value()) {
     if (!first) oss << ", ";
-    oss << "bus_address=" << bus_address.value();
+    oss << "bus_number=" << bus_number.value();
     first = false;
   }
 

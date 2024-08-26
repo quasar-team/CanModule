@@ -14,6 +14,7 @@
 #include <thread>  // NOLINT
 
 #include "CanFrame.h"
+#include "CanLogIt.h"
 // Constant defining how long the epoll wait cycle should be in milliseconds.
 constexpr auto EPOLL_WAIT_CYCLE_MS = 1000;
 constexpr auto LIBSOCKETCAN_ERROR = -1;
@@ -30,31 +31,42 @@ constexpr auto LIBSOCKETCAN_SUCCESS = 0;
  */
 int CanVendorSocketCan::vendor_open() {
   if (args().config.bitrate.has_value()) {
+    LOG(Log::INF, CanLogIt::h) << "Configuring SocketCAN device";
+
     if (can_do_stop(args().config.bus_name.value().c_str()) ==
         LIBSOCKETCAN_ERROR) {
-      return -1;  // Failed to stop CAN bus
+      LOG(Log::ERR, CanLogIt::h) << "Failed to stop CAN bus";
+
+      return CanDeviceError::SOCKET_ERROR;
     }
     if (can_set_bitrate(args().config.bus_name.value().c_str(),
                         args().config.bitrate.value()) == LIBSOCKETCAN_ERROR) {
-      return -1;  // Failed to set bitrate
+      LOG(Log::ERR, CanLogIt::h) << "Failed to set bitrate";
+
+      return CanDeviceError::SOCKET_ERROR;
     }
     if (can_set_restart_ms(args().config.bus_name.value().c_str(),
                            args().config.timeout.value_or(0)) ==
         LIBSOCKETCAN_ERROR) {
-      // Failed to set restart delay
+      LOG(Log::ERR, CanLogIt::h) << "Failed to set restart delay";
+      return CanDeviceError::SOCKET_ERROR;
     }
     if (can_do_start(args().config.bus_name.value().c_str()) ==
         LIBSOCKETCAN_ERROR) {
-      return -1;  // Failed to start CAN bus
+      LOG(Log::ERR, CanLogIt::h) << "Failed to start CAN bus";
+
+      return CanDeviceError::SOCKET_ERROR;
     }
   } else {
-    // Not reconfigure socketcan device
+    LOG(Log::INF, CanLogIt::h) << "Not configuring SocketCAN device";
   }
 
   // Open the SocketCAN device
   socket_fd = socket(PF_CAN, SOCK_RAW, CAN_RAW);
   if (socket_fd < 0) {
-    return -1;  // Failed to open socket
+    LOG(Log::ERR, CanLogIt::h) << "Failed to open socket";
+
+    return CanDeviceError::SOCKET_ERROR;
   }
 
   // Set up the CAN interface
@@ -63,7 +75,8 @@ int CanVendorSocketCan::vendor_open() {
          args().config.bus_name.value().c_str());
   if (ioctl(socket_fd, SIOCGIFINDEX, &ifr) < 0) {
     ::close(socket_fd);
-    return -1;  // Failed to get interface index
+    LOG(Log::ERR, CanLogIt::h) << "Failed to get interface index";
+    return CanDeviceError::INTERNAL_API_ERROR;
   }
 
   struct sockaddr_can addr;
@@ -73,31 +86,43 @@ int CanVendorSocketCan::vendor_open() {
 
   if (bind(socket_fd, (struct sockaddr *)&addr, sizeof(addr)) < 0) {
     ::close(socket_fd);
-    return -1;  // Failed to bind socket
+    LOG(Log::ERR, CanLogIt::h) << "Failed to bind socket";
+    return CanDeviceError::INTERNAL_API_ERROR;
   }
 
-  // Create epoll instance
-  epoll_fd = epoll_create1(0);
-  if (epoll_fd < 0) {
-    ::close(socket_fd);
-    return -1;  // Failed to create epoll instance
+  if (args().receiver != nullptr) {
+    // Create epoll instance
+    epoll_fd = epoll_create1(0);
+    if (epoll_fd < 0) {
+      ::close(socket_fd);
+      LOG(Log::ERR, CanLogIt::h) << "Failed to create epoll instance";
+
+      return CanDeviceError::INTERNAL_API_ERROR;
+    }
+
+    // Add the socket to the epoll instance
+    struct epoll_event ev;
+    ev.events = EPOLLIN;
+    ev.data.fd = socket_fd;
+    if (epoll_ctl(epoll_fd, EPOLL_CTL_ADD, socket_fd, &ev) < 0) {
+      ::close(epoll_fd);
+      ::close(socket_fd);
+      LOG(Log::ERR, CanLogIt::h) << "Failed to add socket to epoll";
+
+      return CanDeviceError::INTERNAL_API_ERROR;
+    }
+
+    // Start the subscriber thread
+    m_subcriber_run = true;
+    subscriber_thread = std::thread(&CanVendorSocketCan::subscriber, this);
+  } else {
+    LOG(Log::INF, CanLogIt::h)
+        << "Receiver callback not provided, not starting subscriber thread";
   }
 
-  // Add the socket to the epoll instance
-  struct epoll_event ev;
-  ev.events = EPOLLIN;
-  ev.data.fd = socket_fd;
-  if (epoll_ctl(epoll_fd, EPOLL_CTL_ADD, socket_fd, &ev) < 0) {
-    ::close(epoll_fd);
-    ::close(socket_fd);
-    return -1;  // Failed to add socket to epoll
-  }
+  LOG(Log::DBG, CanLogIt::h) << "SocketCan connection opened";
 
-  // Start the subscriber thread
-  m_subcriber_run = true;
-  subscriber_thread = std::thread(&CanVendorSocketCan::subscriber, this);
-
-  return 0;  // Success
+  return CanDeviceError::SUCCESS;
 }
 
 /**
@@ -116,12 +141,21 @@ int CanVendorSocketCan::vendor_close() {
     subscriber_thread.join();
   }
 
-  ::close(epoll_fd);
-  if (socket_fd >= 0) {
-    ::close(socket_fd);
-  }
+  if (::close(epoll_fd) < 0) {
+    LOG(Log::ERR, CanLogIt::h) << "Error while closing epoll";
 
-  return 0;  // Success
+    return CanDeviceError::UNKNOWN_CLOSE_ERROR;
+  }
+  if (socket_fd >= 0) {
+    if (::close(socket_fd) < 0) {
+      LOG(Log::ERR, CanLogIt::h) << "Error while closing socket";
+
+      return CanDeviceError::UNKNOWN_CLOSE_ERROR;
+    }
+  }
+  LOG(Log::DBG, CanLogIt::h) << "SocketCan connection closed";
+
+  return CanDeviceError::SUCCESS;
 }
 
 /**
@@ -142,10 +176,14 @@ int CanVendorSocketCan::vendor_send(const CanFrame &frame) {
   // Send the CAN frame
   int bytes_sent = ::send(socket_fd, &canFrame, sizeof(canFrame), 0);
   if (bytes_sent != sizeof(canFrame)) {
-    return -1;  // Failed to send the entire frame
+    LOG(Log::DBG, CanLogIt::h)
+        << "SocketCan sent " << bytes_sent << " bytes, but expected "
+        << sizeof(canFrame) << " bytes";
+
+    return CanDeviceError::UNKNOWN_SEND_ERROR;
   }
 
-  return 0;  // Success
+  return CanDeviceError::SUCCESS;
 }
 
 /**
@@ -310,8 +348,13 @@ int CanVendorSocketCan::subscriber() {
     int nfds = epoll_wait(epoll_fd, events, 1, EPOLL_WAIT_CYCLE_MS);
     if (nfds < 0) {
       if (errno == EINTR) {
-        continue;  // Interrupted by signal, continue waiting
+        LOG(Log::DBG, CanLogIt::h) << "Interrupted by signal, continue waiting";
+
+        continue;
       } else {
+        LOG(Log::ERR, CanLogIt::h)
+            << "Error occurred during epoll_wait: " << strerror(errno);
+
         return -1;  // Error occurred
       }
     }
@@ -321,10 +364,14 @@ int CanVendorSocketCan::subscriber() {
         struct can_frame canFrame;
         int nbytes = ::read(socket_fd, &canFrame, sizeof(struct can_frame));
         if (nbytes < 0) {
-          return -1;  // Error reading from socket
+          LOG(Log::ERR, CanLogIt::h)
+              << "Unexpected error reading from socket, exiting";
+          return -1;
         }
 
         if (nbytes == sizeof(canFrame)) {
+          LOG(Log::DBG, CanLogIt::h) << "Received CAN frame via SocketCAN";
+
           CanFrame frame = translate(canFrame);
           received(
               frame);  // Call the received method with the translated frame
@@ -332,6 +379,6 @@ int CanVendorSocketCan::subscriber() {
       }
     }
   }
-
+  LOG(Log::DBG, CanLogIt::h) << "Exiting subscriber loop";
   return 0;  // Success
 }

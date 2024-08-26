@@ -23,12 +23,12 @@ struct CanDeviceConfiguration {
   std::optional<std::string> bus_name;
 
   /**
-   * @brief The address of the CAN bus.
+   * @brief The port number of the CAN bus.
    *
    * This parameter is used for Anagate devices. It is ignored for SocketCAN
    * devices.
    */
-  std::optional<uint32_t> bus_address;
+  std::optional<uint32_t> bus_number;
 
   /**
    * @brief The host address for the CAN device.
@@ -75,5 +75,8 @@ struct CanDeviceConfiguration {
 
   std::string to_string() const;
 };
+
+std::ostream &operator<<(std::ostream &os,
+                         const CanDeviceConfiguration &config);
 
 #endif  // SRC_INCLUDE_CANDEVICECONFIGURATION_H_

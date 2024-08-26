@@ -11,6 +11,14 @@
  * @brief A dummy implementation of CanDevice for a loopback device.
  */
 struct CanVendorLoopback : CanDevice {
+  /**
+   * @brief Constructor for the CanVendorLoopback class.
+   *
+   * Initializes the CanVendorLoopback object with the provided configuration.
+   *
+   * @param configuration A constant reference to the CanDeviceArguments object,
+   * which contains configuration parameters for the CAN device.
+   */
   explicit CanVendorLoopback(const CanDeviceArguments &configuration)
       : CanDevice("loopback", configuration) {}
 

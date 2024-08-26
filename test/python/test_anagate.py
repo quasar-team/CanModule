@@ -4,11 +4,11 @@ from common import *
 
 DEVICE_ONE = CanDeviceConfiguration()
 DEVICE_ONE.host = "128.141.159.236"
-DEVICE_ONE.bus_address = 0
+DEVICE_ONE.bus_number = 0
 
 DEVICE_TWO = CanDeviceConfiguration()
 DEVICE_TWO.host = "128.141.159.236"
-DEVICE_TWO.bus_address = 1
+DEVICE_TWO.bus_number = 1
 
 
 def test_anagate_single_message():
@@ -22,10 +22,14 @@ def test_anagate_single_message():
     myDevice2 = CanDevice.create(
         "anagate", CanDeviceArguments(DEVICE_TWO, received_frames_dev2.append)
     )
-    myDevice1.open()
-    myDevice2.open()
+    o1 = myDevice1.open()
+    o2 = myDevice2.open()
 
-    myDevice1.send(CanFrame(123, ["H", "e", "l", "l", "o"]))
+    assert o1 == 0
+    assert o2 == 0
+
+    s1 = myDevice1.send(CanFrame(123, ["H", "e", "l", "l", "o"]))
+    assert s1 == 0
 
     sleep(0.1)
 

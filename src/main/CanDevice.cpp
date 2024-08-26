@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 
+#include "CanLogIt.h"
 #include "CanVendorAnagate.h"
 #include "CanVendorLoopback.h"
 
@@ -20,7 +21,21 @@
  *
  * @return int Returns 0 on success, or a non-zero error code on failure.
  */
-int CanDevice::open() { return vendor_open(); }
+int CanDevice::open() {
+  LOG(Log::INF, CanLogIt::h) << "Opening CAN device " << m_vendor;
+  LOG(Log::INF, CanLogIt::h) << "Configuration: " << m_args.config;
+
+  int result = vendor_open();
+
+  if (result != 0) {
+    LOG(Log::ERR, CanLogIt::h)
+        << "Failed to open CAN device: error code " << result;
+  } else {
+    LOG(Log::DBG, CanLogIt::h) << "Successfully opened CAN device";
+  }
+
+  return result;
+}
 /**
  * @brief Closes the CAN device.
  *
@@ -29,7 +44,21 @@ int CanDevice::open() { return vendor_open(); }
  *
  * @return int Returns 0 on success, or a non-zero error code on failure.
  */
-int CanDevice::close() { return vendor_close(); }
+int CanDevice::close() {
+  LOG(Log::INF, CanLogIt::h) << "Closing CAN device " << m_vendor;
+
+  int result = vendor_close();
+
+  if (result != 0) {
+    LOG(Log::ERR, CanLogIt::h)
+        << "Failed to close CAN device: error code " << result;
+  } else {
+    LOG(Log::DBG, CanLogIt::h) << "Successfully closed CAN device";
+  }
+
+  return result;
+}
+
 /**
  * @brief Sends a CAN frame.
  *
@@ -39,7 +68,20 @@ int CanDevice::close() { return vendor_close(); }
  * @param frame The CAN frame to be sent. It must be a valid frame.
  * @return int Returns 0 on success, or a non-zero error code on failure.
  */
-int CanDevice::send(const CanFrame &frame) { return vendor_send(frame); }
+int CanDevice::send(const CanFrame &frame) {
+  LOG(Log::DBG, CanLogIt::h) << "Sending CAN frame: " << frame;
+
+  int result = vendor_send(frame);
+
+  if (result != 0) {
+    LOG(Log::ERR, CanLogIt::h)
+        << "Failed to send CAN frame: error code " << result;
+  } else {
+    LOG(Log::TRC, CanLogIt::h) << "Successfully sent CAN frame: " << frame;
+  }
+
+  return result;
+}
 
 /**
  * @brief Sends multiple CAN frames.
@@ -91,18 +133,26 @@ CanDiagnostics CanDevice::diagnostics() { return vendor_diagnostics(); }
  */
 std::unique_ptr<CanDevice> CanDevice::create(
     std::string_view vendor, const CanDeviceArguments &configuration) {
+  LOG(Log::INF, CanLogIt::h) << "Creating CAN device for vendor: " << vendor;
+  LOG(Log::INF, CanLogIt::h) << "Configuration: " << configuration.config;
+
   if (vendor == "loopback") {
+    LOG(Log::DBG, CanLogIt::h) << "Creating Loopback CAN device";
     return std::make_unique<CanVendorLoopback>(configuration);
   }
+
 #ifndef _WIN32
   if (vendor == "socketcan") {
+    LOG(Log::DBG, CanLogIt::h) << "Creating SocketCAN CAN device";
     return std::make_unique<CanVendorSocketCan>(configuration);
   }
 #endif
 
   if (vendor == "anagate") {
+    LOG(Log::DBG, CanLogIt::h) << "Creating Anagate CAN device";
     return std::make_unique<CanVendorAnagate>(configuration);
   }
 
+  LOG(Log::ERR, CanLogIt::h) << "Unrecognized CAN device vendor: " << vendor;
   return nullptr;
 }

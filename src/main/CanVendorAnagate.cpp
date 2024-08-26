@@ -7,6 +7,8 @@
 #include <mutex>  // NOLINT
 #include <sstream>
 
+#include "CanLogIt.h"
+
 std::mutex CanVendorAnagate::m_handles_lock;
 std::map<int, CanVendorAnagate *> CanVendorAnagate::m_handles;
 
@@ -63,14 +65,40 @@ void anagate_receive(AnaInt32 nIdentifier, const char *pcBuffer,
 int CanVendorAnagate::vendor_open() {
   const AnaInt32 result = CANOpenDevice(
       &m_handle, args().config.sent_acknowledgement.value_or(false), true,
-      args().config.bus_address.value(), args().config.host.value().c_str(),
+      args().config.bus_number.value(), args().config.host.value().c_str(),
       args().config.timeout.value_or(AnagateConstants::default_timeout));
   CANSetCallback(m_handle, reinterpret_cast<CAN_PF_CALLBACK>(anagate_receive));
   std::lock_guard<std::mutex> guard(CanVendorAnagate::m_handles_lock);
   CanVendorAnagate::m_handles[m_handle] = this;
-  return static_cast<int>(result);
-}
 
+  print_anagate_error(result);
+
+  switch (result) {
+    case AnagateConstants::ERROR_NONE:
+      return CanDeviceError::SUCCESS;
+    case AnagateConstants::ERROR_OPEN_MAX_CONN:
+      return CanDeviceError::TOO_MANY_CONNECTIONS;
+    case AnagateConstants::ERROR_TCPIP_SOCKET:
+      return CanDeviceError::SOCKET_ERROR;
+    case AnagateConstants::ERROR_TCPIP_NOTCONNECTED:
+      return CanDeviceError::NOT_CONNECTED;
+    case AnagateConstants::ERROR_TCPIP_TIMEOUT:
+      return CanDeviceError::TIMEOUT;
+    case AnagateConstants::ERROR_OP_CMD_FAILED:
+    case AnagateConstants::ERROR_TCPIP_CALLNOTALLOWED:
+    case AnagateConstants::ERROR_TCPIP_NOT_INITIALIZED:
+    case AnagateConstants::ERROR_INVALID_CRC:
+    case AnagateConstants::ERROR_INVALID_CONF:
+    case AnagateConstants::ERROR_INVALID_CONF_DATA:
+    case AnagateConstants::ERROR_INVALID_DEVICE_HANDLE:
+    case AnagateConstants::ERROR_INVALID_DEVICE_TYPE:
+      return CanDeviceError::INTERNAL_API_ERROR;
+    default:
+      LOG(Log::ERR, CanLogIt::h) << "Failed to open CAN device: Unknown error";
+      return CanDeviceError::UNKNOWN_OPEN_ERROR;
+  }
+  return CanDeviceError::UNKNOWN_OPEN_ERROR;
+}
 /**
  * @brief Sends a CAN frame to the associated device.
  *
@@ -96,7 +124,31 @@ int CanVendorAnagate::vendor_send(const CanFrame &frame) {
                      frame.length(), anagate_flags)
           : CANWrite(m_handle, frame.id(), frame.message().data(),
                      frame.length(), anagate_flags);
-  return sent_status;
+
+  print_anagate_error(sent_status);
+
+  switch (sent_status) {
+    case AnagateConstants::ERROR_NONE:
+      return CanDeviceError::SUCCESS;
+    case AnagateConstants::ERROR_CAN_NACK:
+      return CanDeviceError::CAN_NACK;
+
+    case AnagateConstants::ERROR_CAN_TX_ERROR:
+      return CanDeviceError::CAN_TX_ERROR;
+
+    case AnagateConstants::ERROR_CAN_TX_BUF_OVERLOW:
+      return CanDeviceError::CAN_TX_BUFFER_OVERFLOW;
+
+    case AnagateConstants::ERROR_CAN_TX_MLOA:
+      return CanDeviceError::CAN_LOST_ARBITRATION;
+
+    case AnagateConstants::ERROR_CAN_NO_VALID_BAUDRATE:
+      return CanDeviceError::CAN_INVALID_BITRATE;
+
+    default:
+      LOG(Log::ERR, CanLogIt::h) << "Failed to sent frame: Unknown error";
+      return CanDeviceError::UNKNOWN_OPEN_ERROR;
+  }
 }
 
 /**
@@ -244,7 +296,37 @@ CanDiagnostics CanVendorAnagate::vendor_diagnostics() {
  */
 int CanVendorAnagate::vendor_close() {
   const int r = CANCloseDevice(m_handle);
+  print_anagate_error(r);
   std::lock_guard<std::mutex> guard(CanVendorAnagate::m_handles_lock);
   CanVendorAnagate::m_handles.erase(m_handle);
-  return r;
+  switch (r) {
+    case AnagateConstants::ERROR_NONE:
+      return CanDeviceError::SUCCESS;
+    default:
+
+      return CanDeviceError::UNKNOWN_CLOSE_ERROR;
+  }
+}
+
+/**
+ * @brief Prints the error message associated with the given Anagate error code.
+ *
+ * This function retrieves the error message corresponding to the given Anagate
+ * error code using the CANErrorMessage function from the AnaGate DLL. It then
+ * logs the error message using the CanLogIt logging system.
+ *
+ * @param r The Anagate error code for which the error message should be
+ * printed.
+ *
+ * @note This function is called internally by the vendor_open, vendor_send,
+ * and vendor_close functions to handle and log any errors
+ * that occur during the communication with the Anagate CAN device.
+ */
+void CanVendorAnagate::print_anagate_error(AnaUInt32 r) {
+  if (r != AnagateConstants::ERROR_NONE) {
+    std::string error_string{};
+    error_string.reserve(100);
+    CANErrorMessage(r, error_string.data(), error_string.capacity());
+    LOG(Log::ERR, CanLogIt::h) << "ANAGATE ERROR: " << error_string;
+  }
 }

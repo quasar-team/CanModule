@@ -22,6 +22,14 @@
  * methods to open, close, and send CAN frames using the SocketCAN interface.
  */
 struct CanVendorSocketCan : CanDevice {
+  /**
+   * @brief Constructor for the CanVendorSocketCan class.
+   *
+   * Initializes the CanVendorSocketCan object with the provided configuration.
+   *
+   * @param configuration A constant reference to the CanDeviceArguments object,
+   * which contains configuration parameters for the CAN device.
+   */
   explicit CanVendorSocketCan(const CanDeviceArguments &configuration)
       : CanDevice("socketcan", configuration) {}
 
@@ -37,8 +45,8 @@ struct CanVendorSocketCan : CanDevice {
   static const CanFrame translate(const struct can_frame &message);
   static struct can_frame translate(const CanFrame &frame);
 
-  int socket_fd;                  // File descriptor for the SocketCAN device
-  int epoll_fd;                   // File descriptor for the epoll instance
+  int socket_fd{0};               // File descriptor for the SocketCAN device
+  int epoll_fd{0};                // File descriptor for the epoll instance
   std::thread subscriber_thread;  // Thread for the subscriber loop
   bool m_subcriber_run{
       false};  // Flag to indicate that the subscriber loop should run
