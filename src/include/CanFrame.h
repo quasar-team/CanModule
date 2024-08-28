@@ -6,15 +6,15 @@
 #include <vector>
 
 /**
- * @namespace CanFlags
+ * @namespace can_flags
  * @brief Namespace containing flag constants for CAN frames.
  */
-namespace CanFlags {
-constexpr int STANDARD_ID = 0 << 0;     ///< Standard 11-bit identifier
-constexpr int EXTENDED_ID = 1 << 0;     ///< Extended 29-bit identifier
-constexpr int ERROR_FRAME = 1 << 1;     ///< Error frame flag
-constexpr int REMOTE_REQUEST = 1 << 2;  ///< Remote request flag
-};  // namespace CanFlags
+namespace can_flags {
+constexpr int standard_id = 0 << 0;     ///< Standard 11-bit identifier
+constexpr int extended_id = 1 << 0;     ///< Extended 29-bit identifier
+constexpr int error_frame = 1 << 1;     ///< Error frame flag
+constexpr int remote_request = 1 << 2;  ///< Remote request flag
+};  // namespace can_flags
 
 /**
  * @struct CanFrame
@@ -44,9 +44,9 @@ struct CanFrame {
    */
   CanFrame(const uint32_t id, const uint32_t requested_length)
       : CanFrame(id, requested_length,
-                 CanFlags::REMOTE_REQUEST |
-                     (is_11_bits(id) ? CanFlags::STANDARD_ID
-                                     : CanFlags::EXTENDED_ID)) {}
+                 can_flags::remote_request |
+                     (is_11_bits(id) ? can_flags::standard_id
+                                     : can_flags::extended_id)) {}
   /**
    * @brief Constructs a CanFrame with specified ID.
    * @param id The identifier of the CAN frame.
@@ -60,7 +60,7 @@ struct CanFrame {
   CanFrame(const uint32_t id, const std::vector<char>& message)
       : CanFrame(
             id, message,
-            is_11_bits(id) ? CanFlags::STANDARD_ID : CanFlags::EXTENDED_ID) {}
+            is_11_bits(id) ? can_flags::standard_id : can_flags::extended_id) {}
   /**
    * @brief Constructs a CanFrame with specified ID, message, and flags.
    * @param id The identifier of the CAN frame.
@@ -96,7 +96,7 @@ struct CanFrame {
    * @return True if the frame is an error frame, false otherwise.
    */
   inline bool is_error() const {
-    return (m_flags & CanFlags::ERROR_FRAME) != 0;
+    return (m_flags & can_flags::error_frame) != 0;
   }
 
   /**
@@ -104,7 +104,7 @@ struct CanFrame {
    * @return True if the frame is a remote request, false otherwise.
    */
   inline bool is_remote_request() const {
-    return (m_flags & CanFlags::REMOTE_REQUEST) != 0;
+    return (m_flags & can_flags::remote_request) != 0;
   }
   /**
    * @brief Checks if the CAN frame uses a standard 11-bit identifier.
@@ -119,7 +119,7 @@ struct CanFrame {
    * otherwise.
    */
   inline bool is_extended_id() const {
-    return (m_flags & CanFlags::EXTENDED_ID) != 0;
+    return (m_flags & can_flags::extended_id) != 0;
   }
 
   /**
@@ -130,7 +130,7 @@ struct CanFrame {
     static_assert(sizeof(std::vector<char>::size_type) > sizeof(uint32_t),
                   "m_message is larger than uint32_t");
 
-    return (m_flags & CanFlags::REMOTE_REQUEST)
+    return (m_flags & can_flags::remote_request)
                ? m_requested_length
                : static_cast<uint32_t>(m_message.size());
   }

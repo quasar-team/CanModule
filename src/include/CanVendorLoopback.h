@@ -27,9 +27,9 @@ struct CanVendorLoopback : CanDevice {
    * vendor_send. It will use received(const CanFrame &frame) to communicate
    * incoming CAN frames.
    */
-  int vendor_open() override { return 0; }
-  int vendor_close() override { return 0; }
-  int vendor_send(const CanFrame &frame) override;
+  CanReturnCode vendor_open() override { return CanReturnCode::success; }
+  CanReturnCode vendor_close() override { return CanReturnCode::success; }
+  CanReturnCode vendor_send(const CanFrame &frame) override;
   CanDiagnostics vendor_diagnostics() override { return CanDiagnostics{}; }
 };
 

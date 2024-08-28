@@ -54,12 +54,11 @@ Install:
 sudo dnf install iproute kernel-modules-extra
 sudo dnf groupinstall "Development Tools"
 sudo dnf install kernel-devel kernel-headers elfutils-libelf-devel
-sudo dnf install --source kernel
+sudo dnf download --source kernel
 ```
 
-Extract the `rpm --install` and go to `/root/rpmbuild/SOURCES/[your linux version]/drivers/net/can`
-
-**NOTE:** Make sure your running kernel matches the source code extracted
+Extract the downloaded RPM with `rpm --install`. Go to `/root/rpmbuild/SOURCES/` extract the `.tar.xf` file and go to the `drivers/net/can` folder; otherwise you will need either to upgrade your
+system or download the exact kernel RPM source code of your existing kernel.
 
 Execute:
 

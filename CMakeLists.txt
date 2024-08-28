@@ -43,12 +43,12 @@ if (UNIX)
                             ${anagate_SOURCE_DIR}/lib/libAnaGateStaticRelease.so
                             ${anagate_SOURCE_DIR}/lib/libCANDLLStaticRelease64.so
                             socketcan)
+    file(GLOB ANAGATE_LIBRARIES_SO ${anagate_SOURCE_DIR}/lib/*.so)
+    file(COPY ${ANAGATE_LIBRARIES_SO} DESTINATION ${CMAKE_BINARY_DIR})
 else()
     target_link_libraries(CanModuleMain PRIVATE
                             ${anagate_SOURCE_DIR}/lib/AnaGateCanDll64.lib)
-    set(DLL_PATH ${anagate_SOURCE_DIR}/lib/AnaGateCan64.dll)
-    set(BINARY_DLL_PATH ${CMAKE_BINARY_DIR}/AnaGateCan64.dll)
-    configure_file(${DLL_PATH} ${BINARY_DLL_PATH} COPYONLY)
+    file(COPY "${anagate_SOURCE_DIR}/lib/AnaGateCan64.dll" DESTINATION "${CMAKE_BINARY_DIR}/Release")
 endif()
 
 

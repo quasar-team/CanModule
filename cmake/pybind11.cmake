@@ -22,11 +22,12 @@ if(pybind11_installed EQUAL 0)
   string(REGEX REPLACE "Location: " "" pybind11_location ${CMAKE_MATCH_1})
 
   set(pybind11_DIR ${pybind11_location}/pybind11/share/cmake/pybind11)
-
+  set(PYBIND11_FINDPYTHON ON)
   find_package(pybind11 REQUIRED)
-  find_package(Python3 REQUIRED COMPONENTS Development)
 
   pybind11_add_module(canmodule ${PYTHON_SOURCES})
+
+  set_target_properties(canmodule PROPERTIES BUILD_RPATH "\$ORIGIN")
   target_include_directories(canmodule PRIVATE ${logit_SOURCE_DIR}/include)
   target_link_libraries(canmodule PRIVATE CanModuleMain pybind11::module LogIt ${PYTHON_LIBRARIES})
 endif()

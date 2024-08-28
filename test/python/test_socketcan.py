@@ -2,6 +2,11 @@ from time import sleep
 import pytest
 from common import *
 
+pytestmark = pytest.mark.skipif(
+    sys.platform.startswith("win"),
+    reason="This test module is only for Linux environments.",
+)
+
 DEVICE_ONE = CanDeviceConfiguration()
 DEVICE_ONE.bus_name = "vcan0"
 DEVICE_TWO = CanDeviceConfiguration()
@@ -23,7 +28,7 @@ def test_socketcan_single_message():
 
     myDevice1.send(CanFrame(123, ["H", "e", "l", "l", "o"]))
 
-    sleep(0.1)
+    sleep(1)
 
     assert len(received_frames_dev2) == 1
     assert received_frames_dev2[0].id() == 123
@@ -49,13 +54,13 @@ def test_socketcan_multiple_messages():
         CanFrame(123, ["H", "e", "l", "l", "o"]),
         CanFrame(234, ["W", "o", "r", "l", "d"]),
         CanFrame(345, 5),
-        CanFrame(456, ["J", "u", "s", "t"], CanFlags.EXTENDED_ID),
-        CanFrame(1 << 25, ["J", "u", "s", "t"], CanFlags.EXTENDED_ID),
+        CanFrame(456, ["J", "u", "s", "t"], can_flags.extended_id),
+        CanFrame(1 << 25, ["J", "u", "s", "t"], can_flags.extended_id),
     ]
 
     myDevice1.send(send_frames)
 
-    sleep(0.1)
+    sleep(1)
 
     assert len(received_frames_dev2) == 5
 

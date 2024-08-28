@@ -11,6 +11,25 @@
 #include "CanDiagnostics.h"
 #include "CanFrame.h"
 
+enum class CanReturnCode {
+  success,
+  unknown_open_error,
+  socket_error,
+  too_many_connections,
+  timeout,
+  disconnected,
+  internal_api_error,
+  unknown_send_error,
+  not_ack,
+  tx_error,
+  tx_buffer_overflow,
+  lost_arbitration,
+  invalid_bitrate,
+  unknown_close_error,
+};
+
+std::ostream& operator<<(std::ostream& os, CanReturnCode code);
+
 /**
  * @brief This struct represents a CAN device.
  *
@@ -18,10 +37,10 @@
  * as well as accessing device information and diagnostics.
  */
 struct CanDevice {
-  int open();
-  int close();
-  int send(const CanFrame& frame);
-  std::vector<int> send(const std::vector<CanFrame>& frames);
+  CanReturnCode open();
+  CanReturnCode close();
+  CanReturnCode send(const CanFrame& frame);
+  std::vector<CanReturnCode> send(const std::vector<CanFrame>& frames);
   CanDiagnostics diagnostics();
 
   /**
@@ -71,7 +90,7 @@ struct CanDevice {
    * implementations to provide the necessary functionality for opening,
    * closing, sending, and retrieving diagnostics from the CAN device.
    */
-  virtual int vendor_open() = 0;
+  virtual CanReturnCode vendor_open() = 0;
 
   /**
    * @brief Pure virtual functions for vendor-specific CAN device operations.
@@ -80,7 +99,7 @@ struct CanDevice {
    * implementations to provide the necessary functionality for opening,
    * closing, sending, and retrieving diagnostics from the CAN device.
    */
-  virtual int vendor_close() = 0;
+  virtual CanReturnCode vendor_close() = 0;
 
   /**
    * @brief Pure virtual functions for vendor-specific CAN device operations.
@@ -89,7 +108,7 @@ struct CanDevice {
    * implementations to provide the necessary functionality for opening,
    * closing, sending, and retrieving diagnostics from the CAN device.
    */
-  virtual int vendor_send(const CanFrame& frame) = 0;
+  virtual CanReturnCode vendor_send(const CanFrame& frame) = 0;
 
   /**
    * @brief Pure virtual functions for vendor-specific CAN device operations.
@@ -115,24 +134,5 @@ struct CanDevice {
   const std::string m_vendor;
   const CanDeviceArguments m_args;
 };
-
-namespace CanDeviceError {
-constexpr int NO_ERROR = 0;
-constexpr int SUCCESS = 0;
-constexpr int UNKNOWN_OPEN_ERROR = -1;
-constexpr int SOCKET_ERROR = -2;
-constexpr int TOO_MANY_CONNECTIONS = -3;
-constexpr int TIMEOUT = -4;
-constexpr int NOT_CONNECTED = -5;
-constexpr int UNACKNOWLEDMENT = -6;
-constexpr int INTERNAL_API_ERROR = -7;
-constexpr int UNKNOWN_SEND_ERROR = -20;
-constexpr int CAN_NACK = -21;
-constexpr int CAN_TX_ERROR = -22;
-constexpr int CAN_TX_BUFFER_OVERFLOW = -23;
-constexpr int CAN_LOST_ARBITRATION = -24;
-constexpr int CAN_INVALID_BITRATE = -25;
-constexpr int UNKNOWN_CLOSE_ERROR = -40;
-};  // namespace CanDeviceError
 
 #endif  // SRC_INCLUDE_CANDEVICE_H_

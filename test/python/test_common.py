@@ -28,7 +28,7 @@ def test_full_frame():
         frame = CanFrame(
             4096,
             ["H", "e", "l", "l", "o", "W", "o", "r", "l", "d"],
-            CanFlags.EXTENDED_ID,
+            can_flags.extended_id,
         )
     assert str(e.value) == "Invalid CAN frame: Message length exceeds 8 bytes."
 

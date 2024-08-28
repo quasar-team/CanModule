@@ -40,9 +40,41 @@ Google Tests on Linux:
   script:
     - ctest --test-dir build
 
+Pytest on Windows:
+  stage: unstagged
+  image: $CI_REGISTRY_IMAGE/win2022-build:latest
+  tags:
+    - win2022-container
+  needs:
+    - Compile on Windows
+  script:
+    - python -m pytest
+
+Pytest on Linux:
+  stage: unstagged
+  tags:
+    - linux-socketcan
+  needs:
+    - Compile on Linux
+  script:
+    - python -m pytest
+
+
 Run Sanity Checks:
   stage: unstagged
   image: $CI_REGISTRY_IMAGE/alma9-build:latest
   script:
     - pip install pre-commit
     - pre-commit run --all-files
+
+Update Documentation Website:
+  stage: unstagged
+  image: $CI_REGISTRY_IMAGE/alma9-build:latest
+  script:
+    - |
+      curl -X POST \
+           --fail \
+           -F token=$DOC_TOKEN \
+           -F "ref=main" \
+           -F "variables[DOCUMENTATION_GENERATION]=true" \
+           https://gitlab.cern.ch/api/v4/projects/$CI_PROJECT_ID/trigger/pipeline

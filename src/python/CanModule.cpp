@@ -31,38 +31,28 @@ PYBIND11_MODULE(canmodule, m) {
       .def("__str__", &CanFrame::to_string);
 
   py::module_ can_flags =
-      m.def_submodule("CanFlags", "Namespace for CAN frame flags");
-  can_flags.attr("STANDARD_ID") = CanFlags::STANDARD_ID;
-  can_flags.attr("EXTENDED_ID") = CanFlags::EXTENDED_ID;
-  can_flags.attr("ERROR_FRAME") = CanFlags::ERROR_FRAME;
-  can_flags.attr("REMOTE_REQUEST") = CanFlags::REMOTE_REQUEST;
+      m.def_submodule("can_flags", "Namespace for CAN frame flags");
+  can_flags.attr("standard_id") = can_flags::standard_id;
+  can_flags.attr("extended_id") = can_flags::extended_id;
+  can_flags.attr("error_frame") = can_flags::error_frame;
+  can_flags.attr("remote_request") = can_flags::remote_request;
 
-  py::module_ can_device_error =
-      m.def_submodule("CanDeviceError", "Namespace for CAN device error codes");
-  can_device_error.attr("NO_ERROR") = CanDeviceError::NO_ERROR;
-  can_device_error.attr("SUCCESS") = CanDeviceError::SUCCESS;
-  can_device_error.attr("UNKNOWN_OPEN_ERROR") =
-      CanDeviceError::UNKNOWN_OPEN_ERROR;
-  can_device_error.attr("SOCKET_ERROR") = CanDeviceError::SOCKET_ERROR;
-  can_device_error.attr("TOO_MANY_CONNECTIONS") =
-      CanDeviceError::TOO_MANY_CONNECTIONS;
-  can_device_error.attr("TIMEOUT") = CanDeviceError::TIMEOUT;
-  can_device_error.attr("NOT_CONNECTED") = CanDeviceError::NOT_CONNECTED;
-  can_device_error.attr("UNACKNOWLEDMENT") = CanDeviceError::UNACKNOWLEDMENT;
-  can_device_error.attr("INTERNAL_API_ERROR") =
-      CanDeviceError::INTERNAL_API_ERROR;
-  can_device_error.attr("UNKNOWN_SEND_ERROR") =
-      CanDeviceError::UNKNOWN_SEND_ERROR;
-  can_device_error.attr("CAN_NACK") = CanDeviceError::CAN_NACK;
-  can_device_error.attr("CAN_TX_ERROR") = CanDeviceError::CAN_TX_ERROR;
-  can_device_error.attr("CAN_TX_BUFFER_OVERFLOW") =
-      CanDeviceError::CAN_TX_BUFFER_OVERFLOW;
-  can_device_error.attr("CAN_LOST_ARBITRATION") =
-      CanDeviceError::CAN_LOST_ARBITRATION;
-  can_device_error.attr("CAN_INVALID_BITRATE") =
-      CanDeviceError::CAN_INVALID_BITRATE;
-  can_device_error.attr("UNKNOWN_CLOSE_ERROR") =
-      CanDeviceError::UNKNOWN_CLOSE_ERROR;
+  py::enum_<CanReturnCode>(m, "CanReturnCode")
+      .value("success", CanReturnCode::success)
+      .value("unknown_open_error", CanReturnCode::unknown_open_error)
+      .value("socket_error", CanReturnCode::socket_error)
+      .value("too_many_connections", CanReturnCode::too_many_connections)
+      .value("timeout", CanReturnCode::timeout)
+      .value("disconnected", CanReturnCode::disconnected)
+      .value("internal_api_error", CanReturnCode::internal_api_error)
+      .value("unknown_send_error", CanReturnCode::unknown_send_error)
+      .value("not_ack", CanReturnCode::not_ack)
+      .value("tx_error", CanReturnCode::tx_error)
+      .value("tx_buffer_overflow", CanReturnCode::tx_buffer_overflow)
+      .value("lost_arbitration", CanReturnCode::lost_arbitration)
+      .value("invalid_bitrate", CanReturnCode::invalid_bitrate)
+      .value("unknown_close_error", CanReturnCode::unknown_close_error)
+      .export_values();
 
   py::class_<CanDevice>(m, "CanDevice")
       .def("open", &CanDevice::open)

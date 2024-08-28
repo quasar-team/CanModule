@@ -18,54 +18,55 @@
  */
 void CanFrame::validate_frame() {
   if (!is_29_bits_id()) {
-    LOG(Log::ERR, CanLogIt::h) << "Invalid CAN frame: ID must be 29 bits.";
+    LOG(Log::ERR, CanLogIt::h()) << "Invalid CAN frame: ID must be 29 bits.";
     throw std::invalid_argument("Invalid CAN frame: ID must be 29 bits.");
   }
 
   if (is_29_bits_id() && !is_11_bits_id() &&
-      !(m_flags & CanFlags::EXTENDED_ID)) {
-    LOG(Log::ERR, CanLogIt::h)
+      !(m_flags & can_flags::extended_id)) {
+    LOG(Log::ERR, CanLogIt::h())
         << "Invalid CAN frame: Extended ID flag is not set.";
     throw std::invalid_argument(
         "Invalid CAN frame: Extended ID flag is not set.");
   }
 
   if (m_message.size() > 8) {
-    LOG(Log::ERR, CanLogIt::h)
+    LOG(Log::ERR, CanLogIt::h())
         << "Invalid CAN frame: Message length exceeds 8 bytes.";
     throw std::invalid_argument(
         "Invalid CAN frame: Message length exceeds 8 bytes.");
   }
 
-  if (m_requested_length > 0 && !(m_flags & CanFlags::REMOTE_REQUEST)) {
-    LOG(Log::ERR, CanLogIt::h) << "Invalid CAN frame: Requested length is set "
-                                  "but not a remote request.";
+  if (m_requested_length > 0 && !(m_flags & can_flags::remote_request)) {
+    LOG(Log::ERR, CanLogIt::h())
+        << "Invalid CAN frame: Requested length is set "
+           "but not a remote request.";
     throw std::invalid_argument(
         "Invalid CAN frame: Requested length is set but not a remote request.");
   }
 
-  if (m_message.size() > 0 && (m_flags & CanFlags::REMOTE_REQUEST)) {
-    LOG(Log::ERR, CanLogIt::h)
+  if (m_message.size() > 0 && (m_flags & can_flags::remote_request)) {
+    LOG(Log::ERR, CanLogIt::h())
         << "Invalid CAN frame: Message is present but it's a remote request.";
     throw std::invalid_argument(
         "Invalid CAN frame: Message is present but it's a remote request.");
   }
 
   if (m_requested_length > 8) {
-    LOG(Log::ERR, CanLogIt::h)
+    LOG(Log::ERR, CanLogIt::h())
         << "Invalid CAN frame: Requested length exceeds 8 bytes.";
     throw std::invalid_argument(
         "Invalid CAN frame: Requested length exceeds 8 bytes.");
   }
 
   if (m_message.size() > 0 && m_requested_length > 0) {
-    LOG(Log::ERR, CanLogIt::h)
+    LOG(Log::ERR, CanLogIt::h())
         << "Invalid CAN frame: Both message and requested length are present.";
     throw std::invalid_argument(
         "Invalid CAN frame: Both message and requested length are present.");
   }
 
-  LOG(Log::TRC, CanLogIt::h) << "CAN frame is valid: " << to_string();
+  LOG(Log::TRC, CanLogIt::h()) << "CAN frame is valid: " << to_string();
 }
 
 /**

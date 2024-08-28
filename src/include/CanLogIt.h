@@ -4,12 +4,18 @@
 #include "CanVersion.h"
 #include "LogIt.h"
 
-namespace CanLogIt {
-static const bool InitLogIt = Log::initializeLogging();
-static const Log::LogComponentHandle h =
-    Log::registerLoggingComponent("CanModule");
-bool print_version();
-static const bool print_version_init = print_version();
-}  // namespace CanLogIt
+struct CanLogIt {
+  static Log::LogComponentHandle h() {
+    static Log::LogComponentHandle handle = [] {
+      Log::initializeLogging();
+      Log::LogComponentHandle h = Log::registerLoggingComponent("CanModule");
+      LOG(Log::INF, h) << "CAN Module SHA: " << CanModule::Version::value
+                       << " Date: " << CanModule::Version::date;
+      return h;
+    }();
+
+    return handle;
+  }
+};
 
 #endif  // SRC_INCLUDE_CANLOGIT_H_
