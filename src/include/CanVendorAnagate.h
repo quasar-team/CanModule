@@ -29,9 +29,9 @@ struct CanVendorAnagate : CanDevice {
    * @param configuration A constant reference to the CanDeviceArguments object,
    * which contains configuration parameters for the CAN device.
    */
-  explicit CanVendorAnagate(const CanDeviceArguments &configuration)
+  inline explicit CanVendorAnagate(const CanDeviceArguments &configuration)
       : CanDevice("anagate", configuration) {}
-  ~CanVendorAnagate() override { vendor_close(); }
+  inline ~CanVendorAnagate() override { vendor_close(); }
 
  private:
   CanReturnCode vendor_open() override;

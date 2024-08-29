@@ -28,8 +28,8 @@ struct CanFrame {
    * @param requested_length The requested length of the CAN frame.
    * @param flags The flags associated with the CAN frame.
    */
-  CanFrame(const uint32_t id, const uint32_t requested_length,
-           const uint32_t flags)
+  inline CanFrame(const uint32_t id, const uint32_t requested_length,
+                  const uint32_t flags)
       : m_id(id), m_requested_length(requested_length), m_flags(flags) {
     if (!is_remote_request()) {
       throw std::invalid_argument("Invalid CAN frame: Remote Flag is not set.");
@@ -42,7 +42,7 @@ struct CanFrame {
    * @param id The identifier of the CAN frame.
    * @param requested_length The requested length of the CAN frame.
    */
-  CanFrame(const uint32_t id, const uint32_t requested_length)
+  inline CanFrame(const uint32_t id, const uint32_t requested_length)
       : CanFrame(id, requested_length,
                  can_flags::remote_request |
                      (is_11_bits(id) ? can_flags::standard_id
@@ -57,7 +57,7 @@ struct CanFrame {
    * @param id The identifier of the CAN frame.
    * @param message The message content of the CAN frame.
    */
-  CanFrame(const uint32_t id, const std::vector<char>& message)
+  inline CanFrame(const uint32_t id, const std::vector<char>& message)
       : CanFrame(
             id, message,
             is_11_bits(id) ? can_flags::standard_id : can_flags::extended_id) {}
@@ -67,8 +67,8 @@ struct CanFrame {
    * @param message The message content of the CAN frame.
    * @param flags The flags associated with the CAN frame.
    */
-  CanFrame(const uint32_t id, const std::vector<char>& message,
-           const uint32_t flags)
+  inline CanFrame(const uint32_t id, const std::vector<char>& message,
+                  const uint32_t flags)
       : m_id(id), m_message(message), m_flags(flags) {
     validate_frame();
   }
@@ -140,7 +140,7 @@ struct CanFrame {
    * @param other The other CanFrame object to compare with.
    * @return True if the CanFrame objects are equal, false otherwise.
    */
-  bool operator==(const CanFrame& other) const {
+  inline bool operator==(const CanFrame& other) const {
     return m_id == other.m_id &&
            m_requested_length == other.m_requested_length &&
            m_message == other.m_message && m_flags == other.m_flags;
@@ -151,7 +151,9 @@ struct CanFrame {
    * @param other The other CanFrame object to compare with.
    * @return True if the CanFrame objects are not equal, false otherwise.
    */
-  bool operator!=(const CanFrame& other) const { return !(*this == other); }
+  inline bool operator!=(const CanFrame& other) const {
+    return !(*this == other);
+  }
 
   std::string to_string() const;
 
@@ -166,13 +168,13 @@ struct CanFrame {
    * @brief Checks if the identifier fits in 11 bits.
    * @return True if the identifier fits in 11 bits, false otherwise.
    */
-  bool is_11_bits_id() const { return is_11_bits(m_id); }
+  inline bool is_11_bits_id() const { return is_11_bits(m_id); }
 
   /**
    * @brief Checks if the identifier fits in 29 bits.
    * @return True if the identifier fits in 29 bits, false otherwise.
    */
-  bool is_29_bits_id() const { return is_29_bits(m_id); }
+  inline bool is_29_bits_id() const { return is_29_bits(m_id); }
 
   /**
    * @brief Validates the CAN frame.
@@ -184,13 +186,13 @@ struct CanFrame {
    * @param id The identifier to check.
    * @return True if the identifier fits in 11 bits, false otherwise.
    */
-  static bool is_11_bits(uint32_t id) { return (id & 0xFFFFF800) == 0; }
+  inline static bool is_11_bits(uint32_t id) { return (id & 0xFFFFF800) == 0; }
   /**
    * @brief Checks if the identifier fits in 29 bits.
    * @param id The identifier to check.
    * @return True if the identifier fits in 29 bits, false otherwise.
    */
-  static bool is_29_bits(uint32_t id) { return (id & 0xE0000000) == 0; }
+  inline static bool is_29_bits(uint32_t id) { return (id & 0xE0000000) == 0; }
 };
 
 std::ostream& operator<<(std::ostream& os, const CanFrame& frame);

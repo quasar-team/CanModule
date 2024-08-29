@@ -210,7 +210,10 @@ CanDiagnostics CanVendorAnagate::vendor_diagnostics() {
 
   AnaInt32 temp{0}, uptime{0};
   if (CANGetDiagData(m_handle, &temp, &uptime) == 0) {
-    diagnostics.temperature = temp / 10.0f;
+    // Temperature is in 1/10th of a degree Celsius, and only for first port.
+    if (args().config.bus_number == 0) {
+      diagnostics.temperature = temp / 10.0f;
+    }
     diagnostics.uptime = uptime;
   }
 

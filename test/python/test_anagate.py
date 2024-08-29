@@ -104,7 +104,7 @@ def test_anagate_multiple_messages():
     assert received_frames_dev2[4].is_error() is False
 
 
-def assert_diagnostics(diag):
+def assert_diagnostics(diag, port_number=None):
     assert diag.log_entries is not None
     assert diag.name is None
     assert diag.handle is not None
@@ -115,7 +115,10 @@ def assert_diagnostics(diag):
     assert len(diag.connected_clients_timestamps) > 0
     assert len(diag.connected_clients_ports) > 0
     assert diag.number_connected_clients > 0
-    assert diag.temperature > 10
+    if port_number == 0:
+        assert diag.temperature > 10
+    else:
+        assert diag.temperature is None
     assert diag.uptime > 0
     assert diag.tcp_rx > 0
     assert diag.tcp_tx >= 0
@@ -138,11 +141,11 @@ def test_anagate_diagnostics_device_one():
     myDevice1 = CanDevice.create("anagate", CanDeviceArguments(DEVICE_ONE, None))
     myDevice1.open()
     diag = myDevice1.diagnostics()
-    assert_diagnostics(diag)
+    assert_diagnostics(diag, DEVICE_ONE.bus_number)
 
 
 def test_anagate_diagnostics_device_two():
     myDevice1 = CanDevice.create("anagate", CanDeviceArguments(DEVICE_TWO, None))
     myDevice1.open()
     diag = myDevice1.diagnostics()
-    assert_diagnostics(diag)
+    assert_diagnostics(diag, DEVICE_TWO.bus_number)

@@ -5,7 +5,7 @@
 #include "LogIt.h"
 
 struct CanLogIt {
-  static Log::LogComponentHandle h() {
+  inline static Log::LogComponentHandle h() {
     static Log::LogComponentHandle handle = [] {
       Log::initializeLogging();
       Log::LogComponentHandle h = Log::registerLoggingComponent("CanModule");

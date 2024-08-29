@@ -19,7 +19,7 @@ struct CanVendorLoopback : CanDevice {
    * @param configuration A constant reference to the CanDeviceArguments object,
    * which contains configuration parameters for the CAN device.
    */
-  explicit CanVendorLoopback(const CanDeviceArguments &configuration)
+  inline explicit CanVendorLoopback(const CanDeviceArguments &configuration)
       : CanDevice("loopback", configuration) {}
 
  private:
@@ -27,10 +27,14 @@ struct CanVendorLoopback : CanDevice {
    * vendor_send. It will use received(const CanFrame &frame) to communicate
    * incoming CAN frames.
    */
-  CanReturnCode vendor_open() override { return CanReturnCode::success; }
-  CanReturnCode vendor_close() override { return CanReturnCode::success; }
+  inline CanReturnCode vendor_open() override { return CanReturnCode::success; }
+  inline CanReturnCode vendor_close() override {
+    return CanReturnCode::success;
+  }
   CanReturnCode vendor_send(const CanFrame &frame) override;
-  CanDiagnostics vendor_diagnostics() override { return CanDiagnostics{}; }
+  inline CanDiagnostics vendor_diagnostics() override {
+    return CanDiagnostics{};
+  }
 };
 
 #endif  // SRC_INCLUDE_CANVENDORLOOPBACK_H_

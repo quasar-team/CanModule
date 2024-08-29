@@ -80,7 +80,7 @@ struct CanDevice {
    * @param args A constant reference to the CanDeviceArguments object, which
    * contains configuration parameters for the CAN device.
    */
-  CanDevice(std::string_view vendor_name, const CanDeviceArguments& args)
+  inline CanDevice(std::string_view vendor_name, const CanDeviceArguments& args)
       : m_vendor{vendor_name}, m_args{args} {}
 
   /**
@@ -128,7 +128,7 @@ struct CanDevice {
    *
    * @param frame A const reference to the received CanFrame.
    */
-  void received(const CanFrame& frame) { m_args.receiver(frame); }
+  inline void received(const CanFrame& frame) { m_args.receiver(frame); }
 
  private:
   const std::string m_vendor;
