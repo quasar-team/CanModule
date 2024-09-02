@@ -13,8 +13,6 @@ FetchContent_MakeAvailable(googletest)
 set(TEST_SOURCES
     test/cpp/CanDevice_test.cpp
     test/cpp/CanFrame_test.cpp
-    test/cpp/CanExtra_test.cpp
-    test/cpp/CanStats_test.cpp
     test/cpp/LogIt_test.cpp
     test/cpp/CanVersion_test.cpp
 )

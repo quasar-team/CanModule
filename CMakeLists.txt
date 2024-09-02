@@ -15,7 +15,6 @@ include(cmake/version.cmake)
 set(SOURCES
     src/main/CanFrame.cpp
     src/main/CanDevice.cpp
-    src/main/CanStats.cpp
     src/main/CanVendorLoopback.cpp
     src/main/CanDeviceConfiguration.cpp
 )
