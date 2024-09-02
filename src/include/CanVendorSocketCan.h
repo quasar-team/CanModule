@@ -36,14 +36,14 @@ struct CanVendorSocketCan : CanDevice {
   ~CanVendorSocketCan() { vendor_close(); }
 
  private:
-  CanReturnCode vendor_open() override;
-  CanReturnCode vendor_close() override;
-  CanReturnCode vendor_send(const CanFrame &frame) override;
-  CanDiagnostics vendor_diagnostics() override;
+  CanReturnCode vendor_open() noexcept override;
+  CanReturnCode vendor_close() noexcept override;
+  CanReturnCode vendor_send(const CanFrame &frame) noexcept override;
+  CanDiagnostics vendor_diagnostics() noexcept override;
 
-  int subscriber();
-  static const CanFrame translate(const struct can_frame &message);
-  static struct can_frame translate(const CanFrame &frame);
+  int subscriber() noexcept;
+  static const CanFrame translate(const struct can_frame &message) noexcept;
+  static struct can_frame translate(const CanFrame &frame) noexcept;
 
   int socket_fd{0};               // File descriptor for the SocketCAN device
   int epoll_fd{0};                // File descriptor for the epoll instance

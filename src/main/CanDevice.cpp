@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <memory>
+#include <stdexcept>
 #include <string>
 #include <vector>
 
@@ -21,7 +22,7 @@
  *
  * @return int Returns 0 on success, or a non-zero error code on failure.
  */
-CanReturnCode CanDevice::open() {
+CanReturnCode CanDevice::open() noexcept {
   LOG(Log::INF, CanLogIt::h()) << "Opening CAN device " << m_vendor;
   LOG(Log::INF, CanLogIt::h()) << "Configuration: " << m_args.config;
 
@@ -44,7 +45,7 @@ CanReturnCode CanDevice::open() {
  *
  * @return int Returns 0 on success, or a non-zero error code on failure.
  */
-CanReturnCode CanDevice::close() {
+CanReturnCode CanDevice::close() noexcept {
   LOG(Log::INF, CanLogIt::h()) << "Closing CAN device " << m_vendor;
 
   CanReturnCode result = vendor_close();
@@ -68,7 +69,7 @@ CanReturnCode CanDevice::close() {
  * @param frame The CAN frame to be sent. It must be a valid frame.
  * @return int Returns 0 on success, or a non-zero error code on failure.
  */
-CanReturnCode CanDevice::send(const CanFrame &frame) {
+CanReturnCode CanDevice::send(const CanFrame &frame) noexcept {
   LOG(Log::DBG, CanLogIt::h()) << "Sending CAN frame: " << frame;
 
   CanReturnCode result = vendor_send(frame);
@@ -96,7 +97,7 @@ CanReturnCode CanDevice::send(const CanFrame &frame) {
  * success or a non-zero error code on failure for the corresponding frame.
  */
 std::vector<CanReturnCode> CanDevice::send(
-    const std::vector<CanFrame> &frames) {
+    const std::vector<CanFrame> &frames) noexcept {
   std::vector<CanReturnCode> result(frames.size());
   std::transform(frames.begin(), frames.end(), result.begin(),
                  [this](const CanFrame &frame) { return send(frame); });
@@ -115,7 +116,9 @@ std::vector<CanReturnCode> CanDevice::send(
  * The structure is defined in the CanDiagnostics.h header file. Each field is
  * optional and depends on the vendor-specific implementation.
  */
-CanDiagnostics CanDevice::diagnostics() { return vendor_diagnostics(); }
+CanDiagnostics CanDevice::diagnostics() noexcept {
+  return vendor_diagnostics();
+}
 
 /**
  * @brief Creates a CAN device instance based on the specified vendor.
@@ -131,6 +134,8 @@ CanDiagnostics CanDevice::diagnostics() { return vendor_diagnostics(); }
  * the configuration settings for the CAN device.
  * @return std::unique_ptr<CanDevice> A unique pointer to the created CAN device
  * object. Returns nullptr if the vendor is not recognized.
+ * @throws std::bad_optional_access if a required configuration entry was not
+ * provided.
  */
 std::unique_ptr<CanDevice> CanDevice::create(
     std::string_view vendor, const CanDeviceArguments &configuration) {

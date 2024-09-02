@@ -14,7 +14,7 @@
  *
  * @return A string representation of the CanDeviceConfiguration object.
  */
-std::string CanDeviceConfiguration::to_string() const {
+std::string CanDeviceConfiguration::to_string() const noexcept {
   std::ostringstream oss;
   bool first = true;
 
@@ -81,6 +81,6 @@ std::string CanDeviceConfiguration::to_string() const {
  * string representation inserted.
  */
 std::ostream &operator<<(std::ostream &os,
-                         const CanDeviceConfiguration &config) {
+                         const CanDeviceConfiguration &config) noexcept {
   return os << config.to_string();
 }

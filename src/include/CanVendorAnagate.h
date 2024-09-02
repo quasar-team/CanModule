@@ -19,7 +19,7 @@
 struct CanVendorAnagate : CanDevice {
   friend void anagate_receive(AnaInt32 nIdentifier, const char *pcBuffer,
                               AnaInt32 nBufferLen, AnaInt32 nFlags,
-                              AnaInt32 hHandle);
+                              AnaInt32 hHandle) noexcept;
 
   /**
    * @brief Constructor for the CanVendorAnagate class.
@@ -34,12 +34,12 @@ struct CanVendorAnagate : CanDevice {
   inline ~CanVendorAnagate() override { vendor_close(); }
 
  private:
-  CanReturnCode vendor_open() override;
-  CanReturnCode vendor_close() override;
-  CanReturnCode vendor_send(const CanFrame &frame) override;
-  CanDiagnostics vendor_diagnostics() override;
+  CanReturnCode vendor_open() noexcept override;
+  CanReturnCode vendor_close() noexcept override;
+  CanReturnCode vendor_send(const CanFrame &frame) noexcept override;
+  CanDiagnostics vendor_diagnostics() noexcept override;
 
-  void print_anagate_error(AnaUInt32 r);
+  void print_anagate_error(AnaUInt32 r) noexcept;
   static std::mutex m_handles_lock;
   static std::map<int, CanVendorAnagate *> m_handles;
 

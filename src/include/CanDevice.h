@@ -37,11 +37,11 @@ std::ostream& operator<<(std::ostream& os, CanReturnCode code);
  * as well as accessing device information and diagnostics.
  */
 struct CanDevice {
-  CanReturnCode open();
-  CanReturnCode close();
-  CanReturnCode send(const CanFrame& frame);
-  std::vector<CanReturnCode> send(const std::vector<CanFrame>& frames);
-  CanDiagnostics diagnostics();
+  CanReturnCode open() noexcept;
+  CanReturnCode close() noexcept;
+  CanReturnCode send(const CanFrame& frame) noexcept;
+  std::vector<CanReturnCode> send(const std::vector<CanFrame>& frames) noexcept;
+  CanDiagnostics diagnostics() noexcept;
 
   /**
    * @brief Returns the name of the CAN device vendor.
@@ -51,7 +51,7 @@ struct CanDevice {
    *
    * @return A string representing the name of the CAN device vendor.
    */
-  inline std::string vendor_name() const { return m_vendor; }
+  inline std::string vendor_name() const noexcept { return m_vendor; }
 
   /**
    * @brief Returns a constant reference to the CanDeviceArguments object.
@@ -61,7 +61,7 @@ struct CanDevice {
    *
    * @return A constant reference to the CanDeviceArguments object.
    */
-  inline const CanDeviceArguments& args() const { return m_args; }
+  inline const CanDeviceArguments& args() const noexcept { return m_args; }
 
   virtual ~CanDevice() = default;
 
@@ -90,7 +90,7 @@ struct CanDevice {
    * implementations to provide the necessary functionality for opening,
    * closing, sending, and retrieving diagnostics from the CAN device.
    */
-  virtual CanReturnCode vendor_open() = 0;
+  virtual CanReturnCode vendor_open() noexcept = 0;
 
   /**
    * @brief Pure virtual functions for vendor-specific CAN device operations.
@@ -99,7 +99,7 @@ struct CanDevice {
    * implementations to provide the necessary functionality for opening,
    * closing, sending, and retrieving diagnostics from the CAN device.
    */
-  virtual CanReturnCode vendor_close() = 0;
+  virtual CanReturnCode vendor_close() noexcept = 0;
 
   /**
    * @brief Pure virtual functions for vendor-specific CAN device operations.
@@ -108,7 +108,7 @@ struct CanDevice {
    * implementations to provide the necessary functionality for opening,
    * closing, sending, and retrieving diagnostics from the CAN device.
    */
-  virtual CanReturnCode vendor_send(const CanFrame& frame) = 0;
+  virtual CanReturnCode vendor_send(const CanFrame& frame) noexcept = 0;
 
   /**
    * @brief Pure virtual functions for vendor-specific CAN device operations.
@@ -117,7 +117,7 @@ struct CanDevice {
    * implementations to provide the necessary functionality for opening,
    * closing, sending, and retrieving diagnostics from the CAN device.
    */
-  virtual CanDiagnostics vendor_diagnostics() = 0;
+  virtual CanDiagnostics vendor_diagnostics() noexcept = 0;
 
   /**
    * @brief Handles incoming CAN frames.
@@ -128,7 +128,9 @@ struct CanDevice {
    *
    * @param frame A const reference to the received CanFrame.
    */
-  inline void received(const CanFrame& frame) { m_args.receiver(frame); }
+  inline void received(const CanFrame& frame) noexcept {
+    m_args.receiver(frame);
+  }
 
  private:
   const std::string m_vendor;

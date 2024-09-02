@@ -87,7 +87,7 @@ void CanFrame::validate_frame() {
  *
  * @return std::string The string representation of the CAN frame.
  */
-std::string CanFrame::to_string() const {
+std::string CanFrame::to_string() const noexcept {
   std::ostringstream oss;
 
   int id_padding{3};
@@ -134,6 +134,6 @@ std::string CanFrame::to_string() const {
  * @return std::ostream& The output stream (os) with the CAN frame's string
  * representation inserted.
  */
-std::ostream& operator<<(std::ostream& os, const CanFrame& frame) {
+std::ostream& operator<<(std::ostream& os, const CanFrame& frame) noexcept {
   return os << frame.to_string();
 }

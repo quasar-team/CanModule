@@ -18,7 +18,6 @@ set(SOURCES
     src/main/CanStats.cpp
     src/main/CanVendorLoopback.cpp
     src/main/CanDeviceConfiguration.cpp
-    src/main/CanLogIt.cpp
 )
 
 include(cmake/env.cmake)

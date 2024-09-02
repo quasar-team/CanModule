@@ -29,7 +29,7 @@ constexpr auto LIBSOCKETCAN_SUCCESS = 0;
  *
  * @return int Returns 0 on success, or -1 on failure.
  */
-CanReturnCode CanVendorSocketCan::vendor_open() {
+CanReturnCode CanVendorSocketCan::vendor_open() noexcept {
   if (args().config.bitrate.has_value()) {
     LOG(Log::INF, CanLogIt::h()) << "Configuring SocketCAN device";
 
@@ -133,7 +133,7 @@ CanReturnCode CanVendorSocketCan::vendor_open() {
  *
  * @return int Returns 0 on success.
  */
-CanReturnCode CanVendorSocketCan::vendor_close() {
+CanReturnCode CanVendorSocketCan::vendor_close() noexcept {
   m_subcriber_run = false;
 
   // Stop the subscriber thread
@@ -169,7 +169,7 @@ CanReturnCode CanVendorSocketCan::vendor_close() {
  * @return int Returns 0 on success, or -1 if the entire frame could not be
  * sent.
  */
-CanReturnCode CanVendorSocketCan::vendor_send(const CanFrame &frame) {
+CanReturnCode CanVendorSocketCan::vendor_send(const CanFrame &frame) noexcept {
   // Translate CanFrame to struct can_frame
   struct can_frame canFrame = translate(frame);
 
@@ -200,7 +200,7 @@ CanReturnCode CanVendorSocketCan::vendor_send(const CanFrame &frame) {
  * @note The specific implementation of this function may vary depending on the
  * capabilities of the associated SocketCan device.
  */
-CanDiagnostics CanVendorSocketCan::vendor_diagnostics() {
+CanDiagnostics CanVendorSocketCan::vendor_diagnostics() noexcept {
   CanDiagnostics diagnostics;
 
   diagnostics.name = args().config.bus_name.value();
@@ -278,7 +278,7 @@ CanDiagnostics CanVendorSocketCan::vendor_diagnostics() {
  *
  * @return struct can_frame The translated CAN frame.
  */
-struct can_frame CanVendorSocketCan::translate(const CanFrame &frame) {
+struct can_frame CanVendorSocketCan::translate(const CanFrame &frame) noexcept {
   struct can_frame canFrame;
   canFrame.can_id = frame.id();
   canFrame.len = frame.length();
@@ -313,7 +313,8 @@ struct can_frame CanVendorSocketCan::translate(const CanFrame &frame) {
  *
  * @return CanFrame The translated CanFrame object.
  */
-const CanFrame CanVendorSocketCan::translate(const struct can_frame &canFrame) {
+const CanFrame CanVendorSocketCan::translate(
+    const struct can_frame &canFrame) noexcept {
   const auto id = canFrame.can_id & CAN_EFF_MASK;
   const auto length = static_cast<uint32_t>(canFrame.len);
   const auto rtr = (canFrame.can_id & CAN_RTR_FLAG);
@@ -342,7 +343,7 @@ const CanFrame CanVendorSocketCan::translate(const struct can_frame &canFrame) {
  * @return int Returns 0 on success, or -1 if an error occurs during epoll_wait
  * or reading from the socket.
  */
-int CanVendorSocketCan::subscriber() {
+int CanVendorSocketCan::subscriber() noexcept {
   struct epoll_event events[1];
   while (m_subcriber_run) {
     int nfds = epoll_wait(epoll_fd, events, 1, EPOLL_WAIT_CYCLE_MS);

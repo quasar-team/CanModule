@@ -29,7 +29,8 @@ std::map<int, CanVendorAnagate *> CanVendorAnagate::m_handles;
  * frame.
  */
 void anagate_receive(AnaInt32 nIdentifier, const char *pcBuffer,
-                     AnaInt32 nBufferLen, AnaInt32 nFlags, AnaInt32 hHandle) {
+                     AnaInt32 nBufferLen, AnaInt32 nFlags,
+                     AnaInt32 hHandle) noexcept {
   uint32_t flags{0};
   (nFlags & AnagateConstants::extendedId) ? flags |= can_flags::extended_id : 0;
   (nFlags & AnagateConstants::remoteRequest)
@@ -62,18 +63,26 @@ void anagate_receive(AnaInt32 nIdentifier, const char *pcBuffer,
  * indicates success, while a non-zero value indicates an error. The specific
  * meaning of the error code can be obtained by calling CANGetLastError.
  */
-CanReturnCode CanVendorAnagate::vendor_open() {
-  const AnaInt32 result = CANOpenDevice(
-      &m_handle, args().config.sent_acknowledgement.value_or(false), true,
-      args().config.bus_number.value(), args().config.host.value().c_str(),
-      args().config.timeout.value_or(AnagateConstants::defaultTimeout));
-  CANSetCallback(m_handle, reinterpret_cast<CAN_PF_CALLBACK>(anagate_receive));
+CanReturnCode CanVendorAnagate::vendor_open() noexcept {
+  AnaInt32 r{0};
+  try {
+    r = CANOpenDevice(
+        &m_handle, args().config.sent_acknowledgement.value_or(false), true,
+        args().config.bus_number.value(), args().config.host.value().c_str(),
+        args().config.timeout.value_or(AnagateConstants::defaultTimeout));
+    CANSetCallback(m_handle,
+                   reinterpret_cast<CAN_PF_CALLBACK>(anagate_receive));
+  } catch (const std::exception &e) {
+    LOG(Log::ERR, CanLogIt::h())
+        << "Exception caught in vendor_open: " << e.what();
+    return CanReturnCode::internal_api_error;
+  }
   std::lock_guard<std::mutex> guard(CanVendorAnagate::m_handles_lock);
   CanVendorAnagate::m_handles[m_handle] = this;
 
-  print_anagate_error(result);
+  print_anagate_error(r);
 
-  switch (result) {
+  switch (r) {
     case AnagateConstants::errorNone:
       return CanReturnCode::success;
     case AnagateConstants::errorOpenMaxConn:
@@ -113,22 +122,27 @@ CanReturnCode CanVendorAnagate::vendor_open() {
  * indicates success, while a non-zero value indicates an error. The specific
  * meaning of the error code can be obtained by calling CANGetLastError.
  */
-CanReturnCode CanVendorAnagate::vendor_send(const CanFrame &frame) {
+CanReturnCode CanVendorAnagate::vendor_send(const CanFrame &frame) noexcept {
   int anagate_flags{0};
   anagate_flags |= frame.is_extended_id() ? AnagateConstants::extendedId : 0;
   anagate_flags |=
       frame.is_remote_request() ? AnagateConstants::remoteRequest : 0;
+  AnaInt32 r{0};
 
-  const int sent_status =
-      frame.is_remote_request()
-          ? CANWrite(m_handle, frame.id(), AnagateConstants::emptyMessage,
-                     frame.length(), anagate_flags)
-          : CANWrite(m_handle, frame.id(), frame.message().data(),
-                     frame.length(), anagate_flags);
+  try {
+    r = frame.is_remote_request()
+            ? CANWrite(m_handle, frame.id(), AnagateConstants::emptyMessage,
+                       frame.length(), anagate_flags)
+            : CANWrite(m_handle, frame.id(), frame.message().data(),
+                       frame.length(), anagate_flags);
+  } catch (const std::exception &e) {
+    LOG(Log::ERR, CanLogIt::h())
+        << "Exception caught in vendor_send: " << e.what();
+    return CanReturnCode::internal_api_error;
+  }
+  print_anagate_error(r);
 
-  print_anagate_error(sent_status);
-
-  switch (sent_status) {
+  switch (r) {
     case AnagateConstants::errorNone:
       return CanReturnCode::success;
     case AnagateConstants::errorCanNack:
@@ -166,7 +180,7 @@ CanReturnCode CanVendorAnagate::vendor_send(const CanFrame &frame) {
  * @note The specific implementation of this function may vary depending on the
  * capabilities of the associated Anagate.
  */
-CanDiagnostics CanVendorAnagate::vendor_diagnostics() {
+CanDiagnostics CanVendorAnagate::vendor_diagnostics() noexcept {
   auto anagate_convert_timestamp = [](AnaInt64 timestamp) {
     std::time_t time = static_cast<std::time_t>(timestamp);
     std::tm *local_time = std::localtime(&time);
@@ -181,109 +195,113 @@ CanDiagnostics CanVendorAnagate::vendor_diagnostics() {
               << ((ip >> 8) & 0xFF) << "." << (ip & 0xFF);
     return ip_stream.str();
   };
-
   CanDiagnostics diagnostics{};
 
-  constexpr AnaUInt32 nLogID{0};
-  AnaUInt32 pnCurrentID{0};
-  AnaUInt32 total_entries{0};
-  AnaUInt32 pnLogCount{0};
-  AnaInt64 pnLogDate{0};
-  constexpr unsigned int kBufferSize = 110;
-  char pcBuffer[kBufferSize];
+  try {
+    constexpr AnaUInt32 nLogID{0};
+    AnaUInt32 pnCurrentID{0};
+    AnaUInt32 total_entries{0};
+    AnaUInt32 pnLogCount{0};
+    AnaInt64 pnLogDate{0};
+    constexpr unsigned int kBufferSize = 110;
+    char pcBuffer[kBufferSize];
 
-  if (CANGetLog(m_handle, nLogID, &pnCurrentID, &total_entries, &pnLogDate,
-                pcBuffer) == 0) {
-    diagnostics.log_entries.emplace(total_entries);
-    for (AnaUInt32 i{0}; i < total_entries; ++i) {
-      if (CANGetLog(m_handle, i, &pnCurrentID, &pnLogCount, &pnLogDate,
-                    pcBuffer) == 0) {
-        std::ostringstream log_entry_stream;
-        log_entry_stream << anagate_convert_timestamp(pnLogDate) << " - "
-                         << pcBuffer;
-        std::string log_entry = log_entry_stream.str();
+    if (CANGetLog(m_handle, nLogID, &pnCurrentID, &total_entries, &pnLogDate,
+                  pcBuffer) == 0) {
+      diagnostics.log_entries.emplace(total_entries);
+      for (AnaUInt32 i{0}; i < total_entries; ++i) {
+        if (CANGetLog(m_handle, i, &pnCurrentID, &pnLogCount, &pnLogDate,
+                      pcBuffer) == 0) {
+          std::ostringstream log_entry_stream;
+          log_entry_stream << anagate_convert_timestamp(pnLogDate) << " - "
+                           << pcBuffer;
+          std::string log_entry = log_entry_stream.str();
 
-        (*diagnostics.log_entries)[i] = log_entry;
+          (*diagnostics.log_entries)[i] = log_entry;
+        }
       }
     }
-  }
 
-  AnaInt32 temp{0}, uptime{0};
-  if (CANGetDiagData(m_handle, &temp, &uptime) == 0) {
-    // Temperature is in 1/10th of a degree Celsius, and only for first port.
-    if (args().config.bus_number == 0) {
-      diagnostics.temperature = temp / 10.0f;
+    AnaInt32 temp{0}, uptime{0};
+    if (CANGetDiagData(m_handle, &temp, &uptime) == 0) {
+      // Temperature is in 1/10th of a degree Celsius, and only for first port.
+      if (args().config.bus_number == 0) {
+        diagnostics.temperature = temp / 10.0f;
+      }
+      diagnostics.uptime = uptime;
     }
-    diagnostics.uptime = uptime;
-  }
 
-  constexpr unsigned int kMaxClients = 6;
-  AnaUInt32 client_count{0};
-  AnaUInt32 ip_addresses[kMaxClients];
-  AnaUInt32 ports[kMaxClients];
-  AnaInt64 connect_dates[kMaxClients];
+    constexpr unsigned int kMaxClients = 6;
+    AnaUInt32 client_count{0};
+    AnaUInt32 ip_addresses[kMaxClients];
+    AnaUInt32 ports[kMaxClients];
+    AnaInt64 connect_dates[kMaxClients];
 
-  if (CANGetClientList(m_handle, &client_count, ip_addresses, ports,
-                       connect_dates) == 0) {
-    diagnostics.connected_clients_addresses.emplace(client_count);
-    diagnostics.connected_clients_ports.emplace(client_count);
-    diagnostics.connected_clients_timestamps.emplace(client_count);
-    diagnostics.number_connected_clients = client_count;
+    if (CANGetClientList(m_handle, &client_count, ip_addresses, ports,
+                         connect_dates) == 0) {
+      diagnostics.connected_clients_addresses.emplace(client_count);
+      diagnostics.connected_clients_ports.emplace(client_count);
+      diagnostics.connected_clients_timestamps.emplace(client_count);
+      diagnostics.number_connected_clients = client_count;
 
-    for (AnaUInt32 i{0}; i < client_count; ++i) {
-      (*diagnostics.connected_clients_addresses)[i] =
-          anagate_convert_ip(ip_addresses[i]);
-      (*diagnostics.connected_clients_ports)[i] = ports[i];
-      (*diagnostics.connected_clients_timestamps)[i] =
-          anagate_convert_timestamp(connect_dates[i]);
+      for (AnaUInt32 i{0}; i < client_count; ++i) {
+        (*diagnostics.connected_clients_addresses)[i] =
+            anagate_convert_ip(ip_addresses[i]);
+        (*diagnostics.connected_clients_ports)[i] = ports[i];
+        (*diagnostics.connected_clients_timestamps)[i] =
+            anagate_convert_timestamp(connect_dates[i]);
+      }
     }
-  }
 
-  AnaUInt32 pnCountTCPRx{0}, pnCountTCPTx{0}, pnCountCANRx{0}, pnCountCANTx{0},
-      pnCountCANRxErr{0}, pnCountCANTxErr{0}, pnCountCANRxDisc{0},
-      pnCountCANTxDisc{0}, pnCountCANTimeout{0};
-  if (CANGetCounters(m_handle, &pnCountTCPRx, &pnCountTCPTx, &pnCountCANRx,
-                     &pnCountCANTx, &pnCountCANRxErr, &pnCountCANTxErr,
-                     &pnCountCANRxDisc, &pnCountCANTxDisc,
-                     &pnCountCANTimeout) == 0) {
-    diagnostics.tcp_rx = pnCountTCPRx;
-    diagnostics.tcp_tx = pnCountTCPTx;
-    diagnostics.rx = pnCountCANRx;
-    diagnostics.tx = pnCountCANTx;
-    diagnostics.rx_error = pnCountCANRxErr;
-    diagnostics.tx_error = pnCountCANTxErr;
-    diagnostics.rx_drop = pnCountCANRxDisc;
-    diagnostics.tx_drop = pnCountCANTxDisc;
-    diagnostics.tx_timeout = pnCountCANTimeout;
-  }
-
-  AnaUInt32 bitrate{0};
-  AnaUInt8 operating_mode{0};
-  AnaInt32 pbTermination{0}, pbHighSpeed{0}, pbTimestampOn{0};
-  if (CANGetGlobals(m_handle, &bitrate, &operating_mode, &pbTermination,
-                    &pbHighSpeed, &pbTimestampOn) == 0) {
-    diagnostics.bitrate = bitrate;
-    switch (operating_mode) {
-      case 0:
-        diagnostics.mode = "NORMAL";
-        break;
-      case 1:
-        diagnostics.mode = "LOOPBACK";
-        break;
-      case 2:
-        diagnostics.mode = "LISTEN ONLY";
-        break;
-      case 3:
-        diagnostics.mode = "OFFLINE";
-        break;
-      default:
-        break;
+    AnaUInt32 pnCountTCPRx{0}, pnCountTCPTx{0}, pnCountCANRx{0},
+        pnCountCANTx{0}, pnCountCANRxErr{0}, pnCountCANTxErr{0},
+        pnCountCANRxDisc{0}, pnCountCANTxDisc{0}, pnCountCANTimeout{0};
+    if (CANGetCounters(m_handle, &pnCountTCPRx, &pnCountTCPTx, &pnCountCANRx,
+                       &pnCountCANTx, &pnCountCANRxErr, &pnCountCANTxErr,
+                       &pnCountCANRxDisc, &pnCountCANTxDisc,
+                       &pnCountCANTimeout) == 0) {
+      diagnostics.tcp_rx = pnCountTCPRx;
+      diagnostics.tcp_tx = pnCountTCPTx;
+      diagnostics.rx = pnCountCANRx;
+      diagnostics.tx = pnCountCANTx;
+      diagnostics.rx_error = pnCountCANRxErr;
+      diagnostics.tx_error = pnCountCANTxErr;
+      diagnostics.rx_drop = pnCountCANRxDisc;
+      diagnostics.tx_drop = pnCountCANTxDisc;
+      diagnostics.tx_timeout = pnCountCANTimeout;
     }
+
+    AnaUInt32 bitrate{0};
+    AnaUInt8 operating_mode{0};
+    AnaInt32 pbTermination{0}, pbHighSpeed{0}, pbTimestampOn{0};
+    if (CANGetGlobals(m_handle, &bitrate, &operating_mode, &pbTermination,
+                      &pbHighSpeed, &pbTimestampOn) == 0) {
+      diagnostics.bitrate = bitrate;
+      switch (operating_mode) {
+        case 0:
+          diagnostics.mode = "NORMAL";
+          break;
+        case 1:
+          diagnostics.mode = "LOOPBACK";
+          break;
+        case 2:
+          diagnostics.mode = "LISTEN ONLY";
+          break;
+        case 3:
+          diagnostics.mode = "OFFLINE";
+          break;
+        default:
+          break;
+      }
+    }
+
+    diagnostics.handle = m_handle;
+    return diagnostics;
+  } catch (const std::exception &e) {
+    LOG(Log::ERR, CanLogIt::h())
+        << "Exception caught in vendor_diagnostics: " << e.what();
+    return diagnostics;
   }
-
-  diagnostics.handle = m_handle;
-
-  return diagnostics;
 }
 
 /**
@@ -298,7 +316,7 @@ CanDiagnostics CanVendorAnagate::vendor_diagnostics() {
  * indicates success, while a non-zero value indicates an error. The specific
  * meaning of the error code can be obtained by calling CANGetLastError.
  */
-CanReturnCode CanVendorAnagate::vendor_close() {
+CanReturnCode CanVendorAnagate::vendor_close() noexcept {
   const int r = CANCloseDevice(m_handle);
   print_anagate_error(r);
   std::lock_guard<std::mutex> guard(CanVendorAnagate::m_handles_lock);
@@ -326,7 +344,7 @@ CanReturnCode CanVendorAnagate::vendor_close() {
  * and vendor_close functions to handle and log any errors
  * that occur during the communication with the Anagate CAN device.
  */
-void CanVendorAnagate::print_anagate_error(AnaUInt32 r) {
+void CanVendorAnagate::print_anagate_error(AnaUInt32 r) noexcept {
   if (r != AnagateConstants::errorNone) {
     std::string error_string{};
     error_string.reserve(100);

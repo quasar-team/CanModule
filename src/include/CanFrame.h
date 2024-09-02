@@ -27,6 +27,7 @@ struct CanFrame {
    * @param id The identifier of the CAN frame.
    * @param requested_length The requested length of the CAN frame.
    * @param flags The flags associated with the CAN frame.
+   * @throws std::invalid_argument if the CAN Frame has unvalid data.
    */
   inline CanFrame(const uint32_t id, const uint32_t requested_length,
                   const uint32_t flags)
@@ -41,6 +42,7 @@ struct CanFrame {
    * @brief Constructs a CanFrame with specified ID and requested length.
    * @param id The identifier of the CAN frame.
    * @param requested_length The requested length of the CAN frame.
+   * @throws std::invalid_argument if the CAN Frame has unvalid data.
    */
   inline CanFrame(const uint32_t id, const uint32_t requested_length)
       : CanFrame(id, requested_length,
@@ -50,12 +52,14 @@ struct CanFrame {
   /**
    * @brief Constructs a CanFrame with specified ID.
    * @param id The identifier of the CAN frame.
+   * @throws std::invalid_argument if the CAN Frame has unvalid data.
    */
   explicit CanFrame(const uint32_t id) : CanFrame(id, 0) {}
   /**
    * @brief Constructs a CanFrame with specified ID and message.
    * @param id The identifier of the CAN frame.
    * @param message The message content of the CAN frame.
+   * @throws std::invalid_argument if the CAN Frame has unvalid data.
    */
   inline CanFrame(const uint32_t id, const std::vector<char>& message)
       : CanFrame(
@@ -66,6 +70,7 @@ struct CanFrame {
    * @param id The identifier of the CAN frame.
    * @param message The message content of the CAN frame.
    * @param flags The flags associated with the CAN frame.
+   * @throws std::invalid_argument if the CAN Frame has unvalid data.
    */
   inline CanFrame(const uint32_t id, const std::vector<char>& message,
                   const uint32_t flags)
@@ -77,25 +82,25 @@ struct CanFrame {
    * @brief Gets the identifier of the CAN frame.
    * @return The identifier of the CAN frame.
    */
-  inline uint32_t id() const { return m_id; }
+  inline uint32_t id() const noexcept { return m_id; }
 
   /**
    * @brief Gets the message content of the CAN frame.
    * @return The message content of the CAN frame.
    */
-  inline std::vector<char> message() const { return m_message; }
+  inline std::vector<char> message() const noexcept { return m_message; }
 
   /**
    * @brief Gets the flags associated with the CAN frame.
    * @return The flags associated with the CAN frame.
    */
-  inline uint32_t flags() const { return m_flags; }
+  inline uint32_t flags() const noexcept { return m_flags; }
 
   /**
    * @brief Checks if the CAN frame is an error frame.
    * @return True if the frame is an error frame, false otherwise.
    */
-  inline bool is_error() const {
+  inline bool is_error() const noexcept {
     return (m_flags & can_flags::error_frame) != 0;
   }
 
@@ -103,7 +108,7 @@ struct CanFrame {
    * @brief Checks if the CAN frame is a remote request.
    * @return True if the frame is a remote request, false otherwise.
    */
-  inline bool is_remote_request() const {
+  inline bool is_remote_request() const noexcept {
     return (m_flags & can_flags::remote_request) != 0;
   }
   /**
@@ -111,14 +116,14 @@ struct CanFrame {
    * @return True if the frame uses a standard 11-bit identifier, false
    * otherwise.
    */
-  inline bool is_standard_id() const { return !is_extended_id(); }
+  inline bool is_standard_id() const noexcept { return !is_extended_id(); }
 
   /**
    * @brief Checks if the CAN frame uses an extended 29-bit identifier.
    * @return True if the frame uses an extended 29-bit identifier, false
    * otherwise.
    */
-  inline bool is_extended_id() const {
+  inline bool is_extended_id() const noexcept {
     return (m_flags & can_flags::extended_id) != 0;
   }
 
@@ -126,7 +131,7 @@ struct CanFrame {
    * @brief Gets the length of the CAN frame.
    * @return The length of the CAN frame.
    */
-  inline uint32_t length() const {
+  inline uint32_t length() const noexcept {
     static_assert(sizeof(std::vector<char>::size_type) > sizeof(uint32_t),
                   "m_message is larger than uint32_t");
 
@@ -140,7 +145,7 @@ struct CanFrame {
    * @param other The other CanFrame object to compare with.
    * @return True if the CanFrame objects are equal, false otherwise.
    */
-  inline bool operator==(const CanFrame& other) const {
+  inline bool operator==(const CanFrame& other) const noexcept {
     return m_id == other.m_id &&
            m_requested_length == other.m_requested_length &&
            m_message == other.m_message && m_flags == other.m_flags;
@@ -151,11 +156,11 @@ struct CanFrame {
    * @param other The other CanFrame object to compare with.
    * @return True if the CanFrame objects are not equal, false otherwise.
    */
-  inline bool operator!=(const CanFrame& other) const {
+  inline bool operator!=(const CanFrame& other) const noexcept {
     return !(*this == other);
   }
 
-  std::string to_string() const;
+  std::string to_string() const noexcept;
 
  private:
   const uint32_t m_id{0};  ///< The identifier of the CAN frame.
@@ -168,13 +173,13 @@ struct CanFrame {
    * @brief Checks if the identifier fits in 11 bits.
    * @return True if the identifier fits in 11 bits, false otherwise.
    */
-  inline bool is_11_bits_id() const { return is_11_bits(m_id); }
+  inline bool is_11_bits_id() const noexcept { return is_11_bits(m_id); }
 
   /**
    * @brief Checks if the identifier fits in 29 bits.
    * @return True if the identifier fits in 29 bits, false otherwise.
    */
-  inline bool is_29_bits_id() const { return is_29_bits(m_id); }
+  inline bool is_29_bits_id() const noexcept { return is_29_bits(m_id); }
 
   /**
    * @brief Validates the CAN frame.
@@ -186,15 +191,19 @@ struct CanFrame {
    * @param id The identifier to check.
    * @return True if the identifier fits in 11 bits, false otherwise.
    */
-  inline static bool is_11_bits(uint32_t id) { return (id & 0xFFFFF800) == 0; }
+  inline static bool is_11_bits(uint32_t id) noexcept {
+    return (id & 0xFFFFF800) == 0;
+  }
   /**
    * @brief Checks if the identifier fits in 29 bits.
    * @param id The identifier to check.
    * @return True if the identifier fits in 29 bits, false otherwise.
    */
-  inline static bool is_29_bits(uint32_t id) { return (id & 0xE0000000) == 0; }
+  inline static bool is_29_bits(uint32_t id) noexcept {
+    return (id & 0xE0000000) == 0;
+  }
 };
 
-std::ostream& operator<<(std::ostream& os, const CanFrame& frame);
+std::ostream& operator<<(std::ostream& os, const CanFrame& frame) noexcept;
 
 #endif  // SRC_INCLUDE_CANFRAME_H_

@@ -73,10 +73,10 @@ struct CanDeviceConfiguration {
    */
   std::optional<uint32_t> sent_acknowledgement;
 
-  std::string to_string() const;
+  std::string to_string() const noexcept;
 };
 
 std::ostream &operator<<(std::ostream &os,
-                         const CanDeviceConfiguration &config);
+                         const CanDeviceConfiguration &config) noexcept;
 
 #endif  // SRC_INCLUDE_CANDEVICECONFIGURATION_H_
