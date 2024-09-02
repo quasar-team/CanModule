@@ -3,7 +3,7 @@
 PROJECT_NAME           = "CanModule"
 OUTPUT_DIRECTORY       = ../public/
 HTML_OUTPUT            = .
-INPUT                  = ../src README.md DEVELOPMENT.md
+INPUT                  = ../src README.md DEVELOPMENT.md QUICKSTART.md
 RECURSIVE              = YES
 GENERATE_TREEVIEW      = YES
 DISABLE_INDEX = NO
