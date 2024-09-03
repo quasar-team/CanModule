@@ -15,4 +15,5 @@ USE_MDFILE_AS_MAINPAGE = README.md
 HTML_EXTRA_STYLESHEET  = ./doxygen-awesome-css/doxygen-awesome.css
 HTML_COLORSTYLE        = LIGHT
 SHOW_FILES             = NO
+SOURCE_BROWSER         = NO
 EXCLUDE_SYMBOLS = AnagateConstants
