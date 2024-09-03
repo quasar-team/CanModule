@@ -24,7 +24,6 @@
  */
 CanReturnCode CanDevice::open() noexcept {
   LOG(Log::INF, CanLogIt::h()) << "Opening CAN device " << m_vendor;
-  LOG(Log::INF, CanLogIt::h()) << "Configuration: " << m_args.config;
 
   CanReturnCode result = vendor_open();
 
