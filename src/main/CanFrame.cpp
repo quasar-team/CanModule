@@ -97,7 +97,7 @@ std::string CanFrame::to_string() const noexcept {
 
   oss << std::setfill('0') << std::setw(id_padding) << std::hex << id();
 
-  oss << " " << length();
+  oss << " [" << length() << "]";
 
   for (const auto& byte : message()) {
     oss << " " << std::setfill('0') << std::setw(2) << std::hex
