@@ -24,7 +24,7 @@ CanFrame frame(id, message);
 
 ```cpp
 uint32_t id = 1 << 28; // Extended IDs
-td::vector<char> message = {'H', 'e', 'l', 'l', 'o'};
+std::vector<char> message = {'H', 'e', 'l', 'l', 'o'};
 CanFrame frame(id, message);
 ```
 
