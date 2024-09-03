@@ -12,7 +12,7 @@ The project's overall structure is organized into several key directories and su
 
 The project supports currently Anagate (Windows and Linux) and Socketcan (only Linux). It provides a clean and intuitive interface for sending and receiving CAN frames, as well as for configuring and monitoring the CAN bus.
 
-To get started with the project, please refer to the project's documentation, including the Developer Guide, the API documentation, and the examples provided in the test directory.
+To get started with the project, please refer to the project's documentation, including the Quickstart, the Developer Guide, the API documentation, and the examples provided in the test directory.
 
 ## Requirements
 
