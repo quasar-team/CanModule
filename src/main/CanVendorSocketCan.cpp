@@ -21,6 +21,20 @@ constexpr auto LIBSOCKETCAN_ERROR = -1;
 constexpr auto LIBSOCKETCAN_SUCCESS = 0;
 
 /**
+ * @brief Constructor for the CanVendorSocketCan class.
+ *
+ * Initializes the CanVendorSocketCan object with the provided arguments.
+ *
+ * @param args A constant reference to the CanDeviceArguments object,
+ * which contains the arguments for the CAN device.
+ */
+CanVendorSocketCan::CanVendorSocketCan(const CanDeviceArguments &args)
+    : CanDevice("socketcan", args) {
+  if (!args.config.bus_name.has_value() || !args.config.host.has_value()) {
+    throw std::invalid_argument("Missing required configuration parameters");
+  }
+}
+/**
  * @brief Opens the SocketCAN device and sets up the necessary configurations.
  *
  * This function initializes the SocketCAN device by opening a socket, setting

@@ -50,6 +50,21 @@ void anagate_receive(AnaInt32 nIdentifier, const char *pcBuffer,
 }
 
 /**
+ * @brief Constructor for the CanVendorAnagate class.
+ *
+ * Initializes the CanVendorAnagate object with the provided configuration.
+ *
+ * @param arguments A constant reference to the CanDeviceArguments object,
+ * which contains configuration parameters for the CAN device.
+ */
+CanVendorAnagate::CanVendorAnagate(const CanDeviceArguments &args)
+    : CanDevice("anagate", args) {
+  if (!args.config.bus_number.has_value() || !args.config.host.has_value()) {
+    throw std::invalid_argument("Missing required configuration parameters");
+  }
+}
+
+/**
  * @brief Opens a connection to the CAN device associated with the current
  * instance.
  *

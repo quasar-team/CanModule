@@ -22,16 +22,7 @@
  * methods to open, close, and send CAN frames using the SocketCAN interface.
  */
 struct CanVendorSocketCan : CanDevice {
-  /**
-   * @brief Constructor for the CanVendorSocketCan class.
-   *
-   * Initializes the CanVendorSocketCan object with the provided configuration.
-   *
-   * @param configuration A constant reference to the CanDeviceArguments object,
-   * which contains configuration parameters for the CAN device.
-   */
-  explicit CanVendorSocketCan(const CanDeviceArguments &configuration)
-      : CanDevice("socketcan", configuration) {}
+  explicit CanVendorSocketCan(const CanDeviceArguments &args);
 
   ~CanVendorSocketCan() { vendor_close(); }
 

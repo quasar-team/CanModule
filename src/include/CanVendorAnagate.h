@@ -21,16 +21,7 @@ struct CanVendorAnagate : CanDevice {
                               AnaInt32 nBufferLen, AnaInt32 nFlags,
                               AnaInt32 hHandle) noexcept;
 
-  /**
-   * @brief Constructor for the CanVendorAnagate class.
-   *
-   * Initializes the CanVendorAnagate object with the provided configuration.
-   *
-   * @param configuration A constant reference to the CanDeviceArguments object,
-   * which contains configuration parameters for the CAN device.
-   */
-  inline explicit CanVendorAnagate(const CanDeviceArguments &configuration)
-      : CanDevice("anagate", configuration) {}
+  explicit CanVendorAnagate(const CanDeviceArguments &configuration);
   inline ~CanVendorAnagate() override { vendor_close(); }
 
  private:
