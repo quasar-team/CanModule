@@ -62,7 +62,7 @@ CanFrame frame(id);
 
 - Creates a `CanFrame` with just an ID and no message.
 
-### Using the `CanFrame` Methods
+### Using the CanFrame Methods
 
 After creating a `CanFrame` object, you can use various methods to retrieve its properties and check its type:
 
@@ -98,7 +98,7 @@ frame.flags();
 
 - Returns the flags associated with the frame, indicating its type and properties.
 
-#### Comparing `CanFrame` Objects
+#### Comparing CanFrame Objects
 
 ```cpp
 CanFrame frame1(id);
