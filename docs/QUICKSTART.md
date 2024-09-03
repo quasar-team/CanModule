@@ -16,7 +16,7 @@ std::vector<char> message = {'H', 'e', 'l', 'l', 'o'};
 CanFrame frame(id, message);
 ```
 
-- id`: The identifier of the CAN frame.
+- `id`: The identifier of the CAN frame.
 - `message`: A vector containing the message data.
 - `frame`: A `CanFrame` object initialized with the given `id` and `message`.
 
