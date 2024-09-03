@@ -30,7 +30,7 @@ constexpr auto LIBSOCKETCAN_SUCCESS = 0;
  */
 CanVendorSocketCan::CanVendorSocketCan(const CanDeviceArguments &args)
     : CanDevice("socketcan", args) {
-  if (!args.config.bus_name.has_value() || !args.config.host.has_value()) {
+  if (!args.config.bus_name.has_value()) {
     throw std::invalid_argument("Missing required configuration parameters");
   }
 }
