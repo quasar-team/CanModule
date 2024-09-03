@@ -101,7 +101,7 @@ std::string CanFrame::to_string() const noexcept {
 
   for (const auto& byte : message()) {
     oss << " " << std::setfill('0') << std::setw(2) << std::hex
-        << static_cast<int>(byte);
+        << static_cast<unsigned int>(byte & 0xFF);
   }
 
   if (is_extended_id()) {

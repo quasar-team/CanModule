@@ -1,7 +1,10 @@
 #ifndef SRC_INCLUDE_CANDIAGNOSTICS_H_
 #define SRC_INCLUDE_CANDIAGNOSTICS_H_
 
+#include <iomanip>
+#include <iostream>
 #include <optional>
+#include <sstream>
 #include <string>
 #include <vector>
 
@@ -78,6 +81,33 @@ struct CanDiagnostics {
       arbitration_lost;  ///< Optional Arbitration lost errors for SocketCAN.
   std::optional<uint32_t>
       restarts;  ///< Optional CAN controller re-starts for SocketCAN.
+
+  std::string to_string() const noexcept;
+
+ private:
+  template <typename T>
+  static void print_vector_field(std::ostringstream& oss, const T& vector_field,
+                                 const std::string& title) {
+    if (vector_field.has_value()) {
+      oss << title << ": [";
+      for (const auto& entry : vector_field.value()) {
+        oss << "\"" << entry << "\"" << ", ";
+      }
+      oss.seekp(-2, std::ios_base::end);  // Remove trailing comma and space
+      oss << "]" << std::endl;
+    }
+  }
+
+  template <typename T>
+  static void print_field(std::ostringstream& oss, const T& field,
+                          const std::string& title) {
+    if (field.has_value()) {
+      oss << title << ": " << "\"" << field.value() << "\"" << std::endl;
+    }
+  }
 };
+
+std::ostream& operator<<(std::ostream& os,
+                         const CanDiagnostics& config) noexcept;
 
 #endif  // SRC_INCLUDE_CANDIAGNOSTICS_H_

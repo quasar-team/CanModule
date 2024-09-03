@@ -77,13 +77,13 @@ CanReturnCode CanVendorAnagate::vendor_open() noexcept {
         << "Exception caught in vendor_open: " << e.what();
     return CanReturnCode::internal_api_error;
   }
-  std::lock_guard<std::mutex> guard(CanVendorAnagate::m_handles_lock);
-  CanVendorAnagate::m_handles[m_handle] = this;
 
   print_anagate_error(r);
+  std::lock_guard<std::mutex> guard(CanVendorAnagate::m_handles_lock);
 
   switch (r) {
     case AnagateConstants::errorNone:
+      CanVendorAnagate::m_handles[m_handle] = this;
       return CanReturnCode::success;
     case AnagateConstants::errorOpenMaxConn:
       return CanReturnCode::too_many_connections;
@@ -123,6 +123,11 @@ CanReturnCode CanVendorAnagate::vendor_open() noexcept {
  * meaning of the error code can be obtained by calling CANGetLastError.
  */
 CanReturnCode CanVendorAnagate::vendor_send(const CanFrame &frame) noexcept {
+  if (m_handle == 0) {
+    LOG(Log::ERR, CanLogIt::h()) << "Cannot send frame: Device not open";
+    return CanReturnCode::disconnected;
+  }
+
   int anagate_flags{0};
   anagate_flags |= frame.is_extended_id() ? AnagateConstants::extendedId : 0;
   anagate_flags |=
@@ -317,15 +322,19 @@ CanDiagnostics CanVendorAnagate::vendor_diagnostics() noexcept {
  * meaning of the error code can be obtained by calling CANGetLastError.
  */
 CanReturnCode CanVendorAnagate::vendor_close() noexcept {
+  if (m_handle == 0) {
+    return CanReturnCode::success;
+  }  // Already closed
+
   const int r = CANCloseDevice(m_handle);
   print_anagate_error(r);
   std::lock_guard<std::mutex> guard(CanVendorAnagate::m_handles_lock);
   CanVendorAnagate::m_handles.erase(m_handle);
   switch (r) {
     case AnagateConstants::errorNone:
+      m_handle = 0;  // Reset handle
       return CanReturnCode::success;
     default:
-
       return CanReturnCode::unknown_close_error;
   }
 }

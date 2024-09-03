@@ -115,5 +115,6 @@ PYBIND11_MODULE(canmodule, m) {
       .def_readonly("error_passive", &CanDiagnostics::error_passive)
       .def_readonly("bus_off", &CanDiagnostics::bus_off)
       .def_readonly("arbitration_lost", &CanDiagnostics::arbitration_lost)
-      .def_readonly("restarts", &CanDiagnostics::restarts);
+      .def_readonly("restarts", &CanDiagnostics::restarts)
+      .def("__str__", &CanDiagnostics::to_string);
 }

@@ -62,8 +62,8 @@ CanReturnCode CanVendorSocketCan::vendor_open() noexcept {
   }
 
   // Open the SocketCAN device
-  socket_fd = socket(PF_CAN, SOCK_RAW, CAN_RAW);
-  if (socket_fd < 0) {
+  m_socket_fd = socket(PF_CAN, SOCK_RAW, CAN_RAW);
+  if (m_socket_fd < 0) {
     LOG(Log::ERR, CanLogIt::h()) << "Failed to open socket";
 
     return CanReturnCode::socket_error;
@@ -73,8 +73,8 @@ CanReturnCode CanVendorSocketCan::vendor_open() noexcept {
   struct ifreq ifr;
   strcpy(ifr.ifr_name,  // NOLINT: Recipe from Offical SocketCan documentation
          args().config.bus_name.value().c_str());
-  if (ioctl(socket_fd, SIOCGIFINDEX, &ifr) < 0) {
-    ::close(socket_fd);
+  if (ioctl(m_socket_fd, SIOCGIFINDEX, &ifr) < 0) {
+    ::close(m_socket_fd);
     LOG(Log::ERR, CanLogIt::h()) << "Failed to get interface index";
     return CanReturnCode::internal_api_error;
   }
@@ -84,17 +84,17 @@ CanReturnCode CanVendorSocketCan::vendor_open() noexcept {
   addr.can_family = AF_CAN;
   addr.can_ifindex = ifr.ifr_ifindex;
 
-  if (bind(socket_fd, (struct sockaddr *)&addr, sizeof(addr)) < 0) {
-    ::close(socket_fd);
+  if (bind(m_socket_fd, (struct sockaddr *)&addr, sizeof(addr)) < 0) {
+    ::close(m_socket_fd);
     LOG(Log::ERR, CanLogIt::h()) << "Failed to bind socket";
     return CanReturnCode::internal_api_error;
   }
 
   if (args().receiver != nullptr) {
     // Create epoll instance
-    epoll_fd = epoll_create1(0);
-    if (epoll_fd < 0) {
-      ::close(socket_fd);
+    m_epoll_fd = epoll_create1(0);
+    if (m_epoll_fd < 0) {
+      ::close(m_socket_fd);
       LOG(Log::ERR, CanLogIt::h()) << "Failed to create epoll instance";
 
       return CanReturnCode::internal_api_error;
@@ -103,10 +103,10 @@ CanReturnCode CanVendorSocketCan::vendor_open() noexcept {
     // Add the socket to the epoll instance
     struct epoll_event ev;
     ev.events = EPOLLIN;
-    ev.data.fd = socket_fd;
-    if (epoll_ctl(epoll_fd, EPOLL_CTL_ADD, socket_fd, &ev) < 0) {
-      ::close(epoll_fd);
-      ::close(socket_fd);
+    ev.data.fd = m_socket_fd;
+    if (epoll_ctl(m_epoll_fd, EPOLL_CTL_ADD, m_socket_fd, &ev) < 0) {
+      ::close(m_epoll_fd);
+      ::close(m_socket_fd);
       LOG(Log::ERR, CanLogIt::h()) << "Failed to add socket to epoll";
 
       return CanReturnCode::internal_api_error;
@@ -114,7 +114,7 @@ CanReturnCode CanVendorSocketCan::vendor_open() noexcept {
 
     // Start the subscriber thread
     m_subcriber_run = true;
-    subscriber_thread = std::thread(&CanVendorSocketCan::subscriber, this);
+    m_subscriber_thread = std::thread(&CanVendorSocketCan::subscriber, this);
   } else {
     LOG(Log::INF, CanLogIt::h())
         << "Receiver callback not provided, not starting subscriber thread";
@@ -137,22 +137,22 @@ CanReturnCode CanVendorSocketCan::vendor_close() noexcept {
   m_subcriber_run = false;
 
   // Stop the subscriber thread
-  if (subscriber_thread.joinable()) {
-    subscriber_thread.join();
+  if (m_subscriber_thread.joinable()) {
+    m_subscriber_thread.join();
   }
 
-  if (::close(epoll_fd) < 0) {
-    LOG(Log::ERR, CanLogIt::h()) << "Error while closing epoll";
-
+  if (m_epoll_fd >= 0 && ::close(m_epoll_fd) < 0) {
+    LOG(Log::ERR, CanLogIt::h())
+        << "Error while closing epoll: " << strerror(errno);
     return CanReturnCode::unknown_close_error;
   }
-  if (socket_fd >= 0) {
-    if (::close(socket_fd) < 0) {
-      LOG(Log::ERR, CanLogIt::h()) << "Error while closing socket";
-
-      return CanReturnCode::unknown_close_error;
-    }
+  m_epoll_fd = -1;
+  if (m_socket_fd >= 0 && ::close(m_socket_fd) < 0) {
+    LOG(Log::ERR, CanLogIt::h())
+        << "Error while closing socket: " << strerror(errno);
+    return CanReturnCode::unknown_close_error;
   }
+  m_socket_fd = -1;
   LOG(Log::DBG, CanLogIt::h()) << "SocketCan connection closed";
 
   return CanReturnCode::success;
@@ -174,7 +174,7 @@ CanReturnCode CanVendorSocketCan::vendor_send(const CanFrame &frame) noexcept {
   struct can_frame canFrame = translate(frame);
 
   // Send the CAN frame
-  int bytes_sent = ::send(socket_fd, &canFrame, sizeof(canFrame), 0);
+  int bytes_sent = ::send(m_socket_fd, &canFrame, sizeof(canFrame), 0);
   if (bytes_sent != sizeof(canFrame)) {
     LOG(Log::DBG, CanLogIt::h())
         << "SocketCan sent " << bytes_sent << " bytes, but expected "
@@ -346,7 +346,7 @@ const CanFrame CanVendorSocketCan::translate(
 int CanVendorSocketCan::subscriber() noexcept {
   struct epoll_event events[1];
   while (m_subcriber_run) {
-    int nfds = epoll_wait(epoll_fd, events, 1, EPOLL_WAIT_CYCLE_MS);
+    int nfds = epoll_wait(m_epoll_fd, events, 1, EPOLL_WAIT_CYCLE_MS);
     if (nfds < 0) {
       if (errno == EINTR) {
         LOG(Log::DBG, CanLogIt::h())
@@ -362,9 +362,9 @@ int CanVendorSocketCan::subscriber() noexcept {
     }
 
     for (int i = 0; i < nfds; ++i) {
-      if (events[i].data.fd == socket_fd) {
+      if (events[i].data.fd == m_socket_fd) {
         struct can_frame canFrame;
-        int nbytes = ::read(socket_fd, &canFrame, sizeof(struct can_frame));
+        int nbytes = ::read(m_socket_fd, &canFrame, sizeof(struct can_frame));
         if (nbytes < 0) {
           LOG(Log::ERR, CanLogIt::h())
               << "Unexpected error reading from socket, exiting";

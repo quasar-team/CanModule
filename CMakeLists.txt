@@ -17,6 +17,7 @@ set(SOURCES
     src/main/CanDevice.cpp
     src/main/CanVendorLoopback.cpp
     src/main/CanDeviceConfiguration.cpp
+    src/main/CanDiagnostics.cpp
 )
 
 include(cmake/env.cmake)

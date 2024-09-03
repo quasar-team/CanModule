@@ -45,9 +45,9 @@ struct CanVendorSocketCan : CanDevice {
   static const CanFrame translate(const struct can_frame &message) noexcept;
   static struct can_frame translate(const CanFrame &frame) noexcept;
 
-  int socket_fd{0};               // File descriptor for the SocketCAN device
-  int epoll_fd{0};                // File descriptor for the epoll instance
-  std::thread subscriber_thread;  // Thread for the subscriber loop
+  int m_socket_fd{-1};              // File descriptor for the SocketCAN device
+  int m_epoll_fd{-1};               // File descriptor for the epoll instance
+  std::thread m_subscriber_thread;  // Thread for the subscriber loop
   bool m_subcriber_run{
       false};  // Flag to indicate that the subscriber loop should run
 };
