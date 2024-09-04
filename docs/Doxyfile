@@ -1,0 +1,19 @@
+# Doxyfile
+
+PROJECT_NAME           = "CanModule"
+OUTPUT_DIRECTORY       = ../public/
+HTML_OUTPUT            = .
+INPUT                  = ../src README.md QUICKSTART.md CANMODULE-UTILS.md DEVELOPMENT.md
+RECURSIVE              = YES
+GENERATE_TREEVIEW      = YES
+DISABLE_INDEX = NO
+GENERATE_LATEX         = NO
+GENERATE_HTML          = YES
+GENERATE_MAN           = NO
+GENERATE_XML           = NO
+USE_MDFILE_AS_MAINPAGE = README.md
+HTML_EXTRA_STYLESHEET  = ./doxygen-awesome-css/doxygen-awesome.css
+HTML_COLORSTYLE        = LIGHT
+SHOW_FILES             = NO
+SOURCE_BROWSER         = NO
+EXCLUDE_SYMBOLS = AnagateConstants
