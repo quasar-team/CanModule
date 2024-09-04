@@ -14,6 +14,12 @@ The project supports currently Anagate (Windows and Linux) and Socketcan (only L
 
 To get started with the project, please refer to the project's documentation, including the Quickstart, the Developer Guide, the API documentation, and the examples provided in the test directory.
 
+## Links
+
+- Documentation page: https://canmodule.docs.cern.ch
+- Github page: https://github.com/quasar-team/canmodule
+- CERN Gitlab mirror: https://gitlab.cern.ch/quasar-team/canmodule
+
 ## Requirements
 
 The project uses the standard library, C++17 and has been tested using Visual Studio 2022 and
@@ -42,6 +48,6 @@ aware of minor differences due to the language, such as `std::vector` is a `list
 
 ## Contact
 
-E-Mail: industrial-controls@cern.ch
+E-Mail: <industrial-controls@cern.ch>
 
 Unit: BE-ICS-TMA, CERN
