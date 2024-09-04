@@ -76,6 +76,5 @@
         "cfenv": "cpp",
         "bitset": "cpp",
         "*.cpp.in": "cpp"
-    },
-    "cmake.configureOnOpen": false
+    }
 }

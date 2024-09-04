@@ -75,6 +75,6 @@ Update Documentation Website:
       curl -X POST \
            --fail \
            -F token=$DOC_TOKEN \
-           -F "ref=main" \
+           -F "ref=master" \
            -F "variables[DOCUMENTATION_GENERATION]=true" \
            https://gitlab.cern.ch/api/v4/projects/$CI_PROJECT_ID/trigger/pipeline
