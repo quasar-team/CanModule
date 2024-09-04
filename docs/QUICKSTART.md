@@ -11,56 +11,35 @@ You can create a `CanFrame` object using several constructors, depending on the 
 #### Constructor with ID and Message
 
 ```cpp
-uint32_t id = 1;
-std::vector<char> message = {'H', 'e', 'l', 'l', 'o'};
-CanFrame frame(id, message);
+CanFrame frame(1, {'H', 'e', 'l', 'l', 'o'});
 ```
 
-- `id`: The identifier of the CAN frame.
-- `message`: A vector containing the message data.
-- `frame`: A `CanFrame` object initialized with the given `id` and `message`.
+- `frame`: A `CanFrame` object initialized with the given standard id and message.
 
 #### Constructor with Extended ID and Message
 
 ```cpp
-uint32_t id = 1 << 28; // Extended IDs
-std::vector<char> message = {'H', 'e', 'l', 'l', 'o'};
-CanFrame frame(id, message);
+CanFrame frame(1<<28, {'H', 'e', 'l', 'l', 'o'});
 ```
 
-- This creates a `CanFrame` object with an extended identifier.
+- This creates a `CanFrame` object with an extended identifier and message.
 
 #### Constructor with ID and Requested Length
 
 ```cpp
-uint32_t id = 1;
-uint32_t requested_length = 8;
-CanFrame frame(id, requested_length);
+CanFrame frame(1, 8);
 ```
 
-- `requested_length`: The length of the message to be used in a Remote Transmission Request (RTR).
-- This constructor is useful for creating a CAN frame for a remote request.
+- This creates a remote request (length 8) of a frame with id 1.
 
 #### Constructor with ID, Message, and Flags
 
 ```cpp
-uint32_t id = 1;
-std::vector<char> message = {'H', 'e', 'l', 'l', 'o'};
-uint32_t flags = can_flags::extended_id;
-CanFrame frame(id, message, flags);
+CanFrame frame(1, {'H', 'e', 'l', 'l', 'o'}, can_flags::extended_id);
 ```
 
 - `flags`: Special flags (e.g., `standard_id`, `extended_id`, `remote_request`) that define the frame type.
 - This constructor allows for more advanced frame configurations.
-
-#### Constructor with ID Only
-
-```cpp
-uint32_t id = 1 << 28; // Extended ID
-CanFrame frame(id);
-```
-
-- Creates a `CanFrame` with just an ID and no message.
 
 ### Using the CanFrame Methods
 

@@ -36,10 +36,15 @@ TEST_F(CanFrameTest, ConstructorWithIdAndMessage) {
   uint32_t id = 1;
   std::vector<char> message = {'H', 'e', 'l', 'l', 'o'};
   CanFrame frame(id, message);
+  CanFrame frame2(1, {'H', 'e', 'l', 'l', 'o'});
   ASSERT_EQ(frame.id(), id);
   ASSERT_EQ(frame.message(), message);
   ASSERT_EQ(frame.message().size(), message.size());
   ASSERT_TRUE(frame.is_standard_id());
+  ASSERT_EQ(frame2.id(), id);
+  ASSERT_EQ(frame2.message(), message);
+  ASSERT_EQ(frame2.message().size(), message.size());
+  ASSERT_TRUE(frame2.is_standard_id());
 }
 
 // Test for CanFrame constructor with id extended and message
@@ -47,10 +52,15 @@ TEST_F(CanFrameTest, ConstructorWithIdExtendedAndMessage) {
   uint32_t id = 1 << 28;
   std::vector<char> message = {'H', 'e', 'l', 'l', 'o'};
   CanFrame frame(id, message);
+  CanFrame frame2(1 << 28, {'H', 'e', 'l', 'l', 'o'});
   ASSERT_EQ(frame.id(), id);
   ASSERT_EQ(frame.message(), message);
   ASSERT_EQ(frame.message().size(), message.size());
   ASSERT_TRUE(frame.is_extended_id());
+  ASSERT_EQ(frame2.id(), id);
+  ASSERT_EQ(frame2.message(), message);
+  ASSERT_EQ(frame2.message().size(), message.size());
+  ASSERT_TRUE(frame2.is_extended_id());
 }
 
 // Test for CanFrame constructor with id too big and message
