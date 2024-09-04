@@ -24,7 +24,7 @@ CanFrame frame(1<<28, {'H', 'e', 'l', 'l', 'o'});
 
 - This creates a `CanFrame` object with an extended identifier and message.
 
-#### Constructor with ID and Requested Length
+#### Constructor with ID and Remote Request
 
 ```cpp
 CanFrame frame(1, 8);
