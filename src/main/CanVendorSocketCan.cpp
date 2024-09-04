@@ -89,6 +89,7 @@ CanReturnCode CanVendorSocketCan::vendor_open() noexcept {
          args().config.bus_name.value().c_str());
   if (ioctl(m_socket_fd, SIOCGIFINDEX, &ifr) < 0) {
     ::close(m_socket_fd);
+    m_socket_fd = -1;
     LOG(Log::ERR, CanLogIt::h()) << "Failed to get interface index";
     return CanReturnCode::internal_api_error;
   }
@@ -100,6 +101,7 @@ CanReturnCode CanVendorSocketCan::vendor_open() noexcept {
 
   if (bind(m_socket_fd, (struct sockaddr *)&addr, sizeof(addr)) < 0) {
     ::close(m_socket_fd);
+    m_socket_fd = -1;
     LOG(Log::ERR, CanLogIt::h()) << "Failed to bind socket";
     return CanReturnCode::internal_api_error;
   }
@@ -109,6 +111,7 @@ CanReturnCode CanVendorSocketCan::vendor_open() noexcept {
     m_epoll_fd = epoll_create1(0);
     if (m_epoll_fd < 0) {
       ::close(m_socket_fd);
+      m_socket_fd = -1;
       LOG(Log::ERR, CanLogIt::h()) << "Failed to create epoll instance";
 
       return CanReturnCode::internal_api_error;
@@ -121,6 +124,8 @@ CanReturnCode CanVendorSocketCan::vendor_open() noexcept {
     if (epoll_ctl(m_epoll_fd, EPOLL_CTL_ADD, m_socket_fd, &ev) < 0) {
       ::close(m_epoll_fd);
       ::close(m_socket_fd);
+      m_epoll_fd = -1;
+      m_socket_fd = -1;
       LOG(Log::ERR, CanLogIt::h()) << "Failed to add socket to epoll";
 
       return CanReturnCode::internal_api_error;
@@ -365,7 +370,6 @@ int CanVendorSocketCan::subscriber() noexcept {
       if (errno == EINTR) {
         LOG(Log::DBG, CanLogIt::h())
             << "Interrupted by signal, continue waiting";
-
         continue;
       } else {
         LOG(Log::ERR, CanLogIt::h())
