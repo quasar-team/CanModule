@@ -6,18 +6,20 @@ def test_frame_id():
     frame = CanFrame(1)
     assert frame.id() == 1
     assert frame.is_extended_id() is False
-    assert frame.is_remote_request() is True
+    assert frame.is_remote_request() is False
+    assert frame.length() == 0
 
 
 def test_extended_id():
     frame = CanFrame(4096)
     assert frame.id() == 4096
     assert frame.is_extended_id() is True
-    assert frame.is_remote_request() is True
+    assert frame.is_remote_request() is False
+    assert frame.length() == 0
 
 
 def test_full_frame():
-    frame = CanFrame(4096, ["H", "e", "l", "l", "o"], CanFlags.EXTENDED_ID)
+    frame = CanFrame(4096, ["H", "e", "l", "l", "o"], can_flags.extended_id)
     assert frame.id() == 4096
     assert frame.is_extended_id() is True
     assert "".join(frame.message()) == "Hello"

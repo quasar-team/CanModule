@@ -54,7 +54,7 @@ struct CanFrame {
    * @param id The identifier of the CAN frame.
    * @throws std::invalid_argument if the CAN Frame has unvalid data.
    */
-  explicit CanFrame(const uint32_t id) : CanFrame(id, 0) {}
+  explicit CanFrame(const uint32_t id) : CanFrame(id, std::vector<char>()) {}
   /**
    * @brief Constructs a CanFrame with specified ID and message.
    * @param id The identifier of the CAN frame.

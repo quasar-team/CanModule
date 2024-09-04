@@ -8,6 +8,29 @@ class CanFrameTest : public ::testing::Test {
   // You can define any setup or teardown code here if needed
 };
 
+// Test for CanFrame constructor with id
+TEST_F(CanFrameTest, ConstructorWithId) {
+  uint32_t id = 1;
+  CanFrame frame(id);
+  ASSERT_EQ(frame.id(), id);
+  ASSERT_TRUE(frame.message().empty());
+  ASSERT_EQ(frame.length(), 0);
+  ASSERT_TRUE(frame.is_standard_id());
+  ASSERT_FALSE(frame.is_error());
+  ASSERT_FALSE(frame.is_remote_request());
+}
+
+// Test for CanFrame constructor with id and length 0
+TEST_F(CanFrameTest, ConstructorWithIdAndZeroLength) {
+  uint32_t id = 1;
+  CanFrame frame(id, 0);
+  ASSERT_EQ(frame.id(), id);
+  ASSERT_TRUE(frame.is_standard_id());
+  ASSERT_FALSE(frame.is_error());
+  ASSERT_TRUE(frame.is_remote_request());
+  ASSERT_EQ(frame.length(), 0);
+}
+
 // Test for CanFrame constructor with id and message
 TEST_F(CanFrameTest, ConstructorWithIdAndMessage) {
   uint32_t id = 1;
@@ -100,14 +123,14 @@ TEST_F(CanFrameTest, ConstructorWithIdMessageAndFlagsRTR) {
   ASSERT_THROW(CanFrame frame(id, message, flags), std::invalid_argument);
 }
 
-TEST_F(CanFrameTest, ConstructorWithIdOnly) {
+TEST_F(CanFrameTest, ConstructorWithIdExt) {
   uint32_t id = 1 << 28;
   CanFrame frame(id);
   ASSERT_EQ(frame.id(), id);
   ASSERT_TRUE(frame.message().empty());
   ASSERT_EQ(frame.length(), 0);
   ASSERT_TRUE(frame.is_extended_id());
-  ASSERT_TRUE(frame.is_remote_request());
+  ASSERT_FALSE(frame.is_remote_request());
 }
 
 TEST_F(CanFrameTest, TestEqual) {
