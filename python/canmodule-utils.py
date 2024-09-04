@@ -189,8 +189,8 @@ def dump(device):
     configuration = process_device(device)
     arguments = CanDeviceArguments(configuration, print)
     can_device = CanDevice.create(device["vendor"], arguments)
-    
-    if (can_device.open() != CanReturnCode.success):
+
+    if can_device.open() != CanReturnCode.success:
         print("Error opening CAN device")
         exit(1)
 
@@ -268,11 +268,11 @@ def send(device, frame):
     arguments = CanDeviceArguments(configuration, None)
     can_device = CanDevice.create(device["vendor"], arguments)
 
-    if (can_device.open() != CanReturnCode.success):
+    if can_device.open() != CanReturnCode.success:
         print("Error opening CAN device")
         exit(1)
-    
-    if (can_device.send(can_frame) != CanReturnCode.success):
+
+    if can_device.send(can_frame) != CanReturnCode.success:
         print("Error sending frame")
         exit(1)
 
@@ -333,7 +333,7 @@ def gen(device):
     arguments = CanDeviceArguments(configuration, None)
     can_device = CanDevice.create(device["vendor"], arguments)
 
-    if (can_device.open() != CanReturnCode.success):
+    if can_device.open() != CanReturnCode.success:
         print("Error opening CAN device")
         exit(1)
     try:
@@ -370,11 +370,11 @@ def diag(device):
     configuration = process_device(device)
     arguments = CanDeviceArguments(configuration, None)
     can_device = CanDevice.create(device["vendor"], arguments)
-    
-    if (can_device.open() != CanReturnCode.success):
+
+    if can_device.open() != CanReturnCode.success:
         print("Error opening CAN device")
         exit(1)
-    
+
     print(can_device.diagnostics())
     can_device.close()
 
