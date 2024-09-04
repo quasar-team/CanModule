@@ -48,6 +48,6 @@ aware of minor differences due to the language, such as `std::vector` is a `list
 
 ## Contact
 
-E-Mail: <industrial-controls@cern.ch>
+E-Mail: <icecontrols.support@cern.ch>
 
 Unit: BE-ICS-TMA, CERN
