@@ -54,7 +54,7 @@ std::string CanDeviceConfiguration::to_string() const noexcept {
     oss << "vcan=" << (vcan.value() ? "true" : "false");
     first = false;
   }
-  
+
   if (timeout.has_value()) {
     if (!first) oss << ", ";
     oss << "timeout=" << timeout.value();

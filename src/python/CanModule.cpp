@@ -68,8 +68,12 @@ PYBIND11_MODULE(canmodule, m) {
   py::class_<CanDeviceArguments>(m, "CanDeviceArguments")
       .def(py::init<const CanDeviceConfiguration&,
                     const std::function<void(const CanFrame&)>,
-                    const std::function<void(const CanReturnCode, std::string_view)>&>(),
-           py::arg("config"), py::arg("receiver"), py::arg("on_error"))
+                    const std::function<void(const CanReturnCode,
+                                             std::string_view)>&>(),
+           py::arg("config"),
+           py::arg("receiver") = std::function<void(const CanFrame&)>(),
+           py::arg("on_error") =
+               std::function<void(const CanReturnCode, std::string_view)>())
       .def_readonly("config", &CanDeviceArguments::config);
 
   py::class_<CanDeviceConfiguration>(m, "CanDeviceConfiguration")
@@ -80,7 +84,7 @@ PYBIND11_MODULE(canmodule, m) {
       .def_readwrite("bitrate", &CanDeviceConfiguration::bitrate)
       .def_readwrite("enable_termination",
                      &CanDeviceConfiguration::enable_termination)
-      .def_readwrite("vcan", &CanDeviceConfiguration::vcan)      
+      .def_readwrite("vcan", &CanDeviceConfiguration::vcan)
       .def_readwrite("timeout", &CanDeviceConfiguration::timeout)
       .def_readwrite("sent_acknowledgement",
                      &CanDeviceConfiguration::sent_acknowledgement)

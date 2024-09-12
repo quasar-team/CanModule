@@ -36,16 +36,16 @@ struct CanDeviceArguments {
    */
   const std::function<void(const CanFrame&)> receiver;
 
-/**
- * @brief Callback function to handle errors.
- *
- * This function is called whenever an error occurs during subscription.
- * It takes a CanReturnCode and a string_view message as its parameters.
- *
- * @param return_code The error code indicating the type of error.
- * @param message A string_view containing a description of the error.
- */
-const std::function<void(const CanReturnCode, std::string_view)> on_error;
+  /**
+   * @brief Callback function to handle errors.
+   *
+   * This function is called whenever an error occurs during subscription.
+   * It takes a CanReturnCode and a string_view message as its parameters.
+   *
+   * @param return_code The error code indicating the type of error.
+   * @param message A string_view containing a description of the error.
+   */
+  const std::function<void(const CanReturnCode, std::string_view)> on_error;
 };
 
 #endif  // SRC_INCLUDE_CANDEVICEARGUMENTS_H_

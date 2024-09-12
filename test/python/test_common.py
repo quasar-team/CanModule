@@ -63,3 +63,10 @@ def test_loopback_multiple_messages():
     assert received_frames[0].message() == ["H", "e", "l", "l", "o"]
     assert received_frames[1].id() == 2
     assert received_frames[1].message() == ["W", "o", "r", "l", "d"]
+
+
+def test_loopback_construction_empty_callback():
+    myDevice = CanDevice.create(
+        "loopback", CanDeviceArguments(CanDeviceConfiguration())
+    )
+    myDevice.open()

@@ -131,7 +131,7 @@ struct CanDevice {
    */
   inline void received(const CanFrame& frame) const noexcept {
     if (m_args.receiver != nullptr) {
-    m_args.receiver(frame);
+      m_args.receiver(frame);
     }
   }
 
@@ -145,9 +145,10 @@ struct CanDevice {
    * @param r A const of the CanReturnCode.
    * @param m A string view of the string describing the error.
    */
-  inline void on_error(const CanReturnCode r, std::string_view m) const noexcept {
+  inline void on_error(const CanReturnCode r,
+                       std::string_view m) const noexcept {
     if (m_args.on_error != nullptr) {
-    m_args.on_error(r,m);
+      m_args.on_error(r, m);
     }
   }
 

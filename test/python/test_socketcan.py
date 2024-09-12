@@ -20,21 +20,25 @@ if "CI" in os.environ:
 DEVICE_TWO = CanDeviceConfiguration()
 DEVICE_TWO.bus_name = "vcan0"
 
-@pytest.mark.skipif("CI" not in os.environ, reason="Skipping test, local development not as root")
+
+@pytest.mark.skipif(
+    "CI" not in os.environ, reason="Skipping test, local development not as root"
+)
 def test_socketcan_error_callback():
     callback_called = False
-    
+
     def callback_execution():
         nonlocal callback_called
         callback_called = True
-    
+
     os.system("ip link set down vcan0")
 
     received_frames_dev1 = []
     received_frames_dev2 = []
 
     myDevice1 = CanDevice.create(
-        "socketcan", CanDeviceArguments(DEVICE_ONE, received_frames_dev1.append, callback_execution)
+        "socketcan",
+        CanDeviceArguments(DEVICE_ONE, received_frames_dev1.append, callback_execution),
     )
     myDevice2 = CanDevice.create(
         "socketcan", CanDeviceArguments(DEVICE_TWO, received_frames_dev2.append)
@@ -56,6 +60,7 @@ def test_socketcan_error_callback():
 
     sleep(1)
     assert callback_called is True
+
 
 def test_socketcan_single_message():
     received_frames_dev1 = []
@@ -134,4 +139,3 @@ def test_socketcan_multiple_messages():
     assert received_frames_dev2[4].is_extended_id() is True
     assert received_frames_dev2[4].is_remote_request() is False
     assert received_frames_dev2[4].is_error() is False
-

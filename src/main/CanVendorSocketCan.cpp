@@ -59,10 +59,10 @@ CanReturnCode CanVendorSocketCan::vendor_open() noexcept {
       return CanReturnCode::socket_error;
     }
 
-    if (!args().config.vcan.value_or(false) && 
+    if (!args().config.vcan.value_or(false) &&
         can_set_restart_ms(args().config.bus_name.value().c_str(),
                            args().config.timeout.value_or(0)) ==
-        LIBSOCKETCAN_ERROR) {
+            LIBSOCKETCAN_ERROR) {
       LOG(Log::ERR, CanLogIt::h()) << "Failed to set restart delay";
       return CanReturnCode::socket_error;
     }
@@ -387,7 +387,8 @@ int CanVendorSocketCan::subscriber() noexcept {
         if (nbytes < 0) {
           LOG(Log::ERR, CanLogIt::h())
               << "Unexpected error reading from socket, exiting";
-          on_error(CanReturnCode::socket_error, "Error while reading number of bytes received");
+          on_error(CanReturnCode::socket_error,
+                   "Error while reading number of bytes received");
           return -1;
         }
 
@@ -398,8 +399,7 @@ int CanVendorSocketCan::subscriber() noexcept {
           received(
               frame);  // Call the received method with the translated frame
         } else {
-          LOG(Log::ERR, CanLogIt::h())
-            << "Corrupted CanFrame received";
+          LOG(Log::ERR, CanLogIt::h()) << "Corrupted CanFrame received";
           on_error(CanReturnCode::rx_error, "Corrupted CanFrame received");
         }
       }
