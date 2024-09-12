@@ -67,8 +67,9 @@ PYBIND11_MODULE(canmodule, m) {
 
   py::class_<CanDeviceArguments>(m, "CanDeviceArguments")
       .def(py::init<const CanDeviceConfiguration&,
-                    const std::function<void(const CanFrame&)>&>(),
-           py::arg("config"), py::arg("receiver"))
+                    const std::function<void(const CanFrame&)>,
+                    const std::function<void(const CanReturnCode, std::string_view)>&>(),
+           py::arg("config"), py::arg("receiver"), py::arg("on_error"))
       .def_readonly("config", &CanDeviceArguments::config);
 
   py::class_<CanDeviceConfiguration>(m, "CanDeviceConfiguration")
