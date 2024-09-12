@@ -27,7 +27,7 @@ DEVICE_TWO.bus_name = "vcan0"
 def test_socketcan_error_callback():
     callback_called = False
 
-    def callback_execution():
+    def callback_execution(a, b):
         nonlocal callback_called
         callback_called = True
 
