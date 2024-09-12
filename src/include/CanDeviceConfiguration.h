@@ -65,6 +65,14 @@ struct CanDeviceConfiguration {
   std::optional<uint32_t> timeout;
 
   /**
+   * @brief The timeout value for CAN operations.
+   *
+   * This parameter is optional and only has effect for SocketCAN devices.
+   * It is used to specify if we are using a real CAN or a virtual CAN
+   */
+  std::optional<bool> vcan;
+
+  /**
    * @brief The sent acknowledgement flag for Anagate.
    *
    * This parameter is optional for Anagate and it defaults to false.

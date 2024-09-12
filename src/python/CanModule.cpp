@@ -48,6 +48,7 @@ PYBIND11_MODULE(canmodule, m) {
       .value("unknown_send_error", CanReturnCode::unknown_send_error)
       .value("not_ack", CanReturnCode::not_ack)
       .value("tx_error", CanReturnCode::tx_error)
+      .value("rx_error", CanReturnCode::rx_error)
       .value("tx_buffer_overflow", CanReturnCode::tx_buffer_overflow)
       .value("lost_arbitration", CanReturnCode::lost_arbitration)
       .value("invalid_bitrate", CanReturnCode::invalid_bitrate)
@@ -78,6 +79,7 @@ PYBIND11_MODULE(canmodule, m) {
       .def_readwrite("bitrate", &CanDeviceConfiguration::bitrate)
       .def_readwrite("enable_termination",
                      &CanDeviceConfiguration::enable_termination)
+      .def_readwrite("vcan", &CanDeviceConfiguration::vcan)      
       .def_readwrite("timeout", &CanDeviceConfiguration::timeout)
       .def_readwrite("sent_acknowledgement",
                      &CanDeviceConfiguration::sent_acknowledgement)

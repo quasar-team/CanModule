@@ -49,26 +49,27 @@ CanReturnCode CanVendorSocketCan::vendor_open() noexcept {
 
     if (can_do_stop(args().config.bus_name.value().c_str()) ==
         LIBSOCKETCAN_ERROR) {
-      LOG(Log::ERR, CanLogIt::h()) << "Failed to stop CAN bus";
-
-      return CanReturnCode::socket_error;
+      LOG(Log::WRN, CanLogIt::h()) << "Failed to stop CAN bus";
     }
-    if (can_set_bitrate(args().config.bus_name.value().c_str(),
+
+    if (!args().config.vcan.value_or(false) &&
+        can_set_bitrate(args().config.bus_name.value().c_str(),
                         args().config.bitrate.value()) == LIBSOCKETCAN_ERROR) {
       LOG(Log::ERR, CanLogIt::h()) << "Failed to set bitrate";
-
       return CanReturnCode::socket_error;
     }
-    if (can_set_restart_ms(args().config.bus_name.value().c_str(),
+
+    if (!args().config.vcan.value_or(false) && 
+        can_set_restart_ms(args().config.bus_name.value().c_str(),
                            args().config.timeout.value_or(0)) ==
         LIBSOCKETCAN_ERROR) {
       LOG(Log::ERR, CanLogIt::h()) << "Failed to set restart delay";
       return CanReturnCode::socket_error;
     }
+
     if (can_do_start(args().config.bus_name.value().c_str()) ==
         LIBSOCKETCAN_ERROR) {
       LOG(Log::ERR, CanLogIt::h()) << "Failed to start CAN bus";
-
       return CanReturnCode::socket_error;
     }
   } else {
@@ -374,7 +375,7 @@ int CanVendorSocketCan::subscriber() noexcept {
       } else {
         LOG(Log::ERR, CanLogIt::h())
             << "Error occurred during epoll_wait: " << strerror(errno);
-
+        on_error(CanReturnCode::socket_error, strerror(errno));
         return -1;  // Error occurred
       }
     }
@@ -386,6 +387,7 @@ int CanVendorSocketCan::subscriber() noexcept {
         if (nbytes < 0) {
           LOG(Log::ERR, CanLogIt::h())
               << "Unexpected error reading from socket, exiting";
+          on_error(CanReturnCode::socket_error, "Error while reading number of bytes received");
           return -1;
         }
 
@@ -395,6 +397,10 @@ int CanVendorSocketCan::subscriber() noexcept {
           CanFrame frame = translate(canFrame);
           received(
               frame);  // Call the received method with the translated frame
+        } else {
+          LOG(Log::ERR, CanLogIt::h())
+            << "Corrupted CanFrame received";
+          on_error(CanReturnCode::rx_error, "Corrupted CanFrame received");
         }
       }
     }
