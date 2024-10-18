@@ -60,5 +60,8 @@ elseif (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
     # in the header of Anagate software
 endif()
 
-include(cmake/pybind11.cmake)
-include(cmake/gtest.cmake)
+if (NOT DEFINED CAN_MODULE_SUBCOMPONENT)
+    include(cmake/pybind11.cmake)
+    include(cmake/gtest.cmake)
+endif()
+
