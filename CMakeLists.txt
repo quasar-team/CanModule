@@ -70,4 +70,3 @@ if (NOT DEFINED CAN_MODULE_SUBCOMPONENT)
     include(cmake/pybind11.cmake)
     include(cmake/gtest.cmake)
 endif()
-

@@ -3,9 +3,12 @@
 #include <AnaGateDllCan.h>
 
 #include <iomanip>
+#include <map>
 #include <memory>
 #include <mutex>  // NOLINT
 #include <sstream>
+#include <string>
+#include <vector>
 
 #include "CanLogIt.h"
 

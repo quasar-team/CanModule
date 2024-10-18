@@ -3,6 +3,7 @@
 #include <iomanip>
 #include <iostream>
 #include <sstream>
+#include <string>
 
 /**
  * @brief Converts the CanDeviceConfiguration object to a string representation.

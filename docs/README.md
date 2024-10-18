@@ -46,6 +46,19 @@ CanModule provides access to all public members and methods via Python. The nami
 the same as the main C++ code. Please follow the main C++ documentation while in Python, and be
 aware of minor differences due to the language, such as `std::vector` is a `list`, `std::map` is a `dict`, etc. in Python.
 
+## Use inside Quasar framework
+
+By default, the provided CMake will compile CanModule, the tests, and if possible the Python library, downloading LogIt in
+the process.
+
+If you wish to compile only the library, inside Quasar (which provides LogIt) you need to set the variable CAN_MODULE_SUBCOMPONENT to any value, for example:
+
+```cmake
+set( CAN_MODULE_SUBCOMPONENT "Y")
+set( CAN_MODULE_URL https://github.com/quasar-team/CanModule.git )
+clone_quasar_module( ${CAN_MODULE_URL} main ${CMAKE_CURRENT_SOURCE_DIR}/CanModule )
+```
+
 ## Contact
 
 E-Mail: <icecontrols.support@cern.ch>

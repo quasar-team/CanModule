@@ -12,6 +12,7 @@
 
 #include <cstring>
 #include <thread>  // NOLINT
+#include <vector>
 
 #include "CanFrame.h"
 #include "CanLogIt.h"

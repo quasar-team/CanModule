@@ -2,6 +2,8 @@
 
 #include <gtest/gtest.h>
 
+#include <vector>
+
 // Test fixture for CanFrame
 class CanFrameTest : public ::testing::Test {
  protected:

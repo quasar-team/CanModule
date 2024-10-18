@@ -2,6 +2,8 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 
+#include <vector>
+
 #include "CanDevice.h"
 #include "CanDeviceArguments.h"
 #include "CanFrame.h"

@@ -3,6 +3,7 @@
 #include <iomanip>
 #include <sstream>
 #include <stdexcept>
+#include <string>
 
 #include "CanLogIt.h"
 
