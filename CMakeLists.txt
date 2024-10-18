@@ -31,11 +31,17 @@ if (UNIX)
     list(APPEND VENDOR_SOURCES src/main/CanVendorSocketCan.cpp)
 endif()
 
-include(cmake/logit.cmake)
+if (NOT DEFINED CAN_MODULE_SUBCOMPONENT)
+    include(cmake/logit.cmake)
+    set(LOGIT_INCLUDE ${logit_SOURCE_DIR}/include)
+else()
+    set(LOGIT_INCLUDE ${CMAKE_SOURCE_DIR}/LogIt/include)
+endif()
+
 include(cmake/anagate.cmake)
 
 add_library(CanModuleMain ${SOURCES} ${VENDOR_SOURCES})
-target_include_directories(CanModuleMain PRIVATE ${logit_SOURCE_DIR}/include ${anagate_SOURCE_DIR}/include)
+target_include_directories(CanModuleMain PRIVATE ${LOGIT_INCLUDE} ${anagate_SOURCE_DIR}/include)
 if (UNIX)
     target_link_libraries(CanModuleMain PRIVATE
                             ${anagate_SOURCE_DIR}/lib/libAnaGateExtStaticRelease.so
