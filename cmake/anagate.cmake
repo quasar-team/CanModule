@@ -16,3 +16,7 @@ FetchContent_Declare(
 )
 
 FetchContent_MakeAvailable(Anagate)
+
+if (WIN32)
+    add_compile_definitions(WIN32)
+endif()
