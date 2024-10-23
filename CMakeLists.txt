@@ -41,19 +41,17 @@ endif()
 include(cmake/anagate.cmake)
 
 add_library(CanModuleMain ${SOURCES} ${VENDOR_SOURCES})
-target_include_directories(CanModuleMain PRIVATE ${LOGIT_INCLUDE} ${anagate_SOURCE_DIR}/include)
+target_include_directories(CanModuleMain PRIVATE ${LOGIT_INCLUDE} ${anagate_SOURCE_DIR}/)
 if (UNIX)
     target_link_libraries(CanModuleMain PRIVATE
-                            ${anagate_SOURCE_DIR}/lib/libAnaGateExtStaticRelease.so
-                            ${anagate_SOURCE_DIR}/lib/libAnaGateStaticRelease.so
-                            ${anagate_SOURCE_DIR}/lib/libCANDLLStaticRelease64.so
+                            ${anagate_SOURCE_DIR}/Linux64/CentOS_9/libCANDLLStaticRelease64.a
+                            ${anagate_SOURCE_DIR}/Linux64/CentOS_9/libAnaGateStaticRelease.a
+                            ${anagate_SOURCE_DIR}/Linux64/CentOS_9/libAnaGateExtStaticRelease.a
                             socketcan)
-    file(GLOB ANAGATE_LIBRARIES_SO ${anagate_SOURCE_DIR}/lib/*.so)
-    file(COPY ${ANAGATE_LIBRARIES_SO} DESTINATION ${CMAKE_BINARY_DIR})
 else()
     target_link_libraries(CanModuleMain PRIVATE
-                            ${anagate_SOURCE_DIR}/lib/AnaGateCanDll64.lib)
-    file(COPY "${anagate_SOURCE_DIR}/lib/AnaGateCan64.dll" DESTINATION "${CMAKE_BINARY_DIR}/Release")
+                            ${anagate_SOURCE_DIR}/Win64/AnaGateCanDll64.lib)
+    file(COPY "${anagate_SOURCE_DIR}/Win64/AnaGateCan64.dll" DESTINATION "${CMAKE_BINARY_DIR}/Release")
 endif()
 
 
