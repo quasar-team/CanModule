@@ -4,6 +4,17 @@
 
 #include "CanLogIt.h"
 
+/**
+ * @brief Updates the derived statistics for CAN diagnostics.
+ *
+ * This function calculates the rate of received (Rx) and transmitted (Tx)
+ * messages per second and updates the diagnostics object with these values.
+ * It initializes the statistics if they haven't been initialized yet.
+ *
+ * @param diagnostics A reference to a CanDiagnostics object that contains
+ *                    the current Rx and Tx values and will be updated with
+ *                    the calculated rolling average rates.
+ */
 void CanDerivedStats::update(CanDiagnostics &diagnostics) noexcept {
   if (!m_init) {
     if (!diagnostics.rx.has_value() || !diagnostics.tx.has_value()) {
