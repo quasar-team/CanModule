@@ -7,6 +7,7 @@
 #include <string>
 #include <vector>
 
+#include "CanDerivedStats.h"
 #include "CanDeviceArguments.h"
 #include "CanDiagnostics.h"
 #include "CanFrame.h"
@@ -135,26 +136,10 @@ struct CanDevice {
     }
   }
 
-  /**
-   * @brief Handles errors while monitoring for new CAN frames.
-   *
-   * This function is called whenever an error is received by the CAN device.
-   * It passes the received error to the on_error function specified in the
-   * CanDeviceArguments object.
-   *
-   * @param r A const of the CanReturnCode.
-   * @param m A string view of the string describing the error.
-   */
-  inline void on_error(const CanReturnCode r,
-                       std::string_view m) const noexcept {
-    if (m_args.on_error != nullptr) {
-      m_args.on_error(r, m);
-    }
-  }
-
  private:
   const std::string m_vendor;
   const CanDeviceArguments m_args;
+  CanDerivedStats m_derived_stats;
 };
 
 #endif  // SRC_INCLUDE_CANDEVICE_H_

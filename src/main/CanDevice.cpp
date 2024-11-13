@@ -32,6 +32,9 @@ CanReturnCode CanDevice::open() noexcept {
         << "Failed to open CAN device: error code " << result;
   } else {
     LOG(Log::DBG, CanLogIt::h()) << "Successfully opened CAN device";
+    // Calling diagnostics to initialize the support for calculated statistics,
+    // if available.
+    diagnostics();
   }
 
   return result;
@@ -116,7 +119,9 @@ std::vector<CanReturnCode> CanDevice::send(
  * optional and depends on the vendor-specific implementation.
  */
 CanDiagnostics CanDevice::diagnostics() noexcept {
-  return vendor_diagnostics();
+  auto result = vendor_diagnostics();
+  m_derived_stats.update(result);
+  return result;
 }
 
 /**

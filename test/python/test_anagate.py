@@ -1,6 +1,7 @@
-from time import sleep
-import platform
 import pytest
+
+from time import sleep, time
+import platform
 from common import *
 
 DEVICE_ONE = CanDeviceConfiguration()
@@ -57,8 +58,12 @@ def test_anagate_multiple_messages():
     myDevice2 = CanDevice.create(
         "anagate", CanDeviceArguments(DEVICE_TWO, received_frames_dev2.append)
     )
-    myDevice1.open()
-    myDevice2.open()
+    r = myDevice1.open()
+    assert r == CanReturnCode.success
+
+    r = myDevice2.open()
+    assert r == CanReturnCode.success
+
     send_frames = [
         CanFrame(123, ["H", "e", "l", "l", "o"]),
         CanFrame(234, ["W", "o", "r", "l", "d"]),
@@ -149,3 +154,50 @@ def test_anagate_diagnostics_device_two():
     myDevice1.open()
     diag = myDevice1.diagnostics()
     assert_diagnostics(diag, DEVICE_TWO.bus_number)
+
+
+def test_anagate_diagnostics():
+    received_frames_dev2 = []
+
+    myDevice1 = CanDevice.create("anagate", CanDeviceArguments(DEVICE_ONE))
+
+    myDevice2 = CanDevice.create(
+        "anagate", CanDeviceArguments(DEVICE_TWO, received_frames_dev2.append)
+    )
+    o1 = myDevice1.open()
+    o2 = myDevice2.open()
+
+    assert o1 == CanReturnCode.success
+    assert o2 == CanReturnCode.success
+
+    start_time = time()
+
+    stats1 = myDevice1.diagnostics()
+    stats2 = myDevice2.diagnostics()
+
+    assert stats1.tx_per_second is None
+    assert stats2.rx_per_second is None
+
+    n_attemps = 3
+    n_frames = 5
+    for _ in range(n_attemps):
+        for _ in range(n_frames):
+            myDevice1.send(CanFrame(123, ["H", "e", "l", "l", "o"]))
+        sleep(1)
+
+    stats1 = myDevice1.diagnostics()
+    stats2 = myDevice2.diagnostics()
+
+    end_time = time()
+
+    time_elapsed = end_time - start_time
+
+    assert stats1.tx > 5
+    assert stats2.rx > 5
+
+    assert stats1.tx_per_second == pytest.approx(
+        n_attemps * n_frames / time_elapsed, abs=0.1
+    )
+    assert stats2.rx_per_second == pytest.approx(
+        n_attemps * n_frames / time_elapsed, abs=0.1
+    )

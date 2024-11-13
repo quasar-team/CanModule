@@ -259,8 +259,8 @@ CanDiagnostics CanVendorSocketCan::vendor_diagnostics() noexcept {
   struct rtnl_link_stats64 stats;
   if (can_get_link_stats(args().config.bus_name.value().c_str(), &stats) ==
       LIBSOCKETCAN_SUCCESS) {
-    diagnostics.rx = stats.rx_bytes;
-    diagnostics.tx = stats.tx_bytes;
+    diagnostics.rx = stats.rx_packets;
+    diagnostics.tx = stats.tx_packets;
     diagnostics.rx_error = stats.rx_errors;
     diagnostics.tx_error = stats.tx_errors;
     diagnostics.rx_drop = stats.rx_dropped;
@@ -376,7 +376,6 @@ int CanVendorSocketCan::subscriber() noexcept {
       } else {
         LOG(Log::ERR, CanLogIt::h())
             << "Error occurred during epoll_wait: " << strerror(errno);
-        on_error(CanReturnCode::socket_error, strerror(errno));
         return -1;  // Error occurred
       }
     }
@@ -388,8 +387,6 @@ int CanVendorSocketCan::subscriber() noexcept {
         if (nbytes < 0) {
           LOG(Log::ERR, CanLogIt::h())
               << "Unexpected error reading from socket, exiting";
-          on_error(CanReturnCode::socket_error,
-                   "Error while reading number of bytes received");
           return -1;
         }
 
@@ -401,7 +398,6 @@ int CanVendorSocketCan::subscriber() noexcept {
               frame);  // Call the received method with the translated frame
         } else {
           LOG(Log::ERR, CanLogIt::h()) << "Corrupted CanFrame received";
-          on_error(CanReturnCode::rx_error, "Corrupted CanFrame received");
         }
       }
     }
