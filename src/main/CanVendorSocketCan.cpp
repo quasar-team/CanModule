@@ -376,7 +376,6 @@ int CanVendorSocketCan::subscriber() noexcept {
       } else {
         LOG(Log::ERR, CanLogIt::h())
             << "Error occurred during epoll_wait: " << strerror(errno);
-        on_error(CanReturnCode::socket_error, strerror(errno));
         return -1;  // Error occurred
       }
     }
@@ -388,8 +387,6 @@ int CanVendorSocketCan::subscriber() noexcept {
         if (nbytes < 0) {
           LOG(Log::ERR, CanLogIt::h())
               << "Unexpected error reading from socket, exiting";
-          on_error(CanReturnCode::socket_error,
-                   "Error while reading number of bytes received");
           return -1;
         }
 
@@ -401,7 +398,6 @@ int CanVendorSocketCan::subscriber() noexcept {
               frame);  // Call the received method with the translated frame
         } else {
           LOG(Log::ERR, CanLogIt::h()) << "Corrupted CanFrame received";
-          on_error(CanReturnCode::rx_error, "Corrupted CanFrame received");
         }
       }
     }
