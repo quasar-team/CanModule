@@ -1,17 +1,30 @@
 #include "CanDerivedStats.h"
 
-void CanDerivedStats::init(const CanDiagnostics &diagnostics) {
-  if (!diagnostics.rx.has_value() || !diagnostics.tx.has_value()) {
-    m_enabled = false;
-    return;
-  }
-  m_rx = diagnostics.rx.value();
-  m_tx = diagnostics.tx.value();
-  m_last_update = std::chrono::system_clock::now();
-}
+#include "CanLogIt.h"
 
 void CanDerivedStats::update(CanDiagnostics &diagnostics) noexcept {
-  if (!m_enabled || !diagnostics.rx.has_value() ||
+  if (!m_init) {
+    if (!diagnostics.rx.has_value() || !diagnostics.tx.has_value()) {
+      m_enabled = false;
+      m_init = true;
+      LOG(Log::INF, CanLogIt::h()) << "No Rx or Tx values present, disabling "
+                                      "support for derived statistics";
+      return;
+    }
+
+    m_rx = diagnostics.rx.value();
+    m_tx = diagnostics.tx.value();
+    m_last_update = std::chrono::system_clock::now();
+    m_init = true;
+    m_enabled = true;
+    LOG(Log::INF, CanLogIt::h())
+        << "Rx and Tx values present, enabled support for derived statistics";
+    LOG(Log::DBG, CanLogIt::h()) << "Initial Rx: " << m_rx;
+    LOG(Log::DBG, CanLogIt::h()) << "Initial Tx: " << m_tx;
+    return;
+  }
+
+  if (!m_init || !m_enabled || !diagnostics.rx.has_value() ||
       !diagnostics.tx.has_value()) {
     return;
   }
@@ -24,6 +37,7 @@ void CanDerivedStats::update(CanDiagnostics &diagnostics) noexcept {
   if (time_diff > 0) {
     double rx_rate =
         static_cast<double>(diagnostics.rx.value() - m_rx) / time_diff;
+
     double tx_rate =
         static_cast<double>(diagnostics.tx.value() - m_tx) / time_diff;
 
