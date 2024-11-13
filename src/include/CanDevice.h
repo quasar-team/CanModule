@@ -7,6 +7,7 @@
 #include <string>
 #include <vector>
 
+#include "CanDerivedStats.h"
 #include "CanDeviceArguments.h"
 #include "CanDiagnostics.h"
 #include "CanFrame.h"
@@ -68,6 +69,8 @@ struct CanDevice {
 
   static std::unique_ptr<CanDevice> create(
       std::string_view vendor, const CanDeviceArguments& configuration);
+
+  void initialize_derived_stats();
 
  protected:
   /**
@@ -155,6 +158,7 @@ struct CanDevice {
  private:
   const std::string m_vendor;
   const CanDeviceArguments m_args;
+  CanDerivedStats m_derived_stats;
 };
 
 #endif  // SRC_INCLUDE_CANDEVICE_H_

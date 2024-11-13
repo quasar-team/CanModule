@@ -259,8 +259,8 @@ CanDiagnostics CanVendorSocketCan::vendor_diagnostics() noexcept {
   struct rtnl_link_stats64 stats;
   if (can_get_link_stats(args().config.bus_name.value().c_str(), &stats) ==
       LIBSOCKETCAN_SUCCESS) {
-    diagnostics.rx = stats.rx_bytes;
-    diagnostics.tx = stats.tx_bytes;
+    diagnostics.rx = stats.rx_packets;
+    diagnostics.tx = stats.tx_packets;
     diagnostics.rx_error = stats.rx_errors;
     diagnostics.tx_error = stats.tx_errors;
     diagnostics.rx_drop = stats.rx_dropped;

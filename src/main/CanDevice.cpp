@@ -116,7 +116,9 @@ std::vector<CanReturnCode> CanDevice::send(
  * optional and depends on the vendor-specific implementation.
  */
 CanDiagnostics CanDevice::diagnostics() noexcept {
-  return vendor_diagnostics();
+  auto result = vendor_diagnostics();
+  m_derived_stats.update(result);
+  return result;
 }
 
 /**
@@ -141,25 +143,46 @@ std::unique_ptr<CanDevice> CanDevice::create(
   LOG(Log::INF, CanLogIt::h()) << "Creating CAN device for vendor: " << vendor;
   LOG(Log::INF, CanLogIt::h()) << "Configuration: " << configuration.config;
 
+  std::unique_ptr<CanDevice> device;
+
   if (vendor == "loopback") {
     LOG(Log::DBG, CanLogIt::h()) << "Creating Loopback CAN device";
-    return std::make_unique<CanVendorLoopback>(configuration);
+    device = std::make_unique<CanVendorLoopback>(configuration);
   }
 
 #ifndef _WIN32
   if (vendor == "socketcan") {
     LOG(Log::DBG, CanLogIt::h()) << "Creating SocketCAN CAN device";
-    return std::make_unique<CanVendorSocketCan>(configuration);
+    device = std::make_unique<CanVendorSocketCan>(configuration);
   }
 #endif
 
   if (vendor == "anagate") {
     LOG(Log::DBG, CanLogIt::h()) << "Creating Anagate CAN device";
-    return std::make_unique<CanVendorAnagate>(configuration);
+    device = std::make_unique<CanVendorAnagate>(configuration);
+  }
+
+  if (device != nullptr) {
+    device->initialize_derived_stats();
+    return device;
   }
 
   LOG(Log::ERR, CanLogIt::h()) << "Unrecognized CAN device vendor: " << vendor;
   return nullptr;
+}
+
+/**
+ * @brief Initializes the derived statistics for the CAN device.
+ *
+ * This function retrieves the current diagnostic information from the CAN
+ * device using the @ref diagnostics() function and initializes the derived
+ * statistics using the @ref CanDerivedStats::init() method of the @ref
+ * m_derived_stats object.
+ *
+ * @return void This function does not return any value.
+ */
+void CanDevice::initialize_derived_stats() {
+  m_derived_stats.init(diagnostics());
 }
 
 std::ostream &operator<<(std::ostream &os, CanReturnCode code) {
