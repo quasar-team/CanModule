@@ -146,8 +146,6 @@ std::unique_ptr<CanDevice> CanDevice::create(
   LOG(Log::INF, CanLogIt::h()) << "Creating CAN device for vendor: " << vendor;
   LOG(Log::INF, CanLogIt::h()) << "Configuration: " << configuration.config;
 
-  std::unique_ptr<CanDevice> device;
-
   if (vendor == "loopback") {
     LOG(Log::DBG, CanLogIt::h()) << "Creating Loopback CAN device";
     return std::make_unique<CanVendorLoopback>(configuration);

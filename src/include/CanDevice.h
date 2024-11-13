@@ -70,8 +70,6 @@ struct CanDevice {
   static std::unique_ptr<CanDevice> create(
       std::string_view vendor, const CanDeviceArguments& configuration);
 
-  void initialize_derived_stats();
-
  protected:
   /**
    * @brief Constructor for the CanDevice class.
