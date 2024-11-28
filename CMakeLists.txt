@@ -42,15 +42,15 @@ endif()
 include(cmake/anagate.cmake)
 
 add_library(CanModuleMain ${SOURCES} ${VENDOR_SOURCES})
-target_include_directories(CanModuleMain PRIVATE ${LOGIT_INCLUDE} ${anagate_SOURCE_DIR}/)
+target_include_directories(CanModuleMain PUBLIC ${LOGIT_INCLUDE} ${anagate_SOURCE_DIR}/)
 if (UNIX)
-    target_link_libraries(CanModuleMain PRIVATE
+    target_link_libraries(CanModuleMain PUBLIC
                             ${anagate_SOURCE_DIR}/Linux64/CentOS_9/libCANDLLStaticRelease64.a
                             ${anagate_SOURCE_DIR}/Linux64/CentOS_9/libAnaGateStaticRelease.a
                             ${anagate_SOURCE_DIR}/Linux64/CentOS_9/libAnaGateExtStaticRelease.a
                             socketcan)
 else()
-    target_link_libraries(CanModuleMain PRIVATE
+    target_link_libraries(CanModuleMain PUBLIC
                             ${anagate_SOURCE_DIR}/Win64/AnaGateCanDll64.lib)
     file(COPY "${anagate_SOURCE_DIR}/Win64/AnaGateCan64.dll" DESTINATION "${CMAKE_BINARY_DIR}/Release")
 endif()
