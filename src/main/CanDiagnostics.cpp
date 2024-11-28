@@ -59,10 +59,10 @@ std::string CanDiagnostics::to_string() const noexcept {
                                        "Arbitration Lost Errors");
   print_field<std::optional<uint32_t>>(oss, restarts,
                                        "CAN Controller Restarts");
-  print_field<std::optional<double>>(oss, rx_per_second,
-                                     "CAN Receive Average Rate Per Second");
-  print_field<std::optional<double>>(oss, tx_per_second,
-                                     "CAN Transmit Average Rate Per Second");
+  print_field<std::optional<float>>(oss, rx_per_second,
+                                    "CAN Receive Average Rate Per Second");
+  print_field<std::optional<float>>(oss, tx_per_second,
+                                    "CAN Transmit Average Rate Per Second");
 
   if (oss.str().empty()) {
     oss << "No diagnostic information available." << std::endl;

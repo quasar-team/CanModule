@@ -16,7 +16,7 @@ struct CanDerivedStats {
  private:
   uint32_t m_rx{0}, m_tx{0};
   bool m_enabled{false}, m_init{false};
-  std::deque<double> m_rx_per_second_window, m_tx_per_second_window;
+  std::deque<float> m_rx_per_second_window, m_tx_per_second_window;
   std::chrono::time_point<std::chrono::system_clock> m_last_update;
 };
 
