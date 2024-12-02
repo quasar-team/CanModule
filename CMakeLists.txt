@@ -32,7 +32,7 @@ if (UNIX)
     list(APPEND VENDOR_SOURCES src/main/CanVendorSocketCan.cpp)
 endif()
 
-if (NOT DEFINED CAN_MODULE_SUBCOMPONENT)
+if (NOT DEFINED CAN_MODULE_MAIN_ONLY)
     include(cmake/logit.cmake)
     set(LOGIT_INCLUDE ${logit_SOURCE_DIR}/include)
 else()

@@ -54,9 +54,9 @@ the process.
 If you wish to compile only the library, inside Quasar (which provides LogIt) you need to set the variable CAN_MODULE_SUBCOMPONENT to any value, for example:
 
 ```cmake
-set( CAN_MODULE_SUBCOMPONENT "Y")
+set( CAN_MODULE_MAIN_ONLY "Y")
 set( CAN_MODULE_URL https://github.com/quasar-team/CanModule.git )
-clone_quasar_module( ${CAN_MODULE_URL} main ${CMAKE_CURRENT_SOURCE_DIR}/CanModule )
+clone_quasar_module( ${CAN_MODULE_URL} master ${CMAKE_CURRENT_SOURCE_DIR}/CanModule )
 ```
 
 ## Contact
