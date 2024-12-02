@@ -55,17 +55,17 @@ else()
     file(COPY "${anagate_SOURCE_DIR}/Win64/AnaGateCan64.dll" DESTINATION "${CMAKE_BINARY_DIR}/Release")
 endif()
 
-
-# Treat warnings as errors
-if (CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+if (NOT DEFINED CAN_MODULE_SUBCOMPONENT)
+    # Treat warnings as errors
+    if (CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
     target_compile_options(CanModuleMain PRIVATE -Wall -Wextra -Werror)
-elseif (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
+    elseif (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
     # target_compile_options(CanModuleMain PRIVATE /W4 /WX)
     # I need to disable that feature due to a macro redefinition
     # in the header of Anagate software
-endif()
+    endif()
 
-if (NOT DEFINED CAN_MODULE_SUBCOMPONENT)
+    # Build Python Support and Google Unit Tests
     include(cmake/pybind11.cmake)
     include(cmake/gtest.cmake)
 endif()
