@@ -82,6 +82,7 @@ PYBIND11_MODULE(canmodule, m) {
       .def_readwrite("bitrate", &CanDeviceConfiguration::bitrate)
       .def_readwrite("enable_termination",
                      &CanDeviceConfiguration::enable_termination)
+      .def_readwrite("high_speed", &CanDeviceConfiguration::high_speed)
       .def_readwrite("vcan", &CanDeviceConfiguration::vcan)
       .def_readwrite("timeout", &CanDeviceConfiguration::timeout)
       .def_readwrite("sent_acknowledgement",
