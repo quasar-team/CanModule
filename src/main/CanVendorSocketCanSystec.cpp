@@ -38,8 +38,12 @@ CanVendorSocketCanSystec::CanVendorSocketCanSystec(
         }
       };
 
+  CanDeviceConfiguration config = args.config;
+  config.timeout = 0;  // Systec causes a kernel panic if timeout/restart-ms is
+                       // set to a non-zero value.
+
   m_can_vendor_socketcan = CanDevice::create(
-      "socketcan", CanDeviceArguments{args.config, filter_busoff_callback});
+      "socketcan", CanDeviceArguments{config, filter_busoff_callback});
 }
 
 /**
