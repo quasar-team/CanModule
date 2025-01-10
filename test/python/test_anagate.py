@@ -6,11 +6,17 @@ from common import *
 
 DEVICE_ONE = CanDeviceConfiguration()
 DEVICE_ONE.host = "128.141.159.236"
+DEVICE_ONE.bitrate = 125_000
+DEVICE_ONE.enable_termination = False
+# DEVICE_ONE.high_speed_mode = False
 DEVICE_ONE.bus_number = 0 if platform.system() == "Linux" else 2
 
 DEVICE_TWO = CanDeviceConfiguration()
-DEVICE_TWO.host = "128.141.159.236"
-DEVICE_TWO.bus_number = 1 if platform.system() == "Linux" else 3
+DEVICE_TWO.host = DEVICE_ONE.host
+DEVICE_TWO.bus_number = DEVICE_ONE.bus_number + 1
+DEVICE_TWO.enable_termination = True
+# DEVICE_TWO.high_speed_mode = DEVICE_ONE.high_speed_mode
+DEVICE_TWO.bitrate = DEVICE_ONE.bitrate
 
 
 def test_anagate_single_message():
