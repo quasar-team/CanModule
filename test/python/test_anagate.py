@@ -209,6 +209,9 @@ def test_anagate_diagnostics():
     )
 
 
+@pytest.mark.skip(
+    reason="Disable this test until Anagate release a new firmware version that reports error on sending 30.01.2025"
+)
 def test_anagate_bus_off_recovery():
     received_frames_dev1 = []
     myDevice1 = CanDevice.create(
@@ -237,4 +240,5 @@ def test_anagate_bus_off_recovery():
         if return_code != CanReturnCode.success:
             send_error_count += 1
     sleep(1)
+
     assert send_error_count > 0
