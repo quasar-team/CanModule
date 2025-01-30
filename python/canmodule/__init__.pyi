@@ -53,6 +53,7 @@ class CanDeviceConfiguration:
     bus_name: str | None
     bus_number: int | None
     enable_termination: bool | None
+    high_speed: bool | None
     host: str | None
     sent_acknowledgement: int | None
     timeout: int | None
