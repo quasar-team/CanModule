@@ -102,7 +102,11 @@ CanReturnCode CanVendorAnagate::vendor_open() noexcept {
     }
 
     if (args().config.enable_termination.has_value()) {
-      enable_termination = 1;
+      enable_termination = args().config.enable_termination.value() ? 1 : 0;
+    }
+
+    if (args().config.high_speed.has_value()) {
+      args().config.high_speed.value();
     }
 
     // Set the modified configuration

@@ -56,6 +56,16 @@ struct CanDeviceConfiguration {
   std::optional<bool> enable_termination;
 
   /**
+   * @brief Enable or disable high speed mode on the CAN bus.
+   *
+   * This parameter is used for Anagate devices to enable or disable the high
+   * speed mode on the CAN bus. It is ignored for SocketCAN devices. The high
+   * speed mode supresses the acknowledgment of sent messages, reducing the load
+   * of the Anagate device.
+   */
+  std::optional<bool> high_speed;
+
+  /**
    * @brief The timeout value for CAN operations.
    *
    * This parameter is optional for both Anagate and SocketCAN devices. For

@@ -5,11 +5,17 @@ import platform
 from common import *
 
 DEVICE_ONE = CanDeviceConfiguration()
-DEVICE_ONE.host = "128.141.159.236"
+DEVICE_ONE.host = "ANACANFZ8-010211FC.CERN.CH"
+DEVICE_ONE.bitrate = 125_000
+DEVICE_ONE.enable_termination = True
+DEVICE_ONE.high_speed = False
 DEVICE_ONE.bus_number = 0 if platform.system() == "Linux" else 2
 
 DEVICE_TWO = CanDeviceConfiguration()
-DEVICE_TWO.host = "128.141.159.236"
+DEVICE_TWO.host = DEVICE_ONE.host
+DEVICE_TWO.bitrate = DEVICE_ONE.bitrate
+DEVICE_TWO.enable_termination = False
+DEVICE_TWO.high_speed = DEVICE_ONE.high_speed
 DEVICE_TWO.bus_number = 1 if platform.system() == "Linux" else 3
 
 
@@ -201,3 +207,38 @@ def test_anagate_diagnostics():
     assert stats2.rx_per_second == pytest.approx(
         n_attemps * n_frames / time_elapsed, abs=0.1
     )
+
+
+@pytest.mark.skip(
+    reason="Disable this test until Anagate release a new firmware version that reports error on sending 30.01.2025"
+)
+def test_anagate_bus_off_recovery():
+    received_frames_dev1 = []
+    myDevice1 = CanDevice.create(
+        "anagate", CanDeviceArguments(DEVICE_ONE, received_frames_dev1.append)
+    )
+    myDevice1.open()
+
+    received_frames_dev2 = []
+
+    canDeviceConfig = CanDeviceConfiguration()
+    canDeviceConfig.host = DEVICE_TWO.host
+    canDeviceConfig.bus_number = DEVICE_TWO.bus_number
+    canDeviceConfig.high_speed = DEVICE_ONE.high_speed
+    canDeviceConfig.bitrate = 500_000
+    canDeviceConfig.enable_termination = DEVICE_TWO.enable_termination
+
+    myDevice2 = CanDevice.create(
+        "anagate", CanDeviceArguments(canDeviceConfig, received_frames_dev2.append)
+    )
+    myDevice2.open()
+
+    # Send a few frames to trigger bus off
+    send_error_count = 0
+    for _ in range(100_000):
+        return_code = myDevice2.send(CanFrame(123, ["H", "e", "l", "l", "o"]))
+        if return_code != CanReturnCode.success:
+            send_error_count += 1
+    sleep(1)
+
+    assert send_error_count > 0
