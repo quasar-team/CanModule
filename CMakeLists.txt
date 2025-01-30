@@ -29,7 +29,10 @@ set(VENDOR_SOURCES
 )
 
 if (UNIX)
-    list(APPEND VENDOR_SOURCES src/main/CanVendorSocketCan.cpp)
+    list(APPEND VENDOR_SOURCES
+            src/main/CanVendorSocketCan.cpp
+            src/main/CanVendorSocketCanSystec.cpp
+            )
 endif()
 
 if (NOT DEFINED CAN_MODULE_MAIN_ONLY)
