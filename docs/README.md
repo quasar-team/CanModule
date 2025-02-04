@@ -51,7 +51,7 @@ aware of minor differences due to the language, such as `std::vector` is a `list
 By default, the provided CMake will compile CanModule, the tests, and if possible the Python library, downloading LogIt in
 the process.
 
-If you wish to compile only the library, inside Quasar (which provides LogIt) you need to set the variable CAN_MODULE_SUBCOMPONENT to any value, for example:
+If you wish to compile only the library, inside Quasar (which provides LogIt) you need to set the variable CAN_MODULE_MAIN_ONLY to any value, for example:
 
 ```cmake
 set( CAN_MODULE_MAIN_ONLY "Y")
