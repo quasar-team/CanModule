@@ -50,6 +50,11 @@ struct CanFrame {
                      (is_11_bits(id) ? can_flags::standard_id
                                      : can_flags::extended_id)) {}
   /**
+   * @brief Constructs a CanFrame with default data.
+   */
+  explicit CanFrame() {}
+
+  /**
    * @brief Constructs a CanFrame with specified ID.
    * @param id The identifier of the CAN frame.
    * @throws std::invalid_argument if the CAN Frame has unvalid data.
@@ -163,11 +168,10 @@ struct CanFrame {
   std::string to_string() const noexcept;
 
  private:
-  const uint32_t m_id{0};  ///< The identifier of the CAN frame.
-  const uint32_t m_requested_length{
-      0};  ///< The requested length of the CAN frame.
-  const std::vector<char> m_message;  ///< The message content of the CAN frame.
-  const uint32_t m_flags{};  ///< The flags associated with the CAN frame.
+  uint32_t m_id{0};                ///< The identifier of the CAN frame.
+  uint32_t m_requested_length{0};  ///< The requested length of the CAN frame.
+  std::vector<char> m_message;     ///< The message content of the CAN frame.
+  uint32_t m_flags{};              ///< The flags associated with the CAN frame.
 
   /**
    * @brief Checks if the identifier fits in 11 bits.

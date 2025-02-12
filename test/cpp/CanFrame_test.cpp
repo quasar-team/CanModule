@@ -19,8 +19,8 @@ TEST_F(CanFrameTest, ConstructorWithId) {
   ASSERT_EQ(frameopt.value().id(), 2);
 
   CanFrame frame1(id);
-  frameopt.emplace(frame1);
-  CanFrame frame(frameopt.value());
+  CanFrame frame;
+  frame = frame1;
   ASSERT_EQ(frame.id(), id);
   ASSERT_TRUE(frame.message().empty());
   ASSERT_EQ(frame.length(), 0);
