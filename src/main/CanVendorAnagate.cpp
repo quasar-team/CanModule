@@ -3,9 +3,12 @@
 #include <AnaGateDllCan.h>
 
 #include <iomanip>
+#include <map>
 #include <memory>
 #include <mutex>  // NOLINT
 #include <sstream>
+#include <string>
+#include <vector>
 
 #include "CanLogIt.h"
 
@@ -85,6 +88,30 @@ CanReturnCode CanVendorAnagate::vendor_open() noexcept {
         &m_handle, args().config.sent_acknowledgement.value_or(false), true,
         args().config.bus_number.value(), args().config.host.value().c_str(),
         args().config.timeout.value_or(AnagateConstants::defaultTimeout));
+    AnaUInt32 bitrate;
+    AnaInt32 enable_termination, high_speed, enable_timestamp;
+    AnaUInt8 operating_mode;
+
+    // Get the configuration from the device
+    CANGetGlobals(m_handle, &bitrate, &operating_mode, &enable_termination,
+                  &high_speed, &enable_timestamp);
+
+    // Modify the configuration if necessary and supported
+    if (args().config.bitrate.has_value()) {
+      bitrate = args().config.bitrate.value();
+    }
+
+    if (args().config.enable_termination.has_value()) {
+      enable_termination = args().config.enable_termination.value() ? 1 : 0;
+    }
+
+    if (args().config.high_speed.has_value()) {
+      args().config.high_speed.value();
+    }
+
+    // Set the modified configuration
+    CANSetGlobals(m_handle, bitrate, operating_mode, enable_termination,
+                  high_speed, enable_timestamp);
     CANSetCallback(m_handle,
                    reinterpret_cast<CAN_PF_CALLBACK>(anagate_receive));
   } catch (const std::exception &e) {

@@ -1,6 +1,7 @@
-from time import sleep
+from time import sleep, time
 import pytest
 from common import *
+import os
 
 pytestmark = pytest.mark.skipif(
     sys.platform.startswith("win"),
@@ -9,6 +10,13 @@ pytestmark = pytest.mark.skipif(
 
 DEVICE_ONE = CanDeviceConfiguration()
 DEVICE_ONE.bus_name = "vcan0"
+
+# If we are inside the pipeline, we have admin rights to create virtual CAN interfaces
+# and therefore can bring up/down the device, useful for testing the callback on error functionality
+if "CI" in os.environ:
+    DEVICE_ONE.vcan = True
+    DEVICE_ONE.bitrate = 500000  # We need a bitrate to trigger configuration of the device, although because it is a vcan, it will be ignored
+
 DEVICE_TWO = CanDeviceConfiguration()
 DEVICE_TWO.bus_name = "vcan0"
 
@@ -23,10 +31,14 @@ def test_socketcan_single_message():
     myDevice2 = CanDevice.create(
         "socketcan", CanDeviceArguments(DEVICE_TWO, received_frames_dev2.append)
     )
-    myDevice1.open()
-    myDevice2.open()
+    r = myDevice1.open()
+    assert r == CanReturnCode.success
 
-    myDevice1.send(CanFrame(123, ["H", "e", "l", "l", "o"]))
+    r = myDevice2.open()
+    assert r == CanReturnCode.success
+
+    r = myDevice1.send(CanFrame(123, ["H", "e", "l", "l", "o"]))
+    assert r == CanReturnCode.success
 
     sleep(1)
 
@@ -47,8 +59,11 @@ def test_socketcan_multiple_messages():
     myDevice2 = CanDevice.create(
         "socketcan", CanDeviceArguments(DEVICE_TWO, received_frames_dev2.append)
     )
-    myDevice1.open()
-    myDevice2.open()
+
+    r = myDevice1.open()
+    assert r == CanReturnCode.success
+    r = myDevice2.open()
+    assert r == CanReturnCode.success
 
     send_frames = [
         CanFrame(123, ["H", "e", "l", "l", "o"]),
@@ -58,7 +73,9 @@ def test_socketcan_multiple_messages():
         CanFrame(1 << 25, ["J", "u", "s", "t"], can_flags.extended_id),
     ]
 
-    myDevice1.send(send_frames)
+    rl = myDevice1.send(send_frames)
+    for r in rl:
+        assert r == CanReturnCode.success
 
     sleep(1)
 
@@ -90,3 +107,42 @@ def test_socketcan_multiple_messages():
     assert received_frames_dev2[4].is_extended_id() is True
     assert received_frames_dev2[4].is_remote_request() is False
     assert received_frames_dev2[4].is_error() is False
+
+
+def test_socketcan_diagnostics():
+    received_frames_dev1 = []
+
+    myDevice1 = CanDevice.create(
+        "socketcan", CanDeviceArguments(DEVICE_ONE, received_frames_dev1.append)
+    )
+
+    start_time = time()
+    r = myDevice1.open()
+    assert r == CanReturnCode.success
+
+    stats = myDevice1.diagnostics()
+
+    assert stats.tx_per_second is None
+    assert stats.rx_per_second is None
+
+    n_attemps = 3
+    n_frames = 5
+    for _ in range(n_attemps):
+        for _ in range(n_frames):
+            myDevice1.send(CanFrame(123, ["H", "e", "l", "l", "o"]))
+        sleep(1)
+
+    stats = myDevice1.diagnostics()
+    end_time = time()
+
+    time_elapsed = end_time - start_time
+
+    assert stats.tx > 5
+    assert stats.rx > 5
+
+    assert stats.tx_per_second == pytest.approx(
+        n_attemps * n_frames / time_elapsed, abs=0.1
+    )
+    assert stats.rx_per_second == pytest.approx(
+        n_attemps * n_frames / time_elapsed, abs=0.1
+    )

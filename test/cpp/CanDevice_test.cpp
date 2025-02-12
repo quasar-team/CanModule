@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <thread>  // NOLINT
+#include <vector>
 
 // Test fixture for CanFrame
 class CanDeviceTest : public ::testing::Test {

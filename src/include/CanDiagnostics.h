@@ -82,6 +82,11 @@ struct CanDiagnostics {
   std::optional<uint32_t>
       restarts;  ///< Optional CAN controller re-starts for SocketCAN.
 
+  std::optional<float>
+      rx_per_second;  ///< Rolling average of Rx rate per second
+  std::optional<float>
+      tx_per_second;  ///< Rolling average of Tx rate per second
+
   std::string to_string() const noexcept;
 
  private:

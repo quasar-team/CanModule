@@ -7,6 +7,7 @@
 #include <string>
 #include <vector>
 
+#include "CanDerivedStats.h"
 #include "CanDeviceArguments.h"
 #include "CanDiagnostics.h"
 #include "CanFrame.h"
@@ -21,6 +22,7 @@ enum class CanReturnCode {
   internal_api_error,
   unknown_send_error,
   not_ack,
+  rx_error,
   tx_error,
   tx_buffer_overflow,
   lost_arbitration,
@@ -128,13 +130,16 @@ struct CanDevice {
    *
    * @param frame A const reference to the received CanFrame.
    */
-  inline void received(const CanFrame& frame) noexcept {
-    m_args.receiver(frame);
+  inline void received(const CanFrame& frame) const noexcept {
+    if (m_args.receiver != nullptr) {
+      m_args.receiver(frame);
+    }
   }
 
  private:
   const std::string m_vendor;
   const CanDeviceArguments m_args;
+  CanDerivedStats m_derived_stats;
 };
 
 #endif  // SRC_INCLUDE_CANDEVICE_H_

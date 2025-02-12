@@ -12,6 +12,7 @@
 
 #include <cstring>
 #include <thread>  // NOLINT
+#include <vector>
 
 #include "CanFrame.h"
 #include "CanLogIt.h"
@@ -49,26 +50,27 @@ CanReturnCode CanVendorSocketCan::vendor_open() noexcept {
 
     if (can_do_stop(args().config.bus_name.value().c_str()) ==
         LIBSOCKETCAN_ERROR) {
-      LOG(Log::ERR, CanLogIt::h()) << "Failed to stop CAN bus";
-
-      return CanReturnCode::socket_error;
+      LOG(Log::WRN, CanLogIt::h()) << "Failed to stop CAN bus";
     }
-    if (can_set_bitrate(args().config.bus_name.value().c_str(),
+
+    if (!args().config.vcan.value_or(false) &&
+        can_set_bitrate(args().config.bus_name.value().c_str(),
                         args().config.bitrate.value()) == LIBSOCKETCAN_ERROR) {
       LOG(Log::ERR, CanLogIt::h()) << "Failed to set bitrate";
-
       return CanReturnCode::socket_error;
     }
-    if (can_set_restart_ms(args().config.bus_name.value().c_str(),
+
+    if (!args().config.vcan.value_or(false) &&
+        can_set_restart_ms(args().config.bus_name.value().c_str(),
                            args().config.timeout.value_or(0)) ==
-        LIBSOCKETCAN_ERROR) {
+            LIBSOCKETCAN_ERROR) {
       LOG(Log::ERR, CanLogIt::h()) << "Failed to set restart delay";
       return CanReturnCode::socket_error;
     }
+
     if (can_do_start(args().config.bus_name.value().c_str()) ==
         LIBSOCKETCAN_ERROR) {
       LOG(Log::ERR, CanLogIt::h()) << "Failed to start CAN bus";
-
       return CanReturnCode::socket_error;
     }
   } else {
@@ -257,8 +259,8 @@ CanDiagnostics CanVendorSocketCan::vendor_diagnostics() noexcept {
   struct rtnl_link_stats64 stats;
   if (can_get_link_stats(args().config.bus_name.value().c_str(), &stats) ==
       LIBSOCKETCAN_SUCCESS) {
-    diagnostics.rx = stats.rx_bytes;
-    diagnostics.tx = stats.tx_bytes;
+    diagnostics.rx = stats.rx_packets;
+    diagnostics.tx = stats.tx_packets;
     diagnostics.rx_error = stats.rx_errors;
     diagnostics.tx_error = stats.tx_errors;
     diagnostics.rx_drop = stats.rx_dropped;
@@ -374,7 +376,6 @@ int CanVendorSocketCan::subscriber() noexcept {
       } else {
         LOG(Log::ERR, CanLogIt::h())
             << "Error occurred during epoll_wait: " << strerror(errno);
-
         return -1;  // Error occurred
       }
     }
@@ -395,6 +396,8 @@ int CanVendorSocketCan::subscriber() noexcept {
           CanFrame frame = translate(canFrame);
           received(
               frame);  // Call the received method with the translated frame
+        } else {
+          LOG(Log::ERR, CanLogIt::h()) << "Corrupted CanFrame received";
         }
       }
     }

@@ -7,6 +7,8 @@
 #include "CanDeviceConfiguration.h"
 #include "CanFrame.h"
 
+enum class CanReturnCode;
+
 /**
  * @brief Configuration structure for a CanDevice.
  *

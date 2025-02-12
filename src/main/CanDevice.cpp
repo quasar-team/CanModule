@@ -12,6 +12,7 @@
 
 #ifndef _WIN32
 #include "CanVendorSocketCan.h"
+#include "CanVendorSocketCanSystec.h"
 #endif
 
 /**
@@ -32,6 +33,9 @@ CanReturnCode CanDevice::open() noexcept {
         << "Failed to open CAN device: error code " << result;
   } else {
     LOG(Log::DBG, CanLogIt::h()) << "Successfully opened CAN device";
+    // Calling diagnostics to initialize the support for calculated statistics,
+    // if available.
+    diagnostics();
   }
 
   return result;
@@ -116,7 +120,9 @@ std::vector<CanReturnCode> CanDevice::send(
  * optional and depends on the vendor-specific implementation.
  */
 CanDiagnostics CanDevice::diagnostics() noexcept {
-  return vendor_diagnostics();
+  auto result = vendor_diagnostics();
+  m_derived_stats.update(result);
+  return result;
 }
 
 /**
@@ -127,8 +133,9 @@ CanDiagnostics CanDevice::diagnostics() noexcept {
  * using the provided configuration.
  *
  * @param vendor A string view representing the vendor name. Supported values
- * are "loopback", "socketcan" (only Linux platforms or Windows with WSL), and
- * "anagate".
+ * are "loopback", "socketcan" (only Linux platforms or Windows with WSL),
+ * "socketcan_systec" (only Linux, to bypass kernel panic of Systec when using
+ * the restart-ms option and "anagate".
  * @param configuration A reference to a CanDeviceArguments object that contains
  * the configuration settings for the CAN device.
  * @return std::unique_ptr<CanDevice> A unique pointer to the created CAN device
@@ -150,6 +157,11 @@ std::unique_ptr<CanDevice> CanDevice::create(
   if (vendor == "socketcan") {
     LOG(Log::DBG, CanLogIt::h()) << "Creating SocketCAN CAN device";
     return std::make_unique<CanVendorSocketCan>(configuration);
+  }
+
+  if (vendor == "socketcan_systec") {
+    LOG(Log::DBG, CanLogIt::h()) << "Creating SocketCAN Systec CAN device";
+    return std::make_unique<CanVendorSocketCanSystec>(configuration);
   }
 #endif
 

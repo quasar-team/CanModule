@@ -2,6 +2,8 @@
 
 #include <gtest/gtest.h>
 
+#include <vector>
+
 // Test fixture for CanFrame
 class CanFrameTest : public ::testing::Test {
  protected:
@@ -11,7 +13,14 @@ class CanFrameTest : public ::testing::Test {
 // Test for CanFrame constructor with id
 TEST_F(CanFrameTest, ConstructorWithId) {
   uint32_t id = 1;
-  CanFrame frame(id);
+  std::optional<CanFrame> frameopt;
+
+  frameopt.emplace(CanFrame(2));
+  ASSERT_EQ(frameopt.value().id(), 2);
+
+  CanFrame frame1(id);
+  frameopt.emplace(frame1);
+  CanFrame frame(frameopt.value());
   ASSERT_EQ(frame.id(), id);
   ASSERT_TRUE(frame.message().empty());
   ASSERT_EQ(frame.length(), 0);

@@ -3,6 +3,7 @@
 #include <iomanip>
 #include <iostream>
 #include <sstream>
+#include <string>
 
 /**
  * @brief Converts the CanDeviceConfiguration object to a string representation.
@@ -46,6 +47,12 @@ std::string CanDeviceConfiguration::to_string() const noexcept {
     if (!first) oss << ", ";
     oss << "enable_termination="
         << (enable_termination.value() ? "true" : "false");
+    first = false;
+  }
+
+  if (vcan.has_value()) {
+    if (!first) oss << ", ";
+    oss << "vcan=" << (vcan.value() ? "true" : "false");
     first = false;
   }
 

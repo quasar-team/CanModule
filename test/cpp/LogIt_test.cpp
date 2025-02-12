@@ -3,6 +3,7 @@
 
 #include <gtest/gtest.h>
 
+#include <string>
 #include <thread>  // NOLINT
 
 #include "CanLogIt.h"
