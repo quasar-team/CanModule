@@ -133,8 +133,9 @@ CanDiagnostics CanDevice::diagnostics() noexcept {
  * using the provided configuration.
  *
  * @param vendor A string view representing the vendor name. Supported values
- * are "loopback", "socketcan" (only Linux platforms or Windows with WSL), and
- * "anagate".
+ * are "loopback", "socketcan" (only Linux platforms or Windows with WSL),
+ * "socketcan_systec" (only Linux, to bypass kernel panic of Systec when using
+ * the restart-ms option and "anagate".
  * @param configuration A reference to a CanDeviceArguments object that contains
  * the configuration settings for the CAN device.
  * @return std::unique_ptr<CanDevice> A unique pointer to the created CAN device
