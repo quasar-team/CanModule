@@ -26,8 +26,9 @@ struct CanDiagnostics {
   std::optional<int> handle;  ///< Optional handle for Anagate devices.
   optional_string_t
       mode;  ///< Optional mode for both SocketCAN and Anagate devices.
-  optional_string_t
-      state;  ///< Optional state for both SocketCAN and Anagate devices.
+  optional_string_t state;  ///< Optional state for SocketCAN devices.
+  std::optional<int>
+      state_number;  ///< Optional state nummber for both SocketCAN devices.
   std::optional<uint32_t>
       bitrate;  ///< Optional bitrate for both SocketCAN and Anagate devices.
 

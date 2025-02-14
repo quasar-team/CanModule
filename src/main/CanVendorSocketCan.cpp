@@ -230,6 +230,7 @@ CanDiagnostics CanVendorSocketCan::vendor_diagnostics() noexcept {
   int state;
   if (can_get_state(args().config.bus_name.value().c_str(), &state) ==
       LIBSOCKETCAN_SUCCESS) {
+    diagnostics.state_number = state;
     switch (state) {
       case CAN_STATE_ERROR_ACTIVE:
         diagnostics.state = "ERROR_ACTIVE";
