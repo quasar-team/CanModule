@@ -17,15 +17,15 @@ struct CanDeviceConfiguration {
   /**
    * @brief The name of the CAN bus.
    *
-   * This parameter is used for SocketCAN devices. It is ignored for Anagate
-   * devices.
+   * This parameter is required and used for SocketCAN devices. It is ignored
+   * for Anagate devices.
    */
   std::optional<std::string> bus_name;
 
   /**
    * @brief The port number of the CAN bus.
    *
-   * This parameter is used for Anagate devices. It is ignored for SocketCAN
+   * This parameter is required for Anagate devices. It is ignored for SocketCAN
    * devices.
    */
   std::optional<uint32_t> bus_number;
@@ -33,7 +33,7 @@ struct CanDeviceConfiguration {
   /**
    * @brief The host address for the CAN device.
    *
-   * This parameter is used for Anagate devices. It is ignored for SocketCAN
+   * This parameter is required for Anagate devices. It is ignored for SocketCAN
    * devices.
    */
   std::optional<std::string> host;
@@ -50,18 +50,20 @@ struct CanDeviceConfiguration {
   /**
    * @brief Enable or disable termination on the CAN bus.
    *
-   * This parameter is used for Anagate devices to enable or disable termination
-   * on the CAN bus. It is ignored for SocketCAN devices.
+   * This optional parameter is used for Anagate devices to enable or disable
+   * termination on the CAN bus. It is ignored for SocketCAN devices. If unset,
+   * it won't modify existing termination mode.
    */
   std::optional<bool> enable_termination;
 
   /**
    * @brief Enable or disable high speed mode on the CAN bus.
    *
-   * This parameter is used for Anagate devices to enable or disable the high
-   * speed mode on the CAN bus. It is ignored for SocketCAN devices. The high
-   * speed mode supresses the acknowledgment of sent messages, reducing the load
-   * of the Anagate device.
+   * This optional parameter is used for Anagate devices to enable or disable
+   * the high speed mode on the CAN bus. It is ignored for SocketCAN devices.
+   * The high speed mode supresses the acknowledgment of sent messages, reducing
+   * the load of the Anagate device. If unset, it won't modify existing high
+   * speed mode.
    */
   std::optional<bool> high_speed;
 
@@ -78,7 +80,8 @@ struct CanDeviceConfiguration {
    * @brief The timeout value for CAN operations.
    *
    * This parameter is optional and only has effect for SocketCAN devices.
-   * It is used to specify if we are using a real CAN or a virtual CAN
+   * It is used to specify if we are using a real CAN or a virtual CAN, defaults
+   * to false.
    */
   std::optional<bool> vcan;
 
