@@ -406,7 +406,11 @@ int CanVendorSocketCan::subscriber() noexcept {
           received(
               frame);  // Call the received method with the translated frame
         } else {
-          LOG(Log::ERR, CanLogIt::h()) << "Corrupted CanFrame received";
+          LOG(Log::ERR, CanLogIt::h())
+              << "Corrupted CanFrame received. Received " << nbytes
+              << " bytes, expected " << sizeof(canFrame);
+          LOG(Log::ERR, CanLogIt::h())
+              << "Frame with partial content" << translate(canFrame);
           received(CanFrame{0, {}, can_flags::error_frame});
         }
       }
