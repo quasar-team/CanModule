@@ -27,8 +27,8 @@ CanVendorSocketCanSystec::CanVendorSocketCanSystec(
     : CanDevice("socketcan_systec", args) {
   const std::function<void(const CanFrame &)> filter_busoff_callback =
       [this](const CanFrame &frame) {
-        if (frame.is_error() && (frame.id() & CAN_ERR_BUSERROR)) {
-          LOG(Log::WRN, CanLogIt::h()) << "Bus off detected, restarting...";
+        if (frame.is_error()) {
+          LOG(Log::WRN, CanLogIt::h()) << "Error frame received, restarting ";
           m_can_vendor_socketcan->close();
           std::this_thread::sleep_for(std::chrono::milliseconds(
               this->args().config.timeout.value_or(0)));

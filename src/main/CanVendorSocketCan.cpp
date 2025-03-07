@@ -407,6 +407,7 @@ int CanVendorSocketCan::subscriber() noexcept {
               frame);  // Call the received method with the translated frame
         } else {
           LOG(Log::ERR, CanLogIt::h()) << "Corrupted CanFrame received";
+          received(CanFrame{0, {}, can_flags::error_frame});
         }
       }
     }
