@@ -11,6 +11,7 @@
 #include "CanDeviceArguments.h"
 #include "CanDiagnostics.h"
 #include "CanFrame.h"
+#include "CanLogIt.h"
 
 enum class CanReturnCode {
   success,
@@ -131,7 +132,9 @@ struct CanDevice {
    * @param frame A const reference to the received CanFrame.
    */
   inline void received(const CanFrame& frame) const noexcept {
+    LOG(Log::DBG, CanLogIt::h()) << "Received CAN frame: " << frame;
     if (m_args.receiver != nullptr) {
+      LOG(Log::DBG, CanLogIt::h()) << "Calling receiver function";
       m_args.receiver(frame);
     }
   }

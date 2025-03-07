@@ -109,6 +109,7 @@ CanReturnCode CanVendorSocketCan::vendor_open() noexcept {
   }
 
   if (args().receiver != nullptr) {
+    LOG(Log::DBG, CanLogIt::h()) << "Starting CAN subscriber thread";
     // Create epoll instance
     m_epoll_fd = epoll_create1(0);
     if (m_epoll_fd < 0) {
@@ -230,6 +231,7 @@ CanDiagnostics CanVendorSocketCan::vendor_diagnostics() noexcept {
   int state;
   if (can_get_state(args().config.bus_name.value().c_str(), &state) ==
       LIBSOCKETCAN_SUCCESS) {
+    LOG(Log::DBG, CanLogIt::h()) << "CAN interface state enum: " << state;
     switch (state) {
       case CAN_STATE_ERROR_ACTIVE:
         diagnostics.state = "ERROR_ACTIVE";
@@ -253,18 +255,24 @@ CanDiagnostics CanVendorSocketCan::vendor_diagnostics() noexcept {
         diagnostics.state = "UNKNOWN";
         break;
     }
+  } else {
+    LOG(Log::ERR, CanLogIt::h()) << "Failed to retrieve CAN interface state";
+    diagnostics.state = "UNKNOWN";
   }
 
   // Retrieve link statistics
   struct rtnl_link_stats64 stats;
   if (can_get_link_stats(args().config.bus_name.value().c_str(), &stats) ==
       LIBSOCKETCAN_SUCCESS) {
+    LOG(Log::DBG, CanLogIt::h()) << "CAN link statistics fetched";
     diagnostics.rx = stats.rx_packets;
     diagnostics.tx = stats.tx_packets;
     diagnostics.rx_error = stats.rx_errors;
     diagnostics.tx_error = stats.tx_errors;
     diagnostics.rx_drop = stats.rx_dropped;
     diagnostics.tx_drop = stats.tx_dropped;
+  } else {
+    LOG(Log::ERR, CanLogIt::h()) << "Failed to retrieve CAN link statistics";
   }
 
   // Retrieve bit timing
