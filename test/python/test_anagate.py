@@ -53,6 +53,42 @@ def test_anagate_single_message():
     assert received_frames_dev1[0].message() == ["W", "o", "r", "l", "d"]
 
 
+def test_anagate_single_message_without_open():
+    received_frames_dev1 = []
+    received_frames_dev2 = []
+
+    myDevice1 = CanDevice.create(
+        "anagate", CanDeviceArguments(DEVICE_ONE, received_frames_dev1.append)
+    )
+
+    myDevice2 = CanDevice.create(
+        "anagate", CanDeviceArguments(DEVICE_TWO, received_frames_dev2.append)
+    )
+
+    # Purposely do not open  o1
+    # o1 = myDevice1.open()
+    o2 = myDevice2.open()
+
+    # rassert o1 == CanReturnCode.success
+    assert o2 == CanReturnCode.success
+
+    r = myDevice1.send(CanFrame(123, ["H", "e", "l", "l", "o"]))
+    assert r == CanReturnCode.success
+
+    r = myDevice2.send(CanFrame(456, ["W", "o", "r", "l", "d"]))
+    assert r == CanReturnCode.success
+
+    sleep(1)
+
+    assert len(received_frames_dev2) == 1
+    assert received_frames_dev2[0].id() == 123
+    assert received_frames_dev2[0].message() == ["H", "e", "l", "l", "o"]
+
+    assert len(received_frames_dev1) == 1
+    assert received_frames_dev1[0].id() == 456
+    assert received_frames_dev1[0].message() == ["W", "o", "r", "l", "d"]
+
+
 def test_anagate_multiple_messages():
     received_frames_dev1 = []
     received_frames_dev2 = []

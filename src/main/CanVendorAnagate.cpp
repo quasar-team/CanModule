@@ -151,6 +151,7 @@ CanReturnCode CanVendorAnagate::vendor_open() noexcept {
   }
   return CanReturnCode::unknown_open_error;
 }
+
 /**
  * @brief Sends a CAN frame to the associated device.
  *
@@ -164,12 +165,8 @@ CanReturnCode CanVendorAnagate::vendor_open() noexcept {
  * indicates success, while a non-zero value indicates an error. The specific
  * meaning of the error code can be obtained by calling CANGetLastError.
  */
-CanReturnCode CanVendorAnagate::vendor_send(const CanFrame &frame) noexcept {
-  if (m_handle == 0) {
-    LOG(Log::ERR, CanLogIt::h()) << "Cannot send frame: Device not open";
-    return CanReturnCode::disconnected;
-  }
-
+CanReturnCode CanVendorAnagate::vendor_send(const CanFrame &frame,
+                                            bool retry_open = true) noexcept {
   int anagate_flags{0};
   anagate_flags |= frame.is_extended_id() ? AnagateConstants::extendedId : 0;
   anagate_flags |=
@@ -209,7 +206,11 @@ CanReturnCode CanVendorAnagate::vendor_send(const CanFrame &frame) noexcept {
 
     default:
       LOG(Log::ERR, CanLogIt::h()) << "Failed to sent frame: Unknown error";
-      return CanReturnCode::unknown_open_error;
+      // If this happen, probably reopen the device and retry sending the frame
+      if (retry_open && (open() == CanReturnCode::success)) {
+        return vendor_send(frame, false);
+      }
+      return CanReturnCode::unknown_send_error;
   }
 }
 
@@ -379,6 +380,23 @@ CanReturnCode CanVendorAnagate::vendor_close() noexcept {
     default:
       return CanReturnCode::unknown_close_error;
   }
+}
+
+/**
+ * @brief Sends a CAN frame to the associated device.
+ *
+ * This function sends a CAN frame to the CAN device associated with the current
+ * instance. It prepares the necessary flags based on the properties of the CAN
+ * frame and then calls the appropriate CANWrite function from the AnaGate DLL.
+ *
+ * @param frame A const reference to the CanFrame object to be sent.
+ *
+ * @return An integer representing the status of the operation. A value of 0
+ * indicates success, while a non-zero value indicates an error. The specific
+ * meaning of the error code can be obtained by calling CANGetLastError.
+ */
+CanReturnCode CanVendorAnagate::vendor_send(const CanFrame &frame) noexcept {
+  return vendor_send(frame, true);
 }
 
 /**

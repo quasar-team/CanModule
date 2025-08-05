@@ -28,6 +28,7 @@ struct CanVendorAnagate : CanDevice {
   CanReturnCode vendor_open() noexcept override;
   CanReturnCode vendor_close() noexcept override;
   CanReturnCode vendor_send(const CanFrame &frame) noexcept override;
+  CanReturnCode vendor_send(const CanFrame &frame, bool retry_open) noexcept;
   CanDiagnostics vendor_diagnostics() noexcept override;
 
   void print_anagate_error(AnaUInt32 r) noexcept;
