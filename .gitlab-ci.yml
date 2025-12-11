@@ -1,4 +1,4 @@
-image: gitlab-registry.cern.ch/linuxsupport/alma9-base:latest
+image: gitlab-registry.cern.ch/linuxsupport/alma10-base:latest
 
 stages:
   - unstagged
@@ -11,9 +11,6 @@ include:
     rules:
       - if: $CI_PIPELINE_SOURCE == "api"  # Source Github-Gitlab bridge
       - if: $PIPELINE == "normal"
-  - local: ci/gitlab/docker.yml
-    rules:
-      - if: $DOCKER_GENERATION == "true"
 
 # Empty job, as gitlab-ci requires at least one job
 empty:

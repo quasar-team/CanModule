@@ -13,7 +13,7 @@ Compile on Windows:
 
 Compile on Linux:
   stage: unstagged
-  image: $CI_REGISTRY_IMAGE/alma9-build:latest
+  image: gitlab-registry.cern.ch/quasar-team/images/alma-10-build
   script:
     - cmake -B build
     - cmake --build build --config Release
@@ -34,7 +34,7 @@ Google Tests on Windows:
 
 Google Tests on Linux:
   stage: unstagged
-  image: $CI_REGISTRY_IMAGE/alma9-build:latest
+  image: gitlab-registry.cern.ch/quasar-team/images/alma-10-build
   needs:
     - Compile on Linux
   script:
@@ -62,14 +62,14 @@ Pytest on Linux:
 
 Run Sanity Checks:
   stage: unstagged
-  image: $CI_REGISTRY_IMAGE/alma9-build:latest
+  image: gitlab-registry.cern.ch/quasar-team/images/alma-10-build
   script:
     - pip install pre-commit
     - pre-commit run --all-files
 
 Update Documentation Website:
   stage: unstagged
-  image: $CI_REGISTRY_IMAGE/alma9-build:latest
+  image: gitlab-registry.cern.ch/quasar-team/images/alma-10-build
   script:
     - |
       curl -X POST \
