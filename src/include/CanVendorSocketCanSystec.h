@@ -18,13 +18,13 @@
  * SocketCan due to a kernel-panic bug on Systec linux module.
  */
 struct CanVendorSocketCanSystec : CanDevice {
-  explicit CanVendorSocketCanSystec(const CanDeviceArguments &args);
+  explicit CanVendorSocketCanSystec(const CanDeviceArguments& args);
   ~CanVendorSocketCanSystec() { vendor_close(); }
 
  private:
   CanReturnCode vendor_open() noexcept override;
   CanReturnCode vendor_close() noexcept override;
-  CanReturnCode vendor_send(const CanFrame &frame) noexcept override;
+  CanReturnCode vendor_send(const CanFrame& frame) noexcept override;
   CanDiagnostics vendor_diagnostics() noexcept override;
 
   std::unique_ptr<CanDevice> m_can_vendor_socketcan;

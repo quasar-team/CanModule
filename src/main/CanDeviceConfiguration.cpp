@@ -87,7 +87,7 @@ std::string CanDeviceConfiguration::to_string() const noexcept {
  * @return The output stream (os) with the CanDeviceConfiguration object's
  * string representation inserted.
  */
-std::ostream &operator<<(std::ostream &os,
-                         const CanDeviceConfiguration &config) noexcept {
+std::ostream& operator<<(std::ostream& os,
+                         const CanDeviceConfiguration& config) noexcept {
   return os << config.to_string();
 }

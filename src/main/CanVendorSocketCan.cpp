@@ -29,7 +29,7 @@ constexpr auto LIBSOCKETCAN_SUCCESS = 0;
  * @param args A constant reference to the CanDeviceArguments object,
  * which contains the arguments for the CAN device.
  */
-CanVendorSocketCan::CanVendorSocketCan(const CanDeviceArguments &args)
+CanVendorSocketCan::CanVendorSocketCan(const CanDeviceArguments& args)
     : CanDevice("socketcan", args) {
   if (!args.config.bus_name.has_value()) {
     throw std::invalid_argument("Missing required configuration parameters");
@@ -101,7 +101,7 @@ CanReturnCode CanVendorSocketCan::vendor_open() noexcept {
   addr.can_family = AF_CAN;
   addr.can_ifindex = ifr.ifr_ifindex;
 
-  if (bind(m_socket_fd, (struct sockaddr *)&addr, sizeof(addr)) < 0) {
+  if (bind(m_socket_fd, (struct sockaddr*)&addr, sizeof(addr)) < 0) {
     ::close(m_socket_fd);
     m_socket_fd = -1;
     LOG(Log::ERR, CanLogIt::h()) << "Failed to bind socket";
@@ -191,7 +191,7 @@ CanReturnCode CanVendorSocketCan::vendor_close() noexcept {
  * @return int Returns 0 on success, or -1 if the entire frame could not be
  * sent.
  */
-CanReturnCode CanVendorSocketCan::vendor_send(const CanFrame &frame) noexcept {
+CanReturnCode CanVendorSocketCan::vendor_send(const CanFrame& frame) noexcept {
   // Translate CanFrame to struct can_frame
   struct can_frame canFrame = translate(frame);
 
@@ -307,7 +307,7 @@ CanDiagnostics CanVendorSocketCan::vendor_diagnostics() noexcept {
  *
  * @return struct can_frame The translated CAN frame.
  */
-struct can_frame CanVendorSocketCan::translate(const CanFrame &frame) noexcept {
+struct can_frame CanVendorSocketCan::translate(const CanFrame& frame) noexcept {
   struct can_frame canFrame;
   canFrame.can_id = frame.id();
   canFrame.len = frame.length();
@@ -343,7 +343,7 @@ struct can_frame CanVendorSocketCan::translate(const CanFrame &frame) noexcept {
  * @return CanFrame The translated CanFrame object.
  */
 const CanFrame CanVendorSocketCan::translate(
-    const struct can_frame &canFrame) noexcept {
+    const struct can_frame& canFrame) noexcept {
   const auto id = canFrame.can_id & CAN_EFF_MASK;
   const auto length = static_cast<uint32_t>(canFrame.len);
   const auto rtr = (canFrame.can_id & CAN_RTR_FLAG);

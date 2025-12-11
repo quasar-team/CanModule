@@ -18,11 +18,10 @@ PYBIND11_MODULE(canmodule, m) {
       .def(py::init<const uint32_t, const uint32_t>(), py::arg("id"),
            py::arg("requested_length"))
       .def(py::init<const uint32_t>(), py::arg("id"))
-      .def(py::init<const uint32_t, const std::vector<char> &>(), py::arg("id"),
+      .def(py::init<const uint32_t, const std::vector<char>&>(), py::arg("id"),
            py::arg("message"))
-      .def(
-          py::init<const uint32_t, const std::vector<char> &, const uint32_t>(),
-          py::arg("id"), py::arg("message"), py::arg("flags"))
+      .def(py::init<const uint32_t, const std::vector<char>&, const uint32_t>(),
+           py::arg("id"), py::arg("message"), py::arg("flags"))
       .def("id", &CanFrame::id)
       .def("message", &CanFrame::message)
       .def("flags", &CanFrame::flags)
@@ -62,15 +61,15 @@ PYBIND11_MODULE(canmodule, m) {
       .def("open", &CanDevice::open)
       .def("close", &CanDevice::close)
       .def("diagnostics", &CanDevice::diagnostics)
-      .def("send", py::overload_cast<const CanFrame &>(&CanDevice::send))
+      .def("send", py::overload_cast<const CanFrame&>(&CanDevice::send))
       .def("send",
-           py::overload_cast<const std::vector<CanFrame> &>(&CanDevice::send))
+           py::overload_cast<const std::vector<CanFrame>&>(&CanDevice::send))
       .def("args", &CanDevice::args)
       .def_static("create", &CanDevice::create);
 
   py::class_<CanDeviceArguments>(m, "CanDeviceArguments")
-      .def(py::init<const CanDeviceConfiguration &,
-                    const std::function<void(const CanFrame &)> &>(),
+      .def(py::init<const CanDeviceConfiguration&,
+                    const std::function<void(const CanFrame&)>&>(),
            py::arg("config"), py::arg("receiver") = nullptr)
       .def_readonly("config", &CanDeviceArguments::config);
 

@@ -13,7 +13,7 @@
 #include "CanLogIt.h"
 
 std::mutex CanVendorAnagate::m_handles_lock;
-std::map<int, CanVendorAnagate *> CanVendorAnagate::m_handles;
+std::map<int, CanVendorAnagate*> CanVendorAnagate::m_handles;
 
 /**
  * @brief Callback function to handle incoming CAN frames from the AnaGate DLL.
@@ -31,7 +31,7 @@ std::map<int, CanVendorAnagate *> CanVendorAnagate::m_handles;
  * @param hHandle The handle of the CAN device associated with the received CAN
  * frame.
  */
-void anagate_receive(AnaInt32 nIdentifier, const char *pcBuffer,
+void anagate_receive(AnaInt32 nIdentifier, const char* pcBuffer,
                      AnaInt32 nBufferLen, AnaInt32 nFlags,
                      AnaInt32 hHandle) noexcept {
   uint32_t flags{0};
@@ -60,7 +60,7 @@ void anagate_receive(AnaInt32 nIdentifier, const char *pcBuffer,
  * @param arguments A constant reference to the CanDeviceArguments object,
  * which contains configuration parameters for the CAN device.
  */
-CanVendorAnagate::CanVendorAnagate(const CanDeviceArguments &args)
+CanVendorAnagate::CanVendorAnagate(const CanDeviceArguments& args)
     : CanDevice("anagate", args) {
   if (!args.config.bus_number.has_value() || !args.config.host.has_value()) {
     throw std::invalid_argument("Missing required configuration parameters");
@@ -114,7 +114,7 @@ CanReturnCode CanVendorAnagate::vendor_open() noexcept {
                   high_speed, enable_timestamp);
     CANSetCallback(m_handle,
                    reinterpret_cast<CAN_PF_CALLBACK>(anagate_receive));
-  } catch (const std::exception &e) {
+  } catch (const std::exception& e) {
     LOG(Log::ERR, CanLogIt::h())
         << "Exception caught in vendor_open: " << e.what();
     return CanReturnCode::internal_api_error;
@@ -164,7 +164,7 @@ CanReturnCode CanVendorAnagate::vendor_open() noexcept {
  * indicates success, while a non-zero value indicates an error. The specific
  * meaning of the error code can be obtained by calling CANGetLastError.
  */
-CanReturnCode CanVendorAnagate::vendor_send(const CanFrame &frame) noexcept {
+CanReturnCode CanVendorAnagate::vendor_send(const CanFrame& frame) noexcept {
   if (m_handle == 0) {
     LOG(Log::ERR, CanLogIt::h()) << "Cannot send frame: Device not open";
     return CanReturnCode::disconnected;
@@ -182,7 +182,7 @@ CanReturnCode CanVendorAnagate::vendor_send(const CanFrame &frame) noexcept {
                        frame.length(), anagate_flags)
             : CANWrite(m_handle, frame.id(), frame.message().data(),
                        frame.length(), anagate_flags);
-  } catch (const std::exception &e) {
+  } catch (const std::exception& e) {
     LOG(Log::ERR, CanLogIt::h())
         << "Exception caught in vendor_send: " << e.what();
     return CanReturnCode::internal_api_error;
@@ -230,7 +230,7 @@ CanReturnCode CanVendorAnagate::vendor_send(const CanFrame &frame) noexcept {
 CanDiagnostics CanVendorAnagate::vendor_diagnostics() noexcept {
   auto anagate_convert_timestamp = [](AnaInt64 timestamp) {
     std::time_t time = static_cast<std::time_t>(timestamp);
-    std::tm *local_time = std::localtime(&time);
+    std::tm* local_time = std::localtime(&time);
     std::ostringstream timestamp_stream;
     timestamp_stream << std::put_time(local_time, "%Y-%m-%d %H:%M:%S");
     return timestamp_stream.str();
@@ -344,7 +344,7 @@ CanDiagnostics CanVendorAnagate::vendor_diagnostics() noexcept {
 
     diagnostics.handle = m_handle;
     return diagnostics;
-  } catch (const std::exception &e) {
+  } catch (const std::exception& e) {
     LOG(Log::ERR, CanLogIt::h())
         << "Exception caught in vendor_diagnostics: " << e.what();
     return diagnostics;

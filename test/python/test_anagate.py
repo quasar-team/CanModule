@@ -181,6 +181,8 @@ def test_anagate_diagnostics():
     stats1 = myDevice1.diagnostics()
     stats2 = myDevice2.diagnostics()
 
+    assert len(stats1.connected_clients_ports) > 1
+
     assert stats1.tx_per_second is None
     assert stats2.rx_per_second is None
 
