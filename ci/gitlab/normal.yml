@@ -16,7 +16,7 @@ Compile on Windows:
 
 Compile on Linux:
   stage: unstagged
-
+  image: $ALMA_LATEST_IMAGE
   script:
     - cmake -B build
     - cmake --build build --config Release
