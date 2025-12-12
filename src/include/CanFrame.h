@@ -1,6 +1,7 @@
 #ifndef SRC_INCLUDE_CANFRAME_H_
 #define SRC_INCLUDE_CANFRAME_H_
 
+#include <cstdint>
 #include <stdexcept>
 #include <string>
 #include <vector>
