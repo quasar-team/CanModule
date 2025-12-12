@@ -1,6 +1,7 @@
 #ifndef SRC_INCLUDE_CANDEVICECONFIGURATION_H_
 #define SRC_INCLUDE_CANDEVICECONFIGURATION_H_
 
+#include <cstdint>
 #include <iostream>
 #include <optional>
 #include <string>

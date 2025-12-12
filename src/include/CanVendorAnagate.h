@@ -1,6 +1,7 @@
 #ifndef SRC_INCLUDE_CANVENDORANAGATE_H_
 #define SRC_INCLUDE_CANVENDORANAGATE_H_
 
+#include <cstdint>
 #include <map>
 #include <mutex>  //NOLINT
 
