@@ -9,7 +9,7 @@
  * @param frame The CAN frame to be sent.
  * @return Always returns 0 indicating success.
  */
-CanReturnCode CanVendorLoopback::vendor_send(const CanFrame &frame) noexcept {
+CanReturnCode CanVendorLoopback::vendor_send(const CanFrame& frame) noexcept {
   received(frame);
   return CanReturnCode::success;
 }

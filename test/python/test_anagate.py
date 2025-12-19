@@ -181,6 +181,8 @@ def test_anagate_diagnostics():
     stats1 = myDevice1.diagnostics()
     stats2 = myDevice2.diagnostics()
 
+    assert len(stats1.connected_clients_ports) >= 1
+
     assert stats1.tx_per_second is None
     assert stats2.rx_per_second is None
 
@@ -209,9 +211,6 @@ def test_anagate_diagnostics():
     )
 
 
-@pytest.mark.skip(
-    reason="Disable this test until Anagate release a new firmware version that reports error on sending 30.01.2025"
-)
 def test_anagate_bus_off_recovery():
     received_frames_dev1 = []
     myDevice1 = CanDevice.create(
@@ -222,6 +221,7 @@ def test_anagate_bus_off_recovery():
     received_frames_dev2 = []
 
     canDeviceConfig = CanDeviceConfiguration()
+    canDeviceConfig.sent_acknowledgement = True
     canDeviceConfig.host = DEVICE_TWO.host
     canDeviceConfig.bus_number = DEVICE_TWO.bus_number
     canDeviceConfig.high_speed = DEVICE_ONE.high_speed
@@ -234,11 +234,13 @@ def test_anagate_bus_off_recovery():
     myDevice2.open()
 
     # Send a few frames to trigger bus off
-    send_error_count = 0
-    for _ in range(100_000):
+    send_error = False
+    for i in range(100_000):
         return_code = myDevice2.send(CanFrame(123, ["H", "e", "l", "l", "o"]))
         if return_code != CanReturnCode.success:
-            send_error_count += 1
-    sleep(1)
+            assert i == 0
+            assert return_code == CanReturnCode.not_ack
+            send_error = True
+            break
 
-    assert send_error_count > 0
+    assert send_error is True

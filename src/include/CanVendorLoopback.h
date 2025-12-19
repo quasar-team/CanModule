@@ -20,7 +20,7 @@ struct CanVendorLoopback : CanDevice {
    * which contains configuration parameters for the CAN device.
    */
   inline explicit CanVendorLoopback(
-      const CanDeviceArguments &configuration) noexcept
+      const CanDeviceArguments& configuration) noexcept
       : CanDevice("loopback", configuration) {}
 
  private:
@@ -34,7 +34,7 @@ struct CanVendorLoopback : CanDevice {
   inline CanReturnCode vendor_close() noexcept override {
     return CanReturnCode::success;
   }
-  CanReturnCode vendor_send(const CanFrame &frame) noexcept override;
+  CanReturnCode vendor_send(const CanFrame& frame) noexcept override;
   inline CanDiagnostics vendor_diagnostics() noexcept override {
     return CanDiagnostics{};
   }

@@ -87,7 +87,7 @@ std::string CanDiagnostics::to_string() const noexcept {
  * @return The output stream (os) after the diagnostic information has been
  * printed.
  */
-std::ostream &operator<<(std::ostream &os,
-                         const CanDiagnostics &diag) noexcept {
+std::ostream& operator<<(std::ostream& os,
+                         const CanDiagnostics& diag) noexcept {
   return os << diag.to_string();
 }

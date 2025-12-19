@@ -1,6 +1,7 @@
 #ifndef SRC_INCLUDE_CANVENDORANAGATE_H_
 #define SRC_INCLUDE_CANVENDORANAGATE_H_
 
+#include <cstdint>
 #include <map>
 #include <mutex>  //NOLINT
 
@@ -17,22 +18,22 @@
  * information.
  */
 struct CanVendorAnagate : CanDevice {
-  friend void anagate_receive(AnaInt32 nIdentifier, const char *pcBuffer,
+  friend void anagate_receive(AnaInt32 nIdentifier, const char* pcBuffer,
                               AnaInt32 nBufferLen, AnaInt32 nFlags,
                               AnaInt32 hHandle) noexcept;
 
-  explicit CanVendorAnagate(const CanDeviceArguments &configuration);
+  explicit CanVendorAnagate(const CanDeviceArguments& configuration);
   inline ~CanVendorAnagate() override { vendor_close(); }
 
  private:
   CanReturnCode vendor_open() noexcept override;
   CanReturnCode vendor_close() noexcept override;
-  CanReturnCode vendor_send(const CanFrame &frame) noexcept override;
+  CanReturnCode vendor_send(const CanFrame& frame) noexcept override;
   CanDiagnostics vendor_diagnostics() noexcept override;
 
   void print_anagate_error(AnaUInt32 r) noexcept;
   static std::mutex m_handles_lock;
-  static std::map<int, CanVendorAnagate *> m_handles;
+  static std::map<int, CanVendorAnagate*> m_handles;
 
   AnaInt32 m_handle{0};
 };

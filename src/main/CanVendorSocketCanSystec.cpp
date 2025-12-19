@@ -23,10 +23,10 @@
  * callback function.
  */
 CanVendorSocketCanSystec::CanVendorSocketCanSystec(
-    const CanDeviceArguments &args)
+    const CanDeviceArguments& args)
     : CanDevice("socketcan_systec", args) {
-  const std::function<void(const CanFrame &)> filter_busoff_callback =
-      [this](const CanFrame &frame) {
+  const std::function<void(const CanFrame&)> filter_busoff_callback =
+      [this](const CanFrame& frame) {
         if (frame.is_error() && (frame.id() & CAN_ERR_BUSERROR)) {
           LOG(Log::WRN, CanLogIt::h()) << "Bus off detected, restarting...";
           m_can_vendor_socketcan->close();
@@ -99,7 +99,7 @@ CanReturnCode CanVendorSocketCanSystec::vendor_close() noexcept {
  *           is returned.
  */
 CanReturnCode CanVendorSocketCanSystec::vendor_send(
-    const CanFrame &frame) noexcept {
+    const CanFrame& frame) noexcept {
   if (m_can_vendor_socketcan) return m_can_vendor_socketcan->send(frame);
   return CanReturnCode::internal_api_error;
 }

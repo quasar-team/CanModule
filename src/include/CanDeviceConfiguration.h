@@ -1,6 +1,7 @@
 #ifndef SRC_INCLUDE_CANDEVICECONFIGURATION_H_
 #define SRC_INCLUDE_CANDEVICECONFIGURATION_H_
 
+#include <cstdint>
 #include <iostream>
 #include <optional>
 #include <string>
@@ -97,7 +98,7 @@ struct CanDeviceConfiguration {
   std::string to_string() const noexcept;
 };
 
-std::ostream &operator<<(std::ostream &os,
-                         const CanDeviceConfiguration &config) noexcept;
+std::ostream& operator<<(std::ostream& os,
+                         const CanDeviceConfiguration& config) noexcept;
 
 #endif  // SRC_INCLUDE_CANDEVICECONFIGURATION_H_

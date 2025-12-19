@@ -15,7 +15,7 @@
  *                    the current Rx and Tx values and will be updated with
  *                    the calculated rolling average rates.
  */
-void CanDerivedStats::update(CanDiagnostics &diagnostics) noexcept {
+void CanDerivedStats::update(CanDiagnostics& diagnostics) noexcept {
   if (!m_init) {
     if (!diagnostics.rx.has_value() || !diagnostics.tx.has_value()) {
       m_enabled = false;
@@ -48,9 +48,9 @@ void CanDerivedStats::update(CanDiagnostics &diagnostics) noexcept {
                        .count();
 
   if (time_diff > 0) {
-    const auto update_rate = [&](std::deque<float> &window,
-                                 std::optional<uint32_t> &value,
-                                 uint32_t &last_value, int64_t time_diff) {
+    const auto update_rate = [&](std::deque<float>& window,
+                                 std::optional<uint32_t>& value,
+                                 uint32_t& last_value, int64_t time_diff) {
       float rate = static_cast<float>(value.value() - last_value) / time_diff;
       window.push_front(rate);
       if (window.size() > window_size) {
@@ -64,8 +64,8 @@ void CanDerivedStats::update(CanDiagnostics &diagnostics) noexcept {
 
     m_last_update = current_time;
 
-    const auto update_per_second = [&](const std::deque<float> &window,
-                                       std::optional<float> &per_second) {
+    const auto update_per_second = [&](const std::deque<float>& window,
+                                       std::optional<float>& per_second) {
       if (!window.empty()) {
         per_second =
             std::accumulate(window.begin(), window.end(), 0.0) / window.size();

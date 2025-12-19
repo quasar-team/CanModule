@@ -2,6 +2,7 @@
 #define SRC_INCLUDE_CANDERIVEDSTATS_H_
 
 #include <chrono>
+#include <cstdint>
 #include <deque>
 #include <numeric>
 

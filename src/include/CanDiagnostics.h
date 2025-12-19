@@ -1,6 +1,7 @@
 #ifndef SRC_INCLUDE_CANDIAGNOSTICS_H_
 #define SRC_INCLUDE_CANDIAGNOSTICS_H_
 
+#include <cstdint>
 #include <iomanip>
 #include <iostream>
 #include <optional>

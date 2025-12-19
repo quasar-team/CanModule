@@ -2,6 +2,7 @@ from time import sleep, time
 import pytest
 from common import *
 import os
+import subprocess
 
 pytestmark = pytest.mark.skipif(
     sys.platform.startswith("win"),

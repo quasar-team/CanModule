@@ -22,19 +22,19 @@
  * methods to open, close, and send CAN frames using the SocketCAN interface.
  */
 struct CanVendorSocketCan : CanDevice {
-  explicit CanVendorSocketCan(const CanDeviceArguments &args);
+  explicit CanVendorSocketCan(const CanDeviceArguments& args);
 
   ~CanVendorSocketCan() { vendor_close(); }
 
  private:
   CanReturnCode vendor_open() noexcept override;
   CanReturnCode vendor_close() noexcept override;
-  CanReturnCode vendor_send(const CanFrame &frame) noexcept override;
+  CanReturnCode vendor_send(const CanFrame& frame) noexcept override;
   CanDiagnostics vendor_diagnostics() noexcept override;
 
   int subscriber() noexcept;
-  static const CanFrame translate(const struct can_frame &message) noexcept;
-  static struct can_frame translate(const CanFrame &frame) noexcept;
+  static const CanFrame translate(const struct can_frame& message) noexcept;
+  static struct can_frame translate(const CanFrame& frame) noexcept;
 
   int m_socket_fd{-1};              // File descriptor for the SocketCAN device
   int m_epoll_fd{-1};               // File descriptor for the epoll instance

@@ -72,7 +72,7 @@ CanReturnCode CanDevice::close() noexcept {
  * @param frame The CAN frame to be sent. It must be a valid frame.
  * @return int Returns 0 on success, or a non-zero error code on failure.
  */
-CanReturnCode CanDevice::send(const CanFrame &frame) noexcept {
+CanReturnCode CanDevice::send(const CanFrame& frame) noexcept {
   LOG(Log::DBG, CanLogIt::h()) << "Sending CAN frame: " << frame;
 
   CanReturnCode result = vendor_send(frame);
@@ -100,10 +100,10 @@ CanReturnCode CanDevice::send(const CanFrame &frame) noexcept {
  * success or a non-zero error code on failure for the corresponding frame.
  */
 std::vector<CanReturnCode> CanDevice::send(
-    const std::vector<CanFrame> &frames) noexcept {
+    const std::vector<CanFrame>& frames) noexcept {
   std::vector<CanReturnCode> result(frames.size());
   std::transform(frames.begin(), frames.end(), result.begin(),
-                 [this](const CanFrame &frame) { return send(frame); });
+                 [this](const CanFrame& frame) { return send(frame); });
   return result;
 }
 
@@ -144,7 +144,7 @@ CanDiagnostics CanDevice::diagnostics() noexcept {
  * provided.
  */
 std::unique_ptr<CanDevice> CanDevice::create(
-    std::string_view vendor, const CanDeviceArguments &configuration) {
+    std::string_view vendor, const CanDeviceArguments& configuration) {
   LOG(Log::INF, CanLogIt::h()) << "Creating CAN device for vendor: " << vendor;
   LOG(Log::INF, CanLogIt::h()) << "Configuration: " << configuration.config;
 
@@ -174,7 +174,7 @@ std::unique_ptr<CanDevice> CanDevice::create(
   return nullptr;
 }
 
-std::ostream &operator<<(std::ostream &os, CanReturnCode code) {
+std::ostream& operator<<(std::ostream& os, CanReturnCode code) {
   switch (code) {
     case CanReturnCode::success:
       return os << "SUCCESS";

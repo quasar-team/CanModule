@@ -5,11 +5,12 @@ repos:
       - id: clang-format
         args: ["-style=Google"]
       - id: cppcheck
+        args: ["--check-level=exhaustive"]
       - id: cpplint
         args: ["--filter=-legal/copyright"]
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.6.0
+    rev: v6.0.0
     hooks:
       - id: trailing-whitespace
       - id: check-added-large-files
@@ -29,7 +30,7 @@ repos:
       - id: mixed-line-ending
 
   - repo: https://github.com/psf/black
-    rev: 24.4.2
+    rev: 25.12.0
     hooks:
       - id: black
 

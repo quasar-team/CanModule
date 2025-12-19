@@ -1,3 +1,6 @@
+variables:
+  ALMA_LATEST_IMAGE: "gitlab-registry.cern.ch/quasar-team/images/alma-10-build:latest"
+
 Compile on Windows:
   stage: unstagged
   image: $CI_REGISTRY_IMAGE/win2022-build:latest
@@ -13,7 +16,7 @@ Compile on Windows:
 
 Compile on Linux:
   stage: unstagged
-  image: $CI_REGISTRY_IMAGE/alma9-build:latest
+  image: $ALMA_LATEST_IMAGE
   script:
     - cmake -B build
     - cmake --build build --config Release
@@ -34,7 +37,7 @@ Google Tests on Windows:
 
 Google Tests on Linux:
   stage: unstagged
-  image: $CI_REGISTRY_IMAGE/alma9-build:latest
+  image: $ALMA_LATEST_IMAGE
   needs:
     - Compile on Linux
   script:
@@ -62,14 +65,14 @@ Pytest on Linux:
 
 Run Sanity Checks:
   stage: unstagged
-  image: $CI_REGISTRY_IMAGE/alma9-build:latest
+  image: $ALMA_LATEST_IMAGE
   script:
     - pip install pre-commit
     - pre-commit run --all-files
 
 Update Documentation Website:
   stage: unstagged
-  image: $CI_REGISTRY_IMAGE/alma9-build:latest
+  image: $ALMA_LATEST_IMAGE
   script:
     - |
       curl -X POST \
