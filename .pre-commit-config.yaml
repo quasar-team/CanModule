@@ -5,6 +5,7 @@ repos:
       - id: clang-format
         args: ["-style=Google"]
       - id: cppcheck
+        args: ["--check-level=exhaustive"]
       - id: cpplint
         args: ["--filter=-legal/copyright"]
 
