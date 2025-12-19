@@ -1,11 +1,12 @@
 variables:
   ALMA_LATEST_IMAGE: "gitlab-registry.cern.ch/quasar-team/images/alma-10-build:latest"
+  WINDOWS_LATEST_IMAGE: "gitlab-registry.cern.ch/quasar-team/images/win2025-build:latest"
 
 Compile on Windows:
   stage: unstagged
-  image: $CI_REGISTRY_IMAGE/win2022-build:latest
+  image: $WINDOWS_LATEST_IMAGE
   tags:
-    - win2022-container
+    - win2025-container
   script:
     - cmake -B build
     - cmake --build build --config Release
@@ -27,9 +28,9 @@ Compile on Linux:
 
 Google Tests on Windows:
   stage: unstagged
-  image: $CI_REGISTRY_IMAGE/win2022-build:latest
+  image: $WINDOWS_LATEST_IMAGE
   tags:
-    - win2022-container
+    - win2025-container
   needs:
     - Compile on Windows
   script:
@@ -45,9 +46,9 @@ Google Tests on Linux:
 
 Pytest on Windows:
   stage: unstagged
-  image: $CI_REGISTRY_IMAGE/win2022-build:latest
+  image: $WINDOWS_LATEST_IMAGE
   tags:
-    - win2022-container
+    - win2025-container
   needs:
     - Compile on Windows
   script:
