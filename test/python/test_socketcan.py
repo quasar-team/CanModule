@@ -14,7 +14,7 @@ DEVICE_ONE.bus_name = "vcan0"
 
 # If we are inside the pipeline, we have admin rights to create virtual CAN interfaces
 # and therefore can bring up/down the device, useful for testing the callback on error functionality
-if "CI" in os.environ:
+if "CI" in os.environ and not sys.platform.startswith("win"):
     subprocess.run(["modprobe", "vcan"], check=False)
     DEVICE_ONE.vcan = True
     DEVICE_ONE.bitrate = 500000  # We need a bitrate to trigger configuration of the device, although because it is a vcan, it will be ignored
