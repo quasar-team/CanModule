@@ -106,7 +106,7 @@ CanReturnCode CanVendorAnagate::vendor_open() noexcept {
     }
 
     if (args().config.high_speed.has_value()) {
-      args().config.high_speed.value();
+      high_speed = args().config.high_speed.value();
     }
 
     // Set the modified configuration
