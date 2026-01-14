@@ -34,6 +34,9 @@
 #include "AnaGateDLL.h"
 #include "AnaGateDllCan.h"
 
+#include <chrono>
+#include <thread>
+
 #ifdef _WIN32
 
 #include "tchar.h"
@@ -62,7 +65,7 @@ public:
 	AnaCanScan& operator=(AnaCanScan const & other) = delete; // Disables assignment
 	virtual ~AnaCanScan();
 
-	virtual int createBus(const string name, const string parameters);
+	virtual int createBus(const std::string &name, const std::string &parameters);
     virtual bool sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr = false);
 	virtual bool sendMessage(CanMessage *);
 	virtual bool sendRemoteRequest(short cobID);
@@ -106,12 +109,12 @@ public:
 private:
 
  	int m_canPortNumber; //The number of can port (CANA, CANB, ...) associated with this instance.
-	string  m_canIPAddress;
+	std::string  m_canIPAddress;
 	unsigned int m_baudRate; 	//Current baud rate for statistics
 	DWORD   m_idCanScanThread; // Thread ID for the CAN update scan manager thread.
 	bool m_canCloseDevice;
-	string m_busName;
-	string m_busParameters;
+	std::string m_busName;
+	std::string m_busParameters;
 	AnaInt32 m_UcanHandle; //Instance of the can handle
 	CanStatistics m_statistics; //Instance of Can Statistics
     AnaInt32 m_timeout; 		// connect_wait time
@@ -143,7 +146,7 @@ private:
 	static std::map<int, ANAGATE_PORTDEF_t> st_canHandleMap;
 
 	static void showAnaCanScanObjectMap();
-	static int reconnectAllPorts( string ip );
+	static int reconnectAllPorts( std::string ip );
 	AnaInt32 reconnectThisPort();
 
 
@@ -163,15 +166,15 @@ private:
 	 */
 	static AnaInt32 getCanHandleOfPortIp(int port, std::string ip);
 
-	static std::map<string, bool> m_reconnectInProgress_map; // could use 1-dim vector but map is faster
-	static void setIpReconnectInProgress( string ip, bool flag );
-	static bool isIpReconnectInProgress( string ip );
+	static std::map<std::string, bool> m_reconnectInProgress_map; // could use 1-dim vector but map is faster
+	static void setIpReconnectInProgress( std::string ip, bool flag );
+	static bool isIpReconnectInProgress( std::string ip );
 
 	bool sendErrorCode(AnaInt32);
-	string ipAdress(){ return(m_canIPAddress );}
+	std::string ipAdress(){ return(m_canIPAddress );}
 	int canPortNumber(){ return(m_canPortNumber);}
 	int handle(){ return(m_UcanHandle);}
-	int configureCanBoard(const string name,const string parameters);
+	int configureCanBoard(const std::string name,const std::string parameters);
 	int connectReceptionHandler();
 	int openCanPort();
 	int reconnect();

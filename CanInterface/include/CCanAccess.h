@@ -49,6 +49,27 @@ const std::string LogItComponentName = "CanModule";
 #define MLOG(LEVEL,THIS) LOG(Log::LEVEL) << __FUNCTION__ << " " << CanModule::LogItComponentName << " bus= " << THIS->getBusName() << " "
 
 /**
+ * implementation specific counter (high nibble of status bitpattern)
+ * * 0x1<<28 = sock (linux)
+ */
+#define CANMODULE_STATUS_BP_SOCK (0x1<<28)
+/**
+ * implementation specific counter (high nibble of status bitpattern)
+ * * 0x2<<28 = anagate (linux, windows)
+ */
+#define CANMODULE_STATUS_BP_ANAGATE (0x2<<28)
+/**
+ * implementation specific counter (high nibble of status bitpattern)
+ * * 0x3<<28 = peak (windows)
+ */
+#define CANMODULE_STATUS_BP_PEAK (0x3<<28)
+/**
+ * implementation specific counter (high nibble of status bitpattern)
+ * * 0x4<<28 = systec (windows)
+ */
+#define CANMODULE_STATUS_BP_SYSTEC (0x4<<28)
+
+/**
  * returns a version string which is created at build-time, stemming from the CMakeLists.txt
  */
 //static std::string version(){ return( CanModule_VERSION ); }
@@ -411,35 +432,35 @@ protected:
 	/**
 	 * compared to the last received message, are we in timeout?
 	 */
-// 	bool hasTimeoutOnReception() {
-// #ifdef _WIN32
-// 		GetSystemTime(&m_now);
-// 		double delta = m_now.wSecond- m_dreceived.wSecond ;
-// #else
-// 		gettimeofday( &m_now, &m_tz);
-// 		double delta = (double) ( m_now.tv_sec - m_dreceived.tv_sec);
-// #endif
-// 		if ( delta > m_timeoutOnReception ) return true;
-// 		else return false;
-// 	}
+	bool hasTimeoutOnReception() {
+#ifdef _WIN32
+		GetSystemTime(&m_now);
+		double delta = m_now.wSecond- m_dreceived.wSecond ;
+#else
+		gettimeofday( &m_now, &m_tz);
+		double delta = (double) ( m_now.tv_sec - m_dreceived.tv_sec);
+#endif
+		if ( delta > m_timeoutOnReception ) return true;
+		else return false;
+	}
 
 	/**
 	 * reset the internal reconnection timeout counter
 	 */
-// 	void resetTimeoutOnReception() {
-// #ifdef _WIN32
-// 		GetSystemTime(&m_dreceived);
-// #else
-// 		gettimeofday( &m_dreceived, &m_tz);
-// #endif
-// 	}
-// 	void resetTimeNow() {
-// #ifdef _WIN32
-// 		GetSystemTime(&m_now);
-// #else
-// 		gettimeofday( &m_now, &m_tz);
-// #endif
-// 	}
+	void resetTimeoutOnReception() {
+#ifdef _WIN32
+		GetSystemTime(&m_dreceived);
+#else
+		gettimeofday( &m_dreceived, &m_tz);
+#endif
+	}
+	void resetTimeNow() {
+#ifdef _WIN32
+		GetSystemTime(&m_now);
+#else
+		gettimeofday( &m_now, &m_tz);
+#endif
+	}
 
 private:
 	boost::signals2::connection m_signal_connection;
@@ -447,12 +468,12 @@ private:
 	Log::LogComponentHandle m_lh; // s_lh ?!? problem with windows w.t.f.
 	LogItInstance* m_logItRemoteInstance;
 
-// #ifdef _WIN32
-// 	SYSTEMTIME m_now, m_dreceived, m_dtransmitted, m_dopen;
-// #else
-// 	struct timeval m_now, m_dreceived;
-// 	struct timezone m_tz;
-// #endif
+#ifdef _WIN32
+	SYSTEMTIME m_now, m_dreceived, m_dtransmitted, m_dopen;
+#else
+	struct timeval m_now, m_dreceived;
+	struct timezone m_tz;
+#endif
 
 };
 };

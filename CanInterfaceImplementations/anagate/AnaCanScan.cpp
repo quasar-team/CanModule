@@ -245,7 +245,7 @@ void AnaCanScan::callbackOnRecieve(CanMessage& msg)
  * 1: existing bus, OK, do not add
  * -1: error
  */
-int AnaCanScan::createBus(const string name,const string parameters)
+int AnaCanScan::createBus(const string& name, const string& parameters)
 {	
 	m_busName = name;
 	m_busParameters = parameters;
@@ -679,7 +679,7 @@ AnaInt32 AnaCanScan::reconnectThisPort(){
 	while ( anaCallReturn0 < 0 ){
 		MLOGANA(WRN, this) << "failed to reconnect CAN port " << m_canPortNumber
 				<< " ip= " << m_canIPAddress << ",  try again";
-		CanModule::ms_sleep( 5000 );
+		std::this_thread::sleep_for(std::chrono::seconds(5));
 		anaCallReturn0 = reconnect();
 	}
 	showAnaCanScanObjectMap();
@@ -734,7 +734,7 @@ AnaInt32 AnaCanScan::reconnectThisPort(){
 			LOG(Log::WRN, AnaCanScan::st_logItHandleAnagate ) << "reconnecting all ports for ip= " << ip
 					<< " is already in progress, skipping.";
 
-			CanModule::ms_sleep( 10000 );
+			std::this_thread::sleep_for(std::chrono::seconds(10));
 			anagateReconnectMutex.unlock();
 
 			return(1);
@@ -779,7 +779,7 @@ AnaInt32 AnaCanScan::reconnectThisPort(){
 		LOG(Log::WRN, AnaCanScan::st_logItHandleAnagate ) << " Problem reconnecting CAN ports for ip= " << ip
 				<< " last ret= " << ret << ". Just abandoning and trying again in 10 secs, module might not be ready yet.";
 
-		CanModule::ms_sleep( 10000 );
+		std::this_thread::sleep_for(std::chrono::seconds(10));
 
 		AnaCanScan::setIpReconnectInProgress( ip, false );
 		LOG(Log::TRC, AnaCanScan::st_logItHandleAnagate ) << "reconnecting all ports for ip= " << ip
@@ -831,7 +831,7 @@ AnaInt32 AnaCanScan::reconnectThisPort(){
 	AnaCanScan::showAnaCanScanObjectMap();
 
 	// be easy on the switch
-	CanModule::ms_sleep( 100 );
+	std::this_thread::sleep_for(std::chrono::milliseconds(100));
 	return( anaRet );
 }
 
@@ -915,7 +915,7 @@ int AnaCanScan::reconnect(){
 	AnaInt32 canModuleHandle;
 
 	// we are not too fast. sleep to wait for network and don't hammer the switch
-	CanModule::ms_sleep( 100 );
+	std::this_thread::sleep_for(std::chrono::milliseconds(100));
 
 	MLOGANA(WRN, this) << "try to reconnect ip= " << m_canIPAddress
 			<< " m_canPortNumber= " << m_canPortNumber
@@ -998,7 +998,7 @@ int AnaCanScan::reconnect(){
 		break;
 	}
 	}
-	CanModule::ms_sleep( 100 );
+	std::this_thread::sleep_for(std::chrono::milliseconds(100));
 	return( 0 ); // OK
 }
 
