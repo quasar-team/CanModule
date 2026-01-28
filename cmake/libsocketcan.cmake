@@ -2,7 +2,6 @@ FetchContent_Declare(
   libsocketcan
   GIT_REPOSITORY https://github.com/linux-can/libsocketcan.git
   GIT_TAG        v0.0.12
-  DOWNLOAD_EXTRACT_TIMESTAMP True
 )
 
 FetchContent_MakeAvailable(libsocketcan)
