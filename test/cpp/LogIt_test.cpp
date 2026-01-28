@@ -3,6 +3,7 @@
 
 #include <gtest/gtest.h>
 
+#include <chrono>
 #include <string>
 #include <thread>  // NOLINT
 
