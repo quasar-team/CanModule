@@ -44,7 +44,7 @@ public:
 	STCanScan& operator=(STCanScan const & other) = delete; //Disables assignment
 	virtual ~STCanScan();
 
-	virtual int createBus(const string name ,const string parameters);
+	virtual int createBus(const std::string &name, const std::string &parameters);
     virtual bool sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr = false);
 
     /*
@@ -92,7 +92,7 @@ private:
 	static DWORD WINAPI CanScanControlThread(LPVOID pCanScan);
 	static tUcanInitCanParam createInitializationParameters( unsigned int br );
 
-	int configureCanBoard(const string name,const string parameters);
+	int configureCanBoard(const std::string name, const std::string parameters);
 	int openCanPort(tUcanInitCanParam initializationParameters);
 	/*
 	 * Provides textual representation of an error code.
