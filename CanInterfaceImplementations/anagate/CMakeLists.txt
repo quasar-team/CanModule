@@ -61,26 +61,19 @@ set(ANAGATE_SOURCES
 	../../CanInterface/src/CanStatistics.cpp
 	../../CanInterface/include/CanStatistics.h	
 	../../CanInterface/src/CanModuleUtils.cpp
-	../../CanInterface/include/CanModuleUtils.h	
+	../../CanInterface/include/CanModuleUtils.h
+	../../CanInterface/src/CCanAccess.cpp
+	../../CanInterface/include/CCanAccess.h
 )
 
 # you can either build the fully dynamic libs or the as-static-as-possible, 
 # but not both in one go
-IF ( $ENV{CANMODULE_AS_STATIC_AS_POSSIBLE} )
-	SET ( ANAGATE_LIB_NAME "ancan-static" )
+SET ( ANAGATE_LIB_NAME "ancan" )
+IF ( DEFINED CANMODULE_AS_STATIC_AS_POSSIBLE )
 	add_library( ${ANAGATE_LIB_NAME} ${CANMODULE_LINKAGE} ${ANAGATE_SOURCES} $<TARGET_OBJECTS:LogIt>)
 ELSE()
-	SET ( ANAGATE_LIB_NAME "ancan" )
 	add_library( ${ANAGATE_LIB_NAME} SHARED ${ANAGATE_SOURCES} $<TARGET_OBJECTS:LogIt>)
 ENDIF()	
-	
-##if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
-##	add_library( ${ANAGATE_LIB_NAME} SHARED ${ANAGATE_SOURCES} $<TARGET_OBJECTS:LogIt>)
-#	add_library( ${ANAGATE_LIB_NAME} ${CANMODULE_LINKAGE} ${ANAGATE_SOURCES} $<TARGET_OBJECTS:LogIt>)
-##else()
-##	add_library( ${ANAGATE_LIB_NAME} SHARED ${ANAGATE_SOURCES} )
-##	target_link_libraries( ${ANAGATE_LIB_NAME} ${LOGIT_LIB} )
-##endif()
 
 target_link_libraries ( ${ANAGATE_LIB_NAME}  ${BOOST_LIBS}	${ANAGATE_LIB_FILE} )
 set_property(TARGET ${ANAGATE_LIB_NAME} PROPERTY POSITION_INDEPENDENT_CODE TRUE)

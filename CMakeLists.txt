@@ -98,43 +98,28 @@ message(STATUS "LogIt build option LOGIT_BUILD_OPTION [${LOGIT_BUILD_OPTION}]")
 # ENDIF()
 
 SET( SRCS
-		# Diagnostic/src/Diag.cpp
-		# Diagnostic/include/Diag.h
-		# CanLibLoader/src/CanLibLoader.cpp
-		# CanLibLoader/include/CanLibLoader.h
-		# ${CAN_LIBRARY_LOADER_PLATFORM_IMPL}
-		# ${CAN_LIBRARY_LOADER_PLATFORM_IMPL_HEADER}		
 		CanInterface/src/CanStatistics.cpp    
-		# CanInterface/include/CanStatistics.h 
 		CanInterface/src/CanModuleUtils.cpp
-		# CanInterface/include/CanModuleUtils.h
-		# CanInterface/src/CanBusAccess.cpp
-		# CanInterface/include/CanBusAccess.h
-		# CanInterface/include/CanMessage.h
 		CanInterface/src/CCanAccess.cpp
-		# CanInterface/include/CCanAccess.h
+		CanInterface/src/CanMessage.cpp
+)
+
+if (CANMODULE_BUILD_SYSTEC STREQUAL "ON" AND UNIX)
+	list(APPEND SRCS
 		CanInterfaceImplementations/sockcan/SockCanScan.cpp
 		CanInterfaceImplementations/sockcan/UdevAnalyserForPeak.cpp
-		CanInterface/src/CanMessage.cpp
-		# ${CAN_LIBRARY_GETTIMEOFDAY}
-		# ${CAN_LIBRARY_GETTIMEOFDAY_HEADER}		
-)
+	)
+endif()
 
 include_directories( include )
 include_directories( CanLibLoader/include )
 include_directories( CanInterface/include )
 include_directories( Diagnostic/include )
 
-# switch the CanModuleLibLoader library name, and we want to produce two different CanModule 
-# libs: one which loads ancan-static.so, sockcan-static.so ("as static as possible") etc 
-# and one which loads ancan.so, sochcan.so as before, fully dynamic. The code itself is identic,
-# just the names of the libs are hardcoded and I don't want to introduce some dynamical switching
-# in the user API for that. Have to set env var for that: it is read by the lib loader.
-IF ( $ENV{CANMODULE_AS_STATIC_AS_POSSIBLE} )
-	SET ( CANMODULE_LIB_NAME CanModule-static )
+SET ( CANMODULE_LIB_NAME CanModule )
+IF ( DEFINED CANMODULE_AS_STATIC_AS_POSSIBLE )
   	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: building static CanModule lib: ${CANMODULE_LIB_NAME}" )
 ELSE()
-	SET ( CANMODULE_LIB_NAME CanModule )
   	message(STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}]: building shared CanModule lib: ${CANMODULE_LIB_NAME}" )
 ENDIF()
 

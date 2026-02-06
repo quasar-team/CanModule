@@ -56,19 +56,23 @@ link_directories( ${SYSTEC_LIB_PATH} )
 
 set(STCAN_SOURCES
 	STCanScan.cpp
-	STCanScan.cpp
+	STCanScan.h
 	../../CanInterface/src/CanStatistics.cpp
 	../../CanInterface/include/CanStatistics.h	
 	../../CanInterface/src/CanModuleUtils.cpp
-	../../CanInterface/include/CanModuleUtils.h	
+	../../CanInterface/include/CanModuleUtils.h
+	../../CanInterface/src/CCanAccess.cpp
+	../../CanInterface/include/CCanAccess.h
 )
 
-#if("${LOGIT_BUILD_OPTION}" STREQUAL "LOGIT_AS_INT_SRC")
-	add_library( stcan SHARED ${STCAN_SOURCES} $<TARGET_OBJECTS:LogIt>)
-#else()
-#	add_library( stcan SHARED ${STCAN_SOURCES} )
-#	target_link_libraries( stcan ${LOGIT_LIB} )
-#endif()
+# you can either build the fully dynamic libs or the as-static-as-possible,
+# but not both in one go
+SET ( STCAN_LIB_NAME "stcan" )
+IF ( DEFINED CANMODULE_AS_STATIC_AS_POSSIBLE )
+	add_library( ${STCAN_LIB_NAME} ${CANMODULE_LINKAGE} ${STCAN_SOURCES} $<TARGET_OBJECTS:LogIt>)
+ELSE()
+	add_library( ${STCAN_LIB_NAME} SHARED ${STCAN_SOURCES} $<TARGET_OBJECTS:LogIt>)
+ENDIF()
 
 message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] systec [BOOST_PATH_LIBS:${BOOST_PATH_LIBS}]" )
 message( STATUS "[${CMAKE_CURRENT_LIST_FILE}:${CMAKE_CURRENT_LIST_LINE}] systec [BOOST_HEADERS:${BOOST_HEADERS}]" )
