@@ -26,6 +26,25 @@ Compile on Linux:
       - build/
     when: always
 
+Compile on Linux (local ANAGATE archive):
+  stage: unstagged
+  image: $ALMA_LATEST_IMAGE
+  script:
+    - 'curl --fail --location --header "PRIVATE-TOKEN: ${ICS_REPO_DEPS_TOKEN}" -o /tmp/anagate.zip "https://ics-deps-repo.web.cern.ch/canmodule/anagate/20241023/AnaGateAPI-CAN-2.5-BETA-3.zip"'
+    - cmake -B build-anagate-local -DANAGATE_LIBRARY=/tmp/anagate.zip
+    - cmake --build build-anagate-local --config Release
+
+Compile on Windows (local ANAGATE archive):
+  stage: unstagged
+  image: $WINDOWS_LATEST_IMAGE
+  tags:
+    - win2025-container
+  script:
+    - $anagateZip = Join-Path $env:TEMP 'anagate.zip'
+    - Invoke-WebRequest -Headers @{ 'PRIVATE-TOKEN' = $env:ICS_REPO_DEPS_TOKEN } -OutFile $anagateZip -Uri 'https://ics-deps-repo.web.cern.ch/canmodule/anagate/20241023/AnaGateAPI-CAN-2.5-BETA-3.zip'
+    - cmake -B build-anagate-local "-DANAGATE_LIBRARY=$anagateZip"
+    - cmake --build build-anagate-local --config Release
+
 Google Tests on Windows:
   stage: unstagged
   image: $WINDOWS_LATEST_IMAGE
