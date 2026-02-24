@@ -121,7 +121,6 @@ DWORD WINAPI CanScanControlThread(LPVOID pCanVendorSystec)
 	BYTE status;
 	tCanMsgStruct readCanMessage;
 	CanVendorSystec *vendorPointer = reinterpret_cast<CanVendorSystec*>(pCanVendorSystec);
-  // TODO was previously vendorPointer, can this thread see CanLogIt::h()? idk
 	LOG(Log::DBG, CanLogIt::h()) << "CanScanControlThread Started. m_CanScanThreadShutdownFlag = [" << vendorPointer->m_CanScanThreadShutdownFlag <<"]";
 	while (vendorPointer->m_CanScanThreadShutdownFlag) {
 		status = UcanReadCanMsgEx(vendorPointer->m_UcanHandle, (BYTE *)&vendorPointer->m_channelNumber, &readCanMessage, NULL);
@@ -152,7 +151,8 @@ DWORD WINAPI CanScanControlThread(LPVOID pCanVendorSystec)
         // Sleep(100); // ms
         break;
         default: // errors
-        // USBCAN_ERR_MAXINSTANCES, USBCAN_ERR_ILLHANDLE,  USBCAN_ERR_CANNOTINIT, USBCAN_ERR_ILLPARAM, USBCAN_ERR_ILLHW, USBCAN_ERR_ILLCHANNEL
+        // USBCAN_ERR_MAXINSTANCES, USBCAN_ERR_ILLHANDLE, USBCAN_ERR_CANNOTINIT,
+        // USBCAN_ERR_ILLPARAM, USBCAN_ERR_ILLHW, USBCAN_ERR_ILLCHANNEL
         // TODO should we raise some error state here?
         LOG(Log::ERR, CanLogIt::h()) << STcanGetErrorText(status);
         break;
@@ -174,7 +174,7 @@ CanReturnCode CanVendorSystec::vendor_open() noexcept {
 	m_hReceiveThread = CreateThread(NULL, 0, CanScanControlThread, this, 0, &m_idReceiveThread);
 
 	if (NULL == m_hReceiveThread) {
-    LOG(Log::ERR, CanLogIt::h()) << "Error creating the canScanControl thread.";
+	  LOG(Log::ERR, CanLogIt::h()) << "Error creating the canScanControl thread.";
 		return CanReturnCode::unknown_open_error;
 	}
 
@@ -251,35 +251,25 @@ CanDiagnostics CanVendorSystec::vendor_diagnostics() noexcept {
   WORD can_status = status.m_wCanStatus;
   switch (can_status) {
     case USBCAN_CANERR_OK:
-      diagnostics.state = "USBCAN_CANERR_OK";
-      break;
+      diagnostics.state = "USBCAN_CANERR_OK"; break;
     case USBCAN_CANERR_XMTFULL:
-      diagnostics.state = "USBCAN_CANERR_XMTFULL";
-      break;
+      diagnostics.state = "USBCAN_CANERR_XMTFULL"; break;
     case USBCAN_CANERR_OVERRUN:
-      diagnostics.state = "USBCAN_CANERR_OVERRUN";
-      break;
+      diagnostics.state = "USBCAN_CANERR_OVERRUN"; break;
     case USBCAN_CANERR_BUSLIGHT:
-      diagnostics.state = "USBCAN_CANERR_BUSLIGHT";
-      break;
+      diagnostics.state = "USBCAN_CANERR_BUSLIGHT"; break;
     case USBCAN_CANERR_BUSHEAVY:
-      diagnostics.state = "USBCAN_CANERR_BUSHEAVY";
-      break;
+      diagnostics.state = "USBCAN_CANERR_BUSHEAVY"; break;
     case USBCAN_CANERR_BUSOFF:
-      diagnostics.state = "USBCAN_CANERR_BUSOFF";
-      break;
+      diagnostics.state = "USBCAN_CANERR_BUSOFF"; break;
     case USBCAN_CANERR_QOVERRUN:
-      diagnostics.state = "USBCAN_CANERR_QOVERRUN";
-      break;
+      diagnostics.state = "USBCAN_CANERR_QOVERRUN"; break;
     case USBCAN_CANERR_QXMTFULL:
-      diagnostics.state = "USBCAN_CANERR_QXMTFULL";
-      break;
+      diagnostics.state = "USBCAN_CANERR_QXMTFULL"; break;
     case USBCAN_CANERR_REGTEST:
-      diagnostics.state = "USBCAN_CANERR_REGTEST";
-      break;
+      diagnostics.state = "USBCAN_CANERR_REGTEST"; break;
     case USBCAN_CANERR_TXMSGLOST:
-      diagnostics.state = "USBCAN_CANERR_TXMSGLOST";
-      break;
+      diagnostics.state = "USBCAN_CANERR_TXMSGLOST"; break;
   }
 
   tUcanMsgCountInfo msg_count_info;
@@ -297,14 +287,11 @@ CanDiagnostics CanVendorSystec::vendor_diagnostics() noexcept {
     diagnostics.mode = "OFFLINE";
   else switch (hw_info.m_bMode) {
     case kUcanModeNormal:
-      diagnostics.mode = "NORMAL";
-      break;
+      diagnostics.mode = "NORMAL"; break;
     case kUcanModeListenOnly:
-      diagnostics.mode = "LISTEN_ONLY";
-      break;
+      diagnostics.mode = "LISTEN_ONLY"; break;
     case kUcanModeTxEcho:
-      diagnostics.mode = "LOOPBACK";
-      break;
+      diagnostics.mode = "LOOPBACK"; break;
   }
 
   // DWORD module_time;
