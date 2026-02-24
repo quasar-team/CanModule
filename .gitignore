@@ -1,6 +1,7 @@
-build/
+build*/
 __pycache__/
 .env
 /public
 *.cpython*
 .github/*.md
+.gitlab-ci-local
