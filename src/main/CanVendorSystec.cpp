@@ -43,7 +43,6 @@ CanVendorSystec::CanVendorSystec(const CanDeviceArguments& args)
   m_channelNumber = handleNumber % 2;
 }
 
-
 /**
  * We create and fill initializationParameters, to pass it to openCanPort
  */
@@ -108,61 +107,6 @@ CanReturnCode CanVendorSystec::init_can_port() {
   return CanReturnCode::success;
 }
 
-
-
-// forward declaration: TODO delete me
-std::string STcanGetErrorText( long errCode );
-
-/**
- * thread to supervise port activity
- */
-DWORD WINAPI CanScanControlThread(LPVOID pCanVendorSystec)
-{
-	BYTE status;
-	tCanMsgStruct readCanMessage;
-	CanVendorSystec *vendorPointer = reinterpret_cast<CanVendorSystec*>(pCanVendorSystec);
-	LOG(Log::DBG, CanLogIt::h()) << "CanScanControlThread Started. m_CanScanThreadShutdownFlag = [" << vendorPointer->m_CanScanThreadShutdownFlag <<"]";
-	while (vendorPointer->m_CanScanThreadShutdownFlag) {
-		status = UcanReadCanMsgEx(vendorPointer->m_UcanHandle, (BYTE *)&vendorPointer->m_channelNumber, &readCanMessage, NULL);
-    switch (status) {
-      case USBCAN_WARN_SYS_RXOVERRUN: // fallthrough intended for warnings
-      case USBCAN_WARN_DLL_RXOVERRUN:
-      case USBCAN_WARN_FW_RXOVERRUN:
-        LOG(Log::WRN, CanLogIt::h()) << STcanGetErrorText(status);
-      case USBCAN_SUCCESSFUL: {
-        if (readCanMessage.m_bFF & USBCAN_MSG_FF_RTR) break;
-        // canMsgCopy.c_time = convertTimepointToTimeval(currentTimeTimeval());
-        std::vector<char> data(8);
-        std::copy(readCanMessage.m_bData, readCanMessage.m_bData + 8, data.begin());
-        // id, data, flags
-        CanFrame canMsgCopy(readCanMessage.m_dwID, data, readCanMessage.m_bFF);
-      // TODO the readCanMessage contains a DWORD m_dwTime "receipt time in ms"
-        vendorPointer->received(canMsgCopy);
-        // vendorPointer->m_statistics.onReceive( readCanMessage.m_bDLC );
-        // vendorPointer->m_statistics.setTimeSinceReceived();
-
-        // we can reset the reconnectionTimeout here, since we have received a message
-        // vendorPointer->resetTimeoutOnReception();
-        break;
-      }
-      case USBCAN_WARN_NODATA:
-        LOG(Log::TRC, CanLogIt::h()) << STcanGetErrorText(status);
-        // TODO is it correct to sleep here?
-        // Sleep(100); // ms
-        break;
-        default: // errors
-        // USBCAN_ERR_MAXINSTANCES, USBCAN_ERR_ILLHANDLE, USBCAN_ERR_CANNOTINIT,
-        // USBCAN_ERR_ILLPARAM, USBCAN_ERR_ILLHW, USBCAN_ERR_ILLCHANNEL
-        // TODO should we raise some error state here?
-        LOG(Log::ERR, CanLogIt::h()) << STcanGetErrorText(status);
-        break;
-		}
-  }
-
-	ExitThread(0);
-	return 0;
-}
-
 CanReturnCode CanVendorSystec::vendor_open() noexcept {
 
   auto returnCode = init_can_port();
@@ -171,7 +115,7 @@ CanReturnCode CanVendorSystec::vendor_open() noexcept {
   // m_statistics.setTimeSinceOpened();
 
 	// After the canboard is configured and started, we start the scan control thread
-	m_hReceiveThread = CreateThread(NULL, 0, CanScanControlThread, this, 0, &m_idReceiveThread);
+	m_hReceiveThread = CreateThread(NULL, 0, SystecRxThread, this, 0, &m_idReceiveThread);
 
 	if (NULL == m_hReceiveThread) {
 	  LOG(Log::ERR, CanLogIt::h()) << "Error creating the canScanControl thread.";
@@ -241,6 +185,7 @@ CanReturnCode CanVendorSystec::vendor_send(const CanFrame& frame) noexcept {
 	}
 	// return sendErrorCode(Status);
 };
+
 CanDiagnostics CanVendorSystec::vendor_diagnostics() noexcept {
 
   // TODO we can read the operating mode, either kUcanModeNormal, ListenOnly or TxEcho
@@ -300,12 +245,64 @@ CanDiagnostics CanVendorSystec::vendor_diagnostics() noexcept {
   return diagnostics;
 };
 
+std::string UsbCanGetErrorText( long errCode ); // forward declaration
+
+/**
+ * thread to handle reception of Can messages from the systec device
+ */
+DWORD WINAPI CanVendorSystec::SystecRxThread(LPVOID pCanVendorSystec)
+{
+	BYTE status;
+	tCanMsgStruct readCanMessage;
+	CanVendorSystec *vendorPointer = reinterpret_cast<CanVendorSystec*>(pCanVendorSystec);
+	LOG(Log::DBG, CanLogIt::h()) << "SystecRxThread Started. m_CanScanThreadShutdownFlag = [" << vendorPointer->m_CanScanThreadShutdownFlag <<"]";
+	while (vendorPointer->m_CanScanThreadShutdownFlag) {
+		status = UcanReadCanMsgEx(vendorPointer->m_UcanHandle, (BYTE *)&vendorPointer->m_channelNumber, &readCanMessage, NULL);
+    switch (status) {
+      case USBCAN_WARN_SYS_RXOVERRUN: // fallthrough intended for warnings
+      case USBCAN_WARN_DLL_RXOVERRUN:
+      case USBCAN_WARN_FW_RXOVERRUN:
+        LOG(Log::WRN, CanLogIt::h()) << UsbCanGetErrorText(status);
+      case USBCAN_SUCCESSFUL: {
+        if (readCanMessage.m_bFF & USBCAN_MSG_FF_RTR) break;
+        // canMsgCopy.c_time = convertTimepointToTimeval(currentTimeTimeval());
+        std::vector<char> data(8);
+        std::copy(readCanMessage.m_bData, readCanMessage.m_bData + 8, data.begin());
+        // id, data, flags
+        CanFrame canMsgCopy(readCanMessage.m_dwID, data, readCanMessage.m_bFF);
+      // TODO the readCanMessage contains a DWORD m_dwTime "receipt time in ms"
+        vendorPointer->received(canMsgCopy);
+        // vendorPointer->m_statistics.onReceive( readCanMessage.m_bDLC );
+        // vendorPointer->m_statistics.setTimeSinceReceived();
+
+        // we can reset the reconnectionTimeout here, since we have received a message
+        // vendorPointer->resetTimeoutOnReception();
+        break;
+      }
+      case USBCAN_WARN_NODATA:
+        LOG(Log::TRC, CanLogIt::h()) << UsbCanGetErrorText(status);
+        // TODO is it correct to sleep here?
+        // Sleep(100); // ms
+        break;
+        default: // errors
+        // USBCAN_ERR_MAXINSTANCES, USBCAN_ERR_ILLHANDLE, USBCAN_ERR_CANNOTINIT,
+        // USBCAN_ERR_ILLPARAM, USBCAN_ERR_ILLHW, USBCAN_ERR_ILLCHANNEL
+        // TODO should we raise some error state here?
+        LOG(Log::ERR, CanLogIt::h()) << UsbCanGetErrorText(status);
+        break;
+		}
+  }
+
+	ExitThread(0);
+	return 0;
+}
+
 /**
  * error text specific to STcan according to table24
  * I am just copying the whole descriptions from the doc, verbatim, wtf.
  * you get some shakespeare from it.
  */
-std::string STcanGetErrorText( long errCode ){
+std::string UsbCanGetErrorText( long errCode ){
 	switch( errCode ){
 	case USBCAN_SUCCESSFUL: return("success");
 

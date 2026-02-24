@@ -29,8 +29,7 @@
 struct CanVendorSystec : CanDevice {
   explicit CanVendorSystec(const CanDeviceArguments& args);
   ~CanVendorSystec() { vendor_close(); }
-  // should it be a friend or static? STCanScan.h uses a static...
-  friend DWORD WINAPI CanScanControlThread(LPVOID pCanVendorSystec);
+  static DWORD WINAPI SystecRxThread(LPVOID pCanVendorSystec);
   
   private:
   bool m_CanScanThreadShutdownFlag = true;
@@ -45,13 +44,10 @@ struct CanVendorSystec : CanDevice {
   CanDiagnostics vendor_diagnostics() noexcept override;
  
   CanReturnCode init_can_port();
-  // CanReturnCode close_can_port();
  
   
   // TODO i don't like this too much
   inline static std::unordered_map<int, tUcanHandle> m_handleMap = {};
-
-  // std::unique_ptr<CanDevice> m_can_vendor_socketcan;
 };
 
 #endif  // SRC_INCLUDE_CANVENDORSYSTEC_H_
