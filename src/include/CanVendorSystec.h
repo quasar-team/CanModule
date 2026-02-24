@@ -1,5 +1,5 @@
-#ifndef SRC_INCLUDE_CANVENDORSOCKETCANSYSTEC_H_
-#define SRC_INCLUDE_CANVENDORSOCKETCANSYSTEC_H_
+#ifndef SRC_INCLUDE_CANVENDORSYSTEC_H_
+#define SRC_INCLUDE_CANVENDORSYSTEC_H_
 
 #include <memory>
 #include "tchar.h"
@@ -54,4 +54,4 @@ struct CanVendorSystec : CanDevice {
   // std::unique_ptr<CanDevice> m_can_vendor_socketcan;
 };
 
-#endif  // SRC_INCLUDE_CANVENDORSOCKETCANSYSTEC_H_
+#endif  // SRC_INCLUDE_CANVENDORSYSTEC_H_
