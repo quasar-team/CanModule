@@ -170,14 +170,7 @@ CanReturnCode CanVendorSystec::vendor_open() noexcept {
   // TODO set time since opened equivalent...
   // m_statistics.setTimeSinceOpened();
 
-  // TODO we need to start a thread which somehow makes sure received frames are passed to the receiver callback(s)...
-  // that thread needs to call received(CanFrame(...))
-  // see anagate_receive and see how it registered as a callback in the CAN api...
-  // basically, we should copy CanScanControlThread
-
 	// After the canboard is configured and started, we start the scan control thread
-
-  // TODO reenable thread...
 	m_hReceiveThread = CreateThread(NULL, 0, CanScanControlThread, this, 0, &m_idReceiveThread);
 
 	if (NULL == m_hReceiveThread) {
@@ -193,7 +186,7 @@ CanReturnCode CanVendorSystec::vendor_close() noexcept {
   m_CanScanThreadShutdownFlag = false;
 	DWORD result = WaitForSingleObject(m_hReceiveThread, INFINITE); 	//Shut down can scan thread
 	UcanDeinitCanEx (m_UcanHandle, (BYTE)m_channelNumber);
-	LOG(Log::DBG, CanLogIt::h()) << __FUNCTION__ <<" closed successfully";
+	LOG(Log::DBG, CanLogIt::h()) << __FUNCTION__ << " closed successfully";
   return CanReturnCode::success;
 };
 
@@ -233,56 +226,15 @@ CanReturnCode CanVendorSystec::vendor_send(const CanFrame& frame) noexcept {
 	memcpy(canMsgToBeSent.m_bData, message, messageLengthToBeProcessed);
 	//	MLOG(TRC,this) << "Channel Number: [" << m_channelNumber << "], cobID: [" << canMsgToBeSent.m_dwID << "], Message Length: [" << static_cast<int>(canMsgToBeSent.m_bDLC) << "]";
 	Status = UcanWriteCanMsgEx(m_UcanHandle, m_channelNumber, &canMsgToBeSent, NULL);
-	if ( Status != USBCAN_SUCCESSFUL ) {
+	if (Status != USBCAN_SUCCESSFUL) {
 		LOG(Log::ERR, CanLogIt::h()) << "There was a problem when sending a message.";
 
-		// switch( m_reconnectCondition ){
-		// case CanModule::ReconnectAutoCondition::sendFail: {
-		// 	LOG(Log::WRN, CanLogIt::h()) << " detected a sendFail, triggerCounter= " << m_triggerCounter
-		// 			<< " failedSendCounter= " << m_failedSendCounter;
-		// 	m_triggerCounter--;
-		// 	break;
-		// }
-		// case CanModule::ReconnectAutoCondition::never:
-		// default:{
-		// 	m_triggerCounter = m_failedSendCounter;
-		// 	break;
-		// }
-		// }
+    // for now, just always reconnect on a failed send.
+    vendor_close();
+    vendor_open();
 
-		// switch ( m_reconnectAction ){
-		// case CanModule::ReconnectAction::allBusesOnBridge: {
-		// 	if ( m_triggerCounter <= 0 ){
-		// 		LOG(Log::INF, CanLogIt::h()) << " reconnect condition " << (int) m_reconnectCondition
-		// 				<< reconnectConditionString(m_reconnectCondition)
-		// 				<< " triggered action " << (int) m_reconnectAction
-		// 				<< reconnectActionString(m_reconnectAction);
-
-		// 		CanVendorSystec::reconnectAllPorts( m_UcanHandle );
-		// 		m_triggerCounter = m_failedSendCounter;
-		// 	}
-		// 	break;
-		// }
-		// case CanModule::ReconnectAction::singleBus: {
-		// 	if ( m_triggerCounter <= 0 ){
-		// 		LOG(Log::INF, CanLogIt::h()) << " reconnect condition " << (int) m_reconnectCondition
-		// 				<< reconnectConditionString(m_reconnectCondition)
-		// 				<< " triggered action " << (int) m_reconnectAction
-		// 				<< reconnectActionString(m_reconnectAction);
-		// 		openCanPort( createInitializationParameters( m_baudRate ));
-		// 		LOG(Log::INF, CanLogIt::h())<< "reconnect one CAN port  m_UcanHandle= " << (int) m_UcanHandle;
-		// 		m_triggerCounter = m_failedSendCounter;
-		// 	}
-		// 	break;
-		// }
-		// default: {
-		// 	break;
-		// }
-		// }
     return CanReturnCode::unknown_send_error;
 	} else {
-    // why is it requesting so few sends... hmmm
-    LOG(Log::ERR, CanLogIt::h()) << "Sent message on systec successfully!!!";
 		// m_statistics.onTransmit( canMsgToBeSent.m_bDLC );
 		// m_statistics.setTimeSinceTransmitted();
     return CanReturnCode::success;
@@ -290,19 +242,48 @@ CanReturnCode CanVendorSystec::vendor_send(const CanFrame& frame) noexcept {
 	// return sendErrorCode(Status);
 };
 CanDiagnostics CanVendorSystec::vendor_diagnostics() noexcept {
-  // TODO, look at getPortStatus, use UcanGetStatus
+
+  // TODO we can read the operating mode, either kUcanModeNormal, ListenOnly or TxEcho
   CanDiagnostics diagnostics{};
   tStatusStruct status;
   // TODO check return code of these functions...
   UcanGetStatusEx(m_UcanHandle, m_channelNumber, &status);
   WORD can_status = status.m_wCanStatus;
-  diagnostics.state = (can_status == 0) ? "ERROR_ACTIVE" : "ERROR_TODO"; // TODO look at page 101 of the manual
-  // and use more useful states...
-  // the function has a return code separate from the status...
-  // or Ex version for specific channel?
+  switch (can_status) {
+    case USBCAN_CANERR_OK:
+      diagnostics.state = "USBCAN_CANERR_OK";
+      break;
+    case USBCAN_CANERR_XMTFULL:
+      diagnostics.state = "USBCAN_CANERR_XMTFULL";
+      break;
+    case USBCAN_CANERR_OVERRUN:
+      diagnostics.state = "USBCAN_CANERR_OVERRUN";
+      break;
+    case USBCAN_CANERR_BUSLIGHT:
+      diagnostics.state = "USBCAN_CANERR_BUSLIGHT";
+      break;
+    case USBCAN_CANERR_BUSHEAVY:
+      diagnostics.state = "USBCAN_CANERR_BUSHEAVY";
+      break;
+    case USBCAN_CANERR_BUSOFF:
+      diagnostics.state = "USBCAN_CANERR_BUSOFF";
+      break;
+    case USBCAN_CANERR_QOVERRUN:
+      diagnostics.state = "USBCAN_CANERR_QOVERRUN";
+      break;
+    case USBCAN_CANERR_QXMTFULL:
+      diagnostics.state = "USBCAN_CANERR_QXMTFULL";
+      break;
+    case USBCAN_CANERR_REGTEST:
+      diagnostics.state = "USBCAN_CANERR_REGTEST";
+      break;
+    case USBCAN_CANERR_TXMSGLOST:
+      diagnostics.state = "USBCAN_CANERR_TXMSGLOST";
+      break;
+  }
+
   tUcanMsgCountInfo msg_count_info;
   UcanGetMsgCountInfoEx(m_UcanHandle, m_channelNumber, &msg_count_info);
-
   diagnostics.tx = msg_count_info.m_wSentMsgCount;
   diagnostics.rx = msg_count_info.m_wRecvdMsgCount;
 
@@ -310,6 +291,21 @@ CanDiagnostics CanVendorSystec::vendor_diagnostics() noexcept {
   UcanGetCanErrorCounter(m_UcanHandle, m_channelNumber, &tx_error, &rx_error);
   diagnostics.tx_error = tx_error;
   diagnostics.rx_error = rx_error;
+
+  tUcanHardwareInfo hw_info;
+  if (UcanGetHardwareInfo(m_UcanHandle, &hw_info) != USBCAN_SUCCESSFUL)
+    diagnostics.mode = "OFFLINE";
+  else switch (hw_info.m_bMode) {
+    case kUcanModeNormal:
+      diagnostics.mode = "NORMAL";
+      break;
+    case kUcanModeListenOnly:
+      diagnostics.mode = "LISTEN_ONLY";
+      break;
+    case kUcanModeTxEcho:
+      diagnostics.mode = "LOOPBACK";
+      break;
+  }
 
   // DWORD module_time;
   // UcanGetModuleTime(m_UcanHandle, &module_time);
