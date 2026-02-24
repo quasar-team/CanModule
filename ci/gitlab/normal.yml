@@ -42,7 +42,8 @@ Compile on Windows (local ANAGATE archive):
   script:
     - $anagateZip = Join-Path $env:TEMP 'anagate.zip'
     - Invoke-WebRequest -Headers @{ 'PRIVATE-TOKEN' = $env:ICS_REPO_DEPS_TOKEN } -OutFile $anagateZip -Uri 'https://ics-deps-repo.web.cern.ch/canmodule/anagate/20241023/AnaGateAPI-CAN-2.5-BETA-3.zip'
-    - cmake -B build-anagate-local "-DANAGATE_LIBRARY=$anagateZip"
+    - $anagateZipCMake = $anagateZip -replace '\\', '/'
+    - cmake -B build-anagate-local "-DANAGATE_LIBRARY=$anagateZipCMake"
     - cmake --build build-anagate-local --config Release
 
 Google Tests on Windows:
