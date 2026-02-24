@@ -123,55 +123,42 @@ DWORD WINAPI CanScanControlThread(LPVOID pCanVendorSystec)
   // TODO was previously vendorPointer, can this thread see CanLogIt::h()? idk
 	LOG(Log::DBG, CanLogIt::h()) << "CanScanControlThread Started. m_CanScanThreadShutdownFlag = [" << vendorPointer->m_CanScanThreadShutdownFlag <<"]";
 	while (vendorPointer->m_CanScanThreadShutdownFlag) {
-		status = UcanReadCanMsgEx(vendorPointer->m_UcanHandle, (BYTE *)&vendorPointer->m_channelNumber, &readCanMessage, 0);
-		// seems to always be USBCAN_WARN_NODATA...
-		if (status != USBCAN_WARN_NODATA) LOG(Log::DBG, CanLogIt::h()) << STcanGetErrorText(status);
-		LOG(Log::TRC, CanLogIt::h()) << STcanGetErrorText(status);
-		if (status == USBCAN_SUCCESSFUL) {
-	      LOG(Log::ERR, CanLogIt::h()) << "Got flags" << std::hex << (long) readCanMessage.m_bFF;
-			if (readCanMessage.m_bFF & USBCAN_MSG_FF_RTR) {
-	      LOG(Log::ERR, CanLogIt::h()) << "TODO REMOVE ME USBCA_MSG_FF_RTR";
-				continue;
+		status = UcanReadCanMsgEx(vendorPointer->m_UcanHandle, (BYTE *)&vendorPointer->m_channelNumber, &readCanMessage, NULL);
+    switch (status) {
+      case USBCAN_WARN_SYS_RXOVERRUN: // fallthrough intended for warnings
+      case USBCAN_WARN_DLL_RXOVERRUN:
+      case USBCAN_WARN_FW_RXOVERRUN:
+        LOG(Log::WRN, CanLogIt::h()) << STcanGetErrorText(status);
+      case USBCAN_SUCCESSFUL: {
+        if (readCanMessage.m_bFF & USBCAN_MSG_FF_RTR) break;
+        // canMsgCopy.c_time = convertTimepointToTimeval(currentTimeTimeval());
+        std::vector<char> data(8);
+        for (int i = 0; i < 8; i++)
+          data[i] = readCanMessage.m_bData[i];
+        // id, data, flags
+        CanFrame canMsgCopy(readCanMessage.m_dwID, data, readCanMessage.m_bFF);
+      // TODO the readCanMessage contains a DWORD m_dwTime "receipt time in ms"
+        vendorPointer->received(canMsgCopy);
+        // vendorPointer->m_statistics.onReceive( readCanMessage.m_bDLC );
+        // vendorPointer->m_statistics.setTimeSinceReceived();
+
+        // we can reset the reconnectionTimeout here, since we have received a message
+        // vendorPointer->resetTimeoutOnReception();
+        break;
       }
-
-			// canMsgCopy.c_time = convertTimepointToTimeval(currentTimeTimeval());
-
-      std::vector<char> data(8);
-      for (int i = 0; i < 8; i++)
-        data[i] = readCanMessage.m_bData[i];
-      // id, data, flags
-      CanFrame canMsgCopy(readCanMessage.m_dwID, data, readCanMessage.m_bFF);
-	  // TODO the readCanMessage contains a DWORD m_dwTime "receipt time in ms"
-
-      LOG(Log::ERR, CanLogIt::h()) << "Received response yay with message " << std::string(canMsgCopy.message().data());
-      vendorPointer->received(canMsgCopy);
-			// vendorPointer->m_statistics.onReceive( readCanMessage.m_bDLC );
-			// vendorPointer->m_statistics.setTimeSinceReceived();
-
-			// we can reset the reconnectionTimeout here, since we have received a message
-			// vendorPointer->resetTimeoutOnReception();
+      case USBCAN_WARN_NODATA:
+        LOG(Log::TRC, CanLogIt::h()) << STcanGetErrorText(status);
+        // TODO is it correct to sleep here?
+        // Sleep(100); // ms
+        break;
+        default: // errors
+        // USBCAN_ERR_MAXINSTANCES, USBCAN_ERR_ILLHANDLE,  USBCAN_ERR_CANNOTINIT, USBCAN_ERR_ILLPARAM, USBCAN_ERR_ILLHW, USBCAN_ERR_ILLCHANNEL
+        // TODO should we raise some error state here?
+        LOG(Log::ERR, CanLogIt::h()) << STcanGetErrorText(status);
+        break;
 		}
-    else if (status == USBCAN_WARN_NODATA) {
-		// pass for now
-    //     // TODO for now, we always connect, TODO reimplement the full logic. yucky...
-    //         LOG(Log::INF, CanLogIt::h()) << "Reconnecting the handle and channel etc";
+  }
 
-		// 				// deinit single bus and reopen
-		// 				UcanDeinitCanEx ( vendorPointer->m_UcanHandle, (BYTE )vendorPointer->m_channelNumber );
-		// 				// setCanHandleInUse( vendorPointer->m_moduleNumber, false);
-    //         // TODO is it right to comment the line below? it's not exactly the same as "port is in use"
-    //         // vendorPointer->m_handleMap.erase(vendorPointer->m_moduleNumber);
-    //         // TODO the UcanDeinitCanEx should be encapulsated in init_can_port, not here.
-    //         auto returnCode = vendorPointer->init_can_port(); // TODO snake_case...
-
-    //         LOG(Log::INF, CanLogIt::h()) << "reinit return code" << std::hex <<  long(returnCode);
-    //         Sleep( 100 ); // ms
-    }
-    else {
-      // TODO
-      // vendorPointer->sendErrorCode(status);
-    }
-	}
 	ExitThread(0);
 	return 0;
 }
