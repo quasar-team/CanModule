@@ -29,7 +29,6 @@
 #include <LogIt.h>
 #include <iomanip>
 #include <string>
-#include <algorithm>
 
 CanVendorSystec::CanVendorSystec(const CanDeviceArguments& args)
     : CanDevice("systec", args) {
@@ -266,8 +265,7 @@ DWORD WINAPI CanVendorSystec::SystecRxThread(LPVOID pCanVendorSystec)
       case USBCAN_SUCCESSFUL: {
         if (readCanMessage.m_bFF & USBCAN_MSG_FF_RTR) break;
         // canMsgCopy.c_time = convertTimepointToTimeval(currentTimeTimeval());
-        std::vector<char> data(8);
-        std::copy(readCanMessage.m_bData, readCanMessage.m_bData + 8, data.begin());
+        std::vector<char> data(readCanMessage.m_bData, readCanMessage.m_bData + 8);
         // id, data, flags
         CanFrame canMsgCopy(readCanMessage.m_dwID, data, readCanMessage.m_bFF);
       // TODO the readCanMessage contains a DWORD m_dwTime "receipt time in ms"
