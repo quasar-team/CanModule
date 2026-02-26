@@ -36,6 +36,12 @@ if (UNIX)
         src/main/CanVendorSocketCan.cpp
         src/main/CanVendorSocketCanSystec.cpp
     )
+else()
+    include(cmake/systec.cmake)
+    include_directories(${SYSTEC_PATH_HEADERS})
+    list(APPEND VENDOR_SOURCES
+        src/main/CanVendorSystec.cpp
+    )
 endif()
 
 if (NOT DEFINED CAN_MODULE_MAIN_ONLY)
