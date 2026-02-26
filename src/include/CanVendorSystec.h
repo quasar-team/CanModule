@@ -32,12 +32,12 @@ struct CanVendorSystec : CanDevice {
   static DWORD WINAPI SystecRxThread(LPVOID pCanVendorSystec);
   
   private:
-  bool m_CanScanThreadShutdownFlag = true;
+  bool m_receive_thread_flag = true;
   tUcanHandle m_UcanHandle;
-  int m_moduleNumber;
-  int m_channelNumber;
-  HANDLE m_hReceiveThread;
-  DWORD m_idReceiveThread;
+  int m_module_number;
+  int m_channel_number;
+  HANDLE m_receive_thread_handle;
+  DWORD m_receive_thread_id;
   CanReturnCode vendor_open() noexcept override;
   CanReturnCode vendor_close() noexcept override;
   CanReturnCode vendor_send(const CanFrame& frame) noexcept override;
@@ -46,11 +46,11 @@ struct CanVendorSystec : CanDevice {
   CanReturnCode init_can_port();
   static std::mutex m_handles_lock;
 
-  inline void map_module_to_handle(int module, tUcanHandle handle) { m_handleMap[module] = handle; }
-  inline int erase_module_handle(int module) { return m_handleMap.erase(module); }
+  inline void map_module_to_handle(int module, tUcanHandle handle) { m_handle_map[module] = handle; }
+  inline int erase_module_handle(int module) { return m_handle_map.erase(module); }
   
   // TODO i don't like this too much
-  inline static std::unordered_map<int, tUcanHandle> m_handleMap = {};
+  inline static std::unordered_map<int, tUcanHandle> m_handle_map = {};
 };
 
 #endif  // SRC_INCLUDE_CANVENDORSYSTEC_H_

@@ -39,65 +39,66 @@ CanVendorSystec::CanVendorSystec(const CanDeviceArguments& args)
   }
 
   // TODO trim possible can prefix use hardcoded value
-  int handleNumber = std::stoi(args.config.bus_name.value());
-  m_moduleNumber = handleNumber / 2;
-  m_channelNumber = handleNumber % 2;
+  int handle_number = std::stoi(args.config.bus_name.value());
+  m_module_number = handle_number / 2;
+  m_channel_number = handle_number % 2;
 }
 
 // TODO should we make this noexcept? how can we guarantee that?
 CanReturnCode CanVendorSystec::init_can_port() {
-	BYTE systecCallReturn = USBCAN_SUCCESSFUL;
-	tUcanHandle		canModuleHandle;
+	BYTE systec_call_return = USBCAN_SUCCESSFUL;
+	tUcanHandle		can_module_handle;
 
-  unsigned int baudRate = USBCAN_BAUD_125kBit;
+  unsigned int baud_rate = USBCAN_BAUD_125kBit;
   switch (args().config.bitrate.value_or(0)) {
-    case 50000: baudRate = USBCAN_BAUD_50kBit; break;
-    case 100000: baudRate = USBCAN_BAUD_100kBit; break;
-    case 125000: baudRate = USBCAN_BAUD_125kBit; break;
-    case 250000: baudRate = USBCAN_BAUD_250kBit; break;
-    case 500000: baudRate = USBCAN_BAUD_500kBit; break;
-    case 1000000: baudRate = USBCAN_BAUD_1MBit; break;
+    case 50000: baud_rate = USBCAN_BAUD_50kBit; break;
+    case 100000: baud_rate = USBCAN_BAUD_100kBit; break;
+    case 125000: baud_rate = USBCAN_BAUD_125kBit; break;
+    case 250000: baud_rate = USBCAN_BAUD_250kBit; break;
+    case 500000: baud_rate = USBCAN_BAUD_500kBit; break;
+    case 1000000: baud_rate = USBCAN_BAUD_1MBit; break;
     default: {
-      LOG(Log::WRN, CanLogIt::h()) << "baud rate illegal, taking default 125000 [" << baudRate << "]";
+      LOG(Log::WRN, CanLogIt::h()) << "baud rate illegal, taking default 125000 [" << baud_rate << "]";
     }
   }
+
+  tUcanInitCanParam initialization_parameters;
+  initialization_parameters.m_dwSize = sizeof(initialization_parameters); // size of this struct
+  initialization_parameters.m_bMode = kUcanModeNormal; // normal operation mode
+  initialization_parameters.m_bBTR0 = HIBYTE( baud_rate );  // baudrate
+  initialization_parameters.m_bBTR1 = LOBYTE( baud_rate );
+  initialization_parameters.m_bOCR = 0x1A; // standard output
+  initialization_parameters.m_dwAMR = USBCAN_AMR_ALL;  // receive all CAN messages
+  initialization_parameters.m_dwACR = USBCAN_ACR_ALL;
+  initialization_parameters.m_dwBaudrate = USBCAN_BAUDEX_USE_BTR01;
+  initialization_parameters.m_wNrOfRxBufferEntries = USBCAN_DEFAULT_BUFFER_ENTRIES;
+  initialization_parameters.m_wNrOfTxBufferEntries = USBCAN_DEFAULT_BUFFER_ENTRIES;
 
 	// check if USB-CANmodul already is initialized
   std::lock_guard<std::mutex> guard(CanVendorSystec::m_handles_lock);
-  auto pos = m_handleMap.find(m_moduleNumber);
-  if (pos == m_handleMap.end()) { // module not in use
-  	systecCallReturn = ::UcanInitHardwareEx(&canModuleHandle, m_moduleNumber, 0, 0);
-		if (systecCallReturn != USBCAN_SUCCESSFUL ) 	{
-			LOG(Log::ERR, CanLogIt::h()) << "UcanInitHardwareEx, return code = [ 0x" << std::hex << (int) systecCallReturn << std::dec << "]";
-			::UcanDeinitHardware(canModuleHandle);
+  auto pos = m_handle_map.find(m_module_number);
+  if (pos == m_handle_map.end()) { // module not in use
+	  systec_call_return = ::UcanInitHardwareEx(&can_module_handle, m_module_number, 0, 0);
+	  if (systec_call_return != USBCAN_SUCCESSFUL ) 	{
+			LOG(Log::ERR, CanLogIt::h()) << "UcanInitHardwareEx, return code = [ 0x" << std::hex << (int) systec_call_return << std::dec << "]";
+			::UcanDeinitHardware(can_module_handle);
 			return CanReturnCode::unknown_open_error;
     }
-    map_module_to_handle(m_moduleNumber, canModuleHandle);
+    map_module_to_handle(m_module_number, can_module_handle);
   } else { // find existing handle of module
-    canModuleHandle = pos->second;
+    can_module_handle = pos->second;
 	 	LOG(Log::WRN, CanLogIt::h()) << "trying to open a can port which is in use, reuse handle, skipping UCanDeinitHardware";
   }
-  tUcanInitCanParam initializationParameters;
-  initializationParameters.m_dwSize = sizeof(initializationParameters); // size of this struct
-  initializationParameters.m_bMode = kUcanModeNormal; // normal operation mode
-  initializationParameters.m_bBTR0 = HIBYTE( baudRate );  // baudrate
-  initializationParameters.m_bBTR1 = LOBYTE( baudRate );
-  initializationParameters.m_bOCR = 0x1A; // standard output
-  initializationParameters.m_dwAMR = USBCAN_AMR_ALL;  // receive all CAN messages
-  initializationParameters.m_dwACR = USBCAN_ACR_ALL;
-  initializationParameters.m_dwBaudrate = USBCAN_BAUDEX_USE_BTR01;
-  initializationParameters.m_wNrOfRxBufferEntries = USBCAN_DEFAULT_BUFFER_ENTRIES;
-  initializationParameters.m_wNrOfTxBufferEntries = USBCAN_DEFAULT_BUFFER_ENTRIES;
 
-  systecCallReturn = ::UcanInitCanEx2(canModuleHandle, m_channelNumber, &initializationParameters);
-  if ( systecCallReturn != USBCAN_SUCCESSFUL )	{
-    LOG(Log::ERR, CanLogIt::h()) << "UcanInitCanEx2, return code = [ 0x" << std::hex << (int) systecCallReturn << std::dec << "]";
-    ::UcanDeinitCanEx(canModuleHandle, m_channelNumber);
+  systec_call_return = ::UcanInitCanEx2(can_module_handle, m_channel_number, &initialization_parameters);
+  if ( systec_call_return != USBCAN_SUCCESSFUL )	{
+    LOG(Log::ERR, CanLogIt::h()) << "UcanInitCanEx2, return code = [ 0x" << std::hex << (int) systec_call_return << std::dec << "]";
+    ::UcanDeinitCanEx(can_module_handle, m_channel_number);
     return CanReturnCode::unknown_open_error;
   }
 
-  m_UcanHandle = canModuleHandle;
-  LOG(Log::INF, CanLogIt::h()) << "Successfully opened CAN port on module " << m_moduleNumber << ", channel " << m_channelNumber;
+  m_UcanHandle = can_module_handle;
+  LOG(Log::INF, CanLogIt::h()) << "Successfully opened CAN port on module " << m_module_number << ", channel " << m_channel_number;
   return CanReturnCode::success;
 }
 
@@ -110,9 +111,10 @@ CanReturnCode CanVendorSystec::vendor_open() noexcept {
   // m_statistics.setTimeSinceOpened();
 
 	// After the canboard is configured and started, we start the scan control thread
-	m_hReceiveThread = CreateThread(NULL, 0, SystecRxThread, this, 0, &m_idReceiveThread);
+  m_receive_thread_flag = true;
+	m_receive_thread_handle = CreateThread(NULL, 0, SystecRxThread, this, 0, &m_receive_thread_id);
 
-	if (NULL == m_hReceiveThread) {
+	if (NULL == m_receive_thread_handle) {
 	  LOG(Log::ERR, CanLogIt::h()) << "Error creating the canScanControl thread.";
 		return CanReturnCode::internal_api_error;
 	}
@@ -123,10 +125,10 @@ CanReturnCode CanVendorSystec::vendor_open() noexcept {
 CanReturnCode CanVendorSystec::vendor_close() noexcept {
   // TODO what if the return code is not success?
   std::lock_guard<std::mutex> guard(CanVendorSystec::m_handles_lock);
-  erase_module_handle(m_moduleNumber);
-  m_CanScanThreadShutdownFlag = false;
-	DWORD result = WaitForSingleObject(m_hReceiveThread, INFINITE); 	//Shut down can scan thread
-	UcanDeinitCanEx (m_UcanHandle, (BYTE)m_channelNumber);
+  erase_module_handle(m_module_number);
+  m_receive_thread_flag = false;
+	DWORD result = WaitForSingleObject(m_receive_thread_handle, INFINITE); 	//Shut down can scan thread
+	UcanDeinitCanEx (m_UcanHandle, (BYTE)m_channel_number);
 	LOG(Log::DBG, CanLogIt::h()) << __FUNCTION__ << " closed successfully";
   return CanReturnCode::success;
 };
@@ -140,31 +142,31 @@ CanReturnCode CanVendorSystec::vendor_send(const CanFrame& frame) noexcept {
   
   LOG(Log::DBG, CanLogIt::h()) << "Sending message: [" << ( message == 0  ? "" : (const char *) message) << "], cobID: [" << cobID << "], Message Length: [" << static_cast<int>(len) << "]";
 
-	tCanMsgStruct canMsgToBeSent;
+	tCanMsgStruct can_msg_to_send;
 	BYTE Status;
 
-	canMsgToBeSent.m_dwID = cobID;
-	canMsgToBeSent.m_bDLC = len;
-	canMsgToBeSent.m_bFF = 0;
+	can_msg_to_send.m_dwID = cobID;
+	can_msg_to_send.m_bDLC = len;
+	can_msg_to_send.m_bFF = 0;
 	if (rtr) {
-		canMsgToBeSent.m_bFF = USBCAN_MSG_FF_RTR;
+		can_msg_to_send.m_bFF = USBCAN_MSG_FF_RTR;
 	}
-	int  messageLengthToBeProcessed;
+	int message_length_to_process;
 	//If there is more than 8 characters to process, we process 8 of them in this iteration of the loop
 	if (len > 8) {
-		messageLengthToBeProcessed = 8;
+		message_length_to_process = 8;
 		LOG(Log::DBG, CanLogIt::h()) << "The length is more then 8 bytes, adjust to 8, ignore >8. len= " << len;
 	} else {
 		//Otherwise if there is less than 8 characters to process, we process all of them in this iteration of the loop
-		messageLengthToBeProcessed = len;
+		message_length_to_process = len;
 		if (len < 8) {
 			LOG(Log::DBG, CanLogIt::h())<< "The length is less then 8 bytes, process only. len= " << len;
 		}
 	}
-	canMsgToBeSent.m_bDLC = messageLengthToBeProcessed;
-	memcpy(canMsgToBeSent.m_bData, message, messageLengthToBeProcessed);
-	//	MLOG(TRC,this) << "Channel Number: [" << m_channelNumber << "], cobID: [" << canMsgToBeSent.m_dwID << "], Message Length: [" << static_cast<int>(canMsgToBeSent.m_bDLC) << "]";
-	Status = UcanWriteCanMsgEx(m_UcanHandle, m_channelNumber, &canMsgToBeSent, NULL);
+	can_msg_to_send.m_bDLC = message_length_to_process;
+	memcpy(can_msg_to_send.m_bData, message, message_length_to_process);
+	//	MLOG(TRC,this) << "Channel Number: [" << m_channel_number << "], cobID: [" << can_msg_to_send.m_dwID << "], Message Length: [" << static_cast<int>(can_msg_to_send.m_bDLC) << "]";
+	Status = UcanWriteCanMsgEx(m_UcanHandle, m_channel_number, &can_msg_to_send, NULL);
 	if (Status != USBCAN_SUCCESSFUL) {
 		LOG(Log::ERR, CanLogIt::h()) << "There was a problem when sending a message.";
 
@@ -185,7 +187,7 @@ CanReturnCode CanVendorSystec::vendor_send(const CanFrame& frame) noexcept {
 			case USBCAN_WARN_TXLIMIT:
 			default: return CanReturnCode::unknown_send_error;
 		}
-		// m_statistics.onTransmit( canMsgToBeSent.m_bDLC );
+		// m_statistics.onTransmit( can_msg_to_send.m_bDLC );
 		// m_statistics.setTimeSinceTransmitted();
 	}
   return CanReturnCode::success;
@@ -197,7 +199,7 @@ CanDiagnostics CanVendorSystec::vendor_diagnostics() noexcept {
   CanDiagnostics diagnostics{};
   tStatusStruct status;
   // TODO check return code of these functions...
-  UcanGetStatusEx(m_UcanHandle, m_channelNumber, &status);
+  UcanGetStatusEx(m_UcanHandle, m_channel_number, &status);
   WORD can_status = status.m_wCanStatus;
   switch (can_status) {
     case USBCAN_CANERR_OK:
@@ -223,12 +225,12 @@ CanDiagnostics CanVendorSystec::vendor_diagnostics() noexcept {
   }
 
   tUcanMsgCountInfo msg_count_info;
-  UcanGetMsgCountInfoEx(m_UcanHandle, m_channelNumber, &msg_count_info);
+  UcanGetMsgCountInfoEx(m_UcanHandle, m_channel_number, &msg_count_info);
   diagnostics.tx = msg_count_info.m_wSentMsgCount;
   diagnostics.rx = msg_count_info.m_wRecvdMsgCount;
 
   DWORD tx_error, rx_error;
-  UcanGetCanErrorCounter(m_UcanHandle, m_channelNumber, &tx_error, &rx_error);
+  UcanGetCanErrorCounter(m_UcanHandle, m_channel_number, &tx_error, &rx_error);
   diagnostics.tx_error = tx_error;
   diagnostics.rx_error = rx_error;
 
@@ -250,7 +252,7 @@ CanDiagnostics CanVendorSystec::vendor_diagnostics() noexcept {
   return diagnostics;
 };
 
-std::string UsbCanGetErrorText( long errCode ); // forward declaration
+std::string UsbCanGetErrorText( long err_code ); // forward declaration
 
 /**
  * thread to handle reception of Can messages from the systec device
@@ -258,29 +260,29 @@ std::string UsbCanGetErrorText( long errCode ); // forward declaration
 DWORD WINAPI CanVendorSystec::SystecRxThread(LPVOID pCanVendorSystec)
 {
 	BYTE status;
-	tCanMsgStruct readCanMessage;
-	CanVendorSystec *vendorPointer = reinterpret_cast<CanVendorSystec*>(pCanVendorSystec);
-	LOG(Log::DBG, CanLogIt::h()) << "SystecRxThread Started. m_CanScanThreadShutdownFlag = [" << vendorPointer->m_CanScanThreadShutdownFlag <<"]";
-	while (vendorPointer->m_CanScanThreadShutdownFlag) {
-		status = UcanReadCanMsgEx(vendorPointer->m_UcanHandle, (BYTE *)&vendorPointer->m_channelNumber, &readCanMessage, NULL);
+	tCanMsgStruct read_can_message;
+	CanVendorSystec *vendor_pointer = reinterpret_cast<CanVendorSystec*>(pCanVendorSystec);
+	LOG(Log::DBG, CanLogIt::h()) << "SystecRxThread Started. m_receive_thread_flag = [" << vendor_pointer->m_receive_thread_flag <<"]";
+	while (vendor_pointer->m_receive_thread_flag) {
+		status = UcanReadCanMsgEx(vendor_pointer->m_UcanHandle, (BYTE *)&vendor_pointer->m_channel_number, &read_can_message, NULL);
     switch (status) {
       case USBCAN_WARN_SYS_RXOVERRUN: // fallthrough intended for warnings
       case USBCAN_WARN_DLL_RXOVERRUN:
       case USBCAN_WARN_FW_RXOVERRUN:
         LOG(Log::WRN, CanLogIt::h()) << UsbCanGetErrorText(status);
       case USBCAN_SUCCESSFUL: {
-        if (readCanMessage.m_bFF & USBCAN_MSG_FF_RTR) break;
-        // canMsgCopy.c_time = convertTimepointToTimeval(currentTimeTimeval());
-        std::vector<char> data(readCanMessage.m_bData, readCanMessage.m_bData + 8);
+        if (read_can_message.m_bFF & USBCAN_MSG_FF_RTR) break;
+        // can_msg_copy.c_time = convertTimepointToTimeval(currentTimeTimeval());
+        std::vector<char> data(read_can_message.m_bData, read_can_message.m_bData + 8);
         // id, data, flags
-        CanFrame canMsgCopy(readCanMessage.m_dwID, data, readCanMessage.m_bFF);
-      // TODO the readCanMessage contains a DWORD m_dwTime "receipt time in ms"
-        vendorPointer->received(canMsgCopy);
-        // vendorPointer->m_statistics.onReceive( readCanMessage.m_bDLC );
-        // vendorPointer->m_statistics.setTimeSinceReceived();
+        CanFrame can_msg_copy(read_can_message.m_dwID, data, read_can_message.m_bFF);
+      // TODO the read_can_message contains a DWORD m_dwTime "receipt time in ms"
+        vendor_pointer->received(can_msg_copy);
+        // vendor_pointer->m_statistics.onReceive( read_can_message.m_bDLC );
+        // vendor_pointer->m_statistics.setTimeSinceReceived();
 
         // we can reset the reconnectionTimeout here, since we have received a message
-        // vendorPointer->resetTimeoutOnReception();
+        // vendor_pointer->resetTimeoutOnReception();
         break;
       }
       case USBCAN_WARN_NODATA:
@@ -306,8 +308,8 @@ DWORD WINAPI CanVendorSystec::SystecRxThread(LPVOID pCanVendorSystec)
  * I am just copying the whole descriptions from the doc, verbatim, wtf.
  * you get some shakespeare from it.
  */
-std::string UsbCanGetErrorText( long errCode ){
-	switch( errCode ){
+std::string UsbCanGetErrorText( long err_code ){
+	switch( err_code ){
 	case USBCAN_SUCCESSFUL: return("success");
 
 	case USBCAN_ERR_RESOURCE: return ("This error code returns if one resource could not be generated. In this "
