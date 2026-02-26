@@ -44,7 +44,10 @@ struct CanVendorSystec : CanDevice {
   CanDiagnostics vendor_diagnostics() noexcept override;
  
   CanReturnCode init_can_port();
- 
+  static std::mutex m_handles_lock;
+
+  inline void map_module_to_handle(int module, tUcanHandle handle) { m_handleMap[module] = handle; }
+  inline int erase_module_handle(int module) { return m_handleMap.erase(module); }
   
   // TODO i don't like this too much
   inline static std::unordered_map<int, tUcanHandle> m_handleMap = {};
