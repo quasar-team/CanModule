@@ -14,6 +14,7 @@
 #include "CanVendorLoopback.h"
 #include "CanDevice.h"
 #include <unordered_map>
+#include <thread>
 
 /**
  * @struct CanVendorSystec
@@ -29,15 +30,14 @@
 struct CanVendorSystec : CanDevice {
   explicit CanVendorSystec(const CanDeviceArguments& args);
   ~CanVendorSystec() { vendor_close(); }
-  static DWORD WINAPI SystecRxThread(LPVOID pCanVendorSystec);
+  int SystecRxThread();
   
   private:
   bool m_receive_thread_flag = true;
   tUcanHandle m_UcanHandle;
   int m_module_number;
   int m_channel_number;
-  HANDLE m_receive_thread_handle;
-  DWORD m_receive_thread_id;
+  std::thread m_SystecRxThread;
   CanReturnCode vendor_open() noexcept override;
   CanReturnCode vendor_close() noexcept override;
   CanReturnCode vendor_send(const CanFrame& frame) noexcept override;

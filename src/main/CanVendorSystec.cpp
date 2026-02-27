@@ -112,12 +112,13 @@ CanReturnCode CanVendorSystec::vendor_open() noexcept {
 
 	// After the canboard is configured and started, we start the scan control thread
   m_receive_thread_flag = true;
-	m_receive_thread_handle = CreateThread(NULL, 0, SystecRxThread, this, 0, &m_receive_thread_id);
+  m_SystecRxThread = std::thread(&CanVendorSystec::SystecRxThread, this);
 
-	if (NULL == m_receive_thread_handle) {
-	  LOG(Log::ERR, CanLogIt::h()) << "Error creating the canScanControl thread.";
-		return CanReturnCode::internal_api_error;
-	}
+	// todo reintroduce check here...
+	// if (NULL == m_receive_thread_handle) {
+	//   LOG(Log::ERR, CanLogIt::h()) << "Error creating the canScanControl thread.";
+	// 	return CanReturnCode::internal_api_error;
+	// }
 
   return returnCode;
 }
@@ -127,14 +128,13 @@ CanReturnCode CanVendorSystec::vendor_close() noexcept {
   std::lock_guard<std::mutex> guard(CanVendorSystec::m_handles_lock);
   erase_module_handle(m_module_number);
   m_receive_thread_flag = false;
-	DWORD result = WaitForSingleObject(m_receive_thread_handle, INFINITE); 	//Shut down can scan thread
-	UcanDeinitCanEx (m_UcanHandle, (BYTE)m_channel_number);
-	LOG(Log::DBG, CanLogIt::h()) << __FUNCTION__ << " closed successfully";
+  m_SystecRxThread.join();
+  UcanDeinitCanEx (m_UcanHandle, (BYTE)m_channel_number);
+  LOG(Log::DBG, CanLogIt::h()) << __FUNCTION__ << " closed successfully";
   return CanReturnCode::success;
 };
 
 CanReturnCode CanVendorSystec::vendor_send(const CanFrame& frame) noexcept {
-  // bool CanVendorSystec::sendMessage(short cobID, unsigned char len, unsigned char *message, bool rtr)
   bool rtr = frame.is_remote_request();
   uint32_t len = frame.length();
   char *message = frame.message().data();
@@ -257,14 +257,13 @@ std::string UsbCanGetErrorText( long err_code ); // forward declaration
 /**
  * thread to handle reception of Can messages from the systec device
  */
-DWORD WINAPI CanVendorSystec::SystecRxThread(LPVOID pCanVendorSystec)
+int CanVendorSystec::SystecRxThread()
 {
 	BYTE status;
 	tCanMsgStruct read_can_message;
-	CanVendorSystec *vendor_pointer = reinterpret_cast<CanVendorSystec*>(pCanVendorSystec);
-	LOG(Log::DBG, CanLogIt::h()) << "SystecRxThread Started. m_receive_thread_flag = [" << vendor_pointer->m_receive_thread_flag <<"]";
-	while (vendor_pointer->m_receive_thread_flag) {
-		status = UcanReadCanMsgEx(vendor_pointer->m_UcanHandle, (BYTE *)&vendor_pointer->m_channel_number, &read_can_message, NULL);
+	LOG(Log::DBG, CanLogIt::h()) << "SystecRxThread Started. m_receive_thread_flag = [" << this->m_receive_thread_flag <<"]";
+	while (this->m_receive_thread_flag) {
+		status = UcanReadCanMsgEx(this->m_UcanHandle, (BYTE *)&this->m_channel_number, &read_can_message, NULL);
     switch (status) {
       case USBCAN_WARN_SYS_RXOVERRUN: // fallthrough intended for warnings
       case USBCAN_WARN_DLL_RXOVERRUN:
@@ -277,12 +276,12 @@ DWORD WINAPI CanVendorSystec::SystecRxThread(LPVOID pCanVendorSystec)
         // id, data, flags
         CanFrame can_msg_copy(read_can_message.m_dwID, data, read_can_message.m_bFF);
       // TODO the read_can_message contains a DWORD m_dwTime "receipt time in ms"
-        vendor_pointer->received(can_msg_copy);
-        // vendor_pointer->m_statistics.onReceive( read_can_message.m_bDLC );
-        // vendor_pointer->m_statistics.setTimeSinceReceived();
+        this->received(can_msg_copy);
+        // this->m_statistics.onReceive( read_can_message.m_bDLC );
+        // this->m_statistics.setTimeSinceReceived();
 
         // we can reset the reconnectionTimeout here, since we have received a message
-        // vendor_pointer->resetTimeoutOnReception();
+        // this->resetTimeoutOnReception();
         break;
       }
       case USBCAN_WARN_NODATA:
@@ -299,7 +298,6 @@ DWORD WINAPI CanVendorSystec::SystecRxThread(LPVOID pCanVendorSystec)
 		}
   }
 
-	ExitThread(0);
 	return 0;
 }
 
