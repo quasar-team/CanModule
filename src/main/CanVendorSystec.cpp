@@ -1,27 +1,3 @@
-/** © Copyright CERN, 2015. All rights not expressly granted are reserved.
- *
- * STCanScap.cpp
- *
- *  Created on: Jul 21, 2011
- *  Based on work by vfilimon
- *  Rework and logging done by Piotr Nikiel <piotr@nikiel.info>
- *      mludwig at cern dot ch
- *
- *  This file is part of Quasar.
- *
- *  Quasar is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU Lesser General Public Licence as published by
- *  the Free Software Foundation, either version 3 of the Licence.
- *
- *  Quasar is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU Lesser General Public Licence for more details.
- *
- *  You should have received a copy of the GNU Lesser General Public License
- *  along with Quasar.  If not, see <http://www.gnu.org/licenses/>.
- */
-
 #include "CanVendorSystec.h"
 
 #include <time.h>
@@ -301,11 +277,6 @@ int CanVendorSystec::SystecRxThread()
 	return 0;
 }
 
-/**
- * error text specific to STcan according to table24
- * I am just copying the whole descriptions from the doc, verbatim, wtf.
- * you get some shakespeare from it.
- */
 std::string UsbCanGetErrorText( long err_code ){
 	switch( err_code ){
 	case USBCAN_SUCCESSFUL: return("success");
