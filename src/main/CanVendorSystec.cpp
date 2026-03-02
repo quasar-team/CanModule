@@ -7,6 +7,7 @@
 #include <string>
 
 std::mutex CanVendorSystec::m_handles_lock;
+std::string UsbCanGetErrorText( long err_code ); // forward declaration
 
 CanVendorSystec::CanVendorSystec(const CanDeviceArguments& args)
     : CanDevice("systec", args) {
@@ -144,7 +145,8 @@ CanReturnCode CanVendorSystec::vendor_send(const CanFrame& frame) noexcept {
 	//	MLOG(TRC,this) << "Channel Number: [" << m_channel_number << "], cobID: [" << can_msg_to_send.m_dwID << "], Message Length: [" << static_cast<int>(can_msg_to_send.m_bDLC) << "]";
 	Status = UcanWriteCanMsgEx(m_UcanHandle, m_channel_number, &can_msg_to_send, NULL);
 	if (Status != USBCAN_SUCCESSFUL) {
-		LOG(Log::ERR, CanLogIt::h()) << "There was a problem when sending a message.";
+		LOG(Log::ERR, CanLogIt::h()) << "There was a problem when sending a message: "
+      << UsbCanGetErrorText(Status);
 
 	  // for now, just always reconnect on a failed send.
     vendor_close(); // TODO maybe we just call close instead of vendor_close
@@ -153,14 +155,14 @@ CanReturnCode CanVendorSystec::vendor_send(const CanFrame& frame) noexcept {
 
 		switch (Status) {
 			case USBCAN_ERR_MAXINSTANCES: return CanReturnCode::too_many_connections;
+			case USBCAN_ERR_CANNOTINIT: [[ fallthrough ]];
 			case USBCAN_ERR_ILLHANDLE: return CanReturnCode::disconnected;
-			case USBCAN_ERR_CANNOTINIT: return CanReturnCode::unknown_open_error; // maybe disconnected would be better
 			case USBCAN_ERR_DLL_TXFULL: return CanReturnCode::tx_buffer_overflow;
-			case USBCAN_ERR_ILLPARAM: // fallthrough
-			case USBCAN_ERR_ILLHW:
-			case USBCAN_ERR_ILLCHANNEL:
-			case USBCAN_WARN_FW_TXOVERRUN: // TODO should warnings return an error?
-			case USBCAN_WARN_TXLIMIT:
+			case USBCAN_ERR_ILLPARAM:  [[ fallthrough ]];
+			case USBCAN_ERR_ILLHW:  [[ fallthrough ]];
+			case USBCAN_ERR_ILLCHANNEL:  [[ fallthrough ]];
+			case USBCAN_WARN_TXLIMIT:  [[ fallthrough ]];
+			case USBCAN_WARN_FW_TXOVERRUN:  [[ fallthrough ]];
 			default: return CanReturnCode::unknown_send_error;
 		}
 		// m_statistics.onTransmit( can_msg_to_send.m_bDLC );
@@ -228,7 +230,6 @@ CanDiagnostics CanVendorSystec::vendor_diagnostics() noexcept {
   return diagnostics;
 };
 
-std::string UsbCanGetErrorText( long err_code ); // forward declaration
 
 /**
  * thread to handle reception of Can messages from the systec device
