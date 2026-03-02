@@ -241,9 +241,9 @@ int CanVendorSystec::SystecRxThread()
 	while (this->m_receive_thread_flag) {
 		status = UcanReadCanMsgEx(this->m_UcanHandle, (BYTE *)&this->m_channel_number, &read_can_message, NULL);
     switch (status) {
-      case USBCAN_WARN_SYS_RXOVERRUN: // fallthrough intended for warnings
-      case USBCAN_WARN_DLL_RXOVERRUN:
-      case USBCAN_WARN_FW_RXOVERRUN:
+      case USBCAN_WARN_SYS_RXOVERRUN: [[ fallthrough ]];
+      case USBCAN_WARN_DLL_RXOVERRUN: [[ fallthrough ]];
+      case USBCAN_WARN_FW_RXOVERRUN: [[ fallthrough ]];
         LOG(Log::WRN, CanLogIt::h()) << UsbCanGetErrorText(status);
       case USBCAN_SUCCESSFUL: {
         if (read_can_message.m_bFF & USBCAN_MSG_FF_RTR) break;
