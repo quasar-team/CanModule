@@ -272,7 +272,7 @@ int CanVendorSystec::SystecRxThread()
       case USBCAN_SUCCESSFUL: {
         if (read_can_message.m_bFF & USBCAN_MSG_FF_RTR) break;
         // can_msg_copy.c_time = convertTimepointToTimeval(currentTimeTimeval());
-        std::vector<char> data(read_can_message.m_bData, read_can_message.m_bData + 8);
+        std::vector<char> data(read_can_message.m_bData, read_can_message.m_bData + read_can_message.m_bDLC);
         // id, data, flags
         CanFrame can_msg_copy(read_can_message.m_dwID, data, read_can_message.m_bFF);
       // TODO the read_can_message contains a DWORD m_dwTime "receipt time in ms"
