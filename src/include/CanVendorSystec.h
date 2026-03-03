@@ -45,12 +45,12 @@ struct CanVendorSystec : CanDevice {
  
   CanReturnCode init_can_port();
   static std::mutex m_handles_lock;
+  static std::unordered_map<int, tUcanHandle> m_handle_map;
 
   inline void map_module_to_handle(int module, tUcanHandle handle) { m_handle_map[module] = handle; }
   inline int erase_module_handle(int module) { return m_handle_map.erase(module); }
   
-  // TODO i don't like this too much
-  inline static std::unordered_map<int, tUcanHandle> m_handle_map = {};
+  std::string UsbCanGetErrorText( long err_code );
 };
 
 #endif  // SRC_INCLUDE_CANVENDORSYSTEC_H_

@@ -7,7 +7,7 @@
 #include <string>
 
 std::mutex CanVendorSystec::m_handles_lock;
-std::string UsbCanGetErrorText( long err_code ); // forward declaration
+std::unordered_map<int, tUcanHandle> CanVendorSystec::m_handle_map;
 
 CanVendorSystec::CanVendorSystec(const CanDeviceArguments& args)
     : CanDevice("systec", args) {
@@ -64,7 +64,7 @@ CanReturnCode CanVendorSystec::init_can_port() {
     map_module_to_handle(m_module_number, can_module_handle);
   } else { // find existing handle of module
     can_module_handle = pos->second;
-     LOG(Log::WRN, CanLogIt::h()) << "trying to open a can port which is in use, reuse handle, skipping UCanDeinitHardware";
+    LOG(Log::WRN, CanLogIt::h()) << "trying to open a can port which is in use, reuse handle, skipping UCanDeinitHardware";
   }
 
   systec_call_return = ::UcanInitCanEx2(can_module_handle, m_channel_number, &initialization_parameters);
@@ -224,9 +224,9 @@ int CanVendorSystec::SystecRxThread()
 {
   BYTE status;
   tCanMsgStruct read_can_message;
-  LOG(Log::DBG, CanLogIt::h()) << "SystecRxThread Started. m_receive_thread_flag = [" << this->m_receive_thread_flag <<"]";
-  while (this->m_receive_thread_flag) {
-    status = UcanReadCanMsgEx(this->m_UcanHandle, (BYTE *)&this->m_channel_number, &read_can_message, NULL);
+  LOG(Log::DBG, CanLogIt::h()) << "SystecRxThread Started. m_receive_thread_flag = [" << m_receive_thread_flag <<"]";
+  while (m_receive_thread_flag) {
+    status = UcanReadCanMsgEx(m_UcanHandle, (BYTE *)&m_channel_number, &read_can_message, NULL);
     switch (status) {
       case USBCAN_WARN_SYS_RXOVERRUN: [[ fallthrough ]];
       case USBCAN_WARN_DLL_RXOVERRUN: [[ fallthrough ]];
@@ -239,12 +239,12 @@ int CanVendorSystec::SystecRxThread()
         // id, data, flags
         CanFrame can_msg_copy(read_can_message.m_dwID, data, read_can_message.m_bFF);
       // TODO the read_can_message contains a DWORD m_dwTime "receipt time in ms"
-        this->received(can_msg_copy);
-        // this->m_statistics.onReceive( read_can_message.m_bDLC );
-        // this->m_statistics.setTimeSinceReceived();
+        received(can_msg_copy);
+        // m_statistics.onReceive( read_can_message.m_bDLC );
+        // m_statistics.setTimeSinceReceived();
 
         // we can reset the reconnectionTimeout here, since we have received a message
-        // this->resetTimeoutOnReception();
+        // resetTimeoutOnReception();
         break;
       }
       case USBCAN_WARN_NODATA:
@@ -264,7 +264,7 @@ int CanVendorSystec::SystecRxThread()
   return 0;
 }
 
-std::string UsbCanGetErrorText( long err_code ){
+std::string CanVendorSystec::UsbCanGetErrorText( long err_code ) {
   switch( err_code ){
   case USBCAN_SUCCESSFUL: return("success");
 
