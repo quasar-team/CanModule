@@ -21,19 +21,18 @@ CanVendorSystec::CanVendorSystec(const CanDeviceArguments& args)
   m_channel_number = handle_number % 2;
 }
 
-// TODO should we make this noexcept? how can we guarantee that?
 CanReturnCode CanVendorSystec::init_can_port() {
   BYTE systec_call_return = USBCAN_SUCCESSFUL;
   tUcanHandle		can_module_handle;
 
   unsigned int baud_rate = USBCAN_BAUD_125kBit;
   switch (args().config.bitrate.value_or(0)) {
-    case 50000: baud_rate = USBCAN_BAUD_50kBit; break;
-    case 100000: baud_rate = USBCAN_BAUD_100kBit; break;
-    case 125000: baud_rate = USBCAN_BAUD_125kBit; break;
-    case 250000: baud_rate = USBCAN_BAUD_250kBit; break;
-    case 500000: baud_rate = USBCAN_BAUD_500kBit; break;
-    case 1000000: baud_rate = USBCAN_BAUD_1MBit; break;
+    case 50000:   baud_rate = USBCAN_BAUD_50kBit;  break;
+    case 100000:  baud_rate = USBCAN_BAUD_100kBit; break;
+    case 125000:  baud_rate = USBCAN_BAUD_125kBit; break;
+    case 250000:  baud_rate = USBCAN_BAUD_250kBit; break;
+    case 500000:  baud_rate = USBCAN_BAUD_500kBit; break;
+    case 1000000: baud_rate = USBCAN_BAUD_1MBit;   break;
     default: {
       LOG(Log::WRN, CanLogIt::h()) << "baud rate illegal, taking default 125000 [" << baud_rate << "]";
     }
@@ -51,7 +50,7 @@ CanReturnCode CanVendorSystec::init_can_port() {
   initialization_parameters.m_wNrOfRxBufferEntries = USBCAN_DEFAULT_BUFFER_ENTRIES;
   initialization_parameters.m_wNrOfTxBufferEntries = USBCAN_DEFAULT_BUFFER_ENTRIES;
 
-  // check if USB-CANmodul already is initialized
+  // check if USB-CANmodul is already initialized
   std::lock_guard<std::mutex> guard(CanVendorSystec::m_handles_lock);
   auto pos = m_handle_map.find(m_module_number);
   if (pos == m_handle_map.end()) { // module not in use
@@ -80,34 +79,31 @@ CanReturnCode CanVendorSystec::init_can_port() {
 }
 
 CanReturnCode CanVendorSystec::vendor_open() noexcept {
+  CanReturnCode return_code = CanReturnCode::unknown_open_error;
 
-  auto returnCode = init_can_port();
-  if (returnCode != CanReturnCode::success) return returnCode;
+  try {
+    return_code = init_can_port();
+    if (return_code != CanReturnCode::success) return return_code;
+    m_receive_thread_flag = true;
+    m_SystecRxThread = std::thread(&CanVendorSystec::SystecRxThread, this);
+  } catch(...) {
+    return_code = CanReturnCode::internal_api_error;
+  }
 
-  // TODO set time since opened equivalent...
-  // m_statistics.setTimeSinceOpened();
-
-  // After the canboard is configured and started, we start the scan control thread
-  m_receive_thread_flag = true;
-  m_SystecRxThread = std::thread(&CanVendorSystec::SystecRxThread, this);
-
-  // todo reintroduce check here...
-  // if (NULL == m_receive_thread_handle) {
-  //   LOG(Log::ERR, CanLogIt::h()) << "Error creating the canScanControl thread.";
-  // 	return CanReturnCode::internal_api_error;
-  // }
-
-  return returnCode;
+  return return_code;
 }
 
 CanReturnCode CanVendorSystec::vendor_close() noexcept {
-  // TODO what if the return code is not success?
-  std::lock_guard<std::mutex> guard(CanVendorSystec::m_handles_lock);
-  erase_module_handle(m_module_number);
-  m_receive_thread_flag = false;
-  if (m_SystecRxThread.joinable()) m_SystecRxThread.join();
-  UcanDeinitCanEx (m_UcanHandle, (BYTE) m_channel_number);
-  LOG(Log::DBG, CanLogIt::h()) << __FUNCTION__ << " closed successfully";
+  try {
+    m_receive_thread_flag = false;
+    std::lock_guard<std::mutex> guard(CanVendorSystec::m_handles_lock);
+    erase_module_handle(m_module_number);
+    if (m_SystecRxThread.joinable()) m_SystecRxThread.join();
+    auto return_code = UcanDeinitCanEx (m_UcanHandle, (BYTE) m_channel_number);
+    if (return_code != USBCAN_SUCCESSFUL) return CanReturnCode::unknown_close_error;
+  } catch (...) {
+    return CanReturnCode::internal_api_error;
+  }
   return CanReturnCode::success;
 };
 
@@ -132,9 +128,11 @@ CanReturnCode CanVendorSystec::vendor_send(const CanFrame& frame) noexcept {
       << UsbCanGetErrorText(Status);
 
     // for now, just always reconnect on a failed send.
-    vendor_close(); // TODO maybe we just call close instead of vendor_close
-    // see how CanVendorSocketCanSystec does reconnects, it intercepts the receiver function and wraps it
-    vendor_open();
+    auto close_code = close();
+    if (close_code != CanReturnCode::success) return close_code;
+
+    auto open_code = open();
+    if (open_code != CanReturnCode::success) return open_code;
 
     switch (Status) {
       case USBCAN_ERR_CANNOTINIT:
@@ -148,15 +146,12 @@ CanReturnCode CanVendorSystec::vendor_send(const CanFrame& frame) noexcept {
       case USBCAN_WARN_FW_TXOVERRUN:
       default: return CanReturnCode::unknown_send_error;
     }
-    // m_statistics.onTransmit( can_msg_to_send.m_bDLC );
-    // m_statistics.setTimeSinceTransmitted();
   }
   return CanReturnCode::success;
 };
 
 CanDiagnostics CanVendorSystec::vendor_diagnostics() noexcept {
 
-  // TODO we can read the operating mode, either kUcanModeNormal, ListenOnly or TxEcho
   CanDiagnostics diagnostics{};
   tStatusStruct status;
   // TODO check return code of these functions...
