@@ -105,7 +105,7 @@ CanReturnCode CanVendorSystec::vendor_close() noexcept {
   std::lock_guard<std::mutex> guard(CanVendorSystec::m_handles_lock);
   erase_module_handle(m_module_number);
   m_receive_thread_flag = false;
-  m_SystecRxThread.join();
+  if (m_SystecRxThread.joinable()) m_SystecRxThread.join();
   UcanDeinitCanEx (m_UcanHandle, (BYTE)m_channel_number);
   LOG(Log::DBG, CanLogIt::h()) << __FUNCTION__ << " closed successfully";
   return CanReturnCode::success;
