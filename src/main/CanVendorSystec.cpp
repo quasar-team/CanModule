@@ -15,7 +15,7 @@ CanVendorSystec::CanVendorSystec(const CanDeviceArguments& args)
     throw std::invalid_argument("Missing required configuration parameters");
   }
 
-  // TODO trim possible can prefix use hardcoded value
+  // TODO trim possible can prefix
   int handle_number = std::stoi(args.config.bus_name.value());
   m_module_number = handle_number / 2;
   m_channel_number = handle_number % 2;
@@ -180,28 +180,17 @@ CanDiagnostics CanVendorSystec::vendor_diagnostics() noexcept {
   UcanGetStatusEx(m_UcanHandle, m_channel_number, &status);
   WORD can_status = status.m_wCanStatus;
   switch (can_status) {
-    case USBCAN_CANERR_OK:
-      diagnostics.state = "USBCAN_CANERR_OK"; break;
-    case USBCAN_CANERR_XMTFULL:
-      diagnostics.state = "USBCAN_CANERR_XMTFULL"; break;
-    case USBCAN_CANERR_OVERRUN:
-      diagnostics.state = "USBCAN_CANERR_OVERRUN"; break;
-    case USBCAN_CANERR_BUSLIGHT:
-      diagnostics.state = "USBCAN_CANERR_BUSLIGHT"; break;
-    case USBCAN_CANERR_BUSHEAVY:
-      diagnostics.state = "USBCAN_CANERR_BUSHEAVY"; break;
-    case USBCAN_CANERR_BUSOFF:
-      diagnostics.state = "USBCAN_CANERR_BUSOFF"; break;
-    case USBCAN_CANERR_QOVERRUN:
-      diagnostics.state = "USBCAN_CANERR_QOVERRUN"; break;
-    case USBCAN_CANERR_QXMTFULL:
-      diagnostics.state = "USBCAN_CANERR_QXMTFULL"; break;
-    case USBCAN_CANERR_REGTEST:
-      diagnostics.state = "USBCAN_CANERR_REGTEST"; break;
-    case USBCAN_CANERR_TXMSGLOST:
-      diagnostics.state = "USBCAN_CANERR_TXMSGLOST"; break;
+    case USBCAN_CANERR_OK:        diagnostics.state = "USBCAN_CANERR_OK";         break;
+    case USBCAN_CANERR_XMTFULL:   diagnostics.state = "USBCAN_CANERR_XMTFULL";    break;
+    case USBCAN_CANERR_OVERRUN:   diagnostics.state = "USBCAN_CANERR_OVERRUN";    break;
+    case USBCAN_CANERR_BUSLIGHT:  diagnostics.state = "USBCAN_CANERR_BUSLIGHT";   break;
+    case USBCAN_CANERR_BUSHEAVY:  diagnostics.state = "USBCAN_CANERR_BUSHEAVY";   break;
+    case USBCAN_CANERR_BUSOFF:    diagnostics.state = "USBCAN_CANERR_BUSOFF";     break;
+    case USBCAN_CANERR_QOVERRUN:  diagnostics.state = "USBCAN_CANERR_QOVERRUN";   break;
+    case USBCAN_CANERR_QXMTFULL:  diagnostics.state = "USBCAN_CANERR_QXMTFULL";   break;
+    case USBCAN_CANERR_REGTEST:   diagnostics.state = "USBCAN_CANERR_REGTEST";    break;
+    case USBCAN_CANERR_TXMSGLOST: diagnostics.state = "USBCAN_CANERR_TXMSGLOST";  break;
   }
-
   tUcanMsgCountInfo msg_count_info;
   UcanGetMsgCountInfoEx(m_UcanHandle, m_channel_number, &msg_count_info);
   diagnostics.tx = msg_count_info.m_wSentMsgCount;
@@ -216,12 +205,9 @@ CanDiagnostics CanVendorSystec::vendor_diagnostics() noexcept {
   if (UcanGetHardwareInfo(m_UcanHandle, &hw_info) != USBCAN_SUCCESSFUL)
     diagnostics.mode = "OFFLINE";
   else switch (hw_info.m_bMode) {
-    case kUcanModeNormal:
-      diagnostics.mode = "NORMAL"; break;
-    case kUcanModeListenOnly:
-      diagnostics.mode = "LISTEN_ONLY"; break;
-    case kUcanModeTxEcho:
-      diagnostics.mode = "LOOPBACK"; break;
+    case kUcanModeNormal:     diagnostics.mode = "NORMAL";      break;
+    case kUcanModeListenOnly: diagnostics.mode = "LISTEN_ONLY"; break;
+    case kUcanModeTxEcho:     diagnostics.mode = "LOOPBACK";    break;
   }
 
   // DWORD module_time;
