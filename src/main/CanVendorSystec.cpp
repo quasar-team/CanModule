@@ -1,8 +1,10 @@
 #include "CanVendorSystec.h"
 
+#include <algorithm>
 #include <time.h>
 #include <LogIt.h>
 #include <iomanip>
+#include <vector>
 
 std::mutex CanVendorSystec::m_handles_lock;
 std::unordered_map<int, tUcanHandle> CanVendorSystec::m_handle_map;
@@ -104,43 +106,40 @@ CanReturnCode CanVendorSystec::vendor_close() noexcept {
   erase_module_handle(m_module_number);
   m_receive_thread_flag = false;
   if (m_SystecRxThread.joinable()) m_SystecRxThread.join();
-  UcanDeinitCanEx (m_UcanHandle, (BYTE)m_channel_number);
+  UcanDeinitCanEx (m_UcanHandle, (BYTE) m_channel_number);
   LOG(Log::DBG, CanLogIt::h()) << __FUNCTION__ << " closed successfully";
   return CanReturnCode::success;
 };
 
 CanReturnCode CanVendorSystec::vendor_send(const CanFrame& frame) noexcept {
-  bool rtr = frame.is_remote_request();
   uint32_t len = frame.length();
-  char *message = frame.message().data();
-  short cobID = frame.id();
-  
-  LOG(Log::DBG, CanLogIt::h()) << "Sending message: [" << ( message == 0  ? "" : (const char *) message) << "], cobID: [" << cobID << "], Message Length: [" << static_cast<int>(len) << "]";
+  std::vector<char> message = frame.message();
 
   tCanMsgStruct can_msg_to_send;
   BYTE Status;
 
-  can_msg_to_send.m_dwID = cobID;
+  can_msg_to_send.m_dwID = frame.id();
   can_msg_to_send.m_bDLC = len;
   can_msg_to_send.m_bFF = 0;
-  if (rtr) {
-    can_msg_to_send.m_bFF = USBCAN_MSG_FF_RTR;
+  if (frame.is_remote_request()) {
+      can_msg_to_send.m_bFF = USBCAN_MSG_FF_RTR;
   }
   int message_length_to_process;
   //If there is more than 8 characters to process, we process 8 of them in this iteration of the loop
   if (len > 8) {
-    message_length_to_process = 8;
-    LOG(Log::DBG, CanLogIt::h()) << "The length is more then 8 bytes, adjust to 8, ignore >8. len= " << len;
+      message_length_to_process = 8;
+      LOG(Log::DBG, CanLogIt::h()) << "The length is more than 8 bytes, adjust to 8, ignore > 8. len = " << len;
   } else {
-    //Otherwise if there is less than 8 characters to process, we process all of them in this iteration of the loop
-    message_length_to_process = len;
-    if (len < 8) {
-      LOG(Log::DBG, CanLogIt::h())<< "The length is less then 8 bytes, process only. len= " << len;
-    }
+      //Otherwise if there is less than 8 characters to process, we process all of them in this iteration of the loop
+      message_length_to_process = len;
+      if (len < 8) {
+          LOG(Log::DBG, CanLogIt::h())<< "The length is less than 8 bytes, process only. len = " << len;
+      }
   }
   can_msg_to_send.m_bDLC = message_length_to_process;
-  memcpy(can_msg_to_send.m_bData, message, message_length_to_process);
-  //	MLOG(TRC,this) << "Channel Number: [" << m_channel_number << "], cobID: [" << can_msg_to_send.m_dwID << "], Message Length: [" << static_cast<int>(can_msg_to_send.m_bDLC) << "]";
+  if (message_length_to_process)
+    std::copy(message.begin(), message.begin() + message_length_to_process, can_msg_to_send.m_bData);
+
   Status = UcanWriteCanMsgEx(m_UcanHandle, m_channel_number, &can_msg_to_send, NULL);
   if (Status != USBCAN_SUCCESSFUL) {
     LOG(Log::ERR, CanLogIt::h()) << "There was a problem when sending a message: "
@@ -225,7 +224,7 @@ int CanVendorSystec::SystecRxThread()
   tCanMsgStruct read_can_message;
   LOG(Log::DBG, CanLogIt::h()) << "SystecRxThread Started. m_receive_thread_flag = [" << m_receive_thread_flag <<"]";
   while (m_receive_thread_flag) {
-    status = UcanReadCanMsgEx(m_UcanHandle, (BYTE *)&m_channel_number, &read_can_message, NULL);
+    status = UcanReadCanMsgEx(m_UcanHandle, (BYTE *) &m_channel_number, &read_can_message, NULL);
     switch (status) {
       case USBCAN_WARN_SYS_RXOVERRUN: [[ fallthrough ]];
       case USBCAN_WARN_DLL_RXOVERRUN: [[ fallthrough ]];
