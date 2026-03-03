@@ -1,10 +1,8 @@
 #include "CanVendorSystec.h"
 
 #include <time.h>
-#include <vector>
 #include <LogIt.h>
 #include <iomanip>
-#include <string>
 
 std::mutex CanVendorSystec::m_handles_lock;
 std::unordered_map<int, tUcanHandle> CanVendorSystec::m_handle_map;
@@ -210,8 +208,9 @@ CanDiagnostics CanVendorSystec::vendor_diagnostics() noexcept {
     case kUcanModeTxEcho:     diagnostics.mode = "LOOPBACK";    break;
   }
 
-  // DWORD module_time;
-  // UcanGetModuleTime(m_UcanHandle, &module_time);
+  DWORD module_time; // in ms
+  UcanGetModuleTime(m_UcanHandle, &module_time);
+  diagnostics.uptime = (uint32_t) module_time / 1000;
 
   return diagnostics;
 };
