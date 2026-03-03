@@ -18,14 +18,12 @@
 
 /**
  * @struct CanVendorSystec
- * @brief Represents a SocketCAN Systec specific implementation of a CanDevice.
+ * @brief Represents a specific implementation of a CanDevice for Systec devices
+ * on Windows utilising libraries from USB-CANmodul Utility Disk.
  *
- * This class provides the implementation for interacting with a SocketCAN
- * Systec device. It extends the CanVendorSocketCan class and overrides the
- * necessary methods to open, close, and send CAN frames using the SocketCAN
- * interface. It provides a custom mechanishm for handling BUS_OFF errors,
- * restarting the interface instead of using the built-in restart mechanism of
- * SocketCan due to a kernel-panic bug on Systec linux module.
+ * This struct provides methods for opening, closing, sending, and receiving CAN
+ * frames using the Systec CAN-over-USB interface. It also provides diagnostics
+ * information.
  */
 struct CanVendorSystec : CanDevice {
   explicit CanVendorSystec(const CanDeviceArguments& args);
