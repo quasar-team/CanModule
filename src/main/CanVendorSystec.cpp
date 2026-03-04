@@ -149,15 +149,15 @@ CanReturnCode CanVendorSystec::vendor_send(const CanFrame& frame) noexcept {
     if (open_code != CanReturnCode::success) return open_code;
 
     switch (Status) {
-      case USBCAN_ERR_MAXINSTANCES: return CanReturnCode::too_many_connections;
-      case USBCAN_ERR_CANNOTINIT: [[ fallthrough ]];
+      case USBCAN_ERR_CANNOTINIT:
       case USBCAN_ERR_ILLHANDLE: return CanReturnCode::disconnected;
       case USBCAN_ERR_DLL_TXFULL: return CanReturnCode::tx_buffer_overflow;
-      case USBCAN_ERR_ILLPARAM:  [[ fallthrough ]];
-      case USBCAN_ERR_ILLHW:  [[ fallthrough ]];
-      case USBCAN_ERR_ILLCHANNEL:  [[ fallthrough ]];
-      case USBCAN_WARN_TXLIMIT:  [[ fallthrough ]];
-      case USBCAN_WARN_FW_TXOVERRUN:  [[ fallthrough ]];
+      case USBCAN_ERR_MAXINSTANCES: return CanReturnCode::too_many_connections;
+      case USBCAN_ERR_ILLPARAM:
+      case USBCAN_ERR_ILLHW:
+      case USBCAN_ERR_ILLCHANNEL:
+      case USBCAN_WARN_TXLIMIT:
+      case USBCAN_WARN_FW_TXOVERRUN:
       default: return CanReturnCode::unknown_send_error;
     }
   }
@@ -221,10 +221,11 @@ int CanVendorSystec::SystecRxThread()
   while (m_receive_thread_flag) {
     status = UcanReadCanMsgEx(m_UcanHandle, (BYTE *) &m_channel_number, &read_can_message, NULL);
     switch (status) {
-      case USBCAN_WARN_SYS_RXOVERRUN: [[ fallthrough ]];
-      case USBCAN_WARN_DLL_RXOVERRUN: [[ fallthrough ]];
-      case USBCAN_WARN_FW_RXOVERRUN: [[ fallthrough ]];
+      case USBCAN_WARN_SYS_RXOVERRUN:
+      case USBCAN_WARN_DLL_RXOVERRUN:
+      case USBCAN_WARN_FW_RXOVERRUN:
         LOG(Log::WRN, CanLogIt::h()) << UsbCanGetErrorText(status);
+        [[ fallthrough ]];
       case USBCAN_SUCCESSFUL: {
         if (read_can_message.m_bFF & USBCAN_MSG_FF_RTR) break;
         // can_msg_copy.c_time = convertTimepointToTimeval(currentTimeTimeval());
