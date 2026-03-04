@@ -1,6 +1,7 @@
 #ifndef SRC_INCLUDE_CANVENDORSYSTEC_H_
 #define SRC_INCLUDE_CANVENDORSYSTEC_H_
 
+#include <atomic>
 #include <memory>
 #include "tchar.h"
 #include "Winsock2.h"
@@ -31,7 +32,7 @@ struct CanVendorSystec : CanDevice {
   int SystecRxThread();
   
   private:
-  bool m_receive_thread_flag = true;
+  std::atomic<bool> m_receive_thread_flag = true;
   tUcanHandle m_UcanHandle;
   int m_module_number;
   int m_channel_number;
