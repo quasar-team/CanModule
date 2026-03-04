@@ -37,11 +37,14 @@ struct CanVendorSystec : CanDevice {
   int m_module_number;
   int m_channel_number;
   std::thread m_SystecRxThread;
+
+  tUcanHandle get_module_handle() { return m_handle_map[m_module_number]; }
+
   CanReturnCode vendor_open() noexcept override;
   CanReturnCode vendor_close() noexcept override;
   CanReturnCode vendor_send(const CanFrame& frame) noexcept override;
   CanDiagnostics vendor_diagnostics() noexcept override;
- 
+
   CanReturnCode init_can_port();
   static std::mutex m_handles_lock;
   static std::unordered_map<int, tUcanHandle> m_handle_map;

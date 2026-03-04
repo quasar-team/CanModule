@@ -74,7 +74,6 @@ CanReturnCode CanVendorSystec::init_can_port() {
     return CanReturnCode::unknown_open_error;
   }
 
-  m_UcanHandle = can_module_handle;
   LOG(Log::INF, CanLogIt::h()) << "Successfully opened CAN port on module " << m_module_number << ", channel " << m_channel_number;
   return CanReturnCode::success;
 }
@@ -137,7 +136,7 @@ CanReturnCode CanVendorSystec::vendor_send(const CanFrame& frame) noexcept {
   if (message_length_to_process)
     std::copy(message.begin(), message.begin() + message_length_to_process, can_msg_to_send.m_bData);
 
-  Status = UcanWriteCanMsgEx(m_UcanHandle, m_channel_number, &can_msg_to_send, NULL);
+  Status = UcanWriteCanMsgEx(get_module_handle(), m_channel_number, &can_msg_to_send, NULL);
   if (Status != USBCAN_SUCCESSFUL) {
     LOG(Log::ERR, CanLogIt::h()) << "There was a problem when sending a message: "
       << UsbCanGetErrorText(Status);
@@ -170,7 +169,8 @@ CanDiagnostics CanVendorSystec::vendor_diagnostics() noexcept {
   CanDiagnostics diagnostics{};
   tStatusStruct status;
   // TODO check return code of these functions...
-  UcanGetStatusEx(m_UcanHandle, m_channel_number, &status);
+  auto handle = get_module_handle();
+  UcanGetStatusEx(handle, m_channel_number, &status);
   WORD can_status = status.m_wCanStatus;
   switch (can_status) {
     case USBCAN_CANERR_OK:        diagnostics.state = "USBCAN_CANERR_OK";         break;
@@ -185,17 +185,17 @@ CanDiagnostics CanVendorSystec::vendor_diagnostics() noexcept {
     case USBCAN_CANERR_TXMSGLOST: diagnostics.state = "USBCAN_CANERR_TXMSGLOST";  break;
   }
   tUcanMsgCountInfo msg_count_info;
-  UcanGetMsgCountInfoEx(m_UcanHandle, m_channel_number, &msg_count_info);
+  UcanGetMsgCountInfoEx(handle, m_channel_number, &msg_count_info);
   diagnostics.tx = msg_count_info.m_wSentMsgCount;
   diagnostics.rx = msg_count_info.m_wRecvdMsgCount;
 
   DWORD tx_error, rx_error;
-  UcanGetCanErrorCounter(m_UcanHandle, m_channel_number, &tx_error, &rx_error);
+  UcanGetCanErrorCounter(handle, m_channel_number, &tx_error, &rx_error);
   diagnostics.tx_error = tx_error;
   diagnostics.rx_error = rx_error;
 
   tUcanHardwareInfo hw_info;
-  if (UcanGetHardwareInfo(m_UcanHandle, &hw_info) != USBCAN_SUCCESSFUL)
+  if (UcanGetHardwareInfo(handle, &hw_info) != USBCAN_SUCCESSFUL)
     diagnostics.mode = "OFFLINE";
   else switch (hw_info.m_bMode) {
     case kUcanModeNormal:     diagnostics.mode = "NORMAL";      break;
@@ -204,7 +204,7 @@ CanDiagnostics CanVendorSystec::vendor_diagnostics() noexcept {
   }
 
   DWORD module_time; // in ms
-  UcanGetModuleTime(m_UcanHandle, &module_time);
+  UcanGetModuleTime(handle, &module_time);
   diagnostics.uptime = (uint32_t) module_time / 1000;
 
   return diagnostics;
@@ -220,7 +220,7 @@ int CanVendorSystec::SystecRxThread()
   tCanMsgStruct read_can_message;
   LOG(Log::DBG, CanLogIt::h()) << "SystecRxThread Started. m_receive_thread_flag = [" << m_receive_thread_flag <<"]";
   while (m_receive_thread_flag) {
-    status = UcanReadCanMsgEx(m_UcanHandle, (BYTE *) &m_channel_number, &read_can_message, NULL);
+    status = UcanReadCanMsgEx(get_module_handle(), (BYTE *) &m_channel_number, &read_can_message, NULL);
     switch (status) {
       case USBCAN_WARN_SYS_RXOVERRUN:
       case USBCAN_WARN_DLL_RXOVERRUN:
