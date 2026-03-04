@@ -229,17 +229,10 @@ int CanVendorSystec::SystecRxThread()
         [[ fallthrough ]];
       case USBCAN_SUCCESSFUL: {
         if (read_can_message.m_bFF & USBCAN_MSG_FF_RTR) break;
-        // can_msg_copy.c_time = convertTimepointToTimeval(currentTimeTimeval());
         std::vector<char> data(read_can_message.m_bData, read_can_message.m_bData + read_can_message.m_bDLC);
         // id, data, flags
         CanFrame can_msg_copy(read_can_message.m_dwID, data, read_can_message.m_bFF);
-      // TODO the read_can_message contains a DWORD m_dwTime "receipt time in ms"
         received(can_msg_copy);
-        // m_statistics.onReceive( read_can_message.m_bDLC );
-        // m_statistics.setTimeSinceReceived();
-
-        // we can reset the reconnectionTimeout here, since we have received a message
-        // resetTimeoutOnReception();
         break;
       }
       case USBCAN_WARN_NODATA:
