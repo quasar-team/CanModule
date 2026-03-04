@@ -81,17 +81,17 @@ CanReturnCode CanVendorSystec::init_can_port() {
 
 CanReturnCode CanVendorSystec::vendor_open() noexcept {
 
-  auto returnCode = init_can_port();
-  if (returnCode != CanReturnCode::success) return returnCode;
+  auto return_code = init_can_port();
+  if (return_code != CanReturnCode::success) return return_code;
 
   try {
     m_receive_thread_flag = true;
     m_SystecRxThread = std::thread(&CanVendorSystec::SystecRxThread, this);
   } catch(...) {
-    returnCode = CanReturnCode::internal_api_error;
+    return_code = CanReturnCode::internal_api_error;
   }
 
-  return returnCode;
+  return return_code;
 }
 
 CanReturnCode CanVendorSystec::vendor_close() noexcept {
@@ -100,9 +100,10 @@ CanReturnCode CanVendorSystec::vendor_close() noexcept {
     std::lock_guard<std::mutex> guard(CanVendorSystec::m_handles_lock);
     erase_module_handle(m_module_number);
     if (m_SystecRxThread.joinable()) m_SystecRxThread.join();
-    UcanDeinitCanEx (m_UcanHandle, (BYTE) m_channel_number);
+    auto return_code = UcanDeinitCanEx (m_UcanHandle, (BYTE) m_channel_number);
+    if (return_code != USBCAN_SUCCESSFUL) return CanReturnCode::unknown_close_error;
   } catch (...) {
-    return CanReturnCode::unknown_close_error;
+    return CanReturnCode::internal_api_error;
   }
   return CanReturnCode::success;
 };
