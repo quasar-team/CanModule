@@ -5,6 +5,7 @@
 #include <LogIt.h>
 #include <iomanip>
 #include <vector>
+#include <regex>
 
 std::mutex CanVendorSystec::m_handles_lock;
 std::unordered_map<int, tUcanHandle> CanVendorSystec::m_module_to_handle_map;
@@ -27,8 +28,12 @@ CanVendorSystec::CanVendorSystec(const CanDeviceArguments& args)
     throw std::invalid_argument("Missing required configuration parameters");
   }
 
-  // TODO trim possible can prefix
-  m_port_number = std::stoi(args.config.bus_name.value());
+  std::smatch matches;
+  // Accept port name of <port>, can<port> or vcan<port>
+  if (!std::regex_search(args.config.bus_name.value(), matches, std::regex("^(can|vcan)?(\\d+)$")))
+    throw std::invalid_argument("Could not parse port name");
+
+  m_port_number = std::stoi(matches[2]);
   m_module_number = m_port_number / 2;
   m_channel_number = m_port_number % 2;
   m_port_to_vendor_map[m_port_number] = this;
