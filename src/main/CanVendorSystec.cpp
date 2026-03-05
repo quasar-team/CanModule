@@ -7,18 +7,31 @@
 #include <vector>
 
 std::mutex CanVendorSystec::m_handles_lock;
-std::unordered_map<int, tUcanHandle> CanVendorSystec::m_handle_map;
+std::unordered_map<int, tUcanHandle> CanVendorSystec::m_module_to_handle_map;
+std::unordered_map<int, CanVendorSystec*> CanVendorSystec::m_port_to_vendor_map;
+
+// Callback registered per-module to handle receive events
+void systec_receive(tUcanHandle UcanHandle_p, DWORD bEvent_p, BYTE bChannel_p, void* pArg_p) {
+  if (bEvent_p == USBCAN_EVENT_RECEIVE) {
+    int module_number = *(reinterpret_cast<int*>(pArg_p));
+    int port_number = 2 * module_number + bChannel_p;
+    CanVendorSystec *vendorPtr = CanVendorSystec::m_port_to_vendor_map[port_number];
+    if (!vendorPtr) return; // [] returns nullptr if not found in map
+    ++(vendorPtr->m_queued_reads);
+  }
+}
 
 CanVendorSystec::CanVendorSystec(const CanDeviceArguments& args)
-    : CanDevice("systec", args) {
+    : CanDevice("systec", args), m_queued_reads{0} {
   if (!args.config.bus_name.has_value()) {
     throw std::invalid_argument("Missing required configuration parameters");
   }
 
   // TODO trim possible can prefix
-  int handle_number = std::stoi(args.config.bus_name.value());
-  m_module_number = handle_number / 2;
-  m_channel_number = handle_number % 2;
+  m_port_number = std::stoi(args.config.bus_name.value());
+  m_module_number = m_port_number / 2;
+  m_channel_number = m_port_number % 2;
+  m_port_to_vendor_map[m_port_number] = this;
 }
 
 // TODO should we make this noexcept? how can we guarantee that?
@@ -53,19 +66,25 @@ CanReturnCode CanVendorSystec::init_can_port() {
 
   // check if USB-CANmodul is already initialized
   std::lock_guard<std::mutex> guard(CanVendorSystec::m_handles_lock);
-  auto pos = m_handle_map.find(m_module_number);
-  if (pos == m_handle_map.end()) { // module not in use
-    systec_call_return = ::UcanInitHardwareEx(&can_module_handle, m_module_number, 0, 0);
+  auto mapping = m_module_to_handle_map.find(m_module_number);
+  if (mapping == m_module_to_handle_map.end()) { // module not in use
+    systec_call_return = ::UcanInitHardwareEx(&can_module_handle, m_module_number, systec_receive, (void*) &m_module_number);
     if (systec_call_return != USBCAN_SUCCESSFUL ) 	{
       LOG(Log::ERR, CanLogIt::h()) << "UcanInitHardwareEx, return code = [ 0x" << std::hex << (int) systec_call_return << std::dec << "]";
       ::UcanDeinitHardware(can_module_handle);
       return CanReturnCode::unknown_open_error;
     }
-    map_module_to_handle(m_module_number, can_module_handle);
+    LOG(Log::INF, CanLogIt::h()) << "Initialised hardware for Systec module " << m_module_number <<  " with handle " << (int) can_module_handle;
+    m_module_to_handle_map[m_module_number] = can_module_handle;
   } else { // find existing handle of module
-    can_module_handle = pos->second;
-    LOG(Log::WRN, CanLogIt::h()) << "trying to open a can port which is in use, reuse handle, skipping UCanDeinitHardware";
+    can_module_handle = mapping->second;
+    LOG(Log::WRN, CanLogIt::h()) << "trying to open a can port which is in use, reuse handle, skipping UCanInitHardware";
   }
+
+  // TODO handle error code for reset...
+  // also investigate the minimum amount of things to reset to restore good state
+  UcanResetCanEx(can_module_handle, (BYTE) m_channel_number, (DWORD) 0);
+  m_port_to_vendor_map[m_port_number] = this;
 
   systec_call_return = ::UcanInitCanEx2(can_module_handle, m_channel_number, &initialization_parameters);
   if ( systec_call_return != USBCAN_SUCCESSFUL )	{
@@ -97,10 +116,23 @@ CanReturnCode CanVendorSystec::vendor_close() noexcept {
   try {
     m_receive_thread_flag = false;
     std::lock_guard<std::mutex> guard(CanVendorSystec::m_handles_lock);
-    erase_module_handle(m_module_number);
+    m_port_to_vendor_map.erase(m_port_number);
     if (m_SystecRxThread.joinable()) m_SystecRxThread.join();
-    auto return_code = UcanDeinitCanEx (m_UcanHandle, (BYTE) m_channel_number);
+
+    auto handle = get_module_handle();
+
+    auto return_code = UcanDeinitCanEx(handle, (BYTE) m_channel_number);
+    m_module_to_handle_map.erase(m_module_number);
     if (return_code != USBCAN_SUCCESSFUL) return CanReturnCode::unknown_close_error;
+
+    int opposite_channel = 2 * m_module_number + (1 - m_channel_number);
+    if (!m_port_to_vendor_map[opposite_channel]) {
+      // de init hardware if neither channel on the module are in use
+      // e.g. if channel 0, we need to check if channel 1 is in use and vice versa
+      // TODO how does this work if UcanDeinitCanEx above fails?
+      auto return_code_hw = UcanDeinitHardware(handle);
+      if (return_code_hw != USBCAN_SUCCESSFUL) return CanReturnCode::unknown_close_error;
+    }
   } catch (...) {
     return CanReturnCode::internal_api_error;
   }
@@ -219,7 +251,10 @@ int CanVendorSystec::SystecRxThread()
   BYTE status;
   tCanMsgStruct read_can_message;
   LOG(Log::DBG, CanLogIt::h()) << "SystecRxThread Started. m_receive_thread_flag = [" << m_receive_thread_flag <<"]";
+  size_t to_read;
   while (m_receive_thread_flag) {
+    to_read = m_queued_reads;
+    if (to_read < 1) continue; 
     status = UcanReadCanMsgEx(get_module_handle(), (BYTE *) &m_channel_number, &read_can_message, NULL);
     switch (status) {
       case USBCAN_WARN_SYS_RXOVERRUN:
@@ -228,17 +263,16 @@ int CanVendorSystec::SystecRxThread()
         LOG(Log::WRN, CanLogIt::h()) << UsbCanGetErrorText(status);
         [[ fallthrough ]];
       case USBCAN_SUCCESSFUL: {
+        --m_queued_reads;
         if (read_can_message.m_bFF & USBCAN_MSG_FF_RTR) break;
         std::vector<char> data(read_can_message.m_bData, read_can_message.m_bData + read_can_message.m_bDLC);
-        // id, data, flags
-        CanFrame can_msg_copy(read_can_message.m_dwID, data, read_can_message.m_bFF);
-        received(can_msg_copy);
+        CanFrame can_frame(read_can_message.m_dwID, data, read_can_message.m_bFF);
+        received(can_frame);
         break;
       }
       case USBCAN_WARN_NODATA:
-        LOG(Log::TRC, CanLogIt::h()) << UsbCanGetErrorText(status);
-        // TODO is it correct to sleep here?
-        // Sleep(100); // ms
+        m_queued_reads -= to_read;
+        LOG(Log::WRN, CanLogIt::h()) << UsbCanGetErrorText(status);
         break;
         default: // errors
         // USBCAN_ERR_MAXINSTANCES, USBCAN_ERR_ILLHANDLE, USBCAN_ERR_CANNOTINIT,
