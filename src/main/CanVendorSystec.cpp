@@ -22,12 +22,23 @@ void systec_receive(tUcanHandle UcanHandle_p, DWORD bEvent_p, BYTE bChannel_p, v
 
 CanVendorSystec::CanVendorSystec(const CanDeviceArguments& args)
     : CanDevice("systec", args), m_queued_reads{0} {
-  if (!args.config.bus_name.has_value()) {
+  if (!args.config.bus_number.has_value() || !args.config.bitrate.has_value()) {
     throw std::invalid_argument("Missing required configuration parameters");
   }
 
-  // TODO trim possible can prefix
-  m_port_number = std::stoi(args.config.bus_name.value());
+  switch (args.config.bitrate.value()) {
+    case 50000:   m_baud_rate = USBCAN_BAUD_50kBit;  break;
+    case 100000:  m_baud_rate = USBCAN_BAUD_100kBit; break;
+    case 125000:  m_baud_rate = USBCAN_BAUD_125kBit; break;
+    case 250000:  m_baud_rate = USBCAN_BAUD_250kBit; break;
+    case 500000:  m_baud_rate = USBCAN_BAUD_500kBit; break;
+    case 1000000: m_baud_rate = USBCAN_BAUD_1MBit;   break;
+    default: {
+      throw std::invalid_argument("Invalid bitrate provided");
+    }
+  }
+
+  m_port_number = args.config.bus_number.value();
   m_module_number = m_port_number / 2;
   m_channel_number = m_port_number % 2;
 }
@@ -36,24 +47,11 @@ CanReturnCode CanVendorSystec::init_can_port() {
   BYTE systec_call_return = USBCAN_SUCCESSFUL;
   tUcanHandle		can_module_handle;
 
-  unsigned int baud_rate = USBCAN_BAUD_125kBit;
-  switch (args().config.bitrate.value_or(0)) {
-    case 50000:   baud_rate = USBCAN_BAUD_50kBit;  break;
-    case 100000:  baud_rate = USBCAN_BAUD_100kBit; break;
-    case 125000:  baud_rate = USBCAN_BAUD_125kBit; break;
-    case 250000:  baud_rate = USBCAN_BAUD_250kBit; break;
-    case 500000:  baud_rate = USBCAN_BAUD_500kBit; break;
-    case 1000000: baud_rate = USBCAN_BAUD_1MBit;   break;
-    default: {
-      LOG(Log::WRN, CanLogIt::h()) << "baud rate illegal, taking default 125000 [" << baud_rate << "]";
-    }
-  }
-
   tUcanInitCanParam initialization_parameters;
   initialization_parameters.m_dwSize = sizeof(initialization_parameters); // size of this struct
   initialization_parameters.m_bMode = kUcanModeNormal; // normal operation mode
-  initialization_parameters.m_bBTR0 = HIBYTE( baud_rate );  // baudrate
-  initialization_parameters.m_bBTR1 = LOBYTE( baud_rate );
+  initialization_parameters.m_bBTR0 = HIBYTE( m_baud_rate );  // baudrate
+  initialization_parameters.m_bBTR1 = LOBYTE( m_baud_rate );
   initialization_parameters.m_bOCR = 0x1A; // standard output
   initialization_parameters.m_dwAMR = USBCAN_AMR_ALL;  // receive all CAN messages
   initialization_parameters.m_dwACR = USBCAN_ACR_ALL;
@@ -197,29 +195,7 @@ CanDiagnostics CanVendorSystec::vendor_diagnostics() noexcept {
   auto handle = get_module_handle();
   UcanGetStatusEx(handle, m_channel_number, &status);
   WORD can_status = status.m_wCanStatus;
-  switch (can_status) {
-    case USBCAN_CANERR_OK:
-      diagnostics.state = "USBCAN_CANERR_OK"; break;
-    case USBCAN_CANERR_XMTFULL:
-      diagnostics.state = "USBCAN_CANERR_XMTFULL"; break;
-    case USBCAN_CANERR_OVERRUN:
-      diagnostics.state = "USBCAN_CANERR_OVERRUN"; break;
-    case USBCAN_CANERR_BUSLIGHT:
-      diagnostics.state = "USBCAN_CANERR_BUSLIGHT"; break;
-    case USBCAN_CANERR_BUSHEAVY:
-      diagnostics.state = "USBCAN_CANERR_BUSHEAVY"; break;
-    case USBCAN_CANERR_BUSOFF:
-      diagnostics.state = "USBCAN_CANERR_BUSOFF"; break;
-    case USBCAN_CANERR_QOVERRUN:
-      diagnostics.state = "USBCAN_CANERR_QOVERRUN"; break;
-    case USBCAN_CANERR_QXMTFULL:
-      diagnostics.state = "USBCAN_CANERR_QXMTFULL"; break;
-    case USBCAN_CANERR_REGTEST:
-      diagnostics.state = "USBCAN_CANERR_REGTEST"; break;
-    case USBCAN_CANERR_TXMSGLOST:
-      diagnostics.state = "USBCAN_CANERR_TXMSGLOST"; break;
-  }
-
+  diagnostics.state = UsbCanGetStatusText(can_status);
   tUcanMsgCountInfo msg_count_info;
   UcanGetMsgCountInfoEx(handle, m_channel_number, &msg_count_info);
   diagnostics.tx = msg_count_info.m_wSentMsgCount;
@@ -293,7 +269,7 @@ int CanVendorSystec::SystecRxThread()
   return 0;
 }
 
-std::string CanVendorSystec::UsbCanGetErrorText( long err_code ) {
+std::string_view CanVendorSystec::UsbCanGetErrorText( long err_code ) {
   switch( err_code ){
   case USBCAN_SUCCESSFUL: return("success");
 
@@ -447,5 +423,22 @@ std::string CanVendorSystec::UsbCanGetErrorText( long err_code ) {
   "successfully to the transmit buffer.");
 
   default: return("unknown error code");
+std::string CanVendorSystec::UsbCanGetStatusText(long err_code) {
+  switch(err_code) {
+    case USBCAN_CANERR_OK:        return "No error.";
+    case USBCAN_CANERR_XMTFULL:   return "Transmit buffer in CAN controller is overrun.";
+    case USBCAN_CANERR_OVERRUN:   return "Receive buffer in CAN controller is overrun.";
+    case USBCAN_CANERR_BUSLIGHT:  return " Error limit 1 in CAN controller exceeded, CAN controller "
+    "is in state “Warning limit” now.";
+    case USBCAN_CANERR_BUSHEAVY:  return "Error limit 2 in CAN controller exceeded, CAN controller "
+    "is in state “Error Passive” now";
+    case USBCAN_CANERR_BUSOFF:    return "CAN controller is in BUSOFF state.";
+    case USBCAN_CANERR_QOVERRUN:  return "Receive buffer in module is overrun.";
+    case USBCAN_CANERR_QXMTFULL:  return "Transmit buffer in module is overrun.";
+    case USBCAN_CANERR_REGTEST:   return "CAN controller not found (hardware error).";
+    case USBCAN_CANERR_TXMSGLOST: return "A transmit CAN message was deleted automatically by the "
+    "firmware because transmission timeout run over (refer to "
+    "function UcanSetTxTimeout() ).";
+    default:                      return "unknown error code";
   }
 }

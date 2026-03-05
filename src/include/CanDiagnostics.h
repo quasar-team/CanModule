@@ -47,7 +47,8 @@ struct CanDiagnostics {
 
   std::optional<float>
       temperature;  ///< Optional temperature reading for Anagate devices.
-  std::optional<uint32_t> uptime;  ///< Optional uptime in seconds.
+  std::optional<uint32_t> uptime;  ///< Optional uptime in seconds for Anagate
+                                   ///< and Systec for Windows.
 
   std::optional<uint32_t> tcp_rx;  ///< Optional TCP Received counter for
                                    ///< both SocketCAN and Anagate devices.
