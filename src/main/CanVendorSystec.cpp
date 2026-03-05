@@ -75,7 +75,7 @@ CanReturnCode CanVendorSystec::init_can_port() {
   if (mapping == m_module_to_handle_map.end()) { // module not in use
     systec_call_return = ::UcanInitHardwareEx(&can_module_handle, m_module_number, systec_receive, (void*) &m_module_number);
     if (systec_call_return != USBCAN_SUCCESSFUL ) 	{
-      LOG(Log::ERR, CanLogIt::h()) << "UcanInitHardwareEx, return code = [ 0x" << std::hex << (int) systec_call_return << std::dec << "]";
+      LOG(Log::ERR, CanLogIt::h()) << "Error calling UcanInitHardwareEx: " << UsbCanGetErrorText(systec_call_return);
       ::UcanDeinitHardware(can_module_handle);
       return CanReturnCode::unknown_open_error;
     }
@@ -127,8 +127,10 @@ CanReturnCode CanVendorSystec::vendor_close() noexcept {
     auto handle = get_module_handle();
 
     auto return_code = UcanDeinitCanEx(handle, (BYTE) m_channel_number);
-    m_module_to_handle_map.erase(m_module_number);
-    if (return_code != USBCAN_SUCCESSFUL) return CanReturnCode::unknown_close_error;
+    if (return_code != USBCAN_SUCCESSFUL) {
+      LOG(Log::ERR, CanLogIt::h()) << "Error calling UcanDeinitCanEx: " << UsbCanGetErrorText(return_code);
+      return CanReturnCode::unknown_close_error;
+    }
 
     int opposite_channel = 2 * m_module_number + (1 - m_channel_number);
     if (!m_port_to_vendor_map[opposite_channel]) {
@@ -136,7 +138,11 @@ CanReturnCode CanVendorSystec::vendor_close() noexcept {
       // e.g. if channel 0, we need to check if channel 1 is in use and vice versa
       // TODO how does this work if UcanDeinitCanEx above fails?
       auto return_code_hw = UcanDeinitHardware(handle);
-      if (return_code_hw != USBCAN_SUCCESSFUL) return CanReturnCode::unknown_close_error;
+      m_module_to_handle_map.erase(m_module_number);
+      if (return_code_hw != USBCAN_SUCCESSFUL) {
+        LOG(Log::ERR, CanLogIt::h()) << "Error calling UcanDeinitHardware: " << UsbCanGetErrorText(return_code_hw);
+        return CanReturnCode::unknown_close_error;
+      }
     }
   } catch (...) {
     return CanReturnCode::internal_api_error;
@@ -259,7 +265,7 @@ int CanVendorSystec::SystecRxThread()
   size_t to_read;
   while (m_receive_thread_flag) {
     to_read = m_queued_reads;
-    if (to_read < 1) continue; 
+    if (to_read < 1) continue;
     status = UcanReadCanMsgEx(get_module_handle(), (BYTE *) &m_channel_number, &read_can_message, NULL);
     switch (status) {
       case USBCAN_WARN_SYS_RXOVERRUN:
