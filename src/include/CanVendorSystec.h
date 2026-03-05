@@ -32,11 +32,12 @@ struct CanVendorSystec : CanDevice {
   int SystecRxThread();
   
   private:
-  std::atomic<bool> m_receive_thread_flag = true;
+  std::atomic<bool> m_receive_thread_flag {true};
   std::atomic<size_t> m_queued_reads;
   int m_module_number;
   int m_channel_number;
   int m_port_number;
+  DWORD m_baud_rate;
   std::thread m_SystecRxThread;
 
   tUcanHandle get_module_handle() { return m_module_to_handle_map[m_module_number]; }
@@ -52,7 +53,8 @@ struct CanVendorSystec : CanDevice {
   static std::unordered_map<int, CanVendorSystec*> m_port_to_vendor_map;
 
   friend void systec_receive(tUcanHandle UcanHandle_p, DWORD bEvent_p, BYTE bChannel_p, void* pArg_p);
-  std::string UsbCanGetErrorText( long err_code );
+  std::string_view UsbCanGetErrorText( long err_code );
+  std::string UsbCanGetStatusText( long err_code );
 
   CanReturnCode deinit_channel() noexcept;
 };
