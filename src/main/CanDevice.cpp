@@ -13,6 +13,8 @@
 #ifndef _WIN32
 #include "CanVendorSocketCan.h"
 #include "CanVendorSocketCanSystec.h"
+#else
+#include "CanVendorSystec.h"
 #endif
 
 /**
@@ -162,6 +164,11 @@ std::unique_ptr<CanDevice> CanDevice::create(
   if (vendor == "socketcan_systec") {
     LOG(Log::DBG, CanLogIt::h()) << "Creating SocketCAN Systec CAN device";
     return std::make_unique<CanVendorSocketCanSystec>(configuration);
+  }
+#else
+  if (vendor == "systec") {
+    LOG(Log::DBG, CanLogIt::h()) << "Creating Systec CAN device for Windows";
+    return std::make_unique<CanVendorSystec>(configuration);
   }
 #endif
 
