@@ -71,8 +71,12 @@ if (UNIX)
 else()
     target_link_libraries(CanModuleMain PUBLIC
         ${anagate_SOURCE_DIR}/Win64/AnaGateCanDll64.lib
+        ${systec_SOURCE_DIR}/lib/USBCAN64.lib
     )
+    target_include_directories(CanModuleMain PUBLIC ${systec_SOURCE_DIR}/Include)
     file(COPY "${anagate_SOURCE_DIR}/Win64/AnaGateCan64.dll"
+         DESTINATION "${CMAKE_BINARY_DIR}/Release")
+    file(COPY "${systec_SOURCE_DIR}/lib/USBCAN64.dll"
          DESTINATION "${CMAKE_BINARY_DIR}/Release")
 endif()
 
