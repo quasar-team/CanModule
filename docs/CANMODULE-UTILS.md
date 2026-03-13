@@ -34,8 +34,10 @@ Examples of CAN frames are:
 
 ```bash
 001#AA // Message of 1 byte (AA) and standard id 1
-FFFA#BB.BB // Message of 2 bytes (BB BB) and extended if FFFA
+FFFA#BB.BB // Message of 2 bytes (BB BB) and extended id FFFA
 001#R4 // Remote request message with length 4 and standard id 1
+00000123#AA // Message of 1 byte (AA) with small ID sent as extended format
+00000123#R4 // Remote request of length 4 with small ID sent as extended format
 ```
 
 ### gen

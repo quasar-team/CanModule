@@ -125,18 +125,46 @@ def parse_can_frame(can_frame_str):
           - "len" (int): The number of data bytes for a remote request frame.
           - "data" (list of str): The hexadecimal representation of the CAN data bytes for a data frame.
     """
-    if "R" in can_frame_str:
-        can_id, len_data = can_frame_str.split("#R")
-        frame = {
-            "can_id": can_id,
-            "len": int(len_data),
-        }
+    if "#" not in can_frame_str:
+        raise ValueError("Missing '#' delimiter")
+
+    can_id, payload = can_frame_str.split("#", 1)
+    if not can_id:
+        raise ValueError("Missing CAN ID")
+
+    try:
+        can_id_value = int(can_id, 16)
+    except ValueError as error:
+        raise ValueError(f"Invalid CAN ID '{can_id}'") from error
+
+    if can_id_value > 0x1FFFFFFF:
+        raise ValueError(f"CAN ID 0x{can_id_value:X} is out of range (max 0x1FFFFFFF)")
+
+    frame = {
+        "can_id": can_id,
+        # cansend-like rule: 8 hex digits force extended format even for small IDs.
+        "id_format_hint": "extended" if len(can_id) == 8 else "auto",
+    }
+
+    if payload.startswith(("R", "r")):
+        len_data = payload[1:]
+        if len_data:
+            try:
+                requested_len = int(len_data)
+            except ValueError as error:
+                raise ValueError(
+                    f"Invalid remote request length '{len_data}'"
+                ) from error
+        else:
+            requested_len = 0
+
+        if requested_len < 0 or requested_len > 8:
+            raise ValueError("Remote request length must be between 0 and 8")
+
+        frame["len"] = requested_len
     else:
-        can_id, data = can_frame_str.split("#")
-        frame = {
-            "can_id": can_id,
-            "data": data.split("."),
-        }
+        frame["data"] = payload.split(".")
+
     return frame
 
 
@@ -222,9 +250,7 @@ def process_frame(frame):
     """
     can_id = int(frame["can_id"], 16)
 
-    extended_id = False
-    if can_id > 0x7FF:  # More than 11 bits long
-        extended_id = True
+    extended_id = frame.get("id_format_hint") == "extended" or can_id > 0x7FF
 
     remote_request = False
     flags = 0
