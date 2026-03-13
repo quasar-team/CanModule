@@ -138,9 +138,7 @@ def parse_can_frame(can_frame_str):
         raise ValueError(f"Invalid CAN ID '{can_id}'") from error
 
     if can_id_value > 0x1FFFFFFF:
-        raise ValueError(
-            f"CAN ID 0x{can_id_value:X} is out of range (max 0x1FFFFFFF)"
-        )
+        raise ValueError(f"CAN ID 0x{can_id_value:X} is out of range (max 0x1FFFFFFF)")
 
     frame = {
         "can_id": can_id,
@@ -154,7 +152,9 @@ def parse_can_frame(can_frame_str):
             try:
                 requested_len = int(len_data)
             except ValueError as error:
-                raise ValueError(f"Invalid remote request length '{len_data}'") from error
+                raise ValueError(
+                    f"Invalid remote request length '{len_data}'"
+                ) from error
         else:
             requested_len = 0
 
