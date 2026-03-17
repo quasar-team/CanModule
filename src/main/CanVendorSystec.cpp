@@ -86,7 +86,7 @@ CanReturnCode CanVendorSystec::init_can_port() {
   systec_call_return = UcanInitCanEx2(can_module_handle, m_channel_number, &initialization_parameters);
   if ( systec_call_return != USBCAN_SUCCESSFUL )	{
     LOG(Log::ERR, CanLogIt::h()) << "UcanInitCanEx2, return code = [ 0x" << std::hex << (int) systec_call_return << std::dec << "]";
-    UcanDeinitCanEx(can_module_handle, m_channel_number);
+    deinit_channel();
     return CanReturnCode::unknown_open_error;
   }
 
@@ -110,37 +110,41 @@ CanReturnCode CanVendorSystec::vendor_open() noexcept {
 }
 
 CanReturnCode CanVendorSystec::vendor_close() noexcept {
+  auto return_code = CanReturnCode::success;
   try {
     m_receive_thread_flag = false;
-    std::lock_guard<std::mutex> guard(CanVendorSystec::m_handles_lock);
-    m_port_to_vendor_map.erase(m_port_number);
     if (m_SystecRxThread.joinable()) m_SystecRxThread.join();
-
-    auto handle = get_module_handle();
-
-    auto return_code = UcanDeinitCanEx(handle, (BYTE) m_channel_number);
-    if (return_code != USBCAN_SUCCESSFUL) {
-      LOG(Log::ERR, CanLogIt::h()) << "Error calling UcanDeinitCanEx: " << UsbCanGetErrorText(return_code);
-      return CanReturnCode::unknown_close_error;
-    }
-
-    int opposite_channel = 2 * m_module_number + (1 - m_channel_number);
-    if (!m_port_to_vendor_map[opposite_channel]) {
-      // de init hardware if neither channel on the module are in use
-      // e.g. if channel 0, we need to check if channel 1 is in use and vice versa
-      // TODO how does this work if UcanDeinitCanEx above fails?
-      auto return_code_hw = UcanDeinitHardware(handle);
-      m_module_to_handle_map.erase(m_module_number);
-      if (return_code_hw != USBCAN_SUCCESSFUL) {
-        LOG(Log::ERR, CanLogIt::h()) << "Error calling UcanDeinitHardware: " << UsbCanGetErrorText(return_code_hw);
-        return CanReturnCode::unknown_close_error;
-      }
-    }
+    std::lock_guard<std::mutex> guard(CanVendorSystec::m_handles_lock);
+    return_code = deinit_channel();
   } catch (...) {
-    return CanReturnCode::internal_api_error;
+    return_code = CanReturnCode::internal_api_error;
   }
-  return CanReturnCode::success;
+  return return_code;
 };
+
+CanReturnCode CanVendorSystec::deinit_channel() noexcept {
+  auto internal_return_code = CanReturnCode::success;
+  m_port_to_vendor_map.erase(m_port_number);
+  auto handle = get_module_handle();
+  auto return_code = UcanDeinitCanEx(handle, m_channel_number);
+  if (return_code != USBCAN_SUCCESSFUL) {
+    LOG(Log::ERR, CanLogIt::h()) << "Error calling UcanDeinitCanEx: " << UsbCanGetErrorText(return_code);
+    internal_return_code = CanReturnCode::unknown_close_error;
+  } // still attempt to deinit hardware if channel deinit fails
+
+  if (!m_port_to_vendor_map[m_port_number ^ 1]) {
+    // de init hardware if neither channel on the module are in use
+    // toggle last bit to get the other port on the same module
+    // e.g. if channel 0, we need to check if channel 1 is in use and vice versa
+    auto return_code_hw = UcanDeinitHardware(handle);
+    m_module_to_handle_map.erase(m_module_number);
+    if (return_code_hw != USBCAN_SUCCESSFUL) {
+      LOG(Log::ERR, CanLogIt::h()) << "Error calling UcanDeinitHardware: " << UsbCanGetErrorText(return_code_hw);
+      internal_return_code = CanReturnCode::unknown_close_error;
+    }
+  }
+  return internal_return_code;
+}
 
 CanReturnCode CanVendorSystec::vendor_send(const CanFrame& frame) noexcept {
   std::vector<char> message = frame.message();

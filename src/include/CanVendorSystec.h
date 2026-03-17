@@ -53,6 +53,8 @@ struct CanVendorSystec : CanDevice {
 
   friend void systec_receive(tUcanHandle UcanHandle_p, DWORD bEvent_p, BYTE bChannel_p, void* pArg_p);
   std::string UsbCanGetErrorText( long err_code );
+
+  CanReturnCode deinit_channel() noexcept;
 };
 
 #endif  // SRC_INCLUDE_CANVENDORSYSTEC_H_
