@@ -23,6 +23,8 @@ The compatibility matrix is available here:
 ## Installation
 
 To use this tool, ensure you have a recent version of Python installed (tested with version 3.9.18).
+Additionally, you need to have `libsocketcan` installed on your Linux system, or `USB-CANmodul Utility Disk`
+on Windows to communicate with Systec devices.
 
 You will also require the `canmodule.cpython*` file and all Anagate-related libraries (such as `.so` files on Linux or `.dll` files on Windows). These files can be found in the build artifacts, located in the `/build` directory on Linux and the `/build/Release` directory on Windows.
 
