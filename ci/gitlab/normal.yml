@@ -91,6 +91,15 @@ Run Sanity Checks:
     - pip install pre-commit
     - pre-commit run --all-files
 
+Run Clang Analysis on Linux:
+  stage: unstagged
+  image: $ALMA_LATEST_IMAGE
+  needs: []
+  script:
+    - dnf clean all
+    - dnf -y install clang clang-tools-extra clang-analyzer
+    - bash ci/run-clang-analysis-linux.sh
+
 Update Documentation Website:
   stage: unstagged
   image: $ALMA_LATEST_IMAGE

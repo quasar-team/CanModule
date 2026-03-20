@@ -65,7 +65,8 @@ std::string CanDeviceConfiguration::to_string() const noexcept {
   if (sent_acknowledgement.has_value()) {
     if (!first) oss << ", ";
     oss << "sent_acknowledgement=" << sent_acknowledgement.value();
-    first = false;
+    first = false;  // NOLINT: Indeed, this is the last field, but we set first
+                    // to false for consistency.
   }
 
   return oss.str();
