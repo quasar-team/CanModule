@@ -15,6 +15,7 @@
 #include "CanVendorLoopback.h"
 #include "CanDevice.h"
 #include <unordered_map>
+#include <optional>
 #include <thread>
 
 /**
@@ -30,9 +31,9 @@ struct CanVendorSystec : CanDevice {
   explicit CanVendorSystec(const CanDeviceArguments& args);
   ~CanVendorSystec() { vendor_close(); }
   int SystecRxThread();
-  
+
   private:
-  std::atomic<bool> m_receive_thread_flag {true};
+  std::atomic<bool> m_module_in_use {false};
   std::atomic<size_t> m_queued_reads;
   int m_module_number;
   int m_channel_number;
@@ -40,7 +41,12 @@ struct CanVendorSystec : CanDevice {
   DWORD m_baud_rate;
   std::thread m_SystecRxThread;
 
-  tUcanHandle get_module_handle() { return m_module_to_handle_map[m_module_number]; }
+  std::optional<tUcanHandle> get_module_handle() {
+    if (auto mapping = m_module_to_handle_map.find(m_module_number); mapping != m_module_to_handle_map.end()) {
+      return mapping->second;
+    }
+    return std::nullopt;
+  }
 
   CanReturnCode vendor_open() noexcept override;
   CanReturnCode vendor_close() noexcept override;

@@ -61,19 +61,19 @@ CanReturnCode CanVendorSystec::init_can_port() {
 
   // check if USB-CANmodul is already initialized
   std::lock_guard<std::mutex> guard(CanVendorSystec::m_handles_lock);
-  auto mapping = m_module_to_handle_map.find(m_module_number);
-  if (mapping == m_module_to_handle_map.end()) { // module not in use
+  auto handle = get_module_handle();
+  if (!handle.has_value()) { // module not in use
     systec_call_return = UcanInitHardwareEx(&can_module_handle, m_module_number, systec_receive, (void*) &m_module_number);
-    if (systec_call_return != USBCAN_SUCCESSFUL ) 	{
+    if (systec_call_return != USBCAN_SUCCESSFUL ) {
       LOG(Log::ERR, CanLogIt::h()) << "Error calling UcanInitHardwareEx: " << UsbCanGetErrorText(systec_call_return);
       UcanDeinitHardware(can_module_handle);
       return CanReturnCode::unknown_open_error;
     }
-    LOG(Log::INF, CanLogIt::h()) << "Initialised hardware for Systec module " << m_module_number <<  " with handle " << (int) can_module_handle;
+    LOG(Log::INF, CanLogIt::h()) << "Initialised hardware for Systec module " << m_module_number;
     m_module_to_handle_map[m_module_number] = can_module_handle;
   } else { // find existing handle of module
     can_module_handle = mapping->second;
-    LOG(Log::WRN, CanLogIt::h()) << "trying to open a can port which is in use, reuse handle, skipping UCanInitHardware";
+    LOG(Log::INF, CanLogIt::h()) << "Reuing handle for module " << m_module_number << " already in use, skipping UCanInitHardwareEx";
   }
 
   // TODO handle error code for reset...
@@ -98,7 +98,7 @@ CanReturnCode CanVendorSystec::vendor_open() noexcept {
   try {
     return_code = init_can_port();
     if (return_code != CanReturnCode::success) return return_code;
-    m_receive_thread_flag = true;
+    m_module_in_use = true;
     m_SystecRxThread = std::thread(&CanVendorSystec::SystecRxThread, this);
   } catch(...) {
     return_code = CanReturnCode::internal_api_error;
@@ -110,7 +110,7 @@ CanReturnCode CanVendorSystec::vendor_open() noexcept {
 CanReturnCode CanVendorSystec::vendor_close() noexcept {
   auto return_code = CanReturnCode::success;
   try {
-    m_receive_thread_flag = false;
+    m_module_in_use = false;
     if (m_SystecRxThread.joinable()) m_SystecRxThread.join();
     std::lock_guard<std::mutex> guard(CanVendorSystec::m_handles_lock);
     return_code = deinit_channel();
@@ -124,22 +124,26 @@ CanReturnCode CanVendorSystec::deinit_channel() noexcept {
   auto internal_return_code = CanReturnCode::success;
   m_port_to_vendor_map.erase(m_port_number);
   auto handle = get_module_handle();
-  auto return_code = UcanDeinitCanEx(handle, m_channel_number);
-  if (return_code != USBCAN_SUCCESSFUL) {
-    LOG(Log::ERR, CanLogIt::h()) << "Error calling UcanDeinitCanEx: " << UsbCanGetErrorText(return_code);
-    internal_return_code = CanReturnCode::unknown_close_error;
-  } // still attempt to deinit hardware if channel deinit fails
-
-  if (!m_port_to_vendor_map[m_port_number ^ 1]) {
-    // de init hardware if neither channel on the module are in use
-    // toggle last bit to get the other port on the same module
-    // e.g. if channel 0, we need to check if channel 1 is in use and vice versa
-    auto return_code_hw = UcanDeinitHardware(handle);
-    m_module_to_handle_map.erase(m_module_number);
-    if (return_code_hw != USBCAN_SUCCESSFUL) {
-      LOG(Log::ERR, CanLogIt::h()) << "Error calling UcanDeinitHardware: " << UsbCanGetErrorText(return_code_hw);
+  if (handle.has_value()) {
+    auto return_code = UcanDeinitCanEx(handle.value(), m_channel_number);
+    if (return_code != USBCAN_SUCCESSFUL) {
+      LOG(Log::ERR, CanLogIt::h()) << "Error calling UcanDeinitCanEx: " << UsbCanGetErrorText(return_code);
       internal_return_code = CanReturnCode::unknown_close_error;
+    } // still attempt to deinit hardware if channel deinit fails
+
+    if (!m_port_to_vendor_map[m_port_number ^ 1]) {
+      // de init hardware if neither channel on the module are in use
+      // toggle last bit to get the other port on the same module
+      // e.g. if channel 0, we need to check if channel 1 is in use and vice versa
+      auto return_code_hw = UcanDeinitHardware(handle.value());
+      m_module_to_handle_map.erase(m_module_number);
+      if (return_code_hw != USBCAN_SUCCESSFUL) {
+        LOG(Log::ERR, CanLogIt::h()) << "Error calling UcanDeinitHardware: " << UsbCanGetErrorText(return_code_hw);
+        internal_return_code = CanReturnCode::unknown_close_error;
+      }
     }
+  } else {
+    LOG(Log::WRN, CanLogIt::h()) << "No handle found for module, close() may have already been called";
   }
   return internal_return_code;
 }
@@ -159,7 +163,12 @@ CanReturnCode CanVendorSystec::vendor_send(const CanFrame& frame) noexcept {
 
   std::copy(message.begin(), message.begin() + can_msg_to_send.m_bDLC, can_msg_to_send.m_bData);
 
-  Status = UcanWriteCanMsgEx(get_module_handle(), m_channel_number, &can_msg_to_send, NULL);
+  auto handle = get_module_handle();
+  if (!handle.has_value()) {
+    LOG(Log::ERR, CanLogIt::h()) << "Could not send message, no handle found for module " << m_module_number;
+    return CanReturnCode::disconnected;
+  }
+  Status = UcanWriteCanMsgEx(handle.value(), m_channel_number, &can_msg_to_send, NULL);
   if (Status != USBCAN_SUCCESSFUL) {
     LOG(Log::ERR, CanLogIt::h()) << "There was a problem when sending a message: "
       << UsbCanGetErrorText(Status);
@@ -193,21 +202,26 @@ CanDiagnostics CanVendorSystec::vendor_diagnostics() noexcept {
   tStatusStruct status;
   // TODO check return code of these functions...
   auto handle = get_module_handle();
-  UcanGetStatusEx(handle, m_channel_number, &status);
+  if (!handle.has_value()) {
+    LOG(Log::ERR, CanLogIt::h()) << "TODO figure out what to do here, no handle found";
+    return CanReturnCode::disconnected;
+  }
+  auto handle_value = handle.value();
+  UcanGetStatusEx(handle_value, m_channel_number, &status);
   WORD can_status = status.m_wCanStatus;
   diagnostics.state = UsbCanGetStatusText(can_status);
   tUcanMsgCountInfo msg_count_info;
-  UcanGetMsgCountInfoEx(handle, m_channel_number, &msg_count_info);
+  UcanGetMsgCountInfoEx(handle_value, m_channel_number, &msg_count_info);
   diagnostics.tx = msg_count_info.m_wSentMsgCount;
   diagnostics.rx = msg_count_info.m_wRecvdMsgCount;
 
   DWORD tx_error, rx_error;
-  UcanGetCanErrorCounter(handle, m_channel_number, &tx_error, &rx_error);
+  UcanGetCanErrorCounter(handle_value, m_channel_number, &tx_error, &rx_error);
   diagnostics.tx_error = tx_error;
   diagnostics.rx_error = rx_error;
 
   tUcanHardwareInfo hw_info;
-  if (UcanGetHardwareInfo(handle, &hw_info) != USBCAN_SUCCESSFUL)
+  if (UcanGetHardwareInfo(handle_value, &hw_info) != USBCAN_SUCCESSFUL)
     diagnostics.mode = "OFFLINE";
   else switch (hw_info.m_bMode) {
     case kUcanModeNormal:
@@ -219,7 +233,7 @@ CanDiagnostics CanVendorSystec::vendor_diagnostics() noexcept {
   }
 
   DWORD module_time; // in ms
-  UcanGetModuleTime(handle, &module_time);
+  UcanGetModuleTime(handle_value, &module_time);
   diagnostics.uptime = (uint32_t) module_time / 1000;
 
   return diagnostics;
@@ -233,12 +247,18 @@ int CanVendorSystec::SystecRxThread()
 {
   BYTE status;
   tCanMsgStruct read_can_message;
-  LOG(Log::DBG, CanLogIt::h()) << "SystecRxThread Started. m_receive_thread_flag = [" << m_receive_thread_flag <<"]";
+  LOG(Log::DBG, CanLogIt::h()) << "SystecRxThread Started. m_module_in_use = [" << m_module_in_use <<"]";
   size_t to_read;
-  while (m_receive_thread_flag) {
+
+  auto handle = get_module_handle();
+  if (!handle.has_value()) {
+    LOG(Log::ERR, CanLogIt::h()) << "Could not start rx thread without valid handle for module";
+    return -1; // TODO more useful error code
+  }
+  while (m_module_in_use) {
     to_read = m_queued_reads;
     if (to_read < 1) continue;
-    status = UcanReadCanMsgEx(get_module_handle(), (BYTE *) &m_channel_number, &read_can_message, NULL);
+    status = UcanReadCanMsgEx(handle.value(), (BYTE *) &m_channel_number, &read_can_message, NULL);
     switch (status) {
       case USBCAN_WARN_SYS_RXOVERRUN:
       case USBCAN_WARN_DLL_RXOVERRUN:
