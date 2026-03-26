@@ -61,6 +61,7 @@ CanVendorSystec::CanVendorSystec(const CanDeviceArguments& args)
   m_port_number = args.config.bus_number.value();
   m_module_number = m_port_number / 2;
   m_channel_number = m_port_number % 2;
+  m_port_to_vendor_map[m_port_number] = this;
 }
 
 CanReturnCode CanVendorSystec::init_can_port() {
@@ -98,15 +99,13 @@ CanReturnCode CanVendorSystec::init_can_port() {
     LOG(Log::INF, CanLogIt::h()) << "Reusing handle (" << (size_t) can_module_handle << ") for module " << m_module_number << " already in use, skipping UCanInitHardwareEx";
   }
 
-  // TODO handle error code for reset...
-  // also investigate the minimum amount of things to reset to restore good state
-  CallAndLog(UcanResetCanEx, "reset channel", can_module_handle, (BYTE) m_channel_number, (DWORD) 0);
-  m_port_to_vendor_map[m_port_number] = this;
-
   if (CallAndLog(UcanInitCanEx2, "init channel", can_module_handle, m_channel_number, &initialization_parameters)) {
-    deinit_channel();
+    deinit_channel(can_module_handle);
     return CanReturnCode::unknown_open_error;
   }
+
+  // investigate the minimum amount of things to reset to restore good state
+  CallAndLog(UcanResetCanEx, "reset channel", can_module_handle, (BYTE) m_channel_number, (DWORD) 0);
 
   LOG(Log::INF, CanLogIt::h()) << "Successfully opened CAN port on module " << m_module_number << ", channel " << m_channel_number;
   return CanReturnCode::success;
@@ -129,36 +128,60 @@ CanReturnCode CanVendorSystec::vendor_open() noexcept {
 
 CanReturnCode CanVendorSystec::vendor_close() noexcept {
   auto return_code = CanReturnCode::success;
+  std::lock_guard<std::mutex> guard(CanVendorSystec::m_handles_lock);
+
+  bool other_in_use = false;
+  CanVendorSystec *other = nullptr;
+  // toggle last bit to get the other port on the same module
+  // e.g. if channel 0, we need to check if channel 1 is in use and vice versa
+  if (auto mapping = m_port_to_vendor_map.find(m_port_number ^ 1); mapping != m_port_to_vendor_map.end()) {
+    other = mapping->second;
+    other_in_use = other->m_module_in_use;
+  }
+
+  bool close_both_channels = args().config.close_both_channels.value_or(false);
+
   try {
     m_module_in_use = false;
     if (m_SystecRxThread.joinable()) m_SystecRxThread.join();
-    std::lock_guard<std::mutex> guard(CanVendorSystec::m_handles_lock);
-    return_code = deinit_channel();
+
+    auto handle = get_module_handle();
+    if (!handle.has_value()) {
+      LOG(Log::WRN, CanLogIt::h()) << "No handle found for module, close() may have already been called";
+      return CanReturnCode::success; // is success correct?
+    }
+
+    if (close_both_channels && other_in_use) {
+      LOG(Log::WRN, CanLogIt::h()) << "Deinitialising other channel " << other->m_channel_number << " on module.";
+      return_code = deinit_other_channel(handle.value(), other);
+    }
+    return_code = deinit_channel(handle.value());
+
+    // if there are no channels still using the handle, deinit hardware
+    // and erase handle from map
+    if (!other_in_use || close_both_channels) {
+      if (auto systec_code = CallAndLog(UcanDeinitHardware, "deinit hw", handle.value()); systec_code != 0)
+        return_code = CanReturnCode::unknown_close_error;
+      m_module_to_handle_map.erase(m_module_number);
+    }
   } catch (...) {
     return_code = CanReturnCode::internal_api_error;
   }
   return return_code;
 };
 
-CanReturnCode CanVendorSystec::deinit_channel() noexcept {
+CanReturnCode CanVendorSystec::deinit_channel(tUcanHandle handle) noexcept {
   auto internal_return_code = CanReturnCode::success;
-  m_port_to_vendor_map.erase(m_port_number);
-  auto handle = get_module_handle();
-  if (handle.has_value()) {
-    if (CallAndLog(UcanDeinitCanEx, "deinit channel", handle.value(), m_channel_number))
-      internal_return_code = CanReturnCode::unknown_close_error;
+  if (CallAndLog(UcanDeinitCanEx, "deinit channel", handle, m_channel_number))
+    internal_return_code = CanReturnCode::unknown_close_error;
+  return internal_return_code;
+}
 
-    if (!m_port_to_vendor_map[m_port_number ^ 1]) {
-      // de init hardware if neither channel on the module are in use
-      // toggle last bit to get the other port on the same module
-      // e.g. if channel 0, we need to check if channel 1 is in use and vice versa
-      if (CallAndLog(UcanDeinitHardware, "deinit hw", handle.value()))
-        internal_return_code = CanReturnCode::unknown_close_error;
-      m_module_to_handle_map.erase(m_module_number);
-    }
-  } else {
-    LOG(Log::WRN, CanLogIt::h()) << "No handle found for module, close() may have already been called";
-  }
+CanReturnCode CanVendorSystec::deinit_other_channel(tUcanHandle handle, CanVendorSystec *other) noexcept {
+  auto internal_return_code = CanReturnCode::success;
+  if (CallAndLog(UcanDeinitCanEx, "deinit channel", handle, other->m_channel_number))
+    internal_return_code = CanReturnCode::unknown_close_error;
+  other->m_module_in_use = false;
   return internal_return_code;
 }
 
