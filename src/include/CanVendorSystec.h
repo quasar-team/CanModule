@@ -62,7 +62,8 @@ struct CanVendorSystec : CanDevice {
 
   friend void systec_receive(tUcanHandle UcanHandle_p, DWORD bEvent_p, BYTE bChannel_p, void* pArg_p);
 
-  CanReturnCode deinit_channel() noexcept;
+  CanReturnCode deinit_channel(tUcanHandle handle) noexcept;
+  CanReturnCode deinit_other_channel(tUcanHandle handle, CanVendorSystec *other) noexcept;
 };
 
 #endif  // SRC_INCLUDE_CANVENDORSYSTEC_H_
