@@ -509,7 +509,7 @@ bool AnaCanScan::sendErrorCode(AnaInt32 status)
 	if (status != 0) {
 		auto now = std::chrono::system_clock::now();
 		auto nMicrosecs =
-				duration_cast<std::chrono::microseconds>(
+				std::chrono::duration_cast<std::chrono::microseconds>(
 						now.time_since_epoch()
 				);
 		ftTimeStamp.tv_sec = nMicrosecs.count() / 1000000L;
