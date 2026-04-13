@@ -9,6 +9,26 @@
 std::mutex CanVendorSystec::m_handles_lock;
 std::unordered_map<int, tUcanHandle> CanVendorSystec::m_module_to_handle_map;
 std::unordered_map<int, CanVendorSystec*> CanVendorSystec::m_port_to_vendor_map;
+static bool module_control_callback_registered = false;
+
+template <typename T, typename... Args>
+long CallAndLog(T f, const char *name, Args... args) {
+  long code = f(args...);
+  if (code != USBCAN_SUCCESSFUL)
+    LOG(Log::ERR, CanLogIt::h()) << "Got error code calling " << name << ": " << CanVendorSystec::UsbCanGetErrorText(code);
+  return code;
+}
+
+void connect_control_callback(BYTE bEvent_p, DWORD dwParam_p) {
+  switch(bEvent_p) {
+    case USBCAN_EVENT_CONNECT:
+      LOG(Log::DBG) << "USB CAN module connected"; break;
+    case USBCAN_EVENT_DISCONNECT:
+      LOG(Log::WRN) << "USB CAN module disconnected"; break;
+    case USBCAN_EVENT_FATALDISCON:
+      LOG(Log::ERR) << "USB CAN module with handle " << (int) dwParam_p << "fatally disconnected"; break;
+  }
+}
 
 // Callback registered per-module to handle receive events
 void systec_receive(tUcanHandle UcanHandle_p, DWORD bEvent_p, BYTE bChannel_p, void* pArg_p) {
@@ -63,27 +83,27 @@ CanReturnCode CanVendorSystec::init_can_port() {
   std::lock_guard<std::mutex> guard(CanVendorSystec::m_handles_lock);
   auto handle = get_module_handle();
   if (!handle.has_value()) { // module not in use
-    systec_call_return = UcanInitHardwareEx(&can_module_handle, m_module_number, systec_receive, (void*) &m_module_number);
-    if (systec_call_return != USBCAN_SUCCESSFUL ) {
-      LOG(Log::ERR, CanLogIt::h()) << "Error calling UcanInitHardwareEx: " << UsbCanGetErrorText(systec_call_return);
-      UcanDeinitHardware(can_module_handle);
+    if (!module_control_callback_registered) {
+      if (!CallAndLog(UcanInitHwConnectControl, "hw connect control callback", connect_control_callback))
+        module_control_callback_registered = true;
+    }
+    if (auto systec_code = CallAndLog(UcanInitHardwareEx, "init hardware", &can_module_handle, m_module_number, systec_receive, (void*) &m_module_number); systec_code != 0) {
+      CallAndLog(UcanDeinitHardware, "deinit hardware", can_module_handle);
       return CanReturnCode::unknown_open_error;
     }
     LOG(Log::INF, CanLogIt::h()) << "Initialised hardware for Systec module " << m_module_number;
     m_module_to_handle_map[m_module_number] = can_module_handle;
   } else { // find existing handle of module
-    can_module_handle = mapping->second;
-    LOG(Log::INF, CanLogIt::h()) << "Reuing handle for module " << m_module_number << " already in use, skipping UCanInitHardwareEx";
+    can_module_handle = handle.value();
+    LOG(Log::INF, CanLogIt::h()) << "Reusing handle (" << (size_t) can_module_handle << ") for module " << m_module_number << " already in use, skipping UCanInitHardwareEx";
   }
 
   // TODO handle error code for reset...
   // also investigate the minimum amount of things to reset to restore good state
-  UcanResetCanEx(can_module_handle, (BYTE) m_channel_number, (DWORD) 0);
+  CallAndLog(UcanResetCanEx, "reset channel", can_module_handle, (BYTE) m_channel_number, (DWORD) 0);
   m_port_to_vendor_map[m_port_number] = this;
 
-  systec_call_return = UcanInitCanEx2(can_module_handle, m_channel_number, &initialization_parameters);
-  if ( systec_call_return != USBCAN_SUCCESSFUL )	{
-    LOG(Log::ERR, CanLogIt::h()) << "UcanInitCanEx2, return code = [ 0x" << std::hex << (int) systec_call_return << std::dec << "]";
+  if (CallAndLog(UcanInitCanEx2, "init channel", can_module_handle, m_channel_number, &initialization_parameters)) {
     deinit_channel();
     return CanReturnCode::unknown_open_error;
   }
@@ -125,22 +145,16 @@ CanReturnCode CanVendorSystec::deinit_channel() noexcept {
   m_port_to_vendor_map.erase(m_port_number);
   auto handle = get_module_handle();
   if (handle.has_value()) {
-    auto return_code = UcanDeinitCanEx(handle.value(), m_channel_number);
-    if (return_code != USBCAN_SUCCESSFUL) {
-      LOG(Log::ERR, CanLogIt::h()) << "Error calling UcanDeinitCanEx: " << UsbCanGetErrorText(return_code);
+    if (CallAndLog(UcanDeinitCanEx, "deinit channel", handle.value(), m_channel_number))
       internal_return_code = CanReturnCode::unknown_close_error;
-    } // still attempt to deinit hardware if channel deinit fails
 
     if (!m_port_to_vendor_map[m_port_number ^ 1]) {
       // de init hardware if neither channel on the module are in use
       // toggle last bit to get the other port on the same module
       // e.g. if channel 0, we need to check if channel 1 is in use and vice versa
-      auto return_code_hw = UcanDeinitHardware(handle.value());
-      m_module_to_handle_map.erase(m_module_number);
-      if (return_code_hw != USBCAN_SUCCESSFUL) {
-        LOG(Log::ERR, CanLogIt::h()) << "Error calling UcanDeinitHardware: " << UsbCanGetErrorText(return_code_hw);
+      if (CallAndLog(UcanDeinitHardware, "deinit hw", handle.value()))
         internal_return_code = CanReturnCode::unknown_close_error;
-      }
+      m_module_to_handle_map.erase(m_module_number);
     }
   } else {
     LOG(Log::WRN, CanLogIt::h()) << "No handle found for module, close() may have already been called";
@@ -152,7 +166,6 @@ CanReturnCode CanVendorSystec::vendor_send(const CanFrame& frame) noexcept {
   std::vector<char> message = frame.message();
 
   tCanMsgStruct can_msg_to_send;
-  BYTE Status;
 
   can_msg_to_send.m_dwID = frame.id();
   can_msg_to_send.m_bDLC = frame.length();
@@ -168,30 +181,18 @@ CanReturnCode CanVendorSystec::vendor_send(const CanFrame& frame) noexcept {
     LOG(Log::ERR, CanLogIt::h()) << "Could not send message, no handle found for module " << m_module_number;
     return CanReturnCode::disconnected;
   }
-  Status = UcanWriteCanMsgEx(handle.value(), m_channel_number, &can_msg_to_send, NULL);
-  if (Status != USBCAN_SUCCESSFUL) {
-    LOG(Log::ERR, CanLogIt::h()) << "There was a problem when sending a message: "
-      << UsbCanGetErrorText(Status);
-
-    // for now, just always reconnect on a failed send.
-    auto close_code = close();
-    if (close_code != CanReturnCode::success) return close_code;
-
-    auto open_code = open();
-    if (open_code != CanReturnCode::success) return open_code;
-
-    switch (Status) {
-      case USBCAN_ERR_CANNOTINIT:
-      case USBCAN_ERR_ILLHANDLE: return CanReturnCode::disconnected;
-      case USBCAN_ERR_DLL_TXFULL: return CanReturnCode::tx_buffer_overflow;
-      case USBCAN_ERR_MAXINSTANCES: return CanReturnCode::too_many_connections;
-      case USBCAN_ERR_ILLPARAM:
-      case USBCAN_ERR_ILLHW:
-      case USBCAN_ERR_ILLCHANNEL:
-      case USBCAN_WARN_TXLIMIT:
-      case USBCAN_WARN_FW_TXOVERRUN:
-      default: return CanReturnCode::unknown_send_error;
-    }
+  switch(CallAndLog(UcanWriteCanMsgEx, "write", handle.value(), m_channel_number, &can_msg_to_send, nullptr)) {
+    case USBCAN_SUCCESSFUL: break;
+    case USBCAN_ERR_CANNOTINIT:
+    case USBCAN_ERR_ILLHANDLE: return CanReturnCode::disconnected;
+    case USBCAN_ERR_DLL_TXFULL: return CanReturnCode::tx_buffer_overflow;
+    case USBCAN_ERR_MAXINSTANCES: return CanReturnCode::too_many_connections;
+    case USBCAN_ERR_ILLPARAM:
+    case USBCAN_ERR_ILLHW:
+    case USBCAN_ERR_ILLCHANNEL:
+    case USBCAN_WARN_TXLIMIT:
+    case USBCAN_WARN_FW_TXOVERRUN:
+    default: return CanReturnCode::unknown_send_error;
   }
   return CanReturnCode::success;
 };
@@ -200,42 +201,49 @@ CanDiagnostics CanVendorSystec::vendor_diagnostics() noexcept {
 
   CanDiagnostics diagnostics{};
   tStatusStruct status;
-  // TODO check return code of these functions...
   auto handle = get_module_handle();
+  diagnostics.log_entries = std::vector<std::string>();
   if (!handle.has_value()) {
-    LOG(Log::ERR, CanLogIt::h()) << "TODO figure out what to do here, no handle found";
-    return CanReturnCode::disconnected;
-  }
-  auto handle_value = handle.value();
-  UcanGetStatusEx(handle_value, m_channel_number, &status);
-  WORD can_status = status.m_wCanStatus;
-  diagnostics.state = UsbCanGetStatusText(can_status);
-  tUcanMsgCountInfo msg_count_info;
-  UcanGetMsgCountInfoEx(handle_value, m_channel_number, &msg_count_info);
-  diagnostics.tx = msg_count_info.m_wSentMsgCount;
-  diagnostics.rx = msg_count_info.m_wRecvdMsgCount;
-
-  DWORD tx_error, rx_error;
-  UcanGetCanErrorCounter(handle_value, m_channel_number, &tx_error, &rx_error);
-  diagnostics.tx_error = tx_error;
-  diagnostics.rx_error = rx_error;
-
-  tUcanHardwareInfo hw_info;
-  if (UcanGetHardwareInfo(handle_value, &hw_info) != USBCAN_SUCCESSFUL)
+    LOG(Log::ERR, CanLogIt::h()) << "Could not get diagnostics as no handle found for module " << m_module_number;
     diagnostics.mode = "OFFLINE";
-  else switch (hw_info.m_bMode) {
-    case kUcanModeNormal:
-      diagnostics.mode = "NORMAL"; break;
-    case kUcanModeListenOnly:
-      diagnostics.mode = "LISTEN_ONLY"; break;
-    case kUcanModeTxEcho:
-      diagnostics.mode = "LOOPBACK"; break;
+  } else {
+    auto handle_value = handle.value();
+    CallAndLog(UcanGetStatusEx, "get status", handle_value, m_channel_number, &status);
+    WORD can_status = status.m_wCanStatus;
+    diagnostics.state = UsbCanGetStatusText(can_status);
+    if (can_status) {
+      diagnostics.log_entries.value().push_back(diagnostics.state.value());
+    }
+
+
+    tUcanMsgCountInfo msg_count_info;
+    long err_code;
+    if (err_code = CallAndLog(UcanGetMsgCountInfoEx, "get msg counts", handle_value, m_channel_number, &msg_count_info); err_code == 0) {
+      diagnostics.tx = msg_count_info.m_wSentMsgCount;
+      diagnostics.rx = msg_count_info.m_wRecvdMsgCount;
+    } else diagnostics.log_entries.value().push_back(std::string(UsbCanGetErrorText(err_code)));
+
+    DWORD tx_error, rx_error;
+    if (err_code = CallAndLog(UcanGetCanErrorCounter, "get errors", handle_value, m_channel_number, &tx_error, &rx_error); err_code == 0) {
+      diagnostics.tx_error = tx_error;
+      diagnostics.rx_error = rx_error;
+    } else diagnostics.log_entries.value().push_back(std::string(UsbCanGetErrorText(err_code)));
+
+    tUcanHardwareInfo hw_info;
+    if (err_code = CallAndLog(UcanGetHardwareInfo, "get hw info", handle_value, &hw_info); err_code != 0) {
+      diagnostics.mode = "OFFLINE";
+      diagnostics.log_entries.value().push_back(std::string(UsbCanGetErrorText(err_code)));
+    } else switch (hw_info.m_bMode) {
+      case kUcanModeNormal:     diagnostics.mode = "NORMAL";      break;
+      case kUcanModeListenOnly: diagnostics.mode = "LISTEN_ONLY"; break;
+      case kUcanModeTxEcho:     diagnostics.mode = "LOOPBACK";    break;
+    }
+
+    DWORD module_time; // in ms
+    if (err_code = CallAndLog(UcanGetModuleTime, "get module time", handle_value, &module_time); err_code == 0)
+      diagnostics.uptime = (uint32_t) module_time / 1000;
+    else diagnostics.log_entries.value().push_back(std::string(UsbCanGetErrorText(err_code)));
   }
-
-  DWORD module_time; // in ms
-  UcanGetModuleTime(handle_value, &module_time);
-  diagnostics.uptime = (uint32_t) module_time / 1000;
-
   return diagnostics;
 };
 
@@ -459,6 +467,9 @@ std::string CanVendorSystec::UsbCanGetStatusText(long err_code) {
     case USBCAN_CANERR_TXMSGLOST: return "A transmit CAN message was deleted automatically by the "
     "firmware because transmission timeout run over (refer to "
     "function UcanSetTxTimeout() ).";
-    default:                      return "unknown error code";
+    default:
+      std::stringstream ss;
+      ss << "Unknown error code: 0x" << std::hex << err_code;
+      return ss.str();
   }
 }
