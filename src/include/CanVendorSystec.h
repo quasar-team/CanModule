@@ -1,22 +1,24 @@
 #ifndef SRC_INCLUDE_CANVENDORSYSTEC_H_
 #define SRC_INCLUDE_CANVENDORSYSTEC_H_
 
+#include <Winsock2.h>
+#include <tchar.h>
+#include <usbcan32.h>
+#include <windows.h>
+
 #include <atomic>
-#include <memory>
-#include "tchar.h"
-#include "Winsock2.h"
-#include "windows.h"
-#include <string>
-#include "usbcan32.h"
 #include <cstdint>
 #include <map>
+#include <memory>
 #include <mutex>  //NOLINT
+#include <optional>
+#include <string>
+#include <thread>
+#include <unordered_map>
+
+#include "CanDevice.h"
 #include "CanDiagnostics.h"
 #include "CanVendorLoopback.h"
-#include "CanDevice.h"
-#include <unordered_map>
-#include <optional>
-#include <thread>
 
 /**
  * @struct CanVendorSystec
@@ -31,11 +33,11 @@ struct CanVendorSystec : CanDevice {
   explicit CanVendorSystec(const CanDeviceArguments& args);
   ~CanVendorSystec() { vendor_close(); }
   int SystecRxThread();
-  static std::string_view UsbCanGetErrorText( long err_code );
-  static std::string UsbCanGetStatusText( long err_code );
+  static std::string_view UsbCanGetErrorText(uint16_t err_code);
+  static std::string UsbCanGetStatusText(uint16_t err_code);
 
-  private:
-  std::atomic<bool> m_module_in_use {false};
+ private:
+  std::atomic<bool> m_module_in_use{false};
   std::atomic<size_t> m_queued_reads;
   int m_module_number;
   int m_channel_number;
@@ -44,7 +46,8 @@ struct CanVendorSystec : CanDevice {
   std::thread m_SystecRxThread;
 
   std::optional<tUcanHandle> get_module_handle() {
-    if (auto mapping = m_module_to_handle_map.find(m_module_number); mapping != m_module_to_handle_map.end()) {
+    if (auto mapping = m_module_to_handle_map.find(m_module_number);
+        mapping != m_module_to_handle_map.end()) {
       return mapping->second;
     }
     return std::nullopt;
@@ -60,10 +63,12 @@ struct CanVendorSystec : CanDevice {
   static std::unordered_map<int, tUcanHandle> m_module_to_handle_map;
   static std::unordered_map<int, CanVendorSystec*> m_port_to_vendor_map;
 
-  friend void systec_receive(tUcanHandle UcanHandle_p, DWORD bEvent_p, BYTE bChannel_p, void* pArg_p);
+  friend void systec_receive(tUcanHandle UcanHandle_p, DWORD bEvent_p,
+                             BYTE bChannel_p, void* pArg_p);
 
   CanReturnCode deinit_channel(tUcanHandle handle) noexcept;
-  CanReturnCode deinit_other_channel(tUcanHandle handle, CanVendorSystec *other) noexcept;
+  CanReturnCode deinit_other_channel(tUcanHandle handle,
+                                     CanVendorSystec* other) noexcept;
 };
 
 #endif  // SRC_INCLUDE_CANVENDORSYSTEC_H_

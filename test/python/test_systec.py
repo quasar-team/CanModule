@@ -13,10 +13,11 @@ import socket
 
 pytestmark = pytest.mark.skipif(
     socket.gethostname() != "pcaticswin11",
-    reason="Tests currently only work when run on the pcaticswin11 development server"
+    reason="Tests currently only work when run on the pcaticswin11 development server",
 )
 
 ELMB_ID = 15
+
 
 @pytest.fixture
 def device_and_frames():
@@ -26,9 +27,7 @@ def device_and_frames():
     config.high_speed = True
     config.bus_number = 0
     received = []
-    device = CanDevice.create(
-        "systec", CanDeviceArguments(config, received.append)
-    )
+    device = CanDevice.create("systec", CanDeviceArguments(config, received.append))
     o1 = device.open()
     assert o1 == CanReturnCode.success
     received.clear()
@@ -50,24 +49,26 @@ def test_sync_messages_elmb(device_and_frames):
     assert diag.tx_error == 0
 
     sleep(1)
-    received.clear() # hopefully clear any previously buffered frames
+    received.clear()  # hopefully clear any previously buffered frames
     r = device.send(CanFrame(0x80))  # send sync message
     assert r == CanReturnCode.success
 
     start = time()
-    while (time() - start < 15):
+    while time() - start < 15:
         if len(received) == 65:
             break
     else:
-        raise RuntimeError(f"Did not receive expected frames before timeout: {len(received)}/65")
+        raise RuntimeError(
+            f"Did not receive expected frames before timeout: {len(received)}/65"
+        )
     diff = time() - start
 
     diag = device.diagnostics()
     assert diag.state == "No error."
     assert diag.rx - rx == 65
     assert diag.tx - tx == 1
-    assert diag.rx_per_second == pytest.approx(65/diff, rel=0.3)
-    assert diag.tx_per_second == pytest.approx(1/diff, rel=0.3)
+    assert diag.rx_per_second == pytest.approx(65 / diff, rel=0.3)
+    assert diag.tx_per_second == pytest.approx(1 / diff, rel=0.3)
 
     digital_input_frame = received[0]
     # see page 16 https://www.nikhef.nl/pub/departments/ct/po/html/ELMB128/ELMB24.pdf
@@ -76,5 +77,3 @@ def test_sync_messages_elmb(device_and_frames):
     for idx, frame in enumerate(received[1:]):
         assert frame.id() == 911
         assert ord(frame.message()[0]) == idx
-
-

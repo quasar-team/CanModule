@@ -49,7 +49,12 @@ def parse_arguments():
     systec_parser = subparsers.add_parser("systec", help="Use the Systec module")
     systec_parser.add_argument("device", type=int, help="Bus number for Systec")
     systec_parser.add_argument(
-        "baudrate", type=int, default=125000, help="Baud rate for Systec CAN channel", nargs='?')
+        "baudrate",
+        type=int,
+        default=125000,
+        help="Baud rate for Systec CAN channel",
+        nargs="?",
+    )
 
     systec_subparsers = systec_parser.add_subparsers(
         dest="action", required=True, help="systec actions"
