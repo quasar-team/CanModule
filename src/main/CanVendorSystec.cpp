@@ -1,9 +1,12 @@
 #include "CanVendorSystec.h"
 
-#include <algorithm>
-#include <time.h>
 #include <LogIt.h>
+#include <time.h>
+
+#include <algorithm>
 #include <iomanip>
+#include <string>
+#include <unordered_map>
 #include <vector>
 
 std::mutex CanVendorSystec::m_handles_lock;
@@ -12,31 +15,39 @@ std::unordered_map<int, CanVendorSystec*> CanVendorSystec::m_port_to_vendor_map;
 static bool module_control_callback_registered = false;
 
 template <typename T, typename... Args>
-long CallAndLog(T f, const char *name, Args... args) {
-  long code = f(args...);
+uint16_t CallAndLog(T f, const char* name, Args... args) {
+  uint16_t code = f(args...);
   if (code != USBCAN_SUCCESSFUL)
-    LOG(Log::ERR, CanLogIt::h()) << "Got error code calling " << name << ": " << CanVendorSystec::UsbCanGetErrorText(code);
+    LOG(Log::ERR, CanLogIt::h()) << "Got error code calling " << name << ": "
+                                 << CanVendorSystec::UsbCanGetErrorText(code);
   return code;
 }
 
 void connect_control_callback(BYTE bEvent_p, DWORD dwParam_p) {
-  switch(bEvent_p) {
+  switch (bEvent_p) {
     case USBCAN_EVENT_CONNECT:
-      LOG(Log::DBG) << "USB CAN module connected"; break;
+      LOG(Log::DBG) << "USB CAN module connected";
+      break;
     case USBCAN_EVENT_DISCONNECT:
-      LOG(Log::WRN) << "USB CAN module disconnected"; break;
+      LOG(Log::WRN) << "USB CAN module disconnected";
+      break;
     case USBCAN_EVENT_FATALDISCON:
-      LOG(Log::ERR) << "USB CAN module with handle " << (int) dwParam_p << "fatally disconnected"; break;
+      LOG(Log::ERR) << "USB CAN module with handle "
+                    << static_cast<int>(dwParam_p) << "fatally disconnected";
+      break;
   }
 }
 
 // Callback registered per-module to handle receive events
-void systec_receive(tUcanHandle UcanHandle_p, DWORD bEvent_p, BYTE bChannel_p, void* pArg_p) {
+void systec_receive(tUcanHandle UcanHandle_p, DWORD bEvent_p, BYTE bChannel_p,
+                    void* pArg_p) {
   if (bEvent_p == USBCAN_EVENT_RECEIVE) {
     int module_number = *(reinterpret_cast<int*>(pArg_p));
     int port_number = 2 * module_number + bChannel_p;
-    CanVendorSystec *vendorPtr = CanVendorSystec::m_port_to_vendor_map[port_number];
-    if (vendorPtr) ++(vendorPtr->m_queued_reads); // [] returns nullptr if not found in map;
+    CanVendorSystec* vendorPtr =
+        CanVendorSystec::m_port_to_vendor_map[port_number];
+    if (vendorPtr)
+      ++(vendorPtr->m_queued_reads);  // [] returns nullptr if not found in map;
   }
 }
 
@@ -47,12 +58,24 @@ CanVendorSystec::CanVendorSystec(const CanDeviceArguments& args)
   }
 
   switch (args.config.bitrate.value()) {
-    case 50000:   m_baud_rate = USBCAN_BAUD_50kBit;  break;
-    case 100000:  m_baud_rate = USBCAN_BAUD_100kBit; break;
-    case 125000:  m_baud_rate = USBCAN_BAUD_125kBit; break;
-    case 250000:  m_baud_rate = USBCAN_BAUD_250kBit; break;
-    case 500000:  m_baud_rate = USBCAN_BAUD_500kBit; break;
-    case 1000000: m_baud_rate = USBCAN_BAUD_1MBit;   break;
+    case 50000:
+      m_baud_rate = USBCAN_BAUD_50kBit;
+      break;
+    case 100000:
+      m_baud_rate = USBCAN_BAUD_100kBit;
+      break;
+    case 125000:
+      m_baud_rate = USBCAN_BAUD_125kBit;
+      break;
+    case 250000:
+      m_baud_rate = USBCAN_BAUD_250kBit;
+      break;
+    case 500000:
+      m_baud_rate = USBCAN_BAUD_500kBit;
+      break;
+    case 1000000:
+      m_baud_rate = USBCAN_BAUD_1MBit;
+      break;
     default: {
       throw std::invalid_argument("Invalid bitrate provided");
     }
@@ -66,48 +89,61 @@ CanVendorSystec::CanVendorSystec(const CanDeviceArguments& args)
 
 CanReturnCode CanVendorSystec::init_can_port() {
   BYTE systec_call_return = USBCAN_SUCCESSFUL;
-  tUcanHandle		can_module_handle;
+  tUcanHandle can_module_handle;
 
-  tUcanInitCanParam initialization_parameters;
-  initialization_parameters.m_dwSize = sizeof(initialization_parameters); // size of this struct
-  initialization_parameters.m_bMode = kUcanModeNormal; // normal operation mode
-  initialization_parameters.m_bBTR0 = HIBYTE( m_baud_rate );  // baudrate
-  initialization_parameters.m_bBTR1 = LOBYTE( m_baud_rate );
-  initialization_parameters.m_bOCR = 0x1A; // standard output
-  initialization_parameters.m_dwAMR = USBCAN_AMR_ALL;  // receive all CAN messages
-  initialization_parameters.m_dwACR = USBCAN_ACR_ALL;
-  initialization_parameters.m_dwBaudrate = USBCAN_BAUDEX_USE_BTR01;
-  initialization_parameters.m_wNrOfRxBufferEntries = USBCAN_DEFAULT_BUFFER_ENTRIES;
-  initialization_parameters.m_wNrOfTxBufferEntries = USBCAN_DEFAULT_BUFFER_ENTRIES;
+  tUcanInitCanParam init_params;
+  init_params.m_dwSize = sizeof(init_params);  // size of this struct
+  init_params.m_bMode = kUcanModeNormal;       // normal operation mode
+  init_params.m_bBTR0 = HIBYTE(m_baud_rate);   // baudrate
+  init_params.m_bBTR1 = LOBYTE(m_baud_rate);
+  init_params.m_bOCR = 0x1A;             // standard output
+  init_params.m_dwAMR = USBCAN_AMR_ALL;  // receive all CAN messages
+  init_params.m_dwACR = USBCAN_ACR_ALL;
+  init_params.m_dwBaudrate = USBCAN_BAUDEX_USE_BTR01;
+  init_params.m_wNrOfRxBufferEntries = USBCAN_DEFAULT_BUFFER_ENTRIES;
+  init_params.m_wNrOfTxBufferEntries = USBCAN_DEFAULT_BUFFER_ENTRIES;
 
   // check if USB-CANmodul is already initialized
   std::lock_guard<std::mutex> guard(CanVendorSystec::m_handles_lock);
   auto handle = get_module_handle();
-  if (!handle.has_value()) { // module not in use
+  if (!handle.has_value()) {  // module not in use
     if (!module_control_callback_registered) {
-      if (!CallAndLog(UcanInitHwConnectControl, "hw connect control callback", connect_control_callback))
+      if (!CallAndLog(UcanInitHwConnectControl, "hw connect control callback",
+                      connect_control_callback))
         module_control_callback_registered = true;
     }
-    if (auto systec_code = CallAndLog(UcanInitHardwareEx, "init hardware", &can_module_handle, m_module_number, systec_receive, (void*) &m_module_number); systec_code != 0) {
+    if (auto systec_code =
+            CallAndLog(UcanInitHardwareEx, "init hardware", &can_module_handle,
+                       m_module_number, systec_receive,
+                       reinterpret_cast<void*>(&m_module_number));
+        systec_code != 0) {
       CallAndLog(UcanDeinitHardware, "deinit hardware", can_module_handle);
       return CanReturnCode::unknown_open_error;
     }
-    LOG(Log::INF, CanLogIt::h()) << "Initialised hardware for Systec module " << m_module_number;
+    LOG(Log::INF, CanLogIt::h())
+        << "Initialised hardware for Systec module " << m_module_number;
     m_module_to_handle_map[m_module_number] = can_module_handle;
-  } else { // find existing handle of module
+  } else {  // find existing handle of module
     can_module_handle = handle.value();
-    LOG(Log::INF, CanLogIt::h()) << "Reusing handle (" << (size_t) can_module_handle << ") for module " << m_module_number << " already in use, skipping UCanInitHardwareEx";
+    LOG(Log::INF, CanLogIt::h())
+        << "Reusing handle (" << static_cast<size_t>(can_module_handle)
+        << ") for module " << m_module_number
+        << " already in use, skipping UCanInitHardwareEx";
   }
 
-  if (CallAndLog(UcanInitCanEx2, "init channel", can_module_handle, m_channel_number, &initialization_parameters)) {
+  if (CallAndLog(UcanInitCanEx2, "init channel", can_module_handle,
+                 m_channel_number, &init_params)) {
     deinit_channel(can_module_handle);
     return CanReturnCode::unknown_open_error;
   }
 
   // investigate the minimum amount of things to reset to restore good state
-  CallAndLog(UcanResetCanEx, "reset channel", can_module_handle, (BYTE) m_channel_number, (DWORD) 0);
+  CallAndLog(UcanResetCanEx, "reset channel", can_module_handle,
+             (BYTE)m_channel_number, (DWORD)0);
 
-  LOG(Log::INF, CanLogIt::h()) << "Successfully opened CAN port on module " << m_module_number << ", channel " << m_channel_number;
+  LOG(Log::INF, CanLogIt::h())
+      << "Successfully opened CAN port on module " << m_module_number
+      << ", channel " << m_channel_number;
   return CanReturnCode::success;
 }
 
@@ -119,7 +155,7 @@ CanReturnCode CanVendorSystec::vendor_open() noexcept {
     if (return_code != CanReturnCode::success) return return_code;
     m_module_in_use = true;
     m_SystecRxThread = std::thread(&CanVendorSystec::SystecRxThread, this);
-  } catch(...) {
+  } catch (...) {
     return_code = CanReturnCode::internal_api_error;
   }
 
@@ -131,10 +167,11 @@ CanReturnCode CanVendorSystec::vendor_close() noexcept {
   std::lock_guard<std::mutex> guard(CanVendorSystec::m_handles_lock);
 
   bool other_in_use = false;
-  CanVendorSystec *other = nullptr;
+  CanVendorSystec* other = nullptr;
   // toggle last bit to get the other port on the same module
   // e.g. if channel 0, we need to check if channel 1 is in use and vice versa
-  if (auto mapping = m_port_to_vendor_map.find(m_port_number ^ 1); mapping != m_port_to_vendor_map.end()) {
+  if (auto mapping = m_port_to_vendor_map.find(m_port_number ^ 1);
+      mapping != m_port_to_vendor_map.end()) {
     other = mapping->second;
     other_in_use = other->m_module_in_use;
   }
@@ -147,12 +184,14 @@ CanReturnCode CanVendorSystec::vendor_close() noexcept {
 
     auto handle = get_module_handle();
     if (!handle.has_value()) {
-      LOG(Log::WRN, CanLogIt::h()) << "No handle found for module, close() may have already been called";
-      return CanReturnCode::success; // is success correct?
+      LOG(Log::WRN, CanLogIt::h())
+          << "No handle found for module, close() may have already been called";
+      return CanReturnCode::success;  // is success correct?
     }
 
     if (close_both_channels && other_in_use) {
-      LOG(Log::WRN, CanLogIt::h()) << "Deinitialising other channel " << other->m_channel_number << " on module.";
+      LOG(Log::WRN, CanLogIt::h()) << "Deinitialising other channel "
+                                   << other->m_channel_number << " on module.";
       return_code = deinit_other_channel(handle.value(), other);
     }
     return_code = deinit_channel(handle.value());
@@ -160,7 +199,9 @@ CanReturnCode CanVendorSystec::vendor_close() noexcept {
     // if there are no channels still using the handle, deinit hardware
     // and erase handle from map
     if (!other_in_use || close_both_channels) {
-      if (auto systec_code = CallAndLog(UcanDeinitHardware, "deinit hw", handle.value()); systec_code != 0)
+      if (auto systec_code =
+              CallAndLog(UcanDeinitHardware, "deinit hw", handle.value());
+          systec_code != 0)
         return_code = CanReturnCode::unknown_close_error;
       m_module_to_handle_map.erase(m_module_number);
     }
@@ -177,9 +218,11 @@ CanReturnCode CanVendorSystec::deinit_channel(tUcanHandle handle) noexcept {
   return internal_return_code;
 }
 
-CanReturnCode CanVendorSystec::deinit_other_channel(tUcanHandle handle, CanVendorSystec *other) noexcept {
+CanReturnCode CanVendorSystec::deinit_other_channel(
+    tUcanHandle handle, CanVendorSystec* other) noexcept {
   auto internal_return_code = CanReturnCode::success;
-  if (CallAndLog(UcanDeinitCanEx, "deinit channel", handle, other->m_channel_number))
+  if (CallAndLog(UcanDeinitCanEx, "deinit channel", handle,
+                 other->m_channel_number))
     internal_return_code = CanReturnCode::unknown_close_error;
   other->m_module_in_use = false;
   return internal_return_code;
@@ -194,113 +237,154 @@ CanReturnCode CanVendorSystec::vendor_send(const CanFrame& frame) noexcept {
   can_msg_to_send.m_bDLC = frame.length();
   can_msg_to_send.m_bFF = 0;
   if (frame.is_remote_request()) {
-      can_msg_to_send.m_bFF = USBCAN_MSG_FF_RTR;
+    can_msg_to_send.m_bFF = USBCAN_MSG_FF_RTR;
   }
 
-  std::copy(message.begin(), message.begin() + can_msg_to_send.m_bDLC, can_msg_to_send.m_bData);
+  std::copy(message.begin(), message.begin() + can_msg_to_send.m_bDLC,
+            can_msg_to_send.m_bData);
 
   auto handle = get_module_handle();
   if (!handle.has_value()) {
-    LOG(Log::ERR, CanLogIt::h()) << "Could not send message, no handle found for module " << m_module_number;
+    LOG(Log::ERR, CanLogIt::h())
+        << "Could not send message, no handle found for module "
+        << m_module_number;
     return CanReturnCode::disconnected;
   }
-  switch(CallAndLog(UcanWriteCanMsgEx, "write", handle.value(), m_channel_number, &can_msg_to_send, nullptr)) {
-    case USBCAN_SUCCESSFUL: break;
+  switch (CallAndLog(UcanWriteCanMsgEx, "write", handle.value(),
+                     m_channel_number, &can_msg_to_send, nullptr)) {
+    case USBCAN_SUCCESSFUL:
+      break;
     case USBCAN_ERR_CANNOTINIT:
-    case USBCAN_ERR_ILLHANDLE: return CanReturnCode::disconnected;
-    case USBCAN_ERR_DLL_TXFULL: return CanReturnCode::tx_buffer_overflow;
-    case USBCAN_ERR_MAXINSTANCES: return CanReturnCode::too_many_connections;
+    case USBCAN_ERR_ILLHANDLE:
+      return CanReturnCode::disconnected;
+    case USBCAN_ERR_DLL_TXFULL:
+      return CanReturnCode::tx_buffer_overflow;
+    case USBCAN_ERR_MAXINSTANCES:
+      return CanReturnCode::too_many_connections;
     case USBCAN_ERR_ILLPARAM:
     case USBCAN_ERR_ILLHW:
     case USBCAN_ERR_ILLCHANNEL:
     case USBCAN_WARN_TXLIMIT:
     case USBCAN_WARN_FW_TXOVERRUN:
-    default: return CanReturnCode::unknown_send_error;
+    default:
+      return CanReturnCode::unknown_send_error;
   }
   return CanReturnCode::success;
 };
 
 CanDiagnostics CanVendorSystec::vendor_diagnostics() noexcept {
-
   CanDiagnostics diagnostics{};
   tStatusStruct status;
   auto handle = get_module_handle();
   diagnostics.log_entries = std::vector<std::string>();
   if (!handle.has_value()) {
-    LOG(Log::ERR, CanLogIt::h()) << "Could not get diagnostics as no handle found for module " << m_module_number;
+    LOG(Log::ERR, CanLogIt::h())
+        << "Could not get diagnostics as no handle found for module "
+        << m_module_number;
     diagnostics.mode = "OFFLINE";
   } else {
     auto handle_value = handle.value();
-    CallAndLog(UcanGetStatusEx, "get status", handle_value, m_channel_number, &status);
+    CallAndLog(UcanGetStatusEx, "get status", handle_value, m_channel_number,
+               &status);
     WORD can_status = status.m_wCanStatus;
     diagnostics.state = UsbCanGetStatusText(can_status);
     if (can_status) {
       diagnostics.log_entries.value().push_back(diagnostics.state.value());
     }
 
-
     tUcanMsgCountInfo msg_count_info;
-    long err_code;
-    if (err_code = CallAndLog(UcanGetMsgCountInfoEx, "get msg counts", handle_value, m_channel_number, &msg_count_info); err_code == 0) {
+    uint16_t err_code;
+    if (err_code = CallAndLog(UcanGetMsgCountInfoEx, "get msg counts",
+                              handle_value, m_channel_number, &msg_count_info);
+        err_code == 0) {
       diagnostics.tx = msg_count_info.m_wSentMsgCount;
       diagnostics.rx = msg_count_info.m_wRecvdMsgCount;
-    } else diagnostics.log_entries.value().push_back(std::string(UsbCanGetErrorText(err_code)));
-
-    DWORD tx_error, rx_error;
-    if (err_code = CallAndLog(UcanGetCanErrorCounter, "get errors", handle_value, m_channel_number, &tx_error, &rx_error); err_code == 0) {
-      diagnostics.tx_error = tx_error;
-      diagnostics.rx_error = rx_error;
-    } else diagnostics.log_entries.value().push_back(std::string(UsbCanGetErrorText(err_code)));
-
-    tUcanHardwareInfo hw_info;
-    if (err_code = CallAndLog(UcanGetHardwareInfo, "get hw info", handle_value, &hw_info); err_code != 0) {
-      diagnostics.mode = "OFFLINE";
-      diagnostics.log_entries.value().push_back(std::string(UsbCanGetErrorText(err_code)));
-    } else switch (hw_info.m_bMode) {
-      case kUcanModeNormal:     diagnostics.mode = "NORMAL";      break;
-      case kUcanModeListenOnly: diagnostics.mode = "LISTEN_ONLY"; break;
-      case kUcanModeTxEcho:     diagnostics.mode = "LOOPBACK";    break;
+    } else {
+      diagnostics.log_entries.value().push_back(
+          std::string(UsbCanGetErrorText(err_code)));
     }
 
-    DWORD module_time; // in ms
-    if (err_code = CallAndLog(UcanGetModuleTime, "get module time", handle_value, &module_time); err_code == 0)
-      diagnostics.uptime = (uint32_t) module_time / 1000;
-    else diagnostics.log_entries.value().push_back(std::string(UsbCanGetErrorText(err_code)));
+    DWORD tx_error, rx_error;
+    if (err_code =
+            CallAndLog(UcanGetCanErrorCounter, "get errors", handle_value,
+                       m_channel_number, &tx_error, &rx_error);
+        err_code == 0) {
+      diagnostics.tx_error = tx_error;
+      diagnostics.rx_error = rx_error;
+    } else {
+      diagnostics.log_entries.value().push_back(
+          std::string(UsbCanGetErrorText(err_code)));
+    }
+
+    tUcanHardwareInfo hw_info;
+    if (err_code = CallAndLog(UcanGetHardwareInfo, "get hw info", handle_value,
+                              &hw_info);
+        err_code != 0) {
+      diagnostics.mode = "OFFLINE";
+      diagnostics.log_entries.value().push_back(
+          std::string(UsbCanGetErrorText(err_code)));
+    } else {
+      switch (hw_info.m_bMode) {
+        case kUcanModeNormal:
+          diagnostics.mode = "NORMAL";
+          break;
+        case kUcanModeListenOnly:
+          diagnostics.mode = "LISTEN_ONLY";
+          break;
+        case kUcanModeTxEcho:
+          diagnostics.mode = "LOOPBACK";
+          break;
+      }
+    }
+
+    DWORD module_time;  // in ms
+    if (err_code = CallAndLog(UcanGetModuleTime, "get module time",
+                              handle_value, &module_time);
+        err_code == 0)
+      diagnostics.uptime = static_cast<uint32_t>(module_time) / 1000;
+    else
+      diagnostics.log_entries.value().push_back(
+          std::string(UsbCanGetErrorText(err_code)));
   }
   return diagnostics;
 };
 
-
 /**
  * thread to handle reception of Can messages from the systec device
  */
-int CanVendorSystec::SystecRxThread()
-{
+int CanVendorSystec::SystecRxThread() {
   BYTE status;
   tCanMsgStruct read_can_message;
-  LOG(Log::DBG, CanLogIt::h()) << "SystecRxThread Started. m_module_in_use = [" << m_module_in_use <<"]";
+  LOG(Log::DBG, CanLogIt::h()) << "SystecRxThread Started. m_module_in_use = ["
+                               << m_module_in_use << "]";
   size_t to_read;
 
   auto handle = get_module_handle();
   if (!handle.has_value()) {
-    LOG(Log::ERR, CanLogIt::h()) << "Could not start rx thread without valid handle for module";
-    return -1; // TODO more useful error code
+    LOG(Log::ERR, CanLogIt::h())
+        << "Could not start rx thread without valid handle for module";
+    return -1;  // TODO(jsouter): more useful error code
   }
   while (m_module_in_use) {
     to_read = m_queued_reads;
     if (to_read < 1) continue;
-    status = UcanReadCanMsgEx(handle.value(), (BYTE *) &m_channel_number, &read_can_message, NULL);
+    status = UcanReadCanMsgEx(handle.value(),
+                              reinterpret_cast<BYTE*>(&m_channel_number),
+                              &read_can_message, NULL);
     switch (status) {
       case USBCAN_WARN_SYS_RXOVERRUN:
       case USBCAN_WARN_DLL_RXOVERRUN:
       case USBCAN_WARN_FW_RXOVERRUN:
         LOG(Log::WRN, CanLogIt::h()) << UsbCanGetErrorText(status);
-        [[ fallthrough ]];
+        [[fallthrough]];
       case USBCAN_SUCCESSFUL: {
         --m_queued_reads;
         if (read_can_message.m_bFF & USBCAN_MSG_FF_RTR) break;
-        std::vector<char> data(read_can_message.m_bData, read_can_message.m_bData + read_can_message.m_bDLC);
-        CanFrame can_frame(read_can_message.m_dwID, data, read_can_message.m_bFF);
+        std::vector<char> data(
+            read_can_message.m_bData,
+            read_can_message.m_bData + read_can_message.m_bDLC);
+        CanFrame can_frame(read_can_message.m_dwID, data,
+                           read_can_message.m_bFF);
         received(can_frame);
         break;
       }
@@ -308,10 +392,9 @@ int CanVendorSystec::SystecRxThread()
         m_queued_reads -= to_read;
         LOG(Log::WRN, CanLogIt::h()) << UsbCanGetErrorText(status);
         break;
-        default: // errors
+      default:  // errors
         // USBCAN_ERR_MAXINSTANCES, USBCAN_ERR_ILLHANDLE, USBCAN_ERR_CANNOTINIT,
         // USBCAN_ERR_ILLPARAM, USBCAN_ERR_ILLHW, USBCAN_ERR_ILLCHANNEL
-        // TODO should we raise some error state here?
         LOG(Log::ERR, CanLogIt::h()) << UsbCanGetErrorText(status);
         break;
     }
@@ -320,176 +403,248 @@ int CanVendorSystec::SystecRxThread()
   return 0;
 }
 
-std::string_view CanVendorSystec::UsbCanGetErrorText( long err_code ) {
-  switch( err_code ){
-  case USBCAN_SUCCESSFUL: return("success");
+std::string_view CanVendorSystec::UsbCanGetErrorText(uint16_t err_code) {
+  switch (err_code) {
+    case USBCAN_SUCCESSFUL:
+      return "success";
 
-  case USBCAN_ERR_RESOURCE: return ("This error code returns if one resource could not be generated. In this "
-  "case the term resource means memory and handles provided by the	Windows OS");
+    case USBCAN_ERR_RESOURCE:
+      return "This error code returns if one resource could not be generated. "
+             "In this case the term resource means memory and handles provided "
+             "by the Windows OS";
 
-  case USBCAN_ERR_MAXMODULES: return("An application has tried to open more than 64 USB-CANmodul devices. "
-  "The standard version of the DLL only supports up to 64 USB-CANmodul "
-  "devices at the same time. This error also appears if several applications "
-  "try to access more than 64 USB-CANmodul devices. For example, "
-  "application 1 has opened 60 modules, application 2 has opened 4 "
-  "modules and application 3 wants to open a module. Application 3 "
-  "receives this error code.");
+    case USBCAN_ERR_MAXMODULES:
+      return "An application has tried to open more than 64 USB-CANmodul "
+             "devices. The standard version of the DLL only supports up to 64 "
+             "USB-CANmodul devices at the same time. This error also appears "
+             "if several applications try to access more than 64 USB-CANmodul "
+             "devices. For example, application 1 has opened 60 modules, "
+             "application 2 has opened 4 modules and application 3 wants to "
+             "open a module. Application 3 receives this error code.";
 
-  case USBCAN_ERR_HWINUSE: return("An application tries to initialize an USB-CANmodul with the given device "
-  "number. If this module has already been initialized by its own or by "
-  "another application, this error code is returned.");
+    case USBCAN_ERR_HWINUSE:
+      return "An application tries to initialize an USB-CANmodul with the "
+             "given device number. If this module has already been initialized "
+             "by its own or by another application, this error code is "
+             "returned.";
 
-  case USBCAN_ERR_ILLVERSION: return("This error code returns if the firmware version of the USB-CANmodul is "
-  "not compatible to the software version of the DLL. In this case, install "
-  "the latest driver for the USB-CANmodul. Furthermore make sure that "
-  "the latest firmware version is programmed to the USB-CANmodul.");
+    case USBCAN_ERR_ILLVERSION:
+      return "This error code returns if the firmware version of the "
+             "USB-CANmodul is not compatible to the software version of the "
+             "DLL. "
+             "In this case, install the latest driver for the USB-CANmodul. "
+             "Furthermore make sure that the latest firmware version is "
+             "programmed to the USB-CANmodul.";
 
-  case USBCAN_ERR_ILLHW: return("This error code returns if an USB-CANmodul with the given device "
-  "number is not found. If the function UcanInitHardware() or "
-  "UcanInitHardwareEx() has been called with the device number "
-  "USBCAN_ANY_MODULE, and the error code appears, it indicates that "
-  "no module is connected to the PC or all connected modules are already "
-  "in use.");
+    case USBCAN_ERR_ILLHW:
+      return "This error code returns if an USB-CANmodul with the given device "
+             "number is not found. If the function UcanInitHardware() or "
+             "UcanInitHardwareEx() has been called with the device number "
+             "USBCAN_ANY_MODULE, and the error code appears, it indicates that "
+             "no module is connected to the PC or all connected modules are "
+             "already in use.";
 
-  case USBCAN_ERR_ILLHANDLE: return("This error code returns if a function received an incorrect USBCAN "
-  "handle. The function first checks which USB-CANmodul is related to this "
-  "handle. This error occurs if no device belongs this handle.");
+    case USBCAN_ERR_ILLHANDLE:
+      return "This error code returns if a function received an incorrect "
+             "USBCAN handle. The function first checks which USB-CANmodul is "
+             "related to this handle. This error occurs if no device belongs "
+             "this handle.";
 
-  case USBCAN_ERR_ILLPARAM: return("This error code returns if a wrong parameter is passed to the function. "
-  "For example, the value NULL has been passed to a pointer variable "
-  "instead of a valid address.");
+    case USBCAN_ERR_ILLPARAM:
+      return "This error code returns if a wrong parameter is passed to the "
+             "function. For example, the value NULL has been passed to a "
+             "pointer variable instead of a valid address.";
 
-  case USBCAN_ERR_BUSY: return("This error code occurs if several threads are accessing an "
-  "USB-CANmodul within a single application. After the other threads have "
-  "finished their tasks, the function may be called again.");
+    case USBCAN_ERR_BUSY:
+      return "This error code occurs if several threads are accessing an "
+             "USB-CANmodul within a single application. After the other "
+             "threads have finished their tasks, the function may be called "
+             "again.";
 
-  case USBCAN_ERR_TIMEOUT: return("This error code occurs if the function transmits a command to the "
-  "USB-CANmodul but no reply is returned. To solve this problem, close "
-  "the application, disconnect the USB-CANmodul, and connect it again.");
+    case USBCAN_ERR_TIMEOUT:
+      return "This error code occurs if the function transmits a command to "
+             "the USB-CANmodul but no reply is returned. To solve this "
+             "problem, close the application, disconnect the USB-CANmodul, "
+             "and connect it again.";
 
-  case USBCAN_ERR_IOFAILED: return("This error code occurs if the communication to the kernel driver was "
-  "interrupted. This happens, for example, if the USB-CANmodul is "
-  "disconnected during transferring data or commands to the "
-  "USB-CANmodul.");
+    case USBCAN_ERR_IOFAILED:
+      return "This error code occurs if the communication to the kernel driver "
+             "was interrupted. This happens, for example, if the USB-CANmodul "
+             "is disconnected during transferring data or commands to the "
+             "USB-CANmodul.";
 
-  case USBCAN_ERR_DLL_TXFULL: return("The function UcanWriteCanMsg() or UcanWriteCanMsgEx() first checks "
-  "if the transmit buffer within the DLL has enough capacity to store new "
-  "CAN messages. If the buffer is full, this error code returns. The CAN "
-  "message passed to these functions will not be written into the transmit "
-  "buffer in order to protect other CAN messages against overwriting. The "
-  "size of the transmit buffer is configurable (refer to function "
-  "UcanInitCanEx() and structure tUcanInitCanParam).");
+    case USBCAN_ERR_DLL_TXFULL:
+      return "The function UcanWriteCanMsg() or UcanWriteCanMsgEx() first "
+             "checks if the transmit buffer within the DLL has enough capacity "
+             "to store new CAN messages. If the buffer is full, this error "
+             "code returns. "
+             "The CAN message passed to these functions will not be written "
+             "into the transmit buffer in order to protect other CAN messages "
+             "against overwriting. The size of the transmit buffer is "
+             "configurable (refer to function UcanInitCanEx() and structure "
+             "tUcanInitCanParam).";
 
-  case USBCAN_ERR_MAXINSTANCES: return("A maximum amount of 64 applications are able to have access to the "
-  "DLL. If more applications attempting to access to the DLL, this error "
-  "code is returned. In this case, it is not possible to use an "
-  "USB-CANmodul by this application.");
+    case USBCAN_ERR_MAXINSTANCES:
+      return "A maximum amount of 64 applications are able to have access to "
+             "the DLL. If more applications attempting to access to the DLL, "
+             "this error code is returned. In this case, it is not possible to "
+             "use an USB-CANmodul by this application.";
 
-  case USBCAN_ERR_CANNOTINIT: return("This error code returns if an application tries to call an API function "
-  "which only can be called in software state CAN_INIT but the current "
-  "software is still in state HW_INIT. Refer to section 4.3.1 and Table 11 for "
-  "detailed information.");
+    case USBCAN_ERR_CANNOTINIT:
+      return "This error code returns if an application tries to call an API "
+             "function which only can be called in software state CAN_INIT but "
+             "the current software is still in state HW_INIT. Refer to section "
+             "4.3.1 and Table 11 for detailed information.";
 
-  case USBCAN_ERR_DISCONNECT: return("This error code occurs if an API function was called for an "
-  "USB-CANmodul that was plugged-off from the computer recently.");
+    case USBCAN_ERR_DISCONNECT:
+      return "This error code occurs if an API function was called for an "
+             "USB-CANmodul that was plugged-off from the computer recently.";
 
-  case USBCAN_ERR_ILLCHANNEL: return("This error code is returned if an extended function of the DLL is called "
-  "with parameter bChannel_p = USBCAN_CHANNEL_CH1, but a single-channel USB-CANmodul was used.");
+    case USBCAN_ERR_ILLCHANNEL:
+      return "This error code is returned if an extended function of the DLL "
+             "is called with parameter bChannel_p = USBCAN_CHANNEL_CH1, but a "
+             "single-channel USB-CANmodul was used.";
 
-  case USBCAN_ERR_ILLHWTYPE: return("This error code occurs if an extended function of the DLL was called for "
-  "a hardware which does not support the feature.");
+    case USBCAN_ERR_ILLHWTYPE:
+      return "This error code occurs if an extended function of the DLL was "
+             "called for a hardware which does not support the feature.";
 
-  case USBCAN_ERRCMD_NOTEQU: return("This error code occurs during communication between the PC and an "
-  "USB-CANmodul. The PC sends a command to the USB-CANmodul, "
-  "then the module executes the command and returns a response to the "
-  "PC. This error code returns if the reply does not correspond to the command.");
+    case USBCAN_ERRCMD_NOTEQU:
+      return "This error code occurs during communication between the PC and "
+             "an USB-CANmodul. The PC sends a command to the USB-CANmodul, "
+             "then the module executes the command and returns a response to "
+             "the PC. This error code returns if the reply does not correspond "
+             "to the command.";
 
-  case USBCAN_ERRCMD_REGTST: return("The software tests the CAN controller on the USB-CANmodul when the "
-  "CAN interface is initialized. Several registers of the CAN controller are "
-  "checked. This error code returns if an error appears during this register test.");
+    case USBCAN_ERRCMD_REGTST:
+      return "The software tests the CAN controller on the USB-CANmodul when "
+             "the CAN interface is initialized. Several registers of the CAN "
+             "controller are checked. This error code returns if an error "
+             "appears during this register test.";
 
-  case USBCAN_ERRCMD_ILLCMD: return("This error code returns if the USB-CANmodul receives a non-defined "
-  "command. This error represents a version conflict between the firmware in the USB-CANmodul and the DLL.");
+    case USBCAN_ERRCMD_ILLCMD:
+      return "This error code returns if the USB-CANmodul receives a "
+             "non-defined command. This error represents a version conflict "
+             "between the firmware in the USB-CANmodul and the DLL.";
 
-  case USBCAN_ERRCMD_EEPROM: return("The USB-CANmodul has a built-in EEPROM. This EEPROM contains "
-  "several configurations, e.g. the device number and the serial number. If "
-  "an error occurs while reading these values, this error code is returned.");
+    case USBCAN_ERRCMD_EEPROM:
+      return "The USB-CANmodul has a built-in EEPROM. This EEPROM contains "
+             "several configurations, e.g. the device number and the serial "
+             "number. If an error occurs while reading these values, this "
+             "error code is returned.";
 
-  case USBCAN_ERRCMD_ILLBDR: return("The USB-CANmodul has been initialized with an invalid baud rate (refer "
-  "to section 4.3.4).");
+    case USBCAN_ERRCMD_ILLBDR:
+      return "The USB-CANmodul has been initialized with an invalid baud rate "
+             "(refer to section 4.3.4).";
 
-  case USBCAN_ERRCMD_NOTINIT: return("It was tried to access a CAN-channel of a multi-channel "
-  "USB-CANmodul that was not initialized.");
+    case USBCAN_ERRCMD_NOTINIT:
+      return "It was tried to access a CAN-channel of a multi-channel "
+             "USB-CANmodul that was not initialized.";
 
-  case USBCAN_ERRCMD_ALREADYINIT: return("The accessed CAN-channel of a multi-channel USB-CANmodul was "
-  "already initialized");
+    case USBCAN_ERRCMD_ALREADYINIT:
+      return "The accessed CAN-channel of a multi-channel USB-CANmodul was "
+             "already initialized";
 
-  case USBCAN_ERRCMD_ILLSUBCMD: return("An internal error occurred within the DLL. In this case an unknown sub- "
-  "command was called instead of a main command (e.g. for the cyclic CAN message-feature).");
+    case USBCAN_ERRCMD_ILLSUBCMD:
+      return "An internal error occurred within the DLL. In this case an "
+             "unknown sub-command was called instead of a main command (e.g. "
+             "for the cyclic CAN message-feature).";
 
-  case USBCAN_ERRCMD_ILLIDX: return("An internal error occurred within the DLL. In this case an invalid index "
-  "for a list was delivered to the firmware (e.g. for the cyclic CAN message-feature).");
+    case USBCAN_ERRCMD_ILLIDX:
+      return "An internal error occurred within the DLL. In this case an "
+             "invalid index for a list was delivered to the firmware (e.g. for "
+             "the cyclic CAN message-feature).";
 
-  case USBCAN_ERRCMD_RUNNING: return("The caller tries to define a new list of cyclic CAN messages but this "
-  "feature was already started. For defining a new list, it is necessary to stop the feature beforehand.");
+    case USBCAN_ERRCMD_RUNNING:
+      return "The caller tries to define a new list of cyclic CAN messages but "
+             "this feature was already started. For defining a new list, it is "
+             "necessary to stop the feature beforehand.";
 
-  case USBCAN_WARN_NODATA: return("If the function UcanReadCanMsg() or UcanReadCanMsgEx() returns "
-  "with this warning, it is an indication that the receive buffer contains no CAN messages.");
+    case USBCAN_WARN_NODATA:
+      return "If the function UcanReadCanMsg() or UcanReadCanMsgEx() returns "
+             "with this warning, it is an indication that the receive buffer "
+             "contains no CAN messages.";
 
-  case USBCAN_WARN_SYS_RXOVERRUN: return("This is returned by UcanReadCanMsg() or UcanReadCanMsgEx() if the "
-  "receive buffer within the kernel driver runs over. The function "
-  "nevertheless returns a valid CAN message. It also indicates that at least "
-  "one CAN message are lost. However, it does not indicate the position of the lost CAN messages.");
+    case USBCAN_WARN_SYS_RXOVERRUN:
+      return "This is returned by UcanReadCanMsg() or UcanReadCanMsgEx() if "
+             "the receive buffer within the kernel driver runs over. The "
+             "function nevertheless returns a valid CAN message. It also "
+             "indicates that at least one CAN message are lost. However, it "
+             "does not indicate the position of the lost CAN messages.";
 
-  case USBCAN_WARN_DLL_RXOVERRUN: return("The DLL automatically requests CAN messages from the "
-  "USB-CANmodul and stores the messages into a buffer of the DLL. If "
-  "more CAN messages are received than the DLL buffer size allows, this "
-  "error code returns and CAN messages are lost. However, it does not "
-  "indicate the position of the lost CAN messages. The size of the receive "
-  "buffer is configurable (refer to function UcanInitCanEx() and structure "
-  "tUcanInitCanParam).");
+    case USBCAN_WARN_DLL_RXOVERRUN:
+      return "The DLL automatically requests CAN messages from the "
+             "USB-CANmodul and stores the messages into a buffer of the DLL. "
+             "If more CAN messages are received than the DLL buffer size "
+             "allows, this error code returns and CAN messages are lost. "
+             "However, it does not indicate the position of the lost CAN "
+             "messages. The size of the receive buffer is configurable (refer "
+             "to function UcanInitCanEx() and structure tUcanInitCanParam).";
 
-  case USBCAN_WARN_FW_TXOVERRUN: return("This warning is returned by function UcanWriteCanMsg() or "
-  "UcanWriteCanMsgEx() if flag USBCAN_CANERR_QXMTFULL is set in "
-  "the CAN driver status. However, the transmit CAN message could be "
-  "stored to the DLL transmit buffer. This warning indicates that at least "
-  "one transmit CAN message got lost in the device firmware layer. This "
-  "warning does not indicate the position of the lost CAN message.");
+    case USBCAN_WARN_FW_TXOVERRUN:
+      return "This warning is returned by function UcanWriteCanMsg() or "
+             "UcanWriteCanMsgEx() if flag USBCAN_CANERR_QXMTFULL is set in "
+             "the CAN driver status. However, the transmit CAN message could "
+             "be stored to the DLL transmit buffer. This warning indicates "
+             "that at least one transmit CAN message got lost in the device "
+             "firmware layer. This warning does not indicate the position of "
+             "the lost CAN message.";
 
-  case USBCAN_WARN_FW_RXOVERRUN: return("This warning is returned by function UcanWriteCanMsg() or "
-  "UcanWriteCanMsgEx() if flag USBCAN_CANERR_QOVERRUN or flag "
-  "USBCAN_CANERR_OVERRUN are set in the CAN driver status. The "
-  "function has returned with a valid CAN message. This warning indicates "
-  "that at least one received CAN message got lost in the firmware layer. "
-  "This warning does not indicate the position of the lost CAN message.");
+    case USBCAN_WARN_FW_RXOVERRUN:
+      return "This warning is returned by function UcanWriteCanMsg() or "
+             "UcanWriteCanMsgEx() if flag USBCAN_CANERR_QOVERRUN or flag "
+             "USBCAN_CANERR_OVERRUN are set in the CAN driver status. The "
+             "function has returned with a valid CAN message. This warning "
+             "indicates that at least one received CAN message got lost in the "
+             "firmware layer. This warning does not indicate the position of "
+             "the lost CAN message.";
 
-  case USBCAN_WARN_NULL_PTR: return("This warning is returned by functions UcanInitHwConnectControl() or "
-  "UcanInitHwConnectControlEx() if a NULL pointer was passed as callback function address.");
+    case USBCAN_WARN_NULL_PTR:
+      return "This warning is returned by functions UcanInitHwConnectControl() "
+             "or UcanInitHwConnectControlEx() if a NULL pointer was passed as "
+             "callback function address.";
 
-  case USBCAN_WARN_TXLIMIT: return("This warning is returned by the function UcanWriteCanMsgEx() if it was "
-  "called to transmit more than one CAN message, but a part of them "
-  "could not be stored to the transmit buffer within the DLL (because the "
-  "buffer is full). The returned variable addressed by the parameter "
-  "pdwCount_p indicates the number of CAN messages which are stored "
-  "successfully to the transmit buffer.");
+    case USBCAN_WARN_TXLIMIT:
+      return "This warning is returned by the function UcanWriteCanMsgEx() if "
+             "it was called to transmit more than one CAN message, but a part "
+             "of them could not be stored to the transmit buffer within the "
+             "DLL because the buffer is full). The returned variable addressed "
+             "by the parameter pdwCount_p indicates the number of CAN messages "
+             "which are stored successfully to the transmit buffer.";
 
-  default: return("unknown error code");
-std::string CanVendorSystec::UsbCanGetStatusText(long err_code) {
-  switch(err_code) {
-    case USBCAN_CANERR_OK:        return "No error.";
-    case USBCAN_CANERR_XMTFULL:   return "Transmit buffer in CAN controller is overrun.";
-    case USBCAN_CANERR_OVERRUN:   return "Receive buffer in CAN controller is overrun.";
-    case USBCAN_CANERR_BUSLIGHT:  return " Error limit 1 in CAN controller exceeded, CAN controller "
-    "is in state “Warning limit” now.";
-    case USBCAN_CANERR_BUSHEAVY:  return "Error limit 2 in CAN controller exceeded, CAN controller "
-    "is in state “Error Passive” now";
-    case USBCAN_CANERR_BUSOFF:    return "CAN controller is in BUSOFF state.";
-    case USBCAN_CANERR_QOVERRUN:  return "Receive buffer in module is overrun.";
-    case USBCAN_CANERR_QXMTFULL:  return "Transmit buffer in module is overrun.";
-    case USBCAN_CANERR_REGTEST:   return "CAN controller not found (hardware error).";
-    case USBCAN_CANERR_TXMSGLOST: return "A transmit CAN message was deleted automatically by the "
-    "firmware because transmission timeout run over (refer to "
-    "function UcanSetTxTimeout() ).";
+    default:
+      std::stringstream ss;
+      ss << "Unknown error code: 0x" << std::hex << err_code;
+      return ss.str();
+  }
+}
+
+std::string CanVendorSystec::UsbCanGetStatusText(uint16_t err_code) {
+  switch (err_code) {
+    case USBCAN_CANERR_OK:
+      return "No error.";
+    case USBCAN_CANERR_XMTFULL:
+      return "Transmit buffer in CAN controller is overrun.";
+    case USBCAN_CANERR_OVERRUN:
+      return "Receive buffer in CAN controller is overrun.";
+    case USBCAN_CANERR_BUSLIGHT:
+      return " Error limit 1 in CAN controller exceeded, CAN controller "
+             "is in state “Warning limit” now.";
+    case USBCAN_CANERR_BUSHEAVY:
+      return "Error limit 2 in CAN controller exceeded, CAN controller "
+             "is in state “Error Passive” now";
+    case USBCAN_CANERR_BUSOFF:
+      return "CAN controller is in BUSOFF state.";
+    case USBCAN_CANERR_QOVERRUN:
+      return "Receive buffer in module is overrun.";
+    case USBCAN_CANERR_QXMTFULL:
+      return "Transmit buffer in module is overrun.";
+    case USBCAN_CANERR_REGTEST:
+      return "CAN controller not found (hardware error).";
+    case USBCAN_CANERR_TXMSGLOST:
+      return "A transmit CAN message was deleted automatically by the "
+             "firmware because transmission timeout run over (refer to "
+             "function UcanSetTxTimeout() ).";
     default:
       std::stringstream ss;
       ss << "Unknown error code: 0x" << std::hex << err_code;

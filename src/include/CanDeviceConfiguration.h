@@ -96,13 +96,14 @@ struct CanDeviceConfiguration {
   std::optional<uint32_t> sent_acknowledgement;
 
   /**
-  * @brief Enable or disable closing both channels on systec module when one is closed.
-  *
-  * This parameter is optional for Systec on Windows and defaults to false.
-  * If turned on, calling close on a Systec CanDevice will deintialise both channels
-  * of a module when one is closed.
-  *
-  */
+   * @brief Enable or disable closing both channels on systec module when one is
+   * closed.
+   *
+   * This parameter is optional for Systec on Windows and defaults to false.
+   * If turned on, calling close on a Systec CanDevice will deintialise both
+   * channels of a module when one is closed.
+   *
+   */
   std::optional<bool> close_both_channels;
 
   std::string to_string() const noexcept;
