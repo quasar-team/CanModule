@@ -31,6 +31,8 @@ struct CanVendorSystec : CanDevice {
   explicit CanVendorSystec(const CanDeviceArguments& args);
   ~CanVendorSystec() { vendor_close(); }
   int SystecRxThread();
+  static std::string_view UsbCanGetErrorText( long err_code );
+  static std::string UsbCanGetStatusText( long err_code );
 
   private:
   std::atomic<bool> m_module_in_use {false};
@@ -59,8 +61,6 @@ struct CanVendorSystec : CanDevice {
   static std::unordered_map<int, CanVendorSystec*> m_port_to_vendor_map;
 
   friend void systec_receive(tUcanHandle UcanHandle_p, DWORD bEvent_p, BYTE bChannel_p, void* pArg_p);
-  std::string_view UsbCanGetErrorText( long err_code );
-  std::string UsbCanGetStatusText( long err_code );
 
   CanReturnCode deinit_channel() noexcept;
 };
