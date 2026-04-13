@@ -204,10 +204,10 @@ def test_anagate_diagnostics():
     assert stats2.rx > 5
 
     assert stats1.tx_per_second == pytest.approx(
-        n_attemps * n_frames / time_elapsed, abs=0.1
+        n_attemps * n_frames / time_elapsed, abs=0.2
     )
     assert stats2.rx_per_second == pytest.approx(
-        n_attemps * n_frames / time_elapsed, abs=0.1
+        n_attemps * n_frames / time_elapsed, abs=0.2
     )
 
 

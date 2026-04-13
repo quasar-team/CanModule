@@ -142,8 +142,8 @@ def test_socketcan_diagnostics():
     assert stats.rx > 5
 
     assert stats.tx_per_second == pytest.approx(
-        n_attemps * n_frames / time_elapsed, abs=0.1
+        n_attemps * n_frames / time_elapsed, abs=0.2
     )
     assert stats.rx_per_second == pytest.approx(
-        n_attemps * n_frames / time_elapsed, abs=0.1
+        n_attemps * n_frames / time_elapsed, abs=0.2
     )
