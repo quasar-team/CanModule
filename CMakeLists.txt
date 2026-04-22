@@ -29,6 +29,10 @@ set(VENDOR_SOURCES
     src/main/CanVendorAnagate.cpp
 )
 
+if (NOT DEFINED CANMODULE_BUILD_SYSTEC_WINDOWS)
+    set(CANMODULE_BUILD_SYSTEC_WINDOWS ON)
+endif()
+
 if (UNIX)
     include(cmake/libsocketcan.cmake)
     include_directories(${LIBSOCKETCAN_INCLUDE_DIR})
