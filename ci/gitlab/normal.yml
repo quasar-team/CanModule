@@ -1,6 +1,6 @@
 variables:
-  ALMA_LATEST_IMAGE: "gitlab-registry.cern.ch/quasar-team/images/alma-10-build:latest"
-  WINDOWS_LATEST_IMAGE: "gitlab-registry.cern.ch/quasar-team/images/win2025-build:latest"
+  ALMA_LATEST_IMAGE: "gitlab-registry.cern.ch/jcop-opc-ua/common/images/alma-10-build:latest"
+  WINDOWS_LATEST_IMAGE: "gitlab-registry.cern.ch/jcop-opc-ua/common/images/win2025-build:latest"
 
 Compile on Windows:
   stage: unstagged
