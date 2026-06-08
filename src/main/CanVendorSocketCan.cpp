@@ -388,25 +388,22 @@ int CanVendorSocketCan::subscriber() noexcept {
       }
     }
 
-    for (int i = 0; i < nfds; ++i) {
-      if (events[i].data.fd == m_socket_fd) {
-        struct can_frame canFrame;
-        int nbytes = ::read(m_socket_fd, &canFrame, sizeof(struct can_frame));
-        if (nbytes < 0) {
-          LOG(Log::ERR, CanLogIt::h())
-              << "Unexpected error reading from socket, exiting";
-          return -1;
-        }
+    if (nfds > 0 && events[0].data.fd == m_socket_fd) {
+      struct can_frame canFrame;
+      int nbytes = ::read(m_socket_fd, &canFrame, sizeof(struct can_frame));
+      if (nbytes < 0) {
+        LOG(Log::ERR, CanLogIt::h())
+            << "Unexpected error reading from socket, exiting";
+        return -1;
+      }
 
-        if (nbytes == sizeof(canFrame)) {
-          LOG(Log::DBG, CanLogIt::h()) << "Received CAN frame via SocketCAN";
+      if (nbytes == sizeof(canFrame)) {
+        LOG(Log::DBG, CanLogIt::h()) << "Received CAN frame via SocketCAN";
 
-          CanFrame frame = translate(canFrame);
-          received(
-              frame);  // Call the received method with the translated frame
-        } else {
-          LOG(Log::ERR, CanLogIt::h()) << "Corrupted CanFrame received";
-        }
+        CanFrame frame = translate(canFrame);
+        received(frame);  // Call the received method with the translated frame
+      } else {
+        LOG(Log::ERR, CanLogIt::h()) << "Corrupted CanFrame received";
       }
     }
   }
