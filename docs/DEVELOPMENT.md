@@ -3,9 +3,21 @@
 
 ## Dependencies
 
-- In Linux, you must install the `libsocketcan-devel` package.
+- On Linux, `libsocketcan` is downloaded and built automatically by CMake.
+- If you need to use a mirrored or internal source, configure it with `LIBSOCKETCAN_URL`.
+- If `LIBSOCKETCAN_HASH` is set (for example `SHA256=...`), CMake verifies the download checksum with that value.
+- If `LIBSOCKETCAN_HASH` is not set and `LIBSOCKETCAN_URL` is left at its default value, CMake verifies the download with the built-in default hash.
+- If `LIBSOCKETCAN_HASH` is not set and `LIBSOCKETCAN_URL` is customized, checksum verification is not performed.
 - Other dependencies are resolved automatically after setting the variable `ICS_REPO_DEPS_TOKEN=[value]` to
 your environment (`.env` file). The value is in the group `jcop-opc-ua` configuration of Gitlab CI/CD (gitlab.cern.ch).
+
+Example:
+
+```bash
+cmake -S . -B build \
+  -DLIBSOCKETCAN_URL=https://<your-mirror>/libsocketcan-v0.0.12.zip \
+  -DLIBSOCKETCAN_HASH=SHA256=<sha256>
+```
 
 ## Development environment
 
