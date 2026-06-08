@@ -13,12 +13,7 @@ set(LIBSOCKETCAN_URL "${LIBSOCKETCAN_DEFAULT_URL}"
 )
 
 set(LIBSOCKETCAN_HASH ""
-    CACHE STRING "Checksum for libsocketcan. Required for custom URLs unless explicitly disabled."
-)
-
-option(LIBSOCKETCAN_ALLOW_UNVERIFIED_DOWNLOAD
-    "Allow downloading libsocketcan without checksum validation"
-    OFF
+    CACHE STRING "Checksum for libsocketcan download. If empty, default URL uses built-in checksum and custom URLs skip verification."
 )
 
 set(_libsocketcan_url_hash)
@@ -27,15 +22,6 @@ if(LIBSOCKETCAN_HASH)
     set(_libsocketcan_url_hash URL_HASH "${LIBSOCKETCAN_HASH}")
 elseif(LIBSOCKETCAN_URL STREQUAL LIBSOCKETCAN_DEFAULT_URL)
     set(_libsocketcan_url_hash URL_HASH "${LIBSOCKETCAN_DEFAULT_HASH}")
-elseif(NOT LIBSOCKETCAN_ALLOW_UNVERIFIED_DOWNLOAD)
-    message(FATAL_ERROR
-        "LIBSOCKETCAN_HASH must be set when using a custom LIBSOCKETCAN_URL. "
-        "Set LIBSOCKETCAN_ALLOW_UNVERIFIED_DOWNLOAD=ON to bypass this check."
-    )
-else()
-    message(WARNING
-        "Downloading libsocketcan without checksum validation: ${LIBSOCKETCAN_URL}"
-    )
 endif()
 
 find_program(SH_EXE NAMES sh bash REQUIRED)

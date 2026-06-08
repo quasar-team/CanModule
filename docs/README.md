@@ -30,7 +30,10 @@ The project requires LogIt (part of the Quasar Framework) and it is downloaded a
 Inside CERN, the CMake will also download the Anagate API. If not, please modify the address to
 download the API directly from anagate.de
 
-For Linux, the user must install `libsocketcan` and the matching devel package.
+For Linux, `libsocketcan` is fetched and built automatically during CMake configuration. You can override
+the download source with `LIBSOCKETCAN_URL`. If `LIBSOCKETCAN_HASH` is provided, CMake verifies the
+download checksum with that value. If no hash is provided, the default URL is still verified with its
+built-in hash, while custom URLs are downloaded without checksum verification.
 
 Optionally, the user must install pybind11 to generate the Python bindings.
 
