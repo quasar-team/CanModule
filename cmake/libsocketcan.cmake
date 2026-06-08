@@ -1,7 +1,35 @@
+include(FetchContent)
+
+set(LIBSOCKETCAN_DEFAULT_URL "https://github.com/linux-can/libsocketcan/archive/refs/tags/v0.0.12.zip")
+set(LIBSOCKETCAN_DEFAULT_HASH "SHA256=e634d623990f63b4d67beb5a40daf5db73fb37d1a3b3acf68265b60f3f389fbf")
+
+set(LIBSOCKETCAN_URL "${LIBSOCKETCAN_DEFAULT_URL}" CACHE STRING "URL used to download libsocketcan")
+set(LIBSOCKETCAN_HASH "" CACHE STRING "Optional checksum for a custom libsocketcan URL")
+
+set(LIBSOCKETCAN_FETCHCONTENT_ARGS
+    URL "${LIBSOCKETCAN_URL}"
+    DOWNLOAD_EXTRACT_TIMESTAMP True
+)
+
+if(LIBSOCKETCAN_URL STREQUAL LIBSOCKETCAN_DEFAULT_URL)
+    set(_libsocketcan_hash "${LIBSOCKETCAN_HASH}")
+    if(_libsocketcan_hash STREQUAL "")
+        set(_libsocketcan_hash "${LIBSOCKETCAN_DEFAULT_HASH}")
+    endif()
+    list(APPEND LIBSOCKETCAN_FETCHCONTENT_ARGS
+        URL_HASH "${_libsocketcan_hash}"
+    )
+elseif(NOT LIBSOCKETCAN_HASH STREQUAL "")
+    list(APPEND LIBSOCKETCAN_FETCHCONTENT_ARGS
+        URL_HASH "${LIBSOCKETCAN_HASH}"
+    )
+else()
+    message(STATUS "Downloading libsocketcan without checksum validation: ${LIBSOCKETCAN_URL}")
+endif()
+
 FetchContent_Declare(
-  libsocketcan
-  GIT_REPOSITORY https://github.com/linux-can/libsocketcan.git
-  GIT_TAG        v0.0.12
+    libsocketcan
+    ${LIBSOCKETCAN_FETCHCONTENT_ARGS}
 )
 
 FetchContent_MakeAvailable(libsocketcan)
