@@ -6,7 +6,9 @@ The tool is loosely based on `can-utils` for SocketCAN on Linux.
 
 ## Installation
 
-To use this tool, ensure you have a recent version of Python installed (tested with version 3.9.18). Additionally, you need to have `libsocketcan` installed on your Linux system.
+To use this tool, ensure you have a recent version of Python installed (tested with version 3.9.18).
+Additionally, you need to have `libsocketcan` installed on your Linux system, or `USB-CANmodul Utility Disk`
+on Windows to communicate with Systec devices.
 
 You will also require the `canmodule.cpython*` file and all Anagate-related libraries (such as `.so` files on Linux or `.dll` files on Windows). These files can be found in the build artifacts, located in the `/build` directory on Linux and the `/build/Release` directory on Windows.
 
@@ -19,6 +21,7 @@ It opens a connection to the device and print all received frames. The syntax is
 ```bash
 python canmodule-utils.py anagate [host] [port number] dump
 python canmodule-utils.py socketcan [device] dump
+python canmodule-utils.py systec [device] dump
 ```
 
 ### send
@@ -28,6 +31,7 @@ It sends a single CAN frame. The syntax is:
 ```bash
 python canmodule-utils.py anagate [host] [port number] send [can_frame]
 python canmodule-utils.py socketcan [device] send [can_frame]
+python canmodule-utils.py systec [device] send [can_frame]
 ```
 
 Examples of CAN frames are:
@@ -47,6 +51,7 @@ It opens a connection and send random frames. The syntax is:
 ```bash
 python canmodule-utils.py anagate [host] [port number] gen
 python canmodule-utils.py socketcan [device] gen
+python canmodule-utils.py systec [device] gen
 ```
 
 ### diag
@@ -54,6 +59,7 @@ python canmodule-utils.py socketcan [device] gen
 It opens a connection and print the diagnostics. The syntax is:
 
 ```bash
-python python canmodule-utils.py.py anagate [host] [port number] diag
-python python canmodule-utils.py.py socketcan [device] diag
+python canmodule-utils.py anagate [host] [port number] diag
+python canmodule-utils.py socketcan [device] diag
+python canmodule-utils.py systec [device] diag
 ```

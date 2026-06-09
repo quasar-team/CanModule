@@ -10,7 +10,7 @@ def parse_arguments():
     Parses command-line arguments for the CAN Module Utilities.
 
     The function uses argparse to define and parse command-line arguments for different CAN module operations.
-    It supports two CAN modules: Anagate and SocketCAN. Each module has its own subcommands for different actions,
+    It supports Anagate, SocketCAN on Linux and Systec on Windows. Each module has its own subcommands for different actions,
     such as dumping frames, generating random frames, sending specified frames, and printing diagnostics.
 
     Parameters:
@@ -35,15 +35,6 @@ def parse_arguments():
         dest="action", required=True, help="Anagate actions"
     )
 
-    anagate_subparsers.add_parser("dump", help="Dump frames")
-    anagate_subparsers.add_parser("diag", help="Print diagnostics")
-    anagate_subparsers.add_parser("gen", help="Generate and send random frames")
-
-    anagate_send_parser = anagate_subparsers.add_parser(
-        "send", help="Send a specified frame"
-    )
-    anagate_send_parser.add_argument("can_frame", type=str, help="CAN frame to send")
-
     # socketcan subparser
     socketcan_parser = subparsers.add_parser(
         "socketcan", help="Use the SocketCAN module"
@@ -54,14 +45,27 @@ def parse_arguments():
         dest="action", required=True, help="SocketCAN actions"
     )
 
-    socketcan_subparsers.add_parser("dump", help="Dump frames")
-    socketcan_subparsers.add_parser("diag", help="Print diagnostics")
-    socketcan_subparsers.add_parser("gen", help="Generate and send random frames")
-
-    socketcan_send_parser = socketcan_subparsers.add_parser(
-        "send", help="Send a specified frame"
+    # systec subparser
+    systec_parser = subparsers.add_parser("systec", help="Use the Systec module")
+    systec_parser.add_argument("device", type=int, help="Bus number for Systec")
+    systec_parser.add_argument(
+        "baudrate",
+        type=int,
+        default=125000,
+        help="Baud rate for Systec CAN channel",
+        nargs="?",
     )
-    socketcan_send_parser.add_argument("can_frame", type=str, help="CAN frame to send")
+
+    systec_subparsers = systec_parser.add_subparsers(
+        dest="action", required=True, help="systec actions"
+    )
+
+    for subparsers in [anagate_subparsers, socketcan_subparsers, systec_subparsers]:
+        subparsers.add_parser("dump", help="Dump frames")
+        subparsers.add_parser("diag", help="Print diagnostics")
+        subparsers.add_parser("gen", help="Generate and send random frames")
+        send_parser = subparsers.add_parser("send", help="Send a specified frame")
+        send_parser.add_argument("can_frame", type=str, help="CAN frame to send")
 
     return parser.parse_args()
 
@@ -94,6 +98,13 @@ def main():
         device.update(
             {
                 "device": args.device,
+            }
+        )
+    elif args.command == "systec":
+        device.update(
+            {
+                "device": args.device,
+                "bitrate": args.baudrate,
             }
         )
 
@@ -173,17 +184,22 @@ def process_device(device):
     Processes the device dictionary to create a CanDeviceConfiguration object.
 
     This function takes a dictionary representing a CAN device and creates a CanDeviceConfiguration object
-    based on the provided device information. The function supports two types of CAN devices: Anagate and SocketCAN.
+    based on the provided device information. The function supports several CAN devices: Anagate, SocketCAN
+    on Linux and Systec on Windows.
     For Anagate devices, the function sets the host and bus number in the configuration object. For SocketCAN devices,
-    the function sets the bus name in the configuration object. If an unsupported vendor is provided, the function
+    the function sets the bus name in the configuration object. For Systec devices, the function sets the
+    bus number in the configuration object. If an unsupported vendor is provided, the function
     prints an error message and exits with a status code of 1.
 
     Parameters:
     device (dict): A dictionary representing the CAN device. The dictionary should contain the following keys:
-                   - "vendor" (str): The vendor of the CAN device. It can be either "anagate" or "socketcan".
+                   - "vendor" (str): The vendor of the CAN device. It can be either "anagate",
+                        "socketcan" on Linux or "systec" on Windows.
                    - "host" (str): The host address for Anagate devices.
                    - "port" (int): The port number for Anagate devices.
-                   - "device" (str): The device name for SocketCAN devices.
+                   - "device" (str): The device name for SocketCAN devices
+                        or device number of Systec devices.
+                   - "baudrate" (int): The baud rate for Systec devices.
 
     Returns:
     CanDeviceConfiguration: A CanDeviceConfiguration object configured based on the provided device information.
@@ -194,6 +210,9 @@ def process_device(device):
         configuration.bus_number = device["port"]
     elif device["vendor"] == "socketcan":
         configuration.bus_name = device["device"]
+    elif device["vendor"] == "systec":
+        configuration.bus_number = device["device"]
+        configuration.bitrate = device["bitrate"]
     else:
         print(f"Unsupported vendor: {device['vendor']}")
         exit(1)
@@ -206,10 +225,13 @@ def dump(device):
 
     Parameters:
     device (dict): A dictionary representing the CAN device. The dictionary should contain the following keys:
-                   - "vendor" (str): The vendor of the CAN device. It can be either "anagate" or "socketcan".
+                   - "vendor" (str): The vendor of the CAN device. It can be either "anagate",
+                        "socketcan" on Linux or "systec" on Windows.
                    - "host" (str): The host address for Anagate devices.
                    - "port" (int): The port number for Anagate devices.
-                   - "device" (str): The device name for SocketCAN devices.
+                   - "device" (str): The device name for SocketCAN devices
+                        or device number of Systec devices.
+                  - "baudrate" (int): The baud rate for Systec devices.
 
     Returns:
     None
@@ -277,10 +299,13 @@ def send(device, frame):
 
     Parameters:
     device (dict): A dictionary representing the CAN device. The dictionary should contain the following keys:
-                   - "vendor" (str): The vendor of the CAN device. It can be either "anagate" or "socketcan".
+                   - "vendor" (str): The vendor of the CAN device. It can be either "anagate",
+                        "socketcan" on Linux or "systec" on Windows.
                    - "host" (str): The host address for Anagate devices.
                    - "port" (int): The port number for Anagate devices.
-                   - "device" (str): The device name for SocketCAN devices.
+                   - "device" (str): The device name for SocketCAN devices
+                        or device number of Systec devices.
+                   - "baudrate" (int): The baud rate for Systec devices.
     frame (dict): A dictionary representing the CAN frame to be sent. The dictionary should contain the following keys:
                   - "can_id" (str): The hexadecimal representation of the CAN identifier.
                   - "len" (int): The number of data bytes for a remote request frame.
@@ -347,10 +372,13 @@ def gen(device):
 
     Parameters:
     device (dict): A dictionary representing the CAN device. The dictionary should contain the following keys:
-                   - "vendor" (str): The vendor of the CAN device. It can be either "anagate" or "socketcan".
+                   - "vendor" (str): The vendor of the CAN device. It can be either "anagate",
+                        "socketcan" on Linux or "systec" on Windows.
                    - "host" (str): The host address for Anagate devices.
                    - "port" (int): The port number for Anagate devices.
-                   - "device" (str): The device name for SocketCAN devices.
+                   - "device" (str): The device name for SocketCAN devices
+                        or device number of Systec devices.
+                   - "baudrate" (int): The baud rate for Systec devices.
 
     Returns:
     None
@@ -385,10 +413,13 @@ def diag(device):
 
     Parameters:
     device (dict): A dictionary representing the CAN device. The dictionary should contain the following keys:
-                   - "vendor" (str): The vendor of the CAN device. It can be either "anagate" or "socketcan".
+                   - "vendor" (str): The vendor of the CAN device. It can be either "anagate",
+                        "socketcan" on Linux or "systec" on Windows.
                    - "host" (str): The host address for Anagate devices.
                    - "port" (int): The port number for Anagate devices.
-                   - "device" (str): The device name for SocketCAN devices.
+                   - "device" (str): The device name for SocketCAN devices
+                        or device number of Systec devices.
+                   - "baudrate" (int): The baud rate for Systec devices.
 
     Returns:
     None

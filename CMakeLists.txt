@@ -29,6 +29,10 @@ set(VENDOR_SOURCES
     src/main/CanVendorAnagate.cpp
 )
 
+if (NOT DEFINED CANMODULE_BUILD_SYSTEC_WINDOWS)
+    set(CANMODULE_BUILD_SYSTEC_WINDOWS ON)
+endif()
+
 if (UNIX)
     include(cmake/libsocketcan.cmake)
     include_directories(${LIBSOCKETCAN_INCLUDE_DIR})
@@ -36,6 +40,13 @@ if (UNIX)
         src/main/CanVendorSocketCan.cpp
         src/main/CanVendorSocketCanSystec.cpp
     )
+elseif ("${CANMODULE_BUILD_SYSTEC_WINDOWS}" STREQUAL ON)
+    include(cmake/systec.cmake)
+    include_directories(${SYSTEC_PATH_HEADERS})
+    list(APPEND VENDOR_SOURCES
+        src/main/CanVendorSystec.cpp
+    )
+    add_compile_definitions(CANMODULE_BUILD_SYSTEC_WINDOWS)
 endif()
 
 if (NOT DEFINED CAN_MODULE_MAIN_ONLY)
@@ -63,11 +74,18 @@ if (UNIX)
         libsocketcan
     )
 else()
+    target_include_directories(CanModuleMain PUBLIC ${systec_BINARY_DIR}/Examples/Include)
     target_link_libraries(CanModuleMain PUBLIC
-        ${anagate_SOURCE_DIR}/Win64/AnaGateCanDll64.lib
-    )
+        ${anagate_SOURCE_DIR}/Win64/AnaGateCanDll64.lib)
     file(COPY "${anagate_SOURCE_DIR}/Win64/AnaGateCan64.dll"
          DESTINATION "${CMAKE_BINARY_DIR}/Release")
+
+    if ("${CANMODULE_BUILD_SYSTEC_WINDOWS}" STREQUAL ON)
+        target_link_libraries(CanModuleMain PUBLIC
+            ${systec_BINARY_DIR}/Examples/lib/USBCAN64.lib)
+        file(COPY "${systec_BINARY_DIR}/Examples/lib/USBCAN64.dll"
+             DESTINATION "${CMAKE_BINARY_DIR}/Release")
+    endif()
 endif()
 
 if (CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
