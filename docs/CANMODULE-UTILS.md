@@ -12,13 +12,64 @@ You will also require the `canmodule.cpython*` file and all Anagate-related libr
 
 ## Usage
 
+The syntax is:
+
+```bash
+python canmodule-utils.py <vendor> <action> [action arguments] [--config FILE] [--set KEY=VALUE ...]
+```
+
+Supported vendors are `anagate` and `socketcan`. Supported actions are `dump`, `send`, `gen`, and `diag`.
+
+Device configuration is provided with `--set KEY=VALUE`, `--config FILE`, or both. `--set` can be repeated and the last value wins. When both mechanisms are used, JSON values are loaded first and `--set` values override them.
+
+`--set` accepts the Python binding configuration field names:
+
+```text
+bus_name
+bus_number
+host
+bitrate
+enable_termination
+high_speed
+timeout
+vcan
+sent_acknowledgement
+```
+
+Hyphenated key spelling is also accepted, for example `--set enable-termination=true`.
+
+JSON config files are flat objects that map directly to these fields:
+
+```json
+{
+  "bus_name": "can0",
+  "bitrate": 500000,
+  "timeout": 100,
+  "vcan": false
+}
+```
+
+```json
+{
+  "host": "192.168.1.20",
+  "bus_number": 0,
+  "bitrate": 250000,
+  "enable_termination": true,
+  "high_speed": false,
+  "timeout": 6000,
+  "sent_acknowledgement": 0
+}
+```
+
+Use JSON `null` or `--set key=null` to leave an optional configuration field unset.
+
 ### dump
 
 It opens a connection to the device and print all received frames. The syntax is:
 
 ```bash
-python canmodule-utils.py anagate [host] [port number] dump
-python canmodule-utils.py socketcan [device] dump
+python canmodule-utils.py anagate dump --set host=192.168.1.20 --set bus_number=0
+python canmodule-utils.py socketcan dump --set bus_name=can0
 ```
 
 ### send
@@ -26,8 +77,8 @@ python canmodule-utils.py socketcan [device] dump
 It sends a single CAN frame. The syntax is:
 
 ```bash
-python canmodule-utils.py anagate [host] [port number] send [can_frame]
-python canmodule-utils.py socketcan [device] send [can_frame]
+python canmodule-utils.py anagate send [can_frame] --config anagate0.json
+python canmodule-utils.py socketcan send [can_frame] --set bus_name=can0
 ```
 
 Examples of CAN frames are:
@@ -45,8 +96,8 @@ FFFA#BB.BB // Message of 2 bytes (BB BB) and extended id FFFA
 It opens a connection and send random frames. The syntax is:
 
 ```bash
-python canmodule-utils.py anagate [host] [port number] gen
-python canmodule-utils.py socketcan [device] gen
+python canmodule-utils.py anagate gen --set host=192.168.1.20 --set bus_number=0
+python canmodule-utils.py socketcan gen --set bus_name=can0
 ```
 
 ### diag
@@ -54,6 +105,6 @@ python canmodule-utils.py socketcan [device] gen
 It opens a connection and print the diagnostics. The syntax is:
 
 ```bash
-python python canmodule-utils.py.py anagate [host] [port number] diag
-python python canmodule-utils.py.py socketcan [device] diag
+python canmodule-utils.py anagate diag --set host=192.168.1.20 --set bus_number=0
+python canmodule-utils.py socketcan diag --set bus_name=can0
 ```
