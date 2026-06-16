@@ -4,9 +4,25 @@ The `canmodule-utils.py` script, located in the `python` folder of this reposito
 
 The tool is loosely based on `can-utils` for SocketCAN on Linux.
 
+## Quick Start
+
+Already compiled packages are available for CERN Users in the `py-acc` repository.
+
+If you did not set-up CERN Python reposority, run first:
+
+`pip install git+https://gitlab.cern.ch/acc-co/devops/python/acc-py-pip-config`
+
+To install the utils run `python -m pip install canmodule-utils`
+
+The repository URL is:
+- https://acc-py-repo.cern.ch/browse/project/canmodule-utils
+
+The compatibility matrix is available here:
+- https://acc-py-repo.cern.ch/browse/project/canmodule-utils/0.0.1/files
+
 ## Installation
 
-To use this tool, ensure you have a recent version of Python installed (tested with version 3.9.18). Additionally, you need to have `libsocketcan` installed on your Linux system.
+To use this tool, ensure you have a recent version of Python installed (tested with version 3.9.18).
 
 You will also require the `canmodule.cpython*` file and all Anagate-related libraries (such as `.so` files on Linux or `.dll` files on Windows). These files can be found in the build artifacts, located in the `/build` directory on Linux and the `/build/Release` directory on Windows.
 
