@@ -176,8 +176,6 @@ CanReturnCode CanVendorSystec::vendor_close() noexcept {
     other_in_use = other->m_module_in_use;
   }
 
-  bool close_both_channels = args().config.close_both_channels.value_or(false);
-
   try {
     m_module_in_use = false;
     if (m_SystecRxThread.joinable()) m_SystecRxThread.join();
@@ -189,16 +187,11 @@ CanReturnCode CanVendorSystec::vendor_close() noexcept {
       return CanReturnCode::success;  // is success correct?
     }
 
-    if (close_both_channels && other_in_use) {
-      LOG(Log::WRN, CanLogIt::h()) << "Deinitialising other channel "
-                                   << other->m_channel_number << " on module.";
-      return_code = deinit_other_channel(handle.value(), other);
-    }
     return_code = deinit_channel(handle.value());
 
     // if there are no channels still using the handle, deinit hardware
     // and erase handle from map
-    if (!other_in_use || close_both_channels) {
+    if (!other_in_use) {
       if (auto systec_code =
               CallAndLog(UcanDeinitHardware, "deinit hw", handle.value());
           systec_code != 0)
