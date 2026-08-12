@@ -52,3 +52,40 @@ TEST_F(CanDeviceTest, LoopbackDeviceMessageTransmission) {
               inFrames[i].is_remote_request());
   }
 }
+
+// Test for error notification
+TEST_F(CanDeviceTest, OnErrorCallbackIsInvoked) {
+  struct TestableCanDevice : CanDevice {
+    TestableCanDevice(std::string_view vendor_name,
+                      const CanDeviceArguments& args) noexcept
+        : CanDevice(vendor_name, args) {}
+    using CanDevice::notify_error;
+    CanReturnCode vendor_open() noexcept override {
+      return CanReturnCode::success;
+    }
+    CanReturnCode vendor_close() noexcept override {
+      return CanReturnCode::success;
+    }
+    CanReturnCode vendor_send(const CanFrame&) noexcept override {
+      return CanReturnCode::success;
+    }
+    CanDiagnostics vendor_diagnostics() noexcept override {
+      return CanDiagnostics{};
+    }
+  };
+
+  CanReturnCode captured_code = CanReturnCode::success;
+  bool called = false;
+  auto on_error_cb = [&](CanReturnCode code) {
+    called = true;
+    captured_code = code;
+  };
+
+  TestableCanDevice device{
+      "test", CanDeviceArguments{CanDeviceConfiguration{"dummy"},
+                                 [](const CanFrame&) {}, on_error_cb}};
+  device.notify_error(CanReturnCode::disconnected);
+
+  ASSERT_TRUE(called);
+  ASSERT_EQ(captured_code, CanReturnCode::disconnected);
+}

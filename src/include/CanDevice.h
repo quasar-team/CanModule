@@ -139,6 +139,23 @@ struct CanDevice {
     }
   }
 
+  /**
+   * @brief Handles errors.
+   *
+   * This function is called whenever an error occurs on the CAN device.
+   * It passes the received return code to the on_error function specified in
+   * the CanDeviceArguments object.
+   *
+   * @param code The return code received
+   */
+  inline void notify_error(CanReturnCode code) const noexcept {
+    LOG(Log::WRN, CanLogIt::h()) << "CAN device error: " << code;
+    if (m_args.on_error != nullptr) {
+      LOG(Log::DBG, CanLogIt::h()) << "Calling on_error function";
+      m_args.on_error(code);
+    }
+  }
+
  private:
   const std::string m_vendor;
   const CanDeviceArguments m_args;

@@ -122,7 +122,8 @@ CanReturnCode CanVendorSocketCan::vendor_open() noexcept {
 
     // Add the socket to the epoll instance
     struct epoll_event ev;
-    ev.events = EPOLLIN;
+    ev.events = EPOLLIN | EPOLLERR | EPOLLHUP;
+
     ev.data.fd = m_socket_fd;
     if (epoll_ctl(m_epoll_fd, EPOLL_CTL_ADD, m_socket_fd, &ev) < 0) {
       ::close(m_epoll_fd);
@@ -384,16 +385,24 @@ int CanVendorSocketCan::subscriber() noexcept {
       } else {
         LOG(Log::ERR, CanLogIt::h())
             << "Error occurred during epoll_wait: " << strerror(errno);
+        notify_error(CanReturnCode::internal_api_error);
         return -1;  // Error occurred
       }
     }
 
     if (nfds > 0 && events[0].data.fd == m_socket_fd) {
+      if (events[0].events & (EPOLLHUP | EPOLLERR)) {
+        LOG(Log::ERR, CanLogIt::h()) << "SocketCAN interface closed/errored";
+        notify_error(CanReturnCode::disconnected);
+        return -1;
+      }
+
       struct can_frame canFrame;
       int nbytes = ::read(m_socket_fd, &canFrame, sizeof(struct can_frame));
-      if (nbytes < 0) {
+      if (nbytes <= 0) {
         LOG(Log::ERR, CanLogIt::h())
             << "Unexpected error reading from socket, exiting";
+        notify_error(CanReturnCode::disconnected);
         return -1;
       }
 

@@ -44,6 +44,7 @@ class CanDeviceArguments:
         self,
         config: CanDeviceConfiguration,
         receiver: typing.Callable[[CanFrame], None],
+        on_error: typing.Callable[[CanReturnCode], None],
     ) -> None: ...
     @property
     def config(self) -> CanDeviceConfiguration: ...

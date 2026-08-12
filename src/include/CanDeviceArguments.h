@@ -35,6 +35,17 @@ struct CanDeviceArguments {
    * to a CanFrame object and returns void.
    */
   const std::function<void(const CanFrame&)> receiver;
+
+  /**
+   * @brief Callback function to handle an error.
+   *
+   * This function is called whenever an error happens, receiving the return
+   * code.
+   *
+   * @param on_error A function, lambda or functor that takes a CanReturnCode
+   * and returns void.
+   */
+  const std::function<void(CanReturnCode)> on_error = {};
 };
 
 #endif  // SRC_INCLUDE_CANDEVICEARGUMENTS_H_

@@ -126,6 +126,20 @@ CanReturnCode CanVendorAnagate::vendor_open() noexcept {
   switch (r) {
     case AnagateConstants::errorNone:
       CanVendorAnagate::m_handles[m_handle] = this;
+
+      // Start the ALIVE thread
+      r = CANStartAlive(m_handle, args().config.timeout.value_or(
+                                      AnagateConstants::defaultTimeout) /
+                                      1000);
+      if (r != 0) {
+        LOG(Log::ERR, CanLogIt::h()) << "Failed to start ALIVE mechanism";
+        return CanReturnCode::internal_api_error;
+      }
+
+      if (args().on_error != nullptr) {
+        m_alive_run = true;
+        m_alive_thread = std::thread(&CanVendorAnagate::alive_monitor, this);
+      }
       return CanReturnCode::success;
     case AnagateConstants::errorOpenMaxConn:
       return CanReturnCode::too_many_connections;
@@ -368,6 +382,11 @@ CanReturnCode CanVendorAnagate::vendor_close() noexcept {
     return CanReturnCode::success;
   }  // Already closed
 
+  // Stop the alive thread
+  m_alive_run = false;
+  if (m_alive_thread.joinable()) {
+    m_alive_thread.join();
+  }
   const int r = CANCloseDevice(m_handle);
   print_anagate_error(r);
   std::lock_guard<std::mutex> guard(CanVendorAnagate::m_handles_lock);
@@ -401,5 +420,34 @@ void CanVendorAnagate::print_anagate_error(AnaUInt32 r) noexcept {
     error_string.reserve(100);
     CANErrorMessage(r, error_string.data(), error_string.capacity());
     LOG(Log::ERR, CanLogIt::h()) << "ANAGATE ERROR: " << error_string;
+  }
+}
+
+/**
+ * @brief Monitors the AnaGate connection state on a background thread.
+ *
+ * Runs in a loop while m_alive_run is true, polling the connection
+ * state once per second via CANDeviceConnectState. Logs and notifies
+ * on disconnect via notify_error(CanReturnCode::disconnected).
+ *
+ * For more info check:
+ * (https://www.anagate.de/download/Manual-AnaGateAPI2-en.pdf)
+ */
+void CanVendorAnagate::alive_monitor() noexcept {
+  bool was_connected = true;
+  AnaInt32 state{0};
+  while (m_alive_run) {
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    if (!m_alive_run) break;
+
+    state = CANDeviceConnectState(m_handle);
+    bool connected = (state == AnagateConstants::connected);
+
+    // Only notify when it changes (not every poll when disconnected)
+    if (was_connected && !connected) {
+      LOG(Log::ERR, CanLogIt::h()) << "AnaGate connection lost";
+      notify_error(CanReturnCode::disconnected);
+    }
+    was_connected = connected;
   }
 }

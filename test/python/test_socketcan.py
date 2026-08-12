@@ -147,3 +147,31 @@ def test_socketcan_diagnostics():
     assert stats.rx_per_second == pytest.approx(
         n_attemps * n_frames / time_elapsed, abs=0.2
     )
+
+
+def test_socketcan_on_error():
+
+    received_frames_dev1 = []
+    error_codes_dev1 = []
+
+    myDevice1 = CanDevice.create(
+        "socketcan",
+        CanDeviceArguments(
+            DEVICE_ONE, received_frames_dev1.append, error_codes_dev1.append
+        ),
+    )
+
+    r = myDevice1.open()
+    assert r == CanReturnCode.success
+    assert len(error_codes_dev1) == 0
+
+    try:
+        # Simulate disconnection problem
+        subprocess.run(["ip", "link", "set", "vcan0", "down"], check=True)
+
+        sleep(2)
+
+        assert len(error_codes_dev1) >= 1
+        assert error_codes_dev1[0] == CanReturnCode.disconnected
+    finally:
+        subprocess.run(["ip", "link", "set", "vcan0", "up"], check=True)
