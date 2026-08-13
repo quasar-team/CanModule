@@ -1,7 +1,10 @@
-import pytest
-
 from time import sleep, time
 import platform
+import socket
+import subprocess
+
+import pytest
+
 from common import *
 
 DEVICE_ONE = CanDeviceConfiguration()
@@ -244,3 +247,59 @@ def test_anagate_bus_off_recovery():
             break
 
     assert send_error is True
+
+
+def _block_ip(ip_address: str) -> None:
+    """Simulates CAN device disconnection by blocking traffic with the firewall"""
+
+    system = platform.system()
+    if system == "Linux":
+        subprocess.run(
+            ["iptables", "-A", "OUTPUT", "-d", ip_address, "-j", "DROP"],
+            check=True,
+        )
+    else:
+        raise NotImplementedError(f"Firewall blocking not implemented for {system}")
+
+
+def _unblock_ip(ip_address: str) -> None:
+    """Simulates CAN device disconnection by blocking traffic with the firewall"""
+
+    system = platform.system()
+    if system == "Linux":
+        subprocess.run(
+            ["iptables", "-D", "OUTPUT", "-d", ip_address, "-j", "DROP"],
+            check=True,
+        )
+    else:
+        raise NotImplementedError(f"Firewall blocking not implemented for {system}")
+
+
+@pytest.mark.skipif(
+    platform.system() == "Windows",
+    reason="Firewall simulation for this test not yet supported on Windows",
+)
+def test_anagate_on_error_callback():
+    received_frames_dev1 = []
+    error_codes_dev1 = []
+
+    myDevice1 = CanDevice.create(
+        "anagate",
+        CanDeviceArguments(
+            DEVICE_ONE, received_frames_dev1.append, error_codes_dev1.append
+        ),
+    )
+
+    r = myDevice1.open()
+    assert r == CanReturnCode.success
+    assert len(error_codes_dev1) == 0
+
+    ip_address = socket.gethostbyname(DEVICE_ONE.host)
+
+    try:
+        _block_ip(ip_address)
+        sleep(10)
+        assert len(error_codes_dev1) == 1
+        assert error_codes_dev1[0] == CanReturnCode.disconnected
+    finally:
+        _unblock_ip(ip_address)
