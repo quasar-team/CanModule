@@ -108,7 +108,7 @@ CanReturnCode CanVendorSocketCan::vendor_open() noexcept {
     return CanReturnCode::internal_api_error;
   }
 
-  if (args().receiver != nullptr) {
+  if (args().receiver != nullptr || args().on_error != nullptr) {
     LOG(Log::DBG, CanLogIt::h()) << "Starting CAN subscriber thread";
     // Create epoll instance
     m_epoll_fd = epoll_create1(0);

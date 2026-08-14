@@ -45,7 +45,7 @@ struct CanDeviceArguments {
    * @param on_error A function, lambda or functor that takes a CanReturnCode
    * and returns void.
    */
-  const std::function<void(CanReturnCode)> on_error = {};
+  const std::function<void(CanReturnCode)> on_error = nullptr;
 };
 
 #endif  // SRC_INCLUDE_CANDEVICEARGUMENTS_H_

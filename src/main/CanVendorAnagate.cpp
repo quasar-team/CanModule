@@ -127,20 +127,10 @@ CanReturnCode CanVendorAnagate::vendor_open() noexcept {
     case AnagateConstants::errorNone:
       CanVendorAnagate::m_handles[m_handle] = this;
 
-      // Start the ALIVE thread
-      r = CANStartAlive(m_handle, args().config.timeout.value_or(
-                                      AnagateConstants::defaultTimeout) /
-                                      1000);
-      if (r != 0) {
-        LOG(Log::ERR, CanLogIt::h()) << "Failed to start ALIVE mechanism";
-        return CanReturnCode::internal_api_error;
-      }
-
-      if (args().on_error != nullptr) {
-        m_alive_run = true;
-        m_alive_thread = std::thread(&CanVendorAnagate::alive_monitor, this);
-      }
-      return CanReturnCode::success;
+      if (args().on_error != nullptr)
+        return start_alive();
+      else
+        return CanReturnCode::success;
     case AnagateConstants::errorOpenMaxConn:
       return CanReturnCode::too_many_connections;
     case AnagateConstants::errorTcpipSocket:
@@ -421,6 +411,30 @@ void CanVendorAnagate::print_anagate_error(AnaUInt32 r) noexcept {
     CANErrorMessage(r, error_string.data(), error_string.capacity());
     LOG(Log::ERR, CanLogIt::h()) << "ANAGATE ERROR: " << error_string;
   }
+}
+
+/**
+ * @brief Starts the ALIVE mechanism
+ *
+ * For more info check:
+ * (https://www.anagate.de/download/Manual-AnaGateAPI2-en.pdf)
+ */
+CanReturnCode CanVendorAnagate::start_alive() noexcept {
+  AnaInt32 r{0};
+
+  r = CANStartAlive(
+      m_handle,
+      args().config.timeout.value_or(AnagateConstants::defaultTimeout) / 1000);
+
+  if (r != 0) {
+    LOG(Log::ERR, CanLogIt::h()) << "Failed to start ALIVE mechanism";
+    return CanReturnCode::internal_api_error;
+  }
+
+  m_alive_run = true;
+  m_alive_thread = std::thread(&CanVendorAnagate::alive_monitor, this);
+
+  return CanReturnCode::success;
 }
 
 /**

@@ -42,6 +42,7 @@ struct CanVendorAnagate : CanDevice {
   // A separate thread periodically checks the connection health using the
   // ALIVE mechanism
   // (https://www.anagate.de/download/Manual-AnaGateAPI2-en.pdf)
+  CanReturnCode start_alive() noexcept;
   void alive_monitor() noexcept;
   std::thread m_alive_thread;
   std::atomic<bool> m_alive_run{false};

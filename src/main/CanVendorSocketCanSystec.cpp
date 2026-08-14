@@ -43,7 +43,8 @@ CanVendorSocketCanSystec::CanVendorSocketCanSystec(
                        // set to a non-zero value.
 
   m_can_vendor_socketcan = CanDevice::create(
-      "socketcan", CanDeviceArguments{config, filter_busoff_callback});
+      "socketcan",
+      CanDeviceArguments{config, filter_busoff_callback, args.on_error});
 }
 
 /**

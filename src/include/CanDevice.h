@@ -135,7 +135,15 @@ struct CanDevice {
     LOG(Log::DBG, CanLogIt::h()) << "Received CAN frame: " << frame;
     if (m_args.receiver != nullptr) {
       LOG(Log::DBG, CanLogIt::h()) << "Calling receiver function";
-      m_args.receiver(frame);
+      try {
+        m_args.receiver(frame);
+      } catch (const std::exception& e) {
+        LOG(Log::ERR, CanLogIt::h())
+            << "Exception in receiver function: " << e.what();
+      } catch (...) {
+        LOG(Log::ERR, CanLogIt::h())
+            << "Unknown exception in receiver function";
+      }
     }
   }
 
@@ -152,7 +160,15 @@ struct CanDevice {
     LOG(Log::WRN, CanLogIt::h()) << "CAN device error: " << code;
     if (m_args.on_error != nullptr) {
       LOG(Log::DBG, CanLogIt::h()) << "Calling on_error function";
-      m_args.on_error(code);
+      try {
+        m_args.on_error(code);
+      } catch (const std::exception& e) {
+        LOG(Log::ERR, CanLogIt::h())
+            << "Exception in on_error function: " << e.what();
+      } catch (...) {
+        LOG(Log::ERR, CanLogIt::h())
+            << "Unknown exception in on_error function";
+      }
     }
   }
 
