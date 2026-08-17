@@ -1,6 +1,7 @@
 variables:
   ALMA_LATEST_IMAGE: "gitlab-registry.cern.ch/jcop-opc-ua/common/images/alma-10-build:latest"
   WINDOWS_LATEST_IMAGE: "gitlab-registry.cern.ch/jcop-opc-ua/common/images/win2025-build:latest"
+  TOXIPROXY_VERSION: "v2.12.0"
 
 Compile on Windows:
   stage: unstagged
@@ -71,8 +72,13 @@ Pytest on Windows:
     - win2025-container
   needs:
     - Compile on Windows
+  before_script:
+    - Invoke-WebRequest "https://github.com/Shopify/toxiproxy/releases/download/$env:TOXIPROXY_VERSION/toxiproxy-server-windows-amd64.exe" -OutFile toxiproxy-server.exe
+    - Start-Process .\toxiproxy-server.exe
   script:
     - python -m pytest
+  after_script:
+    - Get-Process toxiproxy-server -ErrorAction SilentlyContinue | Stop-Process -Force
 
 Pytest on Linux:
   stage: unstagged
@@ -80,8 +86,15 @@ Pytest on Linux:
     - linux-socketcan
   needs:
     - Compile on Linux
+  before_script:
+    - curl -fsSL -o toxiproxy-server "https://github.com/Shopify/toxiproxy/releases/download/${TOXIPROXY_VERSION}/toxiproxy-server-linux-amd64"
+    - chmod +x toxiproxy-server
+    - ./toxiproxy-server >/dev/null 2>&1 &
+    - echo $! > toxiproxy.pid
   script:
     - python -m pytest
+  after_script:
+    - kill $(cat toxiproxy.pid) || true
 
 
 Run Sanity Checks:
