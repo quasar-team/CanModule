@@ -73,12 +73,9 @@ Pytest on Windows:
   needs:
     - Compile on Windows
   before_script:
-    - Invoke-WebRequest "https://github.com/Shopify/toxiproxy/releases/download/$env:TOXIPROXY_VERSION/toxiproxy-server-windows-amd64.exe" -OutFile toxiproxy-server.exe
-    - Start-Process .\toxiproxy-server.exe
+    - Start-Process toxiproxy-server.exe
   script:
     - python -m pytest
-  after_script:
-    - Get-Process toxiproxy-server -ErrorAction SilentlyContinue | Stop-Process -Force
 
 Pytest on Linux:
   stage: unstagged
@@ -87,14 +84,12 @@ Pytest on Linux:
   needs:
     - Compile on Linux
   before_script:
+    # This job is running with shell executor so it doesn't use the built image containing toxiproxy, so it has to be downloaded
     - curl -fsSL -o toxiproxy-server "https://github.com/Shopify/toxiproxy/releases/download/${TOXIPROXY_VERSION}/toxiproxy-server-linux-amd64"
     - chmod +x toxiproxy-server
     - ./toxiproxy-server >/dev/null 2>&1 &
-    - echo $! > toxiproxy.pid
   script:
     - python -m pytest
-  after_script:
-    - kill $(cat toxiproxy.pid) || true
 
 
 Run Sanity Checks:
