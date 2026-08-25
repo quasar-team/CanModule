@@ -1,7 +1,6 @@
 variables:
   ALMA_LATEST_IMAGE: "gitlab-registry.cern.ch/jcop-opc-ua/common/images/alma-10-build:latest"
   WINDOWS_LATEST_IMAGE: "gitlab-registry.cern.ch/jcop-opc-ua/common/images/win2025-build:latest"
-  TOXIPROXY_VERSION: "v2.12.0"
 
 Compile on Windows:
   stage: unstagged
