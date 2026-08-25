@@ -428,6 +428,7 @@ CanReturnCode CanVendorAnagate::start_alive() noexcept {
 
   if (r != 0) {
     LOG(Log::ERR, CanLogIt::h()) << "Failed to start ALIVE mechanism";
+    vendor_close();
     return CanReturnCode::internal_api_error;
   }
 

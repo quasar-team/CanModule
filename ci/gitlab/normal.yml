@@ -77,19 +77,24 @@ Pytest on Windows:
   script:
     - python -m pytest
 
-Pytest on Linux:
+Pytest on Linux (Only socketcan):
   stage: unstagged
   tags:
     - linux-socketcan
   needs:
     - Compile on Linux
-  before_script:
-    # This job is running with shell executor so it doesn't use the built image containing toxiproxy, so it has to be downloaded
-    - curl -fsSL -o toxiproxy-server "https://github.com/Shopify/toxiproxy/releases/download/${TOXIPROXY_VERSION}/toxiproxy-server-linux-amd64"
-    - chmod +x toxiproxy-server
-    - ./toxiproxy-server >/dev/null 2>&1 &
   script:
-    - python -m pytest
+    - python -m pytest test/python/test_socketcan.py
+
+Pytest on Linux (All except socketcan):
+  stage: unstagged
+  image: $ALMA_LATEST_IMAGE
+  needs:
+    - Compile on Linux
+  before_script:
+    - toxiproxy-server >/dev/null 2>&1 &
+  script:
+    - python -m pytest --ignore=test/python/test_socketcan.py
 
 
 Run Sanity Checks:
