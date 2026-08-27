@@ -71,17 +71,29 @@ Pytest on Windows:
     - win2025-container
   needs:
     - Compile on Windows
+  before_script:
+    - Start-Process toxiproxy-server.exe
   script:
     - python -m pytest
 
-Pytest on Linux:
+Pytest on Linux (Only socketcan):
   stage: unstagged
   tags:
     - linux-socketcan
   needs:
     - Compile on Linux
   script:
-    - python -m pytest
+    - python -m pytest test/python/test_socketcan.py
+
+Pytest on Linux (All except socketcan):
+  stage: unstagged
+  image: $ALMA_LATEST_IMAGE
+  needs:
+    - Compile on Linux
+  before_script:
+    - toxiproxy-server >/dev/null 2>&1 &
+  script:
+    - python -m pytest --ignore=test/python/test_socketcan.py
 
 
 Run Sanity Checks:

@@ -135,7 +135,40 @@ struct CanDevice {
     LOG(Log::DBG, CanLogIt::h()) << "Received CAN frame: " << frame;
     if (m_args.receiver != nullptr) {
       LOG(Log::DBG, CanLogIt::h()) << "Calling receiver function";
-      m_args.receiver(frame);
+      try {
+        m_args.receiver(frame);
+      } catch (const std::exception& e) {
+        LOG(Log::ERR, CanLogIt::h())
+            << "Exception in receiver function: " << e.what();
+      } catch (...) {
+        LOG(Log::ERR, CanLogIt::h())
+            << "Unknown exception in receiver function";
+      }
+    }
+  }
+
+  /**
+   * @brief Handles errors.
+   *
+   * This function is called whenever an error occurs on the CAN device.
+   * It passes the received return code to the on_error function specified in
+   * the CanDeviceArguments object.
+   *
+   * @param code The return code received
+   */
+  inline void notify_error(CanReturnCode code) const noexcept {
+    LOG(Log::WRN, CanLogIt::h()) << "CAN device error: " << code;
+    if (m_args.on_error != nullptr) {
+      LOG(Log::DBG, CanLogIt::h()) << "Calling on_error function";
+      try {
+        m_args.on_error(code);
+      } catch (const std::exception& e) {
+        LOG(Log::ERR, CanLogIt::h())
+            << "Exception in on_error function: " << e.what();
+      } catch (...) {
+        LOG(Log::ERR, CanLogIt::h())
+            << "Unknown exception in on_error function";
+      }
     }
   }
 

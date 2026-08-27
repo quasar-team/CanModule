@@ -22,6 +22,14 @@ DEVICE_TWO = CanDeviceConfiguration()
 DEVICE_TWO.bus_name = "vcan0"
 
 
+def vcan_down() -> None:
+    subprocess.run(["ip", "link", "set", "vcan0", "down"], check=True)
+
+
+def vcan_up() -> None:
+    subprocess.run(["ip", "link", "set", "vcan0", "up"], check=True)
+
+
 def test_socketcan_single_message():
     received_frames_dev1 = []
     received_frames_dev2 = []
@@ -147,3 +155,156 @@ def test_socketcan_diagnostics():
     assert stats.rx_per_second == pytest.approx(
         n_attemps * n_frames / time_elapsed, abs=0.2
     )
+
+
+def test_socketcan_on_error_without_receiver():
+
+    error_codes_dev1 = []
+
+    myDevice1 = CanDevice.create(
+        "socketcan",
+        # Also test that it works when no receiver was provided
+        CanDeviceArguments(DEVICE_ONE, None, error_codes_dev1.append),
+    )
+
+    r = myDevice1.open()
+    assert r == CanReturnCode.success
+    assert len(error_codes_dev1) == 0
+
+    try:
+        # Simulate disconnection problem
+        vcan_down()
+
+        sleep(2)
+
+        assert len(error_codes_dev1) == 1
+        assert error_codes_dev1[0] == CanReturnCode.disconnected
+    finally:
+        vcan_up()
+
+
+def test_socketcan_systec_on_error():
+
+    error_codes = []
+
+    myDevice = CanDevice.create(
+        "socketcan_systec",
+        CanDeviceArguments(DEVICE_ONE, None, error_codes.append),
+    )
+
+    r = myDevice.open()
+    assert r == CanReturnCode.success
+    assert len(error_codes) == 0
+
+    try:
+        # Simulate disconnection problem
+        vcan_down()
+
+        sleep(2)
+
+        assert len(error_codes) == 1
+        assert error_codes[0] == CanReturnCode.disconnected
+    finally:
+        vcan_up()
+
+
+def test_socketcan_closing_and_opening_device_on_error():
+
+    received_frames = []
+    error_codes = []
+    restart_needed = False
+
+    def restart_callback(code: CanReturnCode):
+        nonlocal error_codes, restart_needed
+        error_codes.append(code)
+        # The restart can't be trigerred directly from the thread running the callback
+        # as it touches its own device, so just flag it and handle it later
+        restart_needed = True
+
+    myDevice = CanDevice.create(
+        "socketcan",
+        CanDeviceArguments(DEVICE_ONE, received_frames.append, restart_callback),
+    )
+
+    r = myDevice.open()
+    assert r == CanReturnCode.success
+    assert len(error_codes) == 0
+
+    # Simulate disconnection problem
+    try:
+        vcan_down()
+
+        sleep(2)
+
+        assert len(error_codes) == 1
+        assert error_codes[0] == CanReturnCode.disconnected
+    finally:
+        vcan_up()
+
+    assert restart_needed
+    r = myDevice.close()
+    assert r == CanReturnCode.success
+    r = myDevice.open()
+    assert r == CanReturnCode.success
+
+    # Check if device is operational
+    r = myDevice.send(CanFrame(123, ["H", "e", "l", "l", "o"]))
+    assert r == CanReturnCode.success
+    assert len(error_codes) == 1  # Only the previous error
+
+
+def test_socketcan_throwing_callbacks():
+
+    receiver_callback_called = False
+
+    def throwing_receiver_cb(_: CanFrame):
+        nonlocal receiver_callback_called
+        receiver_callback_called = True
+        raise RuntimeError("error")
+
+    error_callback_called = False
+
+    def throwing_error_cb(_: CanReturnCode):
+        nonlocal error_callback_called
+        error_callback_called = True
+        raise RuntimeError("error")
+
+    throwing_device = CanDevice.create(
+        "socketcan",
+        CanDeviceArguments(DEVICE_ONE, throwing_receiver_cb, throwing_error_cb),
+    )
+
+    sender_device = CanDevice.create("socketcan", CanDeviceArguments(DEVICE_TWO))
+
+    r = throwing_device.open()
+    assert r == CanReturnCode.success
+    r = sender_device.open()
+    assert r == CanReturnCode.success
+
+    # Trigger throwing_device callbacks
+    try:
+        r = sender_device.send(CanFrame(123, ["H", "e", "l", "l", "o"]))
+        assert r == CanReturnCode.success
+
+        vcan_down()
+
+        sleep(2)
+    finally:
+        vcan_up()
+
+    assert receiver_callback_called
+    assert error_callback_called
+
+    # None of the devices can send because the vcan interface went down
+    r = throwing_device.send(CanFrame(123, ["H", "e", "l", "l", "o"]))
+    assert r == CanReturnCode.unknown_send_error
+    r = sender_device.send(CanFrame(123, ["H", "e", "l", "l", "o"]))
+    assert r == CanReturnCode.unknown_send_error
+
+    # So restart the throwing device to check it can send again
+    r = throwing_device.close()
+    assert r == CanReturnCode.success
+    r = throwing_device.open()
+    assert r == CanReturnCode.success
+    r = throwing_device.send(CanFrame(123, ["H", "e", "l", "l", "o"]))
+    assert r == CanReturnCode.success

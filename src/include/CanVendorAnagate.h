@@ -1,9 +1,11 @@
 #ifndef SRC_INCLUDE_CANVENDORANAGATE_H_
 #define SRC_INCLUDE_CANVENDORANAGATE_H_
 
+#include <atomic>
 #include <cstdint>
 #include <map>
 #include <mutex>  //NOLINT
+#include <thread>
 
 #include "AnaGateDllCan.h"
 #include "CanDevice.h"
@@ -36,9 +38,18 @@ struct CanVendorAnagate : CanDevice {
   static std::map<int, CanVendorAnagate*> m_handles;
 
   AnaInt32 m_handle{0};
+
+  // A separate thread periodically checks the connection health using the
+  // ALIVE mechanism
+  // (https://www.anagate.de/download/Manual-AnaGateAPI2-en.pdf)
+  CanReturnCode start_alive() noexcept;
+  void alive_monitor() noexcept;
+  std::thread m_alive_thread;
+  std::atomic<bool> m_alive_run{false};
 };
 
 namespace AnagateConstants {
+constexpr int connected = 3;
 constexpr int extendedId = 1 << 0;
 constexpr int remoteRequest = 1 << 1;
 constexpr char emptyMessage[8] = {0};

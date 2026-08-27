@@ -1,8 +1,11 @@
-import pytest
-
 from time import sleep, time
 import platform
+import socket
+
+import pytest
+
 from common import *
+from toxiproxy_client import ToxiproxyClient, TOXIPROXY_API_HOST
 
 DEVICE_ONE = CanDeviceConfiguration()
 DEVICE_ONE.host = "ANACANFZ8-010211FC.CERN.CH"
@@ -17,6 +20,16 @@ DEVICE_TWO.bitrate = DEVICE_ONE.bitrate
 DEVICE_TWO.enable_termination = False
 DEVICE_TWO.high_speed = DEVICE_ONE.high_speed
 DEVICE_TWO.bus_number = 1 if platform.system() == "Linux" else 3
+
+
+def _anagate_can_port(bus_number: int) -> int:
+    """AnaGate multi-channel CAN gateways expose one TCP port
+    per CAN bus/channel: 5001, 5101, 5201, 5301, ... for bus_number 0, 1, 2, 3.
+    (https://www.anagate.de/en/support/FAQ.php)"""
+
+    ANAGATE_CAN_BASE_PORT = 5001
+    ANAGATE_CAN_PORT_STRIDE = 100
+    return ANAGATE_CAN_BASE_PORT + bus_number * ANAGATE_CAN_PORT_STRIDE
 
 
 def test_anagate_single_message():
@@ -244,3 +257,48 @@ def test_anagate_bus_off_recovery():
             break
 
     assert send_error is True
+
+
+def test_anagate_on_error_callback():
+    toxiproxy = ToxiproxyClient()
+
+    proxy_name = "anagate_device_one"
+    real_port = _anagate_can_port(DEVICE_ONE.bus_number)
+    real_ip = socket.gethostbyname(DEVICE_ONE.host)
+
+    toxiproxy.create_proxy(
+        proxy_name,
+        listen=f"0.0.0.0:{real_port}",
+        upstream=f"{real_ip}:{real_port}",
+    )
+
+    proxied_config = CanDeviceConfiguration()
+    proxied_config.host = TOXIPROXY_API_HOST
+    proxied_config.bitrate = DEVICE_ONE.bitrate
+    proxied_config.enable_termination = DEVICE_ONE.enable_termination
+    proxied_config.high_speed = DEVICE_ONE.high_speed
+    proxied_config.bus_number = DEVICE_ONE.bus_number
+
+    received_frames_dev1 = []
+    error_codes_dev1 = []
+
+    try:
+        myDevice1 = CanDevice.create(
+            "anagate",
+            CanDeviceArguments(
+                proxied_config, received_frames_dev1.append, error_codes_dev1.append
+            ),
+        )
+
+        r = myDevice1.open()
+        assert r == CanReturnCode.success
+        assert len(error_codes_dev1) == 0
+
+        toxiproxy.cut_connection(proxy_name)
+
+        sleep(10)
+        assert len(error_codes_dev1) == 1
+        assert error_codes_dev1[0] == CanReturnCode.disconnected
+    finally:
+        toxiproxy.restore_connection(proxy_name)
+        toxiproxy.delete_proxy(proxy_name)
