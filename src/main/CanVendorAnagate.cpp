@@ -62,8 +62,12 @@ void anagate_receive(AnaInt32 nIdentifier, const char* pcBuffer,
  */
 CanVendorAnagate::CanVendorAnagate(const CanDeviceArguments& args)
     : CanDevice("anagate", args) {
-  if (!args.config.bus_number.has_value() || !args.config.host.has_value()) {
-    throw std::invalid_argument("Missing required configuration parameters");
+  if (!args.config.host.has_value()) {
+    throw std::invalid_argument("Missing required host");
+  }
+
+  if (!args.config.bus_number.has_value()) {
+    throw std::invalid_argument("Missing required bus number");
   }
 }
 
