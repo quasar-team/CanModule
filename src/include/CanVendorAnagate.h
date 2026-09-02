@@ -5,6 +5,8 @@
 #include <cstdint>
 #include <map>
 #include <mutex>  //NOLINT
+#include <set>
+#include <string>
 #include <thread>
 
 #include "AnaGateDllCan.h"
@@ -23,6 +25,11 @@ struct CanVendorAnagate : CanDevice {
   friend void anagate_receive(AnaInt32 nIdentifier, const char* pcBuffer,
                               AnaInt32 nBufferLen, AnaInt32 nFlags,
                               AnaInt32 hHandle) noexcept;
+
+  /**
+   * @brief The configuration parameters this vendor takes into account.
+   */
+  static const std::set<std::string> accepted_parameters;
 
   explicit CanVendorAnagate(const CanDeviceArguments& configuration);
   inline ~CanVendorAnagate() override { vendor_close(); }

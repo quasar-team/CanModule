@@ -7,6 +7,8 @@
 #include <unistd.h>
 
 #include <cstring>
+#include <set>
+#include <string>
 #include <thread>  // NOLINT
 
 #include "CanDevice.h"
@@ -22,6 +24,11 @@
  * methods to open, close, and send CAN frames using the SocketCAN interface.
  */
 struct CanVendorSocketCan : CanDevice {
+  /**
+   * @brief The configuration parameters this vendor takes into account.
+   */
+  static const std::set<std::string> accepted_parameters;
+
   explicit CanVendorSocketCan(const CanDeviceArguments& args);
 
   ~CanVendorSocketCan() { vendor_close(); }
