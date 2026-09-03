@@ -65,6 +65,24 @@ def test_loopback_multiple_messages():
     assert received_frames[1].message() == ["W", "o", "r", "l", "d"]
 
 
+def test_configuration_from_parameters():
+    config = CanDeviceConfiguration(
+        {"bus_name": "can0", "bitrate": "500000", "vcan": "true"}
+    )
+    assert config.bus_name == "can0"
+    assert config.bitrate == 500000
+    assert config.vcan is True
+    assert config.host is None
+
+
+def test_configuration_from_parameters_unknown_key():
+    with pytest.raises(ValueError) as e:
+        CanDeviceConfiguration({"not_a_parameter": "value"})
+    assert (
+        str(e.value) == "Unknown CAN device configuration parameter 'not_a_parameter'"
+    )
+
+
 def test_loopback_construction_empty_callback():
     myDevice = CanDevice.create(
         "loopback", CanDeviceArguments(CanDeviceConfiguration())
