@@ -7,6 +7,7 @@
 #include <optional>
 #include <string>
 #include <utility>
+#include <variant>
 #include <vector>
 
 /**
@@ -121,5 +122,39 @@ struct CanDeviceConfiguration {
 
 std::ostream& operator<<(std::ostream& os,
                          const CanDeviceConfiguration& config) noexcept;
+
+/**
+ * @brief A pointer to one of CanDeviceConfiguration's members
+ */
+using Member =
+    std::variant<std::optional<std::string> CanDeviceConfiguration::*,
+                 std::optional<uint32_t> CanDeviceConfiguration::*,
+                 std::optional<bool> CanDeviceConfiguration::*>;
+
+/**
+ * @brief Describes a single configuration parameter
+ */
+struct FieldDescriptor {
+  std::string name;
+  Member member;
+};
+
+/**
+ * @brief Unique list defining the configuration fields
+ */
+inline const std::vector<FieldDescriptor>& fields() {
+  static const std::vector<FieldDescriptor> kFields = {
+      {"bus_name", &CanDeviceConfiguration::bus_name},
+      {"bus_number", &CanDeviceConfiguration::bus_number},
+      {"host", &CanDeviceConfiguration::host},
+      {"bitrate", &CanDeviceConfiguration::bitrate},
+      {"enable_termination", &CanDeviceConfiguration::enable_termination},
+      {"high_speed", &CanDeviceConfiguration::high_speed},
+      {"timeout", &CanDeviceConfiguration::timeout},
+      {"vcan", &CanDeviceConfiguration::vcan},
+      {"sent_acknowledgement", &CanDeviceConfiguration::sent_acknowledgement},
+  };
+  return kFields;
+}
 
 #endif  // SRC_INCLUDE_CANDEVICECONFIGURATION_H_
