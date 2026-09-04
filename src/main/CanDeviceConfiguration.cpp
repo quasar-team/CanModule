@@ -9,7 +9,9 @@
 #include <sstream>
 #include <stdexcept>
 #include <string>
+#include <type_traits>
 #include <utility>
+#include <variant>
 #include <vector>
 
 namespace {
@@ -71,35 +73,83 @@ bool to_bool(const std::string& key, const std::string& value) {
                               key + "': expected 'true' or 'false'");
 }
 
+/**
+ * @brief Reads a field's value out of a configuration as a string
+ *
+ * @param config The configuration to read from.
+ * @param field The field to read.
+ * @return The value, or std::nullopt if the field is unset.
+ */
+std::optional<std::string> value_as_string(const CanDeviceConfiguration& config,
+                                           const FieldDescriptor& field) {
+  return std::visit(
+      [&config](auto member) -> std::optional<std::string> {
+        const auto& value = config.*member;
+        if (!value.has_value()) return std::nullopt;
+
+        using ValueType = typename std::decay_t<decltype(value)>::value_type;
+        if constexpr (std::is_same_v<ValueType, std::string>) {
+          return value.value();
+        } else if constexpr (std::is_same_v<ValueType, uint32_t>) {
+          return std::to_string(value.value());
+        } else if constexpr (std::is_same_v<ValueType, bool>) {
+          return value.value() ? "true" : "false";
+        }
+
+        return std::nullopt;
+      },
+      field.member);
+}
+
+/**
+ * @brief Sets a field's value on a configuration, parsing it from a string
+ *
+ * @param config The configuration to update.
+ * @param field The field to set.
+ * @param key The name of the parameter, used in errors.
+ * @param value The value to parse and assign.
+ * @throws std::invalid_argument if the value cannot be converted to the
+ * field's type.
+ */
+void assign_from_string(CanDeviceConfiguration& config,
+                        const FieldDescriptor& field, const std::string& key,
+                        const std::string& value) {
+  std::visit(
+      [&](auto member) {
+        using ValueType =
+            typename std::decay_t<decltype(config.*member)>::value_type;
+        if constexpr (std::is_same_v<ValueType, std::string>) {
+          config.*member = value;
+        } else if constexpr (std::is_same_v<ValueType, uint32_t>) {
+          config.*member = to_uint32(key, value);
+        } else if constexpr (std::is_same_v<ValueType, bool>) {
+          config.*member = to_bool(key, value);
+        }
+      },
+      field.member);
+}
+
 }  // namespace
 
 CanDeviceConfiguration CanDeviceConfiguration::from_map(
     const std::map<std::string, std::string>& parameters) {
   CanDeviceConfiguration config;
 
-  for (const auto& [key, value] : parameters) {
-    if (key == "bus_name") {
-      config.bus_name = value;
-    } else if (key == "bus_number") {
-      config.bus_number = to_uint32(key, value);
-    } else if (key == "host") {
-      config.host = value;
-    } else if (key == "bitrate") {
-      config.bitrate = to_uint32(key, value);
-    } else if (key == "enable_termination") {
-      config.enable_termination = to_bool(key, value);
-    } else if (key == "high_speed") {
-      config.high_speed = to_bool(key, value);
-    } else if (key == "timeout") {
-      config.timeout = to_uint32(key, value);
-    } else if (key == "vcan") {
-      config.vcan = to_bool(key, value);
-    } else if (key == "sent_acknowledgement") {
-      config.sent_acknowledgement = to_uint32(key, value);
-    } else {
+  for (const auto& parameter : parameters) {
+    const std::string& key = parameter.first;
+    const std::string& value = parameter.second;
+
+    const auto it = std::find_if(
+        // fields is a static const
+        fields().begin(), fields().end(),
+        [&key](const FieldDescriptor& field) { return field.name == key; });
+
+    if (it == fields().end()) {
       throw std::invalid_argument(
           "Unknown CAN device configuration parameter '" + key + "'");
     }
+
+    assign_from_string(config, *it, key, value);
   }
 
   return config;
@@ -119,54 +169,21 @@ std::string CanDeviceConfiguration::to_string() const noexcept {
   std::ostringstream oss;
   bool first = true;
 
-  if (bus_name.has_value()) {
-    if (!first) oss << ", ";
-    oss << "bus_name=" << std::quoted(bus_name.value());
-    first = false;
-  }
+  for (const auto& field : fields()) {
+    const auto value = value_as_string(*this, field);
+    if (!value.has_value()) continue;
 
-  if (bus_number.has_value()) {
     if (!first) oss << ", ";
-    oss << "bus_number=" << bus_number.value();
+    oss << field.name << "=";
+    // Only add quotes if its a string
+    if (std::holds_alternative<
+            std::optional<std::string> CanDeviceConfiguration::*>(
+            field.member)) {
+      oss << std::quoted(value.value());
+    } else {
+      oss << value.value();
+    }
     first = false;
-  }
-
-  if (host.has_value()) {
-    if (!first) oss << ", ";
-    oss << "host=" << std::quoted(host.value());
-    first = false;
-  }
-
-  if (bitrate.has_value()) {
-    if (!first) oss << ", ";
-    oss << "bitrate=" << bitrate.value();
-    first = false;
-  }
-
-  if (enable_termination.has_value()) {
-    if (!first) oss << ", ";
-    oss << "enable_termination="
-        << (enable_termination.value() ? "true" : "false");
-    first = false;
-  }
-
-  if (vcan.has_value()) {
-    if (!first) oss << ", ";
-    oss << "vcan=" << (vcan.value() ? "true" : "false");
-    first = false;
-  }
-
-  if (timeout.has_value()) {
-    if (!first) oss << ", ";
-    oss << "timeout=" << timeout.value();
-    first = false;
-  }
-
-  if (sent_acknowledgement.has_value()) {
-    if (!first) oss << ", ";
-    oss << "sent_acknowledgement=" << sent_acknowledgement.value();
-    first = false;  // NOLINT: Indeed, this is the last field, but we set first
-                    // to false for consistency.
   }
 
   return oss.str();
@@ -203,26 +220,11 @@ std::vector<std::pair<std::string, std::string>>
 CanDeviceConfiguration::set_parameters() const noexcept {
   std::vector<std::pair<std::string, std::string>> parameters;
 
-  if (bus_name.has_value())
-    parameters.emplace_back("bus_name", bus_name.value());
-  if (bus_number.has_value())
-    parameters.emplace_back("bus_number", std::to_string(bus_number.value()));
-  if (host.has_value()) parameters.emplace_back("host", host.value());
-  if (bitrate.has_value())
-    parameters.emplace_back("bitrate", std::to_string(bitrate.value()));
-  if (enable_termination.has_value())
-    parameters.emplace_back("enable_termination",
-                            enable_termination.value() ? "true" : "false");
-  if (high_speed.has_value())
-    parameters.emplace_back("high_speed",
-                            high_speed.value() ? "true" : "false");
-  if (timeout.has_value())
-    parameters.emplace_back("timeout", std::to_string(timeout.value()));
-  if (vcan.has_value())
-    parameters.emplace_back("vcan", vcan.value() ? "true" : "false");
-  if (sent_acknowledgement.has_value())
-    parameters.emplace_back("sent_acknowledgement",
-                            std::to_string(sent_acknowledgement.value()));
+  for (const auto& field : fields()) {
+    if (auto value = value_as_string(*this, field)) {
+      parameters.emplace_back(field.name, *value);
+    }
+  }
 
   return parameters;
 }
