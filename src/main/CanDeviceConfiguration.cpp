@@ -9,7 +9,6 @@
 #include <sstream>
 #include <stdexcept>
 #include <string>
-#include <utility>
 
 namespace {
 
@@ -72,56 +71,37 @@ bool to_bool(const std::string& key, const std::string& value) {
 
 }  // namespace
 
-/**
- * @brief Constructs a configuration from a map of string parameters.
- *
- * @param parameters The configuration parameters, indexed by name.
- * @throws std::invalid_argument if a key is not a configuration parameter or if
- * a value cannot be converted to the type of its parameter.
- */
-CanDeviceConfiguration::CanDeviceConfiguration(
+CanDeviceConfiguration CanDeviceConfiguration::from_map(
     const std::map<std::string, std::string>& parameters) {
+  CanDeviceConfiguration config;
+
   for (const auto& [key, value] : parameters) {
     if (key == "bus_name") {
-      bus_name = value;
+      config.bus_name = value;
     } else if (key == "bus_number") {
-      bus_number = to_uint32(key, value);
+      config.bus_number = to_uint32(key, value);
     } else if (key == "host") {
-      host = value;
+      config.host = value;
     } else if (key == "bitrate") {
-      bitrate = to_uint32(key, value);
+      config.bitrate = to_uint32(key, value);
     } else if (key == "enable_termination") {
-      enable_termination = to_bool(key, value);
+      config.enable_termination = to_bool(key, value);
     } else if (key == "high_speed") {
-      high_speed = to_bool(key, value);
+      config.high_speed = to_bool(key, value);
     } else if (key == "timeout") {
-      timeout = to_uint32(key, value);
+      config.timeout = to_uint32(key, value);
     } else if (key == "vcan") {
-      vcan = to_bool(key, value);
+      config.vcan = to_bool(key, value);
     } else if (key == "sent_acknowledgement") {
-      sent_acknowledgement = to_uint32(key, value);
+      config.sent_acknowledgement = to_uint32(key, value);
     } else {
       throw std::invalid_argument(
           "Unknown CAN device configuration parameter '" + key + "'");
     }
   }
-}
 
-CanDeviceConfiguration::CanDeviceConfiguration(
-    std::optional<std::string> bus_name, std::optional<uint32_t> bus_number,
-    std::optional<std::string> host, std::optional<uint32_t> bitrate,
-    std::optional<bool> enable_termination, std::optional<bool> high_speed,
-    std::optional<uint32_t> timeout, std::optional<bool> vcan,
-    std::optional<uint32_t> sent_acknowledgement)
-    : bus_name(std::move(bus_name)),
-      bus_number(bus_number),
-      host(std::move(host)),
-      bitrate(bitrate),
-      enable_termination(enable_termination),
-      high_speed(high_speed),
-      timeout(timeout),
-      vcan(vcan),
-      sent_acknowledgement(sent_acknowledgement) {}
+  return config;
+}
 
 /**
  * @brief Converts the CanDeviceConfiguration object to a string representation.

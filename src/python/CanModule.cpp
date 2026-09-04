@@ -79,8 +79,8 @@ PYBIND11_MODULE(canmodule, m) {
 
   py::class_<CanDeviceConfiguration>(m, "CanDeviceConfiguration")
       .def(py::init<>())
-      .def(py::init<const std::map<std::string, std::string>&>(),
-           py::arg("parameters"))
+      .def_static("from_map", &CanDeviceConfiguration::from_map,
+                  py::arg("parameters"))
       .def_readwrite("bus_name", &CanDeviceConfiguration::bus_name)
       .def_readwrite("bus_number", &CanDeviceConfiguration::bus_number)
       .def_readwrite("host", &CanDeviceConfiguration::host)

@@ -17,30 +17,15 @@
  */
 struct CanDeviceConfiguration {
   /**
-   * @brief Constructs a configuration from positional parameters, in the
-   * same order as the fields below. Only a leading subset needs to be
-   * provided; the remaining fields are left unset.
-   */
-  explicit CanDeviceConfiguration(
-      std::optional<std::string> bus_name = std::nullopt,
-      std::optional<uint32_t> bus_number = std::nullopt,
-      std::optional<std::string> host = std::nullopt,
-      std::optional<uint32_t> bitrate = std::nullopt,
-      std::optional<bool> enable_termination = std::nullopt,
-      std::optional<bool> high_speed = std::nullopt,
-      std::optional<uint32_t> timeout = std::nullopt,
-      std::optional<bool> vcan = std::nullopt,
-      std::optional<uint32_t> sent_acknowledgement = std::nullopt);
-
-  /**
-   * @brief Constructs a configuration from a map of string parameters, where
-   * each key must be the name of one of the parameters below
+   * @brief Builds a configuration from a map of string parameters, where
+   * each key must be the name of one of the parameters below.
    *
    * @param parameters The configuration parameters, indexed by name.
+   * @return The parsed configuration.
    * @throws std::invalid_argument if a key is not a configuration parameter or
    * if a value cannot be converted to the type of its parameter.
    */
-  explicit CanDeviceConfiguration(
+  static CanDeviceConfiguration from_map(
       const std::map<std::string, std::string>& parameters);
 
   /**
