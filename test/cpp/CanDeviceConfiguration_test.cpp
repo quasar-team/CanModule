@@ -49,7 +49,8 @@ TEST_F(CanDeviceConfigurationTest, AssignsEveryParameterOfTheMap) {
 }
 
 TEST_F(CanDeviceConfigurationTest, LeavesTheAbsentParametersUnset) {
-  const CanDeviceConfiguration config{{{"bus_name", "can0"}}};
+  const CanDeviceConfiguration config{
+      std::map<std::string, std::string>{{"bus_name", "can0"}}};
 
   ASSERT_EQ(config.bus_name.value(), "can0");
   ASSERT_FALSE(config.bus_number.has_value());
@@ -62,12 +63,45 @@ TEST_F(CanDeviceConfigurationTest, LeavesTheAbsentParametersUnset) {
   ASSERT_FALSE(config.sent_acknowledgement.has_value());
 }
 
+TEST_F(CanDeviceConfigurationTest, AssignsPositionalParametersInOrder) {
+  const CanDeviceConfiguration config{"can0", 2,    "127.0.0.1", 125000, true,
+                                      false,  6000, true,        1};
+
+  ASSERT_EQ(config.bus_name.value(), "can0");
+  ASSERT_EQ(config.bus_number.value(), 2);
+  ASSERT_EQ(config.host.value(), "127.0.0.1");
+  ASSERT_EQ(config.bitrate.value(), 125000);
+  ASSERT_TRUE(config.enable_termination.value());
+  ASSERT_FALSE(config.high_speed.value());
+  ASSERT_EQ(config.timeout.value(), 6000);
+  ASSERT_TRUE(config.vcan.value());
+  ASSERT_EQ(config.sent_acknowledgement.value(), 1);
+}
+
+TEST_F(CanDeviceConfigurationTest, LeavesTrailingPositionalParametersUnset) {
+  const CanDeviceConfiguration config{"can0", 2};
+
+  ASSERT_EQ(config.bus_name.value(), "can0");
+  ASSERT_EQ(config.bus_number.value(), 2);
+  ASSERT_FALSE(config.host.has_value());
+  ASSERT_FALSE(config.bitrate.has_value());
+  ASSERT_FALSE(config.enable_termination.has_value());
+  ASSERT_FALSE(config.high_speed.has_value());
+  ASSERT_FALSE(config.timeout.has_value());
+  ASSERT_FALSE(config.vcan.has_value());
+  ASSERT_FALSE(config.sent_acknowledgement.has_value());
+}
+
 TEST_F(CanDeviceConfigurationTest, RejectsUnknownParameters) {
-  ASSERT_THROW(CanDeviceConfiguration({{"buss_name", "can0"}}),
+  ASSERT_THROW(CanDeviceConfiguration(
+                   std::map<std::string, std::string>{{"buss_name", "can0"}}),
                std::invalid_argument);
-  ASSERT_THROW(CanDeviceConfiguration({{"vendor", "socketcan"}}),
+  ASSERT_THROW(CanDeviceConfiguration(
+                   std::map<std::string, std::string>{{"vendor", "socketcan"}}),
                std::invalid_argument);
-  ASSERT_THROW(CanDeviceConfiguration({{"", ""}}), std::invalid_argument);
+  ASSERT_THROW(
+      CanDeviceConfiguration(std::map<std::string, std::string>{{"", ""}}),
+      std::invalid_argument);
 }
 
 TEST_F(CanDeviceConfigurationTest, RejectsValuesOfTheWrongType) {
@@ -89,7 +123,9 @@ TEST_F(CanDeviceConfigurationTest, RejectsValuesOfTheWrongType) {
   };
 
   for (const auto& [key, value] : invalid_values) {
-    ASSERT_THROW(CanDeviceConfiguration({{key, value}}), std::invalid_argument)
+    ASSERT_THROW(CanDeviceConfiguration(
+                     std::map<std::string, std::string>{{key, value}}),
+                 std::invalid_argument)
         << "Expected '" << value << "' to be invalid for '" << key << "'";
   }
 }

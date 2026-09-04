@@ -9,6 +9,7 @@
 #include <sstream>
 #include <stdexcept>
 #include <string>
+#include <utility>
 
 namespace {
 
@@ -105,6 +106,22 @@ CanDeviceConfiguration::CanDeviceConfiguration(
     }
   }
 }
+
+CanDeviceConfiguration::CanDeviceConfiguration(
+    std::optional<std::string> bus_name, std::optional<uint32_t> bus_number,
+    std::optional<std::string> host, std::optional<uint32_t> bitrate,
+    std::optional<bool> enable_termination, std::optional<bool> high_speed,
+    std::optional<uint32_t> timeout, std::optional<bool> vcan,
+    std::optional<uint32_t> sent_acknowledgement)
+    : bus_name(std::move(bus_name)),
+      bus_number(bus_number),
+      host(std::move(host)),
+      bitrate(bitrate),
+      enable_termination(enable_termination),
+      high_speed(high_speed),
+      timeout(timeout),
+      vcan(vcan),
+      sent_acknowledgement(sent_acknowledgement) {}
 
 /**
  * @brief Converts the CanDeviceConfiguration object to a string representation.

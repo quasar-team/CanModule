@@ -16,7 +16,21 @@
  * depending on the type of CAN device being used.
  */
 struct CanDeviceConfiguration {
-  CanDeviceConfiguration() = default;
+  /**
+   * @brief Constructs a configuration from positional parameters, in the
+   * same order as the fields below. Only a leading subset needs to be
+   * provided; the remaining fields are left unset.
+   */
+  explicit CanDeviceConfiguration(
+      std::optional<std::string> bus_name = std::nullopt,
+      std::optional<uint32_t> bus_number = std::nullopt,
+      std::optional<std::string> host = std::nullopt,
+      std::optional<uint32_t> bitrate = std::nullopt,
+      std::optional<bool> enable_termination = std::nullopt,
+      std::optional<bool> high_speed = std::nullopt,
+      std::optional<uint32_t> timeout = std::nullopt,
+      std::optional<bool> vcan = std::nullopt,
+      std::optional<uint32_t> sent_acknowledgement = std::nullopt);
 
   /**
    * @brief Constructs a configuration from a map of string parameters, where
