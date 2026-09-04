@@ -40,8 +40,7 @@ TEST_F(CanDeviceTest, CreationLoopbackDevice) {
   auto dummy_cb_ = [](const CanFrame& frame) { return; };
   auto myDevice = CanDevice::create(
       "loopback",
-      CanDeviceArguments{CanDeviceConfiguration{{{"bus_name", "dummy"}}},
-                         dummy_cb_});
+      CanDeviceArguments{CanDeviceConfiguration{"dummy"}, dummy_cb_});
   ASSERT_NE(myDevice, nullptr);
   ASSERT_EQ(myDevice->vendor_name(), "loopback");
   ASSERT_EQ(myDevice->args().config.bus_name.value(), "dummy");
@@ -57,8 +56,7 @@ TEST_F(CanDeviceTest, LoopbackDeviceMessageTransmission) {
   };
   auto myDevice = CanDevice::create(
       "loopback",
-      CanDeviceArguments{CanDeviceConfiguration{{{"bus_name", "dummy"}}},
-                         dummy_cb_});
+      CanDeviceArguments{CanDeviceConfiguration{"dummy"}, dummy_cb_});
 
   for (uint32_t i = 0; i < 10; ++i) {
     outFrames.push_back(CanFrame{i});
@@ -88,9 +86,8 @@ TEST_F(CanDeviceTest, OnErrorCallbackIsInvoked) {
   };
 
   TestableCanDevice device{
-      "test",
-      CanDeviceArguments{CanDeviceConfiguration{{{"bus_name", "dummy"}}},
-                         [](const CanFrame&) {}, on_error_cb}};
+      "test", CanDeviceArguments{CanDeviceConfiguration{"dummy"},
+                                 [](const CanFrame&) {}, on_error_cb}};
   device.notify_error(CanReturnCode::disconnected);
 
   ASSERT_TRUE(called);
@@ -111,9 +108,8 @@ TEST_F(CanDeviceTest, ThrowingCallbacksAreHandled) {
   };
 
   TestableCanDevice device{
-      "test",
-      CanDeviceArguments{CanDeviceConfiguration{{{"bus_name", "dummy"}}},
-                         receiver_cb, on_error_cb}};
+      "test", CanDeviceArguments{CanDeviceConfiguration{"dummy"}, receiver_cb,
+                                 on_error_cb}};
 
   ASSERT_NO_THROW(device.received(CanFrame{0}));
   ASSERT_TRUE(receiver_called);
