@@ -2,6 +2,8 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 
+#include <map>
+#include <string>
 #include <vector>
 
 #include "CanDevice.h"
@@ -77,6 +79,8 @@ PYBIND11_MODULE(canmodule, m) {
 
   py::class_<CanDeviceConfiguration>(m, "CanDeviceConfiguration")
       .def(py::init<>())
+      .def_static("from_map", &CanDeviceConfiguration::from_map,
+                  py::arg("parameters"))
       .def_readwrite("bus_name", &CanDeviceConfiguration::bus_name)
       .def_readwrite("bus_number", &CanDeviceConfiguration::bus_number)
       .def_readwrite("host", &CanDeviceConfiguration::host)

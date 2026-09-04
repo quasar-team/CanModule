@@ -12,6 +12,7 @@ FetchContent_MakeAvailable(googletest)
 # Add test files
 set(TEST_SOURCES
     test/cpp/CanDevice_test.cpp
+    test/cpp/CanDeviceConfiguration_test.cpp
     test/cpp/CanFrame_test.cpp
     test/cpp/LogIt_test.cpp
     test/cpp/CanVersion_test.cpp

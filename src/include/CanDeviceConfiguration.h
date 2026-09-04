@@ -3,6 +3,7 @@
 
 #include <cstdint>
 #include <iostream>
+#include <map>
 #include <optional>
 #include <string>
 
@@ -15,6 +16,18 @@
  * depending on the type of CAN device being used.
  */
 struct CanDeviceConfiguration {
+  /**
+   * @brief Builds a configuration from a map of string parameters, where
+   * each key must be the name of one of the parameters below.
+   *
+   * @param parameters The configuration parameters, indexed by name.
+   * @return The parsed configuration.
+   * @throws std::invalid_argument if a key is not a configuration parameter or
+   * if a value cannot be converted to the type of its parameter.
+   */
+  static CanDeviceConfiguration from_map(
+      const std::map<std::string, std::string>& parameters);
+
   /**
    * @brief The name of the CAN bus.
    *
