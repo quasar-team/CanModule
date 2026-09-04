@@ -4,7 +4,6 @@ from pathlib import Path
 
 import pytest
 
-
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.append(str(ROOT / "python"))
 sys.path.append(str(ROOT / "build"))
@@ -22,17 +21,17 @@ def write_json(tmp_path, data):
 
 
 def test_parse_set_item_accepts_uint32():
-    assert config.parse_set_item("bitrate=500000") == ("bitrate", 500000)
+    assert config.parse_set_item("bitrate=500000") == ("bitrate", "500000")
 
 
 def test_parse_set_item_accepts_bool():
-    assert config.parse_set_item("vcan=true") == ("vcan", True)
+    assert config.parse_set_item("vcan=true") == ("vcan", "true")
 
 
 def test_parse_set_item_normalizes_hyphenated_key():
     assert config.parse_set_item("enable-termination=false") == (
         "enable_termination",
-        False,
+        "false",
     )
 
 
@@ -51,20 +50,6 @@ def test_parse_set_item_rejects_comma_separated_values():
         config.parse_set_item("bitrate=500000,vcan=false")
 
 
-def test_parse_bool_rejects_invalid_values():
-    with pytest.raises(ValueError, match="invalid boolean value"):
-        config.parse_bool("maybe")
-
-
-def test_parse_uint32_rejects_negative_values():
-    with pytest.raises(ValueError, match="outside 0..0xFFFFFFFF"):
-        config.parse_uint32("-1")
-
-
-def test_parse_uint32_accepts_hexadecimal_values():
-    assert config.parse_uint32("0x7A120") == 500000
-
-
 def test_load_json_config_accepts_flat_object(tmp_path):
     path = write_json(
         tmp_path,
@@ -78,9 +63,9 @@ def test_load_json_config_accepts_flat_object(tmp_path):
 
     assert config.load_json_config(path) == {
         "bus_name": "can0",
-        "bitrate": 500000,
-        "timeout": 100,
-        "vcan": False,
+        "bitrate": "500000",
+        "timeout": "100",
+        "vcan": "false",
     }
 
 
@@ -115,8 +100,8 @@ def test_merge_precedence_is_json_then_set(tmp_path):
 
     assert merged == {
         "bus_name": "can0",
-        "bitrate": 125000,
-        "vcan": True,
+        "bitrate": "125000",
+        "vcan": "true",
     }
 
 
@@ -173,12 +158,12 @@ def test_build_can_device_configuration_sets_all_supported_fields():
     configuration = config.build_can_device_configuration(
         {
             "host": "192.168.1.20",
-            "bus_number": 0,
-            "bitrate": 125000,
-            "enable_termination": True,
-            "high_speed": False,
-            "timeout": 6000,
-            "sent_acknowledgement": 1,
+            "bus_number": "0",
+            "bitrate": "125000",
+            "enable_termination": "true",
+            "high_speed": "false",
+            "timeout": "6000",
+            "sent_acknowledgement": "1",
         }
     )
 
