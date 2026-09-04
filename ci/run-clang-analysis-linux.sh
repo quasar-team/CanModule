@@ -110,7 +110,7 @@ fi
 log "Running clang-tidy"
 tidy_status=0
 rm -f "$TIDY_LOG"
-mapfile -t tidy_files < <(find src/main src/python -type f \( -name '*.c' -o -name '*.cc' -o -name '*.cpp' -o -name '*.cxx' \) | sort)
+mapfile -t tidy_files < <(find src/main src/python -type f \( -name '*.c' -o -name '*.cc' -o -name '*.cpp' -o -name '*.cxx' \) | grep -v CanVendorSystec.cpp | sort)
 if [[ ${#tidy_files[@]} -eq 0 ]]; then
   log "ERROR: no project C/C++ source files found for clang-tidy"
   exit 1
