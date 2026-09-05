@@ -95,10 +95,9 @@ def main(argv=None):
             set_items=args.set_items,
         )
         validate_required_config(args.vendor, merged_config)
+        configuration = build_can_device_configuration(merged_config)
     except ValueError as error:
         raise SystemExit(str(error)) from error
-
-    configuration = build_can_device_configuration(merged_config)
 
     if args.action == "dump":
         dump(args.vendor, configuration)
