@@ -4,6 +4,7 @@
 #include <functional>
 #include <map>
 #include <memory>
+#include <set>
 #include <string>
 #include <vector>
 
@@ -72,6 +73,19 @@ struct CanDevice {
       std::string_view vendor, const CanDeviceArguments& configuration);
 
  protected:
+  /**
+   * @brief Logs a warning for every configuration parameter that was
+   * provided but is not in the vendor's list of accepted parameters.
+   *
+   * @param vendor The name of the vendor the parameters are checked against.
+   * @param config The configuration provided by the user.
+   * @param accepted_parameters The names of the parameters the vendor takes
+   * into account.
+   */
+  static void warn_ignored_parameters(
+      std::string_view vendor, const CanDeviceConfiguration& config,
+      const std::set<std::string>& accepted_parameters) noexcept;
+
   /**
    * @brief Constructor for the CanDevice class.
    *

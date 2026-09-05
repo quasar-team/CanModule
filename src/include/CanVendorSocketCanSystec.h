@@ -2,6 +2,8 @@
 #define SRC_INCLUDE_CANVENDORSOCKETCANSYSTEC_H_
 
 #include <memory>
+#include <set>
+#include <string>
 
 #include "CanDevice.h"
 #include "CanVendorSocketCan.h"
@@ -18,6 +20,11 @@
  * SocketCan due to a kernel-panic bug on Systec linux module.
  */
 struct CanVendorSocketCanSystec : CanDevice {
+  /**
+   * @brief The configuration parameters this vendor takes into account.
+   */
+  static const std::set<std::string> accepted_parameters;
+
   explicit CanVendorSocketCanSystec(const CanDeviceArguments& args);
   ~CanVendorSocketCanSystec() { vendor_close(); }
 

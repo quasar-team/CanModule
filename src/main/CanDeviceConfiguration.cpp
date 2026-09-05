@@ -9,6 +9,8 @@
 #include <sstream>
 #include <stdexcept>
 #include <string>
+#include <utility>
+#include <vector>
 
 namespace {
 
@@ -189,4 +191,38 @@ std::string CanDeviceConfiguration::to_string() const noexcept {
 std::ostream& operator<<(std::ostream& os,
                          const CanDeviceConfiguration& config) noexcept {
   return os << config.to_string();
+}
+
+/**
+ * @brief Lists the name and value of every parameter that was provided.
+ *
+ * @return A vector of (name, value) pairs, one for each optional field that
+ * holds a value.
+ */
+std::vector<std::pair<std::string, std::string>>
+CanDeviceConfiguration::set_parameters() const noexcept {
+  std::vector<std::pair<std::string, std::string>> parameters;
+
+  if (bus_name.has_value())
+    parameters.emplace_back("bus_name", bus_name.value());
+  if (bus_number.has_value())
+    parameters.emplace_back("bus_number", std::to_string(bus_number.value()));
+  if (host.has_value()) parameters.emplace_back("host", host.value());
+  if (bitrate.has_value())
+    parameters.emplace_back("bitrate", std::to_string(bitrate.value()));
+  if (enable_termination.has_value())
+    parameters.emplace_back("enable_termination",
+                            enable_termination.value() ? "true" : "false");
+  if (high_speed.has_value())
+    parameters.emplace_back("high_speed",
+                            high_speed.value() ? "true" : "false");
+  if (timeout.has_value())
+    parameters.emplace_back("timeout", std::to_string(timeout.value()));
+  if (vcan.has_value())
+    parameters.emplace_back("vcan", vcan.value() ? "true" : "false");
+  if (sent_acknowledgement.has_value())
+    parameters.emplace_back("sent_acknowledgement",
+                            std::to_string(sent_acknowledgement.value()));
+
+  return parameters;
 }

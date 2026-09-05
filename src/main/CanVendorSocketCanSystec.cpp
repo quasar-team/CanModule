@@ -4,6 +4,12 @@
 #include <LogIt.h>
 #include <linux/can/error.h>
 
+#include <set>
+#include <string>
+
+const std::set<std::string> CanVendorSocketCanSystec::accepted_parameters =
+    CanVendorSocketCan::accepted_parameters;
+
 /**
  * @brief Constructor for the CanVendorSocketCanSystec class.
  *

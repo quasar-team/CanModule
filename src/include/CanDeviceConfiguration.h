@@ -6,6 +6,8 @@
 #include <map>
 #include <optional>
 #include <string>
+#include <utility>
+#include <vector>
 
 /**
  * @brief Configuration structure for a CanDevice.
@@ -109,6 +111,12 @@ struct CanDeviceConfiguration {
   std::optional<uint32_t> sent_acknowledgement;
 
   std::string to_string() const noexcept;
+
+  /**
+   * @brief The name and value of every parameter that was provided.
+   */
+  std::vector<std::pair<std::string, std::string>> set_parameters()
+      const noexcept;
 };
 
 std::ostream& operator<<(std::ostream& os,

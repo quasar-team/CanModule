@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <memory>
+#include <set>
 #include <stdexcept>
 #include <string>
 #include <vector>
@@ -14,6 +15,18 @@
 #include "CanVendorSocketCan.h"
 #include "CanVendorSocketCanSystec.h"
 #endif
+
+void CanDevice::warn_ignored_parameters(
+    std::string_view vendor, const CanDeviceConfiguration& config,
+    const std::set<std::string>& accepted_parameters) noexcept {
+  for (const auto& [name, value] : config.set_parameters()) {
+    if (accepted_parameters.count(name) == 0) {
+      LOG(Log::WRN, CanLogIt::h())
+          << "Ignoring configuration parameter " << name << "=" << value
+          << ": it is not accepted by vendor " << vendor;
+    }
+  }
+}
 
 /**
  * @brief Opens the CAN device for communication.
@@ -156,17 +169,23 @@ std::unique_ptr<CanDevice> CanDevice::create(
 #ifndef _WIN32
   if (vendor == "socketcan") {
     LOG(Log::DBG, CanLogIt::h()) << "Creating SocketCAN CAN device";
+    warn_ignored_parameters(vendor, configuration.config,
+                            CanVendorSocketCan::accepted_parameters);
     return std::make_unique<CanVendorSocketCan>(configuration);
   }
 
   if (vendor == "socketcan_systec") {
     LOG(Log::DBG, CanLogIt::h()) << "Creating SocketCAN Systec CAN device";
+    warn_ignored_parameters(vendor, configuration.config,
+                            CanVendorSocketCanSystec::accepted_parameters);
     return std::make_unique<CanVendorSocketCanSystec>(configuration);
   }
 #endif
 
   if (vendor == "anagate") {
     LOG(Log::DBG, CanLogIt::h()) << "Creating Anagate CAN device";
+    warn_ignored_parameters(vendor, configuration.config,
+                            CanVendorAnagate::accepted_parameters);
     return std::make_unique<CanVendorAnagate>(configuration);
   }
 

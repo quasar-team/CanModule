@@ -6,6 +6,7 @@
 #include <map>
 #include <memory>
 #include <mutex>  // NOLINT
+#include <set>
 #include <sstream>
 #include <string>
 #include <vector>
@@ -14,6 +15,12 @@
 
 std::mutex CanVendorAnagate::m_handles_lock;
 std::map<int, CanVendorAnagate*> CanVendorAnagate::m_handles;
+
+const std::set<std::string> CanVendorAnagate::accepted_parameters = {
+    "bus_number", "host",
+    "bitrate",    "enable_termination",
+    "high_speed", "sent_acknowledgement",
+    "timeout"};
 
 /**
  * @brief Callback function to handle incoming CAN frames from the AnaGate DLL.

@@ -11,6 +11,8 @@
 #include <unistd.h>
 
 #include <cstring>
+#include <set>
+#include <string>
 #include <thread>  // NOLINT
 #include <vector>
 
@@ -20,6 +22,9 @@
 constexpr auto EPOLL_WAIT_CYCLE_MS = 1000;
 constexpr auto LIBSOCKETCAN_ERROR = -1;
 constexpr auto LIBSOCKETCAN_SUCCESS = 0;
+
+const std::set<std::string> CanVendorSocketCan::accepted_parameters = {
+    "bus_name", "bitrate", "vcan", "timeout"};
 
 /**
  * @brief Constructor for the CanVendorSocketCan class.
