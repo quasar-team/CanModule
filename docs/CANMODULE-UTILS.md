@@ -24,7 +24,7 @@ The compatibility matrix is available here:
 
 To use this tool, ensure you have a recent version of Python installed (tested with version 3.9.18).
 
-You will also require the `canmodule.cpython*` file and all Anagate-related libraries (such as `.so` files on Linux or `.dll` files on Windows). These files can be found in the build artifacts, located in the `/build` directory on Linux and the `/build/Release` directory on Windows.
+You will also require the `canmodule.cpython*` file and all Systec or Anagate-related libraries (such as `.so` files on Linux or `.dll` files on Windows). These files can be found in the build artifacts, located in the `/build` directory on Linux and the `/build/Release` directory on Windows.
 
 ## Usage
 
@@ -86,6 +86,7 @@ It opens a connection to the device and print all received frames. The syntax is
 ```bash
 python canmodule-utils.py anagate dump --set host=192.168.1.20 --set bus_number=0
 python canmodule-utils.py socketcan dump --set bus_name=can0
+python canmodule-utils.py systec dump --set bus_number=0 --set bitrate=125000
 ```
 
 ### send
@@ -95,6 +96,7 @@ It sends a single CAN frame. The syntax is:
 ```bash
 python canmodule-utils.py anagate send [can_frame] --config anagate0.json
 python canmodule-utils.py socketcan send [can_frame] --set bus_name=can0
+python canmodule-utils.py systec send [can_frame] --set bus_number=0 --set bitrate=125000
 ```
 
 Examples of CAN frames are:
@@ -114,6 +116,7 @@ It opens a connection and send random frames. The syntax is:
 ```bash
 python canmodule-utils.py anagate gen --set host=192.168.1.20 --set bus_number=0
 python canmodule-utils.py socketcan gen --set bus_name=can0
+python canmodule-utils.py systec gen --set bus_number=0 --set bitrate=125000
 ```
 
 ### diag
@@ -123,4 +126,5 @@ It opens a connection and print the diagnostics. The syntax is:
 ```bash
 python canmodule-utils.py anagate diag --set host=192.168.1.20 --set bus_number=0
 python canmodule-utils.py socketcan diag --set bus_name=can0
+python canmodule-utils.py systec diag --set bus_number=0 --set bitrate=125000
 ```

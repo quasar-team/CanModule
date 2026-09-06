@@ -53,6 +53,9 @@ def build_parser():
     )
     add_action_parsers(socketcan_parser, "SocketCAN")
 
+    systec_parser = subparsers.add_parser("systec", help="Use the Systec module")
+    add_action_parsers(systec_parser, "Systec")
+
     return parser
 
 

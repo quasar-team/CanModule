@@ -14,6 +14,8 @@
 #ifndef _WIN32
 #include "CanVendorSocketCan.h"
 #include "CanVendorSocketCanSystec.h"
+#elif defined(CANMODULE_BUILD_SYSTEC_WINDOWS)
+#include "CanVendorSystec.h"
 #endif
 
 void CanDevice::warn_ignored_parameters(
@@ -179,6 +181,11 @@ std::unique_ptr<CanDevice> CanDevice::create(
     warn_ignored_parameters(vendor, configuration.config,
                             CanVendorSocketCanSystec::accepted_parameters);
     return std::make_unique<CanVendorSocketCanSystec>(configuration);
+  }
+#elif defined(CANMODULE_BUILD_SYSTEC_WINDOWS)
+  if (vendor == "systec") {
+    LOG(Log::DBG, CanLogIt::h()) << "Creating Systec CAN device for Windows";
+    return std::make_unique<CanVendorSystec>(configuration);
   }
 #endif
 
