@@ -92,6 +92,7 @@ PYBIND11_MODULE(canmodule, m) {
       .def_readwrite("timeout", &CanDeviceConfiguration::timeout)
       .def_readwrite("sent_acknowledgement",
                      &CanDeviceConfiguration::sent_acknowledgement)
+      .def_readwrite("operating_mode", &CanDeviceConfiguration::operating_mode)
       .def("__str__", &CanDeviceConfiguration::to_string);
 
   py::class_<CanDiagnostics>(m, "CanDiagnostics")

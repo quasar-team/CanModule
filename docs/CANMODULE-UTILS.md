@@ -50,6 +50,7 @@ high_speed
 timeout
 vcan
 sent_acknowledgement
+operating_mode
 ```
 
 Hyphenated key spelling is also accepted, for example `--set enable-termination=true`.
