@@ -111,6 +111,21 @@ struct CanDeviceConfiguration {
    */
   std::optional<uint32_t> sent_acknowledgement;
 
+  /**
+   * @brief The operating mode of the CAN bus.
+   *
+   * This parameter is optional and only has effect for Anagate devices. It
+   * defaults to 0 if unset. The accepted values are:
+   * - 0 = default mode.
+   * - 1 = loop back mode: no telegrams are sent via the CAN bus, they are
+   *   instead received as if they had been transmitted over CAN by a
+   *   different CAN device.
+   * - 2 = listen mode: the device operates as a passive bus partner, meaning
+   *   no telegrams are sent to the CAN bus (nor ACKs for incoming telegrams).
+   * - 3 = offline mode: no telegrams are sent or received on the CAN bus.
+   */
+  std::optional<uint32_t> operating_mode;
+
   std::string to_string() const noexcept;
 
   /**
@@ -153,6 +168,7 @@ inline const std::vector<FieldDescriptor>& fields() {
       {"timeout", &CanDeviceConfiguration::timeout},
       {"vcan", &CanDeviceConfiguration::vcan},
       {"sent_acknowledgement", &CanDeviceConfiguration::sent_acknowledgement},
+      {"operating_mode", &CanDeviceConfiguration::operating_mode},
   };
   return kFields;
 }

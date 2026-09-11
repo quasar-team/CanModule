@@ -224,6 +224,31 @@ def test_anagate_diagnostics():
     )
 
 
+def test_anagate_operating_mode():
+    canDeviceConfig = CanDeviceConfiguration()
+    canDeviceConfig.host = DEVICE_ONE.host
+    canDeviceConfig.bus_number = DEVICE_ONE.bus_number
+    canDeviceConfig.bitrate = DEVICE_ONE.bitrate
+    canDeviceConfig.enable_termination = DEVICE_ONE.enable_termination
+    canDeviceConfig.high_speed = DEVICE_ONE.high_speed
+    canDeviceConfig.operating_mode = 1
+
+    myDevice1 = CanDevice.create("anagate", CanDeviceArguments(canDeviceConfig))
+    try:
+        r = myDevice1.open()
+        assert r == CanReturnCode.success
+
+        diag = myDevice1.diagnostics()
+        assert diag.mode == "LOOPBACK"
+    finally:
+        myDevice1.close()
+
+        canDeviceConfig.operating_mode = 0
+        myDevice1 = CanDevice.create("anagate", CanDeviceArguments(canDeviceConfig))
+        myDevice1.open()
+        myDevice1.close()
+
+
 def test_anagate_bus_off_recovery():
     received_frames_dev1 = []
     myDevice1 = CanDevice.create(

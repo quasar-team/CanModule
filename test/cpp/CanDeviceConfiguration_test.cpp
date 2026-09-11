@@ -22,6 +22,7 @@ TEST_F(CanDeviceConfigurationTest, DefaultConstructorLeavesEverythingUnset) {
   ASSERT_FALSE(config.timeout.has_value());
   ASSERT_FALSE(config.vcan.has_value());
   ASSERT_FALSE(config.sent_acknowledgement.has_value());
+  ASSERT_FALSE(config.operating_mode.has_value());
 }
 
 TEST_F(CanDeviceConfigurationTest, AssignsEveryParameterOfTheMap) {
@@ -35,6 +36,7 @@ TEST_F(CanDeviceConfigurationTest, AssignsEveryParameterOfTheMap) {
       {"timeout", "6000"},
       {"vcan", "true"},
       {"sent_acknowledgement", "1"},
+      {"operating_mode", "2"},
   });
 
   ASSERT_EQ(config.bus_name.value(), "can0");
@@ -46,6 +48,7 @@ TEST_F(CanDeviceConfigurationTest, AssignsEveryParameterOfTheMap) {
   ASSERT_EQ(config.timeout.value(), 6000);
   ASSERT_TRUE(config.vcan.value());
   ASSERT_EQ(config.sent_acknowledgement.value(), 1);
+  ASSERT_EQ(config.operating_mode.value(), 2);
 }
 
 TEST_F(CanDeviceConfigurationTest, LeavesTheAbsentParametersUnset) {
@@ -61,11 +64,12 @@ TEST_F(CanDeviceConfigurationTest, LeavesTheAbsentParametersUnset) {
   ASSERT_FALSE(config.timeout.has_value());
   ASSERT_FALSE(config.vcan.has_value());
   ASSERT_FALSE(config.sent_acknowledgement.has_value());
+  ASSERT_FALSE(config.operating_mode.has_value());
 }
 
 TEST_F(CanDeviceConfigurationTest, AssignsEveryParameterPositionally) {
   const CanDeviceConfiguration config{"can0", 2,    "127.0.0.1", 125000, true,
-                                      false,  6000, true,        1};
+                                      false,  6000, true,        1,      2};
 
   ASSERT_EQ(config.bus_name.value(), "can0");
   ASSERT_EQ(config.bus_number.value(), 2);
@@ -76,6 +80,7 @@ TEST_F(CanDeviceConfigurationTest, AssignsEveryParameterPositionally) {
   ASSERT_EQ(config.timeout.value(), 6000);
   ASSERT_TRUE(config.vcan.value());
   ASSERT_EQ(config.sent_acknowledgement.value(), 1);
+  ASSERT_EQ(config.operating_mode.value(), 2);
 }
 
 TEST_F(CanDeviceConfigurationTest, LeavesTrailingPositionalParametersUnset) {
@@ -90,6 +95,7 @@ TEST_F(CanDeviceConfigurationTest, LeavesTrailingPositionalParametersUnset) {
   ASSERT_FALSE(config.timeout.has_value());
   ASSERT_FALSE(config.vcan.has_value());
   ASSERT_FALSE(config.sent_acknowledgement.has_value());
+  ASSERT_FALSE(config.operating_mode.has_value());
 }
 
 TEST_F(CanDeviceConfigurationTest, RejectsUnknownParameters) {
@@ -117,6 +123,8 @@ TEST_F(CanDeviceConfigurationTest, RejectsValuesOfTheWrongType) {
       {"high_speed", "TRUE"},
       {"vcan", "1"},
       {"sent_acknowledgement", "abc"},
+      {"operating_mode", "-1"},
+      {"operating_mode", "abc"},
   };
 
   for (const auto& [key, value] : invalid_values) {

@@ -20,7 +20,7 @@ const std::set<std::string> CanVendorAnagate::accepted_parameters = {
     "bus_number", "host",
     "bitrate",    "enable_termination",
     "high_speed", "sent_acknowledgement",
-    "timeout"};
+    "timeout",    "operating_mode"};
 
 /**
  * @brief Callback function to handle incoming CAN frames from the AnaGate DLL.
@@ -119,6 +119,9 @@ CanReturnCode CanVendorAnagate::vendor_open() noexcept {
     if (args().config.high_speed.has_value()) {
       high_speed = args().config.high_speed.value();
     }
+
+    operating_mode =
+        static_cast<AnaUInt8>(args().config.operating_mode.value_or(0));
 
     // Set the modified configuration
     CANSetGlobals(m_handle, bitrate, operating_mode, enable_termination,

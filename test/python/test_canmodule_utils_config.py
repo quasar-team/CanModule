@@ -164,6 +164,7 @@ def test_build_can_device_configuration_sets_all_supported_fields():
             "high_speed": "false",
             "timeout": "6000",
             "sent_acknowledgement": "1",
+            "operating_mode": "2",
         }
     )
 
@@ -174,3 +175,4 @@ def test_build_can_device_configuration_sets_all_supported_fields():
     assert configuration.high_speed is False
     assert configuration.timeout == 6000
     assert configuration.sent_acknowledgement == 1
+    assert configuration.operating_mode == 2
