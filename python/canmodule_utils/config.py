@@ -2,102 +2,32 @@ import json
 
 from canmodule import CanDeviceConfiguration
 
-
-UINT32_MAX = 0xFFFFFFFF
 NULL_STRINGS = {"null", "none"}
-TRUE_STRINGS = {"true", "1", "yes", "on", "enable", "enabled"}
-FALSE_STRINGS = {"false", "0", "no", "off", "disable", "disabled"}
+
+# Derive from the CanDeviceConfiguration bindings
+VALID_CONFIG_KEYS = frozenset(
+    name
+    for name in dir(CanDeviceConfiguration)
+    if isinstance(getattr(CanDeviceConfiguration, name), property)
+)
 
 
 def normalize_config_key(key):
     return key.replace("-", "_")
 
 
-def parse_string(value):
-    if value is None:
-        return None
-    if not isinstance(value, str):
-        raise ValueError("expected a string")
-    return value
-
-
-def parse_bool(value):
-    if value is None:
-        return None
-    if isinstance(value, bool):
-        return value
-    if isinstance(value, str):
-        normalized = value.strip().lower()
-        if normalized in NULL_STRINGS:
-            return None
-        if normalized in TRUE_STRINGS:
-            return True
-        if normalized in FALSE_STRINGS:
-            return False
-    raise ValueError(f"invalid boolean value '{value}'")
-
-
-def parse_uint32(value):
-    if value is None:
-        return None
-    if isinstance(value, bool):
-        raise ValueError("expected an unsigned integer")
-
-    try:
-        if isinstance(value, int):
-            parsed = value
-        elif isinstance(value, str):
-            normalized = value.strip().lower()
-            if normalized in NULL_STRINGS:
-                return None
-            parsed = int(normalized, 0)
-        else:
-            raise ValueError
-    except ValueError as error:
-        raise ValueError(f"invalid unsigned integer value '{value}'") from error
-
-    if parsed < 0 or parsed > UINT32_MAX:
-        raise ValueError(f"unsigned integer value '{value}' is outside 0..0xFFFFFFFF")
-    return parsed
-
-
-def parse_sent_acknowledgement(value):
+def parse_config_value(key, value):
+    if key not in VALID_CONFIG_KEYS:
+        raise ValueError(f"Unknown configuration key '{key}'")
     if value is None:
         return None
     if isinstance(value, str) and value.strip().lower() in NULL_STRINGS:
         return None
     if isinstance(value, bool):
-        return 1 if value else 0
-    if isinstance(value, str) and value.strip().lower() in TRUE_STRINGS | FALSE_STRINGS:
-        return 1 if parse_bool(value) else 0
-
-    parsed = parse_uint32(value)
-    if parsed not in (0, 1):
-        raise ValueError("sent_acknowledgement must be 0, 1, true, or false")
-    return parsed
-
-
-CONFIG_FIELDS = {
-    "bus_name": parse_string,
-    "bus_number": parse_uint32,
-    "host": parse_string,
-    "bitrate": parse_uint32,
-    "enable_termination": parse_bool,
-    "high_speed": parse_bool,
-    "timeout": parse_uint32,
-    "vcan": parse_bool,
-    "sent_acknowledgement": parse_sent_acknowledgement,
-}
-
-
-def parse_config_value(key, value):
-    normalized_key = normalize_config_key(key)
-    if normalized_key not in CONFIG_FIELDS:
-        raise ValueError(f"Unknown configuration key '{key}'")
-    try:
-        return CONFIG_FIELDS[normalized_key](value)
-    except ValueError as error:
-        raise ValueError(f"Invalid value for '{normalized_key}': {error}") from error
+        return "true" if value else "false"
+    if isinstance(value, (str, int)):
+        return str(value)
+    raise ValueError(f"unsupported value type for '{key}': {type(value).__name__}")
 
 
 def parse_set_item(item):
@@ -164,7 +94,4 @@ def validate_required_config(vendor, config):
 
 
 def build_can_device_configuration(config):
-    configuration = CanDeviceConfiguration()
-    for key, value in config.items():
-        setattr(configuration, key, value)
-    return configuration
+    return CanDeviceConfiguration.from_map(config)
