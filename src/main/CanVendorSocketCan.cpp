@@ -101,10 +101,29 @@ CanReturnCode CanVendorSocketCan::vendor_open() noexcept {
     return CanReturnCode::internal_api_error;
   }
 
+  // ifr_ifindex and ifr_flags share the same union in struct ifreq, so save
+  // the index before it gets overwritten by the SIOCGIFFLAGS call below.
+  const int ifindex = ifr.ifr_ifindex;
+
+  if (ioctl(m_socket_fd, SIOCGIFFLAGS, &ifr) < 0) {
+    ::close(m_socket_fd);
+    m_socket_fd = -1;
+    LOG(Log::ERR, CanLogIt::h()) << "Failed to get interface flags";
+    return CanReturnCode::internal_api_error;
+  }
+
+  if (!(ifr.ifr_flags & IFF_UP)) {
+    ::close(m_socket_fd);
+    m_socket_fd = -1;
+    LOG(Log::ERR, CanLogIt::h())
+        << "CAN interface " << args().config.bus_name.value() << " is down";
+    return CanReturnCode::unknown_open_error;  // To be consistent with anagate
+  }
+
   struct sockaddr_can addr;
   memset(&addr, 0, sizeof(addr));
   addr.can_family = AF_CAN;
-  addr.can_ifindex = ifr.ifr_ifindex;
+  addr.can_ifindex = ifindex;
 
   if (bind(m_socket_fd, (struct sockaddr*)&addr, sizeof(addr)) < 0) {
     ::close(m_socket_fd);
