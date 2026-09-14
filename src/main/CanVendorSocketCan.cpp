@@ -40,6 +40,21 @@ CanVendorSocketCan::CanVendorSocketCan(const CanDeviceArguments& args)
     throw std::invalid_argument("Missing required bus name");
   }
 }
+
+CanReturnCode CanVendorSocketCan::fail_open(const std::string& message,
+                                            CanReturnCode code) noexcept {
+  if (m_epoll_fd >= 0) {
+    ::close(m_epoll_fd);
+    m_epoll_fd = -1;
+  }
+  if (m_socket_fd >= 0) {
+    ::close(m_socket_fd);
+    m_socket_fd = -1;
+  }
+  LOG(Log::ERR, CanLogIt::h()) << message;
+  return code;
+}
+
 /**
  * @brief Opens the SocketCAN device and sets up the necessary configurations.
  *
@@ -95,10 +110,8 @@ CanReturnCode CanVendorSocketCan::vendor_open() noexcept {
   strcpy(ifr.ifr_name,  // NOLINT: Recipe from Offical SocketCan documentation
          args().config.bus_name.value().c_str());
   if (ioctl(m_socket_fd, SIOCGIFINDEX, &ifr) < 0) {
-    ::close(m_socket_fd);
-    m_socket_fd = -1;
-    LOG(Log::ERR, CanLogIt::h()) << "Failed to get interface index";
-    return CanReturnCode::internal_api_error;
+    return fail_open("Failed to get interface index",
+                     CanReturnCode::internal_api_error);
   }
 
   // ifr_ifindex and ifr_flags share the same union in struct ifreq, so save
@@ -106,18 +119,14 @@ CanReturnCode CanVendorSocketCan::vendor_open() noexcept {
   const int ifindex = ifr.ifr_ifindex;
 
   if (ioctl(m_socket_fd, SIOCGIFFLAGS, &ifr) < 0) {
-    ::close(m_socket_fd);
-    m_socket_fd = -1;
-    LOG(Log::ERR, CanLogIt::h()) << "Failed to get interface flags";
-    return CanReturnCode::internal_api_error;
+    return fail_open("Failed to get interface flags",
+                     CanReturnCode::internal_api_error);
   }
 
   if (!(ifr.ifr_flags & IFF_UP)) {
-    ::close(m_socket_fd);
-    m_socket_fd = -1;
-    LOG(Log::ERR, CanLogIt::h())
-        << "CAN interface " << args().config.bus_name.value() << " is down";
-    return CanReturnCode::unknown_open_error;  // To be consistent with anagate
+    return fail_open(
+        "CAN interface " + args().config.bus_name.value() + " is down",
+        CanReturnCode::unknown_open_error);  // To be consistent with anagate
   }
 
   struct sockaddr_can addr;
@@ -126,10 +135,8 @@ CanReturnCode CanVendorSocketCan::vendor_open() noexcept {
   addr.can_ifindex = ifindex;
 
   if (bind(m_socket_fd, (struct sockaddr*)&addr, sizeof(addr)) < 0) {
-    ::close(m_socket_fd);
-    m_socket_fd = -1;
-    LOG(Log::ERR, CanLogIt::h()) << "Failed to bind socket";
-    return CanReturnCode::internal_api_error;
+    return fail_open("Failed to bind socket",
+                     CanReturnCode::internal_api_error);
   }
 
   if (args().receiver != nullptr || args().on_error != nullptr) {
@@ -137,11 +144,8 @@ CanReturnCode CanVendorSocketCan::vendor_open() noexcept {
     // Create epoll instance
     m_epoll_fd = epoll_create1(0);
     if (m_epoll_fd < 0) {
-      ::close(m_socket_fd);
-      m_socket_fd = -1;
-      LOG(Log::ERR, CanLogIt::h()) << "Failed to create epoll instance";
-
-      return CanReturnCode::internal_api_error;
+      return fail_open("Failed to create epoll instance",
+                       CanReturnCode::internal_api_error);
     }
 
     // Add the socket to the epoll instance
@@ -150,13 +154,8 @@ CanReturnCode CanVendorSocketCan::vendor_open() noexcept {
 
     ev.data.fd = m_socket_fd;
     if (epoll_ctl(m_epoll_fd, EPOLL_CTL_ADD, m_socket_fd, &ev) < 0) {
-      ::close(m_epoll_fd);
-      ::close(m_socket_fd);
-      m_epoll_fd = -1;
-      m_socket_fd = -1;
-      LOG(Log::ERR, CanLogIt::h()) << "Failed to add socket to epoll";
-
-      return CanReturnCode::internal_api_error;
+      return fail_open("Failed to add socket to epoll",
+                       CanReturnCode::internal_api_error);
     }
 
     // Start the subscriber thread
