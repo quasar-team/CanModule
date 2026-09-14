@@ -43,6 +43,18 @@ struct CanVendorSocketCan : CanDevice {
   static const CanFrame translate(const struct can_frame& message) noexcept;
   static struct can_frame translate(const CanFrame& frame) noexcept;
 
+  /**
+   * @brief Closes any open socket/epoll file descriptors, logs an error
+   * message, and returns an error code.
+   *
+   * @param message The error message to log.
+   * @param code The error code to return.
+   *
+   * @return CanReturnCode The given error code.
+   */
+  CanReturnCode fail_open(const std::string& message,
+                          CanReturnCode code) noexcept;
+
   int m_socket_fd{-1};              // File descriptor for the SocketCAN device
   int m_epoll_fd{-1};               // File descriptor for the epoll instance
   std::thread m_subscriber_thread;  // Thread for the subscriber loop

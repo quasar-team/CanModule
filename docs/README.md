@@ -62,6 +62,10 @@ set( CAN_MODULE_URL https://github.com/quasar-team/CanModule.git )
 clone_quasar_module( ${CAN_MODULE_URL} master ${CMAKE_CURRENT_SOURCE_DIR}/CanModule )
 ```
 
+## Troubleshooting
+
+See [Troubleshooting.md](Troubleshooting.md) for known issues and workarounds.
+
 ## Contact
 
 E-Mail: <icecontrols.support@cern.ch>
