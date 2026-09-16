@@ -29,7 +29,7 @@ set(VENDOR_SOURCES
     src/main/CanVendorAnagate.cpp
 )
 
-if (UNIX)
+if (CMAKE_SYSTEM_NAME STREQUAL "Linux")
     include(cmake/libsocketcan.cmake)
     include_directories(${LIBSOCKETCAN_INCLUDE_DIR})
     list(APPEND VENDOR_SOURCES
@@ -55,7 +55,7 @@ target_include_directories(CanModuleMain PUBLIC
     ${anagate_SOURCE_DIR}/
 )
 
-if (UNIX)
+if (CMAKE_SYSTEM_NAME STREQUAL "Linux")
     target_link_libraries(CanModuleMain PUBLIC
         ${anagate_SOURCE_DIR}/Linux64/CentOS_9/libCANDLLStaticRelease64.a
         ${anagate_SOURCE_DIR}/Linux64/CentOS_9/libAnaGateStaticRelease.a
