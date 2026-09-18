@@ -1,16 +1,11 @@
 # Troubleshooting
 
-## Bitrate setting with vcan
+## Bitrate setting
 
-Setting the bitrate on a virtual CAN (`vcan`) interface will either be ignored or result in an
-error, depending on the CAN device configuration:
+When you set the bitrate, CanModule will try to configure and start the socket. In the case
+of Virtual SocketCAN (`vcan`), please set a dummy value for the bitrate and `vcan` to `true`.
 
-| `bus_name` | `bitrate` | `vcan` | Result |
-| --- | --- | --- | --- |
-| vcan0 | null | true | Works fine |
-| vcan0 | defined | true | Works fine after running `sudo setcap cap_net_admin=ep /path/to/your/binary`  (but bitrate is ignored) |
-| vcan0 | null | false | Works fine |
-| vcan0 | defined | false | Results in an error while trying to set the bitrate |
+When the bitrate is not set, CanModule assumes the socket is already configured and started.
 
 ## Non-deterministic can0/can1/... mapping with multiple Peak devices
 
