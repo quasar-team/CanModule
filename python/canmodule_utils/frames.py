@@ -42,7 +42,7 @@ def parse_can_frame(can_frame_str):
 
         frame["len"] = requested_len
     else:
-        frame["data"] = payload.split(".")
+        frame["data"] = payload.split(".") if payload else []
 
     return frame
 

@@ -5,13 +5,48 @@ from pathlib import Path
 import pytest
 
 ROOT = Path(__file__).resolve().parents[2]
-sys.path.append(str(ROOT / "python"))
+sys.path.insert(0, str(ROOT / "python"))
 sys.path.append(str(ROOT / "build"))
 sys.path.append(str(ROOT / "build" / "Debug"))
 sys.path.append(str(ROOT / "build" / "Release"))
 
 
-from canmodule_utils import cli, config
+from canmodule_utils import cli, config, frames
+
+
+@pytest.mark.parametrize(
+    "text, expected_id, extended",
+    [
+        ("000#", 0, False),
+        ("123#", 0x123, False),
+        ("7FF#", 0x7FF, False),
+        ("00000123#", 0x123, True),
+        ("1FFFFFFF#", 0x1FFFFFFF, True),
+    ],
+)
+def test_empty_data_frame(text, expected_id, extended):
+    frame = frames.process_frame(frames.parse_can_frame(text))
+
+    assert frame.id() == expected_id
+    assert frame.length() == 0
+    assert frame.message() == []
+    assert frame.is_extended_id() is extended
+    assert frame.is_remote_request() is False
+
+
+@pytest.mark.parametrize("text", ["123#R", "00000123#R0"])
+def test_zero_length_remote_request_is_not_an_empty_data_frame(text):
+    frame = frames.process_frame(frames.parse_can_frame(text))
+
+    assert frame.length() == 0
+    assert frame.message() == []
+    assert frame.is_remote_request() is True
+
+
+@pytest.mark.parametrize("text", ["123#.", "123#AA.", "123#.AA"])
+def test_empty_byte_in_nonempty_payload_is_rejected(text):
+    with pytest.raises(ValueError):
+        frames.process_frame(frames.parse_can_frame(text))
 
 
 def write_json(tmp_path, data):
