@@ -2,6 +2,7 @@ build*/
 __pycache__/
 .env
 /public
+/docs/doxygen-awesome-css/
 *.cpython*
 .github/*.md
 .gitlab-ci-local
