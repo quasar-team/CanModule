@@ -50,9 +50,16 @@ Install `pybind11` if you wish to have the python bindings compiled
 
 ## Documentation (optional)
 
-Install `doxygen`, enter in the directory `docs/` and run `doxygen`.
+Install `git` and `doxygen`.
+Run this command from the repository root:
 
-The output is located at `build/docs`.
+```bash
+bash docs/build.sh
+```
+
+The script clones the Doxygen theme when its stylesheet is missing.
+The first build needs network access.
+The output is in `public/`.
 
 ## SocketCan setup (optional)
 
