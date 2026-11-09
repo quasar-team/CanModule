@@ -27,8 +27,9 @@ GCC 11.4.
 
 The project requires LogIt (part of the Quasar Framework) and it is downloaded automatically by CMake.
 
-Inside CERN, the CMake will also download the Anagate API. If not, please modify the address to
-download the API directly from anagate.de
+CMake downloads the Anagate API from the CERN dependency repository by default.
+Set `ANAGATE_LIBRARY` to use a local archive or an HTTP(S) URL.
+See the Anagate API section in the [Developer Guide](DEVELOPMENT.md) for examples and token configuration.
 
 For Linux, `libsocketcan` is fetched and built automatically during CMake configuration. You can override
 the download source with `LIBSOCKETCAN_URL`. If `LIBSOCKETCAN_HASH` is provided, CMake verifies the
@@ -64,7 +65,7 @@ clone_quasar_module( ${CAN_MODULE_URL} master ${CMAKE_CURRENT_SOURCE_DIR}/CanMod
 
 ## Troubleshooting
 
-See [Troubleshooting.md](Troubleshooting.md) for known issues and workarounds.
+See [TROUBLESHOOTING.md](TROUBLESHOOTING.md) for known issues and workarounds.
 
 ## Contact
 
