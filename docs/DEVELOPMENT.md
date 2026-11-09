@@ -19,6 +19,33 @@ cmake -S . -B build \
   -DLIBSOCKETCAN_HASH=SHA256=<sha256>
 ```
 
+### Anagate API
+
+`ANAGATE_LIBRARY` is a CMake parameter for the Anagate API archive.
+It accepts an existing local archive path or an HTTP(S) URL.
+The default URL is:
+
+```text
+https://ics-deps-repo.web.cern.ch/canmodule/anagate/20241023/AnaGateAPI-CAN-2.5-BETA-3.zip
+```
+
+To use a local archive, set an absolute path:
+
+```bash
+cmake -S . -B build -DANAGATE_LIBRARY=/path/to/AnaGateAPI-CAN-2.5-BETA-3.zip
+```
+
+To use another download server, set its archive URL:
+
+```bash
+cmake -S . -B build -DANAGATE_LIBRARY=https://example.com/AnaGateAPI-CAN-2.5-BETA-3.zip
+```
+
+For HTTP(S) downloads, CMake checks the `ICS_REPO_DEPS_TOKEN` environment variable.
+If it has a nonempty value, CMake sends that value in the `PRIVATE-TOKEN` header.
+If it is unset or empty, CMake attempts the download without that header.
+
+
 ## Development environment
 
 - Alma 9
