@@ -90,19 +90,10 @@ struct CanFrame {
    */
   inline CanFrame(const uint32_t id, const char* message,
                   const std::size_t message_size, const uint32_t flags)
-      : m_id(id), m_flags(flags) {
-    if (message_size > m_message.size()) {
-      throw std::invalid_argument(
-          "Invalid CAN frame: Message length exceeds 8 bytes.");
-    }
-    if (message_size > 0) {
-      if (message == nullptr) {
-        throw std::invalid_argument(
-            "Invalid CAN frame: Message buffer is null.");
-      }
-      std::copy_n(message, message_size, m_message.begin());
-    }
-    m_message_size = static_cast<uint32_t>(message_size);
+      : m_id(id),
+        m_message(copy_message(message, message_size)),
+        m_message_size(static_cast<uint32_t>(message_size)),
+        m_flags(flags) {
     validate_frame();
   }
 
@@ -199,10 +190,30 @@ struct CanFrame {
  private:
   const uint32_t m_id{0};  ///< The identifier of the CAN frame.
   const uint32_t m_requested_length{
-      0};                           ///< The requested length of the CAN frame.
-  std::array<char, 8> m_message{};  ///< The payload buffer.
-  uint32_t m_message_size{0};       ///< The number of payload bytes.
+      0};  ///< The requested length of the CAN frame.
+  const std::array<char, 8> m_message{};  ///< The payload buffer.
+  const uint32_t m_message_size{0};       ///< The number of payload bytes.
   const uint32_t m_flags{};  ///< The flags associated with the CAN frame.
+
+  /**
+   * @brief Checks the buffer and copies its bytes into a payload array.
+   */
+  inline static std::array<char, 8> copy_message(
+      const char* message, const std::size_t message_size) {
+    std::array<char, 8> payload{};
+    if (message_size > payload.size()) {
+      throw std::invalid_argument(
+          "Invalid CAN frame: Message length exceeds 8 bytes.");
+    }
+    if (message_size > 0) {
+      if (message == nullptr) {
+        throw std::invalid_argument(
+            "Invalid CAN frame: Message buffer is null.");
+      }
+      std::copy_n(message, message_size, payload.begin());
+    }
+    return payload;
+  }
 
   /**
    * @brief Checks if the identifier fits in 11 bits.
