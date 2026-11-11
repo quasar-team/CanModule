@@ -88,3 +88,15 @@ def test_loopback_construction_empty_callback():
         "loopback", CanDeviceArguments(CanDeviceConfiguration())
     )
     myDevice.open()
+
+
+@pytest.mark.parametrize("length", range(9))
+def test_frame_payload_lengths(length):
+    payload = ["x"] * length
+    frame = CanFrame(1, payload)
+    assert frame.length() == length
+    assert frame.message() == payload
+    payload.append("y")
+    result = frame.message()
+    result.append("z")
+    assert frame.message() == ["x"] * length

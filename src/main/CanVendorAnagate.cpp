@@ -52,9 +52,8 @@ void anagate_receive(AnaInt32 nIdentifier, const char* pcBuffer,
       o->received(CanFrame{static_cast<uint32_t>(nIdentifier),
                            static_cast<uint32_t>(nBufferLen), flags});
     } else {
-      o->received(CanFrame{static_cast<uint32_t>(nIdentifier),
-                           std::vector<char>(pcBuffer, pcBuffer + nBufferLen),
-                           flags});
+      o->received(CanFrame{static_cast<uint32_t>(nIdentifier), pcBuffer,
+                           static_cast<std::size_t>(nBufferLen), flags});
     }
   }
 }
@@ -198,8 +197,8 @@ CanReturnCode CanVendorAnagate::vendor_send(const CanFrame& frame) noexcept {
     r = frame.is_remote_request()
             ? CANWrite(m_handle, frame.id(), AnagateConstants::emptyMessage,
                        frame.length(), anagate_flags)
-            : CANWrite(m_handle, frame.id(), frame.message().data(),
-                       frame.length(), anagate_flags);
+            : CANWrite(m_handle, frame.id(), frame.data(), frame.length(),
+                       anagate_flags);
   } catch (const std::exception& e) {
     LOG(Log::ERR, CanLogIt::h())
         << "Exception caught in vendor_send: " << e.what();

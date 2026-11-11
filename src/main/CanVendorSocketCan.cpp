@@ -338,7 +338,7 @@ struct can_frame CanVendorSocketCan::translate(const CanFrame& frame) noexcept {
 
   if (frame.is_remote_request() == false) {
     for (auto i = 0u; i < frame.length(); ++i) {
-      canFrame.data[i] = frame.message()[i];
+      canFrame.data[i] = frame.data()[i];
     }
   }
 
@@ -373,7 +373,6 @@ const CanFrame CanVendorSocketCan::translate(
   const auto rtr = (canFrame.can_id & CAN_RTR_FLAG);
   const auto error = (canFrame.can_id & CAN_ERR_FLAG);
   const auto eff = (canFrame.can_id & CAN_EFF_FLAG);
-  const auto data = std::vector<char>(canFrame.data, canFrame.data + length);
 
   uint32_t flags{0};
   flags |= rtr ? can_flags::remote_request : 0;
@@ -383,7 +382,8 @@ const CanFrame CanVendorSocketCan::translate(
   if (rtr) {
     return CanFrame{id, length, flags};
   }
-  return CanFrame{id, data, flags};
+  return CanFrame{id, reinterpret_cast<const char*>(canFrame.data), length,
+                  flags};
 }
 
 /**
