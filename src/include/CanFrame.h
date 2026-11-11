@@ -1,6 +1,9 @@
 #ifndef SRC_INCLUDE_CANFRAME_H_
 #define SRC_INCLUDE_CANFRAME_H_
 
+#include <algorithm>
+#include <array>
+#include <cstddef>
 #include <cstdint>
 #include <stdexcept>
 #include <string>
@@ -75,7 +78,31 @@ struct CanFrame {
    */
   inline CanFrame(const uint32_t id, const std::vector<char>& message,
                   const uint32_t flags)
-      : m_id(id), m_message(message), m_flags(flags) {
+      : CanFrame(id, message.data(), message.size(), flags) {}
+
+  /**
+   * @brief Copies a payload from a buffer into the frame.
+   * @param id The CAN identifier.
+   * @param message The source buffer. It can be null if message_size is zero.
+   * @param message_size The number of payload bytes, from zero to eight.
+   * @param flags The frame flags.
+   * @throws std::invalid_argument if the buffer or frame is invalid.
+   */
+  inline CanFrame(const uint32_t id, const char* message,
+                  const std::size_t message_size, const uint32_t flags)
+      : m_id(id), m_flags(flags) {
+    if (message_size > m_message.size()) {
+      throw std::invalid_argument(
+          "Invalid CAN frame: Message length exceeds 8 bytes.");
+    }
+    if (message_size > 0) {
+      if (message == nullptr) {
+        throw std::invalid_argument(
+            "Invalid CAN frame: Message buffer is null.");
+      }
+      std::copy_n(message, message_size, m_message.begin());
+    }
+    m_message_size = static_cast<uint32_t>(message_size);
     validate_frame();
   }
 
@@ -89,7 +116,16 @@ struct CanFrame {
    * @brief Gets the message content of the CAN frame.
    * @return The message content of the CAN frame.
    */
-  inline std::vector<char> message() const noexcept { return m_message; }
+  inline std::vector<char> message() const noexcept {
+    return {m_message.begin(), m_message.begin() + m_message_size};
+  }
+
+  /**
+   * @brief Gets the payload buffer without a copy.
+   * @return A pointer that is valid while this frame exists.
+   * Use length() for the byte count. Remote requests have no payload.
+   */
+  inline const char* data() const noexcept { return m_message.data(); }
 
   /**
    * @brief Gets the flags associated with the CAN frame.
@@ -133,12 +169,8 @@ struct CanFrame {
    * @return The length of the CAN frame.
    */
   inline uint32_t length() const noexcept {
-    static_assert(sizeof(std::vector<char>::size_type) > sizeof(uint32_t),
-                  "m_message is larger than uint32_t");
-
-    return (m_flags & can_flags::remote_request)
-               ? m_requested_length
-               : static_cast<uint32_t>(m_message.size());
+    return (m_flags & can_flags::remote_request) ? m_requested_length
+                                                 : m_message_size;
   }
 
   /**
@@ -149,6 +181,7 @@ struct CanFrame {
   inline bool operator==(const CanFrame& other) const noexcept {
     return m_id == other.m_id &&
            m_requested_length == other.m_requested_length &&
+           m_message_size == other.m_message_size &&
            m_message == other.m_message && m_flags == other.m_flags;
   }
 
@@ -166,8 +199,9 @@ struct CanFrame {
  private:
   const uint32_t m_id{0};  ///< The identifier of the CAN frame.
   const uint32_t m_requested_length{
-      0};  ///< The requested length of the CAN frame.
-  const std::vector<char> m_message;  ///< The message content of the CAN frame.
+      0};                           ///< The requested length of the CAN frame.
+  std::array<char, 8> m_message{};  ///< The payload buffer.
+  uint32_t m_message_size{0};       ///< The number of payload bytes.
   const uint32_t m_flags{};  ///< The flags associated with the CAN frame.
 
   /**

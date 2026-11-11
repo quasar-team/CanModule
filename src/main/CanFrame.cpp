@@ -31,7 +31,7 @@ void CanFrame::validate_frame() {
         "Invalid CAN frame: Extended ID flag is not set.");
   }
 
-  if (m_message.size() > 8) {
+  if (m_message_size > 8) {
     LOG(Log::ERR, CanLogIt::h())
         << "Invalid CAN frame: Message length exceeds 8 bytes.";
     throw std::invalid_argument(
@@ -46,7 +46,7 @@ void CanFrame::validate_frame() {
         "Invalid CAN frame: Requested length is set but not a remote request.");
   }
 
-  if (m_message.size() > 0 && (m_flags & can_flags::remote_request)) {
+  if (m_message_size > 0 && (m_flags & can_flags::remote_request)) {
     LOG(Log::ERR, CanLogIt::h())
         << "Invalid CAN frame: Message is present but it's a remote request.";
     throw std::invalid_argument(
@@ -60,7 +60,7 @@ void CanFrame::validate_frame() {
         "Invalid CAN frame: Requested length exceeds 8 bytes.");
   }
 
-  if (m_message.size() > 0 && m_requested_length > 0) {
+  if (m_message_size > 0 && m_requested_length > 0) {
     LOG(Log::ERR, CanLogIt::h())
         << "Invalid CAN frame: Both message and requested length are present.";
     throw std::invalid_argument(
@@ -100,7 +100,8 @@ std::string CanFrame::to_string() const noexcept {
 
   oss << " [" << length() << "]";
 
-  for (const auto& byte : message()) {
+  for (uint32_t i = 0; i < m_message_size; ++i) {
+    const auto byte = m_message[i];
     oss << " " << std::setfill('0') << std::setw(2) << std::hex
         << static_cast<unsigned int>(byte & 0xFF);
   }
