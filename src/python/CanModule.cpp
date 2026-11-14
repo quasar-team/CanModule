@@ -61,7 +61,7 @@ PYBIND11_MODULE(canmodule, m) {
 
   py::class_<CanDevice>(m, "CanDevice")
       .def("open", &CanDevice::open)
-      .def("close", &CanDevice::close)
+      .def("close", &CanDevice::close, py::call_guard<py::gil_scoped_release>())
       .def("diagnostics", &CanDevice::diagnostics)
       .def("send", py::overload_cast<const CanFrame&>(&CanDevice::send))
       .def("send",
